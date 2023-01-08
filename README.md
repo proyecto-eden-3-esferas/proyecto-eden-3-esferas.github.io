@@ -1,2 +1,2 @@
 # proyecto-eden-3-esferas.github.io
-Permaculture - Tibet -  Dzogchen - Mahamudra - Masanobu Fukuoka - Eden
+Permaculture - Tibet -  Shambhala - Dzogchen - Masanobu Fukuoka - Eden
