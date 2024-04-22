@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Página interactiva: Grafo de objetos</title>
+    <link href="plain-stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <script src="graph-of-text-objects.js"></script>
+
+    <script>
+
+/* This JavaScript section in /html/head/ contains two sections:
+   (1) some texts (TextNode), which are linked to other texts through methods TextNode::setNext(n), and
+       TextNode::addLink(n, "CAPTION")
+   (2) some initialization code, to wit:
+         next = t02;
+         curr = t00;
+   Class 'TextNode' is defined in "graph-of-text-objects.js".
+   The TextNode objects are named xNN or xxNN, where x is a letter and N is a digit. For example 't11'
+   The main series are:
+   t: the initial one
+   r: to and into the wardrobe, out of the house, out of the premises...
+   l: you read a book in bed (DEPRECATED as reader has to choose a book title next)
+   p: Permacultura
+   d: Dzogchen
+   v: back to bed
+   m: meeting Clarisa in her kitchen at night
+*/
+
+    let t00 = new TextNode("<p>Participa de la siguiente aventura interactiva.</p>");
+    // Some TextNode objects:
+    //let t01 = new TextNode("");
+    let t02 = new TextNode(`<p>Tu amiga Clarisa te ha invitado a su mansión de campo, donde reside normalmente. Has llegado al atardecer por lo que no te ha dado tiempo a visitar la propiedad con luz. Luego habéis cenado pronto y ligero y te ha conducido a un inmenso dormitorio desnudo y desangelado, donde arde una vela de cera auténtica. Aún espabilada, habrías preferido conversar un par de horitas hasta que os entrase sueño a las dos mientras sorbíais una infusión o leche con miel, como en los buenos tiempos.</p>
+    <p>El cuarto está frío y en el exterior el viento zarandea las copas sin piedad, cuyas sombras se proyectan a través de la ventana. La cama te atrae, ancha y abrigada. Enfrente, un gigantesco ropero de roble tallado. Un flexo de lectura y un libro sobre la mesilla de noche. Te detienes en medio de la estancia, sin saber qué hacer a continuación.</p>`);
+    t00.setNext(t02);
+
+    let ull = "En la noche se escucha el ulular de un buho. Lo sabes por un programa de ciencias naturales que has visto recientemente.";
+    let spf = "tu superpijama de franela";
+    let t03 = new TextNode(`<p>${ull} ¡Si por lo menos hubiera una tele!</p><p>Te metes en la cama. Por suerte te has traido ${spf} y en seguida entras en calor. Ajustas el flexo y abres el libro. De repente oyes un ruido sospechoso en el pasillo y te incorporas de un salto.</p>`);
+    let r03 = new TextNode("<p>Decides cotillear en el ropero, el único mueble que rompe la monotonía. ¡Quién sabe qué ancestrales recuerdos guarda!</p><p>La puerta cruje al abrirse y te asalta un aroma de alcanfor. Entre los abrigos tu mano roza gustosa cueros y pieles que antaño proporcionaban una protección natural. Te parece vislumbrar una luz titileante. ¿Será una grieta del muro? ¡Pero si es de noche!</p>");
+    t02.setNext(t03);
+    t02.addLink(t03, "Eliges el calor y confort de la mullida cama.");
+    t02.addLink(r03, "Continúas hacia el armario, una atracción fatal...");
+
+    let r04 = new TextNode("<p>Oyes cómo la puerta se cierra tras tí. Intentas abrirla sin mucho empeño, de un empujón, pero sin llegar a volverte. Te acuerdas de aquella novela de C. S. Lewis. Cabes de pie y te sientes como en otra habitación. Das un paso adelante, luego otro.</p><p>Brilla la luna, oronda y alta. Te encuentras en una parte parcialmente derruida del edificio, pero no pisas cascotes, deben de haberlo limpiado. Se ven todas las estrellas, un lujo para el que viene de ciudad.</p><p>Se acerca una sombra. Reconoces al perrazo de Clarisa. Un mastín y de noche. Deberías estar aterrorizada.</p>");
+    r03.setNext(r04);
+    let v04 = new TextNode("<p><q>Basta por hoy</q>--te dices. Decides regresar a la alcoba y a la cama</p>");
+    v04.setNext(t03);
+
+    let r05 = new TextNode("<p>No te ataca, te sientes cada vez más segura. Al contrario, parece que quiere que le acompañes en su deambular por la finca. Paseais por este camino. Volvéis. Luego por aquél otro. ¡Menuda valiente estás hecha!</p><p>Un campanario lejano da las doce.</p>");
+    r04.addLink(v04, "Ahora sí que regresas.");
+    r04.addLink(r05, "Vas hacia el mastín.");
+
+    let r06 = new TextNode(`<p>El mastín quiere alejarse más y por un roto de la valla se puede salir. ¿Por qué no se escapa él solito? No tienes frío, lo principal. ¿Y la seguridad? ¿Qué hacer?</p>
+    <p>Pasas junto al aparcamiento. Abres el maletero de tu coche y te echas la mochila a la espalda. (Como llegaste tarde no te había dado tiempo a recogerla.) También te calzas unas botas que siempre llevas para este tipo de aventuras. Ropa de abrigo, las llaves de casas, pero el teléfono móvil te lo has dejado en la alcoba.</p><p>Tu ropa de aventura. Todo el equipo, que has ido juntando a lo largo de años. Inventarte a tí misma...</p>`);
+    r05.setNext(r06);
+    //let r07 = new TextNode("");
+    r06.setNext(r05);
+
+    let v05 = new TextNode("<p>Regresas por entre las ruinas. ¿Por qué resquicio se salía al exterior? No encuentras más que un muro en un lateral de la casona. De \"resquicios\" nada. No te orientas. Te detienes para tranquilizarte. Decides rodear el edificio. Esa va a ser la solución. Mientras caminas el mastín te vigila desde lejos. Te protege. Llegas a la entrada. Atraviesas un porche acristalado. Clarisa no ha echado la llave y entras. Continúas por un corredor que lleva a las escaleras que llevan a la planta de arriba. Así de sencillo. Pero...</p><p>De puntillas para no despertar a nadie vislumbras una luz el fondo de una habitación a la que se llega atravesando otra, o varias. Debe de ser Clarisa. No estás segura. ¿Qué hacer?</p>");
+    v04.setNext(v05);
+    let v06 = new TextNode("<p>Pasas de largo, discretamente. Si se queda hasta tarde querrá tener tiempo para sí misma. Mañana le preguntas. Silencias un bostezo. La madera de la escalera cruje. Después continúas hasta la puerta de tu habitación. Giras el picaporte...</p>");
+    v05.setNext(v06);
+    let m06 = new TextNode("<p>Recorres estancia tras estancia. La luz proviene de una lámpara articulada. En efecto, se trata de Clarisa, sentada frente a un ordenador...</p>");
+    v05.addLink(v06, "No te desvías.");
+    v05.addLink(m06, "Decides investigar.");
+
+    let dudasSi = "Dudas si echarte a dormir. Te colocas la almohada doblada debajo de los omóplatos. Tomas el libro. Miras la portada. El libro se titula...";
+    let t04 = new TextNode(   `<p>Ajustas la almohada. Enciendes el flexo y después apagas la vela. ${dudasSi}</p>`);
+    t03.setNext(t04);
+    let v07=new TextNode(`<p>Final de la aventura por hoy. Vas hacia la cama. Te metes. Te arropas. ${dudasSi}</p>`);
+    v06.setNext(v07);
+    // Next some strings are defined for some books to choose from, as well as a set phrase ('suic'):
+    let cilu = "Conveniencia e implantación de una lengua universal";
+    let lpls = "La permacultura, la solución";
+    let inm  = "Introducción a la naturaleza de la mente";
+    let aia  = "Automatización e inteligencia artificial";
+    let vos  = "&mdash;¡Vaya, otro libro sobre ";
+    let suic = "Sin una idea clara sobre de qué va ni de si te interesa, abres al azar y lees el siguiente pasaje:";
+    let sntd = "Suficiente. No te ha decepcionado. Pero a estas horas no te vas a poner a leerlo empezando por el prólogo, y decides mirar al índice de materias para escoger un capítulo o sección que te atraiga. He aquí una muestra:";
+    // Then some follow-up texts. The next TextNode is to be the default next for the last, twin TexNode's:
+    let cilubq00 = `<blockquote>Los seres humanos dedicamos mucho tiempo y energía a aprender segundos idiomas con los que comunicarnos con más congéneres, cuando en realidad nacemos programados para asimilar una sola lengua materna. La mayoría no hablamos una lengua universal, supuesto que exista una indisputable. Peor aún, a menudo nos mostramos partidarios de reforzar y difundir lenguas de ámbitos reducidos aduciendo que el poliglotismo agiliza la mente y nos enriquece culturalmente.</blockquote>`;
+    let cilu00 = new TextNode(`<p><cite>${cilu}</cite>. ${vos}esperanto!&mdash;exclamas. ${suic}</p>
+                               ${cilubq00}
+                               <p>${sntd}</p>`);
+    t04.setNext(cilu00).addLink(cilu00, cilu);
+    v07.setNext(cilu00).addLink(cilu00, cilu);
+    let ilpsbq00 = `<blockquote></blockquote>`;
+    let lpls00 = new TextNode(`<p><cite>${lpls}</cite>. ${vos}cultura!&mdash;exclamas. ${suic}</p>
+                               <p>${sntd}</p>`);
+    t04.setNext(lpls00).addLink(lpls00, lpls);
+    v07.setNext(lpls00).addLink(lpls00, lpls);
+    let inmbq00 = `<blockquote></blockquote>`;
+    let inm00 = new  TextNode(`<p><cite>${inm}</cite>. ${vos}psicología!&mdash;exclamas. ${suic}</p>
+                               <p>${sntd}</p>`);
+
+    t04.setNext(inm00).addLink(inm00, inm);
+    v07.setNext(inm00).addLink(inm00, inm);
+
+    let cilu01 = new TextNode(`
+      <p>Prácticamente todas las lenguas históricas sirven para expresar cualquier idea. Incluso la más primitiva puede adaptarse para tratar temas especializados introduciendo tecnicismos. Por tanto a una lengua universal le pediríamos ante todo sencillez y facilidad de aprendizaje. Algunos  de los rasgos con los que esto se conseguiría son:</p>
+      <ul>
+        <li>Una ortografía sencilla que se corresponda biunívocamente con la pronunciación. (Que de la grafía se deduzca el sonido y viceversa.)</li>
+        <li>Una pronunciación fácil para la mayoría de las otras lenguas, una especie de máximo común denominador. Por ejemplo que todas las sílabas terminen en vocal y que sólo haya cinco vocales. Prescindir de rasgos exclusivos como las enfáticas semíticas, las palatales eslavas, el umlaut etc.</li>
+        <li>Una morfología sencilla y sistemática: aislante (mandarín) o aglutinante (turco, japonés), nada de declinaciones ni de clases de palabras.</li>
+        <li>Formación de palabras específicas mediante composición a partir de unas pocas raíces o lexemas y morfemas. (Ver <cite>Lenguas aglutinantes</cite>) Las principales lengas artificiales (esperanto, interlingua) han adoptado esquemas aglutinantes. La alternativa son las lenguas aislantes...</li>
+        <li>Que para cada concepto exista sólo una palabra y reducir los matices estilísticos, al menos en el uso diario.</li>
+      </ul>
+      <p>En realidad muchos consideran ventajoso adoptar una lengua artificial o inventada dado que todos partiríamos de cero: nadie sería maestro y podríamos diseñarla lo más fácil de aprender posible. También se ha propuesto elaborar una versión simplificada de una ya existente, como el Basic English...</p>`, "Características deseables de una futura lengua universal");
+    cilu00.setNext(cilu01);
+    cilu00.addLink(cilu01,cilu01.title);
+
+    let cilu02 = new TextNode(`
+    <p>En una <b>lengua aglutinante</b> (1) las palabras se forman añadiendo prefijos por delante y sufijos, por detrás. Además, (2) cada prefijo o sufijo significa una sola cosa, y nunca se funden dos contiguos.</p>
+    <p>Consideremos la palabra española <q>blancas</q>. <b>blanc-</b> es el lexema, que sigifica color blanco, <b>a</b> es el lexema de femenino y la <b>s</b> final indica plural.</p>
+    <p>Ahora bien, otros colores no siguen esa regla, por ejemplo <q>gris</q>. No podemos añadirle un sufijo de género para distinguir entre <q>griso</q> y <q>grisa</q>, que no existen. Y el color <q>rosa</q> es aún peor, dado que a pesar de terminar en <b>a</b> vale para masculino: <q>Tres elefantes rosas</q>. Y cuando analizamos los verbos del castellano en absoluto presentan una morfología aglutinante. Incluso en una forma regular como <q>comí</q> un solo sufijo (<b>í</b>) significa presente de indicativo, primera persona, singular: ¡cuatro rasgos en una sola sílaba!</p>
+    <p>Algunas lenguas aglutinantes:</p>
+    <ul>
+      <li>finlandés, húngaro y euskera o vasco</li>
+      <li>japonés y coreano</li>
+    </ul>
+    <p>El inglés tiene muchos rasgos de lengua aglutinante, o por lo menos carece de una morfología flexiva compleja, como el castellano, el checo o el griego clásico.</p>`,"Lenguas aglutinantes");
+    cilu01.setNext(cilu02).addLink(cilu02,cilu02.title);
+
+    let cilu03 = new TextNode(`
+      <p>Algunas de las ventajas de adoptar el inglés como lengua universal</p>
+      <ul>
+        <li>Cientos de millones de hablantes nativos. Aunque otras lenguas se hablen más, existen más hablantes cultos nativos de inglés que de otra lengua.</li>
+        <li>Una gran producción cultural en ideas y libros. El inglés es la lengua de muchas tecnologías, como la informática y la electrónica. También en deporte, música... Los países de cultura inglesa son multiculturales y han tenido contacto con países exóticos, de África y de Asia.</li>
+        <li>La mayoría de la gente lo considera la única opción de lengua universal. Este prestigio ha <q>retroalimentado positivamente</q> su difusión. Cuanta más gente lo estudia, más gente se decide a empezar a aprenderlo.</li>
+        <li>Posee una gramática sencilla sin apenas morfología. Uno puede chapurrearlo en poco tiempo.</li>
+        <li>El inglés escrito apenas varía de país a país, sobre todo la lengua culta.</li>
+      </ul>
+      <p>Inconvenientes</p>
+      <ul>
+        <li>La ortografía del inglés no permite deducir cómo se pronuncia.</li>
+        <li>Los hablantes nativos dan demasiada importancia a la lengua y tienden a emplear demasiada riqueza de recursos, lo que dificulta la comunicación con los no nativos. La cultura de habla inglesa es notablemente logocéntrica (centrada en el idioma).</li>
+        <li>Su cultura se asocia a racismo, genocidio, colonialismo y políticas militares agresivas no aceptadas. La mitad del gasto militar mundial corresponde a Estados Unidos.</li>
+      </ul>`, "Ventajas y desventajas de adoptar el inglés");
+    cilu00.addLink(cilu03,cilu03.title);
+    cilu02.setNext(cilu03);
+
+    let cierras_el_libro = new TextNode("Cierras el libro después de marcar la página con una funda de bolsa de té, apagas el flexo, extiendes la almohada todo a lo ancho y tratas de conciliar el sueño.");
+    cilu03.setNext(cierras_el_libro);
+    lpls00.setNext(cierras_el_libro);
+    inm00.setNext( cierras_el_libro);
+    cierras_el_libro.setNext(t00);
+
+    let julian00 = "Por casualidad viene por el pasillo un chico de la edad de tu anfitriona. Se presenta muy fluidamente, con la naturalidad de los jóvenes. <q>Soy el novio de Clarisa.</q> Iba a bajar a verla a la cocina. ¿A la cocina?";
+    let t07 = new TextNode(`<p>Entreabres. Está oscuro. ${julian00} ¿O sea que Clarisa no se ha acostado aún?</p>`);
+    let m07 = new TextNode(`<p>Cambio de planes. La dichosa puerta no se abre. ${julian00}</p>`);
+
+    let l04 = new TextNode(`<p>[...]</p>`); // WRONG: you must choose a book...
+    t04.setNext(l04);
+
+    t03.addLink(t04, "Te vuelves.")
+    t03.addLink(t07, "Te acercas a ver.")
+    m06.setNext(m07);
+    v06.addLink(v07, "La puerta se abre y ...");
+    v06.addLink(m07, "La puerta no se abre ...");
+
+    let v08 = new TextNode("<p>Entonces gira el pomo a fondo.</p> <p><q>Es que tiene truco</q> explica.</p><p><q>¡Hasta mañana!</q></p>");
+    v07.setNext(v08);
+    let m08 = new TextNode(`<p>Decides acompañar a Julián, que así se llama.</p><p>Bajáis. Clarisa ha hecho café. Lo compra en grano y lo muele, siempre ha sido una sibarita para algunas cosas. Está sentada frente a un ordenador de sobremesa. Y el fregadero lleno de platos sucios. Los deja en agua con una gota de lavavajillas para que les sepa peor a las cucarachas.</p>
+    <p><q>¡Menudo trasto!</q>, exclamas sin reflexionar.</p>
+    <p><q>No creas, tiene sus ventajas</q>, responde Clarisa. <q>Si se rompe algo quitas la tapa con un destornillador y cambias la pieza.</q></p>`);
+    t07.setNext(m08);
+    m07.addLink(v08, "Le pides que te abra la puerta, si sabe.");
+    m07.addLink(m08, "Te da a entender que no les molestas.");
+
+    let m09 = new TextNode(`<p><q>La cambia Julián.</q></p>
+                            <p><q>¿Es informático?</q></p>
+                            <p><q>No. Según él no tiene ningunga ciencia. Miramos por internet los componentes y los instalamos.</q></p>`);
+    let j09 = new TextNode("<p><q>Ha terminado Físicas, especialidad Física de Partículas. Y después tres años de un <em>proyecto</em>.</q></p>");
+    m08.setNext(m09);
+    m08.addLink(m09, "Habláis de arreglar el ordenador");
+    m08.addLink(j09, "¿A qué se dedica Julián?");
+
+    let m10 = new TextNode(`<p><q>Por otro lado gastan más. Los de sobremesa. Están diseñados para dar más prestaciones.</q></p>
+                            <p><q>¿Velocidad?</q></p>
+                            <p><q>Más caña.</q></p>
+                            <p><q>Intento no tenerlo encendido muchas horas. Para ahorrar electricidad y porque el ordenador no me deja pensar.</q></p>`);
+    m09.setNext(m10);
+    let m11 = new TextNode("(TERMINAL)");
+    m10.setNext(m11);
+
+    next = t02;
+    curr = t00;
+
+    </script>
+  </head>
+
+  <body>
+    <!--<headerh>JavaScript interactivo</headerh>-->
+    <header id="header">
+      <h1      id="headerh">Página interactiva: Grafo de objetos</h1>
+      <div     id="prompts">
+        <input id="b0"
+               type="button"
+               tabindex="1"
+               value="Atrás"
+               onclick="back();"/>
+        <input id="b1"
+               type="button"
+               tabindex="2"
+               value="Adelante"
+               onclick="forth();"/>
+      </div>
+      <p       id="expl">El usuario visualiza el siguiente mini-episodio pulsando el botón.</p>
+    </header>
+    <main id="main" style="border: solid 1px">[EMPTY]</main>
+
+    <script>
+      let expl    = document.getElementById("expl");
+      let main    = document.getElementById("main");
+      let headerh = document.getElementById("headerh");
+      //let footer = document.getElementById("footer");
+      next = t02;
+      t00.write_title();
+      t00.write_text();
+    </script>
+
+    <footer id="footer">
+      <p>(Pulsa en la opción para saltar a otra página.)</p>
+    </footer>
+
+  </body>
+
+</html>
