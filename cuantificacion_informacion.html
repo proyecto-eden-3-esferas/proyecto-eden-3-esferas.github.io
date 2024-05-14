@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cuantificación de la información</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body>
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a            href="A_PAGE.html"       >LINK_TEXT</a></p>
+      <p><a            href="ANOTHER_PAGE.html" >LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html"    >LINK_TEXT</a></p>
+      -->
+    </nav>
+
+    <main>
+      <h1>Cuantificación de la información</h1>
+      <p>Shannon, ahondando en el enfoque tecnológico, cuantifica la información en función de su <q>sorpresividad</q>, que no es un concepto de humanidades sino que se refiere a la improbabilidad del mensaje recibido. Según esta teoría el dato de que esté lloviendo en un desierto, por ser improbable, contiene más información que el de que no está lloviendo, por ser más probable. Por tanto la cantidad de información debe ser inversamente proporcional a la probabilidad del suceso al que se alude.</p>
+      <p>La probabilidad, que normalmente cuantificamos de 0 a 100, en ciencia se cuantifica de 0 a 1. 0 significa imposible, mientras que 1 significa absolutamente cierto.</p>
+      <p>Además, la probabilidad de que coincidan dos sucesos, por ejemplo que llueva en el desierto y además que el mejor futbolista del mundo sepa inglés, es el producto de las probabilidades respectivas (<var>p<sub>ll,i</sub></var> = <var>p<sub>ll</sub></var><!-- sep --><var>p<sub>i</sub></var>). Además la información contenida en un dato debe tender a infinito según disminuye su probabilidad (la probabilidad de que el presidente de EE<!-- sep -->UU sea un robot es muy baja, por tanto el que sea un robot da mucha información) y debe tender a 0 según su probabilidad se acerca a la certeza (que el presidente de EE<!-- sep -->UU sea un ser humano, lo cuál apenas da información). Pues bien, Shannon llegó a la conclusión correcta de que todas estas propiedades se cumplían si se definía la información como el negativo del logaritmo de la probabilidad de un suceso <var>s</var>:</p>
+      <blockquote>
+        <var>I<sub>s</sub></var> = - log(<var>p<sub>s</sub></var>)
+      </blockquote>
+      <p>En efecto, definida así la probabilidad cumple éstas propiedades deseables:</p>
+      <ol>
+        <li><p>El logaritmo de 1 es cero, y el negativo de cero es cero también, lo que se corresponde con que la información de que ha ocurrido algo que era seguro que fuera a ocurrir es nula.</p></li>
+        <li><p>El logaritmo de un número positivo muy pequeño es un número negativo muy grande, lo que se corresponde con que la información de un suceso sea tanto mayor cuanto más <q>sorprendente</q> sea.</p></li>
+        <li><p>La información de que hayan ocurrido dos o más sucesos, un suceso compuesto, es la suma de la información de cada uno por separado, y sin embargo la probabilidad de que hayan ocurrido a la vez es el producto de sus probabilidades: I(<var>s<sub>1,2</sub></var>) = - log(<var>p<sub><!-- kern -->1</sub>p<sub>2</sub></var>) = -[log(<var>p<sub><!-- kern -->1</sub></var>) + log(<var>p<sub>2</sub></var>)] = I(<var>s<sub>1</sub></var>) + I(<var>s<sub>1</sub></var>) + ...</p></li>
+      </ol>
+    </main>
+
+  </body>
+
+</html>

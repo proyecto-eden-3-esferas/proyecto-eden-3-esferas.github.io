@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Evolución temporal de los sistemas</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body>
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a            href="A_PAGE.html"       >LINK_TEXT</a></p>
+      <p><a            href="ANOTHER_PAGE.html" >LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html"    >LINK_TEXT</a></p>
+      -->
+      <p><a href="sistemas.html">Sistemas</a></p>
+    </nav>
+
+    <main>
+      <h1>Evolución temporal de los sistemas</h1>
+      <p>Los sistemas en general van pasando por <em>estados</em> distintos a lo largo del tiempo. Si el estado futuro de un sistema depende únicamente del estado presente entonces decimos de él que es <em>determinista</em> o que obedece a la causalidad. El estado condiciona el comportamiento del sistema y su respuesta al entorno. Cada estado por tanto constituye una especie de <em>memoria</em>, lo que en teoría de sistemas suele llamarse almacenamiento o <em>stock</em>. El estado presente también condiciona los estados futuros, aquellos posteriores en el tiempo.</p>
+      <p>Si consideramos el tiempo como una magnitud continua -es decir divisible en un número infinito de instantes- y si denominamos <var>s(t)</var> al estado de un sistema en el instante <var>t</var>, entonces a veces es posible encontrar una función <var>s&apos;(t)</var> que define cómo cambia el estado en cada instante de tiempo. Por ejemplo, imaginemos que ponemos un vaso de agua a la intemperie. El nivel de agua irá disminuyendo -o aumentando si llueve- en función de la humedad ambiental, temperatura, viento etc. Si el estado <var>s(t)</var> representa el nivel de agua en el instante <var>t</var>, entonces su variación <var>s&apos;(t)</var> nos dirá cuánto varía el nivel cada segundo que pasa, y <var>s&apos;(t)</var> misma variará con el paso del tiempo. Probablemente sea mayor de día o con sol que de noche o cuando está nublado. Si conociéramos cuánta agua había en un instante inicial dado <var>t<sub>0</sub></var> y además la función <var>s&apos;(t)</var> al menos desde el momento <var>t<sub>0</sub></var>, entonces deberíamos de ser capaces de predecir la evolución del sistema, es decir el nivel de agua en cada momento posterior a <var>t<sub>0</sub></var>, dado que poseemos toda la información. Suponiendo que <var>s&apos;(t)</var> varía lentamente,  podríamos ir sumando segundo a segundo:</p>
+      <blockquote class='informalequation'><var>s(n) = s<sub>0</sub> + s&apos;(0) + s&apos;(1) + s&apos;(2) + ... + s&apos;(n)</var>,</blockquote>
+      <p>exactamente igual que haría un ordenador digital, porque hemos tratado el tiempo como si fuera una magnitud discreta o que va a saltos, de segundo a segundo. En cambio si quisiéramos tener en cuenta la variación infinitesimal de <var>s&apos;(t)</var> a lo largo de cada segundo, entonces necesitaríamos realizar una operación del cálculo infinitesimal llamada integración. Necesitaríamos <em>integrar</em>  desde el instante inicial <em>t<sub>0</sub></em> al instante <em>t</em>, es decir hacer lo mismo sólo que en lugar de considerar segundos considerar instantes.</p>
+      <!-- <p></p> -->
+      <p>Podríamos, si nos sentimos abrumados por las matemáticas, hacer este sistema tan sencillo como quisiéramos. Podríamos suponer que <var>s&apos;(t)</var> es constante, o que vale -5 durante 8 horas al día y -1 durante las 16 restantes, o podríamos contar el tiempo en días para así sólo tener que hacer tantas sumas como número de días pasen, o contarlo en horas. Lo importante es comprender que en cada instante de tiempo <var>t</var> el sistema estará evolucionando a un ritmo <var>s&apos;(t)</var>.</p>
+      <p>Pero también podríamos complicar el problema. Si las paredes del vaso no fueran verticales, entonces el área expuesta a la evaporación y a la lluvia dependería del nivel de agua. Por tanto <var>s&apos;</var> sería función del tiempo y además del estado, <var>s</var>, es decir del nivel de agua. Esto lo representaríamos así:</p>
+      <blockquote class='informalequation'><var>s&apos;(t) = f(t, s(t))</var></blockquote>
+      <p>donde <var>f</var> sería la función que nos da la variación <var>s&apos;(t)</var> según el momento y el estado. No cunda el pánico. No hemos hecho más que expresar en lenguaje científico algo que ya sabíamos: que el cambio depende de las condiciones externas (meteorología) y del estado interno (nivel de agua). En recompensa por este esfuerzo hemos visto sin excesivo aparato matemático tal vez nuestra primera <em>ecuación diferencial</em>: <var>s&apos;(t)=f(t,s(t))</var>.</p>
+      <p>Si este ejemplo nos parece rebuscado y de poca utilidad práctica, pensemos en un sistema de riego automático industrial en el que un pequeño cerebro electrónico tiene que <q>deducir</q> el grado de humedad de diversos puntos del terreno a partir de la humedad atmosférica, precipitación, temperatura, viento, vegetación e insolación, para abrir una válvula de riego en caso de que la tierra de cultivo se hubiera quedado demasiado seca. Podríamos incluso pedirle a este miniordenador que predijera la humedad futura de la tierra, para lo cual necesitaría tener en cuenta la hora del día, el estado del cielo e incluso la periodicidad con que se haya estado nublando o lloviendo.</p>
+    </main>
+
+  </body>
+
+</html>
