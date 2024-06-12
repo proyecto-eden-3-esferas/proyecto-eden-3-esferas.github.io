@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Open World Assumption</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--<meta name="author" content="AUTHOR"/> -->
+    <!--
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      -->
+      <p><a href="UniqueNameAssumption.html">Unique Name Assumption</a></p>
+      <p><a href="Ontologies.html">Ontologies</a></p>
+    </nav>
+    <main>
+      <h1>The Open World Assumption</h1>
+      <p>The Closed World Assumption (CWA) is the assumption that what is not known to be true must be false.</p>
+
+      <blockquote>In a formal system of logic used for knowledge representation, the open-world assumption is the assumption that the truth value of a statement may be true irrespective of whether or not it is known to be true. It is the opposite of the closed-world assumption, which holds that any statement that is true is also known to be true.</blockquote>
+
+      <p>The Open World Assumption (OWA) is the opposite. In other words, it is the assumption that what is not known to be true is simply unknown.</p>
+      <p>Consider the following statement: <q>Joan is a citizen of the USA.</q> Now, what if we were to ask <q>Is Joan a citizen of Spain?</q> Under a CWA, the answer is no. Under the OWA, it is I don&apos;t know.</p>
+
+      <h2>When Do CWA and OWA Apply?</h2>
+      <p>The CWA applies when a system has complete information. This is the case for many database applications. For example, consider a database application for airline reservations. If you are looking for a direct flight between Austin and Madrid, and it doesn&apos;t exist in the database, then the result is <q>There is no direct flight between Austin and Madrid.</q> For this type of application, this is the expected and correct answer.</p>
+      <p>On the other hand, OWA applies when a system has <em>incomplete</em> information. This is the case when we want to represent knowledge (a.k.a ontologies) and want to discover new information. For example, consider a patient&apos;s clinical history system. If the patient&apos;s clinical history does not include a particular allergy, it would be incorrect to state that the patient does not suffer from that allergy. It is unknown if the patient suffers from that allergy, unless more information is given to disprove the assumption.</p>
+
+      <h2>CWA vs. OWA: An Example</h2>
+      <p>CWA is not only about returning <q>no</q> and OWA is not only about returning <q>I don&apos;t know.</q> Consider the following example:</p>
+      <p>Let&apos;s continue with the example of <q>Joan is a citizen of USA</q> and assume the following statement is true: <q>a person can only be citizen of one country.</q> Up to now, everything is fine. Now consider we add the following statement: <q>Joan is a citizen of Spain.</q> In a CWA system, this would be an error because we previously stated that person can only be a citizen of one country and we assume that USA and Spain are different countries. In an OWA system, instead of generating an error, it would infer a new statement. The logic is the following: <q>If a person can only be citizen of one country, and if Joan is a citizen of USA and Spain, then USA and Spain must be the same thing!</q></p>
+      <p>Note that in the CWA case, we assumed that USA and Spain are different countries. With OWA, this is not assumed. This is what is called Unique Named Assumption (UNA). CWA systems have UNA. OWA systems do not have UNA. However, one could manually add the UNA. In other words, if I have a list of all the countries, I would have to explicitly state that each country is different from each other. In our example, if we add the following statement: <q>USA is different from Spain,</q> the OWA would now generate an inconsistency. The OWA logic is the following: <q>If a person can only be a citizen of one country, and if Joan is a citizen of USA and Spain, then USA and Spain must be the same thing; but hold on, USA and Spain are different, so they can&apos;t be the same! Something is wrong.</q></p>
+
+      <h2>OWA and the Semantic Web</h2>
+      <p>Recall that OWA is applied in a system that has incomplete information. Guess what the Web is? The Web is a system with incomplete information. Absence of information on the web means that the information has not been made explicit. That is why the Semantic Web uses the OWA. The essence of the Semantic Web is the possibility to infer new information.</p>
+
+    </main>
+    <section>
+    </section>
+  </body>
+
+</html>

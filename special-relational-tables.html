@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Special Tables in a Relational Database</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body>
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a            href="A_PAGE.html"       >LINK_TEXT</a></p>
+      <p><a            href="ANOTHER_PAGE.html" >LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html"    >LINK_TEXT</a></p>
+      -->
+    </nav>
+
+    <main>
+      <h1>Special Tables in a Relational Database</h1>
+      <p>A rich database has several kinds of special tables:</p>
+      <ul>
+        <li>terms: definitions of the terms used in a domain; a triplet: term-definition-language (a fourth field might be the language of the definition)</li>
+        <li>languages: languages and their language codes, usually two-letter words</li>
+        <li>translations: term-translation-language triplets: each row holds a term, its translation, and the language it has been translated into.</li>
+        <li>relationships: set-theoretic (inclusion, disjunction), class- and hierarchy- oriented (is-a, sibling-of, parent-of...), orderings (precedes, is-better-than...)</li>
+        <li>enumerations: tables that other tables&apos; columns reference; these tables should be add-only and be augmented by appointed users; remember that you cannot define enumerations in standard SQL and each vendor implements their own extension to provide this functionality.</li>
+        <li>belongingness: tables to record that something belongs in a set, for instance a Person may have several PhoneNumbers</li>
+        <li>depended-on tables</li>
+      </ul>
+    </main>
+
+    <section>
+    </section>
+
+  </body>
+
+</html>

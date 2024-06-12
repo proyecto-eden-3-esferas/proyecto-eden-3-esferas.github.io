@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Separate Compilation in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="next" href="cpp.separate_compilation.templates.html">Separate Compilation of Templates (Classes and Funcions) in C++</a></p>
+    </nav>
+
+    <main>
+      <h1>Separate Compilation in C++</h1>
+      <p>For ordinary files, when the header file containing only the declarations is included (<code>#include &quot;FILE.h&quot;</code>) in main file, the preprocessor puts the declarations in the header into the main file. Then after the preprocessing phase is over, the compiler does picewise compilation of the pure C++ source code contained in <code>.cpp</code> files and translates it into object file. At this point the compiler doesn&apois;t mind the missing definitions (of functions/classes) and the object files can refer to symbols that are not defined. The compiler, hence can compile the source code as long as it is well formed.</p>
+      <p>Then, during the linking stage, the compiler links several files together and it is during this stage that the linker will signal an error on missing/duplicate definitions. If the function definition is correctly present in the other file then the linker goes ahead and the functions called from the main file are successfully linked to the definitions and can be used.</p>
+      <p>For templates, things work <a href="cpp.separate_compilation.templates.html">differently</a>.</p>
+
+    </main>
+
+  </body>
+
+</html>

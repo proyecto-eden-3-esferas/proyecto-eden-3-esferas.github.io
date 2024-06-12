@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+      <head>
+        <title>mathml: mathematics in hml</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <!--
+        <meta name="keywords" content="KW1, KW2, KW3"/> 
+        -->
+      </head>
+      <body lang="en" class="computing">
+        <nav>
+        <!--
+          <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+          <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+          <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+          <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+
+          <div>
+            <p><a href="mathml.content.html">Content MathML</a></p>
+            <p><a href="mathml-and-tex-latex.html">MathML and Tex/LaTeX</a></p>
+          </div>
+          <div>
+            <p><a rel="prev" href="computing.html">Back to Computing</a></p>
+          </div>
+        </nav>
+
+        <main>
+          <h1>MathML: Mathematics in HML</h1>
+          <!--
+      - Use <strong class='firstterm'>TERM</strong> to denote new terms
+      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
+      - as well as definition lists like:
+          <dl>
+            <dt>TERM1</dt>
+            <dd>DEF1</dd>
+            <dt>TERM2</dt>
+            <dd>DEF2</dd>
+          </dl>
+      - Use asides to include comment and explanations
+        when a new page is not warranted, like
+          <hr/>
+          <aside>
+            <h2>HEADER</h2>
+            <p>...<strong class='firstterm'>TERM</strong> ... </p>
+          </aside>
+
+      Erase this comment when done writing your page!
+      -->
+      <p>MathML comprises two sets of elements: <a href="#presentation">Presentation Markup</a>, the XML equivalent of TeX math, and <a href="mathml.content.html" target="_blank">Content Markup</a>, which may be used to encode the mathematical structure of an expression, regardless of the way this expression is rendered visually.</p>
+      <p>OpenMath is another XML-based language for mathematics that focuses on the semantics (not the presentation).</p>
+      <blockquote class="note">Equivalences between MathML and TeX/LaTex are explained <a href='mathml-and-tex-latex.html' target="_blank">elsewhere</a>.</blockquote>
+
+      <section>
+      <h2>Including MathML Code</h2>
+      <p>Write your MathML code between <code>&lt;math&gt;</code> and <code>&lt;/math&gt;</code>. Use attibutes. Firefox Mozilla seems to understand:</p>
+      <pre>&lt;math xmlns="http://www.w3.org/1998/Math/MathML" display="inline|block"&gt;</pre>
+      <p>(Remember to close the element with a <code>&lt;/math&gt;</code> tag.</p>
+      </section>
+
+      <section id="presentation">
+        <h2>Presentation MathML</h2>
+
+        <section> <h2>Basic Elements</h2>
+        <p>MathML most basic elements are <varname>mrow</varname>, <varname>mi</varname>, <varname>mo</varname> and <varname>mn</varname>. Example: x + y = 2 is encoded in MathML as:</p>
+        <pre>&lt;math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"&gt;
+      &lt;mrow&gt;
+        &lt;mrow&gt;
+          &lt;mi&gt;x&lt;/mi&gt;
+          &lt;mo&gt;+&lt;/mo&gt;
+          &lt;mi&gt;y&lt;/mi&gt;
+        &lt;/mrow&gt;
+        &lt;mo&gt;=&lt;/mo&gt;
+        &lt;mn&gt;2&lt;/mn&gt;
+      &lt;/mrow&gt;
+&lt;/math&gt;
+</pre>
+        <dl>
+          <!-- <varlistentry> --> <dt>math</dt> <dd><p>top, all-enclosing element. (It may containt children)</p></dd> <!-- </varlistentry> -->
+          <!-- <varlistentry> --> <dt>mrow</dt> <dd><p>Use this element to group any number of subexpressions horizontally. (It may containt children)</p></dd> <!-- </varlistentry> -->
+          <!-- <varlistentry> --> <dt>mi</dt> <dd><p>Use this element to specify an identifier, that is, the name of a variable, a constant, a function, etc. If this name is just one character long, the identifier is automatically rendered using an italic font, otherwise the name is rendered using a normal, upright, font.</p></dd> <!-- </varlistentry> -->
+          <!-- <varlistentry> --> <dt>mo</dt> <dd><p>Use this element to specify an operator (e.g. '+'), a fence (e.g. '{') or a separator (e.g. ','). The appropriate amount of space is added on the left and on the right of an mo depending on the textual contents of this element. Example: if in the above expression you replace &lt;mo&gt;+&lt;/mo&gt; by &lt;mo&gt;,&lt;/mo&gt;, this will suppress the space at the left of the mo element. (The mo element stretches vertically or horizontally when needed to. The amount of stretching is normally automatically determined by the MathML renderer, but it is possible to influence it by specifying the minsize and/or maxsize attributes. Example: <![CDATA[&lt;mo minsize="10">&#8594;&lt;/mo&gt;]]> means: make the arrow at least 10 times its normal size.)</p></dd> <!-- </varlistentry> -->
+          <!-- <varlistentry> --> <dt>mn</dt> <dd><p>Use this element to specify a numeric literal.</p></dd> <!-- </varlistentry> -->
+          <!-- <varlistentry> --> <dt>mtext</dt> <dd><p>Use this element to type plain text</p></dd> <!-- </varlistentry> -->
+        </dl>
+<!--
+[0] MathML stuff must be enclosed in a &lt;math>&lt;/math&gt; block.
+[1] The namespace of all MathML elements is "http://www.w3.org/1998/Math/MathML". Specifying such namespace is mandatory but it will be omitted in this tutorial for brevity.
+[2] Note the display="inline" attribute which specifies that the math element is to be displayed inline (like a word in a paragraph). The other value is display="block" which specifies that the math element is to be
+displayed as a block (like a paragraph). This attribute has an influence on the typographic rules applied
+  by the MathML rendering engine.-->
+
+
+          <section> <h2>Explicit space between elements</h2>
+          <p>Leading and trailing whitespace characters are automatically removed from mi, mo, mn, and mtext by the MathML processor. Instead, you need to insert an mspace element in your MathML expression. Its attributes are:</p>
+          <dl>
+            <!-- <varlistentry> --> <dt>width</dt> <dd><p>(optional) overall width of the mspace element.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>height</dt> <dd><p>(optional) overall height above the baseline.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>depth</dt> <dd><p>(optional) overall height below the baseline.</p></dd> <!-- </varlistentry> -->
+          </dl>
+          <p>The value of these attributes is a number followed by one of the following units: em, ex, px, in, cm, mm, pt, pc.</p>
+          </section>
+
+          <section> <h2>Fractions</h2>
+          <p>Use mfrac holding two children: numerator and denominator, as in:</p>
+          <pre>&lt;mfrac&gt;
+      &lt;mrow&gt;
+        &lt;mi&gt;x&lt;/mi&gt;
+        &lt;mo&gt;-&lt;/mo&gt;
+        &lt;mn&gt;1&lt;/mn&gt;
+      &lt;/mrow&gt;
+      &lt;mn&gt;100&lt;/mn&gt;
+&lt;/mfrac&gt;</pre>
+          <p>(Attribute bevelled="true" may be used to change the style of the fraction.)</p>
+          </section>
+
+          <section> <h2>Radicals</h2>
+          <p>MathML has two elements allowing to specify radicals:</p>
+          <dl>
+            <!-- <varlistentry> --> <dt>msqrt</dt> <dd><p>Use this element to specify a square root.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>mroot</dt> <dd><p>Use this element to specify a radical with an arbitrary index. Unlike msqrt, mroot may only have two children: the base of the root and its index. If you need more that one element below the radical sign, then use an explicit mrow. Example:</p>
+              <pre><mroot>
+      &lt;mi>x&lt;/mi&gt;
+      &lt;mn>3&lt;/mn&gt;
+</mroot></pre>
+            </dd> <!-- </varlistentry> -->
+          </dl>
+          </section>
+
+          <section> <h2>Subscripts and superscripts</h2>
+          <dl>
+            <!-- <varlistentry> --> <dt>msub</dt> <dd><p>Use this element to attach a subscript to a base.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>msup</dt> <dd><p>Use this element to attach a superscript to a base.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>msubsup</dt> <dd><p>Use this element to attach both a subscript and a superscript to a base. Example:</p></dd> <!-- </varlistentry> -->
+          </dl>
+          <pre>&lt;msubsup&gt;
+      &lt;mi&gt;x&lt;/mi&gt;
+      &lt;mi&gt;i&lt;/mi&gt;
+      &lt;mi&gt;j&lt;/mi&gt;
+&lt;/msubsup&gt;</pre>
+          <p>(Note that for all the above elements, the base is the first child element.)</p>
+          </section>
+
+
+          <section> <h2>Underscripts and overscripts</h2>
+          <p>Underscripts and overscripts are similar to subscripts and superscripts, except that script elements are centered above and/or below the base element.</p>
+          <dl>
+            <!-- <varlistentry> --> <dt>munder</dt> <dd><p>Use this element to attach a underscript to a base.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>mover</dt> <dd><p>Use this element to attach a overscript to a base.</p></dd> <!-- </varlistentry> -->
+            <!-- <varlistentry> --> <dt>munderover</dt> <dd><p>Use this element to attach both a underscript and a overscript to a base.</p></dd> <!-- </varlistentry> -->
+          </dl>
+          </section>
+
+          <section> <h2>Alignment (matrices and equations)</h2>
+          <p>Matrices are specified using the mtable element which is similar to the simple — no tbody — XHTML table. An mtable table element contains mtr row elements and an mtr element contains mtd cell elements. Note that by default, an mtable element has no borders at all. This is why you'll generally need to add an mo containing a fence character (e.g. '[', ']', '(', ')', '|') before and after the mtable when you specify a matrix or the determinant of a matrix. Example:</p>
+          <pre>&lt;mrow&gt;
+      &lt;mo&gt;[&lt;/mo&gt;
+      &lt;mtable&gt;
+        &lt;mtr&gt; &lt;mtd&gt; &lt;mn>1&lt;/mn&gt; &lt;/mtd&gt; &lt;mtd&gt; &lt;mn>0&lt;/mn&gt; &lt;/mtd&gt; &lt;mtd&gt; &lt;mn>0&lt;/mn&gt; &lt;/mtd&gt; &lt;/mtr&gt;
+        &lt;mtr&gt; &lt;mtd&gt; &lt;mn>0&lt;/mn&gt; &lt;/mtd&gt; &lt;mtd&gt; &lt;mn>1&lt;/mn&gt; &lt;/mtd&gt; &lt;mtd&gt; &lt;mn>0&lt;/mn&gt; &lt;/mtd&gt; &lt;/mtr&gt;
+        &lt;mtr&gt; &lt;mtd&gt; &lt;mn>0&lt;/mn&gt; &lt;/mtd&gt; &lt;mtd&gt; &lt;mn>0&lt;/mn&gt; &lt;/mtd&gt; &lt;mtd&gt; &lt;mn>1&lt;/mn&gt; &lt;/mtd&gt; &lt;/mtr&gt;
+      &lt;/mtable&gt;
+      &lt;mo>]&lt;/mo&gt;
+&lt;/mrow&gt;</pre>
+          <p>The MathML mtable element is fairly generic. Use it whenever you need to layout elements in a rectangular grid. This feature is of course useful to specify matrices. It is also useful to specify a set of equations.</p>
+          <p>Replacing an mtr row element by an mlabeledtr labeled row element allows to use the first mtd cell element of this row as the caption of the equation.</p>
+          </section>
+
+          <section> <h2>Other, less useful, elements</h2>
+          <dl>
+
+            <!-- <varlistentry> --> <dt>ms</dt> <dd><p>Use this element to specify a quoted string literal. Example: &lt;ms&gt;Hello word!&lt;/ms&gt;</p></dd> <!-- </varlistentry> -->
+
+            <!--<varlistentry xml:id='mfenced'>--> <dt>mfenced</dt> <dd><p>The mfenced element is a shorthand notation for common forms of mrow. The open, separators and close attributes of an mfenced element specify the opening fence added before its first child element, the separators added between child elements and the closing fence added after its last child element. By default, the values of these attributes are "(", "," and ")".For instance, to get (x, y, z) type:</p>
+            <pre>&lt;mfenced&gt;
+      &lt;mi>x&lt;/mi&gt;
+      &lt;mi>y&lt;/mi&gt;
+      &lt;mi>z&lt;/mi&gt;
+&lt;/mfenced&gt;</pre>
+            </dd>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> --> <dt>menclose</dt> <dd><p>The menclose element allows to draw lines, typically a box, around its child elements. The notation attribute of an menclose element specify which kind of lines are drawn around the child elements. The allowed values for this attribute are: longdiv (default value), actuarial, radical, box, round- edbox, circle, left, right, top, bottom, updiagonalstrike, downdiagonalstrike, verticalstrike, horizontalstrike. Example:</p>
+            <pre>&lt;menclose notation="box"&gt;
+      &lt;mi>n&lt;/mi&gt;
+      &lt;mo>!&lt;/mo&gt;
+&lt;/menclose&gt;</pre>
+</dd> <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+            <dt>mpadded</dt>
+            <dd><p>The mpadded element allows to add padding, that is extra space, around its child elements. It&apos;s an alternative to using mspace. The attributes allowing to specify the padding are:</p>
+            <ul>
+              <li>width: This optional attribute specifies the overall width of the mpadded element. The value of this attribute, as well as the values of the height and depth attributes (but not the lspace attribute) described below, may start with a "+" sign which means: add specified amount to the intrinsic size. </li>
+              <li>lspace: This optional attribute specifies the amount of space added before the first child of the mpadded element. (There is no rspace attribute. The amount of space added after the last child of the mpadded element is: value of the above width attribute - intrinsic width of all the child elements - value of this lspace attribute.)</li>
+              <li>height: This optional attribute specifies the overall height above the baseline.</li>
+              <li>depth: This optional attribute specifies the overall height below the baseline.</li>
+            </ul>
+            <!--</ul>--> <!-- </varlistentry> -->
+            </dd>
+
+          <!-- <varlistentry> -->
+          <dt>mphantom</dt>
+          <dd><p>The mphantom element transforms its descendant elements into &apos;phantoms&apos;: they are there, they occupy some space, but you cannot see them. The mphantom element is often the only way to properly align some elements.</p></dd> <!-- </varlistentry> -->
+
+          <!-- <varlistentry> --> <dt>mstyle</dt> <dd><p>The mstyle element allows to specify attributes which are intended to be inherited by all its descendant elements. As such, the mstyle element supports all the attributes of all the other MathML elements. The most commonly used attributes are those used to style the mi, mo, mn and mtext text container elements:</p>
+          <ul>
+            <dd>mathvariant: normal | bold | italic | bold-italic | double-struck | bold-fraktur | script | bold-script | fraktur | sans-serif | bold-sans-serif | sans-serif-italic | sans-serif-bold- italic | monospace</dd>
+            <dd>mathsize: small | normal | big | number v-unit </dd>
+            <dd>mathcolor: #rgb | #rrggbb | html-color-name</dd>
+            <dd>mathbackground: #rgb | #rrggbb | html-color-name </dd>
+          </ul>
+          </dd><!-- </varlistentry> -->
+
+          <!-- <varlistentry> --> <dt>maligngroup</dt> <dd><p>Use this element to properly align a set of equations. Each inserted maligngroup specifies a <quote>sub-column</quote> within the column of an mtable. The groupalign attribute of the mtable element specifies the horizontal alignment within each <quote>sub-column</quote>. The value of the groupalign attribute has the following syntax: one <quote>{...}</quote> group per column. A <quote>{...}</quote> group contains one alignment specification per sub-column (that is, per maligngroup). Alignment specifications are: left, center or right.</p></dd> <!-- </varlistentry> -->
+        </dl>
+        </section>
+        </section>
+
+        <section> <h2>Examples of Presentation MathML*</h2> </section>
+
+        <section> <h2>Mathematics style attributes common to token elements</h2>
+        <p>MathML 2.0 introduces four new mathematics style attributes. These attributes are valid on all presentation token elements except mspace and mglyph, and on no other elements except mstyle. The attributes are:</p>
+        <!-- xml:id="ex.calstable" -->
+        <table frame='all'>
+          <h2>Styles Table</h2>
+          <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+            <colspec colname='Name'/>
+            <colspec colname='Value'/>
+            <tbody>
+              <tr> <td>mathvariant:</td> <td>normal | bold | italic | bold-italic | double-struck | bold-fraktur | script | bold-script | fraktur | sans-serif | bold-sans-serif | sans-serif-italic | sans-serif-bold-italic | monospace         (default is normal except on &lt;mi&gt;)</td> </tr>
+              <tr> <td>mathsize:</td> <td>small | normal | big | number v-unit (default=inherited)</td> </tr>
+              <tr> <td>mathcolor:</td> <td>#rgb | #rrggbb | html-color-name (default=inherited)</td></tr>
+              <tr> <td>mathbackground:</td> <td>#rgb | #rrggbb | html-color-name         (default=inherited)</td></tr>
+            </tbody>
+          </tgroup>
+        </table>
+        </section>
+
+        <section> <h2>Space (mspace)</h2>
+        <!-- xml:id="ex.calstable" --> <table frame='all'> <h2>Space(s)</h2>
+        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+          <colspec colname="Name"/>
+          <colspec colname="Value"/>
+          <tbody>
+            <tr> <td>width:</td> <td>number h-unit | namedspace (default=0em)</td> </tr>
+            <tr> <td>height:</td> <td>number v-unit (default=0em)</td> </tr>
+            <tr> <td>depth:</td> <td>number v-unit (default=0em)</td> </tr>
+            <tr>
+              <td>linebreak:</td> <td>auto | newline | indentingnewline | nobreak | goodbreak | badbreak (default=auto)</td>
+            </tr>
+          </tbody>
+        </tgroup>
+        </table>
+        <p>The linebreak attribute is used to give a linebreaking hint to a visual renderer. The default value is &lt;auto&gt;, which indicates that a renderer should use whatever default linebreaking algorithm it would normally use. The meanings of the other values are described in the table below:</p>
+        <!-- xml:id="ex.calstable" -->
+        <table frame='all'> <h4>Linebreak(s)</h4>
+        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+          <colspec colname="Value"/>
+          <colspec colname="Description"/>
+          <tbody>
+            <tr> <td>newline:</td> <td>start a new line and do not indent</td> </tr>
+            <tr> <td>indentingnewline:</td> <td>start a new line and do indent</td> </tr>
+            <tr> <td>nobreak:</td> <td>do not allow a linebreak here</td> </tr>
+            <tr> <td>goodbreak:</td> <td>if a linebreak is needed on the line, here is a good spot</td> </tr>
+            <tr> <td>badbreak:</td> <td>if a linebreak is needed on the line, try to avoid breaking here</td> </tr>
+          </tbody>
+        </tgroup>
+        </table>
+        </section>
+
+      </section>
+
+
+        </main>
+
+      </body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>separate compilation of templates (classes and funcions)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="next" href="cpp.separate_compilation.html">Separate Compilation in C++</a></p>
+    </nav>
+
+    <main>
+      <h1>Separate Compilation of Templates (Classes and Funcions) in C++</h1>
+      <p>It is possible to have templates and separate compilation, but <em>only</em> if you know in advance for which types the template will be instantiated.</p>
+      <p>If you define the templated classes and functions in the header files themselves or in files included into the header files rather than in separate file, the compiler will not need to resort to separate compilation.</p>
+      <p>Alternatively, you can instantiate the type definitions you know you will need in the separate file where the template definitions are written. This will then directly be linked to the function calls in the main file. You might name the <code>.cpp</code> file where definitions are written to <code>.inl</code> instead. Then include the <code>.inl</code> file from the bottom of the header file. This yields the same result as defining all functions within the header file but helps keeping the code a little cleaner.</p>
+
+      <p>To cause the instantiation of a template class <code>myClass</code> with, say, template parameter <var>double</var>, type:</p>
+      <pre>template class myClass&lt;double&gt;;</pre>
+      <p>The file containing the instantiations of template functions and classes should be compiled into object code (<code>INSTANTIATIONS.o</code>), not fully built.</p>
+      <p>The code for triggering separate compilation of template functions is analogous. Given a function:</p>
+      <pre>template &lt;typename FLOAT = double&gt;
+FLOAT my_sum(FLOAT l, FLOAT r) {return l + r;};</pre>
+      <p>just fully specialize like:</p>
+      <pre>template float my_sum&lt;float&gt;(float l, float r);</pre>
+      <pre><![CDATA[<template typename T>]]></pre>
+    </main>
+
+  </body>
+
+</html>

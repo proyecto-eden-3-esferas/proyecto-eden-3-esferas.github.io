@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>stack smashing in c++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+    </nav>
+
+    <main>
+      <h1>Stack Smashing in C++</h1>
+      <p><dfn>Stack smashing</dfn> in C++ is a form of buffer overflow. It happens when a program writes more data to the stack than its available memory allocation, causing adjacent memory locations to be overwritten.</p>
+
+      <h2>Example of stack smashing</h2>
+      <p>Here&apos;s an example of an array containing the five numbers:</p>
+      <pre>int A[5] = {1,2,3,4,5};
+A[6] = 2;</pre>
+      <p>If we attempt to update the 6th index, the message <code>stack smashing detected</code> will be displayed on the console, and the program will end abruptly.</p>
+    </main>
+
+  </body>
+
+</html>

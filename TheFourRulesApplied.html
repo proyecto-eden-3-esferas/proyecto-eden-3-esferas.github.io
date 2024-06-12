@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Four Rules Applied</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a            href="A_PAGE.html"       >LINK_TEXT</a></p>
+      <p><a            href="ANOTHER_PAGE.html" >LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html"    >LINK_TEXT</a></p>
+    </nav>
+    -->
+    <main>
+      <h1>The Four Rules Applied</h1>
+      <p>Let&apos;s now imagine that you would like to publish the two tables mentioned above applying the Linked Data principles.</p>
+      <ol>
+        <li>Instead of using application-specific identifiers—database keys, UUIDs, incremental numbers, etc.—you map them to a set of URIs. Each identifier must map to one single URI. For example, each row of those two tables is now uniquely identifiable using its URI.</li>
+        <li>Make your URIs dereferenceable. This means, roughly, to make them accessible via HTTP as we do for every human-readable Web page. This is a key aspect of Linked Data: every single row of our tables is now fetch able and uniquely identifiable anywhere on the Web.</li>
+        <li>Have our web server reply with some structured data when invoked. This is the Semantic Web “juicy” part. Model your data with RDF. Here is where you need to perform a paradigm shift from a relational data model to a graph one.</li>
+        <li>Once all the rows of our tables have been uniquely identified, made dereferenceable through HTTP, and described with RDF, the last step is providing links between different rows across different tables. The main aim here is to make explicit those links that were implicit before shifting to the Linkeddata approach. In our example, movies would be linked to the theaters in which they are playing.</li>
+      </ol>
+      <p>Once our tables have been so published, the Linked Data rules do their magic: people across the Web can start referencing and consuming the data in our rows easily. If we go further and link from our movies to external popular data sets such Wikipedia and IMDB then we make it even easier for people and computers to consume our data and combine it with other data.</p>
+
+      <p>In some sense, the four Linked Data rules, which strongly rely on the Semantic Web stack, could be seen as a new layer in the OSI model, on top of the networking layer, but below the application layers.</p>
+      <p>The Big Picture: Building a Web of Data.</p>
+      <p>Linked Data is not only about exposing data using Web technologies. Nor is it simply an elegant way to solve interoperability issues. Linked data is fundamentally about building a Web of Data.</p>
+      <p>Imagine hundreds of different data sets published on the Web according to the Linked Data principles: thousands and thousands different identifiers you can rely to grab data about books, movies, actors, cities, or anything your can imagine. In few words, such datasets form a giant Web-scale database you could potentially embed in your applications and reference whenever you needed.</p>
+      <p>The four principles really shine when links are provided between different data sets. To return to our book reference analogy, instead of having links citations simply between books or Web pages, this allows links between anything to be followed for more information. If a single author has published in two different journals, for example, and both journals expose their catalogs as Linked Data, and the author&apos;s bio is on DBpedia, then your application can easily mash it all together with a simple query, automatically. As if all the data was in one database.</p>
+    </main>
+  </body>
+
+</html>

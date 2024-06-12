@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Commitment Scheme</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <meta name="author" content="Wikipedia"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body>
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a            href="ANOTHER_PAGE.html" >LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html"    >LINK_TEXT</a></p>
+      -->
+      <p><a href="cryptographic-primitives.html">Cryptographic Primitives</a></p>
+    </nav>
+
+    <main>
+      <h1>Commitment Scheme</h1>
+      <p>A <strong class='firstterm'>commitment scheme</strong> is a cryptographic primitive that allows one to commit to a chosen value (or chosen statement) while keeping it hidden to others, with the ability to reveal the committed value later.[1] Commitment schemes are designed so that a party cannot change the value or statement after they have committed to it: that is, commitment schemes are binding.</p>
+      <p>nteractions in a commitment scheme take place in two phases:</p>
+      <ol>
+        <li>the commit phase during which a value is chosen and committed to</li>
+        <li>the reveal phase during which the value is revealed by the sender, then the receiver verifies its authenticity</li>
+      </ol>
+      <p>In the above metaphor, the commit phase is the sender putting the message in the box, and locking it. The reveal phase is the sender giving the key to the receiver, who uses it to open the box and verify its contents. The locked box is the commitment, and the key is the proof.</p>
+      <p>In simple protocols, the commit phase consists of a single message from the sender to the receiver. This message is called the <strong class='firstterm'>commitment</strong>. It is essential that the specific value chosen cannot be extracted from the message by the receiver at that time (this is called the <strong class='firstterm'>hiding property</strong>). A simple reveal phase would consist of a single message, the <strong class='firstterm'>opening</strong>, from the sender to the receiver, followed by a check performed by the receiver. The value chosen during the commit phase must be the only one that the sender can compute and that validates during the reveal phase (this is called the <strong class='firstterm'>binding</strong> property).</p>
+    </main>
+
+  </body>
+
+</html>

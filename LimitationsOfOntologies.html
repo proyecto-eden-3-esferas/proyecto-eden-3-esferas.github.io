@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Limitations of Ontologies</title>
+    <meta charset="UTF-8"/>
+
+    <meta name="author" content="https://www.ontotext.com/"/>
+    <!--
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <p><a href="Ontologies.html">Ontologies</a></p>
+    </nav>
+    <main>
+      <h1>Limitations of Ontologies</h1>
+      <p>While ontologies provide a rich set of tools for modeling data, their usability comes with certain limitations.</p>
+      <p>One such limitation is the available property constructs. For example, while providing powerful class constructs, the most recent version of the Web Ontology Language – OWL2 has a somewhat limited set of property constructs. This concern has been addressed with RDF-Star, which allows one to make statements about other statements and this way to attach metadata to the edges in the graph</p>
+      <p>Another limitation comes from the way OWL employs constraints. They serve to specify how data should be structured and prevent adding data inconsistent with these constraints. This, however, is not always beneficial. Often, data imported from a new source into the RDF triplestore would be structurally inconsistent with the constraints set using OWL. Consequently, this new data would have to be modified before being integrated with what is already loaded in the triplestore.</p>
+      <p>A novel alternative to using ontologies to model data is using the Shapes Constraint Language (SHACL) for validating RDF graphs against a set of constraints. A shape specifies metadata about a type of resource – how it is used, how it should be used and how it must be used. As such, similarly to OWL, SHACL can be applied to incrementally validate data. Unlike OWL, however, SHACL can be applied to validate data that is already available in the triplestore.</p>
+    </main>
+    <section>
+    </section>
+  </body>
+
+</html>

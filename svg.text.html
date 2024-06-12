@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>text in svg with &lt;text&gt; and &lt;tspan&gt;</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+    </nav>
+
+    <main>
+      <h1>Text in SVG with &lt;text&gt; and &lt;tspan&gt;</h1>
+      <p>Text is rendered within a &lt;text&gt; element. The starting point of the text baseline is determined by the <var>x</var> and <var>y</var> attributes. The x-attribute determines where to locate the left edge of the text (the start of the text). The y-attribute determines where to locate the bottom of the text (not the top). Thus, there is a difference between the y-position of a text and the y-position of lines, rectangles, or other shapes. This example shows a text and a line which both have y-position 40:</p>
+      <pre>&lt;svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+
+    &lt;text x="20"  y="40"&gt;Example SVG text 1&lt;/text&gt;
+    &lt;line x1="10" y1="40" x2="150" y2="40" style="stroke: #000000"/&gt;
+
+&lt;/svg&gt;</pre>
+
+      <p>There is no automatic word wrapping in SVG. You will have to position the text yourself, and break it into multiple lines. You can get some help from the relative positioning possible with the <a href="#tspan">&lt;tspan&gt;</a> element.</p>
+
+      <section>
+        <h2>Text anchor (attribute <code>text-anchor</code>)</h2>
+        <p> The <dfn>anchor</dfn> of a text determines what part of the text is positioned at the x-position specified in the x attribute of the text element. By default the anchor of a text is the left edge of the the text, the beginning of the text. But you can also use the middle of the text as anchor, or the right edge - the end of the text.</p>
+        <p>You can set the <var>text-anchor</var> CSS property to set the anchor of a text. It can take three values: <var class="constant">start</var>, <var class="constant">middle</var> and <var class="constant">end</var>.</p>
+        <pre>&lt;text x="50" y="20"
+      style="text-anchor: start"&gt;
+    Start
+&lt;/text&gt;
+&lt;text x="50" y="40"
+      style="text-anchor: middle"&gt;
+    Middle
+&lt;/text&gt;
+&lt;text x="50" y="60"
+      style="text-anchor: end"&gt;
+    End
+&lt;/text&gt;</pre>
+      </section>
+
+      <section>
+        <h2>Text stroke and fill</h2>
+        <p>Like other SVG shapes, text can have both a <var class="parameter">stroke</var> and <var class="parameter">fill</var> set on it. If you specify only a stroke, the text will appear as an outline of the text. If you specify only a fill, the text will look as text is rendered normally. You also set the <var class="parameter">stroke-width</var> property.</p>
+      </section>
+
+      <section id="tspan">
+        <h2>&lt;tspan&gt; for showing multiline text</h2>
+        <p>The SVG &lt;tspan&gt; element (meaning a span of text) is used to draw multiple lines of text in SVG. Rather than having to position each line of text absolutely, the &lt;tspan&gt; element makes it possible to position a line of text relatively to the previous line of text. (The &lt;tspan&gt; element also makes it possible for the user to select and copy-paste several lines of text at a time, instead not just one text element.)</p>
+        <p>You will probably want the lines to be positioned relative to each other vertically. You can do so using the <var class="parameter">dy</var> attribute:</p>
+        <pre>&lt;svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+
+    &lt;text x="20" y="10"&gt;
+        &lt;tspan&gt;tspan line 1&lt;/tspan&gt;
+        &lt;tspan dy="10"&gt;tspan line 2&lt;/tspan&gt;
+    &lt;/text&gt;
+&lt;/svg&gt;</pre>
+
+        <p>And to position the text relatively on the x-axis you can use the <var class="parameter">dx</var> attribute</p>
+        <p>You can also set the x attribute to fix the x-coordinate of the text lines. This is useful if you want to display a list of lines below each other, all left adjusted.</p>
+
+        <h3>Styling text with &lt;tspan&gt;</h3>
+        <p>You can style &lt;tspan&gt; elements individually. Use a &lt;tspan&gt; element to style a block of text differently than the rest of the text, for instance to set a word in bold:</p>
+        <pre>&lt;text x="10" y="20"&gt;
+    Here is a &lt;tspan style="font-weight: bold;"&gt;bold&lt;/tspan&gt; word.
+&lt;/text&gt;    </pre>
+
+        <p>To create a superscript or a subscript use the <var class="parameter">baseline-shift</var> CSS property, as in:</p>
+        <pre>&lt;text x="10" y="20">
+    Here is a text with &lt;tspan style="baseline-shift: super;">superscript&lt;/tspan&gt;
+    and &lt;tspan style="baseline-shift: sub;">subscript&lt;/tspan&gt; mixed with normal
+    text.
+&lt;/text&gt;</pre>
+
+      </section>
+
+      <section>
+        <h2>Text transformations</h2>
+        <p>It is possible to rotate SVG text just like it it is possible to rotate any other SVG shape. Here is an example:</p>
+        <pre>&lt;text x="20"  y="40"
+  transform="rotate(30 20,40)"&gt;Rotated SVG text&lt;/text&gt;</pre>
+
+      </section>
+
+      <section>
+        <h2>Text Length</h2>
+        <p>You can set the length of a text using the <var class="parameter">textLength</var> attribute of the &lt;text&gt; element. The length of the text is then made to fit the specified length by adjusting the space between the characters, and the size of the glyphs. Using the <var class="constant">lengthAdjust</var> attribute you can specify if both letter spacing and glyph size should be adjusted.</p>
+        <p>Here are three SVG textLength and lengthAdjust examples:</p>
+        <pre>&lt;text x="5" y="20" textLength="140" lengthAdjust="spacing"&gt;
+  A long, long, long text.
+&lt;/text&gt;
+&lt;text x="5" y="40" textLength="200" lengthAdjust="spacing"&gt;
+    A long, long, long text.
+&lt;/text&gt;
+&lt;text x="5" y="60" textLength="200" lengthAdjust="spacingAndGlyphs"&gt;
+    A long, long, long text.
+&lt;/text&gt;</pre>
+      </section>
+
+      <section id="styling">
+        <h2>Styling Text in SVG</h2>
+        <p>Here is a list of the text-specific CSS properties you can use to style text. Remember that you can also style the stroke and fill of text, and use gradients, fill patterns and masks to style text too.</p>
+        <p>You have to write the attribute names in lower-case as done in the listing below, or the SVG viewers tend to ignore them!</p>
+        <dl>
+          <!-- <varlistentry> -->
+            <dt>font-family</dt>
+            <dd>The font to use, for instance &apos;Arial&apos; or &apos;Verdana&apos;.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>font-size</dt>
+            <dd>The size of the font, for instance &apos;12px&apos; or &apos;24px&apos;.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>?font-weight</dt>
+            <dd>This may be <var class="constant">bold</var>...</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>?font-style</dt>
+            <dd>This may be <var class="constant">italic</var>...</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>kerning</dt>
+            <dd>Spacing between letters, for instance &apos;2&apos; or &apos;3&apos; (default=1).</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>letter-spacing</dt>
+            <dd>Spacing between letters, for instance &apos;2&apos; or &apos;3&apos;. Similar to kerning.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>word-spacing</dt>
+            <dd>Spacing between words, for instance &apos;2&apos; or &apos;3&apos;.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>text-decoration</dt>
+            <dd>Can be any of <var class="constant">none</var>, <var class="constant">underline</var>, <var class="constant">overline</var> and <var class="constant">line-through</var>.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>stroke</dt>
+            <dd>The outline color of the font. By default text only has fill color, not stroke. Adding stroke will make the font appear bold.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>stroke-width</dt>
+            <dd>The width of the outline color of the font.</dd>
+          <!-- </varlistentry> -->
+          <!-- <varlistentry> -->
+            <dt>fill</dt>
+            <dd>The fill color of the font.</dd>
+          <!-- </varlistentry> -->
+        </dl>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

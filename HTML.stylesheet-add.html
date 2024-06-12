@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How To Add CSS</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="HTML.stylesheet.ext.html">External StyleSheets (in CSS)</a></p>
+      -->
+      <div>
+        <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
+        <p><a href="computing.html">Computing Science</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>How To Add CSS</h1>
+      <p>When a browser reads a stylesheet, it will format the HTML document according to the information in the stylesheet.</p>
+
+      <h3 class="bridgehead">Three Ways to Insert CSS</h3>
+      <p>There are three ways of inserting a style sheet:</p>
+      <ul>
+        <li>External CSS</li>
+        <li>Internal CSS</li>
+        <li>Inline CSS</li>
+      </ul>
+
+      <section>
+        <h2>External CSS</h2>
+        <p>With an <a href="HTML.stylesheet.ext.html">external stylesheet</a>, you can change the look of an entire website by changing just one file!</p>
+        <p>Each HTML page must include a reference to the external style sheet file inside the <code>&lt;link&gt;</code> element, inside the head section.</p>
+        <h3 class="bridgehead">Example</h3>
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;mystyle.css&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  ...
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+      </section>
+
+      <section>
+        <h2>Internal CSS</h2>
+        <p>An internal style sheet may be used if one single HTML page has a unique style.</p>
+        <p>The internal style is defined inside the <code>&lt;style&gt;</code> element, inside the <code>head</code> section.</p>
+        <h3 class="bridgehead">Example</h3>
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+body {
+  background-color: linen;
+}
+
+h1 {
+  color: maroon;
+  margin-left: 40px;
+}
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;</pre>
+      </section>
+
+      <section>
+        <h2>Inline CSS</h2>
+        <p>An inline style may be used to apply a unique style for a single element.</p>
+        <p>To use inline styles, add the style attribute to the relevant element. The style attribute can contain any CSS property.</p>
+        <h3 class="bridgehead">Example</h3>
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+  ...
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1 style="color:blue;text-align:center;"&gt;This is a heading&lt;/h1&gt;
+    &lt;p style="color:red;"&gt;This is a paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+        <p><strong>TIP:</strong> An inline style loses many of the advantages of a style sheet (by mixing content with presentation). Use this method sparingly.</p>
+      </section>
+
+      <section>
+        <h2>Multiple Style Sheets</h2>
+        <p>If some properties have been defined for the same selector (element) in different style sheets, the value from the last read style sheet will be used.</p>
+        <p>Assume that an <a href="HTML.stylesheet.ext.html">external style sheet</a> has the following style for the <code>&lt;h1&gt;</code> element:</p>
+        <pre>h1 {
+  color: navy;
+}</pre>
+        <p>Then, assume that an internal style sheet also has the following style for the <code>&gt;h1&gt;</code> element:</p>
+        <pre>h1 {
+  color: orange;
+}</pre>
+        <h3 class="bridgehead">Example</h3>
+        <p>If the internal style is defined <em>after</em> the link to the external style sheet, the <code>&lt;h1&gt;</code> elements will be &quot;orange&quot;:</p>
+        <pre>&lt;head&gt;
+  &lt;link rel="stylesheet" type="text/css" href="mystyle.css"&gt;
+  &lt;style&gt;
+h1 {
+  color: orange;
+}
+  &lt;/style&gt;
+&lt;/head&gt;</pre>
+        <h3 class="bridgehead">Example</h3>
+        <p>However, if the internal style is defined <em>before</em> the link to the external style sheet, the <code>&lt;h1&gt;</code> elements will be &quot;navy&quot;:</p>
+        <pre>&lt;head&gt;
+  &lt;style&gt;
+h1 {
+  color: orange;
+}
+  &lt;/style&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;mystyle.css&quot;&gt;
+&lt;/head&gt;</pre>
+      </section>
+
+      <section>
+        <h2>Cascading Order</h2>
+        <p>What style will be used when there is more than one style specified for an HTML element?</p>
+        <p>All the styles in a page will <q>cascade</q> into a new <q>virtual</q> style sheet by the following rules, where number one has the highest priority:</p>
+        <ol>
+          <li>Inline style (inside an HTML element)</li>
+          <li>External and internal style sheets (in the head section)</li>
+          <li>Browser default</li>
+        </ol>
+        <p>So, an inline style has the highest priority, and will override external and internal styles and browser defaults.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
