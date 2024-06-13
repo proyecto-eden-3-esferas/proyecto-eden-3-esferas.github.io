@@ -20,21 +20,22 @@
       <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
       <hr/>
-      <p><a            href="A_PAGE.html"       >LINK_TEXT</a></p>
       <p><a            href="ANOTHER_PAGE.html" >LINK_TEXT</a></p>
       <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html"    >LINK_TEXT</a></p>
-    </nav>
     -->
+      <p><a href="LinkedData.html">Linked Data</a></p>
+      <p><a href="SemanticWeb.html">The Semantic Web</a></p>
+    </nav>
     <main>
       <h1>The Four Rules Applied</h1>
       <p>Let&apos;s now imagine that you would like to publish the two tables mentioned above applying the Linked Data principles.</p>
-      <ol>
+      <ul>
         <li>Instead of using application-specific identifiers—database keys, UUIDs, incremental numbers, etc.—you map them to a set of URIs. Each identifier must map to one single URI. For example, each row of those two tables is now uniquely identifiable using its URI.</li>
         <li>Make your URIs dereferenceable. This means, roughly, to make them accessible via HTTP as we do for every human-readable Web page. This is a key aspect of Linked Data: every single row of our tables is now fetch able and uniquely identifiable anywhere on the Web.</li>
         <li>Have our web server reply with some structured data when invoked. This is the Semantic Web “juicy” part. Model your data with RDF. Here is where you need to perform a paradigm shift from a relational data model to a graph one.</li>
         <li>Once all the rows of our tables have been uniquely identified, made dereferenceable through HTTP, and described with RDF, the last step is providing links between different rows across different tables. The main aim here is to make explicit those links that were implicit before shifting to the Linkeddata approach. In our example, movies would be linked to the theaters in which they are playing.</li>
-      </ol>
+      </ul>
       <p>Once our tables have been so published, the Linked Data rules do their magic: people across the Web can start referencing and consuming the data in our rows easily. If we go further and link from our movies to external popular data sets such Wikipedia and IMDB then we make it even easier for people and computers to consume our data and combine it with other data.</p>
 
       <p>In some sense, the four Linked Data rules, which strongly rely on the Semantic Web stack, could be seen as a new layer in the OSI model, on top of the networking layer, but below the application layers.</p>

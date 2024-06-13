@@ -1,15 +1,17 @@
+/* no-class style is adapted from "stylesheet.css", meant for English pages and is the only colour difference between this and it */
+
 body {
   margin: 0;
   padding: 2%;
-  background-color: cornsilk;
+  background-color: khaki;
 }
 nav {
   display: flex;
   flex-direction: column;
-  border: 3px solid red;
+  border: 3px solid darkkhaki;
 }
 footer {
-  border: 3px solid red;
+  border: 3px solid orange;
 }
 nav div {
   display: flex;
@@ -17,6 +19,29 @@ nav div {
   border: 3px solid indianred;
 }
 
+body.pensamiento         { background-color: azure;}
+body.pensamiento nav     { background-color: azure;
+                         border-color: darkslategray;}
+body.pensamiento footer  { background-color: azure;}
+body.pensamiento nav div { border-color: darkslateblue;}
+body.pensamiento header  { border-color: azure;}
+
+/* Class religion for spirituality in Spanish, class spirit for spirituality in English */
+body.religion         { background-color: lightsalmon;}
+body.religion nav     { background-color: coral;
+                         border-color: red;}
+body.religion footer  { background-color: coral;}
+body.religion nav div { border-color: red;}
+body.religion header  { border-color: white;}
+
+/* Copy of styles in "stylesheet.css", meant for English pages */
+
+body.spirit         { background-color: lavender;}
+body.spirit nav     { background-color: mistyrose;
+                       border-color: orchid;}
+body.spirit footer  { background-color: lightgreen;}
+body.spirit nav div { border-color: pink;}
+body.spirit header  { border-color: thistle;}
 
 body.computing         { background-color: lightcyan;}
 body.computing nav     { background-color: powderblue;
@@ -40,13 +65,6 @@ body.farming footer  { background-color: lightgreen;}
 body.farming nav div { border-color: lime;}
 body.farming header  { border-color: lime;}
 
-
-body.spirit         { background-color: lavender;}
-body.spirit nav     { background-color: mistyrose;
-                       border-color: orchid;}
-body.spirit footer  { background-color: lightgreen;}
-body.spirit nav div { border-color: pink;}
-body.spirit header  { border-color: thistle;}
 
 nav * {
   margin: 0.2em;
