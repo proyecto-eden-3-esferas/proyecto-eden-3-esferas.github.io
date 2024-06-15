@@ -7,7 +7,7 @@
 ```
 sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
 ```
-
+[ ] dividir "TheFourInmmeasurables.html" en archivos o en secciones
 
 [ ] decidirnos por una hoja de estilo o por cómo nombrarla, teniendo en cuenta que se pueden incorporar una jerarquía de páginas ya enlazadas de "../zettelkasten_from_HTML/records/" que hacen uso de "stylesheet.css". Las opciones son:
 
