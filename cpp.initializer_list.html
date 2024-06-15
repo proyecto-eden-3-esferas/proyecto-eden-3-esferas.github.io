@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Initializer Lists in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+    </nav>
+
+    <main>
+      <h1>Initializer Lists in C++</h1>
+      <p>Constructors can be made to take an initializer list parameter.</p>
+      <p>An object of type <code>std::initializer_list&lt;T&gt;</code> is a lightweight proxy object that provides access to an array of objects of type <code>const T</code> (that may be allocated in read-only memory).</p>
+      <p>A <code>std::initializer_list</code> object is automatically constructed when:</p>
+      <ul>
+        <li>a brace-enclosed initializer list is used to list-initialize an object, where the corresponding constructor accepts an <code>std::initializer_list</code> parameter,</li>
+        <li>a brace-enclosed initializer list is used as the right operand of assignment or as a function call argument, and the corresponding assignment operator/function accepts an std::initializer_list parameter, or</li>
+        <li>a brace-enclosed initializer list is bound to auto, including in a ranged for loop</li>
+      </ul>
+      <h3 class="bridgehead">Example:</h3>
+      <pre>#include &lt;initializer_list&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+template&lt;class T&gt;
+struct S
+{
+    std::vector&lt;T&gt; v;
+
+    S(std::initializer_list&lt;T&gt; l) : v(l)
+    {
+         std::cout &lt;&lt; &quot;constructed with a &quot; &lt;&lt; l.size() &lt;&lt; &quot;-element list\n&quot;;
+    }
+
+    void append(std::initializer_list&lt;T&gt; l)
+    {
+        v.insert(v.end(), l.begin(), l.end());
+    }
+
+    std::pair&lt;const T*, std::size_t&gt; c_arr() const
+    {
+        return {&amp;v[0], v.size()}; // copy list-initialization in return statement
+                                  // this is NOT a use of std::initializer_list
+    }
+};
+
+template&lt;typename T&gt;
+void templated_fn(T) {}
+
+int main()
+{
+    S&lt;int&gt; s = {1, 2, 3, 4, 5}; // copy list-initialization
+    s.append({6, 7, 8});        // list-initialization in function call
+
+    std::cout &lt;&lt; &quot;The vector now has &quot; &lt;&lt; s.c_arr().second &lt;&lt; &quot; ints:\n&quot;;
+
+    for (auto n : s.v)
+        std::cout &lt;&lt; n &lt;&lt; &apos; &apos;;
+    std::cout &lt;&lt; &apos;\n&apos;;
+
+    std::cout &lt;&lt; &quot;Range-for over brace-init-list: \n&quot;;
+
+    for (int x : {-1, -2, -3}) // the rule for auto makes this ranged-for work
+        std::cout &lt;&lt; x &lt;&lt; &apos; &apos;;
+    std::cout &lt;&lt; &apos;\n&apos;;
+
+    auto al = {10, 11, 12}; // special rule for auto
+
+    std::cout &lt;&lt; &quot;The list bound to auto has size() = &quot; &lt;&lt; al.size() &lt;&lt; &apos;\n&apos;;
+
+//  templated_fn({1, 2, 3}); // compiler error! &quot;{1, 2, 3}&quot; is not an expression,
+                             // it has no type, and so T cannot be deduced
+    templated_fn&lt;std::initializer_list&lt;int&gt;&gt;({1, 2, 3}); // OK
+    templated_fn&lt;std::vector&lt;int&gt;&gt;({1, 2, 3});           // also OK
+}</pre>
+      <p></p>
+
+
+    </main>
+
+  </body>
+
+</html>

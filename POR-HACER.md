@@ -81,6 +81,10 @@ Páginas:
 
 - *transhumanismo.html*
 
+- *paradoja-del-jugador.html*
+
+-*koyaanisqatsi.html*
+
 
 ### In-place Substitution
 
