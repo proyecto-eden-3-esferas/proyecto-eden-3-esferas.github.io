@@ -18,6 +18,8 @@ sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
 (Me decanto por la primera opción. ¿Qué tal *stylesheet.es.css*? No obstante insisto en marcar el elemento `body` con atributos `lang` (`lang="es"`, por ejemplo) y `class` (`class="religion`, por ejemplo)
 
 
+[ ] "computing science" or "computing science"?
+
 [ ] retocar "poblacion.html"
 
 [ ] añadir páginas sobre estafa piramidal...
@@ -89,6 +91,16 @@ Páginas:
 
 - *exponencial.html*
 
+- *black_box.html*
+
+- *ai.black_box.html*
+
+- *ai.why-ai-black-boxes-matter.html* is actually a follow up of *ai.black_box.html*, but before linking it as such its style should be edited to avoid charges of plagearism.
+
+- *ic.html*, already linked from *black_box.html*
+
+- *pensamientos.html*
+
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)
 
@@ -106,6 +118,7 @@ Páginas:
 
 - *equilibrio_dinamico.html*
 
+- *erradicar-la-pobreza.html*
 
 ### In-place Substitution
 
