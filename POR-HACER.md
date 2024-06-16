@@ -79,11 +79,32 @@ Páginas:
 
 - *chamanismo.html*
 
+## Por enlazar
+
 - *transhumanismo.html*
 
 - *paradoja-del-jugador.html*
 
--*koyaanisqatsi.html*
+- *koyaanisqatsi.html*
+
+- *exponencial.html*
+
+
+## Por escribir (igual existe el archivo, pero sin párrafos)
+
+- *aporofobia.html*
+
+- *funciones-analiticas.html*
+
+- *relaciones-cualitativas-y-cuantitativas*
+
+- *reacciones-en-cadena.html*
+
+- *chain-reaction*
+
+- *explosiones.html*
+
+- *equilibrio_dinamico.html*
 
 
 ### In-place Substitution
