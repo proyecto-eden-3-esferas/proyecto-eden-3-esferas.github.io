@@ -101,6 +101,10 @@ Páginas:
 
 - *pensamientos.html*
 
+- *generos-novela-contemporaneos.html* (sólo pergueñado)
+
+- *fidelizacion.html"
+
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)
 
@@ -119,6 +123,8 @@ Páginas:
 - *equilibrio_dinamico.html*
 
 - *erradicar-la-pobreza.html*
+
+- *fidelizacion-macroeconomica.html* tiende a ser demasiado politizada
 
 ### In-place Substitution
 
