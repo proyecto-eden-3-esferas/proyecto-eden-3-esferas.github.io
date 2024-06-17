@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::span</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+        <!--
+        <p><a href="cpp.boost.geometry.html.bak">C++ Boost Geomety (<code>.bak</code>)</a></p>
+        <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
+        -->
+      <div>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Class <code>std::span</code> in C++</h1>
+
+      <p>Defined in header <code>&lt;span&gt;</code> (since C++20)</p>
+      <pre>template&lt;
+    class T,
+    std::size_t Extent = std::dynamic_extent
+&gt; class span;</pre>
+      <p>where <var>Extent</var> is the number of elements in the sequence, or <code>std::dynamic_extent</code> if dynamic.</p>
+
+      <p>The class template <code>span</code> describes an object that can refer to a contiguous sequence of objects with the first element of the sequence at position zero. A span can either have a <i>static</i> extent, in which case the number of elements in the sequence is known at compile-time and encoded in the type, or a <i>dynamic</i> extent.</p>
+      <p>For a <code>span</code> <var>s</var>, pointers, iterators, and references to elements of <var>s</var> are invalidated when an operation invalidates a pointer in the range [s.data(), s.data() + s.size()).</p>
+      <p>All requirements on the iterator types of a Container apply to the iterator type of span as well.</p>
+      <aside>
+        <p>Every specialization of std::span is a TriviallyCopyable type. (since C++23)</p>
+      </aside>
+
+      <h3 class="bridgehead">Constructors</h3>
+      <p>Up to ten, taking arguments of type iterator, std::array, range&amp;&amp;, <code>initializer_list</code>, span...</p>
+      <pre>constexpr span() noexcept; // (1) 	(since C++20)
+
+template&lt; class It &gt;
+explicit(extent != std::dynamic_extent)
+constexpr span( It first, size_type count ); // (2) 	(since C++20)
+
+template&lt; class It, class End &gt;
+explicit(extent != std::dynamic_extent)
+constexpr span( It first, End last ); // (3) 	(since C++20)
+
+template&lt; std::size_t N &gt;
+constexpr span( std::type_identity_t&lt;element_type&gt; (&amp;arr)[N] ) noexcept; // (4) 	(since C++20)
+
+template&lt; class U, std::size_t N &gt;
+constexpr span( std::array&lt;U, N&gt;&amp; arr ) noexcept; // (5) 	(since C++20)
+
+template&lt; class U, std::size_t N &gt;
+constexpr span( const std::array&lt;U, N&gt;&amp; arr ) noexcept; // (6) 	(since C++20)
+
+template&lt; class R &gt;
+explicit(extent != std::dynamic_extent)
+constexpr span( R&amp;&amp; range ); // (7) 	(since C++20)
+
+explicit(extent != std::dynamic_extent)
+constexpr span( std::initializer_list&lt;value_type&gt; il ) noexcept; // (8) 	(since C++26)
+
+template&lt; class U, std::size_t N &gt;
+explicit(extent != std::dynamic_extent &amp;&amp; N == std::dynamic_extent)
+constexpr span( const std::span&lt;U, N&gt;&amp; source ) noexcept; // (9) 	(since C++20)
+
+constexpr span( const span&amp; other ) noexcept = default; // (10) 	(since C++20)</pre>
+      <p>(4) constructs a span that is a view over the array <var>arr</var>; the resulting span has size() == N and data() == std::data(arr)</p>
+      <h4 class="bridgehead">Example</h4>
+      <pre>#include &lt;array&gt;
+#include &lt;iostream&gt;
+#include &lt;span&gt;
+#include &lt;vector&gt;
+
+void print_span(std::span&lt;const int&gt; s)
+{
+    for (int n : s)
+        std::cout &lt;&lt; n &lt;&lt; ' ';
+    std::cout &lt;&lt; '\n';
+}
+
+int main()
+{
+    int c[]{1, 2, 3};
+    print_span(c); // constructs from array
+
+    std::array a{4, 5, 6};
+    print_span(a); // constructs from std::array
+
+    std::vector v{7, 8, 9};
+    print_span(v); // constructs from std::vector
+
+#if __cpp_lib_span_initializer_list
+    print_span({0, 1, 2}); // constructs from initializer_list
+#else
+    print_span({{0, 1, 2}}); // ditto, a workaround
+#endif
+}</pre>
+
+
+      <h3 class="bridgehead">Member Types</h3>
+      <table border="1">
+        <thead> <tr> <td>Member type</td> <td>definition</td> </tr> </thead>
+                <tr> <td><code>element_type</code></td> <td><code>T</code></td> </tr>
+                <tr> <td><code>value_type</code></td> <td><code>std::remove_cv_t&lt;T&gt;</code></td> </tr>
+                <tr> <td><code>size_type</code></td> <td><code>std::size_t</code></td> </tr>
+                <tr> <td><code>difference_type</code></td> <td><code>std::ptrdiff_t</code></td> </tr>
+                <tr> <td><code>pointer</code></td> <td><code>T*</code></td> </tr>
+                <tr> <td><code>const_pointer</code></td> <td><code>const T*</code></td> </tr>
+                <tr> <td><code>reference</code></td> <td><code>T&amp;</code></td> </tr>
+                <tr> <td><code>const_reference</code></td> <td><code>const T&amp;</code></td> </tr>
+                <tr> <td><code>iterator</code></td> <td>implementation-defined LegacyRandomAccessIterator, ConstexprIterator, and contiguous_iterator whose value_type is value_type</td> </tr>
+                <tr> <td><code>const_iterator</code> (since C++23)</td> <td><code>std::const_iterator&lt;iterator&gt;</code></td> </tr>
+                <tr> <td><code>reverse_iterator</code></td> <td><code>std::reverse_iterator&lt;iterator&gt;</code></td> </tr>
+                <tr> <td><code>const_reverse_iterator</code> (since C++23)</td> <td><code>std::const_iterator&lt;reverse_iterator&gt;</code></td> </tr>
+      </table>
+
+      <section>
+        <h2><code>std::span</code>: Methods returning iterators</h2>
+        <p>The customary lot: <code>begin()</code>, <code>end()</code>, <code>cbegin()</code>, <code>crend()</code> (C++23), </p>
+      </section>
+
+      <section>
+        <h2><code>std::span</code>: Element access</h2>
+        <table border="1">
+                <tr> <td><code>front()</code></td> <td>access the first element</td> </tr>
+                <tr> <td><code>back()</code></td> <td>access the last element</td> </tr>
+                <tr> <td><code>at()</code> (C++26)</td> <td>access specified element with bounds checking</td> </tr>
+                <tr> <td><code>operator[]</code></td> <td>access specified element</td> </tr>
+                <tr> <td><code>data()</code></td> <td>direct access to the underlying contiguous storage</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2><code>std::span</code>: Observers</h2>
+        <table border="1">
+                <tr> <td><code>size()</code></td> <td>returns the number of elements</td> </tr>
+                <tr> <td><code>size_bytes()</code></td> <td>returns the size of the sequence in bytes</td> </tr>
+                <tr> <td><code>empty()</code></td> <td>checks if the sequence is empty</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2><code>std::span</code>: Subviews</h2>
+        <table border="1">
+                <tr> <td><code>first(<var>N</var>)</code></td> <td>obtains a subspan consisting of the first <var>N</var> elements of the sequence</td> </tr>
+                <tr> <td><code>last(<var>N</var>)</code></td> <td>obtains a subspan consisting of the last <var>N</var> elements of the sequence</td> </tr>
+                <tr> <td><a href="subspan"><code>subspan()</code></a></td> <td>obtains a subspan</td> </tr>
+        </table>
+      </section>
+
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;algorithm&gt;
+#include &lt;cstddef&gt;
+#include &lt;iostream&gt;
+#include &lt;span&gt;
+
+template&lt;class T, std::size_t N&gt;
+[[nodiscard]]
+constexpr auto slide(std::span&lt;T, N&gt; s, std::size_t offset, std::size_t width)
+{
+    return s.subspan(offset, offset + width &lt;= s.size() ? width : 0U);
+}
+
+template&lt;class T, std::size_t N, std::size_t M&gt;
+constexpr bool starts_with(std::span&lt;T, N&gt; data, std::span&lt;T, M&gt; prefix)
+{
+    return data.size() &gt;= prefix.size()
+        &amp;&amp; std::equal(prefix.begin(), prefix.end(), data.begin());
+}
+
+template&lt;class T, std::size_t N, std::size_t M&gt;
+constexpr bool ends_with(std::span&lt;T, N&gt; data, std::span&lt;T, M&gt; suffix)
+{
+    return data.size() &gt;= suffix.size()
+        &amp;&amp; std::equal(data.end() - suffix.size(), data.end(),
+                      suffix.end() - suffix.size());
+}
+
+template&lt;class T, std::size_t N, std::size_t M&gt;
+constexpr bool contains(std::span&lt;T, N&gt; span, std::span&lt;T, M&gt; sub)
+{
+    return std::ranges::search(span, sub).begin() != span.end();
+}
+
+void println(const auto&amp; seq)
+{
+    for (const auto&amp; elem : seq)
+        std::cout &lt;&lt; elem &lt;&lt; ' ';
+    std::cout &lt;&lt; '\n';
+}
+
+int main()
+{
+    constexpr int a[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+    constexpr int b[]{8, 7, 6};
+    constexpr static std::size_t width{6};
+
+    for (std::size_t offset{}; ; ++offset)
+        if (auto s = slide(std::span{a}, offset, width); !s.empty())
+            println(s);
+        else
+            break;
+
+    static_assert(""
+        &amp;&amp; starts_with(std::span{a}, std::span{a, 4})
+        &amp;&amp; starts_with(std::span{a + 1, 4}, std::span{a + 1, 3})
+        &amp;&amp; !starts_with(std::span{a}, std::span{b})
+        &amp;&amp; !starts_with(std::span{a, 8}, std::span{a + 1, 3})
+        &amp;&amp; ends_with(std::span{a}, std::span{a + 6, 3})
+        &amp;&amp; !ends_with(std::span{a}, std::span{a + 6, 2})
+        &amp;&amp; contains(std::span{a}, std::span{a + 1, 4})
+        &amp;&amp; !contains(std::span{a, 8}, std::span{a, 9})
+    );
+}</pre>
+
+      <section id="subspan">
+        <h2><code>std::span&lt;T,Extent&gt;::subspan</code> (since C++20)</h2>
+        <pre>template&lt; std::size_t Offset,
+          std::size_t Count = std::dynamic_extent &gt;
+constexpr std::span&lt;element_type, E /* see below */&gt;
+    subspan() const;</pre>
+
+        <pre>constexpr std::span&lt;element_type, std::dynamic_extent&gt;
+    subspan( size_type Offset,
+             size_type Count = std::dynamic_extent ) const;</pre>
+        <p>Obtains a span that is a view over the <var>Count</var> elements of this span starting at offset <var>Offset</var>. If <var>Count</var> is <code>std::dynamic_extent</code>, the number of elements in the subspan is size() - offset (i.e., it ends at the end of *this).</p>
+        <p>The former prototype is ill-formed if</p>
+        <ul>
+          <li><var>Offset</var> is greater than Extent, or</li>
+          <li><var>Count</var> is not <code>std::dynamic_extent</code> and Count is greater than Extent - Offset.</li>
+        </ul>
+        <h3 class="bridgehead">Example</h3>
+        <pre>#include &lt;algorithm&gt;
+#include &lt;cstdio&gt;
+#include &lt;numeric&gt;
+#include &lt;ranges&gt;
+#include &lt;span&gt;
+
+void display(std::span&lt;const char&gt; abc)
+{
+    const auto columns{20U};
+    const auto rows{abc.size() - columns + 1};
+
+    for (auto offset{0U}; offset &lt; rows; ++offset)
+    {
+        std::ranges::for_each(abc.subspan(offset, columns), std::putchar);
+        std::putchar('\n');
+    }
+}
+
+int main()
+{
+    char abc[26];
+    std::iota(std::begin(abc), std::end(abc), 'A');
+    display(abc);
+}</pre>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>
