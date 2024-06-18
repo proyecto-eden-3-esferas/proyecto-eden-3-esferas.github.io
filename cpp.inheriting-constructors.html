@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inheriting Constructors in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Inheriting Constructors in C++</h1>
+
+      <p>If a using-declaration refers to a constructor of a direct base of the class being defined (e.g. <code>using Base::Base;</code>), all constructors of that base (ignoring member access) are made visible to overload resolution when initializing the derived class.</p>
+
+      <p>This is a powerful technique for deriving from classes with a rich set of constructors, such as STL containers. Look at this:</p>
+      <pre>class MyString : public std::string {
+  // ..
+  using std::string::string;
+  // ...
+      </pre>
+
+      <hr/>
+
+      <p>If overload resolution selects an inherited constructor, it is accessible if it would be accessible when used to construct an object of the corresponding base class: the accessibility of the using-declaration that introduced it is ignored.</p>
+
+      <p>If overload resolution selects one of the inherited constructors when initializing an object of such derived class, then the Base subobject from which the constructor was inherited is initialized using the inherited constructor, and all other bases and members of Derived are initialized as if by the defaulted default constructor (default member initializers are used if provided, otherwise default initialization takes place). The entire initialization is treated as a single function call: initialization of the parameters of the inherited constructor is sequenced before initialization of any base or member of the derived object.</p>
+
+      <pre>struct B1 { B1(int, ...) {} };
+struct B2 { B2(double)   {} };
+
+int get();
+
+struct D1 : B1
+{
+  using B1::B1; // inherits B1(int, ...)
+  int x;
+  int y = get();
+};
+
+void test()
+{
+  D1 d(2, 3, 4); // OK: B1 is initialized by calling B1(2, 3, 4),
+                 // then d.x is default-initialized (no initialization is performed),
+                 // then d.y is initialized by calling get()
+
+  D1 e;          // Error: D1 has no default constructor
+}
+
+struct D2 : B2
+{
+  using B2::B2; // inherits B2(double)
+  B1 b;
+};
+
+D2 f(1.0); // error: B1 has no default constructor</pre>
+
+    </main>
+
+  </body>
+
+</html>
