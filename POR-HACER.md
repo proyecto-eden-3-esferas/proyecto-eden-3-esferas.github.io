@@ -99,12 +99,19 @@ Páginas:
 
 - *ic.html*, already linked from *black_box.html*
 
-- *pensamientos.html*
+- *pensamientos.html* (only linked to by *hombre-eterno.html*)
 
 - *generos-novela-contemporaneos.html* (sólo pergueñado)
 
-- *fidelizacion.html"
+- *fidelizacion.html*
 
+- *hombre-eterno.html*
+
+- *pma-tractores.html*
+
+- *queja.2.html* (incomplete, from "grafo_de_HTML.xml", a veritable litany)
+
+- *produccion-y-distribucion.html* (only linked from main in *origen-del-mal.html*)
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)
 
