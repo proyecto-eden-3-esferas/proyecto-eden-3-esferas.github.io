@@ -1,7 +1,8 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Writing Manipulators in C++</title>
+    <title>Writing Stream Manipulators in C++</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
@@ -21,8 +22,8 @@
       -->
       <div>
         <p><a rel="prev" href="cpp.manipulators.html">Manipulators in C++</a></p>
-        <p><a            href="computing.html">Computing</a></p>
-        <p><a            href="index.en.html">Home</a></p>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="index.en.html">Home</a></p>
       </div>
       <!--
       <div>
@@ -43,48 +44,95 @@
     </nav>
 
     <main>
-      <h1>Writing (Your Own) Manipulators in C++</h1>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
-      <hr/>
-      <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
-      </aside>
+      <h1>Writing (Your Own) Stream Manipulators in C++</h1>
+      <p>Streams are typically more than just dumping or loading grounds for basic data. Their strength lies in accommodation of new data types and customisation. As objects their state may also be controlled via either a method or a manipulator interface; I am going to concentrate on manipulators. I'll wrap up the article with a worked example.</p>
 
-      Erase this comment when done writing your page!
-      -->
-      <p>C++ is a general-purpose programming language developed as an extension of C, and both languages have almost the same syntax. Besides being based on C, C++ is object-oriented, gives a clear structure to programs and allows code to be reused, lowering development costs.</p>
-      <p>Like C, C++ gives programmers a high level of control over system resources and memory.</p>
-      <aside>
-        <h2>Did you know?</h2>
-        <p>Bjarne Stroustrup invented C++ in 1979 to extend C, a procedural programming language. It was designed to offer programmers more control over memory and system resources.</p>
-      </aside>
+      <p>There are two kinds of manipulators: those that accept arguments and those that don't. Manipulators that take no arguments are easy to write. All you have to do is write a function that accepts a stream parameter, does something to it , and returns it. Writing a manipulator that takes one or more arguments is more complicated because you need to create additional classes and functions ...</p>
 
-      <hr/>
+      <section>
+        <h2>Simple manipulators</h2>
 
-      <p>One reason why C++ is so effective is its ability to work very closely with hardware. Additionally, as an object-oriented programming language, it offers flexibility in development. This makes it the go-to language when speed and performance are non-negotiable.</p>
+        <blockquote>To write a manipulator that doesn't take an argument, write a function that takes an <code>std::iostream</code> reference, does some work on the stream, and then returns it.</blockquote>
 
-      <h2>What is C plus-plus used for?</h2>
-      <p>Over time, C++ has become a choice language for building fast and reliable software. Its versatility makes it an excellent match for complex applications, embedded systems, and internet of things (IoT) devices. A few of its most common use cases are as follows:</p>
-      <ul>
-        <li><strong>Software engineering.</strong> A couple of applications you might use daily that were created with C plus-plus include Netflix and Amazon.</li>
-        <li><strong>Operating system (OS) development</strong> Examples of OS that were created with C++ include Microsoft Windows, Mac OS X, and iOS.</li>
-        <li><strong>Graphical user interfaces</strong> C++ is often recommended for graphical user interface design or, GUI.</li>
-        <li><strong>Virtual reality (VR)</strong> C++ can be an excellent language to learn if you want to develop VR applications.</li>
-        <li><strong>Blockchain technology</strong> The well-known cryptocurrency Bitcoin was developed in C++. It can also be used to create smart contracts.</li>
-        <li><strong>Game development</strong> You can develop games and gaming consoles with C++. For example, the game World of Warcraft and the Xbox console.</li>
-      </ul>
+        <p>Data flow and control are the two basic operations on a stream. Returning references and the syntactic sugar of operator overloading offer a convenient way to chain together successive items for input or output in a single expression:</p>
+        <p>Besides <code>std::endl</code>, other simple manipulators include: <code>ws</code>, to act as a sink and eat whitespace from an istream; <code>ends</code>, to NUL terminate a string; <code>flush</code>, to flush an ostream; and <code>hex</code>, <code>dec</code> and <code>oct</code>, to convert input from and output to the appropriate base.</p>
+        <p>These are all simply function names. In addition to the insertion and extraction member operators for basic types, the istream and ostream classes both have operators that take a function pointer to execute on the current stream.</p>
+        <p>Given this, it is possible to define your own manipulators to control layout and stream state:</p>
+        <pre>ostream &amp; tab(ostream &amp;out)
+{
+  return out &lt;&lt; '\t';
+}</pre>
+        <p>or, more sophisticated:</p>
+        <pre>istream &amp; eatline(istream &amp;in) {
+  while(in &amp;&amp; in.get() != '\n') { }
+  return in;
+}</pre>
+        <p>These manipulators may be used both indirectly and directly:</p>
+        <pre>cin &gt;&gt; eatline;
+eatline(cin);</pre>
+        <p>(The indirect form offers the syntactic convenience of mixing control and data into a sequence of insertions or extractions from a stream.)</p>
+        <hr/>
+        <p>Actually, the STL declarations that enable this behaviour are:</p>
+        <pre>istream istream::operator&gt;&gt; (istream&amp;, istream&amp; (*f) (istream&amp;));
+istream istream::operator&gt;&gt; (istream&amp;, ios&amp;(*f) (ios&amp;));</pre>
+        <p>and</p>
+        <pre>ostream ostream::operator&lt;&lt; (ostream&amp;, ostream&amp;(*f) (ostream&amp;));
+ostream ostream::operator&lt;&lt; (ostream&amp;, ios&amp;(*f) (ios&amp;));</pre>
+
+      </section>
+
+      <section>
+        <h2>Parameterised manipulators</h2>
+
+        <p>One approach is define a overload the (global) insertor or extractor for its second argument. If the insertor or extractor needs to read protected o private member variables, the class should declare the insertor or extractor a <code>friend</code>. For example:</p>
+        <pre>#include &lt;iostream&gt;
+
+struct fw
+{
+  explicit constexpr fw( unsigned int w, char f = ' ') : width(w), fill(f) {}
+  const unsigned int width;
+  const char fill ;
+
+  template &lt; typename CHAR, typename TRAITS &gt; inline friend
+  std::basic_ostream&lt;CHAR,TRAITS&gt;&amp; operator&lt;&lt; ( std::basic_ostream&lt;CHAR,TRAITS&gt;&amp; stm,
+                                                const fw&amp; manip )
+  {
+    stm.width( manip.width );
+    stm.fill( stm.widen( manip.fill ) ) ;
+    return stm.flush() ;
+  }
+};
+
+int main()
+{
+  std::cout &lt;&lt; fw(10,'+') &lt;&lt; 1234 &lt;&lt; fw(8) &lt;&lt; 567 &lt;&lt; '\n';
+}</pre>
+        <p>A variation of this would be for <code>struct fw</code> to define a member interter like</p>
+        <pre>template &lt; typename CHAR, typename TRAITS &gt; inline friend
+std::basic_ostream&lt;CHAR,TRAITS&gt;&amp; operator&lt;&lt; ( std::basic_ostream&lt;CHAR,TRAITS&gt;&amp; stm) {
+  stm.width(this-&gt;width );
+  stm.fill( stm.widen(this-&gt;fill));
+  return stm.flush();
+}</pre>
+
+        <p>Now, could we insert an object from a class that defines a member operator()(STREAM&amp;) as below?</p>
+        <pre>class MyClass {
+  // ...
+public:
+  std::ostream&amp; operator() (std::ostream&amp; o) {
+    // ...
+    return o;
+  };</pre>
+        <p>No. Unfortunately, this wouldn&apos;t work.</p>
+        <!--
+        <pre><![CDATA[]]></pre>
+        <p>...</p>
+        <pre><![CDATA[]]></pre>
+        <p>...</p>
+        <pre><![CDATA[]]></pre>
+        -->
+      </section>
+
 
     </main>
 
