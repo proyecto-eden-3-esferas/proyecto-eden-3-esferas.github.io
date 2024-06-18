@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>c++ rule of five</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.refences.html">C++ References</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.destructors.html">Destructors</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Rule of Five in C++</h1>
+
+      <p>The <dfn>Rule of  Five</dfn> is a guideline for efficient and bug-free programming in C++. The Rule of Five states that,</p>
+
+      <blockquote>
+        <p>If any of the below functions is defined for a class, then it is better to define all of them:</p>
+        <ol>
+          <li>Destructor</li>
+          <li>Copy Constructor</li>
+          <li>Copy Assignment Operator</li>
+          <li>Move Constructor</li>
+          <li>Move Assignment Operator</li>
+        </ol>
+        <p>(Sometimes this list is made to include the default constructor: <code>Object()</code>.)</p>
+
+        <p>The Rule of Big Five is an extension of the <strong>Rule of Three</strong> to include <a href="cpp.move-semantics.html">move semantics</a>. The Rule of Three, consists of a destructor, copy constructor, and, copy assignment operator. Use all these three functions when you are dealing with dynamically allocated resources, whereas The Rule of Five includes two more functions i.e. move constructor and move assignment operator.</p>
+
+        <hr/>
+
+        <p>These five member functions should be implemented consistently. For instance, if you use a deep copy for the copy constructor, the copy assignment operator should make a deep copy, too, and the destructor should deallocate the memory.</p>
+
+
+
+    </main>
+
+  </body>
+
+</html>

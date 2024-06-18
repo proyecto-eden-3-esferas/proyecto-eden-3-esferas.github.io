@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>value versus reference semantics</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.refences.html">C++ References</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <h1>C++ Value versus Reference Semantics</h1>
+      <dl>
+        <dt>Value semantic</dt>
+        <dd>Value (or <q>copy</q>) semantics mean assignment copies the value, not just the pointer.</dd>
+        <dt>Reference semantic</dt>
+        <dd>With reference semantics, the assignment is a pointer-copy (i.e., a reference).</dd>
+      </dl>
+
+      <p>Pros of reference semantics: flexibility and dynamic binding (you get dynamic binding in C++ only when you pass by pointer or pass by reference, not when you pass by value).</p>
+      <p>Pros of value semantics: speed. “Speed” seems like an odd benefit for a feature that requires an object (vs. a pointer) to be copied, but the fact of the matter is that one usually accesses an object more than one copies the object, so the cost of the occasional copies is (usually) more than offset by the benefit of having an actual object rather than a pointer to an object.</p>
+
+      <p>There are three cases when you have an actual object as opposed to a pointer to an object: local objects, global/<code>static</code> objects, and fully contained member objects in a class. The most important of these is the last (<dfn>composition</dfn>).</p>
+
+    </main>
+
+  </body>
+
+</html>

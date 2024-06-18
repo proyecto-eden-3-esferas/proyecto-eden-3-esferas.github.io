@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>c++ references</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.refences.html">C++ References</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ References</h1>
+
+      <hr/>
+
+      <p>An r-value reference can be explicitly bound to an r-value. An <dfn>r-value</dfn> is an unnamed object; a temporary object, in other words, so called <q>right</q> value because it can only appear on the right side of an equation.</p>
+
+      <hr/>
+
+      <p>The r-value reference, while not in and of itself particularly useful (much like the l-value reference, actually), can be used to overload functions to respond differently depending on whether a parameter is an l-value or an r-value type, giving different behaviour in each case.</p>
+      <p>There are (as always) some complications. The compiler only favours r-value reference overloads for modifiable r-values; for constant r-values it always prefers constant l-value references (for backward compatibility). This means overloading functions for <code>const T&amp;&amp;</code> has no real application.</p>
+      <p>As we can now distinguish between l-value and r-value objects we can overload the constructor (and, later, assignment operator) to support resource pilfering.</p>
+
+      <h3 class="bridgehead">Move constructor</h3>
+      <p>The move constructor is an overload of a class constructor that takes an r-value reference as a parameter. That is, the compiler can determine that the object used as the source is going out of scope in the near future and so we can pilfer its resources to construct the new object. The basic process is to take ownership of all the source object&amp;s attributes then leave it in an <q>empty</q> state.</p>
+      <p>What constitutes <q>empty</q> will obviously vary from class to class; but basically it means leaving the object in such a state that its destructor will not fail or throw an exception.</p>
+
+    </main>
+
+  </body>
+
+</html>

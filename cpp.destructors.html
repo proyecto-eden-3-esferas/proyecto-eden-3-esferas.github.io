@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>c++ destructors</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.constructors.html">Constructors in C++</a></p>
+        <p><a rel="next" href="cpp.raii.html">Resource Acquisition Is Initialization</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Destructors in C++</h1>
+
+      <h2>Destructor Rules</h2>
+      <p>First and foremost, destructors must deallocate all the memory requested by the object throughout its lifecycle, close any files and connections and generally return all resources its object has acquired. If none of these acquisitions has happened, there is no need to define a destructor.</p>
+      <p>Additionally:</p>
+      <ol>
+        <li>A base class destructor should be either public and virtual, or protected and nonvirtual</li>
+        <li>A destructor may not fail</li>
+        <li>Make destructors <code>noexcept</code></li>
+      </ol>
+
+    </main>
+
+  </body>
+
+</html>
