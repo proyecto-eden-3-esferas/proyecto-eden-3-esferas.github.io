@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Factory Method Pattern</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+        <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="oop.html">Object Oriented Programming</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Factory Method Pattern</h1>
+      <p style="text-align: right">(Acknowledgements to <cite>WikiPedia</cite>)</p>
+      <p>In <a href="oop.html">object oriented programming</a>, the factory method pattern is a design pattern that uses factory methods to deal with the problem of creating objects without having to specify their exact class. Rather than by calling a constructor, this is done by calling a factory method to create an object. Factory methods can either be specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes. It is one of the 23 classic design patterns described in the book <cite>Design Patterns</cite> (often referred to as the <cite>Gang of Four</cite> or simply <cite>GoF</cite>) and is sub-categorized as a creational pattern.</p>
+
+      <h2>Overview</h2>
+      <p>The Factory Method design pattern solves problems like:</p>
+      <ul>
+        <li>How can an object be created so that subclasses can redefine its subsequent and distinct implementation?</li>
+        <li>How can an object&apos;s instantiation be deferred to a subclass?</li>
+      </ul>
+      <p>This pattern describes how to solve such problems:</p>
+      <ul>
+        <li>Define a factory method within the superclass that defers the object&apos;s creation to a subclass&apos;s factory method.</li>
+        <li>Create an object by calling a factory method instead of directly calling a constructor.</li>
+      </ul>
+      <p>This enables the writing of subclasses that can change the way an object is created (e.g. by redefining which class to instantiate).</p>
+
+      <h2>Definition</h2>
+      <blockquote>
+        <p>Define an interface for creating an object, but let subclasses decide which class to instantiate. The Factory method lets a class defer instantiation it uses to subclasses.</p>
+        <p style="text-align: center">(Gang Of Four)</p>
+      </blockquote>
+      <p>Creating an object often requires complex processes not appropriate to include within a composing object. The object&apos;s creation may lead to a significant duplication of code, may require information not accessible to the composing object, may not provide a sufficient level of abstraction, or may otherwise not be part of the composing object&apos;s concerns. The factory method design pattern handles these problems by defining a separate method for creating the objects, which subclasses can then override to specify the derived type of product that will be created.</p>
+      <p>The factory method pattern relies on inheritance, as object creation is delegated to subclasses that implement the factory method to create objects. <del>As shown in the C# example below, </del>The factory method pattern can also rely on an Interface<del> - in this case <var>IPerson</var> -</del> to be implemented.</p>
+
+      <section id="cpp.pattern.factory-method">
+        <h2>Example of Implementation in <a target="_blank" href="cpp.html">C++</a></h2>
+        <p>This C++14 implementation is based on the pre C++98 implementation in the book <cite>Design Patterns</cite>.</p>
+        <pre>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+enum ProductId {MINE, YOURS};
+
+// defines the interface of objects the factory method creates.
+class Product {
+public:
+  virtual void print() = 0;
+  virtual ~Product() = default;
+};
+
+// implements the Product interface.
+class ConcreteProductMINE: public Product {
+public:
+  void print() {
+    std::cout &lt;&lt; "this=" &lt;&lt; this &lt;&lt; " print MINE\n";
+  }
+};
+
+// implements the Product interface.
+class ConcreteProductYOURS: public Product {
+public:
+  void print() {
+    std::cout &lt;&lt; "this=" &lt;&lt; this &lt;&lt; " print YOURS\n";
+  }
+};
+
+// declares the factory method, which returns an object of type Product.
+class Creator {
+public:
+  virtual std::unique_ptr&lt;Product&gt; create(ProductId id) {
+    if (ProductId::MINE == id) return std::make_unique&lt;ConcreteProductMINE&gt;();
+    if (ProductId::YOURS == id) return std::make_unique&lt;ConcreteProductYOURS&gt;();
+    // repeat for remaining products...
+
+    return nullptr;
+  }
+  virtual ~Creator() = default;
+};
+
+int main() {
+  // The unique_ptr prevent memory leaks.
+  std::unique_ptr&lt;Creator&gt; creator = std::make_unique&lt;Creator&gt;();
+  std::unique_ptr&lt;Product&gt; product = creator-&gt;create(ProductId::MINE);
+  product-&gt;print();
+
+  product = creator-&gt;create(ProductId::YOURS);
+  product-&gt;print();
+}</pre>
+        <p>The program output is:</p>
+        <pre>this=0x6e5e90 print MINE
+this=0x6e62c0 print YOURS</pre>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

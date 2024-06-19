@@ -135,6 +135,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 - *fidelizacion-macroeconomica.html* tiende a ser demasiado politizada
 
+- *oop.html*
+
+- *cpp.cpp11.html* (onlye contains some links)
+
+
 ### In-place Substitution
 
 Use sed switch `--in-place`

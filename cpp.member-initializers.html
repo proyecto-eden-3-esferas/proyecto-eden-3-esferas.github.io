@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Member Initializers in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+        <p><a            href="cpp.member-initializers.html">Member Initializers</a></p>
+      -->
+      <div>
+        <p><a            href="cpp.constructors.html">Constructors in C++</a></p>
+        <p><a rel="prev" href="cpp.constructor-rules.html">Constructor Rules in C++</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Member Initializers in C++</h1>
+      <p style="text-align: right">(Acknowledgements to <cite>https://www.modernescpp.com/index.php/c-core-guidelines-constructors/</cite>, by Rainer Grimm)</p>
+
+      <p>Initializing class members directly in the class body makes the writing of constructors a lot easier and sometimes obsolete. Class <var>X1</var> classically defines its members (before <a href="cpp.cpp11.html">C++11</a>) and <var>X2</var> in a preferred way. A nice side effect is that the compiler automatically generates the constructor for <var>X2</var>.</p>
+      <pre>class X1 { // BAD: doesn&apos;t use member initializers
+    string s;
+    int i;
+public:
+    X1() :s{&quot;default&quot;}, i{1} { }
+    // ...
+};
+
+class X2 {
+    string s = &quot;default&quot;;
+    int i = 1;
+public:
+    // use compiler-generated default constructor
+    // ...
+};</pre>
+
+
+    </main>
+
+  </body>
+
+</html>

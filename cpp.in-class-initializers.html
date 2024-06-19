@@ -20,10 +20,10 @@
         <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
         <p><a            href="computing.html">Computing</a></p>
         <p><a            href="index.en.html">Home</a></p>
-        <p><a href="cpp.constructors.html">Constructors in C++</a></p>
       -->
       <div>
-        <p><a rel="next" href="cpp.constructor-rules.html">Constructor Rules in C++</a></p>
+        <p><a            href="cpp.constructors.html">Constructors in C++</a></p>
+        <p><a rel="prev" href="cpp.constructor-rules.html">Constructor Rules in C++</a></p>
         <p><a            href="cpp.member-initializers.html">Member Initializers</a></p>
         <p><a            href="cpp.raii.html">Resource Acquisition Is Initialization</a></p>
         <p><a            href="cpp.destructors.html">Destructors in C++</a></p>
@@ -32,8 +32,29 @@
     </nav>
 
     <main>
-      <h1>Constructors in C++</h1>
+      <h1>in-class initializers</h1>
+      <p>In-class initializers make it a lot easier to define the constructors. Additionally, you can not forget to initialize a member.</p>
+      <pre>class X {   // BAD
+  int i;
+  string s;
+  int j;
+public:
+  X() :i{666}, s{"qqq"} { }   // j is uninitialized
+  X(int ii) :i{ii} {}         // s is "" and j is uninitialized
+  // ...
+};
 
+class X2 {
+  int i {666};
+  string s {"qqq"};
+  int j {0};
+public:
+  X2() = default;        // all members are initialized to their defaults
+  X2(int ii) :i{ii} {}   // s and j initialized to their defaults  (1)
+  // ...
+};</pre>
+
+      <p>While the in-class initialization establishes the default behavior of an object, the constructor (1) allows the variation of the default behavior.</p>
 
     </main>
 

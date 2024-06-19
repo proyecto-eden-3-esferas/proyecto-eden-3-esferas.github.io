@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delegating Constructors in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+        <p><a href="cpp.constructors.html">Constructors in C++</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.constructors.html">Constructors in C++</a></p>
+        <p><a            href="cpp.constructor-rules.html">Constructor Rules in C++</a></p>
+        <p><a            href="cpp.raii.html">Resource Acquisition Is Initialization</a></p>
+        <p><a            href="cpp.destructors.html">Destructors in C++</a></p>
+        <p><a            href="cpp.member-initializers.html">Member Initializers in C++</a></p>
+      </div>
+      <div>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Delegating Constructors in C++</h1>
+      <p>Since <a href="cpp.cpp11.html">C++11</a>, a constructor can delegate its work to another constructor of the same class. This is the modern way in C++ to put common actions for all constructors in one constructor. In C++ code before C++11, you often used an init function for such a task.</p>
+      <pre>class Degree{
+  int degree;
+public:
+  Degree(int deg){                                           // (1)
+    degree= deg % 360;
+    if (degree &lt; 0) degree += 360;
+  }
+
+  Degree(): Degree(0){}                                      // (2)
+
+  Degree(double deg): Degree(static_cast<int>(ceil(deg))){}  // (3)
+};</pre>
+      <p>The constructors (2) and (3) of the class Degree delegate all its initialization work to the constructor (1), which verifies its arguments. Invoking constructors recursively is undefined behavior.</p>
+
+    </main>
+
+  </body>
+
+</html>

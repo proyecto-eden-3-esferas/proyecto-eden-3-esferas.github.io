@@ -27,29 +27,34 @@
         <p><a rel="prev" href="cpp.constructors.html">Constructors in C++</a></p>
         <p><a rel="next" href="cpp.raii.html">Resource Acquisition Is Initialization</a></p>
         <p><a            href="cpp.destructors.html">Destructors in C++</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.member-initializers.html">Member Initializers in C++</a></p>
+      </div>
+      <div>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
     </nav>
 
     <main>
       <h1>Constructor Rules in C++</h1>
+      <p style="text-align: right">(Acknowledgements to <cite>https://www.modernescpp.com/index.php/c-core-guidelines-constructors/</cite>, by Rainer Grimm)</p>
+
       <p>These are the thirteen most fundamental rules for object construction:</p>
       <ol>
-        <li>Define a constructor if a class has an invariant</li>
+        <li>Define a constructor if a class has an invariant, that is a member variable existing throughout the object&apos;s life cycle, or state.</li>
         <li>A constructor should create a fully initialized object</li>
         <li>If a constructor cannot construct a valid object, throw an exception</li>
-        <li>Ensure that a value type class has a default constructor</li>
-        <li>Prefer default constructors to be simple and non-throwing</li>
-        <li>Don’t define a default constructor that only initializes data members; use member initializers instead</li>
-        <li>By default, declare single-argument constructors <code>explicit</code></li>
-        <li>Define and initialize member variables in the order of member declaration</li>
-        <li>Prefer in-class initializers to member initializers in constructors for constant initializers</li>
+        <li>Ensure that a value type class has a default constructor. Many constructors of STL containers rely assume your type has a default constructor.</li>
+        <li>Prefer default constructors to be simple and non-throwing (append <code>noexept</code>)</li>
+        <li>Don&apos;t define a default constructor that only initializes data members; use <a href="cpp.member-initializers.html">member initializers</a> instead</li>
+        <li>By default, declare single-argument constructors <code>explicit</code>. This is a crucial rule. Single-argument constructors are often called <dfn>conversion constructors</dfn>. If you do not make them explicit, an implicit conversion may happen.</li>
+        <li>Define and initialize member variables in the order of member declaration. If you initialize them in a different order, you may get unexpected results.</li>
+        <li>Prefer <a href="cpp.in-class-initializers.html">in-class initializers</a> to member initializers in constructors for constant initializers</li>
         <li>Prefer initialization to assignment in constructors</li>
-        <li>Use a factory function if you need “virtual behavior” during initialization</li>
-        <li>Use delegating constructors to represent common actions for all constructors of a class</li>
-        <li>Use inheriting constructors to import constructors into a derived class that does not need further explicit initialization</li>
+        <li>Use a <a href="pattern.factory-method.html">factory function</a> if you need <q>virtual behavior</q> during initialization. Calling a virtual function from a constructor will not work as expected. For protection reasons, the virtual call mechanism is disabled in the constructor because the creation of the derived class hasn&apos;t happened.</li>
+        <li>Use <a href="cpp.delegating-constructor.html">delegating constructors</a> to represent common actions for all constructors of a class</li>
+        <li>Use <a href="cpp.inheriting-constructors.html">inheriting constructors</a> to import constructors into a derived class that does not need further explicit initialization. If you can reuse constructors of the base class in the derived class, do it. You violate the DRY (Don&apos;t Repeat Yourself) principle if you don&apos;t do it.</li>
       </ol>
-
 
     </main>
 
