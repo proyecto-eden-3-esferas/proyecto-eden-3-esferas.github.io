@@ -8,6 +8,8 @@
 sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
 ```
 
+[ ] write CSS for class electronics
+
 [ ] dividir "TheFourInmmeasurables.html" en archivos o en secciones
 
 
@@ -113,6 +115,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 - *queja.2.html* (incomplete, from "grafo_de_HTML.xml", a veritable litany)
 
 - *produccion-y-distribucion.html* (only linked from main in *origen-del-mal.html*)
+
+- *cutoff-freq.html*, related to *electronics.cutoff-freq.html*
 
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)

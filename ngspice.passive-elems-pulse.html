@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Circuit with Passive Elements, Small Signal AC</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <!--<p><a rel="next" href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Small Signal AC</a></p>-->
+        <p><a rel="next" href="ngspice.bjt-amp.html">Bipolar Amplifier</a></p>
+        <p><a            href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a            href="electronics.html">Electronics</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Circuit with Passive Elements, Small Signal AC</h1>
+      <p>Now we want to see what the small signal behavior of this rc ladder network might be. Small signal means that we set a dc operating point to our circuit. Then we add a small ac signal to the input and simulate what the output ac voltage might be versus frequency. So we have to vary the frequency of this small input signal. And we are not interested in the absolute output voltage value, but its relation to the input (gain) and its phase shift in relation to the input (phase). Fortunately there is the <code>ac</code> command in ngspice that makes life easy. Firstly, we have to tell ngspice where to input their small signal ac voltage. We choose node <var>in</var>, that is our voltage source <var>V1</var>. <var>V1</var> now becomes</p>
+      <pre>V1 in 0 dc 0 ac 1 PULSE (0 5 1u 1u 1u 1 1)</pre>
+      <p>We simply added <code>ac 1</code>. The <code>dc 0</code> sets the operating point (which does not matter in such a simple circuit), <code>PULSE</code> does matter only during transient simulation, so we keep it for simplicity. The 1 in <code>ac 1</code> just helps with getting the ratio out/in, by dividing the output by 1, or just take it as is. The simulation command is</p>
+      <pre>ac dec 10 1 100k</pre>
+      <p>We want to do an <code>ac</code> simulation. We vary the frequency as if plotted logarithmically, with 10 points per decade. The starting frequency is 1 Hz, the stopping frequency is 100 kHz. So we will get 51 data points. If now plotted with the command <code>plot out</code>, the graph looks ugly (output below 0?). Well, we are dealing with AC signals.</p>
+      <p>These are complex numbers, consisting of a real part and an imaginary part (or equivalently consist of magnitude and phase). Typically <code>plot out</code> only delivers the real part of the signal. But we want to see magnitude (or gain) and phase, like in a Bode plot. So one should use <code>plot vdb(out)</code> for the gain in dB and <code>plot ph(out)</code> for the phase. Now the graphs are o.k., but titles and labels are not yet satisfactory. ngspice plotting procedures here need some manual tweaking.</p>
+
+      <p>Before we move on, we have to streamline our approach. Typing everything to the console seems too laborious. ngspice has a feature to assemble all interactive commands (the ones we have typed) into a <code>.control</code> ... <code>.endc</code> section. This <code>.control</code> section can be added to the netlist, which now looks like</p>
+      <pre>.title dual rc ladder
+* file name rcrcac.cir
+R1 int in 10k
+V1 in 0 dc 0 ac 1 PULSE (0 5 1u 1u 1u 1 1)
+R2 out int 1k
+C1 int 0 1u
+C2 out 0 100n
+
+.control
+ac dec 10 1 100k
+plot vdb(out)
+plot ph(out)
+.endc
+
+.end</pre>
+      <p>We save our netlist in file <cite>rcrcac.cir</cite> and start ngspice. The netlist is read, the commands in the <code>.control</code> section (ac simulation and plotting) are executed automatically. Still we would like to improve the graphics plot. We do this by using several extra commands, that we add to the <code>.control</code> section. All of them are described in the ngspice manual, chapt. 17.5. The complete input file now reads:</p>
+      <pre>.title dual rc ladder
+* file name rcrcac.cir
+R1 int in 10k
+V1 in 0 dc 0 ac 1 PULSE (0 5 1u 1u 1u 1 1)
+R2 out int 1k
+C1 int 0 1u
+C2 out 0 100n
+
+.control
+ac dec 10 1 100k
+settype decibel out
+plot vdb(out) xlimit 1 100k ylabel 'small signal gain'
+settype phase out
+plot cph(out) xlimit 1 100k ylabel 'phase (in rad)'
+let outd = 180/PI*cph(out)
+settype phase outd
+plot outd xlimit 1 100k ylabel 'phase'
+.endc
+
+.end</pre>
+
+    </main>
+
+  </body>
+
+</html>

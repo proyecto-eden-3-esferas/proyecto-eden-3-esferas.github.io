@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NGSpice, the Open Source Spice Simulator</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="electronics.html">Electronics</a></p>
+        <p><a rel="next" href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <p><a            href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Transient Simulation</a></p>
+      </div>
+      <div>
+        <p><a href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>NGSpice, the Open Source Spice Simulator</h1>
+      <p><dfn>ngspice</dfn> is a circuit simulator that numerically solves equations describing (electronic) circuits: These are made of passive and active devices. Time varying currents and voltages are simulated as well as noise and small signal behavior. ngspice is the <a target="_blank" href="open-source.html">Open Source</a> successor of the venerable spice3f5 from UC at Berkeley.</p>
+      <p><del>As shown in Fig. 1, </del>You start with a circuit (here: an inverter). You have to create a <dfn>netlist</dfn> describing this circuit. The netlist is the input to ngspice, telling it about the circuit to be simulated. Together with some simulation commands this input cares for reading and parsing the netlist, starting the simulation and plotting the output.<del> The output voltage (plotted in red) is the inverse of the (green) input. Both voltages are plotted versus time.</del></p>
+
+      <p>The input to ngspice is read from a file, and it may be enhanced by commands given on the command line. The simulated output may be written to a file, or be plotted as a Y-X graph or a smith chart. There is no graphical user interface with schematic capture of circuit diagrams and automatic netlist generation.</p>
+
+      <p>In the next section we shall be looking at a simple example, a <a href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a>.</p>
+
+      <p>However, there are <a target="_blank" href="https://ngspice.sourceforge.io/resources.html">third party tools</a> available to draw the circuit and generate a ngspice netlist.</p>
+
+
+
+      <hr/>
+
+      <p>There is a detailed <a target="_blank" href="https://sourceforge.net/projects/ngspice/files/ng-spice-rework/37/ngspice-37-manual.pdf/download">reference manual</a> available for ngspice. This manual describes all commands and procedures available in ngspice and lists numerous examples. However, it is not an ngspice how-to or introductory text.<del> This tutorial here gives you some information how to start. If you are interested in getting more in-depth information, you may refer to our <a href="https://ngspice.sourceforge.io/books.html">book page</a> or to a list of third party <a href="https://ngspice.sourceforge.io/tutorials.html">tutorials</a>.</del></p>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RC Time Constant</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="electronics.time-constant.html">R C Time Constant</a></p>
+      -->
+      <div>
+        <p><a href="electronics.html">Electronics</a></p>
+        <p><a href="electronics.cutoff-freq.html">Cutoff Frequency in Electronics</a></p>
+        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>RC Time Constant</h1>
+      <p>The RC time constant, denoted τ (lowercase tau), the time constant (in seconds) of a resistor–capacitor circuit (RC circuit), is equal to the product of the circuit resistance (in ohms) and the circuit capacitance (in farads), i.e.:</p>
+      <blockquote>τ = R C [seconds]</blockquote>
+      <p>It is the time required to charge the capacitor, through the resistor, from an initial charge voltage of zero to approximately 63.2% of the value of an applied DC voltage, or to discharge the capacitor through the same resistor to approximately 36.8% of its final charge voltage. These values are derived from the mathematical constant e, where 63.2% ≈ 1 − e<sup>−1</sup> and 36.8% ≈ e<sup>−1</sup>. The following formulae use it, assuming a constant voltage applied across the capacitor and resistor in series, to determine the voltage across the capacitor against time:</p>
+      <ul>
+        <li>Charging toward applied voltage (initially zero voltage across capacitor, constant V<sub>0</sub> across resistor and capacitor together) V<sub>0</sub> : V(<var>t</var>) = V<sub>0</sub> ( 1 − e<sup>−t/τ</sup>)</li>
+        <li>Discharging toward zero from initial voltage (initially V<sub>0</sub> across capacitor, constant zero voltage across resistor and capacitor together) V<sub>0</sub> : V(<var>t</var>) = V<sub>0</sub>(e<sup>−t/τ</sup>)</li>
+      </ul>
+
+      <hr/>
+
+      <p>The time constant <var>τ</var> is related to the <a href="electronics.cutoff-freq.html">cutoff frequency</a>, <var>f<sub>c</sub></var>, an alternative parameter of the RC circuit, by</p>
+      <blockquote>τ = RC = 1 / 2 π <var>f<sub>c</sub></var></blockquote>
+
+      <p>where resistance in ohms and capacitance in farads yields the <strong>time constant</strong> in seconds or the cutoff frequency in Hz.</p>
+
+    </main>
+
+  </body>
+
+</html>

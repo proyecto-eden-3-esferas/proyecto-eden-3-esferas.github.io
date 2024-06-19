@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Circuit with Passive Elements, Operating Point</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <p><a rel="next" href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Small Signal AC</a></p>
+        <p><a            href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Circuit with Passive Elements, Transient Simulation</h1>
+      <p>The next example is a dual rc ladder, and we want to do a transient simulation. The input is a voltage waveform (a pulse) versus time, and the output is a waveform as well, as you might see on an oscilloscope.<del> This is our circuit:</del></p>
+      <p>The netlist then is</p>
+      <pre>.title dual rc ladder
+R1 int in 10k
+V1 in 0 dc 0 PULSE (0 5 1u 1u 1u 1 1)
+R2 out int 1k
+C1 int 0 1u
+C2 out 0 100n
+.end</pre>
+      <p>We shall now discuss the voltage source <var>V1</var>. In the previous example it just emits a constant 1V. Now it is more complex. The manual says in chapt. 4.1.1:</p>
+      <blockquote>For a pulse we have to add <code>PULSE(VL VH TD TR TF PW PER PHASE)</code> to the DC voltage of our voltage source, where VL is the starting, VH the end voltage, TD a delay, TR and TF are rise and fall times, PW is the pulse width, PER the period of repetition, PHASE a phase shift.</blockquote>
+      <p>We have a pulse from 0 to 5 V, the delay before the pulse starts, its rise and fall times are all 1 us. Pulse width and pulse period are 1 s each, far beyond our intended simulation time. Phase does not matter here, we omit it. So here we apply just the rising edge of the pulse.</p>
+      <p>What is now the simulation time we will need? The time constant of our low pass filter is dominated by <var>R1</var><var>C1</var> and is about 1uF*10kOhm = 10ms. So we might be well off by starting at 0 and simulate until 50 ms. We should use 1000 points, so step size is 50 us. Thus, when you have loaded the circuit, the simulation command now is:</p>
+      <pre>tran 50u 50m</pre>
+      <p>The result is shown <!--in Fig. 5 -->after plotting with command <code>plot in int out</code>. The voltages at nodes <var>int</var> and <var>out</var> barely differ. This is because the first R1C1 dominates the circuit. The time constant of the second R2C2 is a factor of 100 smaller, so charging C2 is quick and easy compared to charging C1. The voltage at input node <var>in</var> rises so fast that you do not see its slope.</p>
+
+
+
+
+    </main>
+
+  </body>
+
+</html>
