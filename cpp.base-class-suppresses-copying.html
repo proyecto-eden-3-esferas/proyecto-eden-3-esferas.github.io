@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A base class should suppress copying...</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.copy-and-move-rules.html">Copy and Move Rules in C++</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>A base class should suppress copying, and provide a virtual clone instead, if copying is desired</h1>
+      <p>The main reason for this rule is that <a target="_blank" href="cpp.slicing.html">slicing</a> is not possible. Slicing is one of these phenomena in C++, and my colleagues always warned me. Slicing will happen when an object of a derived class is copied to an object of a base class.</p>
+      <pre>struct Base {int base_;};
+
+struct Derived : Base {int derived_;};
+
+int main() {
+  Derived d;
+  Base b = d;   // slicing, only the Base parts of (base_) are copied
+}</pre>
+      <p>In this situation, the copy operations of the base class are used; therefore, only the base part of d is copied.</p>
+      <p>From the object-oriented perspective, an instance of Derived is-a an instance of Base. That means whenever you need an instance of Base you can use an instance of Derived. But you have to be careful. If you take the instance of Base by copy (value-semantic), you will only get the base parts of an instance of Derived.</p>
+      <p>The solution that the <a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">guidelines</a> suggest is that the base class should suppress copying but provide a virtual clone member function if copying is desired. Here is an example from the guidelines.</p>
+      <pre>class B { // GOOD: base class suppresses copying
+    B(const B&amp;) = delete;
+    B&amp; operator=(const B&amp;) = delete;
+    virtual unique_ptr&lt;B&gt; clone() { return /* B object */; }
+    // ...
+};
+
+class D : public B {
+    string more_data; // add a data member
+    unique_ptr&lt;B&gt; clone() override { return /* D object */; }
+    // ...
+};
+
+auto d = make_unique&lt;D&gt;();
+auto b = d.clone(); // ok, deep clone</pre>
+      <p>The clone method returns the newly created object in a <code>std::unique_ptr</code>; therefore, the ownership goes to the caller. Such a clone method is better known as a <dfn>factory method</dfn>. A factory method is one of the creational patterns from the book: <cite>Design Pattern: Elements of Reusable Object-Oriented Software</cite>.</p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+    </main>
+
+  </body>
+
+</html>

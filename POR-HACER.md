@@ -139,6 +139,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 - *cpp.cpp11.html* (onlye contains some links)
 
+- *cpp.slicing.html*
+
 
 ### In-place Substitution
 

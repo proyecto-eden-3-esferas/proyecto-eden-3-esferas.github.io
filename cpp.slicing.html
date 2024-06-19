@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slicing</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="oop.html">Object Oriented Programming</a></p>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+      <div>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Slicing</h1>
+      <p>Slicing [...] will happen when an object of a derived class is copied to an object of a base class.</p>
+      <pre>struct Base {int base_;};
+
+struct Derived : Base {int derived_;};
+
+int main() {
+  Derived d;
+  Base b = d;   // slicing, only the Base parts of (base_) are copied
+}</pre>
+      <p>...</p>
+
+    </main>
+
+  </body>
+
+</html>

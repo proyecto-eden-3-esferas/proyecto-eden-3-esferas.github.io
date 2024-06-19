@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Copy and Move Rules in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Copy and Move Rules in C++</h1>
+      <p style="text-align: right">(Acknowledgements to <cite>http://www.modernescpp.com/index.php/c-core-guidelines-copy-and-move-rules/</cite>, by Rainer Grimm)</p>
+
+      <p>Let&apos; begin with a meta-rule:</p>
+      <blockquote>Value types, which behave like an int, should be copyable, but interfaces in class hierarchies are not.</blockquote>
+
+      <p>Here are the eight rules:</p>
+      <ol>
+        <li>Make copy assignment non-virtual, take the parameter by const&amp;, and return by non-const&amp; (you should not change the source of your assignment)</li>
+        <li>A copy operation should copy. (Copying can be a deep or shallow.)</li>
+        <li>Make copy assignment safe for self-assignment</li>
+        <li>Make move assignment non-virtual, take the parameter by &amp;&amp;, and return by non-const&amp;</li>
+        <li>A move operation should move and leave its source in a valid state</li>
+        <li>Make move assignment safe for self-assignment. (No copying if <code>this==src.this</code>.)</li>
+        <li>Make move operations noexcept</li>
+        <li><a href="cpp.base-class-suppresses-copying.html">A base class should suppress copying, and provide a virtual clone instead, if copying is desired</a></li>
+      </ol>
+
+    </main>
+
+  </body>
+
+</html>
