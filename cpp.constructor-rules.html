@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Constructor Rules in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+        <p><a href="cpp.constructors.html">Constructors in C++</a></p>
+        <p><a rel="prev" href="cpp.constructor-rules.html">Constructor Rules in C++</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.constructors.html">Constructors in C++</a></p>
+        <p><a rel="next" href="cpp.raii.html">Resource Acquisition Is Initialization</a></p>
+        <p><a            href="cpp.destructors.html">Destructors in C++</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Constructor Rules in C++</h1>
+      <p>These are the thirteen most fundamental rules for object construction:</p>
+      <ol>
+        <li>Define a constructor if a class has an invariant</li>
+        <li>A constructor should create a fully initialized object</li>
+        <li>If a constructor cannot construct a valid object, throw an exception</li>
+        <li>Ensure that a value type class has a default constructor</li>
+        <li>Prefer default constructors to be simple and non-throwing</li>
+        <li>Don’t define a default constructor that only initializes data members; use member initializers instead</li>
+        <li>By default, declare single-argument constructors <code>explicit</code></li>
+        <li>Define and initialize member variables in the order of member declaration</li>
+        <li>Prefer in-class initializers to member initializers in constructors for constant initializers</li>
+        <li>Prefer initialization to assignment in constructors</li>
+        <li>Use a factory function if you need “virtual behavior” during initialization</li>
+        <li>Use delegating constructors to represent common actions for all constructors of a class</li>
+        <li>Use inheriting constructors to import constructors into a derived class that does not need further explicit initialization</li>
+      </ol>
+
+
+    </main>
+
+  </body>
+
+</html>

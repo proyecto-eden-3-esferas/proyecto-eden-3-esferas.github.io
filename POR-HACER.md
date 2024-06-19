@@ -7,7 +7,9 @@
 ```
 sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
 ```
+
 [ ] dividir "TheFourInmmeasurables.html" en archivos o en secciones
+
 
 [ ] decidirnos por una hoja de estilo o por cómo nombrarla, teniendo en cuenta que se pueden incorporar una jerarquía de páginas ya enlazadas de "../zettelkasten_from_HTML/records/" que hacen uso de "stylesheet.css". Las opciones son:
 
@@ -20,11 +22,15 @@ sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
 
 [ ] "computing science" or "computing science"?
 
+
 [ ] retocar "poblacion.html"
+
 
 [ ] añadir páginas sobre estafa piramidal...
 
+
 [ ] redactar "equilibrio_dinamico.html", a que hace referencia...
+
 
 [x] Cambiar los enlaces a hojas de estilo con sed (Stream EDitor)
 
@@ -63,6 +69,7 @@ y
 sed --in-place 's/<link rel=stylesheet href="style\.css" type="text\/css" media=screen>/<link rel="stylesheet" type="text\/css" href="stylesheet\.es\.css"\/>/g' *.html
 ```
 
+
 ## English pages ( /records)
 
 ```
@@ -74,12 +81,6 @@ and
 sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" title="stylesheet\.css"\/>/<link rel="stylesheet" type="text\/css" href="stylesheet\.css"\/>/g' *.html
 ```
 
-
-## Añadir enlace a hoja de estilo (cuando no lleva ninguno)
-
-Páginas:
-
-- *chamanismo.html*
 
 ## Por enlazar
 
@@ -112,6 +113,7 @@ Páginas:
 - *queja.2.html* (incomplete, from "grafo_de_HTML.xml", a veritable litany)
 
 - *produccion-y-distribucion.html* (only linked from main in *origen-del-mal.html*)
+
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)
 
