@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HTML (Hyper Text Markup Language)</title>
+    <title>The CSS @import Rule</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -22,7 +22,7 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
+      <!--
       <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
       <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
@@ -32,14 +32,41 @@
       <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
+      <p><a href="css.html">Styling with CSS (Cascading Style Sheets)</a></p>
       <p><a href="HTML.tips-and-tricks.html">HTML Tips and Tricks</a></p>
-      <p><a href="FromWeb1.0ToTheSemanticWeb.html">From Web 1.0 to the Semantic Web</a></p>
       <p><a href="computing.html">Computing Science</a></p>
     </nav>
 
     <main>
-      <h1>HTML (Hyper Text Markup Language)</h1>
-      <p>[...]</p>
+      <h1>The CSS <code>@import</code> Rule</h1>
+      <p style="text-align: center">(Largely from <cite>https://www.w3schools.com/</cite>)</p>
+
+      <p>The <code>@import</code> rule allows you to import a style sheet into another style sheet.</p>
+      <p>The <code>@import</code> rule must be at the top of the document (but after any <code>@charset</code> declaration).</p>
+      <p>The <code>@import</code> rule also supports media queries, so you can allow the import to be media-dependent.</p>
+
+      <hr/>
+
+      <p>Import a style sheet titled <cite>navigation.css</cite> into the current style sheet lile this:</p>
+      <pre>@import &quot;navigation.css&quot;; /* Using a string */</pre>
+      <p>or</p>
+      <pre>@import url(&quot;navigation.css&quot;); /* Using a url */</pre>
+
+      <hr/>
+
+      <h3 class="bridgehead">CSS Syntax</h3>
+      <pre>@import url|string list-of-mediaqueries;</pre>
+
+      <hr/>
+
+      <h3>Example</h3>
+      <p>Import the &quot;printstyle.css&quot; style sheet ONLY if the media is print:</p>
+      <pre>@import &quot;printstyle.css&quot; print;</pre>
+
+      <h3>Example</h3>
+      <p>Import the &quot;mobstyle.css&quot; style sheet ONLY if the media is screen and the viewport is maximum 768 pixels:</p>
+      <pre>@import &quot;mobstyle.css&quot; screen and (max-width: 768px);</pre>
+
     </main>
 
   </body>

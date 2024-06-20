@@ -4,7 +4,7 @@
     <title>Circuit with Passive Elements, Small Signal AC</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="stylesheet.css" rel="stylesheet" title="stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
@@ -42,6 +42,9 @@
       <p>We simply added <code>ac 1</code>. The <code>dc 0</code> sets the operating point (which does not matter in such a simple circuit), <code>PULSE</code> does matter only during transient simulation, so we keep it for simplicity. The 1 in <code>ac 1</code> just helps with getting the ratio out/in, by dividing the output by 1, or just take it as is. The simulation command is</p>
       <pre>ac dec 10 1 100k</pre>
       <p>We want to do an <code>ac</code> simulation. We vary the frequency as if plotted logarithmically, with 10 points per decade. The starting frequency is 1 Hz, the stopping frequency is 100 kHz. So we will get 51 data points. If now plotted with the command <code>plot out</code>, the graph looks ugly (output below 0?). Well, we are dealing with AC signals.</p>
+      <aside>
+        <p>A <dfn>point</dfn> in analog simulation means a sampling point.</p>
+      </aside>
       <p>These are complex numbers, consisting of a real part and an imaginary part (or equivalently consist of magnitude and phase). Typically <code>plot out</code> only delivers the real part of the signal. But we want to see magnitude (or gain) and phase, like in a Bode plot. So one should use <code>plot vdb(out)</code> for the gain in dB and <code>plot ph(out)</code> for the phase. Now the graphs are o.k., but titles and labels are not yet satisfactory. ngspice plotting procedures here need some manual tweaking.</p>
 
       <p>Before we move on, we have to streamline our approach. Typing everything to the console seems too laborious. ngspice has a feature to assemble all interactive commands (the ones we have typed) into a <code>.control</code> ... <code>.endc</code> section. This <code>.control</code> section can be added to the netlist, which now looks like</p>
@@ -60,7 +63,7 @@ plot ph(out)
 .endc
 
 .end</pre>
-      <p>We save our netlist in file <cite>rcrcac.cir</cite> and start ngspice. The netlist is read, the commands in the <code>.control</code> section (ac simulation and plotting) are executed automatically. Still we would like to improve the graphics plot. We do this by using several extra commands, that we add to the <code>.control</code> section. All of them are described in the ngspice manual, chapt. 17.5. The complete input file now reads:</p>
+      <p>We save our netlist in file <cite>rcrcac.cir</cite> and start ngspice. The netlist is read, the commands in the <code>.control</code> section (ac simulation and plotting) are executed automatically. Still we would like to improve the graphics plot. We do this by using several extra commands, that we add to the <code>.control</code> section. All of them are described in the <cite>ngspice manual, chapter. 17.5</cite>. The complete input file now reads:</p>
       <pre>.title dual rc ladder
 * file name rcrcac.cir
 R1 int in 10k
