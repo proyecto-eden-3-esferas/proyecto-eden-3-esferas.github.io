@@ -118,6 +118,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 - *cutoff-freq.html*, related to *electronics.cutoff-freq.html*
 
+- *capitalismo.html*
+
+- *situacion-tipo.html*
+
+- *agregaciones.html*, actually it is linked to by *economia.html*
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)
 
