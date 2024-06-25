@@ -86,6 +86,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+- *y-mis-bajos.html*, que estaba en *index.html*
+
 - *transhumanismo.html*
 
 - *paradoja-del-jugador.html*
