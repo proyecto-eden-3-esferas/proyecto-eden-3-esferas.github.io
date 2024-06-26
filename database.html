@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TEMPLATE HTML FILE</title>
+    <title>databases</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -32,35 +32,39 @@
       <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
-      <p><a href="dataset.html">Data Sets</a></p>
+      <div>
+        <p><a rel="next" href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a href="dataset.html">Data Sets</a></p>
+      </div>
     </nav>
 
     <main>
       <h1>Databases</h1>
-      <p>A database is information that&apos;s set up for easy access, management and updating.</p>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
+      <p>A <dfn>database</dfn> is information that&apos;s set up for easy access, management and updating.</p>
+      <p>A <dfn>database management system</dfn> (DBMS) is a software system for creating and managing databases. A DBMS enables end users to create, protect, read, update and delete data in a database. It also manages security, data integrity and concurrency for databases.</p>
+      <p>The most prevalent type of data management platform, the DBMS, essentially serves as an interface between databases and users or application programs, ensuring that data is consistently organized and remains easily accessible.</p>
+
       <hr/>
-      <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
-      </aside>
-      <blockquote>
-        <p>...</p>
-        <p style="text-align: right">(From <cite>...</cite>)</p>
-      </blockquote>
-      Erase this comment when done writing your page!
-      -->
+
+      <h2>Some common functions that a DBMS performs</h2>
+      <ul>
+        <li><dfn>Administration tasks.</dfn> A DBMS supports many typical database administration tasks, including change management, performance monitoring and tuning, security, and backup and recovery. Most database management systems are also responsible for automated rollbacks and restarts as well as logging and auditing of activity in databases and the applications that access them.</li>
+        <li><dfn>Storage.</dfn> A DBMS provides efficient data storage and retrieval by ensuring that data is stored in tables, rows and columns; or in <strong>documents</strong>; or...</li>
+        <li><dfn>Concurrency control.</dfn> In environments where multiple users access and modify the database simultaneously, a DBMS guarantees controlled transaction execution to prevent data corruption or inconsistency.</li>
+        <li><dfn>Centralized view.</dfn> A DBMS provides a centralized <dfn>view</dfn> of data that multiple users can access from multiple locations in a controlled manner. A DBMS can limit what data end users see and how they view the data, providing many views of a single database schema. End users and software programs are free from having to understand where the data is physically located or on what type of storage medium it resides because the DBMS handles all requests.</li>
+        <li><dfn>Data manipulation.</dfn> A DBMS ensures data integrity and consistency by letting users insert, update, delete and modify data inside a database.</li>
+        <li><dfn>Data independence.</dfn> A DBMS offers both logical and physical data independence to protect users and applications from having to know where data is stored or from being concerned about changes to the physical structure of data. As long as programs use the application programming interface (API) for the database that the DBMS provides, developers won't have to modify programs just because changes have been made to the database.</li>
+        <li><dfn>Backup and recovery.</dfn> A DBMS facilitates backup and recovery options by creating backup copies so that data can be restored to a consistent state. This protects against data loss due to hardware failures, software errors or other unforeseen events. In a relational database management system (RDBMS) -- the most widely used type of DBMS -- the API is structured query language (SQL), a standard programming language for defining, protecting and accessing data.</li>
+      </ul>
+
+      <section>
+      <h2>DBML, Engine and Schema</h2>
+      <p>A DBMS manages the data. The <dfn>database engine</dfn> enables data to be accessed, locked and modified, and the <dfn>database schema</dfn> defines the database&apos;s logical structure. These three foundational data elements help provide concurrency, security, data integrity and uniform data administration procedures.</p>
+      </section>
+
     </main>
 
   </body>

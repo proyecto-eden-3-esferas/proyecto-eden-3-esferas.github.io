@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>object-like macros in c++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Object-like Macros</h1>
+      <p style="text-align: right">(From <a href="https://mariusbancila.ro/blog/">Marius Bancila&apos;s Blog</a>)</p>
+      <p>These are identifiers that are replaced with a fragment of code and are often used to give symbolic names to numerical or string literals. Here is a typical example you must have seen many times.</p>
+      <pre>#define BUFFER_SIZE 1024
+
+int main()
+{
+   char buffer[BUFFER_SIZE];
+}</pre>
+      <p>Instead of being a macro, <var>BUFFER_SIZE</var> could, and should, be defined as a compile-time constant.</p>
+      <pre>constexpr size_t BUFFER_SIZE = 1024;</pre>
+      <p>Notice it is declared as <code>constexpr</code> and not just <code>const</code>. The latter indicates a value that does not change, but might only be available at runtime. The former, implies constness, but is guaranteed to be available at compile-time. <code>constexpr</code> values can be used in any place where compile-time constants are expected.</p>
+      <p>Object-like macros are often used to define related symbolic names, as in the following example:</p>
+      <pre>#define PERMISSION_NONE    0
+#define PERMISSION_READ    1
+#define PERMISSION_WRITE   2
+#define PERMISSION_ADD     4
+#define PERMISSION_DELETE  8
+
+void show_permissions(int const p)
+{
+   if(p &amp; PERMISSION_READ)
+      std::cout &lt;&lt; "can read" &lt;&lt; std::endl;
+   if (p &amp; PERMISSION_WRITE)
+      std::cout &lt;&lt; "can write" &lt;&lt; std::endl;
+   if (p &amp; PERMISSION_ADD)
+      std::cout &lt;&lt; "can add" &lt;&lt; std::endl;
+   if (p &amp; PERMISSION_DELETE)
+      std::cout &lt;&lt; "can delete" &lt;&lt; std::endl;
+}
+
+int main()
+{
+   int flags = PERMISSION_READ | PERMISSION_WRITE;
+
+   show_permissions(flags);
+
+   flags |= PERMISSION_DELETE | PERMISSION_ADD;
+   flags &amp;= ~PERMISSION_WRITE;
+
+   show_permissions(flags);
+}</pre>
+      <p>Following the previous example, we can simply replace these with constexpr values (in a class or namespace scope):</p>
+      <pre>constexpr int PERMISSION_NONE   = 0;
+constexpr int PERMISSION_READ   = 1;
+constexpr int PERMISSION_WRITE  = 2;
+constexpr int PERMISSION_ADD    = 4;
+constexpr int PERMISSION_DELETE = 8;</pre>
+      <p>However, these macros, representing bitflags here, can also be replaced with an enumeration, preferably an enumeration class.</p>
+      <pre>enum class permissions
+{
+   none = 0,
+   read = 1,
+   write = 2,
+   add = 4,
+   del = 8
+};
+
+void show_permissions(int const p)
+{
+   if(p &amp; static_cast&lt;int&gt;(permissions::read))
+      std::cout &lt;&lt; &quot;can read&quot; &lt;&lt; std::endl;
+   if (p &amp; static_cast&lt;int&gt;(permissions::write))
+      std::cout &lt;&lt; &quot;can write&quot; &lt;&lt; std::endl;
+   if (p &amp; static_cast&lt;int&gt;(permissions::add))
+      std::cout &lt;&lt; &quot;can add&quot; &lt;&lt; std::endl;
+   if (p &amp; static_cast&lt;int&gt;(permissions::del))
+      std::cout &lt;&lt; &quot;can delete&quot; &lt;&lt; std::endl;
+}
+
+int main()
+{
+   int flags = static_cast&lt;int&gt;(permissions::read) |
+               static_cast&lt;int&gt;(permissions::write);
+
+   show_permissions(flags);
+
+   flags |= static_cast&lt;int&gt;(permissions::del) |
+            static_cast&lt;int&gt;(permissions::add);
+   flags &amp;= ~static_cast&lt;int&gt;(permissions::write);
+
+   show_permissions(flags);
+}</pre>
+      <p>This code is more verbose than the original one and you might be tempted to avoid writing all these explicit casts. You can actually make it as simple as the original and avoid macros, by overloading various operators for the enumerator type. The following snippet shows the completely rewritten example.</p>
+      <pre>enum class permissions
+{
+   none = 0,
+   read = 1,
+   write = 2,
+   add = 4,
+   del = 8
+};
+
+inline int operator |(permissions const lhv, permissions const rhv)
+{
+   return static_cast&lt;int&gt;(lhv) | static_cast&lt;int&gt;(rhv);
+}
+
+inline int operator &amp;(permissions const lhv, permissions const rhv)
+{
+   return static_cast&lt;int&gt;(lhv) &amp; static_cast&lt;int&gt;(rhv);
+}
+
+inline int operator |(int const v, permissions const p)
+{
+   return v | static_cast&lt;int&gt;(p);
+}
+
+inline int operator |(permissions const p, int const v)
+{
+   return v | static_cast&lt;int&gt;(p);
+}
+
+inline int operator &amp;(int const v, permissions const p)
+{
+   return v &amp; static_cast&lt;int&gt;(p);
+}
+
+inline int operator &amp;(permissions const p, int const v)
+{
+   return v &amp; static_cast&lt;int&gt;(p);
+}
+
+inline int operator~(permissions const p)
+{
+   return ~static_cast&lt;int&gt;(p);
+}
+
+inline bool operator==(int const v, permissions const p)
+{
+   return v == static_cast&lt;int&gt;(p);
+}
+
+inline bool operator==(permissions const p, int const v)
+{
+   return v == p;
+}
+
+void show_permissions(int const p)
+{
+   if(p &amp; permissions::read)
+      std::cout &lt;&lt; &quot;can read&quot; &lt;&lt; std::endl;
+   if (p &amp; permissions::write)
+      std::cout &lt;&lt; &quot;can write&quot; &lt;&lt; std::endl;
+   if (p &amp; permissions::add)
+      std::cout &lt;&lt; &quot;can add&quot; &lt;&lt; std::endl;
+   if (p &amp; permissions::del)
+      std::cout &lt;&lt; &quot;can delete&quot; &lt;&lt; std::endl;
+}
+
+int main()
+{
+   int flags = permissions::read | permissions::write;
+
+   show_permissions(flags);
+
+   flags |= permissions::del | permissions::add;
+   flags &amp;= ~permissions::write;
+
+   show_permissions(flags);
+}</pre>
+
+    </main>
+
+  </body>
+
+</html>

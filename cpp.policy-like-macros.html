@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>policy-like macros in c++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Policy-like Macros in C++</h1>
+      <p style="text-align: right">(From <a href="https://mariusbancila.ro/blog/">Marius Bancila&apos;s Blog</a>)</p>
+
+
+      <p>OK, that&apos;s not a term you see in the literature, but I couldn&apos;t find something better, and that looks the closest to what we have here. Let&apos;s look at the following example and exaplain what we&apos;re doing.</p>
+      <p>The goal is to trace the execution of functions. We want a message to be displayed to the console when the function starts and another one when the function stops. The first message should show the function name and the current time, and the end message must show the function name, the current time and duration of the function execution. The class Tracer defines a conversion constructor, that prints a message to the console, and records a start time point, and a custom destructor, that computes the time since the constructor was called and prints another message to the console. Defining objects of this type at the beginning of a function will have the result that a message is printed after the function execution started and another one just before it ends. However, we only want to do that in some cases, when a particular macro name (called MONITORING in this example) is defined. This can be defined either in code, or passed as an argument to the compiler (like -DMONITORING). This goal can be achieved using macros, as in the following example:</p>
+      <pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;chrono&gt;
+#include &quot;date.h&quot;
+#include &lt;ctime&gt;
+#include &lt;thread&gt;
+
+#define MONITOR()  Tracer tracer__LINE__(__FUNCTION__)
+
+class Tracer
+{
+public:
+   Tracer(std::string_view function):
+      function_name(function),
+      start_time(std::chrono::system_clock::now())
+   {
+      using namespace date;
+      using namespace std::chrono;
+
+      std::cout &lt;&lt; &quot;BEGIN [&quot; &lt;&lt; function_name &lt;&lt; &quot;] at &quot; &lt;&lt; start_time &lt;&lt; std::endl;
+   }
+
+   ~Tracer()
+   {
+      using namespace date;
+      using namespace std::chrono;
+
+      auto end_time = std::chrono::system_clock::now();
+      auto diff = duration_cast&lt;milliseconds&gt;(end_time - start_time).count();
+
+      std::cout &lt;&lt; &quot;END   [&quot; &lt;&lt; function_name &lt;&lt; &quot;] at &quot; &lt;&lt; end_time
+                &lt;&lt; &quot; (duration &quot; &lt;&lt; diff &lt;&lt; &quot;ms)&quot; &lt;&lt; std::endl;
+   }
+
+private:
+   std::string                            function_name;
+   std::chrono::system_clock::time_point  start_time;
+};
+
+#ifdef MONITORING
+#define MONITOR_FUNCTION()    MONITOR()
+#else
+#define MONITOR_FUNCTION()
+#endif
+
+void foo()
+{
+   MONITOR_FUNCTION();
+
+   std::cout &lt;&lt; &quot;executing...&quot; &lt;&lt; std::endl;
+
+   using namespace std::chrono_literals;
+   std::this_thread::sleep_for(1s);
+}
+
+int main()
+{
+   foo();
+}</pre>
+      <p>f you run this program having MONITORING defined, the output looks like the following:</p>
+      <pre>BEGIN [foo] at 2018-04-18 19:12:07.7385896
+executing...
+END   [foo] at 2018-04-18 19:12:08.7475495 (duration 1008ms)</pre>
+      <p>Should MONITORING not be defined, the output is simply</p>
+      <pre>executing...</pre>
+      <p>Using <code>constexpr if</code> is not possible in this situation, because that would introduce an inner scope. In other words, the following example:</p>
+      <pre>void foo()
+{
+   if constexpr(MONITORING)
+      Tracer tracer(__FUNCTION__);
+
+   std::cout &lt;&lt; &quot;executing...&quot; &lt;&lt; std::endl;
+
+   using namespace std::chrono_literals;
+   std::this_thread::sleep_for(1s);
+}</pre>
+      <p>would result in the following code being generated</p>
+      <pre>void foo()
+{
+   {
+      Tracer tracer(__FUNCTION__);
+   }
+
+   std::cout &lt;&lt; &quot;executing...&quot; &lt;&lt; std::endl;
+
+   using namespace std::chrono_literals;
+   std::this_thread::sleep_for(1s);
+}</pre>
+      <p>As a result, the Tracer object would be created and immediatelly destroyed at the beginning of the function.</p>
+      <p>A solution for this problem is to use policy-based design. We can define policies, i.e. classes, that perform or do not perform any tracing. The foo() function would become a function template, parameterized with the monitoring policy. Then, we can use std::conditional to select between policies at compile time based on a condition. That condition would be the availability of the MONITORING macro name. This can be passed as a compiler argument, or else it will be defined as 0 in the code. Here is how the example could look in this case:</p>
+      <pre>#ifndef MONITORING
+#define MONITORING 0
+#endif
+
+class Tracer
+{
+public:
+   Tracer(std::string_view function):
+      function_name(function),
+      start_time(std::chrono::system_clock::now())
+   {
+      using namespace date;
+      using namespace std::chrono;
+
+      std::cout &lt;&lt; &quot;BEGIN [&quot; &lt;&lt; function_name &lt;&lt; &quot;] at &quot; &lt;&lt; start_time &lt;&lt; std::endl;
+   }
+
+   ~Tracer()
+   {
+      using namespace date;
+      using namespace std::chrono;
+
+      auto end_time = std::chrono::system_clock::now();
+      auto diff = duration_cast&lt;milliseconds&gt;(end_time - start_time).count();
+
+      std::cout &lt;&lt; &quot;END   [&quot; &lt;&lt; function_name &lt;&lt; &quot;] at &quot; &lt;&lt; end_time
+                &lt;&lt; &quot; (duration &quot; &lt;&lt; diff &lt;&lt; &quot;ms)&quot; &lt;&lt; std::endl;
+   }
+
+private:
+   std::string                            function_name;
+   std::chrono::system_clock::time_point  start_time;
+};
+
+struct standard_monitor
+{
+   standard_monitor(std::string_view function):t(function)
+   {}
+private:
+   Tracer t;
+};
+
+struct no_monitor
+{
+   no_monitor(std::string_view function) {}
+};
+
+template &lt;typename MonitorType&gt;
+void foo()
+{
+   MonitorType mt(__FUNCTION__);
+
+   std::cout &lt;&lt; &quot;executing...&quot; &lt;&lt; std::endl;
+
+   using namespace std::chrono_literals;
+   std::this_thread::sleep_for(1s);
+}
+
+using monitor_type = std::conditional&lt;MONITORING, standard_monitor, no_monitor&gt;::type;
+
+int main()
+{
+   foo&lt;monitor_type&gt;();
+}</pre>
+      <p>We are still left with two macros: MONITORING to select one policy or another, and __FUNCTION__ to get the undecorated name of the enclosing function. There is no way to replace the former for the time being, but for the latter, there is something under review in library fundamentals Technical Specification v2, called std::experimental::source_location. This will provide information about the source code, such as the line number and enclosing function name. Using this special built-in class, we would be able to get rid of the __FUNCTION__ special macro as following:</p>
+      <pre>struct standard_monitor
+{
+   standard_monitor(std::experimental::source_location loc = std::experimental::source_location::current())
+      :t(loc.function_name())
+   {}
+private:
+   Tracer t;
+};
+
+struct no_monitor
+{
+   no_monitor() {}
+};
+
+template &lt;typename MonitorType&gt;
+void foo()
+{
+   MonitorType mt;
+
+   std::cout &lt;&lt; &quot;executing...&quot; &lt;&lt; std::endl;
+
+   using namespace std::chrono_literals;
+   std::this_thread::sleep_for(1s);
+}
+
+using monitor_type = std::conditional&lt;MONITORING, standard_monitor, no_monitor&gt;::type;
+
+int main()
+{
+   foo&lt;monitor_type>();
+}</pre>
+
+    </main>
+
+  </body>
+
+</html>

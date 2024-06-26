@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>function-like macros in c++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Function-like Macros</h1>
+      <p style="text-align: right">(From <a href="https://mariusbancila.ro/blog/">Marius Bancila&apos;s Blog</a>)</p>
+      <p>These are macros that look like functions. The macro name is followed by none, one, or more arguments in paranthesis. Most of the times these can be replaced with regular functions or function templates. Let us get back to the previous example with the permission bigflag macros and introduce a couple function-like macros for setting and testing bit flag values.</p>
+      <pre>#define PERMISSION_NONE    0
+#define PERMISSION_READ    1
+#define PERMISSION_WRITE   2
+#define PERMISSION_ADD     4
+#define PERMISSION_DELETE  8
+
+#define SETBIT(fFlag, lValue, lBits) (fFlag ? (lValue) | (lBits) : (lValue) &amp; (~lBits))
+#define TESTBIT(lValue, lBits)       (((lValue) &amp; (lBits)) == (lBits))
+
+void show_permissions(int const p)
+{
+   if (TESTBIT(p, PERMISSION_READ))
+      std::cout &lt;&lt; &quot;can read&quot; &lt;&lt; std::endl;
+   if (TESTBIT(p, PERMISSION_WRITE))
+      std::cout &lt;&lt; &quot;can write&quot; &lt;&lt; std::endl;
+   if (TESTBIT(p, PERMISSION_ADD))
+      std::cout &lt;&lt; &quot;can add&quot; &lt;&lt; std::endl;
+   if (TESTBIT(p, PERMISSION_DELETE))
+      std::cout &lt;&lt; &quot;can delete&quot; &lt;&lt; std::endl;
+}
+
+int main()
+{
+   int flags = PERMISSION_READ | PERMISSION_WRITE;
+
+   show_permissions(flags);
+
+   flags = SETBIT(true, flags, PERMISSION_DELETE);
+   flags = SETBIT(true, flags, PERMISSION_ADD);
+   flags = SETBIT(false, flags, PERMISSION_WRITE);
+
+   show_permissions(flags);
+}</pre>
+      <p>The <code>SETBIT</code> and <code>TESTBIT</code> macros can be replaced with inline functions (<code>SETBIT</code> being replaced by two functions, one that sets a bit and one that resets a bit). For the following example, I assume the <var>permissions</var> scoped enum and the overloaded operators are defined as above.</p>
+      <pre>inline int set_bit(int const v, permissions const p)
+{
+   return v | p;
+}
+
+inline int reset_bit(int const v, permissions const p)
+{
+   return v &amp; ~p;
+}
+
+inline bool test_bit(int const v, permissions const p)
+{
+   return (v &amp; p) == p;
+}
+
+void show_permissions(int const p)
+{
+   if(test_bit(p, permissions::read))
+      std::cout &lt;&lt; &quot;can read&quot; &lt;&lt; std::endl;
+   if (test_bit(p, permissions::write))
+      std::cout &lt;&lt; &quot;can write&quot; &lt;&lt; std::endl;
+   if (test_bit(p, permissions::add))
+      std::cout &lt;&lt; &quot;can add&quot; &lt;&lt; std::endl;
+   if (test_bit(p, permissions::del))
+      std::cout &lt;&lt; &quot;can delete&quot; &lt;&lt; std::endl;
+}
+
+int main()
+{
+   int flags = permissions::read | permissions::write;
+
+   show_permissions(flags);
+
+   flags= set_bit(flags, permissions::del);
+   flags = set_bit(flags, permissions::add);
+   flags = reset_bit(flags, permissions::write);
+
+   show_permissions(flags);
+}</pre>
+
+    </main>
+
+  </body>
+
+</html>

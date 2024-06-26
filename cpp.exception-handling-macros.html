@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>exception-handling macros in c++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a            href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Exception-Handling Macros</h1>
+      <p style="text-align: right">(From <a href="https://mariusbancila.ro/blog/">Marius Bancila&apos;s Blog</a>)</p>
+      <p>Confronted with repeated situations when they have to catch the same exeptions and handle them the same way, some developers resort to macros for avoiding repetitive code. The following is such an example.</p>
+      <pre>#define TRACE_ERR(x) std::cerr &lt;&lt; x &lt;&lt; std::endl
+
+#define TRY_CALL     try
+#define CATCH_CALL   catch(std::runtime_error const &amp; e) \
+                     {\
+                        TRACE_ERR(std::string(&quot;runtime error: &quot;) + e.what());\
+                     }\
+                     catch (std::logic_error const &amp; e) \
+                     {\
+                        TRACE_ERR(std::string(&quot;logic error: &quot;) + e.what());\
+                     }\
+                     catch (std::exception const &amp; e) \
+                     {\
+                        TRACE_ERR(std::string(&quot;exception: &quot;) + e.what());\
+                     }\
+                     catch (...)\
+                     {\
+                        TRACE_ERR(&quot;unexpected error&quot;);\
+                     }
+
+void func_that_throws()
+{
+   throw std::runtime_error(&quot;an error has occurred!&quot;);
+}
+
+int main()
+{
+   TRY_CALL
+   {
+      func_that_throws();
+   }
+   CATCH_CALL
+}</pre>
+      <p>If you execute this program it will print runtime error: an error has occurred!. However, these macros are not debugable, and in practice may even be hard to write. This example can be rewritten to use a regular function as handler for multiple exceptions. The only difference in the main() function is an additional call for this function, <code>error_handler()</code>.</p>
+      <pre>inline void trace_error(std::string_view text)
+{
+   std::cerr &lt;&lt; text &lt;&lt; std::endl;
+}
+
+void error_handler()
+{
+   using std::string_literals;
+
+   try
+   {
+      throw;
+   }
+   catch (std::runtime_error const &amp; e)
+   {
+      trace_error(&quot;runtime error: &quot;s + e.what());
+   }
+   catch (std::logic_error const &amp; e)
+   {
+      trace_error(&quot;logic error: &quot;s + e.what());
+   }
+   catch (std::exception const &amp; e)
+   {
+      trace_error(&quot;exception: &quot;s + e.what());
+   }
+   catch (...)
+   {
+      trace_error(&quot;unexpected error&quot;);
+   }
+}
+
+
+void func_that_throws()
+{
+   throw std::runtime_error(&quot;an error has occurred!&quot;);
+}
+
+int main()
+{
+   try
+   {
+      func_that_throws();
+   }
+   catch(...)
+   {
+      error_handler();
+   }
+}</pre>
+      <p>The <code>throw;</code> statement without an expression rethrows the currently handled exception. (It is allowed only when an exception is being handled, otherwise <code>std::terminate()</code> will be called). It can be used to create handlers that can catch and handle multiple exception types without the need to duplicate code or resort to macros.</p>
+
+    </main>
+
+  </body>
+
+</html>

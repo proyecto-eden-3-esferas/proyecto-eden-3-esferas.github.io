@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoSQL DataBases</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="database.html">DataBases</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>NoSQL DataBases</h1>
+      <p>A <dfn>NoSQL DataBase</dfn> is a non-relational database. They are well-suited for loosely defined data structures that evolve over time<!--, NoSQL DBMSes can require more application involvement for schema management-->.</p>
+      <p>There are four types of NoSQL database systems: document databases, graph databases, key-value stores and wide-column stores. Each uses a different type of data model, resulting in significant differences between each NoSQL type.</p>
+      <ul>
+        <li><dfn>Document databases</dfn> store semi-structured data and descriptions of that data in document format, usually <a href="json.html">JavaScript Object Notation</a>. They&apos;re useful for flexible schema requirements, such as those common with content management and mobile applications. Examples of document databases include <a href="mongodb.html">MongoDB</a> and Couchbase.</li>
+        <li><dfn>Graph databases</dfn> organize data as nodes and relationships instead of tables or documents. Because it stores the relationship between nodes, the graph system can support richer representations of data relationships. The graph data model doesn&apos;t rely on a strict schema and it can evolve. Graph databases are useful for applications that map relationships, such as social media platforms, reservation systems or customer relationship management. Neo4j is an example of a graph database.</li>
+        <li><dfn>Key-value</dfn> stores are based on a simple data model that pairs a unique key with an associated value. Due to this simplicity, key-value stores can be used to develop highly scalable and performant applications such as those for session management and caching in web applications or for managing shopping cart details for online buyers. Key-value databases include Redis and Memcached.</li>
+        <li><dfn>Wide-column</dfn> stores use the familiar tables, columns and rows of RDBMSes, but column names and formatting can differ from row to row in a single table. Each column is also stored separately on disk. As opposed to traditional row-orientated storage, a wide-column store is optimal when querying data by columns, such as in recommendation engines, catalogs, fraud detection and event logging. Apache Cassandra and Apache HBase are examples of wide-column stores.</li>
+      </ul>
+
+    </main>
+
+  </body>
+
+</html>

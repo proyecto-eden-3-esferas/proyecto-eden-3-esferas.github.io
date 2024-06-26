@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>the components of a DBMS</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="database.html">DataBases</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The Components of a DBMS</h1>
+      <p>A DBMS is a sophisticated piece of system software consisting of multiple integrated components that deliver a consistent, managed environment for creating, accessing and modifying data in databases. These components include the following:</p>
+      <ul>
+        <li><dfn>Storage engine</dfn> This basic element of a DBMS is used to store data. The DBMS must interface with a file system at the operating system (OS) level to store data. It can use additional components to store data or interface with the actual data at the file system level.</li>
+        <li><dfn>Metadata catalog</dfn> Sometimes called a system catalog or database dictionary, a metadata catalog functions as a repository for all the database objects that have been created. When databases and other objects are created, the DBMS automatically registers information about them in the metadata catalog. The DBMS uses this catalog to verify user requests for data, and users can query the catalog for information about the database structures that exist in the DBMS. The metadata catalog can include information about database objects, schemas, programs, security, performance, communication and other environmental details about the databases it manages.</li>
+        <li><dfn>Database access language</dfn> The DBMS must also provide an API to access the data, typically in the form of a database access language that can be used to modify data but also create database objects and secure and authorize access to the data. <a href="sql.html">SQL</a> is an example of a database access language and encompasses several sets of commands, including data control language for authorizing data access, data definition language for defining database structures and data manipulation language for reading and modifying data.</li>
+        <li><dfn>Optimization engine</dfn> A DBMS can also provide an optimization engine that&apos;s used to parse database access language requests and turn them into actionable commands for accessing and modifying data.</li>
+        <li><dfn>Query processor</dfn> After a query is optimized, the DBMS must provide a way to run the query and return results.</li>
+        <li><dfn>Lock manager</dfn> This crucial component of the DBMS manages concurrent access to the same data. Locks are required to ensure multiple users aren&apos;t trying to modify the same data simultaneously.</li>
+        <li><dfn>Log manager</dfn> The DBMS records all changes made to data managed by the DBMS. The record of changes is known as the <dfn>log</dfn>, and the log manager component of the DBMS is used to ensure that log records are made efficiently and accurately. The DBMS uses the log manager during shutdown and startup to ensure data integrity, and it interfaces with database utilities to create backups and run recoveries.</li>
+        <li><dfn>Data utilities</dfn> A DBMS also provides a set of utilities for managing and controlling database activities. Examples of database utilities include reorganization, RUNSTATS, backup and copy, recover, integrity check, load data, unload data and repair database.</li>
+        <li><dfn>Reporting and monitoring tools</dfn> Most DBMSes are integrated with reporting and monitoring tools to offer enhanced functionality for managing and analyzing data. Reporting tools generate reports, whereas monitoring tools track various database metrics, such as resource consumption and user activity.</li>
+      </ul>
+
+      <del>
+      <section>
+        <h2>DBML, Engine and Schema</h2>
+        <p>A DBMS manages the data. The <dfn>database engine</dfn> enables data to be accessed, locked and modified, and the <dfn>database schema</dfn> defines the database&apos;s logical structure. These three foundational data elements help provide concurrency, security, data integrity and uniform data administration procedures.</p>
+      </section>
+      </del>
+
+    </main>
+
+  </body>
+
+</html>
