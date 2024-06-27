@@ -34,6 +34,7 @@
       -->
       <div>
         <p><a rel="next" href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
         <p><a            href="relational-database.html">Relational DataBases</a></p>
         <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
         <p><a            href="nosql.html">NoSQL DataBases</a></p>
@@ -50,6 +51,7 @@
       <hr/>
 
       <h2>Some common functions that a DBMS performs</h2>
+      <p>(<i>See also:</i> <a href="database-components.html">The Components of a DBMS</a>.)</p>
       <ul>
         <li><dfn>Administration tasks.</dfn> A DBMS supports many typical database administration tasks, including change management, performance monitoring and tuning, security, and backup and recovery. Most database management systems are also responsible for automated rollbacks and restarts as well as logging and auditing of activity in databases and the applications that access them.</li>
         <li><dfn>Storage.</dfn> A DBMS provides efficient data storage and retrieval by ensuring that data is stored in tables, rows and columns; or in <strong>documents</strong>; or...</li>
@@ -59,11 +61,6 @@
         <li><dfn>Data independence.</dfn> A DBMS offers both logical and physical data independence to protect users and applications from having to know where data is stored or from being concerned about changes to the physical structure of data. As long as programs use the application programming interface (API) for the database that the DBMS provides, developers won't have to modify programs just because changes have been made to the database.</li>
         <li><dfn>Backup and recovery.</dfn> A DBMS facilitates backup and recovery options by creating backup copies so that data can be restored to a consistent state. This protects against data loss due to hardware failures, software errors or other unforeseen events. In a relational database management system (RDBMS) -- the most widely used type of DBMS -- the API is structured query language (SQL), a standard programming language for defining, protecting and accessing data.</li>
       </ul>
-
-      <section>
-      <h2>DBML, Engine and Schema</h2>
-      <p>A DBMS manages the data. The <dfn>database engine</dfn> enables data to be accessed, locked and modified, and the <dfn>database schema</dfn> defines the database&apos;s logical structure. These three foundational data elements help provide concurrency, security, data integrity and uniform data administration procedures.</p>
-      </section>
 
     </main>
 

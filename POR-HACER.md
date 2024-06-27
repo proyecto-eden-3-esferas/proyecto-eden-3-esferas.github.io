@@ -33,6 +33,8 @@ sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
 
 [ ] redactar "equilibrio_dinamico.html", a que hace referencia...
 
+[ ] write/redactar "transaction.html", in the context of databases and in interactions
+[ ] possibly linked to by "database.html"
 
 [x] Cambiar los enlaces a hojas de estilo con sed (Stream EDitor)
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ACID</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Atomicity, Consistency, Isolation, and Durability (ACID)</h1>
+      <p style="text-align: right">(From <cite>WikiPedia</cite>)</p>
+      <p>In computer science, ACID (atomicity, consistency, isolation, durability) is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. In the context of <a href="database.html">databases</a>, a sequence of database operations that satisfies the ACID properties (which can be perceived as a single logical operation on the data) is called a <dfn>transaction</dfn>. For example, a transfer of funds from one bank account to another, even involving multiple changes such as debiting one account and crediting another, is a single transaction.</p>
+      <del>
+      <p>In 1983, Andreas Reuter and Theo Härder coined the acronym ACID, building on earlier work by Jim Gray, who named atomicity, consistency, and durability, but not isolation, when characterizing the transaction concept. These four properties are the major guarantees of the transaction paradigm, which has influenced many aspects of development in database systems.</p>
+      </del>
+
+      <section>
+        <h2>Atomicity</h2>
+        <p>Atomicity is the guarantee that series of database operations in an atomic transaction will either all occur (a successful operation), or none will occur (an unsuccessful operation). The series of operations cannot be separated with only some of them being executed, which makes the series of operations <q>indivisible</q>. A guarantee of atomicity prevents updates to the database from occurring only partially, which can cause greater problems than rejecting the whole series outright. In other words, atomicity means indivisibility and irreducibility. Alternatively, we may say that a logical transaction may be composed of several physical transactions. Unless and until all component physical transactions are executed, the logical transaction will not have occurred.</p>
+        <p>An example of an atomic transaction is a monetary transfer from bank account <var>A</var> to account <var>B</var>. It consists of two operations, withdrawing the money from account <var>A</var> and saving it to account <var>B</var>. We would not want to see the amount removed from account <var>A</var> before we are sure it has also been transferred into account <var>B</var>. Performing these operations in an atomic transaction ensures that the database remains in a consistent state, that is, money is neither debited nor credited if either of those two operations fails.</p>
+      </section>
+      <section>
+        <h2>Consistency</h2>
+        <p>Consistency ensures that a transaction can only bring the database from one consistent state to another, preserving database invariants: any data written to the database must be valid according to all defined rules, including constraints, cascades, triggers, and any combination thereof. This prevents database corruption by an illegal transaction. Referential integrity guarantees the primary key–foreign key relationship.</p>
+      </section>
+      <section>
+        <h2>Isolation</h2>
+        <p>Transactions are often executed concurrently (e.g., multiple transactions reading and writing to a table at the same time). Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed sequentially. Isolation is the main goal of concurrency control; depending on the isolation level used, the effects of an incomplete transaction might not be visible to other transactions.</p>
+      </section>
+      <section>
+        <h2>Durability</h2>
+        <p>Durability guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure (e.g., power outage or crash). This usually means that completed transactions (or their effects) are recorded in non-volatile memory.</p>
+      </section>
+
+      <hr/>
+
+      <section>
+        <h2>Locking vs. multiversioning</h2>
+        <p>Many databases rely upon <dfn>locking</dfn> to provide ACID capabilities. Locking means that the transaction marks the data that it accesses so that the DBMS knows not to allow other transactions to modify it until the first transaction succeeds or fails. The lock must always be acquired before processing data, including data that is read but not modified. Non-trivial transactions typically require a large number of locks, resulting in substantial overhead as well as blocking other transactions. For example, if user A is running a transaction that has to read a row of data that user B wants to modify, user B must wait until user A&apos;s transaction completes. Two-phase locking is often applied to guarantee full isolation.</p>
+        <p>An alternative to locking is <dfn>multiversion concurrency control</dfn>, in which the database provides each reading transaction the prior, unmodified version of data that is being modified by another active transaction. This allows readers to operate without acquiring locks, i.e., writing transactions do not block reading transactions, and readers do not block writers. Going back to the example, when user A&apos;s transaction requests data that user B is modifying, the database provides A with the version of that data that existed when user B started his transaction. User A gets a consistent view of the database even if other users are changing data. One implementation, namely <strong>snapshot isolation</strong>, relaxes the isolation property.</p>
+      </section>
+
+.[
+
+
+
+
+    </main>
+
+  </body>
+
+</html>
