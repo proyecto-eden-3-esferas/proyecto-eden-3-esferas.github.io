@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) CREATE: Defining a Database, Schema, Table</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) CREATE: Defining a Database, Schema, Table</h1>
+      <p style="text-align: right">(Substantially borrowed from <a target="_blank" href="https://www.w3schools.com/sql/">W3Schools</a>)</p>
+
+      <p>You can either create a database or create a table.</p>
+
+      <section>
+        <h2>The SQL <code>CREATE DATABASE</code> Statement</h2>
+        <p>The CREATE DATABASE statement is used to create a new SQL database.</p>
+        <h3 class="bridgehead">Syntax</h3>
+        <pre>CREATE DATABASE <var>databasename</var>;</pre>
+        <p><strong>Tip</strong>: Make sure you have admin privilege before creating any database. Once a database is created, you can check it in the list of databases with the following SQL command: <code>SHOW DATABASES;</code></p>
+      </section>
+
+      <section>
+        <h2>The SQL <code>CREATE TABLE</code> Statement</h2>
+        <p>The CREATE TABLE statement is used to create a new table in a database.</p>
+        <h3 class="bridgehead">Syntax</h3>
+        <pre>CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+   ....
+);</pre>
+        <p>The column parameters specify the names of the columns of the table. The datatype parameter specifies the type of data the column can hold (e.g. varchar, integer, date, etc.).</p>
+        <p><strong>Tip</strong>: For an overview of the available data types, go to the <a href= "sql.data-types.html">Data Types Reference</a>.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

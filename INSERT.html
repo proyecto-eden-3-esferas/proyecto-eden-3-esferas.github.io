@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) INSERT INTO: Inserting a Row or Record</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) INSERT INTO: Inserting a Row or Record</h1>
+      <p style="text-align: right">(Substantially borrowed from <a target="_blank" href="https://www.w3schools.com/sql/">W3Schools</a>)</p>
+
+      <p>The <code>INSERT INTO</code> statement is used to insert new records in a table.</p>
+
+      <p>It is possible to write the INSERT INTO statement in two ways:</p>
+      <ol>
+
+        <li>
+          <p>Specify both the column names and the values to be inserted:</p>
+          <code>INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);</code>
+        </li>
+
+        <li>
+          <p>If you are adding values for all the columns of the table, you do not need to specify the column names in the SQL query. However, make sure the order of the values is in the same order as the columns in the table. Here, the INSERT INTO syntax would be as follows:</p>
+          <code>INSERT INTO table_name
+VALUES (value1, value2, value3, ...);</code>
+        </li>
+
+      </ol>
+
+      <section>
+        <h2>Insert Multiple Rows</h2>
+        <p>It is also possible to insert multiple rows in one statement.</p>
+        <p>To insert multiple rows of data, we use the same INSERT INTO statement, but with multiple values:</p>
+        <h3 class="bridgehead">Example</h3>
+        <pre>INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES
+('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway'),
+('Greasy Burger', 'Per Olsen', 'Gateveien 15', 'Sandnes', '4306', 'Norway'),
+('Tasty Tee', 'Finn Egan', 'Streetroad 19B', 'Liverpool', 'L1 0AA', 'UK');</pre>
+        <p>Make sure you separate each set of values with a comma.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

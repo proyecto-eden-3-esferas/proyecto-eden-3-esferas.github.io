@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) DELETE: Deleting a Row, Table, whole DataBase</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) DELETE: Deleting a Row, Table, whole DataBase</h1>
+      <p style="text-align: right">(Substantially borrowed from <a target="_blank" href="https://www.w3schools.com/sql/">W3Schools</a>)</p>
+
+      <p>The DELETE statement is used to delete existing records in a table.</p>
+      <h3 class="bridgehead">DELETE Syntax</h3>
+      <pre>DELETE FROM table_name WHERE condition;</pre>
+      <p><strong>Note:</strong> Be careful when deleting records in a table! Notice the WHERE clause in the DELETE statement. The WHERE clause specifies which record(s) should be deleted. If you omit the WHERE clause, all records in the table will be deleted!</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <p>The following SQL statement deletes the customer <q>Alfreds Futterkiste</q> from the <q>Customers</q> table:</p>
+      <pre>DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';</pre>
+
+      <section>
+        <h2>Deleting a Table</h2>
+        <p>If you <code>DELETE FROM</code> a table, then you will be deleting all rows in a table without deleting the table. This means that the table structure, attributes, and indexes will be intact.</p>
+        <p>The following SQL statement deletes all rows in the <q>Customers</q> table, without deleting the table:</p>
+        <pre>DELETE FROM Customers;</pre>
+        <p>To delete the table completely, use the DROP TABLE statement.</p>
+        <p>To remove the <var>Customers</var> table, execute:</p>
+        <pre>DROP TABLE Customers;</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) UPDATE: Changing an Existing Row/Record</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) UPDATE: Changing an Existing Row/Record</h1>
+      <p style="text-align: right">(Substantially borrowed from <a target="_blank" href="https://www.w3schools.com/sql/">W3Schools</a>)</p>
+
+      <p>The UPDATE statement is used to modify the existing records in a table.</p>
+      <h3 class="bridgehead">UPDATE Syntax</h3>
+      <pre>UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;</pre>
+      <p><strong>Note:</strong> Be careful when updating records in a table! Notice the WHERE clause in the UPDATE statement. The WHERE clause specifies which record(s) that should be updated. If you omit the WHERE clause, all records in the table will be updated!</p>
+      <h3 class="bridgehead">Example</h3>
+      <pre>UPDATE Customers
+SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+WHERE CustomerID = 1</pre>
+      <p><strong>Note:</strong> The WHERE clause identifies a single record because <var>CustomerID</var> is <code>UNIQUE</code>. Some other times you want to update several records at once. For instance, the following SQL statement will update/change the <var>ContactName</var> to <q>Juan</q> for all records where country is <q>Mexico</q>:</p>
+      <pre>UPDATE Customers
+SET ContactName='Juan'
+WHERE Country='Mexico';</pre>
+
+    </main>
+
+  </body>
+
+</html>

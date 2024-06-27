@@ -21,12 +21,13 @@
         CREATE, SELECT, UPDATE, DELETE, INSERT, WHERE
       -->
       <div>
-        <p><a href="CREATE.html">(SQL) CREATE</a></p>
-        <p><a href="INSERT.html">(SQL) INSERT</a></p>
-        <p><a href="SELECT.html">(SQL) SELECT</a></p>
-        <p><a href="UPDATE.html">(SQL) UPDATE</a></p>
-        <p><a href="DELETE.html">(SQL) DELETE</a></p>
-        <p><a href= "WHERE.html">(SQL) WHERE</a></p>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+        <p><a href= "sql.data-types.html">SQL Data Types</a></p>
       </div>
       <div>
         <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
@@ -41,11 +42,34 @@
       <p>SQL became a <a href="SoftwareStandard.html">standard</a> of the American National Standards Institute (ANSI) in 1986, and of the International Organization for Standardization (ISO) in 1987.</p>
       <p>Although SQL is an ANSI/ISO standard, there are different versions of the SQL language. However, to be compliant with the ANSI standard, they all support at least the major commands (such as CREATE, SELECT, UPDATE, DELETE, INSERT, WHERE) in a similar manner.</p>
 
-      <hr/>
+      <aside>SQL is one of the most important programming languages to know if you work with data.</aside>
 
       <p>Most of the actions you need to perform on a database are done with SQL statements. SQL statements consists of keywords that are easy to understand.</p>
       <p>The following SQL statement returns all records from a table named <cite>Customers</cite>:</p>
       <pre>SELECT * FROM Customers;</pre>
+
+      <section>
+        <h2>SQL statements</h2>
+        <p>If you were to navigate a large database without SQL, it would take a significantly longer time to find the data you need. </p>
+        <p>By using the <a target="_blank" href="SELECT.html"><code>SELECT</code></a> statement, you can select data by table and column types. This way, you can instantly pinpoint data sets that meet all requirements of your search rather than spending a lot of time searching manually.</p>
+        <p>The <a target="_blank" href="INSERT.html"><code>INSERT</code></a> statement allows you to add new information to the tables. Similarly to the SELECT statement, you can choose multiple columns to input your data into.</p>
+        <p>The <a target="_blank" href="DELETE.html"><code>DELETE</code></a> statement does exactly what it sounds like: it allows you to delete existing records within a table. A DELETE query also allows you to specify rows that should be deleted that match specific conditions.</p>
+        <p>The <a target="_blank" href="CREATE.html"><code>CREATE DATABASE</code></a> statement is the first step to setting up your database, it is used to create an entirely new database within your database management system. Likewise, CREATE TABLE is used to create a new table once the database has been created.</p>
+        <p>The <a target="_blank" href="UPDATE.html"><code>UPDATE</code></a> statement is used to update one or more records within the database. You can either update all rows at once or use a condition to only alter a subset.</p>
+      </section>
+
+      <section>
+        <h2>Types of SQL commands</h2>
+        <p>The SQL language can be broken down into four types of SQL commands – DDL, DML, DQL and DCL.</p>
+        <ul>
+          <li><dfn>DDL (data definition language)</dfn> used to create and modify database objects like tables, users, and indices. (<code>CREATE DATABASE/TABLE</code>, among others)</li>
+          <li><dfn>DML (data manipulation language)</dfn> used to delete, add, and modify data within databases. (<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE FROM</code>)</li>
+          <li><dfn>DCL (data control language)</dfn> used to control access to any data within a database.</li>
+          <li><dfn>DQL (data query language)</dfn> used to perform queries on the data and find information, and is composed of COMMAND statements only.</li>
+        </ul>
+
+
+      </section>
 
     </main>
 

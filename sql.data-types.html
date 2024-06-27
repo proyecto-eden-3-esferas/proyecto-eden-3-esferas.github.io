@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQL Data Types</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQL Data Types</h1>
+      <p>SQL data types define the type of value that can be stored in a table column. For example, if you want a column to store only integer values, you can define its data type as INT.</p>
+      <p>SQL data types can be broadly divided into the following categories.</p>
+      <ul>
+        <li><strong>Numeric</strong> data types such as: INT, TINYINT, BIGINT, FLOAT, REAL, etc.</li>
+        <li><strong>Date and Time</strong> data types such as: DATE, TIME, DATETIME, etc.</li>
+        <li><strong>Character and String</strong> data types such as: CHAR, VARCHAR, TEXT, etc.</li>
+        <li><strong>Unicode character string</strong> data types such as: NCHAR, NVARCHAR, NTEXT, etc.</li>
+        <li><strong>Binary</strong> data types such as: BINARY, VARBINARY, etc.</li>
+        <li><strong>Miscellaneous</strong> data types - CLOB, BLOB, XML, CURSOR, TABLE, etc.</li>
+      </ul>
+      <p><strong>Note</strong>: Not all data types are supported by every relational database vendor.</p>
+      <p>For example, the Oracle database doesn&apos;t support DATETIME, and MySQL doesn&apos;t support CLOB. When designing database schemas and writing SQL queries, make sure to check if the data types are supported.</p>
+
+      <section>
+        <h2>SQL Numeric Data Types</h2>
+        <table border="1">
+        <thead> <tr> <td>Data Type</td> <td>from-to</td> </tr> </thead>
+                <tr> <td>BIT</td> <td>0-1</td> </tr>
+                <tr> <td>TINYINT</td> <td>0 to 255</td> </tr>
+                <tr> <td>SMALLINT</td> <td>-32,768 to	32,767</td> </tr>
+                <tr> <td>INT</td> <td>-2,147,483,648 to	2,147,483,647</td> </tr>
+                <tr> <td>BIGINT</td> <td>-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td> </tr>
+                <tr> <td>DECIMAL</td> <td>-10<sup>38</sup> + 1 to	10<sup>38</sup> - 1</td> </tr>
+                <tr> <td>NUMERIC</td> <td>-10<sup>38</sup> + 1 to	10<sup>38</sup> - 1 (same as DECIMAL)</td> </tr>
+                <tr> <td>FLOAT</td> <td>-1.79E+308 to	1.79E+308</td> </tr>
+                <tr> <td>REAL</td> <td>-3.40E+38 to 3.40E+38</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>SQL Date and Time Data Types</h2>
+        <table border="1">
+        <thead> <tr> <td>Data Type</td> <td>Description</td> </tr> </thead>
+                <tr> <td>DATE</td> <td>Stores date in the format YYYY-MM-DD</td> </tr>
+                <tr> <td>TIME</td> <td>Stores time in the format HH:MI:SS</td> </tr>
+                <tr> <td>DATETIME</td> <td>Stores date and time information in the format YYYY-MM-DD HH:MI:SS</td> </tr>
+                <tr> <td>TIMESTAMP</td> <td>Stores number of seconds passed since the Unix epoch ('1970-01-01 00:00:00' UTC)</td> </tr>
+                <tr> <td>YEAR</td> <td>Stores year in a 2-digit or 4-digit format. Range 1901 to 2155 in 4-digit format. Range 70 to 69, representing 1970 to 2069.</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>SQL Character and String Data Types</h2>
+        <p><strong>Note:</strong> These data types are for character streams. They should not be used with Unicode data.</p>
+        <table border="1">
+        <thead> <tr> <td>Data Type</td> <td>Description</td> </tr> </thead>
+                <tr> <td>CHAR</td> <td>Fixed length with a maximum length of 8,000 characters</td> </tr>
+                <tr> <td>VARCHAR</td> <td>Variable-length storage with a maximum length of 8,000 characters</td> </tr>
+                <tr> <td>VARCHAR(<var>max</var>)</td> <td>Variable-length storage with provided max characters, not supported in MySQL</td> </tr>
+                <tr> <td>TEXT</td> <td>Variable-length storage with a maximum size of 2GB data</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>SQL Unicode Character and String Data Types</h2>
+        <p><strong>Note:</strong> These data types are not supported in MySQL databases.</p>
+        <table border="1">
+        <thead> <tr> <td>Data Type</td> <td>Description</td> </tr> </thead>
+                <tr> <td>NCHAR</td> <td>Fixed length with a maximum length of 4,000 characters</td> </tr>
+                <tr> <td>NVARCHAR</td> <td>Variable-length storage with a maximum length of 4,000 characters</td> </tr>
+                <tr> <td>NVARCHAR(<var>max</var>)</td> <td>Variable-length storage with provided max characters</td> </tr>
+                <tr> <td>NTEXT</td> <td>Variable-length storage with a maximum size of 1GB data</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>SQL Binary Data Types</h2>
+        <p></p>
+        <table border="1">
+        <thead> <tr> <td>Data Type</td> <td>Description</td> </tr> </thead>
+                <tr> <td>BINARY</td> <td>Fixed length with a maximum length of 8,000 bytes</td> </tr>
+                <tr> <td>VARBINARY</td> <td>Variable-length storage with a maximum length of 8,000 bytes</td> </tr>
+                <tr> <td>VARBINARY(max)</td> <td>Variable-length storage with provided <var>max</var> bytes</td> </tr>
+                <tr> <td>IMAGE</td> <td>Variable-length storage with a maximum size of 2 GB binary data</td> </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>SQL Miscellaneous Data Types</h2>
+        <p></p>
+        <table border="1">
+        <thead> <tr> <td>Data Type</td> <td>Description</td> </tr> </thead>
+                <tr> <td>CLOB</td> <td>Character large objects that can hold up to 2 GB</td> </tr>
+                <tr> <td>BLOB</td> <td>For large binary objects</td> </tr>
+                <tr> <td>XML</td> <td>For storing XML data</td> </tr>
+                <tr> <td>JSON</td> <td>For storing JSON data</td> </tr>
+        </table>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) WHERE: Specifying Conditions</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) WHERE: Specifying Conditions</h1>
+      <p>The WHERE clause is used to filter records. It is used to extract only those records that fulfill a specified condition and usually follows a <a target="_blank" href="SELECT.html"><code>SELECT</code></a> expression.</p>
+      <h3 class="bridgehead">Example</h3>
+      <p>Select all customers from Mexico:</p>
+      <pre>SELECT * FROM Customers
+WHERE Country=&apos;Mexico&apos;;</pre>
+      <hr/>
+      <h2>Text Fields vs. Numeric Fields</h2>
+      <p>SQL requires single quotes around text values (most database systems will also allow double quotes).</p>
+      <p>However, numeric fields should not be enclosed in quotes:</p>
+      <h3 class="bridgehead">Example</h3>
+      <pre>SELECT * FROM Customers
+WHERE CustomerID=1;</pre>
+      <hr/>
+      <h2>Operators in The WHERE Clause</h2>
+      <p>You can use other operators than the = operator to filter the search.</p>
+      <h3 class="bridgehead">Example</h3>
+      <p>Select all customers with a CustomerID greater than 80:</p>
+      <pre>SELECT * FROM Customers
+WHERE CustomerID > 80;</pre>
+      <p>The following operators can be used in the WHERE clause:</p>
+      <table border="1" id="simple_with_header">
+        <thead> <tr> <td>Operator</td> <td>Description</td> </tr> </thead>
+                <tr> <td>=</td>     <td>Equal</td> </tr>
+                <tr> <td>&gt;</td>  <td>Greater than</td> </tr>
+                <tr> <td>&lt;</td>  <td>Less than</td> </tr>
+                <tr> <td>&gt;=</td> <td>Greater than or equal</td> </tr>
+                <tr> <td>&lt;=</td> <td>Less than or equal</td> </tr>
+                <tr> <td>&lt;&gt;</td> <td>Not equal. Note: In some versions of SQL this operator may be written as !=</td> </tr>
+                <tr> <td>BETWEEN</td>  <td>Between a certain range, as in <code>WHERE population BETWEEN 500000 AND 5000000</code></td> </tr>
+                <tr> <td>LIKE</td>     <td>Search for a pattern, as in <code>WHERE name LIKE &apos;_ublin&apos;</code></td> </tr>
+                <tr> <td>IN</td>       <td>To specify multiple possible values for a column, as in <code>WHERE country_id IN (1, 4, 7)</code></td> </tr>
+      </table>
+
+    </main>
+
+  </body>
+
+</html>

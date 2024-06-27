@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) SELECT: Reading Data</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) SELECT: Reading Data</h1>
+      <p style="text-align: right">(Substantially borrowed from <a target="_blank" href="https://www.w3schools.com/sql/">W3Schools</a>)</p>
+
+      <p>The <code>SELECT</code> statement is used to select data from a database.</p>
+      <h3 class="bridgehead">Example</h3>
+      <p>Return data from the Customers table:</p>
+      <pre>SELECT CustomerName, City FROM Customers;</pre>
+      <hr/>
+      <p>If you want to return all columns, without specifying every column name, you can use the <code>SELECT *</code> syntax:</p>
+      <pre>SELECT * FROM Customers;</pre>
+      <hr/>
+      <p>SELECT is often used with a WHERE clause, as in:</p>
+      <pre>SELECT * FROM Customers
+WHERE CustomerId &lt;= 19;</pre>
+    </main>
+
+  </body>
+
+</html>
