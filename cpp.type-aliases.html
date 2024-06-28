@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>c++ alias templates</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a rel="next" href="cpp.alias-templates.html">C++ Alias Templates</a></p>
+        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a href="programming.html">Programming Computers</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Type Aliases in C++</h1>
+      <p>Take the following typedef:</p>
+      <pre>typedef int MyInt;</pre>
+      <p>This can be written using a <dfn>type alias</dfn> as follows:</p>
+      <pre>using MyInt = int;</pre>
+      <p>Type aliases are easier to read than typedefs in certain situations. They are especially useful in cases where the typedef becomes complicated, which is the case with typedefs for function pointers as seen in the previous section. For example, the following typedef defines a type for a pointer to a function, which returns an integer and accepts a char and a double as parameters:</p>
+      <pre>typedef int (*FuncType)(char, double);</pre>
+      <p>Admittedly, this typedef is a bit convoluted because the name <var>FuncType</var> is somewhere in the middle of it. Using a type alias, this can be written as follows:</p>
+      <pre>using FuncType = int (*)(char, double);</pre>
+      <p>After reading through this section, you might think that type aliases are nothing more than easier-to- read typedefs, but there is more. The problem with typedefs becomes apparent when you want to use them with templates.</p>
+    </main>
+
+  </body>
+
+</html>

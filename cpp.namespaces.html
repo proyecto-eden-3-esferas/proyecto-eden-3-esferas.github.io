@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Namespaces</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="cpp.namespaces.html">C++ Namespaces</a></p>
+      -->
+      <div>
+        <p><a href="cpp.using-declarations.html" rel="next"><code>using</code> Declarations</a></p>
+        <p><a href="cpp.html" rel="prev">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ Namespaces</h1>
+      <p>A <dfn>namespace</dfn> is a named block of code within which names have local scope, that is, they do not add to or clash with the enclosing or global scope. Namespaces delimit areas and allow for modularity.</p>
+      <p>You declare a namespace line this:</p>
+      <pre>namespace &lt;namespace&gt; { ... }</pre>
+      <p>What you type within the curly brackets has local scope and does not clash with its enclosing scope.</p>
+
+      <section>
+        <h2>Scope resolution</h2>
+        <p>You can refer to a same-named global variable within a namespace by prefixing it with "::". In the following code global variable <var>x</var>, not its local namesake, is used to initialize another. Alternatively, you can invoke an object in another namespace by prefixing its name with its namespace.</p>
+        <pre>char x = 'x';
+namespace scratch {
+     char x = 'y';
+     char global_x = ::x;
+}
+if(scratch::global_x == x) ...;</pre>
+
+      </section>
+
+      <section sect="sect3" xml:id="cpp_using_declarations_in_namespaces">
+        <h2><code>using</code> Declarations in Namespaces</h2>
+        <p>Last, you may import either a whole namespace into the current one by typing:</p>
+        <pre>using &lt;namespace&gt;;</pre>
+        <p>or just one name from a namespace:</p>
+        <pre>using &lt;namespace&gt;::&lt;name&gt;;</pre>
+      </section>
+
+      <section>
+        <h2>Namespaces Are Open</h2>
+        <p>A namespace is open; that is, you can add names to it from several separate namespace declarations. For example:</p>
+        <pre>namespace A {
+int f();
+// now A has member f()
+}
+namespace A {
+int g();
+// now A has two members, f() and g()
+     }</pre>
+        <p>That way, the members of a namespace need not be placed contiguously in a single file. This can be important when converting older programs to use namespaces.</p>
+      </section>
+
+      <section>
+        <h2>Koenig Lookup</h2>
+        <p><strong>Note:</strong> Koenig Lookup is sometimes called <q>argument dependent lookup.</q></p>
+        <p>Overloaded functions may be called without qualifying the function name with the namespace. Using a process called <dfn>Koenig lookup</dfn> the C++ compiler examines the argument type and looks for overloaded functions in the namespace of the argument type.</p>
+        <p>The following example illustrates Koenig lookup. Consider the case of someone using graph classes that are supplied by two different graph libraries. Each library has its own namespace, inside of which is defined a <code>graph</code> class and a <code>num_vertices()</code> function.</p>
+        <pre>namespace lib_jack {
+  class graph { /* . . . */ };
+  int num vertices(const graph&amp;) { /* . . . */ }
+}
+namespace lib_jill {
+  class graph { /* . . . */ };
+  int num vertices(const graph&amp;) { /* . . . */ }
+}</pre>
+        <p>Suppose the user wants to apply some generic graph algorithm, say <code>boost::pail()</code>, to both of these graph types.</p>
+        <pre>int main() {
+  lib_jack::graph g1;
+  boost::pail(g1);
+
+  lib_jill::graph g2;
+  boost::pail(g2);
+}</pre>
+        <p>Inside of the <code>boost::pail()</code> there is a call to <code>num_vertices()</code>. The desired behavior in this situation is that if a graph from lib_jack is used, then <code>lib_jack::num vertices()</code> gets called, but if the graph from lib_jill is used, then <code>lib_jill::num_vertices()</code> gets called. Koenig lookup is the C++ language feature that provides this behavior. Provided the function call is not qualified with a namespace, the C++ compiler will search the namespace of the arguments to find the correct function to call.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

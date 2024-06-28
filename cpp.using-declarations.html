@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>using Declarations</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.using-declarations.html"><code>using</code> Declarations</a></p>
+      -->
+      <div>
+        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>using</code> Declarations</h1>
+      <p>You may use a <code>using</code> declarations to import names either from a <a  href="cpp.namespaces.html">namespace</a> or from a base <a href="cpp.classes.using-members.html">class</a> in a derived class definition.</p> <p>The <code>using</code> keyword introduces a name that is defined elsewhere into the declarative region where this using-declaration appears.</p>
+
+      <section>
+        <h2><code>using</code> Declarations to Define Types, Alias Templates and Function Types</h2>
+        <p>First, instead of</p>
+        <pre>typedef unsigned char uc;</pre>
+        <p>you may just code:</p>
+        <pre>using uc = unsigned char;</pre>
+
+        <p>An <dfn>alias template</dfn> extends the power of templates, is explained <a href="cpp.alias-templates.html">elsewhere</a>, and it enables writing powerful code like:</p>
+        <pre>template &lt;typename T&gt;
+using my_vector_t = std::vector&lt;T, custom_allocator&lt;T&gt;&gt;;</pre>
+        <p>where template class<code class="classname">custom_allocator&lt;&gt;</code> must have been defined.</p>
+
+        <p>Finally, you can use <code>using</code> to declare the type of functions or pointers to functions, as in</p>
+        <pre>using fn = void(byte, double);
+void func(byte b, double d) { /*...*/ }
+fn* f = func;</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

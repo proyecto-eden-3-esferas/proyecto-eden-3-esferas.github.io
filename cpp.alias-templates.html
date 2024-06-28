@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>c++ alias templates</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a href="programming.html">Programming Computers</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>C++ Alias Templates</h1>
+      <p>In C++11, a <a href="cpp.type-aliases.html">type alias</a> is a name for another already declared type, and an <dfn>alias template</dfn> is a name for another already declared template. Both of these types of aliases are introduced with a new <code>using</code> syntax.</p>
+      <p>This is an example of a type alias using <code>using</code>:</p>
+      <pre>using byte = unsigned char;</pre>
+      <p>, instead of former:</p>
+      <pre>typedef unsigned char byte;</pre>
+      <p>This is an example of a type alias using <code>using</code>:</p>
+      <pre><![CDATA[template <class T>
+class custom_allocator { /* ... */};
+
+template <typename T>
+using vec_t = std::vector<T, custom_allocator<T>>;
+
+vec_t<int> vi;
+vec_t<std::string> vs;]]></pre>
+      <p>It is important to take note of the following things:</p>
+      <ul>
+        <li>Alias templates cannot be partially or explicitly specialized.</li>
+        <li>Alias templates are never deduced by template argument deduction when deducing a template parameter.</li>
+        <li>The type produced when specializing an alias template is not allowed to directly or indirectly make use of its own type.</li>
+      </ul>
+    </main>
+
+  </body>
+
+</html>
