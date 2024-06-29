@@ -1,0 +1,548 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>templates</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+      -->
+      <div>
+        <p> <a rel="prev" href="cpp.classes.html">OOP in C++: Classes</a> </p>
+        <p> <a href="cpp.type-aliases.html">Type Aliases in C++</a> </p>
+        <p> <a href="cpp.alias-templates.html">C++ Alias Templates</a> </p>
+        <p> <a href="cpp.separate_compilation.templates.html">Separate Compilation of Templates</a> </p>
+        <p> <a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a> </p>
+      </div>
+      <div>
+        <p> <a href="cpp.stl.html">C++ Standad Template Library (STL)</a> </p>
+        <p> <a href="cpp.containers.html">C++ STL Containers</a> </p>
+      </div>
+      <div>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+        <p> <a href="cpp.boost.geometry.html">C++ Boost Geomety</a> </p>
+        <p> <a href="cpp.boost.graph.html">C++ Boost Graph</a> </p>
+      </div>
+      <div>
+        <p> <a href="cpp.html">The C++ Programming Language</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>C++ Generics (Templates)</h1>
+      <p>Generic programming (GP) is a methodology for program design and implementation that separates data structures and algorithms through the use of abstract requirement specifications.</p>
+      <p>In C++, generic programming is characterized by the use of parametric polymorphism through the use of templates, with an emphasis on efficiency.</p>
+      <p>The abstract requirement specifications in generic programming are similar to the older notion of abstract data types (<a target="_blank" href="adt.html">ADTs</a>).</p>
+      <!--            ='cpp_generics_concepts' -->
+      <section id="cpp_multiparadigm">
+        <h2>Multiparadigm: OOP vs Templates</h2>
+        <p>As Bjarne Stroustrup points out, <q>C++ is a multi-paradigmed language.</q> It supports many different styles of programs, or paradigms, and object-oriented programming is only one of these (<em>See</em> <a href="cpp.classes.html">C++ Classes</a>). Some of the others are structured programming, and generic programming. In the last few years C++ experts like Andrei Alexandrescu, Scott Meyers and Herb Sutter promotes the uses of the generic programming and they qualify it as Modern C++ Design.</p>
+        <p>Here's what say Andrei Alexandrescu about the Modern C++ design:</p>
+        <blockquote>Modern C++ Design defines and systematically uses generic components - highly flexible design artifacts that are mixable and matchable to obtain rich behaviors with a small, orthogonal body of code.</blockquote>
+        <p>Three assertions are interesting in his point of view:</p>
+        <ul>
+          <li>Modern C++ Design defines and systematically uses generic components.</li>
+          <li>Highly flexible design.</li>
+          <li>Obtain rich behaviors with a small, orthogonal body of code.</li>
+        </ul>
+        <p>On the other side OOP is very popular, inheritance and RTTI are two powerful mechanisms to design the C++ application and many developers prefer this paradigm in favor of the generic programming approach.</p>
+        <p>Here's the common definition of <dfn>inheritance</dfn>:</p>
+        <blockquote>In object-oriented programming (OOP), inheritance is when an object or class is based on another object (prototypal inheritance) or class (class-based inheritance), using the same implementation (inheriting from an object or class) specifying implementation to maintain the same behavior (realizing an interface; inheriting behavior). It is a mechanism for code reuse and to allow independent extensions of the original software via public classes and interfaces.</blockquote>
+        <p>Many C++ experts recommend to not overuse the inheritance and the dynamic polymorphism mechanism. After all what's wrong with the inheritance?</p>
+        <p>Short answer: <em>Very high coupling</em>. What's important is the methods implemented by the type and not the class kind. This makes the generic programming paradigm more natural and flexible.</p>
+      </section>
+      <section id="cpp_non-type_template_parameter">
+        <h2>Non-Type Template Parameters</h2>
+        <p style="text-align: right">(From <a href="http://www.linuxtopia.org/online_books/programming_books/c++_practical_programming/c++_practical_programming_106.html">Linuxtopia</a>)</p>
+        <p>A non-type template parameter must be an integral value that is known at compile time.</p>
+        <p>Here is how you can make a fixed-size <code class="classname">Stack</code>, for instance, by specifying a non-type parameter to be used as the dimension for the underlying array, as follows.</p>
+        <pre>template&lt;class T, size_t N&gt; class Stack {
+T data[N]; // Fixed capacity is N
+size_t count;
+public:
+void push(const T&amp; t);
+// Etc.
+};</pre>
+        <p>You must provide a compile-time constant value for the parameter N when you request an instance of this template, such as</p>
+        <pre>Stack&lt;int, 100&gt; myFixedStack;</pre>
+        <p>Because the value of <var>N</var> is known at compile time, the underlying array (data) can be placed on the runtime stack instead of on the free store. This can improve runtime performance by avoiding the overhead associated with dynamic memory allocation. Following the pattern mentioned earlier, the name of the class above is <code class="classname">Stack&lt;int, 100&gt;</code>. This means that each distinct value of N results in a unique class type. For example, <code class="classname">Stack&lt;int, 99&gt;</code> is a distinct class from <code class="classname">Stack&lt;int, 100&gt;</code>.</p>
+        <aside class="note">The <code class="classname">std::bitset</code> template class is the only class in the Standard C++ library that uses a non-type template parameter (which specifies the number of bits the bitset object can hold).</aside>
+      </section>
+      <section id="cpp_typename">
+        <h2>The <code>typename</code> Keyword</h2>
+        <p>There are two uses of <code>typename</code>:</p>
+        <ul>
+          <li>in the declaration of template parameters, and</li>
+          <li>before a qualified dependent type.</li>
+        </ul>
+        <p>The first use, i.e. in the declaration of template parameters, goes like this:</p>
+        <pre>template &lt;typename T&gt; ...</pre>
+        <p>The <code>typename</code> and <code>class</code> keywords can be used interchangeably to state that a template parameter is a type variable, as opposed to a <a href="#cpp_non-type_template_parameter">non-type template parameter</a>.</p>
+        <p>The second use of <code>typename</code> is <q>before a qualified dependent type</q>.</p>
+        <p>What does <q>qualified</q> mean? A <dfn>qualified name</dfn> is one that specifies a scope. For instance, in the following C++ program, the references to <var>cout</var> and <var>endl</var> are qualified names:</p>
+        <pre>#include &lt;iostream&gt;
+
+int main()  {
+   std::cout &lt;&lt; "Hello world!" &lt;&lt; std::endl;
+}</pre>
+        <p>What is a <q>dependent</q> name? A <dfn>dependent name</dfn> is a name that depends on a template parameter. Suppose we have the following declaration (not legal C++):</p>
+        <pre>template &lt;class T&gt;
+class MyClass {
+   int i;
+   vector&lt;int&gt; vi;
+   vector&lt;int&gt;::iterator vitr;
+
+   T t;
+   vector&lt;T&gt; vt;
+   vector&lt;T&gt;::iterator viter;
+};</pre>
+        <p>The types of the first three declarations are known at the time of the template declaration. However, the types of the second set of three declarations are not known until the point of instantiation, because they depend on the template parameter <var>T</var>.</p>
+        <blockquote>Before a qualified dependent type, you need <code>typename</code></blockquote>
+        <p>Look at the following example:</p>
+        <pre>template &lt;class T&gt;
+void foo() {
+   typename T::iterator * iter;
+   ...
+}</pre>
+        <p>Without <code>typename</code>, there is a C++ parsing rule that says that qualified dependent names should be parsed as non-types even if it leads to a syntax error. Thus if there was a variable called <var>iter</var> in scope, possibly because a class defined as a static variable, the example would be legal; it would just be interpreted as multiplication, probably not what was intended.</p>
+        <h3 class="bridgehead">The Rules</h3>
+        <p>Here are the rules for the use of <code>typename</code>, pretty complicated by the way.</p>
+        <ul>
+          <li>
+            <p><code>typename</code> is <em>prohibited</em> in each of the following scenarios:</p>
+            <ul>
+              <li>Outside of a template definition. (Be aware: an explicit template specialization (more commonly called a total specialization, to contrast with partial specializations) is not itself a template, because there are no missing template parameters! Thus typename is always prohibited in a total specialization.)</li>
+              <li>Before an unqualified type, like <code>int</code> or <code>my_thingy_t</code>.</li>
+              <li>When naming a base class. For example, template <code>&lt;class C&gt; class my_class</code>: <code>C::some_base_type { ... };</code> may not have a <code>typename</code> before <code>C::some_base_type</code>.</li>
+              <li>In a constructor initialization list.</li>
+            </ul>
+          </li>
+          <li><code>typename</code> is <em>mandatory</em> before a qualified, dependent name which refers to a type (unless that name is naming a base class, or in an initialization list).</li>
+          <li><code>typename</code> is <em>optional</em> in other scenarios. (In other words, it is optional before a qualified but non-dependent name used within a template, except again when naming a base class or in an initialization list.)</li>
+        </ul>
+        <p>Again, these rules are for standard C++98/03. C++11 loosens the restrictions</p>
+        <h3 class="bridgehead"><code>typename</code> in C++11</h3>
+        <p>Until C++11, the keyword <code>typename</code> must only be used <em>inside</em> template declarations and definitions and only in contexts in which dependent names can be used. This excludes explicit specialization declarations and explicit instantiation declarations. Afterwards, the keyword <code>typename</code> can be used even <em>outside</em> of templates, as in:</p>
+        <pre>#include &lt;vector&gt;
+int main() {
+    typedef typename std::vector&lt;T&gt;::const_iterator iter_t; // OK in C++11
+    typename std::vector&lt;int&gt; v; // also OK in C++11
+    ...
+    return 0;
+}</pre>
+      </section>
+      <!-- end of "The <code>typename</code> Keyword" -->
+      <section>
+        <h2>Default Template Parameters</h2>
+        <p>Rules for default template parameters are analogous to those for ordinary function paramenters: only the last <var>n</var> template parameters may have defaults. Also, if a forward declaration of a template class or function has default template parameters, its definition does not. See an <a href="#fwd_default_template_params">example</a>.</p>
+      </section>
+      <section>
+        <h2>Template Parameters That Depend On Other Template Parameters</h2>
+        <p>How would you declare a <code class="classname">pointarray</code> class to hold points when you know neither the floating point data type for coordinates nor the dimension of the points, but want to provide defaults for <var>POINT</var> being <code>pair&lt;float,float&gt;</code> ?</p>
+        <pre>template &lt;typename F = float, typename POINT = pair&lt;F,F&gt; &gt;
+class pointarray {
+  // ...
+};</pre>
+      </section>
+      <section>
+        <h2>Forward Declaration of Template Classes</h2>
+        <pre>template &lt;class T1, class T2, class T3&gt; class MyClass;</pre>
+        <p>Now, if <code class="classname">MyClass</code> should have default template parameters, these must not be stated in its definition further down in the file. Thus after:</p>
+        <pre id="fwd_default_template_params">template &lt;class T1, class T2=type2, class T3=type3&gt; class MyClass;</pre>
+        <p>you would start defining <code class="classname">MyClass</code> like this:</p>
+        <pre>template &lt;class T1, class T2, class T3&gt; class MyClass {
+  // your implementation
+};</pre>
+      </section>
+      <section id="template_specialization">
+        <h2>Template Specialization</h2>
+        <blockquote>
+          <p>By default, a template gives a single definition to be used for every template argument (or combination of template arguments) that a user can think of. This doesn't always make sense for someone writing a template. I might want to say, <q>If the template argument is a pointer, use this implementation; if it is not, use that implementation,</q> or <q>Give an error unless the template argument is a pointer derived from class <code class="classname">MyBase</code>.</q></p>
+          <p>[...]</p>
+          <p>Specialization is a way of specifying alternative implementations for different uses of a common interface.</p>
+          <attribution>Bjarne Stroustrup</attribution>
+        </blockquote>
+        <p>How do you specialize a template? In the general case, you write:</p>
+        <pre>template &lt;class T1, class T2, ... class Tn&gt;</pre>
+        <p>or possibly avail yourself of the default template argument mechanism:</p>
+        <pre>template &lt;class T1=DEFAULT1, ... class Tn=DEFAULTn&gt;</pre>
+        <p>and then declare your class. Suppose you want to specialize for <code>int</code> in place of the first template parameter. You should type:</p>
+        <pre>template &lt;class T2, ... class Tn&gt;
+class MyClass&lt;int, T2,... Tn&gt; {
+  // your particular implementation here
+};</pre>
+        <p>Or would you like to specialize for <var>T1</var> being constant? Write</p>
+        <pre>class MyClass&lt;const T1, T2,... Tn&gt; {
+  // your particular implementation here
+};</pre>
+        <p>...</p>
+        <p>Or would you like to specialize for <var>T1</var> being of pointer type? Write</p>
+        <pre>class MyClass&lt;T1  *, T2,... Tn&gt; {
+  // your particular implementation here
+};</pre>
+        <p>...</p>
+        <section>
+          <h3>Uses of Template Specialization</h3>
+          <p>Why should you want to specialize?</p>
+        </section>
+        <section>
+          <h3>Full Specialization versus Partial Specialization</h3>
+          <p><strong>Warning:</strong> You cannot specialize a function partially. If it is a member function, you have to partial specialize the whole class.</p>
+        </section>
+        <section>
+          <h3>Is the <code>Const T</code> Partial Specialization Any Good?</h3>
+          <p>Is it any good to specialize for a constant template parameter? I think not. To see whether I'm right, let's write a very simple template class to hold a value. Let's name it <code class="classname">ProtoValue</code>. Add a <code>const</code> <code class="function">getter</code> member function, but no non-const <code class="function">getter</code> nor a setter one. Then you derive an ordinary <code class="classname">Value</code> class with proper setters and a specialization for a <var>const T</var> template parameter with dummy setters. Thus you achieve that a non constant <code class="classname">Value&lt;const T&gt;</code> object cannot be changed through a setter.</p>
+          <p>There is a potential problem with a non-constant <code class="function">get()</code> member, too, because you could change the object through it, as in:</p>
+          <pre>ProtoValue&lt;const int&gt; ci(-3);
+ci.get() =  9;</pre>
+          <p>So here is a class hierarchy to explore const specialization. Store it in file <cite>test-const.cpp</cite> if you like. You may leave TEMPLECIALIZE_VALUE defined or undefine it.</p>
+          <pre>#define TEMPLECIALIZE_VALUE
+
+template &lt;class T&gt;
+class ProtoValue {
+  T val;
+public:
+#ifndef TEMPLECIALIZE_VALUE
+  T&amp; get() {return val;};
+  ProtoValue&lt;T&gt;&amp; set(const T &amp; t) {val=t; return *this;};
+#endif
+  const T&amp; get() const {return val;};
+  // constructor:
+  ProtoValue(T&amp; t) : val(t) {};
+};
+
+template &lt;class T&gt;
+class Value : public ProtoValue&lt;T&gt; {
+public:
+#ifdef TEMPLECIALIZE_VALUE
+  T&amp; get() {return ProtoValue&lt;T&gt;::val;};
+  Value&lt;T&gt;&amp; set(const T &amp; t) {ProtoValue&lt;T&gt;::val=t; return *this;};
+#endif
+  // constructor:
+  Value(T&amp; t) : ProtoValue&lt;T&gt;(t) {};
+};
+
+#ifdef TEMPLECIALIZE_VALUE
+template &lt;class T&gt;
+class Value&lt;const T&gt; : public ProtoValue&lt;const T&gt; {
+public:
+  // constructor:
+  Value(const T&amp; t) : ProtoValue&lt;const T&gt;(t) {};
+};
+#endif</pre>
+          <p>Here is some testing code:</p>
+          <pre>const int i = 33;
+Value&lt;const int&gt; vi(i);
+vi.get() = 22;
+// vi.set(11);
+cout &lt;&lt; vi.get() &lt;&lt; endl;</pre>
+          <p>What does your compiler complain?</p>
+        </section>
+        <section>
+          <h3>The <code>T *</code> Template Specialization*</h3>
+        </section>
+        <section>
+          <h3>The <code>const T</code> Template Specialization*</h3>
+          <!--
+          <p>Let&apos;s sketch a very simple class that just holds a reference. We will make it a template class for generalization. It will have a one-parameter constructor, for references must be initialized upon creation, and an accessor that produces a reference:</p>
+          <pre><![CDATA[template <class T> class Reference {
+  T & itsRef;
+public:
+        T& get_ref()       {cout << "in ref()... ";        return itsRef;};
+  const T& get_ref() const {cout << "in ref() const ... "; return itsRef;};
+  Reference(T & obj) : itsRef(obj) {};
+};]]></pre>
+          <p>Now we shall test our class with a constant template parameter:</p>
+          <pre><![CDATA[int i = 33;
+Reference<const int> ri(i);
+ri.get_ref() = 22;]]></pre>
+<p>This code doesn&apos;t compile because we are trying to change an object through a constant reference. The compiler explains:</p>
+<pre><![CDATA[error: assignment of read-only location &apos;ri.Reference<T>::get_ref<const int>()&apos;
+   ri.get_ref() = 22;
+                ^]]></pre>
+            <p>We shouldn&apos;t have a constant reference on the left hand side of an assignment statement. In order to enforce this we write the following partial specialization FOR constant types:</p>
+            <pre><![CDATA[]]></pre>
+               -->
+        </section>
+        <section>
+          <h3>Complete Specialization*</h3>
+        </section>
+        <section id="value_class">
+          <h3>A one-value-wrapping <code class="classname">value</code> class</h3>
+          <p>This is a template generalization of previous <code class="classname">Int</code>. The overt purpose of this is to enable overloading global binary <code class="function">operator^()</code> for <code class="classname">value&lt;T&gt;</code> types. We shall also define overloads of this operator for built-in floating point types.</p>
+          <p><strong>Warning:</strong> binary operator^() seems to have lower preference than operator&lt;&lt;, hence the round brackets in the sample testing code below.</p>
+          <pre>#include &lt;cmath&gt;
+template &lt;typename T&gt;
+class value {
+  T val;
+public:
+  operator T   () const {return val;};
+  operator T &amp; ()       {return val;};
+  value(T v) : val(v) {};
+};
+template &lt;typename S, typename T&gt;
+long double operator^(value&lt;S&gt; l, value&lt;T&gt; r) {return powl(l,r);};
+// specializations of binary operator^()
+float       operator^(value&lt;      float&gt; l, value&lt;     double&gt; r) {return powf(l,r);};
+double      operator^(value&lt;     double&gt; l, value&lt;     double&gt; r) {return pow( l,r);};
+long double operator^(value&lt;long double&gt; l, value&lt;long double&gt; r) {return powl(l,r);};</pre>
+          <p>To be tested by code like:</p>
+          <pre>typedef value&lt;int&gt; iv;
+iv iv1(9), iv2(11);
+iv1 += 3;
+cout &lt;&lt; "iv(9), iv+=3 -&gt; iv1= " &lt;&lt; iv1 &lt;&lt; endl;
+cout &lt;&lt; "value&lt;int&gt;(3) + value&lt;int&gt;(4) = " &lt;&lt; value&lt;int&gt;(3) + value&lt;int&gt;(4) &lt;&lt; endl;
+cout &lt;&lt; "-2 ^ 10 = " &lt;&lt; (value&lt;float&gt;(-2) ^ value&lt;unsigned int&gt;(10)) &lt;&lt; endl;
+cout &lt;&lt; "3 ^ 3 = " &lt;&lt; (value&lt;int&gt;(3) ^ value&lt;int&gt;(3)) &lt;&lt; endl;</pre>
+          <p>...</p>
+        </section>
+        <section>
+          <h3>Concise Template Specialization</h3>
+          <p>If we want to create a template specialization of a large template class <code class="classname">MyClass</code> to change only a few member functions, we may first define its parent, say <code class="classname">MyProtoClass</code>, and derive a non-specialization and a specialization. Then we will only need to write their respective constructors, mostly to invoke the parent's constructors. We can easily add new members, or hide parent member functions by redefining them in a private section.</p>
+        </section>
+      </section>
+      <section id="member_templates">
+        <h2>Member Templates</h2>
+        <p>Most class templates are not themselves templates, and can be defined outside the class without further ado.</p>
+        <p>Take our <code class="classname">List</code> template class.</p>
+        <pre>template &lt;typename T&gt;
+bool List&lt;T&gt;::empty() const {
+  return head == 0; // 'head' is supposed to be a private member etc.
+}</pre>
+        <p>What if we want a constructor that takes a pair of iterators?</p>
+        <p>We declare the constructor like so:</p>
+        <pre>template &lt;typename T&gt;
+class List {
+public:
+//...
+template &lt;typename In&gt;List( In begin, In end );
+//...
+};</pre>
+        <p>and define it outside the class using two template lines of arguments:</p>
+        <pre>emplate &lt;typename T&gt;// this one's for List
+template &lt;typename In&gt;// this one's for the member
+List&lt;T&gt;::List( In begin, In end ) : head_( 0 ) {
+while( begin != end )
+push_front( *begin++ );
+reverse();
+}</pre>
+        <p>As with other function templates, the compiler will perform argument deduction and instantiate the constructor template as needed</p>
+        <p>This is a common use of constructor templates in the STL to allow a container to be initialized by a sequence of values drawn from an arbitrary source. Another common use of member templates is to generate copy operationlike constructors and assignment operators:</p>
+        <pre>template &lt;typename T&gt;
+class List {
+public:
+  //...
+  template &lt;typename S&gt;
+  List( const List&lt;S&gt;&amp;that );
+  template &lt;typename S&gt;
+  List &amp;operator =( const List&lt;S&gt;&amp;rhs );
+  //...
+};</pre>
+        <p>Notice the waffle words "copy constructorlike" and "copy assignmentlike" in the above description. This is because a template member is never used to instantiate a copy operation; that is, if T and S are the same type above, then the compiler will not instantiate the member template but will instead write the copy operation itself. In such cases, it's usually best to define the copy operations explicitly in order to forestall officious and often incorrect help from the compiler:</p>
+        <pre>template &lt;typename T&gt;
+class List {
+public:
+  //...
+  List( const List &amp;that ); // copy ctor
+  List &amp;operator =( const List &amp;rhs ); // copy assignment
+  template &lt;typename S&gt;List( const List&lt;S&gt;&amp;that );
+  template &lt;typename S&gt;
+  List &amp;operator =( const List&lt;S&gt;&amp;rhs );
+  //...
+};
+//...
+List&lt;float&gt;data4( data ); // copy ctor
+data3 = data2; // copy assignment
+data3 = data4; // non-copy assignment from member template</pre>
+        <p>Any nonvirtual member function may be a template (member templates can't be virtual because the combination of these features results in insurmountable technical problems in their implementation). For example, we could implement a sort operation for our list...</p>
+      </section>
+      <section>
+        <h2>Template Template Arguments</h2>
+        <p>We want to implement a <code class="classname">Stack</code> template class with an underlying container. Naively:</p>
+        <pre>template &lt;typename T, class Cont&gt;
+class Stack {
+public:
+  ~Stack();
+  void push( const T &amp;);
+  //...
+  private:
+  Cont s_;
+};</pre>
+        <p>A user of <code class="classname">Stack</code> now has to provide two template arguments, an element type and a container type, and the container has to be able to hold objects of the element type. This is confusing, error-prone and a lot of extra work.</p>
+        <p>It would be much move convenient to just write</p>
+        <pre>template &lt;typename T, template &lt;typename&gt; class Cont&gt;
+class Stack {
+  Cont&lt;T&gt; its_container;
+  //...
+}</pre>
+        <p>You can even specify a default container, like this:</p>
+        <pre>template &lt;typename T, template &lt;typename&gt; class Cont = std::deque&gt;
+class Stack {
+  Cont&lt;T&gt; its_container;
+  //...
+}</pre>
+        <p>
+          <strong>Warning:</strong>
+          <p>If we want to have a chance at being able to specialize with a standard container, we have to do the following:</p>
+          <pre>template &lt;template &lt;typename Element, class Allocator&gt; class Cont&gt;
+class Wrapper3;</pre>
+          <p>or equivalently:</p>
+          <pre>template &lt;template &lt;typename,typename&gt;class Cont&gt;
+class Wrapper3;</pre>
+          <p>(This declaration says that the template must take two type name arguments.</p>
+          <p>However, the standard container templates (like <code class="classname">std::list</code>) may legally be declared to take more than two parameters...</p>
+        </p>
+        <aside class="note">
+          <p>The Boost Library uses <a target="_blank" href="cpp.boost.container-selectors.html">Container Selectors</a> to choose an underlying container. This requires writing a lot of partial specializations by hand, but is safe and complient.</p>
+        </aside>
+      </section>
+
+      <section id="metaprogramming_through_templates">
+        <h2>Metaprogramming Through Templates</h2>
+        <p><a target="_blank" href="metaprogramming.html">Metaprogramming</a> is often effected through templates in C++ .</p>
+        <aside class="note"><em>See</em> <a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a>.</aside>
+        <section>
+          <h3>Numeric Computations</h3>
+          <p>The earliest C++ metaprograms performed integer computations at compile time.</p>
+          <p>The following metaprogram transliterates unsigned decimal numerals into their binary equivalents, allowing us to express binary constants in a recognizable form.</p>
+          <pre>template &lt;unsigned long N&gt;
+struct binary
+{
+  static unsigned const value
+    = binary&lt;N/10&gt;::value &lt;&lt; 1   // prepend higher bits
+      | N%10;                    // to lowest bit
+};
+template &lt;&gt;                           // specialization
+struct binary&lt;0&gt;                      // terminates recursion
+{
+  static unsigned const value = 0;
+};
+unsigned const one   =    binary&lt;1&gt;::value;
+unsigned const three =   binary&lt;11&gt;::value;
+unsigned const five  =  binary&lt;101&gt;::value;
+unsigned const seven =  binary&lt;111&gt;::value;
+unsigned const nine  = binary&lt;1001&gt;::value;</pre>
+          <p>If you're wondering <q>Where's the program?</q> we ask you to consider what happens when we access the nested <code>::value</code> member of <code>binary&lt;N&gt;</code>. The binary template is instantiated again with a smaller <var>N</var>, until <var>N</var> reaches zero and the specialization is used as a termination condition. That process should have the familiar flavor of a recursive function calland what is a program, after all, but a function? Essentially, the compiler is being used to <em>interpret</em> our little metaprogram.</p>
+          <p>Because the C++ language imposes a distinction between the expression of compile-time and runtime computation, metaprograms look different from their runtime counterparts. As in Scheme, the C++ metaprogrammer writes her code in the same language as the ordinary program, but in C++ only the compile-time subset of the full language is available to her. Compare the previous example with this straightforward runtime version of <code class="function">binary</code>:</p>
+          <pre>unsigned binary(unsigned long N)
+{
+  return N == 0 ? 0 : N%10 + 2 * binary(N/10);
+}</pre>
+        </section>
+        <section>
+          <h3>Type Computations</h3>
+          <p>Much more important than its ability to do compile time numeric computations is C++'s ability to compute with types.</p>
+          <section id="cpp_traits">
+            <h3>Traits</h3>
+            <p>A <dfn>trait</dfn> is a template class that takes another class as its template parameter in order to retrieve an associated type.</p>
+            <p>Traits are a technique for establishing associations between pieces of metadata via class template specializations. A key feature of the traits idiom is that it's <dfn>non-intrusive</dfn>: We can establish a new mapping without modifying the associated items themselves.</p>
+            <p id="cpp_iterator_traits">For example, the <code class="classname">iterator_traits</code> template class takes an iterator class as its template paramenter so as to produce that iterator's <code class="classname">value_type</code>:</p>
+            <pre>template &lt;class Iterator&gt;
+struct iterator_traits {
+  typedef typename Iterator::value_type value_type;
+  ... four more typedefs
+};</pre>
+            <p>Apart from passing and returning types instead of values, traits templates exhibit two significant features that we don't see in ordinary functions:</p>
+            <ul>
+              <li>Specialization. We can non-intrusively alter the result of a traits template for particular <strong>values</strong> (types) of its parameters just by adding a specialization. We can even alter the result for a whole range of <strong>values</strong> (e.g., all pointers) by using partial specialization. Specialization would be really strange if you could apply it to regular functions. Imagine being able to add an overload of function <code class="function">std::abs</code> that is called only when its argument is an odd number!</li>
+              <li>Multiple <strong>return values</strong>. While ordinary functions map their arguments to just one value, traits often have more than one result. For example, <code class="classname">std::iterator_traits</code> contains five nested types: <code class="classname">value_type</code>, <code class="classname">reference</code>, <code class="classname">pointer</code>, <code class="classname">difference_type</code>, and <code class="classname">iterator_category</code>. It's not even uncommon to find traits templates that contain nested constants or static member functions. <code class="classname">std::char_traits</code> is an example of just such a component in the standard library.</li>
+            </ul>
+          </section>
+          <!-- </sect4> -->
+          <section>
+            <h3>Metafunctions</h3>
+            <p>A <dfn>metafunction</dfn> is a <q>function</q> that operates on metadata and can be <q>&gt;invoked</q> at compile time. Here, a template or class will only be called a metafunction if it has no non-type parameters and returns a type called <code class="classname">type</code>. The arguments to the class template are the inputs to the compile time computation, and the <code class="classname">::type</code> member is its result. Thus, expressions like:</p>
+            <pre>some_metafunction&lt;Arg1, Arg2&gt;::type</pre>
+            <p>are analogous to runtime computations like:</p>
+            <pre>some_function(arg1, arg2)</pre>
+          </section>
+          <!-- </sect4> -->
+        </section>
+      </section>
+      <section id="compilation_of_template_classes">
+        <h2>Compilation of Template Classes</h2>
+        <p>Compiling template classes is not nearly as straightforward as it should be. While the goal of writing a template class is to improve <q>resusability</q>, this is from the perspective of the programmer.</p>
+        <p>However, for each kind of template instantiation, the compiler generates specific code for that instantiation. For example, consider the <code class="classname">SimpleMap</code> template class, which takes two template parameters.</p>
+        <p>Suppose in <code class="function">main()</code>, you had the following declarations for <code class="classname">SimpleMap</code>:</p>
+        <pre>int main() {
+   SimpleMap&lt;string, Movie&gt; x;
+   SimpleMap&lt;string, Student&gt; y;
+   SimpleMap&lt;int, float&gt; z;
+}</pre>
+        <p>Each line of declaration refers to a different instantiation. When you instantiate a template class, you are picking classes for the template class. For example, there is code that is created for <code class="classname">SimpleMap&lt;string, Movie&gt;</code>, and there is code created for <code class="classname">SimpleMap&lt;string, Student&gt;</code>, and there is also code created for <code class="classname">SimpleMap&lt;int, float&gt;</code>.</p>
+        <p>While most of the code is very similar, each is specific for the two types that the class has been instantiated to. For example, the class methods might refer to the output operator method. The code for printing a <code class="classname">Movie</code>, <code class="classname">Student</code>, and <code class="classname">float</code> are all different.</p>
+        <p>If you think this is wasteful, you are right. You write template code because you want to avoid writing the same class over and over, but the only change between the classes is the type. You would think that the compiler would somehow try to factor out the common code. For efficiency reasons, it does not do that.</p>
+        <p>Instead, it creates code for each kind of instantiated type. This is quicker, but it means that for every instantiation of a template class, the compiler must generate new code. If you have <var>N</var> different kinds of instantiations, you will have <var>N</var> different copies of the <code class="classname">SimpleMap</code> code, each tailored to the types to which it has been instantiated.</p>
+        <section>
+          <h2>The Problem and the Solution</h2>
+          <p>The <em>problem</em> is that you want to compile template classes separately so as to build your executable the faster. Assume files <cite>SimpleMap.h</cite> and <cite>SimpleMap.cpp</cite>, as well as <cite>findMin.cpp</cite> (for a template function, just to discuss all cases), <cite>Movie.h</cite> and <cite>Student.h</cite>.</p>
+          <p>The solution is to write a <cite>SimpleMapInstantiations.cpp</cite> file, which you separately compile, and which runs:</p>
+          <pre>#include &lt;string&gt;
+#include "findMin.cpp"    // still include implementation file
+#include "SimpleMap.cpp"  // still include implementation file
+#include "Movie.h"   // include header file for non-template classes
+#include "Student.h" // include header file for non-template classes
+// Specific instantiations for function template, findMin
+template string  findMin(string arr[], int size);
+template Movie   findMin(Movie arr[], int size);
+template Student findMin(Student arr[], int size);
+// Specific instantiations for class template, SimpleMap
+template class SimpleMap&lt;string, Movie&gt;;
+template class SimpleMap&lt;string, Student&gt;;
+template class SimpleMap&lt;int, float&gt;;</pre>
+          <p> You compile this file to produce <cite>SimpleMapInstantiations.o</cite>. You do <em>not</em> compile <cite>findMin.cpp</cite> or <cite>SimpleMap.cpp</cite> since all that information is already in <cite>SimpleMapInstantiations.cpp</cite>.</p>
+          <p>It goes without saying that the file containing the <code class="function">main()</code> function or any other file calling instantiations of these template class or function must include headers <cite>SimpleMap.h</cite> or <cite>findMin.h</cite>.</p>
+          <p>This solution is good because the header files no longer include <code>.cpp</code> files. Yet it is bad because you have to include all instantiations in a separate file. If you need to add a new instantiation, you add it to this file and recompile. Still, it is a solution that does get used in practice.</p>
+          <aside class="note">
+            <p>You may, after <code>#include</code>-ing any other needed files into <cite>SimpleMap.cpp</cite>, make the tell-tale specific instantiations at the end of it, to wit:</p>
+            <pre>template class SimpleMap&lt;string, Movie&gt;;
+template class SimpleMap&lt;string, Student&gt;;
+template class SimpleMap&lt;int, float&gt;;</pre>
+            <p>And you can do the same at the end of <cite>findMin.cpp</cite> and compile it separately, too.</p>
+            <p>If you feel that this approach entails cluttering <cite>SimpleMap.cpp</cite> or <cite>findMin.cpp</cite>, then go back to the three-file scheme.</p>
+          </aside>
+        </section>
+        <section>
+          <h2>Template Instantiation</h2>
+          <p>Given a template class and a template function where, for the sake of simplicity, the template parameter is a floating point built-in type (i.e., either <code>float</code>, <code>double</code>, or <code>long double</code>):</p>
+          <pre>template &lt;typename F&gt;
+class A {
+  template &lt;typename G&gt; void foo();
+};
+template &lt;typename F&gt;
+void gee();</pre>
+          <p>you might force the compiler to generate code for them by including</p>
+          <pre>template class A&lt;float&gt;;
+template class A&lt;double&gt;;
+template class A&lt;long double&gt;;
+template void gee&lt;float&gt;();
+template void gee&lt;double&gt;();
+template void gee&lt;long double&gt;();</pre>
+          <p>say, at the end of implementation (<cite>***.cpp</cite>). Note that you have to declare for each combination of template parameters. Moreover, you also need to instantiate <code class="function">A&lt;&gt;::foo&lt;&gt;()</code> for each combination of template parameters, that is as many as nine if you want to cover all cases:</p>
+          <pre>template void A&lt;float&gt;::foo&lt;float&gt;();
+template void A&lt;float&gt;::foo&lt;double&gt;();
+template void A&lt;float&gt;::foo&lt;long double&gt;();
+template void A&lt;double&gt;::foo&lt;float&gt;();
+template void A&lt;double&gt;::foo&lt;double&gt;();
+template void A&lt;double&gt;::foo&lt;long double&gt;();
+template void A&lt;long double&gt;::foo&lt;float&gt;();
+template void A&lt;long double&gt;::foo&lt;double&gt;();
+template void A&lt;long double&gt;::foo&lt;long double&gt;();</pre>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

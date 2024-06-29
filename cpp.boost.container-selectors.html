@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>boost container selectors</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+        <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
+        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
+        <!--
+        <p><a href="cpp.boost.geometry.html.bak">C++ Boost Geomety (<code>.bak</code>)</a></p>
+        <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
+        -->
+      </div>
+    </nav>
+
+    <main>
+      <h1>Boost Container Selectors</h1>
+      <p><a href="cpp.boost.html">Boost</a>, and the <a href="cpp.boost.graph.html">C++ Boost Graph</a> in particular, uses containers from the STL such as <code class="classname">std::vector</code>, <code class="classname">std::list</code>, and <code class="classname">std::set</code> to store elements of a set. Which is to be used is selected through empty classes passed as template paramenters upon declaration.</p>
+      <ul>
+        <li><code class="constant">vecS</code> selects <code class="classname">std::vector</code>.</li>
+        <li><code class="constant">listS</code> selects <code class="classname">std::list</code>.</li>
+        <li><code class="constant">slistS</code> selects <code class="classname">std::slist</code>.</li>
+        <li><code class="constant">setS</code> selects <code class="classname">std::set</code>.</li>
+        <li><code class="constant">multisetS</code> selects <code class="classname">std::multiset</code>.</li>
+        <li><code class="constant">hash_setS</code> selects <code class="classname">boost::unordered_set</code>.</li>
+      </ul>
+    </main>
+
+  </body>
+
+</html>
