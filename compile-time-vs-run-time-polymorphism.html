@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>polymorphism</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="polymorphism.html">Polymorphism</a></p>
+        <p><a            href="oop.html">Object Oriented Programming</a></p>
+        <p><a            href="programming.html">Programming: Getting Computers to Do Stuff</a></p>
+        <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
+
+      </div>
+    </nav>
+
+    <main>
+
+      <h1>Compile-time vs. Run-time Polymorphism in Object Oriented Programming</h1>
+
+      <p>There are two main types of polymorphism in object-oriented programming. These are <a href="#compile_time_polymorphism">compile-time polymorphism</a> and <a href="#run_time_polymorphism">Run-time polymorphism</a>.</p>
+
+      <section id="compile_time_polymorphism">
+        <h2>Compile-time Polymorphism</h2>
+        <p><dfn>Compile time polymorphism</dfn> is a type of polymorphism occurring when the method call gets resolved during compile time, whereas compile time polymorphism is achieved with the help of method overloading and operator overloading.</p>
+        <p>In <dfn>method overloading</dfn>, we use the same methods with different parameters to achieve polymorphism. We do not need to keep different names for the same function. This improves the effectiveness of the code. It is also known as <dfn>Static binding</dfn> or <dfn>early binding</dfn> (as opposed to <strong>dynamic binding</strong>).</p>
+        <p>Let us suppose we need to multiply two different numbers, and we can write a function named <code>multiply</code> to achieve this. However, if we need to multiply three numbers, then with the help of polymorphism in OOP, we do not need to write the complete code again.</p>
+        <pre>// ...
+  public int multiply(int a, int b)    {
+      int prod = a * b;
+      return prod;
+  }
+
+  public int multiply(int a, int b, int c)
+  {
+      int prod = a * b * c;
+      return prod;
+  }
+
+}
+
+// Class 2
+
+// Main class
+
+class Operation {
+  // Main driver method
+  public static void main(String[] args)
+  {
+      Product ob = new Product();
+      int prod1 = ob.multiply(1, 2);s
+      System.out.println(
+          &quot;Product of the two integer value :&quot; + prod1);
+
+      // Calling method to multiply 3 numbers
+      int prod2 = ob.multiply(1, 2, 3);
+
+      // Printing product of 3 numbers
+      System.out.println(
+          &quot;Product of the three integer value:&quot; + prod2);
+  }
+}</pre>
+        <p>Here, we are using multiply(int a, int b) for two-digit multiplication. For three-digit multiplication, we call the method with the same name but a different parameter.</p>
+      </section>
+
+      <section id="run_time_polymorphism">
+        <h2>Run-time Polymorphism</h2>
+        <p><dfn>Run-time polymorphism</dfn> is a type of polymorphism in OOPS which is resolved during runtime. This is generally achieved with the help of method overriding. Method overriding is used to implement a method that is already defined in its parent class or super class. Runtime polymorphism in OOP is also known as <dfn>dynamic binding</dfn> or <dfn>late binding</dfn>.</p>
+        <p>Let us understand runtime polymorphism with the help of an example.</p>
+        <pre><![CDATA[class Animal {
+    void sound() {
+        System.out.println(&quot;Animal makes a sound&quot;);
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println(&quot;Dog barks&quot;);
+    }
+} ]]></pre>
+        <p>In this example, the sound method, which is already defined in the <code>Animal</code> class, is overridden and used in the <code>Dog</code> class. When this sound method is called for a dog object, it will print &quot;Dog barks&quot;.</p>
+        <aside>
+          <p>Run-time polymorphism is realized through <a href="cpp.virtual-member.html">virtual member functions</a> in C++.</p>
+        </aside>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
