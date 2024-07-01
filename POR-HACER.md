@@ -128,9 +128,27 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 - *agregaciones.html*, actually it is linked to by *economia.html*
 
+## Dentro de oposiciones, por crear o redactar (igual existe el archivo, pero sin párrafos)
+- *oposiciones.html*
+- *absoluto-relativo.html*
+- *empirico-teorico.html*
+- *religion-politica.html*
+- *implicito-explicito.html*, como en función implícita
+- *analisis-sintesis.html*
+- *dionisiaco-apolineo.html*
+- *intrinseco-y-extrinseco.html*
+   [ ] hablar de semiconductores Intrínsecos y extrínsecos
+   El silicio (Si) presenta cuatro electrones en su última capa, que en un cristal de silicio entran en enlace covalente con los de sus átomos vecinos de modo que no queda ningún electrón libre para la conducción salvo los generados térmicamente...
+
 ## Por escribir (igual existe el archivo, pero sin párrafos)
 
+- *ser-en-potencia-y-en-acto.html*
+
+- *demanda-intrinseca-y-extrinseca.html* necesita lima y correcciones
+
 - *aporofobia.html*
+
+- *funciones.html*, y hablar de implícitas, analíticas...
 
 - *funciones-analiticas.html*
 
