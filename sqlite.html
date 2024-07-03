@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sqlite</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a rel="next" href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+        <p><a            href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a            href="sqlite.sqlite3.html">Running <code>sqlite3</code></a></p>
+        <p><a            href="sqlite.sqlite3.ref.html">Command Line Shell For SQLite</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+      </div>
+      <div>
+        <p><a href="special-relational-tables.html">Special Relational Tables</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQLite: A Light OpenSource Relational Database (RDBMS and Library)</h1>
+      <p>SQLite is a software library written in C. It was developed by D. Richard Hipp in 2000 originally as part of a contract with the U.S. Navy that was implemented by General Dynamics. Today, it consists of some 184,000 lines of code.</p>
+      <p>SQLite is in the public domain, so it can be used by anyone. Further details and links to download the source code are available at sqlite.org.</p>
+      <p>You can compile the source code into a library that, in turn, you can use in an application program. Although you may find references to SQLite as a DBMS, it is, strictly speaking, just this library. The <strong>container</strong> in which that library is compiled (a <a href="oop.classes.html">class</a>, a framework, or a full-fledged DBMS) provides the larger DBMS functionalities.</p>
+
+      <h3 class="bridgehead">Is sqlite a DBMS?</h3>
+      <p>In some ways, this only matters if that question can be answered in a way that influences the way you design or implement your SQLite-based project. However, if you track down references to SQLite, you&apos;ll see that it is usually referred to (correctly) as a library or as a database engine.</p>
+      <p>The code has been designed from the beginning to be compact and reusable (that reference to its origin with the U.S. Navy is relevant here—when you&apos;re on a ship at sea, every resource is limited, including power, space, and weight. Furthermore, in modern ships, technological components must function together even if their origins are with multiple vendors. That&apos;s the SQLite environment.</p>
+      <p>Whether you are worried about the limited resources on a ship, on a mobile device running an operating system such as Android or iOS, or on a small mobile device such as a programmable beacon . . . or even the limited resources on a supercomputer (<q>limited</q> is always relative), SQLite is a good choice in many cases.</p>
+
+      <hr/>
+
+      <p>The following subsections highlight some of the major features of SQLite that implement this mandate and that are important to you as you use it in whatever container you choose (DBMS, class, framework, or basic library). These features are important to you as you undertake a SQLite-based project for a mobile device.</p>
+
+      <p>The features discussed <!--in this section -->actually all revolve around the fact that SQLite is a library that is designed to be used by a single user to handle database functionality. (Before you throw up your hands, read on to see how SQLite can function very well in a multiuser and multiprocess environment.) The following are the features to consider:</p>
+      <ul>
+        <li>SQLite is designed for a single user </li>
+        <li>SQLite is self-contained</li>
+        <li>SQLite supports <a href="transactions.html">transactions</a> and is <a href="acid.html">ACID</a>-compliant</li>
+      </ul>
+
+      <section>
+        <h2>SQLite Is Designed for a Single User</h2>
+        <p>One of the biggest differences between SQLite and most DBMSs is that SQLite is designed for a single user. Most DBMSs manage multiple users including various security features that allow or block access to specific SQL commands and features. Even more important to many people, a DBMS manages contention for resources so that several users can apparently use the same data concurrently. </p>
+        <p><q>Apparently</q> is the key word here because although each user typically thinks that he or she has unique access to the database, in fact, behind the scenes the DBMS manages concurrency so that in some cases, it has locked a record to prevent access to it by a second user while another user is updating it.</p>
+        <h4 class="bridgehead">Single User Doesn&apos;t Mean Single-Thread</h4>
+        <p>SQLite manages concurrency within its own environment. This means that it may have multiple threads running at the same time to perform its own tasks, but those threads are managed within the SQLite environment itself. They do not represent separate users.</p>
+        <h4 class="bridgehead">Using SQLite with Multiple Users</h4>
+        <p>How can you have multiple users when SQLite is designed for a single user? The answer is simple: you manage multiple users yourself. There are a number of ways of doing this, but in general, what you do is to push the multiuser management onto the app, class, or language into which SQLite is embedded. Apps typically have the ability to communicate with one another (subject to security and platform constraints). Thus, although SQLite is not going to manage the case of User <var>A</var> and User <var>B</var> attempting to modify the same data at the same time, your app can do so.</p>
+        <p>Typical concurrency strategies involve either having a master process that manages the concurrency or having a mechanism whereby multiple independent processes communicate without a master process. You find many examples of multiple independent processes in apps such as Dropbox and in many cloud-based apps. (In the case of Dropbox and cloud-based apps, there may be a process continually running somewhere in the cloud and, perhaps separate processes running on active clients. Whether or not control resides in a central process or is distributed among the clients (and master) varies depending on the specific implementation.)</p>
+        <p>Thus, SQLite is perfectly capable of functioning in a multiuser world; it just needs to be runninginside apps or other processes that themselves implement the multiuser features.</p>
+      </section>
+
+      <section>
+        <h2>SQLite Is Self-Contained</h2>
+        <p>SQLite is self-contained in two ways.</p>
+        <ul>
+          <li>
+            <p>The code itself is self-contained ANSI-C code. It makes minimal use of C libraries. In fact, the only ones it uses are:</p>
+            <ul>
+              <li><code>memset()</code></li>
+              <li><code>memcpy()</code></li>
+              <li><code>memcmp()</code></li>
+              <li><code>strcmp()</code></li>
+              <li><code>malloc()</code></li>
+              <li><code>free()</code></li>
+              <li><code>realloc()</code></li>
+            </ul>
+          </li>
+          <li>The data store itself is self-contained, portable, and platform-agnostic.</li>
+        </ul>
+        <h4 class="bridgehead">Self-Contained Code</h4>
+        <p><dfn>Self-contained</dfn> code means that when you include the SQLite library in your project (either directly or through a language, class, or framework), you have everything you need. You don&apos;t need to include additional libraries.</p>
+        <p>You don&apos;t have to worry about versions, and, once you have a compiled SQLite library, you can generally reuse it without being dependent on changes in components. (Remember, though, that in most cases SQLite is embedded in a language, class, framework, or DBMS so the container is what you will need to update from time to time.)</p>
+        <p>Because SQLite is in the public domain, you don&apos;t have to worry about licenses or license fees. (You can, however, obtain a license as described on sqlite.org. That option is provided for some users who need to demonstrate to their management that they actually have the right to use SQLite.)</p>
+        <p>Remember that SQLite is often contained within a class, framework, or language that you are using so this feature (which to a large extent makes such containability possible) may not be visible to you.</p>
+        <p><strong>Note</strong>: If you go to sqlite.org, you&apos;ll find the various download options for the SQLite source code. There are options to download it in sections that are combined (amalgamated) in the final build. This is done primarily to accommodate development environments that have trouble handling the full build at one time.</p>
+        <h4 class="bridgehead">Self-Contained Data</h4>
+        <p>The data store that SQLite uses for a database is designed to be self-contained and cross-platform. This means that you can transfer a SQLite file from one environment to another without problems in most cases. (That caveat is necessary because you may encounter issues in specific configurations, but for many if not most SQLite users, the first step in verifying that a database can be moved is to actually move it—this usually works.)</p>
+        <p>In its most basic (and original) form, each SQLite database is stored in a single file. The file is readable and writable on any platform (subject to environmental constraints on the file). For example, if you place the file on a read-only disk, you can&apos;t write to it with SQLite. (This may sound far-fetched, but such things do happen.)</p>
+        <p>With the database in a single file, users can see it and move it around if they want. (If they do so, the app that you are building must be able to find the file—perhaps with the user&apos;s help.) Users can also delete the database file. Because it is self-contained, that&apos;s very simple, and it doesn&apos;t corruptother SQLite databases. Of course, the fact that a user may be able to delete the database means that in your implementation, you may want to hide it or place it in protected places. If you do that, you often take advantage of platform-specific features such as hidden folders, but the SQLite file itself remains an ordinary file that can be moved around and copied to other devices.</p>
+        <p>Because the database file is self-contained, it contains both the database data and its schema (structure if you&apos;re not from the database world). In part because each database is self-contained, SQLite is referred to as serverless (there is no separate server process).</p>
+        <p>The fact that a SQLite database can be stored in a single file leads to a common use of SQLite to implement structure and database functionality inside what appears to the user to be a simple file.</p>
+        <p><strong>Note</strong>: Although SQLite began with the one-database/one-file structure, it now supports write-ahead logging (WAL) as an option. WAL is a technique that optimizes database performance using multiple files.<!-- There is more on WAL in Chapter 4.--></p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

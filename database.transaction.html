@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>databases</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="database.html">database</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>DataBases Transactions</h1>
+      <p>A database <dfn>transaction</dfn> has a very specific meaning beyond regular English <a href="transaction.html">transaction</a>. It refers to a set of steps that are done together (usually in sequence, but not necessarily so). Together, these steps are a transaction, and what&apos;s important is that the transaction as a whole either succeeds or fails. If any of the steps fails, the entire transaction fails. As a result of transaction failure, the database is said to be <dfn>rolled back</dfn> to its condition before the transaction began.</p>
+      <p>When a database supports transactions, the failure of any part of a transaction means the entire transaction fails and the database is set to whatever it was before the transaction started. All of this happens in an <a html="acid.html">ACID</a>-compliant database.</p>
+      <hr/>
+      <p>In in many other implementations of SQL (such as SQLite), a transaction consists of a number of <a href="sql.html">SQL</a> statements bracketed by</p>
+      <pre>BEGIN TRANSACTION</pre>
+      <p>and</p>
+      <pre>END TRANSACTION</pre>
+    </main>
+
+  </body>
+
+</html>

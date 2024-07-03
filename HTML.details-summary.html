@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HTML (Hyper Text Markup Language)</title>
+    <title>details and summary tags</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -25,16 +25,24 @@
       <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
       <p><a href="HTML.tips-and-tricks.html">HTML Tips and Tricks</a></p>
-      <p><a href="HTML.figure.html">&lt;figure&gt; and &lt;figcaption&gt; for Images</a></p>
-      <p><a href="HTML.details-summary.html">&lt;details&gt; and &lt;summary&gt; to Show/Hide Content</a></p>
-      <p><a href="FromWeb1.0ToTheSemanticWeb.html">From Web 1.0 to the Semantic Web</a></p>
       <p><a href="computing.html">Computing Science</a></p>
     </nav>
 
     <main>
-      <h1>HTML (Hyper Text Markup Language)</h1>
-      <p>[...]</p>
+      <h1>&lt;details&gt; and &lt;summary&gt; to Show/Hide Content</h1>
+      <p>The &lt;details&gt; tag specifies additional details that the user can open and close on demand.</p>
+      <p>The &lt;details&gt; tag is often used to create an interactive widget that the user can open and close. By default, the widget is closed. When open, it expands, and displays the content within.</p>
+      <p>Any sort of content can be put inside the &lt;details&gt; tag.</p>
+      <p><strong>Tip</strong>: The &lt;summary&gt; tag is used in conjunction with &lt;details&gt; to specify a visible heading for the details.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <p>Specify details that the user can open and close on demand:</p>
+      <pre>&lt;details&gt;
+  &lt;summary&gt;Epcot Center&lt;/summary&gt;
+  &lt;p&gt;Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.&lt;/p&gt;
+&lt;/details&gt;</pre>
     </main>
 
   </body>
