@@ -69,6 +69,22 @@
                 <tr> <td>VARCHAR(<var>max</var>)</td> <td>Variable-length storage with provided max characters, not supported in MySQL</td> </tr>
                 <tr> <td>TEXT</td> <td>Variable-length storage with a maximum size of 2GB data</td> </tr>
         </table>
+        <h3>Difference between <code>VARCHAR</code> and <code>TEXT</code></h3>
+        <p>In MySQL, <code>TEXT</code> can store bigger amounts of data up to a maximum of 4 gigabytes (2<sup>32</sup>−1232−1) characters, whereas <code>VARCHAR</code> can store strings of variable length up to 65,535 characters.</p>
+        <p>A <code>VARCHAR</code> can be part of an index whereas a <code>TEXT</code> field requires you to specify a prefix length, which can be part of an index.</p>
+        <p><code>VARCHAR</code> is stored inline with the table (at least for the MyISAM storage engine), making it potentially faster when the size is reasonable. Of course, how much faster depends on both your data and your hardware. Meanwhile, <code>TEXT</code> is stored off table with the table having a pointer to the location of the actual storage.</p>
+        <p>Using a <code>TEXT</code> column in a sort will require the use of a disk-based temporary table, as the MEMORY (HEAP) storage engine.</p>
+        <hr/>
+        <p><code>VARCHAR</code> and <code>TEXT</code> are both PostgreSQL character data types. <code>VARCHAR(<var>N</var>)</code> is an alias for <code>CHARACTER VARYING(<var>N</var>)</code>, a data type that accepts text data. <var>N</var> is a positive integer and represents the maximum number of characters the type can store in length. In other words, a <code>VARCHAR(<var>N</var>)</code> column can store a string of up to <var>N</var> characters. When trying to store a longer string, PostgreSQL raises the following error:</p>
+        <pre>Value too long for type character varying(N)</pre>
+        <p>As required by the SQL standard, if the characters in excess are all spaces, the string will be truncated to the maximum length and no error will be thrown.</p>
+        <p>Instead, when casting a value to <code>CHARACTER VARYING(<var>N</var>)</code> or <code>VARCHAR(<var>N</var>)</code>, the over-length string will simply be truncated to the first <var>N</var> characters without raising an error. Again, this is a rule imposed by the SQL standard. The length <var>N</var> is optional and must be an integer greater than zero and smaller than or equal to 10485760. When <var>N</var> is omitted, <code>VARCHAR</code> is equivalent to <code>TEXT</code>.</p>
+        <p><code>TEXT</code> is a data type to store strings of any length. Specifically, it is PostgreSQL&apos;s native string data type as most built-in functions operating on strings accept or return <code>TEXT</code> values. Keep in mind that <code>TEXT</code> is not in the SQL standard data type, but most DMBS technologies provide it.</p>
+        <p>The characters that can be stored in either of these data types are determined by the database character set, which is chosen when creating the database. To avoid slowing down access to columns with short values, very long strings are stored in background tables. In any case, the longest character string that can be stored in <code>VARCHAR</code> or <code>TEXT</code> is about 1 GB.</p>
+        <hr/>
+        <p>The way that <code>TEXT</code> and <code>VARCHAR</code> are stored in the database is another difference between them. Given that <code>VARCHAR</code> columns hold data in a variable-length format, the amount of storage space needed for each item depends on how long it is. Contrarily, because <code>TEXT</code> columns are stored in a static-length format, the amount of storage space needed for each value is constant.</p>
+        <p>Due to these variations, one data type may be better suited for a certain use case than the other. For storing short to medium-length strings like names, locations, and descriptions, <code>VARCHAR</code> is typically a preferable option. For storing greater amounts of textual data, such as articles, comments, and messages, <code>TEXT</code> is a preferable option.</p>
+        <p>There are performance differences between <code>TEXT</code> and <code>VARCHAR</code> in addition to differences in the volume of data they can contain. <code>VARCHAR</code> typically performs better than <code>TEXT</code> because it needs less storage and provides quicker access to the data. When handling higher amounts of data, this speed benefit may be lost.</p>
       </section>
 
       <section>
