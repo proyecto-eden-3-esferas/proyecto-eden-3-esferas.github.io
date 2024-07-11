@@ -41,18 +41,67 @@
 
     <main>
       <h1>El ordenador</h1>
-      <p>Un <dfn>ordenador</dfn> es un dispositivo, normalmente electrónico, por lo general además digital, que manipula o transforma información cumpliendo tres funciones:</p>
+
+      <p>Un <dfn>ordenador</dfn> es un dispositivo, normalmente electrónico, por lo general además digital en los tiempos que corren, que manipula o transforma información mediante tres funciones:</p>
       <ol>
         <li><dfn>computación</dfn>: transformación de la información (por ejemplo corregir las faltas de ortografía de un escrito)</li>
         <li><dfn>almacenamiento</dfn>: guardar información</li>
         <li><dfn>comunicación</dfn>: transmisión de información entre el ordenador y el exterior, incluído otros ordenadores</li>
       </ol>
+      
       <hr/>
+      
       <p>Un ordenador recibe <dfn>señales</dfn> exteriores y según su contenido y el <dfn>estado</dfn> del ordenador (guardado en su memoria) emite otras señales.</p>
-      <hr/>
-      <p>La mayoría de los ordenadores se basan en <dfn>microprocesadores</dfn>, que son circuitos integrados que realizan la función de computación y que ejecutan programas residentes en alguna memoria (un disco duro, <i>flash</i>, RAM etc.). Un <dfn>microcontrolador</dfn> es un microprocesador, normalmente poco potente, que contiene su propia memoria RAM y memoria de programa.</p>
-      <hr/>
-      <p>Otros ordenadores no ejecutan programas sino que su acción está grabada en cómo están configuradas sus conexiones internas (<dfn>lógica programable</dfn>). Suelen ser más rápidos que el primer tipo y la mayoría siguen la arquitectura <dfn>FPGA</dfn> (Field Programmable Gate Array).</p>
+      
+      <section id="microprocesadores">
+        <h2>Microprocesadores</h2>
+        <p>La mayoría de los ordenadores se basan en <dfn>microprocesadores</dfn>, que son circuitos integrados que realizan la función de computación y que ejecutan programas residentes en alguna memoria (un disco duro, <i>flash</i>, RAM etc.). El típico microprocesador apenas dispone de memoria RAM sino que casi toda la memoria RAM que utiliza se encuentra en otro circuito integrado dedicado específicamente a memoria RAM.</p>
+      </section>
+      
+      <section id="microcontroladores">
+        <h2>Microcontroladores</h2>
+        <p>Un <dfn>microcontrolador</dfn> es un circuito integrado casi siempre menos potente que un microprocesador, y que contiene su propia memoria RAM, memoria de programa, y tal vez circuitos integrados para realizar funciones.</p>
+      </section>
+      
+      <section>
+        <h2>Lógica programable</h2>
+        <p>Otros ordenadores no ejecutan programas sino que su acción está grabada en cómo están configuradas sus conexiones internas (<dfn>lógica programable</dfn>). Suelen ser más rápidos que el primer tipo y la mayoría siguen la arquitectura <dfn>FPGA</dfn> (Field Programmable Gate Array).</p>
+      </section>
+
+      <section id="maquina">
+        <h2>Lenguajes máquina</h2>
+        <p>Los ordenadores que ejecutan programas residentes en memoria, los típicos, se basan en microprocesadores o microcontroladores, como hemos explicado. Y dichos microprocesadores funcionan ejecutando instrucciones formadas por secuencias de ceros y unos (<i>bits</i>), para entendernos. Por ejemplo la instrucción para sumar podría ser <code>0101</code>. De hecho su diseñador en algún momento decidió cuál sería la secuencia de bits para sumar, incluído cuantos bits mediría y si mediría el mismo número de bits (cuantro es este caso) que la instrucción para restar.</p>
+        <p>Dichas secuencias se llaman <dfn>códigos de operación</dfn>, <i>opcodes</i> en inglés (de <i>operation code</i>).</p>
+        <p>Repito, cada ordenador tendrá sus propias secuencias para cada operación.</p>
+        <p>También tendrá reglas sobre cómo han de ser los operandos. Por ejemplo en una suma los operandos se denominan sumandos. Siguiendo con nuestro ejemplo, si presuponemos que los sumandos miden ocho bits y que el número 1 se representa mendiante <code>00000001</code>, entonces para sumar 1 + 1 tendríamos que escribir en la memoria de programa:</p>
+        <pre>00000001 00000001 0101</pre>
+        <p>Por supuesto los espacios los he puesto por claridad (es decir por caridad) y no he explicado cómo escribir semejante secuencia de 0 y 1 en la <q>memoria de programa</q>, si bien en la práctica no resulta muy difícil averiguar cómo hacerlo en cada caso (modelo de ordenador y sistema operativo) en particular.</p>
+        <p>Esta forma de programación con ceros y unos también se denomina <dfn>lenguaje máquina</dfn>.</p>
+      </section>
+      
+      <section id="ensamblador">
+      <h2>Ensamblador</h2>
+        <p>Ahora bien, podemos escribir lo anterior en un lenguaje más sencillo (<dfn>lenguaje ensamblador</dfn>) y teclear algo análogo a:</p>
+        <pre>1 1 SUM</pre>
+        <p>(Digo <q>análogo</q> porque probablemente se parezca más a <code>1 1 ADD</code>, o incluso <code>0x01 0x01 ADD</code> o quién sabe.)</p>
+        <p>En esencia un lenguaje ensamblador realiza dos tareas :</p>
+        <ol>
+          <li>traducir a ceros y unos palabras fáciles de recordar tales como SUM, ADD, COMP etc. (<dfn>mneumónicos</dfn>), y</li>
+          <li>realizar una serie de cálculos engorrosos y liosos tales como escribir el número -37 a ceros y unos.</li>
+        </ol>
+        <p>Lo importante es comprender que por utilizar ensamblador en lugar de lenguaje máquina no perdemos control sobre la máquina.</p>
+        <p>No obstante los lenguajes ensambladores gozan de mala fama principalmente porque las operaciones que actualmente les pedimos a los ordenadores son tan complejas que incluso con las dos ayudas anteriores la programación se vuelve tediosa, liosa, resbaladiza (<i>error-prone</i>) y laboriosa.</p>
+        <p>Por supuesto cuando se inventó el ordenador los ingenieros eléctricos estaban encantados con ellos y dispuestísimos a escribir en lenguaje máquina y ya no te cuento en lenguaje ensamblador, facilísimo comparado con el de puros ceros y unos.</p>
+        <p>Actualmente el ensamblador se utiliza para escribir <q>código</q> que se ejecuta muchas veces en muchos ordenadores. Por ejemplo las partes más intensas de <a href="linux.html" target="_blank">Linux</a> están escritas en ensamblador.</p>
+        <p>Con el tiempo el lenguaje ensamblador se clasificó entre los <dfn>lenguajes de bajo nivel</dfn>, junto con el lenguaje máquina, sólo apto para masoquistas. La minoría formada por los programadores decidió hacerse un regalo y antes de perder el seso como don Quijote inventó los <dfn>lenguajes de alto nivel</dfn>, en esencia más fáciles, manejables y <q>expresivos</q>, y se pasó a ellos, con lo que se inaugura la ciencia y arte de la <a href="programacion.html">programación</a> propiamente dicha.</p>
+        <hr/>
+        <p>Existe, o subsiste, un lenguaje intermedio, C (por lo visto siguió a un oscuro lenguaje llamado B), que se considera de bajo nivel en el sentido de que permite un control más directo de la máquina (el <i>hardware</i>). Al no ser de tan bajo nivel como el ensamblador no goza de tan mala fama. Por cierto el lenguaje C se ha utilizado y continúa utilizando para escribir programas para:</p>
+        <ul>
+          <li>casi todo Linux (con una minoría de código en ensamblador), demás Unix y algún otro (sistema operativo), y</li>
+          <li>los <a href="#microcontroladores">microcontroladores</a> (gracias a esa misteriosa propiedad suya de proporcionar un <q>acceso más directo a la máquina</q>, algo que, como muchas cosas en la vida, no se comprende hasta que no se practica)</li>
+        </ul>
+      </section>
+      
     </main>
 
   </body>
