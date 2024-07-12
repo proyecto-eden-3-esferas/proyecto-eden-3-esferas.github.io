@@ -11,13 +11,6 @@
     <meta name="author" content="AUTHOR"/>
     <meta name="description" content="A_DESCRIPTION"/>
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
-
-    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
-    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
-    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
-
-    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
-    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
     -->
   </head>
   <body lang="en" class="computing">
@@ -33,43 +26,157 @@
       -->
       <div>
         <p><a href="HTML.html">HTML: XML for the Web</a></p>
-        <p><a href="TheWeb.html">The Web</a></p>
         <p><a href="svg.text.html">SVG Text</a></p>
         <p><a href="mathml.html">MathML: XML for Mathematical Notation</a></p>
-        <p><a href="section-containing-both-ps-and-sections.html">On Sections Containing both Paragraphs and Sections</a></p>
       </div>
       <div>
+        <p><a href="TheWeb.html">The Web</a></p>
         <p><a href="SemanticWeb.html">The Semantic Web</a></p>
-        <p><a href="Ontologies.html">Ontologies</a></p>
       </div>
       <div>
+        <p><a href="section-containing-both-ps-and-sections.html">On Sections Containing both Paragraphs and Sections</a></p>
         <p><a rel="prev" href="computing.html">Computing</a></p>
       </div>
     </nav>
 
     <main>
       <h1>XML: The eXtensible Markup Language</h1>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
-      <hr/>
-      <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
-      </aside>
+      <p>XML is a markup language. <dfn>Markup</dfn> is something added to a text to specify semantics and presentation.</p>
 
-      Erase this comment when done writing your page!
+      <p>You need to understand what is meant by syntax, semantics and presentation in the wider context.</p>
+      <dl>
+        <dt>Syntax</dt>
+        <dd>Rules for combining symbols; in linguistics, rules for combining words, as opposed to rules for building words (<dfn>morphology</dfn>).</dd>
+        <dt>Semantics</dt>
+        <dd>The purpose or intended use of an element or piece of text, such as being a section, a quotation, a date, a warning etc.</dd>
+        <dt>Presentation</dt>
+        <dd>How an element looks on a screen or a piece of paper: size and weight of its characters, indenting, background colour and so on. By the way, in XML this is usually achieved through referencing a separate file called a <dfn>stylesheet</dfn>.</dd>
+      </dl>
+
+      <p>In XML, text is marked up by placing runs of text between tags. The preceding tag is called an <dfn>opening tag</dfn>, and the succeeding tag is called a <dfn>closing tag</dfn>. A third kind of XML tag is the <dfn>standalone tag</dfn>, of which we&apos;ll see just one example.</p>
+
+      <p>XML is <em>not</em> a programming language. It is dual purpose. It is designed to be used for writing and for storing and retrieving information.</p>
+
+      <hr/>
+
+      <p>Look at the following example.</p>
+      <pre>&lt;p&gt;a &lt;dfn&gt;cheetah&lt;/dfn&gt; is a large feline of Africa and SW Asia, the swiftest mammal, having very long legs, non-retractile claws, and a black-spotted, light-brown coat.&lt;/p&gt;</pre>
+
+      <p>I have used <a href="HTML.html">HTML</a> tag names in this example. (HTML is the most common XML vocabulary.) The whole text is a paragraph, which is placed between one opening and one closing tag whose <q>name</q> is <var>p</var> (for <q>paragraph</q>, although other vocabularies might settle for longer names, like <var>para</var>, and the more typing you are required to do).</p>
+      <p>Please, note the punctuation marks: if you misplace a single &lt;, &gt; or / the documents will be ill-formed and some tools might stop working.</p>
+      <p>Also, the word <q>cheetah</q> appears between <code>dfn</code> tags to denote that it is a definition (semantics). That piece of information could turn out useful for searching the document (it must contain the definition of cheetah!) as well as for presenting the text suitably by, say, italizing all definition words or typesetting all paragraphs in a specific manner (presentation).</p>
+
+      <p>Some other, non-XML formats make do without tags, such as the <a href="json.html">JavaScript Object Notation</a>.</p>
+
+      <p>There are many other kinds of marks in XML besides tags. Look at the following example.</p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;the c++ programming language&lt;/title&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheet.en.css&quot;/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;The C++ Programming Language&lt;/h1&gt;
+    &lt;p&gt;C++ is a general-purpose programming language developed as an extension of C.&lt;/p&gt;
+    [...]</pre>
+      <p>...</p>
+      <p>This document seems to contain , ...</p>
+      <ul>
+        <li>a DOCTYPE (document type) declaration,</li>
+        <li>a title (to be shown on the frame of the window where the document is displayed),</li>
+        <li>a charset specification (essentially, to establish how non-English letters like ñ are to be printed),</li>
+        <li>a pointer to a stylesheet, that is another document that specifies the <q>look</q> or presentation of your elements, such as red letters for definition terms (you can point to the same stylesheet in tens of pages that you write and they will present a uniform, consistent appearance that you have defined just once), and</li>
+        <li>a header (between <code>h1</code> tags).</li>
+      </ul>
+      <p>Please note the syntax in the line <code>&lt;meta charset=&quot;UTF-8&quot;/&gt;</code>: it is a single standalone tag, ending in <code>/&gt;</code>!</p>
+      <p>Actually, XML proper must start with an XML declaration like</p>
+      <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</pre>
+
+      <hr/>
+
+      <p>Some of this stuff might be dismissed as paperwork, a kind of bureaucracy, but most of it plays some meaningful rôle, though.</p>
+      <p>The good news is that I don&pos;t need to remember all this whenever I write a new document: I just copy it off another document. Besides, if you write a web page in HTML, the most common XML vocabulary, the browser will still show your page properly if you make some minor mistakes.</p>
+      <p>Consider this. If you want to write a story and upload it to the Web, you just need two tags: <var>h1</var> for the the title, and <var>p</var> for a paragraph. May be you want to italize some word later on (<var>i</var> tag). Most writing does not require many more tags.</p>
+
+
+      <blockquote>
+        <p>The Extensible Markup Language (XML) is a markup language and file format for storing, transmitting, and reconstructing arbitrary data. It defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.</p>
+      </blockquote>
+
+      <p>XML comprises The World Wide Web Consortium&apos;s XML 1.0 Specification of 1998 and several other related <a href="SoftwareStandard.html">specifications</a>—all of them free open standards.</p>
+
+      <section>
+        <h2>On Being a Metalanguage: eXtensible</h2>
+        <p>XML <i>per se</i> does not define a set of tags with their own semantics and presentation expectations. That is why my presentation of XML may have felt a bit too <em>abstract</em>.</p>
+        <p>As already said, XML
+        <p>Some XML languages have already been defined, besides HTML.</p>
+        <ul>
+          <li><a href="mathml.html">Mathml</a>: for typesetting mathematical formulas</li>
+          <li><a href="svg.html">SVG</a>: or Scalable Vector Graphics</li>
+          <li>Docbook: a richer vocabulary than HTML for writing books, esp. technical books</li>
+          <li>MusicML: used by music software like MuseScore, Hydrogen etc.</li>
+          <li>TEI: the Text Encoding Initiative, for marking up texts in the Humanities such as plays and poetry, or for annotating ancient texts.</li>
+          <!--
+          <li><a href=".html"></a>: </li>
+          <li><a href=".html"></a>: </li>
+          <li><a href=".html"></a>: </li>
+          <li><a href=".html"></a>: </li>
+          <li><a href=".html"></a>: </li>
+          -->
+        </ul>
+      </section>
+
+      <section>
+        <h2>Copy and Knowledge Representation</h2>
+        <p>XML is good for two purposes</p>
+        <dl>
+          <dt>Writing</dt>
+          <dd>From literature to technical articles, arts reviews, reports etc.</dd>
+          <dt>Encoding Information</dt>
+          <dd>As long as it is human-readable, you can use a format of your own designing for representing data so that another programme can process it easily.</dd>
+        </dl>
+        <p>Most DBMS&apos;s (database management systems) can handle XML as fields and some  (cells in their rows) and their are at least two open source XML-oriented DBML&apos;s: eXist-db and BaseX. They use the XQuery language (instead of good old <a href="sql.html">SQL</a> to, well, query XML documents.</p>
+      </section>
+
+      <section>
+        <h2>Searching and Transforming</h2>
+        <p>As long as a document follows the XML syntax it can be transformed into another document in a different XML vocabulary or even into a non-XML document, such as a <a href="json.html">JSON</a> document, TeX/LaTeX for high-quality typesetting, Mark Down etc.</p>
+        <p>XML is the only text language for which such comprehensive transformations exist (eXtensible Stylesheet Transformations Language, or XSTL).</p>
+      </section>
+
+      <!--
+      <section>
+        <h2>XML Does Not DO Anything</h2>
+        <p>Maybe it is a little hard to understand, but XML does not DO anything.</p>
+        <p>This note is a note to Tove from Jani, stored as XML:</p>
+        <pre>&lt;note&gt;
+  &lt;to&gt;Tove&lt;/to&gt;
+  &lt;from&gt;Jani&lt;/from&gt;
+  &lt;heading&gt;Reminder&lt;/heading&gt;
+  &lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;
+&lt;/note&gt;</pre>
+        <p>The XML above is quite self-descriptive:</p>
+        <ul>
+          <li>It has sender information</li>
+          <li>It has receiver information</li>
+          <li>It has a heading</li>
+          <li>It has a message body</li>
+        </ul>
+        <p>But still, the XML above does not DO anything. XML is just information wrapped in tags. Someone must write a piece of software to send, receive, store, or display it.</p>
+      </section>
+
+      <section>
+        <h2>The Difference Between XML and HTML</h2>
+        <p>XML and HTML were designed with different goals:</p>
+        <ul>
+          <li>XML was designed to carry data - with focus on what data is</li>
+          <li>HTML was designed to display data - with focus on how data looks</li>
+          <li>XML tags are not predefined like HTML tags are</li>
+        </ul>
+      </section>
       -->
-      <p>[...]</p>
+
     </main>
 
   </body>

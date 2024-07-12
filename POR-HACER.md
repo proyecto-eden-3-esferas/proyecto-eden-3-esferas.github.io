@@ -1,8 +1,6 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[x] Actualmente
-
-[x] Añadir atributo lang="es" en body
+[x] Añadir atributo `lang="es"` en body of html files
 
 ```
 sed --in-place 's/^(\s*)<body>/\1<body lang="es">/g' *.html
