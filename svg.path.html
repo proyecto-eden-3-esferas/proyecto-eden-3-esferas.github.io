@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG Paths</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a href="svg.symbol.html">SVG: Symbols</a></p>
+      -->
+      <div>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> withint a <code>defs</code> Element</a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+
+      </div>
+      <div>
+        <p><a href="svg.html">XML: The eXtensible Markup Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Complex SVG Paths with <code>path</code></h1>
+      <p>The &lt;path&gt; element is the most powerful element in the SVG library of basic shapes. It can be used to create lines, curves, arcs, and more.</p>
+      <p>Paths create complex shapes by combining multiple straight lines or curved lines. Complex shapes composed only of straight lines can alternatively be created as &lt;polyline&gt; or &lt;polygon&gt; elements.</p>
+      <p>The shape of a &lt;path&gt; element is defined by one parameter: <var>d</var>. The d attribute contains a series of commands and parameters used by those commands.</p>
+      <p>Each of the commands is instantiated by a specific letter. For instance, let&apos;s move to the x and y coordinates (10, 10). The <q>Move to</q> command is called with the letter <code>M</code>. When the parser runs into this letter, it knows it needs to move to a point. So, to move to (10, 10) the command to use would be <code>M 10 10</code>. After that, the parser begins reading for the next command.</p>
+      <p>All of the commands also come in two variants. An uppercase letter specifies absolute coordinates on the page, and a lowercase letter specifies relative coordinates (e.g., <code>m 7 10</code> means: move 10px up and 7px to the left from the last point).</p>
+      <p>Coordinates in the <code>d</code> parameter are always unitless and hence in the user coordinate system. Still, paths can be <em>transformed</em> to suit other needs.</p>
+
+      <section id="line">
+        <h2>Line Commands</h2>
+        <p>There are five line commands for &lt;path&gt; nodes. The first command is the <q>Move To</q> or <q>M</q>, which was described above. It takes two parameters, a coordinate (x) and coordinate (y) to move to. If the cursor was already somewhere on the page, no line is drawn to connect the two positions. The <q>Move To</q> command often appears at the beginning of paths (or subpaths) to specify where the drawing should start. For example:</p>
+        <pre>M <var>x</var> <var>y</var></pre>
+        <p>or</p>
+        <pre>m <var>dx</var> <var>dy</var></pre>
+        <p>There are three commands that draw lines. The most generic is the <q>Line To</q> command, called with <code>L</code>. L takes two parameters—x and y coordinates—and draws a line from the current position to a new position.</p>
+        <p>...</p>
+
+      </section>
+
+      <section id="curve">
+        <h2>Curve Commands</h2>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

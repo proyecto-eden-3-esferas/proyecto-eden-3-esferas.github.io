@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG: g + use</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+      -->
+      <div>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> withint a <code>defs</code> Element</a></p>
+        <p><a href="svg.text.html">SVG Text</a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>SVG: Defining Elements in a Group (<code>g</code>) and Calling it</h1>
+
+      <p>Several SVG elements may be grouped together in an <code>svg:g</code> element, then the code is called through <code>svg:use</code>, with attribute xlink:href=<var>&quot;#itsId&quot;</var>.</p>
+      <p>Additionally, a transformation may be applied through attribute transform, as exemplified.</p>
+      <hr/>
+      <p>Look an the following code and the figure it draws below. The whiskers, two a side, are only coded once, then mirrored. (The large circle is a cat&apos;s face, and the two small ones are its eyes.)</p>
+      <pre>&lt;svg width=&quot;140&quot; height=&quot;170&quot;
+     xmlns=&quot;http://www.w3.org/2000/svg&quot;
+     xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+  &lt;title&gt;Cat&lt;/title&gt;
+  &lt;desc&gt;Stick Figure of a Cat&lt;/desc&gt;
+  &lt;circle cx=&quot;70&quot; cy=&quot;95&quot; r=&quot;50&quot; style=&quot;stroke: black; fill: none;&quot;/&gt;
+  &lt;circle cx=&quot;55&quot; cy=&quot;80&quot; r=&quot;5&quot;  stroke=&quot;black&quot; fill=&quot;#339933&quot;/&gt;
+  &lt;circle cx=&quot;85&quot; cy=&quot;80&quot; r=&quot;5&quot;  stroke=&quot;black&quot; fill=&quot;#339933&quot;/&gt;
+  &lt;g id=&quot;whiskers&quot;&gt;
+    &lt;line x1=&quot;75&quot; y1=&quot;95&quot; x2=&quot;135&quot; y2=&quot;85&quot;  style=&quot;stroke: black;&quot;/&gt;
+    &lt;line x1=&quot;75&quot; y1=&quot;95&quot; x2=&quot;135&quot; y2=&quot;105&quot; style=&quot;stroke: black;&quot;/&gt;
+  &lt;/g&gt;
+  &lt;use xlink:href=&quot;#whiskers&quot; transform=&quot;scale(-1 1) translate(-140 0)&quot;/&gt;
+&lt;/svg&gt;</pre>
+
+    <svg width="140" height="170"
+         xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>Cat</title>
+      <desc>Stick Figure of a Cat</desc>
+      <circle cx="70" cy="95" r="50" style="stroke: black; fill: none;"/>
+      <circle cx="55" cy="80" r="5"  stroke="black" fill="#339933"/>
+      <circle cx="85" cy="80" r="5"  stroke="black" fill="#339933"/>
+      <g id="whiskers">
+        <line x1="75" y1="95" x2="135" y2="85"  style="stroke: black;"/>
+        <line x1="75" y1="95" x2="135" y2="105" style="stroke: black;"/>
+      </g>
+      <use xlink:href="#whiskers" transform="scale(-1 1) translate(-140 0)"/>
+    </svg>
+
+
+
+    </main>
+
+  </body>
+
+</html>

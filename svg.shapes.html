@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG Basic Shapes</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a href="svg.symbol.html">SVG: Symbols</a></p>
+      -->
+      <div>
+        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> withint a <code>defs</code> Element</a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+
+      </div>
+      <div>
+        <p><a href="svg.html">XML: The eXtensible Markup Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>SVG Shapes: <code>Line</code>, <code>Circle</code>...</h1>
+      <p>There are several basic shapes used for most SVG drawing.</p>
+      <p>To insert a shape, you create an element in the document. Different elements correspond to different shapes and take different parameters to describe the size and position of those shapes. Some are slightly redundant in that they can be created by other shapes, but they're all there for your convenience and to keep your SVG documents as short and as readable as possible.</p>
+
+      <section>
+        <h2><code>circle</code></h2>
+        <p>Element <code>circle</code> draws a circle. Its attributes are:</p>
+        <ul>
+          <li><var>cx</var>: X coordinate of its center</li>
+          <li><var>cy</var>: Y coordinate of its center</li>
+          <li><var>r</var>: its radius</li>
+        </ul>
+        <p>Example:</p>
+        <pre>&lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;50&quot; /&gt;</pre>
+      </section>
+
+      <section>
+        <h2><code>rect</code></h2>
+        <p>Element <code>rect</code> draws a rectangle. Its attributes are:</p>
+        <ul>
+          <li><var>x</var>: The x position of the top left corner of the rectangle.</li>
+          <li><var>y</var>: The y position of the top left corner of the rectangle.</li>
+          <li><var>width</var>: The width of the rectangle.</li>
+          <li><var>height</var>: The height of the rectangle.</li>
+          <li><var>rx</var>: The x radius of the corners of the rectangle.</li>
+          <li><var>ry</var>: The y radius of the corners of the rectangle.</li>
+          <li><var></var>: </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><code>ellipse</code></h2>
+        <p>Element <code>ellipse</code> draws an ellipse. Its attributes are:</p>
+        <ul>
+          <li><var>rx</var>: The x radius of the ellipse.</li>
+          <li><var>ry</var>: The y radius of the ellipse.</li>
+          <li><var>cx</var></li>
+          <li><var>cy</var></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><code>line</code></h2>
+        <p>Element <code>line</code> draws a line or segment between two given points. Its attributes are:</p>
+        <ul>
+          <li><var>x1</var></li>
+          <li><var>y1</var></li>
+          <li><var>x2</var></li>
+          <li><var>y2</var></li>
+        </ul>
+        <p>Example:</p>
+        <pre>&lt;line x1=&quot;10&quot; x2=&quot;50&quot; y1=&quot;110&quot; y2=&quot;150&quot; stroke=&quot;black&quot; stroke-width=&quot;5&quot;/&gt;</pre>
+      </section>
+
+      <section>
+        <h2><code>polyline</code></h2>
+        <p>Element <code>polyline</code> draws a group of connected straight lines. Since the list of points can get quite long, all the points are included in one attribute:</p>
+        <pre>&lt;polyline points=&quot;60, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 145&quot;/&gt;</pre>
+        <p>Its attribute <var>points</var>: a list of points. Each number must be separated by a space, comma, EOL, or a line feed character with additional whitespace permitted. Each point must contain two numbers: an <var>x</var> coordinate and a <var>y</var> coordinate. So, the list (0,0), (1,1), and (2,2) could be written as <code>0,0 1,1 2,2</code>.</p>
+      </section>
+
+      <section>
+        <h2><code>polygon</code></h2>
+        <p>A &lt;polygon&gt; is similar to a &lt;polyline&gt;, in that it is composed of straight line segments connecting a list of points. For polygons though, the path automatically connects the last point with the first, creating a closed shape. Its attributes are the same as polyline&apos;s.</p>
+      </section>
+
+      <section>
+        <h2><code>path</code></h2>
+        <p>A <code>path</code> is the most general shape that can be used in SVG. Using a path element, you can draw rectangles (with or without rounded corners), circles, ellipses, polylines, and polygons. Basically any of the other types of shapes, bezier curves, quadratic curves, and many more.</p>
+        <p>Its one specific attribute is <code>d</code>, which is a list of points and other information about how to draw the path.</p>
+        <pre>&lt;path d=&quot;M20,230 Q40,205 50,230 T90,230&quot; fill=&quot;none&quot; stroke=&quot;blue&quot; stroke-width=&quot;5&quot;/&gt;</pre>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

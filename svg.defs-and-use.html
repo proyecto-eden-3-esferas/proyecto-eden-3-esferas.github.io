@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG: defs + use</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+      -->
+      <div>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.text.html">SVG Text</a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>SVG: Defining Elements with an <var>ID</var> withint a <code>defs</code> Element</h1>
+
+      <p>The &lt;defs&gt; element is used to store graphical objects that will be used at a later time. Objects created inside a &lt;defs&gt; element are not rendered directly. To display them you have to reference them (with a &lt;use&gt; element for example).</p>
+      <p>Graphical objects can be referenced from anywhere, however, defining these objects inside of a &lt;defs&gt; element promotes understandability of the SVG content and is beneficial to the overall accessibility of the document.</p>
+
+      <h3>Example</h3>
+      <pre></pre>
+&lt;svg viewBox=&quot;0 0 10 10&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+  &lt;!-- Some graphical objects to use --&gt;
+  &lt;defs&gt;
+    &lt;circle id=&quot;myCircle&quot; cx=&quot;0&quot; cy=&quot;0&quot; r=&quot;5&quot; /&gt;
+
+    &lt;linearGradient id=&quot;myGradient&quot; gradientTransform=&quot;rotate(90)&quot;&gt;
+      &lt;stop offset=&quot;20%&quot; stop-color=&quot;gold&quot; /&gt;
+      &lt;stop offset=&quot;90%&quot; stop-color=&quot;red&quot; /&gt;
+    &lt;/linearGradient&gt;
+  &lt;/defs&gt;
+
+  <!-- using my graphical objects -->
+  &lt;use x=&quot;5&quot; y=&quot;5&quot; href=&quot;#myCircle&quot; fill=&quot;url('#myGradient')&quot; /&gt;
+</svg>
+
+    </main>
+
+  </body>
+
+</html>
