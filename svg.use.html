@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG use</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a href="svg.symbol.html">SVG: Symbols</a></p>
+      -->
+      <div>
+        <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
+        <p><a href="svg.common-attributes.html">SVG Common attributes</a></p>
+        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+      </div>
+      <div>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> withint a <code>defs</code> Element</a></p>
+        <p><a href="svg.text.html">SVG Text</a></p>
+
+      </div>
+      <div>
+        <p><a href="xml.en.html">XML: The eXtensible Markup Language</a></p>
+        <p><a href="HTML.html">HTML: XML for the Web</a></p>
+        <p><a href="mathml.html">MathML: XML for Mathematical Notation</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>SVG: Using them Elemnts through <code>use</code></h1>
+      <p> The &lt;use&gt; element takes nodes from within the SVG document, and duplicates them somewhere else. The effect is the same as if the nodes were deeply cloned into a non-exposed DOM, then pasted where the use element is, much like cloned template elements.</p>
+      <h3 class="bridgehead">Example</h3>
+      <p>The following example shows how to use the use element to draw a circle with a different fill and stroke color. In the last circle, <code>stroke=&quot;red&quot;</code> will be ignored because stroke was already set on circle with <var>id</var> = myCircle.</p>
+      <pre>&lt;svg viewBox=&quot;0 0 30 10&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+  &lt;circle id=&quot;myCircle&quot; cx=&quot;5&quot; cy=&quot;5&quot; r=&quot;4&quot; stroke=&quot;blue&quot; /&gt;
+  &lt;use href=&quot;#myCircle&quot; x=&quot;10&quot; fill=&quot;blue&quot; /&gt;
+  &lt;use href=&quot;#myCircle&quot; x=&quot;20&quot; fill=&quot;white&quot; stroke=&quot;red&quot; /&gt;
+&lt;/svg&gt;</pre>
+
+
+      <h2>Attributes</h2>
+      <dl>
+        <dt><var>href</var></dt>
+        <dd>The URL to an element/fragment that needs to be duplicated.</dd>
+        <dt><var>xlink:href</var></dt>
+        <dd>An &lt;IRI&gt; reference to an element/fragment that needs to be duplicated. If both href and xlink:href are present, the value given by href is used.</dd>
+        <dt><var>x</var></dt>
+        <dd>The <var>x</var> coordinate of an additional final offset transformation applied to the &lt;use&gt; element. Default value: 0.</dd>
+        <dt><var>y</var></dt>
+        <dd>The <var>y</var> coordinate of an additional final offset transformation applied to the &lt;use&gt; element. Default value: 0.</dd>
+        <dt><var>width</var></dt>
+        <dd>The width of the use element. Default value: 0.</dd>
+        <dt><var>height</var></dt>
+        <dd>The width of the use element. Default value: 0.</dd>
+      </dl>
+
+      <h2>Usage notes</h2>
+      <p> Most attributes on &lt;use&gt; are ignored if the corresponding attribute is already defined on the element referenced by &lt;use&gt;. (This differs from how CSS style attributes override those set <q>earlier</q> in the cascade). Only the attributes <var>x</var>, <var>y</var>, <var>width</var>, <var>height</var> and <var>href</var> on the &lt;use&gt; element will or may have some effect<!--, described later,--> if the referenced element has already defined the corresponding attribute.</p>
+      <p>However, any other attributes not set on the referenced element will be applied to the use element.</p>
+      <p>Since the cloned nodes are not exposed, care must be taken when using CSS to style a use element and its cloned descendants. CSS properties are not guaranteed to be inherited by the cloned DOM unless you explicitly request them using CSS inheritance.</p>
+      <p>For security reasons, browsers may apply the same-origin policy on use elements and may refuse to load a cross-origin URL in the href attribute. There is currently no defined way to set a cross-origin policy for use elements.</p>
+
+    </main>
+
+  </body>
+
+</html>

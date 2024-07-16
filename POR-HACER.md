@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Move general CSS attributes out of *svg.common-attributes.html* into *css.***attributes.html*
+
 [x] Añadir atributo `lang="es"` en body of html files
 
 ```
@@ -139,6 +141,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
    El silicio (Si) presenta cuatro electrones en su última capa, que en un cristal de silicio entran en enlace covalente con los de sus átomos vecinos de modo que no queda ningún electrón libre para la conducción salvo los generados térmicamente...
 
 ## Por escribir (igual existe el archivo, pero sin párrafos)
+
+- *css.media-query.html*
 
 - *ser-en-potencia-y-en-acto.html*
 

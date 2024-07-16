@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG Marker</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a href="svg.symbol.html">SVG: Symbols</a></p>
+      -->
+      <div>
+        <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
+        <p><a href="svg.common-attributes.html">SVG Common attributes</a></p>
+        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
+        <p><a href="svg.transform.html">Transformations with the <var>transform</var> Attribute</a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+      </div>
+      <div>
+        <p><a href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a></p>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>SVG: Markers</h1>
+      <p>The &lt;marker&gt; element defines a graphic used for drawing arrowheads or polymarkers on a given &lt;path&gt;, &lt;line&gt;, &lt;polyline&gt; or &lt;polygon&gt; element.</p>
+      <p>Markers can be attached to shapes using the <var>marker-start<var>, <var>marker-mid</var>, and <var>marker-end</var> properties.</p>
+
+      <h3 class="bridgehead">Attributes</h3>
+      <dl>
+        <dt><var>markerHeight</var></dt>
+        <dd>
+          <p>Defines the height of the marker viewport. Value type: &lt;length&gt; ; Default value: 3.</p>
+        </dd>
+        <dt><var>markerUnits</var></dt>
+        <dd>
+          <p>This attribute defines the coordinate system for the attributes markerWidth, markerHeight and the contents of the &lt;marker&gt;. Value type: <code>userSpaceOnUse | strokeWidth</code>; Default value: strokeWidth</p>
+        </dd>
+        <dt><var>markerWidth</var></dt>
+        <dd>
+          <p>Defines the width of the marker viewport. Value type: &lt;length&gt; ; Default value: 3</p>
+        </dd>
+        <dt><var><a href="#orient">orient</a></var></dt>
+        <dd>
+          <p>Defines the orientation of the marker relative to the shape it is attached to. Value type: <code>auto|auto-start-reverse|<var>angle</var></code> ; Default value: 0</p>
+        </dd>
+
+        <dt><var>preserveAspectRatio</var></dt>
+        <dd>
+          <p>Defines how the svg fragment must be deformed if it is embedded in a container with a different aspect ratio. Value type: <code>(none| xMinYMin| xMidYMin| xMaxYMin| xMinYMid| xMidYMid| xMaxYMid| xMinYMax| xMidYMax| xMaxYMax) (meet|slice)?</code>; Default value: <code>xMidYMid meet</code></p>
+        </dd>
+
+        <dt><var>refX</var></dt>
+        <dd>
+          <p>Defines the <var>x</var> coordinate for the reference point of the marker. Value type: <code>left|center|right|&lt;coordinate&gt;</code>; Default value: 0</p>
+        </dd>
+        <dt><var>refY</var></dt>
+        <dd>
+          <p>Defines the <var>y</var> coordinate for the reference point of the marker. Value type: <code>top|center|bottom|&lt;coordinate&gt;</code>; Default value: 0</p>
+        </dd>
+
+        <dt><var>viewBox</var></dt>
+        <dd>
+          <p>This attribute defines the bound of the SVG viewport for the current SVG fragment. Value type: &lt;list-of-numbers&gt;; Default value: none</p>
+        </dd>
+
+        <dt><var>paint-order</var></dt>
+        <dd>
+          <p>Specifies the order that the fill, stroke, and markers of a given shape or text element are painted.</p>
+          <p>Value: <code>normal | [ fill || stroke || markers ]</code>. Default value: <code>normal</code></p>
+          <p>If <code>normal</code>, the fill will be painted first, then the stroke, and finally the markers. Otherwise, the order of any of <code>fill, stroke, markers</code> indicates the order in which the painting happens, from left to right. If any of the three painting components is omitted, they will be painted in their default order after the specified components. For example, specifying <code>stroke</code> is equivalent to <code>stroke fill markers</code>.</p>
+        </dd>
+
+        <dt><var>shape-rendering</var></dt>
+        <dd>
+          <p>The shape-rendering attribute provides hints to the renderer about what tradeoffs to make when rendering shapes like paths, circles, or rectangles.</p>
+          <p>You can use this attribute with the following SVG elements: &lt;circle&lt;, &lt;ellipse&lt;, &lt;line&lt;, &lt;path&lt;, &lt;polygon&lt;, &lt;polyline&lt;, and &lt;rect&lt;</p>
+          <p>It takes on values: <code>auto | optimizeSpeed | crispEdges | geometricPrecision</code>. The value <code>crispEdges</code> prompts that the user agent shall attempt to emphasize the contrast between clean edges of artwork over rendering speed and geometric precision. To achieve crisp edges, the user agent might turn off anti-aliasing for all lines and curves or possibly just for straight lines which are close to vertical or horizontal. Also, the user agent might adjust line positions and line widths to align edges with device pixels.</p>
+        </dd>
+
+        <dt><var>style</var></dt>
+        <dd>
+          <p>The <var>style</var> attribute allows to style an element using CSS declarations. It functions identically to the style attribute in HTML.</p>
+        </dd>
+        <dt><var>systemLanguage</var></dt>
+        <dd>
+          <p>This attribute represents a list of supported language tags. This list is matched against the language defined in the user preferences.</p>
+        </dd>
+        <dt><var>tabindex</var></dt>
+        <dd>
+          <p>This attribute allows you to control whether an element is focusable and to define the relative order of the element for the purposes of sequential focus navigation. Its value is an integer.</p>
+        </dd>
+        <dt><var><a href="svg.transform.html">transform</a></var></dt>
+        <dd>
+          <p>The <var>transform</var> attribute defines a list of transform definitions that are applied to an element and the element&apos;s children.</p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+      </dl>
+
+
+      <section id="stroke">
+        <h2>The <var>stroke*</var> marker attributes</h2>
+        <dl>
+          <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+      </dl>
+      </section>
+
+
+      <section id="text">
+        <h2>The <var>text*</var> marker attributes</h2>
+        <dl>
+          <dt><var>text-anchor</var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var>text-decoration</var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var>text-rendering</var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var>textLength</var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+        <dt><var></var></dt>
+        <dd>
+          <p></p>
+        </dd>
+      </dl>
+      </section>
+
+
+      <section id="orient">
+        <h2>The <var>orient</var> marker attribute</h2>
+
+        <p>The <var>orient</var> attribute indicates how a marker is rotated when it is placed at its position on the shape.</p>
+
+        <h4 class="bridgehead">Example</h4>
+        <pre>&lt;svg viewBox=&quot;0 0 100 100&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+  &lt;defs&gt;
+    &lt;marker
+      id=&quot;arrow&quot;
+      viewBox=&quot;0 0 10 10&quot;
+      refX=&quot;5&quot;
+      refY=&quot;5&quot;
+      markerWidth=&quot;6&quot;
+      markerHeight=&quot;6&quot;
+      orient=&quot;auto-start-reverse&quot;&gt;
+      &lt;path d=&quot;M 0 0 L 10 5 L 0 10 z&quot; /&gt;
+    &lt;/marker&gt;
+
+    &lt;marker
+      id=&quot;dataArrow&quot;
+      viewBox=&quot;0 0 10 10&quot;
+      refX=&quot;5&quot;
+      refY=&quot;5&quot;
+      markerWidth=&quot;6&quot;
+      markerHeight=&quot;6&quot;
+      orient=&quot;-65deg&quot;&gt;
+      &lt;path d=&quot;M 0 0 L 10 5 L 0 10 z&quot; fill=&quot;red&quot; /&gt;
+    &lt;/marker&gt;
+  &lt;/defs&gt;
+
+  &lt;polyline
+    points=&quot;10,10 10,90 90,90&quot;
+    fill=&quot;none&quot;
+    stroke=&quot;black&quot;
+    marker-start=&quot;url(#arrow)&quot;
+    marker-end=&quot;url(#arrow)&quot; /&gt;
+
+  &lt;polyline
+    points=&quot;15,80 29,50 43,60 57,30 71,40 85,15&quot;
+    fill=&quot;none&quot;
+    stroke=&quot;grey&quot;
+    marker-start=&quot;url(#dataArrow)&quot;
+    marker-mid=&quot;url(#dataArrow)&quot;
+    marker-end=&quot;url(#dataArrow)&quot; /&gt;
+&lt;/svg&gt;</pre>
+
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 10 10"
+      refX="5"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+
+    <marker
+      id="dataArrow"
+      viewBox="0 0 10 10"
+      refX="5"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      orient="-65deg">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="red" />
+    </marker>
+  </defs>
+
+  <polyline
+    points="10,10 10,90 90,90"
+    fill="none"
+    stroke="black"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)" />
+
+  <polyline
+    points="15,80 29,50 43,60 57,30 71,40 85,15"
+    fill="none"
+    stroke="grey"
+    marker-start="url(#dataArrow)"
+    marker-mid="url(#dataArrow)"
+    marker-end="url(#dataArrow)" />
+</svg>
+        <p>It takes on values:</p>
+        <dl>
+          <dt><code>auto</code></dt>
+          <dd>The marker is oriented such that its positive x-axis is pointing in a direction relative to the path at the position the marker is placed.</dd>
+          <dt><code>auto-start-reverse</code></dt>
+          <dd>
+            <p>If placed by marker-start, the marker is oriented 180° different from the orientation that would be used if auto were specified. For all other markers, auto-start-reverse means the same as auto.</p>
+            <p><strong>Note:</strong> This allows a single arrowhead marker to be defined that can be used for both the start and end of a path, i.e. which points outwards from both ends.</p>
+          </dd>
+          <dt><code>&lt;angle&gt;</code></dt>
+          <dd>
+            <p>The marker is oriented such that the specified angle is that measured between the shape&apos;s positive x-axis and the marker&apos;s positive x-axis.</p>
+            <p><strong>Note:</strong> For example, if a value of 45 is given, then the marker&apos;s positive x-axis would be pointing down and right in the shape&apos;s coordinate system.</p>
+          </dd>
+          <dt><code>&lt;number&gt;</code></dt>
+          <dd>This value indicates an angle in degrees. The marker is oriented such that the specified angle is that measured between the shape's positive x-axis and the marker's positive x-axis.</dd>
+        </dl>
+
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

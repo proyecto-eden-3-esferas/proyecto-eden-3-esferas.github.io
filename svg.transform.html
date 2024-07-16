@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG transform</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a href="svg.symbol.html">SVG: Symbols</a></p>
+      -->
+      <div>
+        <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
+        <p><a href="svg.common-attributes.html">SVG Common attributes</a></p>
+        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
+      </div>
+      <div>
+        <p><a href="svg.html">SVG: </p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Transformations with the <var>transform</var> Attribute</h1>
+      <p>The transform attribute defines a list of transform definitions that are applied to an element and the element&apos;s children.</p>
+      <h3 class="bridgehead">Example</h3>
+      <pre>&lt;svg
+  viewBox="-40 0 150 100"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+  &lt;g
+    fill="grey"
+    transform="rotate(-10 50 100)
+               translate(-36 45.5)
+               skewX(40)
+               scale(1 0.5)"&gt;
+    &lt;path
+      id="heart"
+      d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z" /&gt;
+  &lt;/g&gt;
+
+  &lt;use href="#heart" fill="none" stroke="red" /&gt;
+&lt;/svg&gt;</pre>
+
+      <svg
+  viewBox="-40 0 150 100"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g
+    fill="grey"
+    transform="rotate(-10 50 100)
+               translate(-36 45.5)
+               skewX(40)
+               scale(1 0.5)">
+    <path
+      id="heart"
+      d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z" />
+  </g>
+
+  <use href="#heart" fill="none" stroke="red" />
+</svg>
+
+      <section id="funtions">
+        <h2>Transform Functions</h2>
+        <p>The following transform functions can be used by the transform attribute &lt;transform-list&gt;:</p>
+
+        <dl>
+
+          <dt><code>matrix(<var>a</var>, <var>b</var>, <var>c</var>, <var>d</var>, <var>e</var>, <var>f</var>)</code></dt>
+          <dd></dd>
+
+          <dt><code>translate(<var>x</var> [<var>y</var>])</code></dt>
+          <dd></dd>
+
+          <dt><code>scale(<var>x</var> [<var>y</var>])</code></dt>
+          <dd>A scale operation by <var>x</var> and <var>y</var>. If <var>y</var> is not supplied, it is assumed to be equal to <var>x</var>.</dd>
+
+          <dt><code>rotate(<var>a</var> [<var>y</var> <var>y</var>])</code></dt>
+          <dd>It specifies a rotation by a degrees about a given point. If optional parameters <var>x</var> and <var>y</var> are not supplied, the rotation is about the origin of the current user coordinate system. If optional parameters <var>x</var> and <var>y</var> are supplied, the rotation is about the point (<var>x</var>, <var>y</var>)</dd>
+
+          <dt><code>SkewX</code></dt>
+          <dd>A skew transformation along the X axis by <var>a</var> degrees.</dd>
+          <dt><code>SkewY</code></dt>
+          <dd>A skew transformation along the Y axis by <var>a</var> degrees.</dd>
+
+        </dl>
+
+      </section>
+
+      <section>
+        <h2><var>transform-origin</var></h2>
+        <p>The transform-origin SVG attribute sets the origin for an item&apos;s transformations. You can use this attribute with any SVG element.</p>
+        <p>The <var>transform-origin</var> property may be specified using one, two, or three values, where each value represents an offset. Offsets that are not explicitly defined are reset to their corresponding initial values.</p>
+        <p>If a single &lt;length&gt; or &lt;percentage&gt; value is defined, it represents the horizontal offset.</p>
+        <p>If two or more values are defined and either no value is a keyword, or the only used keyword is center, then the first value represents the horizontal offset and the second represents the vertical offset.</p>
+        <dl>
+          <dt>One-value syntax</dt>
+          <dd>The value must be a &lt;length&gt;, or one of the keywords left, center, right, top, and bottom.</dd>
+          <dt>Two-value syntax</dt>
+          <dd>One value must be a &lt;length&gt;, a &lt;percentage&gt;, or one of the keywords <code>left</code>, <code>center</code>, and <code>right</code>. The other value must be a &lt;length&gt;, a &lt;percentage&gt;, or one of the keywords <code>top</code>, <code>center</code>, and <code>bottom</code>.</dd>
+          <dt>Three-value syntax</dt>
+          <dd>The first two values are the same as for the two-value syntax. The third value must be a &lt;length&gt;. It always represents the <var>Z offset</var>.</dd>
+        </dl>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>
