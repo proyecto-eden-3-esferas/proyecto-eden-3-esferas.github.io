@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSS font-family</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="css.font-family.html">CSS Font Family</a></p>
+      -->
+      <div>
+        <p><a href="css.media-query.html">CSS Media Queries</a></p>
+        <p><a href="css.import-stylesheet.html">The CSS @import Rule</a></p>
+        <p><a href="HTML.tips-and-tricks.html">HTML Tips and Tricks</a></p>
+      </div>
+      <div>
+        <p><a href="css.colours.html">CSS Colours</a></p>
+        <p><a href="css.colour-list.html">List of Colours in CSS/HTML</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>CSS Font Family (<var>font-family</var>)</h1>
+      <p>The font-family CSS property specifies a prioritized list of one or more font family names and/or generic family names for the selected element.</p>
+      <p>Values are separated by commas to indicate that they are alternatives. Each font family is specified as either a <var>family-name</var> or a <var>generic-name</var> value. The browser will select the first font in the list that is installed or that can be downloaded using a <code>@font-face</code> at-rule.</p>
+
+      <p>The following declaration is valid:</p>
+      <pre>font-family: &quot;Goudy Bookletter 1911&quot;, sans-serif;</pre>
+
+      <!--
+      <p>It is often convenient to use the shorthand property font to set font-size and other font related properties all at once.</p>
+      -->
+
+      <p>You should always include at least one generic family name in a font-family list, since there&apos;s no guarantee that any given font is available. This lets the browser select an acceptable fallback font when necessary.</p>
+
+      <p>The font-family property specifies a list of fonts, from highest priority to lowest. Font selection does not stop at the first font in the list that is on the user&apos;s system. Rather, font selection is done one character at a time, so that if an available font does not have a glyph for a needed character, the latter fonts are tried. When a font is only available in some styles, variants, or sizes, those properties may also influence which font family is chosen.</p>
+
+      <p>Generic family names: <code>serif</code>, <code>sans-serif</code>, <code>monospace</code>, <code>cursive</code>, <code>fantasy</code>, <code>system-ui</code>, <code>ui-serif</code>, <code>ui-sans-serif</code>, <code>ui-monospace</code>, <code>ui-rounded</code>, <code>emoji</code>, <code>math</code>, and <code>fangsong</code>.</p>
+
+      <p>Global values: <code>inherit</code>, <code>initial</code>, <code>revert</code>, <code>revert-layer</code>, and <code>unset</code>.</p>
+
+      <section id="generic">
+        <h2>Generic font families</h2>
+        <p>Generic font families are a fallback mechanism, a means of preserving some of the style sheet author's intent when none of the specified fonts are available. Generic family names are keywords and must not be quoted. A generic font family should be the last item in the list of font family names. The following keywords are defined:</p>
+        <dl>
+          <dt><code>seriv</code></dt>
+          <dd>
+            <p>Glyphs have finishing strokes, flared or tapering ends, or have actual serifed endings.</p>
+            <p>For example: Lucida Bright, Lucida Fax, Palatino, Palatino Linotype, Palladio, URW Palladio, serif.</p>
+          </dd>
+          <dt><code>sans-serif</code></dt>
+          <dd>
+            <p>Glyphs have stroke endings that are plain.</p>
+            <p>For example: Open Sans, Fira Sans, Lucida Sans, Lucida Sans Unicode, Trebuchet MS, Liberation Sans, Nimbus Sans L, sans-serif.</p>
+          </dd>
+          <dt><code>monospace</code></dt>
+          <dd>
+            <p>All glyphs have the same fixed width.</p>
+            <p>For example: Fira Mono, DejaVu Sans Mono, Menlo, Consolas, Liberation Mono, Monaco, Lucida Console, monospace.</p>
+          </dd>
+          <dt><code>cursive</code></dt>
+          <dd>
+            <p>Glyphs in cursive fonts generally have either joining strokes or other cursive characteristics beyond those of italic typefaces. The glyphs are partially or completely connected, and the result looks more like handwritten pen or brush writing than printed letter work.</p>
+            <p>For example: Brush Script MT, Brush Script Std, Lucida Calligraphy, Lucida Handwriting, Apple Chancery, cursive.</p>
+          </dd>
+          <dt><code>fantasy</code></dt>
+          <dd>
+            <p>Fantasy fonts are primarily decorative fonts that contain playful representations of characters.</p>
+            <p>For example: Papyrus, Herculanum, Party LET, Curlz MT, Harrington, fantasy.</p>
+          </dd>
+
+          <dt><code>system-ui</code></dt>
+          <dd>
+            <p>Glyphs are taken from the default user interface font on a given platform. Because typographic traditions vary widely across the world, this generic is provided for typefaces that don&apos;t map cleanly into the other generics.</p>
+          </dd>
+          <dt><code>ui-serif</code></dt>
+          <dd>The default user interface serif font.</dd>
+          <dt><code>ui-sans-serif</code></dt>
+          <dd>The default user interface sans-serif font.</dd>
+          <dt><code>ui-monospace</code></dt>
+          <dd>The default user interface monospace font.</dd>
+          <dt><code>ui-rounded</code></dt>
+          <dd>The default user interface font that has rounded features.</dd>
+          <dt><code>math</code></dt>
+          <dd>This is for the particular stylistic concerns of representing mathematics: superscript and subscript, brackets that cross several lines, nesting expressions, and double struck glyphs with distinct meanings.</dd>
+          <dt><code>emoji</code></dt>
+          <dd>Fonts that are specifically designed to render emoji.</dd>
+          <dt><code>fangsong</code></dt>
+          <dd>A particular style of Chinese characters that are between serif-style Song and cursive-style Kai forms. This style is often used for government documents.</dd>
+          <dt><code></code></dt>
+          <dd></dd>
+          <dt><code></code></dt>
+          <dd></dd>
+          <dt><code></code></dt>
+          <dd></dd>
+        </dl>
+      </section>
+
+
+
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *ai.html*, on Artificial Intelligence, is incomplete. Specifically, it lacks an introduction (first paragraphs after h1 elements).
+
 [ ] Move general CSS attributes out of *svg.common-attributes.html* into *css.***attributes.html*
 
 [x] Añadir atributo `lang="es"` en body of html files
