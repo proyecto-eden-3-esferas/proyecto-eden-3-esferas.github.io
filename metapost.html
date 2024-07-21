@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>computing</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+      -->
+      <div>
+        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="technology.html">Technology</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="computing.html">Computer Science</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>MetaPost: Drawing for PostScript</h1>
+      <p>The <dfn>MetaPost</dfn> system (by John Hobby) implements a picture-drawing language very much like that of MetaFont; the difference is that MetaPost outputs vector graphic files instead of run-length-encoded bitmaps; output formats available are PostScript and <a href="svg.html" target="_blank">SVG</a>.</p>
+      <p>MetaPost is a powerful language for producing figures for documents to be printed on PostScript printers, either directly or embedded in (La)TeX documents. MetaPost is able to integrate text and mathematics, marked up for use with TeX, within the graphics. Additionally, the PostScript subset created by METAPOST can be interpreted by pdfTEX. So METAPOST figures can be directly included with e. g. the standard <code>graphics</code> package, while normal EPS images have to be converted first to be usable with pdfLATEX.</p>
+      <del><p>(Knuth says that he uses nothing but MetaPost for diagrams in text that he is writing.)</p></del>
+
+      <p><strong>Note:</strong> On a Ubuntu distro the package for MetaPost is named <code>texlive-metapost</code> (plus documentation <code>texlive-metapost</code>) and includes the following CTAN packages:</p>
+      <dl>
+        <dt>automata</dt>
+        <dd>Finite state machines, graphs and trees in MetaPost</dd>
+        <dt>bbcard</dt>
+        <dd>Bullshit bingo, calendar and baseball-score cards</dd>
+        <dt>blockdraw_mp</dt>
+        <dd>Block diagrams and bond graphs, with MetaPost</dd>
+        <dt>bpolynomial</dt>
+        <dd>Drawing polynomial functions of up to order 3</dd>
+        <dt>cmarrows</dt>
+        <dd>MetaPost arrows and braces in the Computer Modern style</dd>
+        <dt>drv</dt>
+        <dd>Derivation trees with MetaPost</dd>
+        <dt>dviincl</dt>
+        <dd>Include a DVI page into MetaPost output</dd>
+        <dt>emp</dt>
+        <dd><q>Encapsulate</q> MetaPost figures in a document</dd>
+        <dt>epsincl</dt>
+        <dd>Include EPS in MetaPost figures</dd>
+        <dt>expressg</dt>
+        <dd>Diagrams consisting of boxes, lines, and annotations</dd>
+        <dt>exteps</dt>
+        <dd>Include EPS figures in MetaPost</dd>
+        <dt>featpost</dt>
+        <dd>MetaPost macros for 3D</dd>
+        <dt>feynmp-auto</dt>
+        <dd>Automatic processing of feynmp graphics</dd>
+        <dt>fiziko</dt>
+        <dd>A MetaPost library for physics textbook illustrations</dd>
+        <dt>garrigues</dt>
+        <dd>MetaPost macros for the reproduction of Garrigues&apos; Easter nomogram</dd>
+        <dt>gmp</dt>
+        <dd>Enable integration between MetaPost pictures and LaTeX</dd>
+        <dt>hatching</dt>
+        <dd>MetaPost macros for hatching interior of closed paths</dd>
+        <dt>latexmp</dt>
+        <dd>Interface for LaTeX-based typesetting in MetaPost</dd>
+        <dt>mcf2graph</dt>
+        <dd>Draw chemical structure diagrams with MetaPost</dd>
+        <dt>metago</dt>
+        <dd>MetaPost output of Go positions</dd>
+        <dt>metaobj</dt>
+        <dd>MetaPost package providing high-level objects</dd>
+        <dt>metaplot</dt>
+        <dd>Plot-manipulation macros for use in MetaPost</dd>
+        <dt>metapost</dt>
+        <dd>A development of Metafont for creating graphics</dd>
+        <dt>metapost-colorbrewer</dt>
+        <dd>An implementation of the colorbrewer2.org colours for MetaPost</dd>
+        <dt>metauml</dt>
+        <dd>MetaPost library for typesetting UML diagrams</dd>
+        <dt>mfpic</dt>
+        <dd>Draw Metafont/post pictures from (La)TeX commands</dd>
+        <dt>mfpic4ode</dt>
+        <dd>Macros to draw direction fields and solutions of ODEs</dd>
+        <dt>minim-hatching</dt>
+        <dd>Create tiling patterns with the minim-mp MetaPost processor</dd>
+        <dt>mp3d</dt>
+        <dd>3D animations</dd>
+        <dt>mparrows</dt>
+        <dd>MetaPost module with different types of arrow heads</dd>
+        <dt>mpattern</dt>
+        <dd>Patterns in MetaPost</dd>
+        <dt>mpcolornames</dt>
+        <dd>Extend list of predefined colour names for MetaPost</dd>
+        <dt>mpgraphics</dt>
+        <dd>Process and display MetaPost figures inline</dd>
+        <dt>mptrees</dt>
+        <dd>Probability trees with MetaPost</dd>
+        <dt>piechartmp</dt>
+        <dd>Draw pie-charts using MetaPost</dd>
+        <dt>repere</dt>
+        <dd>Diagrams for school mathematics</dd>
+        <dt>roex</dt>
+        <dd>Metafont-PostScript conversions</dd>
+        <dt>roundrect</dt>
+        <dd>MetaPost macros for highly configurable rounded rectangles (optionally with text)</dd>
+        <dt>shapes</dt>
+        <dd>Draw polygons, reentrant stars, and fractions in circles with MetaPost</dd>
+        <dt>slideshow</dt>
+        <dd>Generate slideshow with MetaPost</dd>
+        <dt>splines</dt>
+        <dd>MetaPost macros for drawing cubic spline interpolants</dd>
+        <dt>suanpan</dt>
+        <dd>MetaPost macros for drawing Chinese and Japanese abaci</dd>
+        <dt>textpath</dt>
+        <dd>Setting text along a path with MetaPost</dd>
+        <dt>threeddice</dt>
+        <dd>Create images of dice with one, two, or three faces showing, using MetaPost</dd>
+      </dl>
+
+
+
+      <!--
+      <hr/>
+
+      <p>Around 2007, MetaPost was separated into a frontend program and backend library named MPlib (which was then linked into LuaTeX) by Taco Hoekwater. This gives LuaTeX some graphical capabilities and forms an alternative to macro based drawing packages such as TikZ and PSTricks.</p>
+      <p>Although pdfLaTeX cannot ordinarily handle PostScript graphics, the output of MetaPost is sufficiently simple and regular that pdfLaTeX can handle it direct, using code borrowed from ConTeXt — <i>see</i> Graphics in pdfLaTeX.</p>
+      <p>Much of MetaPost&apos;s source code was copied from MetaFont&apos;s sources, with Knuth&apos;s permission.</p>
+      -->
+
+
+      <section>
+        <h2>Running MetaPost</h2>
+        <p>The basic method for running MetaPost is to create a plain text file with extension .mp and run MetaPost directly on the command line:</p>
+        <pre>mpost ourfile.mp</pre>
+        <p>Inside the <code>.mp</code> file, the code for drawing the graphics is enclosed within <code>beginfig ... endfig</code>. The <code>%</code> character starts a comment. Here&apos;s a complete example:</p>
+        <pre>beginfig (1);
+  % draw a line
+  draw (1cm,2cm) -- (3cm,5cm);
+endfig;
+end.</pre>
+        <p>The default output from running mpost is a PostScript file, with the file extension being the figure number. With this example, the output would be a file <cite>ourfile.1</cite></p>
+      </section>
+
+      <section>
+        <h2>SVG output; filename extensions</h2>
+        <p>If you add a line <code>outputformat:="svg";</code> at the very beginning of the file, the output will be in <a target="_blank" href="svg.html">SVG</a> format. However, the resulting file will still be named <cite>ourfile.1</cite>. Most likely, you will need to rename it to <cite>ourfile.svg</cite> for it to be recognized. Alternatively, you can tell MetaPost to use <code>.svg</code> in the first place, like this:</p>
+        <pre>outputtemplate := "%j-%c.svg";
+outputformat   := "svg";</pre>
+        <p>The <code>%j</code> is replaced with the main filename and the <code>%c</code> the figure number, so the output files here would be named <cite>ourfile-1.svg</cite>, <cite>ourfile-2.svg</cite>, etc.</p>
+        <p>You can also have MetaPost use a different extension for its normal PostScript output. Commonly, <code>.mps</code> is used for this (<q>MetaPost PostScript</q>), because that extension is already known to (La)TeX and can be handled without any further conversion. Thus:</p>
+        <pre>outputtemplate := "%j-%c.mps";</pre>
+        <p>This will create output files with names like <cite>ourfile-1.mps</cite>.</p>
+
+      </section>
+
+      <section>
+        <h2>Basics</h2>
+        <p>METAPOST defines its own programming language. It consists of the following elements:</p>
+        <dl>
+
+          <dt>points</dt>
+          <dd>Points are normally named by the letter <var>z</var> and are represented by a pair (<var>x</var>, <var>y</var>).</dd>
+
+          <dt>pens</dt>
+          <dd></dd>
+
+          <dt>paths</dt>
+          <dd>Paths may contain geometrical elements (e. g. <code>fullcircle</code>) or may consist of points that are connected by lines or Bézier curves.</dd>
+
+          <dt>numbers</dt>
+          <dd></dd>
+
+          <dt>colors (originally RGB only; now CMYK is also supported)</dt>
+          <dd>Colors are tuples of three (in case of RGB) or four (in case of CMYK) numbers.</dd>
+
+        </dl>
+
+        <hr/>
+
+        <p>For a short example let&apos;s have a look at the following example:</p>
+        <pre>filenametemplate "%j-%3c.mps";
+beginfig(1);
+  pickup pencircle scaled 1bp;
+  draw origin--(2cm,1cm)
+    ..(1.3cm,0.3cm)..cycle;
+endfig;
+end</pre>
+        <p>As mentioned before, each figure is put between <code>beginfig</code> and <code>endfig</code>, with a number identifying the figure. Thus, a METAPOST source may contain several <em>figures</em>. Originally, when processing the source (e. g. <cite>ex.mp</cite>) with METAPOST (<code>mpost</code>), the figure numbers were used as file extensions for the resulting PostScript files. In later releases, the command <code>filenametemplate</code> was introduced, that uses a syntax something like the <code>printf</code> command in C. In the example above, we would get a PostScript file with the name <cite>ex-001.mps</cite> (and if we add a figure with number 2, the PostScript output would be written into <cite>ex-002.mps</cite>).</p>
+        <p>Since pdfTEX recognizes files with the extension <code>.mps</code> as METAPOST output, the graphic can be used in a LATEX document with a straight-forward <code>\includegraphics{ex-001.mps}</code> and the document may be processed either by pdfTEX or, using the original workflow, by compiling to DVI and using dvips.</p>
+        <p>As in C, all statements may span multiple lines and are finished by the <code>;</code> character.</p>
+        <p>The example figure itself shows a straight line (since two dashes were used in the source) from the origin to the point (2cm, 1cm). Then, the path is closed by a Bézier curve (because two dots were used in the path definition) via the point located at (1.3cm, .3cm). For drawing, a round pen with diameter of one PostScript point is used. METAPOST knows the same units as TEX, like bp for PS points, cm, mm or in.<!-- The result is shown in fig. 1.--></p>
+      </section>
+
+      <section>
+        <h2>Loops</h2>
+        <p>METAPOST offers the usual features of programming languages, like macros, loops and conditional expressions. For illustration I present an example where a path is constructed within a loop:</p>
+        <pre>z0 = 2cm*right;
+draw origin withpen
+  pencircle scaled 2bp;
+pickup pencircle scaled 1bp;
+draw
+  for i:=0 upto 5:
+    z0 rotated (i*60) --
+  endfor
+cycle;</pre>
+        <p>The syntax of the for loop uses a variable <var>i</var> that is incremented stepwise from zero until 5. The loop is expanded within the definition of the path to be drawn. Please note that the loop is ended by <code>endfor</code> without a semicolon. If a semicolon were present, it would be interpreted as end of the draw statement, leading to a syntax error.</p>
+      </section>
+
+      <section>
+        <h2>Transformations of paths</h2>
+        <p>METAPOST supports the following transformations of paths:</p>
+        <dl>
+          <dt>Translations</dt>
+          <dd><code>p0 shifted (x1, x2)</code></dd>
+          <dt>Rotation</dt>
+          <dd><code>p0 rotated alpha</code></dd>
+          <dt>Scaling (in both directions, or in x or y direction individually)</dt>
+          <dd><code>p0 scaled factor
+p0 xscaled xfactor
+p0 yscaled yfactor</code></dd>
+          <dt>Slanting</dt>
+          <dd><code>p0 slanted alpha</code></dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>Text and labels</h2>
+        <p>METAPOST supports placing labels into a figure. In the simplest form, the text may be included directly, without any typesetting done by TEX:</p>
+        <pre>defaultfont := "ptmr8r";
+defaultscale := 1.2;
+label("this is a label",z0);</pre>
+        <p>It will just add the text commands to write the label text in 12pt Times Roman (a font scaling factor of one refers to 10pt) into the PostScript code. Note that <code>:=</code> is used in the code above, since new values are assigned to the variables, while = is used in linear equations (equality).</p>
+        <p>The action of placing a label at z0 in the example is rather straightforward. The label command centers the label at the given point. In many cases, a suffix is appended to the label command to define how the label is placed in relation to the given point, i. e. top, bot (bottom), lft (left), rt (right) or ulft, llft, urt, lrt (e. g. ulft means upper left and lrt means lower right). The label command may be replaced by dotlabel, that draws a dot at the given point in addition to the label. For example, the code</p>
+        <pre>dotlabel.urt("this is a label",z0)</pre>
+        <p>draws a dot at z0 and places the given text in upper right direction from z0.</p>
+        <hr/>
+        <p>Only simple text may be used for labels that are included by METAPOST directly. But for real typesetting, we may use one of the best typesetting programs we know, TEX itself. We may include nearly arbitrary TEX stuff into labels. All TEX snippets that occur in the METAPOST source are extracted and typeset with TEX, before the result is included into the figure by METAPOST.</p>
+        <p>All the TEX stuff has to be embedded into an environment <code>btex ... etex</code>, e. g.</p>
+        <pre>label(btex $z_0$ etex, z0)</pre>
+        <p>will center the label <q>z0</q> at this point. Normally, the plain TEX compiler is used for typesetting the <code>btex ... etex</code> fragments. But the name of the program may be passed on the command line when calling METAPOST, so to use LATEX we can give the command</p>
+        <pre>mpost --tex=latex ex1</pre>
+        <p>Let&apos;s have a look how we can typeset a label
+with LATEX, using Euler math fonts to typeset a formula:</p>
+        <pre>filenametemplate "%j-%3c.mps";
+verbatimtex
+\documentclass{article}
+\usepackage{euler}
+\begin{document}
+etex
+beginfig(1);
+dotlabel.urt(
+  btex $\sqrt{\frac{1}{1+x^2}}$ etex,
+  origin);
+endfig;</pre>
+        <p>Since typesetting with LATEX requires a preamble loading a document class and maybe some extra packages, the example contains an environment</p>
+        <pre>verbatimtex ... etex</pre>
+        <p>which is included as verbatim code before typesetting all the labels. In this example, we load the <code>article</code> class and the <code>euler</code> package. While we had to explicitly write the <code>\begin{document}</code>, the closing <code>\end{document}</code> is inserted automatically!</p>
+        <p>Including labels causes some difficulties with fonts. Normally, METAPOST doesn&apos;t embed fonts but just adds a reference to the used fonts into the PostScript output. This isn&apos;t a problem when METAPOST is included in a TEX document, since TEX will resolve all of these font references. But the figures won&apos;t be usable standalone, since PostScript interpreters like Ghostscript will complain about un- known fonts.</p>
+        <p>In recent versions of METAPOST it is possible to run METAPOST in a mode that will produce standalone PostScript output that contains a <q>real</q> EPS with all fonts embedded, that can be displayed in any PS interpreter or may be used in other applications besides TEX documents.</p>
+        <p>A switch named <var>prologues</var> defines whether METAPOST will embed fonts or not. The definition <code>prologues:=3;</code> at the start of your METAPOST file will produce a standalone EPS figure. The default value of <var>prologues</var> is 0, which means that no fonts will be embedded. The meaning of other values of prologues may be looked up in the METAPOST manual; they are relevant only for special cases.</p>
+      </section>
+
+      <section>
+        <h2>Defining points by linear equations</h2>
+        <p>In METAPOST, points and paths may be described by a set of linear equations that are solved by the program.</p>
+        <p>Assume you want to draw a simple rectangle. Then you know it consists of four corners (e. g. with the lower left one in the origin), that we will describe by the following equations:</p>
+        <pre>path p[];
+z0 = origin;
+x0 = x3;
+x1 = x2;
+y1 = y0;
+y3 = y2;
+x1-x0 = 3cm;
+y3-y0 = 2cm;
+p0 = z0--z1--z2--z3--cycle;
+fill p0 withcolor blue;
+draw p0 withpen pencircle scaled 1bp;</pre>
+        <p>You see, all corners except for z0 aren&apos;t defined directly as (x, y) pairs but described by their relations. While describing a rectangle with linear equations seems rather like overkill, this METAPOST feature becomes really powerful for the construction of complex paths.</p>
+      </section>
+
+      <section>
+        <h2>Intersection points</h2>
+        <p>Finding the intersection points of paths is another nice METAPOST feature.</p>
+        <p>Assume you have a triangle. Mathematical theory says that if you draw three lines, each of them from one corner of the triangle to the midpoint of the opposite side, all these lines will intersect at the same point.</p>
+        <p>The following code shows how this can be demonstrated in a METAPOST drawing:</p>
+        <pre>pickup pencircle scaled 1bp;
+path p[];
+z0 = origin;
+z1 - z0 = 3cm*right;
+z2 - z0 = 2.7cm*dir(40);
+p0 = z0--z1--z2--cycle;
+p1 = .5[z0,z1]--z2;
+p2 = .5[z1,z2]--z0;
+p3 = .5[z2,z0]--z1;
+draw p1 withcolor blue;
+draw p2 withcolor blue;
+draw p3 withcolor blue;
+draw p1 intersectionpoint p2
+withpen pencircle scaled 3bp;
+draw p0;</pre>
+        <p>This code is more straightforward than it may appear. It consists of three parts.</p>
+        <p>First, the three points z0 . . . z2 are defined and path p0 is defined as the triangle with these points as corners.</p>
+        <p>Second, the paths p1 . . . p3 are defined. Each consists of a line from one corner to the midpoint of the opposite side, named a median of the triangle. This may be easily expressed in METAPOST, since e. g. the statement .5[z1,z2] is just the point on halfway along the line from z1 to z2.</p>
+        <p>Finally, after drawing all the paths defined above, we mark the intersection point of p1 and p2. This is directly given by the command</p>
+        <pre>p1 intersectionpoint p2</pre>
+        <p>It may be a bit more complicated if two paths have more than one intersection point.</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section>
+        <h2>Whatever it is . . .</h2>
+        <p>Coming back to the triangle in the example above, another interesting task is the following: draw the altitude of the triangle, that is a line perpendicular to the base line through the opposite vertex z2.</p>
+        <p>Thus, the altitude line has to fulfill the following conditions:</p>
+        <ol>
+          <li>It is orthogonal to the base line (connection of z0 and z1).</li>
+          <li>The starting point is in z2, the end point shall be on the base line.</li>
+        </ol>
+        <p>This may be directly expressed in METAPOST:</p>
+        <pre>z10-z2= whatever*((z1-z0) rotated 90);
+z10 = whatever[z0,z1];</pre>
+        <p>In the code above the end point of the altitude on the base line is named z10.</p>
+        <p>Here we see both conditions listed before: first, the distance vector between z10 and z2 is given by the distance vector between z1 and z0 (i. e. the base line), rotated by 90 degrees, scaled by an arbitrary factor.</p>
+        <p>Second, z10 is located somewhere on the line defined by the points z0 and z1.</p>
+        <p>METAPOST finds the correct position for z10 as starting point of a perpendicular line to the base line, with z2 as end point.</p>
+      </section>
+
+      <section>
+        <h2>Time variables</h2>
+        <p>A path in METAPOST may be imagined as the travel of a vehicle. Paths are parameterized by a time variable (which might be a bit misleading, since of course the drawing is static). So a path has a start and end time, and any point is correlated to a time in between (and vice versa).</p>
+        <p>Here is an example where time variables are used:</p>
+        <pre>pickup pencircle scaled 1bp;
+path p[];
+p0 = origin{up}..(3cm,2cm);
+p1 = (-5mm,2cm)--(3cm,5mm);
+draw p0 dashed withdots;
+draw p1 dashed withdots;
+(t0,t1) = p0 intersectiontimes p1;
+draw subpath (0,t0) of p0
+  -- subpath (t1,length(p1)) of p1;</pre>
+        <p>We have two paths, p0 and p1: a Bézier curve from lower left to upper right, and a straight line from upper left to lower right, drawn with dotted lines.</p>
+        <p>To combine the subpath of p0 before the intersection point with the subpath of p1 after this point, as drawn with a solid line in fig. 5, it is not sufficient just to know the intersection point ot p0 and p1.</p>
+        <p>In this case, we need the time values of both paths in the intersection point. For this, the statement p0 intersectiontimes p1 is used. The result of this is a pair (thus a point), with the time value of p0 in the intersection point as the first part (x-part) and the time value of p1 as the second part (y-part).</p>
+        <p>As soon as these time values are known, the desired path is constructed using subpath. This is a perfect example showing that METAPOST as a standalone program has full control over the paths, contrary to other tools like PSTricks that let PostScript do the job of drawing the paths.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
