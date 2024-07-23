@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MetaPost Curves</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a            href="metapost.advanced-graphics">MetaPost Advanced Graphics</a></p>
+        <p><a            href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a            href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <h1>MetaPost Curves</h1>
+      <p>A <code>draw</code> statement with the points separated by .. draws a smooth curve through the points. For example consider the result of</p>
+      <pre>z0 = (0,0);
+z1 = (60,40);
+z2 = (40,90);
+z3 = (10,70);
+z4 = (30,50);
+draw z0..z1..z2..z3..z4</pre>
+      <p>There are many other ways to draw a curved path through the same five points. To make a smooth closed curve, connect <var>z4</var> back to the beginning by appending <code>..cycle</code> to the draw statement.</p>
+
+      <p>MetaPost already provides a small selection of basic path shapes that can be used to derive custom paths from. The predefined variable <code>fullcircle</code> refers to a closed path describing a circle of unit diameter centered on the origin. There are also <code>halfcircle</code> and <code>quartercircle</code>, the former being the part of a full circle covering the first and second quadrant and the latter covering just the first quadrant. Because of the mathematical model that is used to describe paths in MetaPost, all these are not exactly circular paths, but very good approximations.</p>
+
+      <p>Rectangularly shaped paths can be derived from <code>unitsquare</code>, a closed path describing a square of unit side length whose lower left corner is located at the origin.</p>
+
+      <section>
+        <h2>Bézier Cubic Curves</h2>
+        <p>When MetaPost is asked to draw a smooth curve through a sequence of points, it constructs a piecewise cubic curve with continuous slope and approximately continuous curvature. This means that a path specification such as</p>
+        <pre>z0..z1..z2..z3..z4..z5</pre>
+
+        <p>MetaPost allows the control points to be specified directly in the following format:</p>
+        <pre>draw (0,0)..controls (26.8,-1.8) and (51.4,14.6)
+..(60,40)..controls (67.1,61.0) and (59.8,84.6)
+..(40,90)..controls (25.4,94.0) and (10.5,84.5)
+..(10,70)..controls ( 9.6,58.8) and (18.8,49.6)
+..(30,50);</pre>
+      </section>
+
+      <section>
+        <h2>Specifying Direction, Tension, and Curl</h2>
+        <p>MetaPost provides many ways of controlling the behavior of a curved path without actually specifying the control points. For instance, some points on the path may be selected as vertical or horizontal extrema. If <var>z1</var> is to be a horizontal extreme and <var>z2</var> is to be a vertical extreme, you can specify that (X(t), Y (t)) should go upward at <var>z1</var> and to the left at <var>z2</var>:</p>
+        <pre>draw z0..z1{up}..z2{left}..z3..z4;</pre>
+
+        <p>Curves used in MetaPost come from a family where a path is determined by its endpoints and the directions there.</p>
+        <pre>beginfig(7)
+  for a=0 upto 9:
+    draw (0,0){dir 45}..{dir -10a}(6cm,0);
+  endfor
+endfig;</pre>
+        <p>or</p>
+        <pre>beginfig(8)
+  for a=0 upto 7:
+    draw (0,0){dir 45}..{dir 10a}(6cm,0);
+  endfor
+endfig;</pre>
+        <p>The dir operator takes an angle in degrees and generates a unit vector in that direction. Thus <code>dir 0</code> is equivalent to <code>right</code> and <code>dir 90</code> is equivalent to <code>up</code>. There are also predefined direction vectors <code>left</code> and <code>down</code> for <code>dir 180</code> and <code>dir 270</code>.</p>
+        <p>The direction vectors given in <code>{}</code> can be of any length, and they can come before a point as well as after one. It is even possible for a path specification to have directions given before and after a point. For example a path specification containing</p>
+        <pre>..{dir 60}(10,0){up}..</pre>
+        <p>produces a curve with a corner at (10, 0).</p>
+
+        <p>Note that some of the curves have points of inflection. This is necessary in order to produce smooth curves, but it is probably not desirable when dealing with vertical and horizontal extreme points.</p>
+        <pre>draw z0{up}..z1{right}..z2{down}</pre>
+        <p>If, say, <var>z1</var> is supposed to be the topmost point on the curve, this can be achieved by using <code>...</code> instead of <code>..</code> in the path specification. The meaning of ... is <q>choose an inflection-free path between these points unless the endpoint directions make this impossible.</q> As in</p>
+        <pre>draw z0{up}...z1{right}...z2{down}</pre>
+
+        <p>Another way to control a misbehaving path is to increase the <dfn>tension</dfn> parameter. Using <code>..</code> in a path specification sets the tension parameter to the default value 1. If this makes some part of a path a little too wild, we can selectively increase the tension. If Figure 11a is considered <q>too wild,</q> a draw statement of the following form increases the tension between <var>z1</var> and <var>z2</var>:</p>
+        <pre>draw z0..z1..tension 1.3..z2..z3</pre>
+        <p>For an asymmetrical effect, the draw statement becomes</p>
+        <pre>draw z0..z1..tension 1.5 and 1..z2..z3</pre>
+
+        <p>MetaPost paths also have a parameter called <dfn>curl</dfn> that affects the ends of a path. In the absence of any direction specifications, the first and last segments of a non-cyclic path are approximately circular arcs. To use a different value for the curl parameter, specify <code>{curl c}</code> for some other value of <var>c</var>. Thus</p>
+        <pre>draw z0{curl c}..z1..{curl c}z2</pre>
+        <p>sets the curl parameter for z0 and z2. Small values of the curl parameter reduce the curvature at the indicated path endpoints, while large values increase the curvature. In particular, a curl value of zero makes the curvature approach zero.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

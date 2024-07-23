@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>computing</title>
+    <title>metapost</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -32,6 +32,10 @@
       <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
       -->
       <div>
+        <p><a href="metapost.curves.html">MetaPost Curves in Depth</a></p>
+        <p><a href="metapost.advanced-graphics">MetaPost Advanced Graphics</a></p>
+      </div>
+      <div>
         <p><a rel="next" href="programming.html">Programming Computers</a></p>
         <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
         <p><a href="svg.html">SVG: XML for Drawing</a></p>
@@ -48,7 +52,7 @@
       <p>MetaPost is a powerful language for producing figures for documents to be printed on PostScript printers, either directly or embedded in (La)TeX documents. MetaPost is able to integrate text and mathematics, marked up for use with TeX, within the graphics. Additionally, the PostScript subset created by METAPOST can be interpreted by pdfTEX. So METAPOST figures can be directly included with e. g. the standard <code>graphics</code> package, while normal EPS images have to be converted first to be usable with pdfLATEX.</p>
       <del><p>(Knuth says that he uses nothing but MetaPost for diagrams in text that he is writing.)</p></del>
 
-      <p><strong>Note:</strong> On a Ubuntu distro the package for MetaPost is named <code>texlive-metapost</code> (plus documentation <code>texlive-metapost</code>) and includes the following CTAN packages:</p>
+      <p><strong>Note:</strong> On a Ubuntu distro the package for MetaPost is named <code>texlive-metapost</code>, with metapost packages in <filename>/usr/share/texlive/texmf-dist/metapost/</filename> (plus documentation <code>texlive-metapost-doc</code>, with files in <filename>/usr/share/doc/texlive-doc/metapost/</filename>) and includes the following CTAN packages:</p>
       <dl>
         <dt>automata</dt>
         <dd>Finite state machines, graphs and trees in MetaPost</dd>
@@ -173,6 +177,7 @@ outputformat   := "svg";</pre>
         <p>You can also have MetaPost use a different extension for its normal PostScript output. Commonly, <code>.mps</code> is used for this (<q>MetaPost PostScript</q>), because that extension is already known to (La)TeX and can be handled without any further conversion. Thus:</p>
         <pre>outputtemplate := "%j-%c.mps";</pre>
         <p>This will create output files with names like <cite>ourfile-1.mps</cite>.</p>
+        <p><strong>Note:</strong> For SVG output, converting font glyphs to paths by setting variable prologues to 3 is currently the only reliable way to export text objects to SVG.</p>
 
       </section>
 
@@ -212,6 +217,38 @@ end</pre>
         <p>Since pdfTEX recognizes files with the extension <code>.mps</code> as METAPOST output, the graphic can be used in a LATEX document with a straight-forward <code>\includegraphics{ex-001.mps}</code> and the document may be processed either by pdfTEX or, using the original workflow, by compiling to DVI and using dvips.</p>
         <p>As in C, all statements may span multiple lines and are finished by the <code>;</code> character.</p>
         <p>The example figure itself shows a straight line (since two dashes were used in the source) from the origin to the point (2cm, 1cm). Then, the path is closed by a Bézier curve (because two dots were used in the path definition) via the point located at (1.3cm, .3cm). For drawing, a round pen with diameter of one PostScript point is used. METAPOST knows the same units as TEX, like bp for PS points, cm, mm or in.<!-- The result is shown in fig. 1.--></p>
+
+        <p>Comments in MetaPost code are introduced by the percent sign <code>%</code>, which causes the remainder of the current line to be ignored.</p>
+
+      </section>
+
+      <section>
+        <h2>Three assignments</h2>
+        <pre>prologues := 3;
+outputtemplate := "%j-%c.mps";
+outputformat := "svg";</pre>
+        <p>If your graphics contain text labels, you might want to set variable prologues to 3 to make sure the correct fonts are used under all possible circumstances. The second assignment changes the output file naming scheme to the form <cite><var>jobname</var>-<var>>n</var>.mps</cite>. That way, instead of a numeric index, all output files get a uniform file extension mps, which is typically used for MetaPost&apos;s PostScript output. The last assignment lets MetaPost write output files in the SVG format rather than in the PostScript format.</p>
+
+      </section>
+
+      <section>
+        <h2>Basic Drawing Statements</h2>
+        <p>The simplest drawing statement is the one that draws a single dot with the current pen at a given coordinate:</p>
+        <pre>drawdot (30,0)</pre>
+        <p>MetaPost can also draw straight lines. Thus</p>
+        <pre>draw (20,20)--(0,0)</pre>
+        <p>draws a diagonal line and</p>
+        <pre>draw (20,20)--(0,0)--(0,30)--(30,0)--(0,0)</pre>
+        <p>draws a polygonal line.</p>
+
+        <p>MetaPost uses the same names for units of measure that TEX and METAFONT do. Thus <code>bp</code> refers to PostScript points (<q>big points</q>) and <code>pt</code> refers to printer&apos;s points. Other units of measure include <code>in</code> for inches, <code>pc</code> for picas, <code>cm</code> for centimeters, <code>mm</code> for millimeters, <code>cc</code> for ciceros, and <code>dd</code> for Didot points.</p>
+
+        <p>The coordinate (0,0) can also be referred to as <code>origin</code>, as in</p>
+        <pre>drawdot origin</pre>
+
+        <p>Finally, if we substitute dots for hyphens a <a href="metapost.curves.html" target="_blank">curve</a> will be drawn instead:</p>
+        <pre>draw (20,20)--(0,0)--(0,30)--(30,0)--(0,0)</pre>
+
       </section>
 
       <section>
@@ -228,6 +265,182 @@ draw
 cycle;</pre>
         <p>The syntax of the for loop uses a variable <var>i</var> that is incremented stepwise from zero until 5. The loop is expanded within the definition of the path to be drawn. Please note that the loop is ended by <code>endfor</code> without a semicolon. If a semicolon were present, it would be interpreted as end of the draw statement, leading to a syntax error.</p>
       </section>
+
+
+      <section>
+        <h2>Equations and Coordinate Pairs</h2>
+        <p>MetaPost can also solve linear equations involving coordinate pairs. We have already seen many trivial examples of this in the form of equations like</p>
+        <pre>z1=(0,.2in)</pre>
+        <p>Each side of the equation must be formed by adding or subtracting coordinate pairs and multiplying or dividing them by known numeric quantities. Other ways of naming pair-valued variables will be discussed later, but the z<var>number</var> is convenient because it is an abbreviation for</p>
+        <pre>(x<var>number</var>, y<var>number</var>)</pre>
+        <p>This makes it possible to give values to z variables by giving equations involving their coordinates. For instance, points <var>z1</var>, <var>z2</var>, <var>z3</var>, and <var>z6</var> are initialized via the following equations:</p>
+        <pre>z1=-z2=(.2in,0);
+x3=-x6=.3in;
+x3+y3=x6+y6=1.1in;</pre>
+        <p>An interpolation follows the <code><var>k</var>[<var>z0</var>, <var>z1</var>]</code> syntax, as in</p>
+        <pre>beginfig(13);
+z1=-z2=(.2in,0);
+x3=-x6=.3in;
+x3+y3=x6+y6=1.1in;
+z4=1/3[z3,z6];
+z5=2/3[z3,z6];
+z20=whatever[z1,z3]=whatever[z2,z4];
+z30=whatever[z1,z4]=whatever[z2,z5];
+z40=whatever[z1,z5]=whatever[z2,z6];
+draw z1--z20--z2--z30--z1--z40--z2;
+pickup pencircle scaled 1pt;
+draw z1--z2;
+draw z3--z6;
+endfig;</pre>
+
+        <p>The macro <code>whatever</code> generates a new anonymous variable each time it appears. Thus the statement</p>
+        <pre>z20=whatever[z1,z3]=whatever[z2,z4]</pre>
+        <p>sets <var>z20</var> as before, except it uses whatever to generate two different anonymous variables instead of aa and ab.</p>
+      </section>
+
+      <section>
+        <h2>Expressions</h2>
+
+        <section>
+          <h3>Data Types</h3>
+          <p>MetaPost actually has ten basic data types: numeric, pair, path, transform, (rgb)color, cmykcolor, string, boolean, picture, and pen. Let us consider these one at a time beginning with the numeric type.</p>
+          <p>Numeric quantities in MetaPost are represented in fixed point arithmetic as integer multiples of 1 / 65536, the smallest positive value, which is also available as the predefined constant <code>epsilon</code>. Numeric quantities must normally have absolute values less than 4096 but intermediate results can be eight times larger. This should not be a problem for distances or coordinate values since 4096 PostScript points is more than 1.4 meters. If you need to work with numbers of magnitude 4096 or more, setting the internal variable <code>warningcheck</code> to zero suppresses the warning messages about large numeric quantities.</p>
+          <p>The <dfn>pair</dfn> type is represented as a pair of numeric quantities. We have seen that pairs are used to give coordinates in draw statements. Pairs can be added, subtracted, used in mediation expressions, or multiplied or divided by numerics.</p>
+          <p>Paths have already been discussed in the context of draw statements, but that discussion did not mention that paths are first-class objects that can be stored and manipulated. A path represents a straight or curved line that is defined parametrically.</p>
+          <p>Another data type represents an arbitrary affine transformation. A <dfn>transform</dfn> can be any combination of rotating, scaling, slanting, and shifting. If <var>p</var> = (<var>p<sub>x</sub></var> , <var>p<sub>y</sub></var> ) is a pair and <var>T</var> is a transform, then</p>
+          <pre>p transformed T</pre>
+          <p>is a pair of the form</p>
+          <blockquote>(t<sub>x</sub> + t<sub>xx</sub> p<sub>x</sub> + t<sub>xy</sub> p<sub>y</sub> , t<sub>y</sub> + t<sub>yx</sub> p<sub>x</sub> + t<sub>yy</sub> p<sub>y</sub>),</blockquote>
+          <p>where the six numeric quantities (<var>t<sub>x</sub></var>, <var>t<sub>y</sub></var>, <var>t<sub>xx</sub></var>, <var>t<sub>xy</sub></var>, <var>t<sub>yx</sub></var>, <var>t<sub>yy</sub></var>) determine <var>T</var>.</p>
+          <p>Transforms can also be applied to paths, pictures, pens, and transforms.</p>
+
+          <p>The <dfn>color</dfn> type is like the pair type, except that it has three components instead of two and each component is normally between 0 and 1. Like pairs, colors can be added, subtracted, used in mediation expressions, or multiplied or divided by numerics. Colors can be specified in terms of the predefined constants <code>black</code>, <code>white</code>, <code>red</code>, <code>green</code>, <code>blue</code>, or the red, green, and blue components can be given explicitly. Black is (0,0,0) and white is (1,1,1). A level of gray such as (.4,.4,.4) can also be specified as <code>0.4white</code>. Although color typed variables may be any ordered triplet, when adding an object to a picture, MetaPost will convert its color by clipping each component between 0 and 1. For example, MetaPost will output the color (1,2,3) as (1,1,1). MetaPost solves linear equations involving colors the same way it does for pairs. The type &apos;rgbcolor&apos; is an alias of type &apos;color&apos;.</p>
+          <p>The cmykcolor type is similar to the color type except that it has four components instead of three. This type is used to specify colors by their cyan, magenta, yellow, and black components explicitly. Because CMYK colors deal with pigments instead of light rays, the color white would be expressed as (0,0,0,0) and black as (0,0,0,1). In theory, the colors (c,m,y,1) and (1,1,1,k) should result in black for any values of c, m, y and k, too. But in practice, this is avoided since it is a waste of colored ink and can lead to unsatisfactory results.</p>
+
+
+          <p>A <dfn>string</dfn> represents a sequence of characters. String constants are given in double quotes &quot;like this&quot;. String constants cannot contain double quotes or newlines, but there is a way to construct a string containing any sequence of eight-bit characters.</p>
+          <p>Conversion from strings to other types, notably numeric, can be accomplished by the <code>scantokens</code> primitive:</p>
+          <pre>n := scantokens(str);</pre>
+          <p>More generally, scantokens parses a string into a token sequence, as if MetaPost had read it as input.</p>
+
+          <p>The <dfn>boolean</dfn> type has the constants true and false and the operators and, or, not. The relations = and &lt;&gt; test objects of any type for equality and inequality. Comparison relations &lt;, &lt;=, &gt;, and &gt;= are defined lexicographically for strings and in the obvious way for numerics. Ordering relations are also defined for booleans, pairs, colors, and transforms, but the comparison rules are not worth discussing here.</p>
+
+          <p>The <dfn>picture</dfn> data type is just what the name implies. Anything that can be drawn in MetaPost can be stored in a picture variable. In fact, the <code>draw</code> statement actually stores its results in a special picture variable called <code>currentpicture</code>. Pictures can be added to other pictures and operated on by transforms.</p>
+
+          <p>Finally, there is a data type called a <dfn>pen</dfn>. The main function of pens in MetaPost is to determine line thickness, but they can also be used to achieve calligraphic effects. The statement</p>
+          <pre>pickup <var>pen expression</var></pre>
+          <p>causes the given pen to be used in subsequent <code>draw</code> or <code>drawdot</code> statements. Normally, the pen expression is of the form</p>
+          <pre>pencircle scaled <var>numeric primary</var></pre>
+          <p>The statement above defines a circular pen that produces lines of constant thickness. If calligraphic effects are desired, the pen expression can be adjusted to give an elliptical pen or a polygonal pen.</p>
+
+        </section>
+
+        <section>
+          <h3>Operators</h3>
+          <p>There are many different ways to make expressions of the ten basic types, but most of the operations fit into a fairly simple syntax with four levels of precedence as shown below. There are primaries, secondaries, tertiaries, and expressions of each of the basic types, so the syntax rules could be specialized to deal with items such as <var>numeric primary</var>, <var>boolean tertiary</var>, etc. This allows the result type for an operation to depend on the choice of operator and the types of its operands. For example, the <code>&lt;</code> relation is a <var>tertiary binary</var> that can be applied to a <var>numeric expression</var> and a <var>numeric tertiary</var> to give a <var>boolean expression</var>. The same operator can accept other operand types such as <var>string expression</var> and <var>string tertiary</var>, but an error message results if the operand types do not match.</p>
+          <pre><var>primary</var> → <var>variable</var>
+  | (<var>expression</var>)
+  | <var>nullary op</var>
+  | <var>of operator</var><var>expression</var>of<var>primary</var>
+  | <var>unary op</var><var>primary</var>
+<var>secondary</var> → <var>primary</var>
+  | <var>secondary</var><var>primary binop</var><var>primary</var>
+<var>tertiary</var> → <var>secondary</var>
+  | <var>tertiary</var><var>secondary binop</var><var>secondary</var>
+<var>expression</var> → <var>tertiary</var>
+   | <var>expression</var><var>tertiary binop</var><var>tertiary</var></pre>
+          <p>The multiplication and division operators * and / are examples of what the synopsis above calls a <var>primary binop</var>. Each can accept two numeric operands or one numeric operand and one operand of type pair or color. The exponentiation operator <code>**</code> is a <var>primary binop</var> that requires two numeric operands. Placing this at the same level of precedence as multiplication and division has the unfortunate consequence that 3*a**2 means (3a)<sup>2</sup> , not 3(a<sup>2</sup>). Since unary negation applies at the primary level, it also turns out that -a**2 means (−a)<sup>2</sup>. Fortunately, subtraction has lower precedence so that a-b**2 does mean a − (b<sup>2</sup>) instead of (a − b)<sup>2</sup>.</p>
+          <p>Another <var>primary binop</var> is the <code>dotprod</code> operator that computes the vector dot product of two pairs. For example, <code><var>z1</var> dotprod <var>z2</var></code> is equivalent to x1*x2 + y1*y2.</p>
+          <p>The additive operators + and - are <var>secondary binops</var> that operate on numerics, pairs, or colors and produce results of the same type. Other operators that fall in this category are <dfn>Pythagorean addition</dfn> ++ and <dfn>Pythagorean subtraction</dfn> +-+: <code>a++b</code> means a<sup>2</sup> + b<sup>2</sup> and <code>a+-+b</code> means a<sup>2</sup> − b<sup>2</sup>.</p>
+          <p>There are too many other operators to list here, but some of the most important are the boolean operators <code>and</code> and <code>or</code>. The <code>and</code> operator is a <var>primary binop</var> and the <code>or</code> operator is a <var>secondary binop</var>.</p>
+
+          <p>The basic operations on strings are concatenation, substring construction and calculating the length of a string. The <var>tertiary binop</var> <code>&amp;</code> implements concatenation; e.g.,</p>
+          <pre>&quot;abc&quot; &amp; &quot;de&quot;</pre>
+          <p>produces the string &quot;abcde&quot;. The <code>length</code> operator returns the number of characters in a string if the argument is a <var>string primary</var>; e.g.,</p>
+          <pre>length &quot;abcde&quot;</pre>
+          <p>returns 5. For substring construction, the <var>of operator</var> <code>substring</code> is used like this:</p>
+          <pre>substring <var>pair expression</var> of <var>string primary</var></pre>
+          <p>The <var>pair expression</var> determines what part of the string to select. For this purpose, the string is indexed so that integer positions fall between characters. Pretend the string is written on a piece of graph paper so that the first character occupies x coordinates between zero and one and the next character covers the range 1 ≤ x ≤ 2, etc. and <code>substring (2,4) of &quot;abcde&quot;</code> is &quot;cd&quot;. This takes a little getting used to but it tends to avoid annoying <q>off by one</q> errors.</p>
+          <p>Some operators take no arguments at all. An example of what above is called a <var>nullary op</var> is <code>nullpicture</code>, which returns a completely blank picture.</p>
+          <p>The basic syntax in the synopsis above only covers aspects of the expression syntax that are relatively type-independent.<!-- For instance, the complicated path syntax given in Figure 13 gives alternative rules for constructing a <var>path expression</var>. An additional rule <var>path knot</var> → <var>pair tertiary</var> | <var>path tertiary</var> explains the meaning of <var>path knot</var> in Figure 13. This means that the path expression z1+(1,1){right}..z2 does not need parentheses around z1+(1,1).--></p>
+        </section>
+
+        <section>
+          <h3>Fractions, Mediation, and Unary Operators</h3>
+          <p>Mediation expressions do not appear in the basic expression syntax above. Mediation expressions are parsed at the <var>primary</var> level, so the general rule for constructing them is</p>
+          <pre><var>primary</var> → <var>numeric atom</var>[<var>expression</var>,<var>expression</var>]</pre>
+          <p>where each <var>expression</var> can be of type numeric, pair, or color. The <var>numeric atom</var> in a mediation expression is an extra simple type of <var>numeric primary</var> as shown below. The meaning of all this is that the initial parameter in a mediation expression needs to be parenthesized when it is not just a variable, a positive number, or a positive fraction. For example,</p>
+          <pre>-1[a,b]</pre>
+          <p>and</p>
+          <pre>(-1)[a,b]</pre>
+          <p>are very different: the former is −b since it is equivalent to -(1[a,b]); the latter is a − (b − a) or 2a − b.</p>
+          <pre><var>numeric primary</var> → <var>numeric atom</var>
+  | <var>numeric atom</var>[<var>numeric expression</var>,<var>numeric expression</var>]
+  | <var>of operator</var><var>expression</var>of<var>primary</var>
+  | <var>unary op</var><var>primary</var>
+<var>numeric atom</var> → <var>numeric variable</var>
+  | <var>number or fraction</var>
+  | (<var>numeric expression</var>)
+  | <var>numeric nullary op</var>
+<var>number or fraction</var> → <var>number</var>/<var>number</var>
+  | <var>number not followed by ‘/<var>number</var>’</var></pre>
+          <p>A noteworthy feature of the syntax rules above is that the / operator binds most tightly when its operands are numbers. Thus 2/3 is a <var>numeric atom</var> while (1+1)/3 is only a <var>numeric secondary</var>. Applying a <var>unary op</var> such as <code>sqrt</code> makes the difference clear:</p>
+          <pre>sqrt 2/3</pre>
+          <p>means square root of (2/3), while</p>
+          <pre>sqrt(1+1)/3</pre>
+          <p>means <q>(square root of 2) / 3</q>. Operators such as <code>sqrt</code> can be written in standard functional notation, but it is often unnecessary to parenthesize the argument. This applies to any function that is parsed as a <var>unary op</var>. For instance abs(x) and abs x both compute the absolute value of x. The same holds for the round, floor, ceiling, sind, and cosd functions. The last two of these compute trigonometric functions of angles in degrees.</p>
+          <p>Not all unary operators take numeric arguments and return numeric results. For instance, the <code>abs</code> operator can be applied to a pair to compute the Euclidean length of a vector. Applying the <code>unitvector</code> operator to a pair produces the same pair rescaled so that its Euclidean length is 1. The <code>decimal</code> operator takes a number and returns the string representation. The <code>angle</code> operator takes a pair and computes the two-argument arctangent; i.e., <code>angle</code> is the inverse of the <code>dir</code> operator discussed elsewhere. There is also an operator <code>cycle</code> that takes a <var>path primary</var> and returns a boolean result indicating whether the path is a closed curve.</p>
+          <p>There is a whole class of other operators that classify expressions and return boolean results. A type name such as pair can operate on any type of <var>primary</var> and return a boolean result indicating whether the argument is a pair. Similarly, each of the following can be used as a unary operator: <code>numeric</code>, <code>boolean</code>, <code>cmykcolor</code>, <code>color</code>, <code>string</code>, <code>transform</code>, <code>path</code>, <code>pen</code>, <code>picture</code>, and <code>rgbcolor</code>. Besides just testing the type of a <var>primary</var>, you can use the known and unknown operators to test if it has a completely known value.</p>
+          <p>Even a number can behave like an operator in some contexts. This refers to the trick that allows <code>3x</code> and <code>3cm</code> as alternatives to <code>3*x</code> and <code>3*cm</code>. The rule is that a <var>number or fraction</var> that is not followed by +, -, or another <var>number or fraction</var> can serve as a <var>primary binop</var>. Thus <code>2/3x</code> is two thirds of <var>x</var> and <code>3 3</code> is illegal.</p>
+          <p>There are also operators for extracting numeric subfields from pairs, colors, cmykcolors, and even transforms. If p is a <var>pair primary</var>, <code>xpart p</code> and <code>ypart p</code> extract its components so that <code>(xpart p, ypart p)</code> is equivalent to <var>p</var> even if <var>p</var> is an unknown pair that is being used in a linear equation. Similarly, a color <code>c</code> is equivalent to <code>(redpart c, greenpart c, bluepart c)</code>. For a cmykcolor c, the components are <code>(cyanpart c, magentapart c, yellowpart c, blackpart c)</code> and for a greyscale color <code>c</code>, there is only one component <code>greypart c</code>.</p>
+
+        </section>
+
+      </section>  <!-- end of "Expressions" -->
+
+
+      <section>
+        <h2>Variables</h2>
+        <p>MetaPost allows compound variable names such as <var>z.a</var>, <var>x2r</var>, <var>y2r</var>, and <var>z2r</var>, where <var>z2r</var> means (<var>x2r</var>,<var>y2r</var>) and <var>z.a</var> means (<var>x.a</var>,<var>y.a</var>). In fact there is a broad class of suffixes such that <code>z<var>suffix</var></code> means (x<var>suffix</var>, y<var>suffix</var>).</p>
+        <p>Since a <var>suffix</var> is composed of tokens, it is best to begin with a few comments about tokens.</p>
+        <section>
+          <h3>Tokens</h3>
+          <p>A MetaPost input file is treated as a sequence of numbers, string constants, and symbolic tokens. A number consists of a sequence of digits possibly containing a decimal point. Technically, the minus sign in front of a negative number is a separate token. Since MetaPost uses fixed point arithmetic, it does not understand exponential notation such as <code>6.02E23</code>. MetaPost would interpret this as the number 6.02, followed by the symbolic token E, followed by the number 23.</p>
+          <p>Anything between a pair of double quotes (&quot;) is a string constant. It is illegal for a string constant to start on one line and end on a later line. Nor can a string constant contain double quotes (&quot;) or anything other than printable ASCII characters.</p>
+          <p>Everything in a line of input other than numbers and string constants is broken into symbolic tokens. A symbolic token is a sequence of one or more similar characters, where characters are <q>similar</q> if they occur on the same row of the table.</p>
+          <p>Thus <code>A_alpha</code> and <code>+-+</code> are symbolic tokens but <code>!=</code> is interpreted as two tokens and <code>x34</code> is a symbolic token followed by a number. Since the brackets [ and ] are listed on lines by themselves, the only symbolic tokens involving them are [, [[, [[[, etc. and ], ]], etc.</p>
+          <p>Some characters are not listed in the table because they need special treatment. The four characters ,;() are <q>loners</q>: each comma, semicolon, or parenthesis is a separate token even when they occur consecutively. Thus (()) is four tokens, not one or two. The percent sign is very special because it introduces comments. The percent sign and everything after it up to the end of the line are ignored.</p>
+          <p>Another special character is the period. Two or more periods together form a symbolic token, but a single period is ignored, and a period preceded or followed by digits is part of a number Thus <code>..</code> and <code>...</code> are symbolic tokens while <code>a.b</code> is just two tokens a and b. It is conventional to use periods to separate tokens in this fashion when naming a variable that is more than one token long.</p>
+        </section>
+        <section>
+          <h3>Variable Declarations</h3>
+          <p>A variable name is a symbolic token or a sequence of symbolic tokens. Most symbolic tokens are legitimate variable names, but anything with a predefined meaning like draw, +, or .. is disallowed; i.e., variable names cannot be macros or MetaPost primitives. This minor restriction allows an amazingly broad class of variable names: <code>alpha</code>, <code>==></code>, <code>@&amp;#$&amp;</code>, and <code>~~</code> are all legitimate variable names. Such symbolic tokens without special meanings are called <dfn>tags</dfn>.</p>
+          <p>A variable name can be a sequence of tags like <code>f.bot</code> or <code>f.top</code>. The idea is to provide some of the functionality of Pascal records or C structures. It is also possible to simulate arrays by using variable names that contain numbers as well as symbolic tokens. For example, the variable name <code>x2r</code> consists of the tag <code>x</code>, the number 2, and the tag <code>r</code>. There can also be variables named <code>x3r</code> and even <code>x3.14r</code>. These variables can be treated as an array via constructions like <code>x[i]r</code>, where i has an appropriate numeric value. The overall syntax for variable names is shown below.</p>
+          <pre><var>variable</var> → <var>tag</var><var>suffix</var>
+<var>suffix</var> → <var>empty</var> | <var>suffix</var><var>subscript</var> | <var>suffix</var><var>tag</var>
+<var>subscript</var> → <var>number</var> | [<var>numeric expression</var>]</pre>
+
+          <p>Variables like <var>x2</var> and <var>y2</var> take on numeric values by default, so we can use the fact that <code>z<var>suffix</var></code> is an abbreviation for <code>(x<var>suffix</var>, y<var>suffix</var>)</code> to generate pair-valued variables when needed. It turns out that the <code>beginfig</code> macro wipes out pre-existing values variables that begin with the tags <var>x</var> or <var>y</var> so that <code>beginfig . . . endfig</code> blocks do not interfere with each other when this naming scheme is used. In other words, variables that start with <var>x</var>, <var>y</var>, <var>z</var> are local to the figure they are used in.</p>
+          <p>Type declarations make it possible to use almost any naming scheme while still wiping out any previous value that might cause interference. For example, the declaration</p>
+          <pre>pair pp, a.b;</pre>
+          <p>makes <var>pp</var> and <var>a.b</var> unknown pairs. Such a declaration is not strictly local since <var>pp</var> and <var>a.b</var> are not automatically restored to their previous values at the end of the current figure. Of course, they are restored to unknown pairs if the declaration is repeated.</p>
+          <p>Declarations work the same way for any of the other nine types: numeric, path, transform, color, cmykcolor, string, boolean, picture, and pen. The only restriction is that you cannot give explicit numeric subscripts in a variable declaration. Do not give the illegal declaration</p>
+          <code>numeric q1, q2, q3;</code>
+          <p>use the generic subscript symbol [] instead, to declare the whole array:</p>
+          <pre>numeric q[];</pre>
+          <p>You can also declare <q>multidimensional</q> arrays. After the declaration</p>
+          <pre>path p[]q[], pq[][];</pre>
+          <p><var>p2q3</var> and <var>pq1.4 5</var> are both paths.</p>
+          <p>Internal variables like <code>tracingonline</code> cannot be declared in the normal fashion. All the internal variables discussed in this manual are predefined and do not have to be declared at all, but there is a way to declare that a variable should behave like a newly-created internal variable. The declaration is <code>newinternal</code> followed by an optional type specifier numeric or string and a list of symbolic tokens. For example,</p>
+          <pre>newinternal numeric n, m;
+newinternal string s, t;
+newinternal num;</pre>
+          <p>are valid declarations that declare three internal numeric variables <var>n</var>, <var>m</var>, and <var>num</var> and two internal string variables <var>s</var> and <var>t</var>.</p>
+          <p>Internal variables always have known values, and these values can only be changed by using the assignment operator <code>:=</code>. Internal numeric variables are initially zero and internal string variables are initially the empty string <code>""</code>, except that the Plain macro package gives some of the variables different initial values.<!-- (The Plain macros are normally preloaded automatically as explained in Section 1.)--></p>
+          <p>Internal string variables have been introduced in MetaPost version 1.200. For backwards compatibility, if the type specifier is missing, internal variables default to a numeric type, as in the last example. The declarations <code>newinternal numeric;</code> and <code>newinternal string;</code> are invalid and throw an error.</p>
+        </section>
+      </section> <!-- end of "Variables" -->
+
 
       <section>
         <h2>Transformations of paths</h2>
@@ -249,22 +462,24 @@ p0 yscaled yfactor</code></dd>
       <section>
         <h2>Text and labels</h2>
         <p>METAPOST supports placing labels into a figure. In the simplest form, the text may be included directly, without any typesetting done by TEX:</p>
-        <pre>defaultfont := "ptmr8r";
+        <pre>defaultfont := &quot;ptmr8r&quot;;
 defaultscale := 1.2;
-label("this is a label",z0);</pre>
+label(&quot;this is a label&quot;,z0);</pre>
         <p>It will just add the text commands to write the label text in 12pt Times Roman (a font scaling factor of one refers to 10pt) into the PostScript code. Note that <code>:=</code> is used in the code above, since new values are assigned to the variables, while = is used in linear equations (equality).</p>
-        <p>The action of placing a label at z0 in the example is rather straightforward. The label command centers the label at the given point. In many cases, a suffix is appended to the label command to define how the label is placed in relation to the given point, i. e. top, bot (bottom), lft (left), rt (right) or ulft, llft, urt, lrt (e. g. ulft means upper left and lrt means lower right). The label command may be replaced by dotlabel, that draws a dot at the given point in addition to the label. For example, the code</p>
-        <pre>dotlabel.urt("this is a label",z0)</pre>
+        <p>The action of placing a label at <var>z0</var> in the example is rather straightforward. The label command centers the label at the given point. In many cases, a suffix is appended to the label command to define how the label is placed in relation to the given point, i. e. <code>top</code>, <code>bot</code> (bottom), <code>lft</code> (left), <code>rt</code> (right) or <code>ulft</code>, <code>llft</code>, <code>urt</code>, <code>lrt</code> (e. g. <code>ulft</code> means upper left and <code>lrt</code> means lower right). The label command may be replaced by <code>dotlabel</code>, that draws a dot at the given point in addition to the label. For example, the code</p>
+        <pre>dotlabel.urt(&quot;this is a label&quot;,z0)</pre>
         <p>draws a dot at z0 and places the given text in upper right direction from z0.</p>
-        <hr/>
-        <p>Only simple text may be used for labels that are included by METAPOST directly. But for real typesetting, we may use one of the best typesetting programs we know, TEX itself. We may include nearly arbitrary TEX stuff into labels. All TEX snippets that occur in the METAPOST source are extracted and typeset with TEX, before the result is included into the figure by METAPOST.</p>
-        <p>All the TEX stuff has to be embedded into an environment <code>btex ... etex</code>, e. g.</p>
-        <pre>label(btex $z_0$ etex, z0)</pre>
-        <p>will center the label <q>z0</q> at this point. Normally, the plain TEX compiler is used for typesetting the <code>btex ... etex</code> fragments. But the name of the program may be passed on the command line when calling METAPOST, so to use LATEX we can give the command</p>
-        <pre>mpost --tex=latex ex1</pre>
-        <p>Let&apos;s have a look how we can typeset a label
+
+        <section>
+          <h3>Labels in TeX</h3>
+          <p>Only simple text may be used for labels that are included by METAPOST directly. But for real typesetting, we may use one of the best typesetting programs we know, TEX itself. We may include nearly arbitrary TEX stuff into labels. All TEX snippets that occur in the METAPOST source are extracted and typeset with TEX, before the result is included into the figure by METAPOST.</p>
+          <p>All the TEX stuff has to be embedded into an environment <code>btex ... etex</code>, e. g.</p>
+          <pre>label(btex $z_0$ etex, z0)</pre>
+          <p>will center the label <q>z0</q> at this point. Normally, the plain TEX compiler is used for typesetting the <code>btex ... etex</code> fragments. But the name of the program may be passed on the command line when calling METAPOST, so to use LATEX we can give the command</p>
+          <pre>mpost --tex=latex ex1</pre>
+          <p>Let&apos;s have a look how we can typeset a label
 with LATEX, using Euler math fonts to typeset a formula:</p>
-        <pre>filenametemplate "%j-%3c.mps";
+          <pre>filenametemplate &quot;%j-%3c.mps&quot;;
 verbatimtex
 \documentclass{article}
 \usepackage{euler}
@@ -275,12 +490,49 @@ dotlabel.urt(
   btex $\sqrt{\frac{1}{1+x^2}}$ etex,
   origin);
 endfig;</pre>
-        <p>Since typesetting with LATEX requires a preamble loading a document class and maybe some extra packages, the example contains an environment</p>
-        <pre>verbatimtex ... etex</pre>
-        <p>which is included as verbatim code before typesetting all the labels. In this example, we load the <code>article</code> class and the <code>euler</code> package. While we had to explicitly write the <code>\begin{document}</code>, the closing <code>\end{document}</code> is inserted automatically!</p>
-        <p>Including labels causes some difficulties with fonts. Normally, METAPOST doesn&apos;t embed fonts but just adds a reference to the used fonts into the PostScript output. This isn&apos;t a problem when METAPOST is included in a TEX document, since TEX will resolve all of these font references. But the figures won&apos;t be usable standalone, since PostScript interpreters like Ghostscript will complain about un- known fonts.</p>
-        <p>In recent versions of METAPOST it is possible to run METAPOST in a mode that will produce standalone PostScript output that contains a <q>real</q> EPS with all fonts embedded, that can be displayed in any PS interpreter or may be used in other applications besides TEX documents.</p>
-        <p>A switch named <var>prologues</var> defines whether METAPOST will embed fonts or not. The definition <code>prologues:=3;</code> at the start of your METAPOST file will produce a standalone EPS figure. The default value of <var>prologues</var> is 0, which means that no fonts will be embedded. The meaning of other values of prologues may be looked up in the METAPOST manual; they are relevant only for special cases.</p>
+          <p>Since typesetting with LATEX requires a preamble loading a document class and maybe some extra packages, the example contains an environment</p>
+          <pre>verbatimtex ... etex</pre>
+          <p>which is included as verbatim code before typesetting all the labels. In this example, we load the <code>article</code> class and the <code>euler</code> package. While we had to explicitly write the <code>\begin{document}</code>, the closing <code>\end{document}</code> is inserted automatically!</p>
+          <p>Including labels causes some difficulties with fonts. Normally, METAPOST doesn&apos;t embed fonts but just adds a reference to the used fonts into the PostScript output. This isn&apos;t a problem when METAPOST is included in a TEX document, since TEX will resolve all of these font references. But the figures won&apos;t be usable standalone, since PostScript interpreters like Ghostscript will complain about un- known fonts.</p>
+          <p>In recent versions of METAPOST it is possible to run METAPOST in a mode that will produce standalone PostScript output that contains a <q>real</q> EPS with all fonts embedded, that can be displayed in any PS interpreter or may be used in other applications besides TEX documents.</p>
+          <p>A switch named <var>prologues</var> defines whether METAPOST will embed fonts or not. The definition <code>prologues:=3;</code> at the start of your METAPOST file will produce a standalone EPS figure. The default value of <var>prologues</var> is 0, which means that no fonts will be embedded. The meaning of other values of prologues may be looked up in the METAPOST manual; they are relevant only for special cases.</p>
+        </section>
+
+
+        <section>
+          <h3>The infont Operator</h3>
+          <p>Regardless of whether you use TEX or troff, all the real work of adding text to pictures is done by a MetaPost primitive operator called <code>infont</code>. It is a <var>primary binop</var> that takes a <var>string secondary</var> as its left argument and a <var>string primary</var> as its right argument. The left argument is text, and the right argument is a font name. The result of the operation is a <var>picture secondary</var>, which can then be transformed in various ways. One possibility is enlargement by a given factor via the syntax</p>
+          <pre><var>picture secondary</var> scaled <var>numeric primary</var></pre>
+          <p>Thus <code>label(&quot;text&quot;,z0)</code> is equivalent to</p>
+          <pre>label(&quot;text&quot; infont defaultfont scaled defaultscale, z0)</pre>
+
+          <p>If it is not convenient to use a string constant for the left argument of infont, you can use char <var>numeric primary</var> to select a character based on its numeric position in the font. Thus</p>
+          <pre>char(n+64) infont &quot;ptmr8r&quot;</pre>
+          <p>is a picture containing character n+64 of the font ptmr8r, which is a typical TEX way to refer to Times-Roman.</p>
+          <p>Bare MetaPost does not do any kind of input reencoding, so when you use <code>infont</code> string for labels (instead of <code>btex . . . etex</code>), the string has to be specified in the font encoding.</p>
+        </section>
+
+        <section>
+          <h3>Measuring Text</h3>
+          <p>MetaPost makes readily available the physical dimensions of pictures generated by the <code>infont</code> operator. There are unary operators <code>llcorner</code>, <code>lrcorner</code>, <code>urcorner</code>, <code>ulcorner</code>, and <code>center</code> that take a <var>picture primary</var> and return the corners of its <dfn>bounding box</dfn>.</p>
+          <p>The <code>center</code> operator also accepts <var>path primary</var> and <var>pen primary</var> operands. In MetaPost Version 0.30 and higher, <code>llcorner</code>, <code>lrcorner</code>, etc. accept all three argument types as well.</p>
+          <p>The argument type restrictions on the corner operators are not very important because their main purpose is to allow label and dotlabel statements to center their text properly. The predefined macro</p>
+          <pre>bbox <var>picture primary</var></pre>
+          <p>finds a rectangular path that represents the bounding box of a given picture. If <var>p</var> is a picture, <code>bbox p</code> is equivalent to</p>
+          <pre>(llcorner p--lrcorner p--urcorner p--ulcorner p--cycle)</pre>
+          <p>except that it allows for a small amount of extra space around <var>p</var> as specified by the internal variable <code>bboxmargin</code>.</p>
+          <hr/>
+          <p>Note that MetaPost computes the bounding box of a <code>btex . . . etex</code> picture just the way TEX does. This is quite natural, but it has certain implications in view of the fact that TEX has features like <code>\strut</code> and <code>\rlap</code> that allow TEX users to lie about the dimensions of a box.</p>
+          <p>When TEX commands that lie about the dimensions of a box are translated in to low-level MetaPost code, a <code>setbounds</code> statement does the lying:</p>
+          <pre>setbounds <var>picture variable</var> to <var>path expression</var></pre>
+          <p>makes the <var>picture variable</var> behave as if its bounding box were the same as the given path. The path has to be a cycle, i.e., it must be a closed path. To get the true bounding box of such a picture, assign a positive value to the internal variable <code>truecorners</code>: i.e.,</p>
+          <pre>show urcorner btex $\bullet$\rlap{ A} etex</pre>
+          <p>produces <q>&gt;&gt; (4.9813,6.8078)</q> while</p>
+          <pre>truecorners:=1; show urcorner btex $\bullet$\rlap{ A} etex</pre>
+          <p>produces <q>&quot;&quot; (15.7742,6.8078).</q></p>
+        </section>
+
+
       </section>
 
       <section>
