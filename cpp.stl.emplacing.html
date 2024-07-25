@@ -27,6 +27,27 @@
 
     <main>
       <h1>C++ Emplacing</h1>
+      <p>Emplace operations are provided to make C++ code faster. They should be used when you want to add an object by constructing at the point of calling the emplace operation. For example, you may want to construct the object using its default constructor and then push it into the container. Or you may want to construct it using some parameters on the spot. Formerly, this involved the construction of a temporary object and then copying it into the container.</p>
+      <p>Many of the STL containers support emplacing. For example, <clode class="classname">vector</clode> now has <code class="function">emplace_back</code> operation along with the old <code class="function">push_back</code> operation, as well as <code class="function">emplace</code> along with <code class="function">insert</code>.</p>
+      <p>The good news is that the syntax of emplace and push/insert operations are the same, yet the efficiency of the former is much higher.</p>
+      <p>Emplace members forward the constructor&apos;s arguments in an automagical fashion. Here is an example:</p>
+      <pre>#include &lt;iostream&gt;
+#include &lt;utility&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+
+int main()
+{
+  std::unordered_map&lt;unsigned int, std::string&gt; m;
+  m.emplace(std::make_pair(33, std::string("blood-curdling")));
+  m.emplace(17, "built-in");
+
+  for (const auto &amp;p : m) {
+    std::cout &lt;&lt; p.first &lt;&lt; " =&gt; " &lt;&lt; p.second &lt;&lt; '\n';
+  }
+
+  return 0;</pre>
+      <p><strong>Note:</strong> emplace operations seem to bypass ordinary constructors and use the copy constructor instead.</p>
 
     </main>
 
