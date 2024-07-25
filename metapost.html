@@ -412,6 +412,22 @@ endfig;</pre>
           <p>Thus <code>A_alpha</code> and <code>+-+</code> are symbolic tokens but <code>!=</code> is interpreted as two tokens and <code>x34</code> is a symbolic token followed by a number. Since the brackets [ and ] are listed on lines by themselves, the only symbolic tokens involving them are [, [[, [[[, etc. and ], ]], etc.</p>
           <p>Some characters are not listed in the table because they need special treatment. The four characters ,;() are <q>loners</q>: each comma, semicolon, or parenthesis is a separate token even when they occur consecutively. Thus (()) is four tokens, not one or two. The percent sign is very special because it introduces comments. The percent sign and everything after it up to the end of the line are ignored.</p>
           <p>Another special character is the period. Two or more periods together form a symbolic token, but a single period is ignored, and a period preceded or followed by digits is part of a number Thus <code>..</code> and <code>...</code> are symbolic tokens while <code>a.b</code> is just two tokens a and b. It is conventional to use periods to separate tokens in this fashion when naming a variable that is more than one token long.</p>
+          <table id="fuller" border="1">
+            <caption>Character classes for tokenization</caption>
+            <tbody>
+              <tr> <td>ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz</td> </tr>
+              <tr> <td>:&lt;=&gt;|</td> </tr>
+              <tr> <td>#&amp;@$</td> </tr>
+              <tr> <td>/*\</td> </tr>
+              <tr> <td>+-</td> </tr>
+              <tr> <td>!?</td> </tr>
+              <tr> <td>’‘</td> </tr>
+              <tr> <td>^~</td> </tr>
+              <tr> <td>{}</td> </tr>
+              <tr> <td>[</td> </tr>
+              <tr> <td>]</td> </tr>
+            </tbody>
+          </table>
         </section>
         <section>
           <h3>Variable Declarations</h3>

@@ -1,0 +1,733 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STL Containers</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      -->
+      <div>
+        <p> <a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p> <a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+        <p> <a rel="prev" href="cpp.stl.html">The C++ Standard Template Library</a> </p>
+        <p> <a            href="cpp.function-object.html">C++ Function Objects</a></p>
+        <p> <a            href="cpp.stl.emplacing.html">STL Emplacing</a></p>
+        <p> <a            href="cpp.html">The C++ Programming Language</a> </p>
+        <p> <a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a> </p>
+        <p> <a href="cpp.namespaces.html">C++ Namespaces</a> </p>
+        <p> <a href="cpp.exceptions.html">C++ Exceptions</a> </p>
+        <p> <a href="cpp.classes.html">OOP in C++: Classes</a> </p>
+        <p> <a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a> </p>
+      </div>
+      <div>
+        <p> <a href="cpp.mathematical-constants.html">Mathematical constants (<code>&lt;numbers&gt;</code>)</a> </p>
+        <p> <a href="cpp.get.html">C++ get()</a> </p>
+      </div>
+      <div>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p> <a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>The C++ Standad Template Library (STL) Containers</h1>
+      <p><dfn>Containers</dfn> implement Abstract Data Types such as arrays, queues, linked lists, and so on. They are classified into:</p>
+      <ol>
+        <li><a href="#sequence_containers">Sequence containers</a>, such as <code class="classname">vector</code>&apos;s (1-dimensional arrays), <code class="classname"><code class="classname">deque</code></code>&apos;s (double ended queues), <code class="classname">list</code>&apos;s (doubly linked lists), and so on. They provide access to sequences of elements.</li>
+        <li><a href="#associative_containers">Associative containers</a>: <code class="classname">set</code>, <code class="classname">multiset</code><code class="classname">map</code> and <code class="classname">multimap</code>. <code class="classname">map</code> and <code class="classname">multimap</code> provide lookup based on a key.</li>
+      </ol>
+      <note>STL containers acquire elements by copy, therefore they take <em>const</em> references.</note>
+      <p>Each container has its own advantages and disadvantages. Some aspects are:</p>
+      <ol>
+        <li>ease of insertion and deletion not at the back: list perform best, whereas vectors perform worst</li>
+        <li>access by index: only vectors support it</li>
+      </ol>
+      <section>
+        <h2>Not-Quite Containers</h2>
+        <p>In addition, the standard library provides types of objects that hold elements while not offering all of the facilities of sequence containers or associative containers:</p>
+        <ol>
+          <li><a href="#container_adaptors">Container adaptors</a> provide specialized access to underlying containers. They are</li>
+          <ol>
+            <li>
+              <a href="#stl_stack">stack</a>
+            </li>
+            <li>
+              <a href="#stl_queue">queue</a>
+            </li>
+            <li>
+              <a href="#stl_prority_queue">prority queue</a>
+            </li>
+          </ol>
+          <li>
+            <a href="#stl_bitmap">bitmaps</a>
+          </li>
+          <li>
+            <!--<a href="#stl_valarray">valarrays</a>-->
+            valarrays
+          </li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>The (Mostly) Common Containers Interface</h2>
+        <p>Each container class makes some type definitions of integer types (size and index types etc), and pointer, iterator and reference types. Some common ones are:</p>
+        <ol>
+          <li><code class="classname">size_type</code>: Some integral type roughly equivalent to size_t.</li>
+          <li><code class="classname">difference_type</code>: Can represent the difference between two addresses.</li>
+          <li><code class="classname">value_type</code>: The same type as the type of the values stored in a container object (i.e., the same as <code class="classname">T</code> for sequential containers and container adaptors, but <code class="classname">pair&lt;const KType, VType&gt;</code> for stl::map and stl::multimap.</li>
+          <li><code class="classname">reference</code> (<code class="classname">const_reference</code>): A (constant) reference to an element.</li>
+          <li><code class="classname">pointer</code> (<code class="classname">const_pointer</code>): A (constant) pointer to a component of a (first-class) container object (i.e., same as <kbd>T*</kbd>, where <kbd>T</kbd> is the component type of the container object).</li>
+          <li><code class="classname">iterator</code>: An iterator.</li>
+          <li><code class="classname">const_iterator</code>: A const iterator.</li>
+          <li><code class="classname">reverse_iterator</code>: A reverse iterator.</li>
+          <li><code class="classname">const_reverse_iterator</code>: A const reverse iterator.        </li>
+          <li><code class="classname">allocator_type</code>: The type of the allocator used for the container class (Allocators are the most infrequently used feature of the STL by the average C++ programmer. It is almost always OK to go with the default allocator for whatever container you are using.)</li>
+        </ol>
+        <p>Additionally, container adaptors <code class="classname">stack</code>, <code class="classname">queue</code>, and <code class="classname">priority_queue</code> define <code class="classname">container_type</code>. The associative containers (<code class="classname">set</code>, <code class="classname">multiset</code>, <code class="classname">map</code>, and <code class="classname">multimap</code>) define <code class="classname">key_type</code> and <code class="classname">key_compare</code>. Only <code class="classname">map</code> and <code class="classname">multimap</code> define <code class="classname">mapped_type</code>, whereas <code class="classname">set</code> and <code class="classname">multiset</code> define <code class="classname">value_compare</code>.</p>
+        <p>Elements held in containers are meant to be accessed sequentally through <a target="_blank" href="cpp.iterators.html">iterators</a>, which are generalizations of pointers and support as much iterator arithmetic as makes sense. Each container defines functions producing an iterators pointing to the first element and to the element past the last one:</p>
+        <ol>
+          <li><code class="function">begin()</code> and <code class="function">rbegin()</code> produce an iterator to the first element and a reverse iterator to the last element, and</li>
+          <li>
+            <p><code class="function">end()</code> and <code class="function">rend()</code> produce an iterator to a would-be element past the last one or a reverse iterator to another before the first one. They are meant to be used like this in <kbd>for</kbd> loops and such:</p>
+            <pre>for(iterator it = begin(); it != end(); ++it) {
+  // body of the for-loop
+}</pre>
+          </li>
+        </ol>
+        <p>Other members commonly found in STL containers are:</p>
+        <ol>
+          <li>default, copy and range constructors (<code class="function"><replaceable>container</replaceable>(iterator beg, iterator past_end)</code>);</li>
+          <li><code class="function">void clear()</code> and bool <code class="function">empty()</code> for making a container empty or finding if it is empty;</li>
+          <li>
+            <p><code class="function">insert(...)</code> and <code class="function">erase(...)</code> member functions for inserting an element given an element or range of elements and an iterator to its destination, or a destination iterator and a reference. These are some common prototypes:</p>
+            <pre>iterator insert(iterator i, const T &amp;val = T( ));
+void insert(iterator i, size_type num, const T &amp; val);
+template &lt;class InIter&gt; void insert(iterator i, InIter start, InIter end);</pre>
+            <p><strong>Warning:</strong> Random-access insertions and deletions are slow in containers based on C arrays, such as <code class="classname">std::vector</code> and <code class="classname">std::deque</code>.</p>
+          </li>
+          <li><code class="function">size()</code> and <code class="function">max_size()</code> return the current number of elements and the maximum number of elements that can be held;</li>
+          <li><code class="classname">std::vector</code> and <code class="classname">std::string</code> provide a <code class="function">capacity()</code> member function that returns how many elements the container can hold before resizing and thereby invalidating references to its members or underlying C-array, which we are not advised to take anyway; we can anticipate this by calling <code class="function">reserve(size_type n=0)</code>, though;</li>
+          <li><code class="function">swap(const <code class="classname">container_type</code>&amp;)</code> exchanges the container&apos;s elements and those of its parameter, a facility that is used by some algorithms.</li>
+        </ol>
+        <section id="stl_compare">
+          <h3>Requirement <code class="interfacename">Compare</code></h3>
+          <p>Compare is a set of requirements expected by some of the standard library facilities from the user-provided function object types.</p>
+          <p>The return value of the function call operation applied to an object of a type satisfying <code class="interfacename">Compare</code>, when contextually converted to bool, yields true if the first argument of the call appears before the second in the strict weak ordering relation induced by this type, and false otherwise.</p>
+          <p>As with any BinaryPredicate, evaluation of that expression is not allowed to call non-const functions through the dereferenced iterators.</p>
+          <p>The associative containers <code class="classname">std::set</code>, <code class="classname">std::map</code>, <code class="classname">std::multiset</code>, and <code class="classname">std::multimap</code> as well as <code class="classname">std::priority_queue</code> expect a <code class="interfacename">Compare</code> type.</p>
+          <p>The following standard library functions or algorithms expect a <code class="interfacename">Compare</code> type, too:</p>
+          <dl>
+            <!-- <varlistentry> -->
+              <dt>sort</dt>
+              <dd>
+                   sorts a range into ascending order
+                   (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>sort</dt>
+              <dd>
+                   sorts the elements
+                   (public member function of std::forward_list&lt;T,Allocator&gt;)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>sort</dt>
+              <dd>
+                     sorts the elements
+                     (public member function of std::list&lt;T,Allocator&gt;)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>stable_sort</dt>
+              <dd>
+                       sorts a range of elements while preserving order between equal elements
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>partial_sort</dt>
+              <dd>
+                       sorts the first N elements of a range
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>partial_sort_copy</dt>
+              <dd>
+                       copies and partially sorts a range of elements
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>is_sorted (C++11)</dt>
+              <dd>
+
+                       checks whether a range is sorted into ascending order
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>is_sorted_until (C++11)</dt>
+              <dd>
+                       finds the largest sorted subrange
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>nth_element</dt>
+              <dd>
+                       partially sorts the given range making sure that it is partitioned by the given element
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>lower_bound</dt>
+              <dd>
+                       returns an iterator to the first element not less than the given value
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>upper_bound</dt>
+              <dd>
+                       returns an iterator to the first element greater than a certain value
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>binary_search</dt>
+              <dd>
+                       determines if an element exists in a certain range
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>equal_range</dt>
+              <dd>
+                       returns range of elements matching a specific key
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>merge</dt>
+              <dd>
+                       merges two sorted ranges
+                       (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>merge</dt>
+              <dd>
+                       merges two sorted lists
+                       (public member function of std::forward_list&lt;T,Allocator&gt;)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>merge</dt>
+              <dd>
+                         merges two sorted lists
+                         (public member function of std::list&lt;T,Allocator&gt;)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>inplace_merge</dt>
+              <dd>
+                           merges two ordered ranges in-place
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>includes</dt>
+              <dd>
+                           returns true if one set is a subset of another
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>set_difference</dt>
+              <dd>
+                           computes the difference between two sets
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>set_intersection</dt>
+              <dd>
+                           computes the intersection of two sets
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>set_symmetric_difference</dt>
+              <dd>
+                           computes the symmetric difference between two sets
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>set_union</dt>
+              <dd>
+                           computes the union of two sets
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>push_heap</dt>
+              <dd>
+                           adds an element to a max heap
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>pop_heap</dt>
+              <dd>
+                           removes the largest element from a max heap
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>make_heap</dt>
+              <dd>
+                           creates a max heap out of a range of elements
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>sort_heap</dt>
+              <dd>
+                           turns a max heap into a range of elements sorted in ascending order
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>is_heap (C++11)</dt>
+              <dd>
+                           checks if the given range is a max heap
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>is_heap_until (C++11)</dt>
+              <dd>
+                           finds the largest subrange that is a max heap
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>max</dt>
+              <dd>
+                           returns the greater of the given values
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>max_element</dt>
+              <dd>
+                           returns the largest element in a range
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>min</dt>
+              <dd>
+                           returns the smaller of the given values
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>min_element</dt>
+              <dd>
+                           returns the smallest element in a range
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>minmax (C++11)</dt>
+              <dd>
+                           returns the smaller and larger of two elements
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>minmax_element (C++11)</dt>
+              <dd>
+                           returns the smallest and the largest elements in a range
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>lexicographical_compare</dt>
+              <dd>
+                           returns true if one range is lexicographically less than another
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>next_permutation</dt>
+              <dd>
+                           generates the next greater lexicographic permutation of a range of elements
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>prev_permutation</dt>
+              <dd>
+                           generates the next smaller lexicographic permutation of a range of elements
+                           (function template)</dd>
+            <!-- </varlistentry> -->
+          </dl>
+        </section>
+
+      </section>
+
+      <section id="container_adaptors">
+        <h2>Container Adaptors</h2>
+        <p>These are based on another, full container and reduce or adapt their capabilities to suite an interface.</p>
+        <section id="stl_stack">
+          <h3>Stack</h3>
+          <p>A <code class="classname">stack</code> implements a stack or FILO (First In Last Out) queue and is based on a <code class="classname">deque</code> by default, although it might use a <code class="classname">vector</code> just as well.</p>
+        </section>
+
+        <section id="stl_queue">
+          <h3>Queue</h3>
+          <p>A <code class="classname">queue</code> implements a (First In Last Out) queue and is based on a <code class="classname">deque</code> by default, although it might use a <code class="classname">vector</code> just as well.</p>
+        </section>
+
+        <section id="stl_prority_queue">
+          <h3>Prority Queue</h3>
+          <p>A <code class="classname">prority_queue</code> keeps its elements sorted and produces the smallest element according to some comparison function object. It is otherwise called a <dfn>heap</dfn> and is based on a <code class="classname">vector</code> by default because it requires random access and   swapping elements.</p>
+          <p>You can write a customized priority queue by availing yourself of the following STL algorithms, which rely on random-access iterators, as found in <code class="classname">vector</code> and <code class="classname">queue</code>:</p>
+          <pre>template &lt;class RandIter&gt;
+void make_heap(RandIter start, RandIter end);
+template &lt;class RandIter, class Comp&gt;
+void make_heap(RandIter start, RandIter end, Comp cmpfn);
+//
+template &lt;class RandIter&gt;
+void push_heap(RandIter start, RandIter end);
+template &lt;class RandIter, class Comp&gt;
+void push_heap(RandIter start, RandIter end, Comp cmpfn);
+//
+template &lt;class RandIter&gt;
+void pop_heap(RandIter start, RandIter end);
+template &lt;class RandIter, class Comp&gt;
+void pop_heap(RandIter start, RandIter end, Comp cmpfn);</pre>
+          <p>Or you can turn a sequence into a heap all at once by calling:</p>
+          <pre>template &lt;class RandIter&gt;
+void sort_heap(RandIter start, RandIter end);
+template &lt;class RandIter, class Comp&gt;
+void sort_heap(RandIter start, RandIter end, Comp cmpfn);</pre>
+        </section>
+
+      </section>
+
+      <section id="sequence_containers">
+        <h2>Sequence Containers</h2>
+        <section id="list">
+          <h3>Doubly-Linked Lists</h3>
+          <p>A list is a sequence optimized for insertion and deletion of elements. When you insert into a list or delete an element from a list , the locations of other elements of the list are not affected. In particular, iterators referring to other elements are not affected.</p>
+          <p>The STL provides two linked-list types:</p>
+          <ol>
+            <li>list: a doubly-linked list, and</li>
+            <li><a href="#forward_list">forward_list</a>: a singly-linked list introduced in recent revisions (C++11)</li>
+          </ol>
+          <p>These are implemented in container <code class="classname">list&lt;&gt;</code>.</p>
+          <p id="list_shared_members">With the exception of subscripting, capacity management, and <code class="function">size()</code> for <code class="classname">forward_list</code>, the STL lists provide the member types and operations offered by <code class="classname">vector&lt;&gt;</code>. In addition, <code class="classname">list&lt;&gt;</code> and <code class="classname">forward_list&lt;&gt;</code> provide specific list member functions:</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>st.push_front(x)</td>
+                <td>Add x to lst (using copy or move) before the first element</td>
+              </tr>
+              <tr>
+                <td>lst.pop_front()</td>
+                <td>Remove the first element from lst</td>
+              </tr>
+              <tr>
+                <td>lst.emplace_front(args)</td>
+                <td>Add T{args} to lst before the first element</td>
+              </tr>
+              <tr>
+                <td>lst.remove(v)</td>
+                <td>Remove all elements of lst with value v</td>
+              </tr>
+              <tr>
+                <td>lst.remove_if(f)</td>
+                <td>Remove all elements of lst for which f(x)==true</td>
+              </tr>
+              <tr>
+                <td>lst.unique()</td>
+                <td>Remove adjacent duplicate elements of lst</td>
+              </tr>
+              <tr>
+                <td>lst.unique(f)</td>
+                <td>Remove adjacent duplicate elements of lst using f for equality</td>
+              </tr>
+              <tr>
+                <td>lst.merge(lst2)</td>
+                <td>Merge the ordered lists lst and lst2 using &lt; as the order; lst2 is merged into lst and emptied in the process</td>
+              </tr>
+              <tr>
+                <td>lst.merge(lst2,f)</td>
+                <td>Merge the ordered lists lst and lst2 using f as the order; lst2 is merged into lst and emptied in the process</td>
+              </tr>
+              <tr>
+                <td>lst.sort()</td>
+                <td>Sort lst using &lt; as the order</td>
+              </tr>
+              <tr>
+                <td>lst.sort(f)</td>
+                <td>Sort lst using f as the order</td>
+              </tr>
+              <tr>
+                <td>lst.reverse()</td>
+                <td>Reverse the order of the elements of lst ; noexcept</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="stl_vector">
+          <h3>Vectors</h3>
+          <p>std::<code class="classname">vectors</code> are automatic arrays which keep track of their <dfn>size</dfn>, that is how many places have been occupied (pressumably in an integer variable), as well as their <dfn>capacity</dfn>, which is the total number of objects of the given type that they can accomodate. Further, when they have filled up, they reallocate their sequence of objects in a larger chunk of memory, the start of this run of memory is updated (in a pointer variable), and the new, larger capacity is updated, too. This means that indeces into the array-like structure remain valid, but pointers are invalidated, so they must never be taken in the first place.</p>
+          <p>Unlike with linked lists, insertions (or deletions) are either meaningless or demand that all objects after the one inserted be shifted one place, which is done in linear time, whereas lists perform insertions and deletions in constant time. Furthermore, insertions and deletions would invalidate all subsequent indeces...</p>
+        </section>
+
+        <section id="stl_deque">
+          <h3>Deques</h3>
+          <p>A <code class="classname">deque</code> (pronounced "deck") is very similar to a vector. It manages its elements with a dynamic array, provides random access, and has almost the same interface as a vector. The difference is that with a <code class="classname">deque</code> the dynamic array is open at both ends. Thus, a <code class="classname">deque</code> is fast for insertions and deletions at both the end and the beginning.</p>
+          <p>Deques have the following differences compared with the abilities of vectors:</p>
+          <ol>
+            <li>Inserting and removing elements is fast both at the beginning and at the end (for vectors it is only fast at the end). These operations are done in amortized constant time.</li>
+            <li>The internal structure has one more indirection to access the elements, so element access and iterator movement of <code class="classname">deque</code>&apos;s are usually a bit slower.</li>
+            <li>Iterators must be smart pointers of a special type rather than ordinary pointers because they must jump between different blocks.</li>
+            <li>In systems that have size limitations for blocks of memory (for example, some PC systems), a <code class="classname">deque</code> might contain more elements because it uses more than one block of memory. Thus, max_size() might be larger for <code class="classname">deque</code>'s.</li>
+            <li>Deques provide no support to control the capacity and the moment of reallocation. In particular, any insertion or deletion of elements other than at the beginning or end invalidates all pointers, references, and iterators that refer to elements of the <code class="classname">deque</code>.</li>
+            <li>However, reallocation may perform better than for vectors, because according to their typical internal structure, <code class="classname">deque</code>&apos;s don&apos;t have to copy all elements on reallocation.</li>
+            <li>Blocks of memory might get freed when they are no longer used, so the memory size of a <code class="classname">deque</code> might shrink (however, whether and how this happens is implementation specific).</li>
+          </ol>
+        </section>
+
+        <section id="stl_bitmap">
+          <h3>Bitmap's*</h3>
+        </section>
+
+      </section>
+
+      <section id="associative_containers">
+        <h2>Associative Containers</h2>
+        <p>An <dfn>associative container</dfn> is a variable-sized container that supports efficient retrieval of elements (values) based on keys. It supports insertion and removal of elements, but differs from a <a href="#sequence_containers">sequence container</a> in that it does not provide a mechanism for inserting an element at a specific position but the container itself keeps its elements in order internally in a suitable data structure.</p>
+        <section id="associative_container_immutability">
+          <h3>Immutability of Associative Containers</h3>
+          <p> Since the elements of an associative container are stored according to their keys (in a binary tree, hash table...), it is essential that the key associated with each element is <dfn>immutable</dfn>. In simple associative containers this means that the elements themselves are immutable, while in other types of associative containers, such as pair associative containers, the elements themselves are mutable but the part of an element that is its key cannot be modified or assigned a value to. This has an important consequence: associative containers cannot have <dfn>mutable iterators</dfn> in the sense that  if <var>it</var> is an iterator for an associative container and <var>t</var> is an object of <var>it</var>&apos;s value type, then <kbd>*it = t</kbd> is <em>not</em> a valid expression.</p>
+          <p>Consequently, every element of a <em>simple</em> associative container is immutable: objects may be inserted and erased, but not modified.</p>
+        </section>
+
+        <!-- end of "Immutability of Associative Containers" -->
+        <section id="associative_container_types">
+          <h3>Types of Associative Containers</h3>
+          <p>Associative containers are either maps or sets. A map associates or <q>maps</q> a key to a value, whereas in a set (<code class="classname" href="#stl_set">set</code> and <code class="classname" href="#stl_multiset">multiset</code>) their elements are their own keys.</p>
+          <p>A map may be either a <code class="classname">stl::map</code> or a <code class="classname">stl::multi_map</code>, and a set may be either a <code class="classname">stl::set</code> or a <code class="classname">stl::multi_set</code>. Here the prefix <q>multi</q> means that elements with the same key are allowed. Furthermore, sameness is to be understood not literally but according to a function or a function object that takes to objects and returns a boolean value.</p>
+          <p>According to their implementation and performance, associative containers are further divided into:</p>
+          <ol>
+            <li>ordered containers: and are <code class="classname">set</code>, <code class="classname">multiset</code>, <code class="classname">map</code>, and <code class="classname">multimap</code>. They are implemented as binary trees, often red-black trees. They use a comparison function or a <a href="#ordered_comparison_fo">comparison function object</a> to compare keys.</li>
+            <li>unordered containers: and are <code class="classname">unordered_set</code>, <code class="classname">unordered_multiset</code>, <code class="classname">unordered_map</code>, and <code class="classname">unordered_multimap</code>. According to Bjarne Stroutstrup, they are implemented as hash tables with linked overflow.</li>
+          </ol>
+        </section> <!-- end of "Types of Associative Containers" -->
+
+        <section id="comparison_fo">
+          <h3>Comparison Function Objects for STL&apos;s Associative Containers</h3>
+          <section>
+            <h4>Introduction</h4>
+            <p>To use the Standard Template Library (STL) associative containers, the type of keys stored must be comparable.</p>
+            <p>For sorted containers (e.g <code class="classname">std::set</code>), the comparison is by equivalence, which roughly means overloading the <code class="function">operator&lt;</code>, and for unsorted containers (e.g <code class="classname">std::unordered_set</code>) the comparison is by equality, which in turn (again, roughly) means overloading the <code class="function">operator==</code>.</p>
+          </section>
+          <section>
+            <h4>Custom Comparison for STL&apos;s Associative Containers</h4>
+            <p>For some instances of a container with a predefined comparison function for the stored type, you may want to supply an alternative comparison function that makes more sense for the container instance&apos;s purpose.</p>
+            <p>For example, given a type <code class="classname">Person</code> that are normally sorted by <var>Person::id</var>, for some <code class="classname">std::set&lt;Person&gt;</code> called <var>names</var> you may want to compare the elements by <var>Person::name</var> instead of <var>Person::id</var>. How do you <q>override</q> the default comparison function for Person to achieve the desired behavior for this particular instance of <code class="classname">std::set&lt;Person&gt;</code>?</p>
+            <section>
+              <h5>The Complete Declaration for Associative Containers</h5>
+              <p>To exemplify the concepts, I'll consider <code class="classname">std::set</code> as a representative of the STL&apos;s associative containers, the differences between it and the others aren&apos;t significant for our purpose: how to create an associative container with a different comparison function from the one defined by the type of element held inside the container?</p>
+              <p>The complete declaration for std::set is:</p>
+              <pre>template
+&lt;
+class T,
+class Compare = less&lt;T&gt;,
+class Alloc = allocator&lt;T&gt;
+&gt;
+class set;</pre>
+              <p>Where:</p>
+              <ol>
+                <li><code class="classname">T</code> is the type of elements that will be held</li>
+                <li>Alloc is the memory allocator, with the default being <code class="classname">allocator&lt;T&gt;</code></li>
+              </ol>
+              <p>And the most important aspect for this discussion:</p>
+              <blockquote>Compare is the type of the comparison used, with the default being <code class="classname">std::less&lt;T&lt;</code></blockquote>
+              <p>But, what&apos;s <code class="classname">std::less&lt;T&lt;</code>?</p>
+              <p><code class="classname">std::less&lt;T&lt;</code> is a function object that expresses the <q>less-than</q> semantic for objects of type <code class="classname">T</code>. Its behavior is to call the <code class="function">operator&lt;()</code> overloaded by the type <code class="classname">T</code> to check the relative order of two objects <var>A</var> and <var>B</var> of type <code class="classname">T</code>.</p>
+              <p>Given the declaration for <code class="classname">std::set</code>, we can see that the way for providing our desired behavior is to supply a different type of comparison function object for the template parameter: <code class="classname">Compare</code>. Alright? Let&apos;s do it then!</p>
+              <p>Our type <code class="classname">Person</code> looks like this:</p>
+              <pre>#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+
+class Person {
+public:
+	explicit Person(int id, const std::string &amp;name) : m_id{id}, m_name{name} {}
+	const int id() const {return m_id;}
+	const std::string&amp; name() const {return m_name;}
+private:
+	const int m_id;
+	const std::string m_name;
+};
+
+bool operator&lt;(const Person &amp;lhs, const Person &amp;rhs) { // compare by id
+	return lhs.id() &lt; rhs.id();
+}
+
+std::ostream&amp; operator&lt;&lt;(std::ostream &amp;os, const Person &amp;rhs) { // for formatted output
+	os &lt;&lt; "Id: " &lt;&lt; rhs.id() &lt;&lt; ", Name: " &lt;&lt; rhs.name();
+	return os;
+}</pre>
+              <p>And the use of <code class="classname">Person</code> inside <code class="classname">std::se</code>t and comparing by <var>Person::name</var> instead of <var>Person::id</var> can be achieved by:</p>
+              <pre>struct PersonCompareByName {
+	bool operator()(const Person &amp;lhs, const Person &amp;rhs) const {
+		return lhs.name() &lt; rhs.name();
+	}
+};
+
+int main() {
+	auto people = {Person{2, "C"}, Person{3, "A"}, Person{1, "B"}};
+
+	// By Id
+	std::set&lt;Person&gt; peopleById = people;
+	std::cout &lt;&lt; "By Id: " &lt;&lt; "\n\n";
+	std::copy(cbegin(peopleById), cend(peopleById), std::ostream_iterator&lt;Person&gt;{std::cout, "\n"});
+
+	std::cout &lt;&lt; '\n';
+
+	// By Name (1)
+	std::set&lt;Person, PersonCompareByName&gt; peopleByName = people;
+	std::cout &lt;&lt; "By Name (1): " &lt;&lt; "\n\n";
+	std::copy(cbegin(peopleByName), cend(peopleByName), std::ostream_iterator&lt;Person&gt;{std::cout, "\n"});
+
+	std::cout &lt;&lt; '\n';
+
+	// By Name (2)
+	auto personComparator = [](const auto &amp;lhs, const auto &amp;rhs) {return lhs.name() &lt; rhs.name();};
+	std::set&lt;Person, decltype(personComparator)&gt; peopleByName2{people, personComparator};
+	std::cout &lt;&lt; "By Name (2): " &lt;&lt; "\n\n";
+	std::copy(cbegin(peopleByName2), cend(peopleByName2), std::ostream_iterator&lt;Person&gt;{std::cout, "\n"});
+
+	return 0;
+}</pre>
+              <p>First, we'd created the peopleById that uses the internal (default) comparison function for the type Person: By Person::id(). Thus, every element inside the container will be sorted based on its id.</p>
+              <p>Then, at (1) we created <var>peopleName</var> that relies on the function object <code class="classname">PersonCompareByName</code> as the argument for the template parameter <code class="classname">Compare</code>, establishing the comparison by Person::name().</p>
+              <p>At (2) we achieved the same behavior of (1) but employing an alternative syntax that uses the lambda <var>personComparator</var> and supplied the template parameter with decltype.</p>
+            </section>
+          </section>
+          <section id="ordered_comparison_fo">
+            <h4>Function Objects for Ordered Associative Containers</h4>
+            <p>Ordered associative containers use compare <a href="cpp.function-object.html">function objects</a> to keep themselves sorted. The default upon construction is <code class="classname">less&lt;Key&gt;</code>, which is defined in <filename>functional</filename>. You may define and pass in your own. It should overload <code class="function">bool operator()(const Key&amp; l, const Key&amp; r)</code> and meet the following three requirements for a <dfn>strict weak ordering</dfn>:</p>
+            <dl>
+              <!-- <varlistentry> -->
+                <dt>It has to be <dfn>antisymmetric</dfn></dt>
+                <dd>That is, if <kbd>less&lt;Key&gt;(<var>val1</var>,<var>val2</var>)</kbd> is true, then <kbd>less&lt;Key&gt;(<var>val2</var>,<var>val1</var>)</kbd> must be false.</dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+                <dt>It has to be <dfn>transitive</dfn></dt>
+                <dd/>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+                <dt>It has to be <dfn>irreflexive</dfn></dt>
+                <dd>That is, a key is never <kbd>less</kbd> than itself, or more formally <kbd>less&lt;Key&gt;(<var>val</var>,<var>val</var>)</kbd> is always false.</dd>
+              <!-- </varlistentry> -->
+            </dl>
+            <p>On this definition we define an <dfn>equality</dfn> test given two elements: <q>they are equal if neither is <em>less</em> than the other.</q></p>
+          </section>
+        </section>
+        <!-- end of "Comparison Function Objects for STL&apos;s Associative Containers" -->
+      </section>
+
+      <!-- end of "Associative Containers" -->
+      <section id="stl_set">
+        <h2><code class="classname">set</code> and <code class="classname">multiset</code></h2>
+        <p>Set and multiset containers sort their elements automatically according to a certain sorting criterion. The difference between the two is that a <code class="classname" id="stl_multiset">multiset</code> allows duplicates, whereas a <code class="classname">set</code> does not.</p>
+        <p>They are good for finding out if an element is in a set, or for retrieving an element that is <q>equal</q> to another, which actually is useful if function object <code class="classname">less&lt;T&gt;</code> is specialized to suit our goals.</p>
+        <p>Search, removal, and insertion operations have logarithmic complexity. Sets are usually implemented as red-black trees.</p>
+        <section>
+          <h3>Using a <code class="classname">std::set</code> for Recording <q>Visited</q> Items</h3>
+          <p>We will be using the following:</p>
+          <ol>
+            <li>insertions, and possibly deletions</li>
+            <li>
+              <code class="function">const_iterator std::set::find( const Key&amp; key ) const</code>
+            </li>
+            <li><code class="function">const_iterator std::set::end() const</code> for comparing the returned value</li>
+          </ol>
+          <p>This would enable us to write a <code class="function">bool has(<var>s</var>, <var>k</var>) const</code>, and a similar <code class="function">bool has_or_add(<var>s</var>, <var>k</var>)</code> function.</p>
+          <p>In many situations the key type would be just a pointer...</p>
+        </section>
+
+      </section>
+
+      <section id="stl_map">
+        <h2><code class="classname">map</code> and <code class="classname">multimap</code>*</h2>
+      </section>
+
+      <section>
+        <h2>Random Access Returning Reference</h2>
+        <p>Sequence containers based on an array offer access through indeces. They will declare:</p>
+        <pre>reference operator[](size_type idx);
+const_reference operator[](size_type idx) const;</pre>
+        <p>These are fast but do not perform bound checking. Trying to access beyond the end of the underlying array may, well, crash the program or yield the wrong result. If unsure, use:</p>
+        <pre id="bounds_checking_at">      reference at(size_type idx);
+const_reference at(size_type idx) const;</pre>
+        <p>Member function <code class="function">at(size_type idx)</code> returns a <code class="classname">reference</code> or <code class="classname">const_reference</code> all right, but will throw an <code class="classname">out_of_range</code> exception. Use <code class="function">at(size_type idx)</code> inside a <kbd>try {...}</kbd> block.</p>
+        <p>If you write a container in the STL tradition that returns references to elements of an array, write the body of your <code class="function">at(size_type idx)</code> like this:</p>
+        <pre>if(idx &gt;= size())
+  throw out_of_range("Container::at() used with idx past the end");
+else
+  return the_array[idx];</pre>
+      </section>
+
+      <section>
+        <h2>Find and Replace Operations</h2>
+        <p>Functions <code class="function">find(...)</code> returns a <kbd>size_type</kbd> variable, actually an integer representing an index to the element found. A <code class="classname">string</code>&apos;s <code class="function">find()</code> operation may return <kbd>npos</kbd>, for <q>no position</q>, which should be defined as <inlineequation>-1</inlineequation>.</p>
+      </section>
+
+      <section>
+        <h2>Some Prototypes for Sequence and Associative Containers</h2>
+        <p>This is the prototype of a would-be <code class="classname">sequence_container</code> class to derive containers from. There are no private members since this class is used as an interface.</p>
+        <pre>template &lt;class T, class Allocator=allocator&lt;T&gt; &gt;
+class sequence_container {
+public:
+  // some type definitions:
+  typedef unsigned int size_type;
+  typedef T value_type;
+  typedef       T *       iterator;
+  typedef const T * const_iterator;
+  typedef       T &amp;       reference;
+  typedef const T &amp; const_reference;
+  // this is the type of function that compares two values:
+  typedef bool (*) (const T&amp;, const T&amp;) value_compare;
+  // some more obscure type definitions:
+  typedef       T *       reverse_iterator;
+  typedef const T * const_reverse_iterator;
+  typedef Allocator allocator_type;
+  // some iterator-related member functions:
+  iterator       begin();
+  const_iterator begin() const;
+  iterator       end();
+  const_iterator end()   const;
+  reverse_iterator       rbegin();
+  const_reverse_iterator rbegin() const;
+  reverse_iterator       rend();
+  const_reverse_iterator rend()   const;
+  // some other member functions:
+  size_type size() const;
+  reference       front();
+  const_reference front() const;
+  void pop_back();
+  void push_back(const T&amp; val);
+  void clear();
+  bool empty() const;
+  allocator_type get_allocator() const;
+  // constructors:
+  sequence_container(const Allocator &amp;ca = Allocator()));
+  sequence_container(size_type num, const T&amp; val = T(), const Allocator &amp;ca = Allocator()));
+  sequence_container(const sequence_container&lt;T,Allocator&gt;&amp; obj);
+  template &lt;class InIter&gt;
+  sequence_container(InIter start, InIter end, const Allocator&amp; ca = Allocator());
+};</pre>
+      </section>
+
+      <section>
+        <h2>Emplacing</h2>
+        <p>The <code class="function">emplace()</code> operation is used when it is notationally awkward or potentially inefficient to first create an object and then copy (or move) it into a container. Read <a href="cpp.emplacing.html">more</a>.</p>
+      </section>
+
+    </main>
+  </body>
+</html>

@@ -33,9 +33,90 @@
     <main>
 
       <h1>MetaPost Advanced Graphics</h1>
+      <p>This page describes shading and tools for generating not-so-simple line drawings.</p>
+
+      <section>
+        <h2>Shading or Filling a Closed Path</h2>
+        <p><dfn>Shading</dfn> is done with the <code>fill</code> statement. In its simplest form, the fill statement requires a <var>path expression</var> that gives the boundary of the region to be filled. In the syntax</p>
+        <pre>fill <var>path expression</var></pre>
+        <p>the argument should be a cyclic path, i.e., a path that describes a closed curve via the <code>..cycle</code> or <code>--cycle</code> notation. For example, the fill statement below builds a closed path by extending the roughly semicircular path <var>p</var>. This path has a counter-clockwise orientation, but that does not matter because the fill statement uses PostScript&apos;s non-zero winding number rule.</p>
+        <pre>beginfig(21);
+path p;
+p = (-1cm,0)..(0,-1cm)..(1cm,0);
+fill p{up}..(0,0){-1,-2}..{up}cycle;
+draw p..(0,1cm)..cycle;
+endfig;</pre>
+        <p>The general fill statement</p>
+        <pre>fill <var>path expression</var> withcolor <var>color expression</var></pre>
+        <p>specifies a shade of gray or (if you have a color printer) some rainbow color. The <var>color expression</var> can have five possible values, mapping to four possible color models:</p>
+        <table border="1" id="simple_with_header_and_th">
+        <thead> <tr> <th>Actual input</th> <th>Remapped meaning</th> </tr> </thead>
+                <tr> <td><code>withcolor</code> <var>rgbcolor</var>c</td> <td>withrgbcolor c</td> </tr>
+                <tr> <td><code>withcolor</code> <var>cmykcolor</var>c</td> <td>withcmykcolor c</td> </tr>
+                <tr> <td><code>withcolor</code> <var>numeric</var>c</td> <td>withgreyscale c</td> </tr>
+                <tr> <td><code>withcolor</code> <var>false</var></td> <td>withoutcolor</td> </tr>
+                <tr> <td><code>withcolor</code> <var>true</var></td> <td><var>current default color model</var></td> </tr>
+        </table>
+        <p>For the specific color models, there are also:</p>
+        <pre>fill <var>path expression</var> withrgbcolor <var>rgbcolor expression</var></pre>
+        <p>An image object cannot have more then one color model, the last <code>withcolor</code>, <code>withrgbcolor</code>, <code>withcmykcolor</code>, <code>withgreyscale</code> or <code>withoutcolor</code> specification sets the color model for any particular object.</p>
+        <p>The model <code>withoutcolor</code> needs a bit more explanation: selecting this model means that MetaPost will not write a color selection statement to the PostScript output file for this object.</p>
+        <p>The &apos;current default&apos; color model can be set up using the internal variable <code>defaultcolormodel</code>.</p>
+        <table border="1" id="with_thead_and_tbody">
+          <thead> <tr> <th>Value</th> <th>Color model</th> </tr> </thead>
+          <tbody> <tr> <td>1</td> <td>no model</td> </tr>
+                  <tr> <td>3</td> <td>greyscale</td> </tr>
+                  <tr> <td>5</td> <td>rgb (default)</td> </tr>
+                  <tr> <td>7</td> <td>cmyk</td> </tr>
+          </tbody>
+        </table>
+        <p>Below are shown several applications of the fill command to fill areas with shades of gray. The paths involved are intersecting circles a and b and a path <var>ab</var> that bounds the region inside both circles. Circles <var>a</var> and <var>b</var> are derived from <code>fullcircle</code>. Path <var>ab</var> is then initialized using a predefined macro <code>buildcycle</code> that will be discussed shortly.</p>
+        <pre>beginfig(22);
+path a, b, aa, ab;
+a = fullcircle scaled 2cm;
+b = a shifted (0,1cm);
+aa = halfcircle scaled 2cm;
+ab = buildcycle(aa, b);
+picture pa, pb;
+pa = thelabel(btex $A$ etex, (0,-.5cm));
+pb = thelabel(btex $B$ etex, (0,1.5cm));
+fill a withcolor .7white;
+fill b withcolor .7white;
+fill ab withcolor .4white;
+unfill bbox pa;
+draw pa;
+unfill bbox pb;
+draw pb;
+label.lft(btex $U$ etex, (-1cm,.5cm));
+draw bbox currentpicture;
+endfig;</pre>
+        <p>Filling circle a with the light gray color .7white and then doing the same with circle b doubly fills the region where the disks overlap. The rule is that each fill statement assigns the given color to all points in the region covered, wiping out whatever was there previously including lines and text as well as filled regions. Thus it is important to give fill commands in the right order. In the above example, the overlap region gets the same color twice, leaving it light gray after the first two fill statements. The third fill statement assigns the darker color .4white to the overlap region.</p>
+        <p>At this point the circles and the overlap region have their final colors but there are no cutouts for the labels. The cutouts are achieved by the unfill statements that effectively erase the re- gions bounded by bbox pa and bbox pb. More precisely, unfill is shorthand for filling withcolor background, where background is normally equal to white as is appropriate for printing on white paper. If necessary, you can assign a new color value to background.</p>
+        <p>The labels need to be stored in pictures pa and pb to allow for measuring their bounding box before actually drawing them. The macro thelabel creates such pictures and shifts them into position so that they are ready to draw. Using the resulting pictures in draw statements of the form</p>
+        <pre>draw <var>picture expression</var></pre>
+        <p>adds them to currentpicture so that they overwrite a portion of what has already been drawn. In the figure, only the white rectangles produced by unfill get overwritten.</p>
+      </section>
 
       <section>
         <h2>Building Cycles*</h2>
+        <p>The buildcycle command constructs paths for use with the fill or unfill macros. When given two or more paths such as aa and b, the buildcycle macro tries to piece them together so as to form a cyclic path. In this case path aa is a semicircle that starts just to the right of the intersection with path b, then passes through b and ends just outside the circle on the left as shown in Figure 24a.</p>
+        <p>Figure 24b shows how buildcycle forms a closed cycle from the pieces of paths aa and b. The buildcycle macro detects the two intersections labeled 1 and 2 in Figure 24b. Then it constructs the cyclic path shown in bold in the figure by going forward along path aa from intersection 1 to intersection 2 and then forward around the counter-clockwise path b back to intersection 1. It turns out that buildcycle(a,b) would have produced the same result, but the reasoning behind this is a little confusing.</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
       </section>
 
       <section>
