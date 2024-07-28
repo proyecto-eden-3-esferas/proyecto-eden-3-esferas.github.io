@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dialects of Lisp</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="lisp.html">Lisp: The List Processing Language</a></p>
+        <p><a            href="why-lisp.html">Why Lisp?</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+        <p><a            href="adt.html">Abstract Data Types (ADTs)</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for the Web</a></p>
+      </div>
+      <div>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <blockquote>
+        <p>So, on one hand, Lisp is one of computer science&apos;s <em>classical</em> languages, based on ideas that have stood the test of time. On the other, it&apos;s a thoroughly modern, general-purpose language whose design reflects a deeply pragmatic approach to solving real problems as efficiently and robustly as possible. The only downside of Lisp&apos;s <em>classical</em> heritage is that lots of folks are still walking around with ideas about Lisp based on some particular flavor of Lisp they were exposed to at some particular time in the nearly half century since McCarthy invented Lisp. If someone tells you Lisp is only interpreted, that it&apos;s slow, or that you have to use recursion for everything, ask them what dialect of Lisp they&apos;re talking about and whether people were wearing bell-bottoms when they learned it. But I learned Lisp Once, And IT Wasn&apos;t Like what you&apos;re describing.</p>
+        <p>If you&apos;ve used Lisp in the past, you may have ideas about what Lisp is that have little to do with Common Lisp. While Common Lisp supplanted most of the dialects it&apos;s descended from, it isn&apos;t the only remaining Lisp dialect, and depending on where and when you were exposed to Lisp, you may very well have learned one of these other dialects.</p>
+        <p>Other than Common Lisp, the one general-purpose Lisp dialect that still has an active user community is <link linkend='scheme'>Scheme</link>. Common Lisp borrowed a few important features from Scheme but never intended to replace it.</p>
+      </blockquote>
+
+      <h1>Dialects of Lisp</h1>
+
+      <section id='scheme'>
+        <h2>Scheme</h2>
+        <p>Originally designed at M.I.T., where it was quickly put to use as a teaching language for undergraduate computer science courses, Scheme has always been aimed at a different language niche than Common Lisp. In particular, Scheme&apos;s designers have focused on keeping the core language as small and as simple as possible. This has obvious benefits for a teaching language and also for programming language researchers who like to be able to formally prove things about languages.</p>
+        <p>It also has the benefit of making it relatively easy to understand the whole language as specified in the standard. But, it does so at the cost of omitting many useful features that are standardized in Common Lisp. Individual Scheme implementations may provide these features in implementation-specific ways, but their omission from the standard makes it harder to write portable Scheme code than to write portable Common Lisp code.</p>
+        <p>Scheme also emphasizes a functional programming style and the use of recursion much more than Common Lisp does. If you studied Lisp in college and came away with the impression that it was only an academic language with no real-world application, chances are you learned Scheme. This isn&apos;t to say that&apos;s a particularly fair characterization of Scheme, but it&apos;s even less applicable to Common Lisp, which was expressly designed to be a real-world engineering language rather than a theoretically <em>pure</em> language.</p>
+        <p>If you&apos;ve learned Scheme, you should also be aware that a number of subtle differences between Scheme and Common Lisp may trip you up. These differences are also the basis for several perennial religious wars between the hotheads in the Common Lisp and Scheme communities. I&apos;ll try to point out some of the more important differences as we go along.</p>
+        <p>Two other Lisp dialects still in widespread use are Elisp, the extension language for the Emacs editor, and Autolisp, the extension language for Autodesk&apos;s AutoCAD computer-aided design tool. Although it&apos;s possible more lines of Elisp and Autolisp have been written than of any other dialect of Lisp, neither can be used outside their host application, and both are quite old-fashioned Lisps compared to either Scheme or Common Lisp. If you&apos;ve used one of these dialects, prepare to hop in the Lisp time machine and jump forward several decades.</p>
+      </section>
+
+      <section id='clojure'>
+        <h2>Clojure</h2>
+        <blockquote>
+          <p>I have been writing this book—at least in my head—for decades. As a professional programmer who has used everything from assembly language and FORTRAN to C and Python and Java and Ruby, I&apos;ve spent much of my career longing to get my hands on a better programming language. In my mind&apos;s eye I could see exactly what I wanted: I wanted a language that had the stripped-down syntax of Lisp. I wanted a language that embraced the power of functional programming. I wanted a language that was fast enough to run the real-world applications that I was writing. Most of all I wanted a language that had all the above and ran on the computing platforms I worked with. For years my imaginary programming language remained just that—imaginary. I spent a lot of that time mentally composing a book that would lay out the case for my dream programming language.</p>
+          <p>Then in 2009 I found the programming language of my dreams. It was a Lisp with macros and S-expressions and it was adamantly functional. It was as fast as I needed it to be and, because it was compiled, it held out the prospect of getting still faster. Best of all, it lived where I lived, in the practical if messy world of Java and JAR files and JVMs. Ironically, the language I&apos;d been waiting for all this time was called Clojure.</p>
+          <p style="text-align: right">Russ Olsen, <cite>GettingClojure</cite>, 2018</p>
+        </blockquote>
+        <blockquote>
+          <p>Clojure is a dynamic, general-purpose programming language, combining the approachability and interactive development of a scripting language with an efficient and robust infrastructure for multithreaded programming. Clojure is a <link linkend='compilation'>compiled</link> language, yet remains completely dynamic – every feature supported by Clojure is supported at runtime. Clojure provides easy access to the <link linkend='java'>Java</link> frameworks, with optional type hints and type inference, to ensure that calls to Java can avoid reflection.</p>
+          <p>Clojure is a dialect of <link linkend='lisp'>Lisp</link>, and shares with Lisp the code-as-data philosophy and a powerful macro system. Clojure is predominantly a functional programming language, and features a rich set of immutable, persistent data structures. When mutable state is needed, Clojure offers a software transactional memory system and reactive Agent system that ensure clean, correct, multithreaded designs.</p>
+          <p>I hope you find Clojure&apos;s combination of facilities elegant, powerful, practical and fun to use.</p>
+          <p style="text-align: right">Rich Hickey, author of <cite>Clojure and CTO Cognitect</cite></p>
+        </blockquote>
+
+        <section>
+          <h3>Features</h3>
+          <p>Clojure has a set of useful features that together form a simple, coherent, and powerful tool.</p>
+          <dl>
+
+            <!-- <varlistentry> -->
+              <dt>Dynamic Development</dt>
+              <li>Clojure is a dynamic environment you can interact with. Almost all of the language constructs are reified, and thus can be examined and changed. You can grow your program, with data loaded, adding features, fixing bugs, testing, in an unbroken stream.</li>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+              <dt>Lisp</dt>
+              <li>Clojure is a member of the Lisp family of languages. Many of the features of Lisp have made it into other languages, but Lisp&apos;s approach to code-as-data and its macro system still set it apart. Additionally, Clojure&apos;s maps, sets, and vectors are as first class in Clojure as lists are in Lisp.</li>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+              <dt>Concurrent Programming</dt>
+              <li>Clojure simplifies multi-threaded programming in several ways. Because the core data structures are immutable, they can be shared readily between threads. Clojure, being a practical language, allows state to change but provides mechanism to ensure that, when it does so, it remains consistent, while alleviating developers from having to avoid conflicts manually using locks etc.</li>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+              <dt>Functional Programming</dt>
+              <li>Clojure provides the tools to avoid mutable state, provides functions as first-class objects, and emphasizes recursive iteration instead of side-effect based looping. Clojure is impure, yet stands behind the philosophy that programs that are more functional are more robust.</li>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+              <dt>Runtime Polymorphism</dt>
+              <li>Systems that utilize runtime polymorphism are easier to change and extend. Clojure offers simple, powerful and flexible mechanisms for runtime polymorphism. Clojure&apos;s protocols and datatypes features add mechanisms for abstraction and data structure definition with no compromises vs the facilities of the host platform.</li>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+              <dt>Hosted on the JVM</dt>
+              <li>Clojure is designed to be a hosted language, sharing the JVM type system, GC, threads etc. All functions are compiled to JVM bytecode. Clojure is a great Java library consumer, offering the dot-target-member notation for calls to Java. Clojure supports the dynamic implementation of Java interfaces and classes.</li>
+            <!-- </varlistentry> -->
+
+            <!-- <varlistentry> -->
+              <dt></dt>
+              <li> </li>
+            <!-- </varlistentry> -->
+
+          </dl>
+        </section>
+
+      </section>  <!-- end of "Clojure" -->
+
+
+    </main>
+
+  </body>
+
+</html>

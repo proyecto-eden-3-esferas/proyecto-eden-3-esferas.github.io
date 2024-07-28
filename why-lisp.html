@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Why Lisp?</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="lisp.html">Lisp: The List Processing Language</a></p>
+        <p><a rel="next" href="lisp-dialects.html">Dialects of Lisp</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+        <p><a            href="adt.html">Abstract Data Types (ADTs)</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for the Web</a></p>
+      </div>
+      <div>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <blockquote>
+        <p>If you think the greatest pleasure in programming comes from getting a lot done with code that simply and clearly expresses your intention, then programming in Common Lisp is likely to be about the most fun you can have with a computer. You&apos;ll get more done, faster, using it than you would using pretty much any other language.</p>
+        <p>That&apos;s a bold claim. Can I justify it?</p>
+      </blockquote>
+
+      <h1>Why Lisp?</h1>
+
+      <p>It&apos;s hard, in only a few pages of an introductory section, to explain why users of a language like it, and it&apos;s even harder to make the case for why you should invest your time in learning a certain language. Personal history only gets us so far. Perhaps I like Lisp because of some quirk in the way my brain is wired. It could even be genetic, since my dad has it too. So before you dive into learning Lisp, it&apos;s reasonable to want to know what the payoff is going to be.</p>
+      <p>For some languages, the payoff is relatively obvious. For instance, if you want to write low-level code on Unix, you should learn C. Or if you want to write certain kinds of cross-platform applications, you should learn Java. And any of a number companies still use a lot of C++, so if you want to get a job at one of them, you should learn C++.</p>
+      <p>For most languages, however, the payoff isn&apos;t so easily categorized; it has to do with subjective criteria such as how it feels to use the language. Perl advocates like to say that Perl <q>makes easy things easy and hard things possible</q> and revel in the fact that, as the Perl motto has it, <q>There&apos;s more than one way to do it.</q> Python&apos;s fans, on the other hand, think Python is clean and simple and think Python code is easier to understand because, as their motto says, <q>There&apos;s only one way to do it.</q></p>
+      <p>So, why Common Lisp? There&apos;s no immediately obvious payoff for adopting Common Lisp the way there is for C, Java, and C++ (unless, of course, you happen to own a Lisp Machine). The benefits of using Lisp have much more to do with the experience of using it. I&apos;ll spend the rest of this section showing you the specific features of Common Lisp and how to use them so you can see for yourself what it&apos;s like. For now I&apos;ll try to give you a sense of Lisp&apos;s philosophy.</p>
+      <p>The nearest thing Common Lisp has to a motto is the koan-like description, <q>the programmable programming language.</q> While cryptic, that description gets at the root of the biggest advantage Common Lisp still has over other languages. More than any other language, Common Lisp follows the philosophy that what&apos;s good for the language&apos;s designer is good for the language&apos;s users. Thus, when you&apos;re programming in Common Lisp, you almost never find yourself wishing the language supported some feature that would make your program easier to write, because, as you&apos;ll see throughout this book, you can just add the feature yourself.</p>
+      <p>Consequently, a Common Lisp program tends to provide a much clearer mapping between your ideas about how the program works and the code you actually write. Your ideas aren&apos;t obscured by boilerplate code and endlessly repeated idioms. This makes your code easier to maintain because you don&apos;t have to wade through reams of code every time you need to make a change. Even systemic changes to a program&apos;s behavior can often be achieved with relatively small changes to the actual code. This also means you&apos;ll develop code more quickly; there&apos;s less code to write, and you don&apos;t waste time thrashing around trying to find a clean way to express yourself within the limitations of the language.</p>
+      <p>Common Lisp is also an excellent language for exploratory programming--if you don&apos;t know exactly how your program is going to work when you first sit down to write it, Common Lisp provides several features to help you develop your code incrementally and interactively.</p>
+      <p>For starters, the interactive read-eval-print loop, which I&apos;ll introduce next, lets you continually interact with your program as you develop it. Write a new function. Test it. Change it. Try a different approach. You never have to stop for a lengthy compilation cycle.</p>
+      <p>Other features that support a flowing, interactive programming style are Lisp&apos;s dynamic typing and the Common Lisp condition system. Because of the former, you spend less time convincing the compiler you should be allowed to run your code and more time actually running it and working on it, and the latter lets you develop even your error handling code interactively.</p>
+      <p>Another consequence of being <q>a programmable programming language</q> is that Common Lisp, in addition to incorporating small changes that make particular programs easier to write, can easily adopt big new ideas about how programming languages should work. For instance, the original implementation of the Common Lisp Object System (CLOS), Common Lisp&apos;s powerful object system, was as a library written in portable Common Lisp. This allowed Lisp programmers to gain actual experience with the facilities it provided before it was officially incorporated into the language.</p>
+      <p>Whatever new paradigm comes down the pike next, it&apos;s extremely likely that Common Lisp will be able to absorb it without requiring any changes to the core language. For example, a Lisper has recently written a library, AspectL, that adds support for aspect-oriented programming (AOP) to Common Lisp. If AOP turns out to be the next big thing, Common Lisp will be able to support it without any changes to the base language and without extra preprocessors and extra compilers.</p>
+    </main>
+
+  </body>
+
+</html>
