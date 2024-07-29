@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Artificial Intelligence</title>
+    <title>Prolog</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -50,19 +50,21 @@
     </nav>
     <main>
       <h1>Prolog: Symbolic Programming or <i>Programation Logique</i></h1>
-      <p>Prolog is a general-purpose logic programming language associated with <a href="#ai.html">artificial intelligence</a> and computational linguistics. Prolog has its roots in first-order logic, a formal logic, and unlike many other programming languages, Prolog is intended as primarily a <em>declarative</em> programming language: the program logic is expressed in terms of relations, represented as facts and rules. A computation is initiated by running a query over these relations.</p>
-      <p>Prolog implements the predicate calculus via <a href="#Horn_clauses_in_prolog">Horn clauses</a>. The inference mechanism of Prolog is based upon Robinson's resolution principle (1965) together with mechanisms for extracting answers proposed by Green (1968). These ideas came together forcefully with the advent of linear resolution procedures. Explicit goal-directed linear resolution procedures, such as those of Kowalski and Kuehner (1971) and Kowalski (1974), gave impetus to the development of a general purpose logic programming system.</p>
       <p><q>Prolog</q> stands for <i lang="fr">Programation Logique</i>.</p>
+      <p>Prolog is a general-purpose logic programming language associated with <a href="ai.html">artificial intelligence</a> and computational linguistics. Prolog has its roots in first-order logic, which is a formal logic, and unlike many other programming languages, Prolog is intended as primarily a <em>declarative</em> programming language: the program logic is expressed in terms of relations, represented as facts and rules. A computation is initiated by running a query over these relations.</p>
+      <p>Prolog implements the predicate calculus via <a href="#Horn_clauses_in_prolog">Horn clauses</a>. The inference mechanism of Prolog is based upon Robinson's resolution principle (1965) together with mechanisms for extracting answers proposed by Green (1968). These ideas came together forcefully with the advent of linear resolution procedures. Explicit goal-directed linear resolution procedures, such as those of Kowalski and Kuehner (1971) and Kowalski (1974), gave impetus to the development of a general purpose logic programming system.</p>
       <p>A logic program is a set of axioms, or rules, defining relations between objects. A <dfn>computation</dfn> of a logic program is a deduction of consequences of the program. A program defines a set of consequences, which is its meaning. The art of logic programming is constructing concise and elegant programs that have the desired meaning.</p>
-      <p>The <dfn>meaning</dfn> of a logic program <var>P</var>, <code class="function">M</code>(<var>P</var>), is the set of ground goals deducible from <var>P</var>.</p>
+      <p>The <dfn>meaning</dfn> of a logic program <var>P</var>, <code class="function">M(<var>P</var>)</code>, is the set of ground goals deducible from <var>P</var>.</p>
+      <hr/>
       <p>Prolog was one of the first logic programming languages, and remains the most popular among such languages today, with several free and commercial <a href="prolog.compilers-and-interpreters.html">implementations</a> available. The language has been used for theorem proving, <a href="#expert_sys_in_pl">expert systems</a>, term rewriting, type inference, and automated planning, as well as its original intended field of use, natural language processing. Modern Prolog environments support the creation of graphical user interfaces, as well as administrative and networked applications.</p>
       <p>Prolog is well-suited for specific tasks that benefit from rule-based logical queries such as searching databases, voice control systems, and filling templates.</p>
       <section>
         <h2>Why Prolog?</h2>
         <p>Much has been written about the wonders of Prolog as a declarative programming language and its strength as a language for implementing artificial intelligence (AI) applications. A look under the hood of both AI and Prolog reveals why.</p>
-        <p>A collection of search and pattern- matching algorithms. This, it turns out, is the essence of much AI programming. A chess program searches for patterns in the game, a natural language program searches for patterns in lists of words, and a diagnostic program searches for rules that match symptoms. Prolog is very good at pattern matching and search.</p>
-        <p>Two features in a programming language that make pattern-matching easier are 1) support for symbols as a primitive data type that can be manipulated without the need to call special functions, and 2) dynamic memory management so the developer can simply use the symbols without worrying about memory allocation issues. Languages that have these features, such as Prolog and LISP, are called symbolic languages.</p>
-        <p>Consider, for example, a simple control loop that reads a command from a user and then does something. In C that code might look like</p>
+        <p>Prolog features a collection of search and pattern- matching algorithms. This, it turns out, is the essence of much AI programming. A chess program searches for patterns in the game, a natural language program searches for patterns in lists of words, and a diagnostic program searches for rules that match symptoms. Prolog is very good at pattern matching and search.</p>
+        <p>Two features in a programming language that make pattern-matching easier are 1) support for symbols as a primitive data type that can be manipulated without the need to call special functions, and 2) dynamic memory management so the developer can simply use the symbols without worrying about memory allocation issues. Languages that have these features, such as Prolog and LISP, are called <dfn>symbolic languages</dfn>.</p>
+        <hr/>
+        <p>Consider, for example, a simple control loop that reads a command from a user and then does something. In <a target="_blank" href="c.html">C</a> that code might look like</p>
         <pre>void main()
 {
   char buf[20];
@@ -96,24 +98,19 @@
         <p>Symbols, unification, backtracking, and dynamic memory management, all tend to eliminate procedural code a programmer normally needs to write. It is no surprise that what is left looks much more declarative than conventional code and is often a fraction of the size. For example, Prolog can be used to analyze simple English sentences. In fact Prolog was originally designed for working with language. As such it is well suited for not just natural language work, but for implementing and/or experimenting with formal languages as well.</p>
         <p>One common use in this line is to build shells for implementing expert systems. The shells use their own language to represent the knowledge for a particular type of problem. Diagnostic systems, for example, work differently from configuration systems.</p>
         <p>A tax application in Prolog is simply a collection of rules that specify how to fill out each line of the form. Prolog's search and unification do the work of linking related lines of the form together so the program code winds up looking very much like the tax form itself. Business applications such as customer order entry are expressed as relationships describing the various transactions and constraints. Pricing and configuration, two difficult components of such a system, are relatively straight-forward when coded in Prolog.</p>
-        <p>While C can be used to write anything written in Prolog, Prolog code, for the applications it does best, is much less complex. For this reason, the Prolog developer can manage and maintain a greater degree of complexity in an application, thus providing a greater degree of sophistication to the user of an application.</p>
+        <p>While <a target="_blank" href="c.html">C</a> can be used to write anything written in Prolog, Prolog code, for the applications it does best, is much less complex. For this reason, the Prolog developer can manage and maintain a greater degree of complexity in an application, thus providing a greater degree of sophistication to the user of an application.</p>
         <p>For commercial applications, this leads to a competive edge, but the real benefit applies to any application-- Prolog is simply fun.</p>
       </section>
       <section>
         <h2>How Prolog is Used</h2>
-        <p>The examples above provide insight into how a Prolog program is used. The grammar rules, for example, are a Prolog program. They are queried with lists of words. All Prolog programs are similar collections of rules, and are similarly activated by being queried, much the same way a database is queried.</p>
+        <p>The examples above provide insight into how a Prolog program is used. The grammar rules, for example, are a Prolog program. They are queried with lists of words. All Prolog programs are similar collections of rules, and are similarly activated by being queried, much the same way a <a href="database.html">database</a> is queried.</p>
         <p>This is true even of stand-alone compiled Prolog programs. In that case there is usually a single query, <code class="function">main</code>, used to start the program. <code class="function">main</code> is the name of a rule which then queries other rules which query other rules and so on. For example, the following Prolog program could be compiled and executed, with a classic result.</p>
         <pre>main :- write('Hello World').</pre>
         <p>It could also be loaded and run from an interpreter.</p>
         <pre>?- main.
 Hello World</pre>
       </section>
-      <section>
-        <h2>Binding to C</h2>
-        <p>The nature of this interaction with Prolog dictates the nature of a C to Prolog interface. It too must be able to either execute compiled Prolog code, or query a loaded Prolog program. In this sense, the interface from C to Prolog will look more like a database API than procedural interlanguage calls.</p>
-        <p>The Hello World program illustrates the Prolog to C direction of the interface as well. Note that the <kbd>write</kbd> statement has nothing to do with logic, pattern- matching, or search; it simply performs I/O. Prolog provides a number of special predicates, such as <code class="function">write</code>, which are used primarily for their side effects. It is in this area that Prolog is weaker than C.</p>
-        <p>The Prolog programmer must rely on whatever special predicates a particular vendor provides with an implementation. So, for example, if a particular Prolog implementation doesn't supply the tools for accessing Windows, then it can't be used to implement Windows applications. This is where Prolog to C connections come in. They let a programmer define as many extended predicates, such as <code class="function">write</code>, as desired, to allow Prolog code access to any services accessable from C. This fundamental architecture of Prolog shapes the design of an interface between it and C. The calls from C to Prolog reflect the database nature of Prolog. The calls from Prolog to C reflect the procedural nature of C.</p>
-      </section>
+
       <section>
         <h2>Starting Prolog</h2>
         <p>Consider the following problem description:</p>
@@ -149,7 +146,7 @@ Hello World</pre>
           <p>In Prolog, rules are used when you want to say that a fact depends on a group of other facts. Rules are also used to express definitions. A rule is a general statement about objects and their relationships. For example, we can say that <q>Fred is a bird</q> if <var>Fred</var> is an animal and <var>Fred</var> has feathers, and we can also say that <var>Bertram</var> is a bird if <var>Bertram</var> is an animal and <var>Bertram</var> has feathers. So, we can allow a variable to stand for a different object in each different use of the rule.</p>
           <!-- <p class="bridgehead"/> -->
           <p>In Prolog, a rule consists of a <dfn>head</dfn> and a <dfn>body</dfn>. The head and body are connected by the symbol <q>:-</q>, which is made up of a colon and a hyphen. The <q>:-</q> is pronounced <q>if</q>.</p>
-          <p>That John lkes whoever likes wine is written in Prolog as:</p>
+          <p>That John likes whoever likes wine is written in Prolog as:</p>
           <pre>likes(john, X) :- likes(X, wine).</pre>
           <p>Notice that rules also end with a dot (actually a <q>period</q> or <q>full stop</q> character). The head of this rule is <kbd>likes(john, X)</kbd>. The head of the rule describes what fact the rule is intended to define. The body, in this case <kbd>likes(X, wine)</kbd>, describes the conjunction of goals that must be satisfied, one after the other, for the head to be true. For example, we can make John more choosy about whom he likes, simply by adding more goals onto the body, separated by commas:</p>
           <pre>likes(john, X) :- likes(X, wine), likes(X, food).</pre>
@@ -266,7 +263,7 @@ member(X,[_|T] :- member(X,T).</pre>
             <h4>Appending</h4>
             <p>The arguments to non-built-in <code class="function">append/3</code> predicate are the initial sublist and the remaining sublist of a list, which is the third argument. It may be defined as:</p>
             <pre>append([], X, X).
-  append([A|B], C, [A|D]) :- append(B, C, D).</pre>
+append([A|B], C, [A|D]) :- append(B, C, D).</pre>
             <p>Here is an example of execution of a query (find the lists X and Y such that the concatenation of X and Y is [a,b]):</p>
             <pre>
 | ?- append(X,Y,[a,b,c]).
@@ -771,7 +768,7 @@ path(X, Y) :-
   move(X, W), not(been(W)), assert(been(W)),
   path(W, Y).</pre>
           <p>This use of the <kbd>been</kbd> predicate violates good programming practice in that it uses global side-effects to control search. <kbd>been(3)</kbd>, when asserted into the database, is a fact available to any other predicate and, as such, has global extension. We created <kbd>been</kbd> to modify the program execution.</p>
-          <p>A more sophisticated method for control of search is to create a list that keeps track of visited states. We create this list and make it the third argument of the <kbd>path</kbd> predicate. As each new state is encountered, the <kbd><a href="#member_in_prolog">member</kbd> predicate<?see Section 2.3,?> checks whether or not it is already a visited state. If the state is not a member of the list we put it on this list in the order in which it was encountered, the most recent state encountered the head of the list. If the new state is on the list of already visited states, the path predicate backtracks looking for new non-visited states. This approach remedies the problems of using global <kbd>been(W)</kbd>. The following clauses implement depth-first left-to right graph search with backtracking.</p>
+          <p>A more sophisticated method for control of search is to create a list that keeps track of visited states. We create this list and make it the third argument of the <kbd>path</kbd> predicate. As each new state is encountered, the <kbd><a href="#member_in_prolog">member</a></kbd> predicate<?see Section 2.3,?> checks whether or not it is already a visited state. If the state is not a member of the list we put it on this list in the order in which it was encountered, the most recent state encountered the head of the list. If the new state is on the list of already visited states, the path predicate backtracks looking for new non-visited states. This approach remedies the problems of using global <kbd>been(W)</kbd>. The following clauses implement depth-first left-to right graph search with backtracking.</p>
           <pre>path(Z, Z, L).
 path(X, Y, L) :-
   move(X, Z), not(member(Z, L)),
@@ -1131,6 +1128,14 @@ friend(X,Y) :- befriend(Y,X).</pre>
           <p>Unfortunately, it is not generally possible to remove all occurrences of left recursion...</p>
         </section>
       </section>
+
+      <section>
+        <h2>Binding to C</h2>
+        <p>The nature of this interaction with Prolog dictates the nature of a C to Prolog interface. It too must be able to either execute compiled Prolog code, or query a loaded Prolog program. In this sense, the interface from C to Prolog will look more like a database API than procedural interlanguage calls.</p>
+        <p>The Hello World program illustrates the Prolog to C direction of the interface as well. Note that the <kbd>write</kbd> statement has nothing to do with logic, pattern- matching, or search; it simply performs I/O. Prolog provides a number of special predicates, such as <code class="function">write</code>, which are used primarily for their side effects. It is in this area that Prolog is weaker than C.</p>
+        <p>The Prolog programmer must rely on whatever special predicates a particular vendor provides with an implementation. So, for example, if a particular Prolog implementation doesn't supply the tools for accessing Windows, then it can't be used to implement Windows applications. This is where Prolog to C connections come in. They let a programmer define as many extended predicates, such as <code class="function">write</code>, as desired, to allow Prolog code access to any services accessable from C. This fundamental architecture of Prolog shapes the design of an interface between it and C. The calls from C to Prolog reflect the database nature of Prolog. The calls from Prolog to C reflect the procedural nature of C.</p>
+      </section>
+
       <section>
         <h2>Prolog Applications</h2>
         <section id="expert_sys_in_pl">

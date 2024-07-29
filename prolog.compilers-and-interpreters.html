@@ -1463,18 +1463,14 @@ pl_display(term_t t)
               <!-- </varlistentry> -->
             </dl>
 
-            <literallayout>
-
-9.6.6 BLOBS: Using atoms to store arbitrary binary data
-
-SWI-Prolog atoms as well as strings can represent arbitrary binary data of arbitrary length. This facility is attractive for storing foreign data such as images in an atom. An atom is a unique handle to this data and the atom garbage collector is able to destroy atoms that are no longer referenced by the Prolog engine. This property of atoms makes them attractive as a handle to foreign resources, such as Java atoms, Microsoft&apos;s COM objects, etc., providing safe combined garbage collection.
-
-To exploit these features safely and in an organised manner the SWI-Prolog foreign interface allows for creating `atoms' with additional type information. The type is represented by a structure holding C function pointers that tell Prolog how to handle releasing the atom, writing it, sorting it, etc. Two atoms created with different types can represent the same sequence of bytes. Atoms are first ordered on the rank number of the type and then on the result of the compare() function. Rank numbers are assigned when the type is registered.
-9.6.6.1 Defining a BLOB type
-
-The type PL_blob_t represents a structure with the layout displayed above. The structure contains additional fields at the ... for internal bookkeeping as well as future extension.
-
-typedef struct PL_blob_t
+            <section>
+              <h5>BLOBS: Using atoms to store arbitrary binary data</h5>
+              <p>SWI-Prolog atoms as well as strings can represent arbitrary binary data of arbitrary length. This facility is attractive for storing foreign data such as images in an atom. An atom is a unique handle to this data and the atom garbage collector is able to destroy atoms that are no longer referenced by the Prolog engine. This property of atoms makes them attractive as a handle to foreign resources, such as Java atoms, Microsoft&apos;s COM objects, etc., providing safe combined garbage collection.</p>
+              <p>To exploit these features safely and in an organised manner the SWI-Prolog foreign interface allows for creating `atoms' with additional type information. The type is represented by a structure holding C function pointers that tell Prolog how to handle releasing the atom, writing it, sorting it, etc. Two atoms created with different types can represent the same sequence of bytes. Atoms are first ordered on the rank number of the type and then on the result of the compare() function. Rank numbers are assigned when the type is registered.</p>
+              <section>
+                <h6>9.6.6.1 Defining a BLOB type</h6>
+                <p>The type PL_blob_t represents a structure with the layout displayed above. The structure contains additional fields at the ... for internal bookkeeping as well as future extension.</p>
+                <pre>typedef struct PL_blob_t
 { unsigned long         magic;          /* PL_BLOB_MAGIC */
   unsigned long         flags;          /* Bitwise or of PL_BLOB_* */
   char *                name;           /* name of the type */
@@ -1483,105 +1479,119 @@ typedef struct PL_blob_t
   int                   (*write)(IOSTREAM *s, atom_t a, int flags);
   int                   (*acquire)(atom_t a);
   ...
-} PL_blob_t;
-
-For each type exactly one such structure should be allocated. Its first field must be initialised to PL_BLOB_MAGIC. The flags is a bitwise or of the following constants:
-              &lt;dl&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;PL_BLOB_TEXT&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;If specified the blob is assumed to contain text and is considered a normal Prolog atom.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;PL_BLOB_UNIQUE&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;If specified the system ensures that the blob-handle is a unique reference for a blob with the given type, length and content. If this flag is not specified each lookup creates a new blob.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;PL_BLOB_NOCOPY&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;By default the content of the blob is copied. Using this flag the blob references the external data directly. The user must ensure the provided pointer is valid as long as the atom lives. If PL_BLOB_UNIQUE is also specified uniqueness is determined by comparing the pointer rather than the data pointed at.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-              &lt;/dl&gt;
-              &lt;para&gt;The name field represents the type name as available to Prolog. See also &lt;function&gt;current_blob/2&lt;/function&gt;. The other field are function pointers that must be initialised to proper functions or NULL to get the default behaviour of built-in atoms. Below are the defined member functions:&lt;/para&gt;
-              &lt;dl&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void acquire(atom_t a)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;Called if a new blob of this type is created through &lt;function&gt;PL_put_blob()&lt;/function&gt; or &lt;function&gt;PL_unify_blob()&lt;/function&gt;. This callback may be used together with the release hook to deal with reference counted external objects.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int release(atom_t a)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;The blob (atom) a is about to be released. This function can retrieve the data of the blob using &lt;function&gt;PL_blob_data()&lt;/function&gt;. If it returns FALSE the atom garbage collector will not reclaim the atom.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int compare(atom_t a, atom_t b)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;Compare the blobs a and b, both of which are of the type associated to this blob-type. Return values are, as &lt;function&gt;memcmp()&lt;/function&gt;, &amp;lt; 0 if a is less then b, = 0 if both are equal and &amp;gt; 0 otherwise.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int write(IOSTREAM *s, atom_t a, int flags)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;Write the content of the blob a to the stream s and respecting the flags. The flags are a bitwise or of zero or more of the PL_WRT_* flags defined in SWI-Prolog.h. This prototype is available if the undocumented SWI-Stream.h is included before &lt;cite&gt;SWI-Prolog.h&lt;/cite&gt;.&lt;/para&gt;
-                    &lt;para&gt;If this function is not provided, &lt;function&gt;write/1&lt;/function&gt; emits the content of the blob for blobs of type PL_BLOB_TEXT or a string of the format &amp;lt;#hex data&amp;gt; for binary blobs.&lt;/para&gt;
-                    &lt;para&gt;If a blob type is registered from a loadable object (shared object or DLL) the blob-type must be deregistered before the object may be released.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_unregister_blob_type(PL_blob_t *type)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;Unlink the blob type from the registered type and transform the type of possible living blobs to unregistered, avoiding further reference to the type structure, functions referred by it as well as the data. This function returns TRUE if no blobs of this type existed and FALSE otherwise. PL_unregister_blob_type() is intended for the uninstall() hook of foreign modules, avoiding further references to the module.&lt;/para&gt;
-                  &lt;/listitem&gt;
-                &lt;/varlistentry&gt;
-              &lt;/dl&gt;
-
-9.6.6.2 Accessing blobs
+} PL_blob_t;</pre>
+                <p>For each type exactly one such structure should be allocated. Its first field must be initialised to PL_BLOB_MAGIC. The flags is a bitwise or of the following constants:</p>
+              <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">PL_BLOB_TEXT</code></dt>
+                  <listitem>
+                    <p>If specified the blob is assumed to contain text and is considered a normal Prolog atom.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                  <dt><code class="function">PL_BLOB_UNIQUE</code></dt>
+                  <listitem>
+                    <p>If specified the system ensures that the blob-handle is a unique reference for a blob with the given type, length and content. If this flag is not specified each lookup creates a new blob.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                  <dt><code class="function">PL_BLOB_NOCOPY</code></dt>
+                  <listitem>
+                    <p>By default the content of the blob is copied. Using this flag the blob references the external data directly. The user must ensure the provided pointer is valid as long as the atom lives. If PL_BLOB_UNIQUE is also specified uniqueness is determined by comparing the pointer rather than the data pointed at.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+              </dl>
+              <p>The name field represents the type name as available to Prolog. See also <code class="function">current_blob/2</code>. The other field are function pointers that must be initialised to proper functions or NULL to get the default behaviour of built-in atoms. Below are the defined member functions:</p>
+              <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void acquire(atom_t a)</code></dt>
+                  <listitem>
+                    <p>Called if a new blob of this type is created through <code class="function">PL_put_blob()</code> or <code class="function">PL_unify_blob()</code>. This callback may be used together with the release hook to deal with reference counted external objects.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int release(atom_t a)</code></dt>
+                  <listitem>
+                    <p>The blob (atom) a is about to be released. This function can retrieve the data of the blob using <code class="function">PL_blob_data()</code>. If it returns FALSE the atom garbage collector will not reclaim the atom.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int compare(atom_t a, atom_t b)</code></dt>
+                  <listitem>
+                    <p>Compare the blobs a and b, both of which are of the type associated to this blob-type. Return values are, as <code class="function">memcmp()</code>, &amp;lt; 0 if a is less then b, = 0 if both are equal and &amp;gt; 0 otherwise.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int write(IOSTREAM *s, atom_t a, int flags)</code></dt>
+                  <listitem>
+                    <p>Write the content of the blob a to the stream s and respecting the flags. The flags are a bitwise or of zero or more of the PL_WRT_* flags defined in SWI-Prolog.h. This prototype is available if the undocumented SWI-Stream.h is included before <cite>SWI-Prolog.h</cite>.</p>
+                    <p>If this function is not provided, <code class="function">write/1</code> emits the content of the blob for blobs of type PL_BLOB_TEXT or a string of the format &amp;lt;#hex data&amp;gt; for binary blobs.</p>
+                    <p>If a blob type is registered from a loadable object (shared object or DLL) the blob-type must be deregistered before the object may be released.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_unregister_blob_type(PL_blob_t *type)</code></dt>
+                  <listitem>
+                    <p>Unlink the blob type from the registered type and transform the type of possible living blobs to unregistered, avoiding further reference to the type structure, functions referred by it as well as the data. This function returns TRUE if no blobs of this type existed and FALSE otherwise. PL_unregister_blob_type() is intended for the uninstall() hook of foreign modules, avoiding further references to the module.</p>
+                  </listitem>
+                <!-- </varlistentry> -->
+              </dl>
+            </section>
+            <section>
+              <h6>9.6.6.2 Accessing blobs</h6>
 
 The blob access functions are similar to the atom accessing functions. Blobs being atoms, the atom functions operate on blobs and visa versa. For clarity and possible future compatibility issues however it is not advised to rely on this.
+<dl>
 
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_is_blob(term_t t, PL_blob_t **type)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Succeeds if t refers to a blob, in which case type is filled with the type of the blob.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_unify_blob(term_t t, void *blob, size_t len, PL_blob_t *type)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Unify t to a new blob constructed from the given data and associated to the given type. See also PL_unify_atom_nchars().
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_put_blob(term_t t, void *blob, size_t len, PL_blob_t *type)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Store the described blob in t. The return value indicates whether a new blob was allocated (FALSE) or the blob is a reference to an existing blob (TRUE). Reporting new/existing can be used to deal with external objects having their own reference counts. If the return is TRUE this reference count must be incremented and it must be decremented on blob destruction callback. See also PL_put_atom_nchars().
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_get_blob(term_t t, void **blob, size_t *len, PL_blob_t **type)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    If t holds a blob or atom get the data and type and return TRUE. Otherwise return FALSE. Each result pointer may be NULL, in which case the requested information is ignored.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void * PL_blob_data(atom_t a, size_t *len, PL_blob_t **type)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_is_blob(term_t t, PL_blob_t **type)</code></dt>
+                  <listitem>
+                    <p>
+    Succeeds if t refers to a blob, in which case type is filled with the type of the blob.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_unify_blob(term_t t, void *blob, size_t len, PL_blob_t *type)</code></dt>
+                  <listitem>
+                    <p>
+    Unify t to a new blob constructed from the given data and associated to the given type. See also PL_unify_atom_nchars().</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_put_blob(term_t t, void *blob, size_t len, PL_blob_t *type)</code></dt>
+                  <listitem>
+                    <p>
+    Store the described blob in t. The return value indicates whether a new blob was allocated (FALSE) or the blob is a reference to an existing blob (TRUE). Reporting new/existing can be used to deal with external objects having their own reference counts. If the return is TRUE this reference count must be incremented and it must be decremented on blob destruction callback. See also PL_put_atom_nchars().</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_get_blob(term_t t, void **blob, size_t *len, PL_blob_t **type)</code></dt>
+                  <listitem>
+                    <p>
+    If t holds a blob or atom get the data and type and return TRUE. Otherwise return FALSE. Each result pointer may be NULL, in which case the requested information is ignored.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void * PL_blob_data(atom_t a, size_t *len, PL_blob_t **type)</code></dt>
+                  <listitem>
+                    <p>
     Get the data and type associated to a blob. This function is mainly used from the callback functions described in section 9.6.6.1.
+</p>
+</listitem>
+</dl>
+</section>
 
-9.6.7 Exchanging GMP numbers
+<section>
 
-If SWI-Prolog is linked with the GNU Multiple Precision Arithmetic Library (GMP, used by default), the foreign interface provides functions for exchanging numeric values to GMP types. To access these functions the header &lt;cite&gt;&amp;lt;gmp.h&amp;gt;&lt;/cite&gt; must be included before &lt;cite&gt;&amp;lt;SWI-Prolog.h&amp;gt;&lt;/cite&gt;. Foreign code using &lt;cite&gt;GMP&lt;/cite&gt; linked to SWI-Prolog asks for some considerations.
+<h5>9.6.7 Exchanging GMP numbers</h5>
+
+If SWI-Prolog is linked with the GNU Multiple Precision Arithmetic Library (GMP, used by default), the foreign interface provides functions for exchanging numeric values to GMP types. To access these functions the header <cite>&amp;lt;gmp.h&amp;gt;</cite> must be included before <cite>&amp;lt;SWI-Prolog.h&amp;gt;</cite>. Foreign code using <cite>GMP</cite> linked to SWI-Prolog asks for some considerations.
 
     SWI-Prolog normally rebinds the GMP allocation functions using mp_set_memory_functions(). This means SWI-Prolog must be initialised before the foreign code touches any GMP function. You can call PL_action(PL_GMP_SET_ALLOC_FUNCTIONS, TRUE) to force Prolog&apos;s GMP initialization without doing the rest of the Prolog initialization. If you do not want Prolog rebinding the GMP allocation, call PL_action(PL_GMP_SET_ALLOC_FUNCTIONS, FALSE) before initializing Prolog.
 
     On Windows, each DLL has its own memory pool. To make exchange of GMP numbers between Prolog and foreign code possible you must either let Prolog rebind the allocation functions (default) or you must recompile SWI-Prolog to link to a DLL version of the GMP library.
 
+
+
+
 Here is an example exploiting the function mpz_nextprime():
-</literallayout>
+
             <pre>#include &lt;gmp.h&gt;
 #include &lt;SWI-Prolog.h&gt;
 
@@ -1606,33 +1616,41 @@ install_t
 install()
 { PL_register_foreign("next_prime", 2, next_prime, 0);
 }</pre>
-            <literallayout>
+<dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_get_mpz(term_t t, mpz_t mpz)</code></dt>
+                  <listitem>
+                    <p>
+    If t represents an integer mpz is filled with the value and the function returns TRUE. Otherwise mpz is untouched and the function returns FALSE. Note that mpz must have been initialised before calling this function and must be cleared using mpz_clear() to reclaim any storage associated with it.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_get_mpq(term_t t, mpq_t mpq)</code></dt>
+                  <listitem>
+                    <p>
+    If t is an integer or rational number (term rdiv/2 ) mpq is filled with the normalise rational number and the function returns TRUE. Otherwise mpq is untouched and the function returns FALSE. Note that mpq must have been initialised before calling this function and must be cleared using mpq_clear() to reclaim any storage associated with it.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_unify_mpz(term_t t, mpz_t mpz)</code></dt>
+                  <listitem>
+                    <p>
+    Unify t with the integer value represented by mpz and return TRUE on success. The mpz argument is not changed.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_unify_mpq(term_t t, mpq_t mpq)</code></dt>
+                  <listitem>
+                    <p>
+    Unify t with a rational number represented by mpq and return TRUE on success. Note that t is unified with an integer if the denominator is 1. The mpq argument is not changed.</p>
+    </listitem>
+    </dl>
 
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_get_mpz(term_t t, mpz_t mpz)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    If t represents an integer mpz is filled with the value and the function returns TRUE. Otherwise mpz is untouched and the function returns FALSE. Note that mpz must have been initialised before calling this function and must be cleared using mpz_clear() to reclaim any storage associated with it.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_get_mpq(term_t t, mpq_t mpq)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    If t is an integer or rational number (term rdiv/2 ) mpq is filled with the normalise rational number and the function returns TRUE. Otherwise mpq is untouched and the function returns FALSE. Note that mpq must have been initialised before calling this function and must be cleared using mpq_clear() to reclaim any storage associated with it.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_unify_mpz(term_t t, mpz_t mpz)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Unify t with the integer value represented by mpz and return TRUE on success. The mpz argument is not changed.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_unify_mpq(term_t t, mpq_t mpq)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Unify t with a rational number represented by mpq and return TRUE on success. Note that t is unified with an integer if the denominator is 1. The mpq argument is not changed.
+    </section>
 
-9.6.8 Calling Prolog from C
+    <section>
+      <h5>9.6.8 Calling Prolog from C</h5>
 
 The Prolog engine can be called from C. There are two interfaces for this. For the first, a term is created that could be used as an argument to call/1 and next PL_call() is used to call Prolog. This system is simple, but does not allow to inspect the different answers to a non-deterministic goal and is relatively slow as the runtime system needs to find the predicate. The other interface is based on PL_open_query(), PL_next_solution() and PL_cut_query() or PL_close_query(). This mechanism is more powerful, but also more complicated to use.
-9.6.8.1 Predicate references
+
+<h6>9.6.8.1 Predicate references</h6>
 
 This section discusses the functions used to communicate about predicates. Though a Prolog predicate may defined or not, redefined, etc., a Prolog predicate has a handle that is not destroyed, nor moved. This handle is known by the type predicate_t.
 
@@ -1640,13 +1658,16 @@ predicate_t PL_pred(functor_t f, module_t m)
     Return a handle to a predicate for the specified name/arity in the given module. This function always succeeds, creating a handle for an undefined predicate if no handle was available. If the module argument m is NULL, the current context module is used.
 predicate_t PL_predicate(const char *name, int arity, const char* module)
     Same a PL_pred(), but provides a more convenient interface to the C-programmer.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_predicate_info(predicate_t p, atom_t *n, int *a, module_t *m)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Return information on the predicate p. The name is stored over n, the arity over a, while m receives the definition module. Note that the latter need not be the same as specified with PL_predicate(). If the predicate is imported into the module given to PL_predicate(), this function will return the module where the predicate is defined.
+    <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_predicate_info(predicate_t p, atom_t *n, int *a, module_t *m)</code></dt>
+                  <listitem>
+                    <p>
+    Return information on the predicate p. The name is stored over n, the arity over a, while m receives the definition module. Note that the latter need not be the same as specified with PL_predicate(). If the predicate is imported into the module given to PL_predicate(), this function will return the module where the predicate is defined.</p>
+    </listitem>
+    </dl>
 
-9.6.8.2 Initiating a query from C
+<h6>9.6.8.2 Initiating a query from C</h6>
 
 This section discusses the functions for creating and manipulating queries from C. Note that a foreign context can have at most one active query. This implies it is allowed to make strictly nested calls between C and Prolog (Prolog calls C, calls Prolog, calls C, etc., but it is not allowed to open multiple queries and start generating solutions for each of them by calling PL_next_solution(). Be sure to call PL_cut_query() or PL_close_query() on any query you opened before opening the next or returning control back to Prolog.
 
@@ -1680,56 +1701,72 @@ qid_t PL_open_query(module_t ctx, int flags, predicate_t p, term_t +t0)
       ...
     }
 
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_next_solution(qid_t qid)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Generate the first (next) solution for the given query. The return value is TRUE if a solution was found, or FALSE to indicate the query could not be proven. This function may be called repeatedly until it fails to generate all solutions to the query.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_cut_query(qid)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Discards the query, but does not delete any of the data created by the query. It just invalidate qid, allowing for a new call to PL_open_query() in this context.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_close_query(qid)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    As PL_cut_query(), but all data and bindings created by the query are destroyed.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_call_predicate(module_t m, int flags, predicate_t pred, term_t +t0)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Shorthand for PL_open_query(), PL_next_solution(), PL_cut_query(), generating a single solution. The arguments are the same as for PL_open_query(), the return value is the same as PL_next_solution().
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_call(term_t, module_t)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Call term just like the Prolog predicate once/1. Term is called in the specified module, or in the context module if module_t = NULL. Returns TRUE if the call succeeds, FALSE otherwise. Figure 10 shows an example to obtain the number of defined atoms. All checks are omitted to improve readability.
+    <dl>
 
-9.6.9 Discarding Data
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_next_solution(qid_t qid)</code></dt>
+                  <listitem>
+                    <p>
+    Generate the first (next) solution for the given query. The return value is TRUE if a solution was found, or FALSE to indicate the query could not be proven. This function may be called repeatedly until it fails to generate all solutions to the query.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_cut_query(qid)</code></dt>
+                  <listitem>
+                    <p>
+    Discards the query, but does not delete any of the data created by the query. It just invalidate qid, allowing for a new call to PL_open_query() in this context.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_close_query(qid)</code></dt>
+                  <listitem>
+                    <p>
+    As PL_cut_query(), but all data and bindings created by the query are destroyed.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_call_predicate(module_t m, int flags, predicate_t pred, term_t +t0)</code></dt>
+                  <listitem>
+                    <p>
+    Shorthand for PL_open_query(), PL_next_solution(), PL_cut_query(), generating a single solution. The arguments are the same as for PL_open_query(), the return value is the same as PL_next_solution().</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_call(term_t, module_t)</code></dt>
+                  <listitem>
+                    <p>
+    Call term just like the Prolog predicate once/1. Term is called in the specified module, or in the context module if module_t = NULL. Returns TRUE if the call succeeds, FALSE otherwise. Figure 10 shows an example to obtain the number of defined atoms. All checks are omitted to improve readability.</p>
+    </listitem>
+    </dl>
+
+    </section>
+
+    <section>
+
+<h5>9.6.9 Discarding Data</h5>
 
 The Prolog data created and term-references needed to setup the call and/or analyse the result can in most cases be discarded right after the call. PL_close_query() allows for destructing the data, while leaving the term-references. The calls below may be used to destroy term-references and data. See figure 10 for an example.
 
 fid_t PL_open_foreign_frame()
     Created a foreign frame, holding a mark that allows the system to undo bindings and destroy data created after it as well as providing the environment for creating term-references. This function is called by the kernel before calling a foreign predicate.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_close_foreign_frame(fid_t id)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Discard all term-references created after the frame was opened. All other Prolog data is retained. This function is called by the kernel whenever a foreign function returns control back to Prolog.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_discard_foreign_frame(fid_t id)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Same as PL_close_foreign_frame(), but also undo all bindings made since the open and destroy all Prolog data.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_rewind_foreign_frame(fid_t id)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Undo all bindings and discard all term-references created since the frame was created, but does not pop the frame. I.e. the same frame can be rewinded multiple times, and must eventually be closed or discarded.
+    <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_close_foreign_frame(fid_t id)</code></dt>
+                  <listitem>
+                    <p>
+    Discard all term-references created after the frame was opened. All other Prolog data is retained. This function is called by the kernel whenever a foreign function returns control back to Prolog.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_discard_foreign_frame(fid_t id)</code></dt>
+                  <listitem>
+                    <p>
+    Same as PL_close_foreign_frame(), but also undo all bindings made since the open and destroy all Prolog data.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_rewind_foreign_frame(fid_t id)</code></dt>
+                  <listitem>
+                    <p>
+    Undo all bindings and discard all term-references created since the frame was created, but does not pop the frame. I.e. the same frame can be rewinded multiple times, and must eventually be closed or discarded.</p>
+    </listitem>
+    </dl>
 
 It is obligatory to call either of the two closing functions to discard a foreign frame. Foreign frames may be nested.
-</literallayout>
             <pre>int
 count_atoms()
 { fid_t fid = PL_open_foreign_frame();
@@ -1748,30 +1785,38 @@ count_atoms()
 
   return atoms;
 }</pre>
-            <literallayout>
+
 Figure 10 : Calling Prolog
-9.6.10 Foreign Code and Modules
+
+</section>
+
+<section>
+
+<h5>9.6.10 Foreign Code and Modules</h5>
 
 Modules are identified via a unique handle. The following functions are available to query and manipulate modules.
 
 module_t PL_context()
     Return the module identifier of the context module of the currently active foreign predicate.
 int PL_strip_module(term_t +raw, module_t *m, term_t -plain)
-Utility function. If raw is a term, possibly holding the module construct &lt;var&gt;&amp;lt;module&amp;gt;:&amp;lt;restgt;&lt;/var&gt; this function will make plain a reference to &lt;var&gt;&amp;lt;rest&amp;gt;&lt;/var&gt; and fill module * with &lt;var&gt;&amp;lt;module&amp;gt;&lt;/var&gt;. For further nested module constructs the inner most module is returned via module *. If raw is not a module construct arg will simply be put in plain. If module * is NULL it will be set to the context module. Otherwise it will be left untouched. The following example shows how to obtain the plain term and module if the default module is the user module:
-</literallayout>
+Utility function. If raw is a term, possibly holding the module construct <var>&amp;lt;module&amp;gt;:&amp;lt;restgt;</var> this function will make plain a reference to <var>&amp;lt;rest&amp;gt;</var> and fill module * with <var>&amp;lt;module&amp;gt;</var>. For further nested module constructs the inner most module is returned via module *. If raw is not a module construct arg will simply be put in plain. If module * is NULL it will be set to the context module. Otherwise it will be left untouched. The following example shows how to obtain the plain term and module if the default module is the user module:
+
             <pre>{ module m = PL_new_module(PL_new_atom("user"));
       term_t plain = PL_new_term_ref();
 
       PL_strip_module(term, &amp;m, plain);
       ...</pre>
-            <literallayout>
 
 atom_t PL_module_name(module_t)
     Return the name of module as an atom.
 module_t PL_new_module(atom_t name)
     Find an existing or create a new module with name specified by the atom name.
 
-9.6.11 Prolog exceptions in foreign code
+    </section>
+
+    <section>
+
+<h5>9.6.11 Prolog exceptions in foreign code</h5>
 
 This section discusses PL_exception(), PL_throw() and PL_raise_exception(), the interface functions to detect and generate Prolog exceptions from C-code. PL_throw() and PL_raise_exception() from the C-interface to raise an exception from foreign code. PL_throw() exploits the C-function longjmp() to return immediately to the innermost PL_next_solution(). PL_raise_exception() registers the exception term and returns FALSE. If a foreign predicate returns FALSE, while and exception-term is registered a Prolog exception will be raised by the virtual machine.
 
@@ -1785,12 +1830,12 @@ If PL_next_solution() succeeds, the result is analysed and translated to a numbe
 
 static int
 prologFunction(ArithFunction f, term_t av, Number r)
-{ int arity = f-&gt;proc-&gt;definition-&gt;functor-&gt;arity;
+{ int arity = f->proc->definition->functor->arity;
   fid_t fid = PL_open_foreign_frame();
   qid_t qid;
   int rval;
 
-  qid = PL_open_query(NULL, PL_Q_NORMAL, f-&gt;proc, av);
+  qid = PL_open_query(NULL, PL_Q_NORMAL, f->proc, av);
 
   if ( PL_next_solution(qid) )
   { rval = valueExpression(av+arity-1, r);
@@ -1802,10 +1847,10 @@ prologFunction(ArithFunction f, term_t av, Number r)
     if ( (except = PL_exception(qid)) )
     { rval = PL_throw(except);          /* pass exception */
     } else
-    { char *name = stringAtom(f-&gt;proc-&gt;definition-&gt;functor-&gt;name);
+    { char *name = stringAtom(f->proc->definition->functor->name);
 
                                         /* generate exception */
-      rval = PL_error(name, arity-1, NULL, ERR_FAILED, f-&gt;proc);
+      rval = PL_error(name, arity-1, NULL, ERR_FAILED, f->proc);
     }
 
     PL_cut_query(qid);                  /* donot destroy data */
@@ -1814,13 +1859,13 @@ prologFunction(ArithFunction f, term_t av, Number r)
 
   return rval;
 }
+<dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_raise_exception(term_t exception)</code></dt>
+                  <listitem>
+                    <p>
+    Generate an exception (as throw/1) and return FALSE. Below is an example returning an exception from foreign predicate:</p>
 
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_raise_exception(term_t exception)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Generate an exception (as throw/1) and return FALSE. Below is an example returning an exception from foreign predicate:
-    </literallayout>
             <pre>foreign_t
     pl_hello(term_t to)
     { char *s;
@@ -1840,16 +1885,22 @@ prologFunction(ArithFunction f, term_t av, Number r)
         return PL_raise_exception(except);
       }
     }</pre>
-            <literallayout>
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_throw(term_t exception)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_throw(term_t exception)</code></dt>
+                  <listitem>
+                    <p>
     Similar to PL_raise_exception(), but returns using the C longjmp() function to the innermost PL_next_solution().
 term_t PL_exception(qid_t qid)
-    If PL_next_solution() fails, this can be due to normal failure of the Prolog call, or because an exception was raised using throw/1. This function returns a handle to the exception term if an exception was raised, or 0 if the Prolog goal simply failed.80.
+    If PL_next_solution() fails, this can be due to normal failure of the Prolog call, or because an exception was raised using throw/1. This function returns a handle to the exception term if an exception was raised, or 0 if the Prolog goal simply failed.80.</p>
+    </listitem>
+    </dl>
 
-9.6.12 Catching Signals (Software Interrupts)
+    </section>
+
+    <section>
+
+<h5>9.6.12 Catching Signals (Software Interrupts)</h5>
 
 SWI-Prolog offers both a C and Prolog interface to deal with software interrupts (signals). The Prolog mapping is defined in section 4.10. This subsection deals with handling signals from C.
 
@@ -1858,51 +1909,62 @@ If a signal is not used by Prolog and the handler does not call Prolog in any wa
 Some versions of SWI-Prolog, notably running on popular Unix platforms, handle SIG_SEGV for guarding the Prolog stacks. If the application wishes to handle this signal too, it should use PL_signal() to install its handler after initialising Prolog. SWI-Prolog will pass SIG_SEGV to the user code if it detected the signal is not related to a Prolog stack overflow.
 
 Any handler that wishes to call one of the Prolog interface functions should call PL_signal() for its installation.
-
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void (*)() PL_signal(sig, func)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+<dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void (*)() PL_signal(sig, func)</code></dt>
+                  <listitem>
+                    <p>
     This function is equivalent to the BSD-Unix signal() function, regardless of the platform used. The signal handler is blocked while the signal routine is active, and automatically reactivated after the handler returns.
 
     After a signal handler is registered using this function, the native signal interface redirects the signal to a generic signal handler inside SWI-Prolog. This generic handler validates the environment, creates a suitable environment for calling the interface functions described in this chapter and finally calls the registered user-handler.
 
     By default, signals are handled asynchronously (i.e. at the time they arrive). It is inherently dangerous to call extensive code fragments, and especially exception related code from asynchronous handlers. The interface allows for synchronous handling of signals. In this case the native OS handler just schedules the signal using PL_raise(), which is checked by PL_handle_signals() at the call- and redo-port. This behaviour is realised by or-ing sig with the constant PL_SIGSYNC.81
 
-    Signal handling routines may raise exceptions using PL_raise_exception(). The use of PL_throw() is not safe. If a synchronous handler raises an exception, the exception is delayed to the next call to PL_handle_signals();
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_raise(int sig)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Register sig for synchronous handling by Prolog. Synchronous signals are handled at the call-port or if foreign code calls PL_handle_signals(). See also thread_signal/2.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_handle_signals(void)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Handle any signals pending from PL_raise(). PL_handle_signals() is called at each pass through the call- and redo-port at a safe point. Exceptions raised by the handler using PL_raise_exception() are properly passed to the environment.
+    Signal handling routines may raise exceptions using PL_raise_exception(). The use of PL_throw() is not safe. If a synchronous handler raises an exception, the exception is delayed to the next call to PL_handle_signals();</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_raise(int sig)</code></dt>
+                  <listitem>
+                    <p>
+    Register sig for synchronous handling by Prolog. Synchronous signals are handled at the call-port or if foreign code calls PL_handle_signals(). See also thread_signal/2.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_handle_signals(void)</code></dt>
+                  <listitem>
+                    <p>
+    Handle any signals pending from PL_raise(). PL_handle_signals() is called at each pass through the call- and redo-port at a safe point. Exceptions raised by the handler using PL_raise_exception() are properly passed to the environment.</p>
+    <p>The user may call this function inside long-running foreign functions to handle scheduled interrupts. This routine returns the number of signals handled. If a handler raises an exception, the return value is -1 and the calling routine should return with FALSE as soon as possible.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_get_signum_ex(term_t t, int *sig)</code></dt>
+                  <listitem>
+                    <p>
+    Extract a signal specification from a Prolog term and store as integer signal number in sig. The specification is an integer, lowercase signal name without SIG or the full signal name. These refer to the same: 9, kill and SIGKILL. Leaves a typed, domain or instantiation error if the conversion fails.</p>
+    </listitem>
+    </dl>
 
-    The user may call this function inside long-running foreign functions to handle scheduled interrupts. This routine returns the number of signals handled. If a handler raises an exception, the return value is -1 and the calling routine should return with FALSE as soon as possible.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_get_signum_ex(term_t t, int *sig)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Extract a signal specification from a Prolog term and store as integer signal number in sig. The specification is an integer, lowercase signal name without SIG or the full signal name. These refer to the same: 9, kill and SIGKILL. Leaves a typed, domain or instantiation error if the conversion fails.
+    </section>
 
-9.6.13 Miscellaneous
-9.6.13.1 Term Comparison
+    <section>
 
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_compare(term_t t1, term_t t2)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Compares two terms using the standard order of terms and returns -1, 0 or 1. See also compare/3.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_same_compound(term_t t1, term_t t2)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Yields TRUE if t1 and t2 refer to physically the same compound term and FALSE otherwise.
+<h5>9.6.13 Miscellaneous</h5>
+<h6>9.6.13.1 Term Comparison</h6>
+<dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_compare(term_t t1, term_t t2)</code></dt>
+                  <listitem>
+                    <p>
+    Compares two terms using the standard order of terms and returns -1, 0 or 1. See also compare/3.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_same_compound(term_t t1, term_t t2)</code></dt>
+                  <listitem>
+                    <p>
+    Yields TRUE if t1 and t2 refer to physically the same compound term and FALSE otherwise.</p>
+    </listitem>
+    </dl>
 
-9.6.13.2 Recorded database
+<h6>9.6.13.2 Recorded database</h6>
 
 In some applications it is useful to store and retrieve Prolog terms from C-code. For example, the XPCE graphical environment does this for storing arbitrary Prolog data as slot-data of XPCE objects.
 
@@ -1912,15 +1974,17 @@ Two groups of functions are provided. The first group (PL_record() and friends) 
 
 record_t PL_record(term_t +t)
     Record the term t into the Prolog database as recorda/3 and return an opaque handle to the term. The returned handle remains valid until PL_erase() is called on it. PL_recorded() is used to copy recorded terms back to the Prolog stack.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_recorded(record_t record, term_t -t)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Copy a recorded term back to the Prolog stack. The same record may be used to copy multiple instances at any time to the Prolog stack. See also PL_record() and PL_erase().
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_erase(record_t record)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+    <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_recorded(record_t record, term_t -t)</code></dt>
+                  <listitem>
+                    <p>
+    Copy a recorded term back to the Prolog stack. The same record may be used to copy multiple instances at any time to the Prolog stack. See also PL_record() and PL_erase().</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_erase(record_t record)</code></dt>
+                  <listitem>
+                    <p>
     Remove the recorded term from the Prolog database, reclaiming all associated memory resources.
 
 The second group (headed by PL_record_external()) provides the same functionality, but the returned data has properties that enable storing the data on an external device. It has been designed to make it possible to store Prolog terms fast an compact in an external database. Here are the main features:
@@ -1943,19 +2007,23 @@ char * PL_record_external(term_t +t, size_t *len)
 
     It is allowed to copy the data and use PL_recorded_external() on the copy. The user is responsible for the memory management of the copy. After copying, the original may be discarded using PL_erase_external().
 
-    PL_recorded_external() is used to copy such recorded terms back to the Prolog stack.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_recorded_external(const char *record, term_t -t)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Copy a recorded term back to the Prolog stack. The same record may be used to copy multiple instances at any time to the Prolog stack. See also PL_record_external() and PL_erase_external().
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;int PL_erase_external(char *record)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Remove the recorded term from the Prolog database, reclaiming all associated memory resources.
+    PL_recorded_external() is used to copy such recorded terms back to the Prolog stack.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_recorded_external(const char *record, term_t -t)</code></dt>
+                  <listitem>
+                    <p>
+    Copy a recorded term back to the Prolog stack. The same record may be used to copy multiple instances at any time to the Prolog stack. See also PL_record_external() and PL_erase_external().</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">int PL_erase_external(char *record)</code></dt>
+                  <listitem>
+                    <p>
+    Remove the recorded term from the Prolog database, reclaiming all associated memory resources.</p>
+    </listitem>
+    </dl>
 
-9.6.13.3 Getting file names
+<h6>9.6.13.3 Getting file names</h6>
 
 The function PL_get_file_name() provides access to Prolog cites and its file-search mechanism described with absolute_file_name/3. Its existence is motivated to realise a uniform interface to deal with file-properties, search, naming conventions etc. from foreign code.
 
@@ -1978,15 +2046,20 @@ int PL_get_file_name(term_t spec, char **name, int flags)
         Demand execute-access on the result.
     PL_FILE_NOERRORS
         Do not raise any exceptions.
+        </section>
 
-9.6.14 Errors and warnings
+        <section>
+
+<h5>9.6.14 Errors and warnings</h5>
 
 PL_warning() prints a standard Prolog warning message to the standard error (user_error) stream. Please note that new code should consider using PL_raise_exception() to raise a Prolog exception. See also section 4.9.
 
 int PL_warning(format, a1, ...)
     Print an error message starting with `[WARNING: ', followed by the output from format, followed by a `]' and a newline. Then start the tracer. format and the arguments are the same as for printf(2). Always returns FALSE.
 
-9.6.15 Environment Control from Foreign Code
+    </section>
+    <section>
+    <h5>9.6.15 Environment Control from Foreign Code</h5>
 
 int PL_action(int, ...)
     Perform some action on the Prolog system. int describes the action, Remaining arguments depend on the requested action. The actions are listed in table 6.
@@ -2004,8 +2077,10 @@ int PL_action(int, ...)
         PL_GMP_SET_ALLOC_FUNCTIONS 	Takes and integer argument. If TRUE, the GMP allocation are immediately bound to the Prolog functions. If FALSE, SWI-Prolog will never rebind the GMP allocation functions. See mp_set_memory_functions() in the GMP documentation. The action returns FALSE if there is no GMP support or GMP is already initialised.
 
     Table 6 : PL_action() options
+    </section>
 
-9.6.16 Querying Prolog
+    <section>
+      <h5>9.6.16 Querying Prolog</h5>
 
 long PL_query(int)
     Obtain status information on the Prolog system. The actual argument type depends on the information required. int describes what information is wanted.82 The options are given in table 7.
@@ -2021,8 +2096,10 @@ long PL_query(int)
         PL_QUERY_USER_CPU 	Get amount of user CPU time of the process in milliseconds.
 
     Table 7 : PL_query() options
+    </section>
 
-9.6.17 Registering Foreign Predicates
+    <section>
+    <h5>9.6.17 Registering Foreign Predicates</h5>
 
 int PL_register_foreign_in_module(const char *module, const char *name, int arity, foreign_t (*function)(), int flags)
     Register a C-function to implement a Prolog predicate. After this call returns successfully a predicate with name name (a char *) and arity arity (a C int) is created in module module. If module is NULL, the predicate is created in the module of the calling context or if no context is present in the module user.
@@ -2037,7 +2114,6 @@ int PL_register_foreign_in_module(const char *module, const char *name, int arit
     Predicates may be registered either before or after PL_initialise(). When registered before initialisation the registration is recorded and executed after installing the system predicates and before loading the saved state.
 
     Default calling (i.e. without PL_FA_VARARGS) function is passed the same number of term_t arguments as the arity of the predicate and, if the predicate is non-deterministic, an extra argument of type control_t (see section 9.6.1.1). If PL_FA_VARARGS is provided, function is called with three arguments. The first argument is a term_t handle to the first argument. Further arguments can be reached by adding the offset (see also PL_new_term_refs()). The second argument is the arity, which defines the number of valid term-references in the argument vector. The last argument is used for non-deterministic calls. It is currently undocumented and should be defined of type void*. Here is an example:
-    </literallayout>
             <pre>static foreign_t
     atom_checksum(term_t a0, int arity, void* context)
     { char *s;
@@ -2058,15 +2134,15 @@ int PL_register_foreign_in_module(const char *module, const char *name, int arit
     install()
     { PL_register_foreign("atom_checksum", 2, atom_checksum, PL_FA_VARARGS);
     }</pre>
-            <literallayout>
 
 int PL_register_foreign(const char *name, int arity, foreign_t (*function)(), int flags)
     Same as PL_register_foreign_in_module(), passing NULL for the module.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_register_extensions_in_module(const char *module, PL_extension *e)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Register a series of predicates from an array of definitions of the type PL_extension in the given module. If module is NULL, the predicate is created in the module of the calling context or if no context is present in the module user. The PL_extension type is defined as
+    <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_register_extensions_in_module(const char *module, PL_extension *e)</code></dt>
+                  <listitem>
+                    <p>
+    Register a series of predicates from an array of definitions of the type PL_extension in the given module. If module is NULL, the predicate is created in the module of the calling context or if no context is present in the module user. The PL_extension type is defined as</p>
 
     typedef struct PL_extension
     { char          *predicate_name;        /* Name of the predicate */
@@ -2091,14 +2167,20 @@ int PL_register_foreign(const char *name, int arity, foreign_t (*function)(), in
 
       ...
     }
-
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_register_extensions( PL_extension *e)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+</listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_register_extensions( PL_extension *e)</code></dt>
+                  <listitem>
+                    <p>
     Same as PL_register_extensions_in_module() using NULL for the module argument.
+    </p>
+    </listitem>
+    </dl>
+    <!--</varlistentry>-->
+    </section>
 
-9.6.18 Foreign Code Hooks
+    <section>
+    <h5>9.6.18 Foreign Code Hooks</h5>
 
 For various specific applications some hooks re provided.
 
@@ -2106,27 +2188,27 @@ PL_dispatch_hook_t PL_dispatch_hook(PL_dispatch_hook_t)
     If this hook is not NULL, this function is called when reading from the terminal. It is supposed to dispatch events when SWI-Prolog is connected to a window environment. It can return two values: PL_DISPATCH_INPUT indicates Prolog input is available on file descriptor 0 or PL_DISPATCH_TIMEOUT to indicate a timeout. The old hook is returned. The type PL_dispatch_hook_t is defined as:
 
     typedef int  (*PL_dispatch_hook_t)(void);
-
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_abort_hook(PL_abort_hook_t)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Install a hook when abort/0 is executed. SWI-Prolog abort/0 is implemented using C setjmp()/longjmp() construct. The hooks are executed in the reverse order of their registration after the longjmp() took place and before the Prolog top-level is reinvoked. The type PL_abort_hook_t is defined as:
+<dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_abort_hook(PL_abort_hook_t)</code></dt>
+                  <listitem>
+                    <p>
+    Install a hook when abort/0 is executed. SWI-Prolog abort/0 is implemented using C setjmp()/longjmp() construct. The hooks are executed in the reverse order of their registration after the longjmp() took place and before the Prolog top-level is reinvoked. The type PL_abort_hook_t is defined as:</p>
 
     typedef void (*PL_abort_hook_t)(void);
 
 int PL_abort_unhook(PL_abort_hook_t)
     Remove a hook installed with PL_abort_hook(). Returns FALSE if no such hook is found, TRUE otherwise.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_on_halt(void (*f)(int, void *), void *closure)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_on_halt(void (*f)(int, void *), void *closure)</code></dt>
+                  <listitem>
+                    <p>
     Register the function f to be called if SWI-Prolog is halted. The function is called with two arguments: the exit code of the process (0 if this cannot be determined on your operating system) and the closure argument passed to the PL_on_halt() call. See also at_halt/1.
 PL_agc_hook_t PL_agc_hook(PL_agc_hook_t new)
     Register a hook with the atom-garbage collector (see garbage_collect_atoms/0 that is called on any atom that is reclaimed. The old hook is returned. If no hook is currently defined, NULL is returned. The argument of the called hook is the atom that is to be garbage collected. The return value is an int. If the return value is zero, the atom is not reclaimed. The hook may invoke any Prolog predicate.
 
-    The example below defines a foreign library for printing the garbage collected atoms for debugging purposes.
-    </literallayout>
+    The example below defines a foreign library for printing the garbage collected atoms for debugging purposes.</p>
             <pre>#include &lt;SWI-Stream.h&gt;
     #include &lt;SWI-Prolog.h&gt;
 
@@ -2148,9 +2230,12 @@ PL_agc_hook_t PL_agc_hook(PL_agc_hook_t new)
     uninstall()
     { PL_agc_hook(old);
     }</pre>
-            <literallayout>
+    </listitem>
+    </dl>
+    </section>
 
-9.6.19 Storing foreign data
+    <section>
+    <h5>9.6.19 Storing foreign data</h5>
 
 This section provides some hints for handling foreign data in Prolog. With foreign data, we refer to data that is used by foreign language predicates and needs to be passed around in Prolog. Excluding combinations, there are three principal options for storing such data
 
@@ -2175,14 +2260,15 @@ The choice may be guided using the following distinctions
         The data lives on the `heap' and is explicitly allocated and deallocated. In this case, representing the data using native foreign representation and passing a pointer to it is a sensible choice.
         The data lives as during the lifetime of a foreign predicate. If the predicate is deterministic, foreign automatic variables are suitable. if the predicate is non-deterministic, the data may be allocated using malloc() and a pointer may be passed. See section 9.6.1.1.
 
-9.6.19.1 Examples for storing foreign data
+<h6>9.6.19.1 Examples for storing foreign data</h6>
 
 In this section, we will outline some examples, covering typical cases. In the first example, we will deal with extending Prolog&apos;s data representation with integer-sets, represented as bit-vectors. Finally, we discuss the outline of the DDE interface.
 
 Integer sets with not-too-far-apart upper- and lower-bounds can be represented using bit-vectors. Common set operations, such as union, intersection, etc. are reduced to simple and'ing and or'ing the bit-vectors. This can be done using Prolog&apos;s unbounded integers.
 
 For really demanding applications, foreign representation will perform better, especially time-wise. Bit-vectors are naturally expressed using string objects. If the string is wrapped in bitvector/1 , lower-bound of the vector is 0, and the upper-bound is not defined, an implementation for getting and putting the sets as well as the union predicate for it is below.
-</literallayout>
+
+
             <pre>#include &lt;SWI-Prolog.h&gt;
 
 #define max(a, b) ((a) &gt; (b) ? (a) : (b))
@@ -2252,13 +2338,16 @@ install()
 
   FUNCTOR_bitvector1 = PL_new_functor(PL_new_atom("bitvector"), 1);
 }</pre>
-            <literallayout>
+
 The DDE interface (see section 4.42) represents another common usage of the foreign interface: providing communication to new operating system features. The DDE interface requires knowledge about active DDE server and client channels. These channels contains various foreign data-types. Such an interface is normally achieved using an open/close protocol that creates and destroys a handle. The handle is a reference to a foreign data-structure containing the relevant information.
 
 There are a couple of possibilities for representing the handle. The choice depends on responsibilities and debugging facilities. The simplest approach is to using PL_unify_pointer() and PL_get_pointer(). This approach is fast and easy, but has the drawbacks of (untyped) pointers: there is no reliable way to detect the validity of the pointer, not to verify it is pointing to a structure of the desired type. The pointer may be wrapped into a compound term with arity 1 (i.e., dde_channel(&lt;var&gt;&amp;lt;Pointer&amp;gt;&lt;/var&gt;)), making the type-problem less serious.
 
 Alternatively (used in the DDE interface), the interface code can maintain a (preferably variable length) array of pointers and return the index in this array. This provides better protection. Especially for debugging purposes, wrapping the handle in a compound is a good suggestion.
-9.6.20 Embedding SWI-Prolog in other applications
+</section>
+
+<section>
+<h5>9.6.20 Embedding SWI-Prolog in other applications</h5>
 
 With embedded Prolog we refer to the situation where the `main' program is not the Prolog application. Prolog is sometimes embedded in C, C++, Java or other languages to provide logic based services in a larger application. Embedding loads the Prolog engine as a library to the external language. Prolog itself only provides for embedding in the C-language (compatible to C++). Embedding in Java is achieved using JPL using a C-glue between the Java and Prolog C-interfaces.
 
@@ -2309,37 +2398,42 @@ int PL_initialise(int argc, char **argv)
     A good setup in Windows is to add SWI-Prolog&apos;s bin directory to your PATH and either pass a module holding a saved-state, or "libpl.dll" as argv[0]. If the Prolog state is attached to a DLL (see the -dll option of plld, pass the name of this DLL.
 int PL_is_initialised(int *argc, char ***argv)
     Test whether the Prolog engine is already initialised. Returns FALSE if Prolog is not initialised and TRUE otherwise. If the engine is initialised and argc is not NULL, the argument count used with PL_initialise() is stored in argc. Same for the argument vector argv.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_install_readline()&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
+    <dl>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_install_readline()</code></dt>
+                  <listitem>
+                    <p>
     Installs the GNU-readline line-editor. Embedded applications that do not use the Prolog top-level should normally delete this line, shrinking the Prolog kernel significantly. Note that the Windows version does not use GNU readline.
-int PL_toplevel()
-    Runs the goal of the -t toplevel switch (default prolog/0) and returns 1 if successful, 0 otherwise.
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_cleanup(int status)&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    This function performs the reverse of PL_initialise(). It runs the PL_on_halt() and at_halt/1 handlers, closes all streams (except for the `standard I/O' streams which are flushed only), deallocates all memory and restores all signal handlers. The status argument is passed to the various termination hooks and indicates the exit-status.
+int PL_toplevel()</p>
+    <p>Runs the goal of the -t toplevel switch (default prolog/0) and returns 1 if successful, 0 otherwise.</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_cleanup(int status)</code></dt>
+                  <listitem>
+                    <p>
+    This function performs the reverse of PL_initialise(). It runs the PL_on_halt() and at_halt/1 handlers, closes all streams (except for the `standard I/O' streams which are flushed only), deallocates all memory and restores all signal handlers. The status argument is passed to the various termination hooks and indicates the exit-status.</p>
 
-    This function allows deleting and restarting the Prolog system in the same process. Use it with care, as PL_initialise() is a costly function. Unix users should consider using exec() (available as part of the clib package,).
-                &lt;varlistentry&gt;
-                  &lt;term&gt;&lt;function&gt;void PL_cleanup_fork()&lt;/function&gt;&lt;/term&gt;
-                  &lt;listitem&gt;
-                    &lt;para&gt;
-    Close file descriptors associated to Prolog streams except for 0,1 and 2. Stop intervaltimer that may be running on behalf of profile/1. The call is intended to be used in combination with fork():
+    <p>This function allows deleting and restarting the Prolog system in the same process. Use it with care, as PL_initialise() is a costly function. Unix users should consider using exec() (available as part of the clib package,).</p>
+    </listitem>
+                <!-- <varlistentry> -->
+                  <dt><code class="function">void PL_cleanup_fork()</code></dt>
+                  <listitem>
+                    <p>
+    Close file descriptors associated to Prolog streams except for 0,1 and 2. Stop intervaltimer that may be running on behalf of profile/1. The call is intended to be used in combination with fork():</p>
 
-    &lt;pre&gt;if ( (pid=fork()) == 0 )
+    <pre>if ( (pid=fork()) == 0 )
         { PL_cleanup_fork();
           &amp;lt;some exec variation&amp;gt;
-        }&lt;/pre&gt;
+        }</pre>
+        </listitem>
+        </dl>
 
 
     The call behaves the same on Windows, though there is probably no meaningful application.
 int PL_halt(int status)
     Cleanup the Prolog environment using PL_cleanup() and calls exit() with the status argument. As PL_cleanup() can only be called from the main thread, this function returns FALSE when called from another thread as the main one.bug
 
-9.6.20.1 Threading, Signals and embedded Prolog
+<h6>9.6.20.1 Threading, Signals and embedded Prolog</h6>
 
 This section applies to Unix-based environments that have signals or multi-threading. The Windows version is compiled for multi-threading and Windows lacks proper signals.
 
@@ -2356,8 +2450,8 @@ At runtime, it is advised to pass the flag -nosignals, which inhibits all defaul
     It is no longer possible to break into the tracer using an interrupt signal (Control-C).
     SIGPIPE is normally set to be ignored. Prolog uses return-codes to diagnose broken pipes. Depending on the situation one should take appropriate action if Prolog streams are connected to pipes.
     Fatal errors normally cause Prolog to call PL_cleanup() and exit(). It is advised to call PL_cleanup() as part of the exit-procedure of your application.
+    </section>
 
-    </literallayout>
           </section>
           <section xml:id="plld">
             <h4>Linking embedded applications using plld*</h4>
@@ -2392,6 +2486,7 @@ At runtime, it is advised to pass the flag -nosignals, which inhibits all defaul
         </section>
       </section>
       <!-- end of "Prolog&apos;s Language Bindings" -->
+      </section>
     </main>
   </body>
 </html>

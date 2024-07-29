@@ -22,14 +22,8 @@
       <div>
         <p><a rel="prev" href="lisp.html">Lisp: The List Processing Language</a></p>
         <p><a            href="why-lisp.html">Why Lisp?</a></p>
+        <p><a            href="ai.html">Artificial Intelligence</a></p>
         <p><a            href="programming.html">Programming Computers</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
-        <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
-        <p><a            href="adt.html">Abstract Data Types (ADTs)</a></p>
-        <p><a            href="js.html">JavaScript: a Programming Language for the Web</a></p>
-      </div>
-      <div>
-        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
       </div>
     </nav>
 
@@ -42,6 +36,19 @@
       </blockquote>
 
       <h1>Dialects of Lisp</h1>
+
+      <p style="text-align: right">(by Andrew Froehlich at <a href="https://www.techtarget.com/whatis/definition/LISP-list-processing">TechTarget</a>.)</p>
+      <p>Lisp offers several different dialects and has influenced the development of other languages.</p>
+      <p>Since its inception, Lisp has gone through multiple changes and iterations depending on the need. These language implementations are known as <dfn>dialects</dfn> -- many of which are open source. The most used Lisp-based languages today include the following:</p>
+      <ul>
+        <li><a href='clojure'>Clojure</a></li>
+        <li>Emacs Lisp</li>
+        <li>Common Lisp</li>
+        <li>Julia</li>
+        <li>Racket</li>
+        <li><a href='scheme'>Scheme</a></li>
+      </ul>
+
 
       <section id='scheme'>
         <h2>Scheme</h2>
@@ -60,8 +67,8 @@
           <p style="text-align: right">Russ Olsen, <cite>GettingClojure</cite>, 2018</p>
         </blockquote>
         <blockquote>
-          <p>Clojure is a dynamic, general-purpose programming language, combining the approachability and interactive development of a scripting language with an efficient and robust infrastructure for multithreaded programming. Clojure is a <link linkend='compilation'>compiled</link> language, yet remains completely dynamic – every feature supported by Clojure is supported at runtime. Clojure provides easy access to the <link linkend='java'>Java</link> frameworks, with optional type hints and type inference, to ensure that calls to Java can avoid reflection.</p>
-          <p>Clojure is a dialect of <link linkend='lisp'>Lisp</link>, and shares with Lisp the code-as-data philosophy and a powerful macro system. Clojure is predominantly a functional programming language, and features a rich set of immutable, persistent data structures. When mutable state is needed, Clojure offers a software transactional memory system and reactive Agent system that ensure clean, correct, multithreaded designs.</p>
+          <p>Clojure is a dynamic, general-purpose programming language, combining the approachability and interactive development of a scripting language with an efficient and robust infrastructure for multithreaded programming. Clojure is a <q>compiled</q> language, yet remains completely dynamic – every feature supported by Clojure is supported at runtime. Clojure provides easy access to the Java frameworks, with optional type hints and type inference, to ensure that calls to Java can avoid reflection.</p>
+          <p>Clojure is a dialect of <a href='lisp'>Lisp</a>, and shares with Lisp the code-as-data philosophy and a powerful macro system. Clojure is predominantly a functional programming language, and features a rich set of immutable, persistent data structures. When mutable state is needed, Clojure offers a software transactional memory system and reactive Agent system that ensure clean, correct, multithreaded designs.</p>
           <p>I hope you find Clojure&apos;s combination of facilities elegant, powerful, practical and fun to use.</p>
           <p style="text-align: right">Rich Hickey, author of <cite>Clojure and CTO Cognitect</cite></p>
         </blockquote>
@@ -99,11 +106,6 @@
             <!-- <varlistentry> -->
               <dt>Hosted on the JVM</dt>
               <li>Clojure is designed to be a hosted language, sharing the JVM type system, GC, threads etc. All functions are compiled to JVM bytecode. Clojure is a great Java library consumer, offering the dot-target-member notation for calls to Java. Clojure supports the dynamic implementation of Java interfaces and classes.</li>
-            <!-- </varlistentry> -->
-
-            <!-- <varlistentry> -->
-              <dt></dt>
-              <li> </li>
             <!-- </varlistentry> -->
 
           </dl>

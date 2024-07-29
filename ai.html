@@ -40,7 +40,7 @@
       </div>
       <div>
         <p><a href="expert-systems.html">Expert Systems</a> </p>
-        <p><a href="prolog.html">Programation Logique</a></p>
+        <p><a href="prolog.html">Prolog: <i lang="fr">Programation Logique</i></a></p>
         <p><a href="lisp.html">Lisp: The List Processing Language</a></p>
       </div>
       <div>
@@ -51,34 +51,52 @@
     <main>
       <h1>Artificial Intelligence</h1>
 
-      <p>[...]</p>
+      <p><dfn>Artificial Intelligence</dfn> means getting computers to behave or perform as if they were intelligent.</p>
+      <p>Some of the intelligent task that AI is expected to perform are:</p>
+      <ul>
+        <li>Playing games like chess or go</li>
+        <li>Proving theorems</li>
+        <li>Classifying patterns, as in image recognition</li>
+        <li>Understanding human language</li>
+        <li>Providing advice</li>
+        <li>...</li>
+      </ul>
 
       <section id="symbolic">
         <h2>Symbolic AI</h2>
-        <p>From the 1950s to the 1990s, the dominant paradigm  in AI research was symbolic  (or <q>classical</q> or <q>logical</q>) AI. This approach to AI was based on logical reasoning, using symbols and rules—written by human programmers—to represent concepts and the relationships between them. Classical AI had many successes, including AIs that could play games, hold basic conversations, and answer queries using <q>expert systems.</q> Although statistical AI has since overtaken classical AI, the old approach has not been entirely abandoned; many of its techniques have been incorporated into modern AI applications, such as natural language processing and robotics.</p>
-        <p>In AI, a <dfn>symbol</dfn> is a representation  of a real-world item or concept—a simple type of symbol is a picture. A symbol can also be a group  of other symbols, such as the letters that make  up the name of an object. In symbolic AI, symbols embody the total sum of the relevant facts and information required for the system to understand what something is. To achieve this, data is labeled and attached to a symbol.</p>
-        <p>AIs are programmed to follow strictly logical rules, with the aim of producing reliable conclusions. One such rule is the syllogism, which states: <q>If all <var>A</var>s are <var>B</var>s and all <var>B</var>s are <var>C</var>s, then all <var>A</var>s are <var>C</var>s.</q> This simple principle enables AIs to know that all items  of a particular class will always have a particular characteristic.</p>
+        <p>From the 1950s to the 1990s, the dominant paradigm  in AI research was <dfn>Symbolic AI</dfn> (also called <q>Classical</q> or <q>Logical</q> AI). This approach to AI was based on logical reasoning, using symbols and rules—hand-written by human programmers—to represent concepts and the relationships between them.</p>
+        <p>It relies on a top-down, knowledge-based approach, where human experts encode rules and knowledge into the system. Classical AI systems typically use techniques like <a href="expert-systems.html">expert systems</a>, <a href="prolog.html">logic programming</a>, and rule-based reasoning to solve problems.</p>
+        <p>Classical AI had many successes, including AIs that could play games, hold basic conversations, and answer queries using expert systems.</p>
+        <p>In AI, a <dfn>symbol</dfn> is a representation  of a real-world item or concept. One simple type of symbol is a picture. A symbol can also be a group  of other symbols, such as the letters that make  up the name of an object. In symbolic AI, symbols embody the total sum of the relevant facts and information required for the system to understand what something is. To achieve this, data is labeled and attached to a symbol.</p>
+        <p>AI&apos;s are programmed to follow strictly logical rules, with the aim of producing reliable conclusions. One such rule is the syllogism, which states: <q>If all <var>A</var>s are <var>B</var>s and all <var>B</var>s are <var>C</var>s, then all <var>A</var>s are <var>C</var>s.</q> This simple principle enables AIs to know that all items  of a particular class will always have a particular characteristic.</p>
+        <section id="heuristics">
+          <h3>Heuristics</h3>
+          <p>Some problems can be too complex for an algorithm to solve quickly. In such cases, all an AI can do is a <dfn>brute-force search</dfn>, which means to methodically work through and evaluate every possible solution. This is slow, however, and in some cases impossible.</p>
+          <p>A more efficient alternative is to use a <dfn>heuristic</dfn>. This practical method uses a common-sense approach, searching for an approximate solution by estimating a <q>good enough</q> choice at every decision point based on the information available.</p>
+        </section>
+        <section id="rule-based">
+          <h3>Rule-Based Systems</h3>
+          <p>A rule-based AI system uses instructions, consisting of <code>IF-THEN</code> statements, to draw conclusions based on an initial set of facts. In its simplest form, an IF-THEN statement says to the system:  <q>If this condition is true for the current facts, then do this; if it  is false, do nothing.</q> Adding an <code>ELSE</code> option allows for more complicated statements: <q>If this is true, then do this; otherwise (else), do that.</q></p>
+          <p>Rule-based systems are predictable, reliable, and <q>transparent,</q> meaning it is easy to see which rules the AI applies. However, rule-based AIs cannot <q>learn</q> by adding to their store  of rules and facts without human intervention.</p>
+        </section>
       </section>
 
-      <section id="rule-based">
-        <h2>Rule-Based Systems</h2>
-        <p>A rule-based AI system uses instructions, consisting of <code>IF-THEN</code> statements, to draw conclusions based on an initial set of facts. In its simplest form, an IF-THEN statement says to the system:  <q>If this condition is true for the current facts, then do this; if it  is false, do nothing.</q> Adding an <code>ELSE</code> option allows for more complicated statements: <q>If this is true, then do this; otherwise (else), do that.</q></p>
-        <p>Rule-based systems are predictable, reliable, and <q>transparent,</q> meaning it is easy to see which rules the AI applies. However, rule-based AIs cannot <q>learn</q> by adding to their store  of rules and facts without human intervention.</p>
-      </section>
 
-      <section id="machine-learning">
-        <blockquote>
-          <p>Much of what we do with machine learning happens beneath the surface.</p>
-          <p>Jeff Bezos</p>
-        </blockquote>
-        <h2>Machine Learning</h2>
-        <p>[...]</p>
-      </section>
-
-      <section id="heuristics">
-        <h2>Heuristics</h2>
-        <p>Some problems can be too complex for an algorithm to solve quickly. In such cases, all an AI can do is a <dfn>brute-force search</dfn>, which means to methodically work through and evaluate every possible solution. This is slow, however, and in some cases impossible.</p>
-        <p>A more efficient alternative is to use a <dfn>heuristic</dfn>. This practical method uses a common-sense approach, searching for an approximate solution by estimating a <q>good enough</q> choice at every decision point based on the information available.</p>
+      <section id="statistical">
+        <h2>Statistical AI</h2>
+        <p>In contrast to Symbolic AI, statistical AI, also called <dfn>machine learning</dfn>, takes a bottom-up, data-driven approach. Learning is achieved from data through various machine learning algorithms. It involves training AI systems on large datasets, allowing them to learn patterns and relationships in the data, and then applying that learned knowledge to make predictions or decisions. Statistical AI systems use techniques like <a href="ann.html">neural networks</a>, decision trees, and support vector machines to uncover hidden patterns and relationships in the data.</p>
+        <p>Although statistical AI has since overtaken classical AI, the old approach has not been entirely abandoned; many of its techniques have been incorporated into modern AI applications, such as natural language processing and robotics.</p>
+        <hr/>
+        <p>Classical AI is better suited for domains with well-defined rules and structured data, while statistical AI excels in domains with complex, unstructured data where patterns are not easily discernible by human experts.</p>
+        <p>In recent years, there has been a growing emphasis on combining the strengths of both approaches, leading to the development of hybrid AI systems that incorporate elements of both classical and statistical AI.</p>
+        <section id="machine-learning">
+          <blockquote>
+            <p>Much of what we do with machine learning happens beneath the surface.</p>
+            <p style="text-align: right">Jeff Bezos</p>
+          </blockquote>
+          <h3>Machine Learning</h3>
+          <p>[...]</p>
+        </section>
       </section>
 
     </main>

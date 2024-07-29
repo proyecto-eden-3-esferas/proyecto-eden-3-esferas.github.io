@@ -22,15 +22,10 @@
       <div>
         <p><a            href="why-lisp.html">Why Lisp?</a></p>
         <p><a rel="next" href="lisp-dialects.html">Dialects of Lisp</a></p>
-        <p><a            href="computing.html">Computing</a></p>
-        <p><a rel="prev" href="programming.html">Programming</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="prolog.html">Prolog: <i lang="fr">Programation Logique</i></a></p>
+        <p><a rel="prev" href="ai.html">Artificial Intelligence</a></p>
+        <p><a            href="programming.html">Programming</a></p>
         <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
-        <p><a            href="adt.html">Abstract Data Types (ADTs)</a></p>
-        <p><a            href="js.html">JavaScript: a Programming Language for the Web</a></p>
-      </div>
-      <div>
-        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
       </div>
     </nav>
 
@@ -64,13 +59,14 @@
 
       <section>
         <h2>Lists</h2>
-        <p>A Lisp list is written with its elements separated by whitespace, and surrounded by parentheses. For example, <code>(1 2 foo)</code> is a list whose elements are the three atoms 1, 2, and foo. These values are implicitly typed: they are respectively two integers and a Lisp-specific data type called a <dfn>>symbol</dfn>, and do not have to be declared as such.</p>
+        <p>A Lisp list is written with its elements separated by whitespace, and surrounded by parentheses. For example, <code>(1 2 foo)</code> is a list whose elements are the three atoms 1, 2, and foo. These values are implicitly typed: they are respectively two integers and a Lisp-specific data type called a <dfn>symbol</dfn>, and do not have to be declared as such.</p>
         <p>The empty list <code>()</code> is also represented as the special atom <code>nil</code>. This is the only entity in Lisp which is both an atom and a list.</p>
         <p>Expressions are written as lists, using prefix notation. The first element in the list is the name of a function, the name of a macro, a lambda expression or the name of a <dfn>special operator</dfn> (see below). The remainder of the list are the arguments. For example, the function <var class="function">list</var> returns its arguments as a list, so the expression</p>
         <pre>(list 1 2 (quote foo))</pre>
         <p>evaluates to the list <code>(1 2 foo)</code>. The <q>quote</q> before the foo in the preceding example is a <q>special operator</q> which returns its argument without evaluating it. Any unquoted expressions are recursively evaluated before the enclosing expression is evaluated. For example,</p>
         <pre>(list 1 2 (list 3 4))</pre>
-        <p>evaluates to the list <code>(1 2 (3 4))</code>. The third argument is a list; lists can be nested.</p>
+        <p>evaluates to the list <code>(1 2 (3 4))</code>. The third argument is a list.</p>
+        <p>lists can be nested.</p>
       </section>
 
       <section>
@@ -86,7 +82,7 @@
   (list 1 2 &quot;foo&quot;)
   (list 3 4 &quot;bar&quot;))</pre>
         <p>evaluates to <code>(3 4 &quot;bar&quot;)</code>. Of course, this would be more useful if a non-trivial expression had been substituted in place of <code>nil</code>.</p>
-        <p>Lisp also provides logical operators <code>and</code>, <code>or</code> and <code>not</code>. The and and or operators do short-circuit evaluation and will return their first nil and non-nil argument respectively.</p>
+        <p>Lisp also provides logical operators <code>and</code>, <code>or</code> and <code>not</code>. The <code>and</code> and <code>or</code> operators do short-circuit evaluation and will return their first nil and non-nil argument respectively.</p>
         <pre>(or (and &quot;zero&quot; nil &quot;never&quot;) &quot;James&quot; &apos;task &apos;time)</pre>
         <p>will evaluate to &quot;James&quot;.</p>
       </section>
@@ -109,41 +105,17 @@
         <h2>Atoms</h2>
         <p>In the original LISP there were two fundamental data types: atoms and lists. A list was a finite ordered sequence of elements, where each element is either an atom or a list, and an <dfn>atom</dfn> was a number or a symbol. A symbol was essentially a unique named item, written as an alphanumeric string in source code, and used either as a variable name or as a data item in symbolic processing. For example, the list <code>(FOO (BAR 1) 2)</code> contains three elements: the symbol FOO, the list (BAR 1), and the number 2.</p>
         <p>The essential difference between atoms and lists was that atoms were immutable and unique. Two atoms that appeared in different places in source code but were written in exactly the same way represented the same object, whereas each list was a separate object that could be altered independently of other lists and could be distinguished from other lists by comparison operators.</p>
-        <p>As more data types were introduced in later Lisp dialects, and programming styles evolved, the concept of an atom lost importance.[citation needed] Many dialects still retained the predicate atom for legacy compatibility,[citation needed] defining it true for any object which is not a <code>cons</code>.</p>
+        <p>As more data types were introduced in later Lisp dialects, and programming styles evolved, the concept of an atom lost importance. Many dialects still retained the predicate atom for legacy compatibility,[citation needed] defining it <code>true</code> for any object which is not a <code>cons</code>.</p>
       </section>
 
       <section>
         <h2>Conses and Lists</h2>
         <p>A Lisp list is implemented as a singly linked list. Each cell of this list is called a <dfn>cons</dfn> (in Scheme, a <q>pair</q>) and is composed of two pointers, called the <dfn>car</dfn> and <dfn>cdr</dfn>. These are respectively equivalent to the <var>current-data</var> and <var>next</var> fields<!-- discussed in the article linked list-->.</p>
-        <p>Of the many data structures that can be built out of cons cells, one of the most basic is called a proper list. A proper list is either the special nil (empty list) symbol, or a cons in which the car points to a datum (which may be another cons structure, such as a list), and the cdr points to another proper list.</p>
+        <p>Of the many data structures that can be built out of cons cells, one of the most basic is called a proper list. A proper list is either the special nil (empty list) symbol, or a <code>cons</code> in which the <code>car</code> points to a datum (which may be another cons structure, such as a list), and the <code>cdr</code> points to another proper list.</p>
         <p>If a given cons is taken to be the head of a linked list, then its car points to the first element of the list, and its cdr points to the rest of the list. For this reason, the car and cdr functions are also called first and rest when referring to conses which are part of a linked list (rather than, say, a tree).</p>
         <p>Thus, a Lisp list is not an atomic object, as an instance of a container class in C++ or Java would be. A list is nothing more than an aggregate of linked conses. A variable that refers to a given list is simply a pointer to the first cons in the list. Traversal of a list can be done by cdr-ing down the list; that is, taking successive cdr&apos;s to visit each cons of the list; or by using any of several higher-order functions to map a function over a list.</p>
         <p>Because conses and lists are so universal in Lisp systems, it is a common misconception that they are Lisp&apos;s only data structures. In fact, all but the most simplistic Lisps have other data structures, such as vectors (arrays), hash tables, structures, and so forth.</p>
       </section>
-
-
-
-
-
-
-
-      <section id="dialects">
-        <header>
-          <h2>What are the different dialects of Lisp??</h2>
-          <p>(by Andrew Froehlich at <a href="https://www.techtarget.com/whatis/definition/LISP-list-processing">TechTarget</a>.)</p>
-        </header>
-        <p>Lisp offers several different dialects and has influenced the development of other languages.</p>
-        <p>Since its inception, Lisp has gone through multiple changes and iterations depending on the need. These language implementations are known as <dfn>dialects</dfn> -- many of which are open source. The most used Lisp-based languages today include the following:</p>
-        <ul>
-          <li>Clojure</li>
-          <li>Emacs Lisp</li>
-          <li>Common Lisp</li>
-          <li>Julia</li>
-          <li>Racket</li>
-          <li>Scheme</li>
-        </ul>
-      </section>
-
 
     </main>
 

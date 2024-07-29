@@ -1,9 +1,12 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[x] Add *Placer y capricho*
+[?] Add *Ilusión, Apetencia y Capricho* from *cyclopaedia.xml*
+
 [ ] `docbook:literal` elements should be translated into existing HTML elements in files *expert-system**.html*. Fortunately, no occurrences are found in *cpp**html*
 
-[ ] *ai.html*, on Artificial Intelligence, is incomplete. Specifically, it lacks an introduction (first paragraphs after h1 elements).
-[ ] *ai.html*, on Artificial Intelligence, also lacks a section on Statistical AI
+[x] *ai.html*, on Artificial Intelligence, is incomplete. Specifically, it lacks an introduction (first paragraphs after h1 elements).
+[x] *ai.html*, on Artificial Intelligence, also lacks a section on Statistical AI
 
 [ ] Move general CSS attributes out of *svg.common-attributes.html* into *css.***attributes.html*
 
@@ -92,6 +95,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+- *your-anti-cartesian-life.html*
 
 - *y-mis-bajos.html*, que estaba en *index.html*
 
