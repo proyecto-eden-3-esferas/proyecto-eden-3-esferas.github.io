@@ -1,5 +1,6 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] redactar *mercantilismo.html*, actualmente sin contenido
 [x] Add *Placer y capricho*
 [?] Add *Ilusión, Apetencia y Capricho* from *cyclopaedia.xml*
 
