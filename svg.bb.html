@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculate the Bounding Box of an SVG Element (JavaScript)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
+        <p><a            href="svg.transform.html">SVG Transformations</a></p>
+        <p><a rel="prev" href="svg.html">SVG: XML for Drawing</a></p>
+      <div>
+    </nav>
+
+    <main>
+      <h1>Calculate the Bounding Box of an SVG Element (<a href="js.html">JavaScript</a>)</h1>
+      <p> The <code>SVGGraphicsElement.<a href="#getBBox">getBBox()</a></code> method allows us to determine the coordinates of the smallest rectangle in which the object fits, its <dfn>bounding box</dfn>. The coordinates returned are with respect to the current SVG space (after the application of all geometry attributes on all the elements contained in the target element).</p>
+      <p><strong>Note:</strong> <code>getBBox()</code> returns the actual bounding box at the time the method was called—even in case the element has not yet been rendered. It also does not account for any transformation applied to the element or its parents.</p>
+      <p><strong>Note:</strong> <code>getBBox</code> returns different values than <code>getBoundingClientRect()</code>, as the latter returns value relative to the viewport.</p>
+
+      <h3 class="bridgehead">Syntax</h3>
+      <pre>getBBox()
+getBBox(<var>OPTIONS</var>)</pre>
+
+      <h3 class="bridgehead">Parameters (actually its attributes)</h3>
+      <dl>
+        <dt><code>fill</code></dt>
+        <dd>A boolean value indicating that the fill should be included in the bounding box, defaults to <code>true</code>.</dd>
+        <dt><code>stroke</code></dt>
+        <dd>A boolean value indicating that the stroke should be included in the bounding box, defaults to <code>false</code>.</dd>
+        <dt><code>markers</code></dt>
+        <dd>A boolean value indicating that the markers should be included in the bounding box, defaults to <code>false</code>.</dd>
+        <dt><code>clipped</code></dt>
+        <dd>A boolean value indicating that the bounding box should be clipped, defaults to <code>false</code>.</dd>
+      </dl>
+
+      <h3 class="bridgehead">Return value</h3>
+      <p>The returned value is a SVGRect object, which defines the bounding box. This value is irrespective of any transformation attribute applied to it or the parent elements.</p>
+
+      <h3 class="bridgehead">Example 01</h3>
+      <p><strong>Note:</strong> The SVG code and the JavaScript code are shown separately. For the JavaScript code to work, it must run <em>after</em> the SVG code has been loaded, that is it must be placed after the svg element in the body element of the document.</p>
+      <p>HTML:</p>
+      <pre>&lt;svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;g id="group_text_1"&gt;
+    &lt;text x="5" y="16" transform="scale(2, 2)"&gt;Hello World!&lt;/text&gt;
+    &lt;text x="8" y="32" transform="translate(0 20) scale(1.25 1)"&gt;
+      Hello World Again!
+    &lt;/text&gt;
+  &lt;/g&gt;
+  &lt;!-- Shows BBox in green --&gt;
+  &lt;rect id="rect_1" stroke="#00ff00" stroke-width="3" fill="none"&gt;&lt;/rect&gt;
+  &lt;!-- Shows BoundingClientRect in red --&gt;
+  &lt;rect id="rect_2" stroke="#ff0000" stroke-width="3" fill="none"&gt;&lt;/rect&gt;
+&lt;/svg&gt;
+</pre>
+      <p>JavaScript:</p>
+      <pre>const rectBBox = document.querySelector("#rect_1");
+const rectBoundingClientRect = document.querySelector("#rect_2");
+const groupElement = document.querySelector("#group_text_1");
+
+const bboxGroup = groupElement.getBBox();
+rectBBox.setAttribute("x", bboxGroup.x);
+rectBBox.setAttribute("y", bboxGroup.y);
+rectBBox.setAttribute("width", bboxGroup.width);
+rectBBox.setAttribute("height", bboxGroup.height);
+
+const boundingClientRectGroup = groupElement.getBoundingClientRect();
+rectBoundingClientRect.setAttribute("x", boundingClientRectGroup.x);
+rectBoundingClientRect.setAttribute("y", boundingClientRectGroup.y);
+rectBoundingClientRect.setAttribute("width", boundingClientRectGroup.width);
+rectBoundingClientRect.setAttribute("height", boundingClientRectGroup.height);
+</pre>
+      <h3 class="bridgehead"></h3>
+      <p>Click to <a target="_blank" href="svg.bb.ex01.html">view example!</a></p>
+      <h3 class="bridgehead"></h3>
+      <h3 class="bridgehead"></h3>
+      <h3 class="bridgehead"></h3>
+
+      <section id="getBBox">
+        <h2><code>getBBox</code></h2>
+        <p>The <code>getBBox</code> method of object drawn in SVG allows us to determine the coordinates of the smallest rectangle (with sides parallel to the screen) in which the object fits. Specifically, getBBox accepts, as input, any SVG graphics element or group and returns a rectangle containing four attributes (the <var>x</var> and <var>y</var> of its upper leftmost corner, its <var>height</var> and its <var>width</var>).</p>
+        <p>For certain elements like <code>rect</code> or <code>ellipse</code> the properties of the bounding rectangle are trivial and obvious. For more complex entities like Bézier curves and text objects (where knowing how wide all the characters and the inter-character kerning would be rather complex to calculate), the <code>getBBox</code> method can save the programmer extensive effort.</p>
+        <p>As a simple example consider the following tag:</p>
+        <pre>&lt;text id="T" x="20" y="20" font-family="garamond" font-size="18"&gt;
+Here is some text
+&lt;/text&gt;</pre>
+        <p>The getBBox method is used as follows:</p>
+        <pre>var Box=document.getElementById("T").getBBox()</pre>
+        <p>After the above has been defined then the properties of the object variable <var>Box</var> are slightly different in three different browsers. In the test run, <var>Box.y</var> may was 4, 4.64 and -1!!! This is one very compelling reason for using this method, as opposed to hard-coding pre-calculated bounding box sizes.</p>
+        <p>It is worth noting that getBBox responds to original untransformed values of a drawn object. If an object has transformations applied (scale, rotate, or translate) then one must take those transforms into effect and apply them to the bounding box as well. See the example under getCTM later in this section.</p>
+        <p>A related function which should be used when viewports differ (e.g., when viewBox is used) is <code>getScreenBBox</code>.</p>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

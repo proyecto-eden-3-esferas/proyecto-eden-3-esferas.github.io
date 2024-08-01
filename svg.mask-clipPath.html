@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mask and Clip Images</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+     <!--
+     -->
+      <div>
+        <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
+        <p><a href="svg.transform.html">SVG Transformations</a></p>
+        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
+      </div>
+      <div>
+        <p><a href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a></p>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="svg.html">SVG: XML for Drawing</a></p>
+    </nav>
+
+    <main>
+      <h1>Mask and Clip Images</h1>
+      <del>
+      <p> While using the stop-opacity of a gradient can allow us to appear to clip or crop an underlying image down to a smaller region in the shape of either a rectangle (in the case of linear gradients) or ellipse (in the case of radial gradients), this technique gives us no easy way to clip down to an arbitrary polygon.</p>
+      <p>Masks and clip-paths are a more realistic approach to cutting a shape out of an underlying picture.</p>
+      </del>
+      <p>The &lt;mask&gt; and &lt;clipPath&gt; tags provide similar sets of capabilities. We may think of a &lt;clipPath&gt; as a special case of a &lt;mask&gt; which is slightly simpler to use, but not quite so powerful. As such, we will introduce it first.</p>
+
+      <section id="clipPath">
+        <h2>&lt;clipPath&gt;</h2>
+        <p>We use a &lt;clipPath&gt; to carve a shape into another graphic element.</p>
+        <p>That is, a &lt;clipPath&gt; is a container for a set of graphic elements (any combination of <code>path</code>, <code>text</code>, <code>rect</code>, <code>circle</code>, <code>ellipse</code>, <code>line</code>, <code>polyline</code>, <code>polygon</code>, <code>image</code> and <code>use</code>), which when applied to another graphic element, through its clip-path attribute, results in the restriction of the visible part of that graphic element to the defined clipPath.</p>
+        <p>In the example below, an &lt;image&gt; tag is defined with a clip-path attribute referring to to a simple &lt;clipPath&gt; containing an ellipse. The rendered portion of the image is limited to those pixels that are within the ellipse. As with gradients and other SVG items containing references to things defined elsewhere in the document, the clipPath is given an id and then the thing to be clipped by it refers to that id within its clip-path attribute.</p>
+        <pre>&lt;clipPath id="CP"&gt;
+&lt;ellipse cx="330" cy="80" rx="70" ry="25"/&gt;
+&lt;/clipPath&gt;
+
+&lt;image xlink:href='thesoul2.jpg' y="0" x="200" width="35%" height="40%"
+clip-path="url(#CP)"/&gt;</pre>
+
+        <p>We may insert more than one graphic element inside a clipPath, and the graphic element may itself be complex (in the sense that a <code>fill-method="evenodd"</code> assignment would render the region with more than one contiguous sub-region). If an element is complex in this way, then it must have its clip-method (rather than its fill-method) set to <code>evenodd</code>. The example below shows a clipPath containing three shapes inside it: two simple ellipses and a complex path with two distinct subregions. A single rectangle has been placed <em>behind</em> the image, so that we may observe that the regions cropped away from the rendered image are indeed invisible.</p>
+        <pre>&lt;rect x="322" y="0" height="200" width="20"
+   fill="url(#g)"/&gt;
+&lt;clipPath id="CP"&gt;
+   &lt;ellipse cx="335" cy="25" rx="70" ry="25"/&gt;
+   &lt;ellipse cx="335" cy="80" rx="90" ry="25"/&gt;
+   &lt;path d="M 270 140 A 65 30 0 1 1 270 141 M 308
+   128 A 25 7 0 1 1 308 129" clip-rule="evenodd"/&gt;
+&lt;/clipPath&gt;
+&lt;image xlink:href='thesoul2.jpg' y="0" x="200"
+width="35%" height="40%" clip-path="url(#CP)"/&gt;</pre>
+
+        <p>Two &lt;clipPath&gt;s may be intersected. The following demonstrates a picture being clipped first to a star-shaped region "ST". The result, "I", is then reused (being reflected and translated) with a new clip-path applied — one that happens to coincide with a rectangle, "R", that passes beneath it and is reused to form the second clipping path, "C2" . The example is an interesting one since it illustrates some of the complex ways in which SVG objects can be combined with one another.</clipPath>
+        <pre>&lt;clipPath id="ST"&gt;
+  &lt;path d = "M 204 247 24 189 135 343 135 152 24 306 z"/&gt;
+&lt;/clipPath&gt;
+
+&lt;image xlink:href='p76.jpg' y="140" x="-30" id="I"
+width="35%" height="40%" clip-path="url(#ST)"/&gt;
+
+&lt;rect id="R" x="0%" y="215" height="16%" width="100%" fill="#734" opacity=".4"/&gt;
+
+&lt;clipPath id="C2"&gt;
+   &lt;use xlink:href="#R"/&gt;
+&lt;/clipPath&gt;
+
+&lt;use xlink:href="#I" clip-path="url(#C2)" transform="translate(416,0) scale(-1,1)"/&gt;</pre>
+
+        <p>Above, we have taken the result "I" of a clipping operation and applied another clip to that. We might accomplish a similar result, following from the above code by applying the "ST" clipPath as a clipping path to another clipPath containing the rectangle "R" as shown in the following code.</p>
+        <pre>&lt;clipPath id="C3" clip-path="url(#ST)"&gt;
+  &lt;use xlink:href="#R"/&gt;
+&lt;/clipPath&gt; &lt;image xlink:href='../p76.jpg' y="150" x="350" width="35%" height="40%" clip-path="url(#C3)"/&gt;</pre>
+
+        <p>It should also be noted that the major SVG browsers show some inconsistent behavior regarding clipPaths at the current point in time. While all browsers seem to agree on the handling of the earlier example involving two &lt;image&gt; tags above, the addition of additional complexity in the URL cited as viewed in different browsers is markedly different, with some, but not all of the differences being attributable to the presence of SMIL. Neither Firefox, Safari, nor Chrome seems to appreciate the application of a clip-path directly to a clipPath, though Opera and ASV+IE behave as one might expect on the basis of intuition alone.</p>
+        <p>Because of the expressive power of SVG, there are often multiple ways to accomplish the same end. As demonstrated below, we might clip an image to a shape using the clipPath, as we have investigated in this section, but we might also use the &lt;mask&gt;, a composite filter (covered next), or simply overlay a rectangle with a hole in it (the least elegant of the approaches).<del> All but the last approach actually remove unwanted parts of the picture as is illustrated by the rectangle which appears behind the first three images, but is interrupted by the overlaid region in the fourth.</del></p>
+
+      </section>
+
+      <section id="mask">
+        <h2>&lt;mask&gt;</h2>
+        <p>The mask and the clipPath have much in common. The fundamental difference is that while the clipPath provides an all-or-none clipping function, the mask can provide partial occlusion of the underlying object based on color values provided within the mask.</p>
+        <p>In a sort of simplest case<del> (see the figure "Clipping to a shape using clipPath, mask, composite, and overlay" above)</del>, a mask, just like a clipPath, provides a region that divides the object to be clipped into two parts: the visible (black or opaque) part and the invisible (white or transparent) part. A mask also allows, however, for this division to provide an alpha channel to an object based on color or transparency values of the mask. That is, suppose instead of merely clipping a bitmap or other graphic we wish to make parts of it invisible or partly visible, while we might see a gradual transition from invisible to visible in other parts.</p>
+        <p>[...]</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
+
+
+
+    </main>
+
+  </body>
+
+</html>
