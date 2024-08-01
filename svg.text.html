@@ -9,10 +9,6 @@
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
-
-    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
-    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
     -->
   </head>
   <body lang="en" class="computing">
@@ -26,11 +22,14 @@
       <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
+      <p><a rel="prev" href="svg.html">SVG: XML for Drawing</a></p>
+      <p><a rel="next" href="css.font.html">CSS Fonts</a></p>
+      <p><a            href="HTML.html">HTML: XML for the Web</a></p>
     </nav>
 
     <main>
       <h1>Text in SVG with &lt;text&gt; and &lt;tspan&gt;</h1>
-      <p>Text is rendered within a &lt;text&gt; element. The starting point of the text baseline is determined by the <var>x</var> and <var>y</var> attributes. The x-attribute determines where to locate the left edge of the text (the start of the text). The y-attribute determines where to locate the bottom of the text (not the top). Thus, there is a difference between the y-position of a text and the y-position of lines, rectangles, or other shapes. This example shows a text and a line which both have y-position 40:</p>
+      <p>Text is rendered within a &lt;text&gt; element. The starting point of the text baseline is determined by the <var>x</var> and <var>y</var> attributes. The x-attribute determines where to locate the left edge of the text (the start of the text), unless set otherwise through attribute <code><a href="#text-anchor">text-anchor</a></code>. The y-attribute determines where to locate the bottom of the text (not the top). Thus, there is a difference between the y-position of a text and the y-position of lines, rectangles, or other shapes. This example shows a text and a line which both have y-position 40:</p>
       <pre>&lt;svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
 
@@ -41,7 +40,7 @@
 
       <p>There is no automatic word wrapping in SVG. You will have to position the text yourself, and break it into multiple lines. You can get some help from the relative positioning possible with the <a href="#tspan">&lt;tspan&gt;</a> element.</p>
 
-      <section>
+      <section id="text-anchor">
         <h2>Text anchor (attribute <code>text-anchor</code>)</h2>
         <p> The <dfn>anchor</dfn> of a text determines what part of the text is positioned at the x-position specified in the x attribute of the text element. By default the anchor of a text is the left edge of the the text, the beginning of the text. But you can also use the middle of the text as anchor, or the right edge - the end of the text.</p>
         <p>You can set the <var>text-anchor</var> CSS property to set the anchor of a text. It can take three values: <var class="constant">start</var>, <var class="constant">middle</var> and <var class="constant">end</var>.</p>
@@ -124,7 +123,7 @@
         <p>You have to write the attribute names in lower-case as done in the listing below, or the SVG viewers tend to ignore them!</p>
         <dl>
           <!-- <varlistentry> -->
-            <dt>font-family</dt>
+            <dt><a target="_blank" href="css.font-family.html">font-family</a></dt>
             <dd>The font to use, for instance &apos;Arial&apos; or &apos;Verdana&apos;.</dd>
           <!-- </varlistentry> -->
           <!-- <varlistentry> -->
