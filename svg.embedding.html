@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Embedding SVG in HTML</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+     <!--
+     -->
+      <div>
+        <p><a            href="svg.transform.html">SVG Transformations</a></p>
+        <p><a            href="svg.bb.html">Calculate the Bounding Box of an SVG Element</a> (JavaScript)</p>
+        <p><a            href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a></p>
+        <p><a            href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a            href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
+        <p><a rel="prev" href="svg.html">SVG: XML for Drawing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Embedding SVG in an HTML Document</h1>
+       There are a variety of ways that one can imagine using HTML to "contain" SVG documents. We'll discuss several of them. The first thing to say is that all of these techniques (with the exception of &lt;image src="file.svg"&gt; work relatively seamlessly for both the Firefox and Opera browsers, but only &lt;embed&gt; works as we would expect and enables cross document scripting in ASV+Internet Explorer. Secondly, it is worth pointing out that only &lt;object&gt; works consistently with the W3C standards, meaning at this time one must choose between standards consistency, or browser consistency. Faced with the choice, most developers will tend to choose &lt;embed&gt; though the question, whenever posed, seems to foment passion among partisans.
+
+
+1. &lt;embed&gt;
+
+The &lt;embed&gt; tag, though never standardized by the W3C has become a sort of de facto "standard" for the introduction of non-HTML content (such as audio) into HTML documents. It is used so frequently on web sites, that browsers pretty much have to support it. In fact the W3C has formed a new working group to form a recommended standard for HTML5 and it currently appears likely that &lt;embed&gt; will find its way into the new standard. (See the current working draft where &lt;embed&gt; appears in the specification.) The problem with it is that the way one controls material inside an &lt;embed&gt;, tends to be browser specific, and oftentimes, format and vendor specific. &lt;object&gt; has been chosen for standardization by the W3C, in part because of how fragmented the world surrounding the use of &lt;embed&gt; has become, largely because of its uncoordinated development.
+
+To retrieve an SVG document inside an &lt;embed&gt;, the following works in all five browsers:
+&lt;embed id="E" src="myfile.svg"/&gt;
+
+To open the SVG document from a script in HTML, one need only retrieve the &lt;embed&gt; by its id name, and then use getSVGDocument() to find the document within the embed.
+
+
+ 3. &lt;object&gt;
+
+Though &lt;object&gt; is the container recommended by the W3C for holding non-HTML content, the Adobe plugin for the most popular browser Internet Explorer, discovered a security issue in their implementation which forced them to disable it in version 3.01 (and later) of the plugin. From Adobe's description:
+
+    "Adobe SVG Viewer 3.01 addresses one potential security risk by disabling SVG scripts if you disable ActiveScripting in Internet Explorer. This security risk only affects customers who browse the Web on Windows computers in Internet Explorer with ActiveScripting disabled. By default, ActiveScripting is enabled, so most users are not currently at risk. Because of the way that the HTML OBJECT tag is implemented in Internet Explorer, Adobe SVG Viewer 3.01 cannot determine the URL of a file embedded with the OBJECT tag. The URL is required to determine the security zone, which is required to determine the state of the ActiveScripting setting. Therefore, to fail safe against this potential security flaw Adobe SVG Viewer 3.01 always disables scripting when it determines that the SVG file is embedded using the OBJECT tag. When authoring in SVG, Adobe recommends that you not use the OBJECT tag and instead use the EMBED tag when embedding SVG in HTML pages."62
+
+However, given that Adobe no longer supports the SVG plugin (with support having been officially withdrawn in January 2009, one may view this caution as overguarded. Alternative plugins for Internet Explorer may obviate the problem, allowing &lt;object&gt; to work consistently in all major platforms.
+There is, however, a workaround that enables &lt; to work: that is to use a nested &lt;param&gt; statement to declare the source of the &lt;object&gt;
+
+ The above appears to work fine, enabling full scripting capabilities in all five browsers: ASV+IE, FF, Safari, Chrome, and Opera.
+
+One lingering oddity associated with &lt;object&gt; however, is that accessing SVG DOM from within HTML script, in some versions of Firefox, seems to require a small bit of sleight of hand:
+
+D=document.getElementById("B")
+try {SVGdoc=D.getSVGDocument()}
+catch(SVGdoc){S=D.contentDocument}
+
+The alternative approach to finding the content is appears (from my experiments) to be necessitated by Firefox's approach to looking inside the &lt;object&gt; tag63.
+4. &lt;img&gt;: SVG as an image format
+
+At the current time, of the five browsers, only Opera, Safari and Chrome support svg as an image format in HTML:
+&lt;img src="simplest.svg" width="250" height="150"/&gt;,
+
+though it would clearly be an advance if they all did. None supports scripting in this context, though the Opera browser supports SVG as animated by SMIL.
+An example of file type "svg" used as the src of an &lt;img&gt;
+
+
+5. Inline content
+
+A relatively new approach that shows a lot of promise involves the "inline" incorporation of SVG content into HTML. This involves interleaving HTML and SVG tags in the same HTML document. All of the five browsers except IE treat HTML as though it is XHTML, a dialect of XML, but with relaxed syntax requirements. This means that inlining of SVG should just be a matter of resolving different namespaces. HTML and SVG should coexist rather peaceably in those browsers. But IE is not intrinsically an XML environment, and the compound document approach is not workable, in its current incarnation, in IE. So for non-IE browsers, we can do something like this:
+
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+ &lt;body&gt;
+ &lt;svg xmlns="http://www.w3.org/2000/svg" width="300" height="99"&gt;
+ &lt;circle cx="50" cy="50" r="50" /&gt;
+ &lt;/svg&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+
+Unfortunately, the above code works (in FF, Safari, Chrome and Opera) but only if we save the document in .xhtml format, in which case IE will display it as XML source code rather than as HTML.
+
+Scripting does work across parts of these compound XML documents however. The following XHTML document works fine, allowing user events to modify the SVG DOM from within either Opera, Firefox, Chrome or Safari.
+
+It should also be noted that considerable discussion has occurred in recent months (that is, the early parts of 2009) suggesting that for HTML5, when it becomes a W3C recommendation, SVG in text/html will be allowed, even without requiring the document to be served as XHTML. Some difficulties reconciling the looser syntax of HTML with the more rigorous syntax of SVG exist, but the hope seems to be that an HTML author should be able to copy and paste (most) SVG source code into HTML and have it work in situ and in vivo.
+
+
+    </main>
+
+  </body>
+
+</html>

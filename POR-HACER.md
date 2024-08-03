@@ -1,6 +1,14 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] redactar *mercantilismo.html*, actualmente sin contenido
+[ ] write *weathering.html*, on Mineral Weathering, and link from *farming.html* and *biology.html*
+[ ] write *soil.html* and link to *weathering.html* and *farming.html*
+[ ] añadir sección sobre almacenamiento en *produccion-y-distribucion.html* y enlazarlo con *mercantilismo.html*
+[ ] write *climate-change.html*, and link to *food-security.html*, *farming.html*, *population.html*
+[ ] write *HTML.tables.html*
+[ ] write *science.html*, with class="science"
+[ ] write *SMIL.html*
+
+[x] redactar *mercantilismo.html*, actualmente sin contenido
 [x] Add *Placer y capricho*
 [?] Add *Ilusión, Apetencia y Capricho* from *cyclopaedia.xml*
 
