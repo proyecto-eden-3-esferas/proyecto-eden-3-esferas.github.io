@@ -1,5 +1,6 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *cpp.string.html* and *cpp.string_view.html*
 [ ] write *weathering.html*, on Mineral Weathering, and link from *farming.html* and *biology.html*
 [ ] write *soil.html* and link to *weathering.html* and *farming.html*
 [ ] añadir sección sobre almacenamiento en *produccion-y-distribucion.html* y enlazarlo con *mercantilismo.html*
