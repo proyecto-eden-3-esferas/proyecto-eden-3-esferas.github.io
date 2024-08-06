@@ -1,5 +1,6 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write on *avidya.html*
 [ ] write *erosion.html*, to be linked to from *weathering.html* and *soil.html*
 [ ] discuss specific member functions in *cpp.strings.html*
 [ ] terminar de redactar *prolog.es.html*
