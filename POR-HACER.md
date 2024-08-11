@@ -1,6 +1,8 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] escribir *postverdad.html*
+[ ] enlaces a *libro-grafo.html* desde ¿*index.html*?
+[ ] completar *presentarse-por-libre.html*, revisar ejemplo de Traductores Jurados y añadir el de los Electricistas
+[x] escribir *postverdad.html*
 [ ] write on *avidya.html*
 [ ] write *erosion.html*, to be linked to from *weathering.html* and *soil.html*
 [ ] discuss specific member functions in *cpp.strings.html*
