@@ -112,7 +112,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
-- *your-anti-cartesian-life.html*
+[ ] *end-of-normal.html*
+
+[x] *your-anti-cartesian-life.html*: from *thought.html*
 
 - *y-mis-bajos.html*, que estaba en *index.html*
 
