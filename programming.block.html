@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blocks in Programming: Units of Execution</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="programming.html">Programming</a></p>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="c.html">The C   Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Blocks in Programming: Units of Scope and Execution</h1>
+
+      <p>In programming theory, a <dfn>block</dfn> is a piece of code that stands as a unit. Often enough, variables in a block are invisible or inaccessible to other blocks.</p>
+      <p>Blocks are often denoted by curly braces:</p>
+      <pre>{
+  var x = 3;
+  var y = x + 2;
+}
+
+{
+  print(x); // ERROR: X has not been declared in this block
+}</pre>
+
+      <p>The visibility of a variable is called its <dfn>scope</dfn>. In the code above, <code>print(x);</code> fails to compile because <var>x</var> is <q>out of scope</q>.</p>
+      <p>By the by, an enclosed block shares the variables in the enclosing scope:
+      <pre>{
+  var x = 3;
+  var y = x + 2;
+  {
+    print(x); // OK
+  }
+}</pre>
+
+      <hr/>
+
+      <p>Blocks are good for organizing code into sections.</p>
+
+      <p>Two languages where blocks behave as decribed here are:</p>
+      <ul>
+        <li><a href="c.html">the C programming language</a>, and</li>
+        <li><a href="cpp.html">the C++ programming language.</a></li>
+      </ul>
+
+    </main>
+
+  </body>
+
+</html>

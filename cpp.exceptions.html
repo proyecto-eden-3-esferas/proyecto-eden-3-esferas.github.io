@@ -29,7 +29,7 @@
 
     <main>
       <h1>C++ Exceptions</h1>
-      <p>Exceptions are exceptional conditions. Exception handling manages situations that otherwise would make the system crash or misbehave. Exceptions are classes that are <em>thown</em> or returned from code inside a <q>try</q> block to be dealt in a <q>catch</q> block. This is the basic structure of exception handling for handling a generic object of class <code class="classname">exception</code>:</p>
+      <p>Exceptions are exceptional conditions. Exception handling manages situations that otherwise would make the system crash or misbehave. Exceptions are classes that are <em>thown</em> or returned from code inside a <q>try</q> <a href="programming.block.html" target="_blank">block</a> to be dealt in a <q>catch</q> block. This is the basic structure of exception handling for handling a generic object of class <code class="classname">exception</code>:</p>
       <pre>#include &lt;exception&gt;
 
 try {
@@ -39,8 +39,9 @@ try {
 } catch (exception &amp; ex) {
   cout &lt;&lt; "exception bearing message: \"" &lt;&lt; ex.what() &lt;&lt; "\" has been thrown..." &lt;&lt; endl;
 } // code resumes here</pre>
-      <p>Class <code class="classname">exception</code> is declared in <kbd>&lt;exception&gt;</kbd>. It can be initialized with a string message, later to be extracted. Thus,to handle an exception in a <samp>catch</samp> clause, you may use the <code class="classname">exception</code> interface. The interface of all standard exceptions classes contains only one member that can be used to get additional information besides the type itself: the member function <samp>what()</samp>, which returns a null-terminated byte string. The content of the string is implementation defined. The C-string, returned by <samp>what()</samp>, is valid until the exception object from which it is obtained gets destroyed.</p>
-      <p>(The remaining members of the standard exception classes create, copy, assign, and destroy exception objects. Note that besides what() there is no additional member for any of the standard exception classes that describes the kind of exception. For example, there is no portable way to find out the context of an exception or the faulty index of a range error. Thus, a portable evaluation of an exception could only print the message returned from <samp>what()</samp>.)</p>
+      <p>Class <code class="classname">exception</code> is declared in <kbd>&lt;exception&gt;</kbd>. It can be initialized with a string message, later to be extracted. Thus, to handle an exception in a <samp>catch</samp> clause, you may use the <code class="classname">exception</code> interface. The interface of all standard exceptions classes contains only one member that can be used to get additional information besides the type itself: the member function <samp>what()</samp>, which returns a null-terminated byte string. The content of the string is implementation defined. The C-string, returned by <samp>what()</samp>, is valid until the exception object from which it is obtained gets destroyed.</p>
+      <p>(The remaining members of the standard exception classes create, copy, assign, and destroy exception objects. Note that besides <samp>what()</samp> there is no additional member for any of the standard exception classes that describes the kind of exception. For example, there is no portable way to find out the context of an exception or the faulty index of a range error. Thus, a portable evaluation of an exception could only print the message returned from, well, <samp>what()</samp>.)</p>
+
       <section>
         <h2>Exception Action</h2>
         <p>An exception thrown transfers control to the first matching <kbd>catch</kbd> block after all objects constructed in the <kbd>try</kbd> block have been deleted.</p>
@@ -56,34 +57,42 @@ try {
           <li>
             <p>logic_error:</p>
             <ul>
-              <li>domain_error: used to report a domain error.</li>
-              <li>invalid_argument: used to report invalid arguments, such as when a bitset (array of bits) is initialized with a char other than '0' or '1'.</li>
-              <li>length_error: used to report an attempt to do something that exceeds a maximum allowable size, such as appending too many characters to a string.</li>
-              <li>out_of_range: used to report that an argument value is not in the expected range, such as when a wrong index is used in an array-like collection or string.</li>
+              <li><code class="classname">domain_error</code>: used to report a domain error.</li>
+              <li><code class="classname">invalid_argument</code>: used to report invalid arguments, such as when a bitset (array of bits) is initialized with a char other than '0' or '1'.</li>
+              <li><code class="classname">length_error</code>: used to report an attempt to do something that exceeds a maximum allowable size, such as appending too many characters to a string.</li>
+              <li>
+                <p><code class="classname">out_of_range</code>: used to report that an argument value is not in the expected range, such as when a wrong index is used in an array-like collection or string.</p>
+                <p>This exception is typically thrown in array-based classes by the <code>at(<var>INDEX</var>)</code> method:</p>
+                <pre>std::vector<int> myvector(10);
+  try {
+    myvector.at(20)=100;      // vector::at throws an out-of-range
+  }</pre>
+                <p>It the <code>operator[](<var>INDEX</var>)</code> member is used instead, the executions crashes or the wrong memory is accessed without a warning if the range is exceded.</p>
+              </li>
             </ul>
           </li>
-          <li>ios_base::failure: may be thrown when a stream changes its state due to an error or end-of-file.</li>
+          <li><code class="classname">ios_base::failure</code>: may be thrown when a stream changes its state due to an error or end-of-file.</li>
           <li>
             <p>runtime_error:</p>
             <ul>
-              <li>range_error</li>
-              <li>overflow_error</li>
-              <li>underflow_error</li>
+              <li><code class="classname">range_error</code></li>
+              <li><code class="classname">overflow_error</code></li>
+              <li><code class="classname">underflow_error</code></li>
             </ul>
           </li>
-          <li>bad_exception: used to handle unexpected exceptions. It does this by using the function <samp>unexpected()</samp>. <samp>unexpected()</samp> is called if a function throws an exception that is not listed in an exception specification</li>
+          <li><code class="classname">bad_exception</code>: used to handle unexpected exceptions. It does this by using the function <samp>unexpected()</samp>. <samp>unexpected()</samp> is called if a function throws an exception that is not listed in an exception specification</li>
         </ul>
       </section>
 
       <section sect="sect2">
         <h2>Header Files for Exception Classes</h2>
-        <p>The base class exception and class bad_exception are defined in <samp>&lt;exception&gt;</samp>. Class bad_alloc is defined in <samp>&lt;new&gt;</samp>. Classes <samp>bad_cast</samp> and bad_typeid are defined in <samp>&lt;typeinfo&gt;</samp>. Class <samp>ios_base::failure</samp> is defined in <samp>&lt;ios&gt;</samp>. All other classes are defined in <samp>&lt;stdexcept&gt;</samp>.</p>
+        <p>The base class exception and class <code class="classname">bad_exception</code> are defined in <samp>&lt;exception&gt;</samp>. Class <code class="classname">bad_alloc</code> is defined in <samp>&lt;new&gt;</samp>. Classes <code class="classname">bad_cast</code> and <code class="classname">bad_typeid</code> are defined in <samp>&lt;typeinfo&gt;</samp>. Class <code class="classname">ios_base::failure</code> is defined in <samp>&lt;ios&gt;</samp>. All other classes are defined in <samp>&lt;stdexcept&gt;</samp>.</p>
       </section>
 
       <section sect="sect2">
         <h2>Order of <kbd>catch</kbd> blocks</h2>
-        <p>Catch blocks for exceptions by reference will also select latch onto derived exception classes, so it is advisable to place the most specific catch blocks at the start.</p>
-        <p>Lastly, all exceptions is specified as <kbd>catch (...)</kbd>. Here is an example. Assume that <code class="classname">derived_exception</code> is derived from <code class="classname">exception</code>, and that there are other exceptions not derived from <code class="classname">exception</code>:</p>
+        <p>Catch blocks for exceptions by reference will also latch onto derived exception classes, so it is advisable to place the most specific catch blocks at the start.</p>
+        <p>Lastly, <q>all exceptions</q> is selected for as <kbd>catch (...)</kbd>. Here is an example. Assume that <code class="classname">derived_exception</code> is derived from <code class="classname">exception</code>, and that there are other exceptions not derived from <code class="classname">exception</code>:</p>
         <pre>#include &lt;exception&gt;
 
 try {
