@@ -48,9 +48,8 @@
       <section id="string">
         <h2>&lt;string&gt;</h2>
         <p>Strings are objects that represent sequences of characters.</p>
-        <p><code>std::basic_string</code> is the generalization of class string for any character type.</p>
+        <p><code>std::basic_string</code> is the generalization of class string for any character type, whereas the <code>string</code> class is an instantiation of the <code>std::basic_string</code> class template that uses char (i.e., bytes) as its character type, with its default <code>char_traits</code> and <code>allocator</code> types<!-- (see basic_string for more info on the template)-->.</p>
         <p>The standard string class provides support for such objects with an interface similar to that of a standard <a href="cpp.containers.html">container</a> of bytes, but adding features specifically designed to operate with strings of single-byte characters.</p>
-        <p>The <code>string</code> class is an instantiation of the <code>std::basic_string</code> class template that uses char (i.e., bytes) as its character type, with its default <code>char_traits</code> and <code>allocator</code> types<!-- (see basic_string for more info on the template)-->.</p>
         <p>Note that this class handles bytes independently of the encoding used: If used to handle sequences of multi-byte or variable-length characters (such as UTF-8), all members of this class (such as length or size), as well as its iterators, will still operate in terms of bytes (not actual encoded characters).</p>
         <section>
           <h2>Template parameters</h2>
@@ -260,7 +259,7 @@
           <table border="1">
             <caption>Element access:</caption>
             <tr><td><code>operator[]</code></td> <td>Get character of string (public member function)</td></tr>
-            <tr><td><code>at</code></td> <td>Get character of string (public member function)</td></tr>
+            <tr><td><code><a href="#at">at</a></code></td> <td>Get character of string (public member function)</td></tr>
             <tr><td><code>back</code></td> <td>Access last character (public member function)</td></tr>
             <tr><td><code>front</code></td> <td>Access first character (public member function)</td></tr>
             <caption>Modifiers:</caption>
@@ -276,17 +275,17 @@
           </table>
           <table border="1">
             <caption>String operations:</caption>
-            <tr><td><code>c_str</code></td> <td>Get C-string equivalent</td></tr>
+            <tr><td><code>c_str</code></td> <td><code>const charT* c_str() const noexcept</code>: Get C-string equivalent</td></tr>
             <tr><td><code>data</code></td> <td>Get string data (public member function)</td></tr>
             <tr><td><code>get_allocator</code></td> <td>Get allocator (public member function)</td></tr>
-            <tr><td><code>copy</code></td> <td>Copy sequence of characters from string (public member function)</td></tr>
-            <tr><td><code>find</code></td> <td>Find first occurrence in string (public member function)</td></tr>
+            <tr><td><code><a href="#copy">copy</a></code></td> <td>Copy sequence of characters from string (public member function)</td></tr>
+            <tr><td><code><a href="#find">find</a></code></td> <td>Find first occurrence in string (public member function)</td></tr>
             <tr><td><code>rfind</code></td> <td>Find last occurrence in string (public member function)</td></tr>
-            <tr><td><code>find_first_of</code></td> <td>Find character in string (public member function)</td></tr>
+            <tr><td><code><a href="#find_first_of">find_first_of</a></code></td> <td>Find character in string (public member function)</td></tr>
             <tr><td><code>find_last_of</code></td> <td>Find character in string from the end (public member function)</td></tr>
             <tr><td><code>find_first_not_of</code></td> <td>Find non-matching character in string (public member function)</td></tr>
             <tr><td><code>find_last_not_of</code></td> <td>Find non-matching character in string from the end (public member function)</td></tr>
-            <tr><td><code>substr</code></td> <td>Generate substring (public member function)</td></tr>
+            <tr><td><code><a href="#substr">substr</a></code></td> <td>Generate substring (public member function)</td></tr>
             <tr><td><code>compare</code></td> <td>Compare strings (public member function)</td></tr>
           </table>
         </section>
@@ -333,6 +332,34 @@
         </section>
         <section>
           <h2>Member constants</h2>
+        </section>
+
+        <section id="at">
+          <h2>Member <code>at(<var>index</var>)</code></h2>
+          <pre>reference at(size_type <var>pos</var>);
+const_reference at(size_type <var>pos</var>) const;</pre>
+          <p>It returns a reference to the character at position <var>pos</var>. It automatically checks whether <var>pos</var> is the valid position of a character in the string (i.e., whether pos is less than the string length), throwing an <code class="classname">out_of_range</code> exception if it is not.</p>
+        </section>
+
+        <section id="substr">
+          <h2>Member <code>substr(<var>index</var>)</code></h2>
+          <pre>basic_string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const;</pre>
+          <p>It returns a newly constructed <code>basic_string</code> object with its value initialized to a copy of a substring of this object. The substring is the portion of the object that starts at character position <var>pos</var> and spans <var>len</var> characters (or until the end of the string, whichever comes first).</p>
+          <p>Example:</p>
+          <pre>// string::substr
+#include &lt;&lt;iostream&gt;
+#include &lt;&lt;string&gt;
+
+int main ()
+{
+  std::string str="We think in generalities, but we live in details.";
+                                              // (quoting Alfred N. Whitehead)
+  std::string str2 = str.substr (12,12);         // "generalities"
+  std::string::size_type pos = str.find("live"); // position of "live" in str
+  std::string str3 = str.substr (pos);           // get from "live" to the end
+  std::cout &lt;&lt;&lt;&lt; str2 &lt;&lt;&lt;&lt; ' ' &lt;&lt;&lt;&lt; str3 &lt;&lt;&lt;&lt; '\n';
+  return 0;
+}</pre>
         </section>
 
         <section id="insert">
@@ -453,8 +480,8 @@ basic_string&amp;  replace (const_iterator i1,
                             initializer_list&lt;charT&gt; il);</pre>
         <p>Example:</p>
         <pre>// replacing in a string
-#include <iostream>
-#include <string>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
 
 int main ()
 {
@@ -479,10 +506,109 @@ int main ()
   str.replace(str.begin()+8,str.begin()+14,"is coolness",7);    // "replace is cool!!!"    (4)
   str.replace(str.begin()+12,str.end()-4,4,'o');                // "replace is cooool!!!"  (5)
   str.replace(str.begin()+11,str.end(),str4.begin(),str4.end());// "replace is useful."    (6)
-  std::cout << str << '\n';
+  std::cout &lt;&lt; str &lt;&lt; '\n';
   return 0;
 }</pre>
+        </section>
 
+        <section id="copy">
+          <h2><code>std::basic_string::copy</code></h2>
+          <pre>size_type copy (charT* s, size_type len, size_type pos = 0) const;</pre>
+          <p>Copies a substring of the current value of the basic_string object into the array pointed by s. This substring contains the len characters that start at position pos.</p>
+          <p>The function does not append a null character at the end of the copied content.</p>
+          <p><strong>Return value</strong>: The number of characters copied to the array pointed by s. This may be equal to len or to length()-pos (if the string value is shorter than pos+len).</p>
+          <p>Example:</p>
+          <pre>// string::copy
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main ()
+{
+  char buffer[20];
+  std::string str ("Test string...");
+  std::size_t length = str.copy(buffer,6,5);
+  buffer[length]='\0';
+  std::cout &lt;&lt; "buffer contains: " &lt;&lt; buffer &lt;&lt; '\n';
+  return 0;
+}</pre>
+        </section>
+
+        <section id="find">
+          <h2><code>std::basic_string::find</code></h2>
+          <pre>
+size_type find (const basic_string&amp; str, size_type pos = 0) const noexcept;
+size_type find (const charT* s, size_type pos = 0) const;
+size_type find (const charT* s, size_type pos, size_type n) const;
+size_type find (charT c, size_type pos = 0) const noexcept;</pre>
+          <p>Searches the basic_string for the first occurrence of the sequence specified by its arguments.</p>
+          <p>When pos is specified, the search only includes characters at or after position pos, ignoring any possible occurrences that include characters before pos.</p>
+          <p>Example:</p>
+          <pre>// string::find
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main ()
+{
+  std::string str ("There are two needles in this haystack with needles.");
+  std::string str2 ("needle");
+
+  // different member versions of find in the same order as above:
+  std::string::size_type found = str.find(str2);
+  if (found!=std::string::npos)
+    std::cout &lt;&lt; "first \'needle\' found at: " &lt;&lt; found &lt;&lt; '\n';
+
+  found=str.find("needles are small",found+1,6);
+  if (found!=std::string::npos)
+    std::cout &lt;&lt; "second \'needle\' found at: " &lt;&lt; found &lt;&lt; '\n';
+
+  found=str.find("haystack");
+  if (found!=std::string::npos)
+    std::cout &lt;&lt; "\'haystack\' also found at: " &lt;&lt; found &lt;&lt; '\n';
+
+  found=str.find('.');
+  if (found!=std::string::npos)
+    std::cout &lt;&lt; "Period found at: " &lt;&lt; found &lt;&lt; '\n';
+
+  // let's replace the first needle:
+  str.replace(str.find(str2),str2.length(),"preposition");
+  std::cout &lt;&lt; str &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+        </section>
+
+        <section id="find_first_of">
+          <h2><code>std::basic_string::find_first_of</code></h2>
+          <pre>
+size_type find_first_of (const basic_string&amp; str,
+                         size_type pos = 0) const noexcept;
+size_type find_first_of (const charT* s,
+                         size_type pos = 0) const;
+size_type find_first_of (const charT* s,
+                         size_type pos,
+                         size_type n) const;
+size_type find_first_of (charT c,
+                         size_type pos = 0) const noexcept;</pre>
+          <p>Example:</p>
+          <pre>// string::find_first_of
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main ()
+{
+  std::string str (&quot;PLease, replace the vowels in this sentence by asterisks.&quot;);
+  std::string::size_type found = str.find_first_of(&quot;aeiou&quot;);
+  while (found!=std::string::npos)
+  {
+    str[found]='*';
+    found=str.find_first_of(&quot;aeiou&quot;,found+1);
+  }
+
+  std::cout &lt;&lt; str &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+          <p></p>
         </section>
 
       </section>
