@@ -30,13 +30,76 @@
         <p><a rel="next"      href="cpp.html">The C++ Programming Language</a></p>
         <p><a                 href="cpp.classes.html">OOP in C++: Classes</a></p>
         <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
-        <p><a            href="js.html">JavaScript: the Internet Programming Language</a></p>
+        <p><a                 href="js.html">JavaScript: the Internet Programming Language</a></p>
       </div>
     </nav>
 
     <main>
       <h1>Classes of Objects</h1>
+      <p style="text-align: right">(From <cite>Professional C++</cite>, by Marc Gregoire)</p>
+      <p>Object Oriented Programming deals with classes instead of functions. A <dfn>class</dfn> models a kind of object in the real world. OOP code works on <dfn>objects</dfn>, that is class instantiations [...]</p>
 
+      <section>
+        <h2>Class Relationships</h2>
+        <p>As a programmer, you will encounter cases where different classes have characteristics in common, or seem somehow related to each other. Object-oriented languages provide a number of mechanisms for dealing with such relationships between classes. The tricky part is to understand what the relationship actually is. There are two main types of class relationships—a <strong>has-a</strong> relationship and an <strong>is-a</strong> relationship.</p>
+        <dl>
+
+          <dt>The <strong>Has-a</strong> Relationship</dt>
+          <dd>
+            <p>Classes engaged in a has-a relationship follow the pattern A has a B, or A contains a B. In this type of relationship, you can envision one class as part of another.</p>
+            <p>A real-world example of this might be the relationship between a zoo and a monkey. You could say that a zoo has a monkey or a zoo contains a monkey. A simulation of a zoo in code would have a zoo class, which has a monkey class, too.</p>
+            <p>Often, thinking about user interface scenarios is helpful in understanding class relationships. This is so because even though not all UIs are implemented in OOP (though these days, most are), the visual elements on the screen translate well into classes. One UI analogy for a has-a relationship is a window that contains a button. The button and the window are clearly two separate classes, but they are obviously related in some way. Because the button is inside the window, you say that the window has a button.</p>
+            <p>There are two types of has-a relationships:</p>
+            <ul>
+              <li><dfn>Aggregation</dfn>: With aggregation, the aggregated objects (components) can continue to live when the aggregator is destroyed. For example, suppose a zoo object contains a bunch of animal objects. When the zoo object is destroyed because it went bankrupt, the animal objects are (ideally) not destroyed; they are moved to another zoo.</li>
+              <li><dfn>Composition</dfn>: With composition, if an object composed of other objects is destroyed, those other objects are destroyed as well. For example, if a window object containing buttons is destroyed, those button objects are destroyed as well.</li>
+            </ul>
+          </dd>
+
+          <dt>The <strong>Is-a</strong> Relationship (Inheritance)</dt>
+          <dd>
+            <p>The is-a relationship is such a fundamental concept of object-oriented programming that it has many names, including deriving, subclassing, extending, and inheriting. Classes model the fact that the real world contains objects with properties and behaviors. Inheritance models the fact that these objects tend to be organized in hierarchies. These hierarchies indicate is-a relationships.</p>
+            <p>Fundamentally, inheritance follows the pattern A is a B or A is really quite a bit like B—it can get tricky. To stick with the simple case, revisit the zoo, but assume that there are other animals besides monkeys. That statement alone has already constructed the relationship—a monkey is an animal. Similarly, a giraffe is an animal, a kangaroo is an animal, and a penguin is an animal. So what? Well, the magic of inheritance comes when you realize that monkeys, giraffes, kangaroos, and penguins have certain things in common. These commonalities are characteristics of animals in general.</p>
+            <p>What this means for the programmer is that you can define an Animal class that encapsulates all of the properties (size, location, diet, and so on) and behaviors (move, eat, sleep) that pertain to every animal. The specific animals, such as monkeys, become derived classes of Animal because a monkey contains all the characteristics of an animal. Remember, a monkey is an animal plus some additional characteristics that make it distinct.</p>
+            <p>Just as monkeys and giraffes are different types of animals, a user interface often has different types of buttons. A checkbox, for example, is a button. Assuming that a button is simply a UI element that can be clicked to perform an action, a Checkbox extends the Button class by adding state—whether the box is checked or unchecked.</p>
+            <p>When relating classes in an is-a relationship, one goal is to factor common functionality into the base class, the class that other classes extend. If you find that all of your derived classes have code that is similar or exactly the same, consider how you could move some or all of that code into the base class. That way, any changes that need to be made only happen in one place and future derived classes get the shared functionality <q>for free.</q></p>
+            <p><strong>NOTE:</strong> Sometimes, it is clear whether a relationship represents a has-a or an is-a relationship. Other times, it is not so clear. If you can choose, has-a is preferred over is-a, as explained with an example further down.</p>
+          </dd>
+
+        </dl>
+
+      </section>
+
+      <section>
+        <h2>Inheritance Techniques</h2>
+        <p>When deriving classes, there are several ways that the programmer can distinguish a class from its <dfn>parent class</dfn>, also called <dfn>base class</dfn> or <dfn>superclass</dfn>. A derived class may use one or more of these techniques, and they are recognized by completing the sentence, <q>A is a B that is ….</q></p>
+        <dl>
+
+          <dt>Adding Functionality</dt>
+          <dd>
+            <p>A derived class can augment its parent by adding additional functionality. For example, a monkey is an animal that can swing from trees. In addition to having all of the member functions of Animal, the Monkey class also has a swingFromTrees() member function, which is specific to only the Monkey class.</p>
+          </dd>
+
+          <dt>Replacing Functionality</dt>
+          <dd>
+            <p>A derived class can replace or override a member function of its parent entirely. For example, most animals move by walking, so you might give the Animal class a move() member function that simulates walking. If that&apos;s the case, a kangaroo is an animal that moves by hopping instead of walking. All the other properties and member functions of the Animal base class still apply, but the Kangaroo derived class simply changes the way that the move() member function works. Of course, if you find yourself replacing all of the functionality of your base class, it may be an indication that inheriting was not the correct thing to do after all, unless the base class is an abstract base class. An abstract base class forces each of the derived classes to implement all member functions that do not have an implementation in the abstract base class. You cannot create instances of an abstract base class.<!-- Abstract base classes are discussed in Chapter 10, “Discovering Inheritance Techniques.”--></p>
+          </dd>
+
+          <dt>Adding Properties</dt>
+          <dd>
+            <p>A derived class can also add new properties to the ones that are inherited from the base class. For example, a penguin has all the properties of an animal but also has a beak size property.</p>
+          </dd>
+
+          <dt>Polymorphism</dt>
+          <dd>
+            <p><dfn><a target="_blank" href="polymorphism.html">Polymorphism</a></dfn> is the notion that objects that adhere to a standard set of properties and member functions can be used interchangeably. A class definition is like a contract between objects and the code that interacts with them. By definition, any Monkey object must support the properties and member functions of the Monkey class.</p>
+            <p>This notion extends to base classes as well. Because all monkeys are animals, all Monkey objects support the properties and member functions of the Animal class as well.</p>
+            <p>Polymorphism is a beautiful part of object-oriented programming because it truly takes advantage of what inheritance offers. In a zoo simulation, you could programmatically loop through all of the animals in the zoo and have each animal move once. Because all animals are members of the Animal class, they all know how to move. Some of the animals have overridden the move member function, but that&apos;s the best part—your code simply tells each animal to move without knowing or caring what type of animal it is. Each one moves whichever way it knows how.</p>
+          </dd>
+
+        </dl>
+
+      </section>
 
     </main>
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Design by Contract</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+        <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
+      -->
+      <div>
+        <p><a rel="prev"      href="oop.html">Object Oriented Programming</a></p>
+        <p><a rel="next"      href="SOLID.html">The SOLID Principles (of OOP)</a></p>
+        <p><a                 href="adt.html">Abstract Data Types</a></p>
+        <p><a                 href="oop.classes.html">Classes of Objects</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <p>The central idea of DbC is a metaphor on how elements of a software system collaborate with each other on the basis of mutual <em>obligations</em> and <em>benefits</em>.</p>
+
+      <h1>Design by Contract (Bertrand Meyer)</h1>
+
+      <p>Design by contract (DbC), also known as contract programming, programming by contract and design-by-contract programming, is an approach for designing software.</p>
+      <p>It prescribes that software designers should define formal, precise and verifiable interface specifications for software components, which extend the ordinary definition of abstract data types with preconditions, postconditions and invariants. These specifications are referred to as "contracts", in accordance with a conceptual metaphor with the conditions and obligations of business contracts.</p>
+      <p>The DbC approach assumes all client components that invoke an operation on a server component will meet the preconditions specified as required for that operation.</p>
+      <p>Where this assumption is considered too risky (as in multi-channel or distributed computing), the inverse approach is taken, meaning that the server component tests that all relevant preconditions hold true (before, or while, processing the client component&apos;s request) and replies with a suitable error message if not.</p>
+
+      <hr/>
+
+      <p>The notion of a contract extends down to the method/procedure level; the contract for each method will normally contain the following pieces of information:</p>
+      <ul>
+        <li>Acceptable and unacceptable input values or types, and their meanings</li>
+        <li>Return values or types, and their meanings</li>
+        <li>Error and exception condition values or types that can occur, and their meanings</li>
+        <li>Side effects</li>
+        <li>Preconditions</li>
+        <li>Postconditions</li>
+        <li>Invariants</li>
+        <li>(more rarely) Performance guarantees, e.g. for time or space used</li>
+      </ul>
+
+      <p>Subclasses in an inheritance hierarchy are allowed to weaken preconditions (but not strengthen them) and strengthen postconditions and invariants (but not weaken them). These rules approximate behavioural subtyping.</p>
+
+      <hr/>
+
+      <p>In many programming languages, contracts are implemented with assert. Asserts are by default compiled away in release mode in C/C++, and similarly deactivated in C# and Java.</p>
+      <p>This effectively eliminates the run-time costs of asserts in production code—irrespective of the number and computational expense of asserts used in development—as no such instructions will be included in production by the compiler.</p>
+
+    </main>
+
+  </body>
+
+</html>

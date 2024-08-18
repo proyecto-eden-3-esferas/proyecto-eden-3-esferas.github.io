@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The SOLID Principles</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
+        <p><a                 href="adt.html">Abstract Data Types</a></p>
+        <p><a                 href="oop.classes.html">Classes of Objects</a></p>
+        <p><a rel="prev"      href="programming.html">Programming: Getting Computers to Do Stuff</a></p>
+      </div>
+      <div>
+        <p><a rel="next"      href="cpp.html">The C++ Programming Language</a></p>
+        <p><a                 href="js.html">JavaScript: the Internet Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The SOLID Principles (of OOP)</h1>
+      <p>Each of the following principles can stand on its own and has the goal to improve the robustness and maintainability of object-oriented applications and software components. But they also add to each other so that applying all of them makes the implementation of each principle easier and more effective.</p>
+      <dl>
+
+        <dt>Single Responsibility Principle (SRP)</dt>
+        <dd>A single component should have a single, well-defined responsibility and should not combine unrelated functionality.</dd>
+
+        <dt>Open/Closed Principle (OCP)</dt>
+        <dd>A class should be open to extension, but closed for modification. Inheritance is one way to accomplish this. Other mechanisms are templates, function overloading, and more. In general, we speak about customization points in this context.</dd>
+
+        <dt>Liskov Substitution Principle (LSP)</dt>
+        <dd>
+          <p>You should be able to replace an instance of an object with an instance of a subtype of that object without breaking the application.</p>
+          <p>You can achieve that by following a few rules, which are pretty similar to the <a href="design-by-contract.html">design by contract</a> concept defined by Bertrand Meyer.</p>
+          <p>An overridden method of a subclass needs to accept the same input parameter values as the method of the superclass. That means you can implement less restrictive validation rules, but you are not allowed to enforce stricter ones in your subclass. Otherwise, any code that calls this method on an object of the superclass might cause an exception, if it gets called with an object of the subclass.</p>
+          <p>Similar rules apply to the return value of the method. The return value of a method of the subclass needs to comply with the same rules as the return value of the method of the superclass. You can only decide to apply even stricter rules by returning a specific subclass of the defined return value, or by returning a subset of the valid return values of the superclass.</p>
+        </dd>
+
+        <dt>Interface Segregation Principle (ISP)</dt>
+        <dd>Keep interfaces clean and simple. It is better to have many smaller, well-defined single-responsibility interfaces than to have broad, general-purpose interfaces.</dd>
+
+        <dt>Dependency Inversion Principle (DIP)</dt>
+        <dd>
+          <p>The general idea is quite simple: High-level modules, which provide complex logic, should be easily reusable and unaffected by changes in low-level modules, which provide utility features. To achieve that, you need to introduce an abstraction that decouples the high-level and low-level modules from each other.</p>
+          <p>Based on this idea, Robert C. Martin&apos;s definition of the Dependency Inversion Principle consists of two parts:</p>
+          <ol>
+            <li>High-level modules should not depend on low-level modules. Both should depend on abstractions.</li>
+            <li>Abstractions should not depend on details. Details should depend on abstractions.</li>
+          </ol>
+          <p>An important detail of this definition is, that high-level and low-level modules depend on the abstraction. The design principle does not just change the direction of the dependency, as you might have expected when you read its name for the first time. It splits the dependency between the high-level and low-level modules by introducing an abstraction between them. So in the end, you get two dependencies:</p>
+          <ol>
+            <li>the high-level module depends on the abstraction, and</li>
+            <li>the low-level depends on the same abstraction.</li>
+          </ol>
+        </dd>
+
+      </dl>
+
+
+
+
+    </main>
+
+  </body>
+
+</html>

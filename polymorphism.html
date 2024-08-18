@@ -44,7 +44,7 @@
       <ul>
         <li>Polymorphism is a feature of object-oriented programming languages that allows a specific routine to use variables of different types at different times.</li>
         <li>Polymorphism in programming gives a program the ability to redefine methods for derived classes.</li>
-        <li>Five different types of polymorphism that are commonly used in various programming languages are <a href="ad-hoc">Ad-hoc</a>, <a href="parametric">Parametric</a>, <a href="subtyping">Subtyping</a>, <del><a href="row">Row</a>,</del> and <a href="polytypism">Polytypism</a>.</li>
+        <li>Four different types of polymorphism that are commonly used in various programming languages are <a href="ad-hoc">Ad-hoc</a>, <a href="parametric">Parametric</a>, and <a href="subtyping">Subtyping</a>.</li>
       </ul>
 
       <section id="ad-hoc">
@@ -53,27 +53,15 @@
       </section>
 
       <section if="parametric">
-        <h2>Parametric Polymorphism (overloading for type</h2>
+        <h2>Parametric Polymorphism (overloading for type)</h2>
         <p>Parametric polymorphism allows programmers to write generic functions that can treat values the same way regardless of their type. Put differently, a parametric function is a piece of code that treats all data the same way, regardless of its type. Parametric polymorphism is used to write generic functions that operate on data sets, regardless of the specific type of each element in the set.</p>
+        <p>In <a href="cpp.html">C++</a>, parametric polymorphism is realized through <a href="cpp.templates.html">templates</a>.</p>
       </section>
 
       <section id="subtyping">
         <h2>Subtyping polymorphism in object-oriented programming</h2>
-        <p>Let&apos;s assume a geometry hierarchy where we have defined a class called <code>shapes</code> and derived classes called <code>circle</code> and <code>rectangle</code>. In <dfn>subtyping</dfn>, we define a supertype that may have several subtypes where various functions or subroutines were written to operate on the supertype and can also operate on the various subtypes.</p>
+        <p>Let&apos;s assume a geometry hierarchy where we have defined a class called <code>shape</code> and derived classes called <code>circle</code> and <code>rectangle</code>. In <dfn>subtyping</dfn>, we define a supertype that may have several subtypes where various functions or subroutines were written to operate on the supertype and can also operate on the various subtypes.</p>
         <p>Each subtype is a variety of the supertype that shares some, but not all of its characteristics. Subtype polymorphism allows a function that would normally operate on a shape-type object to also operate on objects that belong to any of the subtypes of <code>shape</code>. You can write a method that takes a <code>shape</code> as a parameter, but you can also apply it to <code>circle</code> because a <code>circle</code> is a subtype of a <code>shape</code>.</p>
-      </section>
-
-      <del>
-      <section id="row">
-        <h2>Row polymorphism</h2>
-        <p>Row polymorphism is a special type of polymorphism that deals with records in databases or spreadsheets, commonly referred to as <dfn>rows</dfn>. Row polymorphism can be used to write programs that operate solely on a specified record section.</p>
-      </section>
-      </del>
-
-      <section id="polytypism">
-        <h2>Polytypism</h2>
-        <p><dfn>Polytypism</dfn>, or <dfn>data type genericity</dfn>, is used in generic polymorphism programming. In generic programming, programmers create algorithms to specify the types later. The required types can be provided as parameters when the algorithm is instantiated later. A generic type is also known as a parameterized type.</p>
-        <p>In <a href="cpp.html">C++</a>, polytypism is realized through <a href="cpp.templates.html">templates</a>.</p>
       </section>
 
     </main>
