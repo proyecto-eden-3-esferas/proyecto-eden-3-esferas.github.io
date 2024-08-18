@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>constexpr and consteval (C++)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself (<em>online</em>)</p>
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>constexpr</code> and <code>consteval</code></h1>
+      <p>In modern C++, it&apos;s possible to easily perform computations at compile time instead of at run time. This improves the run-time performance of your code. Two important keywords are used to accomplish this: constexpr and consteval.</p>
+      <section id="constexpr">
+        <h2>The <code>constexpr</code> Keyword</h2>
+        <p>C++ always had the notion of constant expressions, which are expressions evaluated at compile time. In some circumstances, constant expressions are a requirement. For example, when defining an array, the size of the array needs to be a constant expression. Because of this restriction, the following piece of code is not valid in C++:</p>
+        <pre>const int getArraySize() { return 32; }
+
+int main()
+{
+  int myArray[getArraySize()]; // ERROR: Invalid in C++
+  println("Size of array = {}", size(myArray));
+}</pre>
+<p>Using the constexpr keyword, getArraySize() can be redefined to allow it to be called from within a constant expression:</p>
+<pre>constexpr int getArraySize() { return 32; }
+
+int main()
+{
+  int myArray[getArraySize()]; // OK
+  println("Size of array = {}", size(myArray));
+}</pre>
+
+        <p>You can even do something like this:</p>
+        <pre>int myArray[getArraySize() + 1]; // OK</pre>
+        <p>Constant expressions can only use constexpr entities and integer, Boolean, character, and enumeration constants.</p>
+        <p>Declaring a function as <code>constexpr</code> imposes restrictions on what the function can do because the compiler has to be able to evaluate the function at compile time. For example, a <code>constexpr</code> function is not allowed to have any side effects, nor can it let any exceptions escape the function. Throwing exceptions and catching them in <code>try</code> blocks inside the function is allowed. A <code>constexpr</code> function is allowed to unconditionally call other <code>constexpr</code> functions. It is also allowed to call non-<code>constexpr</code> functions, but only if those calls are triggered during evaluation at run time, and not during constant evaluation. For example:</p>
+        <pre>void log(string_view message) { print("{}", message); }
+
+constexpr int computeSomething(bool someFlag)
+{
+  if (someFlag) {
+    log("someFlag is true");
+    return 42;
+  } else { return 84;}
+}</pre>
+        <p>The computeSomething() function is <code>constexpr</code> and includes a call to log(), which is non-<code>constexpr</code>, but that call is executed only when someFlag is true. As long as computeSomething() is called with <var>someFlag</var> set to false, it can be called within a constant expression, for example:</p>
+        <pre>constexpr auto value1 { computeSomething(false) };</pre>
+        <p>Calling the function with <var>someFlag</var> set to true cannot be done in a constant expression. The following does not compile:</p>
+        <pre>constexpr auto value2 { computeSomething(true) };</pre>
+        <p>The following works fine, as the evaluation now happens at run time instead of at compile time:</p>
+        <pre>const auto value3 { computeSomething(true) };</pre>
+        <p>C++23 relaxes the restrictions for constexpr functions a bit: <code>goto</code> statements, labels (besides case labels), and <code>static</code> and <code>static constexpr</code> variables are now allowed in <code>constexpr</code> functions, but were not allowed before.</p>
+      </section>
+
+      <section id="consteval">
+        <h2>The <code>consteval</code> Keyword</h2>
+        <p>The <code>constexpr</code> keyword specifies that a function could be executed at compile time, but it does not guarantee compile-time execution. Take the following constexpr function:</p>
+        <pre>constexpr double inchToMm(double inch) { return inch * 25.4; }</pre>
+        <p>If called as follows, the function is evaluated at compile time as desired:</p>
+        <pre>constexpr double const_inch { 6.0 };
+constexpr double mm1 { inchToMm(const_inch) }; // at compile time</pre>
+        <p>However, if called as follows, the function is not evaluated at compile time, but at run time!</p>
+        <pre>double dynamic_inch { 8.0 };
+double mm2 { inchToMm(dynamic_inch) }; // at run time</pre>
+        <p>If you really want the guarantee that a function is always evaluated at compile time, you need to use the <code>consteval</code> keyword to turn a function into an immediate function. The inchToMm() function can be changed as follows:</p>
+        <pre>constevaldouble inchToMm(double inch) { return inch * 25.4; }</pre>
+        <p>Now, the call to inchToMm() in the definition of mm1 earlier still compiles fine and results in compile-time evaluation. However, the call in the definition of mm2 now results in a compilation error because it cannot be evaluated at compile time.</p>
+        <h4>C++23</h4>
+        <p>An immediate function can be called only during constant evaluation. For example, suppose you have the following immediate function:</p>
+        <pre>consteval int f(int i) { return i; }</pre>
+        <p>This immediate function can be called from a <code>constexpr</code> function, but only when the <code>constexpr</code> function is being executed during constant evaluation. For example, the following function uses an if <code>consteval</code> statement to check if constant evaluation is happening in which case it can call f(). In the else branch, f() cannot be called.</p>
+        <pre>constexpr int g(int i)
+{
+  if consteval { return f(i); }
+  else { return 42; }
+}</pre>
+      </section>
+
+      <section id="classes">
+        <h2><code>constexpr</code> and <code>consteval</code> Classes</h2>
+        <p>By defining a <code>constexpr</code> or <code>consteval</code> constructor, you can create constant-expression variables of user-defined types. Just as <code>constexpr</code> functions, <code>constexpr</code> classes may or may not be evaluated at compile time, while consteval classes are guaranteed to be evaluated at compile time.</p>
+        <p>The following Matrix class defines a <code>constexpr</code> constructor. It also defines a <code>constexpr getSize()</code> member function that is performing some calculation.</p>
+        <pre>class Matrix
+{
+  public:
+  Matrix() = default; // Implicitly constexpr
+
+  constexpr explicit Matrix(unsigned rows, unsigned columns)
+  : m_rows { rows }, m_columns { columns } { }
+
+  constexpr unsigned getSize() const { return m_rows * m_columns; }
+private:
+  unsigned m_rows { 0 }, m_columns { 0 };
+};</pre>
+        <p>Using this class to declare <code>constexpr</code> objects is straightforward:</p>
+        <pre>constexpr Matrix matrix { 8, 2 };
+constexpr Matrix matrixDefault;</pre>
+        <p>Such a constexpr object can now be used, e.g., to create an array big enough to store the matrix in linear form:</p>
+        <pre>int linearizedMatrix[matrix.getSize()]; // OK</pre>
+        <p>Compiler-generated (either implicitly or explicitly using <code>=default</code>) member functions, such as default constructors, destructors, assignment operators, and so on, are automatically <code>constexpr</code> unless the class contains data members where those member functions are not <code>constexpr</code>.</p>
+        <p>The definition of constexpr and consteval member functions must be available for the compiler so they can be evaluated at compile time. This means that if the class is defined in a module, such member functions must be defined in the module interface file, not in a module implementation file.</p>
+        <p><strong>NOTE</strong> Several classes from the Standard Library are constexpr and so can be used within other constexpr functions and classes. Examples are std::vector, optional, string, unique_ptr , bitset , and variant.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
