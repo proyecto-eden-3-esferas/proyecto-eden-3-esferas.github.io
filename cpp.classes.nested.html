@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nested Classes in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p><a rel="prev"  href="cpp.classes">OOP Classes in C++</a></p>
+        <p><a             href="cpp.classes.data-members">Different Kinds of Data Members in C++</a></p>
+        <p><a             href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
+        <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+
+      <h1>Classes within Classes in C++: Nested Classes</h1>
+
+      <p>You can provide a class definition inside another class definition. For example, you might decide that the SpreadsheetCell class is really part of the Spreadsheet class. And since it becomes part of the Spreadsheet class, you might as well rename it to Cell. You could define both of them like this:</p>
+      <pre>export class Spreadsheet
+{
+public:
+  class Cell
+  {
+  public:
+    Cell() = default;
+    Cell(double initialValue);
+    // Remainder omitted for brevity
+  };
+
+  Spreadsheet(std::size_t width, std::size_t height,
+    const SpreadsheetApplication&amp; theApp;
+  // Remainder of Spreadsheet declarations omitted forbrevity
+};</pre>
+      <p>Now, the Cell class is defined inside the Spreadsheet class, so anywhere you refer to a Cell outside of the Spreadsheet class, you must qualify the name with the <code>Spreadsheet::</code> scope. This applies even to the member function definitions. For example, the double constructor of Cell now looks like this:</p>
+      <pre>Spreadsheet::Cell::Cell(double initialValue)
+: m_value { initialValue }
+{
+}</pre>
+      <p>You must even use the syntax for return types (but not parameters) of member functions in the Spreadsheet class itself:</p>
+      <pre>const Spreadsheet::Cell&amp; Spreadsheet::getCellAt(size_t x, size_t y) const
+{
+  verifyCoordinate(x, y);
+  return m_cells[x][y];
+}</pre>
+      <p>Fully defining the nested Cell class directly inside the Spreadsheet class makes the definition of the Spreadsheet class a bit bloated. You can alleviate this by only including a forward declaration for Cell in the Spreadsheet class and then defining the Cell class separately, as follows:</p>
+      <pre>export class Spreadsheet
+{
+public:
+  class Cell;
+
+  Spreadsheet(std::size_t width, std::size_t height,
+    const SpreadsheetApplication&amp; theApp;
+  // Remainder of Spreadsheet declarations omitted for brevity
+};
+
+class Spreadsheet::Cell
+{
+public:
+  Cell() = default;
+  Cell(double initialValue);
+  // Omitted for brevity
+};</pre>
+      <p>Normal access control applies to nested class definitions. If you declare a private or protected nested class, you can only use it from inside the outer class. A nested class has access to all protected and private members of the outer class. The outer class on the other hand can only access public members of the nested class.</p>
+
+    </main>
+
+  </body>
+
+</html>

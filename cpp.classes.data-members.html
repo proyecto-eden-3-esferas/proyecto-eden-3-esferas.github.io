@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Members in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p>
+          <a rel="prev" href="cpp.classes.html">The C++ Programming Language</a>
+        </p>
+        <p>
+          <a href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a>
+        </p>
+        <p>
+          <a href="cpp.html">The C++ Programming Language</a>
+        </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Different Kinds of Data Members in C++</h1>
+      <p>C++ gives you several choices for data members. In addition to declaring simple data members in your classes, you can create <code>static</code> data members that all objects of the class share, <code>const</code> members, reference members (<code>T&amp;</code>), reference-to-const members, and more.</p>
+      <section id="static">
+        <h2><code>static</code> Data Members</h2>
+        <p>Sometimes giving each object of a class a copy of a variable is overkill or won't work. The data member might be specific to the class, but not appropriate for each object to have its own copy.</p>
+        <p>A common situation is for each object of a class to have a unique numerical identifier. You would also need a counter that starts at 0 from which each new object could obtain its ID. This counter really belongs to the class, and it doesn't make sense for each object to have a copy of it, because you would have to keep all the counters synchronized somehow. C++ provides a solution with <code>static</code> data members. A static data member is a data member associated with a class instead of an object. You can think of static data members as global variables specific to a class. Here is the MyClass class definition, including the new static counter data member:</p>
+        <pre>export class MyClass
+{
+// Omitted for brevity
+private:
+  static std::size_t counter;
+};</pre>
+        <p>In addition to listing static class members in the class definition, you will have to allocate space for them in a source file, usually the source file in which you place your class member function definitions. You can initialize them at the same time, but note that unlike normal variables and data members, they are initialized to 0 by default. Static pointers are initialized to <code>nullptr</code>. Here is the code to allocate space for, and zero-initialize, variable <var>counter</var>:</p>
+        <pre>size_t MyClass::counter;</pre>
+        <p>Static data members are zero-initialized by default, but if you want, you can explicitly initialize them to 0 as follows:</p>
+        <pre>size_t MyClass::counter { 0 };</pre>
+        <p>This code appears outside of any function or member function bodies. It's almost like declaring a global variable, except that the <code>MyClass::</code> scope resolution specifies that it's part of the MyClass class.</p>
+        <p>Just as for normal data members, access control specifiers apply to static data members as well. You could make the <var>counter</var> data member public, but, as you already know, it's not recommended to have public data members (<code>const static</code> data members discussed in an upcoming section are an exception). You should grant access to data members through public getters and setters. If you want to grant access to static data members, you can provide public static get/set member functions.</p>
+        <section id="inline_static">
+          <h3>Inline Variables</h3>
+          <p>You can declare your static data members as <code>inline</code>. The benefit of this is that you do not have to allocate space for them in a source file. Here's an example:</p>
+          <pre>export class MyClass
+{
+  // Omitted for brevity
+private:
+  static inline std::size_t counter { 0 };
+};</pre>
+          <p>Note the <code>inline</code> keyword. With this class definition, the following line can be removed from the source file:</p>
+          <pre>size_t MyClass::counter; // redundant, actually</pre>
+        </section>
+        <section id="accessing_static">
+          <h3>Accessing static Data Members from within Class Member Functions</h3>
+          <p>You can use static data members as if they were regular data members from within class member functions. For example, you might want to create an m_id data member for the MyClass class and initialize it from counter in the MyClass constructor. Here is the MyClass class definition with an m_id member:</p>
+          <pre>export class MyClass
+{
+public:
+  // Omitted for brevity
+  std::size_t getId() const;
+private:
+  // Omitted for brevity
+  static inline std::size_t counter { 0 };
+  std::size_t m_id { 0 };
+};</pre>
+          <p>Here is an implementation of the MyClass constructor that assigns the initial ID:</p>
+          <pre>MyClass::MyClass(size_t width, size_t height)
+: m_id { counter++ } // , ... (omitted)
+{
+  // Omitted for brevity
+}</pre>
+          <p>As you can see, the constructor can access <var>counter</var> as if it were a normal member. The copy constructor should also assign a new ID. This is handled automatically because the MyClass copy constructor delegates to the non-copy constructor, which creates the new ID.</p>
+          <p>For this example, assume that once an ID is assigned to an object, it never changes. So, you should not copy the ID in the copy assignment operator. Thus, it's recommended to make m_id a <code>const</code> data member:</p>
+          <pre>export class MyClass
+{
+private:
+  // Omitted for brevity
+  const std::size_t m_id { 0 };
+};</pre>
+          <p>Since const data members cannot be changed once created, it's, for example, not possible to initialize them inside the body of a constructor. Such data members must be initialized either directly inside the class definition or in the ctor-initializer of a constructor. This also means you cannot assign new values to such data members in an assignment operator. This is not a problem for <var>m_id</var>, because once a <code class="classname">MyClass</code> has an ID, it'll never change. However, depending on your use case, if this makes your class unassignable, the assignment operator is typically explicitly deleted.</p>
+        </section>
+        <section>
+          <h3><code>constexpr static</code> Data Members</h3>
+          <p>Data members in your class can be declared <code>const</code> or <code>constexpr</code>, meaning they can't be changed after they are created and initialized. You should use <code>static constexpr</code> (or <code>constexpr static</code>) data members in place of global constants when the constants apply only to the class, also called class constants. <code>static constexpr</code> data members of integral types and enumerations can be defined and initialized inside the class definition even without making them <code>inline</code> variables. For example, you might want to specify a maximum height and width for shape objects. If the user tries to construct one with a greater height or width than the maximum, the maximum is used instead. You can make the maximum height and width static constexpr members of the class:</p>
+          <pre>export class MyClass
+{
+public:
+  // Omitted for brevity
+  static constexpr std::size_t MaxHeight { 100 };
+  static constexpr std::size_t MaxWidth { 100 };
+};</pre>
+          <p>You can use these new constants in your constructor as follows:</p>
+          <pre>MyClass::MyClass(size_t width, size_t height)
+: m_id { ms_counter++ }
+, m_width { std::min(width, MaxWidth) }// std::min() defined in &lt;algorithm&gt;
+, m_height { std::min(height, MaxHeight) }
+{
+  // Omitted for brevity
+}</pre>
+          <p><strong>NOTE:</strong> Instead of automatically clamping the width and height to their maximum, you could also decide to throw an exception when the width or height exceed their maximum. However, the destructor will not be called when you throw an exception from a constructor, so you need to be careful with this.<!-- This is further explained in Chapter 14, which discusses error handling in detail.--></p>
+          <p>Such constants can also be used as default values for parameters. Remember that you can only give default values for a continuous set of parameters starting with the rightmost parameter. Here is an example:</p>
+          <pre>export class MyClass
+{
+public:
+  explicit MyClass(
+    std::size_t width = MaxWidth, std::size_t height = MaxHeight);
+  // Omitted for brevity
+};</pre>
+        </section>
+        <section>
+          <h3>Accessing <code>static</code> Data Members from Outside Class Member Functions</h3>
+          <p>As mentioned earlier, access control specifiers apply to static data members: MaxWidth and MaxHeight are public, so they can be accessed from outside class member functions by specifying that the variable is part of the MyClass class using the :: scope resolution operator. For example:</p>
+          <pre>println("Maximum height is: {}", MyClass::MaxHeight);</pre>
+        </section>
+      </section>
+      <section>
+        <h3>Reference Data Members</h3>
+        <p>MyClass's and such are great, but they don't make a useful application by themselves. You need code to control the entire MyClass program, which you could package into a MyClassApplication class. Suppose further that we want each MyClass to store a reference to the application object. The exact definition of the MyClassApplication class is not important at this moment, so the following code simply defines it as an empty class. The MyClass class is modified to include a new reference data member called <var>m_theApp</var>:</p>
+        <pre>export class MyClassApplication { };
+
+export class MyClass
+{
+public:
+  MyClass(std::size_t width, std::size_t height,
+  MyClassApplication&amp; theApp);
+  // Code omitted for brevity.
+private:
+  // Code omitted for brevity.
+  MyClassApplication&amp; m_theApp;
+};</pre>
+        <p>This definition adds a <code>MyClassApplication</code> reference as a data member. It's recommended to use a reference in this case instead of a pointer because a MyClass should always refer to a MyClassApplication. This would not be guaranteed with a pointer.</p>
+        <p>Note that storing a reference to the application is done only to demonstrate the use of references as data members. It's not recommended to couple the MyClass and MyClassApplication classes together in this way, but instead to use a paradigm such as Model-View-Controller (MVC)<!--, introduced in Chapter 4, “Designing Professional C++ Programs”-->.</p>
+        <p>The application reference is given to each MyClass in its constructor. A reference cannot exist without referring to something, so <var>m_theApp</var> must be given a value in the ctor-initializer of the constructor.</p>
+        <pre>MyClass::MyClass(size_t width, size_t height,
+MyClassApplication&amp; theApp)
+: m_id { ms_counter++ }
+, m_width { std::min(width, MaxWidth) }
+, m_height { std::min(height, MaxHeight) }
+, m_theApp { theApp }
+{
+  // Code omitted for brevity.
+}</pre>
+        <p>You must also initialize the reference member in the copy constructor. This is handled automatically because the MyClass copy constructor delegates to the non-copy constructor, which initializes the reference data member.</p>
+        <p>Remember that after you have initialized a reference, you cannot change the object to which it refers. It's not possible to assign to references in the assignment operator. Depending on your use case, this might mean that an assignment operator cannot be provided for your class with reference data members. If that's the case, the assignment operator is typically marked as <code>deleted</code>.</p>
+        <p>Finally, a reference data member can also be marked as <code>const</code>. For example, you might decide that MyClasss should only have a reference-to-const to the application object. You can simply change the class definition to declare <var>m_theApp</var> as a reference-to-const:</p>
+        <pre>export class MyClass
+{
+public:
+  MyClass(std::size_t width, std::size_t height,
+    const MyClassApplication&amp; theApp);
+  // Code omitted for brevity.
+private:
+  // Code omitted for brevity.
+  const MyClassApplication&amp; m_theApp;
+};</pre>
+      </section>
+    </main>
+  </body>
+</html>
