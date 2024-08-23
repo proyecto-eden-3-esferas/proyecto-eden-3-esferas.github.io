@@ -34,6 +34,7 @@
         <p><a href='prolog.es.html'>Programación Lógica en <i>Prolog</i></a></p>
       -->
       <div>
+        <p><a href='prolog.html'>Prolog: Symbolic Programming or <i>Programation Logique</i> (<b>English</b>)</a></p>
         <p><a href='programacion.html'>Programación</a></p>
         <p><a href='algoritmo.html'>Algoritmos</a></p>
         <p><a href='herramientas.html'>Herramientas y máquinas</a></p>
@@ -47,40 +48,42 @@
 
     <main>
 
-      <p>La programación lógica es un ejemplo de programación declarativa, un paradigma opuesto a prácticamente todos los lenguajes de programación, desde <a href="ordenadores.html#ensamblador" target="_blank">ensamblador</a> a Python pasando por BASIC, <a href="c.html" target="_blank">C</a>, <a href="cpp.html" target="_blank">C++</a> o Java, a los que agrupamos en la categoría de la programación imperativa.</p>
+      <p>La programación lógica es un ejemplo de programación declarativa, un paradigma opuesto a prácticamente todos los lenguajes de programación, desde <a href="ordenadores.html#ensamblador" target="_blank">ensamblador</a> a Python pasando por BASIC, <a href="c.html" target="_blank">C</a>, <a href="cpp.html" target="_blank">C++</a> o Java, a los que agrupamos en la categoría de la <dfn>programación imperativa</dfn>.</p>
 
       <h1>Programación Lógica en <i>Prolog</i></h1>
 
-      <p>El lenguaje de programación Prolog (derivado de <q><i lang="fr">PROgrammation en LOGique</i></q>) nació lo creó Alain Colmerauer, un investigador de la Universidad de Marsella, a comienzos de los 70.</p>
+      <p>El lenguaje de programación Prolog (derivado de <q><i lang="fr">PROgrammation en LOGique</i></q>) lo creó Alain Colmerauer, un investigador de la Universidad de Marsella, a comienzos de los 70.</p>
 
       <hr/>
 
-      <p>Un programa Prolog se compone de un conjunto de datos (afirmaciones simples) y de reglas (que sirven para afirmar la veracidad de un dat basándose en otros). El conjunto de datos de un programa viene a ser el equivalente a contar con una base de datos, aunque en este contexto se habla de <dfn>base de conocimientos</dfn>.</p>
+      <p>Un programa Prolog se compone de un conjunto de datos (afirmaciones simples) y de reglas (que sirven para afirmar la veracidad de un dato basándose en otros). El conjunto de datos de un programa viene a ser el equivalente a contar con una base de datos, aunque en este contexto se habla de <dfn>base de conocimiento</dfn>.</p>
       <p>Ejemplo de datos:</p>
       <pre>es_hijo(Juanito, Juan)
 suma(10,5,15)</pre>
-      <p>Una vez definidos estos datos (de los cuales el primero significa <q>Juanito es hijo de Juan</q> y el segundo <q>15 es la suma de 10 y 5</q>), se pueden realizar preguntas al programa, que terminarán siempre en un punto, como el siguiente:</p>
+      <p>Una vez definidos estos datos (de los cuales el primero significa <q>Juanito es hijo de Juan</q> y el segundo <q>la suma de 10 y 5 es 15</q>), se pueden realizar preguntas al programa, que terminarán siempre en un punto, como el siguiente:</p>
       <pre>?es_hijo(x,Juan).</pre>
-      <p>Dicha pregunta significa "¿Existe un X que sea hijo de Juan?"; la respuesta del programa sería positiva, y nos arrojaría todas las respuestas posibles ("Juanito"... y el resto de sus hermanos, si los hubiera y los hubiéramos definido como hechos).</p>
-      <p>Igualmente, a partir de lo anterior, podemos también establecer reglas, que definen nuevas relaciones a partir de relaciones ya dadas. Por ejemplo:</p>
-      <pre>es_padre(X,Y) :- es_hijo(Y,X), es_varón(X).</pre>
+      <p>Dicha pregunta significa &quot;¿Existe un X que sea hijo de Juan?&quot;; la respuesta del programa sería positiva, y nos daría todas las respuestas posibles (&quot;Juanito&quot;... y el resto de sus hermanos, si los hubiera y los hubiéramos definido como datos).</p>
+      <p>Igualmente, a partir de lo anterior, podemos también establecer <dfn>reglas</dfn>, que definen nuevas relaciones a partir de relaciones ya dadas. Por ejemplo:</p>
+      <pre>es_padre(X,Y) :- es_hijo(Y,X), es_varon(X).</pre>
       <p>Este código Prolog se correspondería con la fórmula lógica:</p>
       <blockquote>∀x ∀y ((es_hijo(y,x) ∧ es_varón(x)) → es_padre(x,y)).</blockquote>
+      <p>(Que se lee: si para todo <var>x</var> y todo <var>y</var> tales que <var>y</var> sea hijo de <var>x</var> y <var>x</var> sea varón, entonces <var>x</var> es padre de <var>y</var>.)</p>
 
       <hr/>
 
-      <p>Prolog cuenta también con objetos estructurados:</p>
-      <pre>en_stock( libro(harry_potter_1, autor(j.k., rowling)) ).</pre>
-      <p>Lo anterior nos permite preguntar al programa por varios elementos de la entidad: <q>¿Tenemos 'harry_potter_1' en stock?</q>, <q>¿Tenemos algún libro de 'j.k. rowling' en stock?</q>, etc.</p>
+      <p>Prolog cuenta también con objetos estructurados. En el siguiente ejemplo <var>harry_potter_1(...)</var> es un objeto estructurado, es decir compuesto:</p>
+      <pre>en_stock( libro(harry_potter_1, autor(jkrowling)) ).</pre>
+      <p>...que se interpreta: [hay] en stock un libro cuyo título es &quot;harry_potter_1&quot; y cuyo autor es &quot;jkrowling&quot;.</p>
+      <p>Lo anterior nos permite preguntar al programa por varios elementos de la entidad: <q>¿Tenemos 'harry_potter_1' en stock?</q>, <q>¿Tenemos algún libro de jkrowling en stock?</q>, etc.</p>
 
       <hr/>
 
-      <p>Los ámbitos de la computación donde más se usa Prolog son los de la inteligencia artificial y aspectos relacionados con la misma como el <i lang="en">machine learning</i>, procesamiento de lenguaje natural, construcción de sistemas expertos, etc.</p>
+      <p>Los ámbitos de la computación donde más se usa Prolog son los de la inteligencia artificial y aspectos relacionados con la misma como el <i lang="en">machine learning</i>, procesamiento de lenguaje natural (<i lang="en">Natural Language Processing</i>), construcción de sistemas expertos (<i lang="en"><a href="expert-systems.html">expert systems</a></i>), etc.</p>
 
       <hr/>
 
 
-      <p>Prolog era al principio un lenguaje interpretado hasta que, una década más tarde, se creó un compilador capaz de traducir Prolog a un conjunto de instrucciones de una máquina abstracta denominada WAM (<i lang="en">Warren Abstract Machine</i>), lo que lo convirtió desde entonces en un lenguaje semi-interpretado.</p>
+      <p>Prolog era al principio un lenguaje interpretado hasta que, una década más tarde, se creó un compilador capaz de traducir Prolog a un conjunto de instrucciones de una máquina abstracta denominada WAM (<i lang="en">Warren Abstract Machine</i>), lo que lo convirtió desde entonces en un lenguaje <em>semi</em>-interpretado. ¿Mmm?</p>
 
     </main>
 
