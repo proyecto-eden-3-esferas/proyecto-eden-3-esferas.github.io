@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Copy Constructors and Assignment Operators</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p><a                 href="oop.classes.html">Classes of Objects</a></p>
+        <p><a                 href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
+        <p><a                 href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
+        <p><a                 href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
+        <p><a                 href="cpp.classes.covariant-return-type.html">Covariant Return Type in C++</a></p>
+        <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Copy Constructors and Assignment Operators in Derived Classes in C++</h1>
+
+      <p>Providing a copy constructor and assignment operator is a must when you have dynamically allocated memory in a class. When defining a derived class, you need to be careful about copy constructors and <code>operator=</code>.</p>
+      <p>If your derived class does not have any special data (pointers, usually) that require a nondefault copy constructor or <code>operator=</code>, you don&apos;t need to have one, regardless of whether the base class has one. If your derived class omits the copy constructor or <code>operator=</code>, a default copy constructor or <code>operator=</code> will be provided for the data members specified in the derived class, and the base class copy constructor or <code>operator=</code> will be used for the data members specified in the base class.</p>
+      <p>On the other hand, if you do specify a copy constructor in the derived class, you need to explicitly call the parent copy constructor, as shown in the following code. If you do not do this, the default constructor (not the copy constructor!) will be used for the parent portion of the object.</p>
+      <pre>class Base
+{
+public:
+  virtual ˜Base() = default;
+  Base() = default;
+  Base(const Base&amp; src) { /* SOME CODE */ };
+};
+
+class Derived : public Base
+{
+public:
+  Derived() = default;
+  Derived(const Derived&amp; src) : Base { src }{
+    /* SOME CODE */
+  }
+};</pre>
+      <p>Similarly, if the derived class overrides <code>operator=</code>, it is almost always necessary to call the parent&apos;s version of <code>operator=</code> as well. The only case where you wouldn&apos;t do this would be if there was some bizarre reason why you only wanted part of the object assigned when an assignment took place. The following code shows how to call the parent&apos;s assignment operator from the derived class:</p>
+      <pre>Derived&amp; Derived::operator=(const Derived&amp; rhs)
+{
+  if (&amp;rhs == this) { return *this; }
+  Base::operator=(rhs); // Calls parent&apos;s operator=.
+  // Do necessary assignments for derived class.
+  return *this;
+}</pre>
+      <p><strong>NOTE:</strong> When you need copy functionality in an inheritance hierarchy, a common idiom employed by professional C++ developers is to implement a polymorphic <code>clone()</code> member function, because relying on the standard copy constructor and copy assignment operators is not sufficient.<!-- The polymorphic clone() idiom is discussed in Chapter 12, “Writing Generic Code with Templates.”--></p>
+
+    </main>
+
+  </body>
+
+</html>

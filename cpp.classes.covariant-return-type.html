@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Covariant Return Type in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p><a                 href="oop.classes.html">Classes of Objects</a></p>
+        <p><a                 href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
+        <p><a                 href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
+        <p><a                 href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
+        <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Covariant Return Type in C++</h1>
+
+      <p>For the most part, the reason you override a member function is to change its implementation. Sometimes, however, you may want to change other characteristics of the member function, such as its return type.</p>
+      <p>A good rule of thumb is to override a member function with the exact member function declaration, or <dfn>member function prototype</dfn>, that the base class uses. The implementation can change, but the prototype stays the same.</p>
+
+      <hr/>
+
+      <p>That does not have to be the case, however. In C++, an overriding member function can change the return type as long as (1) the return type of the member function in the base class is a pointer or reference to a class, and (2) the return type in the derived class is a pointer or reference to a <em>descendant</em>, i.e., more specialized class.</p>
+      <p>Such types are called <dfn>covariant return types</dfn>.</p>
+
+      <p>This feature sometimes comes in handy when the base class and derived class work with objects in a parallel hierarchy—that is, another group of classes that is tangential, but related, to the first class hierarchy.</p>
+      <p>For example, consider a basic car simulator. You might have two hierarchies of classes that model different real-world objects but are obviously related. The first is the <code class="classname">Car</code> hierarchy. The base class, <code class="classname">Car</code>, has derived classes <code class="classname">GasolineCar</code> and <code class="classname">ElectricalCar</code>. Similarly, there is another hierarchy of classes with a base class called <code class="classname">PowerSource</code> and derived classes <code class="classname">GasolinePowerSource</code> and <code class="classname">ElectricalPowerSource</code>.<!-- Figure 10.11 shows the two class hierarchies.--></p>
+      <p>Let&apos;s assume a power source can print its own type and that a gasoline power source has a member function fillTank(), while an electrical power source has a member function chargeBatteries():</p>
+      <pre>class PowerSource
+{
+public:
+  virtual void printType() = 0;
+};
+
+class GasolinePowerSource : public PowerSource
+{
+public:
+  void printType() override { println(&quot;GasolinePowerSource&quot;); }
+  virtual void fillTank() { println(&quot;Gasoline tank filled up.&quot;); }
+};
+
+class ElectricalPowerSource : public PowerSource
+{
+public:
+  void printType() override { println(&quot;ElectricalPowerSource&quot;); }
+  virtual void chargeBatteries() { println(&quot;Batteries charged.&quot;); }
+};</pre>
+      <p>Now assume that <code class="classname">Car</code> has a virtual member function called <code>getFilledUpPowerSource()</code> that returns a reference to the <q>filled-up</q> power source of a specific car:</p>
+      <pre>class Car
+{
+public:
+  virtual PowerSource&amp; getFilledUpPowerSource() = 0;
+};</pre>
+      <p>This is a pure virtual, abstract member function, as it only makes sense to provide an actual implementation in concrete derived classes. Since a <code class="classname">GasolinePowerSource</code> is a <code class="classname">PowerSource</code>, the <code class="classname">GasolineCar</code> class can implement this member function as follows:</p>
+      <pre>class GasolineCar : public Car
+{
+public:
+  PowerSource&amp; getFilledUpPowerSource() override
+  {
+    m_engine.fillTank();
+    return m_engine;
+  }
+private:
+  GasolinePowerSource m_engine;
+};</pre>
+      <p><code class="classname">ElectricalCar</code> can implement it analogously as follows:</p>
+      <pre>class ElectricalCar : public Car
+{
+public:
+  PowerSource&amp; getFilledUpPowerSource() override
+  {
+    m_engine.chargeBatteries();
+    return m_engine;
+  }
+private:
+  ElectricalPowerSource m_engine;
+};</pre>
+      <p>This implementation is fine. However, because you know that the <code>getFilledUpPowerSource()</code> member function for <code class="classname">GasolineCar</code> always returns a <code class="classname">GasolinePowerSource</code>, and for <code class="classname">ElectricalCar</code> always an <code class="classname">ElectricalPowerSource</code>, you can indicate this fact to potential users of these classes by changing the return type, as shown here:</p>
+      <pre>class GasolineCar : public Car
+{
+public:
+  GasolinePowerSource&amp; getFilledUpPowerSource() override
+  { /* omitted for brevity */}
+};
+
+class ElectricalCar : public Car
+{
+public:
+  ElectricalPowerSource&amp; getFilledUpPowerSource() override
+  { /* omitted for brevity */}
+};</pre>
+      <p>A good way to figure out whether you can change the return type of an overridden member function is to consider whether existing code would still work; this is called the <a target="_blank" href="SOLID.html#lsp">Liskov substitution principle (LSP)</a>. In the preceding example, changing the return type was fine because any code that assumed that the <code>getFilledUpPowerSource()</code> member function would always return a <code class="classname">PowerSource</code> would still compile and work correctly. Because an <code class="classname">ElectricalPowerSource</code> and a <code class="classname">GasolinePowerSource</code> are both <code class="classname">PowerSource</code>&apos;s, any member functions that were called on the result of <code>getFilledUpPowerSource()</code> returning a <code class="classname">PowerSource</code> could still be called on the result of <code>getFilledUpPowerSource()</code> returning an <code class="classname">ElectricalPowerSource</code> or a <code class="classname">GasolinePowerSource</code>.</p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+
+    </main>
+
+  </body>
+
+</html>
