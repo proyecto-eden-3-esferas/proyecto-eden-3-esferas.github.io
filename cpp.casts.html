@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Casts</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p><a                 href="cpp.classes.html">OOP Classes in C++</a></p>
+        <p><a                 href="cpp.classes.covariant-return-type.html">Covariant Return Type in C++</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>C++ Casts</h1>
+
+      <p>C++ provides five specific casts:</p>
+      <ul>
+        <li><a href="#const_cast"><code>const_cast()</code></a>,</li>
+        <li><a href="#static_cast"><code>static_cast()</code></a>,</li>
+        <li><a href="#reinterpret_cast"><code>reinterpret_cast()</code></a>, </li>
+        <li><a href="#dynamic_cast"><code>dynamic_cast()</code></a>, and</li>
+        <li><a href="#bit_cast"><code>std::bit_cast()</code>.</a></li>
+      </ul>
+      <!--<p>The first one is discussed in Chapter 1. Chapter 1 also introduces static_cast() for casting between certain primitive types, but there is more to say about it in the context of inheritance. Now that you are fluent in writing your own classes and understand class inheritance, it&apos;s time to take a closer look at these casts.</p>-->
+      <p>Note that the old C-style casts such as <code>(int) myFloat</code> still work in C++ and are still used extensively in existing code bases. C-style casts cover all C++ casts except <code>bit_cast()</code> and thus are more error-prone because it&apos;s not always obvious what you are trying to achieve, and you might end up with unexpected results. I strongly recommend you only use the C++ style casts in new code because they are safer and stand out better syntactically and visually in your code.</p>
+
+      <section id="const_cast">
+        <h2><code>const_cast()</code></h2>
+      </section>
+
+      <section id="static_cast">
+        <h2><code>static_cast()</code></h2>
+        <p>You can use <code>static_cast()</code> to perform explicit conversions that are supported directly by the language. For example, if you write an arithmetic expression in which you need to convert an int to a double to avoid integer division, use a <code>static_cast()</code>. In this example, it&apos;s enough to only use <code>static_cast()</code> with <var>i</var>, because that makes one of the two operands a double, making sure C++ performs floating-point division.</p>
+        <pre>int i { 3 };
+int j { 4 };
+double result { static_cast&lt;double&gt;(i) / j };</pre>
+        <p>You can also use <code>static_cast()</code> to perform explicit conversions that are allowed because of user-defined constructors or conversion routines. For example, if class A has a constructor that takes an object of class B, you can convert a B object to an A object using a <code>static_cast()</code>. In most situations where you want this behavior, however, the compiler performs the conversion automatically.</p>
+        <p>Another use for <code>static_cast()</code> is to perform downcasts in an inheritance hierarchy, as in this example:</p>
+        <pre>class Base
+{
+public:
+  virtual ˜Base() = default;
+};
+
+class Derived : public Base
+{
+public:
+  virtual ˜Derived() = default;
+};
+
+int main()
+{
+  Base* b { nullptr };
+  Derived* d { new Derived {} };
+  b = d; // Don&apos;t need a cast to go up the inheritance hierarchy.
+  d = static_cast&lt;Derived*&gt;(b); // Need a cast to go down the hierarchy.
+
+  Base base;
+  Derived derived;
+  Base&amp; br { derived };
+  Derived&amp; dr { static_cast&lt;Derived&amp;&gt;(br) };
+}</pre>
+        <p>These casts work with both pointers and references. They do not work with objects themselves.</p>
+        <p>Note that casts using <code>static_cast()</code> do not perform run-time type checking. They allow you to convert any Base pointer to a Derived pointer, or Base reference to a Derived reference, even if the Base really isn&apos;t a Derived at run time. For example, the following code compiles and executes, but using the pointer <var>d</var> can result in potentially catastrophic failure, including memory overwrites outside the bounds of the object.</p>
+        <pre>Base* b { new Base {} };
+Derived* d { static_cast&lt;Derived*&gt;(b) };</pre>
+        <p>To perform such casts safely with run-time type checking, use <a href="#dynamic_cast">dynamic_cast()</a>.</p>
+        <p><code>static_cast()</code> is not all-powerful. You can&apos;t static_cast() pointers of one type to pointers of another unrelated type. You can&apos;t directly static_cast() objects of one type to objects of another type if there is no converting constructor available. You can&apos;t static_cast() a const type to a non-const type. You can&apos;t static_cast() pointers to ints. Basically, you can only do things that make sense according to the type rules of C++.</p>
+      </section>
+
+      <section id="reinterpret_cast">
+        <h2><code>reinterpret_cast()</code></h2>
+        <p><code>reinterpret_cast()</code> is a bit more powerful, and concomitantly less safe, than <code><a href="#static_cast">static_cast()</a></code>. You can use it to perform some casts that are not technically allowed by the C++ type rules but that might make sense to the programmer in some circumstances.</p>
+        <p>For example, you can use <code>reinterpret_cast()</code> to cast a reference to one type to a reference to another type, even if the types are unrelated. Similarly, you can use it to cast a pointer type to any other pointer type, even if they are unrelated by an inheritance hierarchy. However, casting a pointer to a <code>void*</code> can be done implicitly, without an explicit cast. To cast a <code>void*</code> back to a correctly typed pointer, a <code>static_cast()</code> is enough. A <code>void*</code> pointer is just a pointer to some location in memory. No type information is associated with a <code>void*</code> pointer. Here are some examples:</p>
+        <pre>class X {};
+class Y {};
+
+int main() {
+  X x;
+  Y y;
+  X* xp { &amp;x };
+  Y* yp { &amp;y };
+  // Need reinterpret_cast for pointer conversion from unrelated classes
+  // static_cast doesn&apos;t work.
+  xp = reinterpret_cast&lt;X*&gt;(yp);
+  // No cast required for conversion from pointer to void*
+  void* p { xp };
+  // static_cast is enough for pointer conversion from void*
+  xp = static_cast&lt;X*&gt;(p);
+  // Need reinterpret_cast for reference conversion from unrelated classes
+  // static_cast doesn&apos;t work.
+  X&amp;xr { x };
+  Y&amp;yr { reinterpret_cast&lt;Y&amp;&gt;(x) };
+}</pre>
+        <p><code>reinterpret_cast()</code> is not all-powerful; it comes with quite a few restrictions on what can be cast to what. These restrictions are not further discussed here, as I recommend that you use these kinds of casts judiciously.</p>
+        <p>In general, you should be careful with <code>reinterpret_cast()</code> because it allows you to do conversions without performing any type checking.</p>
+        <p><strong>WARNING:</strong> You can also use <code>reinterpret_cast()</code> to cast pointers to integral types and back. However, you can only cast a pointer to an integral type that is large enough to hold it. For example, trying to use <code>reinterpret_cast()</code> to cast a 64-bit pointer to a 32-bit integer results in a compilation error.</p>
+      </section>
+
+      <section id="dynamic_cast">
+        <h2><code>dynamic_cast()</code></h2>
+        <p><code>dynamic_cast()</code> provides a run-time check on casts within an inheritance hierarchy. You can use it to cast pointers or references. <code>dynamic_cast()</code> checks the run-time type information of the underlying object at run time. If the cast doesn&apos;t make sense, <code>dynamic_cast()</code> returns a null pointer (for the pointer version) or throws an <code>std::bad_cast</code> <a target="_blank" href="cpp.exceptions.html">exception</a> (for the reference version).</p>
+        <p>For example, suppose you have the following class hierarchy:</p>
+        <pre>class Base {
+public:
+  virtual ˜Base() = default;
+};
+
+class Derived : public Base {
+public:
+  virtual ˜Derived() = default;
+};</pre>
+        <p>The following example shows a correct use of <code>dynamic_cast()</code>:</p>
+        <pre>Base* b;
+Derived* d { new Derived {} };
+b = d;
+d = dynamic_cast&lt;Derived*&gt;(b);</pre>
+        <p>The following <code>dynamic_cast()</code> on a reference will cause an exception to be thrown:</p>
+        <pre>Base base;
+Derived derived;
+Base&amp; br { base };
+try {
+  Derived&amp; dr { dynamic_cast&lt;Derived&amp;&gt;(br) };
+} catch (const bad_cast&amp;) {
+  println("Bad cast!");
+}</pre>
+        <p>Note that you can perform the same casts down the inheritance hierarchy with a <code>static_cast()</code> or <code>reinterpret_cast()</code>. The difference with <code>dynamic_cast()</code> is that it performs run-time (dynamic) type checking, while <code>static_cast()</code> and <code>reinterpret_cast()</code> perform the cast even if they are erroneous.</p>
+        <p>Remember, the run-time type information is stored in the <var>vtable</var> of an object. Therefore, to use <code>dynamic_cast()</code>, your classes must have at least one virtual member function. If your classes don&apos;t have a <var>vtable</var>, trying to use <code>dynamic_cast()</code> will result in a compilation error.</p>
+      </section>
+
+      <section id="bit_cast">
+        <h2><code>std::bit_cast()</code></h2>
+        <p><code>std::bit_cast()</code> is defined in <cite>&lt;bit&gt;</cite>. It&apos;s the only cast that&apos;s part of the <a target="_blank" href="cpp.stl.html">Standard Library</a>; the other casts are part of the C++ language itself. <code>bit_cast()</code> resembles <code>reinterpret_cast()</code>, but it creates a new object of a given target type and copies the bits from a source object to this new object. It effectively interprets the bits of the source object as if they are the bits of the target object. <code>bit_cast()</code> requires that the size of the source and target objects are the same and that both are trivially copyable.</p>
+        <p><strong>NOTE:</strong> A <dfn>trivially copyable</dfn> type is a type of which the underlying bytes making up the object can be copied into an array of, for example, <code>char</code>. If the data of that array is then copied back into the object, the object keeps its original value.</p>
+        <p>Here is an example:</p>
+        <pre>float asFloat { 1.23f };
+auto asUint { bit_cast&lt;unsigned int&gt;(asFloat) };
+if (bit_cast&lt;float&gt;(asUint) == asFloat) { println(&quot;Roundtrip success.&quot;); }</pre>
+        <p>A use case for <code>bit_cast()</code> is with binary I/O of trivially copyable types. For example, you can write the individual bytes of such types to a file. When you read the file back into memory, you can use <code>bit_cast()</code> to correctly interpret the bytes read from the file.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Non-public Inheritance in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p><a            href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
+        <p><a            href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
+        <p><a            href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
+        <p><a            href="cpp.classes.covariant-return-type.html">Covariant Return Type in C++</a></p>
+        <p><a            href="cpp.classes.copy-ctor-and-assignment-op-in-derived.html">Copy Constructors and Assignment Operators in Derived Classes in C++</a></p>
+        <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="oop.classes.html">Classes of Objects</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Non-public Inheritance in C++</h1>
+
+      <p>Parent classes are usually listed using the <code>public</code> keyword. You may be wondering if a parent can be <code>private</code> or <code>protected</code>. In fact, it can, though neither is as common as <code>public</code>.</p>
+      <p>If you don&apos;t specify any access specifier for the parent, then it is <code>private</code> inheritance for a class, and <code>public</code> inheritance for a <code>struct</code>.</p>
+      <p>Declaring the relationship with the parent to be <code>protected</code> means that all public and protected member functions and data members from the base class become protected in the context of the derived class. Similarly, specifying <code>private</code> inheritance means that all public and protected member functions and data members of the base class become private in the derived class. (Private members in the parent class remain parents and thus inaccessible.)</p>
+      <hr/>
+      <p>There are a handful of reasons why you might want to uniformly degrade the access level of the parent in this way, but most reasons imply flaws in the design of the hierarchy. Some programmers abuse this language feature, often in combination with multiple inheritance, to implement <q>components</q> of a class. Instead of making an <code class="classname">Airplane</code> class that contains an <code class="classname">Engine</code> data member and a <code class="classname">Fuselage</code> data member, they make an <code class="classname">Airplane</code> class that is a protected <code class="classname">Engine</code> and a protected <code class="classname">Fuselage</code>. In this way, the Airplane doesn&apos;t look like an engine or a fuselage to client code (because everything is protected), but it is able to use all of that functionality internally.</p>
+      <aside><strong>NOTE:</strong> Non-public inheritance is rare, and I recommend using it cautiously, if for no other reason than that most programmers are not familiar with it.</aside>
+
+    </main>
+
+  </body>
+
+</html>
