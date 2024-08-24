@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Software Design Patterns</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
+        <p><a rel="next"      href="SOLID.html">The SOLID Principles (of OOP)</a></p>
+        <p><a                 href="computing.html">Computing</a></p>
+        <p><a                 href="adt.html">Abstract Data Types</a></p>
+        <p><a                 href="oop.classes.html">Classes of Objects</a></p>
+        <p><a rel="prev"      href="programming.html">Programming: Getting Computers to Do Stuff</a></p>
+      </div>
+      <div>
+        <p><a rel="next"      href="cpp.html">The C++ Programming Language</a></p>
+        <p><a                 href="js.html">JavaScript: the Internet Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <p>Many software engineers could work for many years without knowing a single pattern. It can also happen that we are applying a pattern without even knowing it.</p>
+
+      <h1>Software Design Patterns</h1>
+      <p>Design Patterns represent some of the most acceptable practices experienced object-oriented software engineers utilize. In object-oriented systems, a Design Pattern methodically names, motivates, and describes a general design that addresses a recurring design challenge. It explains the problem, the solution or approach, when to use it, and the ramifications. It also includes tips and examples for implementation (although a design pattern is <em>not</em> an implementation and is not bound to a particular programming language).</p>
+
+      <hr/>
+
+      <p>The essence of Design Patterns consists of the following six rules:</p>
+      <ol>
+        <li>
+          <p><strong>They are tried-and-true solutions:</strong> Because developers often use Design Patterns, we may be confident that they function. Not only that, but we can also guarantee that they were altered several times and that optimizations were most likely performed.</p>
+        </li>
+        <li>
+          <p><strong>They are simple to re-use:</strong> Design Patterns describe a reusable solution that may modify to solve various specific situations because they aren&apos;t tied to a specific situation.</p>
+          <p>Consider the Iterator Design Pattern, reusable across STL despite container and algorithm changes. Iterators act as a glue between the container and the algorithm.</p>
+        </li>
+        <li>
+          <p><strong>They have a strong personalities:</strong> Design Patterns may elegantly describe a considerable solution. The Visitor pattern, for example, is used to perform a new operation on a range/group of classes. As a result, the standard library adopted this design with a single function, namely the std::visit algorithm. The same is true for boost::flyweight.</p>
+        </li>
+        <li>
+          <p><strong>They facilitate communication:</strong> Developers&apos; knowledge about Design Patterns can communicate more readily about potential solutions to a given challenge.</p>
+          <p>If we&apos;re part of a team of developers, agree on Design Patterns with our colleagues since they can help us solve problems more effectively. We should also follow similar practices for software maintenance, as it makes maintenance operations faster and more efficient.</p>
+        </li>
+        <li>
+          <p><strong>They eliminate the need for code refactoring:</strong> When an application is created with Design Patterns in mind, we may not need to rewrite the code later since applying the relevant Design Pattern to a specific problem is already an optimum solution.</p>
+          <p>If such solutions are later updated, they may be applied effortlessly by any excellent software developer without causing any complications.</p>
+        </li>
+        <li>
+          <p><strong>They reduce the codebase&apos;s size:</strong> Design Patterns use less code than alternative solutions since they are generally beautiful and optimal. This isn&apos;t always the case, because many developers add extra code to improve understanding.</p>
+        </li>
+      </ol>
+
+      <section>
+        <h2>Types of Design Patterns</h2>
+        <p>Design Patterns are divided into the following three categories.</p>
+        <dl>
+          <dt>Creational</dt>
+          <dd>
+            <p>Class instantiation or object generation is the focus of these Design Patterns.</p>
+            <p>Class-creational patterns and object-creational patterns are two subsets of these patterns. While class-creation patterns make good use of inheritance in the instantiation process, object-creation patterns use delegation.</p>
+            <p>Factory Method, Abstract Factory, Builder, Singleton, Object Pool, and Prototype are creational Design Patterns.</p>
+            <h3 class="bridgehead">Use Case of Creational Design Patterns</h3>
+            <ol>
+              <li>Assume a programmer wants to create a simple DBConnection class to connect to a database and needs to use the database from code in numerous places. The developer will typically create an instance of the DBConnection class and use it to perform database operations wherever they are needed. As each example of the DBConnection class has a different connection to the database, numerous connections to the database are created. To deal with it, we make the DBConnection class a singleton class, which means that only one instance of DBConnection is generated, and only one connection is made. We can control load balance, redundant connections, and so on since we can manage DBConnection from a single instance.</li>
+              <li>We can use the Factory design if we wish to create several instances of the same type while maintaining loose coupling. A factory-Design Pattern-implemented class acts as a link between numerous classes – for instance, the use of various database servers such as SQL Server and Oracle. We should use the Factory Design Pattern to achieve loose coupling and create a similar kind of object if we are developing an application with a SQL Server database as the back end. Still, if we need to change the database to Oracle, we will need to modify all of our code. Hence, as Factory Design Patterns maintain loose coupling and easy implementation, we should use the factory layout design to achieve loose coupling and create a similar kind of object.</li>
+            </ol>
+          </dd>
+
+          <dt>Structural</dt>
+          <dd>
+            <p>These Design Patterns deal with grouping distinct classes and objects together to create larger structures and add new functionality.</p>
+            <p>Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Private Class Data, and Proxy are structural Design Patterns.</p>
+            <h3 class="bridgehead">Use Case of Structural Design Patterns</h3>
+            <ol>
+              <li>An Adapter Design Pattern is used when two interfaces are incompatible and want to establish a relationship between them using an adapter. The adapter pattern transforms a class’s interface into another interface or class that the client expects, allowing classes that would otherwise be incompatible with operating together. We can use the adapter pattern in these types of incompatible instances.</li>
+            </ol>
+          </dd>
+
+          <dt>Behavioral</dt>
+          <dd>
+            <p>Identifying and discovering shared communication patterns between items are all about behavioral patterns.</p>
+            <p>Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Null Object, Observer, State, Scheme, Template method, and Visitor are behavioral patterns.</p>
+          </dd>
+
+        </dl>
+
+      </section>
+
+      <section>
+        <h2>What Exactly is the Gang of Four (GOF)?</h2>
+        <p>The book <cite>Design Patterns: Elements of Reusable Object-Oriented Software</cite>, written by four writers, Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides, was published in 1994 and introduced the first concept of Design Patterns in software development.</p>
+        <p>Gang of Four is the collective name for these four authors (GOF). According to these authors, Design Patterns are essentially based on the following object-oriented design principles:</p>
+        <ol>
+          <li>Not an implementation, but to program to an interface.</li>
+          <li>Object composition should take precedence over inheritance.</li>
+        </ol>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
