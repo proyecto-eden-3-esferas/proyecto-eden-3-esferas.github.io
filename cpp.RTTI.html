@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Run-Time Type Information (RTTI) in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Run-Time Type Information (RTTI) in C++</h1>
+      <p>Relative to other object-oriented languages, C++ is very compile-time oriented. Overriding member functions works because of a level of indirection between a member function and its implementation, not because the object has built-in knowledge of its own class.</p>
+      <p>There are, however, features in C++ that provide a run-time view of an object. These features are commonly grouped together under a feature set called <dfn>run-time type information (RTTI)</dfn>. RTTI provides a number of useful features for working with information about an object&apos;s class membership. One such feature is <code>dynamic_cast()</code>, which allows you to safely convert between types within an object-oriented hierarchy. Using dynamic_cast() on a class without a vtable, that is, without any virtual member functions, causes a compilation error.</p>
+      <p>A second RTTI feature is the <code>typeid</code> operator, which lets you query for types at run time. The result of applying the operator is a reference to an <code class="classname">std::type_info</code> object, defined in <cite>&lt;typeinfo&gt;</cite>. The type_info class has a member function called <code>name()</code> returning the compiler-dependent name of the type. The <code>typeid</code> operator behaves as follows:</p>
+      <ul>
+        <li><code>typeid(<var>type</var>):</code> Results in a reference to a <code class="classname">type_info</code> object representing the given type.</li>
+        <li><code>typeid(<var>expression</var>)</code></li>
+        <li>If evaluating expression results in a <a href="polymorphism.html">polymorphic</a> type, then expression is evaluated and the result of the <code>typeid</code> operator is a reference to a <code class="classname">type_info</code> object representing the dynamic type of the evaluated expression.</li>
+        <li>Otherwise, expression is not evaluated, and the result is a reference to a <code class="classname">type_info</code> object representing the static type</li>
+      </ul>
+
+      <aside>For the most part, you shouldn&apos;t ever need to use <code>typeid</code> because any code that is conditionally executed based on the type of the object would be better handled with, for example, virtual member functions.</aside>
+
+      <p>The following code uses <code>typeid</code> to print a message based on the type of the object:</p>
+      <pre>class Animal { public: virtual ˜Animal() = default; };
+class Dog : public Animal {};
+class Bird : public Animal {};
+
+void speak(const Animal&amp; animal)
+{
+  if (typeid(animal) == typeid(Dog)) {
+    println("Woof!");
+  } else if (typeid(animal) == typeid(Bird)) {
+    println("Chirp!");
+  }
+};</pre>
+      <p>Whenever you see code like this, you should immediately consider reimplementing the functionality as a virtual member function. In this case, a better implementation would be to declare a virtual member function called speak() in the Animal base class. Dog would override the member function to print <q>Woof!</q>, and Bird would override it to print <q>Chirp!</q>. This approach better fits object-oriented programming, where functionality related to objects is given to those objects.</p>
+
+      <aside><strong>WARNING:</strong> The typeid operator works correctly only if the class has at least one virtual member function, that is, when the class has a vtable. Additionally, the typeid operator strips reference and const qualifiers from its argument.</aside>
+
+      <p>One possible use case of the <cod>typeid</cod> operator is for logging and debugging purposes. The following code makes use of <code>typeid</code> for logging. The <code>logObject()</code> function takes a <q>loggable</q> object as a parameter. The design is such that any object that can be logged inherits from the <code class="classname">Loggable</code> class and supports a member function called <code>getLogMessage()</code></p>
+
+      <pre>class Loggable
+{
+public:
+  virtual ˜Loggable() = default;
+  virtual string getLogMessage() const = 0;
+};
+
+class Foo : public Loggable
+{
+public:
+ string getLogMessage() const override { return "Hello logger."; }
+};
+
+void logObject(const Loggable&amp; loggableObject)
+{
+  print("{}: ", typeid(loggableObject).name());
+  println("{}", loggableObject.getLogMessage());
+}</pre>
+      <p><code>logObject()</code> first prints the name of the object&apos;s class to the console, followed by its log message. This way, when you read the log later, you can see which object was responsible for every written line.</p>
+
+    </main>
+
+  </body>
+
+</html>
