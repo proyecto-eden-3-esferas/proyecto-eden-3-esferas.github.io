@@ -37,7 +37,7 @@
 
     <main>
       <h1>Linking C++ and C Object Files Together</h1>
-      <p>Every C++ compiler is also a C compiler. There is no reason to compile <q>C as C++</q>; you can just compile <q>C as C</q>. If your project consists of a mixture of C and C++, you can simply link the C and C++ object files together into the final executable. This ease of incorporating C code in a C++ program comes in handy when you encounter a useful library or legacy code that was written in C. Functions and classes, as you&apos;ve seen many times in this book, work just fine together. A class member function can call a function, and a function can make use of objects.</p>
+      <p>Every C++ compiler is also a C compiler. There is no reason to compile <q>C as C++</q>; you can just compile <q>C as C</q>. If your project consists of a mixture of C and C++, you can simply link the C and C++ object files together into the final executable. This ease of incorporating C code in a C++ program comes in handy when you encounter a useful library or legacy code that was written in C. Functions and classes<!--, as you&apos;ve seen many times in this book,--> work just fine together. A class member function can call a function, and a function can make use of objects.</p>
 
       <h2>Shifting Paradigms</h2>
       <p>One of the dangers of mixing C and C++ is that your program may start to lose its object-oriented properties. For example, if your object-oriented web browser is implemented with a procedural networking library, the program will be mixing these two paradigms. Given the importance and quantity of networking tasks in such an application, you might consider writing an object-oriented wrapper around the procedural library. A typical design pattern that can be used for this is called the façade.</p>
@@ -46,10 +46,10 @@
 #include &quot;HostHandle.h&quot;
 #include &quot;ConnectionHandle.h&quot;
 
-// Gets the host record for a particular Internet host given
-// its hostname (i.e. www.host.com).
+// Get the host record for a particular Internet host given
+// its hostname (i.e. www.host.com):
 HostHandle* lookupHostByName(const char* hostName);
-// Frees the given HostHandle.
+// Free the given HostHandle:
 void freeHostHandle(HostHandle* host);
 
 // Connects to the given host.
@@ -74,7 +74,7 @@ closeConnection(myConnection); myConnection = nullptr;
 freeHostHandle(myHost); myHost = nullptr;</pre>
       <p>A possible way to make the library more object-oriented is to provide a single abstraction that recognizes the commonality between looking up a host, connecting to the host, and retrieving a web page. A good object-oriented wrapper hides the needless complexity of the <code>HostHandle</code> and <code>ConnectionHandle</code> types.</p>
       <p><!--This example follows the design principles described in Chapters 5, “Designing with Classes,” and 6, “Designing for Reuse”: -->The new class should capture the common use case for the library. The previous example shows the most frequently used pattern: first a host is looked up, then a connection is established, and finally a page is retrieved. It is also likely that subsequent pages will be retrieved from the same host, so a good design will accommodate that mode of use as well.</p>
-      <p>To start, the <code>HostRecord</code> class wraps the functionality of looking up a host. It&apos;s an RAII class. Its constructor uses <code>lookupHostByName()</code> to perform the lookup. The <code>unique_ptr</code> data member uses a custom deleter to automatically free the retrieved <code>HostHandle</code> by calling <code>freeHostHandle()</code>.<!-- See Chapter 7, “Memory Management,” for a discussion of using custom deleters with unique_ptr.--> Here is the code:</p>
+      <p>To start, the <code>HostRecord</code> class wraps the functionality of looking up a host. It&apos;s an <a target="_blank" href="cpp.RAII.html">RAII</a> (Resource Acquisition is Initialization) class. Its constructor uses <code>lookupHostByName()</code> to perform the lookup. The <code><a target="_blank" href="unique_ptr">std::unique_ptr</a></code> data member uses a custom deleter to automatically free the retrieved <code>HostHandle</code> by calling <code>freeHostHandle()</code>.<!-- See Chapter 7, “Memory Management,” for a discussion of using custom deleters with unique_ptr.--> Here is the code:</p>
       <pre>export class HostRecord final
 {
 public:

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memory Management in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.casts.html">C++ Casts</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a></p>
+        <p><a            href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a></p>
+        <p><a            href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.RAII.html">Resource Acquisition is Initialization (RAII) in C++</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Memory Management in C++</h1>
+      <p>Memory is obtained (from the Operating System) through operators <code>new</code> and <code>new []</code>, and is released through operator <code>delete</code> and <code>delete []</code>.</p>
+      <pre>int * pInt = new int;
+MyClass * pObj = new MyClass;</pre>
+      <p>To get an array of <code>int</code>&apos;s or of <code>MyClass</code> objects use <code>new []</code>:</p>
+      <pre>int * pArrayOfInt = new int[7];
+MyClass * pArrayOfObj = new MyClass[4];</pre>
+
+      <hr/>
+
+      <p>Actually, <code>new</code> not only gets the requested memory (from the Operating System) but also constructs one or so many objects.</p>
+
+      <hr/>
+
+      <p>Memory is released likewise by means of the <code>delete</code> and <code>delete []</code> operators:</p>
+      <pre>delete pInt;
+delete [] pArrayOfInt;
+delete pObj;
+delete [] pArrayOfObj;</pre>
+      <p>Note that <code>delete</code> and <code>delete []</code> take a pointer as their argument.</p>
+
+      <hr/>
+
+      <p>In the <a target="_blank" href="cpp.stl.html">Standard Template Library</a>, memory management is performed by allocators.</p>
+
+      <h2>Placement <code>new</code></h2>
+      <pre>// ...</pre>
+      <p>[...]</p>
+
+      <h2>Writing your own <code>new</code> operators overrides for specific types</h2>
+      <pre>// ...</pre>
+      <p>[...]</p>
+      <hr/>
+      <p>The STL provides three smart pointers...</p>
+      <ul>
+        <li><a href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a></li>
+        <li><a href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a></li>
+        <li><a href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a></li>
+      </ul>
+
+
+
+    </main>
+
+  </body>
+
+</html>
