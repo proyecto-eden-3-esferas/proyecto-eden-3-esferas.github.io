@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linking C++ and C Object Files Together</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+
+      <div>
+        <p><a href="cpp.separate_compilation.html">Separate Compilation</a></p>
+        <p><a href="cpp.separate_compilation.templates.html">Separate Compilation of Templates</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself (<em>online</em>)</p>
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Linking C++ and C Object Files Together</h1>
+      <p>Every C++ compiler is also a C compiler. There is no reason to compile <q>C as C++</q>; you can just compile <q>C as C</q>. If your project consists of a mixture of C and C++, you can simply link the C and C++ object files together into the final executable. This ease of incorporating C code in a C++ program comes in handy when you encounter a useful library or legacy code that was written in C. Functions and classes, as you&apos;ve seen many times in this book, work just fine together. A class member function can call a function, and a function can make use of objects.</p>
+
+      <h2>Shifting Paradigms</h2>
+      <p>One of the dangers of mixing C and C++ is that your program may start to lose its object-oriented properties. For example, if your object-oriented web browser is implemented with a procedural networking library, the program will be mixing these two paradigms. Given the importance and quantity of networking tasks in such an application, you might consider writing an object-oriented wrapper around the procedural library. A typical design pattern that can be used for this is called the façade.</p>
+      <p>For example, imagine that you are writing a web browser in C++, but you are using a networking library that has a C-style API and contains the functions declared in the following code. Note that the <code>HostHandle</code> and <code>ConnectionHandle</code> data structures have been omitted for brevity.</p>
+      <pre>// networklib.h
+#include &quot;HostHandle.h&quot;
+#include &quot;ConnectionHandle.h&quot;
+
+// Gets the host record for a particular Internet host given
+// its hostname (i.e. www.host.com).
+HostHandle* lookupHostByName(const char* hostName);
+// Frees the given HostHandle.
+void freeHostHandle(HostHandle* host);
+
+// Connects to the given host.
+ConnectionHandle* connectToHost(HostHandle* host);
+// Closes the given connection.
+void closeConnection(ConnectionHandle* connection);
+
+// Retrieves a web page from an already-opened connection.
+char* retrieveWebPage(ConnectionHandle* connection, const char* page);
+// Frees the memory pointed to by page.
+void freeWebPage(char* page);</pre>
+      <p>The <cite>networklib.h</cite> interface is fairly simple and straightforward. However, it is not object-oriented, and a C++ programmer who uses such a library is bound to feel icky, to use a technical term. This library isn&apos;t organized into a cohesive class. Of course, the authors of the library could have written a better interface, but as the user of a library, you have to accept what you are given. Writing a wrapper is your opportunity to customize the interface.</p>
+      <p>Before you build an object-oriented wrapper for this library, take a look at how it might be used as-is to gain an understanding of its actual usage. In the following program, the networklib library is used to retrieve the web page at <cite>www.example.com/index.html</cite>:</p>
+      <pre>HostHandle* myHost { lookupHostByName(&quot;www.example.com&quot;) };
+ConnectionHandle* myConnection { connectToHost(myHost) };
+char* result { retrieveWebPage(myConnection, &quot;/index.html&quot;) };
+
+println(&quot;The result is:\n{}&quot;, result);
+
+freeWebPage(result); result = nullptr;
+closeConnection(myConnection); myConnection = nullptr;
+freeHostHandle(myHost); myHost = nullptr;</pre>
+      <p>A possible way to make the library more object-oriented is to provide a single abstraction that recognizes the commonality between looking up a host, connecting to the host, and retrieving a web page. A good object-oriented wrapper hides the needless complexity of the <code>HostHandle</code> and <code>ConnectionHandle</code> types.</p>
+      <p><!--This example follows the design principles described in Chapters 5, “Designing with Classes,” and 6, “Designing for Reuse”: -->The new class should capture the common use case for the library. The previous example shows the most frequently used pattern: first a host is looked up, then a connection is established, and finally a page is retrieved. It is also likely that subsequent pages will be retrieved from the same host, so a good design will accommodate that mode of use as well.</p>
+      <p>To start, the <code>HostRecord</code> class wraps the functionality of looking up a host. It&apos;s an RAII class. Its constructor uses <code>lookupHostByName()</code> to perform the lookup. The <code>unique_ptr</code> data member uses a custom deleter to automatically free the retrieved <code>HostHandle</code> by calling <code>freeHostHandle()</code>.<!-- See Chapter 7, “Memory Management,” for a discussion of using custom deleters with unique_ptr.--> Here is the code:</p>
+      <pre>export class HostRecord final
+{
+public:
+  // Looks up the host record for the given host.
+  explicit HostRecord(const std::string&amp; host)
+  : m_hostHandle { lookupHostByName(host.c_str()), freeHostHandle }
+  { }
+  // Returns the underlying handle.
+  HostHandle* get() const noexcept { return m_hostHandle.get(); }
+private:
+  std::unique_ptr&lt;HostHandle, decltype(&amp;freeHostHandle)&gt; m_hostHandle;
+};</pre>
+      <p>Next, a <code>WebHost</code> class is implemented that uses the <code>HostRecord</code> class. The <code>WebHost</code> class creates a connection to a given host and supports retrieving webpages. It&apos;s also an RAII class. When the <code>WebHost</code> object is destroyed, it automatically closes the connection to the host. The <code>getPage()</code> member function calls <code>retrieveWebPage()</code> and immediately stores the result in a <code>std::unique_ptr</code> with a custom deleter, <code>freeWebPage()</code>. Here is the code:</p>
+      <pre>export class WebHost final
+{
+public:
+  // Connects to the given host.
+  explicit WebHost(const std::string&amp; host);
+  // Obtains the given page from this host.
+  std::string getPage(const std::string&amp; page);
+private:
+  std::unique_ptr&lt;ConnectionHandle, decltype(&amp; closeConnection)&gt; m_connection
+  { nullptr, closeConnection };
+};
+
+WebHost::WebHost(const std::string&amp; host)
+{
+  HostRecord hostRecord { host };
+  if (hostRecord.get()) {
+    m_connection = { connectToHost(hostRecord.get()), closeConnection };
+  }
+}
+
+std::string WebHost::getPage(const std::string&amp; page)
+{
+  std::string resultAsString;
+  if (m_connection) {
+    std::unique_ptr&lt;char[], decltype(&amp; freeWebPage)&gt; result {
+    retrieveWebPage(m_connection.get(), page.c_str()),
+    freeWebPage };
+    resultAsString = result.get();
+  }
+  return resultAsString;
+}</pre>
+      <p>The <code>WebHost</code> class effectively encapsulates the behavior of a host and provides useful functionality without unnecessary calls and data structures. The implementation of the <code>WebHost</code> class makes extensive use of the networklib library without exposing any of its workings to the user. The constructor of <code>WebHost</code> uses a <code>HostRecord</code> RAII object for the specified host. The resulting <code>HostRecord</code> is used to set up a connection to the host, which is stored in the <code>m_connection</code> data member for later use. The <code>HostRecord</code> RAII object is automatically destroyed at the end of the constructor. The <code>WebHost</code> destructor destroys <code>m_connection</code> which closes the connection. The <code>getPage()</code> member function uses <code>retrieveWebPage()</code> to retrieve a web page, converts it to an <code>std::string</code>, uses <code>freeWebPage()</code> to free memory, and returns the retrieved page as an <code>std::string</code>.</p>
+      <p>The <code>WebHost</code> class makes the common case easy for the client programmer. Here is an example:</p>
+      <pre>WebHost myHost { &quot;www.example.com&quot; };
+string result { myHost.getPage(&quot;/index.html&quot;) };
+println(&quot;The result is:\n{}&quot;, result);</pre>
+      <p><strong>Note:</strong> Networking-savvy readers may note that keeping a connection open to a host indefinitely is considered bad practice and doesn&apos;t adhere to the HTTP specification. You should not do this in production-quality code. However, for this example, I&apos;ve chosen elegance over etiquette.</p>
+      <p>As you can see, the <code>WebHost</code> class provides an object-oriented wrapper around the C-style library. By providing an abstraction, you can change the underlying implementation without affecting client code, and you can provide additional features. These features can include connection reference counting, automatically closing connections after a specific time to adhere to the HTTP specification, automatically reopening the connection on the next <code>getPage()</code> call, and so on.</p>
+      <!--<p>You&apos;ll explore writing wrappers a bit more in one of the exercises at the end of this chapter.</p>-->
+
+      <h2>Linking with C Code</h2>
+      <p>The previous example assumed that you had the raw C code to work with. The example took advantage of the fact that most C code will successfully compile with a C++ compiler. If you only have compiled C code, perhaps in the form of a library, you can still use it in your C++ program, but you need to take a few extra steps.</p>
+      <p>Before you can start using compiled C code in your C++ programs, you first need to know about a concept called <dfn>name mangling</dfn>. To implement function overloading, the complex C++ namespace is <q>flattened.</q> For example, if you have a C++ program, it is legitimate to write the following:</p>
+      <pre>void myFunc(double);
+void myFunc(int);
+void myFunc(int, int);</pre>
+      <p>However, this would mean that the linker would see several different functions, all called myFunc, and would not know which one you want to call. Therefore, all C++ compilers perform an operation that is referred to as name mangling and is the logical equivalent of generating names, as follows:</p>
+      <pre>myFunc_double
+myFunc_int
+myFunc_int_int</pre>
+      <p>To avoid conflicts with other names you might have defined, the compiler might generate names that are reserved as identifiers, for example, names beginning with double underscores or names beginning with an underscore followed by an uppercase letter. Alternatively, some compilers generate names that have characters that are legal to the linker but not legal in C++ source code. For example, Microsoft VC++ generates names as follows:</p>
+      <pre>?myFunc@@YAXN@Z
+?myFunc@@YAXH@Z
+?myFunc@@YAXHH@Z</pre>
+      <p>This encoding is complex and often vendor specific. The C++ standard does not specify how function overloading should be implemented on a given platform, so there is no standard for name mangling algorithms.</p>
+      <p>In C, function overloading is not supported (the compiler will complain about duplicate definitions). So, names generated by the C compiler are quite simple, for example, <code>_myFunc</code>.</p>
+      <p>Now, if you compile a simple program with the C++ compiler, even if it has only one instance of the <code>myFunc</code> name, it still generates a request to link to a mangled name. However, when you link with the C library, it cannot find the desired mangled name, and the linker complains. Therefore, it is necessary to tell the C++ compiler to not mangle that name. This is done by using the <code>extern &quot;C&quot;</code> qualification both in the header file (to instruct the client code to create a name compatible with C) and, if your library source is in C++, at the definition site (to instruct the library code to generate a name compatible with C).</p>
+      <p>Here is the syntax of <code>extern &quot;C&quot;</code>:</p>
+      <pre>extern &quot;C&quot; declaration1();
+extern &quot;C&quot; declaration2();</pre>
+      <p>or</p>
+      <pre>extern &quot;C&quot; {
+  declaration1();
+  declaration2();
+}</pre>
+      <p>The C++ standard says that any language specification can be used, so in principle, the following could be supported by a compiler:</p>
+      <pre>extern &quot;C&quot; void myFunc(int i);
+extern &quot;Fortran&quot; Matrix* matrixInvert(Matrix* M);
+extern &quot;Pascal&quot; void someLegacySubroutine(int n);
+extern &quot;Ada&quot; bool aimMissileDefense(double angle);</pre>
+
+      <p>In practice, many compilers only <code>support "C"</code>. Each compiler vendor will inform you which language designators they support.</p>
+      <p>As an example, the following code specifies the function prototype for cFunction() as an external C function:</p>
+      <pre>extern "C" {
+void cFunction(int i);
+}
+
+int main()
+{
+cFunction(8); // Calls the C function.
+}</pre>
+      <p>The actual definition for <code>cFunction()</code> is provided in a compiled binary file attached in the link phase. The <code>extern</code> keyword informs the compiler that the linked-in code was compiled in C.</p>
+
+      <p>A more common pattern for using <code>extern</code> is at the header level. For example, if you are using a graphics library written in C, it probably came with an <code>.h</code> file for you to include. The author of this header file should condition it on whether it is being compiled for C or C++. A C++ compiler predefines the symbol <code>__cplusplus</code> if you are compiling for C++. The symbol is not defined for C compilations. This symbol can be used to condition a header file as follows:</p>
+      <pre>#ifdef __cplusplus
+extern "C" {
+#endif
+drawCircle();
+drawSquare();
+#ifdef __cplusplus
+} // matches extern "C"
+#endif</pre>
+      <p>This means that <code>drawCircle()</code> and <code>drawSquare()</code> are functions that are in a library compiled by the C compiler. Using this technique, the same header file can be used in both C and C++ clients.</p>
+      <p>Whether you are including C code in your C++ program or linking against a compiled C library, remember that even though C++ is almost a superset of C, they are different languages with different design goals. Adapting C code to work in C++ is quite common, but providing an object-oriented C++ wrapper around procedural C code is often much better.</p>
+
+    </main>
+
+  </body>
+
+</html>
