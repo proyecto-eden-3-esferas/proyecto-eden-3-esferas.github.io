@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Platform-Specific Features in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+
+      <div>
+        <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself (<em>online</em>)</p>
+      </div>
+      <div>
+        <p><a href="cpp.platform-specific.html">Platform-Specific Features in C++</a></p>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+        <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
+        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
+        <!--
+        <p><a href="cpp.boost.geometry.html.bak">C++ Boost Geomety (<code>.bak</code>)</a></p>
+        <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
+        -->
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Platform-Specific Features in C++</h1>
+      <p>C++ is a great general-purpose language. Thanks to the <a target="_blank" href="cpp.stl.html">Standard Library</a>, the language is packed with so many features that a casual programmer could happily code in C++ for years without going beyond what is built in. However, professional programs require facilities that C++ does not provide. This section lists several important features that are provided by the platform or third-party libraries, not by the C++ language or the C++ Standard Library:</p>
+
+      <dl>
+
+        <dt>Networking</dt>
+        <dd>The Internet has changed the way we write applications. These days, most applications check for updates through the web, and games provide a networked multiplayer mode. C++ does not provide a mechanism for networking yet, though several standard libraries exist. The most common means of writing networking software is through an abstraction called sockets. A socket library implementation can be found on most platforms, and it provides a simple procedure-oriented way to transfer data over a network. Some platforms support a <a target="_blank" href="programming.streams.html">stream</a>-based networking system that operates like I/O streams in C++. There are also third-party networking libraries available that provide a networking abstraction layer. These libraries often support many different target platforms. Choosing a networking library that is IPv-independent would be a better choice than choosing one that only supports IPv4, as IPv6 is already being used.</dd>
+
+        <dt>Graphical user interfaces</dt>
+        <dd>Most commercial programs today run on an operating system that has a graphical user interface, containing such elements as clickable buttons, movable windows, and hierarchical menus. C++, like the C language, has no notion of these elements. To write a graphical application in C++, you can use platform-specific libraries that allow you to draw windows, accept input through the mouse, and perform other graphical tasks. A better option is to use a third-party library, such as wxWidgets (<a target="_blank" href="https://wxwidgets.org/">https://wxwidgets.org</a>), Qt (<a target="_blank" href="https://www.qt.io/">qt.io</a>), Uno (<a target="_blank" href="https://platform.uno/">platform.uno</a>), and many more that provide an abstraction layer for building graphical applications. These libraries often provide support for many different target platforms.</dd>
+
+        <dt>OS events and application interaction</dt>
+        <dd>In pure C++ code, there is little interaction with the surrounding operating system and other applications. The command-line arguments are about all you get in a standard C++ program without platform extensions. For example, operations such as copy and paste (which interact with the operating system&apos;s <q>clipboard</q>) are not directly supported in C++. You can either use platform-provided libraries or use third-party libraries that support multiple platforms. For example, both wxWidgets and Qt are examples of libraries that abstract the clipboard operations and support multiple platforms.</dd>
+
+        <dt>TERM2</dt>
+        <dd>DEF2</dd>
+
+        <dt>TERM1</dt>
+        <dd>DEF1</dd>
+
+        <dt>TERM2</dt>
+        <dd>DEF2</dd>
+
+        <dt>TERM1</dt>
+        <dd>DEF1</dd>
+
+        <dt>TERM2</dt>
+        <dd>DEF2</dd>
+
+        <dt>TERM1</dt>
+        <dd>DEF1</dd>
+
+        <dt>TERM2</dt>
+        <dd>DEF2</dd>
+
+      </dl>
+
+    </main>
+
+  </body>
+
+</html>

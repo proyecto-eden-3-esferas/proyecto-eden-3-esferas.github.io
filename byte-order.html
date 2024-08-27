@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Byte Order</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Byte Order</h1>
+      <p>All modern computers store numbers in a binary representation, but the representation of the same number on two platforms may not be identical. This sounds contradictory, but as we shall see, there are two approaches to representing numbers that both make sense.</p>
+      <p>Most computers these days are <dfn>byte-addressable</dfn>, meaning that every byte in memory has a unique memory address. Numeric types in <a target="_blank" href="cpp.html">C++</a> usually occupy multiple bytes. For example, a short may occupy 2 bytes. Imagine that your program contains the following line:</p>
+      <pre>short myShort { 513 };</pre>
+      <p>In binary, the number 513 is 0000 0010 0000 0001. This number contains 16 ones and zeros, or 16 bits. Because there are 8 bits in a byte, the computer needs 2 bytes to store the number. Because each individual memory address contains 1 byte, the computer needs to split the number up into multiple bytes. Assuming that a short is 2 bytes, the number is split into two parts. The higher part of the number is put into the high-order byte, and the lower part of the number is put into the low-order byte. In this case, the high-order byte is 0000 0010 and the low-order byte is 0000 0001.</p>
+      <p>Now that the number has been split up into memory-sized parts, the only question that remains is how to store them in memory. Two bytes are needed, but the order of the bytes is underdetermined and, in fact, depends on the architecture of the system in question.</p>
+      <p>One way to represent the number is to put the high-order byte first in memory and the low-order byte next. This strategy is called <dfn>big-endian ordering</dfn> because the bigger part of the number comes first. PowerPC and SPARC processors use a big-endian approach. Some other processors, such as x86, arrange the bytes in the opposite order, putting the low-order byte first in memory. This approach is called <dfn>little-endian ordering</dfn> because the smaller part of the number comes first. An architecture may choose one approach or the other, usually based on backward compatibility. For the curious, the terms big-endian and little-endian predate modern computers by several hundred years. Jonathan Swift coined the terms in his eighteenth-century novel <cite>Gulliver&apos;s Travels</cite> to describe the opposing camps of a debate about the proper end on which to break an egg.</p>
+      <p>Regardless of the endianness a particular architecture uses, your programs can continue to use numerical values without paying any attention to whether the machine uses big-endian ordering or little-endian ordering. That ordering only comes into play when data moves between architectures. For example, if you are sending binary data across a network, you may need to consider the endianness of the other system. One solution is to use the standard network byte ordering, which is always big-endian. So, before sending data across a network, you convert it to big-endian, and whenever you receive data from a network, you convert it from big-endian to the native endianness of your system.</p>
+      <p>Similarly, if you are writing binary data to a file, you may need to consider what happens when that file is opened on a system with opposite byte ordering.</p>
+
+      <section id="cpp">
+        <h2>Handling Byte Order in C++</h2>
+        <p>The Standard Library includes the <code>std::endian</code> enumeration, defined in <cite>&lt;bit&gt;</cite>, which can be used to determine whether the current system is a big- or little-endian system. The following code snippet outputs the native byte ordering of your system:</p>
+        <pre>switch (endian::native)
+{
+  case endian::little:
+    println("Native ordering is little-endian.");
+    break;
+  case endian::big:
+    println("Native ordering is big-endian.");
+    break;
+}</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

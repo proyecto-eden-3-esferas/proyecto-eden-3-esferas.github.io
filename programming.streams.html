@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Streams in Programming</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a            href="programming.block.html">Blocks in Programming: Units of Scope and Execution</a></p>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Streams in Programming</h1>
+      <p>A <dfn>data stream</dfn> is a countable infinite sequence of items and is used to represent data items that are available over time. Examples are sensor readings in an environmental monitoring application, stock prices in financial applications, or network data in computer monitoring.</p>
+      <p>A stream can be read-only, write-only, or read-write.</p>
+      <p>The contents of a stream is said to be consumed or added to, all in sequential order.</p>
+      <p>Sometimes random access is provided through cursors into a stream.</p>
+
+      <h2>There are a few key characteristics of streams:</h2>
+      <ol>
+        <li>Data elements are produced and made available one at a time, rather than all at once.</li>
+        <li>The data elements in a stream are typically processed and consumed as they are produced, rather than being stored for later processing.</li>
+        <li>Streams can be unbounded, meaning they have no fixed end, or they can be finite, with a fixed number of data elements.</li>
+      </ol>
+
+
+      <h2>Types of Streams</h2>
+      <p>There are many types of streams in computer systems, including file streams, network streams, and memory streams. File streams allow you to read and write data to and from files on a storage device. Network streams allow you to read and write data over a network connection. Memory streams allow you to read and write data to and from a memory buffer.</p>
+
+      <p>According to the nature of their items, streams are classified as:</p>
+      <dl>
+        <dt>Byte streams</dt>
+        <dd>Byte streams are streams that transfer data in the form of bytes, which are the basic unit of data in a computer system. Byte streams are the most general-purpose type of stream, and can be used to transfer data of any type.</dd>
+        <dt>Character streams</dt>
+        <dd>Character streams are streams that transfer data in the form of characters, which are used to represent text. Character streams are often used for working with text data, and can automatically handle tasks such as character encoding and decoding.</dd>
+        <dt>Buffered streams</dt>
+        <dd>Buffered streams are streams that use a buffer to store data temporarily, in order to improve the efficiency of data transfer. Buffered streams can reduce the number of read and write operations that are performed, and can improve the performance of a system.</dd>
+        <dt>Filtered streams</dt>
+        <dd>Filtered streams are streams that apply a transformation to the data that is being transferred. Filtered streams can be used to perform tasks such as compression, encryption, and decryption.</dd>
+        <dt>Object streams</dt>
+        <dd>Object streams are streams that transfer data in the form of <a target="_blank" href="oop.classes.html">objects</a>, which are complex data structures that can contain a variety of data types. Object streams can be used to transfer objects between different parts of a system, or between systems.</dd>
+        <dt>Parallel processing</dt>
+        <dd>It allows you to create a pipeline of streams that can be used to process data in parallel</dd>
+      </dl>
+
+    </main>
+
+  </body>
+
+</html>
