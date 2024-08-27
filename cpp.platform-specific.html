@@ -55,26 +55,15 @@
         <dt>OS events and application interaction</dt>
         <dd>In pure C++ code, there is little interaction with the surrounding operating system and other applications. The command-line arguments are about all you get in a standard C++ program without platform extensions. For example, operations such as copy and paste (which interact with the operating system&apos;s <q>clipboard</q>) are not directly supported in C++. You can either use platform-provided libraries or use third-party libraries that support multiple platforms. For example, both wxWidgets and Qt are examples of libraries that abstract the clipboard operations and support multiple platforms.</dd>
 
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
+        <dt>Low-level files</dt>
+        <dd>Many operating systems provide their own file APIs, which are usually incompatible with the standard file classes in C++. These libraries often provide OS-specific file tools, such as a mechanism to get the home directory of the current user.</dd>
 
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
+        <dt>Threads</dt>
+        <dd>
+          <p>Concurrent threads of execution within a single program were not directly supported in C++03 or earlier. Since C++11, a threading support library has been included with the Standard Library<!--, as explained in Chapter 27, “Multithreaded Programming with C++,”--> and C++17 has added parallel algorithms<!--, as discussed in Chapter 20, “Mastering Standard Library Algorithms”-->. If you need more powerful threading functionality besides what the Standard Library provides, then you need to use third-party libraries.</p>
+          <p><strong>Note:</strong> If you are doing cross-platform development and you need functionality not provided by the C++ language or the C++ Standard Library, you should try to find a third-party cross-platform library that provides the functionality you require. If, instead, you start using platform-specific APIs directly, then you are complicating your cross-platform code a lot, as you will have to implement the functionality for each platform you need to support.</p>
+          <p><strong>Note:</strong> When using third-party libraries, if possible, get these libraries as source code and build them yourself with the exact toolchains you need.</p>
+        </dd>
 
       </dl>
 
