@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reference Counting in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="next" href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a></p>
+        <p><a            href="cpp.RAII.html">Resource Acquisition is Initialization (RAII) in C++</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Reference-Counted Smart Pointers</h1>
+ 	    <p>Reference counting in general is a mechanism that keeps a count of the number of users of an object. When the count reduces to zero, the object is released. So, reference counting makes a very good mechanism for sharing objects without having to copy them. If you have ever worked with a Microsoft technology called COM, the concept of reference counting would have definitely crossed your path on at least one occasion.</p>
+ 	    <p>Such smart pointers, when copied, need to have the reference count of the object in question incremented. There are at least two popular ways to keep this count:</p>
+ 	    <ol>
+ 	      <li>Reference count maintained in the object being pointed to</li>
+ 	      <li>Reference count maintained by the pointer class in a shared object</li>
+ 	    </ol>
+ 	    <p>The first variant where the reference count is maintained in the object is called <dfn>intrusive reference counting</dfn> because the object needs to be modified. The object in this case maintains, increments, and supplies the reference count to any smart pointer class that manages it. Incidentally, this is the approach chosen by COM. The second variant where the reference count is maintained in a shared object is a mechanism where the smart pointerclass can keep the reference count on the free store (a dynamically allocated integer, for example) and when copied, the copy constructor increments this value.</p>
+ 	    <p>Therefore, the reference-counting mechanism makes it pertinent that the programmer works with the smart pointers only when using the object. A smart pointer managing the object and a raw pointer pointing to it is a bad idea because the smart pointer (smartly) releases the object when the count maintained by it goes down to zero, but the raw pointer continues pointing to the part of the memory that no longer belongs to your application. Similarly, reference counting can cause issues peculiar to their situation: Two objects that hold a pointer to each other are never released because their cyclic dependency holds their reference counts at a minimum of 1.</p>
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::unique_ptr</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p> <a rel="next" href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a> </p>
+        <p> <a href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a> </p>
+        <p> <a href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a> </p>
+      </div>
+      <div>
+        <p> <a rel="prev" href="cpp.memory.html">Memory Management in C++</a> </p>
+        <p> <a href="cpp.RAII.html">Resource Acquisition is Initialization (RAII) in C++</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</h1>
+      <p>A <code>std::unique_ptr</code> owns of the object it points to and no other smart pointers can point to it. When the <code>std::unique_ptr</code> goes out of scope, the object is deleted. This is useful when you are working with a temporary, dynamically-allocated resource that can get destroyed once out of scope.</p>
+      <section>
+        <h2>How to construct a <code>std::unique_ptr</code></h2>
+        <p>A <code>std::unique_ptr</code> is created like this:</p>
+        <pre>std::unique_ptr&lt;Type&gt; p(new Type);</pre>
+        <p>For example:</p>
+        <pre>std::unique_ptr&lt;int&gt;    p1(new int);
+std::unique_ptr&lt;int[]&gt;  p2(new int[50]);
+std::unique_ptr&lt;Object&gt; p3(new Object("Lamp"));</pre>
+        <p>It is also possible to construct <code>std::unique_ptr</code>s with the help of the special function std::make_unique...</p>
+      </section>
+
+      <section>
+        <h2><code>std::make_unique&lt;&gt;()</code></h2>
+        <p>Use <code>std::make_unique&lt;&gt;()</code> to create a unique_ptr. For example, instead of writing the following:</p>
+        <pre>Employee* anEmployee = new Employee;</pre>
+        <p>You should write:</p>
+        <pre>auto anEmployee = std::make_unique&lt;Employee&gt;();</pre>
+        <p>If your compiler is not yet <a target="_blank" href="cpp.cpp14.html">C++14</a> compliant you can make your <code>unique_ptr</code> as follows. Note that you now have to specify the type, <code class="classname">Employee</code>, twice:</p>
+        <pre>std::unique_ptr&lt;Employee&gt; anEmployee(new Employee);</pre>
+        <p>You can now use the <var>anEmployee</var> smart pointer the same way as a normal pointer.</p>
+        <p>Some more examples:</p>
+        <pre>std::unique_ptr&lt;int&gt;    p1 = std::make_unique&lt;int&gt;();
+std::unique_ptr&lt;int[]&gt;  p2 = std::make_unique&lt;int[]&gt;(50);
+std::unique_ptr&lt;Object&gt; p3 = std::make_unique&lt;Object&gt;("Lamp");</pre>
+        <p><strong>Note:</strong> If you can, always choose to allocate objects using <code>std::make_unique</code>.</p>
+      </section>
+
+      <section>
+        <h2>One resource, one <code>std::unique_ptr</code></h2>
+        <p>I could say that <code>std::unique_ptr</code> is very jealous of the dynamic object it holds: you can&apos;t have multiple references to its dynamic data. For example:</p>
+        <pre>void compute(std::unique_ptr&lt;int[]&gt; p) { ... }
+
+int main()
+{
+    std::unique_ptr&lt;int[]&gt; ptr = std::make_unique&lt;int[]&gt;(1024);
+    std::unique_ptr&lt;int[]&gt; ptr_copy = ptr; // ERROR! Copy is not allowed
+    compute(ptr);  // ERROR! `ptr` is passed by copy, and copy is not allowed
+}</pre>
+        <p>This is done on purpose and it&apos;s an important feature of <code>std::unique_ptr</code>: there can be at most one <code>std::unique_ptr</code> pointing at any one resource. This prevents the pointer from being incorrectly deleted multiple times.</p>
+        <p>Technically this happens because a <code>std::unique_ptr</code> doesn&apos;t have a copy constructor: it might be obvious to you if you are familiar with <a target="_blank" href="cpp.move-semantics.html">move semantics</a>.</p>
+      </section>
+    </main>
+  </body>
+</html>

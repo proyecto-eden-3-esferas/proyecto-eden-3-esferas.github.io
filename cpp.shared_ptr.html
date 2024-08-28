@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::shared_ptr</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p>
+          <a href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a>
+        </p>
+        <p>
+          <a rel="next" href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a>
+        </p>
+      </div>
+      <div>
+        <p>
+          <a rel="prev" href="cpp.memory.html">Memory Management in C++</a>
+        </p>
+      </div>
+    </nav>
+    <main>
+      <h1><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</h1>
+      <p>A <code>std::shared_ptr</code> owns the object it points to but, unlike std::unique_ptr, it allows for multiple references. A special internal counter is decreased each time a <code>std::shared_ptr</code> pointing to the same resource goes out of scope. This technique is called <a target="_blank" href="cpp.reference-counting.html">reference counting</a>. When the very last one is destroyed the counter goes to zero and the data will be deallocated.</p>
+      <p>This type of smart pointer is useful when you want to share your dynamically-allocated data around, the same way you would do with raw pointers or references.</p>
+      <section>
+        <h2>How to construct a <code>std::shared_ptr</code></h2>
+        <p>A <code>std::shared_ptr</code> is constructed like this:</p>
+        <pre>std::shared_ptr&lt;Type&gt; p(new Type);</pre>
+        <p>For example:</p>
+        <pre>std::shared_ptr&lt;int&gt;    p1(new int);
+std::shared_ptr&lt;Object&gt; p2(new Object("Lamp"));</pre>
+        <p>There is an alternate way to build a <code>std::shared_ptr</code>, powered by the special function std::make_shared:</p>
+        <pre>std::shared_ptr&lt;Type&gt; p = std::make_shared&lt;Type&gt;(...parameters...);</pre>
+        <p>For example:</p>
+        <pre>std::shared_ptr&lt;int&gt;    p1 = std::make_shared&lt;int&gt;();
+std::shared_ptr&lt;Object&gt; p2 = std::make_shared&lt;Object&gt;("Lamp");</pre>
+        <p>This should be the preferred way to construct this kind of smart pointer. I'll show you why in the last (sub)section.</p>
+      </section>
+      <section>
+        <h2>Issues with arrays</h2>
+        <p>Until C++17 there is no easy way to build a <code>std::shared_ptr</code> holding an array. Prior to C++17 this smart pointer always calls delete by default (and not delete[]) on its resource: you can create a workaround by using a custom deleter. One of the many <code>std::shared_ptr</code> constructors takes a lambda as second parameter, where you manually delete the object it owns. For example:</p>
+        <pre>std::shared_ptr&lt;int[]&gt; p2(new int[16], [] (int* i) {
+  delete[] i; // Custom delete
+});</pre>
+        <p>Unfortunately there's no way to do this when using std::make_shared.</p>
+      </section>
+      <section>
+        <h2><code>std::shared_ptr</code> in action</h2>
+        <p>One of the main features of <code>std::shared_ptr</code> is the ability to track how many pointers refer to the same resource. You can get information on the number or references with the method use_count(). Consider this:</p>
+        <pre>void compute()
+{
+  std::shared_ptr&lt;int&gt; ptr = std::make_shared&lt;int&gt;(100);
+  // ptr.use_count() == 1
+  std::shared_ptr&lt;int&gt; ptr_copy = ptr;   // Make a copy: with shared_ptr we can!
+  // ptr.use_count() == 2
+  // ptr_copy.use_count() == 2, it's the same underlying data after all
+} // `ptr` and `ptr_copy` go out of scope here. No more references to the
+  // original data (i.e. use_count() == 0), so it is automatically cleaned up.
+
+int main()
+{
+  compute();
+}</pre>
+        <p>Notice how both <var>ptr</var> and <var>ptr_copy</var> go out of scope at the end of the function, bringing the reference count down to zero. At that point, the destructor of the last object detects that there aren't any more references around and triggers the memory cleanup.</p>
+      </section>
+      <section>
+        <h2>One resource, many <code>std::shared_ptr</code>. Mind the circular references!</h2>
+        <p>The power of multiple references may lead to nasty surprises. Say I'm writing a game where a player has another player as companion, like this:</p>
+        <pre>struct Player
+{
+  std::shared_ptr&lt;Player&gt; companion;
+  ~Player() { std::cout &lt;&lt; "~Player\n"; }
+};
+
+int main()
+{
+  std::shared_ptr&lt;Player&gt; jasmine = std::make_shared&lt;Player&gt;();
+  std::shared_ptr&lt;Player&gt; albert  = std::make_shared&lt;Player&gt;();
+
+  jasmine-&gt;companion = albert; // (1)
+  albert-&gt;companion  = jasmine; // (2)
+}</pre>
+        <p>Makes sense, doesn't it? Unfortunately, I have just created the so-called circular reference. At the beginning of my program I create two smart pointers jasmine and albert that store dynamically-created objects: let's call this dynamic data jasmine-data and albert-data to make things clearer.</p>
+        <p>Then, in (1) I give jasmine a pointer to albert-data, while in (2) albert holds a pointer to jasmine-data. This is like giving each player a companion.</p>
+        <p>When jasmine goes out of scope at the end of the program, its destructor can't cleanup the memory: there is still one smart pointer pointing at jasmine-data, that is albert-&gt;companion. Likewise, when albert goes out of scope at the end of the program, its destructor can't cleanup the memory: a reference to albert-data still lives through jasmine-&gt;companion. At this point the program just quits without freeing memory: a memory leak in all its splendor. If you run the snippet above you will notice how the ~Player() will never get called.</p>
+        <p>This is not a huge problem here, as the operating system will take care of cleaning up the memory for you. However you don't really want to have such circular dependencies (i.e. memory leaks) in the middle of your program. Fortunately the last type of smart pointer will come to the rescue.</p>
+      </section>
+    </main>
+  </body>
+</html>
