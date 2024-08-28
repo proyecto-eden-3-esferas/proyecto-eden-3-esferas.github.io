@@ -1,7 +1,8 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>std::weak_ptr</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -16,21 +17,49 @@
   <body lang="en" class="computing">
     <nav>
       <div>
-        <p><a rel="next" href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a></p>
-        <p><a            href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a></p>
-        <p><a            href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a></p>
+        <p>
+          <a href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a>
+        </p>
+        <p>
+          <a href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a>
+        </p>
       </div>
       <div>
-        <p><a rel="prev" href="cpp.memory.html">Memory Management in C++</a></p>
-        <p><a href="cpp.RAII.html">Resource Acquisition is Initialization (RAII) in C++</a></p>
+        <p>
+          <a rel="prev" href="cpp.memory.html">Memory Management in C++</a>
+        </p>
+        <p>
+          <a href="cpp.RAII.html">Resource Acquisition is Initialization (RAII) in C++</a>
+        </p>
       </div>
     </nav>
-
     <main>
-      <h1></h1>
-
+      <h1><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</h1>
+      <p>A std::weak_ptr is basically a std::shared_ptr that doesn't increase the reference count. It is defined as a smart pointer that holds a non-owning reference, or a weak reference, to an object that is managed by another std::shared_ptr.</p>
+      <p>This smart pointer is useful to solve some annoying problems that you can't fix with raw pointers. We will see how shortly.</p>
+      <section>
+        <h2>How to construct a std::weak_ptr</h2>
+        <p>You can only create a std::weak_ptr out of a std::shared_ptr or another std::weak_ptr. For example:</p>
+        <pre>std::shared_ptr&lt;int&gt; p_shared = std::make_shared&lt;int&gt;(100);
+std::weak_ptr&lt;int&gt;   p_weak1(p_shared);
+std::weak_ptr&lt;int&gt;   p_weak2(p_weak1);</pre>
+        <p>In the example above <var>p_weak1</var> and <var>p_weak2</var> point to the same dynamic data owned by <var>p_shared</var>, but the reference counter doesn't grow.</p>
+      </section>
+      <section>
+        <h2>std::weak_ptr in action</h2>
+        <p>A std::weak_ptr is a sort of inspector on the std::shared_ptr it depends on. You have to convert it to a std::shared_ptr first with the lock() method if you really want to work with the actual object:</p>
+        <pre>std::shared_ptr&lt;int&gt; p_shared = std::make_shared&lt;int&gt;(100);
+std::weak_ptr&lt;int&gt;   p_weak(p_shared);
+// ...
+std::shared_ptr&lt;int&gt; p_shared_orig = p_weak.lock();
+//</pre>
+        <p>Of course p_shared_orig might be null in case p_shared got deleted somewhere else.</p>
+      </section>
+      <section>
+        <h2>std::weak_ptr is a problem solver</h2>
+        <p>A std::weak_ptr makes the problem of dangling pointers, pointers that point to already deleted data, super easy to solve. It provides the expired() method which checks whether the referenced object was already deleted. If expired() == true, the original object has been deleted somewhere and you can act accordingly. This is something you can't do with raw pointers.</p>
+        <p>As I said before, a std::weak_ptr is also used to break a circular reference. Let's go back to the Player example above and change the member variable from <code class="classname">std::shared_ptr&lt;Player&gt;</code> companion to std::weak_ptr&lt;Player&gt; companion. In this case we used a std::weak_ptr to dissolve the entangled ownership. The actual dynamically-allocated data stays in the main body, while each Player has now a weak reference to it. Run the code with the change and you will see how the destructor gets called twice, correctly.</p>
+      </section>
     </main>
-
   </body>
-
 </html>
