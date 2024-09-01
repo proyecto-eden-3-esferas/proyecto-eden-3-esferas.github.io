@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GProlog, the GNU Prolog</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a</p>>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a</p>>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a</p>>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a</p>>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a</p>>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a</p>>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a</p>>
+      -->
+      <div>
+        <p> <a            href="prolog.compilers-and-interpreters.html#swipl">SWI-Prolog, an Edinburgh + ISO Prolog</a> </p>
+        <p> <a rel="prev" href="prolog.html">Prolog: Symbolic Programming or <i>Programation Logique</i></a> </p>
+        <p> <a rel="next" href="lisp.html">Lisp: The List Processing Language</a> </p>
+      </div>
+      <div>
+        <p> <a href="ai.html">Artificial Intelligence</a> </p>
+        <p> <a href="knowledge-representation.html">Knowledge Representation</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>GProlog, the GNU ISO-Compliant Implementation of Prolog</h1>
+
+      <section>
+        <h2>The GNU Prolog Interactive Interpreter</h2>
+        <section>
+          <h3>Starting/exiting the interactive interpreter</h3>
+          <p>GNU Prolog offers a classical Prolog interactive interpreter also called <dfn>top-level</dfn>. It allows the user to execute queries, to consult Prolog programs, to list them, to execute them and to debug them. The top-level can be invoked using the following command:</p>
+          <pre>% gprolog [<var>OPTION</var>] . . .</pre>
+          <p>where the <code>%</code> symbol is the operating system shell prompt.</p>
+          <h5 class="bridgehead">Options:</h5>
+          <table border="0">
+            <tr> <td><code>--init-goal <var>GOAL</var></code></td> <td>execute <var>GOAL</var> before entering the top-level</td> </tr>
+            <tr> <td><code>--consult-file <var>FILE</var></code></td> <td>consult <var>FILE</var> inside the top-level</td> </tr>
+            <tr> <td><code>--entry-goal <var>GOAL</var></code></td> <td>execute <var>GOAL</var> inside the top-level</td> </tr>
+            <tr> <td><code>--query-goal <var>GOAL</var></code></td> <td>execute <var>GOAL</var> as a query for the top-level</td> </tr>
+            <tr> <td><code>--help</code></td> <td>print a help and exit</td> </tr>
+            <tr> <td><code>--version</code></td> <td>print version number and exit</td> </tr>
+            <tr> <td><code>--</code></td> <td>do not parse the rest of the command-line</td> </tr>
+          </table>
+          <p>The main role of the gprolog command is to execute the top-level itself, i.e. to execute the built-in predicate <code>top_level/0</code>, which will produce something like:</p>
+          <pre>GNU Prolog 1.4.0
+By Daniel Diaz
+Copyright (C) 1999-2018 Daniel Diaz
+| ?-</pre>
+          <p>To quit the top-level type the end-of-file key sequence (<kbd>Ctl-D</kbd>) or its term representation:</p> <code>end_of_file.</code>
+          <p>It is also possible to use the built-in predicate <code>halt/0</code></p>
+
+          <p>Here is an example of using execution goal options (bash). Note that no space character follows the comma character:</p>
+          <pre>gprolog --init-goal write\(before\),nl --entry-goal write\(inside\),nl --query-goal append\([a,b],[c,d],X\)</pre>
+          <aside>
+            <p>In the GNU Prolog manual just:</p>
+            <pre>gprolog --init-goal &apos;write(before), nl&apos; --entry-goal &apos;write(inside), nl&apos; --query-goal &apos;append([a,b],[c,d],X)&apos;</pre>
+          </aside>
+          <p>Which produces output:</p>
+          <samp>before<br/>
+GNU Prolog 1.4.5 (64 bits)<br/>
+Compiled Feb 23 2020, 20:14:50 with gcc<br/>
+By Daniel Diaz<br/>
+Copyright (C) 1999-2020 Daniel Diaz<br/>
+inside<br/>
+| ?- append([a,b],[c,d],X).<br/>
+<br/>
+X = [a,b,c,d]<br/>
+<br/>
+yes<br/>
+| ?-</samp>
+        </section>
+        <section>
+          <h3>The interactive interpreter read-execute-write loop</h3>
+          <p>The GNU Prolog top-level is built on a classical read-execute-write loop that also allows for re-executions (when the query is not deterministic) as follows:</p>
+          <ul>
+            <li>display the prompt, i.e. ’| ?-’.</li>
+            <li>read a query (i.e. a goal).</li>
+            <li>execute the query.</li>
+            <li>in case of success display the values of the variables of the query.</li>
+            <li>if there are remaining alternatives (i.e. the query is not deterministic), display a ? and ask the user, who can use one of the following commands: &lt;RETURN&gt; to stop the execution, <kbd>;</kbd> to compute the next solution or <kbd>a</kbd> to compute all remaining solution.</li>
+          </ul>
+
+          <p>Here is an example of execution of a query (find the lists X and Y such that the concatenation of X and Y is [a,b]):</p>
+          <table border="0">
+            <tr> <td><pre>| ?- append(X,Y,[a,b,c]).</pre></td> </tr>
+            <tr> <td><pre>X = []<br/>Y = [a,b,c] ? ;</pre></td> <td>(here the user presses <kbd>;</kbd> to compute another solution)</td> </tr>
+            <tr> <td><pre>X = [a]<br/>Y = [b,c] ? a</pre></td> <td>(here the user presses <kbd>a</kbd> to compute all remaining solutions)</td> </tr>
+            <tr> <td><pre>X = [a,b]<br/>Y = [c]</pre></td> <td>(here the user is not asked and the next solution is computed)</td> </tr>
+            <tr> <td><pre>X = [a,b,c]<br/>Y = []</pre></td> </tr>
+            <tr> <td><pre>no</pre></td> <td>(no more solutions)</td> </tr>
+          </table>
+
+          <p>The user can stop the execution even if there are more alternatives by typing &lt;RETURN&gt;</p>
+          <pre>| ?- (X=1 ; X=2).
+X = 1 ?
+yes</pre>
+
+          <p>The top-level tries to display the values of the variables of the query in a readable manner. For instance, when a variable is bound to a query variable, the name of this variable appears. When a variable is a singleton an underscore symbol is displayed (&quot;_&quot; is a generic name for a singleton variable, it is also called an <var>anonymous variable</var>). Other variables are bound to new brand variable names. When a query variable name <code>X</code> appears as the value of another query variable <code>Y</code> it is because <code>X</code> is itself not instantiated otherwise the value of <code>X</code> is displayed. In such a case, nothing is output for <code>X</code> itself (since it is a variable). Example:</p>
+          <table border="0">
+            <tr> <td><pre>| ?- X=f(A,B,_,A), A=k.</pre></td> <td></td> </tr>
+            <tr> <td><pre>A = k</pre></td> <td>(the value of A is displayed also in f/3 for X)</td> </tr>
+            <tr> <td><pre>X = f(k,B,_,k)</pre></td> <td>(since B is a variable which is also a part of X, B is not displayed)</td> </tr>
+            <tr> <td><pre>| ?- functor(T,f,3), arg(1,T,X), arg(3,T,X)</pre></td> <td></td> </tr>
+            <tr> <td><pre>T = f(X,_,X)</pre></td> <td>(the 1st and 3rd args are equal to X, the 2nd is an anonymous variable)</td> </tr>
+            <tr> <td><pre>read_from_atom('k(X,Y,X).',T).</pre></td> <td></td> </tr>
+            <tr> <td><pre>T = k(A,_,A)</pre></td> <td>(the 1st and 3rd args are unified, a new variable name A is introduced)</td> </tr>
+          </table>
+          <p>Finally, the top-level computes the user-time (section 8.24.2, page 154) taken by a query and displays it when it is significant. Example:</p>
+          <pre>retractall('p(_)'), assertz('p(0)'),
+repeat,
+retract('p(X)'),
+Y is X + 1,
+assertz('p(Y)'),
+X = 1000, !.</pre>
+          <p>which returns:</p>
+          <samp>X = 1000
+Y = 1001
+(180 ms) yes</samp>
+          <p>(the query took 180ms of user time)</p>
+        </section>
+        <section>
+          <h3>Consulting a Prolog program</h3>
+          <p>The top-level allows the user to consult Prolog source files. Consulted predicates can be listed, executed and debugged (while predicates compiled to native-code cannot).</p>
+          <p>To consult a program use the built-in predicate <code>consult/1</code>. The argument of this predicate is a Prolog file name or user to specify the terminal. This allows the user to directly input the predicates from the terminal. In that case the input shall be terminated by the end-of-file key sequence (Ctl-D) or its term representation: <code>end_of_file</code>. A shorthand for consult(FILE ) is <code>[<var>FILE</var>]</code>. Example:</p>
+          <pre>| ?- [user].
+{compiling user for byte code...}
+even(0).
+even(s(s(X))):-
+even(X).
+{user compiled, 3 lines read - 350 bytes written, 1180 ms}
+| ?- even(X).
+X = 0 ?;
+X = s(s(0)) ? ;
+X = s(s(s(s(0)))) ?
+yes
+| ?- listing.
+even(0).
+even(s(s(A))) :-
+even(A).</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>The GNU Prolog Compiler</h2>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
+
+    </main>
+  </body>
+</html>

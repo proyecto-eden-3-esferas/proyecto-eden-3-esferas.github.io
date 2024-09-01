@@ -34,40 +34,25 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a</p>>
       -->
       <div>
-        <p>
-          <a rel="prev" href="prolog.html">Prolog: Symbolic Programming or <i>Programation Logique</i></a>
-        </p>
-        <p>
-          <a rel="next" href="lisp.html">Lisp: The List Processing Language</a>
-        </p>
+        <p> <a href="#swipl">SWI-Prolog, an Edinburgh + ISO Prolog</a> </p>
+        <p> <a href="gprolog.html">GProlog, the GNU ISO-Compliant Implementation of Prolog</a> </p>
+        <p> <a rel="prev" href="prolog.html">Prolog: Symbolic Programming or <i>Programation Logique</i></a> </p>
+        <p> <a rel="next" href="lisp.html">Lisp: The List Processing Language</a> </p>
       </div>
       <div>
-        <p>
-          <a href="ai.html">Artificial Intelligence</a>
-        </p>
-        <p>
-          <a href="gai.html">Generative Artificial Intelligence</a>
-        </p>
-        <p>
-          <a href="knowledge-representation.html">Knowledge Representation</a>
-        </p>
-        <p>
-          <a href="ann.html">Artificial Neural Networks</a>
-        </p>
-        <p>
-          <a href="machine_learning.html">Machine Learning</a>
-        </p>
+        <p> <a href="ai.html">Artificial Intelligence</a> </p>
+        <p> <a href="knowledge-representation.html">Knowledge Representation</a> </p>
       </div>
     </nav>
     <main>
       <h1>Prolog Compilers and Interpreters</h1>
       <p>On linux, you can choose between:</p>
       <ol>
-        <li>gprolog,</li>
-        <li>SWI-Prolog, and</li>
+        <li><a href="gprolog.html">gprolog</a>,</li>
+        <li><a href="#swipl">SWI-Prolog</a>, and</li>
         <li>yap, which is Yet Another Prolog whatever.</li>
       </ol>
-      <section xml:id="wam">
+      <section id="wam">
         <h2>The Warren Abstract Machine</h2>
         <p>The  WAM is  an  abstract machine consisting  of a  memory architecture and in-struction set tailored to Prolog.  It can be realised efficiently on a wide range of hardware, and serves as a target for portable Prolog compilers. It has now become accepted as a standard basis for implementing Prolog. The WAM is perhaps too readily accepted as the standard.Although the WAM is a distillation of a long line of experience in Prolog implementation, it is by no means the only possible point to consider in the design space.  For example, whereas the WAM adopts <dfn>structure copying</dfn> to represent Prolog terms, the <dfn>structure sharing</dfn> representation used in the Marseille and DEC-10 implementations still has much to recommend it.  Be that as it may, the WAM is certainly a good starting point for studying Prolog implementation technology.</p>
       </section>
@@ -77,7 +62,7 @@
           <h3>Edinburgh Prolog*</h3>
         </section>
       </section>
-      <section xml:id="swipl">
+      <section id="swipl">
         <h2>SWI-Prolog</h2>
         <blockquote>
           <p>SWI-Prolog started life in 1986 as a Prolog in the Edinburgh tradition. Its development has been guided from the very beginning by the desire to build large scale applications in Prolog. For this reason it stresses connectivity to the C-language, few system limits, comprehensive memory management, modules, multi-threading, coroutining, constraints and a fast and interactive development environment. Portable libraries for graphics, databases, networking, web-services, XML, RDF and many more complete the system.</p>
@@ -191,7 +176,7 @@ test :- send(new(prolog_lister), open).</pre>
               <!-- </varlistentry> -->
             </dl>
           </section>
-          <section xml:id="swipl_shlib">
+          <section id="swipl_shlib">
             <h4>Using the library <cite>shlib</cite> for .DLL and .so files</h4>
             <p>This section discusses the functionality of the (autoload) library <cite>shlib.pl</cite>, providing an interface to shared libraries. This library can only be used if the Prolog flag <var>open_shared_object</var> is enabled.</p>
             <dl>
@@ -600,7 +585,7 @@ my_function(term_t a0, term_t a1, control_t handle)
                 <dd>Return the arity of the given functor.</dd>
               <!-- </varlistentry> -->
             </dl>
-            <p class="bridgehead" xml:id="atoms_and_atom-garbage_collection">Atoms and atom-garbage collection</p>
+            <p class="bridgehead" id="atoms_and_atom-garbage_collection">Atoms and atom-garbage collection</p>
             <p>With the introduction of atom-garbage collection in version 3.3.0, atoms no longer live as long as the process. Instead, their lifetime is guaranteed only as long as they are referenced. In the single-threaded version, atom garbage collections are only invoked at the call-port. In the multi-threaded version, they appear asynchronously, except for the invoking thread.</p>
             <p>For dealing with atom garbage collection, two additional functions are provided:</p>
             <dl>
@@ -2453,7 +2438,7 @@ At runtime, it is advised to pass the flag -nosignals, which inhibits all defaul
     </section>
 
           </section>
-          <section xml:id="plld">
+          <section id="plld">
             <h4>Linking embedded applications using plld*</h4>
           </section>
           <section>
