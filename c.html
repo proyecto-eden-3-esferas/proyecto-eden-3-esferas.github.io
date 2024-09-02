@@ -37,6 +37,16 @@
       <hr/>
       <p>By design, C&apos;s features cleanly reflect the capabilities of the targeted CPUs. It has found lasting use in operating systems code (especially in kernels), device drivers, and protocol stacks, but its use in application software has been decreasing starkly. C is commonly used on computer architectures that range from the largest supercomputers to the smallest microcontrollers and embedded systems.</p>
       <p>C is an imperative, procedural language in the ALGOL tradition. It has a static type system. In C, all executable code is contained within <dfn>subroutines</dfn> (also called <q>functions</q>, though not in the sense of functional programming). Function parameters are passed by value, although arrays are passed as pointers, i.e. the address of the first item in the array. Pass-by-reference is simulated in C by explicitly passing pointers to the thing being referenced.</p>
+
+      <h2>A Simple C Programme</h2>
+      <p>The execution of the following C programme prints <q>Hello World!</q> on the computer&apos;s screen:</p>
+      <pre>#include &lt;stdio.h&gt;
+int main() {
+  printf(&quot;Hello, World!\n&quot;);
+  return 0;
+}</pre>
+      <p>...</p>
+
       <h2>Relations to other languages</h2>
       <p>Many later languages have borrowed directly or indirectly from C, including C++, C#, Unix&apos;s C shell, D, Go, Java, <a href="js.html">JavaScript</a> (including transpilers), Julia, Limbo, LPC, Objective-C, Perl, PHP, Python, Ruby, Rust, Swift, Verilog and SystemVerilog (hardware description languages). These languages have drawn many of their control structures and other basic features from C. Most of them also express highly similar syntax to C, and they tend to combine the recognizable expression and statement syntax of C with underlying type systems, data models, and semantics that can be radically different. </p>
     </main>

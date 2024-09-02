@@ -45,6 +45,13 @@
     </nav>
     <main>
       <h1>GProlog, the GNU ISO-Compliant Implementation of Prolog</h1>
+      <p>On a Ubuntu Linux distro, the documentation for GNU Prolog is found in the following subdirectories and files:</p>
+      <ul>
+        <li>/usr/share/doc/gprolog-doc/gprolog.html</li>
+        <li>/usr/share/doc/gprolog-doc/gprolog.pdf</li>
+        <li>/usr/share/doc/gprolog-doc/</li>
+        <li>/usr/share/doc/gprolog-doc/examples/</li>
+      </ul>
 
       <section>
         <h2>The GNU Prolog Interactive Interpreter</h2>
@@ -159,6 +166,41 @@ yes
 even(0).
 even(s(s(A))) :-
 even(A).</pre>
+
+          <p>When <code>consult/1</code> is invoked on a Prolog file it first runs the GNU Prolog compiler as a child process to generate a temporary WAM file for byte-code. If the compilation fails a message is displayed and nothing is loaded. If the compilation succeeds, the produced file is loaded into memory using <code>load/1</code>. Namely, the byte-code of each predicate is loaded. When a predicate <var>P</var> is loaded, if there is a previous definition for <var>P</var> it is removed (i.e. all clauses defining <var>P</var> are erased). We say that <var>P</var> is redefined. Note that only <code>consult</code>-ed predicates can be redefined. If <var>P</var> is a native-code predicate, trying to redefine it will produce an error at load-time: the predicate redefinition will be ignored and the following message displayed:</p>
+          <pre>native code procedure <var>P</var> cannot be redefined</pre>
+          <p>Finally, an existing predicate will not be removed if it is not re-loaded. This means that if a predicate <var>P</var> is loaded when consulting the file <var>F</var>, and if later the definition of <var>P</var> is removed from the file <var>F</var>, consulting <var>F</var> again will not remove the previously loaded definition of <var>P</var> from memory.</p>
+          <p>Consulted predicates can be debugged using the Prolog debugger. Use the debugger predicate <code>trace/0</code> or <code>debug/0</code> to activate the debugger.</p>
+        </section>
+        <section>
+          <h3>Scripting Prolog</h3>
+          <p>Since version 1.4.0 it is possible to use a Prolog source file as a Unix script-file (shebang support). A PrologScript file should begin as follows:</p>
+          <pre>#!/usr/bin/gprolog --consult-file</pre>
+          <p>GNU Prolog will be invoked as</p>
+          <pre>/usr/bin/gprolog --consult-file <var>FILE</var></pre>
+          <p>Then <var>FILE</var> will be consulted. In order to correctly deal with the <code>#!</code> first line, <code>consult/1</code> treats as a comment a first line of a file which begins with # (if you want to use a predicate name starting with a #, simply skip a line before its definition).</p>
+          <p><strong>Remark:</strong> it is almost never possible to pass additionnal parameters (e.g. query-goal) this way since in most systems the shebang implementation deliver all arguments (following #!/usr/bin/gprolog) as a single string (which cannot then correctly be recognized by gprolog).</p>
+        </section>
+        <section>
+          <h3>Interrupting a query*</h3>
+          <p>Under the top-level it is possible to interrupt the execution of a query by typing the interruption key (Ctl-C). This can be used to abort a query, to stop an infinite loop, to activate the debugger,. . . When an interruption occurs the top-level displays the following message: <code>Prolog interruption (h for help) ?</code> The user can then type one of the following commands:</p>
+          <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+        <section>
+          <h3>The line editor*</h3>
+          <p>The line editor (<code>linedit</code>) allows the user to build/update the current input line using a variety of commands. This facility is available if the linedit part of GNU Prolog has been installed. linedit is implicitly called by any built-in predicate reading from a terminal (e.g. get char/1, read/1,. . . ). This is the case when the top-level reads a query.</p>
+          <p>Bindings: each command of linedit is activated using a key. For some commands another key is also available to invoke the command (on some terminals this other key may not work properly while the primary key always works). Here is the list of available commands:</p>
+          <pre></pre>
           <p></p>
           <pre></pre>
           <p></p>
@@ -168,6 +210,7 @@ even(A).</pre>
           <p></p>
           <pre></pre>
         </section>
+
         <section>
           <h3></h3>
           <p></p>
@@ -181,8 +224,41 @@ even(A).</pre>
           <p></p>
           <pre></pre>
         </section>
+
+      </section>
+
+      <section>
+        <h2>Adjusting the size of Prolog data*</h2>
+        <p>GNU Prolog uses several stacks to execute a Prolog program. Each stack has a static size and cannot be dynamically increased during the execution. For each stack there is a default size but the user can define a new size by setting an environment variable. When a GNU Prolog program is run it first consults these variables and if they are not defined uses the default sizes. The following table presents each stack of GNU Prolog with its default size and the name of its associated environment variable.</p>
+        <p>Since version 1.4.2, the size of the atom table (the table recording all atoms) is managed similarly to stacks. It is then included in the following table (even if actually it is not a stack but an hash table). In this table, the associated name is <code>atoms</code> which is the key used in statistics. The environment variable name is derived from the corresponding Prolog flag <code>max_atom</code>.</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+      <section>
+        <h2>The GNU Prolog Compiler</h2>
         <section>
-          <h3></h3>
+          <h3>Different kinds of codes</h3>
+          <p>One of the main advantages of GNU Prolog is its ability to produce stand alone executables. A Prolog program can be compiled to native code to give rise to a machine-dependent executable using the GNU Prolog compiler. However native-code predicates cannot be listed nor fully debugged. So there is an alternative to native-code compilation: byte-code compilation. By default the GNU Prolog compiler produces native-code but via a command-line option it can produce a file ready for byte-code loading. This happens to be what <code>consult/1</code> does as explained above. GNU Prolog also manages interpreted code using a Prolog interpreter written in Prolog. Obviously interpreted code is slower than byte-code but does not require the invocation of the GNU Prolog compiler. This interpreter is used each time a meta-call is needed as by <code>call/1</code>. This also the case of dynamically asserted clauses. The following table summarizes these three kinds of codes:</p>
+          <table border="1" id="simple_with_header">
+            <thead> <tr> <td>Type</td> <td>Speed</td> <td>Debugable?</td> <td>What it is for</td> </tr> </thead>
+                    <tr> <td>interpreted-code</td> <td>slow</td> <td>yes</td> <td>meta-call and dynamically asserted clauses</td> </tr>
+                    <tr> <td>byte-code</td> <td>medium</td> <td>yes</td> <td>consulted predicates</td> </tr>
+                    <tr> <td>native-code</td> <td>fast</td> <td>no</td> <td>compiled predicates</td> </tr>
+
+          </table>
+        </section>
+        <section>
+          <h3>Compilation scheme*</h3>
           <p></p>
           <pre></pre>
           <p></p>
@@ -195,7 +271,46 @@ even(A).</pre>
           <pre></pre>
         </section>
         <section>
-          <h3></h3>
+          <h3>Using the compiler*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3>Running an executable*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3>Generating a new interactive interpreter*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3>The name mangling scheme*</h3>
           <p></p>
           <pre></pre>
           <p></p>
@@ -209,48 +324,7 @@ even(A).</pre>
         </section>
       </section>
 
-      <section>
-        <h2>The GNU Prolog Compiler</h2>
-        <section>
-          <h3></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-        </section>
-        <section>
-          <h3></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-        </section>
-        <section>
-          <h3></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-        </section>
-      </section>
+
 
     </main>
   </body>
