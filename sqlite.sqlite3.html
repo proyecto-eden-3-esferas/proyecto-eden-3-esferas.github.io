@@ -32,15 +32,116 @@
       <h1>Running <code>sqlite3</code></h1>
       <p><code>sqlite3</code> is a command-line utility that is part of SQLite 3 (the sqlite2 version is no longer applicable). It runs on OS X, Linux, or as sqlite3.exe, on Windows. It allows you to experiment with SQLite code directly, and it is used here<!--in this book--> as a touchstone for SQLite syntax.</p>
       <p>(When you use a third-party tool such as a graphical editor, you may encounter slight variations in the syntax such as whether or not a semicolon is required at the end of a statement—it is in SQLite.)</p>
-      <p>You end your sqlite3 session with a <code>.quit</code> or <code>.exit</code>. Note the initial period because both are sqlite3 commands, but no semicolon at the end because they are not SQLite syntax (requiring a semicolon).</p>
+
       <p>Most of the <code>sqlite3</code> code here<!--in this book--> is shown with the prompt at the beginning of each line so that you can see which commands are multiline commands. Remember that you always need a semicolon at the end of a command—you can place it alone on the last line if you&apos;ve forgotten to enter it before.</p>
       <p><code>sqlite3</code> works with a temporary database that it creates for you, or alternatively, you can manage your own databases. These commands are shown here because they are sqlite3 commands and not SQLite syntax.</p>
       <p>In the following subsections, we will review the basic sqlite3 commands that you need to use the most. You can find more information about the sqlite3 commands at <a href="www.sqlite.org/cli.html">www.sqlite.org/cli.html</a>.</p>
 
       <section>
-        <h2></h2>
+        <h2>Using <code>sqlite3</code></h2>
+        <p>To invoke the <code>sqlite3</code> in shell mode, just type <code>sqlite3</code> from a command line, followed by an optional database name. If you do not specify a database name, SQLite will use an in-memory database (the contents of which will be lost when it exits).</p>
+        <p>You end your sqlite3 session with a <code>.quit</code> or <code>.exit</code>. Note the initial period because both are sqlite3 commands, but no semicolon at the end because they are not SQLite syntax (requiring a semicolon).</p>
+        <p>Then you can issue queries, obtain schema information, import and export data, and perform many other database tasks. The Any statement issued will be considered a query, except for commands that begin with a period (.). These commands are reserved for specific operations, a complete list of which can be obtained by typing <code>.help</code>, as shown here:</p>
+        <samp>&lt;OUTPUT&gt;</samp>
+        <section>
+          <h3>The Command-Line Program (CLP) in Command-Line Mode</h3>
+          <p>You can use the CLP from the command line for tasks such as importing and exporting data, returning result sets, and performing general batch processing. It is ideal for use in shell scripts for automated database administration. To see what the CLP offers in command-line mode, invoke it from the shell (Windows or Unix) with the <code>--help</code> switch, as shown here:</p>
+          <samp>&lt;OUTPUT&gt;</samp>
+          <p>The CLP in command-line mode takes the following arguments:</p>
+          <ul>
+            <li>A list of options (optional)</li>
+            <li>A database filename (optional)</li>
+            <li>A SQL command to execute (optional)</li>
+          </ul>
+          <p>Most of the options control output formatting except for the init switch, which specifies a batch file of SQL commands to process. The database filename is required. The SQL command is optional with a few caveats.</p>
+        </section>
+
+        <section>
+          <h3>Database Administration</h3>
+
+          <h4 class="bridgehead">Creating a Database</h4>
+          <p>Let&apos;s start by creating a database that we will call <var>test.db</var>. From the command line, open the CLP in shell mode by typing the following:</p>
+          <pre>sqlite3 test.db</pre>
+          <p>Even though we have provided a database name, SQLite does not actually create the database (yet) if it doesn&apos;t already exist. SQLite will defer creating the database until you actually create something inside it, such as a table or view. The reason for this is so that you have the opportunity to set various permanent database settings (such as page size) before the database structure is committed to disk.</p>
+          <p>Some settings such as page size and character encoding (UTF-8, UTF-16, etc.) cannot be changed easily once the database is created, so this is where you have a chance to specify them. We will go with the default settings here, so to actually create the database on disk, we need only to create a table. Issue the following statement from the shell:</p>
+          <pre>sqlite> create table test (id integer primary key, value text);</pre>
+          <p>Now you have a database file on disk called <var>test.db</var>, which contains one table called test. This table, as you can see, has two columns:</p>
+          <ul>
+            <li>A primary key column called <var>id</var>, which has the ability to automatically generate values by default. Wherever you define a column of type integer primary key, SQLite will apply an function for the column to create and apply monotonically increasing values. That is, if no value is provided for the column in an <code><a target="_blank" href="INSERT.html">INSERT</a></code> statement, SQLite will automatically generate one by finding the next integer value specific to that column.</li>
+            <li>A simple text field called value.</li>
+          </ul>
+          <p>Let&apos;s add a few rows to the table:</p>
+          <pre>sqlite> insert into test (id, value) values(1, 'eenie');
+sqlite> insert into test (id, value) values(2, 'meenie');
+sqlite> insert into test (value) values('miny');
+sqlite> insert into test (value) values('mo');</pre>
+          <p>Now fetch them back:</p>
+          <pre>sqlite> .mode column
+sqlite> .headers on
+sqlite> select * from test;</pre>
+          <p>The two commands preceding the select statement (<code>.headers</code> and <code>.mode</code>) are used to improve the formatting a little<!-- (these commands and others like them are covered later)-->. We can see that our explicit ID values for the first two rows were used. We can also see that SQLite provided sequential integer values for the id column for rows 3 and 4, which we did not provide in the insert statements.</p>
+          <aside>
+            <p>On the topic of autoincrement columns, you might be interested to know that the value of the last inserted autoincrement value can be obtained using the SQL function <code>last_insert_rowid()</code>:</p>
+            <pre>sqlite> select last_insert_rowid();</pre>
+          </aside>
+
+          <h4 class="bridgehead">Getting Database Schema Information</h4>
+          <p>There are several shell commands for obtaining information about the contents of a database. You can retrieve a list of tables (and views) using <code>.tables [<var>pattern</var>]</code>, where the optional <code>[pattern]</code> can be any pattern that the SQL <code>like</code> operator understands. All tables and views matching the given pattern will be returned. If no pattern is supplied, all tables and views are returned:</p>
+          <pre>sqlite> .tables</pre>
+          <p>Similarly, indexes for a given table can be printed using <code>.indices [<var>table_name</var>]</code>.</p>
+          <p>The SQL definition or data definition language (DDL) for a table or view can be obtained using <code>.schema [<var>table_name</var>]</code>. If no table name is provided, the SQL definitions of all database objects (tables, indexes, views, and triggers) are returned.</p>
+          <p>More detailed schema information can be had from SQLite&apos;s principal system view, <code>sqlite_master</code>. This view is a simple system catalog of sorts. Its schema is described in the table below.</p>
+          <table border="1">
+            <caption>SQLite Master Table Schema</caption>
+            <thead> <tr> <td>Name</td> <td>Description</td> </tr> </thead>
+                    <tr> <td><code>type</code></td> <td>The object&apos;s type (table, index, view, trigger)</td> </tr>
+                    <tr> <td><code>name</code></td> <td>The object&apos;s name</td> </tr>
+                    <tr> <td><code>tbl_name</code></td> <td>The table the object is associated with</td> </tr>
+                    <tr> <td><code>rootpage</code></td> <td>The object&apos;s root page index in the database (where it begins)</td> </tr>
+                    <tr> <td><code>sql</code></td> <td>The object&apos;s SQL definition (DDL)</td> </tr>
+          </table>
+          <pre></pre>
+
+          <h4 class="bridgehead"></h4>
+          <p></p>
+          <pre></pre>
+
+          <h4 class="bridgehead"></h4>
+          <p></p>
+          <pre></pre>
+
+          <h4 class="bridgehead"></h4>
+          <p></p>
+          <pre></pre>
+
+          <h4 class="bridgehead"></h4>
+        </section>
+
+        <!--
+        <section>
+          <h3>***</h3>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>***</h3>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>***</h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+
+        <!--
         <h4 class="bridgehead"></h4>
         <h4 class="bridgehead"></h4>
+        <h4 class="bridgehead"></h4>
+        -->
       </section>
 
       <section>
