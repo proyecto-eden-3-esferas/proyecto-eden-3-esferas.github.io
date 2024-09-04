@@ -100,21 +100,121 @@ sqlite> select * from test;</pre>
                     <tr> <td><code>rootpage</code></td> <td>The object&apos;s root page index in the database (where it begins)</td> </tr>
                     <tr> <td><code>sql</code></td> <td>The object&apos;s SQL definition (DDL)</td> </tr>
           </table>
-          <pre></pre>
+          <p>This is how to query the <code>sqlite_master</code> for our current database (don&apos;t forget to use the <code>.mode</code> column and <code>.headers</code> on commands first to manually set the column format and headers):</p>
+          <pre>sqlite> .mode column
+sqlite> .headers on
+sqlite> select type, name, tbl_name, sql from sqlite_master order by type;</pre>
+          <p>We get a complete inventory of <var>test.db</var> objects...</p>
 
+          <h4 class="bridgehead">Exporting Data</h4>
+          <p>You can export database objects to SQL format using the <code>.dump</code> command. Without any arguments, <code>.dump</code> will export the entire database as a series of DDL (data definition language) and data manipulation language (DML) commands, suitable for re-creating the database objects and the data contained therein. If you provide arguments, the shell interprets them as table names or views. Any tables or views matching the given arguments will be exported. Those that don&apos;t are simply ignored. In shell mode, the output from the <code>.dump</code> command is directed to the screen by default. If you want to redirect output to a file, use the <code>.output [<var>FILENAME</var>]</code> command. This command redirects all output to the file <var>FILENAME</var>. To restore output back to the screen, simply issue <code>.output</code> stdout. So, to export the current database to a file <cite>file.sql</cite>, you would do the following:</p>
+          <pre>sqlite> .output file.sql
+sqlite> .dump
+sqlite> .output stdout</pre>
+          <p>This will create the file <cite>file.sql</cite> in your current working directory if it does not already exist. If a file by that name does exist, it will be overwritten.</p>
+          <p>By combining redirection with SQL and the various shell formatting options (covered elsewhere), you have a great deal of control over exporting data. You can export specific subsets of tables and views in various formats using the delimiter of your choice, which can later be imported using the <code>.import</code> command described next.</p>
+
+          <h4 class="bridgehead">Importing Data</h4>
+          <p>There are two ways to import data, depending on the format of the data in the file to import. If the file is composed of SQL, you can use the <code>.read</code> command to execute the commands contained in the file. If the file contains comma-separated values (CSV) or other delimited data, you can use the <code>.import [<var>FILE</var>][<var>TABLE</var>]</code> command. This command will parse the specified file and attempt to insert it into the specified table. It does this by parsing each line in the file using the pipe character (|) as the delimiter and inserting the parsed columns into the table. Naturally, the number of parsed fields in the file should match up with the number of columns in the table. You can specify a different delimiter using the <code>.separator</code> command. To see the current value set for the separator, use the <code>.show</code> command. This will show all user-defined settings for the shell, among them the current default separator:</p>
+          <pre>sqlite> .show</pre>
+          <p>Which might yield something like:</p>
+          <samp>echo: off
+explain: off
+headers: on
+mode: column
+nullvalue: ""
+output: stdout
+separator: "|"
+width:</samp>
+          <p>The <code>.read</code> command is the way to import files created by the <code>.dump</code> command. Using <cite>file.sql</cite> created earlier as a backup, we can drop the existing database objects (the test table and schema view) and re-import it as follows:</p>
+          <pre>sqlite> drop table test;
+sqlite> drop view schema;
+sqlite> .read file.sql</pre>
+
+          <h4 class="bridgehead">Formatting</h4>
+          <p>The shell offers a number of formatting options to help you and make your results and output neat and tidy. The simplest are <code>.echo</code>, which echoes the last run command after issuing a command, and <code>.headers</code>, which includes column names for queries when set to on. The text representation of <code>NULL</code> can be set with <code>.nullvalue</code>. For instance, if you want NULLs to appear as the text string NULL, simply issue the command <code>.nullvalue NULL</code>. By default, this presentation value is an empty string.</p>
+          <p>The shell prompt can be changed using <code>.prompt [<var>value</var>]</code>:</p>
+          <pre>sqlite> .prompt 'sqlite3> '
+sqlite3></pre>
+          <p>Result data can be formatted several ways using the <code>.mode</code> command. The current options are <code>csv</code>, <code>column</code>, <code>html</code>, <code>insert</code>, <code>line</code>, <code>list</code>, <code>tabs</code>, and <code>tcl</code>, each of which is helpful in different ways. The default is <code>.list</code>. For instance, list mode displays results with the columns separated by the default separator. Thus, if you wanted to dump a table in a CSV format, you could do the following:</p>
+          <pre>sqlite3> .output file.csv
+sqlite3> .separator ,
+sqlite3> select * from test;
+sqlite3> .output stdout</pre>
+          <p>Actually, since there is a CSV mode already defined in the shell, it is just as easy to use it in this particular example instead:</p>
+          <pre>sqlite3> .output file.csv
+sqlite3> .mode csv
+sqlite3> select * from test;
+sqlite3> .output stdout</pre>
+          <p>The results obtained are the same. The difference is that CSV mode will wrap field values with double quotes, whereas list mode (the default) does not.</p>
+
+          <h4 class="bridgehead">Exporting Delimited Data</h4>
+          <p>Combining the previous three sections on exporting, importing, and formatting data, we now have an easy way to export and import data in delimited form. For example, to export only the rows of the <var>test</var> table whose value fields start with the letter m to a file called <cite>test.csv</cite> in comma-separated values, do the following:</p>
+          <pre>sqlite> .output text.csv
+sqlite> .separator ,
+sqlite> select * from test where value like 'm%';
+sqlite> .output stdout</pre>
+          <p>If you want to then import this CSV data into a similar table with the same structure as the test table (call it <var>test2</var>), do the following:</p>
+          <pre>sqlite> create table test2(id integer primary key, value text);
+sqlite> .import text.csv test2</pre>
+
+          <h4 class="bridgehead">Performing Unattended Maintenance</h4>
+          <p>So far, you&apos;ve seen the CLP used interactively to perform tasks such as creating a database and exporting data. However, you don&apos;t always want to be tied to your seat, executing CLP commands one at a time. Instead, you can use the command mode to run CLP commands in batches. You can then use your operating system&apos;s built-in scheduler to schedule those batches to run whenever you need them.</p>
+          <aside><strong>Note</strong> You are free to invoke the CLP from the command line interactively. Any time you have a sequence of commands that you want to invoke routinely, it&apos;s useful to use the command-line approach.</aside>
+          <p>There are actually two ways to invoke the CLP in command-line mode. The first is to provide a SQL command, or a SQLite shell command as well, such as <code>.dump</code> and <code>.schema</code>. Any valid SQL or SQLite shell command will do. SQLite will execute the specified command, print the result to standard output, and exit. For example, to dump the <var>test.db</var> database from the command line, issue the following command:</p>
+          <pre>sqlite3 test.db .dump</pre>
+          <p>To make it useful, we should redirect the output to a file:</p>
+          <pre>sqlite3 test.db .dump > test.sql</pre>
+          <p>The file <cite>test.sql</cite> now contains the complete human-readable set of DDL and DML statements for the database <var>test.db</var>. Similarly, to select all records for the test table, issue this:</p>
+          <pre>sqlite3 test.db "select * from test"</pre>
+          <p>The second way to invoke the CLP in command-line mode is to redirect a file as an input stream. For instance, to create a new database <var>test2.db</var> from our database dump <var>test.sql</var>, do the following:</p>
+          <pre>sqlite3 test2.db &lt; test.sql</pre>
+          <p>The CLP will read the file as standard input and then process and apply all SQL commands within it to the <var>test2.db</var> database file.</p>
+          <p>Another way to create a database from the <cite>test.sql</cite> file is to use the <code>init</code> option and provide the <cite>test.sql</cite> as an argument:</p>
+          <pre>sqlite3 -init test.sql test3.db</pre>
+          <p>The CLP will process <cite>test.sql</cite>, create the <var>test3.db</var> database, and then go into shell mode. Why? The invocation included no SQL command or input stream. To get around this, you need to provide a SQL command or SQLite shell command. For example:</p>
+          <pre>sqlite3 -init test.sql test3.db .exit</pre>
+          <p>The <code>.exit</code> command prompts the CLP to run in command-line mode and does as little as possible. All things considered, redirection is perhaps the easiest method for processing files from the command line.</p>
+
+          <h4 class="bridgehead">Backing Up a Database</h4>
+          <p>Backing up a database can be done in two ways, depending on the type of backup you desire. A SQL dump is perhaps the most portable form for keeping backups. The standard way to generate one is using the CLP <code>.dump</code> command, as shown in the previous section. From the command line, this is done as follows:</p>
+          <pre>sqlite3 test.db .dump > test.sql</pre>
+          <p>Within the shell, you can redirect output to an external file, issue the command, and restore output to the screen as follows:</p>
+          <pre>sqlite> .output file.sql
+sqlite> .dump
+sqlite> .output stdout
+sqlite> .exit</pre>
+          <p>Likewise, importing a database is most easily done by providing the SQL dump as an input stream to the CLP:</p>
+          <pre>sqlite3 test.db &lt; test.sql</pre>
+          <p>This assumes that test.db does not already exist. If it does, then things may still work if the contents of <cite>test.sql</cite> are different from those of <var>test.db</var>. You will of course get errors if <cite>test.sql</cite> contains objects that already reside within <var>test.db</var> or contains data that violates primary key or foreign key constraints<!-- (though see the PRAGMA discussion in subsequent chapters on how to finesse this behavior)-->.</p>
+          <p>Making a binary backup of a database is little more than a file copy. One small operation you may want to perform beforehand is a database vacuum, which will free up any unused space created from deleted objects. This will provide you with a smaller resulting file from the binary copy:</p>
+          <pre>sqlite3 test.db vacuum
+cp test.db test.backup</pre>
+          <p>As a general rule, binary backups are not as portable as SQL backups. On the whole, SQLite does have good backward compatibility and is binary compatible across all platforms for a given database format. However, for long-term backups, it is always a good idea to use SQL form. If size is an issue, SQL format (raw text) usually yields a good compression ratio.</p>
+          <aside><strong>Caution</strong> No matter how good you think your chosen backup approach is, remember you are only as good as your last successful restore. Test your restore procedure if you need to rely on it—otherwise, you&apos;ll be remembered for one failed restore, regardless of how many successful backups you took.</aside>
+          <p>Finally, if you&apos;ve worked with other databases, <q>dropping</q> a database in SQLite, like binary backups, is a simple file operation: you simply delete the database file you want to drop.</p>
+
+          <h4 class="bridgehead">Getting Database File Information</h4>
+          <p>The primary means by which to obtain logical database information, such as table names, DDL statements, and so on, is using the <var>sqlite_master</var> view, which provides detailed information about all objects contained in a given database.</p>
+          <p>If you want information on the physical database structure, you can use a tool called SQLite Analyzer, which can be downloaded in binary form from the SQLite website. SQLite Analyzer provides detailed technical information about the on-disk structure of a SQLite database. This information includes a detailed breakdown of database, table, and index statistics for individual objects and in aggregate. It provides everything from database properties such as page size, number of tables, indexes, file size, and average page density (utilization) to detailed descriptions of individual database objects. Following the report is a detailed list of definitions explaining all terms used within the report.</p>
+          <p>You would run sqlite_analyzer like this:</p>
+          <pre>fuzzy@linux:/tmp$ sqlite3_analyzer test.db</pre>
+
+          <!--
           <h4 class="bridgehead"></h4>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
           <p></p>
           <pre></pre>
 
           <h4 class="bridgehead"></h4>
-          <p></p>
-          <pre></pre>
-
-          <h4 class="bridgehead"></h4>
-          <p></p>
-          <pre></pre>
-
-          <h4 class="bridgehead"></h4>
+          -->
         </section>
 
         <!--
@@ -144,6 +244,8 @@ sqlite> select * from test;</pre>
         -->
       </section>
 
+      <!--
+
       <section>
         <h2></h2>
         <h4 class="bridgehead"></h4>
@@ -155,6 +257,8 @@ sqlite> select * from test;</pre>
         <h4 class="bridgehead"></h4>
         <h4 class="bridgehead"></h4>
       </section>
+
+      -->
 
     </main>
 
