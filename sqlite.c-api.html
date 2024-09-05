@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQLite C API</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="sqlite.sqlite3.html">Running <code>sqlite3</code></a></p>
+        <p><a            href="sqlite.sqlite3.ref.html">Command Line Shell For SQLite</a></p>
+        <p><a            href="sqlite.data-types.html">SQLite Data Types</a></p>
+        <p><a            href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+      </div>
+      <div>
+        <p><a            href="c.html">The C   Programming Language</a></p>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+      <div>
+        <p><a href="special-relational-tables.html">Special Relational Tables</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQLite C API</h1>
+      <p>The SQLite version 3 API consists of dozens and dozens of functions. Only about eight functions, however, are needed to actually connect, process queries, and disconnect from a database. The remaining functions can be arranged into small groups that specialize in accomplishing specific tasks.</p>
+
+      <section>
+        <h2>The Core C API</h2>
+
+        <section id="wrapped">
+          <h3>Wrapped Queries</h3>
+            <h4>Connecting and Disconnecting</h4>
+            <p>Before you can execute SQL commands, you first have to connect to a database. Connecting to a database is perhaps best described as opening a database, because SQLite databases are contained in single operating system files (one file to one database). Analogously, the preferred term for disconnecting is closing the database.</p>
+            <p>You open a database with the <code>sqlite3_open_v2()</code>, <code>sqlite3_open()</code>, or <code>sqlite3_open16()</code> functions, which have the following declaration(s):</p>
+            <pre>int sqlite3_open_v2(
+  const char *filename, /* Database filename (UTF-8) */
+  sqlite3 **ppDb        /* OUT: SQLite db handle */
+  int flags,
+  const char *zVfs      /* Name of VFS module to use */
+);
+
+int sqlite3_open (
+  const void *filename, /* Database filename (UTF-8) */
+  sqlite3 **ppDb        /* OUT: SQLite db handle */
+);
+
+int sqlite3_open16(
+  const void *filename, /* Database filename (UTF-16) */
+  sqlite3 **ppDb        /* OUT: SQLite db handle */
+);</pre>
+            <p>Typically, you&apos;ll use <code>sqlite3_open_v2()</code>, because this is the latest and greatest function in SQLite for opening your database, and it accommodates more options and capabilities over the old <code>sqlite3_open()</code>. Regardless of the function chosen, the filename argument can be the name of an operating system file, the text string <code>:memory:</code>, or an empty string or a NULL pointer. If you use <code>:memory:</code>, <code>sqlite3_open_v2()</code> will create an in-memory database in RAM that lasts only for the duration of the session. If filename is an empty string or a NULL, <code>sqlite3_open_v2()</code> opens a temporary disk file that is automatically deleted when the connection closes. Otherwise, <code>sqlite3_open_v2()</code> attempts to open the database file by using its value. If no file by that name exists, <code>sqlite3_open_v2()</code> will open a new database file by that name if the <code>SQLITE_OPEN_CREATE</code> flag is included in the third parameter, or it will return an error if the <code>SQLITE_OPEN_CREATE</code> flag is omitted.</p>
+            <p>The flags parameter is a bit vector that can include the following values: <code>SQLITE_OPEN_READONLY</code>, <code>SQLITE_OPEN_READWRITE</code>, and <code>SQLITE_OPEN_CREATE</code>. The names are reasonable self-explanatory, but a few subtleties are worth noting. <code>SQLITE_OPEN_READONLY</code> and <code>SQLITE_OPEN_READWRITE</code> open a SQLite database in read-only or read/write mode as their names suggest. Both options require that the database file already exist; otherwise, an error will be returned. <code>SQLITE_OPEN_CREATE</code> combined with <code>SQLITE_OPEN_READWRITE</code> exhibits the legacy <code>sqlite3_open()</code> behavior. Where a database already exists, it is opened for reading and writing. If the database specified doesn&apos;t exist, it is created (though the act of persisting the database to disk will be pending the creation of the first object).</p>
+            <p>The flags parameter can also be combined with the <code>SQLITE_OPEN_NOMUTEX</code>, <code>SQLITE_OPEN_FULLMUTEX, SQLITE_OPEN_SHAREDCACHE</code>, or <code>SQLITE_OPEN_PRIVATECACHE</code> flags to further control transactional behavior for the database handle.</p>
+            <p>The final parameter, <var>zVfs</var>, allows the caller to override the default <code>sqlite3_vfs</code> operating system interface.</p>
+            <p>Upon completion, <code>sqlite3_open_v2()</code> will initialize the sqlite3 structure passed into it by the <var>ppDb</var> argument. This structure should be considered as an opaque handle representing a single connection to a database. This is more of a connection handle than a database handle since it is possible to attach multiple databases to a single connection. However, this connection still represents exactly one transaction context regardless of how many databases are attached.</p>
+            <p>You close a connection by using the <code>sqlite3_close()</code> function, which is declared as follows:</p>
+            <pre>int sqlite3_close(sqlite3*);</pre>
+            <p>For <code>sqlite3_close()</code> to complete successfully, all prepared queries associated with the connection must be finalized. If any queries remain that have not been finalized, <code>sqlite3_close()</code> will return <code>SQLITE_BUSY</code> with the error message <q>Unable to close due to unfinalized statements</q>.</p>
+            <aside><strong>Note:</strong> If there is a transaction open on a connection when it is closed by <code>sqlite3_close()</code>, the transaction will automatically be rolled back.</aside>
+
+            <h4>The exec Query</h4>
+            <p>The <code>sqlite3_exec()</code> function provides a quick, easy way to execute SQL commands and is especially handy for commands that modify the database (that is, don&apos;t return any data). This is often also referred to as a <dfn>convenience function</dfn>, which nicely wraps up a lot of other tasks in one easy API call. This function has the following declaration:</p>
+            <pre>int sqlite3_exec(
+  sqlite3*,        /* An open database */
+  const char *sql, /* SQL code to be executed */
+  sqlite_callback, /* Callback function */
+  void *data,      /* 1st argument to callback function */
+  char **errmsg    /* Error msg written here */
+);</pre>
+            <p>The SQL code provided in the sql argument can consist of more than one SQL command. <code>sqlite3_exec()</code> will parse and execute every command in the sql string until it reaches the end of the string or encounters an error. The listing below (taken from <cite>create.c</cite>) illustrates how to use <code>sqlite3_exec()</code>.The example opens a database called <var>test.db</var> and creates within it a single table called <var>episodes</var>. After that, it inserts one record. The create table command will physically create the database file if it does not already exist.</p>
+            <pre>int main(int argc, char **argv)
+{
+  sqlite3 *db;
+  char *zErr;
+  int rc;
+  char *sql;
+  rc = sqlite3_open_v2("test.db", &amp;db);
+  if(rc) {
+    fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+    sqlite3_close(db);
+    exit(1);
+  }
+  sql = "create table episodes(id int, name text)";
+  rc = sqlite3_exec(db, sql, NULL, NULL, &amp;zErr);
+  if(rc != SQLITE_OK) {
+    if (zErr != NULL) {
+      fprintf(stderr, "SQL error: %s\n", zErr);
+      sqlite3_free(zErr);
+  }
+  sql = "insert into episodes values (10, 'The Dinner Party')";
+  rc = sqlite3_exec(db, sql, NULL, NULL, &amp;zErr);
+}</pre>
+
+            <p>It is actually possible to get records from <code>sqlite3_exec()</code>, although you don&apos;t see it implemented much outside of the C API. <code>sqlite3_exec()</code> contains a callback mechanism that provides a way to obtain results from select statements. This mechanism is implemented by the third and fourth arguments of the function. The third argument is a pointer to a callback function. If it&apos;s provided, SQLite will call the function for each record processed in each select statement executed within the sql argument. The callback function has the following declaration:</p>
+            <pre>typedef int (*sqlite3_callback) (
+  void*,  /* Data provided in the 4th argument of sqlite3_exec() */
+  int,    /* The number of columns in row */
+  char**, /* An array of strings representing fields in the row */
+  char**  /* An array of strings representing column names */
+);</pre>
+            <p>The fourth argument to <code>sqlite3_exec()</code> is a void pointer to any application-specific data you want to supply to the callback function. SQLite will pass this data as the first argument of the callback function.</p>
+
+            <p>The final argument (<var>errmsg</var>) is a pointer to a string to which an error message can be written should an error occur during processing. Thus, <code>sqlite3_exec()</code> has two sources of error information. The first is the return value. The other is the human-readable string, assigned to <var>errmsg</var>. If you pass in a <code>NULL</code> for <var>errmsg</var>, then SQLite will not provide any error message. Note that if you do provide a pointer for <var>errmsg</var>, the memory used to create the message is allocated on the heap. You should therefore check for a non-NULL value after the call and use <code>sqlite3_free()</code> to free the memory used to hold the <var>errmsg</var> string if an error occurs.</p>
+            <aside><strong>Note</strong> Note that you can pass a NULL into sqlite3_free(). The result is a harmless no-op. So, you can, if you want, call sqlite3_free(errmsg) without having to check to see whether errmsg is not NULL. It mainly depends on where and how you want to interrogate any actual errors and respond accordingly.</aside>
+
+            <p>Putting it all together, <code>sqlite3_exec()</code> allows you to issue a batch of commands, and you can collect all the returned data by using the callback interface. For example, let&apos;s insert a record into the <var>episodes</var> table and then select all of its records, all in a single call to <code>sqlite3_exec()</code>. The complete code, shown below, is taken from <cite>exec.c</cite>.</p>
+            <pre>int callback(void* data, int ncols, char** values, char** headers);
+int main(int argc, char **argv)
+{
+  sqlite3 *db;
+  int rc;
+  char *sql;
+  char *zErr;
+  rc = sqlite3_open_v2("test.db", &amp;db);
+  if(rc) {
+    fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+    sqlite3_close(db);
+    exit(1);
+  }
+  const char* data = "Callback function called";
+  sql = "insert into episodes (id, name) values (11,'Mackinaw Peaches');"
+  "select * from episodes;";
+  rc = sqlite3_exec(db, sql, callback, data, &amp;zErr);
+  if(rc != SQLITE_OK) {
+    if (zErr != NULL) {
+      fprintf(stderr, "SQL error: %s\n", zErr);
+      sqlite3_free(zErr);
+    }
+  }
+  sqlite3_close(db);
+  return 0;
+} /* main() */
+
+int callback(void* data, int ncols, char** values, char** headers)
+{
+  int i;
+  fprintf(stderr, "%s: ", (const char*)data);
+  for(i=0; i &lt; ncols; i++) {
+    fprintf(stderr, "%s=%s ", headers[i], values[i]);
+  }
+  fprintf(stderr, "\n");
+  return 0;
+}</pre>
+            <p>SQLite parses the <var>sql</var> string; runs the first command, which inserts a record; and then runs the second command, consisting of the <code>SELECT</code> statement. For the second command, SQLite calls the <var>callback</var> function for each record returned. Running the program produces the following output:</p>
+            <pre>Callback function called: id=10 name=The Dinner Party
+Callback function called: id=11 name=Mackinaw Peaches</pre>
+            <p>Notice that the callback function returns 0. This return value actually exerts some control over <code>sqlite3_exec()</code>. If the callback function returns a nonzero value, then <code>sqlite3_exec()</code> will abort (in other words, it will terminate all processing of this and subsequent commands in the <var>sql</var> string).</p>
+            <p>So, <code>sqlite3_exec()</code> provides an easy way to modify the database and also provides an interface with which to process records. Why then should you bother with <a href="#prepared-queries">prepared queries</a>? Well, as you will see in the next section, there are quite a few advantages:</p>
+            <ul>
+              <li>Prepared queries don&apos;t require a callback interface, which makes coding simple and more linear.</li>
+              <li>Prepared queries have associated functions that provide better column information. You can obtain a column&apos;s storage type, declared type, schema name (if it is aliased), table name, and database name. <code>sqlite3_exec()</code>&apos;s callback interface provides just the column names.</li>
+              <li>Prepared queries provide a way to obtain field/column values in other data types besides text and in native C data types such as <code>int</code> and <code>double</code>, whereas <code>sqlite3_exec()</code>&apos;s callback interface only provides fields as string values.</li>
+              <li>Prepared queries can be rerun, allowing you to reuse the compiled SQL.</li>
+              <li>Prepared queries support parameterized SQL statements.</li>
+            </ul>
+            <aside>
+              <h5>Examining Changes</h5>
+              <p>If you are performing an update or a delete, you may want to know how many records were affected. You can get this information from <code>sqlite3_changes()</code>. It provides the number of affected records for the last executed update, insert, or delete statement. Obviously, if you are running a batch of queries (multiple commands in the sql argument of <code>sqlite3_exec()</code>), this function will be good only for the last command in the batch. Note also that <code>sqlite3_changes()</code> does not include changes activated from the result of triggers fired from your original command.</p>
+              <p>If you are performing an insert on a table with an autoincrement column, odds are you will eventually want to know the primary key value of an inserted record. In such cases, you can use <code>sqlite3_last_insert_rowid()</code> to obtain this value. You can also do this from within SQL as well via the <code>last_insert_rowid()</code> SQL function.</p>
+            </aside>
+
+            <h4>The Get Table Query*</h4>
+            <p>The <code>sqlite3_get_table()</code> function returns an entire result set of a command in a single function call. Just as <code>sqlite3_exec()</code> wraps the prepared query API functions, allowing you to run them all at once, <code>sqlite3_get_table()</code> wraps <code>sqlite3_exec()</code> for commands that return data with just as much convenience. Using <code>sqlite3_get_table()</code>, you don&apos;t have to bother with the <code>sqlite3_exec()</code> callback function, thus making it easier to fetch records. <code>sqlite3_get_table()</code> has the following declaration:</p>
+            <pre>int sqlite3_get_table(
+  sqlite3*,        /* An open database */
+  const char *sql, /* SQL to be executed */
+  char ***resultp, /* Result written to a char *[] that this points to */
+  int *nrow,       /* Number of result rows written here */
+  int *ncolumn,    /* Number of result columns written here */
+  char **errmsg    /* Error msg written here, if any */
+);</pre>
+            <p>This function takes all the records returned from the SQL statement in sql and stores them in the <var>resultp</var> argument using memory declared on the heap (using <code>sqlite3_malloc()</code>). The memory must be freed using <code>sqlite3_free_table()</code>, which takes the <var>resultp</var> pointer as its sole argument. The first record in <var>resultp</var> is actually not a record but contains the names of the columns in the result set. Examine the code fragment below (taken from <cite>get_table.c</cite>).</p>
+            <pre>int main(int argc, char **argv)
+{
+  /* Connect to database, etc. */
+
+  char *result[];
+  sql = "select * from episodes;";
+  rc = sqlite3_get_table(db, sql, &amp;result, &amp;nrows, &amp;ncols, &amp;zErr);
+
+  /* Do something with data */
+
+  /* Free memory */
+  sqlite3_free_table(result);
+}</pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+
+        </section>  <!-- end of "Wrapped Queries" -->
+
+        <section id="prepared-queries">
+          <h3>Prepared Queries*</h3>
+                        <h4>*</h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <h4>*</h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <h4>*</h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+        </section>
+
+        <section>
+          <h3>*</h3>
+            <h4></h4>
+            <h4></h4>
+            <h4></h4>
+        </section>
+
+        <section>
+          <h3>*</h3>
+            <h4></h4>
+            <h4></h4>
+            <h4></h4>
+        </section>
+
+        <section>
+          <h3>*</h3>
+            <h4></h4>
+            <h4></h4>
+            <h4></h4>
+        </section>
+
+        <section>
+          <h3>*</h3>
+            <h4></h4>
+            <h4></h4>
+            <h4></h4>
+        </section>
+
+      </section>  <!-- end of "The Core C API" -->
+
+      <section>
+        <h2>The Extension C API*</h2>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

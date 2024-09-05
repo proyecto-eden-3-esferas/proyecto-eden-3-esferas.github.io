@@ -1,9 +1,19 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-
-[ ] complete: "cpp.memory.html"
-[ ] write: *cpp.unique_ptr.html*, *cpp.shared_ptr.html*, and *cpp.weak_ptr.html", already linked to from *cpp.memory.html*
-[x] write: *cpp.RAII.html"
+[ ] Further link *specialization.html*, already linked to from *society.html*
+[ ] Now, *people-of-the-lie.html* has become a large page. Plus it is linked to from *spirit.html*, why not from *thought.html*, too?
+[ ] escribir: *caja-negra.html* y enlazar bidireccionalmente con *un-sma-es-una-caja-negra.html*
+[ ] escribir: *palabras-sesgadas.html*
+- estólido
+- obstruccionismo
+- radical
+- progreso
+[ ] revisar: *rebelion-de-las-masas.html*
+[ ] write: *Sapir-Whorf-Hypothesis.html*, and possibly rename it, it is referenced from *thought.html*
+[ ] complete: *CAP.html*
+[ ] complete: *cpp.memory.html*
+[ ] write: *cpp.unique_ptr.html*, *cpp.shared_ptr.html*, and *cpp.weak_ptr.html*, already linked to from *cpp.memory.html*
+[x] write: *cpp.RAII.html*
 [ ] escribir: *ver-cal-ext.html* sobre la veracidad, calidad (inteligibilidad, pedagogía) y extensión (cuánto abarca) de un libro
 [ ] escribir: *dilema-demanda.html*: muchas profesiones requieren una demanda de sus servicios (relacionar con *demanda-intrinseca-y-extrinseca.html*), una carencia, falta o desgracia en el resto de la sociedad (por ejemplo los bomberos); las soluciones son la autoproducción y la innovación
 [ ] escribir: *bibliteca.html*, como un conjunto de libros puede cubrir el conjunto de conocimientos... más o menos bien (especie frente a calidad)
