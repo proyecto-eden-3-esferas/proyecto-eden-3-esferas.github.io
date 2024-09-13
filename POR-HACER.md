@@ -1,6 +1,8 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
 [ ] Further link *specialization.html*, already linked to from *society.html*
+[ ] enlazar: *allan-savory.html"
+[ ] enlazar: *mono-atrapado.html"
 [ ] Now, *people-of-the-lie.html* has become a large page. Plus it is linked to from *spirit.html*, why not from *thought.html*, too?
 [ ] escribir: *caja-negra.html* y enlazar bidireccionalmente con *un-sma-es-una-caja-negra.html*
 [ ] escribir: *palabras-sesgadas.html*
