@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir y enlazar *tres-esferas.html*
+[ ] cambiar nombre de y vínculos a *chinpances-dialogo-filosofico.html*, que debería llamarse *chimpances-dialogo-filosofico.html*, con m no con n
 [ ] recuerda que el subgrafo sobre sistemas está por pulir
 [ ] escribir *git.html* y enlazar desde *libro-grafo.html*
 [ ] añadir: Un tipo por desgracia frecuente de clasificabilidad es el de la cualidad de ser copia, o <dfn>fidedignidad</dfn>. Determinado público valora un dibujo o una pintura en la medida en que calca la realidad, por ejemplo una cara o un animal. Algo análogo ocurre con la música, muchos prefieren que lo tocado reproduzca fielmente determinada grabación

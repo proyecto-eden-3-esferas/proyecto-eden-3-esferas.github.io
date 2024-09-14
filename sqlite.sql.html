@@ -44,6 +44,58 @@
     <main>
       <h1>SQL for SQLite</h1>
 
+      <section>
+        <h2>Grouping</h2>
+        <p>An essential part of aggregation is grouping. That is, in addition to computing aggregates over an entire result, you can also split that result into groups of rows with like values and compute aggregates on each group—all in one step. This is the job of the <code>group by</code> clause. Here&apos;s an example:</p>
+        <pre>sqlite> select eyecolour from people group by eyecolour;</pre>
+        <p>Operationally, <code>group by</code> takes the output of <code>where</code> and splits it into groups of rows that share a common value (or values) for a specific column (or columns). These groups are then passed to the <code>select</code> clause.</p>
+        <p>In the example above, there are several different eye colours, and therefore group by organizes all rows in <var>people</var> into as many groups groups varying by <code>eyecolour</code>. <code>select</code> takes each group, extracts its common <code>eyecolour</code> value, and puts it into a separate row.</p>
+
+        <p>When <code>group by</code> is used, the <code>select</code> clause applies aggregates to each group separately, rather than the entire result as a whole. Since aggregates produce a single value from a group of values, they collapse these groups of rows into single rows. For example, consider applying the count aggregate to the preceding example to get the number of records in each <code>eyecolour</code> group:</p>
+        <pre>sqlite> select eyecolour,count(*) from people group by eyecolour;</pre>
+        <samp>eyecolour   count(*)
+----------- ------
+lightbrown  22
+darkbrown   7
+blue        20
+bluegreen   14
+green       2</samp>
+        <p>Since <code>group by</code> has to do all this work to create groups with like values, it seems a pity not to let you filter these groups before handing them off to the <code>select</code> clause. That is the purpose of <code>having</code>, a predicate that you apply to the result of <code>group by</code>. It filters the groups from <code>group by</code> in the same way that the <code>where</code> clause filters rows from the <code>from</code> clause. The only difference is that the <code>where</code> clause&apos;s predicate is expressed in terms of individual row values, and having&apos;s predicate is expressed in terms of aggregate values.</p>
+        <p>Take the previous example, but this time say you are interested only in looking at the <var>people</var> groups that have fewer than 20 <code>eyecolour</code> in them:</p>
+        <pre>sqlite> select eyecolour, count(*) from people
+        group by eyecolour having count(*) &lt; 20;</pre>
+        <samp>eyecolour   count(*)
+----------- ------
+darkbrown   7
+bluegreen   14
+green       2</samp>
+        <p>Notice that <code>blue</code> and <code>lightbrown</code> have been filtered out for not satisfying the <code>having</code> clause.</p>
+        <p>So, <code>group by</code> and <code>having</code> work as additional restriction phases. <code>group by</code> takes the restriction produced by the <code>where</code> clause and breaks it into groups of rows that share a common value for a given column. <code>having</code> then applies a filter to each of these groups. The groups that make it through are passed on to the <code>select</code> clause for aggregation and projection.</p>
+
+        <aside>
+          <p><strong>Caution:</strong> Some databases, including SQLite, will allow you to construct a <code>select</code> statement where nonaggregated columns are not grouped in a select statement with mixed aggregate and nonaggregate columns.</p>
+          <p>For instance, SQLite will allow you to execute this SQL:</p>
+          <pre>select eyecolour, count(*) from people</pre>
+          <p>Because the aggregate (<code>count</code>) collapses the input table, there is a mismatch in the number of rows that pass all the filtering steps. <code>count</code> in this case will return one row, but we haven&apos;t instructed SQLite how to group <code>eyecolour</code>. Nevertheless, SQLite will return something. Sadly, the results of such a statement are meaningless—do not rely on any SQL statement that doesn&apos;t group by nonaggregate fields. The results are arbitrary!</p>
+        </aside>
+
+      </section>
+
+      <section>
+        <h2>Removing Duplicates</h2>
+        <p><code>distinct</code> takes the result of the <code>select</code> clause and filters out duplicate rows. For example, you&apos;d use this to get all distinct eyecolour values from people:</p>
+        <pre>sqlite> select distinct eyecolour from people;</pre>
+        <p>which yields</p>
+        <samp>eyecolour
+-----------
+lightbrown
+darkbrown
+blue
+bluegreen
+green</samp>
+        <p>This statement works as follows: the <code>where</code> clause returns the entire <code>people</code> table (dozens of records, say). The <code>select</code> clause pulls out just the <code>eyecolour</code> column, and finally <code>distinct</code> removes duplicate rows, reducing the number to just 5 rows, all unique.</p>
+      </section>
+
     </main>
 
   </body>

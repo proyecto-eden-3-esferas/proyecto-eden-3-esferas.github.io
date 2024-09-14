@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>(SQL) Indexes</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(SQL) Indexes</h1>
+      <p>Indexes are a construct designed to speed up queries under certain conditions. Consider the following query:</p>
+      <pre>SELECT * FROM people WHERE city='Oxford';</pre>
+      <p>When a database searches for matching rows, the default method it uses to perform this is called a <dfn>sequential scan</dfn>. That is, it literally searches (or scans) every row in the table to see whether its city attribute matches <q>Oxford</q>.</p>
+      <p>However, if this query is used frequently and the people table is very large, it makes far more sense to use an index approach to finding the data.</p>
+      <hr/>
+      <p>Indexes also increase the size of the database. They literally keep a copy of all columns they index. If you index every column in a table, you effectively double the size of the table. Another consideration is that indexes must be maintained. When you insert, update, or delete records, in addition to modifying the table, the database must modify each and every index on that table as well. So although indices can make queries run much faster, they can slow down inserts, updates, and similar operations.</p>
+      <hr/>
+      <p>The command to create an index is as follows:</p>
+      <pre>create index [unique] <var>index_name</var> on <var>table_name</var> (<var>columns</var>)</pre>
+      <p>The variable <var>index_name</var> is the name of the index, and <var>table_name</var> is the name of the table containing the column(s) to index. The variable <var>columns</var> is either a single column or a comma-separated list of columns.</p>
+      <p>If you use the <code>unique</code> keyword, then the index will have the added constraint that all values in the index must be unique. This applies to both the index and, by extension, to the column or columns it indexes. The unique constraint covers all columns defined in the index, and it is their combined values (not individual values) that must be unique. Here&apos;s an example:</p>
+      <pre>sqlite> create table foo(a text, b text);
+sqlite> create unique index foo_idx on foo(a,b);
+sqlite> insert into foo values ('unique', 'value');
+sqlite> insert into foo values ('unique', 'value2');
+sqlite> insert into foo values ('unique', 'value');
+SQL error: columns a, b are not unique</pre>
+      <p>You can see here that uniqueness is defined by both columns collectively, not individually. Notice that collation plays an important role here as well.</p>
+      <p>To remove an index, use the drop index command, which is defined as follows:</p>
+      <pre>drop index <var>index_name</var>;</pre>
+
+      <hr/>
+      <p>When you create an index, have a reason for creating it. Make sure there is a specific performance gain you are getting before you take on the overhead that comes with it. Well-chosen indexes are a wonderful thing. Indexes that are thoughtlessly scattered here and there in the vain hope of performance are of dubious value.</p>
+
+      <section>
+        <h2>Collations</h2>
+        <p>Each column in the index can have a collation associated with it. For example, to create a case-insensitive index on foods.name, you&apos;d use the following:</p>
+        <pre>create index foods_name_idx on foods (name collate nocase);</pre>
+        <p>This means that values in the name column will sort without respect to case.</p>
+
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

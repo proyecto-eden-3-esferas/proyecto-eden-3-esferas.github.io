@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQL Views</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+        CREATE, SELECT, UPDATE, DELETE, INSERT, WHERE
+      -->
+      <div>
+        <p><a            href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a            href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a            href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a            href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a            href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a            href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+        <p><a            href= "sql.data-types.html">SQL Data Types</a></p>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+      <div>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQL Views</h1>
+      <p><dfn>Views</dfn> are virtual tables. They are also known as <dfn>derived tables</dfn>, because their contents are derived from the results of queries on other tables. Although views look and feel like base tables, they aren&apos;t. The contents of base tables are persistent, whereas the contents of views are dynamically generated when they are used. The syntax to create a view is as follows:</p>
+      <pre>create view <var>name</var> as <var>select-stmt;</var></pre>
+      <p>The name of the view is given by <var>name</var> and its definition by <var>select-stmt</var>. The resulting view will look like a base table named <var>name</var>. Imagine you had a query you ran all the time, so much that you get sick of writing it. Views are the solution for this particular chore. Say your query was as follows:</p>
+      <pre>select f.name, ft.name, e.name
+  from foods f
+inner join food_types ft on f.type_id=ft.id
+inner join foods_episodes fe on f.id=fe.food_id
+inner join episodes e on fe.episode_id=e.id;</pre>
+      <p>This returns the name of every food, its type, and every episode it was in. It is one big table of hundreds of rows with just about every food fact. Rather than having to write out (or remember) the previous query every time you want these results, you can tidily restate it in the form of a view. Let&apos;s name it <code>details</code>:</p>
+      <pre>create view details as
+select f.name as fd, ft.name as tp, e.name as ep, e.season as ssn
+  from foods f
+inner join food_types ft on f.type_id=ft.id
+inner join foods_episodes fe on f.id=fe.food_id
+inner join episodes e on fe.episode_id=e.id;</pre>
+      <p>Now you can query <code>details</code> just as you would a table. Here&apos;s an example:</p>
+      <pre>sqlite> select fd as Food, ep as Episode
+        from details where ssn=7 and tp like 'Drinks';</pre>
+      <p>The contents of views are dynamically generated. Thus, every time you use <code>details</code>, its associated SQL will be reexecuted, producing results based on the data in the database at that moment. Some features of views available in other database managers (DBMS&apos;s), like view-based security, are not generally available.</p>
+      <p>Finally, to drop a view, use the <code>DROP VIEW</code> command:</p>
+      <pre>drop view <var>name</var>;</pre>
+      <p>The name of the view to drop is given by <var>name</var>.</p>
+
+      <section id="updatable">
+        <h2></h2>
+        <p>The relational model calls for updatable views. These are views that you can modify. You can run <a href="INSERT.html">insert</a> or <a href="UPDATE.html">update</a> statements on them, for example, and the respective changes are applied directly to their underlying tables.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
