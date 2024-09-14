@@ -1,5 +1,9 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] añadir: Un tipo por desgracia frecuente de clasificabilidad es el de la cualidad de ser copia, o <dfn>fidedignidad</dfn>. Determinado público valora un dibujo o una pintura en la medida en que calca la realidad, por ejemplo una cara o un animal. Algo análogo ocurre con la música, muchos prefieren que lo tocado reproduzca fielmente determinada grabación
+[ ] Redactar *the-best-in-the-world.html*
+[ ] Redactar *orden-de-palabras.html*: dictado por la sintaxis o por la semántica
+[ ] Redactar *empatia.html* y enlazar desde *recursos.html* y desde *opuestos.html* (recurso frente a empatía)
 [ ] Further link *specialization.html*, already linked to from *society.html*
 [ ] enlazar: *allan-savory.html"
 [ ] enlazar: *mono-atrapado.html"
