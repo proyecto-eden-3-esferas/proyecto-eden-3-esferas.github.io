@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQL Triggers</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQL Triggers</h1>
+      <p><var>Triggers</var> execute specific SQL commands when specific database events transpire on specific tables. The general syntax for creating a trigger is as follows:</p>
+      <pre>create [temp|temporary] trigger <var>name</var>
+[before|after] [insert|delete|update|update of <var>columns</var>] on <var>table</var>
+
+<var>action</var></pre>
+      <p>A trigger is defined by a name, an action, and a table. The action, or trigger body, consists of a series of SQL commands. Triggers are said to fire when such events take place. Furthermore, triggers can be made to fire before or after the event using the <code>before</code> or <code>after</code> keyword, respectively. Events include <code>delete</code>, <code>insert</code>, and <code>update</code> commands issued on the specified table. Triggers can be used to create your own integrity constraints, log changes, update other tables, and many other things. They are limited only by what you can write in SQL.</p>
+
+      <p>If you choose to include <code>[for each row]</code>, the trigger will be a row-level trigger, i.e., it will be executed for each affected row. (SQL Server, SQLite etc.)</p>
+
+    </main>
+
+  </body>
+
+</html>

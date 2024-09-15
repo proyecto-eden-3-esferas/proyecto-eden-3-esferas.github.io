@@ -1,55 +1,121 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] finish *sqlite.sql.html* after *Transaction Types*
+
+[ ] escribir *cual-int-cant-float.html* y enlazar desde *cual-cal-cant.html*, *espacios-y-grafos.html* (anota un arco) etc
+    quality is an integer, quality is a float
+[ ] escribir explicando *gestalt.html*
+
+[ ] escribir *dilema-bici-robada.html*: un ladrón (L) roba una bici y la vende a alguien (B). Luego se descubre que es robada. Parece obvio que debería devolverse gratis a su dueño original (O). Incluso si B a su vez se la ha vendido a C. Sin embargo con la tierra no estamos dispuestos a hacer justicia así. Toda tierra se ha robado, en algún o varios momentos de la historia y prehistoria. Alguien llegó y se apropió de ella virgen. Luego conquistadores, poderosos, protegidos se la quitaron a los anteriores dueños. Enlazar con *georgismo.html*
+
+[ ] escribir *sin-naturaleza.html* y enlazar desde *naturaleza.html*. En él habría programas de entretenimiento (series, policíacas, etc), deporte, ciencia, matemáticas, literatura, informática
+
+[ ] escribir *trigo-sarraceno.html* y enlazar desde *agricultura.html*
+
+[ ] escribir *productividad-protagonismo-imprescindibilidad.html*
+
+[ ] añadir: requisitos de la herramienta: normalizada, generalizada, abaratada (por economía de escala), sencilla de manejar, y útil
+
+[ ] write *farming.moon.html* on the influence of the Moon and other heavenly bodies
+
+[ ] escribir/write *piaget.html* sobre/about Jean J. Piaget
+
+[ ] write/include  *jmuir.html*   sobre/about John Muir
+
+[ ] escribir *espirulina.html* y enlazar desde *salud.html* etc
+
 [ ] escribir y enlazar *tres-esferas.html*
+
+[ ] escribir *dogma-separacion.html* y enlazar desde *salud.html*, *pensamientos.html* etc
+
+[ ] relacionar *dogma-separacion.html* con monofuncionalidad
+
 [ ] cambiar nombre de y vínculos a *chinpances-dialogo-filosofico.html*, que debería llamarse *chimpances-dialogo-filosofico.html*, con m no con n
+
 [ ] recuerda que el subgrafo sobre sistemas está por pulir
+
 [ ] escribir *git.html* y enlazar desde *libro-grafo.html*
+
 [ ] añadir: Un tipo por desgracia frecuente de clasificabilidad es el de la cualidad de ser copia, o <dfn>fidedignidad</dfn>. Determinado público valora un dibujo o una pintura en la medida en que calca la realidad, por ejemplo una cara o un animal. Algo análogo ocurre con la música, muchos prefieren que lo tocado reproduzca fielmente determinada grabación
+
 [ ] Redactar *the-best-in-the-world.html*
+
 [ ] Redactar *orden-de-palabras.html*: dictado por la sintaxis o por la semántica
+
 [ ] Redactar *empatia.html* y enlazar desde *recursos.html* y desde *opuestos.html* (recurso frente a empatía)
+
 [ ] Further link *specialization.html*, already linked to from *society.html*
+
 [ ] enlazar: *allan-savory.html"
+
 [ ] enlazar: *mono-atrapado.html"
+
 [ ] Now, *people-of-the-lie.html* has become a large page. Plus it is linked to from *spirit.html*, why not from *thought.html*, too?
+
 [ ] escribir: *caja-negra.html* y enlazar bidireccionalmente con *un-sma-es-una-caja-negra.html*
+
 [ ] escribir: *palabras-sesgadas.html*
 - estólido
 - obstruccionismo
 - radical
 - progreso
+
 [ ] revisar: *rebelion-de-las-masas.html*
+
 [ ] write: *Sapir-Whorf-Hypothesis.html*, and possibly rename it, it is referenced from *thought.html*
+
 [ ] complete: *CAP.html*
+
 [ ] complete: *cpp.memory.html*
+
 [ ] write: *cpp.unique_ptr.html*, *cpp.shared_ptr.html*, and *cpp.weak_ptr.html*, already linked to from *cpp.memory.html*
+
 [x] write: *cpp.RAII.html*
+
 [ ] escribir: *ver-cal-ext.html* sobre la veracidad, calidad (inteligibilidad, pedagogía) y extensión (cuánto abarca) de un libro
+
 [ ] escribir: *dilema-demanda.html*: muchas profesiones requieren una demanda de sus servicios (relacionar con *demanda-intrinseca-y-extrinseca.html*), una carencia, falta o desgracia en el resto de la sociedad (por ejemplo los bomberos); las soluciones son la autoproducción y la innovación
+
 [ ] escribir: *bibliteca.html*, como un conjunto de libros puede cubrir el conjunto de conocimientos... más o menos bien (especie frente a calidad)
 
 [ ] enlaces a *libro-grafo.html* desde ¿*index.html*?
+
 [ ] completar *presentarse-por-libre.html*, revisar ejemplo de Traductores Jurados y añadir el de los Electricistas
+
 [x] escribir *postverdad.html*
+
 [ ] write on *avidya.html*
+
 [ ] write *erosion.html*, to be linked to from *weathering.html* and *soil.html*
+
 [ ] discuss specific member functions in *cpp.strings.html*
+
 [ ] terminar de redactar *prolog.es.html*
+
 [x] write *weathering.html*, on Mineral Weathering, and link from *farming.html* and *biology.html*
+
 [x] write *soil.html* and link to *weathering.html* and *farming.html*
+
 [ ] añadir sección sobre almacenamiento en *produccion-y-distribucion.html* y enlazarlo con *mercantilismo.html*
+
 [ ] write *climate-change.html*, and link to *food-security.html*, *farming.html*, *population.html*
+
 [ ] write *HTML.tables.html*
+
 [ ] write *science.html*, with class="science"
+
 [ ] write *SMIL.html*
 
 [x] redactar *mercantilismo.html*, actualmente sin contenido
+
 [x] Add *Placer y capricho*
+
 [?] Add *Ilusión, Apetencia y Capricho* from *cyclopaedia.xml*
 
 [ ] `docbook:literal` elements should be translated into existing HTML elements in files *expert-system**.html*. Fortunately, no occurrences are found in *cpp**html*
 
 [x] *ai.html*, on Artificial Intelligence, is incomplete. Specifically, it lacks an introduction (first paragraphs after h1 elements).
+
 [x] *ai.html*, on Artificial Intelligence, also lacks a section on Statistical AI
 
 [ ] Move general CSS attributes out of *svg.common-attributes.html* into *css.***attributes.html*
@@ -186,7 +252,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 - *biology.html*
 
+
 ## Dentro de oposiciones, por crear o redactar (igual existe el archivo, pero sin párrafos)
+
 - *oposiciones.html*
 - *absoluto-relativo.html*
 - *empirico-teorico.html*

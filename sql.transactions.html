@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQL Transactions</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQL Transactions</h1>
+      <p><dfn>Transactions</dfn> define boundaries around a group of SQL commands such that they either all successfully execute together or not at all. This is typically referred to as the <dfn>atomic principle</dfn> of database integrity. A classic example of the rationale behind transactions is a money transfer. Say a bank program is transferring money from one account to another. The money transfer program can do this in one of two ways: first insert (credit) the funds into account 2 and then delete (debit) it from account 1, or first delete it from account 1 and insert it into account 2. Either way, the transfer is a two-step process: an insert followed by a delete, or a delete followed by an insert.</p>
+      <p>But what happens if, during the transfer, the database server suddenly crashes or the power goes out, and the second operation does not complete? Now the money either exists in both accounts (the first scenario) or has been completely lost altogether (second scenario). Either way, someone is not going to be happy. And the database is in an inconsistent state. The point here is that these two operations must either happen together or not at all. That is the essence of transactions.</p>
+
+      <section>
+        <h2>Transaction Scopes</h2>
+        <p>Transactions are issued with three commands: <code>begin</code>, <code>commit</code>, and <code>rollback</code>.</p>
+        <p><code>begin</code> starts a transaction. Every operation following a begin can be potentially undone and will be undone if a commit is not issued before the session terminates. The <code>commit</code> command commits the work performed by all operations since the start of the transaction. Similarly, the <code>rollback</code> command undoes all the work performed by all operations since the start of the transaction. A transaction is a scope in which operations are performed and committed, or rolled back, together. Here is an example:</p>
+        <pre>sqlite> begin;
+sqlite> delete from foods;
+sqlite> rollback;
+sqlite> select count(*) from foods;</pre>
+        <samp>count(*)
+--------
+412</samp>
+        <p>We started a transaction, deleted all the rows in foods, changed our mind, and reversed those changes by issuing a <code>rollback</code>. The select statement shows that nothing was changed.</p>
+      </section>
+
+      <section>
+        <h2>Conflict Resolution</h2>
+        <p>Constraint violations cause the command that committed the violation to terminate. What exactly happens when a command terminates in the middle of making a bunch of changes to the database? In most databases, all of the changes are undone. That is the way the database is programmed to handle a constraint violation.</p>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

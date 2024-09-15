@@ -45,6 +45,121 @@
       <h1>SQL for SQLite</h1>
 
       <section>
+        <h2>Creating a Database</h2>
+          <h3>Creating Tables</h3>
+          <p>You create a table with the <code>create table</code> command, which is defined as follows:</p>
+          <pre>create [temp] table <var>table_name</var> (<var>column_definitions</var> [, <var>constraints</var>]);</pre>
+          <p>The <code>temp</code> or <code>temporary</code> keyword creates a temporary table. This kind of table is, well, temporary—it will last only as long your session. As soon as you disconnect, it will be destroyed (if you haven&apos;t already destroyed it manually). The brackets around the <code>temp</code> denote that it is an optional part of the command.</p>
+          <p>Whenever you see any syntax in brackets, it means that the contents within them are optional. Furthermore, the pipe symbol (|) denotes an alternative (think of the word or). Take, for example, the following syntax:</p>
+          <pre>create [temp|temporary] table ... ;</pre>
+          <p>This means that either the <code>temp</code> or <code>temporary</code> keyword may be optionally used. You could say <code>create temp table foo...</code>, or you could say <code>create temporary table foo...</code>. In this case, they mean the same thing.</p>
+          <p>If you don&apos;t create a temporary table, then <code>create table</code> creates a <dfn>base table</dfn>. The term base table refers to a table that is a named, persistent table in the database. This is the most common kind of table. In general, the term base table is used to differentiate tables created by create table from system tables and other table-like objects such as <a target="_blank" href="sql.views.html">views</a>.</p>
+          <p>The minimum required information for <code>create table</code> is a table name and a column name. The name of the table, given by <var>table_name</var>, must be unique among all other identifiers. In the body, <code><var>column_definitions</var></code> consists of a comma-separated list of column definitions composed of a name, a domain, and a comma-separated list of column constraints. A <dfn>type</dfn>, sometimes referred to as a <q>domain</q>, or a <q>storage class</q>, is synonymous with a data type in a programming language. It denotes the type of information that is stored in the column.</p>
+
+          <p>There are five native types in SQLite: integer, real, text, blob, and null. All of these types are covered in <a href="sqlite.data-types.html">Storage Classes</a>.</p>
+          <p><dfn>Constraints</dfn> are constructs that control what kind of values can be placed in the table or in individual columns. For instance, you can ensure that only unique values are placed in a column by using a unique constraint. Constraints are covered in the section on <cite><a href="#data-integrity">Data Integrity</a></cite>.</p>
+
+          <p>The create table command allows you to include a list of additional column constraints at the end of the command, denoted by constraints in the syntax outlined earlier. Consider the following example:</p>
+          <pre>create table contacts ( id integer primary key,
+name text not null collate nocase,
+phone text not null default 'UNKNOWN',
+unique (name,phone) );</pre>
+          <p>Column id is declared to have type integer and constraint primary key. As it turns out, the combination of this type and constraint has a special meaning in SQLite. Integer primary key basically turns the column into an autoincrement column<!-- (as explained in the section “Primary Key Constraints” later in this chapter)-->. Column name is declared to be of type text and has two constraints: <code>not null</code> and <code>collate nocase</code>. Column phone is of type text and has two constraints defined as well. After that, there is a table-level constraint of unique, which is defined for columns name and phone together.</p>
+
+          <h3>Altering Tables</h3>
+          <p>You can change parts of a table with the <code>alter table</code> command. SQLite&apos;s version of <code>alter table</code> can either rename a table or add columns. The general form of the command is as follows:</p>
+          <pre>alter table <var>table</var> { rename to <var>name</var> | add column <var>column_def</var> }</pre>
+          <p>If you add a column, the column definition, denoted by column_def, follows the form in the create table statement. It is a name, followed by an optional domain and list of constraints. Here&apos;s an example:</p>
+          <pre>
+sqlite> alter table contacts
+        add column email text not null default '' collate nocase;
+
+sqlite> .schema contacts
+  create table contacts ( id integer primary key,
+                          name text not null collate nocase,
+                          phone text not null default 'UNKNOWN',
+                          email text not null default '' collate nocase,
+                          unique (name,phone) );</pre>
+          <p>To view the table definition from within the SQLite command-line program, use the <code>.schema</code> shell command followed by the table name. It will print the current table definition. If you don&apos;t provide a table name, then .schema will print the entire database schema.</p>
+          <p>Tables can also be created from the results of select statements, allowing you to create not only the structure but also the data at the same time. This particular use of the create table statement is covered later in the section <cite>Inserting Records</cite>.</p>
+          <pre></pre>
+          <samp></samp>
+          <p></p>
+          <pre></pre>
+          <samp></samp>
+      </section>
+
+      <section id="data-integrity">
+        <h2>Data Integrity*</h2>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+      </section>
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+      </section>
+      -->
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+      </section>
+      -->
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+        <p></p>
+        <pre></pre>
+        <samp></samp>
+      </section>
+      -->
+
+      <section>
         <h2>Grouping</h2>
         <p>An essential part of aggregation is grouping. That is, in addition to computing aggregates over an entire result, you can also split that result into groups of rows with like values and compute aggregates on each group—all in one step. This is the job of the <code>group by</code> clause. Here&apos;s an example:</p>
         <pre>sqlite> select eyecolour from people group by eyecolour;</pre>
@@ -79,7 +194,7 @@ green       2</samp>
           <p>Because the aggregate (<code>count</code>) collapses the input table, there is a mismatch in the number of rows that pass all the filtering steps. <code>count</code> in this case will return one row, but we haven&apos;t instructed SQLite how to group <code>eyecolour</code>. Nevertheless, SQLite will return something. Sadly, the results of such a statement are meaningless—do not rely on any SQL statement that doesn&apos;t group by nonaggregate fields. The results are arbitrary!</p>
         </aside>
 
-      </section>
+      </section>  <!-- end of "Grouping" -->
 
       <section>
         <h2>Removing Duplicates</h2>
@@ -94,6 +209,146 @@ blue
 bluegreen
 green</samp>
         <p>This statement works as follows: the <code>where</code> clause returns the entire <code>people</code> table (dozens of records, say). The <code>select</code> clause pulls out just the <code>eyecolour</code> column, and finally <code>distinct</code> removes duplicate rows, reducing the number to just 5 rows, all unique.</p>
+      </section>
+
+      <section>
+        <h2>Triggers</h2>
+        <p><i>See</i> <a target="_blank" href="sql.triggers.html">SQL Triggers</a>, too.</p>
+        <section>
+          <h3>Update Triggers</h3>
+          <p>Update triggers, unlike insert and delete triggers, may be defined for specific columns in a table. The general form of this kind of trigger is as follows:</p>
+          <pre>create trigger name
+[before|after] update of column on table
+action</pre>
+          <p>The following is a SQL script that shows an UPDATE trigger in action:</p>
+          <pre>create temp table log(x);
+create temp trigger foods_update_log update of name on foods
+begin
+insert into log values('updated foods: new name=' || new.name);
+end;
+begin;
+update foods set name='JUJYFRUIT' where name='JujyFruit';
+select * from log;
+rollback;</pre>
+          <p>This script creates a temporary table called <var>log</var>, as well as a temporary update trigger on foods.name that inserts a message into log when it fires. The action takes place inside the transaction that follows. The first step of the transaction updates the name column of the row whose name is 'JUJYFRUIT'. This causes the update trigger to fire. When it fires, it inserts a record into the log. Next, the transaction reads the log, which shows that the trigger did indeed fire. The transaction then rolls back the change, and when the session ends, the log table and the update trigger are destroyed.<!-- Running the script produces the following output:--></p>
+          <p>SQLite provides access to both the old (original) row and the new (updated) row in update triggers. The old row is referred to as old and the new row as new. Notice in the script how the trigger refers to new.name. All attributes of both rows are available in old and new using the dot notation. You could have just as easily recorded new.type_id or old.id.</p>
+        </section>
+        <section>
+          <h3>Error Handling</h3>
+          <p>Defining a trigger before an event takes place gives you the opportunity to stop the event from happening and, equally, examining the event afterward allows you to have second thoughts. before and after triggers enable you to implement new integrity constraints. SQLite provides a special SQL function for triggers called <code>raise()</code>, which allows them to raise an error within the trigger body. raise is defined as follows:</p>
+          <pre>raise(<var>resolution</var>, <var>error_message</var>);</pre>
+          <p>The first argument is a conflict resolution policy (<code>abort</code>, <code>fail</code>, <code>ignore</code>, <code>rollback</code>, and so on). The second argument is an error message. If you use <code>ignore</code>, the remainder of the current trigger along with the SQL statement that caused the trigger to fire, as well as any subsequent triggers that would have been fired, are all terminated. If the SQL statement that caused the trigger to fire is itself part of another trigger, then that trigger resumes execution at the beginning of the next SQL command in the trigger action.</p>
+        </section>
+        <section>
+          <h3>Updatable Views</h3>
+          <p>Triggers make it possible to create something like updatable <a target="_blank" href="sql.views.html"> views</a>. The idea here is that you create a view and then create a trigger that handles <code>update</code> events on that view.</p>
+          <p>SQLite supports triggers on views using the <code>instead of</code> keywords in the trigger definition. To illustrate this, let&apos;s create a view that combines foods with food_types:</p>
+          <pre>create view foods_view as
+  select f.id fid, f.name fname, t.id tid, t.name tname
+  from foods f, food_types t;</pre>
+          <p>This view joins the two tables according to their foreign key relationship. Notice that you have created aliases for all column names in the view. This allows you to differentiate the respective id and name columns in each table when you reference them from inside the trigger. Now, let&apos;s make the view updatable by creating an UPDATE trigger on it:</p>
+          <pre>create trigger on_update_foods_view
+instead of update on foods_view
+for each row
+begin
+  update foods set name=new.fname where id=new.fid;
+  update food_types set name=new.tname where id=new.tid;
+end;</pre>
+          <p>Now if you try to update the foods_view, this trigger gets called. The trigger simply takes the values provided in the UPDATE statement and uses them to update the underlying base tables foods and food_types.<!-- Testing it yields the following:--></p>
+          <p>You can just as easily add insert and delete triggers to complete the trigger based manipulation of data via views.</p>
+        </section>
+      </section>  <!-- end of "Triggers" -->
+
+      <section>
+        <h2>Transactions</h2>
+        <p>By default, every SQL command in SQLite is run under its own transaction. That is, if you do not define a transaction scope with <code>begin...commit/rollback</code>, SQLite will implicitly wrap every individual SQL command with a <code>begin...commit/rollback</code>. In that case, every command that completes successfully is committed. Likewise, every command that encounters an error is rolled back. This mode of operation (implicit transactions) is referred to as <dfn>autocommit mode</dfn>: SQLite automatically runs each command in its own transaction, and if the command does not fail, its changes are automatically committed.</p>
+        <p>SQLite also supports the <code>savepoint</code> and <code>release</code> commands. These commands extend the flexibility of transactions so that a body of work that incorporates multiple statements can set a <code>savepoint</code>, which SQLite can then revert to in the event of a rollback. Creating a savepoint is a simple as issuing the <code>savepoint</code> command with a name of your choice, just as in this next example:</p>
+        <pre>savepoint sv2;</pre>
+        <p>Later, if we realize our processing needs to be reverted, instead of rolling all the way back to the start of the transaction, we can use a named rollback as follows:</p>
+        <pre>rollback [<var>transaction</var>] to sv2;</pre>
+
+        <section>
+          <h3>Conflict Resolution</h3>
+          <p>Constraint violations cause the command that committed the violation to terminate. What exactly happens when a command terminates in the middle of making a bunch of changes to the database? In most databases, all of the changes are undone. That is the way the database is programmed to handle a constraint violation—end of story.</p>
+          <p>SQLite, however, has an uncommon feature that allows you to specify different ways to handle (or recover from) constraint violations. It is called <dfn>conflict resolution</dfn>. Take, for example, the following UPDATE:</p>
+          <pre>sqlite> update foods set id=800 - id;</pre>
+          <samp>SQL error: PRIMARY KEY must be unique</samp>
+          <p>This results in a <code>UNIQUE</code> constraint violation because once the update statement reaches the 388th record, it attempts to update its id value to 800 - 388 = 412. But a row with an id of 412 already exists, so it aborts the command. But SQLite already updated the first 387 rows before it reached this constraint violation. What happens to them? The default behavior is to terminate the command and reverse all the changes it made, while leaving the transaction intact.</p>
+          <p>But what if you wanted these 387 changes to stick despite the constraint violation? Well, believe it or not, you can have it that way too, if you want. You just need to use the appropriate conflict resolution. There are five possible resolutions, or policies, that can be applied to address a conflict (constraint violation): <code>replace</code>, <code>ignore</code>, <code>fail</code>, <code>abort</code>, and <code>rollback</code>. These five resolutions define a spectrum of error tolerance or sensitivity: from <code>replace</code>, the most forgiving, to <code>rollback</code>, the most strict. The resolutions are defined as follows in order of their severity:</p>
+          <ol>
+            <li><code>replace</code>: When a unique constraint violation is encountered, SQLite removes the row (or rows) that caused the violation and replaces it (them) with the new row from the insert or update. The SQL operation continues without error. If a NOT NULL constraint violation occurs, the NULL value is replaced by the default value for that column. If the column has no default value, then SQLite applies the abort policy. It is important to note that when this conflict resolution strategy deletes rows in order to satisfy a constraint, it does not invoke delete triggers on those rows. This behavior, however, is subject to change in a future release. </li>
+            <li><code>ignore</code>: When a constraint violation is encountered, SQLite allows the command to continue and leaves the row that triggered the violation unchanged. Other rows before and after the row in question continue to be modified by the command. Thus, all rows in the operation that trigger constraint violations are simply left unchanged, and the command proceeds without error.</li>
+            <li><code>fail</code>: When a constraint violation is encountered, SQLite terminates the command but does not restore the changes it made prior to encountering the violation. That is, all changes within the SQL command up to the violation are preserved. For example, if an update statement encountered a constraint violation on the 100th row it attempts to update, then the changes to the first 99 rows already modified remain intact, but changes to rows 100 and beyond never occur as the command is terminated. </li>
+            <li><code>abort</code>: When a constraint violation is encountered, SQLite restores all changes the command made and terminates it. abort is the default resolution for all operations in SQLite. It is also the behavior defined in the SQL standard. As a side note, abort is also the most expensive conflict resolution policy— requiring extra work even if no conflicts ever occur. </li>
+            <li><code>rollback</code>: When a constraint violation is encountered, SQLite performs a rollback—aborting the current command along with the entire transaction. The net result is that all changes made by the current command and all previous commands in the transaction are rolled back. This is the most drastic level of conflict resolution where a single violation results in a complete reversal of everything performed in a transaction. </li>
+          </ol>
+          <p>Conflict resolution can be specified within SQL commands as well as within table and index definitions. Specifically, conflict resolution can be specified in insert, update, create table, and create index. Furthermore, it has specific implications within triggers. The syntax for conflict resolution in insert and update is as follows:</p>
+          <pre>insert or <var>resolution</var> into <var>table</var> (<var>column_list</var>) values (<var>value_list</var>);
+update or <var>resolution</var> <var>table</var> set (<var>value_list</var>) where <var>predicate</var>;</pre>
+          <p>The conflict resolution policy comes right after the <code>insert</code> or <code>update</code> command and is prefixed with <code>OR</code>. Also, the insert or replace expression can be abbreviated as just <code>replace</code>. This is similar to other database&apos;s <code>merge</code> or <code>upsert</code> behavior.</p>
+          <p>In the preceding update example, the updates made to the 387 records were rolled back because the default resolution is <code>abort</code>. If you wanted the updates to stick, you could use the <code>fail</code> resolution. To illustrate this, in the following example you copy foods into a new table test and use it as the guinea pig. You add an additional column to test called <code>modified</code>, the default value of which is <q>no</q>. In the update, you change this to <q>yes</q> to track which records are updated before the constraint violation occurs. Using the <code>fail</code> resolution, these updates will remain unchanged, and you can track afterward how many records were updated.</p>
+          <pre>create table test as select * from foods;
+create unique index test_idx on test(id);
+alter table test add column modified text not null default 'no';
+select count(*) from test where modified='no';</pre>
+          <aside><strong>Caution</strong> There is one consideration with fail of which you need to be aware. The order that records are updated is nondeterministic. That is, you cannot be certain of the order of the records in the table or the order in which SQLite processes them. You might assume that it follows the order of the rowid column, but this is not a safe assumption to make. There is nothing in the documentation that says so. Once again, never assume any implicit ordering when working with any kind of database. If you are going to use fail, in many cases it might be better to use ignore. ignore will finish the job and modify all records that can be modified rather than bailing out on the first violation.</aside>
+
+          <p>When defined within tables, conflict resolution is specified for individual columns. Here&apos;s an example:</p>
+          <pre>sqlite> create temp table cast(name text unique on conflict rollback);
+sqlite> insert into cast values ('Jerry');
+sqlite> insert into cast values ('Elaine');
+sqlite> insert into cast values ('Kramer');</pre>
+          <p>Any insert or update that triggers a constraint violation on name will be arbitrated by the rollback resolution rather than the default abort. The result will abort not only the statement but the entire transaction as well.</p>
+          <p>Conflict resolution within tables and indices changes the default behavior of the operation from abort to that defined for the specific columns when those columns are the source of the constraint violation.</p>
+          <p>Conflict resolution at the statement level (DML) overrides that defined at the object level (DDL). Working from the previous example:</p>
+          <pre>sqlite> begin;
+sqlite> insert or replace into cast values('Jerry');
+sqlite> commit;</pre>
+          <p>the <code>replace</code> resolution in the <code>insert</code> overrides the <code>rollback</code> resolution defined on <code>cast.name</code>.</p>
+        </section>
+        <section>
+          <h3>Database Locks</h3>
+          <p>Locking is closely associated with transactions in SQLite. To use transactions effectively, you need to know a little something about how it does locking.</p>
+          <p>SQLite has coarse-grained locking. When a session is writing to the database, all other sessions are locked out until the writing session completes its transaction. To help with this, SQLite has a locking scheme that helps defer writer locks until the last possible moment in order to maximize concurrency.</p>
+          <aside>
+            <h4>Write-Ahead Logging: the Future of SQLite</h4>
+            <p>Coming soon in version 3.7.0 of SQLite is write-ahead logging (WAL). This will change the behavior of transactions and locking to free SQLite of the <q>one writer</q> behavior described here.</p>
+          </aside>
+          <p>SQLite uses a lock escalation policy whereby a connection gradually obtains exclusive access to a database in order to write to it. There are five different locking states in SQLite: unlocked, shared, reserved, pending, and exclusive. Each database session (or connection) can be in only one of these states at any given time. Furthermore, there is a corresponding lock for each state, except for unlocked—there is no lock required to be in the unlocked state.</p>
+          <p>To begin with, the most basic state is <dfn>unlocked</dfn>. In this state, no session is accessing data from the database. When you connect to a database or even initiate a transaction with <code>BEGIN</code>, your connection is in the unlocked state.</p>
+          <p>The next state beyond unlocked is <dfn>shared</dfn>. For a session to read from the database (not write), it must first enter the shared state and must therefore acquire a shared lock. Multiple sessions can simultaneously acquire and hold shared locks at any given time. Therefore, multiple sessions can read from a common database at any given time. However, no session can write to the database during this time—while any shared locks are active.</p>
+          <p>If a session wants to write to the database, it must first acquire a <dfn>reserved</dfn> lock. Only one reserved lock may be held at one time for a given database. Shared locks can coexist with a reserved lock. A reserved lock is the first phase of writing to a database. It does not block sessions with shared locks from reading, and it does not prevent sessions from acquiring new shared locks.</p>
+          <p>Once a session has a reserved lock, it can begin the process of making modifications; however, these modifications are cached and not actually written to disk. The reader&apos;s changes are stored in a memory cache<!-- (see the discussion of the cache_size pragma in the section “Database Configuration,” later in this chapter, for more information)-->.</p>
+          <p>When the session wants to commit the changes (or transaction) to the database, it begins the process of promoting its reserved lock to an <dfn>exclusive</dfn> lock. To get an exclusive lock, it must first promote its reserved lock to a <dfn>pending</dfn> lock. A pending lock starts a process of attrition whereby no new shared locks can be obtained. That is, other sessions with existing shared locks are allowed to continue as normal, but other sessions cannot acquire new shared locks. At this point, the session with the pending lock is waiting for the other sessions with shared locks to finish what they are doing and release them. Once all shared locks are released, the session with the pending lock can promote it to an exclusive lock. It is then free to make changes to the database. All of the previously cached changes are written to the database file.</p>
+        </section>
+
+        <section>
+          <h3>Deadlocks</h3>
+          <p>Why do you need to know about locking? Well, if you don&apos;t know what you are doing, you can end up in a deadlock.</p>
+          <p>Consider the following scenario<!-- illustrated in Table 4-2-->. Two sessions, A and B—completely oblivious to one another—are working on the same database at the same time. Session A issues the first command, B the second and third, A the fourth, and so on.</p>
+          <p>Both sessions wind up in a deadlock. Session B was the first to try to write to the database and therefore has a pending lock. A attempts to write but fails when INSERT tries to promote its shared lock to a reserved lock.</p>
+          <p>For the sake of argument, let&apos;s say that A decides to just wait around for the database to become writable. So does B. Then at this point, everyone else is effectively locked out too. If you try to open a third session, it won&apos;t even be able to read from the database. The reason is that B has a pending lock, which prevents any sessions from acquiring shared locks. So, not only are A and B deadlocked, they have locked everyone else out of the database as well. Basically, you have a shared lock and one pending lock that don&apos;t want to relinquish control, and until one does, nobody can do anything.</p>
+          <p>How do you avoid a deadlock? It&apos;s not like A and B can sit down in a meeting and work it out with their lawyers. A and B don&apos;t even know each other exists. The answer is <em>to pick the right transaction type for the job.</em></p>
+        </section>
+
+        <section>
+          <h3>Transaction Types*</h3> <!--virtual page: 117, actual: 139-->
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
       </section>
 
     </main>
