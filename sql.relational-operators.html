@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQL Relational Operators</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+        CREATE, SELECT, UPDATE, DELETE, INSERT, WHERE
+      -->
+      <div>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+        <p><a href="sql.data-types.html">SQL Data Types</a></p>
+        <p><a href="sql.views.html">SQL Views</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Relational Operators (in SQL)</h1>
+      <p>It&apos;s useful to think about what <code>SELECT</code> does and why it does it, framed in a conceptual way. In most SQL implementations the <code>SELECT</code> statement provides for the <dfn>relational operations</dfn> that source, mix, compare, and filter data. These relational operations are typically divided into three categories:</p>
+      <ol>
+
+        <li>
+          <p>Fundamental operations</p>
+          <ul>
+            <li>Restriction</li>
+            <li>Projection</li>
+            <li>Cartesian product</li>
+            <li>Union</li>
+            <li>Difference</li>
+            <li>Rename</li>
+          </ul>
+        </li>
+
+        <li>
+          <p>Additional operations</p>
+          <ul>
+            <li>Intersection</li>
+            <li>Natural join</li>
+            <li>Assign</li>
+          </ul>
+        </li>
+
+        <li>
+          <p>Extended operations</p>
+          <ul>
+            <li>Generalized projection</li>
+            <li>Left outer join</li>
+            <li>Right outer join</li>
+            <li>Full outer join</li>
+          </ul>
+        </li>
+
+      </ol>
+
+      <p>The fundamental operations are just that: fundamental. They define the basic relational operations, and all of them (with the exception of <q>rename</q>) have their basis in set theory. The additional operations are for convenience, offering a shorthand way of performing frequently used combinations of the fundamental operations. For instance, intersection can be performed by taking the union of two sets and from that removing via difference the results of two further unions that have each had difference applied for one of the two initial sets. Finally, the extended operations add features to the fundamental and additional operations. For example, the generalized projection operation adds arithmetic expressions, aggregates, and grouping features to the fundamental projection operations. The outer joins extend the join operations and allow additional information and/or incomplete information to be retrieved from the database.</p>
+      <p>In standard ANSI SQL, <code>SELECT</code> can perform every one of these relational operations. These operations map to the original relational operators defined by E. F. Codd in his original work on relational theory (with the exception of <code>DIVIDE</code>).</p>
+      <p>All of these operations are defined in terms of relations or, as they are commonly called, tables! They take one or more relations as their inputs and produce a relation as their output. This allows operations to be strung together into relational expressions. Relational expressions can therefore be created to arbitrary complexity. For example, the output of a select operation (a relation) can be fed as the input to another select statement, as follows:</p>
+      <pre>select name from (select name, type_id from (select * from foods));</pre>  <!-- page 56 -->
+
+    </main>
+
+  </body>
+
+</html>

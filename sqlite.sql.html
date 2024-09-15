@@ -45,6 +45,11 @@
       <h1>SQL for SQLite</h1>
 
       <section>
+        <h2>Querying the Database</h2>
+        <p>SQLite supports all the <a href="sql.relational-operators.html">relational operations</a> in ANSI SQL with the exception of right and full outer joins. The types of joins can be constructed using combinations of other fundamental relational operations, so don&apos;t worry then.</p>
+      </section>
+
+      <section>
         <h2>Creating a Database</h2>
           <h3>Creating Tables</h3>
           <p>You create a table with the <code>create table</code> command, which is defined as follows:</p>
@@ -82,11 +87,13 @@ sqlite> .schema contacts
                           unique (name,phone) );</pre>
           <p>To view the table definition from within the SQLite command-line program, use the <code>.schema</code> shell command followed by the table name. It will print the current table definition. If you don&apos;t provide a table name, then .schema will print the entire database schema.</p>
           <p>Tables can also be created from the results of select statements, allowing you to create not only the structure but also the data at the same time. This particular use of the create table statement is covered later in the section <cite>Inserting Records</cite>.</p>
+          <!--
           <pre></pre>
           <samp></samp>
           <p></p>
           <pre></pre>
           <samp></samp>
+          -->
       </section>
 
       <section id="data-integrity">
