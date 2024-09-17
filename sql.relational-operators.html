@@ -75,6 +75,7 @@
       <p>In standard ANSI SQL, <code>SELECT</code> can perform every one of these relational operations. These operations map to the original relational operators defined by E. F. Codd in his original work on relational theory (with the exception of <code>DIVIDE</code>).</p>
       <p>All of these operations are defined in terms of relations or, as they are commonly called, tables! They take one or more relations as their inputs and produce a relation as their output. This allows operations to be strung together into relational expressions. Relational expressions can therefore be created to arbitrary complexity. For example, the output of a select operation (a relation) can be fed as the input to another select statement, as follows:</p>
       <pre>select name from (select name, type_id from (select * from foods));</pre>  <!-- page 56 -->
+      <p>Here, the output of the innermost <code>SELECT</code> is fed to the next <code>SELECT</code>, whose output is in turn fed to the outermost <code>SELECT</code>. It is all a single relational expression. Anyone familiar with piping commands in Linux, Unix, or Windows will appreciate this behavior. The output of any select statement can be used as input to yet another statement.</p>
 
     </main>
 

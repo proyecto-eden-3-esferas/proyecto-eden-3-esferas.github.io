@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQL Joins</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+        CREATE, SELECT, UPDATE, DELETE, INSERT, WHERE
+      -->
+      <div>
+        <p><a href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+        <p><a href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a href="SELECT.html">(SQL) SELECT: Reading Data</a></p>
+        <p><a href="sql.relational-operators.html">Relational Operators (in SQL)</a></p>
+        <p><a href="UPDATE.html">(SQL) UPDATE: Changing an Existing Row/Record</a></p>
+        <p><a href="DELETE.html">(SQL) DELETE: Deleting a Row, Table, whole DataBase</a></p>
+        <p><a href= "WHERE.html">(SQL) WHERE: Specifying Conditions</a></p>
+        <p><a href= "sql.data-types.html">SQL Data Types</a></p>
+      </div>
+      <div>
+        <p><a href= "sql.views.html">SQL Views</a></p>
+        <p><a href= "sql.indexes.html">(SQL) Indexes</a></p>
+        <p><a href= "sql.triggers.html">SQL Triggers</a></p>
+        <p><a href= "sql.transactions.html">SQL Transactions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQL Joins: Combining Tables</h1>
+
+      <p>A JOIN clause is used to combine rows from two or more tables, based on a related column between them.</p>
+
+      <p>Let&apos;s look at a selection from the <var>Orders</var> table:</p>
+
+      <table border="1" id="simple_with_header">
+        <thead> <tr> <td>OrderID</td> <td>CustomerID</td> <td>OrderDate</td> </tr> </thead>
+                <tr> <td>10308</td> <td>2</td> <td>1996-09-18</td> </tr>
+                <tr> <td>10309</td> <td>37</td> <td>1996-09-19</td> </tr>
+                <tr> <td>10310</td> <td>77</td> <td>1996-09-20</td> </tr>
+      </table>
+
+      <p>Then, look at a selection from the <var>Customers</var> table:</p>
+      <table border="1" id="simple_with_header">
+        <thead> <tr> <td>CustomerID</td> <td>CustomerName</td> <td>ContactName</td> <td>Country</td> </tr> </thead>
+                <tr> <td>1</td> <td>Alfreds Futterkiste</td> <td>Maria Anders</td> <td>Germany</td> </tr>
+                <tr> <td>2</td> <td>Ana Trujillo Emparedados y helados</td> <td>Ana Trujillo</td> <td>Mexico</td> </tr>
+                <tr> <td>3</td> <td>Antonio Moreno Taquería</td> <td>Antonio Moreno</td> <td>Mexico</td> </tr>
+      </table>
+
+      <p>Notice that the <var>CustomerID</var> column in the <var>Orders</var> table refers to the <var>CustomerID</var> in the <var>Customers</var> table. The relationship between the two tables above is the <var>CustomerID</var> column.</p>
+      <p>Then, we can create the following SQL statement (that contains an <code>INNER JOIN</code>), that selects records that have matching values in both tables:</p>
+      <pre>SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;</pre>
+      <p>and it will produce something like this:</p>
+      <samp>OrderID 	CustomerName 	OrderDate
+10308 	Ana Trujillo Emparedados y helados 	9/18/1996
+10365 	Antonio Moreno Taquería 	11/27/1996
+10383 	Around the Horn 	12/16/1996
+10355 	Around the Horn 	11/15/1996
+10278 	Berglunds snabbköp 	8/12/1996</samp>
+
+      <h2>Different Types of SQL JOINs</h2>
+      <p>Here are the different types of the JOINs in SQL:</p>
+      <ul>
+        <li><a href="#inner"><code>(INNER) JOIN:</code></a> Returns records that have matching values in both tables</li>
+        <li><a href="#left"><code>LEFT (OUTER) JOIN</code></a> Returns all records from the left table, and the matched records from the right table</li>
+        <li><a href="#right"><code>RIGHT (OUTER) JOIN</code></a> Returns all records from the right table, and the matched records from the left table</li>
+        <li><a href="#full"><code>FULL (OUTER) JOIN</code></a> Returns all records when there is a match in either left or right table</li>
+      </ul>
+
+      <section id="inner">
+        <h2>INNER JOIN</h2>
+        <p>The <code>INNER JOIN</code> keyword selects records that have matching values in both tables.</p>
+        <h3>Example</h3>
+        <p>Join Products and Categories with the INNER JOIN keyword:</p>
+        <pre>SELECT ProductID, ProductName, CategoryName
+FROM Products
+INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID;</pre>
+
+        <p><strong>Note:</strong> The <code>INNER JOIN</code> keyword returns only rows with a match in both tables. Which means that if you have a product with no CategoryID, or with a CategoryID that is not present in the Categories table, that record would not be returned in the result.</p>
+        <h3>Syntax</h3>
+        <pre>SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;</pre>
+        <h3>Naming the Columns</h3>
+        <p>It is a good practice to include the table name when specifying columns in the SQL statement.</p>
+        <p>Example:</p>
+        <p>Specify the table names:</p>
+        <pre>SELECT Products.ProductID, Products.ProductName, Categories.CategoryName
+FROM Products
+INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID;</pre>
+        <p>The example above works without specifying table names, because none of the specified column names are present in both tables. If you try to include CategoryID in the SELECT statement, you will get an error if you do not specify the table name (because CategoryID is present in both tables).</p>
+
+        <h3><code>JOIN</code> or <code>INNER JOIN</code></h3>
+        <p><code>JOIN</code> and <code>INNER JOIN</code> will return the same result.</p>
+        <p><code>INNER</code> is the default join type for <code>JOIN</code>, so when you write <code>JOIN</code> the parser actually writes <code>INNER JOIN</code>.</p>
+
+        <h3>JOIN Three Tables</h3>
+        <p>The following SQL statement selects all orders with customer and shipper information:</p>
+        <p>Example:</p>
+        <pre>SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);</pre>
+      </section>
+
+      <section id="left">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section id="right">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section id="full">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+      -->
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+      -->
+
+
+
+    </main>
+
+  </body>
+
+</html>

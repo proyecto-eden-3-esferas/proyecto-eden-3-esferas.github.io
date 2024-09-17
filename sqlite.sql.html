@@ -47,7 +47,67 @@
       <section>
         <h2>Querying the Database</h2>
         <p>SQLite supports all the <a href="sql.relational-operators.html">relational operations</a> in ANSI SQL with the exception of right and full outer joins. The types of joins can be constructed using combinations of other fundamental relational operations, so don&apos;t worry then.</p>
+        <hr/>
+        <p>A very general form of <code>SELECT</code> in SQLite (without too much distracting syntax) can be represented as follows:</p>
+        <pre>select [distinct] <var>heading</var>
+from <var>tables</var>
+where <var>predicate</var>
+group by <var>columns</var>
+having <var>predicate</var>
+order by <var>columns</var>
+limit <var>count</var>[,<var>offset</var>];</pre>
+        <p>Each keyword—<code>from</code>, <code>where</code>, <code>having</code>, and so on—is a separate <dfn>clause</dfn>.</p>
+        <p>All clauses are optional with the exception of <code>SELECT</code>. You must always provide at least this clause to make a valid select command. By far the most common invocation of the select command consists of three clauses: select, from, and where. This basic syntax and its associated clauses are as follows:</p>
+        <pre>select <var>heading</var> from <var>tables</var> where <var>predicate</var>;</pre>
+        <hr/>
+        <p>You can limit the size and particular range of the result using the <code>limit</code> and <code>offset</code> keywords. <code>limit</code> specifies the maximum number of records to return. <code>offset</code> specifies the number of records to skip.</p>
+        <p>If you use both limit and offset together, you can use a comma notation in place of the offset keyword. In SQLite, when using this shorthand notation, the offset precedes the limit.</p>
+        <p>Notice that <code>limit</code> and <code>offset</code> are placed last in the operational pipeline. One common misconception of <code>limit</code>/<code>offset</code> is that it speeds up a query by limiting the number of rows that must be collected by the <code>where</code> clause. This is not true. If it were, then <code>order by</code> would not work properly. For <code>order by</code> to do its job, it must have the entire result in hand to provide the correct order. There is a small performance boost, in that SQLite only needs to keep track of the order of the 10 biggest values at any point. This has some benefit but not nearly as much as the <q>sort-free limiting</q> that some expect.</p>
+
+        <section>
+          <h3>The <code>GLOB</code> operator</h3>
+          <p>The <code>GLOB</code> operator is very similar in behavior to the like operator. Its key difference is that it behaves much like Unix or Linux file globbing semantics in those operating systems. This means it uses the wildcards associated with file globbing such as * and _, and that matching is case sensitive. The following example demonstrates glob in action:</p>
+          <pre>
+sqlite> select id, name from foods
+   ...> where name glob 'Pine*';</pre>
+          <p>SQLite also recognizes the <code>match</code> and <code>regexp</code> predicates but currently does not provide a native implementation.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
       </section>
+
+      <section>
+        <h2>Joining Tables*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
 
       <section>
         <h2>Creating a Database</h2>
