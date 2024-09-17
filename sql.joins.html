@@ -125,29 +125,39 @@ INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);</pre>
       </section>
 
       <section id="left">
-        <h2></h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
+        <h2>SQL <code>LEFT JOIN</code> Keyword</h2>
+        <p>The <code>LEFT JOIN</code> keyword returns all records from the left table (table1), and the matching records from the right table (table2). The result is 0 records from the right side, if there is no match.</p>
+        <h3>Syntax</h3>
+        <pre>SELECT <var>column_name(s)</var>
+FROM <var>table1</var>
+LEFT JOIN <var>table2</var>
+ON <var>table1.column_name</var> = <var>table2.column_name</var>;</pre>
+        <p><strong>Note:</strong> In some databases LEFT JOIN is called LEFT OUTER JOIN.</p>
+
+        <h3>SQL <code>LEFT JOIN</code> Example</h3>
+        <p>The following SQL statement will select all customers, and any orders they might have:</p>
+        <pre>SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;</pre>
+        <p><strong>Note:</strong> The <code>LEFT JOIN</code> keyword returns all records from the left table (<var>Customers</var>), even if there are no matches in the right table (<var>Orders</var>).</p>
       </section>
 
       <section id="right">
-        <h2></h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
+        <h2>SQL <code>RIGHT JOIN</code> Keyword</h2>
+        <p>The <code>RIGHT JOIN</code> keyword returns all records from the right table (<var>table2</var>), and the matching records from the left table (<var>table1</var>). The result is 0 records from the left side, if there is no match.</p>
+        <h3><code>RIGHT JOIN</code> Syntax</h3>
+        <pre>SELECT <var>column_name(s)</var>
+FROM <var>table1</var>
+RIGHT JOIN <var>table2</var>
+ON <var>table1.column_name</var> = <var>table2.column_name</var>;</pre>
+        <h3>SQL <code>RIGHT JOIN</code> Example</h3>
+        <p>The following SQL statement will return all employees, and any orders they might have placed:</p>
+        <pre>SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;</pre>
+        <p><strong>Note:</strong> The <code>RIGHT JOIN</code> keyword returns all records from the right table (Employees), even if there are no matches in the left table (Orders).</p>
         <pre></pre>
         <p></p>
         <pre></pre>
@@ -155,36 +165,37 @@ INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);</pre>
       </section>
 
       <section id="full">
-        <h2></h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
+        <h2>SQL <code>FULL OUTER JOIN</code> Keyword</h2>
+        <p>The <code>FULL OUTER JOIN</code> keyword returns all records when there is a match in left (<var>table1</var>) or right (<var>table2</var>) table records.</p>
+        <p><strong>Note</strong>: FULL OUTER JOIN and FULL JOIN are the same.</p>
+        <h3>Syntax</h3>
+        <pre>SELECT <var>column_name(s)</var>
+FROM <var>table1</var>
+FULL OUTER JOIN <var>table2</var>
+ON <var>table1.column_name</var> = <var>table2.column_name</var>
+WHERE condition;</pre>
+        <h3>Example</h3>
+        <pre>SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;</pre>
+        <p><strong>Note:</strong> The <code>FULL OUTER JOIN</code> keyword returns all matching records from both tables whether the other table matches or not. So, if there are rows in <var>Customers</var> that do not have matches in <var>Orders</var>, or if there are rows in <var>Orders</var> that do not have matches in <var>Customers</var>, those rows will be listed as well.</p>
       </section>
 
-      <!--
-      <section id="">
-        <h2></h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
+      <section id="self">
+        <h2>A <dfn>self join</dfn> is a regular join, but the table is joined with itself.</h2>
+        <h3>Self Join Syntax</h3>
+        <pre>SELECT <var>column_name(s)</var>
+FROM <var>table1 T1</var>, <var>table1 T2</var>
+WHERE <var>condition</var>;</pre>
+        <h3>SQL Self Join Example</h3>
+        <p>The following SQL statement matches customers that are from the same city:</p>
+        <pre>SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID &lt;&gt; B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;</pre>
       </section>
-      -->
 
       <!--
       <section id="">
