@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] link to *epigenetics.html* from would-be *genetics.html*, to be linked to from already-existing *biology.html*
+
 [ ] finish *sqlite.sql.html* after *Transaction Types*
 
 [ ] escribir *cual-int-cant-float.html* y enlazar desde *cual-cal-cant.html*, *espacios-y-grafos.html* (anota un arco) etc
@@ -48,7 +50,7 @@
 
 [ ] enlazar: *allan-savory.html"
 
-[ ] enlazar: *mono-atrapado.html"
+[ ] enlazar: *mono-atrapado.html" (actualmente sólo desde *religion.html*)
 
 [ ] Now, *people-of-the-lie.html* has become a large page. Plus it is linked to from *spirit.html*, why not from *thought.html*, too?
 

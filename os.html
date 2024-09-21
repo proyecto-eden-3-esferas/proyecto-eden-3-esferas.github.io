@@ -23,8 +23,14 @@
     </nav>
 
     <main>
-      <h1>Operating System</h1>
       <p>An <dfn>operating system</dfn> is software that manages all of the hardware resources associated with a computer (a desktop, a laptop...). To put it simply, the operating system manages the communication between your software and your hardware. Without the operating system (OS), the software wouldn&apos;t function.</p>
+
+      <h1>Operating System</h1>
+
+      <p>An <dfn>operating system</dfn> can be thought of as software that provides services that can be used for developing applications where multiple pieces of work (<dfn>tasks</dfn>) have to be worked on concurrently. At the center of an operating system is the <dfn>scheduler</dfn>, whose job is to decide which task is to run next.</p>
+      <p>In a <dfn>cooperative multitasking operating system</dfn>, a task runs till it decides to suspend what it is doing and transfer control to the scheduler, which will determine which task to run next.</p>
+      <p>In a <dfn>preemptive multitasking operating system</dfn>, a task can be preempted by the operating system at any point. Preemption may occur because a higher priority task is ready to run, or because the running task needs to access a resource that is currently not available because it is being used by another task.</p>
+      <p>The concept of <dfn>Real Time</dfn> refers to how long it takes the system to respond to some event, such as a button press, or arrival of data at a communications peripheral, or completion of an ADC (Analog to Digital) conversion. A distinction is often made between hard and soft real-time systems. In a <dfn>hard real-time system</dfn>, it is an error if the time taken for a response exceeds some specified duration. In a <dfn>soft real-time system</dfn>, the response time is interpreted in a statistical sense in which most of the time the required time-to-completion limits are met, but, occasionally, they are not.</p>
     </main>
 
   </body>
