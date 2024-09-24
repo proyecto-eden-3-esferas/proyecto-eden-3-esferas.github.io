@@ -1,14 +1,16 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] link to *epigenetics.html* from would-be *genetics.html*, to be linked to from already-existing *biology.html*
+[ ] continuar *sectores.html*: hablar de administración-producción-especulación y de pirámides de necesidades (
+
+[ ] link to would-be *thymus.html* from *zoology.html*, *health.html*
+
+[ ] link to would-be *lymph.html* from *zoology.html*, *animal-ĥistology.html* etc.
 
 [ ] finish *sqlite.sql.html* after *Transaction Types*
 
 [ ] escribir *cual-int-cant-float.html* y enlazar desde *cual-cal-cant.html*, *espacios-y-grafos.html* (anota un arco) etc
     quality is an integer, quality is a float
 [ ] escribir explicando *gestalt.html*
-
-[ ] escribir *dilema-bici-robada.html*: un ladrón (L) roba una bici y la vende a alguien (B). Luego se descubre que es robada. Parece obvio que debería devolverse gratis a su dueño original (O). Incluso si B a su vez se la ha vendido a C. Sin embargo con la tierra no estamos dispuestos a hacer justicia así. Toda tierra se ha robado, en algún o varios momentos de la historia y prehistoria. Alguien llegó y se apropió de ella virgen. Luego conquistadores, poderosos, protegidos se la quitaron a los anteriores dueños. Enlazar con *georgismo.html*
 
 [ ] escribir *sin-naturaleza.html* y enlazar desde *naturaleza.html*. En él habría programas de entretenimiento (series, policíacas, etc), deporte, ciencia, matemáticas, literatura, informática
 
