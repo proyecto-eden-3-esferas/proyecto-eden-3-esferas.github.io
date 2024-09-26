@@ -1,5 +1,9 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *esfuerzo-resultado.html*, a a donde se apuntará desde *recursos.html*, ¿*salud.html*?
+
+[ ] redactar/importar *tres-esferas.html* y enlazar desde *sociedad.html* inter alia
+
 [ ] continuar *sectores.html*: hablar de administración-producción-especulación y de pirámides de necesidades (
 
 [ ] link to would-be *thymus.html* from *zoology.html*, *health.html*
