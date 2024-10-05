@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dropbox</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      <div>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="byte-order.html">Byte Order</a></p>
+      </div>
+      -->
+      <div>
+        <p>
+          <a href="CAP.html">The CAP Theorem about Distributed Systems</a>
+        </p>
+        <p>
+          <a href="computing.html">Computing</a>
+        </p>
+        <p>
+          <a rel="prev" href="networking.html">Networking</a>
+        </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Dropbox</h1>
+
+      <p>The Dropbox daemon is only compatible with 64-bit Linux servers. To install, run the following command in your Linux terminal.</p>
+      <pre>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -</pre>
+      <p>Next, run the Dropbox daemon from the newly created .dropbox-dist folder.</p>
+      <p>After I logged in at <a href="">https://www.dropbox.com</a> I ran</p>
+      <pre>~/.dropbox-dist/dropboxd</pre>
+      <p>and then a tab opened in my browser with the message:</p>
+      <blockquote>
+        <p>Francisco Fernández-Victorio,</p>
+        <p>Would you like to connect the computer francisco-hpnotebook to your Dropbox account (franciscofvh@hotmail.com)? If you didn’t request this, please click cancel.</p>
+      </blockquote>
+      <p>But it complained that I wanted to sign in from more than three devides</p>
+      <blockquote>
+        <p>Select devices to sign out from</p>
+        <p>You can stay signed in on up to 3 devices. Signing out won’t delete any of your files.</p>
+      </blockquote>
+      <p>I duly oblige and get:</p>
+      <blockquote>
+        <p>You’re all set to install Dropbox on your computer</p>
+        <p>Now that you’ve made room on your devices list, you can continue to install Dropbox on your computer.</p>
+      </blockquote>
+
+      <p>Sometime in the process a <cite>~/Dropbox/</cite> forder is created after former samenamed folder gets renamed to <cite>~/Dropbox\ \(Old\)/</cite>. No <code>dropbox</code> command available, though. But copying files to <cite>~/Dropbox/</cite> seems to upload them to the dropbox server.</p>
+
+      <section>
+        <h2>Introduction to <code class="application">Dropbox</code> (Wikipedia)</h2>
+        <p>Dropbox is a file hosting service operated by the American company Dropbox, Inc., headquartered in San Francisco, California, that offers cloud storage, file synchronization, personal cloud, and client software.</p>
+        <section>
+        <h3>Dropbox Concept</h3>
+          <p>Concept</p>
+          <p>Dropbox brings files together in one central place by creating a special folder on the user's computer. The contents of these folders are synchronized to Dropbox's servers and to other computers and devices where the user has installed Dropbox, keeping the same files up-to-date on all devices. Dropbox uses a <q>freemium</q> business model, where users are offered a free account with a set storage size, with paid subscriptions available that offer more capacity and additional features. <em>Dropbox Basic users are given two gigabytes of free storage space</em>. Dropbox Plus users are given two terabytes of storage space, as well as additional features, including advanced sharing controls, remote wipe, and an optional Extended Version History add-on.</p>
+        </section>
+        <section>
+        <h3>Dropbox Platforms</h3>
+          <p>Dropbox has computer apps for Microsoft Windows, Apple macOS, and Linux computers,and mobile apps for iOS, Android, and Windows Phone smartphones and tablets. It also offers a website interface. As part of its partnership with Microsoft, Dropbox announced a universal Windows 10 app in January 2016.</p>
+        </section>
+        <section>
+        <h3>Dropbox Apps</h3>
+          <p>In March 2013, the company acquired Mailbox, a popular email app, and in April 2014, the company introduced Dropbox Carousel, a photo and video gallery app. Both Mailbox and Carousel were shut down in December 2015, with key features from both apps implemented into the regular Dropbox service. In October 2015, it officially announced Dropbox Paper, its collaborative document editor, in a reported effort to expand its operations towards businesses. As of March 2016, Dropbox has 500 million users.</p>
+          <p>Dropbox's apps offer an automatic photo uploading feature, allowing users to automatically upload photos or videos from cameras, tablets, SD cards, or smartphones to a dedicated <q>Camera Uploads</q> folder in their Dropbox. Users are given 500 megabytes of extra space for uploading their first photo, and are given up to 3 gigabytes of extra space if users continue using the method for more photos.</p>
+          <p>In July 2014, Dropbox introduced <dfn>streaming sync</dfn> for its computer apps. Streaming sync was described as a new <q>supercharged</q> synchronization speed for large files that improves the upload or download time by up to 2 times.</p>
+        </section>
+      </section>
+      <!-- end of "Introduction to <code class="application">Dropbox</code> (Wikipedia)" -->
+      <section xml:id="dropbox_tutorial">
+        <h2>Dropbox Tutorial</h2>
+        <!-- link: "https://links.dropbox.com/u/click?_t=60154b197d654466a40480a2b908d3b7&_m=bb42dc829f1b414abde99accf7e62a09&_e=6Hmd7T7SU3g410iHvB138u8JF5jA64KBkkB8vIFv3ohRJR_LnLermCmICZooP5pdx6BPtr8xu_EQ5JTFaHpJzryY67Drm5noi3qIUkQgtBN5986ykFtwbanD3tMoIlc2t0rGR8Em5H1E6htJbdfOn1Nuv9GNEWkQylPXeXR_zH8_miHC9LIqFpBAqE0LP1SaUqRNN4CN1AgoWAEU62ctxwUOHMv4gCR6NV2VLbPZ2pVbDm9gNDQMvmlLkZhMpDIauqK5y39aliTS1zS8tzyQD8uQNhCsY8Ps3kJuUxA5vKNOA4KPaJfaGFBRXbJ6CBOtsxq-X1bl2uzdsXT7oUvLOHjMveteijw-GenH__5P2KaJQQYu-qJHHVqn3W6DrLn1QsNlKGtN09y1xczUxhn1jOjegVPUCYTg9xukg4BYZ04aXv_HvVNkgrT2YmNRr5afCN6YdnrJIpOeP6iuEu_UdsYQjXHAqPTvdQDXCQ0853hHMqFeIOYlEpPFl3EfPbPT" -->
+        <section>
+        <h3>How to log in to your Dropbox account</h3>
+          <p>There are 3 ways to access your new account: on dropbox.com, from the Dropbox desktop app, and with the Dropbox mobile app. Get started by logging in to your account on dropbox.com.</p>
+          <h3 class="bridgehead">How to log in to your Dropbox account on dropbox.com</h3>
+          <ol>
+            <li>Open a web browser.</li>
+            <li>Go to www.dropbox.com.</li>
+            <li>Select one of the following log in options: Click Continue with Google, Click Continue with Apple, Enter your email address.</li>
+          </ol>
+          <p>Then, install the apps on your computer, tablet, and phone to get the most out of your account.</p>
+        </section>
+        <section>
+        <h3>How to add files and folders to your Dropbox account</h3>
+          <p>Once you've downloaded the mobile and desktop apps, it's time to put Dropbox to work by adding your files, pictures, and videos.</p>
+          <h3 class="bridgehead">Add a file or folder to your account via dropbox.com</h3>
+          <p>Once you've signed in at dropbox.com, adding files to your account is as easy as dragging and dropping from your computer's file system. Or, just follow these steps to upload a file or folder from your computer:</p>
+          <ol>
+            <li>Log in to dropbox.com.</li>
+            <li>Click Upload under the search bar at the top.</li>
+            <li>Click Files or Folder: (1) If you choose Files, select as many files as you like and click Open. (2) If you choose Folder, select a folder and click Upload.</li>
+          </ol>
+          <h3 class="bridgehead">Add files or folders to Dropbox from your computer</h3>
+          <p>Drag and drop files or folders into the Dropbox folder on your desktop. Or, use the Save As menu option in most applications to save files directly to your Dropbox folder.</p>
+          <p>Files and folders in your Dropbox folder will automatically sync to dropbox.com, and to the Dropbox desktop or mobile apps on any other devices you've connected to your account.</p>
+          <h3 class="bridgehead">Add a file or folder from your desktop to your Dropbox account</h3>
+          <p>Like with File Explorer (Windows) or Finder (Mac), you can drag and drop into the desktop app:</p>
+          <ol>
+            <li>Drag and drop the file or folder into the Dropbox folder on your hard drive.</li>
+            <li>Select the Dropbox folder when using the Save As option in most applications.</li>
+          </ol>
+          <p>Like to use Microsoft Office? Dive into the &#x201C;General&#x201D; area of &#x201C;Preferences&#x201D; and you can make Dropbox a default &#x201C;Save As&#x201D; location. Just a little time-saver.</p>
+          <h3 class="bridgehead">Add a file or folder using the Dropbox mobile app</h3>
+          <p>You can manually upload files, photos and videos to your Dropbox account using the mobile app. The steps you take to manually upload files on your mobile device will vary slightly depending on the type of device you use.</p>
+        </section>
+      </section>
+      <!-- end of "Dropbox Tutorial" -->
+      <section>
+        <h2>Dropbox Workings (Wikipedia)</h2>
+        <p>The Dropbox software enables users to drop any file into a designated folder. The file is then automatically uploaded to Dropbox's cloud-based service and made available to any other of the user's computers and devices that also have the Dropbox software installed, keeping the file up-to-date on all systems. When a file in a user's Dropbox folder is changed, Dropbox only uploads the pieces of the file that have been changed, whenever possible.</p>
+        <p>When a file or folder is deleted, users can recover it within 30 days. For Dropbox Plus users, this recovery time can be extended to one year, by purchasing an <q>Extended Version History</q> add-on.</p>
+        <p>Dropbox accounts that are not accessed or emails not replied in a year are automatically deleted.</p>
+        <p>Dropbox also offers a LAN sync feature, where, instead of receiving information and data from the Dropbox servers, computers on the local network can exchange files directly between each other, potentially significantly improving synchronization speeds.</p>
+        <p>Originally, the Dropbox servers and computer apps were written in Python. In July 2014, Dropbox began migrating its performance-critical backend infrastructure to Go.</p>
+        <p>In September 2012, Dropbox's website code base was rewritten from JavaScript to CoffeeScript.</p>
+        <p>Dropbox originally used Amazon's S3 storage system to store user files, but between 2014 and 2016 they gradually moved away from Amazon to use their own hardware, referred to as <q>Magic Pocket</q>, due to Dropbox's description as <q>a place where you keep all your stuff, it doesn  't get lost, and you can always access it</q>. In June 2017, the company announced a major global network expansion, aiming to increase synchronization speeds while cutting costs. The expansion, starting with 14 cities across 7 countries on 3 continents, adds <q>hundreds of gigabits of Internet connectivity with transit providers (regional and global ISPs), and hundreds of new peering partners (where we exchange traffic directly rather than through an ISP)</q>.</p>
+        <p>Dropbox uses SSL transfers for synchronization and stores the data via Advanced Encryption Standard (AES)-256 encryption.</p>
+        <p>The functionality of Dropbox can be integrated into third-party applications through an application programming interface (API).</p>
+        <p>Dropbox prevents sharing of copyrighted data, by checking the hash of files shared in public folders or between users against a blacklist of copyrighted material. This only applies to files or folders shared with other users or publicly, and not to files kept in an individual's Dropbox folder that are not shared.</p>
+      </section>
+      <!-- end of "Dropbox Workings" -->
+      <section>
+        <h2>What Linux commands are available on Dropbox?</h2>
+        <p>The Dropbox desktop app can be controlled with the Linux Command Line Interface (CLI). Depending on your Linux distribution and the package you used to perform installation, you may need to download a Python script to control Dropbox from the command line. However, we recommend you first try without downloading the script.</p>
+        <p>Before running commands, ensure that you're running the available commands while your prompt is located at the root (top level) of the Dropbox folder.</p>
+        <p>By default, the Dropbox folder is located in ~/Dropbox (or ~/Dropbox (Your team name), if you have a Dropbox Business account). If you moved the Dropbox folder to a different location, be sure you navigate to the root of your actual Dropbox folder before running the commands below.</p>
+        <section>
+        <h3><code class="application">dropbox</code> Actions on Linux</h3>
+          <dl>
+            <!-- <varlistentry> -->
+            <dt>Getting a link to a file (in ~/Dropbox)</dt>
+            <dd>
+              <p>Just run:</p>
+              <pre>dropbox sharelink ~/Dropbox/myfile.html</pre>
+              <p>You'll get something like: https://www.dropbox.com/s/ekqyuqg5e65vbep/myfile.html?dl=0, which enables to retrieve your file through:</p>
+              <pre>wget https://www.dropbox.com/s/ekqyuqg5e65vbep/myfile.html?dl=0</pre>
+              <p>which you're likely to rename to <cite>myfile.html</cite>.</p>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>Consult the status, start and stop <code class="application">dropbox</code></dt>
+            <dd>
+              <p>Run:</p>
+              <pre>dropbox status</pre>
+              <p>To start <code class="application">dropbox</code>:</p>
+              <pre>dropbox start</pre>
+              <p>And to stop <code class="application">dropbox</code>:</p>
+              <pre>dropbox stop</pre>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>To exclude directories (<code class="application">dropbox</code>)</dt>
+            <dd>
+              <pre>dropbox exclude [list]
+dropbox exclude add [DIRECTORY] [DIRECTORY] ...</pre>
+              <pre>dropbox exclude remove [DIRECTORY] [DIRECTORY] ...</pre>
+              <ul>
+                <li>"list" prints a list of directories currently excluded from syncing.</li>
+                <li>"add" adds one or more directories to the exclusion list, then</li>
+                <li>resynchronizes Dropbox.</li>
+                <li>"remove" removes one or more directories from the exclusion list, then</li>
+                <li>resynchronizes Dropbox.</li>
+                <li>With no arguments, executes "list".</li>
+              </ul>
+              <p class="note">Any specified path must be within <cite>~/Dropbox</cite>.</p>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>Autostart <code class="application">dropbox</code></dt>
+            <dd>
+              <pre>dropbox autostart [y/n]</pre>
+              <p>options:</p>
+              <ul>
+                <li>n  Dropbox will not start automatically at login</li>
+                <li>y  Dropbox will start automatically at login (default)</li>
+              </ul>
+              <p class="note">May only work on current Ubuntu distributions.</p>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>To ... <code class="application">dropbox</code></dt>
+            <dd>
+              <p>...</p>
+              <pre/>
+            </dd>
+            <!-- </varlistentry> -->
+          </dl>
+        </section>
+      </section>
+      <section>
+        <h2>Dropbox Headless install via command line</h2>
+        <p>First, download and install the prerequisite packages, for exaple: <cite>dropbox_2019.02.14_amd64.deb</cite> etc.</p>
+        <p>The Dropbox daemon works fine on all 32-bit and 64-bit Linux servers. To install it, run the following command in your Linux terminal.</p>
+        <h3 class="bridgehead">32-bit:</h3>
+        <pre>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -</pre>
+        <h3 class="bridgehead">64-bit:</h3>
+        <pre>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -</pre>
+        <p>Next, run the Dropbox daemon from the newly created <cite>.dropbox-dist</cite> folder.</p>
+        <pre>~/.dropbox-dist/dropboxd</pre>
+      </section>
+    </main>
+  </body>
+</html>

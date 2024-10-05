@@ -1,6 +1,41 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] escribir *esfuerzo-resultado.html*, a a donde se apuntará desde *recursos.html*, ¿*salud.html*?
+[ ] escribir *cerillera.html*, copiado de grafo_de_HTML.xml#eden.reconocer.cerillera
+
+[ ] cambiar *intencion.y-eficacia.html* a *intencion-y-eficacia.html* (guión no punto)
+
+[ ] escribir "sufrimiento-e-indignidad.html" y enlazar desde *religion.html*
+
+[ ] enlazar *cristianismo.html*
+
+[ ] rellenar *falacia.html*
+
+[x] *dilema.html*
+
+[x] referencia mutua entre *dilema.html* y *dicotomia.html*
+
+[x] *subreinos-naturaleza.html*
+
+[ ] *empirico-teorico.html*, desde *opuestos.html*
+
+[ ] enlazar a *dicotomia.html*, desde *pensamientos.html*
+
+
+[ ] *dichotomy.html*, desde *thought.html*
+
+[ ] *dropbox.html*, linked to from *networking.html*
+
+[ ] reguetón, memes, videojuegos ...
+
+[ ] *interpretacion-e.html* R *traduccion.html* *neospanglish.html*
+
+[ ] *funcionariado.html*, con vínculos desde *estado.html*
+
+[ ] *estado.html*, con vínculos desde *sociedad.html*
+
+[x] *sacrificio.html*
+
+[x] escribir *esfuerzo-resultado.html*, a donde se apuntará desde *recursos.html*, ¿*salud.html*?
 
 [ ] redactar/importar *tres-esferas.html* y enlazar desde *sociedad.html* inter alia
 
@@ -213,6 +248,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *tres-esferas.html* (del elemento con xml::id="tres_esferas" en grafo_de_HTML.xml)
+
+[ ] *Year-of-No-Garbage_Eve-O-Schaub.html*: link and classify as nature (for example: class="nature")
 
 [ ] *end-of-normal.html*
 
