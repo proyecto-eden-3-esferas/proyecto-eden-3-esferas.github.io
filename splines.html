@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Computing</title>
+    <title>Splines</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -34,59 +34,24 @@
       -->
       <div>
         <p><a rel="next" href="programming.html">Programming Computers</a></p>
-        <p><a            href="database.html">DataBases</a></p>
-        <p><a            href="ai.html">Artificial Intelligence</a></p>
-        <p><a            href="os.html">Operating Systems: Ground Applications that Applications Run on</a></p>
-        <p><a            href="networking.html">Networking</a></p>
-        <p><a            href="byte-order.html">Byte Order</a></p>
         <p><a            href="cpp.html">The C++ Programming Language</a></p>
-        <p><a rel="prev" href="technology.html">Technology</a></p>
-        <p><a            href="computational-geometry.html">Computational Geometry</a></p>
-
-      </div>
-      <div>
-        <p><a href="xml.en.html">XML: The eXtensible Markup Language</a></p>
-        <p><a href="HTML.html">HTML: XML for the Web</a></p>
-        <p><a href="TheWeb.html">The Web</a></p>
+        <p><a            href="xml.en.html">XML: The eXtensible Markup Language</a></p>
+        <p><a rel="prev" href="computing.html">Technology</a></p>
       </div>
       <div>
         <p><a href="svg.html">SVG: XML for Drawing</a></p>
         <p><a href="metapost.html">MetaPost: Drawing for PostScript</a></p>
         <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
       </div>
-      <div>
-        <p><a href="SemanticWeb.html">The Semantic Web</a></p>
-        <p><a href="Ontologies.html">Ontologies</a></p>
-        <p><a href="cryptography.html">Criptography</a></p>
-      </div>
-      <div>
-        <p><a rel="prev" href="index.en.html">Back to Home</a></p>
-      </div>
     </nav>
 
     <main>
-      <h1>Computing</h1>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
+      <h1>Splines</h1>
+      <p><dfn>Splines</dfn> consist of a set of points along a line (<dfn>on-line points</dfn>) and a small set of <dfn>control points</dfn> (<q>knots</q>) which direct the line through the said on-line points.</p>
+      <p>They are used in graphics to represent smooth curves and surfaces. Computationally, a polynomial function generates a curve through the on-line points while setting the control points.</p>
+      <p>Splines allow the creation of complex smooth shapes without the need for manipulating many short line segments or polygons at the cost of a little extra computation time.</p>
       <hr/>
-      <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
-      </aside>
-
-      Erase this comment when done writing your page!
-      -->
-      <p>[...]</p>
+      <p>One of the simplest ways of approximating a curve is <dfn>Bezier curves</dfn>, which were made popular by the French mathematician Pierre Bezier and are based on a mathematical formulation by another French mathematician, Paul de Casteljau.</p>
     </main>
 
   </body>

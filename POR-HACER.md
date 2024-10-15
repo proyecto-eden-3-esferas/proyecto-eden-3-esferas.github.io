@@ -1,5 +1,11 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[x] write *splines.html*, set its class and link from *computational-geometry.html*
+
+[x] write *maths.html* and link to *splines.html*
+
+[ ] write Mihaly Csikszentmihalyi *creativity_MCsikszentmihalyi.html* (MihalyCsikszentmihalyi_CreativityFlowAndThePsychologyOfDiscoveryAndInvention)
+
 [ ] escribir *cerillera.html*, copiado de grafo_de_HTML.xml#eden.reconocer.cerillera
 
 [ ] cambiar *intencion.y-eficacia.html* a *intencion-y-eficacia.html* (guión no punto)
@@ -248,6 +254,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *biophilia.html*, to be linked to from *biology.html*, would-be *ecology.html*
 
 [ ] *tres-esferas.html* (del elemento con xml::id="tres_esferas" en grafo_de_HTML.xml)
 
