@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *symbols.html* and link from *thought.html*
+
 [x] write *splines.html*, set its class and link from *computational-geometry.html*
 
 [x] write *maths.html* and link to *splines.html*

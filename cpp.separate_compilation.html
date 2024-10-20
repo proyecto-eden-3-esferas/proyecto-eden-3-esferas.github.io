@@ -20,13 +20,56 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <p><a rel="next" href="cpp.separate_compilation.templates.html">Separate Compilation of Templates (Classes and Funcions) in C++</a></p>
+      <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
     </nav>
 
     <main>
       <h1>Separate Compilation in C++</h1>
-      <p>For ordinary files, when the header file containing only the declarations is included (<code>#include &quot;FILE.h&quot;</code>) in main file, the preprocessor puts the declarations in the header into the main file. Then after the preprocessing phase is over, the compiler does picewise compilation of the pure C++ source code contained in <code>.cpp</code> files and translates it into object file. At this point the compiler doesn&apois;t mind the missing definitions (of functions/classes) and the object files can refer to symbols that are not defined. The compiler, hence can compile the source code as long as it is well formed.</p>
+      <p>Separate compilation is a way to cut down build time by dividing your code into modules and only processing the modules whose source files have changed.</p>
+
+      <aside>
+        <p>To <dfn>compile</dfn> means to produce object files (<code>*.o</code>), that is files which are machine language but which not quite executable because they may contain references to functions in other object files (or in dynamically or statically linked libraries, to tell the whole story).</p>
+        <p>To <dfn>link</dfn> is to join one or several object files into an executable by resolving the references from one object file to another. In C++ the linker demands that one and only one object file defines the <code>int main()</code> functions.</p>
+      </aside>
+
+      <p>Let&apos;s assume we have written some classes and functions and placed the declarations in a header file (<cite>FILE.h</cite>) and the definitions of the functions and members in a definition file (<cite>FILE.cpp</cite>).</p>
+      <p>For ordinary files, when the header file containing only the declarations is included (<code>#include &quot;FILE.h&quot;</code>) in the main file--say, the file defining function <code>int main()</code>-- the preprocessor puts the declarations in the header into the main file.</p>
+      <p>With <dfn>separate compilation</dfn>, then, after the preprocessing phase is over, the compiler does piecewise compilation of the source code contained in <code>.cpp</code> files and translates it into object files (<code>.o</code>). At this point the compiler doesn&apos;t mind the missing definitions (of functions/classes) and the object files can refer to symbols that are not defined. The compiler, hence can compile the source code as long as it is well formed.</p>
       <p>Then, during the linking stage, the compiler links several files together and it is during this stage that the linker will signal an error on missing/duplicate definitions. If the function definition is correctly present in the other file then the linker goes ahead and the functions called from the main file are successfully linked to the definitions and can be used.</p>
-      <p>For templates, things work <a href="cpp.separate_compilation.templates.html">differently</a>.</p>
+      <hr/>
+      <p>When no separate compilation is invoked, the main file may have included declarations and definitions from other files</p>
+      <pre>#include "FILE.h"
+#include "FILE.cpp"
+
+int main() {
+  ...
+}</pre>
+      <p>or maybe <cite>FILE.h</cite> already contained an include directive (<code>#include "FILE.cpp"</code>) after its functions and classes had been declared, or maybe <cite>FILE.h</cite> contains its own definitions and there is no <cite>FILE.cpp</cite> providing the definitions.</p>
+      <p>With no separate compilation, the preprocessor includes all the files included through <code>#include "<var>FILENAME</var>"</code> directives into one file, then the compiler compiles EVERYTHING in it into an object file, and last the linker produces the executable.</p>
+      <hr/>
+      <p>For <a href="cpp.templates.html">templates</a>, things work <a href="cpp.separate_compilation.templates.html">differently</a>.</p>
+
+      <section>
+        <h2>A Common Scenario</h2>
+        <p>To perform separate compilation, you need to write your declarations and your definitions or <q>implementations</q> in separate files. Typically, they bear the same name and differ only in their extension, for instance <cite>ClassA.h</cite> and <cite>ClassA.cpp</cite>.</p>
+        <p>Then you compile each implementation file into a matching object file.</p>
+        <p>Now, to compìle an implementation file, it must contain an include directive that includes the header. Thus,  at the top of <cite>ClassA.cpp</cite> we should write something like:</p>
+        <pre>#include "ClassA.h"</pre>
+        <p>Often enough, the switch for compilation only is <code>-c</code>. So you would compile only like this:</p>
+        <pre>g++ -c ClassA.cpp</pre>
+        <p>or</p>
+        <pre>g++ -c ClassA.cpp -o ClassA.o</pre>
+        <p>Now, after you have compiled all the object files that reference one another, including one (and only one) containing global function <code>main()</code>, you link them into one executable, let&apos;s name it <cite>MyApp</cite>, like this:</p>
+        <pre>g++ ClassA.o ClassB.o MyApp.main.o -o MyApp</pre>
+        <p>Now, if you omit the <code>-o</code> directive, your executable will get an arbitrary name not of your choice. With <code>g++</code> this default is <cite>a.out</cite>.</p>
+        <p>To sum up, these are the steps:</p>
+        <ol>
+          <li>write your declarations and your implementations in different files, typically <cite>*.h</cite> and <cite>*.cpp</cite> respectively; include the declaration file in each implementation file</li>
+          <li>compile each implementation file separately (<code>g++ -c <var>FILE</var>.cpp</code>)</li>
+          <li>compile one <code>*.cpp</code> defining the global <code>main()</code> function</li>
+          <li>finally, link all the object files together</li>
+        </ol>
+      </section>
 
     </main>
 
