@@ -1,25 +1,341 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MongoDB: A JSON Document DBMS</title>
+    <title>MongoDB: A JSON Document Database</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
-        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
-        <p><a            href="dataset.html">Data Sets</a></p>
-      -->
+    <!-- -->
       <div>
         <p><a rel="prev" href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="mql.html">MongoDB Query Language</a></p>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a rel="next" href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
+        <p><a href="special-relational-tables.html">Special Relational Tables</a></p>
+      </div>
+      <div>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="database.transaction.html">DataBases Transactions</a></p>
         <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+      <div>
+        <p><a href="#features">MongoDB Features</a></p>
+        <p><a href="#install">Installing MongoDB</a></p>
+        <p><a href="#run">Basic MongoDB Administration</a></p>
       </div>
     </nav>
 
+
     <main>
-      <h1>MongoDB: A JSON Document, NoSQL DataBase Management System</h1>
+
+      <blockquote>
+        <p>You don&apos;t need a separate database to support transactions, rich search, or gen AI. The world&apos;s most popular document database is now the world&apos;s most versatile developer data platform.</p>
+        <h3>Built by developers, for developers</h3>
+        <p>The document data model maps to how you think and code. Break out of rigid, tabular data structures with flexible documents that map directly to objects in your code. Embed related data into a single document to increase performance and minimize computational cost.</p>
+      </blockquote>
+
+      <h1>MongoDB: A JSON Document Database</h1>
+
+      <p>MongoDB is an open-source, cross-platform, document-oriented database management system. MongoDB stores data as a series of JSON-like documents (actually stored as binary JSON, or BSON), as opposed to the table and row format of relational systems. This flexible approach to storing data makes it particularly suitable for developers who may not be database experts, yet want to use a database to support the development of their applications.</p>
+      <p>Some structure can optionally be enforced on JSON documents through schemas.</p>
+
+      <p>MongoDB is developed by MongoDB Inc.</p>
+
+      <section id="features">
+        <h2>MongoDB Features</h2>
+        <dl>
+
+          <dt>Ad-hoc queries</dt>
+          <dd>MongoDB supports field, range query and <a
+          href="regexp.html">regular-expression</a> searches. Queries can return specific fields of documents and also include user-defined JavaScript functions. Queries can also be configured to return a random sample of results of a given size.</dd>
+
+          <dt>Indexing</dt>
+          <dd>Fields in a MongoDB document can be indexed with primary and secondary indices.</dd>
+
+          <dt>Replication</dt>
+          <dd>
+            <p>MongoDB provides high availability with replica sets. A <dfn>replica set</dfn> consists of two or more copies of the data. Each replica-set member may act in the role of primary or secondary replica at any time. All writes and reads are done on the primary replica by default. Secondary replicas maintain a copy of the data of the primary using built-in replication. When a primary replica fails, the replica set automatically conducts an election process to determine which secondary should become the primary. Secondaries can optionally serve read operations, but that data is only eventually consistent by default.</p>
+            <p>If the replicated MongoDB deployment only has a single secondary member, a separate daemon called an <dfn>arbiter</dfn> must be added to the set. It has the single responsibility of resolving the election of the new primary. As a consequence, an ideal distributed MongoDB deployment requires at least three separate servers, even in the case of just one primary and one secondary.</p>
+          </dd>
+
+          <dt>Load balancing</dt>
+          <dd>
+            <p>MongoDB scales horizontally using <dfn>sharding</dfn>. The user chooses a <dfn>shard key</dfn>, which determines how the data in a collection will be distributed. The data is split into ranges (based on the shard key) and distributed across multiple shards, which are masters with one or more replicas. Alternatively, the shard key can be hashed to map to a shard–enabling an even data distribution.</p>
+            <p>MongoDB can run over multiple servers, balancing the load or duplicating data to keep the system functional in case of hardware failure. </p>
+          </dd>
+
+          <dt>File storage</dt>
+          <dd>
+            <p>MongoDB can be used as a file system, called GridFS, with load-balancing and data-replication features over multiple machines for storing files.</p>
+            <p>This function, called a <dfn>grid file system</dfn>, is included with MongoDB drivers. MongoDB exposes functions for file manipulation and content to developers. GridFS can be accessed using the mongofiles utility or plugins for Nginx and lighttpd. GridFS divides a file into parts, or chunks, and stores each of those chunks as a separate document.</p>
+          </dd>
+
+          <dt>Aggregation</dt>
+          <dd>
+            <p>MongoDB provides three ways to perform aggregation: the aggregation pipeline, the map-reduce function and single-purpose aggregation methods.</p>
+            <p>Map-reduce can be used for batch processing of data and aggregation operations. However, according to MongoDB&apos;s documentation, the aggregation pipeline provides better performance for most aggregation operations.</p>
+            <p>The aggregation framework enables users to obtain results similar to those returned by queries that include the SQL GROUP BY clause. Aggregation operators can be strung together to form a pipeline, analogous to Unix pipes. The aggregation framework includes the $lookup operator, which can join documents from multiple collections, as well as statistical operators such as standard deviation. </p>
+          </dd>
+
+          <dt>Server-side JavaScript execution</dt>
+          <dd><a href="js">JavaScript</a> can be used in queries, aggregation functions (such as MapReduce) and sent directly to the database to be executed.</dd>
+
+          <dt>Capped collections</dt>
+          <dd>MongoDB supports fixed-size collections called capped collections. This type of collection maintains insertion order and, once the specified size has been reached, behaves like a <a href="adt.queue.html#circular">circular queue/buffer</a>.</dd>
+
+          <dt>Transactions</dt>
+          <dd>MongoDB supports multi-document ACID <a href="database.transaction.html">transactions</a> since the 4.0 release in June 2018.</dd>
+
+          <dt></dt>
+          <dd></dd>
+
+        </dl>
+
+      </section>
+
+      <section id="install">
+        <h2>Installation</h2>
+
+        <section>
+          <h3>Install Official MongoDB Packages</h3>
+          <p>To install MongoDB Community on your Ubuntu system, these instructions will use the official mongodb-org package, which is maintained and supported by MongoDB Inc. The official mongodb-org package always contains the latest version of MongoDB, and is available from its own dedicated repo.</p>
+          <p>Follow these steps to install MongoDB Community Edition using the apt package manager.</p>
+          <ol>
+
+            <li>
+              <h4>Import the Public Key</h4>
+              <p>From a terminal, install <code>gnupg</code> and <code>curl</code> if they are not already available:</p>
+              <pre>sudo apt-get install gnupg curl</pre>
+              <p>To import the MongoDB public GPG key, run the following command:</p>
+              <pre>curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
+--dearmor</pre>
+            </li>
+
+            <li>
+              <h4>Create the List File</h4>
+              <p>Create the list file <cite>/etc/apt/sources.list.d/mongodb-org-8.0.list</cite> for your version of Ubuntu.</p>
+              <p>You can find your version of Ubuntu by running</p>
+              <pre>cat /etc/lsb-release</pre>
+              <p>Create the list file for Ubuntu 24.04 (Noble):</p>
+              <pre>echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list</pre>
+            </li>
+
+            <li>
+              <h4>Reload the Package Database</h4>
+              <p>Issue the following command to reload the local package database:</p>
+              <pre>sudo apt-get update</pre>
+            </li>
+
+            <li>
+              <h4>Install MongoDB Community Server</h4>
+              <p>You can install either the latest stable version of MongoDB or a specific version of MongoDB.</p>
+              <p>To install the latest stable version, issue the following</p>
+              <pre>sudo apt-get install -y mongodb-org</pre>
+            </li>
+
+          </ol>
+
+        </section>
+
+        <section>
+          <h3>Failure (<code>illegal instruction</code>) Because CPU does not support AVX</h3>
+          <p>Running <code>sudo service mongod status</code> yields</p>
+          <pre>oct 23 16:27:36 francisco-hpnotebook systemd[1]: \
+Started mongod.service - MongoDB Database Server.
+oct 23 16:27:37 francisco-hpnotebook systemd[1]: \
+mongod.service: Main process exited, code=dumped, status=4/ILL
+oct 23 16:27:37 francisco-hpnotebook systemd[1]: \
+mongod.service: Failed with result 'core-dump'.</pre>
+          <p>The <q>signal=ILL</q> part of the systemctl output means that MongoDB failed to start because of an illegal instruction. This is caused by MongoDB 5 and later requiring AVX to run.</p>
+          <p>You can check if your CPU supports AVX by execting:</p>
+          <pre>cat /proc/cpuinfo | grep avx</pre>
+          <p>If you get any kind of output your CPU should support AVX, if not its either too old or if you are running Linux inside a VM and your hypervisor isn't passing through your physical CPU flags. For a list of CPUs that support AVX see: <a target="_blank" href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions">https://en.wikipedia.org/wiki/Advanced_Vector_Extensions</a> (basically CPUs started supporting AVX at around 2011)</p>
+          <p>If your physical CPU is indeed too old your options are:</p>
+          <ul>
+            <li>Downgrade to MongoDB 4 which still runs without AVX but will be end of life next year</li>
+            <li>Compile your own version of MongoDB without AVX or look around for community made version without AVX (there are some unoffical containers out there for example)</li>
+            <li>If you are using virtualization make sure your hypervisor isn't hiding your physical CPU flags for compability or other reasons</li>
+            <li>If your hardware is indeed too old to support AVX upgrade to a newer CPU</li>
+          </ul>
+
+
+        </section>
+
+        <section>
+          <h3>Reinstalling</h3>
+          <ol>
+            <li>
+              <p>Stop the mongod process by issuing the following command:</p>
+              <pre>sudo service mongod stop</pre>
+            </li>
+            <li>
+              <p>Remove any MongoDB packages that you had previously installed:</p>
+              <pre>sudo apt-get purge mongodb-org*</pre>
+            </li>
+            <li>
+              <p>Remove MongoDB databases and log files:</p>
+              <pre>sudo rm -r /var/log/mongodb
+sudo rm -r /var/lib/mongodb</pre>
+            </li>
+            <li>
+              <p>To install, import the public key used by the package management system:</p>
+              <pre>wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -</pre>
+            </li>
+            <li>
+              <p>I check my version of Ubuntu by running <code>lsb_release -a</code></p>
+            </li>
+
+            <li>
+              <p>The following instruction is for Ubuntu 20.04.01 (code name <q>noble</q>):</p>
+              <pre>echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list</pre>
+            </li>
+            <li>
+              <p>Update Apt</p>
+              <pre>sudo apt-get update</pre>
+            </li>
+            <li>
+              <p>Install mongodb</p>
+              <pre>sudo apt-get install mongodb-org mongodb-org-server mongodb-org-shell mongodb-org-mongos mongodb-org-tools</pre>
+              <p>Alternatively, for versions not demanding AVX (a CPU set of instructions) choose version 4*:</p>
+              <pre>sudo apt-get install mongodb-org=4.4.8 mongodb-org-server=4.4.8 mongodb-org-shell=4.4.8 mongodb-org-mongos=4.4.8 mongodb-org-tools=4.4.8</pre>
+              <p>or just</p>
+              <pre>sudo apt-get install mongodb-org=4.4 mongodb-org-server=4.4 mongodb-org-shell=4.4 mongodb-org-mongos=4.4 mongodb-org-tools=4.4</pre>
+            </li>
+            <li>
+              <p>Use <code>mongod --version</code> to check its succesfully installed</p>
+            </li>
+            <li>
+              <p></p>
+              <pre></pre>
+            </li>
+            <li>
+              <p></p>
+              <pre></pre>
+            </li>
+            <li>
+              <p></p>
+              <pre></pre>
+            </li>
+            <li>
+              <p></p>
+              <pre></pre>
+            </li>
+            <li>
+              <p></p>
+              <pre></pre>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Build from Source</h3>
+        </section>
+
+      </section>
+
+      <section id="run">
+        <h2>Basic Administration of MongoDB (Community Edition)</h2>
+
+        <section>
+          <h3>ulimit Considerations</h3>
+          <p>Most Unix-like operating systems limit the system resources that a process may use. These limits may negatively impact MongoDB operation, and should be adjusted. See UNIX ulimit Settings for Self-Managed Deployments for the recommended settings for your platform.</p>
+          <aside>
+            <p>If the ulimit value for number of open files is under 64000, MongoDB generates a startup warning.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Directories</h3>
+          <p>If you installed through the package manager, the data directory <cite>/var/lib/mongodb</cite> and the log directory <cite>/var/log/mongodb</cite> are created during the installation.</p>
+          <p>By default, MongoDB runs using the mongodb user account. If you change the user that runs the MongoDB process, you must also modify the permission to the data and log directories to give this user access to these directories.</p>
+        </section>
+
+        <section>
+          <h3>Configuration File</h3>
+          <p>The official MongoDB package includes a configuration file (/etc/mongod.conf). These settings (such as the data directory and log directory specifications) take effect upon startup. That is, if you change the configuration file while the MongoDB instance is running, you must restart the instance for the changes to take effect.</p>
+        </section>
+
+        <section>
+          <h3>Procedure</h3>
+          <p>Follow these steps to run MongoDB Community Edition on your system. These instructions assume that you are using the official mongodb-org package -- not the unofficial mongodb package provided by Ubuntu -- and are using the default settings.</p>
+        </section>
+
+        <section>
+          <h3>Init System</h3>
+          <p>To run and manage your mongod process, you will be using your operating system&apos;s built-in init system. Recent versions of Linux tend to use systemd (which uses the systemctl command), while older versions of Linux tend to use System V init (which uses the service command).</p>
+          <p>If you are unsure which init system your platform uses, run the following command:</p>
+          <pre>ps --no-headers -o comm 1</pre>
+          <p>Then select the appropriate tab below based on the result:</p>
+          <ul>
+            <li>systemd - select the systemd (systemctl) tab below.</li>
+            <li>init - select the System V Init (service) tab below.</li>
+          </ul>
+
+          <ol>
+            <li>
+              <h4>Start MongoDB</h4>
+              <p>You can start the mongod process by issuing the following command:</p>
+              <pre>sudo systemctl start mongod</pre>
+              <p>If you receive an error similar to the following when starting mongod:</p>
+              <pre>Failed to start mongod.service: Unit mongod.service not found.</pre>
+              <p>Run the following command first:</p>
+              <pre>sudo systemctl daemon-reload</pre>
+              <p>Then run the start command above again.</p>
+            </li>
+            <li>
+              <h4>Verify that MongoDB has started successfully.</h4>
+              <pre>sudo systemctl status mongod</pre>
+              <p>You can optionally ensure that MongoDB will start following a system reboot by issuing the following command:</p>
+              <pre>sudo systemctl enable mongod</pre>
+            </li>
+            <li>
+              <h4>Stop MongoDB</h4>
+              <p>As needed, you can stop the mongod process by issuing the following command:</p>
+              <pre>sudo systemctl stop mongod</pre>
+            </li>
+            <li>
+              <h4>Restart MongoDB</h4>
+              <p>You can restart the mongod process by issuing the following command:</p>
+              <pre>sudo systemctl restart mongod</pre>
+              <p>You can follow the state of the process for errors or important messages by watching the output in the <cite>/var/log/mongodb/mongod.log</cite> file.</p>
+            </li>
+            <li>
+              <h4>Begin using MongoDB.</h4>
+              <p>Start a <code>mongosh</code> session on the same host machine as the mongod. You can run mongosh without any command-line options to connect to a mongod that is running on your localhost with default port 27017.</p>
+              <p>For more information on connecting using mongosh, such as to connect to a mongod instance running on a different host and/or port, see the mongosh documentation.</p>
+              <p>To help you start using MongoDB, MongoDB provides Getting Started Guides in various driver editions. For the driver documentation, see Start Developing with MongoDB.</p>
+            </li>
+          </ol>
+
+        </section>
+
+      </section>
 
     </main>
 

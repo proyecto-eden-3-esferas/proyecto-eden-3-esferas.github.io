@@ -1,5 +1,12 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *entropia.html* y relacionar con *orden.html*
+[ ] write    *enthropy.html*
+
+[ ] finish *regexp.html* (regular expressions)
+
+[ ] further elaborate and link to *narratives.html*
+
 [ ] write *symbols.html* and link from *thought.html*
 
 [x] write *splines.html*, set its class and link from *computational-geometry.html*

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MongoDB Query Language</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="mongodb.html">MongoDB: A JSON Document Database</a></p>
+        <p><a rel="next" href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+      <div>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="database.transaction.html">DataBases Transactions</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+      <div>
+        <p><a href="#features">MongoDB Features</a></p>
+        <p><a href="#install">Installing MongoDB</a></p>
+        <p><a href="#run">Basic MongoDB Administration</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <!--
+      <p>After connecting to your database using <code>mongosh</code>, you can see which database you are using by typing <code>db</code> in your terminal.</p>
+
+      <p>To see all available databases, in your terminal type <code>show dbs</code></p>
+
+      <p>You can change or create a new database by typing use then the name of the database. For example, to create or use a database named <q>blog</q>, type:</p>
+      <pre>use blog</pre>
+
+      <p>Find all documents that have a category of <q>news</q>.</p>
+      <pre>db.posts.find( {category: "News"} )</pre>
+      -->
+
+      <h1>MongoDB Query Language</h1>
+
+      <section>
+        <h2>Databases in MongoDB: creating, listing, current</h2>
+        <ul>
+          <li>to list available databases, issue: <kbd>show databases</kbd></li>
+          <li>to change to another --or to create it and then change into it-- just issue: <kbd>use &lt;my_database&gt;</kbd></li>
+          <li>to find the current database, issue: <kbd></kbd></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Collections in MongoDB</h2>
+        <p>A <dfn>collection</dfn> is a set of JSON objects, and is analogous to a table in a relational database.</p>
+        <ul>
+          <li>
+            <p>To create a collection issue: <kbd><![CDATA[db.createCollection("myCollection")]]></kbd></p>
+          </li>
+          <li>
+            <p>To insert data into a (possibly non-existent) collection issue: <kbd><![CDATA[db.myCollection.insert({"name": "john", "age" : 22, "location": "colombo"})]]></kbd></p>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Inserting in MongoDB</h2>
+        <ul>
+          <li>
+            <p>To insert one data item in a collection issue: <kbd><![CDATA[db.myCollection.insertOne(
+  {
+    "name": "navindu",
+    "age": 22
+  }
+)]]></kbd></p>
+          </li>
+          <li>
+            <p>To insert several comma-separated data items in a collection issue: <kbd><![CDATA[db.myCollection.insertMany([
+  {
+  "name": "navindu",
+  "age": 22
+  },
+  {
+  "name": "kavindu",
+  "age": 20
+  },
+
+  {
+  "name": "john doe",
+  "age": 25,
+  "location": "colombo"
+  }
+])]]></kbd></p>
+          </li>
+          <li>The <code class="function">insert()</code> method is similar to the <code class="function">insertMany()</code> method.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Querying</h2>
+        <ul>
+          <li>To find all data in a collection issue: <kbd><![CDATA[db.myCollection.find()]]></kbd></li>
+          <li>If you want to see this data in a cleaner, way just add .pretty() to the end of it. This will display document in pretty-printed JSON format: <kbd><![CDATA[db.myCollection.find().pretty()]]></kbd></li>
+          <li>If you want to display some specific document, you could specify a single detail of the document which you want to be displayed: <kbd><![CDATA[db.myCollection.find({name: "John"})]]></kbd> (See <link href='#mongo_filters'>MongoDB Filters</link>)</li>
+          <li>To ... issue: <kbd><![CDATA[...]]></kbd></li>
+        </ul>
+
+        <section id='mongo_query_find'>
+          <title>Introduction to <code class="methodname">find</code></title>
+          <p>The <code class="methodname">find</code> method is used to perform queries in MongoDB. Querying returns a subset of documents in a collection, from no documents at all to the entire collection. Which documents get returned is determined by the first argument to find, which is a document specifying the query criteria.</p>
+          <p>An empty query document (i.e., {}) matches everything in the collection. If <code class="methodname">find</code> isn&apos;t given a query document, it defaults to {}. For example, the following:</p>
+          <pre>&lt;db.c.find()</pre>
+          <p>matches every document in the collection c (and returns these documents in batches).</p>
+
+          <p>When we start adding key/value pairs to the query document, we begin restricting our search. This works in a straightforward way for most types: numbers match numbers, booleans match booleans, and strings match strings. Querying for a simple type is as easy as specifying the value that you are looking for. For example, to find all documents where the value for <var>age</var> is 27, we can add that key/value pair to the query document:</p>
+          <pre><![CDATA[> db.users.find({"age":27})]]></pre>
+          <p>If we have a string we want to match, such as a &quot;username&quot; key with the value &quot;joe&quot;, we use that key/value pair instead:</p>
+          <pre><![CDATA[> db.users.find({"username":"joe"})]]></pre>
+          <p>Multiple conditions can be strung together by adding more key/value pairs to the query document, which gets interpreted as &quot;condition1 AND condition2 AND … AND conditionN.&quot; For instance, to get all users who are 27-year-olds with the username &quot;joe,&quot; we can query for the following:</p>
+          <pre><![CDATA[> db.users.find({"username":"joe","age":27})]]></pre>
+          <section>
+            <title>Specifying Which Keys to Return</title>
+            <p>Sometimes you do not need all of the key/value pairs in a document returned. If this is the case, you can pass a second argument to find (or findOne) specifying the keys you want. This reduces both the amount of data sent over the wire and the time and memory used to decode documents on the client side.</p>
+            <p>For example, if you have a user collection and you are interested only in the <var>username</var> and <var>email</var> keys, you could return just those keys with the following query:</p>
+            <pre><![CDATA[> db.users.find({},{"username":1,"email":1})
+  {
+  "_id":ObjectId("4ba0f0dfd22aa494fd523620"),
+  "username":"joe",
+  "email":"joe@example.com"
+  }]]></pre>
+            <p>As you can see from the previous output, the <var>_id</var> key is returned by default, even if it isn&apos;t specifically requested.</p>
+            <p>You can also use this second parameter to exclude specific key/value pairs from the results of a query. For instance, you may have documents with a variety of keys, and the only thing you know is that you never want to return the <var>fatal_weakness</var> key:</p>
+            <pre><![CDATA[> db.users.find({},{"fatal_weakness":0})]]></pre>
+            <p>The following can also prevent <var>_id</var> from being returned:</p>
+            <pre><![CDATA[>db.users.find({},{"username":1,"_id":0})
+  {
+  "username":"joe",
+  }]]></pre>
+          </section>
+          <section>
+            <title>Limitations</title>
+            <p>There are some restrictions on queries. The value of a query document must be a constant as far as the database is concerned. (It can be a normal variable in your own code.) That is, it cannot refer to the value of another key in the document. For example, if we were keeping inventory and we had both <var>in_stock</var> and <var>num_sold</var> keys, we couldn&apos;t compare their values by querying the following:</p>
+            <pre><![CDATA[> db.stock.find({"in_stock":"this.num_sold"}) // doesn't work]]></pre>
+            <p>There are ways to do this (see <citetitle class='section' href='#mongo_where_queries'>$where Queries</citetitle>), but you will usually get better performance by restructuring your document slightly, such that a <emphasis>normal</emphasis> query will suffice. In this example, we could instead use the keys <var>initial_stock</var> and <var>in_stock</var>. Then, every time someone buys an item, we decrement the value of the <var>in_stock</var> key by one. Finally, we can do a simple query to check which items are out of stock:</p>
+            <pre><![CDATA[> db.stock.find({"in_stock": 0})]]></pre>
+          </section>
+        </section>
+
+        <section id='mongo_query_criteria'>
+          <title>Query Criteria*</title>
+          <p>Queries can go beyond the exact matching described in the previous section; they can match more complex criteria, such as ranges, OR-clauses, and negation.</p>
+          <section>
+            <title>Query Conditionals</title>
+            <p>&quot;$lt&quot;, &quot;$lte&quot;, &quot;$gt&quot;, and &quot;$gte&quot; are all comparison operators, corresponding to &lt;, &lt;=, &gt;, and &gt;=, respectively. They can be combined to look for a range of values. For example, to look for users who are between the ages of 18 and 30, we can do this:</p>
+            <pre><![CDATA[> db.users.find({"age":{"$gte":18,"$lte":30}})]]></pre>
+            <p>This would find all documents where the <var>age</var> field was greater than or equal to 18 AND less than or equal to 30.</p>
+            <p>These types of range queries are often useful for dates. For example, to find people who registered before January 1, 2007, we can do this:</p>
+            <pre><![CDATA[> start = newDate("01/01/2007")
+> db.users.find({"registered":{"$lt":start}})]]></pre>
+            <p>Depending on how you create and store dates, an exact match might be less useful, since dates are stored with millisecond precision. Often you want a whole day, week, or month, making a range query necessary.</p>
+            <p>To query for documents where a key&apos;s value is not equal to a certain value, you must use another conditional operator, &quot;$ne&quot;, which stands for &quot;not equal.&quot; If you want to find all users who do not have the username <var>joe</var>, you can query for them using this:</p>
+            <pre><![CDATA[> db.users.find({"username":{"$ne":"joe"}})]]></pre>
+            <p>&quot;$ne&quot; can be used with any type.</p>
+          </section>
+          <section>
+            <title>OR Queries</title>
+            <p>There are two ways to do an OR query in MongoDB. &quot;$in&quot; can be used to query for a variety of values for a single key. &quot;$or&quot; is more general; it can be used to query for any of the given values across multiple keys.</p>
+            <p>If you have more than one possible value to match for a single key, use an array of criteria with &quot;$in&quot;. For instance, suppose we&apos;re running a raffle and the winning ticket numbers are 725, 542, and 390. To find all three of these documents, we can construct the following query:</p>
+            <pre><![CDATA[> db.raffle.find({"ticket_no":{"$in":[725,542,390]}})]]></pre>
+            <p>&quot;$in&quot; is very flexible and allows you to specify criteria of different types as well as values. For example, if we are gradually migrating our schema to use usernames instead of user ID numbers, we can query for either by using this:</p>
+            <pre><![CDATA[> db.users.find({"user_id":{"$in":[12345,"joe"]}})]]></pre>
+            <p>This matches documents with a <var>user_id</var> equal to 12345 and documents with a <var>user_id</var> equal to <literal>joe</literal>.</p>
+            <pre></pre>
+            <p>If &quot;$in&quot; is given an array with a single value, it behaves the same as directly matching the value. For instance, <kbd>{ticket_no : {$in : [725]}}</kbd> matches the same documents as <kbd>{ticket_no : 725}</kbd>.</p>
+            <p>The opposite of &quot;$in&quot; is &quot;$nin&quot;, which returns documents that don&apos;t match any of the criteria in the array. If we want to return all of the people who didn&apos;t win anything in the raffle, we can query for them with this:</p>
+            <pre><![CDATA[> db.raffle.find({"ticket_no":{"$nin":[725,542,390]}})]]></pre>
+
+
+            <p>This query returns everyone who did not have tickets with those numbers.</p>
+            <p>&quot;$in&quot; gives you an OR query for a single key, but what if we need to find documents where <var>ticket_no</var> is 725 or <var>winner</var> is true? For this type of query, we&apos;ll need to use the &quot;$or&quot; conditional. &quot;$or&quot; takes an array of possible criteria. In the raffle case, using &quot;$or&quot; would look like this:</p>
+            <pre><![CDATA[> db.raffle.find({"$or":[{"ticket_no": 725},{"winner": true}]})]]></pre>
+            <p>&quot;$or&quot; can contain other conditionals. If, for example, we want to match any of the three <var>ticket_no</var> values or the <var>winner</var> key, we can use this:</p>
+            <pre><![CDATA[> db.raffle.find({"$or":[{"ticket_no":{"$in":[725,542,390]}}, ... {"winner":true}]})]]></pre>
+            <p>With a normal AND-type query, you want to narrow down your results as far as possible in as few arguments as possible. OR-type queries are the opposite: they are most efficient if the first arguments match as many documents as possible.</p>
+            <p>While &quot;$or&quot; will always work, use &quot;$in&quot; whenever possible as the query optimizer handles it more efficiently.</p>
+          </section>
+          <section>
+            <title>$not*</title>
+            <p>&quot;$not&quot; is a metaconditional: it can be applied on top of any other criteria. As an example, let&apos;s consider the modulus operator, &quot;$mod&quot;. &quot;$mod&quot; queries for keys whose values, when divided by the first value given, have a remainder of the second value:</p>
+            <pre><![CDATA[> db.users.find({"id_num":{"$mod":[5,1]}})]]></pre>
+            <p>The previous query returns users with <var>id_num</var>s of 1, 6, 11, 16, and so on. If we want, instead, to return users with <var>id_num</var>s of 2, 3, 4, 5, 7, 8, 9, 10, 12, etc., we can use &quot;$not&quot;:</p>
+            <pre><![CDATA[> db.users.find({"id_num":{"$not":{"$mod":[5,1]}}})]]></pre>
+            <p>&quot;$not&quot; can be particularly useful in conjunction with regular expressions to find all documents that don&apos;t match a given pattern (regular expression usage is described in the section <citetitle class='section' href='#mongo_regex'>Regular Expressions</citetitle>).</p>
+
+          </section>
+        </section>
+
+        <section id='mongo_type-specific_queries'>
+          <title>Type-Specific Queries</title>
+          <p>MongoDB has a wide variety of types that can be used in a document. Some of these types have special behavior when querying.</p>
+          <section>
+            <title><literal>null</literal></title>
+            <p><literal>null</literal> behaves a bit strangely. It does match itself, so if we have a collection with the following documents:</p>
+            <pre><![CDATA[> db.c.find()
+{"_id":ObjectId("4ba0f0dfd22aa494fd523621"),"y":null}
+{"_id":ObjectId("4ba0f0dfd22aa494fd523622"),"y":1}
+{"_id":ObjectId("4ba0f148d22aa494fd523623"),"y":2}]]></pre>
+            <p>we can query for documents whose <var>y</var> key is <literal>null</literal> in the expected way:</p>
+            <pre><![CDATA[> db.c.find({"y":null})
+{"_id":ObjectId("4ba0f0dfd22aa494fd523621"),"y":null}]]></pre>
+            <p>However, <literal>null</literal> also matches <quote>does not exist</quote>. Thus, querying for a key with the value <literal>null</literal> will return all documents lacking that key:</p>
+            <pre><![CDATA[> db.c.find({"z":null})
+{"_id":ObjectId("4ba0f0dfd22aa494fd523621"),"y":null}
+{"_id":ObjectId("4ba0f0dfd22aa494fd523622"),"y":1}
+{"_id":ObjectId("4ba0f148d22aa494fd523623"),"y":2}]]></pre>
+            <p>If we only want to find keys whose value is <literal>null</literal>, we can check that the key is <literal>null</literal> and exists using the &quot;$exists&quot; conditional:</p>
+            <pre><![CDATA[> db.c.find({"z":{"$eq":null,"$exists":true}})]]></pre>
+          </section>
+          <section id='mongo_regex'>
+            <title>Regular Expression</title>
+            <p>&quot;$regex&quot; provides regular expression capabilities for pattern matching strings in queries. Regular expressions are useful for flexible string matching. For example, if we want to find all users with the name &quot;Joe&quot; or &quot;joe,&quot; we can use a regular expression to do case-insensitive matching:</p>
+            <pre><![CDATA[> db.users.find({"name":{"$regex":/joe/i}})]]></pre>
+            <p>Regular expression flags (e.g., i) are allowed but not required. If we want to match not only various capitalizations of &quot;joe,&quot; but also &quot;joey,&quot; we can continue to improve our regular expression:</p>
+            <pre><![CDATA[> db.users.find({"name":/joey?/i})]]></pre>
+
+
+
+            <p>MongoDB uses the Perl Compatible Regular Expression (PCRE) library to match regular expressions; any regular expression syntax allowed by PCRE is allowed in MongoDB. It is a good idea to check your syntax with the JavaScript shell before using it in a query to make sure it matches what you think it matches.</p>
+            <note>
+              <p>MongoDB can leverage an index for queries on prefix regular expressions (e.g., /^joey/). Indexes cannot be used for case-insensitive searches (/^joey/i). A regular expression is a &quot;prefix expression&quot; when it starts with either a caret (^) or a left anchor (\A). If the regular expression uses a case-sensitive query, then if an index exists for the field, the matches can be conducted against values in the index. If it also is a prefix expression, then the search can be limited to the values within the range created by that prefix from the index.</p>
+            </note>
+            <p>Regular expressions can also match themselves. Very few people insert regular expressions into the database, but if you insert one, you can match it with itself:</p>
+            <pre><![CDATA[> db.foo.insertOne({"bar":/baz/})
+> db.foo.find({"bar":/baz/})
+{
+  "_id":ObjectId("4b23c3ca7525f35f94b60a2d"),
+  "bar":/baz/
+}]]></pre>
+          </section>
+          <section>
+            <title>Querying Array*</title>
+
+
+
+
+
+
+          </section>
+          <section>
+            <title>Querying on Embedded Document*</title>
+
+
+
+
+
+
+          </section>
+        </section>
+
+        <section id='mongo_where_queries'>
+          <title><kbd>$where</kbd> Queries*</title>
+
+          <section>
+            <title>*</title>
+
+
+
+
+
+
+          </section>
+          <section>
+            <title>*</title>
+
+
+
+
+
+
+          </section>
+        </section>
+
+        <section id='mongo_query_cursors'>
+          <title>Cursors*</title>
+
+          <section>
+            <title>*</title>
+
+
+
+
+
+
+          </section>
+          <section>
+            <title>*</title>
+
+
+
+
+
+
+          </section>
+        </section>
+
+        <section id='mongo_filters'>
+          <title>MongoDB Filters*</title>
+          <section>
+            <title>*</title>
+
+
+
+
+
+
+          </section>
+          <section>
+            <title>*</title>
+
+
+
+
+
+
+          </section>
+        </section>
+
+        <section id='mongo_Realm_filters'>
+          <title>MongoDB Realm Filters</title>
+          <p>A filter modifies an incoming MongoDB query to return only a subset of the results matched by the query. Filters add additional query parameters and omit fields from query results before Realm runs the query.</p>
+          <p>Every filter has three components:</p>
+          <ul>
+            <li>An Apply When expression that determines if the filter applies to an incoming request. You can use variables like %%user and %%request in this expression. However, you cannot use MongoDB variables like %%root because Realm applies filters before it reads any data.</li>
+            <li>An optional query document, which uses standard MongoDB query syntax and merges with the existing query of any request the filter applies to.</li>
+            <li>An optional projection document, which uses standard MongoDB projection syntax and merges with the existing projection of any request the filter applies to.</li>
+          </ul>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Indexes*</h2>
+
+
+
+
+
+
+      </section>
+
+      <section>
+        <h2>Special Index and Collection Types*</h2>
+
+
+
+
+
+
+      </section>
+
+      <section>
+        <h2>Introduction to the Aggregation Framework*</h2>
+
+
+
+
+
+
+      </section>
+
+      <section>
+        <h2>*</h2>
+
+
+
+
+
+
+      </section>
+
+      <section>
+        <h2>Updating and Removing</h2>
+        <ul>
+          <li>To update someone&apos;s age issue: <kbd><![CDATA[db.myCollection.update({age : 20}, {$set: {age: 23}})]]></kbd></li>
+          <li>To remove a property issue: <kbd><![CDATA[db.myCollection.update({name: "navindu"}, {$unset: age});]]></kbd></li>
+          <li>To remove a document issue: <kbd><![CDATA[db.myCollection.remove({name: "navindu"});]]></kbd></li>
+          <li>To remove a whole collection issue: <kbd><![CDATA[db.myCollection.remove({});]]></kbd>. Note, this is not equal to the drop() method. The difference is drop() is used to remove all the documents inside a collection, but the remove() method is used to delete all the documents along with the collection itself.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Outputing to and Inputing from a File</h2>
+        <p>You can log all the shell session if you invoked the shell with tee command: <kbd>mongo | tee session.txt</kbd>. Or you can use the <kbd>--eval</kbd> switch like so: <kbd>mongo localhost:27017/dbname --eval &quot;printjson(db.MyCollection.find().pretty())&quot; > sample.json</kbd>.</p>
+        <section>
+          <title>Outputing to a File with <code class="command">mongoexport</code></title>
+          <ul>
+            <li>To get all documents in collection crops, in database farming, into file <filename>farming.crops.json</filename>, issue: <kbd><![CDATA[mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty]]></kbd></li>
+            <li>To get results as an array, add <kbd>--jsonArray</kbd>, as in: <kbd><![CDATA[mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty --jsonArray]]></kbd></li>
+            <li>You can select which fields to get through <kbd><![CDATA[-f, --fields=<field>[,<field>]*]]></kbd> (a comma separated list of field names (required for exporting CSV) e.g. -f &quot;name,age&quot;) or <kbd><![CDATA[--fieldFile=<filename>]]></kbd> (a file with field names, one per line)</li>
+            <li>You can specify a query filter through <kbd><![CDATA[-q, --query=<json>]]></kbd>, such as <kbd><![CDATA[{x:{$gt:1}}]]></kbd>, or set a path to a query file  containing a query filter for JSON files, through <kbd><![CDATA[--queryFile=<filename>]]></kbd></li>
+          </ul>
+        </section>
+        <section>
+          <title>Inputing from a File with <code class="command">mongoimport</code></title>
+          <p>Switches <kbd>--db</kbd>, <kbd>--collections</kbd>, <kbd>--fields</kbd>, <kbd>--fieldFile</kbd>, <kbd>--jsonArray</kbd> are the same as with <code class="command">mongoexport</code>.</p>
+          <p>Command <code class="command">mongoimport</code> has some ingest switches, too:</p>
+          <dl>
+
+              <dt><kbd>--drop</kbd></dt>
+              <dd>drop collection before inserting documents</dd>
+
+
+              <dt><kbd>--ignoreBlanks</kbd></dt>
+              <dd>ignore fields with empty values in CSV and TSV</dd>
+
+
+              <dt><kbd>--maintainInsertionOrder</kbd></dt>
+              <dd>insert documents in the order of their appearance in the input source</dd>
+
+
+              <dt><kbd><![CDATA[-j, --numInsertionWorkers=<number>]]></kbd></dt>
+                <dd>number of insert operations to run concurrently (defaults to 1) (default: 1)</dd>
+
+
+              <dt><kbd><![CDATA[--stopOnError]]></kbd></dt>
+              <dd>stop importing at first insert/upsert error</dd>
+
+
+              <dt><kbd><![CDATA[--mode=[insert|upsert|merge]]]></kbd></dt>
+              <dd>insert: insert only; upsert: insert or replace existing documents; merge: insert or modify existing documents; defaults to insert</dd>
+
+
+              <dt><kbd><![CDATA[--upsertFields=<field>[,<field>]*]]></kbd></dt>
+              <dd>comma-separated fields for the query part when --mode is set to upsert or merge</dd>
+
+
+              <dt><kbd><![CDATA[--writeConcern=<write-concern-specifier>]]></kbd></dt>
+              <dd>write concern options e.g. --writeConcern majority, --writeConcern &apos;{w: 3, wtimeout: 500, fsync: true, j: true}&apos;</dd>
+
+
+              <dt><kbd>--bypassDocumentValidation</kbd></dt>
+              <dd>bypass document validation</dd>
+
+          </dl>
+
+        </section>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
