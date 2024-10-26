@@ -71,6 +71,47 @@ int main() {
         </ol>
       </section>
 
+      <section id="variables">
+        <h2>Separate Compilation of Variables</h2>
+        <p>Sometimes code in one file may need to use a variable defined in another file.</p>
+        <p>To obtain a declaration that is not also a definition, we add the <code>extern</code> keyword and may not provide an explicit initializer. An extern that has an initializer is a definition. It is an error to provide an initializer on an extern inside a function.</p>
+        <p>Variables must be defined exactly once but can be declared several times. To use a variable in more than one file requires declarations that are separate from the variable&apos;s definition. To use the same variable in multiple files, we must define that variable in only one of them and declare it in the other files that use it.</p>
+        <hr/>
+        <p>When you have global variables, you declare the existence of global variables in a header, so that each source file that includes the header knows about it, but you have to define it only once in one of your source files.</p>
+        <p>Example: Using <q><code>extern int A</code></q> tells the compiler that an object of type <code>int</code> called <var>A</var> exists somewhere. The compiler doesn&apos;t need to know where, it just needs to know the type and name so it knows how to use it. Once all the source files are compiled, the linker will resolve all of the references of <var>A</var> to the one definition that it finds in one of the compiled source files. For the definition of <var>A</var> to work, it needs to have <dfn>external linkage</dfn> (it needs to be declared outside of a function, in the <q>file scope</q>), and without the <code>static</code> keyword.</p>
+        <h4 class="bridgehead">Example</h4>
+        <p>Header:</p>
+        <pre>extern int A;
+void printA();</pre>
+        <p>Source 1 (main):</p>
+        <pre>#include "header.h"
+
+int A;
+
+int main() {
+    A = 3;
+    printA();
+}</pre>
+        <p>Source 2:</p>
+        <pre>#include &lt;iostream&gt;
+#include "header.h"
+
+void printA() {
+    std::cout &lt;&lt; A &lt;&lt; std::endl;
+}</pre>
+      </section>
+
+      <section id="const">
+        <h2><code>const</code></h2>
+        <p>When we split a program into multiple files, every file that uses <code>const</code> must have access to its initializer. To see the initializer, the variable must be defined in every file that wants to use the variable&apos;s value. To support this usage, yet avoid multiple definitions of the same variable, by default, const variables are defined as local to a file. When we define const variables with the same name in multiple files, it is as if we had written definitions for separate variables in each file.</p>
+        <p>If we have a const variable that we want to share across multiple files but whose initializer is not a constant expression, we want the const object to behave like other (nonconst) variables. We define the const in one file and declare it in the other files that use it by using <code>extern</code> on both its definition and declaration.</p>
+        <h4 class="bridgehead">Example</h4>
+        <p><cite>file1.cc</cite>:</p>
+        <pre>extern const int value = func();</pre>
+        <p><cite>file2.h</cite>:</p>
+        <p>extern const int value;</p>
+      </section>
+
     </main>
 
   </body>

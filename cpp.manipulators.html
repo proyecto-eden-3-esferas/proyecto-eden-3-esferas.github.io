@@ -30,7 +30,28 @@
 
       <p>Manipulators are helper functions that make it possible to control input/output streams using <code>operator&lt;&lt;()</code> or <code>operator&gt;&gt;()</code></p>
 
-      <p>The advantage of using manipulators, inserters, and extractors over regular member functions for a class is that the stream-and-file metaphor are maintained. In the long run, this makes for code that's easier to read, maintain, and use. The supplier (writer) of a class has to do a little more work up front, but ultimately the supplier's job is made easier and the user of a class benefits immediately.</p>
+      <p>The advantage of using manipulators, inserters, and extractors over regular member functions for a class is that the stream-and-file metaphor is maintained. In the long run, this makes for code that is easier to read, maintain, and use. The supplier (writer) of a class has to do a little more work up front, but ultimately the supplier&apos;s job is made easier and the user of a class benefits immediately.</p>
+
+      <section id="non-parametric">
+        <h2>Non-Parametric Manipulators</h2>
+      </section>
+
+      <section id="parametric">
+        <h2>Parametric Manipulators</h2>
+        <p>These are:</p>
+        <table border="1" id="simple">
+          <tr> <td><code>setiosflags(ios_base::fmtflags <var>mask</var>)</td> <td>Set format flags</td> </tr>
+          <tr> <td><code>resetiosflags(<var>X</var>, <var>Y</var>)</td> <td>Reset format flags</td> </tr>
+          <tr> <td><code>setbase(<var>X</var>, <var>Y</var>)</td> <td>Set basefield flag</td> </tr>
+          <tr> <td><code>setfill(<var>X</var>, <var>Y</var>)</td> <td>Set fill character</td> </tr>
+          <tr> <td><code>setprecision(<var>X</var>, <var>Y</var>)</td> <td>Set decimal precision</td> </tr>
+          <tr> <td><code>setw(<var>X</var>, <var>Y</var>)</td> <td>Set field width</td> </tr>
+          <tr> <td><code>get_money(<var>X</var>, <var>Y</var>)</td> <td>Get monetary value</td> </tr>
+          <tr> <td><code>put_money(<var>X</var>, <var>Y</var>)</td> <td>Put monetary value</td> </tr>
+          <tr> <td><code>get_time(<var>X</var>, <var>Y</var>)</td> <td>Get date and time</td> </tr>
+          <tr> <td><code>put_time(<var>X</var>, <var>Y</var>)</td> <td>Put date and time</td> </tr>
+        </table>
+      </section>
 
     </main>
 
