@@ -29,6 +29,7 @@
         <p><a            href="sqlite.indexes.html">Indexes in SQLite</a></p>
         <p><a            href="sqlite.sql.html">SQL for SQLite</a></p>
         <p><a            href="sqlite.c-api.html">SQLite C API</a></p>
+        <p><a            href="sqlite.json.html">SQLite and JSON: Handling Text as JSON</a></p>
       </div>
       <div>
         <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
@@ -59,12 +60,14 @@
 
       <p>The features discussed <!--in this section -->actually all revolve around the fact that SQLite is a library that is designed to be used by a single user to handle database functionality. (Before you throw up your hands, read on to see how SQLite can function very well in a multiuser and multiprocess environment.) The following are the features to consider:</p>
       <ul>
-        <li>SQLite is designed for a single user </li>
-        <li>SQLite is self-contained</li>
+        <li><a href="#single-user">SQLite is designed for a single user</a></li>
+        <li><a href="#self-contained">SQLite is self-contained</a></li>
         <li>SQLite supports <a href="transactions.html">transactions</a> and is <a href="acid.html">ACID</a>-compliant</li>
       </ul>
 
-      <section>
+      <p>Lastly, I discuss <a href="#linux">SQLite on Linux</a>.</p>
+
+      <section id="single-user">
         <h2>SQLite Is Designed for a Single User</h2>
         <p>One of the biggest differences between SQLite and most DBMSs is that SQLite is designed for a single user. Most DBMSs manage multiple users including various security features that allow or block access to specific SQL commands and features. Even more important to many people, a DBMS manages contention for resources so that several users can apparently use the same data concurrently. </p>
         <p><q>Apparently</q> is the key word here because although each user typically thinks that he or she has unique access to the database, in fact, behind the scenes the DBMS manages concurrency so that in some cases, it has locked a record to prevent access to it by a second user while another user is updating it.</p>
@@ -76,7 +79,7 @@
         <p>Thus, SQLite is perfectly capable of functioning in a multiuser world; it just needs to be runninginside apps or other processes that themselves implement the multiuser features.</p>
       </section>
 
-      <section>
+      <section id="self-contained">
         <h2>SQLite Is Self-Contained</h2>
         <p>SQLite is self-contained in two ways.</p>
         <ul>
@@ -144,6 +147,37 @@
           <h3>Utilities and Test Code</h3>
           <p>Miscellaneous utilities and common services such as memory allocation, string comparison, and Unicode conversion routines are kept in the utilities module. This is basically a catchall module for services that multiple modules need to use or share. The testing module contains a myriad of regression tests designed to examine every little corner of the database code. This module is one of the reasons SQLite is so reliable: it performs a lot of regression testing and makes those tests available for anyone to run and improve.</p>
         </section>
+
+      </section>
+
+      <section id="linux">
+        <h2>SQLite on Linux</h2>
+        <p>First I install the following packages:</p>
+        <ul>
+          <li><code>sqlite3</code>: provides same-named executable <code>sqlite3</code></li>
+          <li><code>sqlite3-doc</code>: found at <cite>/usr/share/doc/sqlite3/</cite></li>
+          <li>
+            <p><code>sqlite-utils</code>, documented at <cite>/usr/share/doc/sqlite-utils/</cite> and below, provides features like:</p>
+            <ul>
+              <li>Pipe JSON (or CSV or TSV) directly into a new SQLite database file, automatically creating a table with the appropriate schema</li>
+              <li>Run in-memory SQL queries, including joins, directly against data in CSV, TSV or JSON files and view the results.</li>
+              <li>Configure SQLite full-text search against your database tables and run search queries against them, ordered by relevance</li>
+              <li>Run transformations against your tables to make schema changes that SQLite `ALTER TABLE` does not directly support, such as changing the type of a column</li>
+              <li>Extract columns into separate tables to better normalize your existing data</li>
+            </ul>
+          </li>
+          <!--
+          but not yet:
+          <li><code>sqlite3-tools</code>: ...<cite>DIR</cite></li>
+          <li><code>sqlitebrowser</code>: ...<cite>DIR</cite></li>
+          <li><code></code>: ...<cite>DIR</cite></li>
+          <li><code></code>: ...<cite>DIR</cite></li>
+          <li><code></code>: ...<cite>DIR</cite></li>
+          <li><code></code>: ...<cite>DIR</cite></li>
+          -->
+        </ul>
+
+        <p>I check up on <a href="sqlite.json.html">JSON support</a>...</p>
 
       </section>
 

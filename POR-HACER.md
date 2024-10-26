@@ -264,6 +264,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[ ] *matrix.html*
+
 [ ] *biophilia.html*, to be linked to from *biology.html*, would-be *ecology.html*
 
 [ ] *tres-esferas.html* (del elemento con xml::id="tres_esferas" en grafo_de_HTML.xml)

@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQLite &amp; JSON</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>SQLite and JSON: Handling Text as JSON</h1>
+      <p>SQLite does not have a built-in JSON data type. However, you can use the TEXT data type to store JSON data.</p>
+      <p>Additionally, SQLite provides various built-in <a href="#functions">JSON functions and operators</a> to allow you to effectively manipulate JSON data.</p>
+      <p>For example, the following statement creates a table called products to store the product data:</p>
+      <pre>CREATE TABLE products (
+    id      INTEGER PRIMARY KEY,
+    name    TEXT NOT NULL,
+    details TEXT NOT NULL
+);</pre>
+      <p>Also, <var>details</var> will be used to store JSON data.</p>
+
+      <p>Next we will insert...</p>
+      <pre>INSERT INTO products (name, details)
+VALUES
+    ('Cuisinart Coffee Maker', '{"category": "Home &amp; Kitchen", "price": 99, "colors": ["Stainless Steel", "Black"]}'),
+    ('Dyson V11 Vacuum Cleaner', '{"category": "Home &amp; Kitchen", "price": 599, "colors": ["Iron", "Nickel"]}');</pre>
+      <p></p>
+
+      <section>
+        <h2>Extracting values from JSON data</h2>
+        <p>To extract a value from JSON data, you use the <code class="function">json_extract()</code> function:</p>
+        <pre>json_extract(<var>column</var>, <var>json-path</var>)</pre>
+        <p>The json_extract() function extracts a value from JSON data using a specified path. The path locates the value in the JSON data you want to extract.</p>
+        <p>The following statement uses the json_extract() function to extract the <var>price</var> from JSON data stored in the <var>details</var> column of the <var>products</var> table:</p>
+        <pre>SELECT name, json_extract (details, '$.price') AS price
+FROM products;</pre>
+
+        <h3>Using the <code>json_extract()</code> function in the <code>WHERE</code> clause</h3>
+        <p>The following statement retrieves the products with the category <code>Electronics</code>. It compares the value extracted from the JSON data in the details column and compares it with the string <code>Electronics</code>:</p>
+        <pre>SELECT name FROM products
+WHERE json_extract (details, '$.category') = 'Electronics';</pre>
+      </section>
+
+      <section>
+        <h2>Inserting a JSON value</h2>
+        <p>To insert a value into a JSON document, you use the <code>json_insert()</code> function:</p>
+        <pre>json_insert(<var>column</var>, <var>path</var>, <var>value</var>)</pre>
+        <p>The <code>json_insert()</code> function inserts the value into the json using the specified path. If the path does not exist, the function creates the element. If the json element already exists, the function does not overwrite it.</p>
+        <p>For example, the following statement inserts the stock attribute with the value 10 into the JSON document with <code>id</code> 1:</p>
+        <pre>UPDATE products
+SET details = json_insert (details, '$.stock', 10)
+WHERE id = 1;</pre>
+        <p>Verify the insert:</p>
+        <pre>SELECT * FROM products
+WHERE id = 1;</pre>
+      </section>
+
+      <section>
+        <h2>Updating a JSON value</h2>
+        <p>To update an existing JSON value, you can use the <code>json_replace()</code> function:</p>
+        <pre>json_replace(<var>json_column</var>, <var>path</var>, <var>value</var>)</pre>
+        <p>The <code>json_replace()</code> function replaces the value specified by a path in the json data. If the value does not exist, it does not create the value.</p>
+        <p>For example:</p>
+        <pre>UPDATE products
+SET details = json_replace(details, '$.stock', 0)
+WHERE id = 1;</pre>
+        <p>Verify the update:</p>
+        <pre>SELECT * FROM products
+WHERE id = 1;</pre>
+      </section>
+
+      <section>
+        <h2>Deleting a JSON value</h2>
+        <p>To remove a json value, you use the <code>json_remove()</code> function:</p>
+        <pre>json_remove(<var>json_column</var>, <var>path</var>)</pre>
+        <p>For example:</p>
+        <pre>UPDATE products
+SET details = json_remove(details, '$.stock')
+WHERE id = 1;</pre>
+        <p>Verify the delete:</p>
+        <pre>SELECT * FROM products
+WHERE id = 1;</pre>
+      </section>
+
+      <section>
+        <h2>Aggregating data into a JSON array</h2>
+        <p>To aggregate values into a JSON array, you use the <code>json_group_array()</code> function. For example, the following statement aggregates the product names with the shoe category into a JSON array:</p>
+        <pre>SELECT json_group_array(name)
+FROM products
+WHERE json_extract (details, '$.category') = 'Shoes';</pre>
+      </section>
+
+      <section>
+        <h2>Aggregating data into a JSON object</h2>
+        <p>To aggregate values into a JSON object, you use the json_group_object() function:</p>
+        <pre>json_group_object(<var>name</var>, <var>value</var>)</pre>
+        <p>For example, the following statement uses the <code>json_group_object</code> to aggregate product names and their ids in the Shoes category into a JSON object:</p>
+        <pre>SELECT json_group_object(name, id)
+FROM products
+WHERE json_extract (details, '$.category') = 'Shoes';</pre>
+        <p>Output</p>
+        <pre>json_group_object(name, id)
+--------------------------------------------
+{"Nike Air Force 1":3,"Adidas Ultraboost":4}
+
+(1 row)</pre>
+      </section>
+
+    </main>
+  </body>
+</html>
