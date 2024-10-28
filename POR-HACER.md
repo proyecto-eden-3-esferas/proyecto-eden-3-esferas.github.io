@@ -1,5 +1,11 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *xml.xmllint.html* and link to it from *xml.html*, *xml.xinclude.html*, and either *linux.html* or would-be *linux.utils.html*
+[ ] *linux.utils.html* and link to *xml.xmllint.html*
+
+[ ] write *xml.entity.html*
+[ ] include HTML-only entities such as &nbsp; and &mdash; and explain that `xmllint --html` does not acknowledge them
+
 [ ] escribir *entropia.html* y relacionar con *orden.html*
 [ ] write    *enthropy.html*
 

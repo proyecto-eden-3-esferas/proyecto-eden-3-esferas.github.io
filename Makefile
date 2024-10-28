@@ -9,6 +9,11 @@ REMOTE = https://github.com/proyecto-eden-3-esferas/proyecto-eden-3-esferas.gith
 
 LOCAL  = github-pages
 
+RESOLVE = xmllint --xinclude
+
+%.res.html : %.html.inc
+	$(RESOLVE) --output $@   $<
+
 define_remote:
 	git remote add $(LOCAL) $(REMOTE)
 

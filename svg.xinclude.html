@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XInclude-ing SVG into HTML</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+     <!--
+     -->
+      <div>
+        <p><a            href="svg.transform.html">SVG Transformations</a></p>
+        <p><a            href="svg.bb.html">Calculate the Bounding Box of an SVG Element</a> (JavaScript)</p>
+        <p><a            href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a></p>
+        <p><a            href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a            href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
+        <p><a rel="prev" href="svg.html">SVG: XML for Drawing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>A Scheme for XInclude-ing SVG into HTML</h1>
+      <dl>
+        <dt>Write XInclude&apos;s in a file bearing a distinct extension (such as<code>.inc</code>)</dt>
+        <dd>
+          <p>You may either arrange to include a whole SVG file:</p>
+          <pre>&lt;xi:include
+   href="<var>IMAGE</var>.svg"
+   xmlns:xi="http://www.w3.org/2001/XInclude" /&gt;</pre>
+          <p>Now, I don&apos;t seem to manage to include an element from another file, possibly because ordinary HTML files are not fully XML-conformant.</p>
+        </dd>
+
+        <dt>write <cite>Makefile</cite> rules to resolve <cite><var>FILE</var>.html.inc</cite> <cite><var>FILE</var>.html</cite></dt>
+        <dd>
+          <p>You could add a generic rule such as:</p>
+          <pre>%.res.html : %.html.inc
+	$(RESOLVE) --output $@   $&lt;</pre>
+          <p>which commits you to appending an un-HTML extension (here <code>.inc</code>) to unresolved HTML files.</p>
+          <p>If you want to resolve a file whenever the source file has changed you need to write a Makefile for each file.</p>
+          <p>For instance, if <cite>graphic.res.html</cite> includes an SVG in file format named <cite>pic33.svg</cite> and an SVG element found in <cite>picture-source.html</cite>, then your Makefile rule would look like much like:</p>
+          <pre>graphic.html : graphic.html.inc picture-source.html pic33.svg
+	$(RESOLVE) --output $@   $&lt;</pre>
+	      <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </dd>
+
+      </dl>
+
+    </main>
+
+  </body>
+
+</html>
