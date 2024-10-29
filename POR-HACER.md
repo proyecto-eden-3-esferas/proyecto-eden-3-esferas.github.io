@@ -1,5 +1,10 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *work.html* and link to *specialization.html*, *rise-of-useless-class.html*, would-be *ai.html*
+
+[ ] review *rise-of-useless-class.html*, already linked to from *society.html* and *population.html*
+[ ] link *rise-of-useless-class.html* to would-be *art.html*
+
 [ ] write *xml.xmllint.html* and link to it from *xml.html*, *xml.xinclude.html*, and either *linux.html* or would-be *linux.utils.html*
 [ ] *linux.utils.html* and link to *xml.xmllint.html*
 
@@ -25,7 +30,7 @@
 
 [ ] cambiar *intencion.y-eficacia.html* a *intencion-y-eficacia.html* (guión no punto)
 
-[ ] escribir "sufrimiento-e-indignidad.html" y enlazar desde *religion.html*
+[ ] escribir *sufrimiento-e-indignidad.html* y enlazar desde *religion.html*
 
 [ ] enlazar *cristianismo.html*
 

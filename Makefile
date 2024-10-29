@@ -9,9 +9,20 @@ REMOTE = https://github.com/proyecto-eden-3-esferas/proyecto-eden-3-esferas.gith
 
 LOCAL  = github-pages
 
+IMG_DIR = pictures
+
 RESOLVE = xmllint --xinclude
 
+SVG_DIR = ~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/SVG/
+MPCURVE_CLOSED_SVG = mpcurve-closed.svg
+MPCURVE_OPEN_SVG   = mpcurve-open.svg
+
 %.res.html : %.html.inc
+	$(RESOLVE) --output $@   $<
+
+$(IMG_DIR)/%.svg:   $(SVG_DIR)%.svg
+	cp $< $@
+metapost.curves.html: metapost.curves.inc.html $(IMG_DIR)/mpcurve-closed.svg $(IMG_DIR)/mpcurve-open.svg
 	$(RESOLVE) --output $@   $<
 
 define_remote:
