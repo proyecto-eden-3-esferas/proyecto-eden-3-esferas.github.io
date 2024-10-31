@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] link to "audio-sequencers.html"
+
 [ ] write *work.html* and link to *specialization.html*, *rise-of-useless-class.html*, would-be *ai.html*
 
 [ ] review *rise-of-useless-class.html*, already linked to from *society.html* and *population.html*

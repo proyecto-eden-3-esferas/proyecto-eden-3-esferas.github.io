@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PostScript Coordinates</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="next" href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a rel="prev" href="computational-geometry.html">Computational Geometry</a></p>
+        <p><a            href="splines.html">Splines</a></p>
+        <p><a            href="schematic-diagrammes.html">Schematic Diagrammes</a></p>
+        <p><a            href="maths.html">Mathematics</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/SVG/">My Code for Geometry and SVG Schematics</a></p>
+      </div>
+      <div>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+        <p><a href="ImageMagick.html">ImageMagick: Handling Raster Images (Open-Source, Multiplatform)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>PostScript Coordinates and Transformations</h1>
+
+      <p>In PostScript there are essentially two coordinate systems, the <dfn>user coordinate system</dfn> and the <dfn>device coordinate system</dfn>.</p>
+      <p>The former is where you tell PostScript to draw things, and the latter is where the actual drawing is done. The device could be, for example, a computer screen or a laser printer. Computer devices draw digitally, that is to say they render things as pixels (dots), and the unit of length in the device coordinate system is usually one pixel. It is PostScript which makes the necessary transformation from one coordinate system to the other in order to draw what you tell it to. Next we shall discuss the <a href="maths.html">mathematics</a> of these transformations.</p>
+
+      <section>
+        <h2>Transformations</h2>
+        <p>At any point in a PostScript program there are six parameters which determine where a point with coordinates (<var>x</var> <var>y</var>) set by the user is placed on the device. Afterwards, these are mapped to a pair of device coordinates (<var>x&apos;</var> <var>y&apos;</var>). The formula that describes how user coordinates are mapped to device coordinates depends on six parameters. These are stored in a single array of the form [<var>a</var> <var>b</var> <var>c</var> <var>d</var> <var>s</var> <var>t</var>] and are substituted in the formula:</p>
+        <blockquote>
+          <p><var>x&apos;</var> = a<var>x</var> + c<var>y</var> + s</p>
+          <p><var>y&apos;</var> = b<var>x</var> + d<var>y</var> + t </p>
+        </blockquote>
+
+        <p>Thus, <var>a</var> defines the horizontal scaling, whereas <var>d</var> defines the vertical scaling.  The middle parameters <var>c</var> and <var>d</var> define the skewing, and the last parameters <var>s</var> and <var>t</var> define the displacement, translation or shift along the X and Y axes respectively.</p>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
