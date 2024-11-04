@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] añadir clase *arte* en hoja de estilo
+
 [ ] link to "audio-sequencers.html"
 
 [ ] write *work.html* and link to *specialization.html*, *rise-of-useless-class.html*, would-be *ai.html*
@@ -276,6 +278,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *musica.voyage.html*
 
 [ ] *matrix.html*
 

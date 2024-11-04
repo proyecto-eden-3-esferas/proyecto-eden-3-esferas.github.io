@@ -43,6 +43,272 @@
   &lt;summary&gt;Epcot Center&lt;/summary&gt;
   &lt;p&gt;Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.&lt;/p&gt;
 &lt;/details&gt;</pre>
+
+
+      <h3 class="bridgehead">Creating an open disclosure box</h3>
+      <p>To start the &lt;details&gt; box in its open state, add the Boolean open attribute:</p>
+      <pre>&lt;details open&gt;
+  &lt;summary&gt;System Requirements&lt;/summary&gt;
+  &lt;p&gt;
+    Requires a computer running an operating system. The computer must have some
+    memory and ideally some kind of long-term storage. An input device as well
+    as some form of output device is recommended.
+  &lt;/p&gt;
+&lt;/details&gt;
+</pre>
+
+      <h3 class="bridgehead">Multiple named disclosure boxes</h3>
+      <p>We include several &lt;details&gt; boxes, all with the same <code>name</code> so only one can be open at a time:</p>
+      <pre>&lt;details name="reqs"&gt;
+  &lt;summary&gt;Graduation Requirements&lt;/summary&gt;
+  &lt;p&gt;
+    Requires 40 credits, including a passing grade in health, geography,
+    history, economics, and wood shop.
+  &lt;/p&gt;
+&lt;/details&gt;
+&lt;details name="reqs"&gt;
+  &lt;summary&gt;System Requirements&lt;/summary&gt;
+  &lt;p&gt;
+    Requires a computer running an operating system. The computer must have some
+    memory and ideally some kind of long-term storage. An input device as well
+    as some form of output device is recommended.
+  &lt;/p&gt;
+&lt;/details&gt;
+&lt;details name="reqs"&gt;
+  &lt;summary&gt;Job Requirements&lt;/summary&gt;
+  &lt;p&gt;
+    Requires knowledge of HTML, CSS, JavaScript, accessibility, web performance,
+    privacy, security, and internationalization, as well as a dislike of
+    broccoli.
+  &lt;/p&gt;
+&lt;/details&gt;</pre>
+
+      <section id="styling-the-marker">
+        <h2>Styling the Marker</h2>
+        <p>The &lt;summary&gt; element is set to a display of <code>list-item</code>. So the default arrow (▶) that comes with it can be altered just like the default markers on HTML list items. We can change the character that&apos;s used, and independently change its color. We need to style the <code>::marker</code> pseudo-element.</p>
+
+        <h4 class="bridgehead">Changing the Marker Color and Font Size</h4>
+        <pre>summary::marker {
+  color: #e162bf;
+  font-size: 1.2em;
+}</pre>
+
+        <h4 class="bridgehead">Changing the marker spacing</h4>
+        <p>By default, the marker arrow is pretty close to the summary text. Its list-style-position is set to inside. If we change it to outside, we can add space between the summary text and the marker by adding some left padding. We also need to add some left margin so that the triangle doesn&apos;t hang outside the container:</p>
+        <pre>summary {
+  list-style-position: outside;
+  margin-left: 30px;
+  padding: 10px 10px 10px 20px;
+  border-radius: 5px;
+}</pre>
+
+        <h4 class="bridgehead">Changing the marker shape</h4>
+        <p>The marker on our &lt;summary&gt; element doesn&apos;t have to be a triangle. We can replace it with any character we please:</p>
+        <pre>summary {
+  list-style-type: '⬇ ';
+}</pre>
+        <p>Note that we&apos;ve used '⬇ ' (with a space next to the arrow), which is an alternative to the spacing we tried above.</p>
+        <p>We now have a down arrow instead of a triangle. But … that down arrow won&apos;t change when the &lt;details&gt; element is open. That&apos;s because the &lt;details&gt; element has two states — closed and open — and we&apos;ve only set the marker style for the closed state. So let&apos;s also set a marker for the open state:</p>
+        <pre>details[open] > summary {
+  list-style-type: '⬆ ';
+}</pre>
+        <p>This time, we&apos;ve used an up-pointing arrow.</p>
+
+        <h4 class="bridgehead">Removing the custom marker</h4>
+        <p>As with list item markers, we can remove the marker altogether:</p>
+        <pre>summary  {
+  list-style: none;
+}</pre>
+        <p>The code above doesn&apos;t work in Safari, but there&apos;s a proprietary -webkit- option in this case, and the following does work:</p>
+        <pre>summary::-webkit-details-marker {
+  display: none;
+}</pre>
+        <p>Note: another way to remove the marker from the &lt;summary&gt; element is to give the &lt;summary&gt; element a display value of something other than list-item — such as block or flex. This works in every browser except ... Safari.</p>
+        <p>Now our element has no marker!</p>
+
+        <h4 class="bridgehead">Making the summary element look like a tab</h4>
+        <p>We’ve been setting the &lt;summary&gt; element to full width, but it doesn’t have to be. We could make it look more like a tab, with this simple change:</p>
+        <pre>summary {
+  display: inline-flex;
+}</pre>
+
+        <h4 class="bridgehead">Limiting the width of the details element</h4>
+        <p>In all of our examples so far, the &lt;details&gt; element has stretched to the full width of its container, because it’s a block-level element. We can give it a different width, however, if we don’t want it so wide, such as width: 50%;. Or we could could set it to an inline display so that it’s just as wide as its content:</p>
+        <p></p>
+        <pre>details {
+  display: inline-block;
+}</pre>
+
+      </section>  <!-- end of "styling the marker" -->
+
+      <section>
+        <h2>Using Background Images</h2>
+        <h4 class="bridgehead">Using a background image as a marker</h4>
+        <p>We could place an image on the background, like so:</p>
+        <pre>summary {
+  list-style: none;
+  padding: 10px 10px 10px 40px;
+  background: url(arrow.svg) no-repeat 14px 50%;
+  background-size: 18px;
+  font-weight: bold;
+}</pre>
+        <p>The downside of using a background image directly on the &lt;summary&gt; element is that we can&apos;t rotate it when the &lt;details&gt; element is open, because animations can&apos;t be set directly on background images in CSS. (We could, of course, use a different image for the open state, but we still couldn&apos;t animate it, which is much more fun.) So if we&apos;re going to use a background image, it&apos;s better to place it on an element that can be rotated and/or animated.</p>
+
+        <h4 class="bridgehead">Using a background image as a marker with <code>::after</code></h4>
+        <p>Let’s put the background image within an <code>::after</code> pseudo-element:</p>
+        <pre>summary {
+  display: flex;
+}
+
+summary::after {
+  content: '';
+  width: 18px;
+  height: 10px;
+  background: url('arrow.svg');
+  background-size: cover;
+  margin-left: .75em;
+  transition: 0.2s;
+}
+
+details[open] > summary::after {
+  transform: rotate(180deg);
+}</pre>
+        <p>We’ve used display: flex on the &lt;summary&gt; element to make it easy to position the arrow horizontally.</p>
+        <p>The nice thing about this setup is that we can add animation to the arrow. (The animation doesn’t seem to work in Safari.)</p>
+      </section>
+
+      <section>
+        <h2>Other Styling</h2>
+
+        <h4 class="bridgehead">Placing the marker arrow at the far end of the summary</h4>
+        <p>Let’s do something a bit different now, placing the marker arrow on the right-hand side of the &lt;summary&gt; element. Because we’ve been using display: flex, moving the arrow to the far right is as easy as adding justify-content: space-between to the &lt;summary&gt; element:</p>
+        <pre>summary {
+  display: flex;
+  justify-content: space-between;
+}</pre>
+
+        <h4 class="bridgehead">Using <code>::after</code> as a marker without a background image</h4>
+        <p>There are other ways we could use <code>::after</code> without an actual image. Here’s an example that uses just <code>::after</code> with borders:</p>
+        <pre>summary::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 10px solid #15171b;
+  border-inline: 7px solid transparent;
+  transition: 0.2s;
+}</pre>
+        <p>Now we have an arrow that rotates between the closed and open state. We’ve also added a nice drop shadow to the &lt;details&gt; element.</p>
+        <p>Another way to use <code>::after</code> without an image is to place Unicode characters within the content property:</p>
+        <pre>summary::after {
+  content: "\25BC";
+  transition: 0.2s;
+}</pre>
+        <p>This sets a triangle shape (▼) as our marker, as shown in this CodePen demo.</p>
+        <p>There are thousands of Unicode symbols, and they’re quite fun to explore.</p>
+
+        <h4 class="bridgehead">Hover effect on the details element</h4>
+        <p>We can set various hover effects on the &lt;details&gt; element. For example, we might do something like this:</p>
+        <pre>details {
+  transition: 0.2s background linear;
+}
+
+details:hover {
+  background: #dad3b1;
+}</pre>
+        <p>While we’re at it, let’s also transition the &lt;summary&gt; text color in the open state:</p>
+        <pre>details > summary {
+  transition: color 1s;
+}
+
+details[open] > summary {
+  color: #d9103e;
+}</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+
+        <h4 class="bridgehead">Changing summary content in open and closed states</h4>
+        <p>In the demos above, the &lt;summary&gt; has always had the same text, whether the &lt;details&gt; element is open or closed. But we could change that. Firstly, let’s leave the current “Click me” text in place, but also add some extra text for each state using the ::after pseudo-element:</p>
+        <pre>summary::after {
+  content: " to show hidden content";
+}
+
+details[open] summary::after {
+  content: " to hide extra content";
+}</pre>
+        <h4 class="bridgehead">Changing the summary cursor</h4>
+        <p>The default cursor (or mouse pointer) for the &lt;details&gt; element is kind of weird. It’s a standard arrow for the most part, and a text pointer (or I-beam) when hovering over the &lt;summary&gt; text.</p>
+        <p>For fun, let’s change to the hand cursor (or “pointer”):</p>
+        <pre>summary {
+  cursor: pointer;
+}</pre>
+        <p>This sets the mouse pointer to a hand when hovering anywhere over the &lt;summary&gt; element</p>
+
+        <h4 class="bridgehead">Styling a heading inside the summary</h4>
+        <p>Some developers, concerned about the structure of their HTML, like to place a heading element inside the &lt;summary&gt; element. Whether that’s useful or not is up for debate, but the default rendering is not nice, with the heading sitting on the line below the arrow. This can be fixed by setting the heading to <code>display: inline</code> or <code>display: inline-block</code>:</p>
+        <pre>summary h2 {
+  display: inline;</pre>
+
+        <!--
+        <h4 class="bridgehead">***</h4>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+
+        <h4 class="bridgehead">***</h4>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+
+      </section>
+
+      <!--
+
+      <section>
+        <h2>***</h2>
+
+        <h4 class="bridgehead">***</h4>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      -->
+
+
     </main>
 
   </body>

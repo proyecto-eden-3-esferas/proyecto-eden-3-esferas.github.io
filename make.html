@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="sc.html">SuperCollider</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="c.html">The C   Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>Make</code>: Automating Processes with a <cite>Makefile</cite></h1>
+
+      <p>Makefiles are used to help decide which parts of a large program need to be recompiled. In the vast majority of cases, C or C++ files are compiled. Other languages typically have their own tools that serve a similar purpose as <code>Make</code>. <code>Make</code> can also be used beyond compilation too, when you need a series of instructions to run depending on what files have changed.</p>
+
+      <p>A Makefile consists of a set of rules. A rule generally looks like this:</p>
+      <pre>target: prerequisites
+	command
+	command
+	command</pre>
+      <p>The <dfn>targets</dfn> are usually file names. Typically, there is only one per rule.</p>
+      <p>The commands are a series of steps typically used to make the target(s). These need to start with a tab character, not spaces.</p>
+      <p>The prerequisites are also file names, separated by spaces. These files need to exist before the commands for the target are run. These are also called dependencies.</p>
+
+      <p><code>make</code> uses the filesystem timestamps as a proxy to determine if something has changed. This is a reasonable heuristic, because file timestamps typically will only change if the files are modified. But it&apos;s important to realize that this isn&apos;t always the case. You could, for example, modify a file, and then change the modified timestamp of that file to something old. If you did, Make would incorrectly guess that the file hadn&apos;t changed and thus could be ignored.</p>
+
+      <section id="variables">
+        <h2>Variables</h2>
+        <p>Variables can only be strings. You&apos;ll typically want to use <code>:=</code>, but <code>=</code> also works.</p>
+        <p>Here&apos;s an example of using variables:</p>
+        <pre>files := file1 file2
+some_file: $(files)
+	echo "Look at this variable: " $(files)
+	touch some_file
+
+file1:
+	touch file1
+file2:
+	touch file2
+
+clean:
+	rm -f file1 file2 some_file</pre>
+        <p>Single or double quotes have no meaning to Make. They are simply characters that are assigned to the variable. Quotes are useful to shell/bash, though, and you need them in commands like printf. In this example, the two commands behave the same:</p>
+        <pre>a := one two# a is set to the string "one two"
+b := 'one two' # Not recommended. b is set to the string "'one two'"
+all:
+	printf '$a'
+	printf $b</pre>
+        <p>Reference variables using either ${} or $()</p>
+        <pre>x := dude
+
+all:
+	echo $(x)
+	echo ${x}
+
+	# Bad practice, but works
+	echo $x</pre>
+	  </section>
+
+	  <section>
+	    <h2><code>%</code> Wildcard</h2>
+	    <p><cod>%</cod> is really useful, but is somewhat confusing because of the variety of situations it can be used in.</p>
+	    <ul>
+	      <li>When used in "matching" mode, it matches one or more characters in a string. This match is called the <dfn>stem</dfn>.</li>
+	      <li>When used in "replacing" mode, it takes the stem that was matched and replaces that in a string.</li>
+        </ul>
+        <p><code>%</code> is most often used in rule definitions and in some specific functions.</p>
+      </section>
+
+      <section>
+        <h2>Automatic Variables</h2>
+        <p>There are many automatic variables, but often only a few show up:</p>
+        <pre>hey: one two
+	# Outputs "hey", since this is the target name
+	echo $@
+
+	# Outputs all prerequisites newer than the target
+	echo $?
+
+	# Outputs all prerequisites
+	echo $^
+
+	# Outputs the first prerequisite
+	echo $&lt;
+
+	touch hey
+
+one:
+	touch one
+
+two:
+	touch two
+
+clean:
+	rm -f hey one two</pre>
+	  </section>
+
+	  <section>
+	    <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <!--
+      <section>
+	    <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section>
+	    <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section>
+	    <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+      -->
+
+      <section id="phony-targets">
+        <h2>Phony Targets</h2>
+        <p>A phony target is one that is not really the name of a file; rather it is just a name for a recipe to be executed when you make an explicit request. There are two reasons to use a phony target: to avoid a conflict with a file of the same name, and to improve performance.</p>
+        <p>If you write a rule whose recipe will not create the target file, the recipe will be executed every time the target comes up for remaking. Here is an example:</p>
+        <pre>clean:
+  rm *.o temp</pre>
+        <p>Because the <code>rm</code> command does not create a file named <cite>clean</cite>, probably no such file will ever exist. Therefore, the rm command will be executed every time you type <kbd>make clean</kbd>.</p>
+        <p>In this example, the <code>clean</code> target will not work properly if a file named clean is ever created in this directory. Since it has no prerequisites, clean would always be considered up to date and its recipe would not be executed. To avoid this problem you can explicitly declare the target to be <dfn>phony</dfn> by making it a prerequisite of the special target <code>.PHONY</code> as follows:</p>
+        <pre>.PHONY: clean
+clean:
+  rm *.o temp</pre>
+        <p>Once this is done, <code>make clean</code> will run the recipe regardless of whether there is a file named <cite>clean</cite>.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
