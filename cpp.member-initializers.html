@@ -23,6 +23,7 @@
         <p><a            href="cpp.member-initializers.html">Member Initializers</a></p>
       -->
       <div>
+        <p><a            href="cpp.aggregate-initialization.html">Aggregate Initialization in C++</a></p>
         <p><a            href="cpp.constructors.html">Constructors in C++</a></p>
         <p><a rel="prev" href="cpp.constructor-rules.html">Constructor Rules in C++</a></p>
         <p><a            href="cpp.html">The C++ Programming Language</a></p>
@@ -33,12 +34,12 @@
       <h1>Member Initializers in C++</h1>
       <p style="text-align: right">(Acknowledgements to <cite>https://www.modernescpp.com/index.php/c-core-guidelines-constructors/</cite>, by Rainer Grimm)</p>
 
-      <p>Initializing class members directly in the class body makes the writing of constructors a lot easier and sometimes obsolete. Class <var>X1</var> classically defines its members (before <a href="cpp.cpp11.html">C++11</a>) and <var>X2</var> in a preferred way. A nice side effect is that the compiler automatically generates the constructor for <var>X2</var>.</p>
+      <p>Initializing class members directly in the class body makes the writing of constructors a lot easier. Sometimes it makes it unnecessary, or redundant. Class <var>X1</var> classically defines its members (before <a href="cpp.cpp11.html">C++11</a>) and <var>X2</var> in a preferred way. A nice side effect is that the compiler automatically generates the constructor for <var>X2</var>.</p>
       <pre>class X1 { // BAD: doesn&apos;t use member initializers
     string s;
     int i;
 public:
-    X1() :s{&quot;default&quot;}, i{1} { }
+    X1() : s{&quot;default&quot;}, i{1} { }
     // ...
 };
 
@@ -49,7 +50,6 @@ public:
     // use compiler-generated default constructor
     // ...
 };</pre>
-
 
     </main>
 

@@ -1,5 +1,19 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Unify *cpp.in-class-initializers.html* and *cpp.member-initializers.html*: they say much the same
+
+[ ] write a bool section (in would-be *cpp.data-types.html*)
+    - In C++ the boolean data type has no default value and contains garbage value (only in case of global variables, it will have default value as false).
+    - an integer of value different from 0 matches `true`
+    - to print boolean values as true or false insert `std::boolalpha`
+    - you can set a starting value for each bool variable in a class or structure like this:
+    ```
+class Cpp11 {
+  string s = "default";
+  int i = 1;
+  ...
+    ```
+
 [ ] añadir clase *arte* en hoja de estilo
 
 [ ] link to "audio-sequencers.html"

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OOP in C++: Classes</title>
+    <title>Aggregates in C++</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -25,7 +25,6 @@
         <p><a                 href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
         <p><a                 href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
         <p><a                 href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
-        <p><a                 href="cpp.classes.aggregate.html">Aggregates in C++</a></p>
         <p><a                 href="cpp.classes.covariant-return-type.html">Covariant Return Type in C++</a></p>
         <p><a                 href="cpp.classes.copy-ctor-and-assignment-op-in-derived.html">Copy Constructors and Assignment Operators in Derived Classes in C++</a></p>
         <p><a                 href="cpp.inheriting-constructors.html">Inheriting Constructors in C++</a></p>
@@ -43,18 +42,32 @@
     </nav>
 
     <main>
-      <h1>OOP in C++: Classes</h1>
-
-      <p>C++ implements <a href="oop.classes.html">OOP classes</a>, which look like a refinement of a C <code>struct</code>.</p>
-
+      <h1>Aggregates in C++</h1>
+      <p>An <dfn>aggregate</dfn> class gives users direct access to its members and has special initialization syntax. A class is an aggregate if</p>
+      <ul>
+        <li>All of its data members are public,</li>
+        <li>It does not define any constructors,</li>
+        <li>It has no in-class initializers, and</li>
+        <li>It has no base classes or virtual functions, which are class-related features that we’ll cover in Chapter 15,</li>
+      </ul>
+      <p>For example, the following class is an aggregate:</p>
+      <pre>struct Data {
+  int ival;
+  string s;
+};</pre>
       <hr/>
-
-      <p>Class definitions can contain more than just member functions and data members. They can also contain nested classes and structs, type aliases, and enumerations.</p>
-      <p>Anything declared inside a class is in the scope of that class. If it is public, you can access it outside the class by scoping it with the ClassName:: scope resolution syntax.</p>
-
-      <hr/>
-
-      <p>You can provide a class definition inside another class definition, a so-called nested class...</p>
+      <p>We can initialize the data members of an aggregate class by providing a braced list of member initializers:</p>
+      <pre>Data val1 = { 0, "Anna"};</pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
 
     </main>
 
