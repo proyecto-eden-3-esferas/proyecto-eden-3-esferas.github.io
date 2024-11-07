@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time in C with &lt;time.h&gt;</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+        <p><a            href="c.io.html">Input/Output in C</a></p>
+        <p><a            href="c.designated-initialization.html">Designated Initialization in C</a></p>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Handling Time in C with the <code>&lt;time.h&gt;</code> library</h1>
+
+      <p>time.h is a header file defined in the C Standard Library that contains time and date structures and function declarations to provide standardized access to time/date manipulation and formatting.</p>
+
+      <p>It defines four variable types, two macro and various functions for manipulating date and time.</p>
+      <p>Below are the variable types defined in the library:</p>
+      <table border="1">
+        <tr> <td><code>size_t</code></td> <td>This is the unsigned integral type and is the result of the <code>sizeof</code> keyword.</td> </tr>
+        <tr> <td><code>clock_t</code></td> <td>This is a type suitable for storing the processor time.</td> </tr>
+        <tr> <td><code>time_t</code></td> <td>This is a type suitable for storing the calendar time.</td> </tr>
+        <tr> <td><code>struct tm</code></td> <td>This is a structure used to hold the time and date.</td> </tr>
+      </table>
+
+      <section>
+        <h2><code>struct tm</code> for Broken-Down Time</h2>
+        <p>Declared in <cite>&lt;time.h&gt;</cite></p>
+        <pre>struct tm {
+  int  tm_sec;    /* Seconds          [0, 60] */
+  int  tm_min;    /* Minutes          [0, 59] */
+  int  tm_hour;   /* Hour             [0, 23] */
+  int  tm_mday;   /* Day of the month [1, 31] */
+  int  tm_mon;    /* Month            [0, 11]  (January = 0) */
+  int  tm_year;   /* Year minus 1900 */
+  int  tm_wday;   /* Day of the week  [0, 6]   (Sunday = 0) */
+  int  tm_yday;   /* Day of the year  [0, 365] (Jan/01 = 0) */
+  int  tm_isdst;  /* Daylight savings flag */
+
+  long        tm_gmtoff; /* Seconds East of UTC */
+  const char *tm_zone;   /* Timezone abbreviation */
+};</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <p>These are the macros defined in the header <cite>time.h</cite></p>
+      <table border="1">
+        <tr> <td><code>NULL</code></td> <td>This macro is the value of a null pointer constant.</td> </tr>
+        <tr> <td><code>CLOCKS_PER_SEC</code></td> <td>This macro represents the number of processor clocks per second.</td> </tr>
+      </table>
+
+      <p>And here are the functions for handling time:</p>
+      <table border="1">
+        <tr> <td><code>char *asctime(const struct tm *timeptr)</code></td> <td>Returns a pointer to a string which represents the day and time of the structure <var>timeptr</var>.</td> </tr>
+        <tr> <td><code>clock_t clock(void)</code></td> <td>Returns the processor clock time used since the beginning of an implementation defined era (normally the beginning of the program).</td> </tr>
+        <tr> <td><code>char *ctime(const time_t *timer)</code></td> <td>Returns a string representing the localtime based on the argument <var>timer</var>.</td> </tr>
+        <tr> <td><code>double difftime(time_t time1, time_t time2)</code></td> <td>Returns the difference of seconds between <var>time1</var> and <var>time2</var> (time1-time2).</td> </tr>
+        <tr> <td><code>struct tm *gmtime(const time_t *timer)</code></td> <td>The value of timer is broken up into the structure <var>tm</var> and expressed in Coordinated Universal Time (UTC) also known as Greenwich Mean Time (GMT).</td> </tr>
+        <tr> <td><code>struct tm *localtime(const time_t *timer)</code></td> <td>The value of timer is broken up into the structure <var>tm</var> and expressed in the local time zone.</td> </tr>
+        <tr> <td><code>time_t mktime(struct <var>tm</var> *timeptr)</code></td> <td>Converts the structure pointed to by <var>timeptr</var> into a time_t value according to the local time zone.</td> </tr>
+        <tr> <td><code>size_t strftime(char *str, size_t maxsize, const char *format, const struct tm *timeptr)</code></td> <td>Formats the time represented in the structure timeptr according to the formatting rules defined in format and stored into str.</td> </tr>
+        <tr> <td><code>time_t time(time_t *timer)</code></td> <td>Calculates the current calender time and encodes it into time_t format.</td> </tr>
+        <tr> <td><code>size_t wcsftime( wchar_t* str, size_t count, const wchar_t* format, const struct tm* time )</code></td> <td>Converts a tm object to custom wide string textual representation.</td> </tr>
+      </table>
+    </main>
+
+  </body>
+
+</html>

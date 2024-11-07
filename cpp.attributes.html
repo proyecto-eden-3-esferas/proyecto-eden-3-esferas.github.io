@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Attributes (C++11)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="cpp.r-refences.html">C++ R-References</a></p>
+        <p><a href="cpp.member-initializers.html">Member Initializers</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.cpp11.html">C++11</a></p>
+        <p><a            href="cpp.cpp14.html">C++14</a></p>
+        <p><a            href="cpp.cpp20.html">C++20</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Attributes (C++11)</h1>
+      <p><dfn>Attributes</dfn> are a mechanism to add optional and/or vendor-specific information into source code. Before C++11, the vendor decided how to specify that information. Since C++11, there is support for attributes by using the double square brackets syntax <kbd>[[&lt;attribute&gt;]]</kbd>.</p>
+      <p>The C++11 standard defines only two standard attributes: <kbd>[[noreturn]]</kbd> and <kbd>[[carries_dependency]]</kbd>. <a href="cpp14">C++14</a> adds the <kbd>[[deprecated]]</kbd> attribute.</p>
+      <p><kbd>[[noreturn]]</kbd> means that a function never returns control to the call site. Typically, the function either causes some kind of termination (process termination or thread termination) or throws an exception.</p>
+      <p><kbd>[[deprecated]]</kbd> can be used to mark something as deprecated, which means you can still use it, but its use is discouraged. This attribute accepts an optional argument that can be used to explain the reason of the deprecation, for example <kbd>[[deprecated(&quot;Unsafe method, please use xyz&quot;)]]</kbd>.</p>
+      <p>Most attributes will be vendor-specific extensions. Vendors are advised not to use attributes to change the meaning of the program, but to use them to help the compiler to optimize code or detect errors in code. Since attributes of different vendors could clash, vendors are recommended to qualify them. For example:</p>
+      <pre>[[clang::noduplicate]]</pre>
+    </main>
+
+  </body>
+
+</html>

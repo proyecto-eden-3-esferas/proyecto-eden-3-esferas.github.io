@@ -1,6 +1,10 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *c-and-cpp.html*
+
 [ ] Unify *cpp.in-class-initializers.html* and *cpp.member-initializers.html*: they say much the same
+
+[ ] Add content to largely empty *c99.html* and *c11.html*
 
 [ ] write a bool section (in would-be *cpp.data-types.html*)
     - In C++ the boolean data type has no default value and contains garbage value (only in case of global variables, it will have default value as false).
