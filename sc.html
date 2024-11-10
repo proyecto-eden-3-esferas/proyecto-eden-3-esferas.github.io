@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Supercollider</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      -->
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="csound.html">CSound</a></p>
+      -->
+      <div>
+        <p><a href="h.html">Hydrogen: a Virtual Drum Machine</a></p>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Supercollider</h1>
+
+      <p>Type</p>
+      <pre>4.squared</pre>
+      <p>then, making sure your mouse cursor is placed somewhere on this line, press [shift]+[return], which tells the interpreter to execute the current line. You&apos;ll see a brief flash of color over the code, and the number 16 will appear in the post window.</p>
+      <p>Alternatively, type:</p>
+      <pre>squared(4)</pre>
+      <hr/>
+      <p>The parentheses used to contain the receiver are one type of <dfn>enclosure</dfn> in SC. Others include [square brackets], {curly braces}, “double quotes,” and ‘single quotes.&apos; Each type of enclosure has its own significance, and some have multiple uses.</p>
+      <p>The semicolon is the statement terminator.</p>
+      <hr/>
+      <p>Further, you can combine multiple methods into a single statement, using two different syntax styles:</p>
+      <pre>4.squared.reciprocal;</pre>
+      <p>or</p>
+      <pre>reciprocal(squared(4));</pre>
+      <p>Or even, for a two-argument function:</p>
+      <pre>3.pow(4);</pre>
+      <p>instead of just:</p>
+      <pre>pow(3, 4);</pre>
+      <h3 class="bridgehead">Posting a Value</h3>
+      <p>The postln method has the effect of printing its receiver to the post window, followed by a new line.</p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+
+      <h3 class="bridgehead">Variables</h3>
+      <p>Variables declared using a var statement are <dfn>local variables</dfn>; they are local to the evaluated code of which they are a part. This means that once evaluation is complete, variables created in this way will no longer exist.</p>
+      <p>If we want to retain a variable, to be used again in the future as part of a separate code evaluation, we can use an <dfn>environment variable</dfn>, created by preceding the variable name with a tilde character (~). Alternatively, we can use one of the twenty-six lowercase alphabetic characters, which are reserved as <dfn>interpreter variables</dfn>. Both environment and interpreter variables can be used without a local declaration, and both behave with global scope, that is, they will retain their value (even across multiple code documents) as long as the interpreter remains active.</p>
+
+      <h3 class="bridgehead">The Class Browser</h3>
+      <p>The class browser is a graphical tool for browsing the class tree. The browse method can be applied to any class name (e.g. <code>Array.browse</code>), which invokes the browser and displays information for that class.</p>
+
+      <section>
+        <h2>Introduction to Supercollider&apos;s Classes and Methods</h2>
+
+        <h3 class="bridgehead">Integers and Floats</h3>
+        <p>The <code>Integer</code> and <code>Float</code> classes represent numerical values. Some programming languages are quite particular about the distinction between integers and floats, balking at certain operations that attempt to combine them, but SC is flexible, and will typically convert automatically as needed. Integers and floats are closely related on the class tree and therefore share many methods, but there are a few methods which apply to one and not the other.</p>
+        <p>We&apos;ll begin our tour by introducing the <code>class</code> method, which returns the class of its receiver. This method is not exclusive to integers and floats; in fact, every object knows how to respond to it! However, it&apos;s relevant here in showing the classes to which different numbers belong.</p>
+        <pre>4.class; // -> Integer
+4.0.class; // -> Float</pre>
+        <p>There are many methods that perform mathematical operations with numbers. Those that perform an operation involving two values are called binary operators, while those that perform an operation on a single receiver, like taking the square root of a number, are called unary operators.</p>
+        <table border="1">
+          <tr> <td><code>abs(<var>x</var>)</code></td> <td>Absolute value. Non-negative value of x, i.e., distance from zero. </td> </tr>
+          <tr> <td><code>ceil(<var>x</var>)</code></td> <td>Round up to the nearest greater whole number.</td> </tr>
+          <tr> <td><code>floor(<var>x</var>)</code></td> <td>Round up to the nearest smaller whole number.</td> </tr>
+          <tr> <td><code>neg(<var>x</var>)</code></td> <td>Negation. Positive numbers become negative and vice-versa. </td> </tr>
+          <tr> <td><code>reciprocal(<var>x</var>)</code></td> <td>Return 1 divided by x.</td> </tr>
+sqrt(x);
+
+squared(x);
+
+          <tr> <td><code>sqrt(<var>x</var>)</code></td> <td>Return the square root of x. </td> </tr>
+          <tr> <td><code>squared(<var>x</var>)</code></td> <td>Return x raised to the power of 2.</td> </tr>
+        </table>
+
+        <table border="1">
+          <tr> <td><code><var>x</var> + <var>y</var></code></td> <td></td> </tr>
+          <tr> <td><code><var>x</var> - <var>y</var></code></td> <td></td> </tr>
+          <tr> <td><code><var>x</var> * <var>y</var></code></td> <td></td> </tr>
+          <tr> <td><code><var>x</var> / <var>y</var></code></td> <td>Division</td> </tr>
+          <tr> <td><code><var>x</var> ** <var>y</var></code> or <code></code><var>x</var>.pow(<var>y</var>)</td> <td>Return x raised to the power of y</td> </tr>
+          <tr> <td><code><var>x</var> % <var>y</var></code> or <code><var>x</var>.mod(<var>y</var>);</code></td> <td>modulo</td> </tr>
+          <tr> <td><code><var>x</var>.round(<var>y</var>)</code></td> <td></td> </tr>
+        </table>
+
+        <h3 class="bridgehead">Precedence of operations</h3>
+        <pre>// symbolic operators have equal precedence, applied left-to-right:
+4 + 2 * 3; // -> 18
+// parentheses have precedence over symbolic operators:
+4 + (2 * 3); // -> 10
+// methods have precedence over symbolic operators:
+4 + 2.pow(3); // -> 12
+// parentheses have precedence over methods:
+(4 + 2).pow(3); // -> 216
+// parentheses first, then methods, then binary operators:
+1 + (4 + 2).pow(3); // -> 217</pre>
+
+        <h3 class="bridgehead">Strings</h3>
+        <p>A string is an ordered sequence of characters, delineated by an enclosure of double quotes. A string can contain any text, including letters, numbers, symbols, and even non-printing characters like tabs and new lines.</p>
+        <h5>Examples of strings and usage of the escape character</h5>
+        <pre> // a typical string
+"Click the green button to start.";
+// using the escape character to include quotation marks
+"The phrase \"practice makes perfect\" is one I try to remember.";
+// using the escape character to include new lines
+"This string\nwill print on\nmultiple lines.";</pre>
+        <h5>Common string methods and operations</h5>
+        <pre>"Hello" + "there!"; // -> "Hello there!"
+"Some" ++ "times"; // -> "Sometimes"
+"I'm a string.".size; // return the number of characters in the string
+"I'm a string.".reverse; // reverse the order of the characters
+"I'm a string.".scramble; // randomize the order of the characters
+"I'm a string.".drop(2); // remove the first two characters
+"I'm a string.".drop(-2); // remove the last two characters</pre>
+
+        <h3 class="bridgehead">Symbols</h3>
+        <p>A <dfn>symbol</dfn> is like a string, in that it&apos;s composed of a sequence of characters and commonly used to name or label things. Where a string is used, a symbol can often be substituted, and vice-versa. A symbol is written in one of two ways: by preceding the sequence of characters with a backslash (e.g., <code>\freq</code>), or by enclosing it in single quotes (e.g., <code>'freq'</code>). These styles are largely interchangeable, but the quote enclosure is the safer option of the two. Symbols that begin with or include certain characters will trigger syntax errors if using the backslash style.</p>
+        <p>Unlike a string, a symbol is an irreducible unit; it is not possible to access or manipulate the individual characters in a symbol, and all symbols return zero in response to the size method. It is, however, possible to convert back and forth between symbols and strings using the methods <code>asSymbol</code> and <code>asString</code> (<i>see</i> below). Symbols, being slightly more optimized than strings, are the preferable choice when used as names or labels for objects.</p>
+        <pre>"hello".asSymbol.class; // -> Symbol
+\hello.asString.class; // -> String</pre>
+
+        <h3 class="bridgehead">Booleans</h3>
+        <p>There are exactly two instances of the Boolean class: <code>true</code> and <code>false</code>.</p>
+        <p>Common binary operators that return Boolean values:</p>
+        <pre><var>x</var> == <var>y</var>
+<var>x</var> != <var>y</var>
+<var>x</var> &gt; <var>y</var>
+<var>x</var> &lt; <var>y</var>
+<var>x</var> &gt;= <var>y</var>
+<var>x</var> &lt;= <var>y</var></pre>
+
+        <h3 class="bridgehead"><code>nil</code></h3>
+        <p>Like true and false, <code>nil</code> is a reserved keyword in the SC language, and is the singular instance of the <code>Nil</code> class. Most commonly, it represents the value of a variable that hasn&apos;t been given a value assignment, or something that doesn&apos;t exist. We rarely use <code>nil</code> explicitly, but it shows up frequently, so it&apos;s helpful to be familiar. The <code>isNil</code> method can be useful for confirming whether a variable has a value (attempting to call methods on an uninitialized variable is a common source of error messages).</p>
+        <pre>(
+var num;
+num.isNil.postln; // check the variable — initially, it's nil
+num = 2; // make an assignment
+num.isNil.postln; // check again — it's no longer nil
+)</pre>
+        <h3 class="bridgehead">Arrays</h3>
+        <p>An array is an ordered collection of objects. Syntactically, objects stored in an array are separated by commas and surrounded by an enclosure of square brackets. Arrays are like strings in that both are ordered lists, but while strings can only contain text characters, an array can contain anything. In fact, arrays can (and often do) contain other arrays. Arrays are among the most frequently used objects, because they allow us to express an arbitrarily large collection as a singular unit. Arrays have lots of musical applications; we might use one to contain pitch information for a musical scale, a sequence of rhythmic values, and so on.</p>
+        <p>We can access an item stored in an array by using the at method and providing the numerical index. Indices begin at zero. As an alternative, we can follow an array with a square bracket enclosure containing the desired index.</p>
+        <pre>x = [4, "freq", \note, 7.5, true];
+x.at(3); // -> 7.5 (return the item stored at index 3)
+x[3]; // alternate syntax</pre>
+        <p>Most unary and binary operators defined for numbers can also be applied to arrays, if they contain numbers. Several examples appear below. If we apply a binary operator to a number and an array, the operation is applied to the number and each item in the array, and the new array is returned. A binary operation between two arrays of the same size returns a new array of the same size in which the binary operation has been applied to each pair of items. If the arrays are different sizes, the operation is applied to corresponding pairs of items, but the smaller array will repeat itself as many times as needed to accommodate the larger array (this behavior is called <q>wrapping</q>).</p>
+        <pre>[50, 60, 70].squared; // -> [2500, 3600, 4900]
+1 + [50, 60, 70]; // -> [51, 61, 71]
+[1, 2, 3] + [50, 60, 70]; // -> [51, 62, 73]
+[1, 2] + [50, 60, 70]; // -> [51, 62, 71]</pre>
+
+        <p>The <code>dup</code> method, defined for all objects, returns an array of copies of its receiver. An integer, provided as an argument, determines the size of the array. The exclamation mark can also be used as a symbolic shortcut.</p>
+        <pre>7.dup; // -> [7, 7] (default size is 2)
+7.dup(4); // -> [7, 7, 7, 7]
+7 ! 4; // -> [7, 7, 7, 7] (alternate syntax)</pre>
+        <p>Arrays are a must-learn feature, rich with many convenient methods and uses</p>
+
+        <h3 class="bridgehead">Functions</h3>
+        <p>A function is delineated by an enclosure of curly braces. Once a function is defined, we can evaluate it with <code>value</code>, or by following it with a period and a parenthetical enclosure. When evaluated, a function returns the value of the last expression it contains.</p>
+        <pre>(
+  f = {
+   var num = 4;
+   num = num.squared;
+   num = num.reciprocal;
+  };
+)
+f.value; // -> 0.0625
+f.(); // alternate syntax for evaluating</pre>
+        <p>Defining and evaluating a function with an argument:</p>
+        <pre>(
+f = {
+ arg input = 4;
+ var num;
+ num = input.squared;
+ num = num.reciprocal;
+};
+)
+f.(5); // -> 0.04 (evaluate, passing in a different value as the input)
+f.(); // -> 0.0625 (evaluate using the default value)</pre>
+        <p>The code example below shows a syntax alternative that replaces the <code>arg</code> keyword with an enclosure of vertical bar characters (sometimes called <q>pipes</q>) and declares multiple arguments, converting the code  into a function. When executing a function with multiple arguments, the argument values must be separated by commas, and will be interpreted in the same order as they appear in the declaration.</p>
+        <pre>(
+g = { |thingA = 7, thingB = 5|
+ var result;
+ thingA = thingA.squared;
+ thingB = thingB.reciprocal;
+ result = thingA + thingB;
+};
+)
+g.(3, 2); // -> 9.5 (thingA = 3, thingB = 2);</pre>
+        <h3 class="bridgehead">Arguments and Variables</h3>
+        <p>In some respects, arguments and variables are similar: each is a named container that holds a value. Variables are ordinary, named containers that provide the convenience of storing and referencing data. An argument, on the other hand, can only be declared at the very beginning of a function, and serves the specific purpose of allowing some input that can be passed or routed into the function during execution. Variable declarations can only occur at the beginning of a parenthetically enclosed multi-line code block, or at the beginning of a function. If a function declares arguments and variables, the argument declaration must come first. It&apos;s not possible to spontaneously declare additional variables or arguments somewhere in the middle of your code.</p>
+        <h3 class="bridgehead">Getting and Setting Attributes</h3>
+        <p>Objects have attributes. As a simplified real-world example, a car has a color, a number of doors, a transmission that may be manual or automatic, etc. In SC, we interact with an object&apos;s attributes by applying methods to that object. Retrieving an attribute is called getting, and changing an attribute is called setting. To get an attribute, we simply call the method that returns the value of that attribute. For setting an attribute, there are two options: we can follow the getter method with an equals symbol to assign a new value to it, or we can follow the getter method with an underscore and the new value enclosed in parentheses.</p>
+        <p>The following pseudo-code demonstrates essential syntax styles for getting and setting. Note that an advantage of the underscore syntax is that it allows us to chain multiple setter calls into a single expression.</p>
+        <pre>x = Car.new; // make a new car
+x.color = "red"; // set the color
+x.numDoors_(4).transmission_("manual"); // set two more attributes
+x.numDoors; // get the number of doors (returns 4)</pre>
+
+        <h3 class="bridgehead">Literals</h3>
+        <p></p>
+        <pre>x = House.new(30, 40); // create a house with specific dimensions
+x.color_("blue"); // set the color
+x.hasGarage_(true); // set whether it has a garage</pre>
+        <p>We don&apos;t have to type <code>Float.new(5.2)</code> or <code>Symbol.new(\freq)</code>. Instead, we just type the object as is. Classes like these, which have a direct, syntactical representation through code, are called <dfn>literals</dfn>. When we type the number seven, it is literally the number seven. But an object like a house can&apos;t be directly represented with code; there is no “house” symbol in our standard character set. So, we must use the more abstract approach of typing x = House.new, while its literal representation remains in our imagination.</p>
+        <p>Integers, floats, strings, symbols, Booleans, and functions are all examples of literals. Arrays, for the record, exist in more of a grey area; they have a direct representation via square brackets, but we may sometimes create one with <code>Array.new</code> or a related method. There is also a distinction between literal arrays and non-literal arrays, but which is not relevant here. The point is that many of the objects we&apos;ll encounter in this pages are not literals and require creation via some method call to their class.</p>
+        <h3 class="bridgehead">Omitting the <code>new</code> Method</h3>
+        <p>The <code>new</code> method is so commonly used for creating new instances of classes that we can usually omit it, and the interpreter will make the right assumption. For example, using our imaginary <q>house</q> class, we could write <code>x = House(30, 40)</code> instead of <code>x = House.new(30, 40)</code>. However, if creating a new instance without providing any arguments, we can omit <code>new</code> but cannot omit the parentheses, even if they are empty. For example, <code>x = House.new()</code> and <code>x = House()</code> are both valid, but <code>x = House</code> will be problematic. In this third case, the interpreter will store the house class, instead of a new house instance.</p>
+      </section>
+
+      <section>
+        <h2>Randomness</h2>
+      </section>  <!-- end of "Randomness" -->
+
+      <section>
+        <h2>Conditional Logic</h2>
+        <h3 class="bridgehead"><code>if</code></h3>
+        <p>One of the most common conditional methods is if, which includes three components: (1) an expression that represents the test condition, which must return a Boolean value, (2) a function to be evaluated if the condition is true, and (3) an optional function to be evaluated if false.</p>
+        <p>The code example below demonstrates the use of conditional logic to model a coin flip (a value of 1 represents “heads”), in three styles that vary in syntax and whitespace. The second style tends to be preferable to the first, because it places the “if” at the beginning of the expression, mirroring how the sentence it represents would be spoken in English.</p>
+        <p>Because the entire expression is somewhat long, the multi-line approach can improve readability. Note that in the first expression, the parentheses around the test condition are required to give precedence to the binary operator == over the if method. Without parentheses, the if method is applied to the number 1 instead of the full Boolean expression, which produces an error</p>
+        <pre>// "receiver-dot-method" syntax:
+([0, 1].choose == 1).if({\heads.postln}, {\tails.postln});
+// "method(receiver)" syntax:
+if([0, 1].choose == 1, {\heads.postln}, {\tails.postln});
+// structured as a multi-line block:
+(
+if(
+ [0, 1].choose == 1,
+ {\heads.postln},
+ {\tails.postln}
+);
+)</pre>
+        <h3 class="bridgehead">And/Or</h3>
+        <p>The methods and and or (representable using binary operators &amp;&amp; and ||), allow us to check multiple conditions. For example, if ice cream is on sale, and they have chocolate, then I&apos;ll buy two. The code example below models a two-coin flip in which both must be “heads” for the result to be considered true. Again, parentheses around each conditional test are required to ensure correct order of operations.</p>
+        <pre>(
+if(
+ ([0, 1].choose == 1) &amp;&amp; ([0, 1].choose == 1),
+ {"both heads".postln},
+ {"at least one tails".postln}
+);
+)</pre>
+        <h3 class="bridgehead">Case and Switch</h3>
+        <p>Say we roll a six-sided die and want to perform one of six unique actions depending on the outcome. A single <code>if</code> statement is insufficient because it envisions only two outcomes. If we insisted on using if, we&apos;d need to <q>nest</q> several if&apos;s inside of each other. Even with a small handful of possible outcomes, the code quickly spirals into an unreadable mess.</p>
+        <p>Alternatively, a <code>case</code> statement (<i>see</i> below) accepts an arbitrary number of function pairs. The first function in each pair must contain a Boolean expression, and the second function contains code to be evaluated if its partner function is true. If a test condition is false, the interpreter moves onto the next pair and tries again. As soon as a test returns true, the interpreter executes the partner function and exits the case block, abandoning any remaining conditional tests. If all tests are false, the interpreter returns <code>nil</code>.</p>
+        <pre>(
+var roll = rrand(1, 6);
+case(
+ {roll == 1}, {\red.postln},
+ {roll == 2}, {\orange.postln},
+ {roll == 3}, {\yellow.postln},
+ {roll == 4}, {\green.postln},
+ {roll == 5}, {\blue.postln},
+ {roll == 6}, {\purple.postln}
+);
+)</pre>
+        <p>A switch statement is similar to case, but with a slightly different syntax, shown in Code Example 1.27. We begin with some value—not necessarily a Boolean—and provide an arbitrary number of value-function pairs. The interpreter will check for equality between the starting value and each of the paired values. For the first comparison that returns true, the corresponding function is evaluated.</p>
+        <pre>(
+var roll = rrand(1, 6);
+switch(
+ roll,
+ 1, {\red.postln},
+ 2, {\orange.postln},
+ 3, {\yellow.postln},
+ 4, {\green.postln},
+ 5, {\blue.postln},
+ 6, {\purple.postln}
+);
+)</pre>
+      </section>
+
+      <section>
+        <h2>Iteration</h2>
+        <p>One of the most attractive aspects of computer programming is its ability to handle repetitive tasks. <dfn>Iteration</dfn> refers to techniques that allow a repetitive task to be expressed and executed concisely. Music is full of repetitive structures and benefits greatly from iteration. More generally, if you ever find yourself typing a nearly identical chunk of code many times over, or relying heavily on copy/paste, this could be a sign that you should be using iteration.</p>
+        <p>Two general-purpose iteration methods, <code>do</code> and <code>collect</code>, often make good choices for iterative tasks. Both are applied to some collection—usually an array—and both accept a function as their sole argument. The function is evaluated once for each item in the collection. A primary difference between these two methods is that <code>do</code> returns its receiver, while <code>collect</code> returns a modified collection of the same size, populated using values returned by the function. Thus, <code>do</code> is a good choice when we don&apos;t care about the values returned by the function, and instead simply want to <q>do</q> some action a certain number of times. On the other hand, collect is a good choice when we want to modify or interact with an existing collection and capture the result.</p>
+        <p>At the beginning of an iteration function, we can optionally declare two arguments, which represent each item in the collection and its index as the function is repeatedly executed. By declaring these arguments, we give ourselves access to the collection items within the function.</p>
+        <p>In code example (a), we iterate over an array of four items, and for each item, we post a string. In this case, the items in the array are irrelevant; the result will be the same as long as the size of the array is four. Performing an action some number of times is so common, that <code>do</code> is also defined for integers. When do is applied to some integer <var>n</var>, the receiver will be interpreted as the array [0, 1, … n-1], thus providing a shorter alternative, depicted in code example (b). In code example (c), we declare two arguments and post them, to visualize the values of these arguments.</p>
+        <pre>(a) [30, 40, 50, 60].do({"this is a test".postln});
+(b) 4.do({"this is a test".postln});
+(c) [30, 40, 50, 60].do({|item, index| [item, index].postln});</pre>
+        <hr/>
+        <p>A simple usage of <code>collect</code> is shown right below. We iterate over the array, and for each item, return the item multiplied by its index. <code>collect</code> returns this new array.</p>
+        <pre>x = [30, 40, 50, 60].collect({|item, index| item * index});
+// -> the array [0, 40, 100, 180] is now stored in x</pre>
+        <p>Numerous other iteration methods exist, several of which are depicted next. The <code>isPrime</code> method is featured here, which returns true if its receiver is a prime number, and otherwise returns false.</p>
+        <pre>x = [101, 102, 103, 104, 105, 106, 107];
+// return the subset of the array for which the function returns true:
+x.select({ |n| n.isPrime }); // -> [101, 103, 107]
+// return the first item for which the function returns true:
+x.detect({ |n| n.isPrime }); // -> 101
+// return true if the function returns true for at least one item:
+x.any({ |n| n.isPrime }); // -> true
+// return true if the function returns true for every item:
+x.every({ |n| n.isPrime }); // -> false
+// return the number of items for which the function returns true:
+x.count({ |n| n.isPrime }); // -> 3</pre>
+      </section>
+      <section>
+        <h2>Essentials of Making Sound</h2>
+        <p>Once you&apos;re all set, you can launch the server by evaluating:</p>
+        <pre>s.boot;</pre>
+        <p>By default, the keyboard shortcut <kbd>[cmd]+[b]</kbd> will also boot the server.</p>
+        <p>As you run this line, information will appear in the post window. If the boot is successful, the numbers in the server status bar in the bottom-right corner of the IDE will turn green.</p>
+        <p>If the server numbers don&apos;t turn green, the server has not successfully booted. Boot failures are relatively uncommon, but when they do occur, they are rarely cause for alarm and almost always quickly rectifiable. For example, if you&apos;re using separate hardware devices for audio input/output, the server will not boot if these devices are running at different sample rates. Alternatively, if a running server is unexpectedly interrupted (e.g., if the USB cable for your audio interface becomes unplugged), an attempt to reboot may produce an error that reads <q>Exception in World_OpenUDP: unable to bind udp socket,</q> or <q>ERROR: server failed to start.</q> This message appears because there is likely a hanging instance of the audio server application that must be destroyed, which can be done by evaluating <code>Server.killAll</code> before rebooting. In rarer cases, a boot failure may be resolved by recompiling the SC class library, quitting and reopening the SC environment, or—as a last resort—restarting your computer.</p>
+
+        <p>Assuming you&apos;ve already booted the server, you can check the sample rate and block size by evaluating the following expressions:</p>
+        <pre>s.sampleRate;
+s.options.blockSize;</pre>
+
+        <section>
+          <h3>Unit Generators</h3>
+          <p><dfn>Unit generators</dfn> (UGens) are objects that represent digital signal calculations on the audio server. They are the basic building blocks for sound processes, akin to modules on an analog synthesizer. Each UGen performs a specific task, like generating a sawtooth wave, applying a low-pass filter, playing back an audio file, and so on. The following displays a roughly categorized list of some of the simplest and most commonly used UGens. The purposes of some UGens are obvious from their names (WhiteNoise generates white noise), while others, like Dust, are more cryptic. The documentation includes a guide file titled <cite>Tour of UGens</cite>.</p>
+          <table border="1">
+            <thead> <tr> <td>Catagory</td> <td>Ugens</td> </tr> </thead>
+              <tr> <td>Oscillators</td> <td>SinOsc, Pulse, Saw, Blip, LFPulse, LFSaw, LFTri, VarSaw</td> </tr>
+              <tr> <td>Noise Generators</td> <td>LFNoise0, LFNoise1, PinkNoise, WhiteNoise</td> </tr>
+              <tr> <td>Envelopes</td> <td>Line, XLine, EnvGen</td> </tr>
+              <tr> <td>Filters</td> <td>LPF, HPF, BPF, BRF</td> </tr>
+              <tr> <td>Triggers</td> <td>Impulse, Dust, Trig</td> </tr>
+              <tr> <td>Sound File Players</td> <td>PlayBuf, BufRd</td> </tr>
+              <tr> <td>Stereo Panners</td> <td>Pan2, Balance2</td> </tr>
+          </table>
+          <p>Musical fluency doesn&apos;t demand intimate familiarity with every UGen. UGens are a means to an end, so you&apos;ll only need to get acquainted with those that help achieve your goals.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>UGen Rates</h3>
+          <p>A UGen runs at a particular rate, depending on the class method used to create the instance. Instead of using <code>new</code> to create a UGen instance, we use <code>ar</code>, <code>kr</code>, or <code>ir</code>, which represent audio rate, control rate, and initialization rate.</p>
+          <p>An audio rate UGen produces output values at the sample rate, which is the highest-resolution signal available to us. If you want to hear a signal through your speakers, it must run at the audio rate. Generally, if you require a high frequency signal, a fast-moving signal, or anything you want to monitor directly, you should use <code>ar</code>.</p>
+          <p>Control rate UGens run at the <dfn>control rate</dfn>. This rate is equal to sample rate divided by block size. If the sample rate is 48,000 and the block size is 64, then the control rate calculates 48,000 ÷ 64 = 750 samples per second, outputting one at the start of each control cycle. Control rate UGens have a lower resolution but consume less processing power. They are useful when you need a relatively slow-moving signal, like a gradual envelope or a low-frequency oscillator. Because the control rate is a proportionally reduced sample rate, the Nyquist frequency is similarly reduced. In this case, the highest control rate frequency that can be faithfully represented is 750 ÷ 2 = 375 Hz. Therefore, if you require an oscillator with a frequency higher than 375 Hz, <code>kr</code> is a poor choice. In fact, signal integrity degrades as the frequency of a signal approaches the Nyquist frequency, so ar is a good choice even if a UGen&apos;s frequency is slightly below the Nyquist frequency.</p>
+          <p>Consider a sine oscillator with a frequency of 1 Hz, used to control the cutoff frequency of a filter. It&apos;s possible to run this oscillator at the audio rate, but this would provide more resolution than we need. If using the control rate instead, we&apos;d calculate 750 samples per cycle, which is more than enough to visually represent one cycle of a sine wave. In fact, as few as 20 or 30 points would probably be enough to <q>see</q> a sinusoidal shape. This is an example in which we can take advantage of control rate UGens to reduce the server&apos;s processing load, without sacrificing sound quality.</p>
+          <p>If you&apos;re unsure of which rate to use in a particular situation, <code>ar</code> is usually the safer choice.</p>
+          <p><dfn>Initialization rate</dfn> UGens are the rarest of the three. In fact, many UGens won&apos;t understand the <code>ir</code> method. A UGen at the initialization rate produces exactly one sample when created and holds that value indefinitely. So, the initialization rate is not really a rate at all; it&apos;s simply a means of initializing a UGen so that it behaves like a constant. The CPU savings ir provides are obvious, but what&apos;s the point of a signal that&apos;s stuck on a specific value? There are a few situations in which this choice makes sense. One example is the SampleRate UGen, a UGen that outputs the sample rate of the server. In some signal algorithms, we need to perform a calculation involving the sample rate, which may vary from one system to another. Generally, the sample rate does not (and should not) change while the server is booted, so it&apos;s inefficient and unnecessary to repeatedly calculate it.</p>
+        </section>
+        <section>
+          <h3>UGen Arguments</h3>
+          <p>As already discussed, some methods, like <code>pow</code>, require arguments to function correctly. UGens are no different. The expression <code>SinOsc.ar()</code> produces no errors, but questions remain. What is the frequency of this sine oscillator? What is its amplitude? The specific arguments that <code>ar</code>, <code>kr</code>, and <code>ir</code> accept, and their default values, depend on the type of UGen.</p>
+          <p>In the <cite>Class Methods</cite> section of the SinOsc help file, we read that this UGen can run at the audio or control rate, and the arguments are the same for both methods. Four input values are expected: <var>freq</var>, <var>phase</var>, <var>mul</var>, and <var>add</var>. <var>freq</var> determines the frequency of the oscillator, measured in Hz. <var>phase</var> controls an offset amount, measured in radians, used to make the oscillator begin at a specific point within its cycle. <var>mul</var> is a value that is multiplied by every sample in the output signal, and <var>add</var> is a value added to every sample in the output signal.</p>
+          <hr/>
+          <p>In the case of SinOsc, one cycle is equal to 2π radians. In SC, we use the special keyword <code>pi</code> to represent π. Expressions such as <code>pi/4</code>, <code>3pi/2</code>, etc., are valid.</p>
+          <hr/>
+          <p>The discussion of mul brings up important considerations regarding monitoring level and loudness. When using SC (or any digital audio platform, really), it&apos;s smart to calibrate your system volume before you start creating. First, turn your system volume down so it&apos;s almost silent, then run the following line of code, which plays a two-channel pink noise signal:</p>
+          <pre>{PinkNoise.ar(mul: 1) ! 2}.play;</pre>
+          <p>As the noise plays, slowly turn up your system volume until the noise sounds strong and healthy. It shouldn&apos;t be painful, but it should be unambiguously loud, perhaps even slightly annoying. Once you&apos;ve set this volume level, consider your system <q>calibrated</q> and don&apos;t modify your hardware levels again. This configuration will encourage you to create signal levels in SC that are comfortable and present a minimal risk of distorting.</p>
+          <p>By contrast, a bad workflow involves setting your system volume too low, which encourages compensation with higher mul values. This configuration gives the misleading impression that your signal levels are low, when they&apos;re actually quite high, with almost no headroom. In this setup, you&apos;ll inevitably find yourself in the frustrating situation of having signals that seem too quiet, but with levels that are constantly <q>in the red.</q></p>
+        </section>
+        <section>
+          <h3>Playing and Stopping Simple Sounds</h3>
+          <p><var>Function</var>-dot-play refers to a simple code structure that allows us to quickly make sound. This construct involves a function that contains one or more UGens and receives the play method. In the example below we have an audio rate sine UGen with user-specified arguments. If you evaluate this line, you should hear a 300 Hz tone in your left speaker.</p>
+          <pre>{SinOsc.ar(300, 0, 0.1, 0)}.play;</pre>
+          <p>Press <kbd>[cmd]+[period]</kbd> to stop the sound. Take a moment to memorize this keyboard shortcut!</p>
+          <p>In the example, since listening to sound in only one speaker can be uncomfortable, particularly on headphones. SC interprets an array of UGens as a multichannel signal. So, if the function contains an array of two SinOsc UGens, the first signal will be routed to the left speaker, and the second to the right. The duplication shortcut, as shown in the example, is a quick way to create such an array. Multichannel signals will be explored later on.</p>
+          <pre>{SinOsc.ar(300, 0, 0.1, 0) ! 2}.play;</pre>
+          <p>The following code shows an alternative, using a more verbose style:</p>
+          <pre>{SinOsc.ar(freq: 300, phase: 0, mul: 0.1, add: 0) ! 2}.play;</pre>
+          <p>This longer but more descriptive approach of specifying argument values applies to all methods, not just those associated with UGens.</p>
+        </section>
+        <section>
+          <h3>Changing a Sound While Playing</h3>
+          <p>Suppose we want to change the frequency of an oscillator while it&apos;s playing. To enable real-time changes to a sound, we need to make a few changes to the examples in the previous section. First, we must declare an argument at the beginning of the UGen function (just as we did with ordinary functions in the previous chapter) and incorporate it into the appropriate UGen. Argument names are flexible, and don&apos;t have to match the name of the UGen argument for which they&apos;re being used. However, <q>freq</q> is certainly a good choice, because it&apos;s short and meaningful at a glance. It&apos;s also wise to provide a default value in the declaration.</p>
+          <p>When calling <code>play</code>, we must assign the resulting sound process to a variable, so that we can communicate with it later. While the sound is playing, we can alter it using the <code>set</code> method and providing the name and value of the parameter we want to change. Next you can see this sequence of actions.</p>
+          <pre>(
+x = { |freq = 300|
+ SinOsc.ar(freq, mul: 0.1) ! 2;
+}.play;
+)
+x.set(\freq, 400); // change the frequency</pre>
+          <p>We can declare as many arguments as we need. Now we shall add a second argument that controls signal amplitude and demonstrate a variety of <code>set</code> messages.</p>
+          <pre>(
+x = { |freq = 300, amp = 0.1|
+ SinOsc.ar(freq, mul: amp) ! 2;
+}.play;
+)
+x.set(\freq, 400, \amp, 0.4); // modify both arguments
+x.set(\amp, 0.05, \freq, 500); // order of name/value pairs doesn't matter
+x.set(\freq, 600); // modify only one argument</pre>
+          <hr/>
+          <p>It&apos;s often desirable to separate creating and playing a UGen function into two discrete actions. Next we shall define a UGen function and store it in the interpreter variable <var>f</var>. Then, we play it, storing the resulting sound process in the interpreter variable <var>x</var>. The former is simply the object that defines the sound, while the latter is the active sound process that understands set messages. It&apos;s important not to confuse the two.</p>
+          <pre>(
+// define the sound
+f = { |freq = 300, amp = 0.1|
+ SinOsc.ar(freq, mul: amp) ! 2;
+};
+)
+x = f.play; // play the sound
+x.set(\freq, 400, \amp, 0.3); // change the sound
+f.set(\freq, 500, \amp, 0.05); // no effect if applied to the function</pre>
+          <p>Even if arguments in a UGen function have default values, we can override them when playing the function. The play method has an args argument, which accepts an array of name-value pairs, shown below:</p>
+          <pre>(
+f = { |freq = 300, amp = 0.1|
+ SinOsc.ar(freq, mul: amp) ! 2;
+};
+)
+x = f.play(args: [freq: 800, amp: 0.2]); // override default arguments
+x.set(\freq, 600, \amp, 0.05); // set messages work normally</pre>
+        </section>
+
+        <section>
+          <h3>Other Ways to Stop a Sound</h3>
+          <p>The [cmd]+[period] shortcut is useful for stopping sound, but it&apos;s indiscriminate. As an alternative, we can <code>free</code> a sound process. With this method, we can have multiple sound processes playing simultaneously, and remove them one-by-one (<i>see</i> below). This example also highlights the value of defining a function and playing it separately; specifically, we can spawn multiple sound processes from one function.</p>
+          <pre>(
+f = { |freq = 300, amp = 0.1|
+ SinOsc.ar(freq, mul: amp) ! 2;
+};
+)
+x = f.play(args: [freq: 350]);
+y = f.play(args: [freq: 450]);
+y.free;
+x.free;</pre>
+          <p>Like [cmd]+[period], freeing a sound process also results in a hard stop, which may not be what we want. When using function-dot-play, we can also use <code>release</code> to create a gradual fade, optionally providing a fade duration measured in seconds</p>
+          <pre>(
+f = { |freq = 300, amp = 0.1|
+ SinOsc.ar(freq, mul: amp) ! 2;
+};
+)
+x = f.play;
+x.release(2);</pre>
+        </section>
+        <section>
+          <h3>Math Operations with UGens</h3>
+          <p>We&apos;ve already established that a UGen is essentially a sequence of numbers, therefore most math operations defined for floats and integers can also be applied to UGens. Signal summation, for example, is a fundamental technique that forms the basis of audio mixing and additive synthesis. When two signals are summed, their corresponding samples are summed, and the result is a new waveform in which both signals can usually be perceived. Let&apos;s add a sine wave and pink noise together.</p>
+          <pre>(
+x = {
+ var sig;
+ sig = SinOsc.ar(300, mul: 0.15);
+ sig = sig + PinkNoise.ar(mul: 0.1);
+ sig = sig ! 2;
+}.play;
+)
+x.release(2);</pre>
+          <p>When a binary operator is used between a number and a UGen, the operation is applied to the number and every sample value produced by the UGen. This being the case, multiplication and addition can be used instead of providing argument values for <code>mul</code> and <code>add</code>.</p>
+          <pre>(
+x = {
+ var sig;
+ sig = SinOsc.ar(300) * 0.15;
+ sig = sig + (PinkNoise.ar * 0.1);
+ sig = sig ! 2;
+}.play;
+)
+x.release(2);</pre>
+        </section>
+        <section>
+          <h3>A UGen Function Plays the Last Expression</h3>
+          <p>Just as ordinary functions return the value of their last expression when evaluated, the output signal from a UGen function is also determined by its last expression. In the first of the following two functions, we&apos;ll only hear pink noise, despite creating a sine wave. In the second function, the last expression is the sum of both signals, which is what we hear.</p>
+          <pre>(
+{
+ var sig0, sig1;
+ sig0 = SinOsc.ar(300, mul: 0.15) ! 2;
+ sig1 = PinkNoise.ar(mul: 0.1) ! 2;
+}.play;
+)
+(
+{
+ var sig0, sig1;
+ sig0 = SinOsc.ar(300, mul: 0.15) ! 2;
+ sig1 = PinkNoise.ar(mul: 0.1) ! 2;
+ sig0 + sig1;
+}.play;
+)</pre>
+          <p>Multiplying one signal by another is also common. We shall be multiplying pink noise by a low-frequency sine wave, producing a sound like ocean waves. This is a simple example of signal modulation, which involves the use of one signal to influence some aspect of another. A phase value of 3π/2 causes the sine oscillator to begin at the lowest point in its cycle, and the multiplication/addition values scale and shift the output values to a new range between 0 and 0.2.</p>
+          <pre>(
+x = {
+ var sig, lfo;
+ lfo = SinOsc.kr(freq: 1/5, phase: 3pi/2, mul: 0.1, add: 0.1);
+ sig = PinkNoise.ar * lfo;
+ sig = sig ! 2;
+}.play;
+)
+x.release(2);</pre>
+          <p>When we want a UGen&apos;s output to range between some arbitrary minimum and maximum, using mul/add sometimes involves cumbersome mental math. Even worse, the actual range of the UGen isn&apos;t immediately clear from looking at the code. A better approach involves using one of several range-mapping methods, such as <code>range</code>. This method lets us explicitly provide a minimum and maximum, avoiding the need to deal with mul/add. The table below lists some common range-mapping methods.</p>
+          <pre>(
+x = {
+ var sig, lfo;
+ lfo = SinOsc.kr(freq: 0.2, phase: 3pi/2).range(0, 0.2);
+ sig = PinkNoise.ar * lfo;
+ sig = sig ! 2;
+}.play;
+)
+x.release(2);</pre>
+          <table border="1">
+            <thead> <tr> <td>Method</td> <td>Description</td> </tr> </thead>
+              <tr> <td><code>.range(x, y)</code></td> <td>Linearly map the output range between x and y</td> </tr>
+              <tr> <td><code>.exprange(x, y)</code></td> <td>Exponentially map the output range between x and y. Arguments must be either both positive or both negative, and neither can be 0.</td> </tr>
+              <tr> <td><code>.curverange(x, y, n)</code></td> <td>Map the output range between <var>x</var> and <var>y</var> using a custom warp value <var>n</var>. Positive values create exponential-like behavior, negative values create logarithmic-like behavior.</td> </tr>
+              <tr> <td><code>.unipolar(x)</code></td> <td>Map the output range between 0 and x.</td> </tr>
+              <tr> <td><code>.bipolar(x)</code></td> <td>Map the output range between ±x.</td> </tr>
+          </table>
+        </section>
+        <section>
+          <h3>Range-mapping vs. mul/add</h3>
+          <p>Range-mapping methods are designed as alternatives to mul/add arguments, and they assume the range of the UGen to which they apply has not been previously altered. You can specify a UGen&apos;s range using one approach or the other, but you should never apply both approaches at the same time. If you do, a range-mapping operation will be applied twice in a row, producing erroneous numbers and possibly startling sound!</p>
+          <p>As you start exploring UGen functions of your own, remember that just because a math operation can be used doesn&apos;t necessarily mean it should. Dividing one signal by another, for example, is dangerous! This calculation may involve division by some extremely small value (or even zero), which is likely to generate a dramatic amplitude spike, or something similarly unpleasant. Experimentation is encouraged, but you should proceed with purpose and mindfulness. Mute or turn your system volume down first before you try something unpredictable.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Envelopes</h2>
+        <p>If we play a function containing some oscillator or noise generator, and then step away for a coffee, we’d return sometime later to find that sound still going. In music, an infinite-length sound isn’t particularly useful. Instead, we usually like sounds to have definitive beginnings and ends, so that we can structure them in time.</p>
+        <p>An envelope is a signal with a customizable shape and duration, typically constructed from individual line segments joined end-to-end. Envelopes are often used to control the amplitude of another signal, enabling fades instead of abrupt starts and stops. By using release, we’ve already been relying on a built-in envelope that accompanies the function-dot-play construct. When controlling signal amplitude, an envelope typically starts at zero, ramps up to some positive value, possibly stays there for a while, and eventually comes back down to zero. The first segment is called the <dfn>attack</dfn>, the stable portion in the middle is the <dfn>sustain</dfn>, and the final descent is the <dfn>release</dfn>. Many variations exist; an <q>ADSR</q> envelope, for example, has a <dfn>decay</dfn> segment between the attack and sustain.</p>
+        <p>It’s important to recognize that the ADSR envelope is just one specific example that happens to be useful for modeling envelope characteristics of many real-world sounds. Ultimately, an envelope is just a signal with a customizable shape, which can be used to control any aspect of a signal algorithm, not just amplitude.</p>
+
+
+        <section>
+          <h3><code>Line</code> and <code>XLine</code></h3>
+          <p>The UGens <code>Line</code> and <code>XLine</code> provide simple envelope shapes. <code>Line</code> generates a signal that travels linearly from one value to another over a duration in seconds. <code>XLine</code> is similar but features an exponentially curved trajectory. Like the <code>exprand</code> and <code>exprange</code> methods, the start and end values for <code>XLine</code> must have the same sign and neither can be zero. Note that <code>XLine</code> cannot end at zero, but it can get close enough that the difference is unnoticeable.</p>
+          <pre>(
+{
+ var sig, env;
+ env = Line.kr(start: 0.3, end: 0, dur: 0.5);
+ sig = SinOsc.ar(350) * env;
+ sig = sig ! 2;
+}.play;
+)
+(
+{
+ var sig, env;
+ env = XLine.kr(start: 0.3, end: 0.0001, dur: 0.5);
+ sig = SinOsc.ar(350) * env;
+ sig = sig ! 2;
+}.play;
+)</pre>
+        </section>
+        <section>
+          <h3><code>DoneAction</code></h3>
+          <p>Line and XLine include an argument, named <code>doneAction</code>, which appears in UGens that have an inherently finite duration. In SC, a doneAction represents an action that the audio server takes when the UGen that contains the doneAction has finished. These actions can be specified by integer, and a complete list of available actions and their meanings appears in the help file for the Done UGen. Most of the descriptions in this table may look completely meaningless to you, but if so, don’t worry. In practice, we rarely employ a doneAction other than zero (do nothing) or two (free the enclosing synth). The default doneAction is zero, and while taking no action sounds harmless, it carries consequences. To demonstrate, evaluate either of the two code examples below many times in a row. As you do, you’ll notice your CPU usage will gradually creep upwards.</p>
+          <p>Why does this happen? Because a doneAction of zero tells the server to do nothing when the envelope is complete, the envelope remains active on the server and continues to output its final value indefinitely. These zero or near-zero values are multiplied by the sine oscillator, which results in a silent or near-silent signal. The server is indifferent to whether a sound process is silent; it only knows that it was instructed to do nothing when the envelope finished. If you evaluate this code over and over, you’ll create more and more non-terminating sound processes. Eventually, the server will become overwhelmed, and additional sounds will start glitching (if you’ve followed these instructions and ramped up your CPU numbers, now is a good time to press [cmd]+[period] to remove these <q>ghost</q> sounds).</p>
+          <p>From a practical perspective, when our envelope reaches its end, we consider the sound to be totally finished. So, it makes sense to specify 2 for the doneAction. When running the code in Code Example 2.15, the server automatically frees the sound when the envelope is done. Evaluate this code as many times as you like, and although it won’t sound any different, you’ll notice that CPU usage will not creep upwards as it did before.</p>
+          <pre>(
+{
+ var sig, env;
+ env = XLine.kr(start: 0.3, end: 0.0001, dur: 0.5, doneAction: 2);
+ sig = SinOsc.ar(350) * env;
+ sig = sig ! 2;
+}.play;
+)</pre>
+          <p>Knowing which doneAction to specify is an important skill, essential for automating the cleanup of stale sounds and optimizing usage of the audio server’s resources.</p>
+        </section>
+
+        <section>
+          <h3><code>Env</code> and <code>EnvGen</code></h3>
+          <p>Lines are useful for simple envelopes, but don’t provide much flexibility. Once a Line or XLine starts, it cannot be restarted, modified, or looped; it merely travels from start to end, and triggers a <code>doneAction</code> when finished. In most cases, it’s preferable to use the more flexible <code>EnvGen</code>. The shape of an EnvGen is determined by an instance of a language-side class called <code>Env</code>, provided as the envelope signal’s first argument. An instance of Env created with <code>new</code> expects three arguments: an array of level values, an array of segment durations, and an array of curve specifications. We can also plot an Env to visualize its shape.</p>
+          <pre>(
+e = Env.new(
+ levels: [0, 1, 0],
+ times: [1, 3],
+ curve: [0, 0]
+);
+e.plot;
+)</pre>
+          <p>Let’s unpack the meaning of the numbers in the previous code. The first array contains envelope levels, which are values that the envelope signal will visit as time progresses: the envelope starts at 0, travels to 1, and returns to 0. The second array specifies durations of the segments between these levels: the attack is 1 second long, and the release is 3 seconds. The final array determines segment curvatures. Zero represents linearity, while positive/negative values will <q>bend</q> the segments. Note that when an Env is created this way, the size of the first array is always one greater than either of the other two arrays. Take a moment to modify the code from the example, to better understand how the numbers influence the envelope’s shape. This example illustrates how <code>EnvGen</code> and <code>Env</code> work together to create an envelope signal in a UGen function. Keywords are used for clarity. Because it is inherently finite, <code>EnvGen</code> accepts a <code>doneAction</code>. As before, it makes sense to specify a doneAction of 2 to automate the cleanup process.</p>
+          <hr/>
+          <p>When using numbers to specify segment curves, it can be hard to remember how a segment will bend depending on the sign of the number. The rule is: positive values cause a segment to be more horizontal at first, and more vertical toward the end. Negative values cause the segment to be more vertical at first, becoming more horizontal toward the end.</p>
+          <p>Certain symbols can also be used to specify a segment curve, such as \lin, \exp, \sin, and others. A table of valid options appears in the Env help file, under the section that explains the class method new.</p>
+          <pre>(
+{
+ var sig, env;
+ env = EnvGen.kr(
+ envelope: Env.new(
+ levels: [0, 1, 0],
+ times: [1, 3],
+ curve: [0, 0]
+ ),
+ doneAction: 2
+ );
+ sig = SinOsc.ar(350) * 0.3;
+ sig = sig * env;
+ sig = sig ! 2;
+}.play;
+)</pre>
+          <p>Envelopes can be divided into two categories: those with fixed durations, and those that can be sustained indefinitely. The envelopes we’ve seen so far belong to the first category, but in the real world, many musical sounds have amplitude envelopes with indefinite durations. When a violinist bows a string, we won’t know when the sound will stop until the bow is lifted. An envelope that models this behavior is called a <dfn>gated envelope</dfn>. It has a parameter, called a <q>gate</q>, which determines how and when the envelope signal progresses along its trajectory. When the gate value transitions from zero to positive, the envelope begins and sustains at a point along the way. When the gate becomes zero again, the envelope continues from its sustain point and finishes the rest of its journey. Like a real-world gate, we describe this parameter as being open (positive) or closed (zero).</p>
+          <p>To create a sustaining envelope, we can add a fourth argument to <code>Env.new()</code>: an integer representing an index into the levels array, indicating the value at which the envelope will sustain. In SC terminology, this level is called the <dfn>release node</dfn>. In the example, the release node is 2, which means the envelope signal will sustain at a level of 0.2 while the gate remains open. Because gate is a parameter we’d like to change while the sound is playing, it must be declared as an argument, and supplied to the EnvGen. In effect, this example creates an ADSR envelope: the attack travels from 0 to 1 over 0.02 seconds, the decay drops to a level of 0.2 over the next 0.3 seconds, and the signal remains at 0.2 until the gate closes, which triggers a one-second release.</p>
+          <pre>(
+f = { |gate = 1|
+ var sig, env;
+ env = EnvGen.kr(
+ envelope: Env.new(
+ [0, 1, 0.2, 0],
+ [0.02, 0.3, 1],
+ [0, -1, -4],
+ 2
+ ),
+ gate: gate,
+ doneAction: 2
+ );
+ sig = SinOsc.ar(350) * 0.3;
+ sig = sig * env;
+ sig = sig ! 2;
+};
+)
+x = f.play;
+x.set(\gate, 0);</pre>
+          <p>In some cases, we may want to retrigger an envelope, opening and closing its gate at will, to selectively allow sound to pass through. If so, a doneAction of 2 is a poor choice, because we don’t necessarily want the sound process to be destroyed if the envelope reaches its end. Instead, a 0 doneAction (the default) is the correct choice, as demonstrated next, which causes the envelope to <q>idle</q> at its end point until it is retriggered.</p>
+          <p>It’s worth being extra clear about the specific behavior of an envelope in response to gate changes when a release node has been specified:</p>
+          <ul>
+            <li>A zero-to-positive gate transition causes the envelope to move from its current level to the second level in the levels array, using its first duration and first curve value. Note that the envelope never revisits its first level, which is only used for initialization.</li>
+            <li>A positive-to-zero gate transition causes the envelope to move from its current value to the value immediately after the release node, using the duration and curve values at the same index as the release node.</li>
+          </ul>
+          <pre>(
+f = { |gate = 1|
+var sig, env;
+env = EnvGen.kr(
+Env.new(
+[0, 1, 0.2, 0],
+[0.02, 0.3, 1],
+[0, -1, -4],
+2
+),
+gate
+);
+sig = SinOsc.ar(350) * 0.3;
+sig = sig * env;
+sig = sig ! 2;
+};
+)
+x = f.play;
+x.set(\gate, 0); // fade to silence but do not free
+x.set(\gate, 1); // reopen the gate to restart the envelope
+x.set(\gate, 0); // fade to silence again
+x.free; // free when finished</pre>
+          <p>This retriggering ability may also be useful for fixed-duration envelopes. It’s possible but clumsy to retrigger a fixed-duration envelope with a standard gate argument, because it requires manually closing the gate before reopening. As a solution, we can precede the gate argument name with <code>t_</code>, which transforms it into a <q>trigger-type</q> argument, which responds differently to set messages. When a trigger-type argument is set to a non-zero value, it holds that value for a single control cycle, and then almost immediately <q>snaps</q> back to zero. It’s like a real-world gate that’s been augmented with a powerful spring, slamming shut immediately after being opened. Below we demonstrate the use of trigger-type arguments. Note that the default gate value is zero, which means the envelope will idle at its starting level (zero) until the gate is opened.</p>
+          <pre>(
+x = { |t_gate = 0|
+ var sig, env;
+ env = EnvGen.kr(
+ Env.new(
+ [0, 1, 0],
+ [0.02, 0.3],
+ [0, -4],
+ ),
+ t_gate,
+ );
+ sig = SinOsc.ar(350) * 0.3;
+ sig = sig * env;
+ sig = sig ! 2;
+}.play;
+)
+x.set(\t_gate, 1); // evaluate repeatedly
+x.free; // free when finished</pre>
+          <p>EnvGen, in partnership with Env, is one of the more complex UGens in the class library, with many variations and subtleties. Both help files contain additional information.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Multichannel Signals*</h2>
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+      </section>  <!-- end of "Multichannel Signals" -->
+
+      <section>
+        <h2><code>SynthDef</code> and <code>Synth</code></h2>
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+      </section>  <!-- end of "<code>SynthDef</code> and <code>Synth</code>" -->
+
+      <section>
+        <h2>Alternate Expression of Frequency and Amplitude</h2>
+        <p>Oscillators with a frequency parameter expect a value in Hertz. When thinking about musical pitch, Hertz isn’t always the preferred unit of measurement. Using MIDI note numbers can be a convenient alternative. In this system, 60 corresponds to middle C (roughly 261.6 Hz), and an increment/decrement of one corresponds to a semitone shift in 12-tone equal temperament. We can convert from MIDI to Hertz using <code>midicps</code> and convert in the other direction with <code>cpsmidi</code>. Non-integer MIDI note numbers are valid and represent a pitch proportionally between two equal-tempered semitones.</p>
+        <pre>60.midicps; // -> 261.6255653006
+500.cpsmidi; // -> 71.213094853649</pre>
+        <p><code>midiratio</code> and <code>ratiomidi</code> are similarly useful methods that convert back and forth between an interval, measured in semitones, and the frequency ratio that interval represents. For example, 3.midiratio represents the ratio between an F and the D immediately below it, because these two pitches are three semitones apart. Negative semitone values represent pitch movement in the opposite direction.</p>
+        <pre>// the ratio that raises a frequency by one semitone
+1.midiratio; // -> 1.0594630943591
+// the ratio 8/5 is slightly more than 8 equal-tempered semitones
+(8/5).ratiomidi // -> 8.1368628613517</pre>
+        <p>Similarly, when expressing signal amplitude, a normalized range between zero and one isn’t always the most intuitive choice. The <code>ampdb</code> method converts a normalized amplitude to a decibel value and <code>dbamp</code> does the opposite. A value of zero dB corresponds to a nominal amplitude value of one. If your audio system is properly calibrated, a decibel value around -20 dB should produce a comfortable monitoring level, and a typical signal will become inaudible around -80 dB.</p>
+        <pre>-15.dbamp; // -> 0.17782794100389
+0.3.ampdb; // -> -10.457574905607</pre>
+        <p>For efficiency reasons, it is preferable not to build these methods into a <code>SynthDef</code>, and instead call them when creating or modifying a <code>Synth</code>, so that the server does not have to repeatedly perform these calculations.</p>
+        <pre>(
+SynthDef.new(\test, {
+arg freq = 350, amp = 0.2, atk = 0.01, dec = 0.3,
+slev = 0.4, rel = 1, gate = 1, out = 0;
+var sig, env;
+env = EnvGen.kr(
+Env.adsr(atk, dec, slev, rel),
+gate,
+doneAction: 2
+);
+sig = SinOsc.ar(freq + [0, 1]);
+sig = sig * env;
+sig = sig * amp;
+Out.ar(out, sig);
+}).add;
+)
+x = Synth(\test, [freq: 60.midicps, amp: -20.dbamp]);
+x.set(\freq, 62.midicps); // increase pitch by 2 semitones
+x.set(\amp, -12.dbamp); // increase level by 8 dB
+x.set(\gate, 0);</pre>
+      </section>  <!-- end of "Alternate Expression of Frequency and Amplitude" -->
+
+      <section id="synthesis">
+        <h2>Synthesis*</h2>
+        <p>Synthesis refers to creative applications of combining and interconnecting signal generators, typically relying on oscillators and noise, with a goal of building unique timbres and textures. This section explores synthesis categories.</p>
+        <section>
+          <h3>Additive Synthesis*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+        <section>
+          <h3>Modulation Synthesis*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+        <section>
+          <h3>Wavetable Synthesis*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+        <section>
+          <h3>Filters and Subtractive Synthesis*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+        <section>
+          <h3>Modal Synthesis*</h3>
+          <p>Physical objects vibrate when disturbed. Common musical examples include plucking a string or striking something with a mallet. The vibrational patterns of some objects, like bells and chimes, are composed of a complex sum of sinusoidal vibrations that decay over a relatively long duration. Other objects, like blocks of wood, exhibit periodic vibrations that decay almost instantly. Modal synthesis refers to the practice of creating (or recreating) the sound of a physical object by simulating its natural modes of vibration. Superficially, this technique is like additive synthesis, but involves injecting excitation signals into resonant filters, rather than summing sine generators.</p>
+          <p><code>Resonz</code> and <code>Ringz</code><!--, demonstrated in Code Example 3.26,--> are resonant filters that provide an entryway into modal synthesis. <code>Resonz</code> is a band-pass filter with a constant gain at zero decibels. This means that as the bandwidth decreases, the sense of resonance increases, but spectral content at the center frequency will remain at its input level, while surrounding content is attenuated. It virtually indistinguishable from BPF in terms of usage and sound. <code>Ringz</code>, on the other hand, has a variable gain that depends on the bandwidth, specified indirectly as a 60 dB decay time. As this decay time increases, bandwidth narrows, a sense of resonance increases, and spectral content at the center frequency undergoes a potentially dramatic increase in amplitude. The difference between Resonz and Ringz is subtle but has significant consequences.</p>
+          <p>In terms of practical usage, because of its variable-gain design, <code>Ringz</code> is intended to be driven by single-sample impulses. Even an excitation signal a few samples long has the potential to overload <code>Ringz</code> and produce a distorted output signal. Longer signals, such as sustained noise, can technically be fed to an instance of <code>Ringz</code>, but the amplitude of the excitation signal and/or the output signal must be drastically reduced in order to compensate for the increase in level, particularly if the decay time is long. <code>Resonz</code>, by contrast, is designed to accept sustained excitation signals and is more likely to need an amplitude boost to compensate for low levels, particularly in narrow bandwidth situations. Feeding single-sample impulses into <code>Resonz</code> is fine, but the level of the output signal will likely be quite low.</p>
+          <pre>(
+{
+var sig, exc;
+exc = Impulse.ar(1);
+sig = Ringz.ar(
+in: exc,
+freq: 800,
+decaytime: 1/3
+);
+sig = sig * 0.2 ! 2;
+}.play;
+)
+(
+{
+var sig, exc;
+exc = PinkNoise.ar(1);
+sig = Resonz.ar(
+in: exc,
+freq: 800,
+bwr: 0.001,
+mul: 1 / 0.001.sqrt
+);
+sig = sig * 0.5 ! 2;
+}.play;
+)</pre>
+          <p><code>Klank</code> and <code>DynKlank</code> encapsulate fixed and dynamic banks of <code>Ringz</code> resonators, offering a slightly more convenient and efficient option than applying multichannel expansion to an instance of Ringz (<i>see below</i>). These UGens require a <code>Ref</code> array containing internal arrays of frequencies, amplitudes, and decay times of simulated resonances. The frequencies can be scaled and shifted, and the decay times can also be scaled.</p>
+          <pre>(
+{
+var sig, exc, freqs, amps, decays;
+freqs = [211, 489, 849, 857, 3139, 4189, 10604, 15767];
+amps = [0.75, 0.46, 0.24, 0.17, 0.03, 0.019, 0.002, 0.001];
+decays = [3.9, 3.4, 3.3, 2.5, 2.2, 1.5, 1.3, 1.0];
+exc = Impulse.ar(0.5);
+sig = Klank.ar(
+`[freqs, amps, decays], // &lt;- note the backtick character
+exc,
+);
+sig = sig * 0.25 ! 2;
+}.play;
+)</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+        <section>
+          <h3>Waveform Distortion*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+      </section>  <!-- end of "Synthesis" -->
+
+      <section>
+        <h2>Sampling*</h2>
+        <p>Sampling refers to creative practices that rely on recorded sound, typically involving modified playback of audio files stored in blocks of memory on the audio server. In a sense, sampling and <a href="#synthesis">synthesis</a> are two sides of the same signal-generating coin. Synthesis relies on mathematical algorithms, while sampling is based on the use of content that has already been produced and captured. Most sound sources found throughout creative audio practices are rooted in one of these two categories.</p>
+        <p>Sampling opens a door to a world of sound that is difficult or impossible to create using synthesis techniques alone. Anything captured with a microphone and rendered to a file instantly becomes a wellspring of creative potential: a recording of wildlife can become a surreal ambient backdrop, or a recording of a broken elevator can be chopped into weird percussion samples. Instead of using dozens of sine waves or filters to simulate a gong, why not use the real thing?</p>
+        <p>Before loading sampled audio files into software, it’s wise to practice good sample hygiene. Unnecessary silence should be trimmed from the beginnings and ends of the files, samples should be as free as possible from background noise and other unwanted sounds, and the peak amplitudes of similar samples should be normalized to a consistent level. Normalization level is partly a matter of personal preference, but –12 dBFS is usually a reasonable target, which makes good use of available bit depth while reserving ample headroom for mixing with other sounds.</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <h3 class="bridgehead"></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <h3 class="bridgehead"></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>  <!-- end of "Sampling" -->
+
+      <section>
+        <h2>Sequencing*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <h3 class="bridgehead"></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <h3 class="bridgehead"></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>  <!-- end of "Sequencing" -->
+
+
+      <!--
+      <section>
+        <h2></h2>
+          <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <h3 class="bridgehead"></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <h3 class="bridgehead"></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+
+    </main>
+
+  </body>
+
+</html>

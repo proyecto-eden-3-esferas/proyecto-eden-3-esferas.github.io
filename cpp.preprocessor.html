@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>the c/c++ preprocessor</title>
+    <title>The C/C++ Preprocessor</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -23,127 +23,262 @@
       </div>
       -->
       <div>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.conditional-compilation.html">Conditional Compilation with <code>if constexpr</code> (C++17)</a></p>
         <p><a href="cpp.object-like-macros.html">Object-like Macros</a></p>
         <p><a href="cpp.function-like-macros.html">Function-like Macros</a></p>
         <p><a href="cpp.exception-handling-macros.html">Exception-Handling Macros</a></p>
         <p><a href="cpp.policy-like-macros.html">Policy-like Macros</a></p>
-
-        <p><a href="cpp.conditional-compilation.html">Conditional Compilation (<code>if constexpre</code>)</a></p>
       </div>
       <div>
-        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
-        <p><a            href="computing.html">Computing</a></p>
-        <p><a            href="index.en.html">Home</a></p>
-      </div>
-      <div>
-        <p><a href="cpp.separate_compilation.html">Separate Compilation</a></p>
-        <p><a href="cpp.separate_compilation.templates.html">Separate Compilation of Templates</a></p>
-        <p><a href="cpp.mathematical-constants.html">Mathematical constants (<code>&lt;numbers&gt;</code>)</a></p>
+        <p><a href="#include">The <code>#define</code> Preprocessor Directive</a></p>
+        <p><a href="#conditional"></a></p>
+        <p><a href="#stringize">Stringification</a></p>
+        <p><a href="#concatenate">Concatenation</a></p>
+        <p><a href="#func-like-macro">Function-Like Macros</a></p>
+        <p><a href="#predefined">Predefined Cxx Macros</a></p>
+        <hr/>
+        <p><a href="#gnu">GNU Preprocessor</a></p>
+        <p><a href="#clang">The Clang C/C++ Preprocessor</a></p>
       </div>
     </nav>
 
     <main>
       <h1>The C/C++ Preprocessor</h1>
 
-      <p>The C++ preprocessor is a text replacement tool used to transform the source code in order to produce a single text file that is then passed to the actual compiler. It has various capabilities, such as including files, conditional compilation, text macro replacement, error emitting, stringizing, or token concatenation. Often developers use the preprocessor when other alternatives are available and are more appropriate.</p>
+      <p>The C++ preprocessor is a text replacement tool used to transform the source code in order to produce a single text file that is then passed to the actual compiler. It has various capabilities, such as including files, conditional compilation, text macro replacement, error emitting, stringizing, or token concatenation.</p>
 
-      <hr/>
-
-      <p>The C preprocessor, often known as <code>cpp</code>, is a macro processor that is used automatically by the C compiler to transform your program before compilation. It is called a macro processor because it allows you to define macros, which are brief abbreviations for longer constructs.</p>
-      <p>The C preprocessor is intended to be used only with C and C++.</p>
-
-
-      <section>
-      <h2>Calling the GNU C/C++ Preprocessor Alone (<code>cpp</code> in GCC)</h2>
-      <p style="text-align: right">(From <cite>https://gcc.gnu.org/onlinedocs/cpp/</cite>)</p>
-
-      <p>Most often when you use the C preprocessor you do not have to invoke it explicitly: the C compiler does so automatically. However, the preprocessor is sometimes useful on its own. You can invoke the preprocessor either with the <code>cpp</code> command, or via <code>gcc -E</code>. In GCC, the preprocessor is actually integrated with the compiler rather than a separate program, and both of these commands invoke GCC and tell it to stop after the preprocessing phase.</p>
-      <p>The cpp options listed below are also accepted by <code>gcc</code> and have the same meaning. Likewise the cpp command accepts all the usual gcc driver options, although those pertaining to compilation phases after preprocessing are ignored.</p>
-      <p>Only options specific to preprocessing behavior are documented here. Refer to the GCC manual for full documentation of other driver options.</p>
+      <p>All preprocessor directives begin with #, and only white-space characters may appear before a preprocessor directive on a line.</p>
+      <p>Preprocessor directives are not C++ statements, so they do not end in a semicolon (;).</p>
 
       <hr/>
 
       <p>The output from the C preprocessor looks much like the input, except that all preprocessing directive lines have been replaced with blank lines and all comments with spaces. Long runs of blank lines are discarded.</p>
       <p>The ISO standard specifies that it is implementation defined whether a preprocessor preserves whitespace between tokens, or replaces it with e.g. a single space. In GNU CPP, whitespace between tokens is collapsed to become a single space, with the exception that the first token on a non-directive line is preceded with sufficient spaces that it appears in the same column in the preprocessed output that it appeared in the original source file.</p>
 
-      <hr/>
+      <section id="define">
+        <h2>The <code>#define</code> Preprocessor Directive</h2>
+        <p>The <code>#define</code> preprocessor directive creates symbolic constants. The symbolic constant is called a <dfn>macro</dfn> and the general form of the directive is:</p>
+        <pre>#define &lt;macro-name&gt; &lt;replacement-text&gt;</pre>
+        <p>When this line appears in a file, all subsequent occurrences of macro in that file will be replaced by replacement-text before the program is compiled. For example:</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
 
-      <p>The cpp command expects two file names as arguments, <var>infile</var> and <var>outfile</var>. The preprocessor reads infile together with any other files it specifies with <code>#include</code>. All the output generated by the combined input files is written in outfile.</p>
-      <p>Either infile or outfile may be <code>-</code>, which as <var>infile</var> means to read from standard input and as <code>outfile</code> means to write to standard output. If either file is omitted, it means the same as if <code>-</code> had been specified for that file. You can also use the <code>-o <var>outfile</var></code> option to specify the output file.</p>
+#define PI 3.14159
 
-      <hr/>
+int main () {
+   cout &lt;&lt; "Value of PI :" &lt;&lt; PI &lt;&lt; endl;
 
-      <p>Unless otherwise noted, or the option ends in <code>=</code>, all options which take an argument may have that argument appear either immediately after the option, or with a space between option and argument: <code>-Ifoo</code> and <code>-I foo</code> have the same effect.</p>
-      <p>Many options have multi-letter names; therefore multiple single-letter options may not be grouped: <code>-dM</code> is very different from <code>-d -M</code>.</p>
+   return 0;
+}</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="include">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="conditional">
+        <h2>Conditionals</h2>
+        <p>There are several directives, which can be used to compile selective portions of your program&apos;s source code. This process is called <dfn>conditional compilation</dfn>.</p>
+        <p>The conditional preprocessor construct is much like the <code>if</code> selection structure in C and C++. Consider the following preprocessor code:</p>
+        <pre>#ifndef NULL
+   #define NULL 0
+#endif</pre>
+        <p>You can compile a program for debugging purpose. You can also turn on or off the debugging using a single macro as follows</p>
+        <pre>#ifdef DEBUG
+   cerr &lt;&lt; "Variable x = " &lt;&lt; x &lt;&lt; endl;
+#endif</pre>
+        <p>This causes the <code>cerr</code> statement to be compiled in the program if the symbolic constant <code>DEBUG</code> has been defined before directive <code>#ifdef DEBUG</code>. You can use <code>#if 0</code> statment to comment out a portion of the program as follows</p>
+        <pre>#if 0
+   code prevented from compiling
+#endif</pre>
+        <!--
+        <p></p>
+        <pre></pre> −
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+      <section id="stringize">
+        <h2>Stringification</h2>
+        <p>The <code>#</code> operator causes a replacement-text token to be converted to a string surrounded by quotes.</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
 
-      <hr/>
+#define MKSTR( x ) #x
 
-      <h3 class="bridgehead">GNU Preprocessor Options (not exhaustive)</h3>
+int main () {
 
-      <dl>
+   cout &lt;&lt; MKSTR(HELLO C++) &lt;&lt; endl;
 
-        <dt><code>-D <var>name</var></code></dt>
-        <dd>Predefine name as a macro, with definition <code>1</code>.</dd>
+   return 0;
+}</pre>
+        <!--<p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+      <section id="concatenate">
+        <h2>Concatenation</h2>
+        <p>The ## operator is used to concatenate two tokens. Here is an example</p>
+        <pre>#define CONCAT( x, y )  x ## y</pre>
+        <p>When <code>CONCAT</code> appears in the program, its arguments are concatenated and used to replace the macro. For example, <code>CONCAT(HELLO, C++)</code> is replaced by <code>"HELLO C++"</code> in the program as follows.</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
 
-        <dt><code>-D <var>name</var>=<var>definition</var></code></dt>
-        <dd>
-          <p>The contents of definition are tokenized and processed as if they appeared during translation phase three in a <code>#define</code> directive. In particular, the definition is truncated by embedded newline characters.</p>
-          <p>If you are invoking the preprocessor from a shell or shell-like program you may need to use the shell&apos;s quoting syntax to protect characters such as spaces that have a meaning in the shell syntax.</p>
-          <p>If you wish to define a function-like macro on the command line, write its argument list with surrounding parentheses before the equals sign (if any). Parentheses are meaningful to most shells, so you should quote the option. With sh and csh, <code>-D&apos;name(args…)=definition&apos;</code> works.</p>
-          <p><code>-D</code> and <code>-U</code> options are processed in the order they are given on the command line. All -imacros file and -include file options are processed after all <code>-D</code> and <code>-U</code> options.</p>
-        </dd>
+#define concat(a, b) a ## b
+int main() {
+   int xy = 100;
 
-        <dt><code>-U <var>name</var></code></dt>
-        <dd>Cancel any previous definition of <var>name</var>, either built in or provided with a <code>-D</code> option.</dd>
+   cout &lt;&lt; concat(x, y);
+   return 0;
+}</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+      <section id="func-like-macro">
+        <h2>Function-Like Macros</h2>
+        <p>You can use #define to define a macro which will take argument as follows:</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
 
-        <dt><code>-M</code></dt>
-        <dd>
-          <p>Instead of outputting the result of preprocessing, output a rule suitable for make describing the dependencies of the main source file. The preprocessor outputs one make rule containing the object file name for that source file, a colon, and the names of all the included files, including those coming from -include or -imacros command-line options.</p>
-          <p>Unless specified explicitly (with -MT or -MQ), the object file name consists of the name of the source file with any suffix replaced with object file suffix and with any leading directory parts removed. If there are many included files then the rule is split into several lines using &apos;\&apos;-newline. The rule has no commands.</p>
-          <p>This option does not suppress the preprocessor&apos;s debug output, such as -dM. To avoid mixing such debug output with the dependency rules you should explicitly specify the dependency output file with -MF, or use an environment variable like DEPENDENCIES_OUTPUT (see Environment Variables). Debug output is still sent to the regular output stream as normal.</p>
-          <p>Passing -M to the driver implies -E, and suppresses warnings with an implicit -w.</p>
-        </dd>
+#define MIN(a,b) (((a)&lt;(b)) ? a : b)
 
-        <dt><code>-MM</code></dt>
-        <dd>
-          <p>Like -M but do not mention header files that are found in system header directories, nor header files that are included, directly or indirectly, from such a header.</p>
-          <p>This implies that the choice of angle brackets or double quotes in an &apos;#include&apos; directive does not in itself determine whether that header appears in -MM dependency output.</p>
-        </dd>
+int main () {
+   int i, j;
 
-      </dl>
+   i = 100;
+   j = 30;
+
+   cout &lt;&lt;"The minimum is " &lt;&lt; MIN(i, j) &lt;&lt; endl;
+
+   return 0;
+}</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+      <section id="predefined">
+        <h2>Predefined Cxx Macros</h2>
+        <p>Cxx provides a number of predefined macros:</p>
+        <table border="1">
+          <tr> <td><code>__LINE__</code></td> <td>This contains the current line number of the program when it is being compiled.</td> </tr>
+          <tr> <td><code>__FILE__</code></td> <td>This contains the current file name of the program when it is being compiled.</td> </tr>
+          <tr> <td><code>__DATE__</code></td> <td>This contains a string of the form month/day/year that is the date of the translation of the source file into object code.</td> </tr>
+          <tr> <td><code>__TIME__</code></td> <td>This contains a string of the form hour:minute:second that is the time at which the program was compiled.</td> </tr>
+        </table>
+        <p>Let us see an example for all the above macros</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
+
+int main () {
+   cout &lt;&lt; "Value of __LINE__ : " &lt;&lt; __LINE__ &lt;&lt; endl;
+   cout &lt;&lt; "Value of __FILE__ : " &lt;&lt; __FILE__ &lt;&lt; endl;
+   cout &lt;&lt; "Value of __DATE__ : " &lt;&lt; __DATE__ &lt;&lt; endl;
+   cout &lt;&lt; "Value of __TIME__ : " &lt;&lt; __TIME__ &lt;&lt; endl;
+
+   return 0;
+}</pre>
 
       </section>
 
+      <section id="gnu">
+        <h2>GNU Preprocessor</h2>
+        <p>The C preprocessor, often known as <code>cpp</code>, is a macro processor that is used automatically by the C compiler to transform your program before compilation. It is called a macro processor because it allows you to define macros, which are brief abbreviations for longer constructs.</p>
+        <p>The C preprocessor is intended to be used only with C and C++.</p>
+        <section>
+          <h2>Calling the GNU C/C++ Preprocessor Alone (<code>cpp</code> in GCC)</h2>
+          <p style="text-align: right">(From <cite>https://gcc.gnu.org/onlinedocs/cpp/</cite>)</p>
+          <p>Most often when you use the C preprocessor you do not have to invoke it explicitly: the C compiler does so automatically. However, the preprocessor is sometimes useful on its own. You can invoke the preprocessor either with the <code>cpp</code> command, or via <code>gcc -E</code>. In GCC, the preprocessor is actually integrated with the compiler rather than a separate program, and both of these commands invoke GCC and tell it to stop after the preprocessing phase.</p>
+          <p>The cpp options listed below are also accepted by <code>gcc</code> and have the same meaning. Likewise the cpp command accepts all the usual gcc driver options, although those pertaining to compilation phases after preprocessing are ignored.</p>
+          <p>Only options specific to preprocessing behavior are documented here. Refer to the GCC manual for full documentation of other driver options.</p>
+          <hr/>
+          <p>The cpp command expects two file names as arguments, <var>infile</var> and <var>outfile</var>. The preprocessor reads infile together with any other files it specifies with <code>#include</code>. All the output generated by the combined input files is written in outfile.</p>
+          <p>Either infile or outfile may be <code>-</code>, which as <var>infile</var> means to read from standard input and as <code>outfile</code> means to write to standard output. If either file is omitted, it means the same as if <code>-</code> had been specified for that file. You can also use the <code>-o <var>outfile</var></code> option to specify the output file.</p>
+          <hr/>
+          <p>Unless otherwise noted, or the option ends in <code>=</code>, all options which take an argument may have that argument appear either immediately after the option, or with a space between option and argument: <code>-Ifoo</code> and <code>-I foo</code> have the same effect.</p>
+          <p>Many options have multi-letter names; therefore multiple single-letter options may not be grouped: <code>-dM</code> is very different from <code>-d -M</code>.</p>
+        </section>
+
+        <section>
+          <h3 class="bridgehead">GNU Preprocessor Options (not exhaustive)</h3>
+          <dl>
+            <dt><code>-D <var>name</var></code></dt>
+            <dd>Predefine name as a macro, with definition <code>1</code>.</dd>
+            <dt><code>-D <var>name</var>=<var>definition</var></code></dt>
+            <dd>
+              <p>The contents of definition are tokenized and processed as if they appeared during translation phase three in a <code>#define</code> directive. In particular, the definition is truncated by embedded newline characters.</p>
+              <p>If you are invoking the preprocessor from a shell or shell-like program you may need to use the shell&apos;s quoting syntax to protect characters such as spaces that have a meaning in the shell syntax.</p>
+              <p>If you wish to define a function-like macro on the command line, write its argument list with surrounding parentheses before the equals sign (if any). Parentheses are meaningful to most shells, so you should quote the option. With sh and csh, <code>-D&apos;name(args…)=definition&apos;</code> works.</p>
+              <p><code>-D</code> and <code>-U</code> options are processed in the order they are given on the command line. All -imacros file and -include file options are processed after all <code>-D</code> and <code>-U</code> options.</p>
+            </dd>
+            <dt><code>-U <var>name</var></code></dt>
+            <dd>Cancel any previous definition of <var>name</var>, either built in or provided with a <code>-D</code> option.</dd>
+            <dt><code>-M</code></dt>
+            <dd>
+              <p>Instead of outputting the result of preprocessing, output a rule suitable for make describing the dependencies of the main source file. The preprocessor outputs one make rule containing the object file name for that source file, a colon, and the names of all the included files, including those coming from -include or -imacros command-line options.</p>
+              <p>Unless specified explicitly (with -MT or -MQ), the object file name consists of the name of the source file with any suffix replaced with object file suffix and with any leading directory parts removed. If there are many included files then the rule is split into several lines using &apos;\&apos;-newline. The rule has no commands.</p>
+              <p>This option does not suppress the preprocessor&apos;s debug output, such as -dM. To avoid mixing such debug output with the dependency rules you should explicitly specify the dependency output file with -MF, or use an environment variable like DEPENDENCIES_OUTPUT (see Environment Variables). Debug output is still sent to the regular output stream as normal.</p>
+              <p>Passing -M to the driver implies -E, and suppresses warnings with an implicit -w.</p>
+            </dd>
+            <dt><code>-MM</code></dt>
+            <dd>
+              <p>Like -M but do not mention header files that are found in system header directories, nor header files that are included, directly or indirectly, from such a header.</p>
+              <p>This implies that the choice of angle brackets or double quotes in an &apos;#include&apos; directive does not in itself determine whether that header appears in -MM dependency output.</p>
+            </dd>
+          </dl>
+        </section>
+
+      </section> <!-- end of "GNU Preprocessor" -->
 
 
-      <section>
-      <h2>Calling the Clang C/C++ Preprocessor Alone (<code>cpp</code> in GCC)</h2>
-      <p style="text-align: right">(From <cite>https://clang.llvm.org/docs/ClangCommandLineReference.html</cite>)</p>
-      <h3 class="bridgehead">Clang Preprocessor Options (not exhaustive)</h3>
-      <dl>
 
-        <dt><code></code></dt>
-        <dd></dd>
-
-        <dt><code>-C</code> or <code>--comments</code></dt>
-        <dd>Include comments in preprocessed output</dd>
-
-        <dt><code>-CC</code> or <code>--comments-in-macros</code></dt>
-        <dd>Include comments from within macros in preprocessed output</dd>
-
-        <dt><code>-D<var>macro</var>=<var>value</var></code>, <code>--define-macro <var>arg</var></code>, or <code>--define-macro=<var>arg</var></code></dt>
-        <dd>Define <var>macro</var> to <var>value</var> (or 1 if <var>value</var> omitted)</dd>
-
-        <dt><code>-H</code>, or <code>--trace-includes</code></dt>
-        <dd>Show header includes and nesting depth</dd>
-
-        <dt><code>-P</code>, or <code>--no-line-commands</code></dt>
-        <dd>Disable linemarker output in -E mode</dd>
-
-        <dt><code>-U<var>macro</var></code>, <code>--undefine-macro <var>arg</var></code>, <code>--undefine-macro=<var>arg</var></code></dt>
-        <dd>Undefine macro <var>macro</var></dd>
-
-      </dl>
+      <section id="clang">
+        <h2>The Clang C/C++ Preprocessor Alone (<code>cpp</code> in GCC)</h2>
+        <p style="text-align: right">(From <cite>https://clang.llvm.org/docs/ClangCommandLineReference.html</cite>)</p>
+        <h3 class="bridgehead">Clang Preprocessor Options (not exhaustive)</h3>
+        <dl>
+          <dt><code></code></dt>
+          <dd></dd>
+          <dt><code>-C</code> or <code>--comments</code></dt>
+          <dd>Include comments in preprocessed output</dd>
+          <dt><code>-CC</code> or <code>--comments-in-macros</code></dt>
+          <dd>Include comments from within macros in preprocessed output</dd>
+          <dt><code>-D<var>macro</var>=<var>value</var></code>, <code>--define-macro <var>arg</var></code>, or <code>--define-macro=<var>arg</var></code></dt>
+          <dd>Define <var>macro</var> to <var>value</var> (or 1 if <var>value</var> omitted)</dd>
+          <dt><code>-H</code>, or <code>--trace-includes</code></dt>
+          <dd>Show header includes and nesting depth</dd>
+          <dt><code>-P</code>, or <code>--no-line-commands</code></dt>
+          <dd>Disable linemarker output in -E mode</dd>
+          <dt><code>-U<var>macro</var></code>, <code>--undefine-macro <var>arg</var></code>, <code>--undefine-macro=<var>arg</var></code></dt>
+          <dd>Undefine macro <var>macro</var></dd>
+        </dl>
       </section>
 
     </main>
