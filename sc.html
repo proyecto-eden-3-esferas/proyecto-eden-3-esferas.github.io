@@ -32,42 +32,85 @@
 
     <main>
       <h1>Supercollider</h1>
+      <p> Supercollider is a platform for audio synthesis and algorithmic composition, used by musicians, artists and researchers working with sound.</p>
+      <p>It&apos;s free and open source software for Windows, MacOS and Linux.</p>
+      <h3 class="bridgehead">Features</h3>
+      <ul>
+        <li><code>scsynth</code> – A real-time audio server</li>
+        <li><code>sclang</code> – An interpreted programming language</li>
+        <li><code>scide</code> – An editor for sclang with an integrated help system</li>
+      </ul>
 
-      <p>Type</p>
-      <pre>4.squared</pre>
-      <p>then, making sure your mouse cursor is placed somewhere on this line, press [shift]+[return], which tells the interpreter to execute the current line. You&apos;ll see a brief flash of color over the code, and the number 16 will appear in the post window.</p>
-      <p>Alternatively, type:</p>
-      <pre>squared(4)</pre>
-      <hr/>
-      <p>The parentheses used to contain the receiver are one type of <dfn>enclosure</dfn> in SC. Others include [square brackets], {curly braces}, “double quotes,” and ‘single quotes.&apos; Each type of enclosure has its own significance, and some have multiple uses.</p>
-      <p>The semicolon is the statement terminator.</p>
-      <hr/>
-      <p>Further, you can combine multiple methods into a single statement, using two different syntax styles:</p>
-      <pre>4.squared.reciprocal;</pre>
-      <p>or</p>
-      <pre>reciprocal(squared(4));</pre>
-      <p>Or even, for a two-argument function:</p>
-      <pre>3.pow(4);</pre>
-      <p>instead of just:</p>
-      <pre>pow(3, 4);</pre>
-      <h3 class="bridgehead">Posting a Value</h3>
-      <p>The postln method has the effect of printing its receiver to the post window, followed by a new line.</p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
+      <p><a href="https://doc.sccode.org/">Documentation</a> is provided (at https://doc.sccode.org/), and a lot more user examples at <a href="https://sccode.org/">https://sccode.org/</a>. Plus, <cite><a href="https://supercollider.github.io/sc-140">sc-140</a></cite>, an amazing album with code examples!</p>
 
-      <h3 class="bridgehead">Variables</h3>
-      <p>Variables declared using a var statement are <dfn>local variables</dfn>; they are local to the evaluated code of which they are a part. This means that once evaluation is complete, variables created in this way will no longer exist.</p>
-      <p>If we want to retain a variable, to be used again in the future as part of a separate code evaluation, we can use an <dfn>environment variable</dfn>, created by preceding the variable name with a tilde character (~). Alternatively, we can use one of the twenty-six lowercase alphabetic characters, which are reserved as <dfn>interpreter variables</dfn>. Both environment and interpreter variables can be used without a local declaration, and both behave with global scope, that is, they will retain their value (even across multiple code documents) as long as the interpreter remains active.</p>
+      <nav>
+        <p><a href="#basic">Basic Tutorial</a></p>
+        <p><a href="#classes-and-methods">Supercollider&apos;s Classes and Methods</a></p>
+        <p><a href="#randomness">Randomness</a></p>
+        <p><a href="#conditional-logic">Conditional Logic</a></p>
+        <p><a href="#iteration">Iteration</a></p>
+        <p><a href="#essentials-making-sound">Essentials of Making Sound</a></p>
+        <p><a href="#envelopes">Envelopes</a></p>
+        <p><a href="#multichannel">Multichannel Signals</a></p>
+        <p><a href="#SynthDef-and-Synth"><code>SynthDef</code> and <code>Synth</code></a></p>
+        <p><a href="#other-freq-and-amp">Alternate Expression of Frequency and Amplitude</a></p>
+        <p><a href="#synthesis">Synthesis</a></p>
+        <p><a href="#sampling">Sampling</a></p>
+        <p><a href="#sequencing">Sequencing</a></p>
+        <!--
+        <p><a href="#"></a></p>
+        <p><a href="#"></a></p>
+        <p><a href="#"></a></p>
+        <p><a href="#"></a></p>
+        <p><a href="#"></a></p>
+        -->
+      </nav>
 
-      <h3 class="bridgehead">The Class Browser</h3>
-      <p>The class browser is a graphical tool for browsing the class tree. The browse method can be applied to any class name (e.g. <code>Array.browse</code>), which invokes the browser and displays information for that class.</p>
 
-      <section>
+      <section id="basic">
+        <h2>Basic Tutorial</h2>
+        <p>Type</p>
+        <pre>4.squared</pre>
+        <p>then, making sure your mouse cursor is placed somewhere on this line, press [shift]+[return], which tells the interpreter to execute the current line. You&apos;ll see a brief flash of color over the code, and the number 16 will appear in the post window.</p>
+        <p>Alternatively, type:</p>
+        <pre>squared(4)</pre>
+        <hr/>
+        <p>The parentheses used to contain the receiver are one type of <dfn>enclosure</dfn> in SC. Others include [square brackets], {curly braces}, “double quotes,” and ‘single quotes.&apos; Each type of enclosure has its own significance, and some have multiple uses.</p>
+        <p>The semicolon is the statement terminator.</p>
+        <hr/>
+        <p>Further, you can combine multiple methods into a single statement, using two different syntax styles:</p>
+        <pre>4.squared.reciprocal;</pre>
+        <p>or</p>
+        <pre>reciprocal(squared(4));</pre>
+        <p>Or even, for a two-argument function:</p>
+        <pre>3.pow(4);</pre>
+        <p>instead of just:</p>
+        <pre>pow(3, 4);</pre>
+        <h3 class="bridgehead">Posting a Value</h3>
+        <p>The postln method has the effect of printing its receiver to the post window, followed by a new line.</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+
+        <section>
+        <h3 class="bridgehead">Variables</h3>
+        <p>Variables declared using a var statement are <dfn>local variables</dfn>; they are local to the evaluated code of which they are a part. This means that once evaluation is complete, variables created in this way will no longer exist.</p>
+        <p>If we want to retain a variable, to be used again in the future as part of a separate code evaluation, we can use an <dfn>environment variable</dfn>, created by preceding the variable name with a tilde character (~). Alternatively, we can use one of the twenty-six lowercase alphabetic characters, which are reserved as <dfn>interpreter variables</dfn>. Both environment and interpreter variables can be used without a local declaration, and both behave with global scope, that is, they will retain their value (even across multiple code documents) as long as the interpreter remains active.</p>
+        </section>
+
+        <section>
+          <h3 class="bridgehead">The Class Browser</h3>
+          <p>The class browser is a graphical tool for browsing the class tree. The browse method can be applied to any class name (e.g. <code>Array.browse</code>), which invokes the browser and displays information for that class.</p>
+        </section>
+
+      </section>
+
+      <section id="classes-and-methods">
         <h2>Introduction to Supercollider&apos;s Classes and Methods</h2>
 
+        <section>
         <h3 class="bridgehead">Integers and Floats</h3>
         <p>The <code>Integer</code> and <code>Float</code> classes represent numerical values. Some programming languages are quite particular about the distinction between integers and floats, balking at certain operations that attempt to combine them, but SC is flexible, and will typically convert automatically as needed. Integers and floats are closely related on the class tree and therefore share many methods, but there are a few methods which apply to one and not the other.</p>
         <p>We&apos;ll begin our tour by introducing the <code>class</code> method, which returns the class of its receiver. This method is not exclusive to integers and floats; in fact, every object knows how to respond to it! However, it&apos;s relevant here in showing the classes to which different numbers belong.</p>
@@ -80,10 +123,6 @@
           <tr> <td><code>floor(<var>x</var>)</code></td> <td>Round up to the nearest smaller whole number.</td> </tr>
           <tr> <td><code>neg(<var>x</var>)</code></td> <td>Negation. Positive numbers become negative and vice-versa. </td> </tr>
           <tr> <td><code>reciprocal(<var>x</var>)</code></td> <td>Return 1 divided by x.</td> </tr>
-sqrt(x);
-
-squared(x);
-
           <tr> <td><code>sqrt(<var>x</var>)</code></td> <td>Return the square root of x. </td> </tr>
           <tr> <td><code>squared(<var>x</var>)</code></td> <td>Return x raised to the power of 2.</td> </tr>
         </table>
@@ -93,11 +132,13 @@ squared(x);
           <tr> <td><code><var>x</var> - <var>y</var></code></td> <td></td> </tr>
           <tr> <td><code><var>x</var> * <var>y</var></code></td> <td></td> </tr>
           <tr> <td><code><var>x</var> / <var>y</var></code></td> <td>Division</td> </tr>
-          <tr> <td><code><var>x</var> ** <var>y</var></code> or <code></code><var>x</var>.pow(<var>y</var>)</td> <td>Return x raised to the power of y</td> </tr>
+          <tr> <td><code><var>x</var> ** <var>y</var></code> or <code><var>x</var>.pow(<var>y</var>)</code></td> <td>Return x raised to the power of y</td> </tr>
           <tr> <td><code><var>x</var> % <var>y</var></code> or <code><var>x</var>.mod(<var>y</var>);</code></td> <td>modulo</td> </tr>
           <tr> <td><code><var>x</var>.round(<var>y</var>)</code></td> <td></td> </tr>
         </table>
+        </section>
 
+        <section>
         <h3 class="bridgehead">Precedence of operations</h3>
         <pre>// symbolic operators have equal precedence, applied left-to-right:
 4 + 2 * 3; // -> 18
@@ -110,6 +151,8 @@ squared(x);
 // parentheses first, then methods, then binary operators:
 1 + (4 + 2).pow(3); // -> 217</pre>
 
+        </section>
+        <section>
         <h3 class="bridgehead">Strings</h3>
         <p>A string is an ordered sequence of characters, delineated by an enclosure of double quotes. A string can contain any text, including letters, numbers, symbols, and even non-printing characters like tabs and new lines.</p>
         <h5>Examples of strings and usage of the escape character</h5>
@@ -128,12 +171,17 @@ squared(x);
 "I'm a string.".drop(2); // remove the first two characters
 "I'm a string.".drop(-2); // remove the last two characters</pre>
 
+        </section>
+
+        <section>
         <h3 class="bridgehead">Symbols</h3>
         <p>A <dfn>symbol</dfn> is like a string, in that it&apos;s composed of a sequence of characters and commonly used to name or label things. Where a string is used, a symbol can often be substituted, and vice-versa. A symbol is written in one of two ways: by preceding the sequence of characters with a backslash (e.g., <code>\freq</code>), or by enclosing it in single quotes (e.g., <code>'freq'</code>). These styles are largely interchangeable, but the quote enclosure is the safer option of the two. Symbols that begin with or include certain characters will trigger syntax errors if using the backslash style.</p>
         <p>Unlike a string, a symbol is an irreducible unit; it is not possible to access or manipulate the individual characters in a symbol, and all symbols return zero in response to the size method. It is, however, possible to convert back and forth between symbols and strings using the methods <code>asSymbol</code> and <code>asString</code> (<i>see</i> below). Symbols, being slightly more optimized than strings, are the preferable choice when used as names or labels for objects.</p>
         <pre>"hello".asSymbol.class; // -> Symbol
 \hello.asString.class; // -> String</pre>
+        </section>
 
+        <section>
         <h3 class="bridgehead">Booleans</h3>
         <p>There are exactly two instances of the Boolean class: <code>true</code> and <code>false</code>.</p>
         <p>Common binary operators that return Boolean values:</p>
@@ -143,7 +191,9 @@ squared(x);
 <var>x</var> &lt; <var>y</var>
 <var>x</var> &gt;= <var>y</var>
 <var>x</var> &lt;= <var>y</var></pre>
+        </section>
 
+        <section>
         <h3 class="bridgehead"><code>nil</code></h3>
         <p>Like true and false, <code>nil</code> is a reserved keyword in the SC language, and is the singular instance of the <code>Nil</code> class. Most commonly, it represents the value of a variable that hasn&apos;t been given a value assignment, or something that doesn&apos;t exist. We rarely use <code>nil</code> explicitly, but it shows up frequently, so it&apos;s helpful to be familiar. The <code>isNil</code> method can be useful for confirming whether a variable has a value (attempting to call methods on an uninitialized variable is a common source of error messages).</p>
         <pre>(
@@ -152,6 +202,9 @@ num.isNil.postln; // check the variable — initially, it's nil
 num = 2; // make an assignment
 num.isNil.postln; // check again — it's no longer nil
 )</pre>
+        </section>
+
+        <section>
         <h3 class="bridgehead">Arrays</h3>
         <p>An array is an ordered collection of objects. Syntactically, objects stored in an array are separated by commas and surrounded by an enclosure of square brackets. Arrays are like strings in that both are ordered lists, but while strings can only contain text characters, an array can contain anything. In fact, arrays can (and often do) contain other arrays. Arrays are among the most frequently used objects, because they allow us to express an arbitrarily large collection as a singular unit. Arrays have lots of musical applications; we might use one to contain pitch information for a musical scale, a sequence of rhythmic values, and so on.</p>
         <p>We can access an item stored in an array by using the at method and providing the numerical index. Indices begin at zero. As an alternative, we can follow an array with a square bracket enclosure containing the desired index.</p>
@@ -169,7 +222,9 @@ x[3]; // alternate syntax</pre>
 7.dup(4); // -> [7, 7, 7, 7]
 7 ! 4; // -> [7, 7, 7, 7] (alternate syntax)</pre>
         <p>Arrays are a must-learn feature, rich with many convenient methods and uses</p>
+        </section>
 
+        <section>
         <h3 class="bridgehead">Functions</h3>
         <p>A function is delineated by an enclosure of curly braces. Once a function is defined, we can evaluate it with <code>value</code>, or by following it with a period and a parenthetical enclosure. When evaluated, a function returns the value of the last expression it contains.</p>
         <pre>(
@@ -211,7 +266,9 @@ g.(3, 2); // -> 9.5 (thingA = 3, thingB = 2);</pre>
 x.color = "red"; // set the color
 x.numDoors_(4).transmission_("manual"); // set two more attributes
 x.numDoors; // get the number of doors (returns 4)</pre>
+        </section>
 
+        <section>
         <h3 class="bridgehead">Literals</h3>
         <p></p>
         <pre>x = House.new(30, 40); // create a house with specific dimensions
@@ -221,14 +278,18 @@ x.hasGarage_(true); // set whether it has a garage</pre>
         <p>Integers, floats, strings, symbols, Booleans, and functions are all examples of literals. Arrays, for the record, exist in more of a grey area; they have a direct representation via square brackets, but we may sometimes create one with <code>Array.new</code> or a related method. There is also a distinction between literal arrays and non-literal arrays, but which is not relevant here. The point is that many of the objects we&apos;ll encounter in this pages are not literals and require creation via some method call to their class.</p>
         <h3 class="bridgehead">Omitting the <code>new</code> Method</h3>
         <p>The <code>new</code> method is so commonly used for creating new instances of classes that we can usually omit it, and the interpreter will make the right assumption. For example, using our imaginary <q>house</q> class, we could write <code>x = House(30, 40)</code> instead of <code>x = House.new(30, 40)</code>. However, if creating a new instance without providing any arguments, we can omit <code>new</code> but cannot omit the parentheses, even if they are empty. For example, <code>x = House.new()</code> and <code>x = House()</code> are both valid, but <code>x = House</code> will be problematic. In this third case, the interpreter will store the house class, instead of a new house instance.</p>
+        </section>
+
       </section>
 
-      <section>
+      <section id="randomness">
         <h2>Randomness</h2>
       </section>  <!-- end of "Randomness" -->
 
-      <section>
+      <section id="conditional-logic">
         <h2>Conditional Logic</h2>
+
+        <section>
         <h3 class="bridgehead"><code>if</code></h3>
         <p>One of the most common conditional methods is if, which includes three components: (1) an expression that represents the test condition, which must return a Boolean value, (2) a function to be evaluated if the condition is true, and (3) an optional function to be evaluated if false.</p>
         <p>The code example below demonstrates the use of conditional logic to model a coin flip (a value of 1 represents “heads”), in three styles that vary in syntax and whitespace. The second style tends to be preferable to the first, because it places the “if” at the beginning of the expression, mirroring how the sentence it represents would be spoken in English.</p>
@@ -245,6 +306,9 @@ if(
  {\tails.postln}
 );
 )</pre>
+        </section>
+
+        <section>
         <h3 class="bridgehead">And/Or</h3>
         <p>The methods and and or (representable using binary operators &amp;&amp; and ||), allow us to check multiple conditions. For example, if ice cream is on sale, and they have chocolate, then I&apos;ll buy two. The code example below models a two-coin flip in which both must be “heads” for the result to be considered true. Again, parentheses around each conditional test are required to ensure correct order of operations.</p>
         <pre>(
@@ -254,6 +318,9 @@ if(
  {"at least one tails".postln}
 );
 )</pre>
+        </section>
+
+        <section>
         <h3 class="bridgehead">Case and Switch</h3>
         <p>Say we roll a six-sided die and want to perform one of six unique actions depending on the outcome. A single <code>if</code> statement is insufficient because it envisions only two outcomes. If we insisted on using if, we&apos;d need to <q>nest</q> several if&apos;s inside of each other. Even with a small handful of possible outcomes, the code quickly spirals into an unreadable mess.</p>
         <p>Alternatively, a <code>case</code> statement (<i>see</i> below) accepts an arbitrary number of function pairs. The first function in each pair must contain a Boolean expression, and the second function contains code to be evaluated if its partner function is true. If a test condition is false, the interpreter moves onto the next pair and tries again. As soon as a test returns true, the interpreter executes the partner function and exits the case block, abandoning any remaining conditional tests. If all tests are false, the interpreter returns <code>nil</code>.</p>
@@ -281,9 +348,10 @@ switch(
  6, {\purple.postln}
 );
 )</pre>
+        </section>
       </section>
 
-      <section>
+      <section id="iteration">
         <h2>Iteration</h2>
         <p>One of the most attractive aspects of computer programming is its ability to handle repetitive tasks. <dfn>Iteration</dfn> refers to techniques that allow a repetitive task to be expressed and executed concisely. Music is full of repetitive structures and benefits greatly from iteration. More generally, if you ever find yourself typing a nearly identical chunk of code many times over, or relying heavily on copy/paste, this could be a sign that you should be using iteration.</p>
         <p>Two general-purpose iteration methods, <code>do</code> and <code>collect</code>, often make good choices for iterative tasks. Both are applied to some collection—usually an array—and both accept a function as their sole argument. The function is evaluated once for each item in the collection. A primary difference between these two methods is that <code>do</code> returns its receiver, while <code>collect</code> returns a modified collection of the same size, populated using values returned by the function. Thus, <code>do</code> is a good choice when we don&apos;t care about the values returned by the function, and instead simply want to <q>do</q> some action a certain number of times. On the other hand, collect is a good choice when we want to modify or interact with an existing collection and capture the result.</p>
@@ -309,7 +377,8 @@ x.every({ |n| n.isPrime }); // -> false
 // return the number of items for which the function returns true:
 x.count({ |n| n.isPrime }); // -> 3</pre>
       </section>
-      <section>
+
+      <section id="essentials-making-sound">
         <h2>Essentials of Making Sound</h2>
         <p>Once you&apos;re all set, you can launch the server by evaluating:</p>
         <pre>s.boot;</pre>
@@ -518,11 +587,11 @@ x.release(2);</pre>
         </section>
       </section>
 
-      <section>
+      <section id="envelopes">
         <h2>Envelopes</h2>
-        <p>If we play a function containing some oscillator or noise generator, and then step away for a coffee, we’d return sometime later to find that sound still going. In music, an infinite-length sound isn’t particularly useful. Instead, we usually like sounds to have definitive beginnings and ends, so that we can structure them in time.</p>
-        <p>An envelope is a signal with a customizable shape and duration, typically constructed from individual line segments joined end-to-end. Envelopes are often used to control the amplitude of another signal, enabling fades instead of abrupt starts and stops. By using release, we’ve already been relying on a built-in envelope that accompanies the function-dot-play construct. When controlling signal amplitude, an envelope typically starts at zero, ramps up to some positive value, possibly stays there for a while, and eventually comes back down to zero. The first segment is called the <dfn>attack</dfn>, the stable portion in the middle is the <dfn>sustain</dfn>, and the final descent is the <dfn>release</dfn>. Many variations exist; an <q>ADSR</q> envelope, for example, has a <dfn>decay</dfn> segment between the attack and sustain.</p>
-        <p>It’s important to recognize that the ADSR envelope is just one specific example that happens to be useful for modeling envelope characteristics of many real-world sounds. Ultimately, an envelope is just a signal with a customizable shape, which can be used to control any aspect of a signal algorithm, not just amplitude.</p>
+        <p>If we play a function containing some oscillator or noise generator, and then step away for a coffee, we&apos;d return sometime later to find that sound still going. In music, an infinite-length sound isn&apos;t particularly useful. Instead, we usually like sounds to have definitive beginnings and ends, so that we can structure them in time.</p>
+        <p>An envelope is a signal with a customizable shape and duration, typically constructed from individual line segments joined end-to-end. Envelopes are often used to control the amplitude of another signal, enabling fades instead of abrupt starts and stops. By using release, we&apos;ve already been relying on a built-in envelope that accompanies the function-dot-play construct. When controlling signal amplitude, an envelope typically starts at zero, ramps up to some positive value, possibly stays there for a while, and eventually comes back down to zero. The first segment is called the <dfn>attack</dfn>, the stable portion in the middle is the <dfn>sustain</dfn>, and the final descent is the <dfn>release</dfn>. Many variations exist; an <q>ADSR</q> envelope, for example, has a <dfn>decay</dfn> segment between the attack and sustain.</p>
+        <p>It&apos;s important to recognize that the ADSR envelope is just one specific example that happens to be useful for modeling envelope characteristics of many real-world sounds. Ultimately, an envelope is just a signal with a customizable shape, which can be used to control any aspect of a signal algorithm, not just amplitude.</p>
 
 
         <section>
@@ -547,9 +616,9 @@ x.release(2);</pre>
         </section>
         <section>
           <h3><code>DoneAction</code></h3>
-          <p>Line and XLine include an argument, named <code>doneAction</code>, which appears in UGens that have an inherently finite duration. In SC, a doneAction represents an action that the audio server takes when the UGen that contains the doneAction has finished. These actions can be specified by integer, and a complete list of available actions and their meanings appears in the help file for the Done UGen. Most of the descriptions in this table may look completely meaningless to you, but if so, don’t worry. In practice, we rarely employ a doneAction other than zero (do nothing) or two (free the enclosing synth). The default doneAction is zero, and while taking no action sounds harmless, it carries consequences. To demonstrate, evaluate either of the two code examples below many times in a row. As you do, you’ll notice your CPU usage will gradually creep upwards.</p>
-          <p>Why does this happen? Because a doneAction of zero tells the server to do nothing when the envelope is complete, the envelope remains active on the server and continues to output its final value indefinitely. These zero or near-zero values are multiplied by the sine oscillator, which results in a silent or near-silent signal. The server is indifferent to whether a sound process is silent; it only knows that it was instructed to do nothing when the envelope finished. If you evaluate this code over and over, you’ll create more and more non-terminating sound processes. Eventually, the server will become overwhelmed, and additional sounds will start glitching (if you’ve followed these instructions and ramped up your CPU numbers, now is a good time to press [cmd]+[period] to remove these <q>ghost</q> sounds).</p>
-          <p>From a practical perspective, when our envelope reaches its end, we consider the sound to be totally finished. So, it makes sense to specify 2 for the doneAction. When running the code in Code Example 2.15, the server automatically frees the sound when the envelope is done. Evaluate this code as many times as you like, and although it won’t sound any different, you’ll notice that CPU usage will not creep upwards as it did before.</p>
+          <p>Line and XLine include an argument, named <code>doneAction</code>, which appears in UGens that have an inherently finite duration. In SC, a doneAction represents an action that the audio server takes when the UGen that contains the doneAction has finished. These actions can be specified by integer, and a complete list of available actions and their meanings appears in the help file for the Done UGen. Most of the descriptions in this table may look completely meaningless to you, but if so, don&apos;t worry. In practice, we rarely employ a doneAction other than zero (do nothing) or two (free the enclosing synth). The default doneAction is zero, and while taking no action sounds harmless, it carries consequences. To demonstrate, evaluate either of the two code examples below many times in a row. As you do, you&apos;ll notice your CPU usage will gradually creep upwards.</p>
+          <p>Why does this happen? Because a doneAction of zero tells the server to do nothing when the envelope is complete, the envelope remains active on the server and continues to output its final value indefinitely. These zero or near-zero values are multiplied by the sine oscillator, which results in a silent or near-silent signal. The server is indifferent to whether a sound process is silent; it only knows that it was instructed to do nothing when the envelope finished. If you evaluate this code over and over, you&apos;ll create more and more non-terminating sound processes. Eventually, the server will become overwhelmed, and additional sounds will start glitching (if you&apos;ve followed these instructions and ramped up your CPU numbers, now is a good time to press [cmd]+[period] to remove these <q>ghost</q> sounds).</p>
+          <p>From a practical perspective, when our envelope reaches its end, we consider the sound to be totally finished. So, it makes sense to specify 2 for the doneAction. When running the code in Code Example 2.15, the server automatically frees the sound when the envelope is done. Evaluate this code as many times as you like, and although it won&apos;t sound any different, you&apos;ll notice that CPU usage will not creep upwards as it did before.</p>
           <pre>(
 {
  var sig, env;
@@ -558,12 +627,12 @@ x.release(2);</pre>
  sig = sig ! 2;
 }.play;
 )</pre>
-          <p>Knowing which doneAction to specify is an important skill, essential for automating the cleanup of stale sounds and optimizing usage of the audio server’s resources.</p>
+          <p>Knowing which doneAction to specify is an important skill, essential for automating the cleanup of stale sounds and optimizing usage of the audio server&apos;s resources.</p>
         </section>
 
         <section>
           <h3><code>Env</code> and <code>EnvGen</code></h3>
-          <p>Lines are useful for simple envelopes, but don’t provide much flexibility. Once a Line or XLine starts, it cannot be restarted, modified, or looped; it merely travels from start to end, and triggers a <code>doneAction</code> when finished. In most cases, it’s preferable to use the more flexible <code>EnvGen</code>. The shape of an EnvGen is determined by an instance of a language-side class called <code>Env</code>, provided as the envelope signal’s first argument. An instance of Env created with <code>new</code> expects three arguments: an array of level values, an array of segment durations, and an array of curve specifications. We can also plot an Env to visualize its shape.</p>
+          <p>Lines are useful for simple envelopes, but don&apos;t provide much flexibility. Once a Line or XLine starts, it cannot be restarted, modified, or looped; it merely travels from start to end, and triggers a <code>doneAction</code> when finished. In most cases, it&apos;s preferable to use the more flexible <code>EnvGen</code>. The shape of an EnvGen is determined by an instance of a language-side class called <code>Env</code>, provided as the envelope signal&apos;s first argument. An instance of Env created with <code>new</code> expects three arguments: an array of level values, an array of segment durations, and an array of curve specifications. We can also plot an Env to visualize its shape.</p>
           <pre>(
 e = Env.new(
  levels: [0, 1, 0],
@@ -572,7 +641,7 @@ e = Env.new(
 );
 e.plot;
 )</pre>
-          <p>Let’s unpack the meaning of the numbers in the previous code. The first array contains envelope levels, which are values that the envelope signal will visit as time progresses: the envelope starts at 0, travels to 1, and returns to 0. The second array specifies durations of the segments between these levels: the attack is 1 second long, and the release is 3 seconds. The final array determines segment curvatures. Zero represents linearity, while positive/negative values will <q>bend</q> the segments. Note that when an Env is created this way, the size of the first array is always one greater than either of the other two arrays. Take a moment to modify the code from the example, to better understand how the numbers influence the envelope’s shape. This example illustrates how <code>EnvGen</code> and <code>Env</code> work together to create an envelope signal in a UGen function. Keywords are used for clarity. Because it is inherently finite, <code>EnvGen</code> accepts a <code>doneAction</code>. As before, it makes sense to specify a doneAction of 2 to automate the cleanup process.</p>
+          <p>Let&apos;s unpack the meaning of the numbers in the previous code. The first array contains envelope levels, which are values that the envelope signal will visit as time progresses: the envelope starts at 0, travels to 1, and returns to 0. The second array specifies durations of the segments between these levels: the attack is 1 second long, and the release is 3 seconds. The final array determines segment curvatures. Zero represents linearity, while positive/negative values will <q>bend</q> the segments. Note that when an Env is created this way, the size of the first array is always one greater than either of the other two arrays. Take a moment to modify the code from the example, to better understand how the numbers influence the envelope&apos;s shape. This example illustrates how <code>EnvGen</code> and <code>Env</code> work together to create an envelope signal in a UGen function. Keywords are used for clarity. Because it is inherently finite, <code>EnvGen</code> accepts a <code>doneAction</code>. As before, it makes sense to specify a doneAction of 2 to automate the cleanup process.</p>
           <hr/>
           <p>When using numbers to specify segment curves, it can be hard to remember how a segment will bend depending on the sign of the number. The rule is: positive values cause a segment to be more horizontal at first, and more vertical toward the end. Negative values cause the segment to be more vertical at first, becoming more horizontal toward the end.</p>
           <p>Certain symbols can also be used to specify a segment curve, such as \lin, \exp, \sin, and others. A table of valid options appears in the Env help file, under the section that explains the class method new.</p>
@@ -592,8 +661,8 @@ e.plot;
  sig = sig ! 2;
 }.play;
 )</pre>
-          <p>Envelopes can be divided into two categories: those with fixed durations, and those that can be sustained indefinitely. The envelopes we’ve seen so far belong to the first category, but in the real world, many musical sounds have amplitude envelopes with indefinite durations. When a violinist bows a string, we won’t know when the sound will stop until the bow is lifted. An envelope that models this behavior is called a <dfn>gated envelope</dfn>. It has a parameter, called a <q>gate</q>, which determines how and when the envelope signal progresses along its trajectory. When the gate value transitions from zero to positive, the envelope begins and sustains at a point along the way. When the gate becomes zero again, the envelope continues from its sustain point and finishes the rest of its journey. Like a real-world gate, we describe this parameter as being open (positive) or closed (zero).</p>
-          <p>To create a sustaining envelope, we can add a fourth argument to <code>Env.new()</code>: an integer representing an index into the levels array, indicating the value at which the envelope will sustain. In SC terminology, this level is called the <dfn>release node</dfn>. In the example, the release node is 2, which means the envelope signal will sustain at a level of 0.2 while the gate remains open. Because gate is a parameter we’d like to change while the sound is playing, it must be declared as an argument, and supplied to the EnvGen. In effect, this example creates an ADSR envelope: the attack travels from 0 to 1 over 0.02 seconds, the decay drops to a level of 0.2 over the next 0.3 seconds, and the signal remains at 0.2 until the gate closes, which triggers a one-second release.</p>
+          <p>Envelopes can be divided into two categories: those with fixed durations, and those that can be sustained indefinitely. The envelopes we&apos;ve seen so far belong to the first category, but in the real world, many musical sounds have amplitude envelopes with indefinite durations. When a violinist bows a string, we won&apos;t know when the sound will stop until the bow is lifted. An envelope that models this behavior is called a <dfn>gated envelope</dfn>. It has a parameter, called a <q>gate</q>, which determines how and when the envelope signal progresses along its trajectory. When the gate value transitions from zero to positive, the envelope begins and sustains at a point along the way. When the gate becomes zero again, the envelope continues from its sustain point and finishes the rest of its journey. Like a real-world gate, we describe this parameter as being open (positive) or closed (zero).</p>
+          <p>To create a sustaining envelope, we can add a fourth argument to <code>Env.new()</code>: an integer representing an index into the levels array, indicating the value at which the envelope will sustain. In SC terminology, this level is called the <dfn>release node</dfn>. In the example, the release node is 2, which means the envelope signal will sustain at a level of 0.2 while the gate remains open. Because gate is a parameter we&apos;d like to change while the sound is playing, it must be declared as an argument, and supplied to the EnvGen. In effect, this example creates an ADSR envelope: the attack travels from 0 to 1 over 0.02 seconds, the decay drops to a level of 0.2 over the next 0.3 seconds, and the signal remains at 0.2 until the gate closes, which triggers a one-second release.</p>
           <pre>(
 f = { |gate = 1|
  var sig, env;
@@ -614,8 +683,8 @@ f = { |gate = 1|
 )
 x = f.play;
 x.set(\gate, 0);</pre>
-          <p>In some cases, we may want to retrigger an envelope, opening and closing its gate at will, to selectively allow sound to pass through. If so, a doneAction of 2 is a poor choice, because we don’t necessarily want the sound process to be destroyed if the envelope reaches its end. Instead, a 0 doneAction (the default) is the correct choice, as demonstrated next, which causes the envelope to <q>idle</q> at its end point until it is retriggered.</p>
-          <p>It’s worth being extra clear about the specific behavior of an envelope in response to gate changes when a release node has been specified:</p>
+          <p>In some cases, we may want to retrigger an envelope, opening and closing its gate at will, to selectively allow sound to pass through. If so, a doneAction of 2 is a poor choice, because we don&apos;t necessarily want the sound process to be destroyed if the envelope reaches its end. Instead, a 0 doneAction (the default) is the correct choice, as demonstrated next, which causes the envelope to <q>idle</q> at its end point until it is retriggered.</p>
+          <p>It&apos;s worth being extra clear about the specific behavior of an envelope in response to gate changes when a release node has been specified:</p>
           <ul>
             <li>A zero-to-positive gate transition causes the envelope to move from its current level to the second level in the levels array, using its first duration and first curve value. Note that the envelope never revisits its first level, which is only used for initialization.</li>
             <li>A positive-to-zero gate transition causes the envelope to move from its current value to the value immediately after the release node, using the duration and curve values at the same index as the release node.</li>
@@ -642,7 +711,7 @@ x.set(\gate, 0); // fade to silence but do not free
 x.set(\gate, 1); // reopen the gate to restart the envelope
 x.set(\gate, 0); // fade to silence again
 x.free; // free when finished</pre>
-          <p>This retriggering ability may also be useful for fixed-duration envelopes. It’s possible but clumsy to retrigger a fixed-duration envelope with a standard gate argument, because it requires manually closing the gate before reopening. As a solution, we can precede the gate argument name with <code>t_</code>, which transforms it into a <q>trigger-type</q> argument, which responds differently to set messages. When a trigger-type argument is set to a non-zero value, it holds that value for a single control cycle, and then almost immediately <q>snaps</q> back to zero. It’s like a real-world gate that’s been augmented with a powerful spring, slamming shut immediately after being opened. Below we demonstrate the use of trigger-type arguments. Note that the default gate value is zero, which means the envelope will idle at its starting level (zero) until the gate is opened.</p>
+          <p>This retriggering ability may also be useful for fixed-duration envelopes. It&apos;s possible but clumsy to retrigger a fixed-duration envelope with a standard gate argument, because it requires manually closing the gate before reopening. As a solution, we can precede the gate argument name with <code>t_</code>, which transforms it into a <q>trigger-type</q> argument, which responds differently to set messages. When a trigger-type argument is set to a non-zero value, it holds that value for a single control cycle, and then almost immediately <q>snaps</q> back to zero. It&apos;s like a real-world gate that&apos;s been augmented with a powerful spring, slamming shut immediately after being opened. Below we demonstrate the use of trigger-type arguments. Note that the default gate value is zero, which means the envelope will idle at its starting level (zero) until the gate is opened.</p>
           <pre>(
 x = { |t_gate = 0|
  var sig, env;
@@ -665,7 +734,7 @@ x.free; // free when finished</pre>
         </section>
       </section>
 
-      <section>
+      <section id="multichannel">
         <h2>Multichannel Signals*</h2>
         <!--
         <section>
@@ -701,7 +770,7 @@ x.free; // free when finished</pre>
         -->
       </section>  <!-- end of "Multichannel Signals" -->
 
-      <section>
+      <section id="SynthDef-and-Synth">
         <h2><code>SynthDef</code> and <code>Synth</code></h2>
         <!--
         <section>
@@ -739,7 +808,7 @@ x.free; // free when finished</pre>
 
       <section>
         <h2>Alternate Expression of Frequency and Amplitude</h2>
-        <p>Oscillators with a frequency parameter expect a value in Hertz. When thinking about musical pitch, Hertz isn’t always the preferred unit of measurement. Using MIDI note numbers can be a convenient alternative. In this system, 60 corresponds to middle C (roughly 261.6 Hz), and an increment/decrement of one corresponds to a semitone shift in 12-tone equal temperament. We can convert from MIDI to Hertz using <code>midicps</code> and convert in the other direction with <code>cpsmidi</code>. Non-integer MIDI note numbers are valid and represent a pitch proportionally between two equal-tempered semitones.</p>
+        <p>Oscillators with a frequency parameter expect a value in Hertz. When thinking about musical pitch, Hertz isn&apos;t always the preferred unit of measurement. Using MIDI note numbers can be a convenient alternative. In this system, 60 corresponds to middle C (roughly 261.6 Hz), and an increment/decrement of one corresponds to a semitone shift in 12-tone equal temperament. We can convert from MIDI to Hertz using <code>midicps</code> and convert in the other direction with <code>cpsmidi</code>. Non-integer MIDI note numbers are valid and represent a pitch proportionally between two equal-tempered semitones.</p>
         <pre>60.midicps; // -> 261.6255653006
 500.cpsmidi; // -> 71.213094853649</pre>
         <p><code>midiratio</code> and <code>ratiomidi</code> are similarly useful methods that convert back and forth between an interval, measured in semitones, and the frequency ratio that interval represents. For example, 3.midiratio represents the ratio between an F and the D immediately below it, because these two pitches are three semitones apart. Negative semitone values represent pitch movement in the opposite direction.</p>
@@ -747,7 +816,7 @@ x.free; // free when finished</pre>
 1.midiratio; // -> 1.0594630943591
 // the ratio 8/5 is slightly more than 8 equal-tempered semitones
 (8/5).ratiomidi // -> 8.1368628613517</pre>
-        <p>Similarly, when expressing signal amplitude, a normalized range between zero and one isn’t always the most intuitive choice. The <code>ampdb</code> method converts a normalized amplitude to a decibel value and <code>dbamp</code> does the opposite. A value of zero dB corresponds to a nominal amplitude value of one. If your audio system is properly calibrated, a decibel value around -20 dB should produce a comfortable monitoring level, and a typical signal will become inaudible around -80 dB.</p>
+        <p>Similarly, when expressing signal amplitude, a normalized range between zero and one isn&apos;t always the most intuitive choice. The <code>ampdb</code> method converts a normalized amplitude to a decibel value and <code>dbamp</code> does the opposite. A value of zero dB corresponds to a nominal amplitude value of one. If your audio system is properly calibrated, a decibel value around -20 dB should produce a comfortable monitoring level, and a typical signal will become inaudible around -80 dB.</p>
         <pre>-15.dbamp; // -> 0.17782794100389
 0.3.ampdb; // -> -10.457574905607</pre>
         <p>For efficiency reasons, it is preferable not to build these methods into a <code>SynthDef</code>, and instead call them when creating or modifying a <code>Synth</code>, so that the server does not have to repeatedly perform these calculations.</p>
@@ -917,7 +986,7 @@ sig = sig * 0.25 ! 2;
         <h2>Sampling*</h2>
         <p>Sampling refers to creative practices that rely on recorded sound, typically involving modified playback of audio files stored in blocks of memory on the audio server. In a sense, sampling and <a href="#synthesis">synthesis</a> are two sides of the same signal-generating coin. Synthesis relies on mathematical algorithms, while sampling is based on the use of content that has already been produced and captured. Most sound sources found throughout creative audio practices are rooted in one of these two categories.</p>
         <p>Sampling opens a door to a world of sound that is difficult or impossible to create using synthesis techniques alone. Anything captured with a microphone and rendered to a file instantly becomes a wellspring of creative potential: a recording of wildlife can become a surreal ambient backdrop, or a recording of a broken elevator can be chopped into weird percussion samples. Instead of using dozens of sine waves or filters to simulate a gong, why not use the real thing?</p>
-        <p>Before loading sampled audio files into software, it’s wise to practice good sample hygiene. Unnecessary silence should be trimmed from the beginnings and ends of the files, samples should be as free as possible from background noise and other unwanted sounds, and the peak amplitudes of similar samples should be normalized to a consistent level. Normalization level is partly a matter of personal preference, but –12 dBFS is usually a reasonable target, which makes good use of available bit depth while reserving ample headroom for mixing with other sounds.</p>
+        <p>Before loading sampled audio files into software, it&apos;s wise to practice good sample hygiene. Unnecessary silence should be trimmed from the beginnings and ends of the files, samples should be as free as possible from background noise and other unwanted sounds, and the peak amplitudes of similar samples should be normalized to a consistent level. Normalization level is partly a matter of personal preference, but –12 dBFS is usually a reasonable target, which makes good use of available bit depth while reserving ample headroom for mixing with other sounds.</p>
         <pre></pre>
         <p></p>
         <pre></pre>

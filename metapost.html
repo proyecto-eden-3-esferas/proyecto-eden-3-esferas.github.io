@@ -169,7 +169,7 @@ end.</pre>
         <p>The default output from running mpost is a PostScript file, with the file extension being the figure number. With this example, the output would be a file <cite>ourfile.1</cite></p>
       </section>
 
-      <section>
+      <section id="svg-output">
         <h2>SVG output; filename extensions</h2>
         <p>If you add a line <code>outputformat:="svg";</code> at the very beginning of the file, the output will be in <a target="_blank" href="svg.html">SVG</a> format. However, the resulting file will still be named <cite>ourfile.1</cite>. Most likely, you will need to rename it to <cite>ourfile.svg</cite> for it to be recognized. Alternatively, you can tell MetaPost to use <code>.svg</code> in the first place, like this:</p>
         <pre>outputtemplate := "%j-%c.svg";
