@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Concepts (Advanced)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+
+    <nav>
+      <div>
+        <p> <a rel="prev" href="cpp.generics.concepts.html">C++ Concepts: Constraints on Template Arguments</a> </p>
+        <p> <a rel="next" href="cpp.std-concepts.html">C++ Standard Library Concepts </a> </p>
+        <p> <a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p> <a            href="cpp.stl.html">C++ Standad Template Library (STL)</a> </p>
+        <p> <a            href="cpp.containers.html">C++ STL Containers</a> </p>
+      </div>
+      <div>
+        <p> <a href="cpp.html">The C++ Programming Language</a> </p>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ Concepts (Advanced)</h1>
+      <section id="conceptual_template_parameters">
+        <h2>Conceptual Template Parameters</h2>
+        <p id="concept"><dfn>Concepts</dfn> are template parameters that do <em>not</em> define types that are used by the class, but control the behaviour of the class through defining which abstract data type it implements.</p>
+        <p>One of the primary responsibilities of a generic library is to define the interfaces that allow algorithms to be written independently of any particular data structure. Note that by interface we do not merely mean a set of function prototypes. Instead, we mean a set of syntactic requirements&#x2014;things like function names and numbers of arguments&#x2014;as well as semantic requirements (executing the function must have certain effects) and time and space complexity guarantees.</p>
+        <p>Using the terminology from the book Generic <cite>Programming and the STL</cite>, we use the word <dfn>concept</dfn> to refer to this richer notion of an interface. The STL defines a collection of <a target="_blank" href="cpp.iterators.html">iterator</a> concepts that provide a generic mechanism for traversing and accessing sequences of objects.</p>
+        <p>The authors of the <a href="cpp.boost.html">Boost</a> library strongly recommend that:</p>
+        <blockquote>Every programmer writing class or function templates ought to make concept checking a normal part of their code writing routine.</blockquote>
+        <p>Indeed, Boost includes a library of classes for checking concepts and a mechanism for defining new concept-checking classes.</p>
+        <p>Here is an example of a class defined solely to be used as a template parameter for checking purposes:</p>
+        <pre>class integer_class {};
+template &lt;typename I, class IS_INTEGER&gt; class integer {};</pre>
+        <p>Next, a partial specialization is added for the case when the second template parameter is class <code class="classname">integer_class</code>. This becomes the only implementation of the class, whereas the general class is made unusable through having its constructors deleted or some other means.</p>
+        <pre>template &lt;typename I&gt; class integer&lt;I,integer_class&gt; {/* code */};</pre>
+      </section>
+      <section>
+        <h2>Sets of Requirements</h2>
+        <p>The requirements for a concept consist of a set of valid expressions, associated types, invariants, and complexity guarantees. A type that meets the set of requirements is said to <dfn>model</dfn> the concept. A concept can extend the requirements of another concept, which is called <dfn>refinement</dfn>.</p>
+        <ul>
+          <li><dfn>Valid Expressions</dfn> are C++ expressions that must compile successfully for the types involved in the expression to be considered models of the concept.</li>
+          <li><dfn>Associated Types</dfn> are auxiliary types that have some relation to the type <code class="classname">T</code> modeling the concept. The requirements in a concept typically make statements about associated types. For example, iterator requirements typically include an associated type called the <code class="classname">value_type</code> and the requirement that objects returned by the iterator's dereference operator must be of the <code class="classname">value_type</code>. In C++ it is common to use a traits class to map from the type <code class="classname">T</code> to the associated types of the concept.</li>
+          <li><dfn>Invariants</dfn> are run-time characteristics of types that must always be true. The invariants often take the form of preconditions and postconditions. When a precondition is not fulfilled, the behavior of the operation is, in general, undefined and can lead to a segmentation fault. This is the case for the <a href="cpp.boost.graph.htm">Boost Graph Library</a>. Some libraries provide debugging versions that use assertions or throw exceptions when a precondition is violated.</li>
+          <li><dfn>Complexity Guarantees</dfn> are maximum limits on how long the execution of one of the valid expressions will take, or how much of the various resources its computation will use.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Example: <code class="classname">InputIterator</code></h2>
+        <p>In this section, we take a closer look at <code class="classname">InputIterator</code> as an example of a <a href="#concept">concept</a>. First, the <code class="classname">InputIterator</code> concept is a refinement of <code class="classname">TrivialIterator</code> which, in turn, is a refinement of <code class="classname">Assignable</code> and <code class="classname">EqualityComparable</code> . Thus, the <code class="classname">InputIterator</code> meets all the requirements of a <code class="classname">TrivialIterator</code> (which meets all of the requirements of <code class="classname">Assignable</code> and <code class="classname">EqualityComparable</code>) The result is that a type that models <code class="classname">InputIterator</code> will have a dereference operator, it can be copied and assigned, and it can be compared with other iterator objects using <code>==</code> and <code>!= </code>.</p>
+        <p>The <code class="classname">InputIterator</code> concept adds the requirement for pre-increment and post-increment operators. These requirements are denoted by the following valid expressions. Objects <var>i</var> and <var>j</var> are instances of a type <code class="classname">T</code> that models <code class="classname">InputIterator</code>.</p>
+        <pre>i = j   // assignment (from Assignable)
+T i(j)  // copy (from Assignable)
+i == j  // equality test (from EqualityComparable)
+i != j  // inequality test (from EqualityComparable)
+*i      // dereference (from TrivialIterator)
+++i     // pre-increment operator
+i++     // post-increment operator</pre>
+        <p>The <code class="classname">std::iterator_traits</code> class provides access to the associated types of an iterator type. The type of an object that is pointed to by an iterator type (call it <code class="classname">X</code>) can be determined via the <code class="classname">value_type</code> of the traits class. The other associated types are <code class="classname">reference</code>, <code class="classname">pointer</code>, <code class="classname">difference_type</code>, and <code class="classname">iterator_category</code>.</p>
+        <p>In the following function template we show the use of the <code class="classname">iterator_traits</code> class to obtain the <code class="classname">value_type</code> of the iterator and dereference the iterator.</p>
+        <pre>template &lt;typename Iterator&gt; void dereference example(Iterator i) {
+  typename iterator traits&lt;Iterator&gt;::value_type t;
+  t = *i;
+}</pre>
+        <p>As for complexity guarantees, all of the InputIterator operations are required to be constant time. Some types that model <code class="classname">InputIterator</code> are <code>std::list&lt;int&gt;::iterator</code>, <code>double*</code>, and <code>std::istream iterator&lt;char&gt;</code>.</p>
+        <p>The purpose of defining concepts becomes clear when considering the implementation of generic algorithms. The implementation of the <code class="function">std::for_each()</code> function follows. Inside the function precisely four operations are applied to the iterator objects first or last : comparison using <code class="function">operator!=()</code>, increment with <code class="function">operator++()</code>, dereference with <code class="function">operator*()</code>, and copy construction. For this function to compile and operate properly the iterator arguments must support at least these four operations. The concept <code class="classname">InputIterator</code> includes these operations (and not many more), so it is a reasonable choice for succinctly describing the requirements of <code class="function">for_each()</code>.</p>
+        <pre>template &lt;typename InputIterator, typename Function&gt;
+Function for_each(InputIterator first, InputIterator last, Function f ) {
+  for ( ; first != last; ++first)
+  f(*first);
+  return f ;
+}</pre>
+      </section>
+
+    </main>
+  </body>
+</html>

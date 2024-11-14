@@ -1,5 +1,35 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write into *cpp.type_traits.html*
+
+[ ] *jung.four-functions-of-consciousness.html*
+
+[x] rewrite *cpp.generics.concepts.html* to make it simpler.
+
+List/recomend code like:
+```
+#include <concepts>
+template<class CONT>
+concept IndexAddressable = requires(CONT cont, const CONT ccont, std::size_t i)
+{
+  { cont[i]}     -> std::convertible_to<typename CONT::      reference>;
+  {ccont[i]}     -> std::convertible_to<typename CONT::const_reference>;
+};
+```
+Note:
+- curly braces around expression
+- arrow operator (->)
+- `requires` clause: `requires(PARAMS) {CONSTRAINTS}`
+- etc.
+
+Then write a template class or function like:
+```
+template <typename F = double,
+          IndexAddressable CONTAINER=std::vector<F> >
+class MyContainer {
+};
+```
+
 [ ] *c-and-cpp.html*
 
 [ ] Unify *cpp.in-class-initializers.html* and *cpp.member-initializers.html*: they say much the same
