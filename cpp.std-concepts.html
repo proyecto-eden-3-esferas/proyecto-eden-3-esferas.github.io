@@ -35,6 +35,73 @@
 
     <main>
       <h1>C++ Standard Library Concepts</h1>
+      <p>The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types.</p>
+      <p>Most concepts in the standard library impose both syntactic and semantic requirements. It is said that a standard concept is satisfied if its syntactic requirements are met, and is modeled if it is satisfied and its semantic requirements (if any) are also met.</p>
+      <hr/>
+      <p>All the concepts below demand inclusion of <code>&lt;concepts&gt;</code> (<a href="cpp.cpp20.html">C++20</a>).</p>
+
+      <table border="0">
+        <caption>Core language concepts</caption>
+        <tr> <td><code>same_as</code></td> <td>specifies that a type is the same as another type</td> </tr>
+        <tr> <td><code>derived_from</code></td> <td>specifies that a type is derived from another type</td> </tr>
+        <tr> <td><code>convertible_to</code></td> <td>specifies that a type is implicitly convertible to another type</td> </tr>
+        <tr> <td><code>common_reference_with</code></td> <td>specifies that two types share a common reference type</td> </tr>
+        <tr> <td><code>common_with</code></td> <td>specifies that two types share a common type</td> </tr>
+        <tr> <td><code>integral</code></td> <td>specifies that a type is an integral type</td> </tr>
+        <tr> <td><code>signed_integral</code></td> <td>specifies that a type is an integral type that is signed</td> </tr>
+        <tr> <td><code>unsigned_integral</code></td> <td>specifies that a type is an integral type that is unsigned</td> </tr>
+        <tr> <td><code>floating_point</code></td> <td>specifies that a type is a floating-point type</td> </tr>
+        <tr> <td><code>assignable_from</code></td> <td>specifies that a type is assignable from another type</td> </tr>
+        <tr> <td><code>swappable<br/>swappable_with</code></td> <td>specifies that a type can be swapped or that two types can be swapped with each other</td> </tr>
+        <tr> <td><code>destructible</code></td> <td>specifies that an object of the type can be destroyed</td> </tr>
+        <tr> <td><code>constructible_from</code></td> <td>specifies that a variable of the type can be constructed from or bound to a set of argument types</td> </tr>
+        <tr> <td><code>default_initializable</code></td> <td>specifies that an object of a type can be default constructed</td> </tr>
+        <tr> <td><code>move_constructible</code></td> <td>specifies that an object of a type can be move constructed</td> </tr>
+        <tr> <td><code>copy_constructible</code></td> <td>specifies that an object of a type can be copy constructed and move constructed</td> </tr>
+      </table>
+
+      <table border="0">
+        <caption>Comparison concepts</caption>
+        <tr> <td><code>boolean-testable</code></td> <td>specifies that a type can be used in Boolean contexts (exposition-only concept*)</td> </tr>
+        <tr> <td><code>equality_comparable<br/>equality_comparable_with</code></td> <td>specifies that operator == is an equivalence relation</td> </tr>
+        <tr> <td><code>totally_ordered<br/>totally_ordered_with</code> (Defined in header <code>&lt;compare&gt;</code>)</td> <td>specifies that the comparison operators on the type yield a total order</td> </tr>
+        <tr> <td><code>three_way_comparable<br/>three_way_comparable_with</code></td> <td>specifies that operator &lt;=&gt; produces consistent result on given types</td> </tr>
+      </table>
+
+      <table border="0">
+        <caption>Object concepts</caption>
+        <tr> <td><code>movable</code></td> <td>specifies that an object of a type can be moved and swapped</td> </tr>
+        <tr> <td><code>copyable</code></td> <td>specifies that an object of a type can be copied, moved, and swapped</td> </tr>
+        <tr> <td><code>semiregular</code></td> <td>specifies that an object of a type can be copied, moved, swapped, and default constructed</td> </tr>
+        <tr> <td><code>regular</code></td> <td>specifies that a type is regular, that is, it is both semiregular and equality_comparable</td> </tr>
+      </table>
+
+      <table border="0">
+        <caption>Callable concepts</caption>
+        <tr> <td><code>invocable<br/>regular_invocable</code></td> <td>specifies that a callable type can be invoked with a given set of argument types</td> </tr>
+        <tr> <td><code>predicate</code></td> <td>specifies that a callable type is a Boolean predicate</td> </tr>
+        <tr> <td><code>relation</code></td> <td>specifies that a callable type is a binary relation</td> </tr>
+        <tr> <td><code>equivalence_relation</code></td> <td>specifies that a relation imposes an equivalence relation</td> </tr>
+        <tr> <td><code>strict_weak_order</code></td> <td>specifies that a relation imposes a strict weak ordering</td> </tr>
+      </table>
+      <hr/>
+      <p>Additional concepts can be found in <a href="https://en.cppreference.com/w/cpp/iterator#C.2B.2B20_iterator_concepts">the iterators library</a>, <a href="https://en.cppreference.com/w/cpp/iterator#Algorithm_concepts_and_utilities">the algorithms library</a>, and <a href="https://en.cppreference.com/w/cpp/ranges#Range_concepts">ranges library</a>.</p>
+
+      <section>
+        <h2>How these Concepts are used</h2>
+        <p>An example:</p>
+        <pre>template &lt;std::integral IDX&gt;
+value_type&amp; get(IDX idx);</pre>
+        <p>NOTE: You could use just any other concept that has been defined inside or outside the STL.</p>
+        <hr/>
+        <p>This is how to define a new concept from existing concepts:</p>
+        <pre>#include &lt;concepts&gt;
+
+template &lt;typename T&gt;
+concept IsMySupportedInt = std::same_as&lt;T, int&gt;
+                        || std::same_as&lt;T, long int&gt;;</pre>
+        <p></p>
+      </section>
 
     </main>
 

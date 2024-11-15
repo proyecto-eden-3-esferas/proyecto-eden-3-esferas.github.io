@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text To Speech (TTS)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a            href="quantum-computing.html">Quantum Computing</a></p>
+        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="ai.html">Artificial Intelligence</a></p>
+        <p><a            href="os.html">Operating Systems: Ground Applications that Applications Run on</a></p>
+        <p><a            href="networking.html">Networking</a></p>
+        <p><a            href="byte-order.html">Byte Order</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a rel="prev" href="technology.html">Technology</a></p>
+        <p><a            href="computational-geometry.html">Computational Geometry</a></p>
+      </div>
+      <div>
+        <p><a href="index.en.html">Back to Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Text To Speech (TTS) Software</h1>
+      <p>Text-to-speech (TTS) technology is a form of assistive technology that converts written text into spoken words. This technology has been widely used in various applications, including screen readers, voice assistants, and language translation tools. TTS engines work by processing text input and generating synthetic speech output that resembles human speech.</p>
+      <hr/>
+
+      <section>
+        <h2>Installing and Running <code>Festival</code></h2>
+        <p>I select quite a few packages, which will take up above 80MB of disk space. Besides fat and comprehensive documentation (to be found at <cite>/usr/share/doc/festival-doc/html/</cite>) I include a male castillian Spanish voice and a male Catalan voice.</p>
+        <p>The manual is found at <a href="https://www.cstr.ed.ac.uk/projects/festival/manual/">https://www.cstr.ed.ac.uk/projects/festival/manual/</a>, dated 1999.</p>
+
+        <p>I start the (Scheme) interpreter:</p>
+        <pre>$ festival</pre>
+        <p>and type:</p>
+        <pre> (set! utt1 (Utterance Text "Hello world"))
+        (utt.synth utt1)</pre>
+        <p>to make an utterance then synthesize it.</p>
+        <p>I get no sound. So I type something simpler:</p>
+        <pre>(SayText "Good morning, welcome to Festival")</pre>
+        <hr/>
+        <p>I copy <a target="_blank" href="doremi.xml"><cite>doremi.xml</cite></a> to the current directory and then play it:</p>
+        <pre>(tts "doremi.xml" 'singing)</pre>
+        <p>I remain slightly disappointed with the results so far.</p>
+        <hr/>
+      </section>
+
+      <section>
+        <h2>Installing and Running <code>espeak</code></h2>
+        <p>I first tried <code>espeak</code>, with mixed results, before trying festival, reported to have a steep learning curve. I installed the following linux packages:</p>
+        <ul>
+          <li><code>espeak</code></li>
+          <li><code>espeak-data</code></li>
+          <li><code>espeak-ng-data</code>: necessary synthesiser data files needed for the espeak-ng program and the shared library.</li>
+          <li><code>espeakedit</code>, which provides a User Interface to edit the eSpeak voices.</li>
+          <li><a href="#mbrola"><code>mbrola</code></a></li>
+        </ul>
+        <p>Documentation in <cite>/usr/share/doc/espeak/docs/index.html</cite>, just open <cite>/usr/share/doc/espeak/docs/index.html</cite>
+        <p>All in all a meagre 3.2 MB of additional hard-disk space.</p>
+        <hr/>
+        <p>I play <a target="_blank" href="spec-example-1.ssml">an SSML file</a>:</p>
+        <pre>espeak -m -f spec-example-1.ssml</pre>
+        <pre></pre>
+        <p>Then I test Spanish speech synthesis:</p>
+        <pre>espeak -s 140 -p 60 -ves "Hola. Me llamo Francisco Fernández-Victorio Hernández."</pre>
+        <p>I play a longish file, too:</p>
+        <pre>espeak -s 170 -p 60 -ves -f /dev/shm/<var>WHATEVER</var>.txt</pre>
+      </section>
+
+      <section id="mbrola">
+        <h2><code>Mbrola</code></h2>
+        <p>Mbrola is Thierry Dutoit's phonemiser for multilingual speech synthesis. The various diphone databases are distributed on separate packages, but they must be used with and only with Mbrola because of license matters. Read the copyright for details.</p>
+        <p>Mbrola itself doesn't provide full TTS. It is a speech synthesizer based on the concatenation of diphones. It takes a list of phonemes as input, together with prosodic information (duration of phonemes and a piecewise linear description of pitch), and produces speech samples on 16 bits (linear), at the sampling frequency of the diphone database.</p>
+        <p>Use Mbrola along with Freephone, cicero or espeak to have a complete text-to-speech in English.</p>
+      </section>
+
+      <section>
+      <h2>A Survey of TTS Software</h2>
+      <dl>
+
+        <dt>Mozilla TTS (<a href="https://github.com/mozilla/TTS">Mozilla TTS at GitHub</a>)</dt>
+        <dd>
+          <p>Mozilla TTS is an open-source text-to-speech engine developed by Mozilla Research. It offers developers a high-quality and customizable text-to-speech solution. Mozilla TTS is a versatile option for various applications supporting multiple languages and voices.</p>
+          <p>Some key features of Mozilla TTS include:</p>
+          <ol>
+            <li>Cross-platform compatibility: Mozilla TTS is designed to work across different operating systems, including Windows, macOS, and Linux, making it widely accessible and versatile.</li>
+            <li>Multilingual support: The engine supports multiple languages, enabling developers to create speech synthesis applications that cater to diverse linguistic needs.</li>
+            <li>High-quality voices: Mozilla TTS employs advanced speech synthesis techniques to generate natural-sounding voices, ensuring a seamless and pleasant user experience.</li>
+            <li>Open source: Mozilla TTS is an open-source project that allows developers to access, modify, and contribute to the codebase, fostering collaboration and innovation within the speech synthesis community.</li>
+            <li>Integration with web technologies: Mozilla TTS is particularly well-suited for integrating web-based applications and services, as it can be easily embedded into web pages using JavaScript.</li>
+            <li>Mozilla TTS is part of Mozilla&apos;s broader efforts to promote open standards, accessibility, and innovation on the web. By providing an open-source speech synthesis engine, Mozilla aims to empower developers and researchers to create speech-enabled applications and contribute to advancing text-to-speech technologies.</li>
+          </ol>
+        </dd>
+
+        <dt>eSpeak</dt>
+        <dd>
+          <p>eSpeak is an open-source TTS engine specifically developed for Linux and other Unix-like operating systems. As a compact and lightweight solution, eSpeak NG offers basic speech synthesis functionality with support for 50+ languages and pronunciation rules. Its simplicity and ease of use make it an attractive choice for Linux users to install eSpeak NG and get a straightforward TTS solution for basic text to speech conversion tasks, command-line utilities, and accessibility features.</p>
+          <p>While eSpeak may not offer the advanced customization options or premium voice quality of some commercial TTS engines, its open-source nature and extensive language support make it a valuable addition to the Linux software ecosystem.</p>
+        </dd>
+
+        <dt>Festival</dt>
+        <dd>
+          <p>Festival is a comprehensive TTS system developed by the University of Edinburgh, offering extensive support for Linux and other Unix-based platforms. Festival distinguishes itself with its modular architecture and flexible design, allowing users to customize and extend its functionality through a variety of plugins, language models, and voice synthesis techniques. It currently supports five languages (British English, American English, Spanish, Czech and Italian) with many languages in the prototype mode.</p>
+          <p>With its powerful scripting capabilities and extensive documentation, Festival is well-suited for advanced users, researchers, and developers seeking to explore the depths of speech synthesis technology on Linux. Despite its steep learning curve, Festival remains a popular choice among Linux enthusiasts and academics for its robustness, extensibility, and support for cutting-edge research in TTS and natural language processing.</p>
+        </dd>
+
+        <dt>Flite</dt>
+        <dd>
+          <p>Flite is a lightweight and fast open source TTS engine developed by Carnegie Mellon University. It is designed for embedded systems and mobile devices, making it a popular choice for resource-constrained environments. Flite offers clear and natural-sounding speech synthesis for various applications.</p>
+          <p>Some key points about Flite TTS:</p>
+          <ul>
+            <li>Light-weight: Flite is designed to be a small, lightweight engine suitable for embedded systems and devices with limited resources. The entire engine is around 5MB in size.</li>
+            <li>Open Source: Flite is an open source project released under a permissive license allowing free commercial and non-commercial use.</li>
+            <li>Multilingual: While English is the most supported language, Flite provides voices for other languages, such as Spanish, Italian, Romanian, German, and more.</li>
+            <li>Synthesis Technique: It uses concatenative synthesis combined with deterministic unit selection to generate speech output.</li>
+            <li>Input Formats: Flite can process plain text, SSML markup, and its own custom XML format.</li>
+            <li>Programming APIs: It provides C/C++, Python and other programming language APIs for integrating TTS into applications.</li>
+            <li>Multiple Voices: For some languages, like English, multiple voices with varying characteristics (age, gender, etc.) are provided.</li>
+            <li>Fast Performance: Flite aims to maximise CPU execution speed while keeping output intelligibility high.</li>
+            <li>Flite is suitable for applications needing a small, lightweight and efficient embedded TTS engine that can run on low-resource devices like smartphones, embedded systems, IoT devices, etc. Its open nature allows customization for specific use cases.</li>
+          </ul>
+        </dd>
+
+        <dt>picotts</dt>
+        <dd>
+          <p>Pico TTS is a small and efficient open-source TTS engine optimized for mobile devices. It offers high-quality speech synthesis with minimal resource usage, making it ideal for smartphones and tablets. Pico TTS is a reliable option for developers looking for a compact TTS solution. It was formerly known as SVOX Pico, a compact, lightweight, embeddable text-to-speech engine developed by the SVOX company.</p>
+          <p>Here are some key points about Pico TTS:</p>
+          <ul>
+            <li>Small Footprint: One of Pico TTS&apos;s distinguishing features is its very small size. The complete engine is just around 0.5MB, making it suitable for embedded systems.</li>
+            <li>Cross-Platform: It is written in C and can run on multiple platforms/architectures like ARM, x86, MIPS etc.</li>
+            <li>Multilingual: Pico provides voices for several widely spoken languages, including English, German, French, Spanish, and Italian.</li>
+            <li>Open Source: Since being acquired by Nuance, the Pico engine has been open sourced under the Apache 2.0 license.</li>
+            <li>Synthesis Technique: It uses a compact form of concatenative synthesis coupled with prosodic modelling.</li>
+            <li>APIs: C/C++ APIs are provided to integrate Pico into applications and devices.</li>
+            <li>Wake Word Support: Pico supports embedded wake word/hotword detection useful for voice interfaces.</li>
+            <li>Low Resource Usage: It is designed for low memory usage and minimal CPU requirements during runtime.</li>
+          </ul>
+          <p>Pico TTS is optimized for applications and products that require a small TTS engine footprint while retaining reasonable speech quality, such as IoT devices, wearables, embedded systems, or mobile apps where disk space and memory are limited. Its open-source nature also allows customization.</p>
+        </dd>
+
+        <dt>mimic</dt>
+        <dd>
+          <p>Mimic is a lightweight and fast open source TTS engine developed by Mycroft AI. It offers natural-sounding speech synthesis with support for multiple languages and voices. Mimic is designed for voice assistants and other interactive applications requiring real-time speech output.</p>
+          <p>Here are some key points about Mimic TTS:</p>
+          <ul>
+            <li>Neural TTS: Mimic utilizes neural network models and deep learning for speech synthesis rather than older concatenative or formant synthesis methods. This allows it to produce more natural-sounding speech.</li>
+            <li>Open Source: The engine and pre-trained models are released under an open-source Apache 2.0 license.</li>
+            <li>Multi-Speaker: In addition to standard TTS voices, Mimic can generate audio in the voice style and characteristics of specific speakers by training on that person&apos;s voice data.</li>
+            <li>Low Footprint: Mimic is designed to have a small disk and memory footprint suitable for running on devices like smartphones, IoT hardware etc.</li>
+            <li>Cross-Platform: It supports multiple platforms, including Linux, Windows, and macOS, and can also run in web browsers via WebAssembly.</li>
+            <li>Customizable: Mimic is open-source; developers can retrain their models on custom data to build new voices or fine-tune existing ones.</li>
+            <li>Multi-Lingual: While English is currently the primary focus, Mimic supports other languages, such as Spanish, French, and German, to varying degrees.</li>
+            <li>Integrations: Mimic can be integrated into applications via APIs for programming languages like Python, JavaScript, C++, etc.</li>
+          </ul>
+          <p>Mimic aims to provide an open, customizable, and natural-sounding neural TTS engine that can be embedded into smart devices, voice assistants, audio apps, and other use cases that require low footprint but high-quality speech synthesis.</p>
+        </dd>
+
+        <dt>tacotron</dt>
+        <dd>
+          <p>Tacotron is an open-source TTS engine that uses deep learning techniques to generate natural-sounding speech. It offers high-quality speech synthesis with support for expressive and emotional speech styles. Tacotron is a cutting-edge TTS engine suitable for advanced applications. In a nutshell, it is a neural network architecture for speech synthesis developed by Google&apos;s AI research team.</p>
+          <p>Some key points about Tacotron 2:</p>
+          <ul>
+            <li>Neural TTS: It is based on an end-to-end neural network model that directly converts text to speech audio in a single step without requiring additional signal processing components.</li>
+            <li>Sequence-to-Sequence Model: Tacotron 2 uses an encoder-decoder architecture with attention, treating speech synthesis as a sequence-to-sequence problem.</li>
+            <li>Natural Synthesis: It produces highly natural-sounding synthesized speech compared to older concatenative or statistical parametric methods.</li>
+            <li>Speaker Adaptation: The model can be fine-tuned on a new speaker&apos;s voice data to generate audio mimicking that speaker&apos;s vocal characteristics.</li>
+            <li>WaveNet Integration: Tacotron 2 generates mel spectrograms fed to a modified WaveNet model to produce the final time-domain waveform audio.</li>
+            <li>Published Model: Google released a pre-trained Tacotron 2 model for English capable of generating high-quality speech.</li>
+            <li>Open Source: Google has open-sourced the tensorflow implementation of Tacotron 2.</li>
+            <li>Further Extensions: Researchers have built upon Tacotron 2 to create multi-speaker, multi-lingual and other extensions of the base model.</li>
+          </ul>
+          <p>While not a full production-ready system, Tacotron 2 demonstrated significant advances in neural speech synthesis leveraging sequence models. Its open source release enabled further research in highly natural and controllable TTS systems.</p>
+        </dd>
+
+        <dt>ESPnet-TTS</dt>
+        <dd>
+          <p>ESPnet-TTS is an open-source text-to-speech (TTS) toolkit developed by Nagoya University and others. It is based on the ESPnet framework, initially designed for speech recognition but extended to support TTS tasks. ESPnet-TTS provides a unified framework for various TTS models and allows researchers to easily train, evaluate, and deploy different TTS models.</p>
+          <p>Here are some key points about ESPnet-TTS:</p>
+          <ul>
+            <li>Part of ESPnet: It is a specialized module within the larger ESPnet (End-to-End Speech Processing Toolkit) framework for speech processing tasks like ASR, ST, VC, etc.</li>
+            <li>End-to-End TTS: ESPnet-TTS implements various end-to-end neural network models for text-to-speech synthesis without relying on traditional concatenative/statistical parametric components.</li>
+            <li>Model Architectures: It implements popular models such as Tacotron 2, Transformer TTS, FastSpeech, ParaNet, and others.</li>
+            <li>Multi-Task Training: The toolkit supports multi-task learning to optimize TTS models for other tasks like speech recognition jointly.</li>
+            <li>Multi-Lingual: While focusing on English initially, it supports building TTS systems for other languages through data augmentation.</li>
+            <li>Open Source: ESPnet-TTS is an open-source toolkit under the Apache 2.0 license on GitHub.</li>
+            <li>Used in Research: Researchers at NICT and other institutions actively use it to develop new TTS techniques and models.</li>
+          </ul>
+          <p>So, in essence, ESPnet-TTS aims to provide an open framework to develop, train, and evaluate state-of-the-art end-to-end neural text-to-speech models leveraging techniques like transfer learning, multi-task optimization, data augmentation, etc., across languages. It complements the broader speech-processing capabilities of the ESPnet toolkit.</p>
+        </dd>
+
+      </dl>
+      </section>  <!-- end of "A Survey of TTS Software" -->
+
+      <section>
+        <h2>Opinions and Comparisons</h2>
+        <p>A message by Jonathan Duddington in 2008 explains:</p>
+        <pre>
+&gt; It would be great if somebody who thinks that Festival
+&gt; is actually worse than eSpeak in quality of speech
+&gt; could try to elaborate more about the reasons.
+
+It depends what you mean by &quot;quality&quot;.
+
+There is no doubt that the good Festival voices sound more human than
+eSpeak.
+
+I'm not blind, but I use text-to-speech a lot for reading blogs, news
+articles, etc.  The main reasons why I prefer to listen to eSpeak
+rather than Festival are:
+
+1.  Clarity.  The eSpeak voice (I use British English) sounds more
+clear, and sharp, and more articulated.  An alternative description
+might be &quot;artificial and harsh&quot;.
+
+The perceived quality of eSpeak may depend on your loudspeakers.  I use
+a domestic sound system with big speakers and it sounds good to me.
+But eSpeak has less &quot;bass&quot; and more mid-frequencies than other
+synthesizers, and perhaps that's less suitable for small computer
+speakers where it sounds more &quot;harsh&quot;?  People have experimented with
+new eSpeak &quot;voice variants&quot; with changes to the &quot;tone&quot; and &quot;formant&quot;
+parameters to change the tonal balance.
+
+2.  Intonation (the changes in pitch during a sentence).  Festival
+seems more &quot;flat&quot; or &quot;boring&quot;.  I prefer eSpeak's more lively
+intonation (although that may not sound good for some languages).
+Perhaps it's possible to make a new improved intonation algorithm in
+Festival.
+
+Note that you can use eSpeak as a front-end to a Mbrola diphone voice,
+so you get eSpeak's intonation with a more natural sounding voice
+(intonation with Mbrola was improved in eSpeak version 1.31 and later).
+http://espeak.sf.net/mbrola.html.
+Try comparing Festival with eSpeak+Mbrola.
+
+&gt; This is why eSpeak is the current default in Speech Dispatcher
+&gt; because it is initially easier to get running and it covers a great
+&gt; span of languages. The documentation however strongly suggest
+&gt; users whose language is supported by Festival to try it as their
+&gt; primary syntesizer for a better voice quality.
+
+That is good advice, especially since the quality of different
+languages in eSpeak is very variable.</pre>
+        <hr/>
+        <p>[...]</p>
+      </section>  <!-- end of "Opinions and Comparisons" -->
+
+    </main>
+
+  </body>
+
+</html>
