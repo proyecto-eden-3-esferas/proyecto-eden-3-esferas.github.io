@@ -990,66 +990,513 @@ sig = sig * 0.25 ! 2;
         <pre></pre>
         <p></p>
         <pre></pre>
-        <h3 class="bridgehead"></h3>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <h3 class="bridgehead"></h3>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+
+        <section>
+          <h3>Overview*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
       </section>  <!-- end of "Sampling" -->
 
-      <section>
-        <h2>Sequencing*</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <h3 class="bridgehead"></h3>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <h3 class="bridgehead"></h3>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+      <section id="sequencing">
+        <h2>Sequencing</h2>
+
+        <section>
+          <h3>Overview</h3>
+          <p>A musical composition can be viewed as a sequence of sections, a section as a sequence of phrases, and a phrase as a sequence of notes. Thinking in this modular way, that is, conceptualizing a project as smaller sequential units that can be freely combined, is an excellent way to approach large-scale projects in SC, and in programming languages more generally.</p>
+          <p>SC provides a wealth of sequencing options. The Pattern library, for example, is home to hundreds of classes that define many types of sequences, which can be nested and combined to form complex, composite structures. The <code>Stream</code> class is also a focal point, which provides sequencing infrastructure through its subclasses, notably <code>Routine</code> and <code>EventStreamPlayer</code>. <code>Clock</code> classes provide an implicit musical grid on which events can be scheduled, and play a central role in sequencing as well.</p>
+          <p>It&apos;s important to make a distinction between processes that define sequences, and processes that perform sequences. As an analogy, consider the difference between a notated musical score and a live musical performance of that score. The score provides detailed performance instructions, and the sound of the music can even be imagined by studying it. However, the score is not the same thing as a performance. One score can spawn an infinite number of performances, which may be slightly or significantly different from each other. In SC, a pattern or function can be used to define a sequence, while some type of stream is used to perform it.</p>
+        </section>
+
+        <section>
+          <h3>Routines and Clocks</h3>
+          <p>When we evaluate a function, the encapsulated code statements are executed in order, but these executions occur so quickly that they seem to happen all at once. When the function in the listing below is evaluated, three tones are produced, and we hear a chord.</p>
+          <pre>s.boot;
+(
+~eventA = {SinOsc.ar(60.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+~eventB = {SinOsc.ar(70.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+~eventC = {SinOsc.ar(75.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+f = {
+~eventA.play;
+~eventB.play;
+~eventC.play;
+};
+)
+f.();</pre>
+          <p>How would we play these tones one-by-one, to create a melody? The <code>Routine</code> class, introduced next, provides one option for timed sequences. A <dfn>routine</dfn> is a special type of state-aware function, capable of pausing and resuming mid-execution. A routine encapsulates a function, and within this function, either the <code>yield</code> or <code>wait</code> method designates a pause (<code>yield</code> is used throughout this section, but these methods are synonymous when applied to a number). Once a routine is created, we can manually step through it by calling next on the routine. On each next, the routine begins evaluation, suspends when it encounters a pause, and continues from that point when another next is received. If a routine has reached its end, next returns <code>nil</code>, but a routine can be reset at any time, which effectively <q>rewinds</q> it to the beginning.</p>
+          <pre>(
+  ~eventA = {SinOsc.ar(60.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+  ~eventB = {SinOsc.ar(70.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+  ~eventC = {SinOsc.ar(75.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+  f = {
+    ~eventA.play;
+    1.yield;
+    ~eventB.play;
+    1.yield;
+    ~eventC.play;
+    1.yield;
+  };
+  r = Routine(f);
+)
+r.next; // evaluate repeatedly
+r.reset; // return to the beginning at any time</pre>
+          <p>Note that yield must be called from within a routine, so the function <code>f</code> in the code above cannot be evaluated by itself:</p>
+          <pre>f.(); // -&gt; ERROR: yield was called outside of a routine.</pre>
+          <hr/>
+          <p>The convenience method <code>r</code> can be applied to a function and will return a routine that contains that function. Thus, a routine can be written in any of the following ways:</p>
+          <pre>Routine({"hello".postln; 1.yield;});
+{"hello".postln; 1.yield;}.r;
+r({"hello".postln; 1.yield;});</pre>
+          <p>When stepping through a routine, each <code>yield</code> returns its receiver, in the same way that calling <code>value</code> on a function returns its last expression. Thus, the returned value from each next call is equal to each yielded item (this is also why each next causes the number one to appear in the post window). In the foregoing code, the thing we yield is irrelevant, and we have no interest in it. It could be any object; the number one is chosen arbitrarily. In this example, we are more interested in the actions that occur between yields, specifically, the production of sound.</p>
+          <p>However, the ability of a routine to return values illustrates another usage. Suppose we want a process that generates MIDI note numbers that start at 48 and increment by a random number of semitones between one and four, until the total range exceeds three octaves. We can do so by defining an appropriate function and yielding values of interest. A <code>while</code> loop is useful, as it allows us to repeatedly apply an increment until our end condition is met (<i>see</i> below).</p>
+          <h5>Using a routine and while loop to generate randomly incremented MIDI note numbers</h5>
+          <pre>(
+  ~noteFunc = {
+    var num = 48;
+    while({num &lt; 84}, {
+      num.yield;
+      num = num + rrand(1, 4);
+    });
+  };
+  ~noteGen = Routine(~noteFunc);
+)
+~noteGen.next; // evaluate repeatedly</pre>
+          <p>Note that this sequence is not predetermined, because each <code>next</code> performs a new application of the <code>rrand</code> function. Thus, if <code>~noteGen</code> is reset, it will generate a new random sequence, probably different than the previous.</p>
+          <p>We often want a routine to advance on its own. A routine will execute automatically in response to <code>play</code>, as shown next. In this case, <code>yield</code> values are treated as pause durations (measured in seconds, under default conditions).</p>
+          <p>Iteration, demonstrated afterwards, is a useful tool for creating timed repetitions.</p>
+          <pre>(
+  ~eventA = {SinOsc.ar(60.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+  ~eventB = {SinOsc.ar(70.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+  ~eventC = {SinOsc.ar(75.midicps ! 2) * Line.kr(0.1, 0, 1, 2)};
+  f = {
+    ~eventA.play;
+    1.yield;
+    ~eventB.play;
+    1.yield;
+    ~eventC.play;
+    1.yield;
+  };
+  r = Routine(f);
+)
+r.play;</pre>
+          <h5>Using iteration inside a routine to create repetitions</h5>
+          <pre>(
+  ~playTone = { |freq|
+  {SinOsc.ar(freq ! 2) * Line.kr(0.1, 0, 1, 2)}.play;
+  };
+  f = {
+    3.do({
+    ~playTone.(72.midicps);
+    0.2.yield;
+    ~playTone.(62.midicps);
+    0.4.yield;
+    });
+  };
+  r = Routine(f);
+)
+r.play;</pre>
+          <p>When using iteration in a routine, <code><var>number</var>.do</code> can be replaced with <code>loop</code> or <code>inf.do</code> (a special keyword that represents infinity) to repeat a block of code indefinitely, as illustrated. A playing routine can be stopped at any time using stop—particularly important to keep in mind if a routine has no end! Stopping all routines is also one of the side-effects of pressing [cmd]+[period]. Once a routine is stopped, it cannot be resumed with <code>play</code> or <code>next</code> unless it is first reset.</p>
+          <h5>An infinite-length routine.</h5>
+          <pre>(
+  ~playTone = { |freq|
+    {SinOsc.ar(freq ! 2) * Line.kr(0.1, 0, 0.2, 2)}.play;
+  };
+  r = Routine({
+    loop({
+      ~playTone.(72.midicps);
+      0.4.yield;
+      [62, 63, 64].do({ |n|
+        ~playTone.(n.midicps);
+        (0.4 / 3).yield;
+      });
+    });
+  });
+)
+r.play;
+r.stop;</pre>
+          <h4>The Danger of Infinite Loops</h4>
+          <p>When using <code>play</code> or <code>next</code> on an infinite-length routine, make sure there&apos;s at least one <code>yield</code>/<code>wait</code>! Executing an infinite routine with no built-in pauses will immediately overwhelm your CPU and may even crash the language. While stuck in a loop, SC will struggle to receive even the most basic types of input, like pressing [cmd]+[period] or clicking drop-down menus, and a forced quit may be necessary. Some versions of SC may attempt to auto-recover unsaved code in the event of a crash, but it&apos;s not wise to rely too heavily on this feature.</p>
+          <p>When a routine is played, the resulting process exists in its own temporal space, called a <dfn>thread</dfn>, which is independent from the parent thread in which it was created. Thus, when multiple routines are played using back-to-back code statements (as they are in <code>~r_parallel</code>), each exists independently, unaware of the others&apos; existences. However, when serial behavior is desired, <code>embedInStream</code> can be used instead of <code>play</code>, which situates the subroutine in the parent thread. In this case, the parent routine and the two subroutines are all part of the same thread and exist along one temporal continuum. Thus, each subroutine begins only when the previous subroutine has finished.</p>
+          <h5>Nesting routines inside of other routines so that they play in parallel or in series</h5>
+          <pre>(
+  ~playTone = { |freq|
+    {SinOsc.ar(freq ! 2) * Line.kr(0.1, 0, 0.2, 2)}.play;
+  };
+  ~sub0 = {
+    2.do({
+      ~playTone.(67.midicps);
+      0.15.yield;
+      ~playTone.(69.midicps);
+      0.15.yield;
+    });
+    0.5.yield;
+  };
+  ~sub1 = {
+    3.do({
+      ~playTone.(75.midicps);
+      0.5.yield;
+    });
+    1.yield;
+  };
+  ~r_parallel = Routine({
+    Routine(~sub0).play;
+    Routine(~sub1).play;
+  });
+  ~r_series = Routine({
+    Routine(~sub0).embedInStream;
+    Routine(~sub1).embedInStream;
+  });
+)
+~r_parallel.play; // subroutines execute simultaneously
+~r_series.play; // subroutines play one after the other</pre>
+          <p>Modular thinking is important and valuable. Before setting out to build some glorious routines, take a moment to conceptualize the musical structure they&apos;ll represent. Break down your structures into the simpler units, build subroutines (perhaps sub-subroutines), and combine them appropriately. A large, unwieldy, irreducible routine is usually harder to debug than one built from modular parts.</p>
+          <section>
+            <h4>TempoClock</h4>
+            <p>Previously, yield values were interpreted as durations, measured in seconds. Unless you&apos;re working at a tempo of 60 (or perhaps 120) beats per minute, specifying durations in seconds is inconvenient, and requires extra math. To determine the duration of an eighth note at 132 bpm, for example, we first divide 60 by the tempo to produce a value that represents seconds per beat. If a quarter note is considered one beat, we then divide by two to get the duration of an eighth note:</p>
+            <pre>(60 / 132 / 2).yield; // an eighth rest at 132 bpm</pre>
+            <p>Manual calculation of durations based on tempo is cluttered and does not do a good job of visually conveying metric structure. <code>TempoClock</code>, one of three clock objects (its siblings are <code>SystemClock</code> and <code>AppClock</code>), provides an elegant solution. These three clocks handle the general task of scheduling things at specific times. <code>AppClock</code> is the least accurate of the three, but it can schedule certain types of actions that its siblings cannot, notably, interacting with graphical user interfaces. <code>SystemClock</code> and <code>TempoClock</code> are more accurate, but <code>TempoClock</code> has the additional benefit of being able to express time in terms of beats at a particular tempo. When the interpreter is launched or rebooted, a default instance of <code>TempoClock</code> is automatically created:</p>
+            <pre>TempoClock.default;</pre>
+            <p>The default <code>TempoClock</code> runs at 60 bpm, and the current beat can be retrieved via the <code>beats</code> method:</p>
+            <p>TempoClock.default.beats; // evaluate repeatedly</p>
+            <p>When a routine is played, it is scheduled on a clock. If no clock is specified, it plays on the default <code>TempoClock</code>. This is why, throughout the previous section, <code>yield</code> values can be treated as durations, even though they technically specify a number of beats.</p>
+            <p>When creating your own instance of <code>TempoClock</code>, the first argument is interpreted as a value in beats per second. If you want to specify tempo in beats per minute, divide that value by 60:</p>
+            <pre>t = TempoClock(132/60); // a TempoClock running at 132 bpm
+t.beats; // evaluate repeatedly to get the current beat</pre>
+            <p>A routine can be scheduled on a specific clock by providing that clock as the first argument for <code>play</code>. In the code below, <code>yield</code> times represent beat values, relative to the clock on which the routine plays. The tempo of a <code>TempoClock</code> can be changed at any time using the <code>tempo</code> method, also depicted in this same example. Note that <code>tempo</code> only affects durations between onsets and has no effect on the durations of the notes themselves (which in this case are determined by <code>Line</code>).</p>
+            <h5>A routine that plays three notes in sequence, with timings based on beat durations at a specific tempo</h5>
+            <pre>(
+  t = TempoClock(132/60);
+  ~playTone = { |freq|
+    {SinOsc.ar(freq ! 2) * Line.kr(0.1, 0, 1, 2)}.play;
+  };
+  r = Routine({
+    [60, 70, 75].do({ |n|
+      ~playTone.(n.midicps);
+      (1/2).yield;
+    });
+  });
+)
+r.play(t);
+t.tempo = 112/60;
+r.reset.play(t); // now eighth notes at 112 bpm</pre>
+            <p>We often want to synchronize several timed processes, so that they begin together and/or exist in rhythmic alignment. Manual attempts to synchronize a routine with one that&apos;s already playing will rarely succeed. Even if both routines are played on the same clock, their performances are not guaranteed to align with each other. By default, when a routine is played on a clock, it begins immediately. To schedule a routine to begin on a certain beat, we can specify <code>quant</code> information along with the clock, as shown below.</p>
+            <pre>(
+  t = TempoClock(132/60);
+  ~playTone = { |freq|
+    {SinOsc.ar(freq ! 2) * Line.kr(0.1, 0, 0.2, 2)}.play;
+  };
+  ~r0 = Routine({
+    loop({
+      [60, 63, 65, 67].do({ |n|
+        ~playTone.(n.midicps);
+        (1/2).yield;
+      });
+    });
+  });
+  ~r1 = Routine({
+    loop({
+      [70, 72, 75, 77].do({ |n|
+        ~playTone.(n.midicps);
+        (1/2).yield;
+      });
+    });
+  });
+)
+~r0.play(t, quant: 4); // begin playing on next beat multiple of four
+~r1.play(t, quant: 4); // will be beat-aligned with ~r0</pre>
+            <p>In some cases, you may want a rhythmic process to be quantized to a particular beat but shifted in time to begin some number of beats after or before that beat. In this case, an array of two values can be provided for <code>quant</code>, as demostrated below. The first value represents a beat multiple, and the second value represents a number of beats to shift along the timeline. Negative values result in earlier scheduling.</p>
+            <pre>~r0.reset.play(t, quant: [4, 0]); // plays on the next beat multiple of four
+~r1.reset.play(t, quant: [4, 1]); // plays one beat after the next beat multiple of four</pre>
+            <p>As an alternative to stopping all routines individually, all actions scheduled on a TempoClock can be removed by calling clear on the clock:</p>
+            <pre>t.clear;</pre>
+            <p>When a large-scale routine is constructed as a singular entity composed of subroutines, there is less of a need to control quantization information, because the timing aspects can be configured in advance. However, quantization is essential for real-time applications, such as live coding, in which new components may be added spontaneously.</p>
+            <p>There is generally no harm in allowing a <code>TempoClock</code> to continue existing in the background (any outstanding clocks are destroyed when quitting SC), but a <code>TempoClock</code> can be stopped at any time with <code>stop</code>. This is a hard stop that destroys the clock, after which resuming or querying the current beat is no longer possible. To resume, a new clock must be created. By default, <kbd>[cmd]+[period]</kbd> will destroy all user-created clocks, but a clock can be configured to survive <code>[cmd]+[period]</code> by setting its <code>permanent</code> attribute to <code>true</code>:</p>
+            <pre>t = TempoClock(132/60).permanent_(true);
+// press [cmd]+[period]…
+t.beats; // the clock remains
+t.permanent = false;
+// press [cmd]+[period]…
+t.beats; // the clock is destroyed</pre>
+          </section>  <!-- end of "TempoClock" -->
+        </section>
+
+        <section>
+          <h3>Patterns</h3>
+          <p>Patterns, which exist as a family of classes that all begin with capital P, provide flexible, concise tools for expressing musical sequences. A pattern defines a sequence but does not perform that sequence. To retrieve a pattern&apos;s output, we can use <code>asStream</code> to return a routine, which can then be evaluated with <code>next</code>. In contrast to creating such routines ourselves, patterns are simpler, pre-packaged units with known behaviors, and tend to save time.</p>
+          <p>Patterns are, in a sense, a language of their own within the SC language, and it takes time to get familiar. At first, it can be difficult to find the right pattern (or combination of patterns) to express an idea. But, when learning a foreign language, you don&apos;t need to memorize the dictionary to become fluent. You only need to learn a small handful of important words, enough to form a few coherent, useful sentences, and the rest will follow with practice and exposure. Patterns are among the most thoroughly documented classes, and there are multiple tutorials built into the help browser.</p>
+          <section>
+            <h4>Value Sequences</h4>
+            <p>Many patterns define sequences of values. Often, these values are numbers, but may be any type of data. Consider <code>Pseries</code>, demonstrated below, which represents an arithmetic sequence that begins at 50, repeatedly adds 7, and generates a total of six values. Creating this stream from scratch using a routine, shown before, requires considerably more labor.</p>
+            <h5>A pattern-generated arithmetic sequence</h5>
+            <pre>( ~pat = Pseries(start: 50, step: 7, length: 6);
+  ~seq = ~pat.asStream;
+)
+~seq.next; // evaluate repeatedly</pre>
+            <h5>A routine-generated arithmetic sequence</h5>
+            <pre>(
+  ~pat = {
+    var num = 50, inc = 7, count = 0;
+    while({count &lt; 6}, {
+      num.yield;
+      num = num + inc;
+      count = count + 1;
+    });
+  };
+  ~seq = Routine(~pat);
+)
+~seq.next; // evaluate repeatedly</pre>
+            <p>Patterns are described as <q>stateless.</q> They represent a sequence but are distinct from and completely unaware of its actualization. To emphasize, observe the result when trying to extract values directly from a pattern:</p>
+            <pre>~pat = Pseries(50, 7, 6);
+~pat.next; // -> returns "a Pseries"</pre>
+            <p><code>nextN</code> returns an array of values from a sequence, and <code>all</code> returns an array containing all of them. To demonstrate, we also introduce <code>Pwhite</code>, which defines a sequence of random values selected from a range with a uniform distribution. Like <code>rrand</code>, <code>Pwhite</code> defines a sequence of integers if its boundaries are integers, and floats if either boundary is a float.</p>
+            <h5>Retrieving an array of multiple values from a sequence</h5>
+            <pre>(
+  ~pat = Pwhite(lo: 48, hi: 72, length: 10);
+  ~seq = ~pat.asStream;
+)
+~seq.nextN(4); // evaluate repeatedly
+~seq.reset;
+~seq.all;</pre>
+            <p>Infinite-length sequences are possible, as shown below, created by specifying <code>inf</code> for the pattern length or number of repeats. Here, we introduce <code>Prand</code>, which randomly selects an item from an array.</p>
+            <pre>(
+  ~pat = Prand(list: [4, 12, 17], repeats: inf);
+  ~seq = ~pat.asStream;
+)
+~seq.next; // an inexhaustible supply</pre>
+          </section>
+          <section>
+            <h4>Calling <code>all</code> on an Infinite-length Stream</h4>
+            <p>Like playing an infinite-length routine with no yields, calling all on an infinite-length stream will crash the program!</p>
+            <p>The following table provides a list of commonly encountered patterns used to generate numerical sequences. Note that some patterns, like <code>Pseries</code> and <code>Pwhite</code>, can only define sequences with numerical output, while others, like <code>Pseq</code> and <code>Prand</code>, output items from an array and can therefore define sequences that output any kind of data.</p>
+            <table border="1">
+              <thead> <tr> <td>Pattern</td> <td>Description</td> </tr> </thead>
+                      <tr> <td><code>Pseq(list, repeats, offset)</code></td> <td>Sequentially outputs values from list array, with an optional offset to a specific index.</td> </tr>
+                      <tr> <td><code>Pwhite(lo, hi, length)</code></td> <td>Random values between lo and hi with a uniform distribution.</td> </tr>
+                      <tr> <td><code>Pexprand(lo, hi, length)</code></td> <td>Random values between lo and hi with an exponential distribution.</td> </tr>
+                      <tr> <td><code>Pbrown(lo, hi, step, length)</code></td> <td>Random values between lo and hi, but never deviating from the previous value by more than ±step.</td> </tr>
+                      <tr> <td><code>Prand(list, repeats)</code></td> <td>Randomly outputs values from list array.</td> </tr>
+                      <tr> <td><code>Pxrand(list, repeats)</code></td> <td>Randomly outputs values from list array, but never selects the same item twice in a row.</td> </tr>
+                      <tr> <td><code>Pwrand(list, weights, repeats)</code></td> <td>Randomly outputs values from list array, according to a second array of weights that must sum to one.</td> </tr>
+                      <tr> <td><code>Pseries(start, step, length)</code></td> <td>Arithmetic series. Begins at start and incrementally adds step.</td> </tr>
+                      <tr> <td><code>Pgeom(start, grow, length)</code></td> <td>Geometric series. Begins at start and repeatedly multiplies by grow.</td> </tr>
+            </table>
+            <p>Mathematical operations and methods that apply to numbers can also be applied to patterns that specify numerical sequences. Imagine creating a sequence that outputs random values between ±1.0, but also wanting that sequence to alternate between positive and negative values. One solution involves multiplying one pattern by another, as shown next. The result is a composite pattern that defines a sequence in which corresponding pairs of output values are multiplied. The example afterwards offers another solution, involving nesting patterns inside of another. When an array-based pattern (such as <code>Pseq</code> or <code>Prand</code>) encounters another pattern as part of its output, it embeds the entire output of that pattern before moving on to its next item (similar to the <code>embedInStream</code> method for routines).</p>
+            <h5>Multiplication of one pattern by another</h5>
+            <pre>(
+  ~pat = Pwhite(0.0, 1.0, inf) * Pseq([-1, 1], inf);
+  ~seq = ~pat.asStream.nextN(8);
+)</pre>
+            <h5>Nesting patterns inside other patterns</h5>
+            <pre>(
+  ~pat = Pseq([
+    Pwhite(-1.0, 0.0, 1),
+    Pwhite(0.0, 1.0, 1)
+  ], inf);
+  ~seq = ~pat.asStream.nextN(10);
+)</pre>
+          </section>
+          <section>
+            <h4>The Event Model</h4>
+            <p>Value patterns are useful for generating sequences of numbers and other data types, but more is required to generate sequences of sound. <code>Pbind</code>, introduced in the next section, is a pattern capable of defining sound sequences, which relies on the <code>Event</code> class, discussed only briefly before as a storage device for buffers. As a reminder, an <code>Event</code> is a type of unordered collection in which each item is paired with a <q>key,</q> specified as a symbol. An <code>Event</code> can be created with the <code>new</code> method, or with an enclosure of parentheses. The following code statements use an <code>Event</code> to model quantity and type of fish in an aquarium. We begin with five guppies and eight goldfish:</p>
+            <pre>a = (guppy: 5, goldfish: 8);</pre>
+            <p>If we acquire three fish of a new breed, we can update the <code>Event</code> by adding a new key-value association:</p>
+            <pre>a[\clownfish] = 3;</pre>
+            <p>If a sixth guppy appears, we can update the value at that key. Because each key in an <code>Event</code> is unique, this expression overwrites the previous key, rather than creating a second identical key:</p>
+            <pre>a[\guppy] = 6;</pre>
+            <p>To retrieve the number of goldfish, we access the item stored at the appropriate key:</p>
+            <pre>a[\goldfish]; // -> 8</pre>
+            <p>An Event is not just a storage device; it is commonly used to model an action taken in response to a play message, in which its key-value pairs represent parameters and values necessary to that action. Often, this action is the creation of a new <code>Synth</code>, but Events model other actions, like musical rests, set messages, or sending MIDI data. There are numerous pre-made Event types that represent useful actions, each pre-filled with sensible default values. A complete list of built-in Event types can be retrieved by evaluating:</p>
+            <pre>Event.eventTypes.keys.postcs;\</pre>
+          </section>
+          <section>
+            <h4>Post Window Techniques</h4>
+            <p><code>postcs</code> (short for <q>post compile string</q>) is useful for printing the entirety of a large body of text in the post window. By contrast, <code>postln</code> truncates its receiver if deemed too long. Additionally, by appending the empty symbol (a single backslash) after the semicolon, we can suppress the <q>double-posting</q> that sometimes occurs as a result of the interpreter always posting the result of the last evaluated statement. Compare the following four expressions:</p>
+            <pre>(0..999).postln; // truncated double-post
+(0..999).postln;\ // truncated single-post
+(0..999).postcs; // non-truncated double-post
+(0..999).postcs;\ // non-truncated single-post (ideal!)</pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+        </section>  <!-- end of "Patterns" -->
+
+        <section>
+          <h3>Additional Techniques for Pattern Composition</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>Real-Time Pattern Control</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
       </section>  <!-- end of "Sequencing" -->
 
 

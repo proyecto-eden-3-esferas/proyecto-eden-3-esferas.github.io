@@ -327,6 +327,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[x] *kokoro-alt.html*, desde *religion.html* y desde *arrepentimiento.html*
+
 [ ] *musica.voyage.html*
 
 [ ] *matrix.html*
