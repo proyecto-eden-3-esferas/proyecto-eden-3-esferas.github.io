@@ -35,7 +35,9 @@
       <div>
         <p><a            href="scheme.html">Scheme (a Lisp dialect used in the Festival Command-Line)</a></p>
         <p><a rel="prev" href="tts.html">Text To Speech (TTS) Software</a></p>
-        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a rel="next" href="festival-xml.html">Festival XML Mark-UP</a></p>
+        <p><a            href="festvox.html">Festvox</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
         <p><a            href="ai.html">Artificial Intelligence</a></p>
       </div>
     </nav>
@@ -62,10 +64,152 @@
         <p>to make an utterance then synthesize it.</p>
         <p>I get no sound. So I type something simpler:</p>
         <pre>(SayText "Good morning, welcome to Festival")</pre>
+
         <hr/>
+
         <p>I copy <a target="_blank" href="doremi.xml"><cite>doremi.xml</cite></a> to the current directory and then play it:</p>
         <pre>(tts "doremi.xml" 'singing)</pre>
         <p>I remain slightly disappointed with the results so far.</p>
+
+        <hr/>
+
+        <p>You may select other voices for synthesis by calling the appropriate function. For example:</p>
+        <pre>(voice_cmu_sls_diphone)</pre>
+        <p>This will set a female US English voice (if installed).</p>
+
+        <p>Any Scheme command may be typed at the command line for example:</p>
+        <pre>(Parameter.set ’Duration_Stretch 1.5)</pre>
+        <p>will make all durations longer for the current voice (making the voice speak slower.</p>
+        <p>Calling any specific voice will reset this value (or you may do it by hand).</p>
+
+        <hr/>
+
+        <p>The <code>SayText</code> is just a simple function that takes the given string, constructs an utterance object from is, synthesizes it and sends the resulting waveform to the audio device. This isn&apos;t really suitable for synthesizing anything but very short utterances.</p>
+        <p>The TTS process involves the more complex task of splitting text streams into utterance synthesizing them and sending them to the audio device to they may play while a[t] the same time working on the next utterance so that the audio output is continuous.</p>
+        <p>Festival does this through the <code>tts</code> function (which is what gets actually called when Festival is given the <code>--tts</code> argument on the command line. In Scheme the <code>tts</code> funciton takes two arguments, a filename and a mode. Modes <!--are described in more detail in the Section called TTS modes in Chapter 6, and--> can be used to allow special processing of text, such as honouring markup or particular styles of text like email etc.</p>
+        <p>In simple case the mode will be <code>nil</code> which denotes the basic raw or fundamental mode.</p>
+        <pre>(tts "WarAndPeace.txt" nil)</pre>
+        <p>Commands can also be stored in files, which is common when a number of function definitions and parameter settings are required. These scheme files can be loaded by the function SayText as in</p>
+        <pre>(load "commands.scm")</pre>
+        <p>Arguments to Festival at startup time will normally be treated as command files and loaded:</p>
+        <pre>$ festival commands.scm</pre>
+        <p>However, if the argument starts with a left parenthesis ( the argument is interpreted directly as a Scheme command.</p>
+        <pre>$ festival ’(SayText "a short example.")’</pre>
+        <p>If the <code>-b</code> (batch) option is specified Festival does not go into interactive mode and exits after processing all of the given arguments.</p>
+        <pre>$ festival -b mynewvoicedefs.scm ’(SayText "a short example.")’</pre>
+        <p>Thus we can use Festival interactively or simple as a batch scripting language. The batch format will be used often in the voice building process though the intereactive mode is useful for testing new voices.</p>
+      </section>
+
+      <section id="utterance">
+        <h2>Utterance structure</h2>
+        <p>The basic building block for Festival is the <dfn>utterance</dfn>. The structure consists of a set of relations over a set of items. Each item represents an object such as a word, segment, syllable, etc. while relations relate these items together. An item may appear in multiple relations, such as a segment will be in a Segment relation and also in the SylStructure relation. <dfn>Relations</dfn> define an ordered structure over the items within them. In general these may be arbitrary graphs but in practice so far we have only used lists and trees. Items may contain a number of features.</p>
+        <p>There are no built-in relations in Festival and the names and use of them is controlled by the particular modules used to do synthesis. Language, voice and module specific relations can be easyly created and manipulated. However within our basic voices we have followed a number of conventions that should be followed if you wish to use some of the existing modules.</p>
+        <p>The relation names used will depend on the particular structure chosen for your voice. So far most of our released voices have the same basic structure though some of our research voices contain quite a different set of relations. For our basic English voices the relations we have used are as follows:</p>
+        <dl>
+
+          <dt>Text</dt>
+          <dd>Contains a single item which contains a feature with the input character string that is being synthesized</dd>
+
+          <dt>Token</dt>
+          <dd>A list of trees where each root of each tree is the white space separated tokenized object from the input character string. Punctuation and whitespace has been stripped and placed on features on these token items. The daughters of each of these roots are the list of words that the token is associated with. In many cases this is a one-to-one relationship, but in general it is one to zero or more. For example tokens comprising digits will typically be associated with a number of words.</dd>
+
+          <dt>Word</dt>
+          <dd>The words in the utterance. By word we typically mean something that can be given a pronunciation from a lexicon (or letter-to-sound rules). However in most of our voices we distinguish pronunciation by the words and a part of speech feature. Words [may] also be leaves of the Token relation, leaves of the Phrase relation and roots of the SylStructure relation.</dd>
+
+          <dt>Phrase</dt>
+          <dd>A simple list of trees representing the prosodic phrasing on the utterance. In our voices we only have one level of prosodic phrase below the utterance (though you can easily add a deeper hierarchy if your models require it). The tree roots are labeled with the phrase type and the leaves of these trees are in the Word relation.</dd>
+
+          <dt>Syllable</dt>
+          <dd>A simple list of syllable items. These syllable items are intermediate nodes in the SylStructure relation allowing access to the words these syllables are in and the segments that are in these syllables. In this format no further onset/coda distinction is made explicit but can be derived from this information.</dd>
+
+          <dt>Segment</dt>
+          <dd>A simple list of segment (phone) items. These form the leaves of the SylStructure relation through which we can find where each segment is placed within its syllable and word. By convention silence phones do not appear in any syllable (or word) but will exist in the segment relation.</dd>
+
+          <dt>SylStructure</dt>
+          <dd>A list of tree structures over the items in the Word, Syllable and Segment items.</dd>
+
+          <dt>IntEvent</dt>
+          <dd>A simple list of intonation events (accents and boundaries). These are related to syllables through the Intonation relation.</dd>
+
+          <dt>Intonation</dt>
+          <dd>A list of trees whose roots are items in the Syllable relation, and daughters are in the IntEvent relation. It is assumed that a syllable may have a number of intonation events associated with it (at least accents and boundaries), but an intonation event may only by associated with one syllable.</dd>
+
+          <dt>Wave</dt>
+          <dd>A relation consisting of a single item that has a feature with the synthesized waveform.</dd>
+
+          <dt>Target</dt>
+          <dd>A list of trees whose roots are segments and daughters are F0 target points. This is only used by some intonation modules.</dd>
+
+
+          <dt>Unit, SourceSegments, Frames, SourceCoef TargetCoef</dt>
+          <dd>A number of relations used the the UniSyn module.</dd>
+
+        </dl>
+      </section>
+
+      <section id="modules">
+        <h2>Modules</h2>
+        <p>The basic synthesis process in Festival is viewed as applying a set of modules to an utterance. Each module will access various relations and items and potentially generate new features, items and relations. Thus as the modules are applied the utterance structure is filled in with more and more relations until ultimately the waveform is generated.</p>
+        <p>Modules may be written in C++ or Scheme. Which modules are executed are defined in terms of the utterance type, a simple feature on the utterance itself. For most text-to-speech cases this is defined to be of type Tokens. The function utt.synth simply looks up an utterance&apos;s type and then looks up the definition of the defined synthesis process for that type and applies the named modules. Synthesis types maybe defined using the function <code>defUttType</code>. For example definition for utterances of type Tokens is</p>
+        <pre>(defUttType Tokens
+  (Token_POS utt)
+  (Token utt)
+  (POS utt)
+  (Phrasify utt)
+  (Word utt)
+  (Pauses utt)
+  (Intonation utt)
+  (PostLex utt)
+  (Duration utt)
+  (Int_Targets utt)
+  (Wave_Synth utt)
+)</pre>
+        <p>While a simpler case is when the input is phone names and we don&apos;t wish to do all that text analysis and prosody prediction. Then we use the type Phones, which simply loads the phones, applies fixed prosody and the synthesizes the waveform:</p>
+        <pre>(defUttType Phones
+      (Initialize utt)
+      (Fixed_Prosody utt)
+      (Wave_Synth utt)
+      )</pre>
+        <p>In general the modules named in the type definitions are general and actually allow further selection of more specific modules within them. For example the Duration module respects the global parameter Duration_Method and will call then desired duration module depending on this value.</p>
+        <p>When building a new voice you will probably not need to change any of these definitions, though you may wish to add a new module and we will show how to do that without requiring any change to the synthesis definitions elsewhere.</p>
+        <p>There are many modules in the system, some simply wraparounds to choose between other modules. However the basic modules used for text-to-speech have the basic following function:</p>
+        <dl>
+
+          <dt>Token_POS</dt>
+          <dd>basic token identification, used for homograph disambiguation</dd>
+
+          <dt>Token</dt>
+          <dd>Apply the token to word rules building the Word relation.</dd>
+
+          <dt>POS</dt>
+          <dd>A standard part of speech tagger (if desired)</dd>
+
+          <dt>Phrasify</dt>
+          <dd>Build the Phrase relation using the specified method. Various are offered, from statistically trained models to simple CART trees.</dd>
+
+          <dt>Word</dt>
+          <dd>Lexical look up building the Syllable and Segment relations and the SylStructure related these together.</dd>
+
+          <dt>Pauses</dt>
+          <dd>Prediction of pauses, inserting silence into the Segment relation, again through a choice of different prediction mechanisms.</dd>
+
+          <dt>Intonation</dt>
+          <dd>Prediction of accents and boundaries, building the IntEvent relation and the Intonation relation that links IntEvents to syllables. This can easily be parameterized for most practical intonation theories.</dd>
+
+          <dt>PostLex</dt>
+          <dd>Post lexicon rules that can modify segments based on their context. This is used for things like vowel reduction, contractions, etc.</dd>
+
+          <dt>Duration</dt>
+          <dd>Prediction of durations of segments.</dd>
+
+          <dt>Int_Targets</dt>
+          <dd>The second part of intonation. This creates the Target relation representing the desired F0 contour.</dd>
+
+          <dt>Wave_Synth</dt>
+          <dd>A rather general function that in turn calls the appropriate method to actually generate the waveform.</dd>
+
+        </dl>
+
       </section>
 
       <section id="scheme-specifics">
@@ -151,7 +295,152 @@
 
       <section id="tts">
         <h2>Text to Speech (TTS)</h2>
+        <p>Festival supports text to speech for raw text files. If you are not interested in using Festival in any other way except as black box for rendering text as speech, the following method is probably what you want.</p>
+        <pre>festival --tts myfile</pre>
+        <p>This will say the contents of <cite>myfile</cite>. Alternatively text may be submitted on standard input</p>
+        <pre>echo "hello world" | festival --tts
+cat myfile | festival --tts</pre>
+        <hr/>
+        <p>Festival supports the notion of <dfn>text modes</dfn> where the text file type may be identified, allowing Festival to process the file in an appropriate way. Currently only two types are considered stable: STML and raw, but other types such as email, HTML, Latex, etc. are being developed and discussed below. This follows the idea of buffer modes in Emacs where a file&apos;s type can be utilized to best display the text. Text mode may also be selected based on a filename&apos;s extension.</p>
+        <hr/>
+        <p>Within the command interpreter the function <code>tts</code> is used to render files as text; it takes a filename and the text mode as arguments.</p>
+        <hr/>
+        <table>
+          <tr> <td><a href="#utterance-chunking">Utterance Chunking</a></td> <td>From text to utterances</td> </tr>
+          <tr> <td><a href="#text-modes">Text Modes</a></td>         <td>Mode specific text analysis</td> </tr>
+          <tr> <td><a href="#example-text-mode">Example Text Mode</a></td>  <td>An example mode for reading email</td> </tr>
+        </table>
+
+        <section id="utterance-chunking">
+          <h3>Utterance Chunking: From text to utterances</h3>
+          <p>Text to speech works by first tokenizing the file and chunking the tokens into utterances. The definition of utterance breaks is determined by the utterance tree in variable <code>eou_tree</code>. A default version is given in <cite>lib/tts.scm</cite>. This uses a decision tree to determine what signifies an utterance break. Obviously blank lines are probably the most reliable, followed by certain punctuation. The confusion of the use of periods for both sentence breaks and abbreviations requires some more <a target="_blank" href="ai.html#heuristics">heuristics</a> to best guess their different use. The following tree is currently used which works better than simply using punctuation:</p>
+          <pre>(defvar eou_tree
+'((n.whitespace matches ".*\n.*\n\\(.\\|\n\\)*") ;; 2 or more newlines
+  ((1))
+  ((punc in ("?" ":" "!"))
+   ((1))
+   ((punc is ".")
+    ;; This is to distinguish abbreviations vs periods
+    ;; These are heuristics
+    ((name matches "\\(.*\\..*\\|[A-Z][A-Za-z]?[A-Za-z]?\\|etc\\)")
+     ((n.whitespace is " ")
+      ((0))                  ;; if abbrev single space isn't enough for break
+      ((n.name matches "[A-Z].*")
+       ((1))
+       ((0))))
+     ((n.whitespace is " ")  ;; if it doesn't look like an abbreviation
+      ((n.name matches "[A-Z].*")  ;; single space and non-cap is no break
+       ((1))
+       ((0)))
+      ((1))))
+    ((0)))))
+</pre>
+          <p>The token items this is applied to will always (except in the end of file case) include one following token, so look ahead is possible. The &quot;n.&quot; and &quot;p.&quot; and &quot;p.p.&quot; prefixes allow access to the surrounding token context. The features <code>name</code>, <code>whitespace</code> and <code>punc</code> allow access to the contents of the token itself. At present there is no way to access the lexicon form this tree, which unfortunately might be useful if certain abbreviations were identified as such there.</p>
+          <p>Note these are heuristics and written by hand not trained from data, though problems have been fixed as they have been observed in data. The above rules may make mistakes where abbreviations appear at end of lines, and when improper spacing and capitalization is used. This is probably worth changing for modes where more casual text appears, such as email messages and USENET news messages. A possible improvement could be made by analysing a text to find out its basic threshold of utterance break (i.e. if no full stop, two spaces, followed by a capitalized word sequences appear and the text is of a reasonable length then look for other criteria for utterance breaks).</p>
+          <p>Ultimately what we are trying to do is to chunk the text into utterances that can be synthesized quickly and start to play them quickly to minimise the time someone has to wait for the first sound when starting synthesis. Thus it would be better if this chunking were done on <dfn>prosodic phrases</dfn> rather than chunks more similar to linguistic sentences. Prosodic phrases are bounded in size (that is, not very long), while sentences are not.</p>
+        </section>
+
+        <section id="text-modes">
+          <h3>Text Modes: Mode specific text analysis</h3>
+          <p>We do not believe that all texts are of the same type. Often information about the general contents of file will aid synthesis greatly. For example in Latex files we do not want to here "left brace, backslash e m" before each emphasized word, nor do we want to necessarily hear formating commands. Festival offers a basic method for specifying customization rules depending on the mode of the text. By type we are following the notion of modes in Emacs and eventually will allow customization at a similar level.</p>
+          <p>Modes are specified as the third argument to the function tts. When using the Emacs interface to Festival the buffer mode is automatically passed as the text mode. If the mode is not supported a warning message is printed and the raw text mode is used.</p>
+          <p>Our initial text mode implementation allows configuration both in C++ and in Scheme. Obviously in C++ almost anything can be done but it is not as easy to reconfigure without recompilation. Here we will discuss those modes which can be fully configured at run time.</p>
+          <p>A text mode may contain the following:</p>
+          <dl>
+            <dt><code>filter</code></dt>
+            <dd>A Unix shell program filter that processes the text file in some appropriate way. For example for email it might remove uninteresting headers and just output the subject, from line and the message body. If not specified, an identity filter is used.</dd>
+            <dt><code>init_function</code></dt>
+            <dd>This (Scheme) function will be called before any processing will be done. It allows further set up of tokenization rules and voices etc.</dd>
+            <dt><code>exit_function</code></dt>
+            <dd>This (Scheme) function will be called at the end of any processing allowing reseting of tokenization rules etc.</dd>
+            <dt><code>analysis_mode</code></dt>
+            <dd>If analysis mode is <code>xml</code> the file is read through the built in XML parser rxp. Alternatively if analysis mode is <code>xxml</code> the filter should an SGML normalising parser and the output is processed in a way suitable for it. Any other value is ignored.</dd>
+          </dl>
+          <p>These mode specific parameters are specified in the a-list held in <code>tts_text_modes</code>.</p>
+          <p>When using Festival in Emacs the emacs buffer mode is passed to Festival as the text mode.</p>
+          <p>Note that above mechanism is not really designed to be re-entrant, this should be addressed in later versions.</p>
+          <p>Following the use of auto-selection of mode in Emacs, Festival can auto-select the text mode based on the filename given when no explicit mode is given. The Lisp variable <var>auto-text-mode-alist</var> is a list of dotted pairs of regular expression and mode name. For example to specify that the email mode is to be used for files ending in <q>.email</q> we would add to the current <var>auto-text-mode-alist</var> as follows:</p>
+          <pre>(set! auto-text-mode-alist
+      (cons (cons "\\.email$" 'email)
+            auto-text-mode-alist))</pre>
+
+          <p>If the function <code>tts</code> is called with a mode other than <code>nil</code> that mode overrides any specified by the <var>auto-text-mode-alist</var>. The mode <code>fundamental</code> is the explicit <q>null</q> mode, it is used when no mode is specified in the function <code>tts</code>, and no match is found in <var>auto-text-mode-alist</var> or the specified mode is not found.</p>
+          <p>By convention if a requested text model is not found in <var>tts_text_modes</var> the file <cite>MODENAME-mode</cite> will be required. Therefore if you have the file <cite>MODENAME-mode.scm</cite> in your library then it will be automatically loaded on reference. Modes may be quite large and it is not necessary to have Festival load them all at start up time.</p>
+          <p>Because of the <var>auto-text-mode-alist</var> and the auto loading of currently undefined text modes you can use Festival like</p>
+          <pre>festival --tts example.email</pre>
+          <p>Then Festival with automatically synthesize <cite>example.email</cite> in text mode email.</p>
+
+          <p>If you add your own personal text modes you should do the following. Suppose you&apos;ve written an HTML mode. You have named it <cite>html-mode.scm</cite> and put it in <cite>/home/awb/lib/festival/</cite>. In your <cite>.festivalrc</cite> first identify your personal Festival library directory by adding it to <var>lib-path</var>:</p>
+          <pre>(set! lib-path (cons "/home/awb/lib/festival/" lib-path))</pre>
+          <p>Then add the definition to the <var>auto-text-mode-alist</var> that file names ending <q>.html</q> or <q>.htm</q> should be read in HTML mode:</p>
+          <pre>(set! auto-text-mode-alist
+      (cons (cons "\\.html?$" 'html)
+            auto-text-mode-alist))</pre>
+          <p>Then you may synthesize an HTML file either from Scheme:</p>
+          <pre>(tts "example.html" nil)</pre>
+          <p>Or from the shell command line:</p>
+          <pre>festival --tts example.html</pre>
+          <p>Anyone familiar with modes in Emacs should recognise that the process of adding a new text mode to Festival is very similar to adding a new buffer mode to Emacs.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="example-text-mode">
+          <h3>An example mode for reading email</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
       </section>  <!-- end of "Text to Speech (TTS)" -->
+
+      <section>
+        <h2>XML/SGML Mark-Up*</h2>
+        <p style="text-align: right">(From <a href="http://www.festvox.org/docs/manual-2.4.0/festival_10.html#XML_002fSGML-mark_002dup">XML/SGML Mark-Up</a>)</p>
+      </section>  <!-- end of "XML/SGML Mark-Up" -->
+
+      <section>
+        <h2>Phonesets*</h2>
+        <p style="text-align: right">(From <a href="http://www.festvox.org/docs/manual-2.4.0/festival_12.html#Phonesets">Phonesets</a>)</p>
+      </section>  <!-- end of "" -->
+
+      <section>
+        <h2>Lexicons*</h2>
+        <p style="text-align: right">(From <a href="http://www.festvox.org/docs/manual-2.4.0/festival_13.html#Lexicons">Lexicons</a>)</p>
+      </section>  <!-- end of "" -->
+
+      <section>
+        <h2>Utterances*</h2>
+        <p style="text-align: right">(From <a href="http://www.festvox.org/docs/manual-2.4.0/festival_14.html#Utterances">Utterances</a>)</p>
+      </section>  <!-- end of "" -->
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <p style="text-align: right">(From <a href="">*</a>)</p>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p style="text-align: right">(From <a href="">*</a>)</p>
+      </section>
+      -->
 
     </main>
 

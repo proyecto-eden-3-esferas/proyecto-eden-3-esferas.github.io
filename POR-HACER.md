@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] enlazar desde *prolog.es.html* a *kokoro-alt.html#prolog* y viceversa
+
 [ ] write into *cpp.type_traits.html*
 
 [ ] *jung.four-functions-of-consciousness.html*
