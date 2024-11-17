@@ -21,6 +21,7 @@
       -->
       <div>
         <p><a rel="prev" href="lisp.html">Lisp: The List Processing Language</a></p>
+        <p><a rel="next" href="scheme.html">Scheme: a Dialect of Lisp</a></p>
         <p><a            href="why-lisp.html">Why Lisp?</a></p>
         <p><a            href="ai.html">Artificial Intelligence</a></p>
         <p><a            href="programming.html">Programming Computers</a></p>
@@ -32,7 +33,7 @@
       <blockquote>
         <p>So, on one hand, Lisp is one of computer science&apos;s <em>classical</em> languages, based on ideas that have stood the test of time. On the other, it&apos;s a thoroughly modern, general-purpose language whose design reflects a deeply pragmatic approach to solving real problems as efficiently and robustly as possible. The only downside of Lisp&apos;s <em>classical</em> heritage is that lots of folks are still walking around with ideas about Lisp based on some particular flavor of Lisp they were exposed to at some particular time in the nearly half century since McCarthy invented Lisp. If someone tells you Lisp is only interpreted, that it&apos;s slow, or that you have to use recursion for everything, ask them what dialect of Lisp they&apos;re talking about and whether people were wearing bell-bottoms when they learned it. But I learned Lisp Once, And IT Wasn&apos;t Like what you&apos;re describing.</p>
         <p>If you&apos;ve used Lisp in the past, you may have ideas about what Lisp is that have little to do with Common Lisp. While Common Lisp supplanted most of the dialects it&apos;s descended from, it isn&apos;t the only remaining Lisp dialect, and depending on where and when you were exposed to Lisp, you may very well have learned one of these other dialects.</p>
-        <p>Other than Common Lisp, the one general-purpose Lisp dialect that still has an active user community is <link linkend='scheme'>Scheme</link>. Common Lisp borrowed a few important features from Scheme but never intended to replace it.</p>
+        <p>Other than Common Lisp, the one general-purpose Lisp dialect that still has an active user community is <a href="scheme.html">Scheme</a>. Common Lisp borrowed a few important features from Scheme but never intended to replace it.</p>
       </blockquote>
 
       <h1>Dialects of Lisp</h1>
@@ -41,23 +42,16 @@
       <p>Lisp offers several different dialects and has influenced the development of other languages.</p>
       <p>Since its inception, Lisp has gone through multiple changes and iterations depending on the need. These language implementations are known as <dfn>dialects</dfn> -- many of which are open source. The most used Lisp-based languages today include the following:</p>
       <ul>
-        <li><a href='clojure'>Clojure</a></li>
+        <li><a href='#clojure'>Clojure</a></li>
         <li>Emacs Lisp</li>
         <li>Common Lisp</li>
         <li>Julia</li>
         <li>Racket</li>
-        <li><a href='scheme'>Scheme</a></li>
+        <li><a href="scheme.html">Scheme</a></li>
       </ul>
 
+      <p>Two other Lisp dialects still in widespread use are Elisp, the extension language for the Emacs editor, and Autolisp, the extension language for Autodesk&apos;s AutoCAD computer-aided design tool. Although it&apos;s possible that more lines of Elisp and Autolisp have been written than of any other dialect of Lisp, neither can be used outside their host application, and both are quite old-fashioned Lisps compared to either Scheme or Common Lisp. If you&apos;ve used one of these dialects, prepare to hop in the Lisp time machine and jump forward several decades.</p>
 
-      <section id='scheme'>
-        <h2>Scheme</h2>
-        <p>Originally designed at M.I.T., where it was quickly put to use as a teaching language for undergraduate computer science courses, Scheme has always been aimed at a different language niche than Common Lisp. In particular, Scheme&apos;s designers have focused on keeping the core language as small and as simple as possible. This has obvious benefits for a teaching language and also for programming language researchers who like to be able to formally prove things about languages.</p>
-        <p>It also has the benefit of making it relatively easy to understand the whole language as specified in the standard. But, it does so at the cost of omitting many useful features that are standardized in Common Lisp. Individual Scheme implementations may provide these features in implementation-specific ways, but their omission from the standard makes it harder to write portable Scheme code than to write portable Common Lisp code.</p>
-        <p>Scheme also emphasizes a functional programming style and the use of recursion much more than Common Lisp does. If you studied Lisp in college and came away with the impression that it was only an academic language with no real-world application, chances are you learned Scheme. This isn&apos;t to say that&apos;s a particularly fair characterization of Scheme, but it&apos;s even less applicable to Common Lisp, which was expressly designed to be a real-world engineering language rather than a theoretically <em>pure</em> language.</p>
-        <p>If you&apos;ve learned Scheme, you should also be aware that a number of subtle differences between Scheme and Common Lisp may trip you up. These differences are also the basis for several perennial religious wars between the hotheads in the Common Lisp and Scheme communities. I&apos;ll try to point out some of the more important differences as we go along.</p>
-        <p>Two other Lisp dialects still in widespread use are Elisp, the extension language for the Emacs editor, and Autolisp, the extension language for Autodesk&apos;s AutoCAD computer-aided design tool. Although it&apos;s possible more lines of Elisp and Autolisp have been written than of any other dialect of Lisp, neither can be used outside their host application, and both are quite old-fashioned Lisps compared to either Scheme or Common Lisp. If you&apos;ve used one of these dialects, prepare to hop in the Lisp time machine and jump forward several decades.</p>
-      </section>
 
       <section id='clojure'>
         <h2>Clojure</h2>

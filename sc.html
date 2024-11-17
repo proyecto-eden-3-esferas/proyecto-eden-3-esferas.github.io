@@ -75,7 +75,7 @@
         <p>Alternatively, type:</p>
         <pre>squared(4)</pre>
         <hr/>
-        <p>The parentheses used to contain the receiver are one type of <dfn>enclosure</dfn> in SC. Others include [square brackets], {curly braces}, “double quotes,” and ‘single quotes.&apos; Each type of enclosure has its own significance, and some have multiple uses.</p>
+        <p>The parentheses used to contain the receiver are one type of <dfn>enclosure</dfn> in SC. Others include [square brackets], {curly braces}, <q>double quotes,</q> and ‘single quotes.&apos; Each type of enclosure has its own significance, and some have multiple uses.</p>
         <p>The semicolon is the statement terminator.</p>
         <hr/>
         <p>Further, you can combine multiple methods into a single statement, using two different syntax styles:</p>
@@ -274,7 +274,7 @@ x.numDoors; // get the number of doors (returns 4)</pre>
         <pre>x = House.new(30, 40); // create a house with specific dimensions
 x.color_("blue"); // set the color
 x.hasGarage_(true); // set whether it has a garage</pre>
-        <p>We don&apos;t have to type <code>Float.new(5.2)</code> or <code>Symbol.new(\freq)</code>. Instead, we just type the object as is. Classes like these, which have a direct, syntactical representation through code, are called <dfn>literals</dfn>. When we type the number seven, it is literally the number seven. But an object like a house can&apos;t be directly represented with code; there is no “house” symbol in our standard character set. So, we must use the more abstract approach of typing x = House.new, while its literal representation remains in our imagination.</p>
+        <p>We don&apos;t have to type <code>Float.new(5.2)</code> or <code>Symbol.new(\freq)</code>. Instead, we just type the object as is. Classes like these, which have a direct, syntactical representation through code, are called <dfn>literals</dfn>. When we type the number seven, it is literally the number seven. But an object like a house can&apos;t be directly represented with code; there is no <q>house</q> symbol in our standard character set. So, we must use the more abstract approach of typing x = House.new, while its literal representation remains in our imagination.</p>
         <p>Integers, floats, strings, symbols, Booleans, and functions are all examples of literals. Arrays, for the record, exist in more of a grey area; they have a direct representation via square brackets, but we may sometimes create one with <code>Array.new</code> or a related method. There is also a distinction between literal arrays and non-literal arrays, but which is not relevant here. The point is that many of the objects we&apos;ll encounter in this pages are not literals and require creation via some method call to their class.</p>
         <h3 class="bridgehead">Omitting the <code>new</code> Method</h3>
         <p>The <code>new</code> method is so commonly used for creating new instances of classes that we can usually omit it, and the interpreter will make the right assumption. For example, using our imaginary <q>house</q> class, we could write <code>x = House(30, 40)</code> instead of <code>x = House.new(30, 40)</code>. However, if creating a new instance without providing any arguments, we can omit <code>new</code> but cannot omit the parentheses, even if they are empty. For example, <code>x = House.new()</code> and <code>x = House()</code> are both valid, but <code>x = House</code> will be problematic. In this third case, the interpreter will store the house class, instead of a new house instance.</p>
@@ -292,7 +292,7 @@ x.hasGarage_(true); // set whether it has a garage</pre>
         <section>
         <h3 class="bridgehead"><code>if</code></h3>
         <p>One of the most common conditional methods is if, which includes three components: (1) an expression that represents the test condition, which must return a Boolean value, (2) a function to be evaluated if the condition is true, and (3) an optional function to be evaluated if false.</p>
-        <p>The code example below demonstrates the use of conditional logic to model a coin flip (a value of 1 represents “heads”), in three styles that vary in syntax and whitespace. The second style tends to be preferable to the first, because it places the “if” at the beginning of the expression, mirroring how the sentence it represents would be spoken in English.</p>
+        <p>The code example below demonstrates the use of conditional logic to model a coin flip (a value of 1 represents <q>heads</q>), in three styles that vary in syntax and whitespace. The second style tends to be preferable to the first, because it places the <q>if</q> at the beginning of the expression, mirroring how the sentence it represents would be spoken in English.</p>
         <p>Because the entire expression is somewhat long, the multi-line approach can improve readability. Note that in the first expression, the parentheses around the test condition are required to give precedence to the binary operator == over the if method. Without parentheses, the if method is applied to the number 1 instead of the full Boolean expression, which produces an error</p>
         <pre>// "receiver-dot-method" syntax:
 ([0, 1].choose == 1).if({\heads.postln}, {\tails.postln});
@@ -310,7 +310,7 @@ if(
 
         <section>
         <h3 class="bridgehead">And/Or</h3>
-        <p>The methods and and or (representable using binary operators &amp;&amp; and ||), allow us to check multiple conditions. For example, if ice cream is on sale, and they have chocolate, then I&apos;ll buy two. The code example below models a two-coin flip in which both must be “heads” for the result to be considered true. Again, parentheses around each conditional test are required to ensure correct order of operations.</p>
+        <p>The methods and and or (representable using binary operators &amp;&amp; and ||), allow us to check multiple conditions. For example, if ice cream is on sale, and they have chocolate, then I&apos;ll buy two. The code example below models a two-coin flip in which both must be <q>heads</q> for the result to be considered true. Again, parentheses around each conditional test are required to ensure correct order of operations.</p>
         <pre>(
 if(
  ([0, 1].choose == 1) &amp;&amp; ([0, 1].choose == 1),
@@ -1390,111 +1390,426 @@ t.beats; // the clock is destroyed</pre>
 (0..999).postln;\ // truncated single-post
 (0..999).postcs; // non-truncated double-post
 (0..999).postcs;\ // non-truncated single-post (ideal!)</pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4></h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4></h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4></h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4></h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-        </section>  <!-- end of "Patterns" -->
+            <p>postcs is also useful for visualizing the internals of a function:</p>
+            <pre>(
+  ~func = { |input|
+   input = input + 2;
+};
+)
+~func.postcs;\ // print the entire function definition
+~func.postln;\ // only prints "a Function"</pre>
+            <p>Each Event type represents a different type of action and thus expects a unique set of keys. Most Event types are rarely used and largely irrelevant for creative applications. The most common, by far, is the note Event, which models the creation of a <code>Synth</code>. This is the default Event type if unspecified. The components and behaviors of the note Event are given default values that are so comprehensive, that even playing an empty Event generates a <code>Synth</code> and produces a sound, if the server is booted:</p>
+            <p>().play;</p>
+            <p>On evaluation, the post window displays the resulting Event, which looks roughly like this:</p>
+            <pre>-&gt; ('instrument': default, 'msgFunc': a Function, 'amp': 0.1, 'server': localhost, 'sustain': 0.8, 'isPlaying': true, 'freq': 261.6255653006, 'hasGate': true, 'id': [1000])</pre>
+            <p>The default note Event includes a freq key with a value of approximately 261.6 (middle C), an amp key with a value of 0.1, and a few other items that are relatively unimportant at the moment. We can override these default values by providing our own. For example, we can specify a higher and slightly louder pitch:</p>
+            <pre>(freq: 625, amp: 0.4).play;</pre>
+            <p>Where does this sound come from? The instrument key specifies the <code>SynthDef</code> to be used, and there is a <code>\default SynthDef</code>, automatically added when the server boots. This default <code>SynthDef</code> is primarily used to support code examples in pattern help files, and can be found in the Event source code within the <code>makeDefaultSynthDef</code> method. When a <code>SynthDef</code> name is provided for an Event&apos;s instrument key, that <code>SynthDef</code>&apos;s arguments also become meaningful Event keys. Event keys that don&apos;t match <code>SynthDef</code> arguments and aren&apos;t part of the Event definition will have no effect. For example, the default <code>SynthDef</code> has a pan position argument, but no envelope parameters. Thus, in the following line, pan will shift the sound toward the left, but atk does nothing:</p>
+            <pre>(freq: 625, amp: 0.3, pan: -0.85, atk: 0.5).play;</pre>
+            <p>The default <code>SynthDef</code> is rarely used for anything beyond simple demonstrations. In the following excerpt an Event creates a Synth using a SynthDef adapted from other code.</p>
+            <h5>Using an Event to play a sound using a custom SynthDef. On creation, key-value pairs in the Event are supplied as Synth arguments</h5>
+            <pre>(
+  SynthDef(\bpf_brown, {
+    arg atk = 0.02, rel = 2, freq = 800,
+      rq = 0.005, pan = 0, amp = 1, out = 0;
+    var sig, env;
+    env = Env([0, 1, 0], [atk, rel], [1, -2]).kr(2);
+    sig = BrownNoise.ar(0.8);
+    sig = BPF.ar(sig, freq, rq, 1 / rq.sqrt);
+    sig = Pan2.ar(sig, pan, amp) * env;
+    Out.ar(out, sig);
+  }).add;
+)
+(instrument: \bpf_brown, freq: 500, atk: 2, rel: 4, amp: 0.6).play;</pre>
+            <p>A few additional details about internal Event mechanisms are worth discussing. Throughout earlier sections, the argument names <code>freq</code> and <code>amp</code> were regularly used to represent the frequency and amplitude of a sound. We can technically name these parameters whatever we like, but these specific names are chosen to take advantage of a flexible system of pitch and volume specification built into the Event paradigm. In addition to specifying amplitude via amp, we can also specify amplitude as a value in decibels, using the db key:</p>
+            <pre>(instrument: \bpf_brown, db: -3).play;
+(instrument: \bpf_brown, db: -20).play;</pre>
+            <p>How is this possible? Despite the fact that db is not one of our SynthDef arguments, the Event knows how to convert and apply this value correctly. We can understand this behavior more clearly by examining some internals of the Event paradigm:</p>
+            <pre>Event.parentEvents.default[\db]; // default db value = -20.0
+Event.parentEvents.default[\amp].postcs; // -> the function {~db.dbamp}</pre>
+            <p>In the absence of user-provided values, the default db value of -20.0 is converted to a normalized amplitude of 0.1. If a db value is provided, that value is converted to an amplitude. If an amp value is directly provided, it <q>intercepts</q> the conversion process, temporarily overwriting the function that performs the conversion, such that the amp value is directly provided to the Synth. It&apos;s important to remember that this flexibility is only available if the SynthDef includes an argument named <q>amp</q> that is used in the conventional sense (as a scalar that controls output level). If, for example, our SynthDef used a variable named <q>vol</q> for amplitude control, then neither amp nor db would have any effect on the sound if provided in the Event, akin to misspelling a SynthDef argument name when creating a Synth. In this case, our only option for level control would be <q>vol,</q> and we would not have access to this two-tier specification structure. To specify level as a decibel value, we would have to perform the conversion ourselves, for example:</p>
+            <pre>(vol: -20.dbamp).play;</pre>
+            <p>The situation with freq is similar, but with more options. If <q>freq</q> is declared as a SynthDef argument that controls pitch, then four layers of pitch specification become available. These four options are somewhat intertwined, but are roughly expressible as follows:</p>
+            <ul>
+              <li>1. <q>degree,</q> along with <q>scale</q> and <q>mtranspose,</q> allows modal expression of pitch as a scale degree, with the possibility of modal transposition.</li>
+              <li>2. <q>note,</q> along with <q>root,</q> <q>octave,</q> <q>gtranspose,</q> <q>stepsPerOctave,</q> and <q>octaveRatio,</q> allows specification of pitch as a scale degree within an equal-tempered framework, with a customizable octave ratio and arbitrary number of divisions per octave.</li>
+              <li>3. <q>midinote,</q> along with <q>ctranspose</q> and <q>harmonic,</q> allows specification of pitch as MIDI note numbers (non-integers are allowed), with the option for chromatic transposition and specification of a harmonic partial above a fundamental.</li>
+              <li>4. <q>freq,</q> along with <q>detune,</q> allows specification of a frequency value measured in Hertz, with an optional offset amount added to this value.</li>
+            </ul>
+            <h5>Use of four different pitch specifications to play middle C, followed by the D immediately above it.</h5>
+            <pre>(degree: 0).play;
+(degree: 1).play; // modal transposition by scale degree
+(note: 0).play;
+(note: 2).play; // chromatic transposition by semitones
+(midinote: 60).play;
+(midinote: 62).play; // MIDI note numbers
+(freq: 261.626).play;
+(freq: 293.665).play; // Hertz</pre>
+            <h5>Flats and Sharps with Scale Degrees</h5>
+            <p>The degree key has additional flexibility for specifying pitch. Altering a degree value by ±0.1 produces a transposition by one semitone, akin to notating a sharp or flat symbol on a musical score:</p>
+            <pre>(degree: 0).play;
+(degree: 0.1).play; // sharp</pre>
+            <p>Similarly, <q>s</q> (for sharp) and <q>b</q> (for bemol or flat) can be appended to an integer, which has the same result:</p>
+            <pre>(degree: 0).play;
+(degree: 0b).play; // flat</pre>
+            <p>Again, these pitch options are only available if an argument named <q>freq</q> is declared in the SynthDef and used conventionally. In doing so, pitch information is specifiable at any of these four tiers, and calculations propagate through these tiers from <q>degree</q> to <q>detunedFreq.</q> The functions that perform these calculations can also be examined:</p>
+            <pre>Event.parentEvents.default[\degree]; // default = 0
+Event.parentEvents.default[\note].postcs;
+Event.parentEvents.default[\midinote].postcs;
+Event.parentEvents.default[\freq].postcs;
+Event.parentEvents.default[\detunedFreq].postcs;</pre>
+            <p>Lastly, we shall demonstrate an interesting feature of Events. If a SynthDef includes a gated envelope, we must manually close the gate when creating a Synth, but the gate closes automatically when playing an Event.</p>
+            <pre>(
+  SynthDef(\bpf_brown, {
+    arg atk = 0.02, rel = 2, gate = 1, freq = 800,
+      rq = 0.005, pan = 0, amp = 1, out = 0;
+    var sig, env;
+    env = Env.asr(atk, 1, rel).kr(2, gate);
+    sig = BrownNoise.ar(0.8);
+    sig = BPF.ar(sig, freq, rq, 1 / rq.sqrt);
+    sig = Pan2.ar(sig, pan, amp) * env;
+    Out.ar(out, sig);
+  }).add;
+)
+x = Synth(\bpf_brown, [freq: 500, amp: 0.2]);
+x.set(\gate, 0); // manual gate closure
+(instrument: \bpf_brown, freq: 500, amp: 0.2).play; // automatic gate closure</pre>
+            <p>The default note Event includes a sustain key, which represents a duration after which a (\gate, 0) message is automatically sent to the Synth. The sustain value is measured in beats, the duration of which is determined by the clock on which the Event is scheduled (if no clock is specified, the default TempoClock is used, which runs at 60 bpm). This mechanism assumes the SynthDef has an argument named <q>gate,</q> used to release some sort of envelope with a terminating doneAction. If this argument has a different name or is used for another purpose, the Synth will become stuck in an <q>on</q> state, probably requiring <kbd>[cmd]+[period]</kbd>. The backend of the Event paradigm is complex, and perplexing situations (e.g., stuck notes) may arise from time to time.</p>
+            <p><!--The Companion Code that follows the next section attempts to demystify common pitfalls. -->Although the Event paradigm runs deeper than discussed here, this general introduction should be enough to help you get started with Event sequencing using the primary Event pattern, Pbind. For readers seeking more detailed information on Event features and behaviors, the Event help file provides additional information, particularly in a section titled <cite>Useful keys for notes</cite>. Relatedly, the code below can be evaluated to print a list of keys that are built into the Event paradigm.</p>
+            <pre>(
+  Event.partialEvents.keys.do({ |n|
+    n.postln;
+    Event.partialEvents[n].keys.postln;
+    \.postln;
+  });\
+)</pre>
+            <h5>Event Sequences with Pbind</h5>
+            <p>Pbind combines value patterns with Events, establishing a high-level framework for expressing musical sequences. A Pbind contains a list of pairs, each of which consists of an Event key and value pattern. When a stream is generated from a Pbind, and asked to perform its output, the result is a sequence of Events. Each Event contains keys from the Pbind, and each key is paired with the next value defined by its corresponding value pattern. This behavior of <q>binding</q> values to keys is what gives Pbind its name. The code below provides an example. To perform the Events, we convert the pattern to a stream, call <code>next</code> to yield an Event, and play it to generate a Synth. The only difference between this example and the stream examples from previous sections is that here, we must provide an empty starting Event to be populated (hence the additional set of parentheses inside of <code>next</code>).</p>
+            <pre>(
+  p = Pbind(
+    \midinote, Pseq([55, 57, 60], 2),
+    \db, Pwhite(-20.0, -10.0, 6),
+    \pan, Prand([-0.5, 0, 0.5], 6)
+  );
+)
+~seq = p.asStream;
+~seq.next(()).play; // evaluate repeatedly, returns nil when finished
+~seq.reset; // can be reset at any time</pre>
+            <p>In the foregoing code, each internal value pattern specifies exactly six values, so the stream produces six Events. Because the Pbind does not specify otherwise, the created Events are note-type Events that use the default SynthDef. The <q>midinote</q> and <q>db</q> keys undergo internal calculations to yield <q>freq</q> and <q>amp</q> values, which are supplied to each Synth.</p>
+            <p>Manually extracting and playing Events one-by-one is rarely done, intended here as only an illustrative example. More commonly, we play a Pbind, which returns an EventStreamPlayer, a type of stream that performs an Event sequence. As demonstrated next, an EventStreamPlayer works by automating the Event extraction process, and scheduling the Events to be played on a clock, using the default TempoClock if unspecified, thus generating a timed musical sequence.</p>
+            <pre>(
+  p = Pbind(
+    \midinote, Pseq([55, 57, 60], 2),
+    \db, Pwhite(-20.0, -10.0, 6),
+    \pan, Prand([-0.5, 0, 0.5], 6)
+  );
+  ~seq = p.play;
+)</pre>
+            <h5>Debugging Pattern Values</h5>
+            <p>Visualizing a Pbind&apos;s output can be helpful for debugging code that doesn&apos;t work properly, and also for understanding pattern behavior in general. postln does not work in this context. Instead, trace can be applied to any pattern, which prints its output to the post window as a stream performs it:</p>
+            <pre>(
+  p = Pbind(
+    \midinote, Pseq([55, 57, 60], 2).trace,
+  );
+  ~seq = p.play;
+)</pre>
+            <p>The onset of each Synth occurs one second after the preceding onset. But where does this timing information originate? Timing information is typically provided using the dur key, which specifies a duration in beats and has a default value of one:</p>
+            <pre>Event.partialEvents.durEvent[\dur]; // -&gt; 1.0</pre>
+            <p>We can provide our own timing information, which may be a value pattern, as shown below:</p>
+            <pre>(
+  p = Pbind(
+    \dur, Pseq([0.75, 0.25, 0.75, 0.25, 0.5, 0.5], 1),
+    \midinote, Pseq([55, 57, 60], 2),
+    \db, Pwhite(-20.0, -10.0, 6),
+    \pan, Prand([-0.5, 0, 0.5], 6)
+  );
+  ~seq = p.play;
+)</pre>
 
-        <section>
-          <h3>Additional Techniques for Pattern Composition</h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+            <p>Pbind can specify an infinite-length Event stream. If each internal value pattern is infinite, the Event stream will also be infinite. If at least one internal value pattern is finite, the length of the Event stream will be equal to the length of the shortest value pattern. If an ordinary number is provided for one of Pbind&apos;s keys, it will be interpreted as an infinite-length value stream that repeatedly outputs that number. An EventStreamPlayer can be stopped at any time with <code>stop</code>. Unlike routines, a stopped EventStreamPlayer can be resumed with <code>resume</code>, causing it to continue from where it left off. The following code demonstrates these concepts: the midinote pattern is the only finite value pattern, which produces 24 values and thus determines the length of the Event stream. The db value −15 is interpreted as an infinite stream that repeatedly yields −15.</p>
+            <pre>(
+  p = Pbind(
+    \dur, Pseq([0.75, 0.25, 0.75, 0.25, 0.5, 0.5], inf),
+    \midinote, Pseq([55, 57, 60], 8),
+    \db, -15
+  );
+  ~seq = p.play;
+)
+~seq.stop;
+~seq.resume;</pre>
+            <p>In a Pbind, only values or value patterns should be paired with Event keys. It may be tempting to use a method like rrand to generate random values for a key. However, this will result in a random value being generated once when the Pbind is created and used for every Event in the output stream, as demonstrated next, whereas the correct approach is to use the pattern or pattern combination that represents the desired behavior (in this case, Pwhite).</p>
+            <h5>An incorrect approach for creating randomness in an Event stream.</h5>
+            <pre>(
+  p = Pbind(
+    \dur, 0.2,
+    \midinote, rrand(50, 90), // &lt;- should use Pwhite(50, 90) instead
+  );
+  ~seq = p.play;
+)</pre>
+            <p>Recalling techniques already introduced, an EventStreamPlayer can be scheduled on a specific TempoClock and quantized to a particular beat:</p>
+            <h5>Rhythmically quantizing two EventStreamPlayers on a custom TempoClock</h5>
+            <pre>(
+  t = TempoClock(90/60);
+  p = Pbind(
+    \dur, 0.25,
+    \midinote, Pwhite(48, 60, inf),
+  );
+  q = Pbind(
+    \dur, 0.25,
+    \midinote, Pwhite(72, 84, inf),
+  );
+)
+~seq_p = p.play(t, quant:4); // scheduled on next beat multiple of 4
+~seq_q = q.play(t, quant:4); // synchronizes with ~seq_p</pre>
+            <p>Combined with a general understanding of Events, patterns, and streams, Pbind unlocks an endless supply of ideas for musical sequences.</p>
+          </section>
         </section>
 
         <section>
-          <h3>Real-Time Pattern Control</h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <h3>Additional Techniques for Pattern Composition</h3>
+          <p>As you explore musical sequences, you&apos;ll inevitably find yourself wanting to build larger ideas from smaller, individual patterns. This section covers a few relevant features of patterns, aiming to facilitate expression of more complex sequences.</p>
+
+          <h4>The Rest Event</h4>
+          <p>There are many types of pre-made Events, but so far, we&apos;ve only been using note Events. In some cases, the note Event by itself is insufficient and awkward. Consider, for example, a musical phrase which begins with a rest. How should we represent this phrase with patterns?</p>
+          <pre>t = TempoClock.new(112/60);
+(
+  Pbind(
+    \dur, Pseq([1/2, 1/2, 1/2, 1/4, 1/2, 1/2, 1/2], 1),
+    \sustain, 0.1,
+    \degree, Pseq([4, 5, 7, 4, 5, 7, 8], 1),
+  ).play(t);
+)</pre>
+          <p>This code is a poor choice, because it treats the phrase as if it begins on its first eighth note. Rhythmic misalignment would likely occur if we tried to quantize this pattern. A better approach involves using rest Events. A rest Event does exactly what its name suggests: when played, it does nothing for a specific number of beats. Event types are specified using the type key, and providing the type name as a symbol. A two-beat rest Event, for example, looks like this:</p>
+          <pre>(type: \rest, dur: 2).play;</pre>
+          <p>To employ rests in an Event sequence, we can embed instances of the Rest class in a Pbind&apos;s dur pattern. Each rest is given a duration, measured in beats:</p>
+          <pre>t = TempoClock.new(112/60);
+(
+  Pbind(
+    \dur, Pseq([
+      Pseq([Rest(1/4), 1/4], 4), // bar 1
+      Pseq([1/4, Rest(1/4), 1/4, Rest(1/4), 1/4, Rest(3/4)]) // bar 2
+    ], 1),
+    \sustain, 0.1,
+    \degree, Pseq([
+      0, 4, 0, 5, 0, 7, 0, 4, // bar 1
+      5, 0, 7, 0, 8, 0, 0, 0 // bar 2
+      ], 1),
+  ).play(t);
+)</pre>
+          <p>When this code is quantized, the true downbeat of the phrase occurs on the target beat. Note that the pitch values nicely resemble the metric layout of the notated pitches. The pitch values that align with rest Events are ultimately meaningless since they do not sound. Zeroes are used for visual clarity, but any value is fine.</p>
+          <p>Other options exist for expressing a sequential mix of notes and rests. Rest Events can be generated by using a pattern to determine type values. This approach lets us use a constant dur value equal to the smallest beat subdivision necessary to express the rhythm, and the type pattern handles the determination of Event type (<i>see</i> next). Another option involves supplying symbols for a pitch-related pattern (such as degree, note, midinote, or freq). If the pitch value of a note Event is a symbol, the Event becomes a rest Event. The simplest option is to use the empty symbol, expressed as a single backslash (<i>see</i> example after next).</p>
+          <h5>Pattern manipulation of the type key to express a musical phrase</h5>
+          <pre>t = TempoClock.new(112/60);
+(
+  Pbind(
+    \type, Pseq([
+      Pseq([\rest, \note], 4), // bar 1
+      Pseq([\note, \rest], 2), \note, Pseq([\rest], 3) // bar 2
+    ], 1),
+    \dur, 1/4,
+    \sustain, 0.1,
+    \degree, Pseq([
+      0, 4, 0, 5, 0, 7, 0, 4, // bar 1
+      5, 0, 7, 0, 8, 0, 0, 0 // bar 2
+    ], 1),
+  ).play(t);
+)</pre>
+          <h5>Using symbols in a pitch pattern to express the same musical phrase</h5>
+          <pre>t = TempoClock.new(112/60);
+(
+  Pbind(
+    \dur, 1/4,
+    \sustain, 0.1,
+    \degree, Pseq([
+      \, 4, \, 5, \, 7, \, 4, // bar 1
+      5, \, 7, \, 8, \, \, \ // bar 2
+    ], 1),
+  ).play(t);
+)</pre>
+          <p>Though it&apos;s possible to achieve a similar result by strategically providing zeroes in an amplitude pattern, this is less efficient. In this case, every Event will produce a Synth, and every Synth consumes some processing power, regardless of its amplitude.</p>
+
+          <h4>Limiting Pattern Output with Pfin/Pfindur</h4>
+          <p>It&apos;s sometimes convenient to define an infinite length pattern but specify a finite output at performance time, therefore avoiding the need to manually stop the stream. The example below shows the use of <code>Pfin</code> to limit the number of values a pattern will output. <code>Pfindur</code> is similar, but instead of constraining based on Event quantity, <code>Pfindur</code> limits a stream based on the number of beats that have elapsed, shown after next. The duration of one beat is, as usual, governed by the clock on which the stream plays.</p>
+          <h5>Using Pfin to limit the output of an Event stream to 16 Events</h5>
+          <pre>(
+  p = Pbind(
+    \dur, 1/8,
+    \sustain, 0.02,
+    \freq, Pexprand(200, 4000, inf),
+  );
+  q = Pfin(16, p);
+  ~seq = q.play; // stops after 16 events
+)</pre>
+          <h5>Using Pfindur to limit the output of an Event stream to three beats.</h5>
+          <pre>(
+  p = Pbind(
+    \dur, 1/8,
+    \sustain, 0.02,
+    \freq, Pexprand(200, 4000, inf),
+  );
+q = Pfindur(3, p);
+~seq = q.play; // stops after 3 beats
+)</pre>
+          <p>Pfin and Pfindur are helpful in allowing us to focus on the finer musical details of a pattern during the compositional process, working in an infinite mindset and not concerning ourselves with total duration. When the sound is just right, we can simply wrap the pattern in one of these limiters to constrain its lifespan as needed.</p>
+          <h5>Composite Patterns with Pseq/Ppar/Ptpar</h5>
+          <p>Once you have several Pbinds that represent musical phrases, a logical next step involves combining them into composite structures that represent longer musical phrases, large-scale sections, and perhaps eventually, an entire musical composition. Consider the code below, which represents a four-note sequence, and this same sequence shifted up by two scale degrees:</p>
+          <pre>(
+  ~p0 = Pbind(
+    \dur, 1/6,
+    \degree, Pseq([0, 2, 3, 5], 1),
+    \sustain, 0.02,
+  );
+  ~p1 = Pbind(
+    \dur, 1/6,
+    \degree, Pseq([2, 4, 5, 7], 1),
+    \sustain, 0.02,
+  );
+)</pre>
+          <p>Suppose we wanted to play these phrases twice in sequence, for a total of four phrases. Pseq provides an elegant solution, shown next, which demonstrates its ability to sequence Events, and not just numerical values. A composite pattern need not be deterministic; any value pattern that retrieves items from an array can be used for this purpose. If <code>Prand([~p0, ~p1], 4)</code> is substituted for <code>Pseq</code>, for example, the Event stream will play four phrases, randomly chosen from these two.</p>
+          <pre>(
+  ~p_seq = Pseq([~p0, ~p1], 2);
+  ~player = ~p_seq.play;
+)</pre>
+          <p>To play these two phrases, we could simply enclose <code>~p0.play</code> and <code>~p1.play</code> in the same block and evaluate them with one keystroke, but this approach only sounds the patterns together—it does not express these two patterns as a singular unit. <code>Ppar</code> (<i>see</i> below) is a better option, which takes an array of several Event patterns, and returns one Event pattern in which the individual patterns are essentially superimposed into a single sequence. Like Pseq, Ppar also accepts a repeats value. Ptpar is similar (<i>see</i> example afterwards) but allows us to specify a timing offset for each individual pattern used to compose the parallel composite pattern.</p>
+          <h5>Use of Ppar to play Event patterns in parallel. This example relies on the two patterns previously created</h5>
+          <pre>(
+  ~p_par = Ppar([~p0, ~p1], 3);
+  ~seq = ~p_par.play;
+)</pre>
+          <h5>Use of Ptpar to play Event patterns in parallel with individual timing offsets. The second pattern begins one-twelfth of a beat after the first. This example relies on the two patterns already created</h5>
+          <pre>(
+  p = Ptpar([
+    0, Pseq([~p1], 3),
+    1/12, Pseq([~p0], 3)
+    ], 1);
+  ~seq = p.play;
+)</pre>
+          <p>As you may be able to guess from the previous examples, the composite patterns returned by Pseq, Ppar, and Ptpar retain the ability to be further sequenced into even larger composite patterns. In some cases, the final performance structure of a composition involves a parent Pseq, which contains Pseq/Ppar patterns that represent large-scale sections, which contain Pseq/Ppar patterns that represent sub-sections, and so forth, all the way down to note-level details. <!--Companion Code 5.3 focuses on an example of how such a project might take shape. -->The central idea is that patterns should be treated as modular building blocks, which can be freely combined and may represent all sequential aspects of a composition. Conceptualizing time-based structures within the pattern framework provides great flexibility, allowing complex sequential ideas to be expressed and performed relatively easily.</p>
+
+          <h4>Real-Time Pattern Control</h4>
+          <p>Real-time control is an essential feature for performing electronic music. We&apos;ve seen a simple example in previous sections: a Synth argument can be <q>set</q> while it is running, which can influence its sound and behavior. It&apos;s also possible to manipulate characteristics of an <code>EventStreamPlayer</code> while it&apos;s playing, by swapping out one value pattern for another. This ability mostly relies on a handful of pattern objects that revolve around the concept of proxies. In SC, a <dfn>proxy</dfn> is a placeholder that references a piece of data we want to be able to change dynamically. Proxies enable fluid musical transitions and allow us to make spontaneous decisions on-the-fly, helping us avoid the need to prepare extensive sequential structures in advance.</p>
+          <p>The <code>PatternProxy</code> class provides core functionality for real-time pattern control, but in practice, we typically use one of its subclasses, such as <code>Pdefn</code>, <code>Pdef</code>, or <code>Pbindef</code>. These classes are part of a larger <q>def-type</q> family that includes <code>Ndef</code>, <code>Tdef</code>, <code>MIDIdef</code>, <code>OSCdef</code>, and others. These proxies share a common syntax by which they are created and referenced. On creation, a def-type object includes a name (provided as a symbol), followed by its data. The data can be dynamically overwritten and can be referenced by name. Next a pseudo-code example is provided. Proxies are the core element of live coding in SC<!--, more fully explored in Chapter 12-->.</p>
+          <pre>ThingDef(\name, data); // create proxy and provide initial data
+ThingDef(\name, newData); // overwrite proxy with new data
+ThingDef(\name); // reference current proxy data</pre>
+
+          <h5>Pdefn</h5>
+          <p>Pdefn serves as a proxy for a single value pattern, deployed by wrapping it around the desired pattern. In the example, it serves as a placeholder for the degree pattern. While the EventStreamPlayer ~seq is playing, the pitch information can be dynamically changed by overwriting the proxy data with a new value pattern.</p>
+          <pre>(
+  p = Pbind(
+    \dur, 0.2,
+    \sustain, 0.02,
+    \degree, Pdefn(\deg0, Pwhite(-4, 8, inf)),
+  );
+  ~seq = p.play;
+)
+Pdefn(\deg0, Pseq([0, 2, 3], inf));</pre>
+          <p>Note that if an infinite value pattern is replaced with a finite one, the EventStreamPlayer to which that pattern belongs also becomes finite. One practical application of this feature, exemplified below, is to fade out an EventStreamPlayer by replacing its amplitude pattern with one that gradually decreases to silence or near-silence over a finite period of time.</p>
+          <pre>(
+  p = Pbind(
+    \dur, 0.2,
+    \sustain, 0.02,
+    \degree, Pwhite(-4, 8, inf),
+    \db, Pdefn(\db0, -20),
+    );
+    ~seq = p.play;
+)
+Pdefn(\db0, Pseries(-20, -1, 40));</pre>
+          <p>Multiple Pdefn objects can be independently used and manipulated in the context of one Pbind. In this case, care should be taken to ensure that no two Pdefns share the same name. If they do, one will overwrite the other, much in the same way that an Event cannot contain two different pieces of data at the same key. It&apos;s also possible to deploy one Pdefn in several different places. A change to a Pdefn propagates through all its implementations, as demonstrated below.</p>
+          <pre>(
+  Pdefn(\deg0, Pseq([0, 4, 1, 5], inf));
+  p = Pbind(
+    \dur, 0.2,
+    \sustain, 0.02,
+    \degree, Pdefn(\deg0),
+  );
+  q = Pbind(
+    \dur, 0.2,
+    \sustain, 0.02,
+    \degree, Pdefn(\deg0) + 2,
+  );
+  ~seq = Ppar([p, q]).play;
+)
+Pdefn(\deg0, Pseq([-3, -2, 0],inf));</pre>
+
+          <p>Pdefn can be quantized using techniques similar to those previously discussed, but the syntax is slightly different, demonstrated beñpw. Instead of specifying quant as an argument, each Pdefn has its own <q>quant</q> attribute, accessible by applying the quant method to the Pdefn and setting a desired value.</p>
+          <pre>(
+  t = TempoClock(128/60);
+  p = Pbind(
+    \dur, 1/4,
+    \sustain, 0.02,
+    \note, Pdefn(\note0, Pseq([0, \, \, \, 1, 2, 3, 4], inf)),
+  );
+  ~seq = p.play(t, quant: 4);
+)
+(
+  Pdefn(\note0,
+    Pseq([7, \, 4, \, 1, \, \, \], inf)
+  ).quant_(4);
+)</pre>
+          <p>Pdefn <q>remembers</q> its quantization value, so it&apos;s unnecessary (but harmless) to re-specify this information for subsequent Pdefn changes meant to adhere to the same value. We can nullify a quant value by setting it to <code>nil</code>.</p>
+          <p>The example below shows a few additional techniques. Pdefn&apos;s data can be queried with <code>source</code> (optionally appending <code>postcs</code> for verbosity), and a <code>Pdefn</code>&apos;s data can be erased with <code>clear</code>. We can also iterate over all <code>Pdefn</code> objects to erase each one.</p>
+          <pre>Pdefn(\note0).source; // -> a Pseq
+Pdefn(\note0).source.postcs; // -> full Pseq code
+Pdefn(\note0).clear; // erase Pdefn data
+Pdefn(\note0).source; // -> nil
+Pdefn.all.do({ |n| n.clear });</pre>
+
+          <h5>Pdef</h5>
+          <p>Pdef, demonstrated below, is similar to Pdefn, and features many of the same techniques. The primary difference is that Pdef is a proxy for an Event pattern, rather than a value pattern. Typically, the data of a Pdef is a Pbind, but may also be a Pseq or Ppar that represents a composite of several Pbinds. When an Event pattern is encapsulated within a Pdef, any part of it can be changed while the Pdef is playing, without interruption of the Event stream. Pdef is generally useful in that it avoids the need to create multiple, independent Pdefns within a Pbind.</p>
+          <pre>(
+  t = TempoClock(128/60);
+  Pdef(\seq,
+    Pbind(
+      \dur, 0.25,
+      \sustain, 0.02,
+      \degree, Pseq([0, 2, 4, 5], inf),
+    )
+  ).clock_(t).quant_(4);
+  Pdef(\seq).play;
+)
+(
+  Pdef(\seq, // swap the old Pbind for a new one
+    Pbind(
+      \dur, Pseq([0.5, 0.25, 0.25, 0.5, 0.5], inf),
+      \sustain, 0.5,
+      \degree, Pxrand([-4, -2, 0, 2, 3], inf),
+    )
+  );
+)</pre>
+          <p>In the foregoing code, note that we set clock and quant attributes for the Pdef before playing it, which are retained and remembered whenever the Pdef&apos;s source changes. All the Pdefn methods shown are valid for Pdef as well.</p>
+
+          <h5>Pbindef</h5>
+          <p>Pbindef is nearly the same as Pdef; it&apos;s a proxy for Event patterns, and it retains all the same methods and attributes of Pdef (in fact, Pbindef is a subclass of Pdef). These two classes even share the same namespace in which their data is stored, in other words, <code>Pdef(\x)</code> and <code>Pbindef(\x)</code> refer to the same object. The difference between these two classes is that Pbindef allows key-value pairs in its Event pattern to be modified on an individual basis, instead of requiring the entire <code>Pbind</code> source code to be present when a change is applied. Instead of placing a Pbind inside a proxy pattern, the syntax of a Pbindef involves <q>merging</q> Pdef and Pbind into a single entity, much in the same way that their names form a portmanteau. The example below demonstrates various features of Pbindef, including changing one or more value-patterns in real-time, adding new value patterns, and substituting a finite value pattern to create a fade-out. Although this example does not use the quant and clock attributes, they can be applied to Pbindef using the same techniques that appeared before.</p>
+          <pre>(
+  Pbindef(\seqA,
+    \dur, Pexprand(0.05, 2, inf),
+    \degree, Prand([0, 1, 2, 4, 5], inf),
+    \mtranspose, Prand([-7, 0, 7], inf),
+    \sustain, 4,
+    \amp, Pexprand(0.02, 0.1, inf),
+  ).play;
+)
+// change degree pattern:
+Pbindef(\seqA, \degree, Prand([0, 1, 3.1, 4.1, 5], inf));
+// change dur and sustain pattern in one expression:
+Pbindef(\seqA, \dur, 0.3, \sustain, Pseq([2, 0.02], inf));
+// add a new value pattern:
+Pbindef(\seqA, \pan, Pwhite(-0.8, 0.8, inf));
+// fade out with finite amp pattern:
+Pbindef(\seqA, \amp, Pgeom(0.05, 0.85, 30));</pre>
+          <p>In the code above, a finite Pgeom modifies the Event stream so that it ends after 30 Events. However, it&apos;s possible to restart the stream by playing the Pbindef again. In this case, it remembers its key-value pairs, and will generate another thirty Events with the same decreasing amp pattern. Of course, we can replace the amplitude pattern with an infinite value pattern before restarting playback, and the Event stream will continue indefinitely once more. The semi-permanence of Pbindef&apos;s key-value pairs can be a source of confusion, particularly if switching between different pitch or amplitude tiers. Consider the Pbindef in the code below. It begins with explicit freq values, which override internal calculations that propagate upward from degree values. As a result, if we try to dynamically switch from frequency to degrees, the degree values will have no effect, because the Pbindef <q>remembers</q> the original frequency values. Thus, if we want to switch to specifying pitch in degrees, we also need to set the old frequency pattern to <code>nil</code>.</p>
+          <pre>(
+  Pbindef(\seqB,
+    \dur, 0.2,
+    \sustain, 0.02,
+    \freq, Pexprand(500, 1200, inf)
+  ).play;
+)
+// degree values are ignored:
+Pbindef(\seqB, \degree, Pwhite(0, 7, inf));
+// degree values take effect
+Pbindef(\seqB, \freq, nil, \degree, Pwhite(0, 7, inf));</pre>
         </section>
 
       </section>  <!-- end of "Sequencing" -->

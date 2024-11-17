@@ -33,8 +33,9 @@
         <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
       -->
       <div>
+        <p><a rel="next" href="festival.html">Festival</a></p>
         <p><a            href="quantum-computing.html">Quantum Computing</a></p>
-        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
         <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
         <p><a            href="database.html">DataBases</a></p>
         <p><a            href="ai.html">Artificial Intelligence</a></p>
@@ -42,7 +43,7 @@
         <p><a            href="networking.html">Networking</a></p>
         <p><a            href="byte-order.html">Byte Order</a></p>
         <p><a            href="cpp.html">The C++ Programming Language</a></p>
-        <p><a rel="prev" href="technology.html">Technology</a></p>
+        <p><a            href="technology.html">Technology</a></p>
         <p><a            href="computational-geometry.html">Computational Geometry</a></p>
       </div>
       <div>
@@ -53,31 +54,10 @@
     <main>
       <h1>Text To Speech (TTS) Software</h1>
       <p>Text-to-speech (TTS) technology is a form of assistive technology that converts written text into spoken words. This technology has been widely used in various applications, including screen readers, voice assistants, and language translation tools. TTS engines work by processing text input and generating synthetic speech output that resembles human speech.</p>
-      <hr/>
-
-      <section>
-        <h2>Installing and Running <code>Festival</code></h2>
-        <p>I select quite a few packages, which will take up above 80MB of disk space. Besides fat and comprehensive documentation (to be found at <cite>/usr/share/doc/festival-doc/html/</cite>) I include a male castillian Spanish voice and a male Catalan voice.</p>
-        <p>The manual is found at <a href="https://www.cstr.ed.ac.uk/projects/festival/manual/">https://www.cstr.ed.ac.uk/projects/festival/manual/</a>, dated 1999.</p>
-
-        <p>I start the (Scheme) interpreter:</p>
-        <pre>$ festival</pre>
-        <p>and type:</p>
-        <pre> (set! utt1 (Utterance Text "Hello world"))
-        (utt.synth utt1)</pre>
-        <p>to make an utterance then synthesize it.</p>
-        <p>I get no sound. So I type something simpler:</p>
-        <pre>(SayText "Good morning, welcome to Festival")</pre>
-        <hr/>
-        <p>I copy <a target="_blank" href="doremi.xml"><cite>doremi.xml</cite></a> to the current directory and then play it:</p>
-        <pre>(tts "doremi.xml" 'singing)</pre>
-        <p>I remain slightly disappointed with the results so far.</p>
-        <hr/>
-      </section>
 
       <section>
         <h2>Installing and Running <code>espeak</code></h2>
-        <p>I first tried <code>espeak</code>, with mixed results, before trying festival, reported to have a steep learning curve. I installed the following linux packages:</p>
+        <p>I first tried <code>espeak</code>, with mixed results, before trying <a href="festival.html">Festival</a>, reported to have a steep learning curve. I installed the following linux packages:</p>
         <ul>
           <li><code>espeak</code></li>
           <li><code>espeak-data</code></li>
@@ -85,7 +65,7 @@
           <li><code>espeakedit</code>, which provides a User Interface to edit the eSpeak voices.</li>
           <li><a href="#mbrola"><code>mbrola</code></a></li>
         </ul>
-        <p>Documentation in <cite>/usr/share/doc/espeak/docs/index.html</cite>, just open <cite>/usr/share/doc/espeak/docs/index.html</cite>
+        <p>Documentation in <cite>/usr/share/doc/espeak/docs/index.html</cite>, just open <cite>/usr/share/doc/espeak/docs/index.html</cite>.</p>
         <p>All in all a meagre 3.2 MB of additional hard-disk space.</p>
         <hr/>
         <p>I play <a target="_blank" href="spec-example-1.ssml">an SSML file</a>:</p>
@@ -128,7 +108,7 @@
           <p>While eSpeak may not offer the advanced customization options or premium voice quality of some commercial TTS engines, its open-source nature and extensive language support make it a valuable addition to the Linux software ecosystem.</p>
         </dd>
 
-        <dt>Festival</dt>
+        <dt><a href="festival.html">Festival</a></dt>
         <dd>
           <p>Festival is a comprehensive TTS system developed by the University of Edinburgh, offering extensive support for Linux and other Unix-based platforms. Festival distinguishes itself with its modular architecture and flexible design, allowing users to customize and extend its functionality through a variety of plugins, language models, and voice synthesis techniques. It currently supports five languages (British English, American English, Spanish, Czech and Italian) with many languages in the prototype mode.</p>
           <p>With its powerful scripting capabilities and extensive documentation, Festival is well-suited for advanced users, researchers, and developers seeking to explore the depths of speech synthesis technology on Linux. Despite its steep learning curve, Festival remains a popular choice among Linux enthusiasts and academics for its robustness, extensibility, and support for cutting-edge research in TTS and natural language processing.</p>
@@ -225,7 +205,7 @@
         <h2>Opinions and Comparisons</h2>
         <p>A message by Jonathan Duddington in 2008 explains:</p>
         <pre>
-&gt; It would be great if somebody who thinks that Festival
+&gt; It would be great if somebody who thinks that <a href="festival.html">Festival</a>
 &gt; is actually worse than eSpeak in quality of speech
 &gt; could try to elaborate more about the reasons.
 

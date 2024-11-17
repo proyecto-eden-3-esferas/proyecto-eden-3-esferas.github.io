@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Festival (TTS)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a            href="scheme.html">Scheme (a Lisp dialect used in the Festival Command-Line)</a></p>
+        <p><a rel="prev" href="tts.html">Text To Speech (TTS) Software</a></p>
+        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a            href="ai.html">Artificial Intelligence</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Festival (TTS)</h1>
+      <p>The Festival Speech Synthesis System is a general multi-lingual speech synthesis system. It offers a full text to speech system with various APIs, as well as an environment for development and research of speech synthesis techniques. It is written in <a href="cpp.html">C++</a> with a Scheme-like command interpreter for general customization and extension. (Scheme being a dialect of <a href="lisp.html">lisp</a>.)</p>
+      <p>Festival is designed to support multiple languages, and comes with support for English (British and American pronunciation), Welsh, and Spanish. Voice packages exist for several other languages, such as Castilian Spanish, Czech, Finnish, Hindi, Italian, Marathi, Polish, Russian and Telugu.</p>
+      <p>Festival is designed as a speech synthesis system for at least three levels of user. First, those who simply want high quality speech from arbitrary text with the minimum of effort. Second, those who are developing language systems and wish to include synthesis output. In this case, a certain amount of customization is desired, such as different voices, specific phrasing, dialog types etc. The third level is in developing and testing new synthesis methods.</p>
+
+      <section>
+        <h2>Installing <code>Festival</code></h2>
+        <p>I select quite a few packages, which will take up above 80MB of disk space. Besides fat and comprehensive documentation (to be found at <cite>/usr/share/doc/festival-doc/html/</cite>) I include a male castillian Spanish voice and a male Catalan voice.</p>
+        <p>The manual is found at <a href="https://www.cstr.ed.ac.uk/projects/festival/manual/">https://www.cstr.ed.ac.uk/projects/festival/manual/</a>, dated 1999.</p>
+      </section>
+
+      <section>
+        <h2>Running <code>Festival</code></h2>
+        <p>I start the (Scheme) interpreter:</p>
+        <pre>$ festival</pre>
+        <p>and type:</p>
+        <pre> (set! utt1 (Utterance Text "Hello world"))
+        (utt.synth utt1)</pre>
+        <p>to make an utterance then synthesize it.</p>
+        <p>I get no sound. So I type something simpler:</p>
+        <pre>(SayText "Good morning, welcome to Festival")</pre>
+        <hr/>
+        <p>I copy <a target="_blank" href="doremi.xml"><cite>doremi.xml</cite></a> to the current directory and then play it:</p>
+        <pre>(tts "doremi.xml" 'singing)</pre>
+        <p>I remain slightly disappointed with the results so far.</p>
+      </section>
+
+      <section id="scheme-specifics">
+        <h2>Festival Scheme Specifics</h2>
+        <p>There a number of additions to SIOD that are Festival specific though still part of the Lisp system rather than the synthesis functions per se.</p>
+
+        <dl>
+
+          <dt>Documentation Strings</dt>
+          <dd>
+            <p>By convention if the first statement of a function is a string, it is treated as a documentation string. The string will be printed when help is requested for that function symbol.</p>
+          </dd>
+
+          <dt><code>:backtrace</code> and <code>set_backtrace</code></dt>
+          <dd>
+            <p>In interactive mode if the function <code>:backtrace</code> is called (within parenthesis) the previous stack trace is displayed. Calling <code>:backtrace</code> with a numeric argument will display that particular stack frame in full. Note that any command other than <code>:backtrace</code> will reset the trace. You may optionally call:</p>
+            <pre>(set_backtrace t)</pre>
+            <p>which will cause a backtrace to be displayed whenever a Scheme error occurs. This can be put in your <cite>.festivalrc</cite> if you wish. This is especially useful when running Festival in non-interactive mode (batch or script mode) so that more information is printed when an error occurs.</p>
+          </dd>
+
+          <dt>Hooks</dt>
+          <dd>
+            <p>A <dfn>hook</dfn> in Lisp terms is a position within some piece of code where a user may specify their own customization. The notion is used heavily in Emacs. In Festival there a number of places where hooks are used. A hook variable contains either a function or list of functions that are to be applied at some point in the processing. For example the <code>after_synth_hooks</code> are applied after synthesis has been applied to allow specific customization such as resampling or modification of the gain of the synthesized waveform. The Scheme function <code>apply_hooks</code> takes a hook variable as argument and an object and applies the function/list of functions in turn to the object.</p>
+          </dd>
+
+          <dt>Errors: <code>unwind-protect</code></dt>
+          <dd>
+            <p>When an error occurs in either Scheme or within the C++ part of Festival by default the system jumps to the top level, resets itself and continues. Note that errors are usually serious things, pointing to bugs in parameters or code. Every effort has been made to ensure that the processing of text never causes errors in Festival. However when using Festival as a development system it is often that errors occur in code.</p>
+            <p>Sometimes in writing Scheme code you know there is a potential for an error but you wish to ignore that and continue on to the next thing without exiting or stopping and returning to the top level. For example you are processing a number of utterances from a database and some files containing the descriptions have errors in them but you want your processing to continue through every utterance that can be processed rather than stopping 5 minutes after you left for home after setting a big batch job for overnight.</p>
+            <p>Festival&apos;s Scheme provides the function <code>unwind-protect</code> which allows the catching of errors and then continuing normally. For example suppose you have the function <code>process_utt</code> which takes a filename and does things which you know might cause an error. You can write the following to ensure you continue processing even in an error occurs.</p>
+            <pre>(unwind-protect
+ (process_utt filename)
+ (begin
+   (format t "Error found in processing %s\n" filename)
+   (format t "continuing\n")))</pre>
+            <p>The <code>unwind-protect</code> function takes two arguments. The first is evaluated and if no error occurs the value returned from that expression is returned. If an error does occur while evaluating the first expression, the second expression is evaluated. <code>unwind-protect</code> may be used recursively. Note that all files opened while evaluating the first expression are closed if an error occurs. All global variables outside the scope of the <code>unwind-protect</code> will be left as they were set up until the error. Care should be taken in using this function but its power is necessary to be able to write robust Scheme code.</p>
+          </dd>
+
+        </dl>
+
+      </section>  <!-- end of "Festival Scheme Specifics" -->
+
+      <section>
+        <h2>Scheme I/O</h2>
+
+        <p>Different Scheme&apos;s may have quite different implementations of file i/o functions so in this section we will describe the basic functions in Festival SIOD regarding i/o.</p>
+
+        <p>Simple printing to the screen may be achieved with the function <code>print</code> which prints the given s-expression to the screen. The printed form is preceded by a new line. This is often useful for debugging but isn&apos;t really powerful enough for much else.</p>
+
+        <p>Files may be opened and closed and referred to file descriptors in a direct analogy to <a href="c.html">C</a>&apos;s stdio library. The SIOD functions <code>fopen</code> and <code>fclose</code> work in the exactly the same way as their equivalently named partners in C.</p>
+
+        <p>The <code>format</code> command follows the command of the same name in Emacs and a number of other Lisps. C programmers can think of it as <code>fprintf</code>. <code>format</code> takes a file descriptor, format string and arguments to print. The file description may be a file descriptor as returned by the Scheme function <code>fopen</code>, it may also be <code>t</code>, which means the output will be directed as standard out (cf. <code>printf</code>). A third possibility is <code>nil</code>, which will cause the output to printed to a string which is returned (cf. <code>sprintf</code>).</p>
+
+        <p>The format string closely follows the format strings in ANSI C, but it is not the same. Specifically the directives currently supported are, <code>%%</code>, <code>%d</code>, <code>%x</code>, <code>%s</code>, <code>%f</code>, <code>%g</code> and <code>%c</code>. All modifiers for these are also supported. In addition <code>%l</code> is provided for printing of Scheme objects as objects.</p>
+
+        <p>For example</p>
+        <pre>(format t "%03d %3.4f %s %l %l %l\n" 23 23 "abc" "abc" '(a b d) utt1)</pre>
+        <p>will produce</p>
+        <pre>023 23.0000 abc "abc" (a b d) #&lt;Utterance 32f228&gt;</pre>
+        <p>on standard output.</p>
+
+
+        <p>When large lisp expressions are printed they are difficult to read because of the parentheses. The function <code>pprintf</code> prints an expression to a file description (or <code>t</code> for standard out). It prints so that the s-expression is nicely lined up and indented. This is often called <dfn>pretty printing</dfn> in computing.</p>
+
+        <p>For reading input from terminal or file, there is currently no equivalent to <code>scanf</code>. Items may only be read as Scheme expressions. The command</p>
+        <pre>(load FILENAME t)</pre>
+        <p>will load all s-expressions in FILENAME and return them, unevaluated as a list. Without the third argument the load function will load and evaluate each s-expression in the file.</p>
+
+        <p>To read individual s-expressions use <code>readfp</code>. For example</p>
+        <pre>(let ((fd (fopen trainfile "r"))
+      (entry)
+      (count 0))
+    (while (not (equal? (set! entry (readfp fd)) (eof-val)))
+     (if (string-equal (car entry) "home")
+        (set! count (+ 1 count))))
+    (fclose fd))</pre>
+
+        <p>To convert a symbol whose print name is a number to a number use <code>parse-number</code>. This is the equivalent to <code>atof</code> in C.</p>
+
+        <p>Note that, all I/O from Scheme input files is assumed to be basically some form of Scheme data (though can be just numbers, tokens). For more elaborate analysis of incoming data it is possible to use the text tokenization functions which offer a fully programmable method of reading data.</p>
+
+      </section>  <!-- end of "Scheme I/O" -->
+
+      <section id="tts">
+        <h2>Text to Speech (TTS)</h2>
+      </section>  <!-- end of "Text to Speech (TTS)" -->
+
+    </main>
+
+  </body>
+
+</html>

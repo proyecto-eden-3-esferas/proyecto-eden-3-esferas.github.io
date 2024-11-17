@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scheme (Lisp)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="festival.html">Festival (Text To Speech Software)</a></p>
+        <p><a rel="next" href="lisp.html">Programming Computers</a></p>
+        <p><a            href="programming.html">Programming</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The Scheme Programming Language</h1>
+      <p>Scheme was originally designed at M.I.T., where it was quickly put to use as a teaching language for undergraduate computer science courses. Scheme has always been aimed at a different language niche than Common Lisp. In particular, Scheme&apos;s designers have focused on keeping the core language as small and as simple as possible. This has obvious benefits for a teaching language and also for programming language researchers who like to be able to formally prove things about languages.</p>
+      <p>It also has the benefit of making it relatively easy to understand the whole language as specified in the standard. But, it does so at the cost of omitting many useful features that are standardized in Common Lisp. Individual Scheme implementations may provide these features in implementation-specific ways, but their omission from the standard makes it harder to write portable Scheme code than to write portable Common Lisp code.</p>
+      <p>Scheme also emphasizes a functional programming style and the use of recursion much more than Common Lisp does. If you studied Lisp in college and came away with the impression that it was only an academic language with no real-world application, chances are you learned Scheme. This isn&apos;t to say that&apos;s a particularly fair characterization of Scheme, but it&apos;s even less applicable to Common Lisp, which was expressly designed to be a real-world engineering language rather than a theoretically <em>pure</em> language.</p>
+      <p>If you&apos;ve learned Scheme, you should also be aware that a number of subtle differences between Scheme and Common Lisp may trip you up. These differences are also the basis for several perennial religious wars between the hotheads in the Common Lisp and Scheme communities. I&apos;ll try to point out some of the more important differences as we go along.</p>
+
+      <section>
+        <h2>A Brief Introduction to Scheme</h2>
+
+        <h4 class="bridgehead">Syntax</h4>
+        <p>An expression is an atom or a list. A list consists of a opening (left) round bracket, a number of expressions and a closing (right) round bracket. Atoms can be symbols, numbers, strings or other special types like functions, hash tables, arrays, etc.</p>
+        <p>Comments are started by a semicolon and run until end of line.</p>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+
+        <h4 class="bridgehead">Semantics</h4>
+        <p>All expressions can be evaluated.</p>
+        <p>Lists are evaluated as function calls. When evaluating a list all the members of the list are evaluated first then the first item (a function) is called with the remaining items in the list as arguments.</p>
+        <p>Atoms are evaluated depending on their type: symbols are evaluated as variables returning their values. Numbers, strings, functions, etc. evaluate to themselves. The single quote (<code>&apos;</code>) prefix prevents evaluation.</p>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+        <h4 class="bridgehead">Examples and What their Evaluation Returns</h4>
+        <p></p>
+        <pre>scheme&gt; (+ 2 3)
+5</pre>
+        <p></p>
+        <pre>scheme&gt; (set! a 4)
+4</pre>
+        <p>After setting <var>a</var> to 4:</p>
+        <pre>scheme&gt; (* 3 a)
+12</pre>
+        <p>Defining <code>add</code>:</p>
+        <pre>scheme&gt; (define (add a b) (+ a b))
+#&lt;CLOSURE (a b) (+ a b)></pre>
+        <p>Using newly-defined <code>add</code>:</p>
+        <pre>scheme&gt; (add 3 4)
+7</pre>
+        <hr/>
+        <p>Defining a list:</p>
+        <pre>scheme&gt; (set! alist '(apples pears bananas))
+(apples pears bananas)</pre>
+        <p>Retrieving the head of a list</p>
+        <pre>scheme&gt; (car alist)
+apples</pre>
+        <p>Retrieving the tail of a list</p>
+        <pre>scheme&gt; (cdr alist)
+(pears bananas)</pre>
+        <hr/>
+        <p>Prepending an element to those of a list:</p>
+        <pre>scheme&gt; (set! blist (cons 'oranges alist))
+(oranges apples pears bananas)</pre>
+        <p>Joining the elements of a list (into a new one):</p>
+        <pre>scheme&gt; (append alist blist)
+(apples pears bananas oranges apples pears bananas)</pre>
+        <p></p>
+        <pre>scheme&gt; (cons alist blist)
+((apples pears bananas) oranges apples pears bananas)</pre>
+        <hr/>
+        <p></p>
+        <pre>scheme&gt; (length alist)
+3</pre>
+        <p></p>
+        <pre>scheme&gt; (length (append alist blist))
+7</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+
+      </section>
+
+
+
+    </main>
+
+  </body>
+
+</html>
