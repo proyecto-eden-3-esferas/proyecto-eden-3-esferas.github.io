@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Digital</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    -->
+  </head>
+  <body lang="es"  class="tecnologia">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href='herramientas.html'>Herramientas y máquinas</a></p>
+      -->
+      <div>
+        <p><a            href="informatica.html">Informática</a></p>
+        <p><a rel="next" href="ordenadores.html">Ordenadores digitales</a></p>
+        <p><a            href="programacion.html">Programación</a></p>
+        <p><a rel="prev" href='tecnologia.html'>Tecnología</a></p>
+        <p><a            href='ia.html'>Inteligencia Artificial</a></p>
+      </div>
+      <div>
+        <p><a href='computing.html'>Computing (English)</a></p>
+        <p><a href='ai.html'>Artificial Intelligence (English)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Lo digital</h1>
+      <p>Solemos entender por <dfn>digital</dfn> la información codificada en ceros y unos y sus transformaciones, comunicación y almacenamiento.</p>
+      <p>En un ordenador u otro dispositivo digital el cero podría representarse físicamente mediante una tensión (por ejemplo 0 voltios) y el uno mediante otra distinta (5 voltios).</p>
+      <p>Brevemente, ¿cómo podemos codificar información de esta manera? Adelanto que existen varios sistemas, si bien basta con comprender uno para comprender todos.</p>
+      <section>
+        <h2>Cómo codificar o escribir números (enteros) con ceros y unos</h2>
+        <p>Partamos de que disponemos de una tira de dígitos binarios o huecos o casillas donde escribir nuestros ceros y unos. Casi siempre se dispone de tiras de longitud múltiplo de 8 (8, 16, 24 etc.) En una tira de 8 dígitos caben pocos números, pero por sencillez pondré un ejemplo con ella.</p>
+        <pre>xxxx xxxx</pre>
+        <p>En la práctica los números enteros positivos se representan casi siempre así:</p>
+        <table border="1">
+          <thead> <tr> <td>Decimal</td> <td>Digital</td> </tr> </thead>
+                  <tr> <td>0</td> <td><code>0000 0000</code></td> </tr>
+                  <tr> <td>1</td> <td><code>0000 0001</code></td> </tr>
+                  <tr> <td>2</td> <td><code>0000 0010</code></td> </tr>
+                  <tr> <td>3</td> <td><code>0000 0011</code></td> </tr>
+                  <tr> <td>4</td> <td><code>0000 0100</code></td> </tr>
+        </table>
+                  <p>etc. hasta terminar:</p>
+        <table border="1">
+                  <tr> <td>254</td> <td><code>1111 1110</code></td> </tr>
+                  <tr> <td>255</td> <td><code>1111 1111</code></td> </tr>
+        </table>
+        <p>Este sistema tiene sus ventajas, que aquí no voy a mostrar. Sólo comentar que se comporta igual que nuestro sistema decimal. Cuando en la cifra significativa llegamos al <q>dígito</q> más alto, el 9 por ejemplo, y sumamos uno, entonces anotamos 1 en la siguiente cifra a la izquierda y ponemos el resto a cero. Por ejemplo, 99 + 1 = 100. Y en la tabla de arriba vemos que es sistema binario se comporta igual. Lo cuál nos permite hacer la suma y en realidad todas las operaciones aritméticas igual que cuando utilizamos numeración decimal.</p>
+        <blockquote>El sistema binario (en números) no es más que el sistema decimal sólo que en lugar de utilizar diez símbolos (del 0 al 9) utilizamos dos (0 y 1).</blockquote>
+
+        <p>Ahora sólo nos queda la segunda parte. ¿Cómo representar todo lo demás?</p>
+        <p>¿Cómo representamos las letras? Si sabemos que una tira de ceros y unos se va a destinar a letras (o signos de puntuación, espacios etc), iremos tomando subtiras (de 8, 16, 32 bits, lo más frecuente) y escribiremos una letra en cada subtira. ¿Cómo? Da igual. Basta con asignar una secuencia de ceros y unos a cada letra (o signo de puntuación etc.).</p>
+        <p>Podríamos adoptar una correspondencia secuencial, es decir que la letra <q>a</q> (minúscula) se corresponda con una cifra binaria, la letra <q>b</q> con su siguiente etc. Por ejemplo podríamos empezar en la secuancia <code>0011 0000</code>, nuestra <q>a</q>:</p>
+        <table border="1">
+          <thead> <tr> <td>Alfabético</td> <td>Digital</td> </tr> </thead>
+                  <tr> <td>a</td> <td><code>0011 0000</code></td> </tr>
+                  <tr> <td>b</td> <td><code>0011 0001</code></td> </tr>
+                  <tr> <td>c</td> <td><code>0011 0010</code></td> </tr>
+        </table>
+        <p>y así hasta la z.</p>
+        <p><b>NOTA</b> Normalmente se sabe de antemano si una tira de ceros y unos contiene un número o un carácter (letra, puntuación, espacio etc.) Más aún, si contiene un número, se sabe si es natural, entero, o incluso fraccionario.</p>
+        <blockquote>Para anotar letras (y otros caracteres) en binario, basta con acordar una correspondencia entre dichos caracteres y secuencias de ceros y unos.</blockquote>
+      </section>
+      <section id="codificacion">
+        <h2>Codificación</h2>
+        <p>Una <dfn>codificación</dfn> es una correspondencia entre los signos de un sistema de escritura y sus correspondientes representaciones digitales, tal como hemos ejemplificado.</p>
+        <p>Existe una codificación básica, la ASCII, con correspondencias para todas las letras del alfabeto latino. Como la informática se desarrolla en países anglófonos y en inglés no se necesitan acentos y otros diacríticos, la codificaciòn ASCII no los contiene.</p>
+        <p>En codificación ASCII no hay manera de escribir <i>rôle</i> ni <i>camión</i>, ni siquiera <i>niñera</i>. Por no hablar de otros alfabetos, como el cirílico (ruso) o el alifato (árabe). En consecuencia para escribir en otras lenguas se necesita para cada una al menos una codificación alternativa. Y además indicar cuál se ha utilizado.</p>
+        <p>La solución más sencilla es utilizar para cada carácter (signo) una secuencia diferente. Si queremos que valga para todos los idiomas del mundo, necesitaremos que cada subtira sea más larga: no de ocho bits sino de cuatro veces ocho bits (32 bits). Inconveniente: los archivos que escribamos ocuparán más espacio en el disco duro, y llevará más tiempo transmitirlos.</p>
+        <p>En la práctica se suele hacer lo siguiente. Dado que en codificación ASCII quedan algunos códigos (secuencias de ceros y unos) sin utilizar, cada vez que queramos representar una letra no inglesa (la eñe por ejemplo), escribiremos uno de estos códigos sin utilizar y a continuación otro (de ocho bits). Por tanto los caracteres no ingleses ocuparán más (dos octetos), lo cuál hace que el procesamiento sea un poco más complicado, pero a cambio un archivo en castellano de mil caracteres no ocupará mucho más que uno en inglés (en ASCII) de mil caracteres.</p>
+      </section>
+      <section id="digital-analogico">
+        <h2>Digital frente a Analógico</h2>
+        <p>Solemos entender el mundo mediante <a href="opuestos.html">opuestos</a>. En tecnología de la información, <q>digital</q> se opone a <q>analógico</q>. <dfn>Analógico</dfn> significa que puede adoptar cualquiera de infinitos valores dentro de un intervalo continuo. Por ejemplo podemos medir la tensión entre los bornes de una batería y la medida será una cantidad analógica de voltios. Un polímetro omnisciente nos daría una cantidad infinita de decimales.</p>
+        <p>Pero como tales polímetros no existen y además no necesitamos más de una o dos cifras decimales, nos basta con expresar la tensión de dicha batería dentro de un conjunto limitado de valores. En la práctica lo digital resulta más práctico.</p>
+        <p>En contextos matemáticos en lugar de digital se prefiere <q>discreto</q>, y en lugar de analógico se prefiere <q>continuo</q>. (Se viene a expresar la misma oposición que digital-analógico, con connotaciones diferentes.) <q>Discreto</q> en el sentido de que va a saltos. Por ejemplo, cuando expresamos la carga de una batería podríamos <q>saltar</q> del valor de 12,34V a 12,35V porque o no disponemos de mayor precisión (para medir los milivoltios) o no la necesitamos.</p>
+      </section>
+      <section>
+        <h2>Hiperdigital</h2>
+        <p>Hasta ahora hemos presupuesto que digital significa representar (y manipular) información en ceros y unos, es dicir emplear sólo dos signos. Hablando con precisión, el sistema decimal que manejamos en la vida diaria también es un sistema digital. De hecho las operaciones aritméticas son análogas, en binario y en denario.</p>
+        <blockquote>Existen <code>10</code> de personas: las que conocen el código binario y las que no.</blockquote>
+        <p>Más aún, dado que un alfabeto consta de un número no infinito de signos, con la posible excepción del chino, todo alfabeto es digital.</p>
+        <p>Quiere esto decir que <cite>La Ilíada</cite> (griego antiguo), <cite>El Quijote</cite> y la <cite>Crítica de la razón pura</cite> de Kant son obras digitales, a pesar de que sus autores no conocían ni empleaban ordenadores electrónicos digitales.</p>
+        <p>Cuando en la era contemporánea decimos <q>digital</q> en realidad queremos decir <dfn>hiperdigital</dfn>. Nos referimos a unas características <em>cuantitativas</em>. Lo hiperdigital es:</p>
+        <ul>
+          <li><i>más rápido:</i> los libros electrónicos se copian, transmiten, procesan, incluso imprimen... más rápido;</li>
+          <li><i>más barato:</i> los libros y las calculadoras electrócnicas son más baratas; y</li>
+          <li><i>más fiable:</i> no hay errores humanos de confusión de letras ni errores en los cálculos; pero</li>
+          <li><i>menos legible:</i> no podemos leer directamente un libro electrónico (necesitamos algún tipo de dispositivo electrónico digital) ni inspeccionar el código máquina de un archivo ejecutable.</li>
+        </ul>
+        <p>Más aún, en las representaciones hiperdigitales resulta más importante que en las premodernas el formato en el que están: <a target="_blank" href="HTML.htmL">página web</a>, PDF, <a target="_blank" href="json.html">JSON</a>, <a target="_blank" href="sql.html">SQL</a>, <a target="_blank" href="svg.html">SVG</a> etc. En cambio en la era anterior un libro físico, una partitura, un dibujo o pintura, una grabación de sonido o una fotografía etc. sólo podían existir en un formato.</p>
+      </section>
+      <!--
+      <section>
+        <h2>***</h2>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
