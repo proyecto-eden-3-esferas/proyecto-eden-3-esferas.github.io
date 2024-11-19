@@ -1,5 +1,12 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] redactar *individualismo.html* (sacándolo de cyclopaedia.xml#individualismo), actualmente sólo desde *ecoaldeas.html* y *sociedad.html*
+
+[ ] relacionar *individualismo.html* con *interdependencia.html* a lo Karmapa
+
+[ ] escribir y enlazar a *alternativo.html* (sacándolo de cyclopaedia.xml#individualismo), actualmente sólo desde *ecoaldeas.html*
+
+
 [ ] enlazar desde *prolog.es.html* a *kokoro-alt.html#prolog* y viceversa
 
 [ ] write into *cpp.type_traits.html*
