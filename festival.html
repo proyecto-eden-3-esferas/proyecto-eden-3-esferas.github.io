@@ -37,6 +37,7 @@
         <p><a rel="prev" href="tts.html">Text To Speech (TTS) Software</a></p>
         <p><a rel="next" href="festival-xml.html">Festival XML Mark-UP</a></p>
         <p><a            href="festvox.html">Festvox</a></p>
+        <p><a            href="espeak.html">Espeak: <q>Formant Synthesis</q> Text-to-Speech</a></p>
         <p><a            href="programming.html">Programming Computers</a></p>
         <p><a            href="ai.html">Artificial Intelligence</a></p>
       </div>
@@ -59,7 +60,23 @@
       </section>
 
       <section>
+        <h2>Runnint Scheme <code>(tts <var>MYFILE</var> &apos;<var>MODE)</code></h2>
+        <p>I set out to play <a target="_blank" href="doremi.xml"><cite>doremi.xml</cite></a>, found in the current directory:</p>
+        <pre>(tts "doremi.xml" 'singing)</pre>
+        <hr/>
+        <p>You should select symbol <code>&apos;singing</code> for this example or any other with a <code>DOCTYPE</code> that is <code>SINGING</code>. Analogously, SABLE files (DOCTYPE=SABLE) want selectING <code>&apos;sable</code>.</p>
+        <p>Some of the  recognized in my intallation:</p>
+        <ul>
+          <li><code>&apos;singing</code></li>
+          <li><code>&apos;sable</code></li>
+          <li><code>&apos;text</code></li>
+          <li><code>nil</code> (just a null value in the Scheme language)</li>
+        </ul>
+      </section>
+
+      <section>
         <h2>Running <code>Festival</code></h2>
+
         <p>I start the (Scheme) interpreter:</p>
         <pre>$ festival</pre>
         <p>and type:</p>
@@ -71,8 +88,6 @@
 
         <hr/>
 
-        <p>I copy <a target="_blank" href="doremi.xml"><cite>doremi.xml</cite></a> to the current directory and then play it:</p>
-        <pre>(tts "doremi.xml" 'singing)</pre>
         <p>I remain slightly disappointed with the results so far.</p>
 
         <hr/>
@@ -445,6 +460,16 @@ cat myfile | festival --tts</pre>
         <p style="text-align: right">(From <a href="">*</a>)</p>
       </section>
       -->
+
+      You can change voices like this:
+
+Code:
+
+text2wave -o output.wav text.to.speak.txt -eval "(voice_us1_mbrola)"
+
+voice_us1_mbrola = voice type
+output.wav = output audio file
+text.to.speak.txt = input text file
 
     </main>
 

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Example from SSML 1.1 specification, Appendix E
+     https://www.w3.org/TR/speech-synthesis11/#AppE
+-->
+<speak version="1.1"
+       xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.w3.org/2001/10/synthesis
+                   http://www.w3.org/TR/speech-synthesis11/synthesis.xsd"
+       xml:lang="en-US">
+  <p>
+    <s>You have 4 new messa<prosody pitch="-30%">ges</prosody>.</s>
+    <prosody    rate="+50%"/>
+
+    <s>The first is from <prosody pitch="+20%">Stephanie Williams</prosody> and arrived at <break/> 3:45p<prosody pitch="+33%">m</prosody>.</s>
+
+    <s>
+      The <prosody rate="-33%" pitch="+10%">subject</prosody> is <prosody rate="-20%" pitch="+30%">ski trip</prosody>
+    </s>
+  </p>
+
+  <p><speak xml:lang="es"><s>Y ahora una frase en castellano.</s>
+                          <s>Se calzó y sin hacer nada de ruido desapareció sigilosamente.</s>
+                          <s>La caza empezaba a las cinco.</s>
+     </speak></p>
+</speak>

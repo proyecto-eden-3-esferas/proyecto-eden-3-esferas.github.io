@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Espeak</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="festival.html">Festival</a></p>
+        <p><a            href="espeak.html">Espeak: <q>Formant Synthesis</q> Text-to-Speech</a></p>
+        <p><a            href="espeak-tags.html">SSML and HTML Tags Recognized by Espeak</a></p>
+        <p><a rel="prev" href="tts.html">Text To Speech (TTS) Software</a></p>
+        <p><a            href="ai.html">Artificial Intelligence</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Espeak: <q>Formant Synthesis</q> Text-to-Speech Software</h1>
+      <p style="text-align: right">(Most has been adapted from local file <cite>/usr/share/doc/espeak/docs/index.html</cite>)</p>
+
+      <p>eSpeak is a compact open source software speech synthesizer for English and other languages, for Linux and Windows. &nbsp;<a href="http://espeak.sourceforge.net/"><strong>http://espeak.sourceforge.net</strong></a></p>
+      <p>eSpeak uses a <q>formant synthesis</q> method.  This allows many languages to be provided in a small size.  The speech is clear, and can be used at high speeds, but is not as natural or smooth as larger synthesizers which are based on human speech recordings.</p>
+      <p>eSpeak is available as:</p>
+      <ul>
+        <li>A command line program (Linux and Windows) to speak text from a file or from stdin.</li>
+        <li>A shared library version for use by other programs. (On Windows this is a DLL).</li>
+        <li>A SAPI5 version for Windows, so it can be used with screen-readers and other programs that support the Windows SAPI5 interface.</li>
+        <li>eSpeak has been ported to other platforms, including Solaris and Mac OSX.</li>
+      </ul>
+
+      <hr/>
+
+      <p>The latest <strong>development version</strong> is at: <a href="http://espeak.sf.net/test/latest.html">espeak.sf.net/test/latest.html</a>.</p>
+
+      <hr/>
+
+      <blockquote>I regularly use eSpeak to listen to blogs and news sites. I prefer the sound through a domestic stereo system rather than small computer speakers, which can sound rather harsh.</blockquote>
+
+      <hr/>
+
+      <p><strong>History.</strong> Originally known as <code>speak</code> and originally written for Acorn/RISC_OS computers starting in 1995. This version is an enhancement and re-write, including a relaxation of the original memory and processing power constraints, and with support for additional languages.</p>
+
+      <section id="features">
+        <p>Features:</p>
+        <ul>
+          <li>Includes different Voices, whose characteristics can be altered.</li>
+          <li>Can produce speech output as a WAV file.</li>
+          <li>SSML (Speech Synthesis Markup Language) is supported (not complete), and also HTML.</li>
+          <li>Compact size.  The program and its data, including many languages, totals about 1.4 Mbytes.</li>
+          <li>Can be used as a front-end to MBROLA diphone voices, see <a href="file:///usr/share/doc/espeak/docs/mbrola.html">mbrola.html</a>. eSpeak converts text to phonemes with pitch and length information.</li>
+          <li>Can translate text into phoneme codes, so it could be adapted as a front end for another speech synthesis engine.</li>
+          <li>Potential for other languages. Several are included in varying stages of progress. Help from native speakers for these or other languages is welcome.</li>
+          <li>Development tools are available for producing and tuning phoneme data.</li><li>Written in C.</li>
+        </ul>
+      </section>
+
+      <section id="langs">
+        <h2>Languages</h2>
+        <p>The eSpeak speech synthesizer supports several languages, however in many cases these are initial drafts and need more work to improve them.  Assistance from native speakers is welcome for these, or other new languages.  Please contact me if you want to help.</p>
+        <p>eSpeak does text to speech synthesis for the following languages, some better than others. Afrikaans, Albanian, Armenian, Cantonese, Catalan, Croatian, Czech, Danish, Dutch, English, Esperanto, Finnish, French, German, Greek, Hindi, Hungarian, Icelandic, Indonesian, Italian, Kurdish, Latvian, Lojban, Macedonian, Mandarin, Norwegian, Polish, Portuguese, Romanian, Russian, Serbian, Slovak, Spanish, Swahili, Swedish, Tamil, Turkish, Vietnamese, Welsh.</p>
+      </section>
+
+      <section>
+        <h2><code>espeakedit</code></h2>
+        <p><code>espeakedit</code> is a GUI program used to prepare and compile phoneme data.  It is now available for download.  Documentation is currently sparse, but if you want to use it to add or improve language support, let me know.</p>
+      </section>
+
+      <section>
+        <h2>Installing <code>eSpeak</code></h2>
+        <p>I first tried <code>espeak</code>, with mixed results, before trying <a href="festival.html">Festival</a>, reported to have a steep learning curve. I installed the following linux packages:</p>
+        <ul>
+          <li><code>espeak</code></li>
+          <li><code>espeak-data</code></li>
+          <li><code>espeak-ng-data</code>: necessary synthesiser data files needed for the espeak-ng program and the shared library.</li>
+          <li><code>espeakedit</code>, which provides a User Interface to edit the eSpeak voices.</li>
+          <li><a href="#mbrola"><code>mbrola</code></a></li>
+        </ul>
+        <p>Documentation is found in <cite>/usr/share/doc/espeak/docs/</cite>, just open <cite>/usr/share/doc/espeak/docs/index.html</cite>.</p>
+        <p>All in all a meagre 3.2 MB of additional hard-disk space.</p>
+      </section>
+
+      <section>
+        <h2>Running <code>espeak</code></h2>
+        <p>I play <a target="_blank" href="spec-example-1.ssml">an SSML file</a>:</p>
+        <pre>espeak -m -f spec-example-1.ssml</pre>
+        <p>[...]</p>
+        <p>You may raised the pitch for capitalized runs and save to a WAV file (<cite>sample.wav</cite>):</p>
+        <pre>espeak  -m -s 144 -g 1 -k20  -f template.ssml -w /dev/shm/sample.wav</pre>
+      </section>
+
+      <section>
+        <h2>(Castillian) Spanish Speech Synthesis</h2>
+        <p>I test Spanish speech synthesis:</p>
+        <pre>espeak -s 140 -p 60 -ves "Hola. Me llamo Francisco Fernández-Victorio Hernández."</pre>
+        <p>I play a longish file, too:</p>
+        <pre>espeak -s 170 -p 60 -ves -f /dev/shm/<var>WHATEVER</var>.txt</pre>
+        <pre>espeak -v europe/es -m -s 130 -g 3  -f <var>FILE</var>.html</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

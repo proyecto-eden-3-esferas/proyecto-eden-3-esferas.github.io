@@ -34,48 +34,17 @@
       -->
       <div>
         <p><a rel="next" href="festival.html">Festival</a></p>
-        <p><a            href="quantum-computing.html">Quantum Computing</a></p>
+        <p><a            href="espeak.html">Espeak: <q>Formant Synthesis</q> Text-to-Speech</a></p>
+        <p><a            href="espeak-tags.html">SSML and HTML Tags Recognized by Espeak</a></p>
+        <p><a            href="audio-sequencers.html">Audio Synthizers and Sequencers</a></p>
         <p><a rel="prev" href="programming.html">Programming Computers</a></p>
-        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
-        <p><a            href="database.html">DataBases</a></p>
         <p><a            href="ai.html">Artificial Intelligence</a></p>
-        <p><a            href="os.html">Operating Systems: Ground Applications that Applications Run on</a></p>
-        <p><a            href="networking.html">Networking</a></p>
-        <p><a            href="byte-order.html">Byte Order</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
-        <p><a            href="technology.html">Technology</a></p>
-        <p><a            href="computational-geometry.html">Computational Geometry</a></p>
-      </div>
-      <div>
-        <p><a href="index.en.html">Back to Home</a></p>
       </div>
     </nav>
 
     <main>
       <h1>Text To Speech (TTS) Software</h1>
       <p>Text-to-speech (TTS) technology is a form of assistive technology that converts written text into spoken words. This technology has been widely used in various applications, including screen readers, voice assistants, and language translation tools. TTS engines work by processing text input and generating synthetic speech output that resembles human speech.</p>
-
-      <section>
-        <h2>Installing and Running <code>espeak</code></h2>
-        <p>I first tried <code>espeak</code>, with mixed results, before trying <a href="festival.html">Festival</a>, reported to have a steep learning curve. I installed the following linux packages:</p>
-        <ul>
-          <li><code>espeak</code></li>
-          <li><code>espeak-data</code></li>
-          <li><code>espeak-ng-data</code>: necessary synthesiser data files needed for the espeak-ng program and the shared library.</li>
-          <li><code>espeakedit</code>, which provides a User Interface to edit the eSpeak voices.</li>
-          <li><a href="#mbrola"><code>mbrola</code></a></li>
-        </ul>
-        <p>Documentation is found in <cite>/usr/share/doc/espeak/docs/</cite>, just open <cite>/usr/share/doc/espeak/docs/index.html</cite>.</p>
-        <p>All in all a meagre 3.2 MB of additional hard-disk space.</p>
-        <hr/>
-        <p>I play <a target="_blank" href="spec-example-1.ssml">an SSML file</a>:</p>
-        <pre>espeak -m -f spec-example-1.ssml</pre>
-        <pre></pre>
-        <p>Then I test Spanish speech synthesis:</p>
-        <pre>espeak -s 140 -p 60 -ves "Hola. Me llamo Francisco Fernández-Victorio Hernández."</pre>
-        <p>I play a longish file, too:</p>
-        <pre>espeak -s 170 -p 60 -ves -f /dev/shm/<var>WHATEVER</var>.txt</pre>
-      </section>
 
       <section id="mbrola">
         <h2><code>Mbrola</code></h2>
@@ -86,6 +55,9 @@
 
       <section>
       <h2>A Survey of TTS Software</h2>
+
+      <p>I initially settled for festival, then chose espeak because I wanted Castillian Spanish speach generation <em>and</em> output into a file, albeit a <code>.wav</code> one. Now, both festival and espeak recognize SSML tags. I think festival is suitable for research in sound and linguistics, whereas currently I just want decent speech from marked-up text.</p>
+
       <dl>
 
         <dt>Mozilla TTS (<a href="https://github.com/mozilla/TTS">Mozilla TTS at GitHub</a>)</dt>

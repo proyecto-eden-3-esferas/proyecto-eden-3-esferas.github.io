@@ -1,5 +1,19 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *vocoder.html* and link from *audio-sequencers.html*, or just restructure *audio-sequencers.html* into sections and add a top level one named "Vocoders"
+
+[ ] write *espeak-mbrola.html* from local file */usr/share/doc/espeak/docs/mbrola.html*
+
+[ ] move stuff about espeak into *espeak.html* and duly link, also link to *espeak-tags.html*
+
+[ ] *digital.html* (en)
+
+[ ] redactar y enlazar *alfabeto.html*
+
+[ ] redactar y enlazar *ssml.html*
+
+[ ] redactar *correlaciones.html* y enlazar desde *opuestos.html*, entre otros
+
 [ ] redactar *individualismo.html* (sacándolo de cyclopaedia.xml#individualismo), actualmente sólo desde *ecoaldeas.html* y *sociedad.html*
 
 [ ] relacionar *individualismo.html* con *interdependencia.html* a lo Karmapa

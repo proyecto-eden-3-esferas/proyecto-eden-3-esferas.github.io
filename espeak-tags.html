@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tags Recognized by Espeak</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="festival.html">Festival</a></p>
+        <p><a rel="prev" href="tts.html">Text To Speech (TTS) Software</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a            href="ai.html">Artificial Intelligence</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SSML and HTML Tags Recognized by Espeak</h1>
+
+      <section>
+        <h2>SSML Tags</h2>
+        <p>The following SSML markup tags and attributes are recognised:</p>
+
+        <h4><code>&lt;speak&gt;</code></h4>
+        <ul>
+          <li><code>xml:base</code>: (the value is just passed back as a parameter with the UriCallback() function)</li>
+          <li><code>xml:lang</code>: </li>
+        </ul>
+
+        <h4><code>&lt;voice&gt;</code></h4>
+        <ul>
+          <li><code>xml:lang</code>: </li>
+          <li><code>name</code>: </li>
+          <li><code>age</code>: </li>
+          <li><code>variant</code>: </li>
+          <li><code>gender</code>: </li>
+        </ul>
+
+        <h4><code>&lt;prosody&gt;</code></h4>
+        <ul>
+          <li><code>rate</code>: </li>
+          <li><code>volume</code>: </li>
+          <li><code>pitch</code>: </li>
+          <li><code>range</code>: </li>
+        </ul>
+
+        <h4><code>&lt;say-as&gt;</code></h4>
+        <ul>
+          <li><code>interpret-as</code>: ="characters"</li>
+          <li><code>interpret-as</code>: ="characters"  format="glyphs"</li>
+          <li><code>interpret-as</code>: ="tts:key"</li>
+          <li><code>interpret-as</code>: ="tts:char"</li>
+          <li><code>interpret-as</code>: ="tts:digits" </li>
+        </ul>
+
+        <h4><code>&lt;mark&gt;</code></h4>
+        <ul>
+          <li><code>name</code>: </li>
+        </ul>
+
+        <h4><code>&lt;s&gt;</code></h4>
+        <ul>
+          <li><code>xml:lang</code>: </li>
+        </ul>
+
+        <h4><code>&lt;p&gt;</code></h4>
+        <ul>
+          <li><code>xml:lang</code>: </li>
+        </ul>
+
+        <h4><code>&lt;sub&gt;</code></h4>
+        <ul>
+          <li><code>alias</code>: </li>
+        </ul>
+
+        <h4><code>&lt;tts:style&gt;</code></h4>
+        <ul>
+          <li><code>field="punctuation"   mode={none|all|some}</code></li>
+          <li><code>field="capital_letters"   mode={no|spelling|icon|pitch}</code></li>
+        </ul>
+
+        <h4><code>&lt;audio&gt;</code></h4>
+        <ul>
+          <li><code>src</code>: </li>
+        </ul>
+
+        <h4><code>&lt;emphasis&gt;</code></h4>
+        <ul>
+          <li><code>level</code>: </li>
+        </ul>
+
+        <h4><code>&lt;break&gt;</code></h4>
+        <ul>
+          <li><code>strength</code>: </li>
+          <li><code>time</code>: </li>
+        </ul>
+
+      </section>
+
+
+
+      <section>
+        <h2>HTML</h2>
+        <p>eSpeak can speak HTML text directly, or text containing both SSML and HTML markup.</p>
+        <p>Any unrecognised tags are ignored.</p>
+
+        <p>The following tags case a sentence break.:</p>
+        <blockquote><code>&lt;br&gt;</code>   <code>&lt;dd&gt;</code>   <code>&lt;li&gt;</code>   <code>&lt;img&gt;</code>   <code>&lt;td&gt;</code></blockquote>
+
+        <p>The following tags case a paragraph break:</p>
+        <blockquote><code>&lt;h1&gt;</code>   <code>&lt;h2&gt;</code>   <code>&lt;h3&gt;</code>   <code>&lt;h4&gt;</code>   <code>&lt;hr&gt;</code></blockquote>
+
+        <p>Text between the following tags is ignored:</p>
+        <blockquote>
+          <p><code>&lt;script&gt;</code>   ...   <code>&lt;/script&gt;</code></p>
+          <p><code>&lt;style&gt;</code>   ...   <code>&lt;/style&gt;</code></p>
+        </blockquote>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
