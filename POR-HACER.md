@@ -1,5 +1,20 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] hablar sobre la somalí que se convirtió al cristianismo
+
+[ ] escribir *traduccion.html*, enlazar desde *lengua.html* y apuntar a *interconectados.html*, inter alia
+
+[ ] Makefile rule for generating FILE.mp3 from FILE.ssml
+```
+%.mp3: %.ssml
+  espeak  -m -s 144 -ves -f %.ssml -w %.wav
+  ffmpeg -i %.wav -acodec mp3 %.mp3
+```
+
+[ ] *contenido-y-referencia.html*
+
+[ ] *ecoaldeas.con-cartas.html* está desenlazada o desconectada, pero contiene datos personales
+
 [ ] write *vocoder.html* and link from *audio-sequencers.html*, or just restructure *audio-sequencers.html* into sections and add a top level one named "Vocoders"
 
 [ ] write *espeak-mbrola.html* from local file */usr/share/doc/espeak/docs/mbrola.html*
@@ -349,6 +364,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *example2.sable*, *example1.sable* and any other DOCTYPE SABLE file should be linked to from festival pages
 
 [x] *kokoro-alt.html*, desde *religion.html* y desde *arrepentimiento.html*
 

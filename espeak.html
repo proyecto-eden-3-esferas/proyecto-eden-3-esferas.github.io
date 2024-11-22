@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Espeak</title>
+    <title>eSpeak</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -42,7 +42,7 @@
     </nav>
 
     <main>
-      <h1>Espeak: <q>Formant Synthesis</q> Text-to-Speech Software</h1>
+      <h1>eSpeak: <q>Formant Synthesis</q> Text-to-Speech Software</h1>
       <p style="text-align: right">(Most has been adapted from local file <cite>/usr/share/doc/espeak/docs/index.html</cite>)</p>
 
       <p>eSpeak is a compact open source software speech synthesizer for English and other languages, for Linux and Windows. &nbsp;<a href="http://espeak.sourceforge.net/"><strong>http://espeak.sourceforge.net</strong></a></p>
@@ -68,7 +68,7 @@
       <p><strong>History.</strong> Originally known as <code>speak</code> and originally written for Acorn/RISC_OS computers starting in 1995. This version is an enhancement and re-write, including a relaxation of the original memory and processing power constraints, and with support for additional languages.</p>
 
       <section id="features">
-        <p>Features:</p>
+        <h2>Features</h2>
         <ul>
           <li>Includes different Voices, whose characteristics can be altered.</li>
           <li>Can produce speech output as a WAV file.</li>
@@ -111,7 +111,7 @@
         <p>I play <a target="_blank" href="spec-example-1.ssml">an SSML file</a>:</p>
         <pre>espeak -m -f spec-example-1.ssml</pre>
         <p>[...]</p>
-        <p>You may raised the pitch for capitalized runs and save to a WAV file (<cite>sample.wav</cite>):</p>
+        <p>You may raise the pitch for capitalized runs (switch <code>-k<var>N</var></code>) and you may also save to a WAV file (<cite>sample.wav</cite>):</p>
         <pre>espeak  -m -s 144 -g 1 -k20  -f template.ssml -w /dev/shm/sample.wav</pre>
       </section>
 
