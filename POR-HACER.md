@@ -1,5 +1,9 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *data-center.html*
+
+[ ] write *platform-capitalism.html*
+
 [ ] hablar sobre la somalí que se convirtió al cristianismo
 
 [ ] escribir *traduccion.html*, enlazar desde *lengua.html* y apuntar a *interconectados.html*, inter alia

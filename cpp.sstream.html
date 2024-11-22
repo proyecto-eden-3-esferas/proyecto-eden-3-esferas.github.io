@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ String Streams</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p> <a href="programming.streams.html">Streams in Programming at Large</a> </p>
+        <p> <a rel="prev" href="cpp.streams.html">C++ Streams: Sources and Destinations of Data</a> </p>
+        <p> <a rel="next" href="cpp.manipulators.html">Changing C++ Streams through Manipulators</a> </p>
+        <p> <a href="cpp.stl.html"/> </p>
+        <p> <a href="cpp.html">The C++ Programming Language</a> </p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ Streams: Sources and Destinations of Data</h1>
+      <p>String streams provide a way to use stream semantics with string s. In this way, you can have an in-memory stream that represents textual data. For example, in a GUI application you might want to use streams to build up textual data, but instead of outputting the text to the console or a file, you might want to display the result in a GUI element like a message box or an edit control. Another example could be that you want to pass a string stream around to different functions, while retaining the current read position, so that each function can process the next part of the stream. String streams are also useful for parsing text, because streams have built-in tokenizing functionality.</p>
+      <p>The <code class="classname">ostringstream</code> class is used to write data to a string , while the <code class="classname">istringstream</code> class is used to read data from a string . They are both defined in the <kbd>&lt;sstream&gt;</kbd> header file. Because <code class="classname">ostringstream</code> and <code class="classname">istringstream</code> inherit the same behavior as <code class="classname">ostream</code> and <code class="classname">istream</code>, working with them is pleasantly similar.</p>
+      <p>The main advantage of a string stream over a standard C++ string is that, in addition to data, the object knows where the next read or write operation will take place, also called current position. There may also be performance benefits depending on the particular implementation of string streams. For example, if you need to append a lot of strings together, it might be more efficient to use a string stream, instead of repeatedly calling the += operator on a string object.</p>
+      <p><code class="classname">stringstream</code> is a derived class from <code class="classname">iostream</code> and uses a string buffer that contains a sequence of characters. This sequence of characters can be accessed directly as a string object, using member <function>str()</function>. You can think of a stringstream as a sort of string that you can write to and read from like a file.</p>
+      <p>You need need to include the corresponding header file: <kbd>#include &lt;sstream&gt;</kbd>. Note that former <kbd>&lt;strstream&gt;</kbd> is deprecated.</p>
+      <p>Declare a <code class="classname">stringstream</code> just like an <code class="classname">fstream</code>, for example:</p>
+      <pre>stringstream ss;</pre>
+      <p>and, like an <code class="classname">fstream</code> or <code class="classname">cout</code>, you can write to it:</p>
+      <pre>ss &lt;&lt; myString; // or
+ss &lt;&lt; myCstring; //or
+ss &lt;&lt; myInt; // or float, or double, etc.</pre>
+      <p>Conversely, you can read from it:</p>
+      <pre>ss &gt;&gt; myChar; // or
+ss &gt;&gt; myCstring; // or
+ss &gt;&gt; myInt;</pre>
+      <p>This is also an easy way to convert strings of digits into ints, floats or doubles.</p>
+      <p>Lastly, you can get the entire contents of the stringstream as a single C++ string:</p>
+      <pre>string s = ss.str();</pre>
+      <section sect="sect3">
+        <h2><code class="classname">stringstream</code> constructors</h2>
+        <pre>explicit stringstream(ios_base::openmode which = ios_base::in | ios_base::out); // default (1)
+explicit stringstream(const string&amp; str, ios_base::openmode which = ios_base::in | ios_base::out); // initialization (2)
+stringstream(const stringstream&amp;) = delete; // copy (3)
+stringstream(stringstream&amp;&amp; x); // move (4)</pre>
+        <p>Thus, a stringstream temporary can be constructed and used like so:</p>
+        <pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+int main () {
+  string mystr;
+  float price=0;
+  int quantity=0;
+
+  cout &lt;&lt; "Enter price: ";
+  getline (cin,mystr);
+  stringstream(mystr) &gt;&gt; price;
+  cout &lt;&lt; "Enter quantity: ";
+  getline (cin,mystr);
+  stringstream(mystr) &gt;&gt; quantity;
+  cout &lt;&lt; "Total price: " &lt;&lt; price*quantity &lt;&lt; endl;
+  return 0;
+}</pre>
+      </section>
+      <!-- </sect3> -->
+      <section sect="sect3">
+        <h2>Accessing <code class="classname">stringstream</code> Buffer</h2>
+        <pre>stringstream ss;
+streambuf * pssbuf = ss.rdbuf();</pre>
+        <p>...</p>
+      </section>
+      <!-- </sect3> -->
+    </main>
+  </body>
+</html>
