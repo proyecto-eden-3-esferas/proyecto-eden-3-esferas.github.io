@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *emergence.html* on emergent properties
+
 [ ] write *data-center.html*
 
 [ ] write *platform-capitalism.html*
