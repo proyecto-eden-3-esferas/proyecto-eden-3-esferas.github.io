@@ -1,5 +1,8 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] continue writing *implants.html*, on Medical Implants, and
+[ ] develop section/page "Neural Implants", currently *implants.html#neural*
+
 [ ] write *emergence.html* on emergent properties
 
 [ ] write *data-center.html*
@@ -370,6 +373,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *gig-economy.html*, from *society.html*
 
 [ ] *example2.sable*, *example1.sable* and any other DOCTYPE SABLE file should be linked to from festival pages
 
