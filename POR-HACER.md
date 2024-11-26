@@ -1,5 +1,25 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] dentro de *religion.html*, hablar de la heredabilidad (de la religión) de padres a hijos y de la correlación
+
+[ ] write and link to *svg.styling.html*
+
+[ ] write *psa.html* for Prostate-Specific Antigen
+    Prostate-specific antigen, or PSA, is a protein produced by normal, as well as malignant, cells of the prostate gland. The PSA test measures the level of PSA in the blood. For this test, a blood sample is sent to a laboratory for analysis.
+
+[ ] escribir *fija.html* (limpia, fija y da esplendor), enlazada desde *lengua.html* y *anglicismos.html*
+
+[ ] *health.html* should point to would-be *cyborg.html* (it already points to *implants.html*),
+    and *cyborg.html* to *implants.html*
+
+[ ] *imagined-communities.html*
+
+[ ] ¿Podemos derivar una ética de la razón? Idea o concepto de "valor"
+
+[ ] En *salud.html*: que la medicina moderna no atribuye las enfermedades a causas tales como
+    el modo de vida y estados mentales
+    sino más bien a la genética y a la edad.
+
 [ ] continue writing *implants.html*, on Medical Implants, and
 [ ] develop section/page "Neural Implants", currently *implants.html#neural*
 
