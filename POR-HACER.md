@@ -1,5 +1,10 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] What is an `explicit constexpr` constructor in C++? As in
+```
+explicit constexpr Frequency(unsigned int h) : hertz(h) {};
+```
+
 [ ] dentro de *religion.html*, hablar de la heredabilidad (de la religión) de padres a hijos y de la correlación
 
 [ ] write and link to *svg.styling.html*

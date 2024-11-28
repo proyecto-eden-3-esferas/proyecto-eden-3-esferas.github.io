@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User-Defined Literals</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="cpp.r-refences.html">C++ R-References</a></p>
+        <p><a href="cpp.member-initializers.html">Member Initializers</a></p>
+        <p><a href="cpp.attributes.html">Attributes (C++11)</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a rel="prev" href="cpp.cpp11.html">C++14</a></p>
+        <p><a            href="cpp.cpp14.html">C++14</a></p>
+        <p><a            href="cpp.cpp20.html">C++20</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>User-Defined Literals: <code>operator&quot;&quot;</code> (C++11)</h1>
+      <p>User defined literals were introduced in C++11, evolved in C++14 and C++17, and are a nice way to write more expressive code.</p>
+      <p>The general idea behind user defined literals is that they allow to write a value and tack on a term describing what this value represents. For example:</p>
+      <pre>auto const quantity = 42_bottles_of_water;</pre>
+      <p>In this expression, 42 is the value and <code>_bottles_of_water</code> is the user defined suffix. The expression as a whole is a user defined literal.</p>
+      <p>A common usage of user defined literals is to represent units, but they can also be used to add meaning to values in more general contexts.</p>
+      <hr/>
+      <p>Here is how to write user defined literals in C++11, C++14 and C++17.</p>
+
+      <section>
+        <h2>Introduction of user defined literals in C++11</h2>
+        <p>To define a user defined suffix, C++11 introduced a new operator: <code>operator&quot;&quot;</code>. To illustrate, consider the following type:</p>
+        <pre>struct MyType
+{
+    int value_;
+};</pre>
+        <p>We can define an <code>operator&quot;&quot;</code> to create this type the following way:</p>
+        <pre>MyType operator&quot;&quot;_myType(unsigned long long int value)
+{
+    return MyType{value};
+}</pre>
+        <p>This allows us to write user defined literals such as this one:</p>
+        <pre>42_myType</pre>
+        <p>Note that, contrary to the other operators in C++, <code>operator&quot;&quot;</code> doesn&apos;t appear at call site. Indeed, the call site doesn&apos;t show any <code>&quot;&quot;</code>&apos;s.</p>
+        <p>This is the gist of it, but user defined literals come with a few restrictions that you need to know in order to use them effectively.</p>
+      </section>
+      <section>
+        <h2>The types allowed in user defined literals</h2>
+        <p>Not all types are allowed for the values in user defined literals (the suffix on the other hand, can be of any type). Indeed, only the following types can be used:</p>
+        <ul>
+          <li><code>unsigned long long int</code> to represent integers (as in our above example)</li>
+          <li><code>long double</code> to represent floating point numbers</li>
+          <li><code>char</code> to represent individual characters</li>
+          <li><code>const char*</code> to represent strings</li>
+          <li><code>const char*</code>, <code>size_t size</code> to represent strings</li>
+        </ul>
+        <p>The last two types both allow to represent strings in user defined literals, such as:</p>
+        <pre>&quot;forty-two&quot;_myType</pre>
+        <hr/>
+        <p>Depending on whether or not you want to size of the string in the prototype of the operator&quot;&quot; you can define it this way:</p>
+        <pre>MyType operator&quot;&quot;_myType(const char* string)
+{
+    // ...
+}</pre>
+        <p>or that way:</p>
+        <pre>MyType operator&quot;&quot;_myType(const char* string, size_t length)
+{
+    // ...
+}</pre>
+
+
+
+      </section>
+
+      <section>
+        <h2>What&apos;s with the underscore?</h2>
+        <p>In all the above examples, our user defined suffixes start with an underscore followed by a lower case letter. Should it always be the case?</p>
+        <p>There are two rules about that. The first rule is that user defined suffixes must start with an underscore, except those defined in the standard library (more on those in a moment). So user defined user defined suffixes must start with an underscore.</p>
+        <p>The second rule is that user defined suffixes are allowed to start with a capital letter, but in this case there must be no space in the prototype between operator"" and the starting underscore of the user defined suffix:</p>
+        <pre>MyType operator""_MyType(unsigned long long int value) // OK
+{
+    // ...
+}
+
+MyType operator"" _MyType(unsigned long long int value) // NOT OK
+{
+    // ...
+}
+
+MyType operator"" _myType(unsigned long long int value) // OK
+{
+    // ...
+</pre>
+      </section>
+
+      <section>
+        <h2>Developments in C++14 and C++17</h2>
+        <p>C++11 introduced the technology of user defined literals, but didn&apos;t provide any user defined suffix in the standard library. Those come in C++14 and C++17.</p>
+        <p>There are three types of literals provided by the standard library: string literals (C++14), chrono literals (C++14) and string view literals (C++17).</p>
+        <section>
+          <h3>String literals</h3>
+          <p>There is one user defined literal for strings in the standard library: <code>s</code>. Note that it doesn&apos;t have an underscore since it is provided by the standard library.</p>
+          <p><code>s</code> is in the <code>std::literals::string_literals</code> namespace. You can use it this way:</p>
+          <pre>using namespace std::literals::string_literals;
+
+auto myString = "hello"s;</pre>
+          <p>In this code, <var>myString</var> is of type <code>std::string</code>. Compare this to the following code:</p>
+          <pre>auto myString = "hello";</pre>
+          <p>In that case, myString is of type <code>const char*</code>.</p>
+        </section>
+        <section>
+          <h3>Chrono literals</h3>
+          <p>The part of the standard library that provides the most user defined suffixes is chrono, the part of the standard library dealing with date and times utilities.</p>
+          <p>In particular, chrono offers literals for all the typical units of duration: minutes, second, hours, etc:</p>
+          <pre>using namespace std::literals::chrono_literals;
+
+auto threeSeconds = 3s;
+auto tenMinutes = 10min;
+auto twoHours = 2h;
+
+auto oneMillisecond = 1ms;
+auto oneMicroSecond = 1us;
+auto oneNanoSecond = 1ns;</pre>
+        </section>
+
+        <section>
+          <h3>String view literals</h3>
+          <p>Finally, the user defined suffix that C++17 added is <code>sv</code>, in the <code>std::literals::string_view_literalsx</code> namespace. <code>sv</code> allows to create an <code>std::string_view</code>:</p>
+          <pre>using namespace std::literals::string_view_literals;
+
+auto myStringView = "hello"sv;</pre>
+          <p>In this above code, <var>myStringView</var> is of type <code>std::string_view</code>.</p>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Usages for user defined literals</h2>
+        <p>User defined literals are an interesting tool to make code more expressive. A typical use case for them is to represent units in code, such as distances (meter, mile, etc.), time (as in chrono) or other types of numerical values.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
