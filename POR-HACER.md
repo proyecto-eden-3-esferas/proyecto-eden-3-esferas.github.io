@@ -1,5 +1,33 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+
+
+[ ] *masa-individuo.html*
+[ ] relacionar con la empatía (*empatia.html*)
+[ ] aclarar relación con *rebelion-de-las-masas.html*
+[ ] añadir cuarto término, digital, en particular *ia.html*
+[x] enlazar desde *dicotomia.html*
+[ ] salida: minifundio
+
+[ ] *tiempo-ordenador.html*: Papel, pantalla, ordenador
+- Tricotomías o dicotomías
+- internet time = tiempo internet/ordenador frente a tiempo analógico
+- libro de papel, lector, leer de ordenador
+- el ordenador aporta eficiencia, al tiempo que el tiempo se nos escurre entre las manos frente a él. Tiempo pasado tiempo no vivido.
+[ ] enlazar con *tiempo.html* y con *ordenador.html*
+
+[ ] Tiempo y Ahora
+
+
+[ ] Teilhard de Charden
+- Las Tres Intervenciones de Dios
+  y el joven conservador (bordón defensivo, hábito, comunidad, anti-Francisco etc.)
+- La Navaja de Occam
+
+
+[ ] La Navaja de Occam
+
+
 [ ] What is an `explicit constexpr` constructor in C++? As in
 ```
 explicit constexpr Frequency(unsigned int h) : hertz(h) {};
@@ -398,6 +426,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *trabajo.html*, desde *pensamientos.html*
 
 [ ] *gig-economy.html*, from *society.html*
 
