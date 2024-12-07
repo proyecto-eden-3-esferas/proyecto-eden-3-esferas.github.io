@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>sqlite types</title>
+    <title>SQLite Data Types</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -30,7 +30,7 @@
 
     <main>
       <h1>SQLite Data Types</h1>
-      <p>In SQLite, types are relatively unimportant because SQLite is not strongly typed. It actually uses five basic storage classes:</p>
+      <p>In SQLite, types are relatively unimportant because SQLite is not strongly typed. It actually uses five basic data types or, rather, <strong>storage classes</strong>:</p>
       <ul>
         <li><code>NULL</code></li>
         <li><code>INTEGER</code></li>
@@ -38,6 +38,104 @@
         <li><code>TEXT</code></li>
         <li><code>BLOB</code></li>
       </ul>
+
+      <hr/>
+
+      <p>Other database systems such as MySQL and PostgreSQL use <dfn>static typing</dfn>. When you declare a column with a specific data type, that column can store only data of the declared type.</p>
+      <p>SQLite uses a <dfn>dynamic type</dfn> system. The data type of a column is determined by the value stored in it, rather than by the column&apos;s declared data type. Thus, a single column in SQLite can store mixed data types.</p>
+      <p>Also, you don&apos;t have to declare a specific data type for a column when creating a table.</p>
+
+      <hr/>
+
+      <p>Storage classes describe the formats that SQLite uses to store data on disk. A storage class is more general than a data type; for example, the <code>INTEGER</code> storage class includes six different integer types. In many cases, you can use storage classes and data types interchangeably.</p>
+      <p>The following table illustrates five storage classes in SQLite:</p>
+      <table border="1" id="storage_classes">
+        <thead> <tr> <td>Storage_class</td> <td>Meaning</td> <td>When</td> </tr> </thead>
+                <tr> <td><code>NULL</code></td> <td><code>NULL</code> values mean missing information or unknown.</td> <td></td> </tr>
+                <tr> <td><code>INTEGER</code></td> <td>Integer values are whole numbers (either positive or negative). An integer can have variable sizes such as 1, 2,3, 4, or 8 bytes.</td> <td>No quotes, no decimal point, and no exponent</td> </tr>
+                <tr> <td><code>REAL</code></td> <td>Real values are real numbers with decimal values that use 8-byte floats.</td> <td>A literal has a decimal point or exponent and no enclosing quotes</td> </tr>
+                <tr> <td><code>TEXT</code></td> <td><code>TEXT</code> is used to store character data. The maximum length of <code>TEXT</code> is unlimited. SQLite supports various character encodings.</td> <td>A literal is enclosed by single or double quotes</td> </tr>
+                <tr> <td><code>BLOB</code></td> <td><code>BLOB</code> stands for a binary large object that can store any kind of data. Theoretically, the maximum size of <code>BLOB</code> is unlimited.</td> <td>A literal has a prefix X&apos;…&apos;</td> </tr>
+      </table>
+
+      <section id="typeof">
+        <h2>Function <code>TYPEOF()</code></h2>
+        <p>SQLite provides the <code>TYPEOF()</code> function that allows you to check the storage class of a value based on its format. See the following example:</p>
+        <pre>SELECT
+  TYPEOF(100),
+  TYPEOF(10.0),
+  TYPEOF(&apos;100&apos;),
+  TYPEOF(x&apos;1000&apos;),
+  TYPEOF(NULL);</pre>
+      </section>
+
+      <section id="date-time">
+        <h2>Data and Time in SQLite</h2>
+        <p>SQLite does not support built-in date and time storage classes. However, you can use the TEXT, INT, or REAL to store date and time values. For detailed information on handling date and time values.</p>
+        <hr/>
+        <p>Indeed, SQLite does not support built-in date and/or time storage class. Instead, it leverages some built-in date and time functions to use other storage classes such as <code>TEXT</code>, <code>REAL</code>, or <code>INTEGER</code> for storing the date and time values.</p>
+        <hr/>
+        <p>If you use the TEXT storage class to store date and time value, you need to use the ISO8601 string format as follows:</p>
+        <pre>YYYY-MM-DD HH:MM:SS.SSS</pre>
+        <p>For example, <code>2016-01-01 10:20:05.123</code></p>
+        <p>First, create a new table named datetime_text for demonstration.</p>
+        <pre>CREATE TABLE datetime_text(
+  d1 text,
+  d2 text
+);</pre>
+        <p>To insert date and time values into the <var>datetime_text</var> table, you use the <code>DATETIME()</code> function.</p>
+        <p>For example, to get the current UTC date and time value, you pass the now literal string to the function as follows:</p>
+        <pre>SELECT datetime(&apos;now&apos;);</pre>
+        <p>To get the local time, you pass an additional argument: <code>localtime</code>.</p>
+        <pre>SELECT datetime(&apos;now&apos;,&apos;localtime&apos;);</pre>
+        <p>Second, insert the date and time values into the <var>datetime_text</var> table as follows:</p>
+        <pre>INSERT INTO datetime_text (d1, d2)
+VALUES(datetime(&apos;now&apos;),datetime(&apos;now&apos;, &apos;localtime&apos;));</pre>
+        <hr/>
+        <p>You can use the <code>REAL</code> storage class to store the date and/or time values as Julian day numbers, which is the number of days since noon in Greenwich on November 24, 4714 B.C. based on the proleptic Gregorian calendar.</p>
+        <p>Let&apos;s take a look at an example of using the REAL storage class to store date and time values.</p>
+        <p>First, create a new table named <var>datetime_real</var>:</p>
+        <pre>CREATE TABLE datetime_real(
+  d1 real
+);</pre>
+        <p>Second, insert the current date and time value into the datetime_real table.</p>
+        <pre>INSERT INTO datetime_real (d1)
+VALUES(julianday(&apos;now&apos;));</pre>
+        <p>Third, query data from the datetime_real table.</p>
+        <pre>SELECT d1 FROM datetime_real;</pre>
+        <p>But, alas!, the output is not human readable. Fortunately, you can use the built-in <code>date()</code> and <code>time()</code> functions to format a date and time value as follows:</p>
+        <pre>SELECT
+  date(d1),
+  time(d1)
+FROM
+  datetime_real;</pre>
+        <hr/>
+        <p>Besides <code>TEXT</code> and <code>REAL</code> storage classes, you can use the <code>INTEGER</code> storage class to store date and time values.</p>
+        <p>We typically use the <code>INTEGER</code> to store UNIX time which is the number of seconds since 1970-01-01 00:00:00 UTC. See the following example:</p>
+        <p>First, create a table that has one column whose data type is INTEGER to store the date and time values.</p>
+        <pre>CREATE TABLE datetime_int (d1 int);</pre>
+        <p>Second, insert the current date and time value into the <var>datetime_int</var> table.</p>
+        <pre>INSERT INTO datetime_int (d1)
+VALUES(strftime(&apos;%s&apos;,&apos;now&apos;));</pre>
+        <p>Third, query data from the datetime_int table.</p>
+        <pre>SELECT d1 FROM datetime_int;</pre>
+        <p>To format the result, you can use the built-in <code>datetime()</code> function as follows:</p>
+        <pre>SELECT datetime(d1, &apos;unixepoch&apos;)
+FROM datetime_int;</pre>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <hr/>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+
+      </section>
+
+
 
 
     </main>

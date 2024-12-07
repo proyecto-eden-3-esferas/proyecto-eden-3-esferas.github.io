@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RDBMS Comparative Syntax</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="database.transaction.html">DataBases Transactions</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a            href="mongodb.html">MongoDB: A JSON Document Database</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
+        <p><a href="special-relational-tables.html">Special Relational Tables</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Relational Data Base Management Systems: Comparative Syntax</h1>
+
+      <section id="create-db">
+        <h2>Creating a Database or Schema</h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+
+            <tr>
+              <td><!--SQLite--></td>
+              <td><pre>DROP SCHEMA IF EXISTS <var>new_database</var>;
+CREATE SCHEMA <var>new_database</var>;
+USE <var>new_database</var>;</pre><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+        </table>
+      </section>
+
+      <section id="create-table">
+        <h2>Creating a Table</h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+
+            <tr>
+              <td>
+                <p>This is a typical scheme for creating a table in SQLite:</p>
+                <pre>CREATE TABLE [IF NOT EXISTS] [<var>schema_name</var>].<var>table_name</var> (
+	<var>column_1</var> <var>data_type</var> PRIMARY KEY,
+   	<var>column_2</var> <var>data_type</var> NOT NULL,
+	<var>column_3</var> <var>data_type</var> DEFAULT 0,
+	<var>table_constraints</var>
+) [WITHOUT ROWID];</pre>
+              </td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td>
+                <p>Use <code>IF NOT EXISTS</code> option to create a new table if it does not exist. Attempting to create a table that already exists without using the <code>IF NOT EXISTS</code> option will result in an error.</p><!--SQLite-->
+              </td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td>
+                <p>You may specify the <var>schema_name</var> to which the new table belongs. The schema can be the main database, <code>temp</code> database or any attached database.</p><!--SQLite-->
+              </td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td>
+                <p>Each column statement may end in a constraint. SQLite supports <code>PRIMARY KEY</code>, <code>UNIQUE</code>, <code>NOT NULL</code>, and <code>CHECK</code> column constraints.</p><!--SQLite-->
+              </td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td>
+                <p>Last inside the set of round brackets, you specify the table constraints such as <code>PRIMARY KEY</code>, <code>FOREIGN KEY</code>, <code>UNIQUE</code>, and <code>CHECK</code> constraints.</p>
+                <!--SQLite-->
+              </td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td>
+                <p>The foreign key is specified like this:</p>
+                <pre>FOREIGN KEY (<var>column</var>)
+  REFERENCES <var>table</var> (<var>column</var>)</pre>
+                <p>where <var>table</var> refers to a different table, and the expression <code><var>table</var> (<var>column</var>)</code> references a different table&apos;s column.</p>
+                <pre></pre>
+                <p></p>
+                <pre></pre>
+              </td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td><p>Finally and after the closing round bracket, you may add the <code>WITHOUT ROWID</code> option.</p>
+                <p>By default, a row in a table has an implicit column, which is referred to as the <var>rowid</var>, <var>oid</var> or <var>_rowid_</var> column. The <var>rowid</var> column stores a 64-bit signed integer key that uniquely identifies the row inside the table. If you don&apos;t want SQLite to create the <var>rowid</var> column, you specify the <code>WITHOUT ROWID</code> option. A table that contains the rowid column is known as a <dfn>rowid table</dfn>. Note that the <code>WITHOUT ROWID</code> option is only available in SQLite 3.8.2 or later.</p><!--SQLite-->
+              </td>
+              <td>
+                <p>You may append which engine to use, a character set directive etc.</p>
+                <pre>CREATE TABLE <var>table_name</var> (
+  ...
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4;</pre><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td>
+                <p>Unlike other database systems, SQLite uses a <dfn>dynamic type system</dfn>. In other words, the data type of a column is determined by the value stored in it, rather than by the column&apos;s declared data type. You don&apos;t even have to declare a specific data type for a column when creating a table.</p>
+                <p><a href="sqlite.data-types.html">SQLite data types</a> (or, rather, <dfn>storage classes</dfn>) are <code>NULL</code>, <code>INTEGER</code>, <code>REAL</code>, <code>TEXT</code>, and <code>BLOB</code>.</p><!--SQLite--></td>
+              <td>
+                <p>Database systems such as MySQL and PostgreSQL use <dfn>static typing</dfn>. This means that when you declare a column with a specific data type, that column can store only data of the declared type. For example, if you declare a quantity column with the type integer, you can only store whole numbers in that column.</p><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+
+        </table>
+      </section>
+
+      <section id="update-table">
+        <h2>Updating a Table</h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+        </table>
+      </section>
+
+      <section id="select">
+        <h2>Querying and <code>SELECT</code></h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+        </table>
+      </section>
+
+
+      <section id="other">
+        <h2>Other SQL Statements</h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+            <tr>
+              <td><pre>INSERT INTO <var>new_table</var> SELECT * FROM <var>old_table</var>;</pre><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><pre>DROP TABLE <var>old_table</var>;</pre><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td>ALTER TABLE <var>old_table_name</var> RENAME TO <var>new_table_name</var>;<!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+        </table>
+      </section>
+
+      <section id="yet-other">
+        <h2>Yet Other SQL Statements*</h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td><code></code><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+        </table>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

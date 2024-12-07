@@ -1,9 +1,25 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[x] *wetiko.es.html* desde *religion.html* y a *jung.html*
+[ ] *wetiko.es.html* debería apuntar a un futuro *jung.es.html* todavía por redactar
 
+
+[ ] *rdbms-comp-syntax.html* (Data Base Management Systems: Comparative Syntax)
+     as tables for SQLite, MySQL, PostgreSQL
+     for:
+- `CREATE SCHEMA/DATABASE`
+- `CREATE TABLE`
+- `UPDATE TABLE`
+
+[ ] negociar - escuchar - cumplir (*nec.html*), desde *capitalismo.html*
+
+[ ] *fe-es-ca.html*
+- podríamos empezar negando la fe,
+- o podríamos partir de la caridad, continuar por la esperanza, y concluír en la fé
+- según el orden, así negamos o afirmamos
 
 [ ] *masa-individuo.html*
-[ ] relacionar con la empatía (*empatia.html*)
+[x] relacionar con la empatía (*empatia.html*)
 [ ] aclarar relación con *rebelion-de-las-masas.html*
 [ ] añadir cuarto término, digital, en particular *ia.html*
 [x] enlazar desde *dicotomia.html*
