@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQLite .DUMP</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a rel="next" href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a            href="sqlite.vacuum.html">SQLite <code>VACUUM</code> Command for Cleaning/Backing Up</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQLite <code>.DUMP</code></h1>
+      <p>The <code>.dump</code> command enables you to dump the entire database or tables into a text file.</p>
+      <p>By default, the <code>.dump</code> command outputs the SQL statements on screen. To issue the output to a file, you use the <code>.output <var>FILENAME</var></code> command.</p>
+      <p>An example:</p>
+      <pre>sqlite&gt; .output ~/Documents/sqlite/db/new_world.db
+sqlite&gt; .dump
+sqlite&gt; .exit</pre>
+
+      <section>
+        <h2>Dump a specific table using the SQLite <code>.dump</code> command</h2>
+        <p>To dump a specific table, you specify the table name after the <code>.dump</code> command. For example, the following command saves the albums table to the albums.sql file.</p>
+        <pre>sqlite&gt; .output ~/Documents/sqlite/db/Euphoria.sql
+sqlite&gt; .dump Euphoria
+sqlite&gt; .quit</pre>
+      </section>
+
+      <section>
+        <h2>Dump tables structure only using <code>.schema</code> command</h2>
+        <p>To dump the table structures in a database, you use the <code>.schema</code> command.</p>
+        <p>The following commands set the output file to <cite>new_world_structure.sql</cite> file and save the table structures into the <code>new_world_structure.sql</code> file:</p>
+        <pre>sqlite&gt; .output ~/Documents/sqlite/db/new_world_structure.sql
+sqlite&gt; .schema
+sqlite&gt; .quit</pre>
+      </section>
+
+      <section>
+        <p></p>
+        <h2>Dump data of one or more tables into a file</h2>
+        <p>To dump the data of a table into a text file, you use these steps:</p>
+        <ol>
+          <li>
+            <p>First, set the mode to insert using the .mode command as follows:</p>
+            <pre>sqlite&gt; .mode insert</pre>
+            <p>From now on, every <code>SELECT</code> statement will issue the result as the <code>INSERT</code> statements instead of pure text data.</p>
+          </li>
+          <li>
+            <p>Second, set the output to a text file instead of the default standard output. The following command sets the output file to the <cite>data.sql</cite> file.</p>
+            <pre>sqlite&gt; .output data.sql</pre>
+          </li>
+          <li>
+            <p>Third, issue the <code>SELECT</code> statements to query data from a table that you want to dump. The following command returns data from the <cite>artists</cite> table.</p>
+            <pre>sqlite&gt; select * from artists;</pre>
+          </li>
+        </ol>
+        <hr/>
+        <p>To dump data from other tables, you need to issue the <code>SELECT</code> statements to query data from those tables.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

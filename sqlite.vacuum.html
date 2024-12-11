@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQLite VACUUM</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a rel="next" href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a            href="sqlite.dump.html">SQLite <code>.DUMP</code></a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SQLite <code>VACUUM</code> Command for Cleaning/Backing Up</h1>
+      <p>The <code>VACUUM</code> command does not change the content of the database except the rowid values. If you use <code>INTEGER PRIMARY KEY</code> column, the <code>VACUUM</code> does not change the values of that column. However, if you use unaliased rowid, the <code>VACUUM</code> command will reset the rowid values. Besides changing the rowid values, the <code>VACUUM</code> command also builds the index from scratch.</p>
+      <p>It is a good practice to perform the <code>VACUUM</code> command periodically, especially when you delete large tables or indexes from a database.</p>
+      <p>It is important to note that the <code>VACCUM</code> command requires storage to hold the original file and also the copy. Also, the <code>VACUUM</code> command requires exclusive access to the database file. In other words, the <code>VACUUM</code> command will not run successfully if the database has a pending SQL statement or an open transaction.</p>
+      <p>Currently, as of version 3.9.2, you can run the <code>VACUUM</code> command on the main database, not the attached database file.</p>
+      <p>Even though SQLite enables the auto-vacuum mode that triggers the vacuum process automatically with some limitations, still it is a good practice to run the <code>VACUUM</code> command manually.</p>
+
+      <section>
+        <h2>How to run the SQLite <code>VACUUM</code> command</h2>
+        <p>The following shows how to run the VACUUM command:</p>
+        <pre>VACUUM;</pre>
+        <p>Make sure that there is no open transaction while you&apos;re running the command!</p>
+        <p>The following statement enables full auto-vacuum mode:</p>
+        <pre>PRAGMA auto_vacuum = FULL;</pre>
+        <p>To enable incremental vacuum, you use the following statement:</p>
+        <pre>PRAGMA auto_vacuum = INCREMENTAL;</pre>
+        <p>The following statement disables auto-vacuum mode:</p>
+        <pre>PRAGMA auto_vacuum = NONE;</pre>
+      </section>
+
+      <section>
+        <h2>VACUUM with an INTO clause</h2>
+        <p>Here is syntax of the <code>VACUUM</code> with <code>INTO</code> clause:</p>
+        <pre>VACUUM schema-name INTO filename;</pre>
+        <p>The <code>VACUUM</code> statement with an <code>INTO</code> clause keeps the original database file unchanged and creates a new database with the file name specified. The new database will contain the same logical content as the original database, but fully vacuumed.</p>
+        <p>The filename in the <code>INTO</code> clause can be any SQL expression that evaluates to a string. It must be a path to a file that does not exist or to an empty file, or the <code>VACUUM INTO</code> command will result in an error.</p>
+        <p>The <code>VACUUM</code> command is very useful for generating backup copies of a live database. It is transactional safe, with the generated database being a consistent snapshot of the original database. However, if a unplanned shutdown or power lose interupts the command, the generated database might be corrupted.</p>
+        <p>The following statement uses the <code>VACUUM INTO</code> command to generate a new database with the file name <cite>new_world.db</cite>, whose data is copied from of the main schema of the <cite>new_world.db</cite> database:</p>
+        <pre>VACUUM main INTO &apos;~/Documents/sqlite/db/new_world.db&apos;;</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

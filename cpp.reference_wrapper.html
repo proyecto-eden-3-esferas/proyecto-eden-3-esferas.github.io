@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::reference_wrapper</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.value-vs-reference-semantics.html">C++ Value versus Reference Semantics</a></p>
+        <p><a rel="prev" href="cpp.references.html">C++ References</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>std::reference_wrapper</code>wraps a reference in a copyable, assignable object.</h1>
+      <p><code>std::reference_wrapper</code> is a class template that wraps a reference in a copyable, assignable object.</p>
+      <p>Specifically, <code>std::reference_wrapper</code> is a <code>CopyConstructible</code> and <code>CopyAssignable</code> wrapper around a reference to object or reference to function of type <code>T</code>. Instances of std::reference_wrapper are objects (they can be copied or stored in containers) but they are implicitly convertible to T&amp;, so that they can be used as arguments with the functions that take the underlying type by reference.</p>
+      <p><code>std::reference_wrapper</code> is used to pass objects by reference to <code>std::bind</code>, the constructor of <code>std::thread</code>, or the helper functions <code>std::make_pair</code> and <code>std::make_tuple</code>. It can also be used as a mechanism to store references inside <a target="_blank" href="cpp.containers.html">standard containers</a> (like <code>std::vector</code>) that cannot normally hold references.</p>
+
+      <hr/>
+
+      <p><code>std::reference_wrapper</code> is guaranteed to be TriviallyCopyable. (since C++17)</p>
+      <p><code>T</code> may be an incomplete type. (since C++20)</p>
+
+      <hr/>
+
+      <p><code>type</code>: member type, defined as <code>T</code>.</p>
+
+      <hr/>
+
+      <p>Public member functions:</p>
+      <table border="1">
+        <tr> <td>(constructor)</td> <td>stores a reference in a new <code>std::reference_wrapper</code> object</td> </tr>
+        <tr> <td><code>operator=</code></td> <td>rebinds a <code>std::reference_wrapper</code></td> </tr>
+        <tr> <td><code>get</code></td>             <td>accesses the stored reference</td> </tr>
+        <tr> <td><code>operator T&amp;</code></td> <td>accesses the stored reference</td> </tr>
+        <tr> <td><code>operator()</code></td> <td>calls the stored function</td> </tr>
+      </table>
+
+      <p>Non-member functions (C++26):</p>
+      <table border="1">
+        <tr> <td><code>operator== (C++26)</code></td> <td>compares reference_wrapper objects as their stored references</td> </tr>
+        <tr> <td><code>operator&lt;=&gt; (C++26)</code></td> <td>compares reference_wrapper objects as their stored references</td> </tr>
+      </table>
+
+      <hr/>
+
+      <h3 class="bridgehead">Examples</h3>
+
+      <p></p>
+      <pre></pre>
+
+      <p>Demonstrates the use of std::reference_wrapper as a container of references, which makes it possible to access the same container using multiple indices.</p>
+      <pre>#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;numeric&gt;
+#include &lt;random&gt;
+#include &lt;vector&gt;
+
+void println(auto const rem, std::ranges::range auto const&amp; v)
+{
+    for (std::cout &lt;&lt; rem; auto const&amp; e : v)
+        std::cout &lt;&lt; e &lt;&lt; ' ';
+    std::cout &lt;&lt; '\n';
+}
+
+int main()
+{
+    std::list&lt;int&gt; l(10);
+    std::iota(l.begin(), l.end(), -4);
+
+    // can't use shuffle on a list (requires random access), but can use it on a vector
+    std::vector&lt;std::reference_wrapper&lt;int&gt;&gt; v(l.begin(), l.end());
+
+    std::ranges::shuffle(v, std::mt19937{std::random_device{}()});
+
+    println("Contents of the list: ", l);
+    println("Contents of the list, as seen through a shuffled vector: ", v);
+
+    std::cout &lt;&lt; "Doubling the values in the initial list...\n";
+    std::ranges::for_each(l, [](int&amp; i) { i *= 2; });
+
+    println("Contents of the list, as seen through a shuffled vector: ", v);
+}</pre>
+
+      <p>Demonstrates...</p>
+      <pre>[...]</pre>
+
+
+    </main>
+
+  </body>
+
+</html>

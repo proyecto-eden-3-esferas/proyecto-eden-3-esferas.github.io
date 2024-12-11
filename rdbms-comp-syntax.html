@@ -341,6 +341,48 @@ USE <var>new_database</var>;</pre><!--MySQL--></td>
         </table>
       </section>
 
+      <section id="admin">
+        <h2>SQL Administration Statements</h2>
+        <table border="1">
+          <thead>
+            <tr> <td>SQLite</td> <td>MySQL</td> <td>Post<br/>gre<br/>SQL</td> <td>Maria<br/>DB</td> </tr> </thead>
+
+            <tr>
+              <td>
+                <p>Dump the entire database or tables into a text file:</p>
+                <pre>sqlite&gt; .output ~/Documents/sqlite/db/new_world.db
+sqlite&gt; .dump
+sqlite&gt; .exit</pre><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td>
+                <p>Dump only a specific table:</p>
+                <pre>sqlite&gt; .output ~/Documents/sqlite/db/Euphoria.sql
+sqlite&gt; .dump Euphoria
+sqlite&gt; .quit</pre><!--SQLite--></td>
+              <td><!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+            <tr>
+              <td>
+                <pre>CREATE [UNIQUE] INDEX <var>index_name</var>
+  ON <var>table_name</var>(<var>column_list</var>);</pre>
+                <p>The <code>UNIQUE</code> qualifier enforces uniqueness on the indexed column values (<var>column_list</var>).</p>
+              <!--SQLite--></td>
+              <td>
+                <p>Within a table definition:</p>
+                <pre>KEY <var>index_name</var> (<var>column_list</var>);</pre>
+              <!--MySQL--></td>
+              <td><!--PostgreSQL--></td>
+              <td><!--MariaDB--></td>
+            </tr>
+        </table>
+      </section>
+
       <section id="yet-other">
         <h2>Yet Other SQL Statements*</h2>
         <table border="1">

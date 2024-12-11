@@ -24,6 +24,8 @@
       <div>
         <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
         <p><a rel="next" href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a            href="sqlite.dump.html">SQLite <code>.DUMP</code></a></p>
+        <p><a            href="sqlite.vacuum.html">SQLite <code>VACUUM</code> Command for Cleaning/Backing Up</a></p>
         <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
       </div>
     </nav>
@@ -200,21 +202,74 @@ cp test.db test.backup</pre>
           <p>You would run sqlite_analyzer like this:</p>
           <pre>fuzzy@linux:/tmp$ sqlite3_analyzer test.db</pre>
 
-          <!--
-          <h4 class="bridgehead"></h4>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <h4 class="bridgehead">Indexes</h4>
+          <p>SQLite uses B-tree for organizing <a target="_blank" href="relational-database.html#index">indexes</a>. Note that B stands for balanced, B-tree is a balanced tree, not a binary tree.</p>
+          <p>A SQLite index contains data from the columns you specify in the index and the corresponding rowid value. This helps SQLite quickly locate the row based on the values of the indexed columns.</p>
+          <hr/>
+          <p>To create an index, you use the <code>CREATE INDEX</code> statement with the following syntax:</p>
+          <pre>CREATE [UNIQUE] INDEX <var>index_name</var>
+  ON <var>table_name</var>(<var>column_list</var>);</pre>
+          <p>To create an index, you specify the following information:</p>
+          <ul>
+            <li>The index name after the CREATE INDEX keywords.</li>
+            <li>The name of the table to which the index belongs after the ON keyword.</li>
+            <li>A list of columns of the index inside parentheses () after the table name.</li>
+          </ul>
+          <p>If you want to ensure the values in one or more columns are unique like email and phone, you can use the <code>UNIQUE</code> option in the <code>CREATE INDEX</code> statement to create a new unique index.</p>
 
-          <h4 class="bridgehead"></h4>
-          -->
+          <h5>SQLite multicolumn indexes</h5>
+          <p>SQLite sorts the data on the multicolumn index by the first column specified in the <code>CREATE INDEX</code> statement. Then, it sorts the duplicate values by the second column, and so on. Therefore, the column order is crucial when creating a multicolumn index.</p>
+          <p>To fully utilize a multicolumn index, the query must include conditions that match the column order defined in the index.</p>
+          <hr/>
+          <p>The following statement creates a multicolumn index on the first_name and last_name columns of the contacts table:</p>
+          <pre>CREATE INDEX idx_contacts_name
+ON contacts (first_name, last_name);</pre>
+          <p>If you query the <var>contacts</var> table with one of the following conditions in the <code>WHERE</code> clause, SQLite will utilize the multicolumn index to search for data.</p>
+          <ol>
+            <li>
+              <p>Filter data by the first_name column.</p>
+              <pre>WHERE first_name = 'John';</pre>
+            </li>
+            <li>
+              <p>Filter data by both first_name and last_name columns:</p>
+              <pre>WHERE first_name = 'John' AND last_name = 'Doe';</pre>
+            </li>
+          </ol>
+          <p>However, SQLite will not use the multicolumn index if you use one of the following conditions.</p>
+          <ol>
+            <li>
+              <p>Filter by the last_name column only.</p>
+              <pre>WHERE last_name = 'Doe';</pre>
+            </li>
+            <li>
+              <p>Filter by first_name <code>OR</code> last_name columns.</p>
+              <pre>WHERE last_name = 'Doe' OR first_name = 'John';</pre>
+            </li>
+          </ol>
+
+          <h5>Show Indexes</h5>
+          <p>To find all indexes associated with a table, you use the following command:</p>
+          <pre>PRAGMA index_list('<var>table_name</var>');</pre>
+          <p>For example, this statement shows all the indexes of the contacts table:</p>
+          <pre>PRAGMA index_list('contacts');</pre>
+          <p>To get the information about the columns in an index, you use the following command:</p>
+          <pre>PRAGMA index_info('<var>index_name</var>');</pre>
+          <hr/>
+          <p>Another way to get all indexes from a database is to query from the <var>sqlite_master</var> table:</p>
+          <pre>SELECT
+   type,
+   name,
+   <var>tbl_name</var>,
+   sql
+FROM
+   sqlite_master
+WHERE
+   type= 'index';</pre>
+
+          <h5>SQLite <code>DROP INDEX</code> statement</h5>
+          <p>To remove an index from a database, you use the <code>DROP INDEX</code> statement:</p>
+          <pre>DROP INDEX [IF EXISTS] <var>index_name</var>;</pre>
+          <p>In this syntax, specify the index name you want to remove after the <code>DROP INDEX</code> keywords. The <code>IF EXISTS</code> option deletes the index only if it exists.</p>
         </section>
 
         <!--

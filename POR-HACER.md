@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *svg.styling.html*
+
 [x] *wetiko.es.html* desde *religion.html* y a *jung.html*
 [ ] *wetiko.es.html* debería apuntar a un futuro *jung.es.html* todavía por redactar
 
@@ -442,6 +444,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *sqlite.vacuum.html* from *sqlite.sqlite3.html*, *sqlite.dump.html* etc.
 
 [ ] *trabajo.html*, desde *pensamientos.html*
 
