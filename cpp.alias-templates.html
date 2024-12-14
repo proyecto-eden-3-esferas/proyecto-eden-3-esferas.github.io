@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -39,14 +40,14 @@
       <p>, instead of former:</p>
       <pre>typedef unsigned char byte;</pre>
       <p>This is an example of a type alias using <code>using</code>:</p>
-      <pre><![CDATA[template <class T>
+      <pre>template &lt;class T&gt;
 class custom_allocator { /* ... */};
 
-template <typename T>
-using vec_t = std::vector<T, custom_allocator<T>>;
+template &lt;typename T&gt;
+using vec_t = std::vector&lt;T, custom_allocator&lt;T&gt;&gt;;
 
-vec_t<int> vi;
-vec_t<std::string> vs;]]></pre>
+vec_t&lt;int&gt; vi;
+vec_t&lt;std::string&gt; vs;</pre>
       <p>It is important to take note of the following things:</p>
       <ul>
         <li>Alias templates cannot be partially or explicitly specialized.</li>

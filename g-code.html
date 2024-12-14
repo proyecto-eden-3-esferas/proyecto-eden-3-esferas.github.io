@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>G-code</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="sc.html">SuperCollider</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="c.html">The C   Programming Language</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for the Web</a></p>
+        <p><a            href="lisp.html">Lisp: The List Processing Language</a></p>
+        <p><a            href="prolog.html">Programation Logique</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>G-code</h1>
+      <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+      <p>G-code (also RS-274) is the most widely used computer numerical control (CNC) and 3D printing <a target="_blank" href="programming.html">programming</a> language. It is used mainly in computer-aided manufacturing to control automated machine tools, as well as for 3D-printer slicer applications. The G stands for geometry. G-code has many variants.</p>
+      <p>G-code instructions are provided to a machine controller (industrial computer) that tells the motors where to move, how fast to move, and what path to follow. The two most common situations are that, within a machine tool such as a lathe or mill, a cutting tool is moved according to these instructions through a toolpath cutting away material to leave only the finished workpiece and/or an unfinished workpiece is precisely positioned in any of up to nine axes around the three dimensions relative to a toolpath and, either or both can move relative to each other. The same concept also extends to noncutting tools such as forming or burnishing tools, photoplotting, additive methods such as 3D printing, and measuring instruments.</p>
+
+      <section id="syntax">
+        <h2>Syntax</h2>
+        <p>G-code began as a limited language that lacked constructs such as loops, conditional operators, and programmer-declared variables. It was unable to encode logic but was just a way to <q>connect the dots</q> where the programmer figured out many of the dots&apos; locations longhand.</p>
+        <p>The latest implementations of G-code include macro language capabilities somewhat closer to a high-level programming language. Additionally, all primary manufacturers (e.g., Fanuc, Siemens, Heidenhain) provide access to programmable logic controller (PLC) data, such as axis positioning data and tool data, via variables used by NC programs. These constructs make it easier to develop automation applications.</p>
+      </section>
+
+      <section id="LinuxCNC">
+        <h2>LinuxCNC</h2>
+        <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+        <p>LinuxCNC (formerly Enhanced Machine Controller or EMC2) is a free, open-source <a target="_blank" href="linux.html">Linux</a> software system that implements computer numerical control (CNC) capability using general purpose computers to control CNC machines. It&apos;s mainly intended to run on PC AMD x86-64 systems. Designed by various volunteer developers at linuxcnc.org, it is typically bundled as an ISO file with a modified version of Debian Linux which provides the required real-time kernel.</p>
+        <p>Due to the tight real-time operating system integration, a standard Linux desktop PC without the real-time kernel will only run the package in demo mode.</p>
+        <hr/>
+        <p>It can control up to 9 axes or joints of a CNC machine using G-code (RS-274NGC) as input. It has several GUIs suited to specific kinds of usage (touch screen, interactive development). It supports both stepper- and servo-type drives.</p>
+        <p>It does not provide drawing (CAD - Computer Aided Design) or G-code generation from the drawing (CAM - Computer Automated Manufacturing) functions.</p>
+        <hr/>
+        <p>Installing LinuxCNC and the underlying real-time kernel patches on a base Linux system can be a daunting task. Paul Corner came to the rescue with the BDI (Brain Dead Install) which was a CD from which a complete working system (Linux, real-time patches, and LinuxCNC) could be installed.[3] This made LinuxCNC accessible to a much larger user community. Today Paul's BDI has evolved into a bootable (live) ISO that can be burned to a CD or USB and run on most any PC style computer to test drive LinuxCNC without having to install the system. Bootable LinuxCNC ISOs are available for Debian wheezy (RTAI kernel) and Debian stretch (RT-PREEMPT kernel).</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

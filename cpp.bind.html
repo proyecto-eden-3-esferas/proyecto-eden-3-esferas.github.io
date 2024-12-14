@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ std::bind(f, ...)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.value-vs-reference-semantics.html">C++ Value versus Reference Semantics</a></p>
+        <p><a rel="prev" href="cpp.references.html">C++ References</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ <code>std::bind(<var>f</var>, <var>ARGS</var>)</code></h1>
+      <p><code>bind</code> binds one or more arguments to a function ...</p>
+      <h3 class="bridgehead">Synopsis (since C++11, <code>constexpr</code> since C++20)</h3>
+      <pre>template&lt; class F, class... Args &gt;
+/* unspecified */ bind( F&amp;&amp; f, Args&amp;&amp;... args );
+
+template&lt; class R, class F, class... Args &gt;
+/* unspecified */ bind( F&amp;&amp; f, Args&amp;&amp;... args );</pre>
+      <p>The function template <code>std::bind</code> generates a forwarding call wrapper for <var>f</var>. Calling this wrapper is equivalent to invoking <var>f</var> with some of its arguments bound to <var>args</var>.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;random&gt;
+
+void f(int n1, int n2, int n3, const int&amp; n4, int n5)
+{
+    std::cout &lt;&lt; n1 &lt;&lt; ' ' &lt;&lt; n2 &lt;&lt; ' ' &lt;&lt; n3 &lt;&lt; ' ' &lt;&lt; n4 &lt;&lt; ' ' &lt;&lt; n5 &lt;&lt; '\n';
+}
+
+int g(int n1)
+{
+    return n1;
+}
+
+struct Foo
+{
+    void print_sum(int n1, int n2)
+    {
+        std::cout &lt;&lt; n1 + n2 &lt;&lt; '\n';
+    }
+
+    int data = 10;
+};
+
+int main()
+{
+    using namespace std::placeholders;  // for _1, _2, _3...
+
+    std::cout &lt;&lt; "1) argument reordering and pass-by-reference: ";
+    int n = 7;
+    // (_1 and _2 are from std::placeholders, and represent future
+    // arguments that will be passed to f1)
+    auto f1 = std::bind(f, _2, 42, _1, std::cref(n), n);
+    n = 10;
+    f1(1, 2, 1001); // 1 is bound by _1, 2 is bound by _2, 1001 is unused
+                    // makes a call to f(2, 42, 1, n, 7)
+
+    std::cout &lt;&lt; "2) achieving the same effect using a lambda: ";
+    n = 7;
+    auto lambda = [&amp;ncref = n, n](auto a, auto b, auto /*unused*/)
+    {
+        f(b, 42, a, ncref, n);
+    };
+    n = 10;
+    lambda(1, 2, 1001); // same as a call to f1(1, 2, 1001)
+
+    std::cout &lt;&lt; "3) nested bind subexpressions share the placeholders: ";
+    auto f2 = std::bind(f, _3, std::bind(g, _3), _3, 4, 5);
+    f2(10, 11, 12); // makes a call to f(12, g(12), 12, 4, 5);
+
+    std::cout &lt;&lt; "4) bind a RNG with a distribution: ";
+    std::default_random_engine e;
+    std::uniform_int_distribution&lt;&gt; d(0, 10);
+    auto rnd = std::bind(d, e); // a copy of e is stored in rnd
+    for (int n = 0; n &lt; 10; ++n)
+        std::cout &lt;&lt; rnd() &lt;&lt; ' ';
+    std::cout &lt;&lt; '\n';
+
+    std::cout &lt;&lt; "5) bind to a pointer to member function: ";
+    Foo foo;
+    auto f3 = std::bind(&amp;Foo::print_sum, &amp;foo, 95, _1);
+    f3(5);
+
+    std::cout &lt;&lt; "6) bind to a mem_fn that is a pointer to member function: ";
+    auto ptr_to_print_sum = std::mem_fn(&amp;Foo::print_sum);
+    auto f4 = std::bind(ptr_to_print_sum, &amp;foo, 95, _1);
+    f4(5);
+
+    std::cout &lt;&lt; "7) bind to a pointer to data member: ";
+    auto f5 = std::bind(&amp;Foo::data, _1);
+    std::cout &lt;&lt; f5(foo) &lt;&lt; '\n';
+
+    std::cout &lt;&lt; "8) bind to a mem_fn that is a pointer to data member: ";
+    auto ptr_to_data = std::mem_fn(&amp;Foo::data);
+    auto f6 = std::bind(ptr_to_data, _1);
+    std::cout &lt;&lt; f6(foo) &lt;&lt; '\n';
+
+    std::cout &lt;&lt; "9) use smart pointers to call members of the referenced objects: ";
+    std::cout &lt;&lt; f6(std::make_shared&lt;Foo&gt;(foo)) &lt;&lt; ' '
+              &lt;&lt; f6(std::make_unique&lt;Foo&gt;(foo)) &lt;&lt; '\n';
+}</pre>
+
+      <section id="bind_front-back">
+        <h2><code>std::bind_front</code> and <code>std::bind_back</code> (C++20)</h2>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+
+      <section id="placeholders">
+        <h2><code>_1</code>, <code>_2</code> Placeholders (C++11)</h2>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+
+      <section id="mem_fn">
+        <h2><code>mem_fn</code> (C++11)</h2>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

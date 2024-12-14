@@ -22,6 +22,7 @@
       <div>
         <p><a rel="next" href="cpp.value-vs-reference-semantics.html">C++ Value versus Reference Semantics</a></p>
         <p><a rel="prev" href="cpp.references.html">C++ References</a></p>
+        <p><a            href="cpp.bind.html">C++ <code>std::bind(<var>f</var>, <var>ARGS</var>)</a></p>
         <p><a            href="cpp.html">The C++ Programming Language</a></p>
         <p><a            href="computing.html">Computing</a></p>
       </div>
@@ -30,8 +31,9 @@
     <main>
       <h1><code>std::reference_wrapper</code>wraps a reference in a copyable, assignable object.</h1>
       <p><code>std::reference_wrapper</code> is a class template that wraps a reference in a copyable, assignable object.</p>
+      <p>It is defined in header <code>&lt;functional&gt;</code>.</p>
       <p>Specifically, <code>std::reference_wrapper</code> is a <code>CopyConstructible</code> and <code>CopyAssignable</code> wrapper around a reference to object or reference to function of type <code>T</code>. Instances of std::reference_wrapper are objects (they can be copied or stored in containers) but they are implicitly convertible to T&amp;, so that they can be used as arguments with the functions that take the underlying type by reference.</p>
-      <p><code>std::reference_wrapper</code> is used to pass objects by reference to <code>std::bind</code>, the constructor of <code>std::thread</code>, or the helper functions <code>std::make_pair</code> and <code>std::make_tuple</code>. It can also be used as a mechanism to store references inside <a target="_blank" href="cpp.containers.html">standard containers</a> (like <code>std::vector</code>) that cannot normally hold references.</p>
+      <p><code>std::reference_wrapper</code> is used to pass objects by reference to <code><a target="_blank" href="cpp.bind.html">std::bind</a></code>, the constructor of <code>std::thread</code>, or the helper functions <code>std::make_pair</code> and <code>std::make_tuple</code>. It can also be used as a mechanism to store references inside <a target="_blank" href="cpp.containers.html">standard containers</a> (like <code>std::vector</code>) that cannot normally hold references.</p>
 
       <hr/>
 
@@ -103,6 +105,129 @@ int main()
 
       <p>Demonstrates...</p>
       <pre>[...]</pre>
+
+      <section id="ref-and-cref">
+        <h2><code>std::ref</code> and <code>std::cref</code> (C++11)</h2>
+        <p>Function templates <code>ref()</code> and <code>cref()</code> are helper functions that generate an object of type std::reference_wrapper, using template argument deduction to determine the template argument of the result.</p>
+        <p>They are defined in header <code>&lt;functional&gt;</code>.</p>
+        <hr/>
+        <p>Prototypes (since C++11 , and <code>constexpr</code> since C++20)</p>
+        <pre>template&lt; class T &gt;
+std::reference_wrapper&lt;T&gt; ref( T&amp; t ) noexcept;
+
+template&lt; class T &gt;
+std::reference_wrapper&lt;T&gt;
+  ref( std::reference_wrapper&lt;T&gt; t ) noexcept;
+
+template&lt; class T &gt;
+void ref( const T&amp; ) = delete;
+
+template&lt; class T &gt;
+std::reference_wrapper&lt;const T&gt; cref( const T&amp; t ) noexcept;
+
+template&lt; class T &gt;
+std::reference_wrapper&lt;const T&gt;
+  cref( std::reference_wrapper&lt;T&gt; t ) noexcept;
+
+template&lt; class T &gt;
+void cref( const T&amp; ) = delete;</pre>
+
+        <hr/>
+
+        <p>Example:</p>
+        <pre></pre>
+
+        <p>Another example:</p>
+        <pre></pre>
+      </section>
+
+      <section id="function">
+        <h2><code>std::function</code></h2>
+        <p>The std::function() in C++ is a function wrapper class which can store and call any function or a callable object.</p>
+        <p>It is defined in header &lt;functional&gt;</p>
+        <p><code>std::function</code> is a template class in C++ that is used to wrap a particular function or any other callable object such as a lambda, or function object. It is generally used to write generic code where we need to pass functions as arguments in another function (callbacks). It avoids the creation of extra overloads of the function that may take similar callback functions as arguments.</p>
+        <p><code>std::function</code> is defined in the <code>&lt;functional&gt;</code> header file.</p>
+        <hr/>
+        <p>To create a wrapper object, we first declare it using the following syntax:</p>
+        <pre>std::function&lt; <var>rtype</var> (<var>atype...</var>)&gt; <var>name()</var>;</pre>
+        <p>where,</p>
+        <ul>
+          <li><strong>name:</strong> Name of the wrapper.</li>
+          <li><strong>atype:</strong> Types of the arguments that function takes.</li>
+          <li><strong>rtype:</strong> Return type of the function you want to store.</li>
+        </ul>
+        <p>The above syntax only creates an empty instance of <code>std::function</code>. To wrap a particular function inside this wrapper object, we use assignment operator as shown:</p>
+        <pre>std::function&lt; <var>ret_t</var> (<var>args_t</var>)&gt; <var>name</var> = <var>f</var>;</pre>
+        <p>where <var>f</var> is the function to be wrapped.</p>
+        <p>We can also initialize it at the time of declaration:</p>
+        <pre>std::function&lt; <var>ret_t</var> (<var>args_t</var>)&gt; name(f);</pre>
+        <h4 class="bridgehead">Example of <code>std::function</code></h4>
+        <pre>// C++ Program to illustrate the working
+// std::function
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int f(int a, int b) {
+  return a + b;
+}
+
+int main() {
+
+  	// std::function wrapping traditional
+  	// function
+	function&lt;int(int, int)&gt; calc = f;
+  	cout &lt;&lt; "Sum: " &lt;&lt; calc(8, 2) &lt;&lt; endl;
+
+  	// std::function wrapping a lambda
+    // expression
+    calc = [](int a, int b) { return a * b; };
+  	cout &lt;&lt; "Product: " &lt;&lt; calc(8, 2);
+    return 0;
+}</pre>
+        <h4 class="bridgehead">Member Functions of <code>std::function</code></h4>
+        <p><code>std::function</code> contains some member functions to provide some basic functionality. The following table lists some useful member functions of <code>std::function</code> class template:</p>
+        <table border="1" id="simple_with_header">
+          <thead> <tr> <td>Function</td> <td>Description</td> </tr> </thead>
+                  <tr> <td><code>swap()</code></td> <td>Swaps the wrapped callable of two <code>std::function</code> objects.</td> </tr>
+                  <tr> <td><code>operator bool</code></td> <td>Checks if the <code>std::function</code> contains a callable.</td> </tr>
+                  <tr> <td><code>operator ()</code></td> <td>Invoke the callable with the given arguments.</td> </tr>
+                  <tr> <td><code>target()</code></td> <td>Returns a pointer to the stored callable. If there is no callable stored, returns <code>nullptr</code>.</td> </tr>
+                  <tr> <td><code>target_type()</code></td> <td>Returns the <code>typeid</code> of the callable. If no callable is stored, it returns <code>typeid(void)</code>.</td> </tr>
+        </table>
+
+        <h4 class="bridgehead">Applications of <code>std::function</code>&apos;s in C++</h4>
+        <p>Apart from the applications shown in the above examples, <code>std::function</code> can also be used for:</p>
+        <ul>
+          <li><strong>Callbacks:</strong> Used for event-driven systems where functions are passed and called later when an event occurs.</li>
+          <li><strong>Function Wrapping and Higher-Order Functions:</strong> Allows passing functions as parameters and returning them.</li> :
+          <li><strong>Stateful Callbacks:</strong> Enables callbacks with preserved states, making it easier to manage state without global variables.</li>
+          <li><strong>Replacing Function Pointers:</strong> Provides a safer and more flexible alternative to traditional function pointers, supporting multiple callable types.</li>
+        </ul>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+
+        <h4 class="bridgehead"></h4>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+
+        <h4 class="bridgehead"></h4>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+
+
+      </section>
 
 
     </main>

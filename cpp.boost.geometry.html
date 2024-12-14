@@ -68,7 +68,7 @@ using namespace boost::geometry;</pre>
         <section id='boost.geometry.intro-cartesian'>
           <h2>Cartesian Coordinates</h2>
           <p>It is possible to use only a small part of the library. For example: the distance between two points is a common use case. Boost.Geometry can calculate it from various types. Using one of its own types:</p>
-          <pre class='code'>model::d2::point_xy<int> p1(1, 1), p2(2, 2);
+          <pre class='code'>model::d2::point_xy&lt;t>int> p1(1, 1), p2(2, 2);
 std::cout &lt;&lt; "Distance p1-p2 is: " &lt;&lt; distance(p1, p2) &lt;&lt; std::endl;</pre>
           <p>If the right headers are included and the types are bound to a coordinate system, various other types can be used as points: plain C array&apos;s, Boost.Array&apos;s, Boost.Tuple&apos;s, Boost.Fusion imported structs, your own classes...</p>
           <h4>Registering and using a C array:</h4>
@@ -88,9 +88,9 @@ std::cout &lt;&lt; "Distance a-b is: " &lt;&lt; d &lt;&lt; std::endl;
 BOOST_GEOMETRY_REGISTER_BOOST_TUPLE_CS(cs::cartesian)
 
 double points[][2] = {{2.0, 1.3}, {4.1, 3.0}, {5.3, 2.6}, {2.9, 0.7}, {2.0, 1.3}};
-model::polygon<model::d2::point_xy&lt;double&gt; > poly;
+model::polygon&lt;model::d2::point_xy&lt;double&gt; > poly;
 append(poly, points);
-boost::tuple<double, double> p = boost::make_tuple(3.7, 2.0);
+boost::tuple&lt;double, double> p = boost::make_tuple(3.7, 2.0);
 std::cout &lt;&lt; "Point p is in polygon? " &lt;&lt; std::boolalpha &lt;&lt; within(p, poly) &lt;&lt; std::endl;
 </pre>
           <p>We can calculate the area of a polygon:</p>
@@ -112,8 +112,8 @@ Distance a-p is: 2.87924
           <blockquote class='note'>Boost.Geometry supports a geographical coordinate system, but that is in an extension and not released in the current Boost release.</blockquote> <!-- class='note' -->
           <p>We approximate the Earth as a sphere and calculate the distance between Amsterdam and Paris:</p>
           <pre class='code'>typedef boost::geometry::model::point
-    <
- double, 2, boost::geometry::cs::spherical_equatorial<boost::geometry::degree>
+    &lt;
+ double, 2, boost::geometry::cs::spherical_equatorial&lt;boost::geometry::degree>
     > spherical_point;
 
 spherical_point amsterdam(4.90, 52.37);
@@ -152,7 +152,7 @@ if (overlaps(r1, r2))
           <dl class="variablelist">
 
             <div class='varlistentry'>
-              <dfn><code>model::point&lt;/code></dfn>
+              <dfn><code>model::point</code></dfn>
               <li>
                 <p>Basic point class, having coordinates defined in a neutral way.</p>
                 <p>Defines a neutral point class, fulfilling the Point Concept. Library users can use this point class, or use their own point classes. This point class is used in most of the samples and tests of Boost.Geometry. This point class is used occasionally within the library, where a temporary point class is necessary.</p>
@@ -219,7 +219,7 @@ class model::d2::point_xy
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/point_xy.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/point_xy.hpp>
 
@@ -270,7 +270,7 @@ class model::d3::point_xyz
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/point_xyz.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/point_xyz.hpp>
 
@@ -297,12 +297,12 @@ int main()
             </div>  <!-- class='varlistentry' -->
 
             <div class='varlistentry'>
-              <dfn><code>model::linestring&lt;/code></dfn>
+              <dfn><code>model::linestring</code></dfn>
               <li>
-                <p>A <code>linestring&lt;/code> (named so by OGC) is a collection (default a vector) of points.</p>
+                <p>A <code>linestring</code> (named so by OGC) is a collection (default a vector) of points.</p>
                 <pre class='synopsis'>template&lt;typename Point, template&lt; typename, typename > class Container, template&lt; typename > class Allocator>
 class model::linestring
-      : public Container&lt; Point, Allocator< Point > >
+      : public Container&lt; Point, Allocator&lt; Point > >
 {
   // ...
 };</pre> <!-- class='synopsis' -->
@@ -317,7 +317,7 @@ linestring(Iterator begin, Iterator end)</pre>
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/linestring.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -381,7 +381,7 @@ class model::polygon
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/polygon.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -391,7 +391,7 @@ int main()
 {
     typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
   // Default parameters, clockwise, closed polygon:
-    typedef bg::model::polygon<point_t> polygon_t;
+    typedef bg::model::polygon&lt;point_t> polygon_t;
 
     polygon_t poly1; // Default-construct a polygon.
 
@@ -435,7 +435,7 @@ int main()
                 <p>multi_point, a collection of points</p>
                 <pre class='synopsis'>template&lt;typename Point, template&lt; typename, typename > class Container, template&lt; typename > class Allocator>
 class model::multi_point
-      : public Container&lt; Point, Allocator< Point > >
+      : public Container&lt; Point, Allocator&lt; Point > >
 {
   // ...
 };</pre> <!-- class='synopsis' -->
@@ -450,7 +450,7 @@ multi_point(Iterator begin, Iterator end)</pre>
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/multi_point.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -459,7 +459,7 @@ namespace bg = boost::geometry;
 int main()
 {
   typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
-  typedef bg::model::multi_point<point_t> mpoint_t;
+  typedef bg::model::multi_point&lt;point_t> mpoint_t;
 
   mpoint_t mpt1;
 
@@ -489,7 +489,7 @@ int main()
                 <p>A collection of linestring. Multi-linestring can be used to group lines belonging to each other, e.g. a highway (with interruptions) </p>
                 <pre class='synopsis'>template&lt;typename LineString, template&lt; typename, typename > class Container, template&lt; typename > class Allocator>
 class model::multi_linestring
-      : public Container&lt; LineString, Allocator< LineString > >
+      : public Container&lt; LineString, Allocator&lt; LineString > >
 {
   // ...
 };</pre> <!-- class='synopsis' -->
@@ -502,7 +502,7 @@ class model::multi_linestring
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/multi_linestring.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -564,7 +564,7 @@ class model::multi_polygon
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/multi_polygon.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -573,8 +573,8 @@ namespace bg = boost::geometry;
 int main()
 {
   typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
-  typedef bg::model::polygon<point_t> polygon_t;
-  typedef bg::model::multi_polygon<polygon_t> mpolygon_t;
+  typedef bg::model::polygon&lt;point_t> polygon_t;
+  typedef bg::model::multi_polygon&lt;polygon_t> mpolygon_t;
 
   mpolygon_t mpoly1;
 
@@ -624,9 +624,9 @@ int main()
                 <pre class='synopsis'></pre> <!-- class='synopsis' -->
                 <p>Constructor(s):</p>
                 <pre class='code'>box()</pre>
-                <pre class='code'>template&lt;typename P, std::enable_if_t< ! std::is_copy_constructible< P >::value, int >>
+                <pre class='code'>template&lt;typename P, std::enable_if_t&lt; ! std::is_copy_constructible&lt; P >::value, int >>
 box(Point const &amp; min_corner, Point const &amp; max_corner)</pre>
-                <pre class='code'>template&lt;typename P, std::enable_if_t<   std::is_copy_constructible< P >::value, int >>
+                <pre class='code'>template&lt;typename P, std::enable_if_t&lt;   std::is_copy_constructible&lt; P >::value, int >>
 box(Point const &amp; min_corner, Point const &amp; max_corner)</pre>
                 <p>Member functions:</p>
                 <pre class='code'>constexpr Point const  &amp; min_corner()</pre>
@@ -639,7 +639,7 @@ box(Point const &amp; min_corner, Point const &amp; max_corner)</pre>
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/box.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 
 namespace bg = boost::geometry;
@@ -647,7 +647,7 @@ namespace bg = boost::geometry;
 int main()
 {
   typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
-  typedef bg::model::box<point_t> box_t;
+  typedef bg::model::box&lt;point_t> box_t;
 
   box_t box1;
   box_t box2(point_t(0.0, 0.0), point_t(5.0, 5.0));
@@ -684,7 +684,7 @@ int main()
   bool Closed,
   template&lt; typename, typename > class Container,
   template&lt; typename > class Allocator>
-class model::ring : public Container&lt; Point, Allocator< Point > >
+class model::ring : public Container&lt; Point, Allocator&lt; Point > >
 { // ... };</pre> <!-- class='synopsis' -->
                 <p>Constructor(s):</p>
                 <pre class='code'>ring()</pre>
@@ -697,7 +697,7 @@ ring(Iterator begin, Iterator end)</pre>
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/ring.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -706,7 +706,7 @@ namespace bg = boost::geometry;
 int main()
 {
   typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
-  typedef bg::model::ring<point_t> ring_t;
+  typedef bg::model::ring&lt;point_t> ring_t;
 
   ring_t ring1;
 
@@ -747,7 +747,7 @@ class model::segment : public std::pair&lt; Point, Point > { ... };</pre> <!-- c
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/segment.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -756,7 +756,7 @@ namespace bg = boost::geometry;
 int main()
 {
   typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
-  typedef bg::model::segment<point_t> segment_t;
+  typedef bg::model::segment&lt;point_t> segment_t;
 
   segment_t seg1;
   segment_t seg2(point_t(0.0, 0.0), point_t(5.0, 5.0));
@@ -802,7 +802,7 @@ class model::referring_segment
                 <p>or</p>
                 <pre class='code'>#include &lt;boost/geometry/geometries/segment.hpp> </pre>
                 <p>Example:</p>
-                <pre class='code'>#include <iostream>
+                <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/geometries.hpp>
 
@@ -811,8 +811,8 @@ namespace bg = boost::geometry;
 int main()
 {
   typedef bg::model::point&lt;double, 2, bg::cs::cartesian> point_t;
-  typedef bg::model::referring_segment<point_t> referring_segment_t;
-  //typedef bg::model::segment<point_t> referring_segment_t;
+  typedef bg::model::referring_segment&lt;point_t> referring_segment_t;
+  //typedef bg::model::segment&lt;point_t> referring_segment_t;
   point_t p1(0.0, 0.0), p2(5.0, 5.0);
   //referring_segment_t rs1;
   referring_segment_t rs2(p1,p2);
@@ -856,7 +856,7 @@ int main()
           <pre class='code'> #include &lt;boost/geometry/geometries/adapted/c_array.hpp> </pre>
           <blockquote class='note'>The standard header boost/geometry.hpp does not include this header.</blockquote> <!-- class='note' -->
           <p>Example:</p>
-          <pre class='code'>#include <iostream>
+          <pre class='code'>#include &lt;iostream>
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/adapted/c_array.hpp>
 
@@ -881,7 +881,7 @@ int main()
           <p>Header:</p>
           <pre class='code'> #include &lt;boost/geometry/geometries/adapted/std_array.hpp> </pre>
           <p>Example:</p>
-          <pre class='code'>#include <iostream>
+          <pre class='code'>#include &lt;iostream>
 
 #include &lt;boost/geometry.hpp>
 #include &lt;boost/geometry/geometries/linestring.hpp>
@@ -985,7 +985,6 @@ int main()
       </section>
       -->
 
-    </section>
 
     </main> <!-- end of "Boost.Geometry" -->
 
