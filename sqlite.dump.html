@@ -39,6 +39,14 @@ sqlite&gt; .dump
 sqlite&gt; .exit</pre>
 
       <section>
+        <h2>Easy Dumping and Restoring (its Reverse)</h2>
+        <p>You can use .dump dot command to export complete database in a text file using the following SQLite command at the command prompt.</p>
+        <pre>$sqlite3 <var>my_database.db</var> .dump > <var>my_database.sql</var></pre>
+        <p>The above command will convert the entire contents of <var>my_database.db</var> database into SQLite statements and dump it into ASCII text file <var>my_database.sql</var>. You can perform restoration from the generated <var>my_database.sql</var> in a simple way as follows:</p>
+        <pre>$sqlite3 <var>my_database.db</var> &lt; <var>my_database.sql</var></pre>
+      </section>
+
+      <section>
         <h2>Dump a specific table using the SQLite <code>.dump</code> command</h2>
         <p>To dump a specific table, you specify the table name after the <code>.dump</code> command. For example, the following command saves the albums table to the albums.sql file.</p>
         <pre>sqlite&gt; .output ~/Documents/sqlite/db/Euphoria.sql

@@ -45,29 +45,40 @@
     <main>
       <h1>Indexes in SQLite</h1>
       <p>SQLite uses B-tree indexes, just as many other relational databases.</p>
+      <p>You declare an index <em>outside</em> the table declaration like this:</p>
+      <pre>CREATE [UNIQUE] INDEX <var>index_name</var>
+  ON <var>table_name</var>(<var>column_list</var>);</pre>
+
       <hr/>
       <p>You can list the indexes for a table in the SQLite command-line program by using the <code>.indices</code> shell command. Here&apos;s example:</p>
       <pre>sqlite> .indices foods</pre>
       <p>You can also obtain this information by querying the <code>sqlite_master</code> table.</p>
 
-      <h2>Index Utilization</h2>
-      <p>It is important to understand when indexes are used and when they aren&apos;t. There are very specific conditions in which SQLite will decide to use an index. SQLite will use a single column index, if available, for the following expressions in the WHERE clause:</p>
-      <pre><var>column</var> {=|>|>=|&lt;=|&lt;} <var>expression</var>
+      <section id="non-unique">
+        <h2>Non-<code>UNIQUE</code> Indexes</h2>
+        <p>You can indeed define a non-unique index on any column or set of Columns. Unlike a <code>PRIMARY</code> or Unique Key, a non-unique index does not validate each row for a unique value but allows different rows to have the same value in the column or set of columns that are part of the index.</p>
+      </section>
+
+      <section id="utilization">
+        <h2>Index Utilization</h2>
+        <p>It is important to understand when indexes are used and when they aren&apos;t. There are very specific conditions in which SQLite will decide to use an index. SQLite will use a single column index, if available, for the following expressions in the WHERE clause:</p>
+        <pre><var>column</var> {=|>|>=|&lt;=|&lt;} <var>expression</var>
 <var>expression</var> {=|>|>=|&lt;=|&lt;} <var>column</var>
 <var>column</var> IN (<var>expression-list</var>)
 <var>column</var> IN (<var>subquery</var>)</pre>
-      <p>Multicolumn indexes have more specific conditions before they are used. This is perhaps best illustrated by example. Say you have a table defined as follows:</p>
-      <pre>create table foo (a,b,c,d);</pre>
-      <p>Furthermore, you create a multicolumn index as follows:</p>
-      <pre>create index foo_idx on foo (a,b,c,d);</pre>
-      <p>The columns of <code>foo_idx</code> can be used only sequentially from left to right. That is, in the following query:</p>
-      <pre>select * from foo where a=1 and b=2 and d=3</pre>
-      <p>only the first and second conditions will use the index. The reason the third condition was excluded is because there was no condition that used c to bridge the gap to d. Basically, when SQLite uses a multicolumn index, it works from left to right column-wise. It starts with the left column and looks for a condition using that column. It moves to the second column, and so on. It continues until either it fails to find a valid condition in the <code>WHERE</code> clause that uses it or there are no more columns in the index to use.</p>
-      <p>But there is one more requirement. SQLite will use a multicolumn index only if all of the conditions use either the equality (<code>=</code>) or <code>IN</code> operator for all index columns except for the rightmost index column. For that column, you can specify up to two inequalities to define its upper and lower bounds. Consider this example:</p>
-      <pre>select * from foo where a>1 and b=2 and c=3 and d=4</pre>
-      <p>SQLite will only do an index scan on column <var>a</var>. The <var>a</var>>1 expression becomes the rightmost index column because it uses the inequality. All columns after it are not eligible to be used as a result. Similarly, the following:</p>
-      <pre>select * from foo where a=1 and b>2 and c=3 and d=4</pre>
-      <p>will use the index columns a and b and stop there as b>2 becomes the rightmost index term by its use of an inequality operator.</p>
+        <p>Multicolumn indexes have more specific conditions before they are used. This is perhaps best illustrated by example. Say you have a table defined as follows:</p>
+        <pre>create table foo (a,b,c,d);</pre>
+        <p>Furthermore, you create a multicolumn index as follows:</p>
+        <pre>create index foo_idx on foo (a,b,c,d);</pre>
+        <p>The columns of <code>foo_idx</code> can be used only sequentially from left to right. That is, in the following query:</p>
+        <pre>select * from foo where a=1 and b=2 and d=3</pre>
+        <p>only the first and second conditions will use the index. The reason the third condition was excluded is because there was no condition that used c to bridge the gap to d. Basically, when SQLite uses a multicolumn index, it works from left to right column-wise. It starts with the left column and looks for a condition using that column. It moves to the second column, and so on. It continues until either it fails to find a valid condition in the <code>WHERE</code> clause that uses it or there are no more columns in the index to use.</p>
+        <p>But there is one more requirement. SQLite will use a multicolumn index only if all of the conditions use either the equality (<code>=</code>) or <code>IN</code> operator for all index columns except for the rightmost index column. For that column, you can specify up to two inequalities to define its upper and lower bounds. Consider this example:</p>
+        <pre>select * from foo where a>1 and b=2 and c=3 and d=4</pre>
+        <p>SQLite will only do an index scan on column <var>a</var>. The <var>a</var>>1 expression becomes the rightmost index column because it uses the inequality. All columns after it are not eligible to be used as a result. Similarly, the following:</p>
+        <pre>select * from foo where a=1 and b>2 and c=3 and d=4</pre>
+        <p>will use the index columns a and b and stop there as b>2 becomes the rightmost index term by its use of an inequality operator.</p>
+      </section>
 
     </main>
 

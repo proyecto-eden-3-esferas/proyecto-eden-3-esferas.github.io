@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Importing and Exporting CSV Data in SQLite</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a rel="next" href="sqlite.create-open-db.html">Create or Open a SQLite Database</a></p>
+        <p><a            href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a            href="sqlite.dump.html">SQLite <code>.DUMP</code></a></p>
+        <p><a            href="sqlite.vacuum.html">SQLite <code>VACUUM</code> Command for Cleaning/Backing Up</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Importing and Exporting CSV Data in SQLite</h1>
+
+      <section id="import">
+        <h2>Importing CSV Data in SQLite</h2>
+        <p>In SQLite, and using the command line, you can use the <code>.import</code> command to import CSV data into a table. Before you run the <code>.import</code> command, set the mode to <q>csv</q> (this might seem odd, given we&apos;ve used <code>.mode</code> to control output, but this prevents SQLite from trying to interpret the CSV file as commands).</p>
+        <p>The <code>.import</code> command takes two arguments: the location of the CSV file, and the name of the table where the data should be inserted.</p>
+        <pre>sqlite> .mode csv
+sqlite> .import <var>table_name</var>.csv <var>table_name</var></pre>
+        <hr/>
+        <p>When you import from a CSV file, there are two cases to consider:</p>
+        <ol>
+          <li>The table doesn&apos;t already exist.</li>
+          <li>The table already exists.</li>
+        </ol>
+        <p>For the first case (the table <var>table_name</var> doesn&apos;t exist), the first row of the CSV file is interpreted as column names, and the actual data starts on the second row of the CSV file.</p>
+        <p>For the second case, when the table already exists, every row of the CSV file, including the first row, is assumed to be actual content. If the CSV file contains an initial row of column labels, that row will be read as data and inserted into the table, and that is not what you intended.</p>
+      </section>
+
+      <section id="export">
+        <h2>Exporting CSV Data in SQLite</h2>
+        <p>Using the command line to export data, run the following commands:</p>
+        <pre>sqlite> .headers on
+sqlite> .mode csv
+sqlite> .once output.csv
+sqlite> SELECT * FROM <var>newly_added_table</var>;</pre>
+        <p>Note that the <code>.headers on</code> command is used to print column labels as the first row of the output. Also, the command <code>.once <var>FILENAME</var></code> instructs SQLite to send all query outputs into the named file rather than printing it on screen.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

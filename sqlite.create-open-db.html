@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create/Open a SQLite DB</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a            href="sqlite.tables.html">Tables in SQLite</a></p>
+        <p><a            href="sqlite.dump.html">SQLite <code>.DUMP</code></a></p>
+        <p><a            href="sqlite.vacuum.html">SQLite <code>VACUUM</code> Command for Cleaning/Backing Up</a></p>
+        <p><a rel="next" href="sqlite.csv.html">Importing and Exporting CSV Data in SQLite</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Create or Open a SQLite Database</h1>
+      <p>You can create a new database using the command line interface by typing at a shell:</p>
+      <pre>sqlite3 <var>database_name</var>.db</pre>
+      <p>This will create a new database (or open an existing one) named <var>database_name</var>. You do not need to have any special privilege to create a database.</p>
+      <p>Once a database is created, you can verify it in the list of databases using the following SQLite <code>.databases</code> command.</p>
+      <pre>sqlite&gt;.databases</pre>
+      <p>Finally, you use the SQLite <code>.quit</code> command to come out of the sqlite prompt as follows:</p>
+      <pre>sqlite>.quit
+$</pre>
+      <p>...</p>
+      <hr/>
+      <p>Although the usual procedure to create a database in SQL is to use use the statement:</p>
+      <pre>CREATE DATABASE <var>MyDatabase</var>;</pre>
+      <p>this syntax generates an error in SQLite.</p>
+
+      <section>
+        <h2>Opening an Existing Database with <code>.open</code></h2>
+        <p>If you want to open multiple databases, or you failed to specify the database to open on the command line, you can also use the <code>.open</code> command in SQLite.</p>
+        <pre>sqlite> .open MyFirstDatabase.db
+sqlite> .databases
+main: C:sqliteMyFirstDatabase.db
+sqlite> .open MySecondDatabase.db
+sqlite> .databases
+main: C:sqliteMySecondDatabase.db</pre>
+        <aside>
+          <p>So it seems that you cannot keep several databases open simultaneously. Two work-arounds that we shall be discussing are:</p>
+          <ol>
+            <li>Read and execute a file with SQL commands (<i>See</i> <cite><a href="#reading"><code>.read</code></a></cite> below.)</li>
+            <li>Import a CVS file to (create and) populate a table. (<i>Go to</i> <cite><a href="sqlite.csv.html#import"><code>.import</code></a></cite>.) This option may feel less straghtforward than the preceding one. Also, if you change the imported table(s), you can save your changes to the same CSV with <code><a href="sqlite.csv.html#export">.export</a></code>.</li>
+          </ol>
+        </aside>
+
+      </section>
+
+      <section id="reading">
+        <h2>Reading (a File with SQL Commands) with <code>.read</code></h2>
+        <p>You can import and process SQL commands from a file. To do this you use the <code>.read</code> command. This processes each line of a file and executes it as a command in SQLite.</p>
+        <p>This option is useful if you find yourself frequently importing the same data, or creating and populating the same table structures or data directly into SQLite.</p>
+        <p>In the example below there is a SQL file that creates a <cite>things</cite> table and populates several records.</p>
+        <pre>sqlite> .open universe.db
+sqlite> .tables
+sqlite> .read universe-things.sql
+sqlite> .tables
+things</pre>
+        <p>Such SQL file might just as well contain SQLite-specific commands like</p>
+        <pre>.mode csv
+.import path/to/file1.csv table1
+.import path/to/file2.csv table2
+.import path/to/file2.csv table3
+.mode column</pre>
+        <!--
+        <p>...</p>
+        <h4 class="bridgehead"></h4>
+        <h4 class="bridgehead"></h4>
+        -->
+      </section>
+
+      <!--
+      <section>
+        <h2></h2>
+        <h4 class="bridgehead"></h4>
+        <h4 class="bridgehead"></h4>
+      </section>
+
+      <section>
+        <h2></h2>
+        <h4 class="bridgehead"></h4>
+        <h4 class="bridgehead"></h4>
+      </section>
+
+      <section>
+        <h2></h2>
+        <h4 class="bridgehead"></h4>
+        <h4 class="bridgehead"></h4>
+      </section>
+
+      <section>
+        <h2></h2>
+        <h4 class="bridgehead"></h4>
+        <h4 class="bridgehead"></h4>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

@@ -125,10 +125,71 @@ int main()
 
       <section id="bind_front-back">
         <h2><code>std::bind_front</code> and <code>std::bind_back</code> (C++20)</h2>
-        <p/>
-        <pre/>
-        <p/>
-        <pre/>
+        <p>Function templates <code>std::bind_front</code> and <code>std::bind_back</code> generate a perfect forwarding call wrapper which allows to invoke the callable target with its first or last <code>sizeof</code>...(Args) parameters bound to args.</p>
+        <p>These are defined in header <code>&lt;functional&gt;</code>.</p>
+        <pre>template&lt; class F, class... Args &gt;
+constexpr /* unspecified */ bind_front( F&amp; f, Args&amp;... args ); // since C++20
+template&lt; auto ConstFn, class... Args &gt;
+constexpr /* unspecified */ bind_front( Args&amp;... args ); // since C++26
+
+template&lt; class F, class... Args &gt;
+constexpr /* unspecified */ bind_back( F&amp; f, Args&amp;... args ); // since C++23
+template&lt; auto ConstFn, class... Args &gt;
+constexpr /* unspecified */ bind_back( Args&amp;... args ); // since C++26</pre>
+        <h4 class="bridgehead">Example</h4>
+        <pre>#include &lt;cassert>
+#include &lt;functional>
+
+int minus(int a, int b)
+{
+    return a - b;
+}
+
+struct S
+{
+    int val;
+    int minus(int arg) const noexcept { return val - arg; }
+};
+
+int main()
+{
+    auto fifty_minus = std::bind_front(minus, 50);
+    assert(fifty_minus(3) == 47); // equivalent to: minus(50, 3) == 47
+
+    auto member_minus = std::bind_front(&amp;S::minus, S{50});
+    assert(member_minus(3) == 47); //: S tmp{50}; tmp.minus(3) == 47
+
+    // Noexcept-specification is preserved:
+    static_assert(!noexcept(fifty_minus(3)));
+    static_assert(noexcept(member_minus(3)));
+
+    // Binding of a lambda:
+    auto plus = [](int a, int b) { return a + b; };
+    auto forty_plus = std::bind_front(plus, 40);
+    assert(forty_plus(7) == 47); // equivalent to: plus(40, 7) == 47
+
+#if __cpp_lib_bind_front >= 202306L
+    auto fifty_minus_cpp26 = std::bind_front&lt;minus>(50);
+    assert(fifty_minus_cpp26(3) == 47);
+
+    auto member_minus_cpp26 = std::bind_front&lt;&amp;S::minus>(S{50});
+    assert(member_minus_cpp26(3) == 47);
+
+    auto forty_plus_cpp26 = std::bind_front&lt;plus>(40);
+    assert(forty_plus(7) == 47);
+#endif
+
+#if __cpp_lib_bind_back >= 202202L
+    auto madd = [](int a, int b, int c) { return a * b + c; };
+    auto mul_plus_seven = std::bind_back(madd, 7);
+    assert(mul_plus_seven(4, 10) == 47); //: madd(4, 10, 7) == 47
+#endif
+
+#if __cpp_lib_bind_back >= 202306L
+    auto mul_plus_seven_cpp26 = std::bind_back&lt;madd>(7);
+    assert(mul_plus_seven_cpp26(4, 10) == 47);
+#endif
+}</pre>
       </section>
 
       <section id="placeholders">

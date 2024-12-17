@@ -58,6 +58,18 @@
                 <tr> <td><code>BLOB</code></td> <td><code>BLOB</code> stands for a binary large object that can store any kind of data. Theoretically, the maximum size of <code>BLOB</code> is unlimited.</td> <td>A literal has a prefix X&apos;…&apos;</td> </tr>
       </table>
 
+      <section id="autoincrement">
+        <h2><code>AUTOINCREMENT</code> Constraint</h2>
+        <p>The purpose of <code>AUTOINCREMENT</code> is to prevent the reuse of <code>ROWID</code>&apos;s from previously deleted rows.</p>
+        <ol>
+          <li>In SQLite, a column with type <code>INTEGER PRIMARY KEY</code> is an alias for the <code>ROWID</code> (except in <code>WITHOUT ROWID</code> tables) which is always a 64-bit signed integer.</li>
+          <li>On an <code>INSERT</code>, if the <code>ROWID</code> or <code>INTEGER PRIMARY KEY</code> column is not explicitly given a value, then it will be filled automatically with an unused integer, usually one more than the largest <code>ROWID</code> currently in use. This is true regardless of whether or not the <code>AUTOINCREMENT</code> keyword is used.</li>
+          <li>If the <code>AUTOINCREMENT</code> keyword appears after <code>INTEGER PRIMARY KEY</code>, that changes the automatic <code>ROWID</code> assignment algorithm to prevent the reuse of <code>ROWID</code>&apos;s over the lifetime of the database. Therefore, the purpose of <code>AUTOINCREMENT</code> is to prevent the reuse of <code>ROWID</code>&apos;s from previously deleted rows.</li>
+          <li>The <code>AUTOINCREMENT</code> keyword imposes extra CPU, memory, disk space, and disk I/O overhead and should be avoided if not strictly needed. It is usually not needed.</li>
+        </ol>
+        <p>If a column has the type <code>INTEGER PRIMARY KEY AUTOINCREMENT</code> then a slightly different <code>ROWID</code> selection algorithm is used. The <code>ROWID</code> chosen for the new row is at least one larger than the largest <code>ROWID</code> that has ever existed before in that same table. If the table has never before contained any data, then a <code>ROWID</code> of 1 is used.</p>
+      </section>
+
       <section id="typeof">
         <h2>Function <code>TYPEOF()</code></h2>
         <p>SQLite provides the <code>TYPEOF()</code> function that allows you to check the storage class of a value based on its format. See the following example:</p>

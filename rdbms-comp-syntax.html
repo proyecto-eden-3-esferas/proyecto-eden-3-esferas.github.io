@@ -197,8 +197,14 @@ USE <var>new_database</var>;</pre><!--MySQL--></td>
             </tr>
 
             <tr>
-              <td><code></code><!--SQLite--></td>
-              <td><!--MySQL--></td>
+              <td><pre>CREATE TABLE <var>table_name</var> (
+  id INTEGER PRIMARY KEY [AUTOINCREMENT], -- an alias for the ROWID
+  ...);</pre>
+                <p>(<code><a target="_blank" href="sqlite.data-types.html#autoincrement">AUTOINCREMENT</a></code> prevents reuse of <code>ROWID</code>&apos;s from previously deleted rows.)</p><!--SQLite-->
+              </td>
+              <td><pre>CREATE TABLE <var>table_name</var> (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ...);</pre><!--MySQL--></td>
               <td><!--PostgreSQL--></td>
               <td><!--MariaDB--></td>
             </tr>
