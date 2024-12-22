@@ -1,5 +1,20 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *protocolos.html* y enlazar desde *trabajo.html* y *tipos-de-empleo.html*
+
+[ ] escribir *algoritmos.html* y enlazar desde *programacion.html*
+
+[ ] escribir *robots.es.html* y enlazar desde *ecs.html*, *trabajo.html*, *tipos-de-empleo.html* etc.
+
+[ ] escribir *topologia-y-grafo.html*, sobre cómo conservando la topología o relaciones de adyacencia se generan apariencias diferentes
+[ ] La topología matemática no asigna ni escalar (cantidad) ni cualidad a las relaciones de adyacencia. ¿Primitiva?
+[ ] relacionar esto con la escritura
+
+[ ] escribir *coste-de-transaccion.html*
+[ ] write *transaction-cost.html*
+
+[ ] develop *biodynamics.html*
+
 [ ] write *svg.styling.html*
 
 [x] *wetiko.es.html* desde *religion.html* y a *jung.html*
