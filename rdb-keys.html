@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Different Keys in Relational Databases</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="relational-database.html">Relational DataBases</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+        <p><a rel="next" href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Different Types of Keys Used in Relational Databases</h1>
+      <ul>
+        <li href="#candidate">Candidate Key</li>
+        <li href="#primary">Primary Key</li>
+        <li href="#super">Super Key</li>
+        <li href="#alternate">Alternate Key</li>
+        <li href="#foreign">Foreign Key</li>
+        <li href="#composite">Composite Key</li></ul>
+        <hr/>
+        <li href="#surrogate">Surrogate Key</li></ul>
+        <li href="#natural">Natural Key</li></ul>
+      </ul>
+
+
+
+      <section id="candidate">
+        <h2>Candidate Key</h2>
+        <p>A <dfn>candidate key</dfn> is a minimal set of attributes that uniquely identifies each tuple within a table. In other words, there should not be any two rows in a table that can have the same values for the columns that are the part of candidate key.</p>
+        <p>Candidate keys are very important for establishing relationships between tables and maintaining data integrity. Candidate keys play a pivotal role in database normalization as they help us to eliminate data redundancy and anomalies.</p>
+        <p>Unlike a <a href="#super">super key</a>, a candidate key may not have any redundant attributes.</p>
+        <p>Some uses or benefits of candidate keys are:</p>
+        <ul>
+          <li><strong>Uniqueness and Data Integrity:</strong> <!--Uniqueness meaning in DBMS, -->candidate keys ensure that there are no duplicate tuples in a relation. This prevents data inconsistencies and ensures data integrity.</li>
+          <li><strong>Relationship Establishment:</strong> Candidate keys are used to establish relationships between tables. For example, in a customer and order scenario, the customer ID can serve as a candidate key in the customer table and as a foreign key in the order table, establishing the relationship between the two tables.</li>
+          <li><strong>Indexing and Query Optimization:</strong> Candidate keys play a vital role in indexing and optimizing queries. Indexes are created on candidate keys to enhance data retrieval speed. With properly chosen candidate keys, the database management system can efficiently locate the desired data.</li>
+          <li><strong>Database Normalization:</strong> Candidate keys are closely associated with database normalization. By identifying candidate keys and eliminating redundancy, a database can achieve higher levels of normalization, reducing data redundancy and anomalies.</li>
+        </ul>
+      </section>
+
+      <section id="primary">
+        <h2>Primary Key</h2>
+        <p>A primary key in a table is an attribute or tuple of attributes that uniquely identifies each row and column or set of columns in the table. The attributes in a primary key are known as <dfn>prime attributes</dfn>.</p>
+        <p>The primary key enables us to uniquely identify each record in the relational table.</p>
+        <p>The primary key cannot have value <code>NULL</code>.</p>
+        <h4 class="bridgehead">Characteristics of the Primary Key</h4>
+        <ul>
+          <li><strong>Minimal:</strong> The primary key is composed of a minimum number of attributes that satisfy the unique occurrence of the tuples or records. So if one candidate key is formed using two attributes and the other using a single attribute then the one with a single attribute key should be chosen as the primary key.</li>
+          <li><strong>Accessible:</strong> The primary key is used to check the ability to access and interact with the database. The user must easily create, read or delete a tuple using it.</li>
+          <li><strong>Non-<code>NULL</code> Value:</strong> The primary key which refers to a nonnull value that is required for the identification of the tuple (record) means that any attribute can not contain the non-null value in DBMS.</li>
+          <li><strong>Time Invariant:</strong> The values of the primary key must not change or become null during the lifetime of the relation.</li>
+          <li><strong>Unique:</strong> The primary key in which value can not be duplicated in any of the rows or tuples of the relation.</li>
+        </ul>
+        <section>
+          <h3>Syntax</h3>
+          <p>Either you append <code>PRIMARY KEY</code> after each column definition in a table definition:</p>
+          <pre>main_id INTEGER PRIMARY KEY;</pre>
+          <p>or you use the functional notation as an item on its own, which enables defining <a href="#composite">composite primary keys</a>:</p>
+          <pre>CREATE TABLE <var>table_name</var> (
+   <var>column_1</var> INTEGER NOT NULL,
+   <var>column_2</var> INTEGER NOT NULL,
+   ...
+   PRIMARY KEY(<var>column_1</var>, <var>column_2</var>,...)
+);</pre>
+          <p>[...]</p>
+
+        </section>
+      </section>
+
+      <section id="super">
+        <h2>Super Key</h2>
+        <p>A <dfn>super key</dfn> is a non-minimal candidate key, that is a candidate key plus one or more redundant attributes. Here <q>redundant</q> means not needed for unequivocally identifying each record. Therefore a super key is <em>not</em> a candidate key.</p>
+      </section>
+
+      <section id="alternate">
+        <h2>Alternate Key</h2>
+        <p>An <dfn>alternate key</dfn> is any <a href="#candidate">candidate key</a> not selected as the primary key. So, while a table may have multiple candidate keys (sets of columns that could uniquely identify rows), only one of them is designated as the Primary Key. The rest of these candidate keys become Alternate Keys.</p>
+        <p>In other words, we can define the Alternate key as the set of Candidate Keys other than the Primary Key.</p>
+        <p>Alternate Keys in SQL are defined using the SQL constraint <code>UNIQUE</code>:</p>
+        <p>UNIQUE(<var>col_name(s)</var>)</p>
+        <p>where <var>col_name(s)</var> is the name(s) of the column(s) in the table which need to be unique. Unfortunately, this constraint allows for redundant attributes. In that case we will be defining a super key, not a candidate key.</p>
+      </section>
+
+      <section id="foreign">
+        <h2>Foreign Key</h2>
+        <p>A <dfn>foreign key</dfn> is a column or set of columns in one table that references a uniquely-valued set of columns (primary key) of another table. This creates a relationship between the two tables, ensuring that the child table (which contains the foreign key) can only have values that exist in the parent table&apos;s <!--primary key -->column(s).</p>
+        <p>The table containing the foreign key is called the <dfn>foreign table</dfn> (or <dfn>child table</dfn>), and the table that the foreign key references is called the <dfn>primary table</dfn> (or <dfn>parent table</dfn>).</p>
+        <p>The primary purpose of a foreign key is to maintain referential integrity, ensuring that the relationship between tables is consistent and that invalid data does not enter the system.</p>
+        <hr/>
+        <p>A foreign key could serve as the primary key of another relationship to which it is connected through a relationship.</p>
+      </section>
+
+      <section id="composite">
+        <h2>Composite Key</h2>
+        <p>A <dfn>composite key</dfn> is a <a href="#primary">primary key</a> that consists of two or more columns in a database table. It is used when a single column cannot uniquely identify a record, but the combination of multiple columns can.</p>
+      </section>
+
+      <section id="surrogate">
+        <h2>Surrogate Key</h2>
+        <p>A <dfn>surrogate key</dfn> is a manufactured unique identifier created in each database table record. When a natural <a href="#primary">primary key</a> is not available, this value, which is usually an integer or a system-generated number, is utilized.</p>
+      </section>
+
+      <section id="natural">
+        <h2>Natural Key</h2>
+        <p>A <dfn>natural key</dfn> is a column or a set of columns in a database table that has inherent meaning and can uniquely identify a record. It is derived from the data itself and is not an artificially generated value.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

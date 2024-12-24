@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Normal Forms</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="relational-database.html">Relational DataBases</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="rdb-keys.html">Different Types of Keys Used in Relational Databases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Normal Forms in Relational Databases</h1>
+
+      <section id="1NF">
+        <h2>First Normal Form (1NF)</h2>
+        <blockquote>A relation is in first normal form if every attribute in that relation is single-valued.</blockquote>
+        <p>...</p>
+      </section>
+
+      <section id="2NF">
+        <h2>Second Normal Form (2NF)</h2>
+        <blockquote>A relation is in Second Normal Form (2NF) if it is in First Normal Form and every non-primary-key attribute is fully <a target="_blank" href="db-normalization.html#functional-dependency">functionally dependent</a> on the primary key.</blockquote>
+        <p>...</p>
+      </section>
+
+      <section id="3NF">
+        <h2>Third Normal Form (3NF)</h2>
+        <blockquote>
+          <p>A relation is in the third normal form if there is no transitive dependency for non-prime attributes and it is in the second normal form, as well.</p>
+          <p>A relation is in 3NF if at least one of the following two conditions holds in every non-trivial function dependency X –&gt; Y.</p>
+          <ul>
+            <li>X is a super key, or</li>
+            <li>Y is a <dfn>prime attribute</dfn> (that is, each element of Y is part of some candidate key)</li>
+          </ul>
+        </blockquote>
+        <p>...</p>
+      </section>
+
+      <section id="BCNF">
+        <h2>Boyce-Codd Normal Form (BCNF)</h2>
+        <blockquote>
+          <p>For BCNF the relation should satisfy the below conditions:</p>
+          <ul>
+            <li>The relation should be in the 3rd Normal Form, and</li>
+            <li>X should be a superkey for every functional dependency (FD) X−>Y in a given relation.</li>
+          </ul>
+        </blockquote>
+        <p>...</p>
+      </section>
+
+      <section id="4NF">
+        <h2>Fourth Normal Form (4NF)</h2>
+        <blockquote>
+          <p>A relation R is in 4NF if and only if the following conditions are satisfied:</p>
+          <ul>
+            <li>It should be in the Boyce-Codd Normal Form (BCNF), and</li>
+            <li>no table should has a Multi-valued Dependency.</li>
+          </ul>
+        </blockquote>
+        <p>...</p>
+      </section>
+
+      <section id="5NF">
+        <h2>Fifth Normal Form (5NF)</h2>
+        <blockquote>
+          <p>A relation R is in 5NF if and only if it satisfies the following conditions:</p>
+          <ul>
+            <li>It is already in 4NF, and</li>
+            <li>tt cannot be further non-loss decomposed (join dependency).</li>
+          </ul>
+        </blockquote>
+        <p>...</p>
+      </section>
+
+      <!--
+      <section id="6NF">
+        <h2>Sixth Normal Form (6NF)</h2>
+        <blockquote>...</blockquote>
+        <p>...</p>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

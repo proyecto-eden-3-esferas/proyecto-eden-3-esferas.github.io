@@ -327,8 +327,21 @@ USE <var>new_database</var>;</pre><!--MySQL--></td>
               <td><!--MariaDB--></td>
             </tr>
             <tr>
-              <td><code></code><!--SQLite--></td>
-              <td><!--MySQL--></td>
+              <td><pre>PRAGMA foreign_keys=off;
+BEGIN TRANSACTION;
+...
+COMMIT;
+PRAGMA foreign_keys=on;</pre><!--SQLite--></td>
+              <td><pre>SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+
+SET @old_autocommit=@@autocommit;
+SET AUTOCOMMIT=0;
+...
+UNLOCK TABLES;
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET AUTOCOMMIT=@old_autocommit;</pre><!--MySQL--></td>
               <td><!--PostgreSQL--></td>
               <td><!--MariaDB--></td>
             </tr>
