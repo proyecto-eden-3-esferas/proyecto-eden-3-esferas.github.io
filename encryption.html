@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Encryption</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a            href="os.html">Operating Systems: Ground Applications that Applications Run on</a></p>
+        <p><a            href="networking.html">Networking</a></p>
+        <p><a            href="quantum-computing.html">Quantum Computing</a></p>
+        <p><a rel="prev" href="computing.html">Computing and Computers</a></p>
+      </div>
+      <div>
+        <p><a href="TheWeb.html">The Web</a></p>
+      </div>
+      <div>
+        <p><a href="index.en.html">Back to Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Encryption</h1>
+      <p><dfn>Encryption</dfn> is a critical security measure used to protect sensitive data by converting it into a secure and unreadable format. It ensures that even if unauthorized individuals or entities gain access to the encrypted data, they cannot comprehend or manipulate it without the appropriate decryption key. Encryption is widely employed in various areas, including data storage, communication, and authentication, to safeguard information from unauthorized access and maintain confidentiality.</p>
+
+      <section id="sym-asym">
+        <h2>Symmetric and Asymmetric Encryption</h2>
+        <p>There are two primary types of encryption: symmetric and asymmetric.</p>
+        <dl>
+          <dt>Symmetric Encryption</dt>
+          <dd>
+            <p>In <dfn>symmetric encryption</dfn>, the same key is used for both encryption and decryption. The challenge lies in securely sharing and managing the secret key between the communicating parties. Once the key is established, it can be used to encrypt and decrypt messages. Common symmetric encryption algorithms include Advanced Encryption Standard (AES) and Data Encryption Standard (DES).</p>
+          </dd>
+          <dt>Asymmetric Encryption</dt>
+          <dd>
+            <p><dfn>Asymmetric encryption</dfn>, also known as <dfn>public-key cryptography</dfn>, uses a pair of keys: a public key and a private key. The <dfn>public key</dfn> is shared openly, while the <dfn>private key</dfn> is kept secret. Data encrypted with the public key can only be decrypted by the corresponding private key and vice versa. This approach eliminates the need for a shared secret key and simplifies key distribution. Popular asymmetric encryption algorithms include RSA (Rivest–Shamir–Adleman) and Elliptic Curve Cryptography (ECC).</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section id="purpose">
+        <h2>Purpose of Encryption</h2>
+        <p>Encryption serves several key purposes in the realm of information security:</p>
+        <dl>
+          <dt>Confidentiality</dt>
+          <dd>The primary goal of encryption is to ensure the confidentiality of sensitive data. By converting information into an unreadable form, even if unauthorized access occurs, the data remains protected from exposure.</dd>
+          <dt>Integrity</dt>
+          <dd>Encryption helps maintain the integrity of data by preventing unauthorized modifications during transmission or storage. If encrypted data is altered, the decryption process fails, alerting users to potential tampering.</dd>
+          <dt>Authentication</dt>
+          <dd><dfn>Digital signatures</dfn>, a form of asymmetric encryption, are used for authentication and verification purposes. They provide a way to ensure the origin and integrity of digital messages.</dd>
+          <dt>Secure Communication</dt>
+          <dd>Encryption is commonly used to secure communication channels, such as internet traffic or emails. Transport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that use encryption to protect data during transmission.</dd>
+          <dt>Data-at-Rest Protection</dt>
+          <dd>Encryption safeguards data when it is stored on physical or digital storage media, such as hard drives, databases, or cloud storage. This prevents unauthorized access to sensitive information in the event of physical theft or unauthorized data access.</dd>
+        </dl>
+        <p>While encryption is a powerful security tool, it&apos;s essential to manage keys securely, implement strong algorithms, and stay abreast of advancements in cryptographic techniques. Additionally, encryption should be part of a broader security strategy that includes access controls, regular audits, and adherence to best practices to create a comprehensive defense against potential security threats.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

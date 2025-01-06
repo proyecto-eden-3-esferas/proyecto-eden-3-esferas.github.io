@@ -26,7 +26,120 @@
 
     <main>
       <h1>DataBase Indexes</h1>
-      <p style="text-align: right">(From <cite><a target="_blank" href="https://www.geeksforgeeks.org/indexing-in-databases-set-1/">https://www.geeksforgeeks.org/indexing-in-databases-set-1/</a></cite>)</p>
+      <p><dfn>Indexes</dfn> are data structures associated with database tables that provide a quick and efficient way to look up rows based on the values in one or more columns.</p>
+
+      <blockquote>
+        <p>[...]</p>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://www.geeksforgeeks.org/indexing-in-databases-set-1/">https://www.geeksforgeeks.org/indexing-in-databases-set-1/</a></cite>)</p>
+      </blockquote>
+
+      <section id="importance">
+        <h2>Importance of Indexing</h2>
+        <p>Indexing is a crucial aspect of database design and performance optimization, playing a vital role in enhancing the speed and efficiency of data retrieval operations.  The importance of indexing can be summarized in several key points:</p>
+        <dl>
+          <dt>Improved Query Performance</dt>
+          <dd>
+            <p>Indexing significantly improves the speed of <code>SELECT</code> queries, especially those with <code>WHERE</code> clauses or <code>JOIN</code> operations. By creating indexes on columns frequently used in search conditions, the database engine can swiftly locate and retrieve the relevant rows, reducing the need for full table scans.</p>
+            <p>While indexing undeniably brings significant performance benefits to <code>SELECT</code> queries, it&apos;s essential to strike a balance, as indexes come with their own overhead during write operations such as <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>. The decision to create indexes should be based on a thorough understanding of the query patterns and usage patterns within the application to ensure optimal performance for both read and write operations.</p>
+          </dd>
+
+          <dt>Faster Sorting and Grouping</dt>
+          <dd>
+            <p>Indexes accelerate sorting and grouping operations. When sorting or grouping by a specific column, the existence of an index on that column allows the database engine to access and organize the data more efficiently, resulting in faster response times for ordered or grouped queries.</p>
+          </dd>
+
+          <dt>Enhanced Join Operations</dt>
+          <dd>
+            <p>Indexes are instrumental in optimizing <code>JOIN</code> operations between tables. When joining tables on indexed columns, the database engine can leverage the index structures to quickly match and retrieve the associated rows, leading to improved performance in complex queries involving multiple tables.</p>
+            <p>The impact of indexed <code>JOIN</code>s becomes particularly pronounced in scenarios where queries involve large datasets, intricate relationships, or complex conditions.</p>
+          </dd>
+
+          <dt>Efficient Data Retrieval for Range Queries</dt>
+          <dd>
+            <p>Range queries, which involve selecting a range of values from a column (e.g., <code>BETWEEN</code>, <code>&gt;</code>, <code>&lt;</code>), benefit significantly from indexing. The database engine can use index structures to quickly identify the relevant rows, avoiding the need to scan the entire table.</p>
+          </dd>
+
+          <dt>Support for Unique Constraints and Primary Keys</dt>
+          <dd>
+            <p>Indexes are automatically created for columns with unique constraints or designated as primary keys. These indexes ensure the uniqueness of values in the specified columns and expedite the enforcement of referential integrity in relationships between tables.</p>
+          </dd>
+
+          <dt>Optimized Aggregation Functions</dt>
+          <dd>
+            <p>Indexing can improve the performance of aggregation functions (e.g., <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>) by facilitating quicker access to the relevant data. This is especially beneficial in scenarios where summary statistics or calculations need to be derived from large datasets.</p>
+          </dd>
+
+          <dt>Reduced Disk I/O Operations</dt>
+          <dd>
+            <p>Efficient indexing reduces the amount of disk I/O operations required for data retrieval. Instead of scanning entire tables, the database engine can use indexes to navigate directly to the relevant rows, minimizing disk reads and improving overall system performance.</p>
+          </dd>
+
+        </dl>
+
+      </section>
+
+      <section id="types">
+        <h2>Types of Indexes</h2>
+        <p>Different types of indexes exist, each designed to optimize specific types of queries and operations. Here are some common types of indexes:</p>
+        <dl>
+
+          <dt>Single-Column Index</dt>
+          <dd>
+            <p>The <dfn>single-column index</dfn> is the most basic type of index and is created on a single column of a table.</p>
+            <pre>CREATE INDEX <var>idx_column</var> ON <var>table_name</var> (<var>column_name</var>);</pre>
+          </dd>
+
+          <dt>Unique Index</dt>
+          <dd>
+            <p>A <dfn>unique index</dfn> ensures that all values in the indexed column (or columns) are unique. It is commonly associated with columns that have unique constraints or are designated as primary keys.</p>
+            <pre>CREATE UNIQUE INDEX <var>idx_unique_column</var> ON <var>table_name</var> (<var>column_name</var>);</pre>
+          </dd>
+
+          <dt>Composite Index (Multi-Column Index)</dt>
+          <dd>
+            <p>A <dfn>composite index</dfn> is created on multiple columns. It is useful when queries involve conditions that reference multiple columns, such as in <code>WHERE</code> clauses or <code>JOIN</code> operations.</p>
+            <pre>CREATE INDEX <var>idx_multi_column</var> ON <var>table_name</var> (<var>column1</var>, <var>column2</var>);</pre>
+          </dd>
+
+          <dt>Clustered Index</dt>
+          <dd>
+            <p>In databases that support clustering, a <dfn>clustered index</dfn> determines the physical order of data in the table. The rows are stored on disk in the same order as the index, leading to improved query performance for range-based queries.</p>
+            <pre>CREATE CLUSTERED INDEX <var>idx_clustered_column</var> ON <var>table_name</var> (<var>column_name</var>);</pre>
+          </dd>
+
+          <dt>Non-Clustered Index</dt>
+          <dd>
+            <p>A <dfn>non-clustered index</dfn> does not dictate the physical order of data in the table. Instead, it creates a separate structure that points to the actual data. Non-clustered indexes are beneficial for speeding up search operations without affecting the physical storage order.</p>
+            <pre>CREATE NONCLUSTERED INDEX <var>idx_non_clustered_column</var> ON <var>table_name</var> (<var>column_name</var>);</pre>
+          </dd>
+
+          <dt>Bitmap Index</dt>
+          <dd>
+            <p>Bitmap indexes are efficient for columns with a small number of distinct values, often used in data warehousing scenarios. They use a bitmap for each distinct value, indicating the presence or absence of that value in the indexed rows.</p>
+            <pre>CREATE BITMAP INDEX <var>idx_bitmap_column</var> ON <var>table_name</var> (<var>column_name</var>);</pre>
+          </dd>
+
+          <dt>Full-Text Index</dt>
+          <dd>
+            <p><dfn>Full-text indexes</dfn> are designed for searching text data efficiently. They enable advanced text search capabilities, including linguistic analysis, stemming, and ranking of search results.</p>
+            <pre>CREATE FULLTEXT INDEX <var>idx_fulltext_column</var> ON <var>table_name</var> (<var>column_name</var>);</pre>
+          </dd>
+
+          <dt>Spatial Index</dt>
+          <dd>
+            <p><dfn>Spatial indexes</dfn> are used for optimizing queries on spatial data types, such as geometry or geography. They enhance the performance of spatial queries like point-in-polygon or distance calculations.</p>
+            <pre>CREATE SPATIAL INDEX <var>idx_spatial_column</var> ON <var>table_name</var> (<var>spatial_column</var>);</pre>
+          </dd>
+
+          <dt>Covering Index (Included Column Index)</dt>
+          <dd>
+            <p>A <dfn>covering index</dfn> includes all the columns required to fulfill a query, eliminating the need to access the actual table for data retrieval. This reduces the number of I/O operations and improves query performance.</p>
+            <pre>CREATE INDEX <var>idx_covering_column</var> ON <var>table_name</var> (<var>column1</var>) INCLUDE (<var>column2</var>, <var>column3</var>);</pre>
+          </dd>
+
+        </dl>
+      </section>
+
 
 
     </main>

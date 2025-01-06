@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Backup and Recovery</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="database.transaction.html">DataBases Transactions</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+        <p><a            href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="database.html">Databases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Backup and Recovery</h1>
+      <p>Backup and recovery are critical components of database management and data protection strategies, ensuring the availability, integrity, and continuity of data in the face of various incidents, including hardware failures, data corruption, accidental deletions, or even disasters. These processes involve creating duplicate copies of data and implementing procedures to restore the data to a consistent and usable state in the event of data loss.</p>
+
+      <section id="backup">
+        <h2>Backup</h2>
+        <p><dfn>Backups</dfn> are copies of data that are created and stored separately from the primary database. Regularly scheduled backups are essential for preserving data integrity and providing a point-in-time recovery option. There are various types of backups:</p>
+        <dl>
+          <dt>Full Backup</dt>
+          <dd>A <dfn>full backup</dfn> involves copying the entire database, including all data and schema objects. While comprehensive, full backups can be resource-intensive and time-consuming.</dd>
+          <dt>Incremental Backup</dt>
+          <dd><dfn>Incremental backups</dfn> capture changes made to the database since the last backup, reducing the backup window and storage requirements. Incremental backups rely on a combination of full and incremental backups to restore the database to a specific point in time.</dd>
+          <dt>Differential Backup</dt>
+          <dd><dfn>Differential backups</dfn> capture changes made since the last full backup. They are more efficient than full backups but may require larger storage space compared to incremental backups.</dd>
+          <dt>Snapshot Backup</dt>
+          <dd><dfn>Snapshot backups</dfn> capture a point-in-time image of the database. This type of backup is often associated with virtualized environments and provides a quick and consistent view of the database.</dd>
+        </dl>
+      </section>
+
+      <section id="recovery">
+        <h2>Recovery</h2>
+        <p><dfn>Recovery</dfn> involves restoring the database to a consistent and usable state after a data loss event. The recovery process depends on the type of backup used and the nature of the incident. Common recovery scenarios include:</p>
+        <dl>
+          <dt>Point-in-Time Recovery</dt>
+          <dd>This involves restoring the database to a specific point in time, using both full and incremental backups. Point-in-time recovery is crucial for rolling back the database to a state before a specific error or corruption occurred.</dd>
+          <dt>Rollback and Rollforward Operations</dt>
+          <dd>Rollback operations undo changes made to the database, while rollforward operations reapply changes. These operations are often used to recover from specific types of errors or corruption.</dd>
+          <dt>Disaster Recovery</dt>
+          <dd>In the event of a catastrophic failure or disaster, such as hardware failure, fire, or natural disaster, the entire database may need to be recovered from off-site backups. This process is part of a broader disaster recovery plan.</dd>
+        </dl>
+      </section>
+
+      <section id="best">
+        <h2>Best Practices</h2>
+        <ul>
+          <li>Regularly schedule and automate backups to ensure consistency and reduce the risk of human error.</li>
+          <li>Store backups in a secure and off-site location to protect against localized incidents or disasters affecting the primary data center.</li>
+          <li>Test the backup and recovery process regularly to validate its effectiveness and identify potential issues before a real data loss event occurs.</li>
+          <li>Implement a tiered approach to backups, considering factors such as recovery time objectives (RTO) and recovery point objectives (RPO) for different types of data.</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

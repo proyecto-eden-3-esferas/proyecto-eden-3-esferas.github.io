@@ -1,5 +1,16 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+Añadir nuevas oposiciones
+[ ] empírico y teórico
+[ ] figurativo y abstracto
+[ ] restricción y expansión
+
+[ ] Elaborar la teoría de textos opción o textos bifurcación...
+
+[ ] escribir *merito.html* y enlazar (desde *arte.html* y *trabajo.html*)
+
+[ ] escribir sección sobre mimo en *arte.html*
+
 [ ] escribir *protocolos.html* y enlazar desde *trabajo.html* y *tipos-de-empleo.html*
 
 [ ] escribir *algoritmos.html* y enlazar desde *programacion.html*
