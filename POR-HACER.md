@@ -1,5 +1,8 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *unicode.html*, and
+[ ] provide a list of useful unicode characters, possibly therein
+
 Añadir nuevas oposiciones
 [ ] empírico y teórico
 [ ] figurativo y abstracto

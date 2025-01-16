@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Snap</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="prev" href="os.html">Operating Systems</a></p>
+      <p><a rel="next" href="distros.html">Linux Distributions</a></p>
+      <p><a href="computing.open_system.html">Open Systems in Computing</a></p>
+      <p><a href="SoftwareStandard.html">Software Standards</a></p>
+      <p><a href="computing.html">Computer Science</a></p>
+    </nav>
+
+    <main>
+      <h1>Snap</h1>
+      <p><dfn>Snaps</dfn> are packages that work across many different Linux distributions, enabling secure delivery and operation of the latest apps and utilities.</p>
+      <p>The <code>snap</code> command lets you install, configure, refresh and remove snaps.</p>
+
+      <section>
+        <h2>The System <code>/snap</code> Directory</h2>
+        <p>The <code>/snap</code> directory is, by default, where the files and folders from installed snap packages appear on your system.</p>
+        <p>A file manager, or the output from some storage-related commands, will show the files and directories within /snap taking up space:</p>
+        <pre>$ du -hs /snap/vlc
+766M    /snap/vlc</pre>
+        <p>However, these files and folders are mounted from the heavily compressed data that&apos;s stored within the original snap, located in <cite>/var/lib/snapd/snaps</cite>. These snaps take far less space on your system than their mount points imply:</p>
+        <pre>$ mount | grep vlc
+/var/lib/snapd/snaps/vlc_555.snap on /snap/vlc/555 type squashfs (ro,nodev,relatime,x-gdu.hide)
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop12     196M  196M     0 100% /snap/vlc/555
+[...]</pre>
+        <p>Can we delete what&apos;s inside /snap?</p>
+        <p>squashfs (which these loop devices contain) does not use any memory unless you actually access the data in it (i.e. by running a program which in turn loads libraries)...</p>
+        <p>When unused, the files in <cite>/snap</cite> are just mount points and nothing in there should occupy more ram than needed for holding the directory and file structure, when you do an <code>ls</code> or <code>find</code> command on it...</p>
+        <p>As long as you do not run the snap app itself, the only resource used is the disk space in <cite>/var/lib/snapd/snaps</cite> but no CPU or any significant amount of RAM.</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
