@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ String to Number Type</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      -->
+      <div>
+        <p> <a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p> <a            href="cpp.containers.html">C++ STL Containers</a> </p>
+        <p> <a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+        <p> <a            href="cpp.function-object.html">C++ Function Objects</a> </p>
+        <p> <a            href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a> </p>
+        <p> <a            href="cpp.namespaces.html">C++ Namespaces</a> </p>
+        <p> <a            href="cpp.exceptions.html">C++ Exceptions</a> </p>
+        <p> <a            href="cpp.classes.html">OOP in C++: Classes</a> </p>
+        <p> <a            href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a> </p>
+        <p> <a rel="prev" href="cpp.strings.html">STL Strings: &lt;string&gt; and &lt;string_view&gt;</a> </p>
+      </div>
+      <div>
+        <p> <a href="cpp.mathematical-constants.html">Mathematical constants (<code>&lt;numbers&gt;</code>)</a> </p>
+        <p> <a href="cpp.get.html">C++ get()</a> </p>
+      </div>
+      <div>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p> <p> <a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a>
+        </p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Converting a String to a Number Type in C++</h1>
+
+      <p><code>std::stoi</code>, <code>std::stol</code>, and <code>std::stoll</code> take a string and return an integer type. Their prototypes are like:</p>
+      <pre>int       stoi ( const std::string&amp; str,
+                 std::size_t* pos = nullptr, int base = 10 );
+int       stoi ( const std::wstring&amp; str,
+                 std::size_t* pos = nullptr, int base = 10 );</pre>
+      <p>where</p>
+      <ul>
+        <li><var>str</var> is the string to convert,</li>
+        <li><var>pos</var> is the address of an integer to store the number of characters processed, and</li>
+        <li><var>base</var> is the number base, commonly 10, 2, 8...</li>
+      </ul>
+      <p>These (global) functions are defined in header <code>&lt;string</code>.</p>
+      <p>The exceptions (<code>&lt;stdexcept&gt;</code>) that may be thrown are:</p>
+      <ul>
+        <li><code>std::invalid_argument</code> if no conversion could be performed, and</li>
+        <li><code>std::out_of_range</code> if the converted value would fall out of the range of the result type or if the underlying function (<code>std::strtol</code> or <code>std::strtoll</code>) sets errno to ERANGE.</li>
+      </ul>
+      <p>This is an example showing how to use them:</p>
+      <pre>#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+int main()
+{
+    const auto data =
+    {
+        "45",
+        "+45",
+        " -45",
+        "3.14159",
+        "31337 with words",
+        "words and 2",
+        "12345678901",
+    };
+
+    for (const std::string s : data)
+    {
+        std::size_t pos{};
+        try
+        {
+            std::cout &lt;&lt; "std::stoi(" &lt;&lt; std::quoted(s) &lt;&lt; "): ";
+            const int i{std::stoi(s, &amp;pos)};
+            std::cout &lt;&lt; i &lt;&lt; "; pos: " &lt;&lt; pos &lt;&lt; '\n';
+        }
+        catch (std::invalid_argument const&amp; ex)
+        {
+            std::cout &lt;&lt; "std::invalid_argument::what(): " &lt;&lt; ex.what() &lt;&lt; '\n';
+        }
+        catch (std::out_of_range const&amp; ex)
+        {
+            std::cout &lt;&lt; "std::out_of_range::what(): " &lt;&lt; ex.what() &lt;&lt; '\n';
+            const long long ll{std::stoll(s, &amp;pos)};
+            std::cout &lt;&lt; "std::stoll(" &lt;&lt; std::quoted(s) &lt;&lt; "): " &lt;&lt; ll
+                      &lt;&lt; "; pos: " &lt;&lt; pos &lt;&lt; '\n';
+        }
+    }
+
+    std::cout &lt;&lt; "\nCalling with different radixes:\n";
+    for (const auto&amp; [s, base] : {std::pair&lt;const char*, int&gt;
+        {"11",  2}, {"22",  3}, {"33",  4}, {"77",  8},
+        {"99", 10}, {"FF", 16}, {"jJ", 20}, {"Zz", 36}})
+    {
+        const int i{std::stoi(s, nullptr, base)};
+        std::cout &lt;&lt; "std::stoi(" &lt;&lt; std::quoted(s)
+                  &lt;&lt; ", nullptr, " &lt;&lt; base &lt;&lt; "): " &lt;&lt; i &lt;&lt; '\n';
+    }
+}</pre>
+      <p>...</p>
+    </main>
+  </body>
+</html>

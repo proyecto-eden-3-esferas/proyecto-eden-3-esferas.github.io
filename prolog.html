@@ -52,13 +52,39 @@
       <h1>Prolog: Symbolic Programming or <i>Programation Logique</i></h1>
       <p><q>Prolog</q> stands for <i lang="fr">Programation Logique</i>.</p>
       <p>Prolog is a general-purpose logic programming language associated with <a href="ai.html">artificial intelligence</a> and computational linguistics. Prolog has its roots in first-order logic, which is a formal logic, and unlike many other programming languages, Prolog is intended as primarily a <em>declarative</em> programming language: the program logic is expressed in terms of relations, represented as facts and rules. A computation is initiated by running a query over these relations.</p>
-      <p>Prolog implements the predicate calculus via <a href="#Horn_clauses_in_prolog">Horn clauses</a>. The inference mechanism of Prolog is based upon Robinson's resolution principle (1965) together with mechanisms for extracting answers proposed by Green (1968). These ideas came together forcefully with the advent of linear resolution procedures. Explicit goal-directed linear resolution procedures, such as those of Kowalski and Kuehner (1971) and Kowalski (1974), gave impetus to the development of a general purpose logic programming system.</p>
+      <p>Prolog implements the predicate calculus via <a href="#Horn_clauses_in_prolog">Horn clauses</a>. The inference mechanism of Prolog is based upon Robinson&apos;s resolution principle (1965) together with mechanisms for extracting answers proposed by Green (1968). These ideas came together forcefully with the advent of linear resolution procedures. Explicit goal-directed linear resolution procedures, such as those of Kowalski and Kuehner (1971) and Kowalski (1974), gave impetus to the development of a general purpose logic programming system.</p>
       <p>A logic program is a set of axioms, or rules, defining relations between objects. A <dfn>computation</dfn> of a logic program is a deduction of consequences of the program. A program defines a set of consequences, which is its meaning. The art of logic programming is constructing concise and elegant programs that have the desired meaning.</p>
       <p>The <dfn>meaning</dfn> of a logic program <var>P</var>, <code class="function">M(<var>P</var>)</code>, is the set of ground goals deducible from <var>P</var>.</p>
       <hr/>
       <p>Prolog was one of the first logic programming languages, and remains the most popular among such languages today, with several free and commercial <a href="prolog.compilers-and-interpreters.html">implementations</a> available. The language has been used for theorem proving, <a href="#expert_sys_in_pl">expert systems</a>, term rewriting, type inference, and automated planning, as well as its original intended field of use, natural language processing. Modern Prolog environments support the creation of graphical user interfaces, as well as administrative and networked applications.</p>
       <p>Prolog is well-suited for specific tasks that benefit from rule-based logical queries such as searching databases, voice control systems, and filling templates.</p>
-      <section>
+
+      <nav>
+        <ul>
+          <li href="#intro">
+            <p><a href="#why">Why Prolog?</a></p>
+            <p><a href="#using">How Prolog is Used</a></p>
+            <p><a href="#start">Starting Prolog</a></p>
+            <p><a href="#building-blocks">The Building Blocks of a Prolog Program</a></p>
+          </li>
+          <li><a href="#backtracking">Backtracking</a></a></li>
+          <li><a href="#unification">Unification, the Engine for Predicate Matching and Evaluation</a></li>
+          <li><a href="#control-structures">Conjunction, disjunction, if-then</a></li>
+          <li><a href="#neg-as-fail">Negation by Failure in Prolog</a></li>
+          <li><a href="#prog-styles">Prolog Programming Styles</a></li>
+          <li><a href="#ops">Prolog Operators</a></li>
+          <li><a href="#io">File I/O in Prolog</a></li>
+          <li><a href="#meta-preds">Prolog Meta-Predicates</a></li>
+          <li><a href="#recursive-ctrl-loop">Recursive Control Loop</a></li>
+          <li><a href="#adt-and-search">Abstract Data Types and Search</a></li>
+          <li><a href="#search-strategies-using-production-system-design-pattern">Depth-, Breadth-, and Best-First Search Using the Production System Design Pattern</a></li>
+          <li><a href="#advanced">Special or Advanced Topics in Prolog</a></li>
+          <li><a href="#binding-to-c">Binding to C</a></li>
+          <li><a href="#apps">Prolog Applications</a></li>
+        </ul>
+      </nav>
+
+      <section id="why">
         <h2>Why Prolog?</h2>
         <p>Much has been written about the wonders of Prolog as a declarative programming language and its strength as a language for implementing artificial intelligence (AI) applications. A look under the hood of both AI and Prolog reveals why.</p>
         <p>Prolog features a collection of search and pattern- matching algorithms. This, it turns out, is the essence of much AI programming. A chess program searches for patterns in the game, a natural language program searches for patterns in lists of words, and a diagnostic program searches for rules that match symptoms. Prolog is very good at pattern matching and search.</p>
@@ -93,25 +119,26 @@
 </pre>
         <p>Notice the lack of data definition statements or string compares. The difference is not significant in a simple example such as this, but in applications where the bulk of the work is comparing symbols, it becomes quite significant.</p>
         <p>In addition to dynamically allocated symbols, Prolog has, as an integral part of the language, a sophisticated pattern matching algorithm, called <dfn>unification</dfn>, and a search mechanism, called <dfn>backtracking</dfn>.</p>
-        <p>These can both be seen in the code fragment above. The pattern <kbd>do(X)</kbd> is unified against the first of the three <kbd>do</kbd> rules, defined by the <kbd>:-</kbd> symbol meaning <q>if</q>. If the user entered <kbd>open</kbd> then the first clause, as it's called, would match and the code on the right of the <kbd>:-</kbd> would be executed. If the user entered something other than <kbd>open</kbd>, Prolog would <em>backtrack</em> and continue to look for a <kbd>do</kbd> rule that does match the user's input.</p>
-        <p>Similarly, the use of the <kbd>repeat</kbd> and <kbd>X == quit</kbd> in the <kbd>main</kbd> rule causes the sample section of code to <em>loop</em> until the user types <kbd>quit</kbd>. The Prolog programmer doesn't write <q>if-then-elses</q>, <q>calls</q>, <q>whiles</q>, or other flow-of-control constructs, however, between unification and backtracking the programmer can induce any flow-of-control behavior in a Prolog program that can be achieved in any other language.</p>
+        <p>These can both be seen in the code fragment above. The pattern <kbd>do(X)</kbd> is unified against the first of the three <kbd>do</kbd> rules, defined by the <kbd>:-</kbd> symbol meaning <q>if</q>. If the user entered <kbd>open</kbd> then the first clause, as it&apos;s called, would match and the code on the right of the <kbd>:-</kbd> would be executed. If the user entered something other than <kbd>open</kbd>, Prolog would <em>backtrack</em> and continue to look for a <kbd>do</kbd> rule that does match the user&apos;s input.</p>
+        <p>Similarly, the use of the <kbd>repeat</kbd> and <kbd>X == quit</kbd> in the <kbd>main</kbd> rule causes the sample section of code to <em>loop</em> until the user types <kbd>quit</kbd>. The Prolog programmer doesn&apos;t write <q>if-then-elses</q>, <q>calls</q>, <q>whiles</q>, or other flow-of-control constructs, however, between unification and backtracking the programmer can induce any flow-of-control behavior in a Prolog program that can be achieved in any other language.</p>
         <p>Symbols, unification, backtracking, and dynamic memory management, all tend to eliminate procedural code a programmer normally needs to write. It is no surprise that what is left looks much more declarative than conventional code and is often a fraction of the size. For example, Prolog can be used to analyze simple English sentences. In fact Prolog was originally designed for working with language. As such it is well suited for not just natural language work, but for implementing and/or experimenting with formal languages as well.</p>
         <p>One common use in this line is to build shells for implementing expert systems. The shells use their own language to represent the knowledge for a particular type of problem. Diagnostic systems, for example, work differently from configuration systems.</p>
-        <p>A tax application in Prolog is simply a collection of rules that specify how to fill out each line of the form. Prolog's search and unification do the work of linking related lines of the form together so the program code winds up looking very much like the tax form itself. Business applications such as customer order entry are expressed as relationships describing the various transactions and constraints. Pricing and configuration, two difficult components of such a system, are relatively straight-forward when coded in Prolog.</p>
+        <p>A tax application in Prolog is simply a collection of rules that specify how to fill out each line of the form. Prolog&apos;s search and unification do the work of linking related lines of the form together so the program code winds up looking very much like the tax form itself. Business applications such as customer order entry are expressed as relationships describing the various transactions and constraints. Pricing and configuration, two difficult components of such a system, are relatively straight-forward when coded in Prolog.</p>
         <p>While <a target="_blank" href="c.html">C</a> can be used to write anything written in Prolog, Prolog code, for the applications it does best, is much less complex. For this reason, the Prolog developer can manage and maintain a greater degree of complexity in an application, thus providing a greater degree of sophistication to the user of an application.</p>
         <p>For commercial applications, this leads to a competive edge, but the real benefit applies to any application-- Prolog is simply fun.</p>
       </section>
-      <section>
+
+      <section id="using">
         <h2>How Prolog is Used</h2>
         <p>The examples above provide insight into how a Prolog program is used. The grammar rules, for example, are a Prolog program. They are queried with lists of words. All Prolog programs are similar collections of rules, and are similarly activated by being queried, much the same way a <a href="database.html">database</a> is queried.</p>
         <p>This is true even of stand-alone compiled Prolog programs. In that case there is usually a single query, <code class="function">main</code>, used to start the program. <code class="function">main</code> is the name of a rule which then queries other rules which query other rules and so on. For example, the following Prolog program could be compiled and executed, with a classic result.</p>
-        <pre>main :- write('Hello World').</pre>
+        <pre>main :- write(&apos;Hello World&apos;).</pre>
         <p>It could also be loaded and run from an interpreter.</p>
         <pre>?- main.
 Hello World</pre>
       </section>
 
-      <section>
+      <section id="start">
         <h2>Starting Prolog</h2>
         <p>Consider the following problem description:</p>
         <blockquote id="three_different_friends">
@@ -121,7 +148,8 @@ Hello World</pre>
         <p>A prolog shell may be started for the user-programmer to work interactively. Alternatively, you may cause a shell to read a <dfn>database</dfn> file, for instance by issueing <kbd>consult(<cite>my_database</cite>).</kbd> Alternatively, type <kbd>[<cite>my_database</cite>].</kbd></p>
         <p class="warning"><strong>Warning:</strong> The database name must be stripped of its extension</p>
       </section>
-      <section>
+
+      <section id="building-blocks">
         <h2>The Building Blocks of a Prolog Program</h2>
         <section>
           <h3>Facts</h3>
@@ -162,7 +190,7 @@ Hello World</pre>
           <h3>Functors or <q>Structures</q></h3>
           <p>A structure is written in Prolog by specifying its <dfn>functor</dfn> and its components. The functor names the general kind of structure, and corresponds to a datatype in an ordinary programming language. The components are enclosed in round brackets and separated by commas. The functor is written just before the opening round bracket. Consider the following fact, that John owns the book called Wuthering Heights, by Emily Bronte:</p>
           <pre>owns(john, book(wuthering_heights, bronte)).</pre>
-          <p>Inside the <kbd>owns</kbd> fact we have a structure by the name of <kbd>book</kbd>, which has two components, a title and an author. Since the book structure appears inside the fact as one of the fact's arguments, it is acting as an object, taking part in a relationship. If we like, we can also have another structure for the author's name, because there were three Bronte writers we wish to distinguish:</p>
+          <p>Inside the <kbd>owns</kbd> fact we have a structure by the name of <kbd>book</kbd>, which has two components, a title and an author. Since the book structure appears inside the fact as one of the fact&apos;s arguments, it is acting as an object, taking part in a relationship. If we like, we can also have another structure for the author&apos;s name, because there were three Bronte writers we wish to distinguish:</p>
           <pre>owns(john, book(wuthering_heights, author(emily, bronte))).</pre>
           <p>Structures may participate in the process of question-answering using variables. For example, we may ask if John owns any book by any of the Bronte sisters:</p>
           <pre>?- owns(john, book(X, author(Y, bronte))).</pre>
@@ -196,12 +224,12 @@ has_met(a,c).
 % rules:
 has_met(X,Y) :- has_met(Y,X).</pre>
             <p>The following one, though, behaves well:</p>
-            <pre>% forward 'has_met' data base:
+            <pre>% forward &apos;has_met&apos; data base:
 has_met_fwd(a,b).
 has_met_fwd(a,c).
 has_met(X,Y) :- has_met_fwd(X,Y) ; has_met_fwd(Y,X).</pre>
             <p>Alternatively:</p>
-            <pre>% forward 'has_met' data base:
+            <pre>% forward &apos;has_met&apos; data base:
 has_met_fwd(a,b).
 has_met_fwd(a,c).
 % rules:
@@ -255,7 +283,7 @@ no
 writelist([H|T]) :- write(H),nl,writelist(T).</pre>
           <section id="member_in_prolog">
             <h4>Membership in Prolog</h4>
-            <p>Membership is established through recursion. I don't like it, though.</p>
+            <p>Membership is established through recursion. I don&apos;t like it, though.</p>
             <pre>member(X,[X|_]).
 member(X,[_|T] :- member(X,T).</pre>
           </section>
@@ -279,61 +307,64 @@ no</pre>
           </section>
         </section>
       </section>
-      <section>
-        <h2>Backtracking: Cuts and Repeats</h2>
-        <p>We can imagine a conjunction of goals to be arranged from left to right, separated by commas. When handling such a conjunction of goals, Prolog attempts to satisfy each goal in turn, working from left to right. If a goal becomes satisfied, Prolog leaves a place-marker in the database that is associated with the goal. Think of this as drawing an arrow from the goal to the place in the database where the solution is. Furthermore, any variables previously uninstantiated might now be instantiated. If a variable becomes instantiated, all its occurrences in the question become instantiated, too. Prolog then attempts to satisfy the goal's right-hand neighbour, starting from the top of the database.</p>
-        <p>As each goal in turn becomes satisfied, it leaves behind a place-marker in the database (draws another arrow from the goal to the unifying fact), in case the goal needs to be re-satisfied at a later time. Any time a goal fails (cannot find a unifying fact), Prolog goes back and attempts to satisfy its left-hand neighbour, starting from its place-marker. Furthermore, Prolog must <q>uninstantiate</q> any variables that became instantiated at this goal. In other words, Prolog must <q>undo</q> all the variables when it re-satisfies a goal. If each goal, upon being entered from its right, cannot be re-satisfied, then the failures will cause Prolog to gradually creep to the left as each goal fails. If the first goal (the left-most goal) fails, then, since it does not have a left-hand neighbour it can attempt to re-satisfy, the entire conjunction fails. This behaviour, where Prolog repeatedly attempts to satisfy and re-satisfy goals in a conjunction, is called <dfn>backtracking</dfn>.</p>
-        <section id="prolog_cut_operator">
-          <h3>The Use of Cut to Prevent Backtracking in Prolog</h3>
-          <p>Sometimes it is desirable to selectively turn off backtracking. Prolog provides a predicate that performs this function. It is called the cut, represented by an exclamation mark (!).</p>
-          <p>The cut effectively tells Prolog to freeze all the decisions after it occurs in a predicate. That is, if required to backtrack, Prolog will automatically fail without trying other alternatives.</p>
-          <p>The following database and query seems to fail:</p>
-          <pre>related(X,Y) :- related(X,Z), related(Z,Y).
+
+      <section id="backtracking">
+        <h2>Backtracking</h2>
+        <p>Briefly, the <dfn>backtracking</dfn> algorithm examines each predicate specification in the order that it was placed in the Prolog knowledge base. If the variable bindings of the specification satisfy the query it accepts them. If they don&apos;t, the interpreter goes on to the next specification. If the interpreter runs into a dead end, i.e., no variable substitution satisfies it, then it backs up looking for other variable bindings for the predicates it has already satisfied.</p>
+
+        <h3>Backtracking: Cuts and Repeats</h3>
+          <p>We can imagine a conjunction of goals to be arranged from left to right, separated by commas. When handling such a conjunction of goals, Prolog attempts to satisfy each goal in turn, working from left to right. If a goal becomes satisfied, Prolog leaves a place-marker in the database that is associated with the goal. Think of this as drawing an arrow from the goal to the place in the database where the solution is. Furthermore, any variables previously uninstantiated might now be instantiated. If a variable becomes instantiated, all its occurrences in the question become instantiated, too. Prolog then attempts to satisfy the goal&apos;s right-hand neighbour, starting from the top of the database.</p>
+          <p>As each goal in turn becomes satisfied, it leaves behind a place-marker in the database (draws another arrow from the goal to the unifying fact), in case the goal needs to be re-satisfied at a later time. Any time a goal fails (cannot find a unifying fact), Prolog goes back and attempts to satisfy its left-hand neighbour, starting from its place-marker. Furthermore, Prolog must <q>uninstantiate</q> any variables that became instantiated at this goal. In other words, Prolog must <q>undo</q> all the variables when it re-satisfies a goal. If each goal, upon being entered from its right, cannot be re-satisfied, then the failures will cause Prolog to gradually creep to the left as each goal fails. If the first goal (the left-most goal) fails, then, since it does not have a left-hand neighbour it can attempt to re-satisfy, the entire conjunction fails. This behaviour, where Prolog repeatedly attempts to satisfy and re-satisfy goals in a conjunction, is called <dfn>backtracking</dfn>.</p>
+          <section id="prolog_cut_operator">
+            <h4>The Use of Cut to Prevent Backtracking in Prolog</h4>
+            <p>Sometimes it is desirable to selectively turn off backtracking. Prolog provides a predicate that performs this function. It is called the cut, represented by an exclamation mark (!).</p>
+            <p>The cut effectively tells Prolog to freeze all the decisions after it occurs in a predicate. That is, if required to backtrack, Prolog will automatically fail without trying other alternatives.</p>
+            <p>The following database and query seems to fail:</p>
+            <pre>related(X,Y) :- related(X,Z), related(Z,Y).
 related(phil, roxanne).
 related(roxanne, carol).
 related(carol, alex).</pre>
-          <p>Followed by the query:</p>
-          <pre>related(phil,carol).</pre>
-          <!-- <p class="bridgehead"/> -->
-          <p>Performance is the main reason to use the cut. This separates the logical purists from the pragmatists. Various arguments can also be made as to its effect on code readability and maintainability. It is often called the <q>goto</q> of logic programming.</p>
-          <p>You will most often use the cut when you know that at a certain point in a given predicate, Prolog has either found the only answer, or if it hasn't, then there is no answer. In this case you insert a cut in the predicate at that point.</p>
-          <p>Similarly, you will use it when you want to force a predicate to fail in a certain situation, and you don't want it to look any further.</p>
-        </section>
-        <section>
-          <h3>Some Examples of the Use of Cuts</h3>
-          <p>The following program defines the <code class="function">minimum</code> predicate with cuts:</p>
-          <pre>minimum(X, Y, X) :- X =&lt; Y, !.
+            <p>Followed by the query:</p>
+            <pre>related(phil,carol).</pre>
+            <!-- <p class="bridgehead"/> -->
+            <p>Performance is the main reason to use the cut. This separates the logical purists from the pragmatists. Various arguments can also be made as to its effect on code readability and maintainability. It is often called the <q>goto</q> of logic programming.</p>
+            <p>You will most often use the cut when you know that at a certain point in a given predicate, Prolog has either found the only answer, or if it hasn&apos;t, then there is no answer. In this case you insert a cut in the predicate at that point.</p>
+            <p>Similarly, you will use it when you want to force a predicate to fail in a certain situation, and you don&apos;t want it to look any further.</p>
+          </section>
+          <section>
+            <h4>Some Examples of the Use of Cuts</h4>
+            <p>The following program defines the <code class="function">minimum</code> predicate with cuts:</p>
+            <pre>minimum(X, Y, X) :- X =&lt; Y, !.
 minimum(X,Y,Y) :- X &gt; Y, !.</pre>
-          <note>Predicate <code class="function">maximum</code> can be defined analogously.</note>
-          <p>...</p>
-        </section>
-        <section>
-          <title>
-            <kbd>repeat</kbd>
-          </title>
-          <p>The built-in predicate <kbd>repeat</kbd> is provided as an extra way to generate multiple solutions through backtracking. Although it is built-in, it can be thought of as behaving as though defined as follows:</p>
-          <pre>repeat.
+            <aside class="note">Predicate <code class="function">maximum</code> can be defined analogously.</aside>
+            <p>...</p>
+          </section>
+          <section>
+            <h4><kbd>repeat</kbd></h4>
+            <p>The built-in predicate <kbd>repeat</kbd> is provided as an extra way to generate multiple solutions through backtracking. Although it is built-in, it can be thought of as behaving as though defined as follows:</p>
+            <pre>repeat.
 repeat :- repeat.</pre>
-          <p>What is the effect of this if we put <kbd>repeat</kbd> as a goal in one of our rules? First of all, the goal will succeed, because of the fact which is the first clause of repeat. Secondly, if backtracking reaches this point again, Prolog will be able to try an alternative: the rule that is provided as the second clause of <kbd>repeat</kbd>. When it uses this rule, another goal <kbd>repeat</kbd> is generated. Since this matches the first fact, we have succeeded again. If backtracking reaches here again, Prolog will again use the rule where it used the fact before. To satisfy the extra goal generated, it will again pick the fact as the first option. And so on. In fact, the goal <kbd>repeat</kbd> will be able to succeed infinitely many times on backtracking. Note the importance of the order of the clauses here. (What would happen if the fact appeared after the rule?).</p>
-          <p>Why is it useful to generate goals that will always succeed again on backtracking? The reason is that they allow one to build &#x2014; from rules that have no choices in them &#x2014; rules that <em>do</em> have choices. And we can make them generate different values each time.</p>
-          <p class="bridgehead">
-            <i>Loops with <kbd>repeat/0</kbd></i>
-          </p>
-          <p>Furthermore, a clause body with a repeat/O followed by fail/O will go back and forth forever. This is one way to write an endless loop in Prolog.</p>
-          <p>A repeat/O followed by some intermediate goals followed by a test condition will loop until the test condition is satisfied. It is equivalent to a <q>do until</q> in other languages.</p>
-          <pre>command_loop :-
+            <p>What is the effect of this if we put <kbd>repeat</kbd> as a goal in one of our rules? First of all, the goal will succeed, because of the fact which is the first clause of repeat. Secondly, if backtracking reaches this point again, Prolog will be able to try an alternative: the rule that is provided as the second clause of <kbd>repeat</kbd>. When it uses this rule, another goal <kbd>repeat</kbd> is generated. Since this matches the first fact, we have succeeded again. If backtracking reaches here again, Prolog will again use the rule where it used the fact before. To satisfy the extra goal generated, it will again pick the fact as the first option. And so on. In fact, the goal <kbd>repeat</kbd> will be able to succeed infinitely many times on backtracking. Note the importance of the order of the clauses here. (What would happen if the fact appeared after the rule?).</p>
+            <p>Why is it useful to generate goals that will always succeed again on backtracking? The reason is that they allow one to build &#x2014; from rules that have no choices in them &#x2014; rules that <em>do</em> have choices. And we can make them generate different values each time.</p>
+            <p class="bridgehead">
+              <i>Loops with <kbd>repeat/0</kbd></i>
+            </p>
+            <p>Furthermore, a clause body with a repeat/O followed by fail/O will go back and forth forever. This is one way to write an endless loop in Prolog.</p>
+            <p>A repeat/O followed by some intermediate goals followed by a test condition will loop until the test condition is satisfied. It is equivalent to a <q>do until</q> in other languages.</p>
+            <pre>command_loop :-
   repeat,
-  write('Enter command (end to exit): '),
+  write(&apos;Enter command (end to exit): &apos;),
   read(X),
   write(X), nl,
   X = end.</pre>
+          </section>
         </section>
-      </section>
-      <section>
+
+      <section id="unification">
         <h2>Unification, the Engine for Predicate Matching and Evaluation</h2>
         <p>When queried, a prolog program  performs a series of resolutions on its database entries, rather than sequentally evaluating statements and expressions like a traditional language. This has an important ramification: variables are bound (assigned values, instantiated,...) by <dfn>unification</dfn> and <em>not</em> by evaluation unless an evaluation is <a href="#prolog_is_operator">explicitly</a> requested.</p>
         <p>One consequence of this is the relaxation of the requirement to specify variables (function parameters) as input or output.</p>
-        <p>Unification is a powerful technique for rule-based and frame-based expert systems, where it matches case-specific data to the rules that best meet these specifications. All production systems require a form of this matching, and it is often necessary to write a unification algorithm in languages that don't provide one.</p>
+        <p>Unification is a powerful technique for rule-based and frame-based expert systems, where it matches case-specific data to the rules that best meet these specifications. All production systems require a form of this matching, and it is often necessary to write a unification algorithm in languages that don&apos;t provide one.</p>
         <section id="prolog_is_operator">
           <h3>Forcing Evaluation with Operator <code class="command">is</code></h3>
           <p>An important difference between unification-based computing and the use of more traditional languages is that unification performs syntactic matches (with appropriate parameter substitution) on structures. It does <em>not</em> evaluate expressions.</p>
@@ -348,7 +379,8 @@ repeat :- repeat.</pre>
           <p>Finally, as in the predicate calculus, variables in prolog may have one and only one binding. Once given a value, through local assignment or unification, they can never take on a new value, except through a backtrack in the and/or search space of the current interpretation. Thus, <code class="command">is</code> does not function like a traditional assignment operator; an expression such as <kbd>X is X + 1</kbd> will always fail.</p>
         </section>
       </section>
-      <section>
+
+      <section id="control-structures">
         <h2>Conjunction, disjunction, if-then</h2>
         <p>These are realized through operators <kbd>,</kbd>, <kbd>;</kbd>, and <kbd>-&gt;</kbd>.</p>
         <p class="bridgehead">
@@ -358,7 +390,8 @@ repeat :- repeat.</pre>
         <p><kbd>Goal1 ; Goal2</kbd> first creates a choice-point and executes <var>Goal1</var>. On backtracking <var>Goal2</var> is executed.</p>
         <p><kbd>Goal1 -&gt; Goal2</kbd> first executes <var>Goal1</var> and, in case of success, removes all choice-points created by <var>Goal1</var> and executes <var>Goal2</var>. This control construct acts like an if-then (<var>Goal1</var> is the test part and <var>Goal2</var> the then part). Note that if <var>Goal1</var> fails then <kbd>-&gt;/2</kbd> fails also. <kbd>-&gt;/2</kbd> is often combined with <kbd>;/2</kbd> to define an if-then-else as follows: <kbd>Goal1 -&gt; Goal2 ; Goal3</kbd>. Note that <kbd>Goal1 -&gt; Goal2</kbd> is the first argument of the <kbd>(;)/2</kbd> and <var>Goal3</var> (the else part) is the second argument. Such an if-then-else control construct first creates a choice-point for the else-part (intuitively associated with <kbd>;/2</kbd>) and then executes <var>Goal1</var>. In case of success, all choice-points created by <var>Goal1</var> together with the choice-point for the else-part are removed and <var>Goal2</var> is executed. If <var>Goal1</var> fails then <var>Goal3</var> is executed.</p>
       </section>
-      <section>
+
+      <section id="neg-as-fail">
         <h2>Negation by Failure in Prolog</h2>
         <p>A goal <var>G</var> fails (or <kbd>not g</kbd> succeeds), if <var>G</var> cannot be derived from the consulted database.</p>
         <p>Here is how we might define operator <kbd>not</kbd>:</p>
@@ -366,21 +399,23 @@ repeat :- repeat.</pre>
 not X.</pre>
         <p>...</p>
       </section>
-      <section>
+
+      <section id="prog-styles">
         <h2>Prolog Programming Styles</h2>
         <p>There are two basic styles of developing logic programs: defining a logical database, and manipulating data structures.</p>
         <p>A logic database comprises a set of facts and rules. A set of facts can define relations, as in relational databases. And rules can define complex relational queries, as in relational algebra.</p>
         <p>Data structures in Prolog are based on <a href="#lists_in_prolog">lists</a>.</p>
       </section>
-      <section>
+
+      <section id="ops">
         <h2>Prolog Operators</h2>
         <p>Sometimes it is convenient to write some functors as <dfn>operators</dfn>. This is a form of syntax that makes some structures easier to read. For example, arithmetic operations are commonly written as operators. When we write the arithmetic expression <inlineequation>x + y * z</inlineequation>, we call the <q>plus</q> sign and the <q>multiply</q> sign <em>operators</em>. If we had to write the arithmetic expression <inlineequation>x + y*z</inlineequation> in the normal way for structures, it would look like this: <kbd>+(x,*(y,z))</kbd>, and this would be a legal Prolog term.</p>
-        <p>The operators are sometimes easier to use, however, because we have grown accustomed to using them in arithmetic expressions ever since our schooldays. Also, the structure form requires that round brackets be placed around the functor's components, which may be awkward at times.</p>
+        <p>The operators are sometimes easier to use, however, because we have grown accustomed to using them in arithmetic expressions ever since our schooldays. Also, the structure form requires that round brackets be placed around the functor&apos;s components, which may be awkward at times.</p>
         <p>It is important to note that the operators do not <em>cause</em> any arithmetic to be carried out. So in Prolog, <kbd>3+4</kbd> does not mean the same thing as <kbd>7</kbd>. The term <kbd>3+4</kbd> is another way to write the term <kbd>+(3,4)</kbd>, which is a data structure.</p>
         <p>First we need to know how to read arithmetic expressions that have operators in them. To do this, we need to know three things about each operator: its <em>position</em>, its <em>precedence</em>, and its <em>associativity</em>. In this section we will describe how to use Prolog operators with these three things in mind, but we will not go into very much detail. Although many different kinds of operators can be made up, we shall deal only with the familiar atoms +, -, *, and /.</p>
         <p>The <dfn>precedence</dfn> of an operator is used to indicate which operation is carried out first. Each operator that is used in Prolog has a precedence class associated with it. The precedence class is an integer that is associated with an operator. The exact value of the integer depends on the particular version of Prolog you are using. However, it is always true that an operator with a higher precedence has a precedence class that is closer to 1. If precedence classes range from 1 to 255, then an operator in the first precedence class is carried out first, before operators belonging to the 129th (say) precedence class. In Prolog the multiplication and division operators are in a higher precedence class than addition and subtraction, so the term <kbd>a-b/c</kbd> is the same as the term <kbd>-(a,/(b,c))</kbd>. The exact association of operators to precedence classes is not important at the moment, but it is worth remembering the relative order in which operations are carried out.</p>
         <p>Finally, consider how different operators associate. How they associate comes to our attention when we have several operators of the same precedence. When we see the expression <inlineequation>8/2/2</inlineequation>, does this mean <inlineequation>(8/2)/2</inlineequation> or <inlineequation>8/(2/2)</inlineequation>? In the first case, the expression could be interpreted to mean <inlineequation>2</inlineequation>, and in the second case, <inlineequation>8</inlineequation>. To be able to distinguish between these two cases, we must be able to tell whether an operator is left associative or right associative. A <dfn>left associative</dfn> operator must have the same or lower precedence operations on the left, and lower precedence operations on the right. For example, all the arithmetic operations (add, subtract, multiply, and divide) are left associative. This means that expressions like <kbd>8/4/4</kbd> are parsed as <inlineequation>(8/4)/4</inlineequation>. Also, <kbd>5+8/2/2</kbd> is read as <inlineequation>5+((8/2)/2)</inlineequation>.</p>
-        <note>Remember that a structure made up of arithmetic operators is like any other structure. No arithmetic is actually carried out until commanded by the <q>is</q> predicate.</note>
+        <aside class="note">Remember that a structure made up of arithmetic operators is like any other structure. No arithmetic is actually carried out until commanded by the <q>is</q> predicate.</aside>
         <section id="equality_and_unification">
           <h3>Equality and Unification</h3>
           <blockquote>There really is no equivalent of the assignment in prolog, and you should <em>not</em> use the dynamic database for this purpose.</blockquote>
@@ -413,7 +448,9 @@ A = _23, B = _24, C = _25</pre>
             </title>
           </section>
         </section>
-        <section><h3>Arithmetic in Prolog</h3><p>Arithmetic can be used for calculating. For example, if we know the population and ground area of a country, we can calculate the population density of the country. The population density tells us how crowded the country would be if all the people were evenly spread throughout the country. Consider the following database about the population and area of various countries in 1976. We will use the predicate <kbd>population</kbd> to represent the relationship between a country and its population. Nowadays, the populations of countries are generally quite large numbers. So, we will represent population figures in millions: <kbd>population(X, Y)</kbd> means <q>the population of country X is about Y million people</q>. The predicate <kbd>area</kbd> will denote the relationship between a country and its area (in millions of square miles). The numbers given here are not exact, but they will do for the purpose of demonstrating arithmetic:</p><pre>population(usa, 203).
+        <section>
+          <h3>Arithmetic in Prolog</h3>
+          <p>Arithmetic can be used for calculating. For example, if we know the population and ground area of a country, we can calculate the population density of the country. The population density tells us how crowded the country would be if all the people were evenly spread throughout the country. Consider the following database about the population and area of various countries in 1976. We will use the predicate <kbd>population</kbd> to represent the relationship between a country and its population. Nowadays, the populations of countries are generally quite large numbers. So, we will represent population figures in millions: <kbd>population(X, Y)</kbd> means <q>the population of country X is about Y million people</q>. The predicate <kbd>area</kbd> will denote the relationship between a country and its area (in millions of square miles). The numbers given here are not exact, but they will do for the purpose of demonstrating arithmetic:</p><pre>population(usa, 203).
 population(india, 548).
 population(china, 800).
 population(brazil, 108).
@@ -430,7 +467,7 @@ area(brazil, 3).</pre><p>Now to find the population density of a country, we mus
         <!-- end of "Arithmetic in Prolog" -->
         <section>
           <h3>Numerical Comparison Operators in Prolog</h3>
-          <p>Given two numbers, we can tell whether one number is equal to the other, or less than the other, or greater than the other. Prolog provides certain built-in predicates for comparing numbers. Actually these predicates evaluate terms that are treated as arithmetic expressions. The arguments could be variables instantiated to integers, or they could be integers written as constants, or they could be more general expressions. Here we will use these predicates just for comparing numbers, but later we'll use them in general arithmetic expressions. Note that we are allowed to write them as infix operators:</p>
+          <p>Given two numbers, we can tell whether one number is equal to the other, or less than the other, or greater than the other. Prolog provides certain built-in predicates for comparing numbers. Actually these predicates evaluate terms that are treated as arithmetic expressions. The arguments could be variables instantiated to integers, or they could be integers written as constants, or they could be more general expressions. Here we will use these predicates just for comparing numbers, but later we&apos;ll use them in general arithmetic expressions. Note that we are allowed to write them as infix operators:</p>
           <ul>
             <li><kbd>X =:= Y</kbd>: X and Y stand for the same number</li>
             <li><kbd>X =\= Y</kbd>: X and Y stand for different numbers</li>
@@ -477,32 +514,32 @@ area(brazil, 3).</pre><p>Now to find the population density of a country, we mus
           <pre>?- op(Prec, Spec, Name).</pre>
           <p>As an example of declaring operators, the following is a list of the most important operators that are already defined in Standard Prolog:</p>
           <pre>?- op( 1200, xfx, &amp;apos;:-&amp;apos; ).
-?- op( 1200, fx, '?-' ).
-?- op( 1200, fx, ':-' ).
-?- op( 1100, xfy, ';' ).
-?- op( 1000, xfy, ',' ).
-?- op( 900, fy, '\+' ).
-?- op( 700, xfx, '=').
+?- op( 1200, fx, &apos;?-&apos; ).
+?- op( 1200, fx, &apos;:-&apos; ).
+?- op( 1100, xfy, &apos;;&apos; ).
+?- op( 1000, xfy, &apos;,&apos; ).
+?- op( 900, fy, &apos;\+&apos; ).
+?- op( 700, xfx, &apos;=&apos;).
 ?- op( 700, xfx,\=).
-?- op( 700, xfx, '==' ).
+?- op( 700, xfx, &apos;==&apos; ).
 ?- op( 700, xfx, \== ).
-?- op( 700, xfx, '=..' ).
-?- op( 700, xfx, '&lt;' ).
-?- op( 700, xfx, '&gt;' ).
-?- op( 700, xfx, '=&lt;' ).
-?- op( 700, xfx, '&gt;=' ).
-?- op( 700, xfx, '@&lt;' ).
-?- op( 700, xfx, '@=&lt;' ).
-?- op( 700, xfx, '@&gt;' ).
-?- op( 700, xfx, '@&gt;=' ).
-?- op( 700, xfx, 'is' ).
-?- op( 500, yfx, '+' ).
-?- op( 500, yfx, '-' ).
-?- op( 400, yfx, '*' ).
-?- op( 400, yfx, '//' ).
-?- op( 400, yfx, '/' ).
-?- op( 400, yfx, 'mod' ).
-?- op( 200, fy, '-').</pre>
+?- op( 700, xfx, &apos;=..&apos; ).
+?- op( 700, xfx, &apos;&lt;&apos; ).
+?- op( 700, xfx, &apos;&gt;&apos; ).
+?- op( 700, xfx, &apos;=&lt;&apos; ).
+?- op( 700, xfx, &apos;&gt;=&apos; ).
+?- op( 700, xfx, &apos;@&lt;&apos; ).
+?- op( 700, xfx, &apos;@=&lt;&apos; ).
+?- op( 700, xfx, &apos;@&gt;&apos; ).
+?- op( 700, xfx, &apos;@&gt;=&apos; ).
+?- op( 700, xfx, &apos;is&apos; ).
+?- op( 500, yfx, &apos;+&apos; ).
+?- op( 500, yfx, &apos;-&apos; ).
+?- op( 400, yfx, &apos;*&apos; ).
+?- op( 400, yfx, &apos;//&apos; ).
+?- op( 400, yfx, &apos;/&apos; ).
+?- op( 400, yfx, &apos;mod&apos; ).
+?- op( 200, fy, &apos;-&apos;).</pre>
           <p>...</p>
           <p>An operator declared <kbd>yfx</kbd> is left associative. Similarly, an operator declared xfy is right associative.</p>
           <p>Note that the meanings of <kbd>x</kbd> and <kbd>y</kbd> (in terms of what other operators can appear unbracketed in the relevant position) are the same in all the other cases as well. This means that, for instance, the sequence</p>
@@ -510,9 +547,9 @@ area(brazil, 3).</pre><p>Now to find the population density of a country, we mus
           <p>is legal syntactically if not is declared as <kbd>fy</kbd>, but is illegal if it is declared <kbd>fx</kbd>.</p>
           <p>...</p>
         </section>
-      </section>
-      <!-- end of "Prolog Operators" -->
-      <section>
+      </section>  <!-- end of "Prolog Operators" -->
+
+      <section id="io">
         <h2>File I/O in Prolog</h2>
         <section>
           <h3>Prolog Input and Output</h3>
@@ -573,9 +610,9 @@ area(brazil, 3).</pre><p>Now to find the population density of a country, we mus
             <p>This goal succeeds if <var>X</var> matches with the name of the current output stream, and fails otherwise.</p>
           </section>
         </section>
-      </section>
-      <!-- end of "File I/O in Prolog" -->
-      <section>
+      </section> <!-- end of "File I/O in Prolog" -->
+
+      <section id="meta-preds">
         <h2>Prolog Meta-Predicates</h2>
         <p>These predicates query and manipulate other predicates rather than the terms or objects that the other, non-meta predicates denote. Some of them are:</p>
         <ul>
@@ -593,7 +630,7 @@ area(brazil, 3).</pre><p>Now to find the population density of a country, we mus
             <kbd>clause(X,Y)</kbd>
           </title>
           <p>Satisfying a goal of the form <kbd>clause(X, Y)</kbd> causes <var>X</var> and <var>Y</var> to be matched with the head and body of an existing clause (for a <q>public</q> predicate) in the database. When an attempt is made to satisfy the goal, <var>X</var> must be instantiated enough so that the main predicate of the clause is known. If there are no clauses for the predicate, the goal just fails. If there is more than one clause that matches, Prolog will choose the first one. In this case, if an attempt is made to re-satisfy the goal, the other matching clauses will be chosen, one at a time.</p>
-          <p>Notice that, although <kbd>clause</kbd> always has an argument for the body of a clause, not every clause actually has a body. If a clause does not have a body, it is considered to have the dummy body <kbd>true</kbd>. We have been calling such clauses <q>facts</q>. By providing <var>X</var>'s and <var>Y</var>'s that are more or less instantiated, you can look for either all the clauses for a given predicate and number of arguments, or all the ones that match some pattern.</p>
+          <p>Notice that, although <kbd>clause</kbd> always has an argument for the body of a clause, not every clause actually has a body. If a clause does not have a body, it is considered to have the dummy body <kbd>true</kbd>. We have been calling such clauses <q>facts</q>. By providing <var>X</var>&apos;s and <var>Y</var>&apos;s that are more or less instantiated, you can look for either all the clauses for a given predicate and number of arguments, or all the ones that match some pattern.</p>
         </section>
         <section id="prolog_functor_predicate">
           <title>
@@ -609,7 +646,7 @@ F = +, N = 2
 F = ., N = 2
 ?- functor(apple, F, N).
 F = apple, N = 0
-?- functor([a, b, c], '.', 3).
+?- functor([a, b, c], &apos;.&apos;, 3).
 no
 ?- functor([a, b, c], a, Z).
 no</pre>
@@ -654,13 +691,13 @@ author(X, A) :- is_a_book(X), arg(2, X, T).</pre>
           <pre>?- foo(a,b,c) =.. X.
 X = [foo,a,b,c]
 ?- [a,b,c,d] =.. L.
-L = ['.',a,[b,c,d]].
+L = [&apos;.&apos;,a,[b,c,d]].
 ?- (a+b) =.. L.
 L = [+,a,b].
 ?- (a+b) =.. [+,X,Y].
 X = a, Y = b.
 ?- [a,b,c,d] =.. [X|Y].
-X = '.', Y = [a,[b,c,d]]
+X = &apos;.&apos;, Y = [a,[b,c,d]]
 ?- X =.. [a,b,c,d].
 X = a(b,c,d)</pre>
         </section>
@@ -668,7 +705,7 @@ X = a(b,c,d)</pre>
           <title>
             <kbd>call(<var>X</var>)</kbd>
           </title>
-          <p>It is assumed that <var>X</var> is instantiated to a term that can be interpreted as a goal. The <kbd>call(X)</kbd> goal succeeds if an attempt to satisfy <var>X</var> succeeds. The <kbd>call(X)</kbd> goal fails if an attempt to satisfy <var>X</var> fails. At first sight, this predicate may seem redundant, because one might ask why the argument of call shouldn't simply appear by itself as a goal?</p>
+          <p>It is assumed that <var>X</var> is instantiated to a term that can be interpreted as a goal. The <kbd>call(X)</kbd> goal succeeds if an attempt to satisfy <var>X</var> succeeds. The <kbd>call(X)</kbd> goal fails if an attempt to satisfy <var>X</var> fails. At first sight, this predicate may seem redundant, because one might ask why the argument of call shouldn&apos;t simply appear by itself as a goal?</p>
           <p>For instance, the goal</p>
           <pre>..., call(member(a, X)),...</pre>
           <p>can always be replaced by</p>
@@ -705,16 +742,17 @@ X = apple</pre>
               <kbd>number_chars(A,L)</kbd>
             </title>
             <p>This predicate is just like <kbd>atom_chars</kbd> except that it works with numbers, rather than atoms. Notice that in:</p>
-            <pre>?- atom_chars(X, ['1' ,'2', '3']).</pre>
-            <p>the variable <var>X</var> will be instantiated to the atom '123'. If we want it to be a number instead, we need to use <kbd>number_chars</kbd>. Here are some uses of <kbd>number_chars</kbd>:</p>
+            <pre>?- atom_chars(X, [&apos;1&apos; ,&apos;2&apos;, &apos;3&apos;]).</pre>
+            <p>the variable <var>X</var> will be instantiated to the atom &apos;123&apos;. If we want it to be a number instead, we need to use <kbd>number_chars</kbd>. Here are some uses of <kbd>number_chars</kbd>:</p>
             <pre>?- number_chars(123.5, X).
-X = ['1', '2', '3', '.', '5']
-?- number_chars(X, ['1', '2', '3']).
+X = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;.&apos;, &apos;5&apos;]
+?- number_chars(X, [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;]).
 X = 123</pre>
           </section>
         </section>
       </section>
-      <section>
+
+      <section id="recursive-ctrl-loop">
         <h2>Recursive Control Loop</h2>
         <p>The purity of logic programming is undermined by the asserts and retracts of the database. Using these makes code unpredictable, since the behavior of the code depends on global data whose value might change.</p>
         <p>Because logical variables cannot have their values changed by assignment, the commands must take two arguments representing the old state and the new state. The repeat-fail control structure will not let us repeatedly change the state in this manner, so we need to write a recursive control structure that recursively sends the new state to itself.</p>
@@ -726,7 +764,7 @@ X = 123</pre>
           <p>There are actually two kinds of recursive routines. In a true recursive routine, each level must wait for the information from the lower levels in order to return an answer. This means that Prolog must build a stack with a new entry for each level.</p>
           <p>This is in contrast to iteration, which is more common in conventional languages. Each pass through the iteration updates the variables and there is no need for building a stack.</p>
           <p>There is a type of recursion called <dfn>tail recursion</dfn> that, while written recursively, behaves iteratively. In general, if the recursive call is the last call, and there are no computations based on the information from the lower levels, then a good Prolog interpreter can implement the predicate iteratively, without growing the stack.</p>
-          <p>One classic example of tail recursion is the factorial predicate. First we'll write it using normal recursion. Note that the variable <var>FF</var>, which is returned from the lower level, is used in the top level.</p>
+          <p>One classic example of tail recursion is the factorial predicate. First we&apos;ll write it using normal recursion. Note that the variable <var>FF</var>, which is returned from the lower level, is used in the top level.</p>
           <pre>factorial_1 (1,1).
 factorial_1 (N,F):-
   N &gt; 1,
@@ -756,11 +794,12 @@ reverse([HIT], Temp, Rev) :-
 X = [zebras, mice, ants]</pre>
         </section>
       </section>
-      <section>
+
+      <section id="adt-and-search">
         <h2>Abstract Data Types and Search</h2>
         <section id="recursion_based_graph_search">
           <h3>Recursion-Based Graph Search</h3>
-          <p>We next introduce the 3 x 3 knight's tour problem, create a predicate calculus based representation of problem states, and a recursive search of its state space. The chess knight can move on a restricted board as on any regular chessboard: two squares one direction (horizontally or vertically) and one in the other (vertically or horizontally). Thus, the knight can go from square 1 to either square 6 or 8 or from square 9 to either 2 or 4. We ask if the knight can generate a sequence on legal moves from one square to another on this restricted chessboard, from square 1 to 9, for example. The knight's moves are represented in Prolog using <kbd>move</kbd> facts.</p>
+          <p>We next introduce the 3 x 3 knight&apos;s tour problem, create a predicate calculus based representation of problem states, and a recursive search of its state space. The chess knight can move on a restricted board as on any regular chessboard: two squares one direction (horizontally or vertically) and one in the other (vertically or horizontally). Thus, the knight can go from square 1 to either square 6 or 8 or from square 9 to either 2 or 4. We ask if the knight can generate a sequence on legal moves from one square to another on this restricted chessboard, from square 1 to 9, for example. The knight&apos;s moves are represented in Prolog using <kbd>move</kbd> facts.</p>
           <p>The <kbd>path</kbd> predicate defines an algorithm for a path between its two arguments, the present state, X, and the goal that it wants to achieve, Y. To do this it first tests whether it is where it wants to be, <kbd>path(Z, Z)</kbd>, and if not, looks for a state, W, to move to.</p>
           <p>The Prolog search defined by <kbd>path</kbd> is a recursive, depth-first, left-to-right, tree walk. As shown before, <kbd>assert</kbd> is a built-in Prolog predicate that always succeeds and has the side effect of placing its argument in the database of specifications. The <kbd>been</kbd> predicate is used to record each state as it is visited and then <kbd>not(been(X))</kbd> determines, with each new state found whether that state has been previously visited, thus avoiding looping within the search space.</p>
           <pre>path(Z, Z).
@@ -777,7 +816,7 @@ path(X, Y, L) :-
         </section>
         <section id="ADTs_in_Prolog">
           <h3>Abstract Data Types in Prolog</h3>
-          <?source Luger and Stubblefield: <citetitle class='book'>Algorithms, Data Structures, and Idioms in Prolog, Lisp, and Java</citetitle>, Pearson 2009?>
+          <?source Luger and Stubblefield: <citetitle class=&apos;book&apos;>Algorithms, Data Structures, and Idioms in Prolog, Lisp, and Java</citetitle>, Pearson 2009?>
           <p>Programming, in almost any environment, is enhanced by creating procedural abstractions and by hiding information. Because the set, stack, queue, and priority queue data structures are important support constructs for graph search algorithms, a major component of AI problem solving, we build them in Prolog in the present section.<?see We will use these ADTs in the design of the Prolog search algorithms presented in Chapter 4.?</p>>
           <p>Since lists, recursion, and pattern matching are the primary tools for building and searching graph structures, they are the pieces with which we build our ADTs. All list handling and recursive processing that define the ADT are <q>hidden</q> within the ADT abstraction, quite different than the normal static data structure.</p>
           <section>
@@ -791,7 +830,7 @@ path(X, Y, L) :-
             <li>5. Member_stack, checks whether an element is in the stack.</li>
             <li>6. Add_list_to stack, adds a list of elements to the stack.</li>
           </ul>
-          <note>Operators 5 and 6 may be built from 1&#x2013;4.</note>
+          <aside class="note">Operators 5 and 6 may be built from 1&#x2013;4.</aside>
           <p>We now build these operators in Prolog, using the list primitives:</p>
           <ul>
             <li>
@@ -913,7 +952,8 @@ equal_set(S1, S2) :-
       <!-- end of "Abstract Data Types in Prolog" -->
       <!--</section>-->
       <!-- end of "Abstract Data Types and Search" -->
-      <section>
+
+      <section id="search-strategies-using-production-system-design-pattern">
         <h2>Depth-, Breadth-, and Best-First Search Using the Production System Design Pattern</h2>
         <section>
           <h3>Production System Search in Prolog</h3>
@@ -938,8 +978,8 @@ equal_set(S1, S2) :-
             <!-- </varlistentry> -->
           </dl>
           <section>
-            <h4>Example: The Knight's Tour Revisited</h4>
-            <p>The 3 x 3 knight's tour problem may be solved with a production system. Each move can be represented as a rule whose condition is the location of the knight on a particular square and whose action moves the knight to another square. Sixteen productions represent all possible moves of the knight.</p>
+            <h4>Example: The Knight&apos;s Tour Revisited</h4>
+            <p>The 3 x 3 knight&apos;s tour problem may be solved with a production system. Each move can be represented as a rule whose condition is the location of the knight on a particular square and whose action moves the knight to another square. Sixteen productions represent all possible moves of the knight.</p>
             <p>We next specify a recursive procedure to implement a control algorithm for the production system. We will use the <a href="#recursion_based_graph_search">recursive path algorithm</a><?see of Section 3.1?>, where the third argument of the path predicate is the list of already visited states. Because <kbd>path(Z, Z, L)</kbd> will unify only with predicates whose first two arguments are identical, such as <kbd>path(3, 3, _)</kbd> or <kbd>path(5, 5, _)</kbd>, it defines the desired terminating condition. If <kbd>path(X, X, L)</kbd> does not succeed we look at the production rules for a next state and then recur.</p>
             <p>The general recursive path definition is given by two predicate calculus formulas:</p>
             <pre>path(Z, Z, L).
@@ -1004,7 +1044,7 @@ printsolution([State, Parent], Closed_set) :-
               <p>The third path call uses <kbd>bagof</kbd>, a Prolog built-in predicate standard to most interpreters. <kbd>bagof</kbd> lets us gather all the unifications of a pattern into a single list. The second parameter to <kbd>bagof</kbd> is the pattern predicate to be matched in the database. The first parameter specifies the components of the second parameter that we wish to collect. For example, we may be interested in the values bound to a single variable of a predicate. All bindings of the first parameter resulting from these matches are collected in a list, the <dfn>bag</dfn>, and bound to the third parameter.</p>
               <p>In this program, <kbd>bagof</kbd> collects the states reached by firing all of the enabled production rules. Of course, this is necessary to gather all descendants of a particular state so that we can add them, in proper order, to open. The second argument of <kbd>bagof</kbd>, a new predicate named <kbd>moves</kbd>, calls the <kbd>move</kbd> predicates to generate all the states that may be reached using the production rules. The arguments to <kbd>moves</kbd> are the present state, the open list, the closed set, and a variable that is the state reached by a good move. Before returning this state, moves checks that the new state, <kbd>Next</kbd>, is not a member of either <kbd>rest_open_stack</kbd>, <kbd>open</kbd> once the present state is removed, or <kbd>closed_set</kbd>. <kbd>bagof</kbd> calls <kbd>moves</kbd> and collects all the states that meet these conditions. The third argument of <kbd>bagof</kbd> represents the new states that are to be placed on the <kbd>Open_stack</kbd>.</p>
               <p>For some Prolog interpreters, <kbd>bagof</kbd> fails when no matches exist for the second argument and thus the third argument, <kbd>List</kbd>, is empty. This can be remedied by substituting <kbd>(bagof(X, moves(S, T, C, X), List); List = [ ])</kbd> for the current calls to <kbd>bagof</kbd> in the code.</p>
-              <p>Finally, because the states of the search are represented as state&#x2013;parent pairs, member check predicates, e.g., <kbd>member_set</kbd>, must be revised to reflect the structure of pattern matching. We test if a state&#x2013;parent pair is identical to the first element of the list of state&#x2013;parent pairs and then recur if it isn't:</p>
+              <p>Finally, because the states of the search are represented as state&#x2013;parent pairs, member check predicates, e.g., <kbd>member_set</kbd>, must be revised to reflect the structure of pattern matching. We test if a state&#x2013;parent pair is identical to the first element of the list of state&#x2013;parent pairs and then recur if it isn&apos;t:</p>
               <pre>member_set([State, Parent], [[State, Parent]|_]).
 member_set(X, [_|T]) :- member_set(X, T).</pre>
             </section>
@@ -1017,7 +1057,7 @@ member_set(X, [_|T]) :- member_set(X, T).</pre>
   enqueue([Start, nil], Empty_open_queue, Open_queue),
   empty_set(Closed_set),
   path(Open_queue, Closed_set, Goal).</pre>
-            <p><kbd>Start</kbd> and <kbd>Goal</kbd> have their obvious values. The shell can be used with the move rules and unsafe predicates for any search problem. Again we create the ordered pair <kbd>[State, Parent]</kbd>, as we did with depth-first search, to keep track of each state and its parent; the start state is represented by <kbd>[Start, nil]</kbd>. This will be used by <kbd>printsolution</kbd> to re-create the solution path from the <kbd>Closed_set</kbd>. The first parameter of path is the <kbd>Open_queue</kbd>, the second is the <kbd>Closed_set</kbd>, and the third is the <kbd>Goal</kbd>. Don't care variables, those whose values are not used in a clause, are written as <q><kbd>_</kbd></q>.</p>
+            <p><kbd>Start</kbd> and <kbd>Goal</kbd> have their obvious values. The shell can be used with the move rules and unsafe predicates for any search problem. Again we create the ordered pair <kbd>[State, Parent]</kbd>, as we did with depth-first search, to keep track of each state and its parent; the start state is represented by <kbd>[Start, nil]</kbd>. This will be used by <kbd>printsolution</kbd> to re-create the solution path from the <kbd>Closed_set</kbd>. The first parameter of path is the <kbd>Open_queue</kbd>, the second is the <kbd>Closed_set</kbd>, and the third is the <kbd>Goal</kbd>. Don&apos;t care variables, those whose values are not used in a clause, are written as <q><kbd>_</kbd></q>.</p>
             <pre>path(Open_queue, _, _) :-
   empty_queue(Open_queue),
   write(&#x2019;Graph searched, no solution found.&#x2019;).
@@ -1045,7 +1085,7 @@ moves(State, Rest_open_queue, Closed_set, [Next, State]) :-
           <section id="best-first_search_in_prolog">
             <h4>Implementing Best-first Search in Prolog</h4>
             <p>Our shell for best-first search is a modification of the <a href="#depth-first_search_in_prolog">breadth-first algorithm</a> in which the open queue is replaced by a priority queue, ordered by heuristic merit, which supplies the current state for each new call to <kbd>path</kbd>. In our algorithm, we attach a heuristic measure permanently to each new state on open and use this measure for ordering the states on open. We also retain the parent of each state. This information is used by <kbd>printsolution</kbd>, as in depth- and breadth-first search, to build the solution path once the goal is found.</p>
-            <p>To keep track of all required search information, each state is represented as a list of five elements: the state description, the parent of the state, an integer giving the depth in the graph of the state's discovery, an integer giving the heuristic measure of the state, and the integer sum of the third and fourth elements. The first and second elements are found in the usual way; the third is determined by adding one to the depth of its parent; the fourth is determined by the heuristic measure of the particular problem. The fifth element, used for ordering the states on the <kbd>open_pq</kbd>, is <kbd>f(n) = g(n) + h(n)</kbd>. A justification for using this approach to order states for heuristic search, usually referred to as the <dfn>A Algorithm</dfn>, is presented in Luger (2009, Chapter 4).</p>
+            <p>To keep track of all required search information, each state is represented as a list of five elements: the state description, the parent of the state, an integer giving the depth in the graph of the state&apos;s discovery, an integer giving the heuristic measure of the state, and the integer sum of the third and fourth elements. The first and second elements are found in the usual way; the third is determined by adding one to the depth of its parent; the fourth is determined by the heuristic measure of the particular problem. The fifth element, used for ordering the states on the <kbd>open_pq</kbd>, is <kbd>f(n) = g(n) + h(n)</kbd>. A justification for using this approach to order states for heuristic search, usually referred to as the <dfn>A Algorithm</dfn>, is presented in Luger (2009, Chapter 4).</p>
             <p>As before, the move rules are not specified; they are defined to fit the specific problem. The ADT operators for set and priority queue are presented in the section on <a href="#ADTs_in_Prolog">ADTs</a>. heuristic, also specific to each problem, is a measure applied to each state to determine its heuristic weight, the value of the fourth parameter in its descriptive list.</p>
             <p>This best-first search algorithm has two termination conditions and is called by:</p>
             <pre>go(Start, Goal) :-
@@ -1095,7 +1135,8 @@ printsolution([State, Parent, _, _, _], Closed_set):-
           </section>
         </section>
       </section>
-      <section>
+
+      <section id="advanced">
         <h2>Special or Advanced Topics in Prolog</h2>
         <section>
           <h3>The Effect of Rule and Goal Ordering</h3>
@@ -1111,7 +1152,7 @@ printsolution([State, Parent, _, _, _], Closed_set):-
             <p>The optimal goal order of Prolog programs varies with different uses. Consider the definition of grandparent. There are two possible rules:</p>
             <pre>grandparent(X,Z) :- parent(X,Y), parent(Y,Z),
 grandparent(X,Z) :- parent(Y,Z), parent(X,Y).</pre>
-            <p>If you wish to find someone's grandson with the <kbd>grandfather/2</kbd> relationship with a query such as <kbd>grandparent (abraham, X)?</kbd>, the first of the rules searches more directly. If looking for someone's grandparent with a query such as <kbd>grandparent (X, isaac) ?</kbd>, the second rule finds the solution more directly. If efficiency is important, then it is advisable to have two distinct relationships, grandparent and grandchild, to be used appropriately at the user's discretion.</p>
+            <p>If you wish to find someone&apos;s grandson with the <kbd>grandfather/2</kbd> relationship with a query such as <kbd>grandparent (abraham, X)?</kbd>, the first of the rules searches more directly. If looking for someone&apos;s grandparent with a query such as <kbd>grandparent (X, isaac) ?</kbd>, the second rule finds the solution more directly. If efficiency is important, then it is advisable to have two distinct relationships, grandparent and grandchild, to be used appropriately at the user&apos;s discretion.</p>
             <p>In contrast to rule order, goal order can determine whether computations terminate. Consider the recursive rule for ancestor:</p>
             <pre>ancestor(X,Y) :- parent(X, Z), ancestor(Z,Y).</pre>
             <p>If the goals in the body are swapped, the ancestor program becomes left recursive, and all Prolog computations with ancestor are nonterminating.</p>
@@ -1129,14 +1170,14 @@ friend(X,Y) :- befriend(Y,X).</pre>
         </section>
       </section>
 
-      <section>
+      <section id="binding-to-c">
         <h2>Binding to C</h2>
         <p>The nature of this interaction with Prolog dictates the nature of a C to Prolog interface. It too must be able to either execute compiled Prolog code, or query a loaded Prolog program. In this sense, the interface from C to Prolog will look more like a database API than procedural interlanguage calls.</p>
         <p>The Hello World program illustrates the Prolog to C direction of the interface as well. Note that the <kbd>write</kbd> statement has nothing to do with logic, pattern- matching, or search; it simply performs I/O. Prolog provides a number of special predicates, such as <code class="function">write</code>, which are used primarily for their side effects. It is in this area that Prolog is weaker than C.</p>
-        <p>The Prolog programmer must rely on whatever special predicates a particular vendor provides with an implementation. So, for example, if a particular Prolog implementation doesn't supply the tools for accessing Windows, then it can't be used to implement Windows applications. This is where Prolog to C connections come in. They let a programmer define as many extended predicates, such as <code class="function">write</code>, as desired, to allow Prolog code access to any services accessable from C. This fundamental architecture of Prolog shapes the design of an interface between it and C. The calls from C to Prolog reflect the database nature of Prolog. The calls from Prolog to C reflect the procedural nature of C.</p>
+        <p>The Prolog programmer must rely on whatever special predicates a particular vendor provides with an implementation. So, for example, if a particular Prolog implementation doesn&apos;t supply the tools for accessing Windows, then it can&apos;t be used to implement Windows applications. This is where Prolog to C connections come in. They let a programmer define as many extended predicates, such as <code class="function">write</code>, as desired, to allow Prolog code access to any services accessable from C. This fundamental architecture of Prolog shapes the design of an interface between it and C. The calls from C to Prolog reflect the database nature of Prolog. The calls from Prolog to C reflect the procedural nature of C.</p>
       </section>
 
-      <section>
+      <section id="apps">
         <h2>Prolog Applications</h2>
         <section id="expert_sys_in_pl">
           <h3><a href="expert-systems.html">Expert Systems</a> in Prolog</h3>
@@ -1152,7 +1193,7 @@ color(X):- ask(color, X).</pre>
             <p>The simplest version of ask prompts the user with the requested attribute and value and seeks confirmation or denial of the proposed information. The code is:</p>
             <pre>ask(Attr, Val):-
 write(Attr:Val),
-write('? '),
+write(&apos;? &apos;),
 read(yes).</pre>
             <p>The read will succeed if the user answers <kbd>yes</kbd>, and fail if the user types anything else. Now the program can be run without having the data built into the program. The same query to bird starts the program, but now the user is responsible for determining whether some of the attribute-values are true. The following dialog shows how the system runs:</p>
             <pre>?- bird(X).
@@ -1167,7 +1208,7 @@ X = laysan_albatross</pre>
           </section>
           <section>
             <h4>Remembering the Answer</h4>
-            <p>A new predicate, known/3 is used to remember the user's answers to questions. It is not specified directly in the program, but rather is dynamically asserted whenever ask gets new information from the user.</p>
+            <p>A new predicate, known/3 is used to remember the user&apos;s answers to questions. It is not specified directly in the program, but rather is dynamically asserted whenever ask gets new information from the user.</p>
             <p>Every time ask is called it first checks to see if the answer is already known to be yes or no. If it is not already known, then ask will assert it after it gets a response from the user. The three arguments to known are: yes/no, attribute, and value. The new version of ask looks like:</p>
             <pre>ask(A, V):-
   known(yes, A, V), % succeed if true
@@ -1178,7 +1219,7 @@ ask(A, V):-
   fail.
 ask(A, V):-
   write(A:V), % ask user
-  write('? : '),
+  write(&apos;? : &apos;),
   read(Y), % get the answer
   asserta(known(Y, A, V)), % remember it
   Y == yes. % succeed or fail</pre>
@@ -1209,7 +1250,7 @@ flight(X):-
             <p>The menuask predicate can be implemented using either a sophisticated windowing interface, or by simply listing the menu choices on the screen for the user. When the user returns a value it can be verified, and the user reprompted if it is not a legal value.</p>
             <p>A simple implementation would have initial clauses as in ask, and have a slightly different clause for actually asking the user. That last clause of menuask might look like:</p>
             <pre>menuask(A, V, MenuList) :-
-  write('What is the value for'), write(A), write('?'), nl,
+  write(&apos;What is the value for&apos;), write(A), write(&apos;?&apos;), nl,
   write(MenuList), nl,
   read(X),
   check_val(X, A, V, MenuList),
@@ -1219,9 +1260,9 @@ check_val(X, A, V, MenuList) :-
   member(X, MenuList),
   !.
 check_val(X, A, V, MenuList) :-
-  write(X), write(' is not a legal value, try again.'), nl,
+  write(X), write(&apos; is not a legal value, try again.&apos;), nl,
   menuask(A, V, MenuList).</pre>
-            <p>The check_val predicate validates the user's input. In this case the test ensures the user entered a value on the list. If not, it retries the menuask predicate.</p>
+            <p>The check_val predicate validates the user&apos;s input. In this case the test ensures the user entered a value on the list. If not, it retries the menuask predicate.</p>
           </section>
         </section>
         <section>
@@ -1252,7 +1293,7 @@ nand(1, 1,0).</pre>
             <informalequation>
             E = nand(nand(<var>A</var>,<var>B</var>),nor(<var>C</var>,<var>D</var>))
           </informalequation>
-            <p>Let's call the output of the incoming nand and nor gates <var>t<subscript>1</subscript></var> and <var>t<subscript>2</subscript></var>. Then we may write a prolog rule:</p>
+            <p>Let&apos;s call the output of the incoming nand and nor gates <var>t<subscript>1</subscript></var> and <var>t<subscript>2</subscript></var>. Then we may write a prolog rule:</p>
             <pre>circ1(A, B, C, D, E) :-
   nand(A, B, T1),
   nor(C, 0, T2),

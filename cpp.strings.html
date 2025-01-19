@@ -22,15 +22,16 @@
         <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
       -->
       <div>
-        <p> <a href="cpp.templates.html">C++ Generics (Templates)</a> </p>
-        <p> <a href="cpp.containers.html">C++ STL Containers</a> </p>
-        <p> <a href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
-        <p> <a href="cpp.function-object.html">C++ Function Objects</a> </p>
-        <p> <a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a> </p>
-        <p> <a href="cpp.namespaces.html">C++ Namespaces</a> </p>
-        <p> <a href="cpp.exceptions.html">C++ Exceptions</a> </p>
-        <p> <a href="cpp.classes.html">OOP in C++: Classes</a> </p>
-        <p> <a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a> </p>
+        <p> <a rel="next" href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+        <p> <a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p> <a            href="cpp.containers.html">C++ STL Containers</a> </p>
+        <p> <a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+        <p> <a            href="cpp.function-object.html">C++ Function Objects</a> </p>
+        <p> <a            href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a> </p>
+        <p> <a            href="cpp.namespaces.html">C++ Namespaces</a> </p>
+        <p> <a            href="cpp.exceptions.html">C++ Exceptions</a> </p>
+        <p> <a            href="cpp.classes.html">OOP in C++: Classes</a> </p>
+        <p> <a            href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a> </p>
         <p> <a rel="prev" href="cpp.html">The C++ Programming Language</a> </p>
       </div>
       <div>
@@ -44,7 +45,7 @@
     </nav>
 
     <main>
-      <h1>STD Strings: &lt;string&gt; and &lt;string_view&gt;</h1>
+      <h1>STL Strings: &lt;string&gt; and &lt;string_view&gt;</h1>
       <section id="string">
         <h2>&lt;string&gt;</h2>
         <p>Strings are objects that represent sequences of characters.</p>
@@ -52,7 +53,7 @@
         <p>The standard string class provides support for such objects with an interface similar to that of a standard <a href="cpp.containers.html">container</a> of bytes, but adding features specifically designed to operate with strings of single-byte characters.</p>
         <p>Note that this class handles bytes independently of the encoding used: If used to handle sequences of multi-byte or variable-length characters (such as UTF-8), all members of this class (such as length or size), as well as its iterators, will still operate in terms of bytes (not actual encoded characters).</p>
         <section>
-          <h2>Template parameters</h2>
+          <h3>Template parameters</h3>
           <dl>
             <dt>
               <code>charT</code>
@@ -81,7 +82,7 @@
           <p><strong>Note:</strong> Because the first template parameter is not aliased as any member type, <code>charT</code> is used throughout this page to refer to this type.</p>
         </section>
         <section>
-          <h2>Template instantiations</h2>
+          <h3>Template instantiations</h3>
           <table border="1">
             <tr>
               <td>
@@ -110,7 +111,7 @@
           </table>
         </section>
         <section>
-          <h2>Member types (C++11)</h2>
+          <h3>Member types (C++11)</h3>
           <table border="1">
             <thead>
               <tr>
@@ -227,7 +228,7 @@
           </table>
         </section>
         <section>
-          <h2>Member Functions</h2>
+          <h3>Member Functions</h3>
           <table border="1">
             <tr><td>(constructor)</td> <td>Construct basic_string object (public member function)</td></tr>
             <tr><td>(destructor)</td> <td>String destructor (public member function)</td></tr>
@@ -289,8 +290,9 @@
             <tr><td><code>compare</code></td> <td>Compare strings (public member function)</td></tr>
           </table>
         </section>
+
         <section>
-          <h2>Non-Member Function Overloads</h2>
+          <h3>Non-Member Function Overloads</h3>
           <table border="1">
             <tr>
               <td>
@@ -324,25 +326,87 @@
             </tr>
             <tr>
               <td>
-                <code>getline</code>
+                <code><a href="#getline">getline</a></code>
               </td>
               <td>Get line from stream into string (function template)</td>
             </tr>
           </table>
+          <section id="getline">
+            <h4><code>getline</code></h4>
+            <p><code>getline</code> reads characters from an input stream and places them into a string. Defined in <code>&lt;string&gt;</code></p>
+            <pre>template&lt; class CharT, class Traits, class Allocator &gt;
+std::basic_istream&lt;CharT, Traits&gt;&amp;
+    getline( std::basic_istream&lt;CharT, Traits&gt;&amp; input,
+             std::basic_string&lt;CharT, Traits, Allocator&gt;&amp; str, CharT delim );
+(1)
+template&lt; class CharT, class Traits, class Allocator &gt;
+std::basic_istream&lt;CharT, Traits&gt;&amp;
+    getline( std::basic_istream&lt;CharT, Traits&gt;&amp;&amp; input,
+             std::basic_string&lt;CharT, Traits, Allocator&gt;&amp; str, CharT delim );
+(2)	(since C++11)
+template&lt; class CharT, class Traits, class Allocator &gt;
+std::basic_istream&lt;CharT, Traits&gt;&amp;
+    getline( std::basic_istream&lt;CharT, Traits&gt;&amp; input,
+             std::basic_string&lt;CharT, Traits, Allocator&gt;&amp; str );
+(3)
+template&lt; class CharT, class Traits, class Allocator &gt;
+std::basic_istream&lt;CharT, Traits&gt;&amp;
+    getline( std::basic_istream&lt;CharT, Traits&gt;&amp;&amp; input,
+             std::basic_string&lt;CharT, Traits, Allocator&gt;&amp; str );</pre>
+            <p>The following example demonstrates how to use the getline function to read user input, and to process a stream line by line, or by parts of a line using the delim parameter.</p>
+            <pre>#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+
+int main()
+{
+    // greet the user
+    std::string name;
+    std::cout &amp;&amp; "What is your name? ";
+    std::getline(std::cin, name);
+    std::cout &amp;&amp; "Hello " &amp;&amp; name &amp;&amp; ", nice to meet you.\n";
+
+    // read file line by line
+    std::istringstream input;
+    input.str("1\n2\n3\n4\n5\n6\n7\n");
+    int sum = 0;
+    for (std::string line; std::getline(input, line);)
+        sum += std::stoi(line);
+    std::cout &amp;&amp; "\nThe sum is " &amp;&amp; sum &amp;&amp; ".\n\n";
+
+    // use separator to read parts of the line
+    std::istringstream input2;
+    input2.str("a;b;c;d");
+    for (std::string line; std::getline(input2, line, ';');)
+        std::cout &amp;&amp; line &amp;&amp; '\n';
+}</pre>
+            <hr/>
+            <p>When consuming whitespace-delimited input (e.g. <code>int n; std::cin >> n;</code>) any whitespace that follows, including a newline character, will be left on the input stream. Then when switching to line-oriented input, the first line retrieved with <code>std::getline</code> will be just that whitespace. In the likely case that this is unwanted behaviour, possible solutions include:</p>
+            <ul>
+              <li>An explicit extraneous initial call to <code>getline</code>.</li>
+              <li>Removing consecutive whitespace with <code>std::cin >> std::ws</code>.</li>
+              <li>Ignoring all leftover characters on the line of input with <code>cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n');</code></li>
+            </ul>
+            <hr/>
+            <pre>???</pre>
+            <p>[...]</p>
+            <pre>???</pre>
+          </section>
         </section>
+
         <section>
-          <h2>Member constants</h2>
+          <h3>Member constants</h3>
         </section>
 
         <section id="at">
-          <h2>Member <code>at(<var>index</var>)</code></h2>
+          <h3>Member <code>at(<var>index</var>)</code></h3>
           <pre>reference at(size_type <var>pos</var>);
 const_reference at(size_type <var>pos</var>) const;</pre>
           <p>It returns a reference to the character at position <var>pos</var>. It automatically checks whether <var>pos</var> is the valid position of a character in the string (i.e., whether pos is less than the string length), throwing an <code class="classname">out_of_range</code> exception if it is not.</p>
         </section>
 
         <section id="substr">
-          <h2>Member <code>substr(<var>index</var>)</code></h2>
+          <h3>Member <code>substr(<var>index</var>)</code></h3>
           <pre>basic_string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const;</pre>
           <p>It returns a newly constructed <code>basic_string</code> object with its value initialized to a copy of a substring of this object. The substring is the portion of the object that starts at character position <var>pos</var> and spans <var>len</var> characters (or until the end of the string, whichever comes first).</p>
           <p>Example:</p>
@@ -363,7 +427,7 @@ int main ()
         </section>
 
         <section id="insert">
-          <h2><code>std::basic_string::insert</code></h2>
+          <h3><code>std::basic_string::insert</code></h3>
           <pre>basic_string&amp; insert (size_type pos,
   const basic_string&amp;  str);
   // inserts string
@@ -428,7 +492,7 @@ int main ()
         </section>
 
         <section id="replace">
-          <h2><code>std::basic_string::replace</code></h2>
+          <h3><code>std::basic_string::replace</code></h3>
           <pre>basic_string&amp;  replace (size_type pos,
   size_type len,
   const basic_string&amp;  str);
@@ -512,7 +576,7 @@ int main ()
         </section>
 
         <section id="copy">
-          <h2><code>std::basic_string::copy</code></h2>
+          <h3><code>std::basic_string::copy</code></h3>
           <pre>size_type copy (charT* s, size_type len, size_type pos = 0) const;</pre>
           <p>Copies a substring of the current value of the basic_string object into the array pointed by s. This substring contains the len characters that start at position pos.</p>
           <p>The function does not append a null character at the end of the copied content.</p>
@@ -534,7 +598,7 @@ int main ()
         </section>
 
         <section id="find">
-          <h2><code>std::basic_string::find</code></h2>
+          <h3><code>std::basic_string::find</code></h3>
           <pre>
 size_type find (const basic_string&amp; str, size_type pos = 0) const noexcept;
 size_type find (const charT* s, size_type pos = 0) const;
@@ -578,7 +642,7 @@ int main ()
         </section>
 
         <section id="find_first_of">
-          <h2><code>std::basic_string::find_first_of</code></h2>
+          <h3><code>std::basic_string::find_first_of</code></h3>
           <pre>
 size_type find_first_of (const basic_string&amp; str,
                          size_type pos = 0) const noexcept;
@@ -644,7 +708,7 @@ int main()
         <p>When we initialize <code class="classname">std::string_view</code> with C-style string literal <q>Hello, world!</q>, <var>s</var> provides read-only access to <q>Hello, world!</q> without making a copy of the string. When we pass <var>s</var> to <function>printSV()</function>, parameter <var class="parameter">str</var> is initialized from <var>s</var>. This allows us to access <q>Hello, world!</q> through <var>str</var>, again without making a copy of the string.</p>
         <tip>Prefer <code class="classname">std::string_view</code> over <code class="classname">std::string</code> when you need a read-only string, especially for function parameters.</tip>
         <section>
-          <title>std::string_view can be initialized with many different types of strings</title>
+          <h3>std::string_view can be initialized with many different types of strings</h3>
           <p>One of the neat things about a std::string_view is how flexible it is. A std::string_view object can be initialized with a C-style string, a std::string, or another std::string_view:</p>
           <pre>#include &lt;iostream&gt;
 #include &lt;string&gt;
@@ -666,7 +730,7 @@ int main()
 }</pre>
         </section>
         <section>
-          <title><code class="classname">std::string_view</code> parameters will accept many different types of string arguments</title>
+          <h3><code class="classname">std::string_view</code> parameters will accept many different types of string arguments</h3>
           <p>Both a C-style string and a <code class="classname">std::string</code> will implicitly convert to a <code class="classname">std::string_view</code>. Therefore, a <code class="classname">std::string_view</code> parameter will accept arguments of type C-style string, a <code class="classname">std::string</code>, or <code class="classname">std::string_view</code>:</p>
           <pre>#include &lt;iostream&gt;
 #include &lt;string&gt;
@@ -691,7 +755,7 @@ int main()
 }</pre>
         </section>
         <section>
-          <title><code class="classname">std::string_view</code> will not implicitly convert to <code class="classname">std::string</code></title>
+          <h3><code class="classname">std::string_view</code> will not implicitly convert to <code class="classname">std::string</code></h3>
           <p>Because <code class="classname">std::string</code> makes a copy of its initializer (which is expensive), C++ won't allow implicit conversion of a <code class="classname">std::string_view</code> to a <code class="classname">std::string</code>. This is to prevent accidentally passing a <code class="classname">std::string_view</code> argument to a <code class="classname">std::string parameter</code>, and inadvertently making an expensive copy where such a copy may not be required.</p>
           <p>However, if this is desired, we have two options:</p>
           <itemizedlist>
@@ -723,7 +787,7 @@ int main()
 }</pre>
         </section>
         <section>
-          <title>Assignment changes what the <code class="classname">std::string_view</code> is viewing</title>
+          <h3>Assignment changes what the <code class="classname">std::string_view</code> is viewing</h3>
           <p>Assigning a new string to a <code class="classname">std::string_view</code> causes the <code class="classname">std::string_view</code> to view the new string. It does not modify the prior string being viewed in any way.</p>
           <p>The following example illustrates this:</p>
           <pre>#include &lt;iostream&gt;
@@ -746,7 +810,7 @@ int main()
           <p>In the above example, sv = "John" causes sv to now view the string "John". It does not change the value held by name (which is still "Alex").</p>
         </section>
         <section>
-          <title>Literals for <code class="classname">std::string_view</code></title>
+          <h3>Literals for <code class="classname">std::string_view</code></h3>
           <p>Double-quoted string literals are C-style string literals by default. We can create string literals with type <code class="classname">std::string_view</code> by using a sv suffix after the double-quoted string literal. The sv must be lower case.</p>
           <pre>#include &lt;iostream&gt;
 #include &lt;string&gt;      // for std::string
@@ -767,7 +831,7 @@ int main()
           <p>That said, initializing a <code class="classname">std::string_view</code> using a <code class="classname">std::string_view</code> literal won't cause problems (as such literals are actually C-style string literals in disguise).</p>
         </section>
         <section>
-          <title>constexpr std::string_view</title>
+          <h3>constexpr std::string_view</h3>
           <p>Unlike std::string, std::string_view has full support for constexpr:</p>
           <pre>#include &lt;iostream&gt;
 #include &lt;string_view&gt;
@@ -782,6 +846,7 @@ int main()
           <p>This makes constexpr std::string_view the preferred choice when string symbolic constants are needed.</p>
         </section>
       </section>
+
     </main>
   </body>
 </html>
