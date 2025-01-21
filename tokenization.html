@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tokenization</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a            href="automata.html">Formal Languages and Automata</a></p>
+        <p><a            href="morphology.html">Morphology: Analizing Words</a></p>
+        <p><a            href="linguistics.html">Linguistics: The Study of Language</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a rel="next" href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+        <p><a            href="tts.html">Text To Speech (TTS) Software</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Tokenization: Breaking Text into its Component Words</h1>
+      <p>[...]</p>
+
+      <section>
+        <h2>Unix Tools for Crude Tokenization and Normalization</h2>
+        <p>Let&apos;s begin with an easy, if somewhat naive version of word tokenization and normalization (and frequency computation) that can be accomplished for English solely in a single UNIX command-line, inspired by Church (1994). We&apos;ll make use of some Unix commands: tr, used to systematically change particular characters in the input; sort, which sorts input lines in alphabetical order; and uniq, which collapses and counts adjacent identical lines.</p>
+        <p>For example let&apos;s begin with the <cite>complete words</cite> of Shakespeare in one file, <cite>sh.txt</cite>. We can use tr to tokenize the words by changing every sequence of non-alphabetic characters to a newline (<code>A-Za-z</code> means alphabetic, the <code>-c</code> option complements to non-alphabet, and the <code>-s</code> option squeezes all sequences into a single character):</p>
+        <pre>tr -sc 'A-Za-z' '\n' &lt; sh.txt</pre>
+      </section>
+    </main>
+
+  </body>
+
+</html>

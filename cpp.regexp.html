@@ -64,15 +64,143 @@ int main (int argc, const char * argv[]) {
 
       <section>
         <h2>Different Regular Expression Grammars</h2>
-        <p>There are several different grammars for regular expressions. For this reason, C++ includes support for several of these grammars: ECMAScript, basic, extended, awk, grep, and egrep. If you already know any of these regular expression grammars, you can use it straight away in C++ by telling the regular expression library to use that specific syntax ( syntax_option_type ). The default grammar in C++ is ECMAScript whose syntax is explained in detail in the following section. It is also the most powerful grammar, so it's recommended to use ECMAScript instead of one of the other more limited grammars. Explaining the other regular expression grammars falls outside the scope of this section.</p>
-        <section>
+        <p>There are several different grammars for regular expressions. For this reason, C++ includes support for several of these grammars: ECMAScript, basic, extended, awk, grep, and egrep. If you already know any of these regular expression grammars, you can use it straight away in C++ by telling the regular expression library to use that specific syntax ( syntax_option_type ). The default grammar in C++ is ECMAScript whose syntax is explained in detail in the following section. It is also the most powerful grammar, so it&apos;s recommended to use ECMAScript instead of one of the other more limited grammars. Explaining the other regular expression grammars falls outside the scope of this section.</p>
+        <section id="ECMAScript">
           <h3>ECMAScript Syntax</h3>
           <p>ECMAScript syntax recognizes the following special characters:</p>
           <pre>^ $ \ . * + ? ( ) [ ] { } |</pre>
           <p>If you need to match one of these special characters, you need to escape it using the \ character. For example:</p>
           <pre>\[ or \. or \* or \\</pre>
         </section>
+
+        <section id="basic">
+          <h3>basic Syntax</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="extended">
+          <h3>extended Syntax</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="awk">
+          <h3>awk Syntax</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="grep">
+          <h3>grep Syntax</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="egrep">
+          <h3>egrep Syntax</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
       </section>
+
+      <section>
+        <h2>Using Raw Strings</h2>
+        <p>Use <a target="_blank" href="cpp.raw-strings.html">raw string literals</a> in regular expressions.</p>
+        <p>The regular expression for the text <q>C++</q> is fairly unwieldly: <code>C\\+\\+</code>. You have to use two backslashes for each + sign. First, the + sign is a unique character in a regular expression. Second, the backslash is a special character in a string. Therefore one backslash escapes the + sign; the other backslash escapes the backslash. By using a raw string literal, the second backslash is not necessary anymore because the backslash is not interpreted in the string.</p>
+        <pre>#include &lt;regex&gt;
+
+//...
+
+std::string regExpr("C\\+\\+");
+std::string regExprRaw(R"(C\+\+)");</pre>
+      </section>
+
+      <section id="procedure">
+        <h2>Procedure for Applying Regular Expressions</h2>
+        <dl>
+          <dt>Define the regular expression [<a href="#objs">object</a>]</dt>
+          <dd>
+            <pre>std::string text="C++ or c++.";
+std::string regExpr(R"(C\+\+)");
+std::regex rgx(regExpr);</pre>
+          </dd>
+          <dt>Store the result of the search</dt>
+          <dd>
+            <pre>std::smatch result;
+std::regex_search(text, result, rgx);</pre>
+          </dd>
+          <dt>Process the result</dt>
+          <dd>
+            <p></p>
+            <pre>std::cout &lt;&lt; result[0] &lt;&lt; '\n';</pre>
+          </dd>
+        </dl>
+      </section>
+
+      <section id="text-tỳpes">
+        <h2>Text Types</h2>
+        <p>The text type determines the character type of the regular expression and the type of the search result.</p>
+        <p>The table below shows the four different combinations.</p>
+        <table border="1" id="simple_with_header">
+          <thead> <tr> <td>Text type</td> <td>Regular expression type</td> <td>Result type</td> </tr> </thead>
+                  <tr> <td>const char*</td> <td>std::regex</td> <td>std::cmatch</td> </tr>
+                  <tr> <td>std::string</td> <td>std::regex</td> <td>std::smatch</td> </tr>
+                  <tr> <td>const wchar_t*</td> <td>std::wregex</td> <td>std::wcmatch</td> </tr>
+                  <tr> <td>std::wstring</td> <td>std::wregex</td> <td>std::wsmatch</td> </tr>
+        </table>
+      </section>
+
+      <section id="objs">
+        <h2>Regular Expression Objects</h2>
+        <p>Objects of type regular expression are instances of the class template template <code>&lt;class charT, class traits= regex_traits &lt;charT&gt;&gt;</code> class basic_regex parametrized by their character type and traits class. The traits class defines the interpretation of the properties of regular grammar. There are two type synonyms in C++:</p>
+        <pre>typedef basic_regex&lt;char&gt; regex;
+typedef basic_regex&lt;wchar_t&gt; wregex;</pre>
+        <p>You can further customize the object of type regular expression. Therefore you can specify the grammar used or adapt the syntax. As mentioned, C++ supports the basic, extended, awk, grep, and egrep grammars.</p>
+        <p>A regular expression qualified by the <code>std::regex_constants::icase flag</code> is case insensitive. If you want to adopt the syntax, you have to specify the grammar explicitly.</p>
+        <pre>// regexGrammar.cpp
+...
+#include &lt;regex&gt;
+
+...
+
+using std::regex_constants::ECMAScript;
+using std::regex_constants::icase;
+
+std::string theQuestion="C++ or c++, that's the question.";
+std::string regExprStr(R"(c\+\+)");
+
+std::regex rgx(regExprStr);
+std::smatch smatch;
+
+if (std::regex_search(theQuestion, smatch, rgx)){
+std::cout &lt;&lt; "case sensitive: " &lt;&lt; smatch[0];
+}
+std::regex rgxIn(regExprStr, ECMAScript|icase);
+if (std::regex_search(theQuestion, smatch, rgxIn)){
+std::cout &lt;&lt; "case insensitive: " &lt;&lt; smatch[0];
+}</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
       <section>
         <h2>Removing Greediness</h2>
         <p>To make regular expression repetitions non-greedy, a ? can be added behind the repeat as in *? , +? , ?? , and {...}? . A non-greedy repetition repeats its pattern as few times as possible while still matching the remainder of the regular expression.</p>

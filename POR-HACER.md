@@ -1,5 +1,40 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] So it's the old 80-20 rule (also called the law of diminishing returns)? 80% of the coverage is handled by 20% of the effort.
+
+[ ] see to *morphology.html*
+
+https://www.tutorialspoint.com/natural_language_processing/natural_language_processing_word_level_analysis.htm
+
+https://web.stanford.edu/~jurafsky/slp3/old_dec21/ ()
+
+
+[ ] escribir  *coche-electrico.html*
+[ ] enlazar a *coche-electrico.html* desde *falsabilidad-ampliada.html#coche*
+
+[ ] *morph-through-regexp.html* Morphology by dint of Regular Expressions
+
+[ ] In *cpp.regexp.html* | "Different Regular Expression Grammars", finish writing section with id=basic (besides ECMAScript)
+[ ] In *cpp.regexp.html* | "Different Regular Expression Grammars", finish writing section with id=extended (besides ECMAScript)
+[ ] In *cpp.regexp.html* | "Different Regular Expression Grammars", finish writing section with id=awk (besides ECMAScript)
+[ ] In *cpp.regexp.html* | "Different Regular Expression Grammars", finish writing section with id=grep (besides ECMAScript)
+[ ] In *cpp.regexp.html* | "Different Regular Expression Grammars", finish writing section with id=egrep (besides ECMAScript)
+
+[ ] write *muzak.html*
+[ ] escribir *hilo-musical.html*
+
+[ ] write *occams-razor.html*
+[ ] escribir *navaja-de-occam.html*
+
+[ ] terminar de escribir *falsabilidad-ampliada.html*
+    añadiendo elementos dd (definition data)
+[x] Enlazar a *falsabilidad-ampliada.html* desde *pensamientos.html*
+[ ] Enlazar a *falsabilidad-ampliada.html* desde otros
+
+[ ] write *lynx.html*, a Text-Mode Browser
+[ ] link to *lynx.html* from *linux.html*, *HTML.html*,
+[ ] link to *lynx.html* from *informatica.html*, *proceso-de-escribir.html*,
+
 [ ] write *phoneme-map.html*:
 - Each ASCII character stands for a phoneme. Possible exceptions:
   - "tx", which stands for ch as in "chat" although it is suggested to use 'c' (cEt)

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raw String Literals in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      -->
+      <div>
+        <p> <a rel="prev" href="cpp.strings.html">STL Strings: &lt;string&gt; and &lt;string_view&gt;</a> </p>
+        <p> <a rel="next" href="#string_view"><code>string_view</code>: a non-Owning <code>std::span</code> on a String</a> </p>
+        <p> <a href="cpp.regexp.html">Regular Expressions in the STL</a> </p>
+        <p> <a href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+        <p> <a href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p> <a href="cpp.containers.html">C++ STL Containers</a> </p>
+        <p> <a href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+        <p> <a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a> </p>
+        <p> <a href="cpp.html">The C++ Programming Language</a> </p>
+      </div>
+      <div>
+        <p> <a href="cpp.get.html">C++ get()</a> </p>
+      </div>
+      <div>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p> <a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a> </p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Raw String Literals in C++</h1>
+      <p>Raw string literals are string literals that can span across multiple lines of code, that don't require escaping of embedded double quotes, and where escape sequences like <code>\t</code> and <code>\n</code> are not processed as escape sequences, but as normal text. For example, if you write the following with a normal string literal, you will get a compiler error because the string contains non-escaped double quotes:</p>
+      <pre>string str = "Hello "World"!"; // Error!</pre>
+      <p>With a normal string you have to escape the double quotes as follows:</p>
+      <pre>string str = "Hello \"World\"!";</pre>
+      <p>With a raw string literal you can avoid the need to escape the quotes. The raw string literal starts with <code>R " (</code> and ends with <code>) "</code>.</p>
+      <pre>string str = R"(Hello "World"!)";</pre>
+      <p>Raw string literals can span across multiple lines. For example, if you write the following with a normal string literal, you will get a compiler error, because a normal string literal cannot span multiple lines:</p>
+      <pre>string str = "Line 1
+Line 2 with \t"; // Error!</pre>
+      <p>Instead, you can use a raw string literal as follows:</p>
+      <pre>string str = R"(Line 1
+Line 2 with \t)";</pre>
+      <p>This also demonstrates that with the raw string literal the \t escape character is not replaced with an actual tab character but is taken literally.</p>
+      <h3 class="bridgehead">Some more examples:</h3>
+      <!-- borrowed from another source -->
+      <ul>
+        <li>E.g., escaped characters and double quotes:
+  	       <pre>std::string noNewlines(R"(\n\n)");
+std::string cmd(R"(ls /home/docs | grep ".pdf")");</pre>
+             </li>
+        <li>E.g., newlines:
+  	     <pre>std::string withNewlines(R"(Line 1 of the string...
+Line 2...
+Line 3)");</pre>
+             </li>
+      </ul>
+      <p>"Rawness" may be added to any string encoding:</p>
+      <pre>LR"(Raw Wide string literal \t (without a tab))"
+u8R"(Raw UTF-8 string literal \n (without a newline))"
+uR"(Raw UTF-16 string literal \\ (with two backslashes))"
+UR"(Raw UTF-32 string literal \u2620 (without a code point))"</pre>
+      <p>"R" must come after "u8", "u", "U", etc. &#x2013; it can't come in front of those specifiers.</p>
+      <h3 class="bridgehead">Extended Raw String Literal Syntax</h3>
+      <p>Since the raw string literal ends with ) " you cannot embed a ) " in your string using this syntax. For example, the following string is not valid because it contains the ) " in the middle of the string:</p>
+      <pre>string str = R"(The characters )" are embedded in this string)";
+// ERROR!</pre>
+      <p>If you need embedded ) " characters, you need to use the extended raw string literal syntax, which is as follows:</p>
+      <pre>R"d-char-sequence(r-char-sequence)d-char-sequence"</pre>
+      <p>The r-char-sequence is the actual raw string. The d-char-sequence is an optional delimiter sequence, which should be the same at the beginning and at the end of the raw string literal. This delimiter sequence can have at most 16 characters. You should choose this delimiter sequence as a sequence that will not appear in the middle of your raw string literal.</p>
+      <p>The previous example can be rewritten using a unique delimiter sequence as follows:</p>
+      <pre>string str = R"-(The characters )" are embedded in this string)-";</pre>
+    </main>
+  </body>
+</html>

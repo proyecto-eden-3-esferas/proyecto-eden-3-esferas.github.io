@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>C++ Strings</title>
+    <title>C++ Strings and String Views</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -14,6 +14,7 @@
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
+
   <body lang="en" class="computing">
     <nav>
       <!--
@@ -22,6 +23,7 @@
         <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
       -->
       <div>
+        <p><a            href="cpp.raw-strings.html">Raw String Literals in C++</a></p>
         <p><a rel="next" href="#string_view"><code>string_view</code>: a non-Owning <code>std::span</code> on a String</a></p>
         <p><a            href="cpp.regexp.html">Regular Expressions in the STL</a> </p>
         <p><a            href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
@@ -48,6 +50,7 @@
         <p><code>std::basic_string</code> is the generalization of class string for any character type, whereas the <code>string</code> class is an instantiation of the <code>std::basic_string</code> class template that uses char (i.e., bytes) as its character type, with its default <code>char_traits</code> and <code>allocator</code> types<!-- (see basic_string for more info on the template)-->.</p>
         <p>The standard string class provides support for such objects with an interface similar to that of a standard <a href="cpp.containers.html">container</a> of bytes, but adding features specifically designed to operate with strings of single-byte characters.</p>
         <p>Note that this class handles bytes independently of the encoding used: If used to handle sequences of multi-byte or variable-length characters (such as UTF-8), all members of this class (such as length or size), as well as its iterators, will still operate in terms of bytes (not actual encoded characters).</p>
+
         <section>
           <h3>Template parameters</h3>
           <dl>
@@ -106,6 +109,7 @@
             </tr>
           </table>
         </section>
+
         <section>
           <h3>Member types (C++11)</h3>
           <table border="1">
@@ -223,6 +227,7 @@
             </tr>
           </table>
         </section>
+
         <section>
           <h3>Member Functions</h3>
           <table border="1">
@@ -391,7 +396,7 @@ int main()
         </section>
 
         <section>
-          <h3>Member constants</h3>
+          <h3>Member constants*</h3>
         </section>
 
         <section id="at">
@@ -673,6 +678,10 @@ int main ()
 
       </section>
 
+      </main>
+
+      <main>
+
       <section id="string_view">
         <h2>&lt;string_view&gt;</h2>
         <p>string_view is conceptually only a view of the string: usually implemented as[ptr, length]. When a string_view is created there's no need to copy the data (as opposede to when you create a copy of a string). What's more string_view is smaller than std::string - regarding the size on the stack/heap.</p>
@@ -844,5 +853,7 @@ int main()
       </section>
 
     </main>
+
   </body>
+
 </html>
