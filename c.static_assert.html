@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>static_assert</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a rel="next" href="c.assert.html"><code>assert</code> in C</a></p>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+
+        <p><a            href="c.exit.html"><code>exit</code> for Normal Program Termination with Cleaning Up</a></p>
+        <p><a            href="c.atexit.html"><code>atexit</code> to Register a Function to be Called on <code>exit()</code> invocation</a></p>
+        <p><a            href="c.quick_exit.html"><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</a></p>
+        <!--
+        <p><a            href="c.io.html">Input/Output in C</a></p>
+        <p><a            href="c.time.html">Handling Time in C with the <code>&lt;time.h&gt;</code> library</a></p>
+        <p><a            href="c.designated-initialization.html">Designated Initialization in C</a></p>
+        <p><a            href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        -->
+      </div>
+      <div>
+        <p><a            href="c11.html">C11 (a Former Version of C)</a></p>
+        <!--
+        <p><a            href="c99.html">C99 (a Former Version of C)</a></p>
+        <p>                              C17:the Current Version of C (minor changes))</p>
+        -->
+      </div>
+      <!--
+      <div>
+        <p><a            href="c-and-cpp.html">C and C++</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      -->
+    </nav>
+
+    <main>
+      <h1><code>static_assert</code> in C</h1>
+      <pre>_Static_assert ( <var>expression</var> , <var>message</var> ) // (since C11)(deprecated in C23)
+static_assert ( <var>expression</var> , <var>message</var> ) // (since C23)
+_Static_assert ( <var>expression</var> ) // (since C23)(deprecated in C23)
+static_assert ( <var>expression</var> ) // (since C23)</pre>
+      <p>where</p>
+      <ul>
+        <li><var>expression</var> is any integer constant expression, and</li>
+        <li><var>message</var> is any string literal</li>
+      </ul>
+      <p>This keyword is also available as convenience macro <code>static_assert</code>, available in the header <code>&lt;assert.h&gt;</code> (until C23).</p>
+      <p>Both of <code>static_assert</code> and <code>_Static_assert</code> have the same effects. <code>_Static_assert</code> is a deprecated spelling that is kept for compatibility.</p>
+      <p>An implementation may also define <code>static_assert</code> and/or <code>_Static_assert</code> as predefined macros, and <code>static_assert</code> is no longer provided by <code>&lt;assert.h&gt;</code>.</p>
+
+      <h3 class="bridgehead">Explanation</h3>
+      <p>The constant expression is evaluated at compile time and compared to zero. If it compares equal to zero, a compile-time error occurs and the compiler must display <var>message</var> as part of the error message (except that characters not in basic character set are not required to be displayed) (until C23) should display <var>message</var> (if provided) as part of the error message (since C23).</p>
+      <p>Otherwise, if <var>expression</var> does not equal zero, nothing happens; no code is emitted.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;assert.h&gt; // no longer needed since C23
+
+int main(void)
+{
+    // Test if math works, C23:
+    static_assert((2 + 2) % 3 == 1, "Whoa dude, you knew!");
+    // Pre-C23 alternative:
+    _Static_assert(2 + 2 * 2 == 6, "Lucky guess!?");
+
+    // This will produce an error at compile time.
+    // static_assert(sizeof(int) &lt; sizeof(char), "Unmet condition!");
+
+    constexpr int _42 = 2 * 3 * 2 * 3 + 2 * 3;
+    static_assert(_42 == 42); // the message string can be omitted.
+
+    // const int _13 = 13;
+    // Compile time error - not an integer constant expression:
+    // static_assert(_13 == 13);
+}</pre>
+
+    </main>
+
+  </body>
+
+</html>

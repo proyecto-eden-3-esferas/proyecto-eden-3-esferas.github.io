@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <h2>STL Regular Expressions</h2>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a            href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      -->
+      <div>
+        <p> <a rel="prev" href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p> <a            href="cpp.strings.html">The C++ Programming Language</a> </p>
+        <p> <a rel="next" href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+        <p> <a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p> <a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+        <p> <a            href="cpp.containers.html">C++ STL Containers</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Regular Expressions in the STL</h1>
+
+      <p>Regular expressions, defined in the <cite><code>&lt;regex&gt;</code></cite> header, are a powerful feature of the Standard Library. They are a special mini-language for string processing. They might seem complicated at first, but once you get to know them, they make working with strings easier.</p>
+
+
+
+
+      <section>
+        <h2>Regular Expression Functions Provided</h2>
+        <p>Some of the functions provided are:</p>
+        <ul>
+          <li><code>regex_match()</code>: Match a regular expression against a string (of known size).</li>
+          <li><code>regex_search()</code>: Search for a string that matches a regular expression in an (arbitrarily long) stream of data. The result of a regex_search() is a collection of matches, typically represented as an <code class="classname">smatch</code>, which is a container of regex results.</li>
+          <li><code>regex_replace()</code>: Search for strings that match a regular expression in an (arbitrarily long) stream of data and replace them.</li>
+          <li><code>regex_iterator</code>: iterate over matches and submatches.</li>
+          <li><code>regex_token_iterator</code>: iterate over non-matches.</li>
+        </ul>
+        <p>Some simple operations are next exemplified:</p>
+        <pre>#include &lt;regex&gt;
+#include &lt;iostream&gt;
+
+int main (int argc, const char * argv[]) {
+    std::regex r("st|mt|tr");
+    std::cerr &lt;&lt; "st|mt|tr" &lt;&lt; " matches st? " &lt;&lt; std::regex_match("st", r) &lt;&lt; std::endl;
+    std::cerr &lt;&lt; "st|mt|tr" &lt;&lt; " matches mt? " &lt;&lt; std::regex_match("mt", r) &lt;&lt; std::endl;
+    std::cerr &lt;&lt; "st|mt|tr" &lt;&lt; " matches spruce? " &lt;&lt; std::regex_match("spruce", r) &lt;&lt; std::endl;
+
+    return 0;
+}</pre>
+      </section>
+
+      <section>
+        <h2>Different Regular Expression Grammars</h2>
+        <p>There are several different grammars for regular expressions. For this reason, C++ includes support for several of these grammars: ECMAScript, basic, extended, awk, grep, and egrep. If you already know any of these regular expression grammars, you can use it straight away in C++ by telling the regular expression library to use that specific syntax ( syntax_option_type ). The default grammar in C++ is ECMAScript whose syntax is explained in detail in the following section. It is also the most powerful grammar, so it's recommended to use ECMAScript instead of one of the other more limited grammars. Explaining the other regular expression grammars falls outside the scope of this section.</p>
+        <section>
+          <h3>ECMAScript Syntax</h3>
+          <p>ECMAScript syntax recognizes the following special characters:</p>
+          <pre>^ $ \ . * + ? ( ) [ ] { } |</pre>
+          <p>If you need to match one of these special characters, you need to escape it using the \ character. For example:</p>
+          <pre>\[ or \. or \* or \\</pre>
+        </section>
+      </section>
+      <section>
+        <h2>Removing Greediness</h2>
+        <p>To make regular expression repetitions non-greedy, a ? can be added behind the repeat as in *? , +? , ?? , and {...}? . A non-greedy repetition repeats its pattern as few times as possible while still matching the remainder of the regular expression.</p>
+      </section>
+    </main>
+  </body>
+</html>

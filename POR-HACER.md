@@ -1,7 +1,60 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *phoneme-map.html*:
+- Each ASCII character stands for a phoneme. Possible exceptions:
+  - "tx", which stands for ch as in "chat" although it is suggested to use 'c' (cEt)
+  - "ny" stands for Spanish ñ or Catalan ny: it is suggested to use uppercase N instead
+- If we run our of letters, we may use punctuation,
+  but then they will not be available for punctuation purposes.
+  Tricky.
+- Upper case letters always stand for special sounds:
+  - J stands for Spanish j: alternative X (as in the International Alphabet)
+  - D for English initial th as in "there", T for the first sound in "theatre"
+  - uppercase vowels stand for long or tense versions: fIl for "feel"
+- x stands for sh
+- z stands for voiced s, as in "zero"
+- g stands for /g/, as in "got"
+- j stands for a French g/j sound, as in "pleasure" (plej0)
+  though 'G' or 'Z' would be better, and let j represent a i consonant
+- y stands for French u or German ü (upper case Y stands for long ü)
+- in Arabic and other Semitic languages, uppercase consonants are emphatics.
+  Use an apostrophe to represent a glottal stop ('allah)
+  Or shouldn't you keep the apostrophe for stress (mac 0'dU = much adoo)
+- labial e (German ö), what about "oe", or "0"? We've run out of letters now
+  and we do need a letter (or a letter diagraph) to tell between short and long ö
+- What about the initial in "gene" or the ll in Spanish "calle"?
+  Use a diagraph ("dG" or "dZ")?
+- schwa or week vowel e, "0"? I would favour a non-letter like 0
+- w stands for consonant w
+- Optional and options in square brackets: share: xe0[r], cotton: kot[0|i]n
+
+[ ] link to *phoneme-map.html* from linguistics
+[ ] link to *phoneme-map.html* from *programming.html*
+[ ] link to *phoneme-map.html* from *regexp.html* etc.
+
+
+[ ] write *cpp.string_view.html*, already linked to from *cpp.span.html* and *cpp.strings.html*
+
+[ ] write *c.decay.html*
+When you invoke a function taking a C-array, <dfn>decay</dfn> occurs. The function takes the C- array via a pointer to its first element. The C-array to pointer conversion is error-prone because length information of the C-array is lost.
+
+[x] link to *c.decay.html* from *c.html*
+
+[x] link to *c.decay.html* from *cpp.span.html*
+
+
 [ ] write *unicode.html*, and
 [ ] provide a list of useful unicode characters, possibly therein
+[ ] provide a model DOCTYPE section like:
+
+```
+!DOCTYPE book SYSTEM "/home/francisco/Documents/mis_escritos/precious/xml/DocBook/docbook.dtd" [
+  <!ENTITY nbsp  "&#160;">
+  ...
+
+]>
+```
+possibly borrowed from *cyclopaedia.xml*, mmm?
 
 Añadir nuevas oposiciones
 [ ] empírico y teórico
@@ -473,6 +526,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+*cpp.regexp.html* from:
+[x] *regexp.html*,
+[x] *cpp.strings.html*, and
+[x] *cpp.stl.html*
 
 [x] *sqlite.vacuum.html* from *sqlite.sqlite3.html*, *sqlite.dump.html* etc.
 

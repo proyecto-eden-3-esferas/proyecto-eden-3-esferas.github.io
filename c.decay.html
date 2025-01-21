@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>C11</title>
+    <title>Decay: Loss of C-Arrays</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -23,23 +23,25 @@
 
       <div>
         <p><a rel="prev" href="c.html">The C Programming Language</a></p>
-        <p><a            href="c.static_assert.html"><code>static_assert</code> in C11</a></p>
+        <p><a            href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
         <p><a            href="c.io.html">Input/Output in C</a></p>
         <p><a            href="c.time.html">Handling Time in C with the <code>&lt;time.h&gt;</code> library</a></p>
         <p><a            href="c.designated-initialization.html">Designated Initialization in C</a></p>
       </div>
       <div>
-        <p><a            href="c99.html">C99 (the Former Version of C)</a></p>
+        <p><a            href="c99.html">C99 (a Former Version of C)</a></p>
+        <p><a            href="c11.html">C11 (a Former Version of C)</a></p>
+        <p>                              C17:the Current Version of C (minor changes))</p>
       </div>
       <div>
-        <p><a            href="programming.html">Programming Computers</a></p>
-        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="c-and-cpp.html">C and C++</a></p>
       </div>
 
     </nav>
 
     <main>
-      <h1>C11 (a Former Version of C)</h1>
+      <h1>Decay: Loss of C-Array Length Information</h1>
+      <p>When you invoke a function taking a C-array, <dfn>>decay</dfn> occurs. The function takes the C- array via a pointer to its first element. The C-array to pointer conversion is error-prone because length information of the C-array is lost.</p>
 
     </main>
 

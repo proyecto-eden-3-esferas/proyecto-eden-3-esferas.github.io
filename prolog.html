@@ -53,35 +53,37 @@
       <p><q>Prolog</q> stands for <i lang="fr">Programation Logique</i>.</p>
       <p>Prolog is a general-purpose logic programming language associated with <a href="ai.html">artificial intelligence</a> and computational linguistics. Prolog has its roots in first-order logic, which is a formal logic, and unlike many other programming languages, Prolog is intended as primarily a <em>declarative</em> programming language: the program logic is expressed in terms of relations, represented as facts and rules. A computation is initiated by running a query over these relations.</p>
       <p>Prolog implements the predicate calculus via <a href="#Horn_clauses_in_prolog">Horn clauses</a>. The inference mechanism of Prolog is based upon Robinson&apos;s resolution principle (1965) together with mechanisms for extracting answers proposed by Green (1968). These ideas came together forcefully with the advent of linear resolution procedures. Explicit goal-directed linear resolution procedures, such as those of Kowalski and Kuehner (1971) and Kowalski (1974), gave impetus to the development of a general purpose logic programming system.</p>
-      <p>A logic program is a set of axioms, or rules, defining relations between objects. A <dfn>computation</dfn> of a logic program is a deduction of consequences of the program. A program defines a set of consequences, which is its meaning. The art of logic programming is constructing concise and elegant programs that have the desired meaning.</p>
+      <p>A <dfn>logic program</dfn> is a set of axioms, or rules, defining relations between objects. A <dfn>computation</dfn> of a logic program is a deduction of consequences of the program. A program defines a set of consequences, which is its meaning. The art of logic programming is constructing concise and elegant programs that have the desired meaning.</p>
       <p>The <dfn>meaning</dfn> of a logic program <var>P</var>, <code class="function">M(<var>P</var>)</code>, is the set of ground goals deducible from <var>P</var>.</p>
       <hr/>
       <p>Prolog was one of the first logic programming languages, and remains the most popular among such languages today, with several free and commercial <a href="prolog.compilers-and-interpreters.html">implementations</a> available. The language has been used for theorem proving, <a href="#expert_sys_in_pl">expert systems</a>, term rewriting, type inference, and automated planning, as well as its original intended field of use, natural language processing. Modern Prolog environments support the creation of graphical user interfaces, as well as administrative and networked applications.</p>
       <p>Prolog is well-suited for specific tasks that benefit from rule-based logical queries such as searching databases, voice control systems, and filling templates.</p>
 
       <nav>
-        <ul>
-          <li href="#intro">
-            <p><a href="#why">Why Prolog?</a></p>
-            <p><a href="#using">How Prolog is Used</a></p>
-            <p><a href="#start">Starting Prolog</a></p>
-            <p><a href="#building-blocks">The Building Blocks of a Prolog Program</a></p>
-          </li>
-          <li><a href="#backtracking">Backtracking</a></a></li>
-          <li><a href="#unification">Unification, the Engine for Predicate Matching and Evaluation</a></li>
-          <li><a href="#control-structures">Conjunction, disjunction, if-then</a></li>
-          <li><a href="#neg-as-fail">Negation by Failure in Prolog</a></li>
-          <li><a href="#prog-styles">Prolog Programming Styles</a></li>
-          <li><a href="#ops">Prolog Operators</a></li>
-          <li><a href="#io">File I/O in Prolog</a></li>
-          <li><a href="#meta-preds">Prolog Meta-Predicates</a></li>
-          <li><a href="#recursive-ctrl-loop">Recursive Control Loop</a></li>
-          <li><a href="#adt-and-search">Abstract Data Types and Search</a></li>
-          <li><a href="#search-strategies-using-production-system-design-pattern">Depth-, Breadth-, and Best-First Search Using the Production System Design Pattern</a></li>
-          <li><a href="#advanced">Special or Advanced Topics in Prolog</a></li>
-          <li><a href="#binding-to-c">Binding to C</a></li>
-          <li><a href="#apps">Prolog Applications</a></li>
-        </ul>
+        <div>
+          <p><a href="#why">Why Prolog?</a></p>
+          <p><a href="#using">How Prolog is Used</a></p>
+          <p><a href="#start">Starting Prolog</a></p>
+          <p><a href="#building-blocks">The Building Blocks of a Prolog Program</a></p>
+        </div>
+        <div>
+          <p><a href="#backtracking">Backtracking</a></p>
+          <p><a href="#unification">Unification, the Engine for Predicate Matching and Evaluation</a></p>
+          <p><a href="#control-structures">Conjunction, disjunction, if-then</a></p>
+          <p><a href="#neg-as-fail">Negation by Failure in Prolog</a></p>
+        </div>
+        <div>
+          <p><a href="#prog-styles">Prolog Programming Styles</a></p>
+          <p><a href="#ops">Prolog Operators</a></p>
+          <p><a href="#io">File I/O in Prolog</a></p>
+          <p><a href="#meta-preds">Prolog Meta-Predicates</a></p>
+          <p><a href="#recursive-ctrl-loop">Recursive Control Loop</a></p>
+          <p><a href="#adt-and-search">Abstract Data Types and Search</a></p>
+          <p><a href="#search-strategies-using-production-system-design-pattern">Depth-, Breadth-, and Best-First Search Using the Production System Design Pattern</a></p>
+          <p><a href="#advanced">Special or Advanced Topics in Prolog</a></p>
+          <p><a href="#binding-to-c">Binding to C</a></p>
+          <p><a href="#apps">Prolog Applications</a></p>
+        </div>
       </nav>
 
       <section id="why">
@@ -410,6 +412,7 @@ not X.</pre>
       <section id="ops">
         <h2>Prolog Operators</h2>
         <p>Sometimes it is convenient to write some functors as <dfn>operators</dfn>. This is a form of syntax that makes some structures easier to read. For example, arithmetic operations are commonly written as operators. When we write the arithmetic expression <inlineequation>x + y * z</inlineequation>, we call the <q>plus</q> sign and the <q>multiply</q> sign <em>operators</em>. If we had to write the arithmetic expression <inlineequation>x + y*z</inlineequation> in the normal way for structures, it would look like this: <kbd>+(x,*(y,z))</kbd>, and this would be a legal Prolog term.</p>
+        <p>(The same would be expressed in functional notation as <code>add(x,multiply(y,z))</code> given a previous definition of <code>add</code> and <code>multiply</code>.)</p>
         <p>The operators are sometimes easier to use, however, because we have grown accustomed to using them in arithmetic expressions ever since our schooldays. Also, the structure form requires that round brackets be placed around the functor&apos;s components, which may be awkward at times.</p>
         <p>It is important to note that the operators do not <em>cause</em> any arithmetic to be carried out. So in Prolog, <kbd>3+4</kbd> does not mean the same thing as <kbd>7</kbd>. The term <kbd>3+4</kbd> is another way to write the term <kbd>+(3,4)</kbd>, which is a data structure.</p>
         <p>First we need to know how to read arithmetic expressions that have operators in them. To do this, we need to know three things about each operator: its <em>position</em>, its <em>precedence</em>, and its <em>associativity</em>. In this section we will describe how to use Prolog operators with these three things in mind, but we will not go into very much detail. Although many different kinds of operators can be made up, we shall deal only with the familiar atoms +, -, *, and /.</p>

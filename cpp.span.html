@@ -21,16 +21,15 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
-        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
-        <p><a            href="computing.html">Computing</a></p>
-        <p><a            href="index.en.html">Home</a></p>
+        <p><a rel="next" href="cpp.strings.html#string_view"><code>string_view</code>: a Non-Owning <code>std::span</code> on a String</a></p>
+        <p><a rel="prev" href="cpp.stl.html">The C++ Standad Template Library (STL)</a></p>
+        <p><a            href="cpp.containers.html">C++ STL Containers</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
       </div>
-        <!--
-        <p><a href="cpp.boost.geometry.html.bak">C++ Boost Geomety (<code>.bak</code>)</a></p>
-        <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
-        -->
       <div>
         <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="index.en.html">Home</a></p>
       </div>
     </nav>
 
@@ -51,7 +50,14 @@
         <p>Every specialization of std::span is a TriviallyCopyable type. (since C++23)</p>
       </aside>
 
-      <h3 class="bridgehead">Constructors</h3>
+      <section>
+        <h2>No Decay</h2>
+        <p>When you invoke a function taking a C-array, <a target="_blank" href="c.decay.html">decay</a> occurs. The function takes the C- array via a pointer to its first element. The C-array to pointer conversion is error-prone because length information of the C-array is lost.</p>
+        <p>In contrast, a <code>std::span</code> <em>knows</em> its length.</p>
+      </section>
+
+      <section>
+      <h2>Constructors</h2>
       <p>Up to ten, taking arguments of type iterator, std::array, range&amp;&amp;, <code>initializer_list</code>, span...</p>
       <pre>constexpr span() noexcept; // (1) 	(since C++20)
 
@@ -85,7 +91,10 @@ constexpr span( const std::span&lt;U, N&gt;&amp; source ) noexcept; // (9) 	(sin
 
 constexpr span( const span&amp; other ) noexcept = default; // (10) 	(since C++20)</pre>
       <p>(4) constructs a span that is a view over the array <var>arr</var>; the resulting span has size() == N and data() == std::data(arr)</p>
-      <h4 class="bridgehead">Example</h4>
+      </section>
+
+      <section>
+      <h2>Example</h2>
       <pre>#include &lt;array&gt;
 #include &lt;iostream&gt;
 #include &lt;span&gt;
@@ -117,7 +126,10 @@ int main()
 }</pre>
 
 
-      <h3 class="bridgehead">Member Types</h3>
+      </section>
+
+      <section>
+      <h2>Member Types</h2>
       <table border="1">
         <thead> <tr> <td>Member type</td> <td>definition</td> </tr> </thead>
                 <tr> <td><code>element_type</code></td> <td><code>T</code></td> </tr>
@@ -133,6 +145,7 @@ int main()
                 <tr> <td><code>reverse_iterator</code></td> <td><code>std::reverse_iterator&lt;iterator&gt;</code></td> </tr>
                 <tr> <td><code>const_reverse_iterator</code> (since C++23)</td> <td><code>std::const_iterator&lt;reverse_iterator&gt;</code></td> </tr>
       </table>
+      </section>
 
       <section>
         <h2><code>std::span</code>: Methods returning iterators</h2>
@@ -164,12 +177,13 @@ int main()
         <table border="1">
                 <tr> <td><code>first(<var>N</var>)</code></td> <td>obtains a subspan consisting of the first <var>N</var> elements of the sequence</td> </tr>
                 <tr> <td><code>last(<var>N</var>)</code></td> <td>obtains a subspan consisting of the last <var>N</var> elements of the sequence</td> </tr>
-                <tr> <td><a href="subspan"><code>subspan()</code></a></td> <td>obtains a subspan</td> </tr>
+                <tr> <td><a href="#subspan"><code>subspan()</code></a></td> <td>obtains a subspan</td> </tr>
         </table>
       </section>
 
 
-      <h3 class="bridgehead">Example</h3>
+      <section>
+      <h2>Example</h2>
       <pre>#include &lt;algorithm&gt;
 #include &lt;cstddef&gt;
 #include &lt;iostream&gt;
@@ -233,6 +247,7 @@ int main()
         &amp;&amp; !contains(std::span{a, 8}, std::span{a, 9})
     );
 }</pre>
+      </section>
 
       <section id="subspan">
         <h2><code>std::span&lt;T,Extent&gt;::subspan</code> (since C++20)</h2>

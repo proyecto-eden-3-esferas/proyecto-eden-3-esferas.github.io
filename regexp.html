@@ -14,9 +14,9 @@
     <!--
       -->
       <div>
-        <p><a rel="next" href="programming.html">Programming Computers</a></p>
-        <p><a            href="networking.html">Networking</a></p>
-        <p><a rel="prev" href="computing.html">Computing with Computers</a></p>
+        <p><a rel="next" href="cpp.regexp.html">Regular Expressions in C++</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a            href="computing.html">Computing with Computers</a></p>
       </div>
       <div>
         <p><a href="index.en.html">Back to Home</a></p>
@@ -25,8 +25,50 @@
 
     <main>
       <h1>Regular Expressions: A Language of Text Patterns</h1>
-      <p><dfn>Regular expressions</dfn> are a miniature language used for matching complex text patterns and thus transforming text. They are a powerful tool that only require a small time investment to learn. They are supported by most modern <a href="programming.html">programming</a> languages and by most text editors and text processors.</p>
+      <p>Regular expressions are a miniature language used for matching complex text patterns and thus transforming text. They are a powerful tool that only require a small time investment to learn. They are supported by most modern <a href="programming.html">programming</a> languages and by most text editors and text processors.</p>
+      <p>A <dfn>regular expression</dfn> pattern is a sequence of characters representing what you want to match in a given string. Any character in the regular expression matches itself except for some special characters.</p>
 
+      <section id="uses">
+        <h2>The Uses of Regular Expressions</h2>
+        <p>Regular expressions can be used for several string-related operations:</p>
+        <ul>
+          <li>
+            <p><strong>Validation:</strong> Check if an input string is well-formed.</p>
+            <p>For example: Is the input string a well-formed phone number?</p>
+          </li>
+          <li>
+            <p><strong>Decision:</strong> Check what kind of string an input represents.</p>
+            <p>For example: Is the input string the name of a JPEG or a PNG file?</p>
+          </li>
+          <li>
+            <p><strong>Parsing:</strong> Extract information from an input string.</p>
+            <p>For example: From a full filename, extract the filename part without the full path and without its extension.</p>
+          </li>
+          <li>
+            <p><strong>Transformation:</strong> Search sub-strings and replace them with a new formatted sub-string.</p>
+            <p>For example: Search all occurrences of "C++14" and replace them with "C++".</p>
+          </li>
+          <li>
+            <p><strong>Iteration:</strong> Search all occurrences of a sub-string.</p>
+            <p>For example: Extract all phone numbers from an input string.</p>
+          </li>
+          <li>
+            <p><strong>Tokenization:</strong> Split a string into sub-strings based on a set of delimiters.</p>
+            <p>For example: Split a string on whitespace, commas, periods, and so on to extract its individual words.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="terminology">
+        <h2>Regular Expression Terminology</h2>
+        <p>Before we can go into more detail on the regular expressions, there is some important terminology to know. The following terms are used throughout the discussion:</p>
+        <ul>
+          <li><dfn>Pattern</dfn> The actual regular expression is a pattern represented by a string.</li>
+          <li><dfn>Match</dfn> Determines whether there is a match between a given regular expression and all of the characters in a given sequence [first,last).</li>
+          <li><dfn>Search</dfn> Determines whether there is some sub-string within a given sequence [first,last) that matches a given regular expression.</li>
+          <li><dfn>Replace</dfn>: Identifies sub-strings in a given sequence, and replaces them with a corresponding new sub-string computed from another pattern, called a <dfn>substitution pattern</dfn>.</li>
+        </ul>
+      </section>
     </main>
 
   </body>

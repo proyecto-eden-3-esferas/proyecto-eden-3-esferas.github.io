@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>atexit (C)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a            href="c.assert.html"><code>assert</code> in C</a></p>
+        <p><a            href="c.static_assert.html"><code>static_assert</code> in C</a></p>
+        <p><a            href="c.abort.html"><code>abort</code> for Abnormal Program Termination</a></p>
+      </div>
+      <div>
+        <p><a            href="c.exit.html"><code>exit</code> for Normal Program Termination with Cleaning Up</a></p>
+        <p><a            href="c.quick_exit.html"><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</a></p>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1><code>atexit</code> to Register a Function to be Called on <code>exit()</code> Invocation</h1>
+      <pre>int atexit( void (*<var>func</var>)(void) );</pre>
+      <p>Registers the function pointed to by <var>func</var> to be called on normal program termination (via <code>exit()</code> or returning from <code>main()</code>). The functions will be called in reverse order they were registered, i.e. the function registered last will be executed first.</p>
+      <p>The same function may be registered more than once.</p>
+      <p>The implementation is guaranteed to support the registration of at least 32 functions. The exact limit is implementation-defined.</p>
+      <p>(Defined in header <code>&lt;stdlib.h&gt;</code>)</p>
+
+      <h3 class="bridgehead">Return Value</h3>
+      <p><code>0</code>​ if the registration succeeds, nonzero value otherwise.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+void f1(void)
+{
+    puts("f1");
+}
+
+void f2(void)
+{
+    puts("f2");
+}
+
+int main(void)
+{
+    if ( ! atexit(f1) &amp;&amp; ! atexit(f2) &amp;&amp; ! atexit(f2) )
+        return EXIT_SUCCESS ;
+
+    // atexit registration failed
+    return EXIT_FAILURE ;
+
+}   // &lt;- if registration was successful calls f2, f2, f1</pre>
+
+    </main>
+
+  </body>
+
+</html>

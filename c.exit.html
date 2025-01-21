@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>exit() in C</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+      <div>
+        <p><a            href="c.assert.html"><code>assert</code> in C</a></p>
+        <p><a            href="c.static_assert.html"><code>static_assert</code> in C</a></p>
+        <p><a            href="c.abort.html"><code>abort</code> for Abnormal Program Termination</a></p>
+
+        <p><a            href="c.atexit.html"><code>atexit</code> to Register a Function to be Called on <code>exit()</code> invocation</a></p>
+        <p><a            href="c.quick_exit.html"><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</a></p>
+
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>exit</code> for Normal Program Termination with Cleaning Up</h1>
+      <p><code>exit(int)</code> causes normal program termination to occur.</p>
+      <pre>void exit(int <var>exit_code</var>); // until C11
+_Noreturn void exit(int <var>exit_code</var>); // since C11 and until C23
+[[noreturn]] void exit(int <var>exit_code</var>); since C23</pre>
+      <p>(Defined in header <code>&lt;stdlib.h&gt;</code>)</p>
+
+      <p>Several cleanup steps are performed:</p>
+      <ul>
+        <li>functions passed to <code><a href="c.atexit.html">atexit</a></code> are called, in reverse order of registration</li>
+        <li>all C streams are flushed and closed</li>
+        <li>files created by <code>tmpfile</code> are removed</li>
+        <li>control is returned to the host environment. If <code>exit_code</code> is zero or <code>EXIT_SUCCESS</code>, an implementation-defined status indicating successful termination is returned. If exit_code is <code>EXIT_FAILURE</code>, an implementation-defined status indicating unsuccessful termination is returned. In other cases implementation-defined status value is returned.</li>
+      </ul>
+
+      <h3 class="bridgehead">Notes</h3>
+      <p>The functions registered with <code>at_quick_exit</code> are not called.</p>
+      <p>The behavior is undefined if a program calls <code>exit</code> more than once, or if it calls <code>exit</code> and <code>quick_exit</code>.</p>
+      <p>The behavior is undefined if during a call to a function registered with <code>atexit</code>, the function exits with <code>longjmp</code>.</p>
+      <p>Returning from the the <code>main()</code> function, either by a <code>return</code> statement or by reaching the end of the function, executes <code>exit()</code>, passing the argument of the return statement (or ​0​ if implicit return was used) as <var>exit_code</var>.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void)
+{
+    FILE *fp = fopen("data.txt","r");
+    if (fp == NULL)
+    {
+       fprintf(stderr, "error opening file data.txt in function main()\n");
+       exit( EXIT_FAILURE );
+    }
+    fclose(fp);
+    printf("Normal Return\n");
+    return EXIT_SUCCESS ;
+}</pre>
+
+    </main>
+
+  </body>
+
+</html>

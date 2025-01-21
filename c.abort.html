@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>abort() in C</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a            href="c.assert.html"><code       >assert</code> in C</a></p>
+        <p><a            href="c.static_assert.html"><code>static_assert</code> in C</a></p>
+
+        <p><a            href="c.exit.html"><code>exit</code> for Normal Program Termination with Cleaning Up</a></p>
+        <p><a            href="c.atexit.html"><code>atexit</code> to Register a Function to be Called on <code>exit()</code> invocation</a></p>
+        <p><a            href="c.quick_exit.html"><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</a></p>
+
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+        <!--
+        <p><a            href="c.io.html">Input/Output in C</a></p>
+        <p><a            href="c.time.html">Handling Time in C with the <code>&lt;time.h&gt;</code> library</a></p>
+        <p><a            href="c.designated-initialization.html">Designated Initialization in C</a></p>
+        <p><a            href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        -->
+      </div>
+      <div>
+        <p><a            href="c11.html">C11 (a Former Version of C)</a></p>
+        <!--
+        <p><a            href="c99.html">C99 (a Former Version of C)</a></p>
+        <p>                              C17:the Current Version of C (minor changes))</p>
+        -->
+      </div>
+      <!--
+      <div>
+        <p><a            href="c-and-cpp.html">C and C++</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      -->
+    </nav>
+
+    <main>
+      <h1><code>abort</code> for Abnormal Program Termination in C</h1>
+
+      <p><code>abort()</code> is a function which causes abnormal program termination (without cleaning up).</p>
+      <p>It is defined in header <code>&lt;stdlib.h&gt;</code>.</p>
+      <pre>void abort(void); // (until C11)
+_Noreturn void abort(void); // (since C11 and until C23)
+[[noreturn]] void abort(void) // (since C23);</pre>
+      <p>It causes abnormal program termination unless <code>SIGABRT</code> is being caught by a signal handler passed to <var>signal</var> and the handler does not return.</p>
+      <p>Functions passed to <code>atexit()</code> are not called. Whether open resources such as files are closed is implementation defined. An implementation defined status is returned to the host environment that indicates unsuccessful execution.</p>
+
+      <h3 class="bridgehead">Notes</h3>
+      <p>POSIX specifies that the <code>abort()</code> function overrides blocking or ignoring the <code>SIGABRT</code> signal.</p>
+      <p>Some compiler intrinsics, e.g. <code>__builtin_trap</code> (gcc, clang, and icc) or <code>__fastfail</code>/<code>__debugbreak</code> (msvc), can be used to terminate the program as fast as possible.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void)
+{
+    FILE *fp = fopen("data.txt","r");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "error opening file data.txt in function main()\n");
+        abort();
+    }
+
+    /* Normal processing continues here. */
+    fclose(fp);
+    printf("Normal Return\n");
+    return 0;
+}</pre>
+
+    </main>
+
+  </body>
+
+</html>

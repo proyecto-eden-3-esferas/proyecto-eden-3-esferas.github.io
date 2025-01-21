@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>quick_exit (C)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a            href="c.assert.html"><code>assert</code> in C</a></p>
+        <p><a            href="c.static_assert.html"><code>static_assert</code> in C</a></p>
+        <p><a            href="c.abort.html"><code>abort</code> for Abnormal Program Termination</a></p>
+
+        <p><a            href="c.atexit.html"><code>atexit</code> to Register a Function to be Called on <code>exit()</code> invocation</a></p>
+        <p><a            href="c.exit.html"><code>exit</code> for Normal Program Termination with Cleaning Up</a></p>
+
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</h1>
+      <p>Defined in header <code>&lt;stdlib.h&gt;</code>.</p>
+      <pre>_Noreturn void quick_exit( int exit_code ); // since C11 and until C23
+[[noreturn]] void quick_exit( int exit_code ); // since C23</pre>
+      <p>Causes normal program termination to occur without completely cleaning the resources.</p>
+      <p>Functions passed to <code><a href="#at_quick_exit">at_quick_exit</a></code> are called in reverse order of their registration. After calling the registered functions, calls <code>_Exit(exit_code)</code>.</p>
+      <p>Functions passed to <code>atexit</code> or signal handlers passed to <code>signal</code> are not called.</p>
+
+      <h3 class="bridgehead">Example</h3>
+      <pre>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+void f1(void)
+{
+    puts("pushed first");
+    fflush(stdout);
+}
+
+void f2(void)
+{
+    puts("pushed second");
+}
+
+void f3(void)
+{
+    puts("won't be called");
+}
+
+int main(void)
+{
+    at_quick_exit(f1);
+    at_quick_exit(f2);
+    atexit(f3);
+    quick_exit(0);
+}</pre>
+
+      <section id="at_quick_exit">
+        <h2>Function <code>at_quick_exit()</code></h2>
+        <p>Defined in header <code>&lt;stdlib.h&gt;</code></p>
+        <pre>int at_quick_exit( void (*<var>func</var>)(void) ); // since C11</pre>
+
+        <p>Registers the function pointed to by func to be called on quick program termination (via quick_exit).</p>
+        <p>Calling the function from several threads does not induce a data race. The implementation is guaranteed to support the registration of at least 32 functions. The exact limit is implementation-defined.</p>
+        <p>The registered functions will not be called on normal program termination. If a function need to be called in that case, atexit must be used.</p>
+
+        <h3 class="bridgehead">Return Value</h3>
+        <p><code>0</code>​ if the registration succeeds, nonzero value otherwise.</p>
+
+        <h3 class="bridgehead">Example</h3>
+        <pre>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+void f1(void)
+{
+    puts("pushed first");
+    fflush(stdout);
+}
+
+void f2(void)
+{
+    puts("pushed second");
+}
+
+int main(void)
+{
+    at_quick_exit(f1);
+    at_quick_exit(f2);
+    quick_exit(0);
+}</pre>
+        <p>[...]</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
