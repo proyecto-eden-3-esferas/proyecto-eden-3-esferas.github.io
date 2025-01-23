@@ -1,5 +1,14 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir y enlazar *las-4-habs.html*
+<h1>Las cuatro habitaciones</h1>
+<p>Vivimos, en nuestras viviendas, de una a otra de cuatro habitaciones: la cocina, el salón, el baño y el dormitorio. Cada una destinada a uno o varios usos: cocinar, estar, asearnos, dormir.</p>
+<p>Algunos privilegiados disponen de una quinta: un garaje que les sirve de taller.</p>
+<p>Salimos y cogemos esos medios de transporte tan apurados, viajamos como sardinas en lata en el metro o el autobús, entre medias esquivando a otros viandantes por las aceras, mientras automóviles pasan peligrosamente rápido junto a nosotros o al revés. Del trabajo al hogar, con breves excursiones al campo o a otras ciudades y enloquecedoras expediciones a tiendas y centros comerciales, cuando no lo resolvemos por internet. Luego, ya en casa, abrimos los paquetes y consumimos las mercancías adquiridas.</p>
+<p>Toda nuestra vida parte de y regresa a esas cuatro habitaciones. Transcurre entre ellas y el trabajo, entre ellas y las tiendas, entre ellas y otros templos de consumo. La ciudad nos facilita gastar, donde los centros de consumo quedan cerca.</p>
+
+[ ] Escribir *vivir.html* y trasladar a un elemento nav varios enlaces (desde *pensamientos.html*)
+
 [ ] write *c.string.html* and link to it from *cpp.strings.html* at id="c-string"
 
 [ ] write *cpp.range.html*
@@ -39,40 +48,15 @@ https://web.stanford.edu/~jurafsky/slp3/old_dec21/ ()
 [ ] link to *lynx.html* from *linux.html*, *HTML.html*,
 [ ] link to *lynx.html* from *informatica.html*, *proceso-de-escribir.html*,
 
-[ ] write *phoneme-map.html*:
-- Each ASCII character stands for a phoneme. Possible exceptions:
-  - "tx", which stands for ch as in "chat" although it is suggested to use 'c' (cEt)
-  - "ny" stands for Spanish ñ or Catalan ny: it is suggested to use uppercase N instead
-- If we run our of letters, we may use punctuation,
-  but then they will not be available for punctuation purposes.
-  Tricky.
-- Upper case letters always stand for special sounds:
-  - J stands for Spanish j: alternative X (as in the International Alphabet)
-  - D for English initial th as in "there", T for the first sound in "theatre"
-  - uppercase vowels stand for long or tense versions: fIl for "feel"
-- x stands for sh
-- z stands for voiced s, as in "zero"
-- g stands for /g/, as in "got"
-- j stands for a French g/j sound, as in "pleasure" (plej0)
-  though 'G' or 'Z' would be better, and let j represent a i consonant
-- y stands for French u or German ü (upper case Y stands for long ü)
-- in Arabic and other Semitic languages, uppercase consonants are emphatics.
-  Use an apostrophe to represent a glottal stop ('allah)
-  Or shouldn't you keep the apostrophe for stress (mac 0'dU = much adoo)
-- labial e (German ö), what about "oe", or "0"? We've run out of letters now
-  and we do need a letter (or a letter diagraph) to tell between short and long ö
-- What about the initial in "gene" or the ll in Spanish "calle"?
-  Use a diagraph ("dG" or "dZ")?
-- schwa or week vowel e, "0"? I would favour a non-letter like 0
-- w stands for consonant w
-- Optional and options in square brackets: share: xe0[r], cotton: kot[0|i]n
-
-[ ] link to *phoneme-map.html* from linguistics
-[ ] link to *phoneme-map.html* from *programming.html*
-[ ] link to *phoneme-map.html* from *regexp.html* etc.
+[x] write *phoneme-map.html*:
 
 
-[ ] write *cpp.string_view.html*, already linked to from *cpp.span.html* and *cpp.strings.html*
+[x] link to *phoneme-map.html* from *linguistics.html*
+[x] link to *phoneme-map.html* from *computing.html*
+[x] link to *phoneme-map.html* from *regexp.html* etc.
+
+
+[x] write *cpp.string_view.html*, already linked to from *cpp.span.html* and *cpp.strings.html*
 
 [ ] write *c.decay.html*
 When you invoke a function taking a C-array, <dfn>decay</dfn> occurs. The function takes the C- array via a pointer to its first element. The C-array to pointer conversion is error-prone because length information of the C-array is lost.
