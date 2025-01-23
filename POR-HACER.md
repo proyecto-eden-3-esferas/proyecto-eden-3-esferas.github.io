@@ -1,5 +1,9 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *c.string.html* and link to it from *cpp.strings.html* at id="c-string"
+
+[ ] write *cpp.range.html*
+
 [ ] So it's the old 80-20 rule (also called the law of diminishing returns)? 80% of the coverage is handled by 20% of the effort.
 
 [ ] see to *morphology.html*

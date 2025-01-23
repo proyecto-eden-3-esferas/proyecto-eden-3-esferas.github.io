@@ -97,6 +97,7 @@ int main (int argc, const char * argv[]) {
           <pre></pre>
         </section>
 
+
         <section id="grep">
           <h3>grep Syntax</h3>
           <p></p>
@@ -190,12 +191,309 @@ std::regex rgxIn(regExprStr, ECMAScript|icase);
 if (std::regex_search(theQuestion, smatch, rgxIn)){
 std::cout &lt;&lt; "case insensitive: " &lt;&lt; smatch[0];
 }</pre>
+        <p>If you use the case-sensitive regular expression <var>rgx</var>, the result of the search in the text <var>theQuestion</var> is <code>c++</code>. That&apos;s not the case if your case-insensitive regular expression <var>rgxIn</var> is applied. Now you get the match string <code>C++</code>.</p>
+      </section>
+
+      <section>
+        <h2>The Search Result <code>match_results</code>*</h2>
+        <p>The object of type <code>std::match_results</code> is the result of a <code>std::regex_match</code> or <code>std::regex_search</code>.</p>
+        <p><code>std::match_results</code> is a sequence container having at least one <a target="_blank" href="regexp.html#capture-group">capture group</a> of a <code>std::sub_match</code> object. The <code>std::sub_match</code> objects are sequences of characters.</p>
+        <p>C++ has four typedef&apos;s for <code>std::match_results</code>:</p>
+        <pre>typedef match_results&lt;const char*&gt; cmatch;
+typedef match_results&lt;const wchar_t*&gt; wcmatch;
+typedef match_results&lt;string::const_iterator&gt; smatch;
+typedef match_results&lt;wstring::const_iterator&gt; wsmatch;</pre>
+
+
+        <p>The search result <code>std::smatch</code> has a powerful interface.</p>
+        <table border="1">
+          <thead> <tr> <th>Member Function</th> <th>Description</th> </tr> </thead>
+          <tbody>
+                  <tr> <td><code>smatch.size()</code></td> <td>Returns the number of capture groups.</td> </tr>
+                  <tr> <td><code>smatch.empty()</code></td> <td>Returns if the search result has a capture group.</td> </tr>
+                  <tr> <td><code>smatch[i]</code></td> <td>Returns the ith capture group.</td> </tr>
+                  <tr> <td><code>smatch.length(i)</code></td> <td>Returns the length of the ith capture group.</td> </tr>
+                  <tr> <td><code>smatch.position(i)</code></td> <td>Returns the position of the ith capture group.</td> </tr>
+                  <tr> <td><code>smatch.str(i)</code></td> <td>Returns the ith capture group as string.</td> </tr>
+                  <tr> <td><code>smatch.prefix() and smatch.suffix()</code></td> <td>Returns the string before and after the capture group.</td> </tr>
+                  <tr> <td><code>smatch.begin() and smatch.end()</code></td> <td>Returns the begin and end iterator for the capture groups.</td> </tr>
+                  <tr> <td><code>smatch.format(...)</code></td> <td>Formats std::smatch objects for the output.</td> </tr>
+          </tbody>
+        </table>
+        <p>The following program shows the output of the first four capture groups for different regular expressions.</p>
+        <pre>// captureGroups.cpp
+...
+#include &lt;regex>
+...
+using namespace std;
+
+void showCaptureGroups(const string&amp; regEx, const string&amp; text){
+  regex rgx(regEx);
+  smatch smatch;
+  if (regex_search(text, smatch, rgx)) {
+    cout &lt;&lt; regEx &lt;&lt; text &lt;&lt; smatch[0] &lt;&lt; " " &lt;&lt; smatch[1]
+    &lt;&lt; " "&lt;&lt; smatch[2] &lt;&lt; " " &lt;&lt; smatch[3] &lt;&lt; endl;
+  }
+}
+
+showCaptureGroups("abc+", "abccccc");
+showCaptureGroups("(a+)(b+)", "aaabccc");
+showCaptureGroups("((a+)(b+))", "aaabccc");
+showCaptureGroups("(ab)(abc)+", "ababcabc");</pre>
+      </section>
+      <section>
+        <h2><code>td::sub_match</code></h2>
+        <p>The capture groups are of type <code>std::sub_match</code>. As with <code>std::match_results</code>, C++ defines the following four type synonyms.</p>
+        <pre>typedef sub_match&lt;const char*&gt; csub_match;
+typedef sub_match&lt;const wchar_t*&gt; wcsub_match;
+typedef sub_match&lt;string::const_iterator&gt; ssub_match;
+typedef sub_match&lt;wstring::const_iterator&gt; wssub_match;</pre>
+
+        <p>You can further analyze the capture group <var>cap</var>.</p>
+        <table border="1">
+          <thead> <tr> <th>Member Function</th> <th>Description</th> </tr> </thead>
+          <tbody>
+                  <tr> <td><code>cap.matched()</code></td> <td>Indicates if this match was successful.</td> </tr>
+                  <tr> <td><code>cap.first()</code> and <code>cap.end()</code></td> <td>Returns the begin and end iterator of the character sequence.</td> </tr>
+                  <tr> <td><code>cap.length()</code></td> <td>Returns the length of the capture group.</td> </tr>
+                  <tr> <td><code>cap.str()</code></td> <td>Returns the capture group as [a] string.</td> </tr>
+                  <tr> <td><code>cap.compare(<var>other</var>)</code></td> <td>Compares the current capture group with the <var>other</var> capture group.</td> </tr>
+          </tbody>
+        </table>
+
+        <p>Here is a code snippet showing the interplay between the search result <code>std::match_results</code> and its capture groups <code>std::sub_match</code>&apos;s:</p>
+        <pre>// subMatch.cpp
+...
+#include &lt;regex&gt;
+...
+using std::cout;
+
+std::string privateAddress="192.168.178.21";
+std::string regEx(R"((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}))");
+std::regex rgx(regEx);
+std::smatch smatch;
+
+if (std::regex_match(privateAddress, smatch, rgx)) {
+
+  for (auto cap: smatch) {
+    cout &lt;&lt; "capture group: " &lt;&lt; cap &lt;&lt; '\n';
+    if (cap.matched) {
+      std::for_each(cap.first,
+                    cap.second,
+                    [](int v) {
+        cout &lt;&lt; std::hex &lt;&lt; v &lt;&lt; " ";
+                              });
+      cout &lt;&lt; '\n';
+    }
+  } // for
+
+}
+
+...
+
+capture group: 192.168.178.21
+31 39 32 2e 31 36 38 2e 31 37 38 2e 32 31
+
+capture group: 192
+31 39 32
+
+capture group: 168
+31 36 38
+
+capture group: 178
+31 37 38
+
+capture group: 21
+32 31</pre>
+
+        <p>The regular expression <var>regEx</var> stands for an IPv4 address. <var>regEx</var> extracts the address&apos;s components using capture groups. Finally, the capture groups and the characters in ASCII are displayed in hexadecimal values.</p>
+      </section>
+
+      <section>
+        <h2>Matching</h2>
+        <p><code>std::regex_match</code> determines if the text matches a text pattern. You can further analyze the search result, which is of type <code>std::match_results</code>.</p>
+
+        <p>The code snippet below shows three simple applications of <code>std::regex_match</code>: a C string, a C++ string, and a range returning only a boolean. The three variants are available for <code>std::match_results</code> objects, respectively.</p>
+        <pre>// match.cpp
+...
+#include &lt;regex&gt;
+...
+std::string numberRegEx(R"([-+]?([0-9]*\.[0-9]+|[0-9]+))");
+std::regex rgx(numberRegEx);
+const char* numChar{"2011"};
+
+if (std::regex_match(numChar, rgx)) {
+  std::cout &lt;&lt; numChar &lt;&lt; "is a number." &lt;&lt; '\n';
+}
+// 2011 is a number.
+
+const std::string numStr{"3.14159265359"};
+if (std::regex_match(numStr, rgx)){
+  std::cout &lt;&lt; numStr &lt;&lt; " is a number." &lt;&lt; '\n';
+}
+// 3.14159265359 is a number.
+
+const std::vector&lt;char&gt; numVec{{'-', '2', '.', '7', '1', '8', '2',
+'8', '1', '8', '2', '8'}};
+if (std::regex_match(numVec.begin(), numVec.end(), rgx)) {
+  for (auto c: numVec) { std::cout &lt;&lt; c ;};
+  std::cout &lt;&lt; "is a number." &lt;&lt; '\n';
+} // if
+// -2.718281828 is a number.</pre>
+      </section>
+
+      <section>
+        <h2>Searching</h2>
+        <p><code>std::regex_search</code> checks if the text contains a text pattern. You can use the function with and without a <code>std::match_results</code> object and apply it to a C string, a C++ string, or a range.</p>
+        <p>The example below shows how to use <code>std::regex_search</code> with texts of type <code>const char*</code>, <code>std::string</code>, <code>const wchar_t*</code>, and <code>std::wstring</code>.</p>
+        <pre>// search.cpp
+...
+#include &lt;regex&gt;
+...
+
+// regular expression holder for time
+std::regex crgx("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+
+// const char*
+std::cmatch cmatch;
+
+const char* ctime{"Now it is 23:10." };
+if (std::regex_search(ctime, cmatch, crgx)) {
+  std::cout &lt;&lt; ctime &lt;&lt; '\n';
+  std::cout &lt;&lt; "Time: " &lt;&lt; cmatch[0] &lt;&lt; '\n'; // Time: 23:10
+}
+
+// std::string
+std::smatch smatch;
+std::string stime{"Now it is 23:25." };
+if (std::regex_search(stime, smatch, crgx)) {
+  std::cout &lt;&lt; stime &lt;&lt; '\n';
+  std::cout &lt;&lt; "Time: " &lt;&lt; smatch[0] &lt;&lt; '\n'; // Time: 23:25
+}
+
+// regular expression holder for time
+std::wregex wrgx(L"([01]?[0-9]|2[0-3]):[0-5][0-9]");
+
+// const wchar_t*
+std::wcmatch wcmatch;
+
+const wchar_t* wctime{L "Now it is 23:47." };
+if (std::regex_search(wctime, wcmatch, wrgx)) {
+  std::wcout &lt;&lt; wctime &lt;&lt; '\n';
+  std::wcout &lt;&lt; "Time: " &lt;&lt; wcmatch[0] &lt;&lt; '\n'; // Time: 23:47
+}
+
+// std::wstring
+std::wsmatch wsmatch;
+
+std::wstring wstime{L "Now it is 00:03." };
+if (std::regex_search(wstime, wsmatch, wrgx)) {
+  std::wcout &lt;&lt; wstime &lt;&lt; '\n';
+  std::wcout &lt;&lt; "Time: " &lt;&lt; wsmatch[0] &lt;&lt; '\n'; // Time: 00:03
+}</pre>
+      </section>
+
+      <section>
+        <h2>Replacing</h2>
+        <p><code>std::regex_replace</code> replaces sequences in a text matching a text pattern. It returns in the simple form <code>std::regex_replace(<var>text</var>, <var>regex</var>, <var>replString</var>)</code> its result as string. The function replaces an occurrence of <var>regex</var> in text with <var>replString</var>.</p>
+        <pre>// replace.cpp
+...
+#include &lt;regex&gt;
+...
+using namespace std;
+
+string future{"Future"};
+string unofficialName{
+  "The unofficial name of the new C++ standard is C++0x."};
+
+regex rgxCpp{R"(C\+\+0x)"};
+string newCppName{"C++11"};
+string newName{regex_replace(unofficialName, rgxCpp, newCppName)};
+
+regex rgxOff{"unofficial"};
+string makeOfficial{"official"};
+string officialName{regex_replace(newName, rgxOff, makeOfficial)};
+
+cout &lt;&lt; officialName &lt;&lt; endl;
+            // The official name of the new C++ standard is C++11.</pre>
+        <p>In addition to the simple version, C++ has a version of <code>std::regex_replace</code> working on ranges. It enables you to push the modified string directly into another string:</p>
+        <pre>typedef basic_regex&lt;char&gt; regex;
+std::string str2;
+std::regex_replace(std::back_inserter(str2),
+                   text.begin(), text.end(),
+                   regex,replString);</pre>
+        <p>All variants of <code>std::regex_replace</code> have an additional optional parameter. If you set the parameter to <code>std::regex_constants::format_no_copy</code>, you will get the part of the text matching the regular expression. The unmatched text is not copied. If you set the parameter to <code>std::regex_constants::format_first_only</code>, then <code>std::regex_replace</code> will only be applied once.</p>
+      </section>
+
+      <section>
+        <h2>Formating</h2>
+        <p><code>std::regex_replace</code> and <code>std::match_results.format</code> in combination with capture groups enables you to format text. You can use a format string together with a placeholder to insert the value.</p>
+        <p>Here are both possibilities, first with <code>regex</code>:</p>
+        <pre>// format.cpp
+...
+#include &lt;regex&gt;
+...
+std::string future{"Future"};
+const std::string unofficial{"unofficial, C++0x"};
+const std::string official{"official, C++11"};
+
+std::regex regValues{"(.*),(.*)"};
+std::string standardText{"The $1 name of the new C++ standard is $2."};
+std::string textNow = std::regex_replace(unofficial, regValues, standardText);
+std::cout &lt;&lt; textNow &lt;&lt; '\n';
+  // The unofficial name of the new C++ standard is C++0x.
+
+std::smatch smatch;
+if (std::regex_match(official, smatch, regValues)) {
+  std::cout &lt;&lt; smatch.str(); // official,C++11
+  std::string textFuture = smatch.format(standardText);
+  std::cout &lt;&lt; textFuture &lt;&lt; '\n';
+} // The official name of the new C++ standard is C++11.</pre>
+        <p>In the function call <code>std::regex_replace(unoffical, regValues, standardText)</code>, the text matching the first and second capture group of the regular expression <var>regValues</var> is extracted from the string unofficial. The placeholders <code>$1</code> and <code>$2</code> in the text <var>standardText</var> are then replaced by the extracted values. The strategy of <code>smatch.format(standardTest)</code> is similar, but there is a difference:</p>
+        <p>The creation of the search results <code>smatch</code> is separated from their usage when formatting the string.</p>
+        <p>In addition to capture groups, C++ supports additional format escape sequences. You can use them in format strings:</p>
+        <table border="1" id="simple_with_header_and_th">
+          <thead> <tr> <th>Format escape sequence</th> <th>Description</th> </tr> </thead>
+                  <tr> <td><code>$&amp;</code></td> <td>Returns the total match (0th capture group).</td> </tr>
+                  <tr> <td><code>$$</code></td> <td>Returns $.</td> </tr>
+                  <tr> <td><code>$`</code> (backward tic)</td> <td>Returns the text <em>before</em> the total match.</td> </tr> $`
+                  <tr> <td><code>$Â´</code> (forward tic)</td> <td>Returns the text <em>after</em> the total match.</td> </tr>
+                  <tr> <td><code>‘$ i’</code></td> <td>Returns the ith capture group.</td> </tr>
+        </table>
+      </section>
+      <section>
+        <h2>Repeated Search</h2>
+        <p>It&apos;s pretty convenient to iterate with <code>std::regex_iterator</code> and <code>std::regex_token_iterator</code> through the matched texts. <code>std::regex_iterator</code> supports the matches and their capture groups. <code>std::regex_token_iterator</code> supports more. You can address the components of each capture.</p>
+        <p>Using a negative index enables it to access the text between the matches.</p>
+        <section>
+          <h3><code>std::regex_iterator</code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3><code>std::regex_token_iterator</code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>ing *</h2>
         <p></p>
         <pre></pre>
         <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+      </section>
+
+      <section>
+        <h2>ing *</h2>
         <p></p>
         <pre></pre>
         <p></p>
