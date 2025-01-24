@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <h2>STL Regular Expressions</h2>
+    <title>STL Regular Expressions</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -35,10 +35,27 @@
 
       <p>Regular expressions, defined in the <cite><code>&lt;regex&gt;</code></cite> header, are a powerful feature of the Standard Library. They are a special mini-language for string processing. They might seem complicated at first, but once you get to know them, they make working with strings easier.</p>
 
+      <nav>
+        <p><a href="#functions">Regular Expression Functions Provided</a></p>
+        <p><a href="#versions">Different Regular Expression Grammars</a></p>
+        <p><a href="#using-raw">Using Raw Strings</a></p>
+        <p><a href="#procedure">Procedure for Applying Regular Expressions</a></p>
+        <p><a href="#text-tỳpes">Text Types</a></p>
+        <p><a href="#objs">Regular Expression Objects</a></p>
+        <p><a href="#match_results">The Search Result <code>match_results</code></a></p>
+        <p><a href="#sub_match"><code>td::sub_match</code></a></p>
+        <p><a href="#matching">Matching</a></p>
+        <p><a href="#searching">Searching</a></p>
+        <p><a href="#replacing">Replacing</a></p>
+        <p><a href="#formatting">Formatting</a></p>
+        <p><a href="#repeated-search">Repeated Search</a></p>
+        <p><a href="#removing-greediness">Removing Greediness</a></p>
+      </nav>
 
 
 
-      <section>
+
+      <section id="functions">
         <h2>Regular Expression Functions Provided</h2>
         <p>Some of the functions provided are:</p>
         <ul>
@@ -62,7 +79,7 @@ int main (int argc, const char * argv[]) {
 }</pre>
       </section>
 
-      <section>
+      <section id="versions">
         <h2>Different Regular Expression Grammars</h2>
         <p>There are several different grammars for regular expressions. For this reason, C++ includes support for several of these grammars: ECMAScript, basic, extended, awk, grep, and egrep. If you already know any of these regular expression grammars, you can use it straight away in C++ by telling the regular expression library to use that specific syntax ( syntax_option_type ). The default grammar in C++ is ECMAScript whose syntax is explained in detail in the following section. It is also the most powerful grammar, so it&apos;s recommended to use ECMAScript instead of one of the other more limited grammars. Explaining the other regular expression grammars falls outside the scope of this section.</p>
         <section id="ECMAScript">
@@ -115,7 +132,7 @@ int main (int argc, const char * argv[]) {
         </section>
       </section>
 
-      <section>
+      <section id="using-raw">
         <h2>Using Raw Strings</h2>
         <p>Use <a target="_blank" href="cpp.raw-strings.html">raw string literals</a> in regular expressions.</p>
         <p>The regular expression for the text <q>C++</q> is fairly unwieldly: <code>C\\+\\+</code>. You have to use two backslashes for each + sign. First, the + sign is a unique character in a regular expression. Second, the backslash is a special character in a string. Therefore one backslash escapes the + sign; the other backslash escapes the backslash. By using a raw string literal, the second backslash is not necessary anymore because the backslash is not interpreted in the string.</p>
@@ -194,7 +211,7 @@ std::cout &lt;&lt; "case insensitive: " &lt;&lt; smatch[0];
         <p>If you use the case-sensitive regular expression <var>rgx</var>, the result of the search in the text <var>theQuestion</var> is <code>c++</code>. That&apos;s not the case if your case-insensitive regular expression <var>rgxIn</var> is applied. Now you get the match string <code>C++</code>.</p>
       </section>
 
-      <section>
+      <section id="match_results">
         <h2>The Search Result <code>match_results</code>*</h2>
         <p>The object of type <code>std::match_results</code> is the result of a <code>std::regex_match</code> or <code>std::regex_search</code>.</p>
         <p><code>std::match_results</code> is a sequence container having at least one <a target="_blank" href="regexp.html#capture-group">capture group</a> of a <code>std::sub_match</code> object. The <code>std::sub_match</code> objects are sequences of characters.</p>
@@ -241,7 +258,7 @@ showCaptureGroups("(a+)(b+)", "aaabccc");
 showCaptureGroups("((a+)(b+))", "aaabccc");
 showCaptureGroups("(ab)(abc)+", "ababcabc");</pre>
       </section>
-      <section>
+      <section id="sub_match">
         <h2><code>td::sub_match</code></h2>
         <p>The capture groups are of type <code>std::sub_match</code>. As with <code>std::match_results</code>, C++ defines the following four type synonyms.</p>
         <pre>typedef sub_match&lt;const char*&gt; csub_match;
@@ -309,7 +326,7 @@ capture group: 21
         <p>The regular expression <var>regEx</var> stands for an IPv4 address. <var>regEx</var> extracts the address&apos;s components using capture groups. Finally, the capture groups and the characters in ASCII are displayed in hexadecimal values.</p>
       </section>
 
-      <section>
+      <section id="matching">
         <h2>Matching</h2>
         <p><code>std::regex_match</code> determines if the text matches a text pattern. You can further analyze the search result, which is of type <code>std::match_results</code>.</p>
 
@@ -342,7 +359,7 @@ if (std::regex_match(numVec.begin(), numVec.end(), rgx)) {
 // -2.718281828 is a number.</pre>
       </section>
 
-      <section>
+      <section id="searching">
         <h2>Searching</h2>
         <p><code>std::regex_search</code> checks if the text contains a text pattern. You can use the function with and without a <code>std::match_results</code> object and apply it to a C string, a C++ string, or a range.</p>
         <p>The example below shows how to use <code>std::regex_search</code> with texts of type <code>const char*</code>, <code>std::string</code>, <code>const wchar_t*</code>, and <code>std::wstring</code>.</p>
@@ -393,7 +410,7 @@ if (std::regex_search(wstime, wsmatch, wrgx)) {
 }</pre>
       </section>
 
-      <section>
+      <section id="replacing">
         <h2>Replacing</h2>
         <p><code>std::regex_replace</code> replaces sequences in a text matching a text pattern. It returns in the simple form <code>std::regex_replace(<var>text</var>, <var>regex</var>, <var>replString</var>)</code> its result as string. The function replaces an occurrence of <var>regex</var> in text with <var>replString</var>.</p>
         <pre>// replace.cpp
@@ -425,8 +442,8 @@ std::regex_replace(std::back_inserter(str2),
         <p>All variants of <code>std::regex_replace</code> have an additional optional parameter. If you set the parameter to <code>std::regex_constants::format_no_copy</code>, you will get the part of the text matching the regular expression. The unmatched text is not copied. If you set the parameter to <code>std::regex_constants::format_first_only</code>, then <code>std::regex_replace</code> will only be applied once.</p>
       </section>
 
-      <section>
-        <h2>Formating</h2>
+      <section id="formatting">
+        <h2>Formatting</h2>
         <p><code>std::regex_replace</code> and <code>std::match_results.format</code> in combination with capture groups enables you to format text. You can use a format string together with a placeholder to insert the value.</p>
         <p>Here are both possibilities, first with <code>regex</code>:</p>
         <pre>// format.cpp
@@ -461,21 +478,77 @@ if (std::regex_match(official, smatch, regValues)) {
                   <tr> <td><code>‘$ i’</code></td> <td>Returns the ith capture group.</td> </tr>
         </table>
       </section>
-      <section>
+      <section id="repeated-search">
         <h2>Repeated Search</h2>
         <p>It&apos;s pretty convenient to iterate with <code>std::regex_iterator</code> and <code>std::regex_token_iterator</code> through the matched texts. <code>std::regex_iterator</code> supports the matches and their capture groups. <code>std::regex_token_iterator</code> supports more. You can address the components of each capture.</p>
         <p>Using a negative index enables it to access the text between the matches.</p>
         <section>
           <h3><code>std::regex_iterator</code></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <p>C++ defines the following four type synonyms for <code>std::regex_iterator</code>:</p>
+          <pre>typedef  cregex_iterator regex_iterator&lt;const char*&gt;
+typedef wcregex_iterator regex_iterator&lt;const wchar_t*&gt;
+typedef  sregex_iterator regex_iterator&lt;std::string::const_iterator&gt;
+typedef wsregex_iterator regex_iterator&lt;std::wstring::const_iterator&gt;</pre>
+          <hr/>
+          <p>You may use <code>std::regex_iterator</code> to count the occurrences of the words in a text:</p>
+          <pre>// regexIterator.cpp
+...
+#include &lt;regex&gt;
+#include &lt;unordered_map&gt;
+...
+using std::cout;
+
+std::string text{"That's a (to me) amazingly frequent question. It may be the most freque\
+ntly asked question. Surprisingly, C++11 feels like a new language: The pieces just fit t\
+ogether better than they used to, and I find a higher-level style of programming more nat\
+ural than before and as efficient as ever." };
+
+std::regex wordReg{R"(\w+)"};
+      std::sregex_iterator wordItBegin(text.begin(), text.end(), wordReg);
+const std::sregex_iterator wordItEnd;
+std::unordered_map&lt;std::string, std::size_t&gt; allWords;
+for (; wordItBegin != wordItEnd; ++wordItBegin) {
+  ++allWords[wordItBegin-&gt;str()];
+}
+for (auto wordIt: allWords)
+  cout &lt;&lt; "(" &lt;&lt; wordIt.first &lt;&lt; ":"
+       &lt;&lt; wordIt.second &lt;&lt; ")";
+// (as:2)(of:1)(level:1)(find:1)(ever:1)(and:2)(natural:1)</pre>
+          <p>A word consists of a least one word-character <code>(\w+)</code>. This regular expression is used to define the begin iterator <var>wordItBegin</var>, then the end iterator <var>wordItEnd</var> is defined (default constructor).</p>
+          <p>The iteration through the matches happens in the <code>for</code> loop. Each word increments the counter: <code>++<var>allWords</var>[<var>wordItBegin</var>]->str()]</code>. A word whose counter equals 1 is created if it is not already in <var>allWords</var>.</p>
         </section>
         <section>
           <h3><code>std::regex_token_iterator</code></h3>
+          <p>C++ defines the following four type synonyms for <code>std::regex_token_iterator</code>:</p>
+          <pre>typedef  cregex_token_iterator regex_token_iterator&lt;const char*&gt;
+typedef wcregex_token_iterator regex_token_iterator&lt;const wchar_t*&gt;
+typedef  sregex_token_iterator regex_token_iterator&lt;std::string::const_iterator&gt;
+typedef wsregex_token_iterator regex_token_iterator&lt;std::wstring::const_iterator&gt;</pre>
+          <p><code>std::regex_token_iterator</code> enables you to use indexes to explicitly specify which capture groups you are interested in. If you don&apos;t specify the index, you will get all capture groups, even though you can also request specific capture groups using their respective index.</p>
+          <p>The -1 index is particular: You can use -1 to address the text between the matches.</p>
+          <pre>// tokenIterator.cpp
+...
+using namespace std;
+
+std::string text{"Pete Becker, The C++ Standard Library Extensions, 2006:"
+"Nicolai Josuttis, The C++ Standard Library, 1999:"
+"Andrei Alexandrescu, Modern C++ Design, 2001"};
+
+regex regBook(R"((\w+)\s(\w+),([\w\s\+]*),(\d{4}))");
+sregex_token_iterator bookItBegin(text.begin(), text.end(), regBook);Regular Expressions
+const sregex_token_iterator bookItEnd;
+while (bookItBegin != bookItEnd){
+cout &lt;&lt; *bookItBegin++ &lt;&lt; endl;
+}
+// Pete Becker,The C++ Standard Library Extensions,2006
+// Nicolai Josuttis,The C++ Standard Library,1999
+
+sregex_token_iterator bookItNameIssueBegin(text.begin(),
+                                           text.end(),
+                                           regBook, {{2,4}});
+const sregex_token_iterator bookItNameIssueEnd;</pre>
+          <p></p>
+          <pre></pre>
           <p></p>
           <pre></pre>
           <p></p>
@@ -485,6 +558,7 @@ if (std::regex_match(official, smatch, regValues)) {
         </section>
       </section>
 
+      <!--
       <section>
         <h2>ing *</h2>
         <p></p>
@@ -498,8 +572,9 @@ if (std::regex_match(official, smatch, regValues)) {
         <pre></pre>
         <p></p>
       </section>
+      -->
 
-      <section>
+      <section id="removing-greediness">
         <h2>Removing Greediness</h2>
         <p>To make regular expression repetitions non-greedy, a ? can be added behind the repeat as in *? , +? , ?? , and {...}? . A non-greedy repetition repeats its pattern as few times as possible while still matching the remainder of the regular expression.</p>
       </section>
