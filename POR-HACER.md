@@ -1,11 +1,10 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] escribir y enlazar *las-4-habs.html*
-<h1>Las cuatro habitaciones</h1>
-<p>Vivimos, en nuestras viviendas, de una a otra de cuatro habitaciones: la cocina, el salón, el baño y el dormitorio. Cada una destinada a uno o varios usos: cocinar, estar, asearnos, dormir.</p>
-<p>Algunos privilegiados disponen de una quinta: un garaje que les sirve de taller.</p>
-<p>Salimos y cogemos esos medios de transporte tan apurados, viajamos como sardinas en lata en el metro o el autobús, entre medias esquivando a otros viandantes por las aceras, mientras automóviles pasan peligrosamente rápido junto a nosotros o al revés. Del trabajo al hogar, con breves excursiones al campo o a otras ciudades y enloquecedoras expediciones a tiendas y centros comerciales, cuando no lo resolvemos por internet. Luego, ya en casa, abrimos los paquetes y consumimos las mercancías adquiridas.</p>
-<p>Toda nuestra vida parte de y regresa a esas cuatro habitaciones. Transcurre entre ellas y el trabajo, entre ellas y las tiendas, entre ellas y otros templos de consumo. La ciudad nos facilita gastar, donde los centros de consumo quedan cerca.</p>
+[ ] escribir *falacia.html* y enlazar desde *razon.html*
+
+[x] escribir y enlazar *urbano.html*
+[x] escribir y enlazar *las-4-habs.html*
+
 
 [ ] Escribir *vivir.html* y trasladar a un elemento nav varios enlaces (desde *pensamientos.html*)
 
