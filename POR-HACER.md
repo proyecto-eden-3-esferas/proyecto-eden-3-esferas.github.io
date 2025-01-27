@@ -1,5 +1,7 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] change, edit *reed-beds.html*
+
 [ ] escribir *falacia.html* y enlazar desde *razon.html*
 
 [x] escribir y enlazar *urbano.html*
@@ -548,6 +550,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] link to *reed-beds.html* from *permaculture.html*
+[ ] link to *reed-beds.html* from elsewhere
+
 
 *cpp.regexp.html* from:
 [x] *regexp.html*,
