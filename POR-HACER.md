@@ -1,5 +1,13 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *tabular.html* and [ ] link from *knowledge-representation.html*
+
+## Único, útil y adelantado
+[x] escribir *unico-y-util.html*
+[x] y enlazar desde *creatividad.html* y
+[x] desde *tecnologia.html*
+
+
 [ ] write *beneficial-weeds.html* and link from [ ] *permaculture.html*, [ ] *how-to-grow.html* and [ ] elsewhere
 (https://en.wikipedia.org/wiki/List_of_beneficial_weeds)
 
@@ -558,6 +566,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] to *linux.swap.html*, from *linux.html*
+[ ] to *linux.swap.html*, from *os.html*
 
 link to *tansy.html*,
 [x] from *how-to-grow.html*

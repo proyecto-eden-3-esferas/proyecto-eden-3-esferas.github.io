@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux Swap</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="prev" href="linux.html">Linux</a></p>
+      <p><a rel="next" href="distros.html">Linux Distributions</a></p>
+      <p><a            href="snap.html">Snap</a></p>
+      <!--
+      <p><a            href="flatpak.html">Flatpak</a></p>
+      -->
+      <p><a            href="computing.open_system.html">Open Systems in Computing</a></p>
+      <p><a            href="SoftwareStandard.html">Software Standards</a></p>
+      <p><a            href="computing.html">Computer Science</a></p>
+    </nav>
+
+    <main>
+      <h1>Linux Swap Partition/File for Paging</h1>
+      <p>The Linux Kernel divides RAM into chunks of memory. Swapping takes place when the Linux Kernel uses a hard disk space (swap space) to store information from RAM and thus releases some RAM space. That is why when you install a Linux distribution, the installation wizard usually asks you to assign some space for the system and some other for the swap.</p>
+      <p>Using swap is a very useful way to extend the RAM because it provides the necessary additional memory when the RAM space has been exhausted and a process has to be continued. It is especially recommended when you have very little RAM.</p>
+
+      <section>
+        <h2>Do you need Linux Swap?</h2>
+        <p>This is a question many novice users ask themselves when they begin to discover Linux. In fact, this will depend on the use and amount of RAM your computer has. Regarding the use, there are processes and applications that really use a lot of memory, for example, Google Chrome. However, most of the current equipment comes with at least 8GB of RAM and that makes the swap process less necessary. Nevertheless, having a swap space is desirable even if you have a lot of RAM.</p>
+        <p>For example, usually, when your RAM gets full and the Linux kernel has no space to write into, your system will crash. On the other hand, if you have some swap space, it will be used by the Linux kernel and your system will keep working, though much slower. So, it is safer to have swap space.</p>
+        <p><strong>Note</strong>: swap space has one disadvantage - it is much slower than RAM. So, adding a swap space will not make your computer faster, it will only help to overcome some limitations posed by RAM size.</p>
+      </section>
+
+      <section>
+        <h2>Linux Swap Partition</h2>
+        <p>I recommend creating a swap partition during the installation of your Linux distribution.</p>
+        <p>Generally, these are the recommended sizes for the swap partition.</p>
+        <ul>
+          <li>If your computer has 1GB of RAM or less, then the swap partition should be twice the size of the RAM.</li>
+          <li>But, If you have between 2gb and 4gb of RAM, the size of the swap partition should be half the RAM.</li>
+          <li>Finally, If you have more than 4gb of RAM, then it is enough to have 2GB.</li>
+        </ul>
+        <p>Still, everything depends on your use case.</p>
+        <hr/>
+        <p>You can check the type and size of your swap with this command:</p>
+        <pre>swapon</pre>
+      </section>
+
+      <section>
+        <h2>Linux Swap File</h2>
+        <p>Alternatively, you can create a Linux Swap File after the installation. The modern Linux Kernel allows Swapping to a swap file instead of a swap partition. A swap file has an advantage over a swap partition that you can change the size of your swap any time easily by changing a swap file size.</p>
+        <p>If you want to create a swap file, run this command first:</p>
+        <pre>sudo fallocate -l 1G /swapfile</pre>
+        <p><strong>Note</strong>: this command is to create a 1GB swap file. Replace 1G with the value you want.</p>
+        <p>Next, you have to set the correct permissions:</p>
+        <pre>sudo chmod 600 /swapfile</pre>
+        <p>Then, format the file to swap:</p>
+        <pre>sudo mkswap /swapfile</pre>
+        <p>Finally, enable the swap:</p>
+        <pre>sudo swapon /swapfile</pre>
+        <p>Yet, if you want the changes to be permanent, you need to edit the /etc/fstab file and add the following:</p>
+        <pre>/swapfile swap swap defaults 0 0</pre>
+        <p>Finally, check the status of the swapfile:</p>
+        <pre>sudo free -h</pre>
+      </section>
+
+      <section>
+        <h2>How to remove a Linux Swap File</h2>
+        <p>In case you need to remove a Linux swap file for any reason, you need to follow these steps.</p>
+        <p>First, deactivate the swap:</p>
+        <pre>sudo swapoff -v /swapfile</pre>
+        <p>If you created the entry in the <cite>/etc/fstab</cite> file, remove it. To remind you, it is a line much like: <code>/swapfile swap swap defaults 0 0 entry</code></p>
+        <p>Finally, delete the actual Linux Swap File.</p>
+        <pre>sudo rm /swapfile</pre>
+      </section>
+
+      <section>
+        <h2>How to adjust the Swappiness value</h2>
+        <p><dfn>Swappiness</dfn> is a property of the Linux Kernel to define how often the swap space will be used. As you know, RAM is faster than a hard drive, therefore every time you need to use swap, you will notice that some processes and applications will run slower. However, you can adjust the system to use much more RAM than swap. This can help improve overall system performance.</p>
+        <p>Normally, the default swappiness value is 60. The smaller this value, the more of your RAM will be used.</p>
+        <p>To find the swappiness value, run this command:</p>
+        <pre>cat /proc/sys/vm/swappiness</pre>
+        <p>You should see the value of 60.</p>
+        <p>If you want to modify the default value, you need to edit the file <cite>/etc/sysctl.conf</cite>.</p>
+        <pre>sudo vi /etc/sysctl.conf</pre>
+        <p>and add or change the following line (10 is the most commonly recommended value):</p>
+        <pre>vm.swappiness=10</pre>
+        <p>In order for the changes to take effect, you need to reboot the system.</p>
+        <p>This way your Linux kernel will use more RAM and less swap, but it still will swap when your RAM memory gets critically full. Usually, this setting is recommended when you have more than 4GB of RAM.</p>
+      </section>
+      <!--
+      <section>
+        <h2>*</h2>
+        <p></p>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
