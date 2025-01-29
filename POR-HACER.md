@@ -1,5 +1,13 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *beneficial-weeds.html* and link from [ ] *permaculture.html*, [ ] *how-to-grow.html* and [ ] elsewhere
+(https://en.wikipedia.org/wiki/List_of_beneficial_weeds)
+
+[ ] write *pseudo-cereals.html*
+
+[ ] write *camphor.html*,  then link from [ ] *how-to-grow.html* and [ ] elsewhere
+[ ] write *rosemary.html*, then link from [ ] *how-to-grow.html* and [ ] elsewhere
+
 [ ] change, edit *reed-beds.html*
 
 [ ] escribir *falacia.html* y enlazar desde *razon.html*
@@ -550,6 +558,12 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+link to *tansy.html*,
+[x] from *how-to-grow.html*
+[ ] from elsewhere: ...
+[ ] from elsewhere: ...
+[ ] from elsewhere: ...
 
 [x] link to *reed-beds.html* from *permaculture.html*
 [ ] link to *reed-beds.html* from elsewhere
