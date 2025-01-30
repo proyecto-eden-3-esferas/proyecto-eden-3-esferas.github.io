@@ -1,5 +1,14 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+
+## Libros al fuego y lecturas prohibidas, de Ana Martínez Rus
+
+Los libros han sido admirados, codiciados y hasta venerados, pero también han sido despreciados, odiados y destruidos. El libro es un arma peligrosa y así lo han visto demasiados regímenes a lo largo de la historia de la humanidad en todos los rincones del planeta. A pesar de su fragilidad, un ejemplar que invita a pensar y a reflexionar de manera crítica es un enemigo por batir. Algo tan aparentemente insignificante compuesto de papel, letras impresas, imágenes y cartoné es un elemento revolucionario, pero no solo aquellos textos que llaman a la revolución, sino todos por sus capacidades para imaginar, soñar y pensar. A lo largo de la historia son muchos los ejemplos y antecedentes que podemos encontrar sobre la quema de libros. La destrucción de libros no es un fenómeno nuevo como forma de eliminar una cultura o una civilización derrotada por las armas.
+
+Pero lo sorprendente del caso franquista es el ensañamiento contra lo impreso y la intensidad de la destrucción. Se retiraron títulos como El asno de oro, de Apuleyo; El Libro del buen amor, del Arcipreste de Hita; La Celestina, de Fernando de Rojas; Diablo mundo, de Espronceda; La educación sentimental, de Flaubert; Werther, de Goethe; Artículos de costumbres, de Larra; La rebelión de las masas, de Ortega y Gasset; Papa Goriot, de Balzac; Sonata de otoño, de Valle-Inclán; Poesías completas, de Antonio Machado; Nuestro padre San Daniel, de Gabriel Miró; La hermana San Sulpicio, de Palacio Valdés; El retrato de Dorian Grey, de Oscar Wilde; Los miserables o Nuestra Señora de París, de Víctor Hugo; Los pazos de Ulloa, de Emilia Pardo Bazán; El fuego, de Barbusse; Sin novedad en el frente, de Remarque; Los siete ahorcados, de Andreiev; Las almas muertas, de Gogol; Crimen y castigo, de Dostoiewski; Cómo enseña Gertrudis a sus hijos, de Pestalozzi; Guerra y paz, de Tolstói, o Historia de la civilización española, de Rafael Altamira. Asimismo, todos los de Blasco Ibáñez, varios títulos de Azorín y numerosos de Pérez Galdós y Pío Baroja
+
+
+
 [ ] write *tabular.html* and [ ] link from *knowledge-representation.html*
 
 ## Único, útil y adelantado
@@ -566,6 +575,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *linguistics.classifier.html*
 
 [x] to *linux.swap.html*, from *linux.html*
 [ ] to *linux.swap.html*, from *os.html*
