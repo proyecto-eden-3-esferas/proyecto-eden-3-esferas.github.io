@@ -1,5 +1,27 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *familia.html*
+- propia y heredada
+- la forma de salir de nosotros mismos
+
+[ ] escribir *
+
+[ ] write *inverted-tables.html*
+
+They are tables where the first column list features and might be named something like "feature", "trait", "characteristic" etc.
+
+Conceptually "records" are realized as columns and are therefore limited, while their features are un-limited or growing.
+
+These tables are often used for describing a comparison.
+
+Example:
+
+- Feature Plant Animal Fungi
+
+What about tables that are un-limited both horizontally and vertically? The Relational Model fails to represent them...
+
+
+
 [ ] write *tabular.html* and [ ] link from *knowledge-representation.html*
 
 ## Único, útil y adelantado
@@ -569,6 +591,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *okra.es.html* desde *agricultura.html*
 
 [x] *taproot.html*, from *biology.html*
 [ ] *taproot.html*, from elsewhere
