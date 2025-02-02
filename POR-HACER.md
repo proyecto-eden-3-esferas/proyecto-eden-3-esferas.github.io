@@ -1,10 +1,30 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] escribir *familia.html*
-- propia y heredada
-- la forma de salir de nosotros mismos
+[ ] complete *plants.html#epiphytes* (a description is lacking)
 
-[ ] escribir *
+[ ] develop subdivisions of geophytes (rhizome, stem-tuber, root-tuber, bulb and root geophytes) at *geophytes.html*
+
+
+[x] escribir *geophytes.html*
+[x] y enlazar desde *plants.html*
+[ ] y desde otros
+
+[ ] escribir *familia.html*
+[x] enlazar desde *sociedad.html*
+[ ] *paternalismo.html*
+
+[ ] escribir *narcisismo.html* y enlazar desde [ ] *familia.html*
+
+[ ] *hate-speech.html*
+
+
+[ ] escribir *consumismo.html*
+
+Dos/Tres clases:
+- estatal: las economías van mejor cuanto más se consuma
+- empresarial: la empresa va mejor cuanto más facture
+- personal: el deseo irracional y contraproducente de consumir
+
 
 [ ] write *inverted-tables.html*
 
@@ -21,8 +41,10 @@ Example:
 What about tables that are un-limited both horizontally and vertically? The Relational Model fails to represent them...
 
 
-
 [ ] write *tabular.html* and [ ] link from *knowledge-representation.html*
+
+
+[ ] write *adventitious-roots.html* and link from [ ] *taproot.html*, [ ] *plants.html*, and [ ] elsewhere
 
 ## Único, útil y adelantado
 [x] escribir *unico-y-util.html*
