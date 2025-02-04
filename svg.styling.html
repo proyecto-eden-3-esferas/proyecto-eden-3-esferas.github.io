@@ -18,6 +18,9 @@
      <!--
      -->
       <div>
+        <p><a href="css.html">Styling with CSS (Cascading Style Sheets)</a></p>
+      </div>
+      <div>
         <p><a href="svg.html">SVG: XML for Drawing</a></p>
         <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
         <p><a href="svg.marker.html">SVG: Markers</a></p>
@@ -37,6 +40,72 @@
 
     <main>
       <h1>Styling SVG with CSS</h1>
+
+      <section>
+        <h2><code>&lt;style&gt;</code></h2>
+        <p>The <code>&lt;style&gt;</code> SVG element allows style sheets to be embedded directly within SVG content.</p>
+        <p>The SVG&apos;s style element has the same attributes as the corresponding element in HTML.</p>
+        <h4>Example:</h4>
+        <pre>&lt;svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;style&gt;
+    circle {
+      fill: gold;
+      stroke: maroon;
+      stroke-width: 2px;
+    }
+  &lt;/style&gt;
+
+  &lt;circle cx="5" cy="5" r="4" /&gt;
+&lt;/svg&gt;</pre>
+        <h4>Attributes:</h4>
+        <dl>
+          <dt><code>type</code></dt>
+          <dd>This attribute defines type of the style sheet language to use as a media type string. Value type: media-type; Default value: text/css; Animatable: no</dd>
+          <dt><code>media</code></dt>
+          <dd>This attribute defines to which media the style applies. Value type: media-query-list; Default value: all; Animatable: no</dd>
+          <dt><code>title</code></dt>
+          <dd>This attribute is the title of the style sheet which can be used to switch between alternate style sheets. Value type: string; Default value: none; Animatable: no</dd>
+        </dl>
+        <p>...</p>
+      </section>
+
+      <section>
+        <h2>Properties shared between CSS and SVG</h2>
+
+        <p>Font properties:</p>
+        <ul>
+          <li><code>font</code></li>
+          <li><code>font-family</code></li>
+          <li><code>font-size</code></li>
+          <li><code>font-size-adjust</code></li>
+          <li><code>font-stretch</code></li>
+          <li><code>font-style</code></li>
+          <li><code>font-variant</code></li>
+          <li><code>font-weight</code></li>
+        </ul>
+
+        <p>Text Properties:</p>
+        <ul>
+          <li><code>direction</code></li>
+          <li><code>letter-spacing</code></li>
+          <li><code>text-decoration</code></li>
+          <li><code>unicode-bidi</code></li>
+          <li><code>word-spacing</code></li>
+          <li><code>writing-mode</code></li>
+        </ul>
+
+        <p>Color properties:</p>
+        <ul>
+          <li><code><code>color</code>: Applies to elements using: <code>fill</code>, <code>stroke</code>, <code>stop-color</code>, <code>flood-color</code>, or <code>lighting-color</code></code></li>
+        </ul>
+
+      </section>
+
+      <!--
+      <section>
+        <h2>SVG Elements by Category</h2>
+      </section>
+      -->
 
     </main>
 

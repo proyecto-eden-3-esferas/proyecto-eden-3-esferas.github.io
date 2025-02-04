@@ -1,5 +1,15 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *obsolescencia.html*
+- por cambio de normas (insuperable)
+- programada           (insuperable)
+- por moda             (  superable)
+- por descatalogación  (insuperable)
+
+[ ] escribir *politica.html* y no enlazar desde *sociedad.html* ni desde *pensamientos.html*
+
+[ ] escribir *medio-ambiente.html*
+
 [ ] complete *plants.html#epiphytes* (a description is lacking)
 
 [ ] develop subdivisions of geophytes (rhizome, stem-tuber, root-tuber, bulb and root geophytes) at *geophytes.html*
@@ -13,7 +23,8 @@
 [x] enlazar desde *sociedad.html*
 [ ] *paternalismo.html*
 
-[ ] escribir *narcisismo.html* y enlazar desde [ ] *familia.html*
+
+[x] escribir *narcisismo.html* y enlazar desde [x] *familia.html* y desde [x] *amor.html*
 
 [ ] *hate-speech.html*
 
