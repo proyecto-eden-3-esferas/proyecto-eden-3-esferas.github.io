@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Structured Query Language (SQL)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+        CREATE, SELECT, UPDATE, DELETE, INSERT, WHERE
+      -->
+      <div>
+        <p><a rel="prev" href="INSERT.html">(SQL) INSERT: Inserting a Row or Record</a></p>
+        <p><a            href="CREATE.html">(SQL) CREATE: Defining a Database, Schema, Table</a></p>
+      </div>
+      <div>
+        <p><a href= "sql.html">Structured Query Language (SQL)</a></p>
+        <p><a href= "sql.data-types.html">SQL Data Types</a></p>
+      </div>
+      <div>
+        <p><a href= "sql.views.html">SQL Views</a></p>
+        <p><a href= "sql.indexes.html">(SQL) Indexes</a></p>
+        <p><a href= "sql.triggers.html">SQL Triggers</a></p>
+        <p><a href= "sql.transactions.html">SQL Transactions</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Rewriting an HTML Table into SQL INSERT Code</h1>
+      <p>Let us assume you have defined an SQL table and want to produce code to insert records from an HTML table. (Each <code>td</code> element might contain HTML entities besides text.) You do this by applying a chain of transformations. First we shall look at all our issues or concerns here:</p>
+      <ul>
+        <li>HTML entities: we might want to undo them</li>
+        <li>commas: perhaps we might remove a trailing comma such as <code>(..., &apos;TEXT&apos;,)</code> or even <code>(..., &apos;TEXT&apos;),;</code></li>
+        <li>quoting fields</li>
+        <li>SQL values consisting of HTML: you want to keep their properties etc.</li>
+        <li>specifically, tables inside <code>td</code> (or <code>th</code>) elements</li>
+      </ul>
+      <aside>
+        <p>Some of the above issues or tasks happen only once:</p>
+        <ul>
+          <li>Final comma just before closing (<code>,;</code>)</li>
+          <li>Writing specific code for a given sequence of data types</li>
+        </ul>
+      </aside>
+
+      <p>Should we use XSLT? XSLT can handle some of these challeges beautifully.</p>
+
+      <h3 class="bridgehead">A possible sequence of transformations:</h3>
+
+      <dl>
+
+        <dt>Remove all properties inside top tags</dt>
+
+        <dt>Escape all apostrophes: <code>&apos;</code> -&gt; <code>\&apos;</code></dt>
+        <dd></dd>
+
+        <dt>Undo all entities for readability (optional)</dt>
+        <dd></dd>
+
+        <dt>Remove trailing commas inside records (<code>(..., &apos;TEXT&apos;,)</code>)</dt>
+        <dd></dd>
+
+        <dt>Remove trailing comma at end of <code>INSERT</code> command (<code>(..., &apos;TEXT&apos;,),;</code>)</dt>
+        <dd></dd>
+
+        <dt>Transform <code>&lt;tr&gt;</code>  opening tags into opening parantheses (<code>(</code>)</dt>
+        <dd></dd>
+        <dt>Transform <code>&lt;/tr&gt;</code> closing tags into closing parantheses (<code>),</code>)</dt>
+        <dd></dd>
+
+        <dt>Transform <code>&lt;td&gt;</code>  opening tags into opening parantheses (<code>(</code>)</dt>
+        <dd></dd>
+        <dt>Transform <code>&lt;/td&gt;</code> closing tags into closing parantheses (<code>)</code>)</dt>
+        <dd></dd>
+
+        <dt>Add semicolon (<code>;</code>) after everything else</dt>
+
+        <dt>Remove comma before closing semicolon (<code>,;</code> into just <code>;</code>)</dt>
+
+      </dl>
+
+
+    </main>
+
+  </body>
+
+</html>
