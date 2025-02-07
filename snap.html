@@ -68,11 +68,28 @@ Filesystem      Size  Used Avail Use% Mounted on
       </section>
 
       <section>
-        <h2>*</h2>
-        <p></p>
-        <pre></pre>
+        <h2>Opinions</h2>
+        <blockquote>
+          <p>I don&apos;t use any of these things like snap and appimage. One of the things that makes Linux stable and internally simple is that all the programs collectively use the underlying layer of libraries, and all software of both types is either built locally against those libraries or carefully checked by distro devs to make sure it&apos;s 100% compatible with the system. Importing separate packages with their own library environment strikes me as the clunky Windows way of doing things.</p>
+        </blockquote>
+
+        <blockquote>
+          <p>This is an incredibly idealistic POV. In the real world a$$hole developers produce backwards-incompatible versions of libraries, sloppy distro maintainers take ages to update anything, and of course no distro contains all the software in the world, so unless your needs are very simple indeed sooner or later you will have to leave the ivory distro tower and venture into the real ugly and messy world, and portable packaging systems like snap make it much, much easier. They are somewhat inefficient - and this is the only objective reason to dislike them, and using them for everything is not a clever approach, but completely rejecting them is even less clever.</p>
+        </blockquote>
+
+        <blockquote>
+          <p>There are some new Linux distros out that use an immutable root file system, and all user apps are Flatpack or the like. So the  OS becomes more like a smartphone which is more intuitive for lots of users who have only used a phone before. It also seems to offer some security advantage since the apps are sand-boxed from the OS.</p>
+          <p>That said, I prefer the traditional method and removed snap from my system. It&apos;s annoying when I click the open or save button and I default to 5 layers inside the app directory and not my home dir. But I may give one of these new distros a try sometime.</p>
+        </blockquote>
+
+        <blockquote>
+          <p>Maybe the future is that every program will be a 2GB self-contained image. Just download and run. When storage and bandwidth are cheap it&apos;s harder and harder to argue against.</p>
+          <p>Suppose I want to run program abc. Under the old model I also need to download and  install libxyz. Under the new model libxyz is part of the image. What happens when a vulnerability is found in libxyz? Which is going to get me safe sooner? The distro updating libxyz or a new snap image for every program that uses libxyz? Personally I would rather get the updated libxyz and risk breaking some apps than have an unknown number of vulnerable copies of libxyz running on my system.</p>
+        </blockquote>
+
       </section>
 
+      <!--
       <section>
         <h2>*</h2>
         <p></p>
@@ -84,6 +101,7 @@ Filesystem      Size  Used Avail Use% Mounted on
         <p></p>
         <pre></pre>
       </section>
+      -->
 
     </main>
 

@@ -44,14 +44,52 @@
       <p>Most Linux software distributions are derived from one of a few branches:</p>
       <ul>
         <li>Debian: Debian, Ubuntu, Mint...</li>
-        <li>Slackware: Porteus</li>
-        <li>RedHat: Fedora</li>
+        <li>Slackware: <a href="#porteus">Porteus</a></li>
+        <li>RedHat: <a href="#fedora">Fedora</a></li>
         <li>SuSE: openSuSe</li>
       </ul>
 
-      <section>
+      <section id="lubuntu">
         <h2>Lubuntu</h2>
         <p>The project&apos;s goal is to provide a lightweight yet functional Linux distribution based on a rock-solid Ubuntu base. Lubuntu provides a simple but modern and powerful graphical user interface, and comes with a wide variety of applications so you can browse, email, chat, play, and be productive. Lubuntu was formerly a distribution for low-end hardware.</p>
+      </section>
+
+      <section id="fedora">
+        <h2>Fedora</h2>
+        <aside><i>See</i> <cite><a target="_blank" href="https://docs.fedoraproject.org/en-US/quick-docs/">Fedora Quick Docs</a></cite> at <cite>https://docs.fedoraproject.org/en-US/quick-docs/</cite>.</aside>
+
+        <section>
+          <h3>DNF Package Manager</h3>
+          <p>DNF is Fedora&apos;s default package manager, which replaced yum in Fedora 22. DNF is used along with RPM to do the bulk of software management in Fedora. DNF can be run from the command line with simple syntax.</p>
+          <p>DNF maintains a cache containing metadata and package information about enabled repositories. Sometimes, DNF will stop functioning properly. If DNF starts behaving strangly, the first two advised steps in troubleshooting are:</p>
+          <ol>
+            <li><p>Troubleshooting your connection to verify connectivity and the ability to contact mirrors</p></li>
+            <li>
+              <p>Cleaning to DNF cache</p>
+              <p>The DNF cache can be cleared by issuing: <code>dnf clean all</code></p>
+            </li>
+          </ol>
+          <hr/>
+          <p>The basic syntax for installing packages with minimal required arguments is:</p>
+          <pre># dnf install <var>packagename</var></pre>
+          <p>If you don&apos;t know the exact name of the package you would like to install, you can search the repositories using DNF from the command line.</p>
+          <pre># dnf search <var>search term</var></pre>
+          <p>Packages are removed using:</p>
+          <pre># dnf remove <var>packagename</var></pre>
+          <p>Individual packages can be updated using the <code>update</code> argument:</p>
+          <pre># dnf update <var>packagename</var></pre>
+          <p>Also, the entire system can be upgraded using a single command:</p>
+          <pre># dnf update</pre>
+
+          <p>The <code>-y</code> option can be used to answer yes to all questions. This can be helpful when doing updates so you can set it and forget it. However, doing so could cause you to install an application you did not want. Use at your own risk; if in doubt, do not use the <code>-y</code> switch. It is especially not advised to use the <code>-y</code> switch in conjunction with DNF&apos;s remove functionality.</p>
+          <pre># dnf -y update</pre>
+
+          <p>Installing more than one package is as simple as adding it to the end of the line.</p>
+          <pre># dnf install <var>packagename</var> <var>packagename</var></pre>
+
+          <p>In general, it is preferable to use DNF (or rpm) to add or remove software because this will allow you to automatically install and update your software without time-consuming compile jobs and allow you to cleanly and easily update your software, and its dependencies, when updates arrive in the repositories.</p>
+        </section>
+
       </section>
 
       <section>
@@ -72,9 +110,40 @@
         </ul>
       </section>
 
-      <section>
+      <section id="porteus">
         <h2>Porteus</h2>
-        <p>Porteus is a complete linux operating system that is optimized to run from CD, USB flash drive, hard drive, or other bootable storage media. It's small (under 300Mb) and insanely fast which allows you to start up and get online while most other operating systems are left spitting dust. Porteus comes in both 32 &amp; 64 bit and aims to keep on the bleeding edge. It also supports several different languages and the user forum has language sections.</p>
+        <p>Porteus is a complete linux operating system that is optimized to run from CD, USB flash drive, hard drive, or other bootable storage media. It&apos;s small (under 300Mb) and insanely fast which allows you to start up and get online while most other operating systems are left spitting dust. Porteus comes in both 32 &amp; 64 bit and aims to keep on the bleeding edge. It also supports several different languages and the user forum has language sections.</p>
+      </section>
+
+      <section id="mint">
+        <h2>Linux Mint</h2>
+        <section>
+          <h3>The live session</h3>
+          <p>When you boot the computer from the USB stick (or DVD), Linux Mint starts a live session. It logs you in automatically as a user called mint and shows you a desktop with the installer on it.</p>
+          <p>The live session is similar to a normal session (i.e. to Linux Mint once it is permanently installed on the computer), but with the following exceptions:</p>
+          <ul>
+            <li>The Live session is slower (it is loaded from a USB stick or DVD as opposed to a SSD or HDD).</li>
+            <li>Changes you make in the live session are not permanent. They are not written to the USB stick (or DVD) and they do not impact the system installed by the installer.</li>
+            <li>Some applications work differently (or not at all) in the live session (Timeshift, Flatpak, Update Manager, Welcome Screen..etc.).</li>
+          </ul>
+          <aside><strong>Hint</strong>  The username for the live session is mint. If asked for a password just press Enter.</aside>
+        </section>
+        <section id="installing-mint">
+          <h3>Installing Linux Mint on the computer</h3>
+          <p>To permanently install Linux Mint on your computer:</p>
+          <ol>
+            <li>Double-click Install Linux Mint.</li>
+            <li>Etc.</li>
+          </ol>
+          <p>[...]</p>
+          <p>Also create a <a target="_blank" href="linux.swap.html">swap partition</a>. This partition is used for hibernation and as a safety buffer in case your computer runs out of RAM. Give this partition a size equal to the amount of RAM in your computer.</p>
+          <aside>
+            <p>Your <var>name</var> can be your real name, but it doesn&apos;t have to be. It is only used locally, in the screensaver and on the login screen.</p>
+            <p>Your <var>username</var> is what you log in as, and your hostname is the name of your computer on the network.</p>
+            <p>To prevent bugs only use lowercase characters, with no punctuation or accentuation.</p>
+          </aside>
+          <p>To protect your personal data against local attacks (people around you, or in case your computer gets stolen), tick <q>Encrypt my home folder</q>.</p>
+        </section>
       </section>
 
       <!--

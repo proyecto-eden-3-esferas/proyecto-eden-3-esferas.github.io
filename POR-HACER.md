@@ -7,6 +7,7 @@
 - por descatalogación  (insuperable)
 
 [ ] escribir *politica.html* y no enlazar desde *sociedad.html* ni desde *pensamientos.html*
+[ ] sino tal vez desde *queja.html*
 
 [ ] escribir *medio-ambiente.html*
 
