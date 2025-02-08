@@ -1,5 +1,13 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ]
+<h2>Getting Database File Information</h2>
+<p>The primary means by which to obtain logical database information, such as table names, DDL statements, and so on, is using the <var>sqlite_master</var> view, which provides detailed information about all objects contained in a given database.</p>
+<p>If you want information on the physical database structure, you can use a tool called SQLite Analyzer, which can be downloaded in binary form from the SQLite website( and is found in my current installation from standard reporsitories).</p>
+<p>SQLite Analyzer provides detailed technical information about the on-disk structure of a SQLite database. This information includes a detailed breakdown of database, table, and index statistics for individual objects and in aggregate. It provides everything from database properties such as page size, number of tables, indexes, file size, and average page density (utilization) to detailed descriptions of individual database objects.</p>
+<p>Following the report is a detailed list of definitions explaining all terms used within the report. A partial output of sqlite_analyzer is as follows:</p>
+<pre>fuzzy@linux:/tmp$ sqlite3_analyzer test.db</pre>
+
 [ ] escribir *obsolescencia.html*
 - por cambio de normas (insuperable)
 - programada           (insuperable)
