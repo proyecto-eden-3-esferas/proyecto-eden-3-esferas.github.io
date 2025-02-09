@@ -1,6 +1,11 @@
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ]
+[ ] *mongodb.html*
+[ ] run from cloud (as explained at w3schools)
+
+[ ] escribir sobre nominalizaciones, pasivas con ser, registros etc en *lenguaje-artificioso.html*
+
+[ ] insert into some sqlite page:
 <h2>Getting Database File Information</h2>
 <p>The primary means by which to obtain logical database information, such as table names, DDL statements, and so on, is using the <var>sqlite_master</var> view, which provides detailed information about all objects contained in a given database.</p>
 <p>If you want information on the physical database structure, you can use a tool called SQLite Analyzer, which can be downloaded in binary form from the SQLite website( and is found in my current installation from standard reporsitories).</p>
@@ -38,15 +43,13 @@
 [ ] *hate-speech.html*
 
 
-[ ] escribir *consumismo.html*
-
-Dos/Tres clases:
-- estatal: las economías van mejor cuanto más se consuma
-- empresarial: la empresa va mejor cuanto más facture
-- personal: el deseo irracional y contraproducente de consumir
-
+[x] enlazar a *consumismo.html* desde *economia.html*
+[x] enlazar a *consumismo.html* desde *sociedad.html*
+[x] enlazar a *consumismo.html* desde *recursos.html*
+[?] terminar de escribir *consumismo.html*
 
 [ ] write *inverted-tables.html*
+[ ] link to *inverted-tables.html* from *relational-database.html*
 
 They are tables where the first column list features and might be named something like "feature", "trait", "characteristic" etc.
 
