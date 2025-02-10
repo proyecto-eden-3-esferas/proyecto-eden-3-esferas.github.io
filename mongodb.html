@@ -24,10 +24,15 @@
     <nav>
     <!-- -->
       <div>
+        <p><a            href="https://www.mongodb.com/try">Sign up for a free MongoDB Atlas account</a> (at <cite>https://www.mongodb.com/try</cite>) to get started!</p>
+        <p><a rel="next" href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="mongodb.tutorial.html">MongoDB Tutorial</a></p>
+      </div>
+      <div>
         <p><a rel="prev" href="nosql.html">NoSQL DataBases</a></p>
         <p><a            href="mql.html">MongoDB Query Language</a></p>
         <p><a            href="database.html">DataBases</a></p>
-        <p><a rel="next" href="json.html">JavaScript Object Notation</a></p>
         <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
         <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
         <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
@@ -62,8 +67,10 @@
       <h1>MongoDB: A JSON Document Database</h1>
 
       <p>MongoDB is an open-source, cross-platform, document-oriented database management system. MongoDB stores data as a series of JSON-like documents (actually stored as binary JSON, or BSON), as opposed to the table and row format of relational systems. This flexible approach to storing data makes it particularly suitable for developers who may not be database experts, yet want to use a database to support the development of their applications.</p>
+      <p>Instead of having multiple tables you can simply keep all of your related data together. This makes reading your data very fast.</p>
+      <p>You can still have multiple groups of data too. In MongoDB, instead of tables these are called collections.</p>
       <p>Some structure can optionally be enforced on JSON documents through schemas.</p>
-
+      <hr/>
       <p>MongoDB is developed by MongoDB Inc.</p>
 
       <section id="features">
@@ -111,15 +118,92 @@
           <dt>Transactions</dt>
           <dd>MongoDB supports multi-document ACID <a href="database.transaction.html">transactions</a> since the 4.0 release in June 2018.</dd>
 
-          <dt></dt>
-          <dd></dd>
-
         </dl>
 
       </section>
 
+      <section id="tags">
+        <h2>Resource Tags</h2>
+        <p>You can use resource tags to categorize resources by purpose, environment, team, or billing center. You can add tags to your projects and clusters to better understand, organize, and identify these resources. Each tag is a key-value pair. For example, you might add an environment : production tag. In this example, you set the tag key to environment and you set the tag value to production. You can manage resource tags from the Atlas UI, Atlas Administration API, and Atlas CLI.</p>
+        <p><strong>Note</strong> These resource tags differ from the pre-defined replica set tags that Atlas provides. You can&apos;t change those replica set tags. You can provide and manage these resource tags.</p>
+        <p>Requirements:</p>
+        <ul>
+          <li>You can have a maximum of 50 tags per cluster.</li>
+          <li>Each tag must contain a key and a value.</li>
+          <li>Each tag key can have a maximum of 255 characters.</li>
+          <li>Each tag key must be unique.</li>
+          <li>Each tag value can have a maximum of 255 characters.</li>
+          <li>Each tag can contain only the following allowable characters: letters, numbers, spaces, semi-colons (;), at symbols (@), underscores (_), dashes (-), periods (.), or plus signs (+)        </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>MongoDB Community Server</h2>
+        <p>The Community version of our distributed database offers a flexible document data model along with support for ad-hoc queries, secondary indexing, and real-time aggregations to provide powerful ways to access and analyze your data.</p>
+        <p>The database is also offered as a fully-managed service with MongoDB Atlas. Get access to advanced functionality such as auto-scale, full-text search, and data distribution across regions and clouds. Deploy in minutes on AWS, Google Cloud, and/or Azure, with no downloads necessary.</p>
+        <p>Give it a try with a free, highly-available 512 MB cluster. or get started from your terminal with the following two commands:</p>
+        <pre>$ sudo apt-get install mongodb-atlas
+$ atlas setup</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
+
+
       <section id="install">
         <h2>Installation</h2>
+        <p>MongoDB can be installed locally, which will allow you to host your own MongoDB server on your hardware. This requires you to manage your server, upgrades, and any other maintenance.</p>
+        <p>You can download and use the <a target="_blank" href="https://www.mongodb.com/try/download/community">MongoDB open source Community Server</a> (at <code>https://www.mongodb.com/try/download/community</code>) on your hardware for free.</p>
+
+
+
+        <section>
+          <h3>Atlas (Cloud)*</h3>
+          <p>You may use MongoDB Atlas, a cloud database platform. This is much easier than hosting your own local database.</p>
+          <p><a target="_blank" href="https://www.mongodb.com/try">Sign up for a free MongoDB Atlas account</a> (at <cite>https://www.mongodb.com/try</cite>) to get started!</p>
+          <!--
+          Francisco
+          Fdez-Victorio Hdez
+
+          franciscofvh@hotmail.com
+          f2f7v2h8
+
+          You need to secure your MongoDB Atlas cluster before you can use it. Set which users and IP addresses can access your cluster now. Read more
+
+    Add a connection IP address
+
+Your current IP address (80.39.56.130) has been added to enable local connectivity. Only an IP address you add to your Access List will be able to connect to your project&apos;s clusters. Add more later in Network Access
+.
+Create a database user
+
+This first user will have atlasAdmin  permissions for this project.
+
+We autogenerated a username and password. You can use this or create your own.
+You&apos;ll need your database user&apos;s credentials in the next step. Copy the database user password.
+Username: franciscofvh
+Password: UbJMA7s1VBrDwWBn
+
+mongosh "mongodb+srv://franciscofvh.a9syx.mongodb.net/" - -apiVersion 1 - -username franciscofvh - -password a55MIz2hOWLBvuE9
+
+          -->
+          <p>After a shortish procedure, I choose a Free scheme with 512MB storage, name <code>franciscofvh</code>, leave options [v] automate security setup and [v] preload sample dataset, as well as default provider AWS. I also create my first tag: </p>
+        </section>
+
+        <section>
+          <h3>Windows*</h3>
+          <p>The unzipped directory contains:</p>
+          <ul>
+            <li><strong>mongod</strong> The database server.</li>
+            <li><strong>mongos</strong> Sharding router.</li>
+            <li><strong>mongo</strong> The database shell (uses interactive javascript).</li>
+          </ul>
+        </section>
 
         <section>
           <h3>Install Official MongoDB Packages</h3>
@@ -171,16 +255,16 @@ Started mongod.service - MongoDB Database Server.
 oct 23 16:27:37 francisco-hpnotebook systemd[1]: \
 mongod.service: Main process exited, code=dumped, status=4/ILL
 oct 23 16:27:37 francisco-hpnotebook systemd[1]: \
-mongod.service: Failed with result 'core-dump'.</pre>
+mongod.service: Failed with result &apos;core-dump&apos;.</pre>
           <p>The <q>signal=ILL</q> part of the systemctl output means that MongoDB failed to start because of an illegal instruction. This is caused by MongoDB 5 and later requiring AVX to run.</p>
           <p>You can check if your CPU supports AVX by execting:</p>
           <pre>cat /proc/cpuinfo | grep avx</pre>
-          <p>If you get any kind of output your CPU should support AVX, if not its either too old or if you are running Linux inside a VM and your hypervisor isn't passing through your physical CPU flags. For a list of CPUs that support AVX see: <a target="_blank" href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions">https://en.wikipedia.org/wiki/Advanced_Vector_Extensions</a> (basically CPUs started supporting AVX at around 2011)</p>
+          <p>If you get any kind of output your CPU should support AVX, if not its either too old or if you are running Linux inside a VM and your hypervisor isn&apos;t passing through your physical CPU flags. For a list of CPUs that support AVX see: <a target="_blank" href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions">https://en.wikipedia.org/wiki/Advanced_Vector_Extensions</a> (basically CPUs started supporting AVX at around 2011)</p>
           <p>If your physical CPU is indeed too old your options are:</p>
           <ul>
             <li>Downgrade to MongoDB 4 which still runs without AVX but will be end of life next year</li>
             <li>Compile your own version of MongoDB without AVX or look around for community made version without AVX (there are some unoffical containers out there for example)</li>
-            <li>If you are using virtualization make sure your hypervisor isn't hiding your physical CPU flags for compability or other reasons</li>
+            <li>If you are using virtualization make sure your hypervisor isn&apos;t hiding your physical CPU flags for compability or other reasons</li>
             <li>If your hardware is indeed too old to support AVX upgrade to a newer CPU</li>
           </ul>
 

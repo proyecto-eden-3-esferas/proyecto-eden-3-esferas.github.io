@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MongoDB Tutorial</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a rel="prev" href="mongodb.html">MongoDB: A JSON Document Database</a></p>
+        <p><a rel="next" href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
+        <p><a            href="mql.html">MongoDB Query Language</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+      </div>
+      <div>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
+      </div>
+      <div>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+
+      </div>
+
+    </nav>
+
+
+    <main>
+
+      <h1>MongoDB Tutorial</h1>
+
+      <h2>Create Database using mongosh</h2>
+      <p>After connecting to your database using <code>mongosh</code>, you can see which database you are using by typing <code>db</code> in your terminal.</p>
+      <p>If you have used the connection string provided from the MongoDB Atlas dashboard, you should be connected to the <var>myFirstDatabase</var> database.</p>
+
+      <h2>Show all databases</h2>
+      <p>To see all available databases, in your terminal type <code>show dbs</code>.</p>
+      <p>Notice that <var>myFirstDatabase</var> is not listed. This is because the database is empty. An empty database is essentially non-existant.</p>
+
+      <h2>Change or Create a Database</h2>
+      <p>You can change or create a new database by typing <code>use</code> then the name of the database.</p>
+      <h4>Example</h4>
+      <p>Create a new database called <var>blog</var>:</p>
+      <pre>use blog</pre>
+      <p>We are now in the <var>blog</var> database.</p>
+      <p><strong>Remember:</strong> In MongoDB, a database is not actually created until it gets content!</p>
+
+
+    </main>
+
+  </body>
+
+</html>

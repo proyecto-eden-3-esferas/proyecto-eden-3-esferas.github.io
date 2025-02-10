@@ -1,6 +1,23 @@
+# Lista de recomendaciones, recordatorios y otras directrices
+- teléfonos y demás en *agenda.html*, oculto
+
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] *mongodb.html*
+[ ] write content in *fungi.html*
+
+
+[ ] escribir *vampiros.html*
+- vampiros no de sangre (ficción) sino de tiempo, energía, ilusión
+- relacionar y/o enlazar con *matrix.html*
+- relacionar y/o enlazar con *narcisismo.html*:
+Los vampiros suelen presentar síntomas de <a target="_blank" href="narcisismo.html">narcisistas</a>, a la vez que los narcisistias suelen absorber nuestro tiempo y energía.
+- siempre cambiando las reglas, los planes, los horarios (si quedas a una hora, esperan que aparezcas diez minutos antes), las preferencias (mujer fatal)
+- falta de imaginación: niegan estar desocupados
+- interrupción constante y sistemática
+
+
+[x] *mongodb.html*
 [ ] run from cloud (as explained at w3schools)
 
 [ ] escribir sobre nominalizaciones, pasivas con ser, registros etc en *lenguaje-artificioso.html*
@@ -48,7 +65,7 @@
 [x] enlazar a *consumismo.html* desde *recursos.html*
 [?] terminar de escribir *consumismo.html*
 
-[ ] write *inverted-tables.html*
+[ ] write *inverted-tables* as a section of *special-relational-tables.html*
 [ ] link to *inverted-tables.html* from *relational-database.html*
 
 They are tables where the first column list features and might be named something like "feature", "trait", "characteristic" etc.
@@ -636,6 +653,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *chlorosis.html* from *blight.html*
+[ ] *chlorosis.html* from *plants.html*
+
+[x] *agenda.html* (no enlazar)
 
 [x] *okra.es.html* desde *agricultura.html*
 
