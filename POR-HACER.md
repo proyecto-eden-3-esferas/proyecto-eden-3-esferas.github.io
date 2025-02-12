@@ -4,18 +4,13 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] link to *how-to-make-coffee.html*
+
 [ ] write content in *fungi.html*
 
-
-[ ] escribir *vampiros.html*
-- vampiros no de sangre (ficción) sino de tiempo, energía, ilusión
-- relacionar y/o enlazar con *matrix.html*
-- relacionar y/o enlazar con *narcisismo.html*:
-Los vampiros suelen presentar síntomas de <a target="_blank" href="narcisismo.html">narcisistas</a>, a la vez que los narcisistias suelen absorber nuestro tiempo y energía.
-- siempre cambiando las reglas, los planes, los horarios (si quedas a una hora, esperan que aparezcas diez minutos antes), las preferencias (mujer fatal)
-- falta de imaginación: niegan estar desocupados
-- interrupción constante y sistemática
-
+[ ] enlazar a *vampiros.html* desde *autoritarismo.html*
+[x] enlazar a *vampiros.html* desde *tiempo.html*
+[x] escribir *vampiros.html*
 
 [x] *mongodb.html*
 [ ] run from cloud (as explained at w3schools)
@@ -653,7 +648,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
-
+[ ] *chelation.html*
+[ ] *ferric-EDTA.html*, related to chelates
 [x] *chlorosis.html* from *blight.html*
 [ ] *chlorosis.html* from *plants.html*
 
