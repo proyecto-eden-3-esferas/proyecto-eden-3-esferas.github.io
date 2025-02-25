@@ -4,6 +4,22 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *mysql.json.html*
+
+[ ] Escribir *jerarquias-de-saberes.html* sobre *Jerarquías de saberes (ciencias y técnicas)*
+
+Solemos aceptar que todos los conocimientos y técnicas son iguales, pertenecen a la misma categoría. La principal razón es que negarlo llevaría a enfrentamientos con nuestros vecinos.
+
+El dinero y el Derecho formal permiten tratar igual a todas las profesiones y actividades económicas por igual.
+
+Además cada profesión y actividad profesional "lícita" argumenta su utilidad.
+
+- Algunos ejemplos aceptados:
+  - unos saberes son la base de otros: la filosofía (base de todo el conocimiento, incluída la ciencia), las matemáticas (base de las ciencias)
+  - los conocimientos prácticos (los que satisfacen una necesidad) se valoran más que los teóricos
+
+
+
 [ ] link to *how-to-make-coffee.html*
 
 [ ] write content in *fungi.html*
@@ -648,6 +664,16 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *couchdb.html* from *json.html*
+[ ] *couchdb.html* from *nosql.html*
+[ ] *couchdb.html* from *mongodb.html*
+
+[ ] *mongodb.atlas.html*
+
+[ ] *potencias-del-alma.html*, después de escribir, vide "<para>MEMORIA, ENTENDIMIENTO y VOLUNTAD, son [...] </para>" en cyclopaedia.xml
+[ ] *memoria.html*, después de escribir
+
 [ ] *chelation.html*
 [ ] *ferric-EDTA.html*, related to chelates
 [x] *chlorosis.html* from *blight.html*

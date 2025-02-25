@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MongoDB Cloud: Atlas</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a            href="https://www.mongodb.com/try">Sign up for a free MongoDB Atlas account</a> (at <cite>https://www.mongodb.com/try</cite>) to get started!</p>
+        <p><a rel="next" href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="mongodb.tutorial.html">MongoDB Tutorial</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="mql.html">MongoDB Query Language</a></p>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
+        <p><a href="special-relational-tables.html">Special Relational Tables</a></p>
+      </div>
+      <div>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="database.transaction.html">DataBases Transactions</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+      </div>
+      <div>
+        <p><a href="#features">MongoDB Features</a></p>
+        <p><a href="#install">Installing MongoDB</a></p>
+        <p><a href="#run">Basic MongoDB Administration</a></p>
+      </div>
+    </nav>
+
+
+    <main>
+
+
+      <h1>MongoDB Cloud: Atlas</h1>
+
+      <p>[...]</p>
+
+      <section id="proc">
+        <h2>Procedure: Getting Stated</h2>
+        <!-- as Francisco Fdez-Victorio Hdez with email franciscofvh@hotmail.com:shambhala -->
+        <p>Ready to get your first MongoDB cluster up and running? Start with these four steps:</p>
+        <ul>
+          <li><a href="#create-cluster">Create cluster</a></li>
+          <li><a href="#add-ip">Add IP address to access list</a></li>
+          <li><a href="#create-a-user">Create a user</a></li>
+          <li><a href="#connect-to-cluster">Connect to cluster</a></li>
+        </ul>
+        <p>Next, you can start building. Populate your newly-created cluster with some of our sample datasets. These are great for testing and quick prototyping.</p>
+
+
+
+        <section id="create-cluster">
+          <h3>Create cluster</h3>
+          <p>I create a cluster named ...</p>
+          <p>I create a database named <code>ffvh</code> and a collection named <code>farming</code>, or <code>ffvh.farming</code> (SQL-style scoping).</p>
+        </section>
+        <section id="add-ip">
+          <h3>Add IP address to access list</h3>
+        </section>
+        <section id="create-a-user">
+          <h3>Create a user</h3>
+        </section>
+        <section id="connect-to-cluster">
+          <h3>Connect to cluster</h3>
+        </section>
+      </section>
+
+      <section>
+        <h2>Some queries</h2>
+
+        <p>...</p>
+        <pre>insertOne(
+{
+  name: "spinach",
+  family: "Amaranthaceae",
+  life_type: "vegetable",
+  climate: null
+}
+)</pre>
+
+        <p>...</p>
+        <pre></pre>
+
+        <p>...</p>
+        <pre></pre>
+
+        <p>...</p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>Atlas CLI</h2>
+        <p>The Atlas CLI is a command line interface built specifically for MongoDB Atlas. Interact with your Atlas database deployments and Atlas Search from the terminal with short, intuitive commands, so you can accomplish complex database management tasks in seconds.</p>
+
+        <section>
+          <h3>Install or Update the Atlas CLI</h3>
+          <p>Install the Atlas CLI to quickly provision and manage Atlas database deployments from the terminal.</p>
+          <dl>
+            <dt>Install the Atlas CLI and <code>mongosh</code></dt>
+            <dd>
+              <p>Invoke the following apt command to install both the Atlas CLI and mongosh:</p>
+              <pre>sudo apt-get install -y mongodb-atlas</pre>
+              <p>If you don&apos;t want to install mongosh, invoke the following apt command instead to install the Atlas CLI only:</p>
+              <pre>sudo apt-get install -y mongodb-atlas-cli</pre>
+            </dd>
+            <dt>Verify successful Atlas CLI installation</dt>
+            <dd>
+              <p>Run the atlas command from any directory:</p>
+              <pre>atlas</pre>
+              <p>The response includes available commands and options for the Atlas CLI.</p>
+            </dd>
+          </dl>
+        </section>
+
+        <section>
+          <h3>Set Up Atlas</h3>
+          <dl>
+            <dt>Run atlas setup</dt>
+            <dd>
+              <p><code>atlas setup</code> does all of the following with one command:</p>
+              <ol>
+                <li>Signs up for an Atlas account.</li>
+                <li>Authenticates with the new Atlas account.</li>
+                <li>Creates one free database.</li>
+                <li>Loads sample data into your Atlas database.</li>
+                <li>Adds your IP address to your project's IP access list.</li>
+                <li>Creates a MongoDB user for your Atlas database deployment.</li>
+                <li>Connects to your new database deployment using the MongoDB Shell, mongosh.</li>
+              </ol>
+              <p>To learn more, see the atlas setup command.</p>
+            </dd>
+            <dt>Run atlas deployments setup</dt>
+            <dd>
+              <p>To learn more, learn how to <cite>Manage Local and Cloud Deployments from the Atlas CLI</cite>.</p>
+              <p>Use the Atlas CLI to work with Atlas, including using Atlas Search and Atlas Vector Search, throughout the entire software development lifecycle from your local environment to the cloud.</p>
+              <p>With the atlas deployments commands, you can perform the following actions:</p>
+              <ul>
+                <li>Create and manage local Atlas deployments. Local Atlas deployments reside on your computer and provide a non-production environment for development.</li>
+                <li>Create and manage Atlas cloud deployments. Cloud Atlas deployments reside in the cloud for non-production and production use.</li>
+                <li>Manage Atlas Search and Atlas Vector Search indexes for your local and cloud Atlas deployments.</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+
+        <section>
+          <h3>Connect from the Atlas CLI</h3>
+          <section>
+            <h4>Select a Connection Method</h4>
+            <p>When you connect to an existing Atlas account from the Atlas CLI, you can authenticate with one of the following commands:</p>
+            <table border="1" id="simple_with_header_and_th">
+              <thead> <tr> <th>Command</th> <th>Authentication Method</th> <th>Use Case</th> </tr> </thead>
+                      <tr> <td><code>atlas auth login</code></td> <td>Atlas login credentials and an authentication token</td>
+                      <td>Best for non-programmatic use</td> </tr>
+                      <tr> <td><code>atlas config init</code></td> <td>API keys</td> <td>Best for programmatic use</td> </tr>
+            </table>
+            <hr/>
+            <p>Use the <code>atlas auth login</code> command to authenticate with your Atlas login credentials and a one-time authentication token. <code>atlas auth login</code> requires manual login and verification of an authentication token, which is valid for 12 hours. API keys are optional when connecting with atlas auth login.</p>
+            <p>After you run atlas auth login, you can:</p>
+            <ul>
+              <li>Connect with minimum required settings and specify the <code>--projectId</code> and <code>--orgId</code> flags with each command. This is the quickest way to get started for first-time login.</li>
+              <li>Save your connection settings in a profile. Profiles store the project IDs, organization IDs, and, optionally, API keys to use in future Atlas CLI sessions. To save time, you can specify a profile instead of using the <code>--projectId</code> and <code>--orgId</code> flags with each command.</li>
+            </ul>
+          </section>
+        </section>
+
+
+
+
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

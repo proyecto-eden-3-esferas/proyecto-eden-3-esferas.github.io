@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MongoDB: A JSON Document Database</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+        <p><a            href="mongodb.html">MongoDB: Another JSON Document DBMS</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+      </div>
+      <div>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+
+      <h1>Open Source Apache CouchDB: Another JSON Document DBMS</h1>
+      <p>Apache CouchDB is an open-source document-oriented NoSQL database.</p>
+      <p>CouchDB is implemented in Erlang.</p>
+      <p>CouchDB uses multiple formats and protocols to store, transfer, and process its data. It uses <a target="_blank" href="json.html">JSON</a> to store data, <a target="_blank" href="js.html">JavaScript</a> as its query language using MapReduce, and HTTP for an API.</p>
+      <p>CouchDB was first released in 2005 and later became an Apache Software Foundation project in 2008.</p>
+      <hr/>
+      <p>Each CouchDB database is a collection of independent documents. An application may access multiple databases, such as one stored on a user&apos;s mobile phone and another on a server. Document metadata contains revision information, making it possible to merge any differences that may have occurred while the databases were disconnected.</p>
+      <p>CouchDB features document-level ACID semantics with eventual consistency</p>
+
+
+      <section id="features">
+        <h2>Main Features</h2>
+        <dl>
+          <dt>ACID Semantics</dt>
+          <dd>CouchDB provides ACID semantics. It does this by implementing a form of Multi-Version Concurrency Control, meaning that CouchDB can handle a high volume of concurrent readers and writers without conflict.</dd>
+          <dt>Built for Offline</dt>
+          <dd>CouchDB can replicate to devices (like smartphones) that can go offline and handle data sync for you when the device is back online.</dd>
+          <dt>Distributed Architecture with Replication</dt>
+          <dd>CouchDB was designed with bi-directional replication (or synchronization) and off-line operation in mind. That means multiple replicas can have their own copies of the same data, modify it, and then sync those changes at a later time.</dd>
+          <dt>Document Storage</dt>
+          <dd>CouchDB stores data as "documents", as one or more field/value pairs expressed as JSON. Field values can be simple things like strings, numbers, or dates; but ordered lists and associative arrays can also be used. Every document in a CouchDB database has a unique id and there is no required document schema.</dd>
+          <dt>Eventual Consistency</dt>
+          <dd>CouchDB guarantees eventual consistency to be able to provide both availability and partition tolerance.</dd>
+          <dt>Map/Reduce Views and Indexes</dt>
+          <dd>The stored data is structured using views. In CouchDB, each view is constructed by a JavaScript function that acts as the Map half of a map/reduce operation. The function takes a document and transforms it into a single value that it returns. CouchDB can index views and keep those indexes updated as documents are added, removed, or updated.</dd>
+          <dt>HTTP API</dt>
+          <dd>All items have a unique URI that gets exposed via HTTP. It uses the HTTP methods POST, GET, PUT and DELETE for the four basic CRUD (Create, Read, Update, Delete) operations on all resources.</dd>
+        </dl>
+        <p>CouchDB also offers a built-in administration interface accessible via Web called Fauxton.</p>
+      </section>
+      <section>
+        <h2>Special Features</h2>
+        <p>CouchDB implements a form of multiversion concurrency control (MVCC) so it does not lock the database file during writes. Conflicts are left to the application to resolve. Resolving a conflict generally involves first merging data into one of the documents, then deleting the stale one.</p>
+        <p>Other features include (incremental) MapReduce, and (incremental) replication. One of CouchDB&apos;s distinguishing features is multi-master replication, which allows it to scale across machines to build high-performance systems. A built-in Web application called Fauxton (formerly Futon) helps with administration.</p>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>
