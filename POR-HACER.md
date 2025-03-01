@@ -4,6 +4,19 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *heuristics.html* and link from *ai.html*
+
+[ ] escribir *crecimiento-y-desarrollo.html*
+[ ] enlazar  *crecimiento-y-desarrollo.html* con *cual-cal-cant.html*
+[ ] escribir *hipercrecimiento.html*
+De cosas en principio no perjudiciales.
+- animales domésticos
+- carreteras y vehículos privados
+- leyes y normas
+- licenciados
+[ ] enlazar a *hipercrecimiento.html* desde *crecimiento-y-desarrollo.html*
+[ ] enlazar a *hipercrecimiento.html* desde *poblacion.html*
+
 [ ] write *mysql.json.html*
 
 [ ] Escribir *jerarquias-de-saberes.html* sobre *Jerarquías de saberes (ciencias y técnicas)*
