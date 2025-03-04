@@ -4,6 +4,10 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] enlazar a *creatividad-y-maquinas.html* desde *creatividad.html*
+[ ] enlazar a *creatividad-y-maquinas.html* desde *maquinas.html*
+[ ] enlazar a *creatividad-y-maquinas.html* desde *ia.html*
+
 [ ] write *heuristics.html* and link from *ai.html*
 
 [ ] escribir *crecimiento-y-desarrollo.html*
@@ -677,6 +681,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *memoria.html*
+
+[ ] *knowledge-and-intelligence.html* from *knowledge-representation.html*
 
 [x] *couchdb.html* from *json.html*
 [ ] *couchdb.html* from *nosql.html*
