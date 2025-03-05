@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Symbols in Lisp</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Symbols in Lisp"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="lisp.html">Lisp: The List Processing Language</a></p>
+        <p><a            href="symbols.html">Symbols in Programming</a></p>
+        <p><a            href="why-lisp.html">Why Lisp?</a></p>
+        <p><a rel="next" href="lisp-dialects.html">Dialects of Lisp</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Symbols in Lisp</h1>
+      <p>A symbol in Lisp is unique in a namespace (or package in Common Lisp). Symbols can be tested for equality with the function <code>EQ</code>.</p>
+      <p>Lisp programs can generate new symbols at runtime. When Lisp reads data that contains textual represented symbols, existing symbols are referenced. If a symbol is unknown, the Lisp reader creates a new symbol.</p>
+      <p>In Common Lisp, symbols have the following attributes: a name, a value, a function, a list of properties and a package.</p>
+      <hr/>
+      <p>In Common Lisp it is also possible that a symbol is not interned in a package. Such symbols can be printed, but when read back, a new symbol needs to be created. Since it is not interned, the original symbol can not be retrieved from a package.</p>
+      <hr/>
+      <p>In Common Lisp symbols may use any characters, including whitespace, such as spaces and newlines. If a symbol contains a whitespace character, it needs to be written as <code>|this is a symbol|</code>. Symbols can be used as identifiers for any kind of named programming constructs: variables, functions, macros, classes, types, goto tags and more. Symbols can be interned in a package.</p>
+      <p>Keyword symbols are self-evaluating, and interned in the package named <var>KEYWORD</var>.</p>
+
+      <h3 class="bridgehead">Examples</h3>
+      <p>The following is a simple external representation of a Common Lisp symbol:</p>
+      <pre>this-is-a-symbol</pre>
+      <p>Symbols can contain whitespace (and all other characters):</p>
+      <pre>|This is a symbol with whitespace|</pre>
+      <p>In Common Lisp symbols with a leading colon in their printed representations are keyword symbols. These are interned in the keyword package.</p>
+      <pre>:<var>keyword-symbol</var></pre>
+      <p>A printed representation of a symbol may include a package name. Two colons are written between the name of the package and the name of the symbol.</p>
+      <pre><var>package-name</var>::<var>symbol-name</var></pre>
+      <p>Packages can export symbols. Then only one colon is written between the name of the package and the name of the symbol.</p>
+      <pre><var>package</var>:<var>exported-symbol</var></pre>
+      <p>Symbols not interned in a package can also be created and have their own notation:</p>
+      <pre>#:<var>uninterned-symbol</var></pre>
+    </main>
+
+  </body>
+
+</html>

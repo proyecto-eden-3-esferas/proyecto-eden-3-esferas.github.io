@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linkage</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Linkage and Scope, esp. in C/C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="sc.html">SuperCollider</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for the Web</a></p>
+        <p><a            href="lisp.html">Lisp: The List Processing Language</a></p>
+        <p><a            href="prolog.html">Programation Logique</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="algorithms.html">Algorithms</a></p>
+        <p><a rel="prev" href="programming.html">Programming</a></p>
+        <p><a            href="programming.block.html">Blocks in Programming: Units of Scope and Execution</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="c.html">The C   Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Linkage</h1>
+      <p>In programming languages, particularly the compiled ones like <a target="_blank" href="c.html">C</a>, <a target="_blank" href="cpp.html">C++</a>, and D, <dfn>linkage</dfn> describes how names (that is, <a target="_blank" href="symbols.html">symbols</a>) can or can not refer to the same entity throughout the whole program or one single translation unit.</p>
+
+      <p>The <code>static</code> keyword is used in C to restrict the visibility of a function or variable to its translation unit. This is also valid in C++. (C++ 98/03 deprecated this usage in favor of anonymous namespaces, but is no longer deprecated in C++ 11.) Also, C++ implicitly treats any const namespace-scope variable as having internal linkage unless it is explicitly declared <code>extern</code>, unlike C.</p>
+      <p>A name&apos;s linkage is related to, but distinct from, its scope. The <dfn>scope</dfn> of a name is the part of a translation unit where it is visible. For instance, a name with global scope (which is the same as file-scope in C and the same as the global namespace-scope in C++) is visible in any part of the file. Its scope will end at the end of the translation unit, whether or not that name has been given external or internal linkage.</p>
+
+      <p>If the name has <dfn>external linkage</dfn>, the entity that name denotes may be referred to from another translation unit using a distinct declaration for that same name, and from other scopes within the same translation unit using distinct declarations. Were the name given internal linkage, such a declaration would denote a distinct entity, although using the same name, but its entity could be referred to by distinct declarations within the same translation unit. A name that has no linkage at all cannot be referred to from declarations in different scopes, not even from within the same translation unit. Examples of such names are parameters of functions and local variables. The details differ between C (where only objects and functions - but not types - have linkage) and C++ and between this simplified overview.</p>
+      <p>Linkage between languages must be done with some care, as different languages adorn their external symbols differently. A common idiom uses <code>extern "C"</code> to link C++ and C code.</p>
+
+      <section id="c">
+        <h2>Linkage in C</h2>
+        <p>Definition of <q>linkage</q> quoted from ISO/IEC 9899:TC3 (C99 Standard). C uses the term <q>identifier</q> where this page uses <q>name</q> (the latter of which is what C++ uses to formalize linkage):</p>
+        <blockquote>An identifier declared in different scopes or in the same scope more than once can be made to refer to the same object or function by a process called linkage.</blockquote>
+        <p>The following is a common example of linkage:</p>
+        <pre>/* file demo1.c */
+
+/* extern */ void foo(void); /* extern optional - it's the default */
+
+int main(void)
+{
+  foo();
+  return 0;
+}</pre>
+        <p>and</p>
+        <pre>/* file demo2.c */
+
+void foo(void)
+{
+  ...
+}</pre>
+        <p>Function <code>foo</code> is declared in two files, with its function body defined in <cite>demo2.c</cite>. Via linkage, <code>foo</code> called in <code>main()</code> inside <cite>demo1.c</cite> refers to <code>foo</code> in <cite>demo2.c</cite>. This is an example of external linkage for a function.</p>
+      </section>
+
+      <!--
+      <section id="">
+        <h2>*</h2>
+      </section>
+
+      <section id="">
+        <h2>*</h2>
+      </section>
+
+      <section id="">
+        <h2>*</h2>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

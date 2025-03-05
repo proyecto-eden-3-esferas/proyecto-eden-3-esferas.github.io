@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Symbols in Prolog</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Symbols in Prolog"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a</p>>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a</p>>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a</p>>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a</p>>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a</p>>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a</p>>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a</p>>
+      -->
+      <div>
+        <p> <a rel="next" href="prolog.compilers-and-interpreters.html">Prolog Compilers and Interpreters</a></p>
+        <p> <a rel="prev" href="prolog.html">Prolog: Symbolic Programming or <i>Programation Logique</i></a></p>
+        <p> <a            href="lisp.html">Lisp: The List Processing Language</a> </p>
+        <p> <a            href="ai.html">Artificial Intelligence</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Symbols in Prolog</h1>
+      <p>In Prolog, symbols (or <strong>atoms</strong>) are the main primitive data types, similar to numbers. The exact notation may differ in different Prolog dialects. However, it is always quite simple (no quotations or special beginning characters are necessary).</p>
+      <p>Contrary to many other languages, it is possible to give symbols a meaning by creating some Prolog facts and/or rules.</p>
+      <h3 class="bridgehead">Examples</h3>
+      <p>The following example demonstrates two facts (describing what <var>father</var> is) and one rule (describing the meaning of <var>sibling</var>). These three sentences use symbols (<var>father</var>, <var>zeus</var>, <var>hermes</var>, <var>perseus</var> and <var>sibling</var>) and some abstract variables (<var>X</var>, <var>Y</var> and <var>Z</var>). The <var>mother</var> relationship is omitted for clarity.</p>
+      <pre>father(zeus, hermes).
+father(zeus, perseus).
+
+sibling(X, Y) :- father(Z, X), father(Z, Y).</pre>
+    </main>
+  </body>
+</html>

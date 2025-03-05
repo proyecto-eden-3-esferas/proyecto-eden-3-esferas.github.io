@@ -4,9 +4,12 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[x] write *lisp.symbols.html* and link from *lisp.html*
+[x] write *prolog.symbols.html* and link from *prolog.html*
+
 [ ] enlazar a *creatividad-y-maquinas.html* desde *creatividad.html*
-[ ] enlazar a *creatividad-y-maquinas.html* desde *maquinas.html*
-[ ] enlazar a *creatividad-y-maquinas.html* desde *ia.html*
+[x] enlazar a *creatividad-y-maquinas.html* desde *herramientas.html*
+[x] enlazar a *creatividad-y-maquinas.html* desde *ia.html*
 
 [ ] write *heuristics.html* and link from *ai.html*
 
@@ -681,6 +684,14 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *politica.html*, desde *pensamientos.html*
+[x] *anarquismo.html*, desde *politica.html*
+[ ] *anarquismo.html*, desde *?.html*
+
+[x] *linkage-and-scope.html*, from *programming.html*
+[x] *linkage-and-scope.html*, from *c.html*
+[x] *linkage-and-scope.html*, from *cpp.html*
 
 [ ] *memoria.html*
 
