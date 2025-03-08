@@ -101,6 +101,23 @@
         </aside>
       </section>
 
+      <section>
+        <h2>Yielding Results without Double Quotes</h2>
+        <p>The <code>-r</code> flag is used for stripping out the double quotes.</p>
+      </section>
+
+      <section>
+        <h2>Using Shell Variables through <code>--arg</code></h2>
+      </section>
+
+      <section>
+        <h2>Compressing JSON Objects through <code>-c</code> or <code>--compact-output</code></h2>
+        <pre>$ jq -c '.employees[]' sample.json
+{"name":"Tony","age":"35","gender":"male"}
+{"name":"Jane","age":"30","gender":"female"}</pre>
+      </section>
+
+
       <section id="arrays">
         <h2>JSON Arrays</h2>
         <p>Let&apos;s now look at how we can work with <a target="_blank" href="json.html#arrays">JSON arrays</a>.</p>
@@ -246,7 +263,12 @@
           <p>Simply put, we want to output the price of all the fruit whose name starts with the letter “a”.</p>
         </section>
         <section>
-          <h3>Finding Unique Values</h3>
+          <h3>Finding the Type with <code>type</code></h3>
+          <pre>$ jq '.age | type' tony.json
+"number"</pre>
+          <p>...</p>
+        <section>
+          <h3>Finding Unique Values with <code>unique</code></h3>
           <p>One common use case is to be able to see unique occurrences of a particular value within an array or remove duplicates.</p>
           <p>Let&apos;s see how many unique colors we have in our fruits JSON document:</p>
           <pre>$ jq 'map(.color) | unique' fruits.json</pre>
@@ -269,6 +291,53 @@
   }
 }</pre>
         </section>
+      </section>
+
+      <section id="creating">
+        <h2>Creating and Editing JSON Objects</h2>
+        <p>You can create and modify json data using {} brackets. Here&apos;s how to create json data from scratch:</p>
+        <pre>$ jq -n --arg my_username "john" --arg my_id "25" '{
+    "username": $my_username,
+    "id": $my_id
+}'</pre>
+        <p>Here we use the <code>-n</code> flag to tell jq to start with a null json object. Then we used the content inside the <code>{}</code> as a template to build out a custom json object. We also passed in some variables to the template using the <code>--arg</code> flags:</p>
+        <pre>{
+  "username": "john",
+  "id": "25"
+}</pre>
+        <hr/>
+        <p>Instead of using the <code>--arg</code> flag, you can use the content inside an existing json file to generate a new json file. Lets use some <cite>sample.json</cite> as our source data:</p>
+        <pre>$ cat sample.json
+[{"name":"Tony","age":"35","gender":"male"},{"name":"Jane","age":"30","gender":"female"}]</pre>
+        <p>Now let&apos;s say we only want us Tony&apos;s data to create our new json object. So we need to run:</p>
+        <pre>$ cat sample.json | jq '.[] | select(.name=="Tony")' | jq '{
+    "username": .name,
+    "current_age": .age
+}'
+</pre>
+        <p>Notice this time we call variables using . so instead of $name we used <code>.name</code>.</p>
+        <p>When we run the above, we get:</p>
+        <pre>{
+  "username": "Tony",
+  "current_age": "35"
+}</pre>
+        <section>
+          <h3>Rewriting JSON Objects into JSON Objects</h3>
+          <pre>jq '. | {word: .term, definition: .definition}' terms.json</pre>
+        </section>
+        <section>
+          <h3>JSON Array(s) from JSON Object(s)</h3>
+          <pre>jq '. | [.term,  .definition]' terms.json</pre>
+        </section>
+        <section>
+          <h3>CSV from JSON File with Objects through Function <code>@csv</code></h3>
+          <pre>jq '. | [.term,  .definition] | @csv' terms.json</pre>
+        </section>
+        <!--
+        <section>
+          <h3>*</h3>
+        </section>
+        -->
       </section>
 
       <section id="transforming">
@@ -353,6 +422,7 @@
         </section>
       </section>
       -->
+      </section>
 
     </main>
 

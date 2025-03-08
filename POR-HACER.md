@@ -4,10 +4,24 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *armas-nucleares.html*
+<p>Pocos libros se publican y mucho menos se debate sobre las armas nucleares, sobre todo en nuestra época. Hasta el punto de que no consideramos la posibilidad digna de nuestra atención.</p>
+<p>No nos preocupa ni nos interesa saber que la República Popular China está aumentando su arsenal nuclear y se acerca década a década pero inexorablemente a sus dos rivales, Estados Unidos y Rusia. Nos limitamos a hablar de guerra comercial o de conflictos locales con sus vecinos, como Taiwán. Y que tanto Rusia como China podrían inutilizar todos los sistemas automáticos de Estados Unidos, paralizar todas sus infraestructuras, haciendo detonar una sola bomba termonuclear a gran altura.</p>
+<p>No nos alarma que un ICBM (Misil Balísitoc InterContinental) hoy por hoy siga siendo un arma imparable, ininterceptable, y que cada una de las dos superpotencias nucleares posea más de mil quinientas de esta arma decisiva.</p>
+<p>Un puñado de ICBMes armados con cabezas nucleares permitiría a un país por débil que fuese chantajear a cualquier otro. Sin embargo si multiplicamos la posibilidad de una guerra nuclear con la destrucción que conllevaría, nos sobrecogeríamos.</p>
+<p>Continuamente hacemos ese tipo de multiplicaciones. Por ejemplo, nos penemos gafas protectoras a pesar de la baja probabilidad de recibir una lesión ocular porque consideramos que el daño sería muy grande.</p>
+<p>En realidad como no conocemos antecedentes de guerra nuclear total, solo elucubraciones y novelizaciones, no le concedemos importancia a ese peligro.</p>
+<p>Ni siquiera conocemos ningún tipo de analogía, como no sea la de que un alma se precipite al infierno. La guerra convencional, incluso las dos guerras mundiales, es o ha sido de destrucción limitada nunca total.</p>
+<p>Si consideramos que éstas armas sólo se pueden blandir en una guerra nuclear <strong>total</strong>, entonces si tal guerra nunca llegase a ocurrir muchos considerarán justificado haberse despreocupado completamente, no haberse preocupado.</p>
+<p>Recuerdo que la revista <cite>Investigación y Ciencia</cite> publicó una serie de artículos de estrategia nuclear. En general confiamos en que funcione un principio fundamentan de esta teoría: la Destrucción Mutua Asegurada (DMA). Ninguna superpotencia nuclear va a arriesgarse a provocar una guerra nuclear total dado que ello conllevaría una Destrucción Mutua Asegurada. No obtendría ningún beneficio.</p>
+<p>En la reciente <cite><a target="_blank" href="invasion-de-ucrania.html">Guerra de Ucrania</a></cite> no se teme que el conflicto dé paso a un ataque nuclear por parte de Rusia. Impensable.</p>
+
+[ ] write *agency.html*
+
 [x] write *lisp.symbols.html* and link from *lisp.html*
 [x] write *prolog.symbols.html* and link from *prolog.html*
 
-[ ] enlazar a *creatividad-y-maquinas.html* desde *creatividad.html*
+[x] enlazar a *creatividad-y-maquinas.html* desde *creatividad.html*
 [x] enlazar a *creatividad-y-maquinas.html* desde *herramientas.html*
 [x] enlazar a *creatividad-y-maquinas.html* desde *ia.html*
 
@@ -684,6 +698,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *invasion-de-ucrania.html*
 
 [ ] *politica.html*, desde *pensamientos.html*
 [x] *anarquismo.html*, desde *politica.html*

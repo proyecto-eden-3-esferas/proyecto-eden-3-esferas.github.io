@@ -51,8 +51,61 @@
       <hr/>
       <p>In order for an <a target="_blank" href="ai.html">AI</a> (Artificial Intelligence) agent to understand information correctly, the information must be presented to it clearly and neatly. There are mainly four ways of doing this. <dfn>Logical representation</dfn> represents information using exact words of a natural language (or <a target="_blank" href="symbols.html">symbols</a> to represent them). <dfn>Semantic representation</dfn> ensures that the individual meanings within the information are connected in a formal, logical way (<i>read about the </i> <a href="SemanticWeb.html" target="_blank">Semantic Web</a>). <dfn>Frame representation</dfn> involves presenting the information in a tabular format, with facts allocated to individual <q>slots</q>, as in a <a href="database.html" target="_blank">database</a>. Finally, <dfn>production rules</dfn> are the instructions that state what conclusions an AI can deduce from the information it is supplied with. It uses connectors like IF and THEN so that statements may be deduced from it.</p>
 
-      <section id="kinds-of-knowledge">
-        <h2>Kinds of Knowledge: What, When, Why, and How?</h2>
+      <section id="logic-based">
+        <h2>Logic-Based Systems</h2>
+        <p>Logic-based methods use formal rules to model knowledge. These systems prioritize precision and are ideal for deterministic environments. For example, legal AI tools apply logic-based rules to analyze contracts for compliance.</p>
+        <dl>
+          <dt>Propositional Logic</dt>
+          <dd>
+            <p>Represents knowledge as declarative statements (propositions) linked by logical operators like <code>AND</code>, <code>OR</code>, and <code>NOT</code>. For example, <q>If it rains (A) AND the ground is wet (B), THEN the road is slippery (C).</q> While simple, it struggles with complex relationships. Often follow the format <q>IF <var>condition</var> THEN <var>conclusion</var>.</q> For instance, in a knowledge-based system, you might have:</p>
+            <pre>IF an object is red AND round, THEN the object might be an apple.</pre>
+          </dd>
+          <dt>First-Order Logic (FOL)</dt>
+          <dd>
+            <p>Extends propositional logic by introducing variables, quantifiers, and predicates. FOL can express statements like, <q>All humans (∀x) are mortal (Mortal(x)).</q> It supports nuanced reasoning but demands significant computational resources.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section id="structured">
+        <h2>Structured Representations</h2>
+        <p>These methods organize knowledge hierarchically or through networks, mimicking how humans categorize information.</p>
+        <dl>
+          <dt>Semantic Networks</dt>
+          <dd>Represent knowledge as nodes (concepts) and edges (relationships). For example, <q>Dog</q> links to <q>Animal</q> via an <q>Is-A</q> connection. They simplify inheritance reasoning but lack formal semantics.</dd>
+          <dt>Frames</dt>
+          <dd>Group related attributes into structured <strong>frames</strong>. A <q>Vehicle</q> frame may include slots like wheels, engine type, and fuel. Frames excel in default reasoning but struggle with exceptions.</dd> <dt><a target="_blank" href="Ontologies.html">Ontologies</a></dt>
+          <dd>Define concepts, hierarchies, and relationships within a domain using standards like <a target="_blank" href="OWLandOntologyModelling.html">OWL (Web Ontology Language)</a>. Ontologies power semantic search engines and healthcare diagnostics by standardizing terminology. For instance, e-commerce platforms use ontologies to classify products and enhance search accuracy.</dd>
+        </dl>
+      </section>
+
+      <section id="probabilistic">
+        <h2>Probabilistic Models</h2>
+        <p>These systems handle uncertainty by assigning probabilities to outcomes.</p>
+        <p>For instance, eather prediction systems combine historical data and sensor inputs using probabilistic models to forecast storms.</p>
+        <dl>
+          <dt>Bayesian Networks</dt>
+          <dd>Use directed graphs to model causal relationships. Each node represents a variable, and edges denote conditional dependencies. For instance, a Bayesian network can predict the likelihood of equipment failure based on maintenance history and usage.</dd>
+          <dt>Markov Decision Processes (MDPs)</dt>
+          <dd>Model sequential decision-making in dynamic environments. MDPs help robotics systems navigate obstacles by evaluating potential actions and rewards.</dd>
+        </dl>
+      </section>
+
+      <section id="distributed">
+        <h2>Distributed Representations</h2>
+        <p>Modern AI leverages neural networks to encode knowledge as numerical vectors, capturing latent patterns in data.</p>
+        <dl>
+          <dt>Embeddings</dt>
+          <dd>Convert words, images, or entities into dense vectors. Word embeddings like Word2Vec map synonyms to nearby vectors, enabling semantic analysis.</dd>
+          <dt>Knowledge Graphs</dt>
+          <dd>Combine graph structures with embeddings to represent entities (e.g., people, places) and their relationships. Google&apos;s Knowledge Graph enhances search results by linking related concepts.</dd>
+        </dl>
+      </section>
+
+      <hr/>
+
+      <section id="types-of-knowledge">
+        <h2>Types of Knowledge: What, When, Why, and How?</h2>
         <p>AI systems use up to five kinds of knowledge in their interactions with the world, but only two are common to  all AIs. <dfn>Declarative knowledge</dfn> is the most basic form and describes statements of fact, such as <q>cats are mammals,</q> whereas <dfn>procedural knowledge</dfn> instructs AIs how  to complete specific tasks. In some AIs, meta-, heuristic, and structural knowledge provide further information that enables them to solve problems.</p>
         <ul>
           <li><strong>Declarative:</strong> Basic facts that an AI needs in order to function.</li>
