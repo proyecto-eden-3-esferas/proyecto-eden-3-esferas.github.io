@@ -4,6 +4,19 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *mapa-conceptual.html* con https://concepto.de/mapa-conceptual/
+
+[ ] visitar https://concepto.de/concepto/
+
+[ ] escribir *teatro.html*
+<p>Desde sus inicios, el teatro sirvió como lugar de exposición de los sentimientos humanos, desde los más superficiales a los más profundos. La representación teatral empezó siendo un ritual religioso de tipo agrario o de fecundidad. Poco a poco, las representaciones teatrales se fueron separando de su origen religioso y se hicieron cada vez más complejas. Sin embargo, permaneció hasta nuestros días el componente emotivo del teatro. La finalidad de la representación siempre es conseguir que el espectador se emocione mediante la risa, el llanto, la ironía.</p>
+<p>Los griegos acuñaron el término <dfn>catarsis</dfn> para referirse a la purificación que se produce en el espectador de una obra de teatro cuando éste se identifica con los personajes y transita por las mismas emociones que están viviendo sobre la escena.</p>
+<p>Catarsis< (<i lang="he">katharsis</i>, en griego) era un término médico que quería decir purga. Es especialmente importante en las representaciones de la tragedia, del drama y del melodrama, puesto que, en estos tres tipos de representación, la catarsis es el objetivo del autor y la consecuencia de la situación que se plantea. A través del sufrimiento de los personajes, los espectadores se identifican con ellos, se apiadan y emocionan.</p>
+
+[ ] escribir *tradicion-convencion-transcendencia.html* o *tradi-conven-dencia.html*
+
+[ ] escribir *projimo.html*
+
 [ ] escribir *armas-nucleares.html*
 <p>Pocos libros se publican y mucho menos se debate sobre las armas nucleares, sobre todo en nuestra época. Hasta el punto de que no consideramos la posibilidad digna de nuestra atención.</p>
 <p>No nos preocupa ni nos interesa saber que la República Popular China está aumentando su arsenal nuclear y se acerca década a década pero inexorablemente a sus dos rivales, Estados Unidos y Rusia. Nos limitamos a hablar de guerra comercial o de conflictos locales con sus vecinos, como Taiwán. Y que tanto Rusia como China podrían inutilizar todos los sistemas automáticos de Estados Unidos, paralizar todas sus infraestructuras, haciendo detonar una sola bomba termonuclear a gran altura.</p>
@@ -698,6 +711,16 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *conceptos.html*, desde *pensamientos.html*
+[ ] *conceptos.html*, desde *logica.html*
+[ ] *conceptos.html*, desde *razon.html*
+
+[x] *lankavatarasutra.revulsion.html* from *buddhism.html*
+
+[x] *catarsis.es.html*, desde *religion.html*
+[ ] *catarsis.es.html*, desde ???
+[ ] *catarsis.es.html*, desde ???
 
 [ ] *invasion-de-ucrania.html*
 
