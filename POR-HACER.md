@@ -4,7 +4,9 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] escribir *mapa-conceptual.html* con https://concepto.de/mapa-conceptual/
+
+
+[x] escribir *mapas-conceptuales.html* con https://concepto.de/mapa-conceptual/
 
 [ ] visitar https://concepto.de/concepto/
 
@@ -711,6 +713,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *mapas-conceptuales.html*, desde *conceptos.html*
 
 [x] *conceptos.html*, desde *pensamientos.html*
 [ ] *conceptos.html*, desde *logica.html*
