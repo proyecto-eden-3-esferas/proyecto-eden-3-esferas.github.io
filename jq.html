@@ -389,23 +389,174 @@
 ]</pre>
       </section>
 
-      <!--
-      <section id="">
-        <h2>*</h2>
+      <section id="appendix">
+        <h2>Appendix</h2>
+
         <section>
-          <h3>*</h3>
+          <h3>Some Useful Switches</h3>
+          <dl>
+            <dt><code>--null-input / -n</code>:</dt>
+            <dd>Don´t read any input at all. Instead, the filter is run once using null as the input.  This  is  useful when using jq as a simple calculator or to construct JSON data from scratch.</dd>
+            <dt><code>--slurp / -s</code>:</dt>
+            <dd>Instead of running the filter for each JSON object in the input, read the entire input  stream  into  a large array and run the filter just once.</dd>
+            <dt><code>--compact-output / -c</code>:</dt>
+            <dd>By  default,  jq pretty-prints JSON output. Using this option will result in more compact output by instead putting each JSON object on a single line.</dd>
+            <dt><code>--raw-output / -r</code>:</dt>
+            <dd>With this option, if the filter´s result is a string then it will be written directly to standard  output  rather than being formatted as a JSON string with quotes. This can be useful for making jq filters talk to non-JSON-based systems.</dd>
+            <dt><code>--ascii-output / -a</code>:</dt>
+            <dd>jq  usually  outputs  non-ASCII Unicode codepoints as UTF-8, even if the input specified them as escape sequences (like <code>\u03bc</code>). Using this option, you can force jq to produce pure ASCII output with  every non-ASCII character replaced with the equivalent escape sequence.</dd>
+            <dt><code>-f filename / --from-file <var>filename</var></code>:</dt>
+            <p>Read  filter  from the file rather than from a command line, like awk´s -f option. You can also use ´#´ to make comments.</p>
+            <dt><code>--arg <var>name</var> <var>value</var></code>:</dt>
+            <dd>
+              <p>This option passes a value to the jq program as a predefined variable. If you run  jq  with  <code>--arg  foo bar</code>,  then <code>$foo</code> is available in the program and has the value <code>"bar"</code>. Note that value will be treated as a string, so <code>--arg foo 123</code> will bind <code>$foo</code> to <code>"123"</code>.</p>
+              <p>Named arguments are also available to the jq program as <code>$ARGS.named</code>.</p>
+            </dd>
+            <dt><code>--argjson <var>name</var> <var>JSON-text</var></code>:</dt>
+            <dd>This option passes a JSON-encoded value to the jq program as a predefined variable. If you run jq  with <code>--argjson foo 123</code>, then <code>$foo</code> is available in the program and has the (numerical) value <code>123</code>.</dd>
+            <dt><code>--rawfile <var>variable-name</var> <var>filename</var></code>:</dt>
+            <dd>This  option reads in the named file and binds its contents to the given global variable. If you run jq with <code>--rawfile foo bar</code>, then <var>$foo</var> is available in the program and has a string whose  contents  are  the texts in the file named <cite>bar</cite>.</dd>
+            <dt><code>--args</code>:</dt>
+            <p>Remaining arguments are positional string arguments. These are available to the jq program as <var>$ARGS.po‐
+              sitional[]</var>.</p>
+            <dt><code>--jsonargs</code>:</dt>
+            <dd>Remaining  arguments  are  positional  JSON  text  arguments.  These are available to the jq program as <var>$ARGS.positional[]</var>.</dd>
+            <!--
+            <dt><code></code></dt>
+            <dd></dd>
+            <dt><code></code></dt>
+            <dd></dd>
+            <dt><code></code></dt>
+            <dd></dd>
+            -->
+          </dl>
+        </section>
+
+        <section>
+          <h3>Filters*</h3>
+          <dl>
+            <dt>Identity (<code>.</code>)</dt>
+            <dd></dd>
+            <dt>Object Identifier-Index (<code>.<var>some-key</var></code>)</dt>
+            <dd>
+              <p>A filter of the form <code>.foo.bar</code> is equivalent to <code>.foo | .bar</code>.</p>
+              <p>Some examples:</p>
+              <pre>jq ´.foo´
+   {"foo": 42, "bar": "less interesting data"}
+=> 42
+
+jq ´.foo´
+   {"notfoo": true, "alsonotfoo": false}
+=> null
+
+jq ´.["foo"]´
+   {"foo": 42}
+=> 42</pre>
+           </dd>
+            <dt>Optional Object Identifier-Index (<code>.<var>some-key</var>?</code>)</dt>
+            <dd>Just like .<var>some-key</var>, but does not output an error when . is not an object.</dd>
+            <dt>Object Index (<code>.[<var>some-string</var>]</code>)</dt>
+            <dd>You  can  also  look  up  fields of an object using syntax like .["foo"] (.foo above is a shorthand version of this, but only for identifier-like strings).</dd>
+            <dt>Array Index (<code>.[<var>number</var>]</code>)</dt>
+            <dd>
+              <p>When the index value is an integer, <code>.[<var>number</var>]</code> can index arrays. Arrays are zero-based, so <code>.[2]</code>  returns  the third element.</p>
+              <p>Negative indices are allowed, with -1 referring to the last element, -2 referring to the next to last element, and so on.</p>
+            </dd>
+            <dt>Array/String Slice (<code>.[<var>number</var>:<var>number</var>]</code>)</dt>
+            <dd>
+              <p>The <code>.[<var>number</var>:<var>number</var>]</code> syntax can be used to return a subarray of an array or substring of a string. The array  returned  by  <code>.[10:15]</code> will be of length 5, containing the elements from index 10 (inclusive) to index 15 (exclusive). Either index may be negative (in which case it counts backwards from the end of  the  array),  or omitted (in which case it refers to the start or end of the array). Indices are zero-based.</p>
+              <pre>jq ´.[2:4]´
+              ["a","b","c","d","e"]
+           => ["c", "d"]
+
+           jq ´.[2:4]´
+              "abcdefghi"
+           => "cd"
+
+           jq ´.[:3]´
+              ["a","b","c","d","e"]
+           => ["a", "b", "c"]
+
+           jq ´.[-2:]´
+              ["a","b","c","d","e"]
+           => ["d", "e"]</pre>
+            </dd>
+            <dt>Array/Object Value Iterator (<code>.[]</code>)</dt>
+            <dd>
+              <p>If  you  use the <code>.[<var>index</var>]</code> syntax, but omit the <var>index</var> entirely, it will return all of the elements of an array. Running <code>.[]</code> with the input <code>[1,2,3]</code> will produce the numbers as three separate results, rather than as a single array. A filter of the form <code>.foo[]</code> is equivalent to <code>.foo | .[]</code>.</p>
+              <p>You can also use this on an object, and it will return all the values of the object.</p>
+              <p>Note that the iterator operator is a generator of values.</p>
+              <pre>jq ´.[]´
+              [{"name":"JSON", "good":true}, {"name":"XML", "good":false}]
+           => {"name":"JSON", "good":true}, {"name":"XML", "good":false}
+
+           jq ´.[]´
+              []
+           =>
+
+           jq ´.foo[]´
+              {"foo":[1,2,3]}
+           => 1, 2, 3
+
+           jq ´.[]´
+              {"a": 1, "b": 1}
+           => 1, 1</pre>
+            </dd>
+            <dt>(<code>.[]?</code>)</dt>
+            <dd>Like <code>.[]</code>, but no errors will be output if <code>.</code> is not an array or object. A filter of the form <code>.foo[]?</code> is equivalent to <code>.foo | .[]?</code>.</dd>
+            <dt>Comma (<code>,</code>)</dt>
+            <dd>
+              <p>If two filters are separated by a comma, then the same input will be fed into both and the two filters´ output value streams will be concatenated in order: first, all of the outputs produced by the  left  expression,  and then all of the outputs produced by the right. For instance, filter .foo, .bar, produces both the "foo" fields and "bar" fields as separate outputs.</p>
+              <p>The comma operator is one way to contruct generators.</p>
+              <pre>jq ´.foo, .bar´
+              {"foo": 42, "bar": "something else", "baz": true}
+           => 42, "something else"
+
+           jq ´.user, .projects[]´
+              {"user":"stedolan", "projects": ["jq", "wikiflow"]}
+           => "stedolan", "jq", "wikiflow"
+
+           jq ´.[4,2]´
+              ["a","b","c","d","e"]
+           => "e", "c"</pre>
+            </dd>
+            <dt>Pipe (<code>|</code>)</dt>
+            <dd>
+              <p>The  | operator combines two filters by feeding the output(s) of the one on the left into the input of the one on the right. It´s similar to the Unix shell´s pipe, if you´re used to that.</p>
+              <p>If the one on the left produces multiple results, the one on the right will be run for each of those  results. So,  the  expression .[] | .foo retrieves the "foo" field of each element of the input array. This is a cartesian product, which can be surprising.</p>
+              <p>Note that .a.b.c is the same as .a | .b | .c.</p>
+              <p>Note too that . is the input value at the particular stage in a "pipeline", specifically: where the .  expression  appears.  Thus  .a | . | .b is the same as .a.b, as the . in the middle refers to whatever value .a produced.</p>
+              <pre>jq ´.[] | .name´
+   [{"name":"JSON", "good":true}, {"name":"XML", "good":false}]
+=> "JSON", "XML"</pre>
+            </dd>
+            <dt>Parenthesis(<code>(...)</code>)</dt>
+            <dd>Parenthesis work as a grouping operator just as in any typical programming language.</dd>
+            <!--
+            <dt>Identity (<code></code>)</dt>
+            <dd></dd>
+            <dt>Identity (<code></code>)</dt>
+            <dd></dd>
+            -->
+          </dl>
         </section>
         <section>
-          <h3>*</h3>
+          <h3>Recursive Descent (<code>..</code>)</h3>
+          <p>Recursively descends ., producing every value. This is the same as the zero-argument recurse builtin (<i>see below</i>). This is intended to resemble the XPath <code>//</code> operator. Note that <code>..a</code> does not work; use <code>.. | .a</code> instead. In the example below we use <code>.. | .a?</code> to find all the values of object keys "a" in any object found "below" ..</p>
+          <p>This is particularly useful in conjunction with <code>path(<var>EXP</var>)</code> (also <i>see below</i>) and the ? operator.</p>
+          <pre>jq ´.. | .a?´
+   [[{"a":1}]]
+=> 1</pre>
         </section>
         <section>
-          <h3>*</h3>
+          <h3>Builtin Operators and Functions*</h3>
         </section>
         <section>
           <h3>*</h3>
         </section>
       </section>
 
+      <!--
       <section id="">
         <h2>*</h2>
         <section>

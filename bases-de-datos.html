@@ -29,38 +29,34 @@
         <p><a rel="next" href="ordenadores.html">Ordenadores digitales</a></p>
         <p><a            href="memoria.html">La memoria: una base de datos biológicas</a></p>
         <p><a            href="digital.html">Lo digital</a></p>
-        <p><a            href="programacion.html">Programación</a></p>
-        <p><a rel="prev" href='tecnologia.html'>Tecnología</a></p>
-        <p><a            href='ia.html'>Inteligencia Artificial</a></p>
+        <p><a rel="prev" href="informatica.html">Informática</a></p>
       </div>
       <div>
         <p><a href='computing.html'>Computing (English)</a></p>
-        <p><a href='ai.html'>Artificial Intelligence (English)</a></p>
       </div>
     </nav>
 
     <main>
       <h1>Bases de datos</h1>
-      <p>Una <dfn>base de datos</dfn> consta de información compleja sobre algo y está formada por muchos datos. Estos datos están manejados siempre por una aplicación informática llamada <dfn>gestor de bases de datos</dfn>, de los cuáles hay varias (MySQL, PostgreSQL, <a target="_blank" href="sqlite.html">SQLite</a>, <a target="_blank" href="mongodb.html">MongoDB</a> etc. de entre las de código abierto).</p>
-      <p>Además han de conservarse de manera que resulten sencillas y seguras las siguientes operaciones:</p>
+      <p>Una <dfn>base de datos</dfn> consiste en una colección estructurada de muchos datos. Estos datos están manejados siempre por una aplicación informática llamada <dfn>gestor de bases de datos</dfn> (<dfn>DataBase Management System</dfn>, abreviado <dfn>DBMS</dfn>), de los cuáles hay varias (MySQL, PostgreSQL, <a target="_blank" href="sqlite.html">SQLite</a>, <a target="_blank" href="mongodb.html">MongoDB</a> etc. de entre las de código abierto).</p>
+      <p>Además, han de resultar sencillas y seguras las siguientes operaciones con datos:</p>
       <ol>
         <li><strong>almacenarlos:</strong> aunque falle el disco duro, mediante copias de seguridad</li>
         <li><strong>modificarlos:</strong> modificar un dato</li>
-        <li><strong>consultarlos:</strong> consultar un dato dadas unas condiciones</li>
-        <li><strong>regular el acceso:</strong> el gestor reconoce varios usuarios y les permite realizar operaciones de lectura y escritura según los permisos y roles que se les haya otorgado.</li>
+        <li><strong>consultarlos:</strong> consultar un dato que cumpla unas características (por ejemplo todos los teléfonos de personas desempleadas)</li>
+        <li><strong>regular el acceso:</strong> el gestor reconoce varios usuarios y les deja realizar operaciones de lectura y escritura según los permisos y roles que se les haya otorgado.</li>
       </ol>
       <hr/>
       <p>A los seres humanos se nos da bien manejar conceptos, y mal recordar muchos datos. A los ordenadores al revés. Del orden de miles de nombres completos de persona, con sus correspondientes DNIes, teléfonos, direcciones, fechas de nacimiento etc. Por eso recurrimos a las bases de datos.</p>
       <hr/>
-
-      <p>Para comprender cómo puede ser una base de datos pensemos en una tabla de datos en la que cada columna representa un aspecto de algo (nombre, fecha, identificador etc.) y cada file representa un objeto o ente. Por ejemplo pensemos en una tabla de libros. Cada file describiría un libro, y cada columna aspectos tales como fecha de publicación, género, autor, extensión, tema etc.</p>
+      <p>Para comprender cómo puede ser una base de datos pensemos en una tabla de datos en la que cada columna representa un aspecto de algo (nombre, fecha, identificador etc.) y cada fila representa un objeto o ente. Por ejemplo pensemos en una tabla de libros. Cada file describiría un libro, y cada columna aspectos tales como fecha de publicación, género, autor, extensión, tema etc.</p>
       <p>De hecho el modelo de base de datos más frecuente está formado por tablas interrelacionadas, de ahí que se denominen <dfn>bases de datos relacionales</dfn>. Para entender cómo una tabla puede estar relacionada con otra, supongamos que la tabla de libros (llamada <cite>libros</cite>) exigiera que cada nombre de autor existiera idéntico en otra tabla de autores, llamada <cite>autores</cite>. También podríamos exigir que cada dato o entrada de la columna <cite>lugar_de_nacimiento</cite> se correspondiera tal cuál con otra entrada de una tercera tabla llamada <cite>lugares</cite>, etc.</p>
       <p>Preguntaros: ¿Cómo de potente sería esta forma de organizar la información?</p>
 
       <hr/>
       <p>Cada sistema de bases de datos se caracteriza y se diferencia de los demás por:</p>
       <ol>
-        <li>cómo está organizada la información: tablas, notas, listas</li>
+        <li>cómo está organizada la información: tablas, <a href="#json">notas</a>, listas</li>
         <li>lo bien que cumplen sus diferentes cometidos: perdurabilidad, rapidez (de escritura o de lectura), ciberseguridad etc.</li>
         <li>facilidad de uso</li>
         <li>precio (desde las muy caras hasta no pocas que son gratuitas)</li>
@@ -73,10 +69,10 @@
       <section>
         <h2>Bases de datos documentales*</h2>
         <p>Las bases datos documentales constan de documentos, en el sentido especial de textos estructurados. Se diferencias de las filas de las tablas (de las bases de datos relacionales) en que su formato es más libre: uno puede improvisar campos porque no parte de un esquema inicial.</p>
-        <section>
+        <section id="json">
           <h2>Bases de datos documentales de JSON*</h2>
         </section>
-        <section>
+        <section id="xml">
           <h2>Bases de datos documentales de XML*</h2>
         </section>
       </section>

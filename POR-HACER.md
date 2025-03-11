@@ -4,7 +4,17 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write section *Some Common / Rare Cases* in *grammatical-cases.html*
+[ ] write section *Finno-Hungric Cases* in *grammatical-cases.html*
+[ ] write section *Basque Cases* in *grammatical-cases.html*
 
+[ ] write "open-closed-loop.html" (concerning systems)
+
+[ ] escribir *bases-de-datos-relacionales.html*
+<h1>Bases de datos relacionales</h1>
+<p>Se deducen del principio de que cada dato ha de anotarse en un único lugar y ha de ser posible deducir dónde (se va a anotar). Por ejemplo en una base de datos sobre <a target="_blank" href="literatura.html">literatura</a> la fecha de nacimiento de un escritor se encontrará en la tabla <cite>escritores</cite>, no en la table <cite>obras</cite>.</p>
+<p>En cambio en una base de datos documental la fecha de nacimiento podría encontrarse (1) repetida en un documento (ficha) sobre una obra y en otro sobre su autor, o bien en ninguna de los dos documentos.</p>
+<p>Están basadas en tablas relacionadas. Dos tablas se consideran relacionadas cuando una columna (<dfn>clave extranjera</dfn>) de una tabla toma valores que han de existir en la columna de otra tabla, normalmente su <dfn>clave primaria</dfn>. El sistema o gestor asegura la <dfn>integridad referencial</dfn>: el que toda clave extranjera haga referencia a una clave primaria. Por ejemplo si la columna <var>lugar_de_nacimiento</var> hace referencia a la columna <var>lugar</var> de la tabla <var>lugares</var>, entonces toda de entrada de la columna <var>lugar_de_nacimiento</var> (por ejemplo <var>Barcelona</var>) habrá de adoptar el mismo valor que otro  de la tabla <var>lugares</var>.</p>
 
 [x] escribir *mapas-conceptuales.html* con https://concepto.de/mapa-conceptual/
 
