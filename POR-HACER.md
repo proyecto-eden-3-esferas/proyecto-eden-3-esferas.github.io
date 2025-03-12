@@ -4,6 +4,20 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *xml.html*
+[ ] *XSLT.html* <cite>eXtensible Stylesheet Language Transformations</cite>
+
+[ ] *conventional.CT.html* <cite><dfn>Conventional</dfn> according to Chögyam Trungpa</cite>
+[ ] *creating-a-drala-culture.CT.html* <cite>Creating a Drala Culture</cite>, by Chögyam Trungpa
+[ ] *the-four-foundations-of-mindfulness.CT.html* <cite>The Four Foundations of Mindfulness</cite> according to Chögyam Trungpa Rinpoche
+
+[ ] escribir *libertad.html*
+<p>En general existen dos tipos de libertad:</p>
+<ul>
+  <li>libertad de elegir lo que queremos hacer, y</li>
+  <li>libertad de hacer lo que creemos que debemos hacer.</li>
+</ul>
+
 [ ] write section *Some Common / Rare Cases* in *grammatical-cases.html*
 [ ] write section *Finno-Hungric Cases* in *grammatical-cases.html*
 [ ] write section *Basque Cases* in *grammatical-cases.html*
