@@ -40,8 +40,10 @@
 
       <section id="syntax">
         <h2>JSON Syntax</h2>
-        <p>JSON consists of atomic types (strings, numbers--either integers or decimal--, Booleans, and <code>null</code>), arrays and objects, as well as name and value pairs, comma separated and enclosed in curly brackets.</p>
-        <p>Data in JSON is written in name and value pairs, similar to JavaScript object properties. A name and value pair is constructed using a name that is placed in double quotes, followed by a colon and a given value.</p>
+        <p>JSON consists of atomic types (strings, numbers--either integers or decimal--, Booleans, and <code>null</code>), as well as arrays and objects.</p>
+        <p>A JSON object consists of name and value pairs, where the name is a string and the value is either atomic or composite (array or object) type, comma separated and enclosed in curly brackets.</p>
+        <p>JSON is written in name and value pairs very much like JavaScript object properties.</p>
+        <p>A name and value pair is constructed using a name that is placed in double quotes, followed by a colon and a given value.</p>
         <p>For example:</p>
         <pre>{
   name: "John",
@@ -50,15 +52,18 @@
   children: ["Monica", "Chris"],
   wife: null}</pre>
         <p>Punctuation used in the JSON format includes quotations, curly and square brackets, parentheses, commas and colons.</p>
+        <aside>
+          <p>JavaScript objects may also contain functions (member functions) or methods, and they inherit from <code>Object</code>, a special master object.</p>
+        </aside>
         <section id="objects">
           <h3>JSON objects</h3>
           <p>JSON objects are unordered sets of name and value pairs. Objects are written inside of curly braces, like these { }. Everything inside the curly braces is part of the object. Objects can contain multiple name and value pairs. Each name is followed by a colon, and name value pairs are separated by a comma.</p>
-          <p>Objects can be accessed when needed and modified, deleted or looped.</p>
+          <p>JavaScript objects can be accessed when needed and modified, deleted or looped.</p>
         </section>
         <section id="arrays">
           <h3>JSON arrays</h3>
           <p>JSON arrays are an ordered list of values. Arrays are used to store objects, strings, number notation and Boolean notation. An array can be made up of multiple data types.</p>
-          <p>Arrays in JSON are surrounded by square brackets, like these [ ]. Each value in the array is separated by a comma. Users can access array values and update, delete or loop them. An array can be stored inside another JSON array; that&apos;s called a multidimensional array.</p>
+          <p>Arrays in JSON are surrounded by square brackets, like these [ ]. Each value in the array is separated by a comma. In JavaScript, programmers can access array values and update, delete or loop them. An array can be stored inside another JSON array; that&apos;s called a <dfn>multidimensional array</dfn>.</p>
         </section>
         <p>A JSON object may contain another object, or even an array of objects (<i>see next</i>).</p>
         <p>For example, an array of employee names may look like this:</p>
@@ -79,10 +84,6 @@
 
       <section id="linux">
         <h2>JSON Query tools available in linux</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
         <p>From simplest to most complex and complete</p>
         <dl>
 

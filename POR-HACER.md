@@ -4,19 +4,24 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] write *xml.html*
-[ ] *XSLT.html* <cite>eXtensible Stylesheet Language Transformations</cite>
 
-[ ] *conventional.CT.html* <cite><dfn>Conventional</dfn> according to Chögyam Trungpa</cite>
-[ ] *creating-a-drala-culture.CT.html* <cite>Creating a Drala Culture</cite>, by Chögyam Trungpa
-[ ] *the-four-foundations-of-mindfulness.CT.html* <cite>The Four Foundations of Mindfulness</cite> according to Chögyam Trungpa Rinpoche
+[ ] finish *jq.html* from man page
 
-[ ] escribir *libertad.html*
-<p>En general existen dos tipos de libertad:</p>
-<ul>
-  <li>libertad de elegir lo que queremos hacer, y</li>
-  <li>libertad de hacer lo que creemos que debemos hacer.</li>
-</ul>
+[x] *XSLT.html* <cite>eXtensible Stylesheet Language Transformations</cite>
+
+[x] *conventional.CT.html* <cite><dfn>Conventional</dfn> according to Chögyam Trungpa</cite>
+[x] *creating-a-drala-culture.CT.html* <cite>Creating a Drala Culture</cite>, by Chögyam Trungpa
+[x] *the-four-foundations-of-mindfulness.CT.html* <cite>The Four Foundations of Mindfulness</cite> according to Chögyam Trungpa Rinpoche
+
+[ ] move links in *computing.html*
+      <div>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+      </div>
+    somewhere else, such as
+    [ ] would-be *computer-graphics.html*
+    [x] *computational-geometry.html*
 
 [ ] write section *Some Common / Rare Cases* in *grammatical-cases.html*
 [ ] write section *Finno-Hungric Cases* in *grammatical-cases.html*
@@ -737,6 +742,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] enlazar *libertad.html* desde *politica.html*
+[ ] enlazar *libertad.html* desde *orden.html*
+
 
 [ ] *mapas-conceptuales.html*, desde *conceptos.html*
 

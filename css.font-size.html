@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSS Font Size</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="css.font-family.html">CSS Font Family (<var>font-family</var>)</a></p>
+        <p><a href="css.media-query.html">CSS Media Queries</a></p>
+        <p><a href="css.import-stylesheet.html">The CSS @import Rule</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>CSS Font Size (<var>font-size</var>)</h1>
+
+      <section>
+        <h2>Viewport Units</h2>
+        <p>There are values in CSS that are for sizing things in relation to the viewport (the size of the browser window). They are called <dfn>viewport units</dfn>, and there are a number of them that do slightly different (all useful) things. One unit is 1% of one of the axes of the viewport. These can be useful for responsive design, that is, designing websites that look good across different screen sizes, taking advantage of the space available to them.</p>
+        <p>There are many things you can do with viewport units, but let&apos;s look at one in particular: typography.</p>
+        <!--
+        <p>It&apos;s worth looking at our more recent post Simplified Fluid Typography for practical, clamped, viewport-based type sizing.</p>
+        -->
+        <section>
+          <h3>Discussion</h3>
+          <p>One unit is 1% of the viewport axis. Viewport == browser window size == window object. If the viewport is 40cm wide, then 1vw == 0.4cm.</p>
+          <p>For use with <code>font-size</code>, I guess it&apos;s one character that takes on that size, but as we know, in non-mono-spaced fonts the width of a letter is rather arbitrary. I find you just need to tweak around with the values to get it how you want it.</p>
+          <ul>
+            <li>1vw = 1% of viewport width</li>
+            <li>1vh = 1% of viewport height</li>
+            <li>1vmin = 1vw or 1vh, whichever is smaller</li>
+            <li>1vmax = 1vw or 1vh, whichever is larger</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>An Example</h2>
+          <p>Here is an easy example:</p>
+          <pre>h1 {
+  font-size: 5.9vw;
+}
+h2 {
+  font-size: 3.0vh;
+}
+p {
+  font-size: 2vmin;
+}</pre>
+        </section>
+
+        <section>
+          <h3>Not just <code>font-size</code></h3>
+          <p>These are just units. Just like <code>em</code>, <code>px</code>, and so on. You can use them on anything, not just <code>font-size</code>.</p>
+          <p>I think font-size is the most compelling use case, since things like margin, padding, and width can already essentially react to browser window size by using % units.</p>
+          <p>Still, there is the case where perhaps a more deeply-nested element needs to react to the browser window size instead of its direct parent size.</p>
+        </section>
+
+      </section>  <!-- end of "Viewport Units" -->
+
+      <section>
+        <h2>Simplified Fluid Typography</h2>
+        <p><dfn>Fluid typography</dfn> is the idea that <code>font-size</code> (and perhaps other attributes of type, like <code>line-height</code>) change depending on the screen size (or perhaps container queries if we had them).</p>
+        <p>The core trickery comes from viewport units. You can literally set type in viewport units (e.g. <code>font-size: 4vw</code>), but the fluctuations in size are so extreme that it&apos;s usually undesirable. That&apos;s tempered by doing something like <code>font-size: calc(16px + 1vw)</code>. But while we&apos;re getting fancy with calculations anyway, the most common implementation ended up being an equation to calculate plain English:</p>
+        <blockquote>I want the type to go between being 16px on a 320px screen to 22px on a 1000px screen.</blockquote>
+        <p>Which ended up like this:</p>
+        <pre>html {
+  font-size: 16px;
+}
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 22px;
+  }
+}</pre>
+        <p>That&apos;s essentially setting a minimum and maximum font size so the type won&apos;t shrink or grow to anything too extreme. <dfn>CSS locks</dfn> was a term coined by Tim Brown.</p>
+        <p>Minimum and maximum you say?! Well it so happens that functions for these have made their way into the CSS spec in the form of min() and max().</p>
+        <p>So we can simplify our fancy setup above with a one-liner and maintain the locks:</p>
+        <pre>html {
+  font-size: min(max(1rem, 4vw), 22px);
+}</pre>
+        <p>We actually might want to stop there because even though both Safari (11.1+) and Chrome (79+) support this at the current moment, that&apos;s as wide as support will get today. Speaking of which, you&apos;d probably want to slip a font-size declaration before this to set an acceptable fallback value with no fancy functions.</p>
+        <p>But as long as we&apos;re pushing the limits, there is another function to simplify things even more: <code>clamp()</code>! Clamp takes three values, a <var>min</var>, <var>max</var>, and a <var>flexible unit</var> (or calculation or whatever) in the middle that it will use in case the value is between the min and max. So, our one-liner gets even smaller:</p>
+        <pre>body {
+  font-size: clamp(100%, 1rem + 2vw, 24px);
+</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -552,8 +552,58 @@ jq ´.["foo"]´
           <h3>Builtin Operators and Functions*</h3>
         </section>
         <section>
+          <h3>Format strings and escaping</h3>
+          <p>The <code>@<var>foo</var></code> syntax is used to format and escape strings, which is useful for building URLs, documents in  a  language like HTML or XML, and so forth. <code>@<var>foo</var></code> can be used as a filter on its own, the possible escapings are:</p>
+          <dl>
+
+            <dt><code>@text:</code></dt>
+            <dd>Calls <code>tostring</code>, see that function for details.</dd>
+
+            <dt><code>@json:</code></dt>
+            <dd>Serializes the input as JSON.</dd>
+
+            <dt><code>@html:</code></dt>
+            <dd>Applies  HTML/XML  escaping,  by  mapping  the characters &lt;&gt;&amp;&apos;&quot; to their entity equivalents <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code>, and <code>&amp;apos;</code>, <code>&amp;quot;</code>.</dd>
+
+            <dt><code>@uri:</code></dt>
+            <dd>Applies percent-encoding, by mapping all reserved URI characters to a <code>%<var>XX</var></code> sequence.</dd>
+
+            <dt><code>@csv:</code></dt>
+            <dd>The input must be an array, and it is rendered as CSV with double quotes for strings,  and  quotes  escaped by repetition.</dd>
+
+            <dt><code>@tsv:</code></dt>
+            <dd>The  input must be an array, and it is rendered as TSV (tab-separated values). Each input array will be printed as a single line. Fields are separated by a single tab (ascii 0x09). Input characters line-feed (ascii 0x0a), carriage-return (ascii 0x0d), tab (ascii 0x09) and backslash (ascii 0x5c) will be  output as escape sequences \n, \r, \t, \\ respectively.</dd>
+
+            <dt><code>@sh:</code></dt>
+            <dd>The  input  is  escaped suitable for use in a command-line for a POSIX shell. If the input is an array, the output will be a series of space-separated strings.</dd>
+
+            <dt><code>@base64:</code></dt>
+            <dd>The input is converted to base64 as specified by RFC 4648.</dd>
+
+            <dt><code>@base64d:</code></dt>
+            <dd>The inverse of @base64, input is decoded as specified by RFC 4648. Note\: If the decoded string is  not UTF-8, the results are undefined.</dd>
+
+          </dl>
+
+          <p>This  syntax  can  be  combined  with string interpolation in a useful way. You can follow a @foo token with a string literal. The contents of the string literal will not be escaped. However, all interpolations  made  in‐ side that string literal will be escaped. For instance,</p>
+          <pre>@uri "https://www.google.com/search?q=\(.search)"</pre>
+          <p>will produce the following output for the input {"search":"what is jq?"}:</p>
+          <pre>"https://www.google.com/search?q=what%20is%20jq%3F"</pre>
+
+          <aside><strong>Note</strong> that  the  slashes, question mark, etc. in the URL are not escaped, as they were part of the string literal.</aside>
+
+        </section>
+        <!--
+        <section>
           <h3>*</h3>
         </section>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+        -->
       </section>
 
       <!--

@@ -25,6 +25,7 @@
       <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
       -->
       <div>
+        <p><a href="XSLT.html">XSLT: eXtensible Stylesheet Transformation Language</a></p>
         <p><a href="xml.xinclude.html">XInclude: Including Chunks and Files</a></p>
       </div>
       <div>
@@ -46,8 +47,8 @@
     <main>
       <h1>XML: The eXtensible Markup Language</h1>
       <p>XML is a markup language. <dfn>Markup</dfn> is something added to a text to specify semantics and presentation.</p>
-
-      <p>You need to understand what is meant by syntax, semantics and presentation in the wider context.</p>
+      <hr/>
+      <p>To understand what XML is and does, you need to understand what is meant by syntax, semantics and presentation in the wider context.</p>
       <dl>
         <dt>Syntax</dt>
         <dd>Rules for combining symbols; in linguistics, rules for combining words, as opposed to rules for building words (<dfn>morphology</dfn>).</dd>
@@ -100,7 +101,7 @@
       <hr/>
 
       <p>Some of this stuff might be dismissed as paperwork, a kind of bureaucracy, but most of it plays some meaningful rôle, though.</p>
-      <p>The good news is that I don&pos;t need to remember all this whenever I write a new document: I just copy it off another document. Besides, if you write a web page in HTML, the most common XML vocabulary, the browser will still show your page properly if you make some minor mistakes.</p>
+      <p>The good news is that I don&apos;t need to remember all this whenever I write a new document: I just copy it off another document. Besides, if you write a web page in HTML, the most common XML vocabulary, the browser will still show your page properly if you make some minor mistakes.</p>
       <p>Consider this. If you want to write a story and upload it to the Web, you just need two tags: <var>h1</var> for the the title, and <var>p</var> for a paragraph. May be you want to italize some word later on (<var>i</var> tag). Most writing does not require many more tags.</p>
 
 
@@ -113,7 +114,7 @@
       <section>
         <h2>On Being a Metalanguage: eXtensible</h2>
         <p>XML <i>per se</i> does not define a set of tags with their own semantics and presentation expectations. That is why my presentation of XML may have felt a bit too <em>abstract</em>.</p>
-        <p>As already said, XML
+        <p>As already said, XML...</p>
         <p>Some XML languages have already been defined, besides HTML.</p>
         <ul>
           <li><a href="mathml.html">Mathml</a>: for typesetting mathematical formulas</li>
@@ -147,6 +148,141 @@
         <h2>Searching and Transforming</h2>
         <p>As long as a document follows the XML syntax it can be transformed into another document in a different XML vocabulary or even into a non-XML document, such as a <a href="json.html">JSON</a> document, TeX/LaTeX for high-quality typesetting, Mark Down etc.</p>
         <p>XML is the only text language for which such comprehensive transformations exist (eXtensible Stylesheet Transformations Language, or XSTL).</p>
+      </section>
+
+      <section>
+        <h2>XML Namespaces</h2>
+        <p>XML Namespaces provide a method to avoid element name conflicts. In XML, element names are defined by the developer. This often results in a conflict when trying to mix XML documents from different XML applications.</p>
+        <hr/>
+        <p>Name conflicts in XML can easily be avoided using a name prefix.</p>
+        <p>This XML carries information about an HTML table, and a piece of furniture:</p>
+        <pre>&lt;h:table&gt;
+  &lt;h:tr&gt;
+    &lt;h:td&gt;Apples&lt;/h:td&gt;
+    &lt;h:td&gt;Bananas&lt;/h:td&gt;
+  &lt;/h:tr&gt;
+&lt;/h:table&gt;
+
+&lt;f:table&gt;
+  &lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+  &lt;f:width&gt;80&lt;/f:width&gt;
+  &lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;</pre>
+        <section>
+          <h3>The <code>xmlns</code> Attribute</h3>
+          <p>When using prefixes in XML, a namespace for the prefix must be defined.</p>
+          <p>The namespace can be defined by an <code>xmlns</code> attribute in the start tag of an element.</p>
+          <p>The namespace declaration has the following syntax: <code>xmlns:<var>prefix</var>="<var>URI</var>"</code>.</p>
+          <pre>&lt;root&gt;
+
+&lt;h:table xmlns:h="http://www.w3.org/TR/html4/"&gt;
+  &lt;h:tr&gt;
+    &lt;h:td&gt;Apples&lt;/h:td&gt;
+    &lt;h:td&gt;Bananas&lt;/h:td&gt;
+  &lt;/h:tr&gt;
+&lt;/h:table&gt;
+
+&lt;f:table xmlns:f="https://www.w3schools.com/furniture"&gt;
+  &lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+  &lt;f:width&gt;80&lt;/f:width&gt;
+  &lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;
+
+&lt;/root&gt;</pre>
+          <p>In the example above:</p>
+          <ul>
+            <li>The <code>xmlns</code> attribute in the first &lt;table&gt; element gives the <code>h:</code> prefix a qualified namespace.</li>
+            <li>The <code>xmlns</code> attribute in the second &lt;table&gt; element gives the <code>f:</code> prefix a qualified namespace.</li>
+          </ul>
+          <p>When a namespace is defined for an element, all child elements with the same prefix are associated with the same namespace.</p>
+          <hr/>
+          <p>Namespaces can also be declared in the XML root element:</p>
+          <pre>&lt;root xmlns:h="http://www.w3.org/TR/html4/"
+xmlns:f="https://www.w3schools.com/furniture"&gt;
+
+&lt;h:table&gt;
+  &lt;h:tr&gt;
+    &lt;h:td&gt;Apples&lt;/h:td&gt;
+    &lt;h:td&gt;Bananas&lt;/h:td&gt;
+  &lt;/h:tr&gt;
+&lt;/h:table&gt;
+
+&lt;f:table&gt;
+  &lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+  &lt;f:width&gt;80&lt;/f:width&gt;
+  &lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;
+
+&lt;/root&gt;</pre>
+          <aside><strong>Note:</strong> The namespace URI is not used by the parser to look up information. The purpose of using an URI is to give the namespace a unique name. However, companies often use the namespace as a pointer to a web page containing namespace information.</aside>
+        </section>
+
+        <section id="uri">
+          <h3>Uniform Resource Identifier (URI)</h3>
+          <p>A Uniform Resource Identifier (URI) is a string of characters which identifies an Internet Resource.</p>
+          <p>The most common URI is the Uniform Resource Locator (URL) which identifies an Internet domain address. Another, not so common type of URI is the Uniform Resource Name (URN).</p>
+        </section>
+
+        <section id="default-namespace">
+          <h3>Default Namespaces</h3>
+          <p>Defining a default namespace for an element saves us from using prefixes in all the child elements. It has the following syntax:</p>
+          <pre>xmlns="<var>namespaceURI</var>"</pre>
+          <p>This XML carries HTML table information:</p>
+          <pre>&lt;table xmlns="http://www.w3.org/TR/html4/"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Apples&lt;/td&gt;
+    &lt;td&gt;Bananas&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+          <p>and this XML carries information about a piece of furniture:</p>
+          <pre>&lt;table xmlns="https://www.w3schools.com/furniture"&gt;
+  &lt;name&gt;African Coffee Table&lt;/name&gt;
+  &lt;width&gt;80&lt;/width&gt;
+  &lt;length&gt;120&lt;/length&gt;
+&lt;/table&gt;</pre>
+        </section>
+
+        <section>
+          <h3>Namespaces in Real Use</h3>
+          <p><a target="_blank" href="XSLT.html">XSLT</a> (eXtensible Stylesheet Language Transformations) is a[n XML-syntax] language that can be used to transform XML documents into other formats.</p>
+          <p>The XML document below, is a document used to transform XML into HTML.</p>
+          <p>The namespace <code>"http://www.w3.org/1999/XSL/Transform"</code> identifies XSLT elements inside an HTML document:</p>
+          <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
+&lt;xsl:template match="/"&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h2&gt;My CD Collection&lt;/h2&gt;
+  &lt;table border="1"&gt;
+    &lt;tr&gt;
+      &lt;th style="text-align:left"&gt;Title&lt;/th&gt;
+      &lt;th style="text-align:left"&gt;Artist&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;xsl:for-each select="catalog/cd"&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;xsl:value-of select="title"/&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;xsl:value-of select="artist"/&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/xsl:for-each&gt;
+  &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;</pre>
+          <!--
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+
+
       </section>
 
       <!--

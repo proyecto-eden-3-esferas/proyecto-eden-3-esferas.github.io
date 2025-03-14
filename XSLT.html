@@ -460,7 +460,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:attribute&gt;</code> element is used to add attributes to elements.</p>
-            <warning>The <code class="tag">xsl:attribute&gt;</code> element replaces existing attributes with equivalent names.</warning>
+            <aside class="warning"><strong>Warning:</strong> The <code class="tag">xsl:attribute&gt;</code> element replaces existing attributes with equivalent names.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -514,7 +514,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:attribute-set</code> element creates a named set of attributes. The attribute-set can be applied as whole to the output document.</p>
-            <note>Must be child of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</note>
+            <aside class="note"><strong>Note.</strong> Must be child of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -667,7 +667,7 @@ name="name" use-attribute-sets="name-list"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:copy</code> element creates a copy of the current node.</p>
-            <warning>Namespace nodes of the current node are automatically copied as well, but child nodes and attributes of the current node are not automatically copied!</warning>
+            <aside class="warning"><strong>Warning:</strong> Namespace nodes of the current node are automatically copied as well, but child nodes and attributes of the current node are not automatically copied!</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -707,7 +707,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:copy-of</code> element creates a copy of the current node.</p>
-            <note>Namespace nodes, child nodes, and attributes of the current node are automatically copied as well!</note>
+            <aside class="note"><strong>Note.</strong> Namespace nodes, child nodes, and attributes of the current node are automatically copied as well!</aside>
             <tip>This element can be used to insert multiple copies of the same node into different places in the output.</tip>
           </section>
           <section class="sect3">
@@ -843,7 +843,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
                 <dd>Specifies the character used to separate positive and negative subpatterns in a format pattern. Default is ";"</dd>
               <!-- </varlistentry> -->
             </dl>
-            <pre></pre>
           </section>
           <section class="sect3">
             <h4>Example</h4>
@@ -1105,8 +1104,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:import</code> element is a top-level element that is used to import the contents of one style sheet into another.</p>
-            <note>An imported style sheet has lower precedence than the importing style sheet.</note>
-            <note>This element must appear as the first child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</note>
+            <aside class="note"><strong>Note.</strong> An imported style sheet has lower precedence than the importing style sheet.</aside>
+            <aside class="note"><strong>Note.</strong> This element must appear as the first child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1167,8 +1166,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:include</code> element is a top-level element that includes the contents of one style sheet into another.</p>
-            <note>An included style sheet has the same precedence as the including style sheet.</note>
-            <note>This element must appear as a child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</note>
+            <aside class="note"><strong>Note.</strong> An included style sheet has the same precedence as the including style sheet.</aside>
+            <aside class="note"><strong>Note.</strong> This element must appear as a child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1194,7 +1193,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:key</code> element is a top-level element which declares a named key that can be used in the style sheet with the <code class="function">key()</code> function.</p>
-            <note>A key does not have to be unique!</note>
+            <aside class="note"><strong>Note.</strong> A key does not have to be unique!</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1311,7 +1310,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:namespace-alias</code> element is used to replace a namespace in the style sheet to a different namespace in the output.</p>
-            <note><code class="tag">xsl:namespace-alias</code> is a top-level element, and must be a child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</note>
+            <aside class="note"><strong>Note.</strong> <code class="tag">xsl:namespace-alias</code> is a top-level element, and must be a child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1469,7 +1468,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:otherwise</code> element specifies a default action for the <code class="tag">xsl:choose</code> element. This action will take place when none of the <code class="tag">xsl:when</code> conditions apply.</p>
-            <pre></pre>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1534,7 +1532,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:output</code> element defines the format of the output document.</p>
-            <note><code class="tag">xsl:output</code> is a top-level element, and must appear as a child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</note>
+            <aside class="note"><strong>Note.</strong> <code class="tag">xsl:output</code> is a top-level element, and must appear as a child node of <code class="tag">xsl:stylesheet</code> or <code class="tag">xsl:transform</code>.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1633,7 +1631,7 @@ encoding="UTF-8" indent="yes"/&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:param</code> element is used to declare a local or global parameter.</p>
-            <note>The parameter is global if it's declared as a top-level element, and local if it's declared within a template.</note>
+            <aside class="note"><strong>Note.</strong> The parameter is global if it's declared as a top-level element, and local if it's declared within a template.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1723,7 +1721,7 @@ href="style.css" type="text/css"
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:sort</code> element is used to sort the output.</p>
-            <note><code class="tag">xsl:sort</code> is always within <code class="tag">xsl:for-each</code> or <code class="tag">xsl:apply-templates</code>.</note>
+            <aside class="note"><strong>Note.</strong> <code class="tag">xsl:sort</code> is always within <code class="tag">xsl:for-each</code> or <code class="tag">xsl:apply-templates</code>.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1871,7 +1869,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:template&gt;</code> element contains rules to apply when a specified node is matched. The match attribute is used to associate the template with an XML element. The match attribute can also be used to define a template for a whole branch of the XML document (i.e. match="/" defines the whole document).</p>
-            <note><code class="tag">xsl:template</code> is a top-level element.</note>
+            <aside class="note"><strong>Note.</strong> <code class="tag">xsl:template</code> is a top-level element.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -1892,14 +1890,14 @@ priority="number"&gt;
                 <dt>name &lt;name&gt; (optional)</dt>
                 <dd>
                   <p>Specifies a name for the template.</p>
-                  <note>If this attribute is omitted there must be a match attribute</note>
+                  <aside class="note"><strong>Note.</strong> If this attribute is omitted there must be a match attribute</aside>
                 </dd>
               <!-- </varlistentry> -->
               <!-- <varlistentry> -->
                 <dt>match &lt;pattern&gt; (optional)</dt>
                 <dd>
                   <p>The match pattern for the template.</p>
-                  <note>If this attribute is omitted there must be a name attribute</note>
+                  <aside class="note"><strong>Note.</strong> If this attribute is omitted there must be a name attribute</aside>
                 </dd>
               <!-- </varlistentry> -->
               <!-- <varlistentry> -->
@@ -1954,7 +1952,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:text</code> element is used to write literal text to the output.</p>
-            <note>This element may contain literal text, entity references, and #PCDATA.</note>
+            <aside class="note"><strong>Note.</strong> This element may contain literal text, entity references, and #PCDATA.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -2011,8 +2009,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:preserve-space</code> element is used to define the elements for which white space should be preserved.</p>
-            <note>Preserving white space is the default setting, so using the <code class="tag">xsl:preserve-space</code> element is only necessary if the <code class="tag">xsl:strip-space</code> element is used.</note>
-            <note>Note: The <code class="tag">xsl:preserve-space</code> element and the <code class="tag">xsl:strip-space</code> element are top-level elements.</note>
+            <aside class="note"><strong>Note.</strong> Preserving white space is the default setting, so using the <code class="tag">xsl:preserve-space</code> element is only necessary if the <code class="tag">xsl:strip-space</code> element is used.</aside>
+            <aside class="note"><strong>Note.</strong> Note: The <code class="tag">xsl:preserve-space</code> element and the <code class="tag">xsl:strip-space</code> element are top-level elements.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -2026,7 +2024,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
                 <dt>elements</dt>
                 <dd>
                   <p>Required. A white space separated list of element names for which white space should be preserved/removed.</p>
-                  <note>The list can also contain "*" and "prefix:*" so that all elements or all elements from a particular namespace can be joined</note>
+                  <aside class="note"><strong>Note.</strong> The list can also contain "*" and "prefix:*" so that all elements or all elements from a particular namespace can be joined</aside>
                 </dd>
               <!-- </varlistentry> -->
             </dl>
@@ -2066,8 +2064,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:strip-space</code> element is used to define the elements for which white space should be removed.</p>
-            <note>Preserving white space is the default setting, so using the <code class="tag">xsl:preserve-space</code> element is only necessary if  the <code class="tag">xsl:strip-space</code> element is used.</note>
-            <note>The <code class="tag">xsl:preserve-space</code> element and the <code class="tag">xsl:strip-space</code> element are top-level elements.</note>
+            <aside class="note"><strong>Note.</strong> Preserving white space is the default setting, so using the <code class="tag">xsl:preserve-space</code> element is only necessary if  the <code class="tag">xsl:strip-space</code> element is used.</aside>
+            <aside class="note"><strong>Note.</strong> The <code class="tag">xsl:preserve-space</code> element and the <code class="tag">xsl:strip-space</code> element are top-level elements.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -2081,7 +2079,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
                 <dt>elements 	&lt;list-of-element-names&gt; (required)</dt>
                 <dd>
                   <p>A white space separated list of element names for which white space should be preserved/removed.</p>
-                  <note>The list can also contain "*" and "&lt;prefix&gt;:*" so that all elements or all elements from a particular namespace can be joined.</note>
+                  <aside class="note"><strong>Note.</strong> The list can also contain "*" and "&lt;prefix&gt;:*" so that all elements or all elements from a particular namespace can be joined.</aside>
                 </dd>
               <!-- </varlistentry> -->
             </dl>
@@ -2201,8 +2199,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:variable</code> element is used to declare a local or global variable.</p>
-            <note>The variable is global if it's declared as a top-level element, and local if it's declared within a template.</note>
-            <note>Once you have set a variable's value, you cannot change or modify that value!</note>
+            <aside class="note"><strong>Note.</strong> The variable is global if it's declared as a top-level element, and local if it's declared within a template.</aside>
+            <aside class="note"><strong>Note.</strong> Once you have set a variable's value, you cannot change or modify that value!</aside>
             <tip>You can add a value to a variable by the content of the <code class="tag">xsl:variable</code> element OR by the select attribute!</tip>
           </section>
           <section class="sect3">
@@ -2276,7 +2274,7 @@ select="expression"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:when</code> element is used to specify an action for the <code class="tag">xsl:choose</code> element. The <code class="tag">xsl:when</code> element evaluates an expression, and if it returns true, an action is performed.</p>
-            <note>The <code class="tag">xsl:when</code> element is used in conjunction with <code class="tag">xsl:choose</code> and <code class="tag">xsl:otherwise</code> to express multiple conditional tests.</note>
+            <aside class="note"><strong>Note.</strong> The <code class="tag">xsl:when</code> element is used in conjunction with <code class="tag">xsl:choose</code> and <code class="tag">xsl:otherwise</code> to express multiple conditional tests.</aside>
           </section>
           <section class="sect3">
             <h4>Syntax</h4>
@@ -2351,8 +2349,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
           <section class="sect3">
             <h4>Definition and Usage</h4>
             <p>The <code class="tag">xsl:with-param</code> element defines the value of a parameter to be passed into a template.</p>
-            <note>The value of the name attribute of <code class="tag">xsl:with-param</code> must match a name in an <code class="tag">xsl:param</code> element (the <code class="tag">xsl:with-param</code> element is ignored if there is no match).</note>
-            <note>The <code class="tag">xsl:with-param</code> element is allowed within <code class="tag">xsl:apply-templates</code> and <code class="tag">xsl:call-template</code>.</note>
+            <aside class="note"><strong>Note.</strong> The value of the name attribute of <code class="tag">xsl:with-param</code> must match a name in an <code class="tag">xsl:param</code> element (the <code class="tag">xsl:with-param</code> element is ignored if there is no match).</aside>
+            <aside class="note"><strong>Note.</strong> The <code class="tag">xsl:with-param</code> element is allowed within <code class="tag">xsl:apply-templates</code> and <code class="tag">xsl:call-template</code>.</aside>
             <tip>You can add a value to the parameter by the content of the <code class="tag">xsl:with-param</code> element OR by the select attribute!</tip>
           </section>
           <section class="sect3">
@@ -2993,7 +2991,7 @@ version="1.0"&gt;</pre>
               <li>A <var>match</var> attribute containing an XPath expression. This specifies what part of the document you want to index. The previous example created an index on all of the <code class="userinput">&lt;defn&gt;</code> elements. When we call the <code class="function">key()</code> function, it will return a <code class="userinput">&lt;defn&gt;</code> element. Note: according to Section 12.2 of the XSLT specification, the value of the <var>match</var> attribute can't contain a variable.</li>
               <li>
                 <p>A <var>use</var> attribute containing another XPath expression. This attribute is interpreted in the context of the <var>match</var> attribute. In other words, the previous <code class="userinput">&lt;xsl:key&gt;</code> element created an index of all the <code class="userinput">&lt;defn&gt;</code> elements, and used the language attribute to retrieve them.</p>
-                <note>According to Section 12.2 of the XSLT specification, the value of the use attribute can't contain a variable.</note>
+                <aside class="note"><strong>Note.</strong> According to Section 12.2 of the XSLT specification, the value of the use attribute can't contain a variable.</aside>
               </li>
             </ul>
           </section>
@@ -3007,7 +3005,7 @@ version="1.0"&gt;</pre>
             <ul>
               <li>
                 <p>For a given transformation, every time <code class="function">generate-id()</code> is invoked against a given node, it returns the same <code class="classname">ID</code>. The <code class="classname">ID</code> doesn't change while you're doing a given transformation. If you run the transformation again, there's no guarantee <code class="function">generate-id()</code> will generate the same <code class="classname">ID</code> the second time around. All calls to <code class="function">generate-id()</code> in the second transformation will return the same <code class="classname">ID</code>, but that <code class="classname">ID</code> might not be the same as in the first transformation.</p>
-                <note>The <code class="function">generate-id()</code> function is not required to check if an <code class="classname">ID</code> it generates duplicates an <code class="classname">ID</code> that's already in the document. In other words, if your document has an attribute of type <code class="classname">ID</code> with a value of <constant>sdk3829a</constant>, there's a possibility that an <code class="classname">ID</code> returned by <code class="function">generate-id()</code> will also be <constant>sdk3829a</constant>. It's not likely, but be aware that it could happen.</note>
+                <aside class="note"><strong>Note.</strong> The <code class="function">generate-id()</code> function is not required to check if an <code class="classname">ID</code> it generates duplicates an <code class="classname">ID</code> that's already in the document. In other words, if your document has an attribute of type <code class="classname">ID</code> with a value of <constant>sdk3829a</constant>, there's a possibility that an <code class="classname">ID</code> returned by <code class="function">generate-id()</code> will also be <constant>sdk3829a</constant>. It's not likely, but be aware that it could happen.</aside>
               </li>
               <li>If you invoke <code class="function">generate-id()</code> against two different nodes, the two generated IDs will be different.</li>
               <li>Given a node-set, <code class="function">generate-id()</code> returns an <code class="classname">ID</code> for the node in the node-set that occurs first in document order.</li>
@@ -3176,9 +3174,9 @@ version="1.0"&gt;</pre>
           <section>
             <h4>Preserving and Stripping Space</h4>
             <p>The <code class="userinput">&lt;xsl:preserve-space&gt;</code> element is used to define the elements for which white space should be preserved when no other characters are used. The <code class="userinput">&lt;xsl:strip-space&gt;</code> element is used to define the elements for which white space should be removed.</p>
-            <note>Preserving white space is the default setting, so using the <code class="userinput">&lt;xsl:preserve-space&gt;</code> element is only necessary if  the <code class="userinput">&lt;xsl:strip-space&gt;</code> element is used.</note>
-            <note>Note: The <code class="userinput">&lt;xsl:preserve-space&gt;</code> element and the <code class="userinput">&lt;xsl:strip-space&gt;</code> element are top-level elements.</note>
-            <warning>The two elements are only relevant for whitespace-only text nodes. If just one non-whitespace character is present, the two xslt elements are irrelevant.</warning>
+            <aside class="note"><strong>Note.</strong> Preserving white space is the default setting, so using the <code class="userinput">&lt;xsl:preserve-space&gt;</code> element is only necessary if  the <code class="userinput">&lt;xsl:strip-space&gt;</code> element is used.</aside>
+            <aside class="note"><strong>Note.</strong> Note: The <code class="userinput">&lt;xsl:preserve-space&gt;</code> element and the <code class="userinput">&lt;xsl:strip-space&gt;</code> element are top-level elements.</aside>
+            <aside class="warning"><strong>Warning:</strong> The two elements are only relevant for whitespace-only text nodes. If just one non-whitespace character is present, the two xslt elements are irrelevant.</aside>
           </section>
         </section>
         <section>
@@ -3598,10 +3596,10 @@ white monogrammed, tab collar</pre>
         <section>
           <h3>The Trouble with Backslashes and Other Characters ('^', '_', '$', '#', '&amp;', '%', '~', '{', '}'...)</h3>
           <p>Now, if we translate all the backslashes <q>\</q> in the original to the sequence <q>\backslash</q>, then we cannot supply TeX code in, say, mathematical elements, or other TeX code containing long TeX commands, such as <q>\obeylines</q>.</p>
-          <note>This problem can be generalized to the other TeX specific characters: '^', '_', '$', '#', '&amp;'...</note>
+          <aside class="note"><strong>Note.</strong> This problem can be generalized to the other TeX specific characters: '^', '_', '$', '#', '&amp;'...</aside>
           <p>We need a method to prevent translating backslashes in xml whenever they are in a given element.</p>
           <p>One solution using existing tools is to translate all backslash characters inside an <code class="classname">alt</code> elements to another, non-TeX character, such as <q>&#x20AC;</q>, then translating it back to a backslash. Use function <code class="function"><a href="#xslt_translate">translate(<var>s</var>, <var>s<sub>origin</sub></var>, <var>s<sub>dest</sub></var>)</a></code>.</p>
-          <note>We must choose a stand-in character that is neither translated by our sed script nor is found in TeX mathematical formulas. Therefore, forget accented ('&#xE1;', '&#xF1;' etc), '&#xBF;' etc. We need something absolutely <em>unused</em>. On a linux machine I use handy <code class="userinput">Alt Gr</code> characters: '&#x20AC;', '&#xF8;', '&#xFE;', '&#x167;', '&#x142;', etc.</note>
+          <aside class="note"><strong>Note.</strong> We must choose a stand-in character that is neither translated by our sed script nor is found in TeX mathematical formulas. Therefore, forget accented ('&#xE1;', '&#xF1;' etc), '&#xBF;' etc. We need something absolutely <em>unused</em>. On a linux machine I use handy <code class="userinput">Alt Gr</code> characters: '&#x20AC;', '&#xF8;', '&#xFE;', '&#x167;', '&#x142;', etc.</aside>
           <p>Here is a file that realizes this:</p>
           <pre>
             <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Electric_files/XSLT_code/borrowed_or_pro/escape_backslash_in_alt.xsl" parse="text">
