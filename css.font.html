@@ -120,50 +120,6 @@
         </dl>
       </section>
 
-      <section>
-        <h2>Viewport Units</h2>
-        <p>There are values in CSS that are for sizing things in relation to the viewport (the size of the browser window). They are called <dfn>viewport units</dfn>, and there are a number of them that do slightly different (all useful) things. One unit is 1% of one of the axes of the viewport. These can be useful for responsive design, that is, designing websites that look good across different screen sizes, taking advantage of the space available to them.</p>
-        <p>There are many things you can do with viewport units, but let&apos;s look at one in particular: typography.</p>
-        <!--
-        <p>It&apos;s worth looking at our more recent post Simplified Fluid Typography for practical, clamped, viewport-based type sizing.</p>
-        -->
-        <section>
-          <h3>Discussion</h3>
-          <p>One unit is 1% of the viewport axis. Viewport == browser window size == window object. If the viewport is 40cm wide, then 1vw == 0.4cm.</p>
-          <p>For use with <code>font-size</code>, I guess it&apos;s one character that takes on that size, but as we know, in non-mono-spaced fonts the width of a letter is rather arbitrary. I find you just need to tweak around with the values to get it how you want it.</p>
-          <ul>
-            <li>1vw = 1% of viewport width</li>
-            <li>1vh = 1% of viewport height</li>
-            <li>1vmin = 1vw or 1vh, whichever is smaller</li>
-            <li>1vmax = 1vw or 1vh, whichever is larger</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>An Example</h2>
-          <p>Here is an easy example:</p>
-          <pre>h1 {
-  font-size: 5.9vw;
-}
-h2 {
-  font-size: 3.0vh;
-}
-p {
-  font-size: 2vmin;
-}</pre>
-        </section>
-
-        <section>
-          <h3>Not just <code>font-size</code></h3>
-          <p>These are just units. Just like <code>em</code>, <code>px</code>, and so on. You can use them on anything, not just <code>font-size</code>.</p>
-          <p>I think font-size is the most compelling use case, since things like margin, padding, and width can already essentially react to browser window size by using % units.</p>
-          <p>Still, there is the case where perhaps a more deeply-nested element needs to react to the browser window size instead of its direct parent size.</p>
-        </section>
-
-
-
-      </section>
-
     </main>
 
   </body>

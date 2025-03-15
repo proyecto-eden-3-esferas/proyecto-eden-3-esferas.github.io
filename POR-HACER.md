@@ -7,7 +7,10 @@
 
 [ ] finish *jq.html* from man page
 
+[ ] complete section *Some Common / Rare Cases* in *grammatical-cases.html*
+
 [x] *XSLT.html* <cite>eXtensible Stylesheet Language Transformations</cite>
+[ ] review and complete section *XML Namespaces* in *xml.en.html*
 
 [x] *conventional.CT.html* <cite><dfn>Conventional</dfn> according to Chögyam Trungpa</cite>
 [x] *creating-a-drala-culture.CT.html* <cite>Creating a Drala Culture</cite>, by Chögyam Trungpa
@@ -23,42 +26,26 @@
     [ ] would-be *computer-graphics.html*
     [x] *computational-geometry.html*
 
-[ ] write section *Some Common / Rare Cases* in *grammatical-cases.html*
 [ ] write section *Finno-Hungric Cases* in *grammatical-cases.html*
 [ ] write section *Basque Cases* in *grammatical-cases.html*
 
 [ ] write "open-closed-loop.html" (concerning systems)
 
-[ ] escribir *bases-de-datos-relacionales.html*
-<h1>Bases de datos relacionales</h1>
-<p>Se deducen del principio de que cada dato ha de anotarse en un único lugar y ha de ser posible deducir dónde (se va a anotar). Por ejemplo en una base de datos sobre <a target="_blank" href="literatura.html">literatura</a> la fecha de nacimiento de un escritor se encontrará en la tabla <cite>escritores</cite>, no en la table <cite>obras</cite>.</p>
-<p>En cambio en una base de datos documental la fecha de nacimiento podría encontrarse (1) repetida en un documento (ficha) sobre una obra y en otro sobre su autor, o bien en ninguna de los dos documentos.</p>
-<p>Están basadas en tablas relacionadas. Dos tablas se consideran relacionadas cuando una columna (<dfn>clave extranjera</dfn>) de una tabla toma valores que han de existir en la columna de otra tabla, normalmente su <dfn>clave primaria</dfn>. El sistema o gestor asegura la <dfn>integridad referencial</dfn>: el que toda clave extranjera haga referencia a una clave primaria. Por ejemplo si la columna <var>lugar_de_nacimiento</var> hace referencia a la columna <var>lugar</var> de la tabla <var>lugares</var>, entonces toda de entrada de la columna <var>lugar_de_nacimiento</var> (por ejemplo <var>Barcelona</var>) habrá de adoptar el mismo valor que otro  de la tabla <var>lugares</var>.</p>
+[ ] revisar y mejorar *bases-de-datos-relacionales.html*
 
 [x] escribir *mapas-conceptuales.html* con https://concepto.de/mapa-conceptual/
 
 [ ] visitar https://concepto.de/concepto/
 
-[ ] escribir *teatro.html*
-<p>Desde sus inicios, el teatro sirvió como lugar de exposición de los sentimientos humanos, desde los más superficiales a los más profundos. La representación teatral empezó siendo un ritual religioso de tipo agrario o de fecundidad. Poco a poco, las representaciones teatrales se fueron separando de su origen religioso y se hicieron cada vez más complejas. Sin embargo, permaneció hasta nuestros días el componente emotivo del teatro. La finalidad de la representación siempre es conseguir que el espectador se emocione mediante la risa, el llanto, la ironía.</p>
-<p>Los griegos acuñaron el término <dfn>catarsis</dfn> para referirse a la purificación que se produce en el espectador de una obra de teatro cuando éste se identifica con los personajes y transita por las mismas emociones que están viviendo sobre la escena.</p>
-<p>Catarsis< (<i lang="he">katharsis</i>, en griego) era un término médico que quería decir purga. Es especialmente importante en las representaciones de la tragedia, del drama y del melodrama, puesto que, en estos tres tipos de representación, la catarsis es el objetivo del autor y la consecuencia de la situación que se plantea. A través del sufrimiento de los personajes, los espectadores se identifican con ellos, se apiadan y emocionan.</p>
+[x] escribir *teatro.html*
 
 [ ] escribir *tradicion-convencion-transcendencia.html* o *tradi-conven-dencia.html*
 
 [ ] escribir *projimo.html*
 
-[ ] escribir *armas-nucleares.html*
-<p>Pocos libros se publican y mucho menos se debate sobre las armas nucleares, sobre todo en nuestra época. Hasta el punto de que no consideramos la posibilidad digna de nuestra atención.</p>
-<p>No nos preocupa ni nos interesa saber que la República Popular China está aumentando su arsenal nuclear y se acerca década a década pero inexorablemente a sus dos rivales, Estados Unidos y Rusia. Nos limitamos a hablar de guerra comercial o de conflictos locales con sus vecinos, como Taiwán. Y que tanto Rusia como China podrían inutilizar todos los sistemas automáticos de Estados Unidos, paralizar todas sus infraestructuras, haciendo detonar una sola bomba termonuclear a gran altura.</p>
-<p>No nos alarma que un ICBM (Misil Balísitoc InterContinental) hoy por hoy siga siendo un arma imparable, ininterceptable, y que cada una de las dos superpotencias nucleares posea más de mil quinientas de esta arma decisiva.</p>
-<p>Un puñado de ICBMes armados con cabezas nucleares permitiría a un país por débil que fuese chantajear a cualquier otro. Sin embargo si multiplicamos la posibilidad de una guerra nuclear con la destrucción que conllevaría, nos sobrecogeríamos.</p>
-<p>Continuamente hacemos ese tipo de multiplicaciones. Por ejemplo, nos penemos gafas protectoras a pesar de la baja probabilidad de recibir una lesión ocular porque consideramos que el daño sería muy grande.</p>
-<p>En realidad como no conocemos antecedentes de guerra nuclear total, solo elucubraciones y novelizaciones, no le concedemos importancia a ese peligro.</p>
-<p>Ni siquiera conocemos ningún tipo de analogía, como no sea la de que un alma se precipite al infierno. La guerra convencional, incluso las dos guerras mundiales, es o ha sido de destrucción limitada nunca total.</p>
-<p>Si consideramos que éstas armas sólo se pueden blandir en una guerra nuclear <strong>total</strong>, entonces si tal guerra nunca llegase a ocurrir muchos considerarán justificado haberse despreocupado completamente, no haberse preocupado.</p>
-<p>Recuerdo que la revista <cite>Investigación y Ciencia</cite> publicó una serie de artículos de estrategia nuclear. En general confiamos en que funcione un principio fundamentan de esta teoría: la Destrucción Mutua Asegurada (DMA). Ninguna superpotencia nuclear va a arriesgarse a provocar una guerra nuclear total dado que ello conllevaría una Destrucción Mutua Asegurada. No obtendría ningún beneficio.</p>
-<p>En la reciente <cite><a target="_blank" href="invasion-de-ucrania.html">Guerra de Ucrania</a></cite> no se teme que el conflicto dé paso a un ataque nuclear por parte de Rusia. Impensable.</p>
+[x] escribir          *armas-nucleares.html*
+[ ] revisar y ampliar *armas-nucleares.html*
+
 
 [ ] write *agency.html*
 
