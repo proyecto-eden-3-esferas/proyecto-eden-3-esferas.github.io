@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using Apache CouchDB</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Using Apache CouchDB"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a rel="prev" href="couchdb.html">Open Source Apache CouchDB: Another JSON Document DBMS</a></p>
+        <p><a rel="next" href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+      </div>
+      <div>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+
+
+      <h1>Using Apache CouchDB</h1>
+
+      <section id="find">
+        <h2><code>/{<var>db</var>}/_find</code></h2>
+        <p style="text-align: right">(From <a target="_blank" href="https://docs.couchdb.org/en/stable/api/database/find.html">https://docs.couchdb.org/en/stable/api/database/find.html</a>)</p>
+        <p>Find documents using a declarative JSON querying syntax. Queries will use custom <a target="_blank" href="db-indexes.html">indexes</a>, specified using the <code>_index endpoint</code>, if available. Otherwise, when allowed, they use the built-in <code>_all_docs</code> index, which can be arbitrarily slow.</p>
+        <p>Request JSON Object</p>
+        <ul>
+          <li><strong>elector</strong> (object) – JSON object describing criteria used to select documents. More information provided in the section on selector syntax. Required</li>
+          <li><strong>limit</strong> (number) – Maximum number of results returned. Default is 25. Optional</li>
+          <li><strong>skip</strong> (number) – Skip the first ‘n’ results, where ‘n’ is the value specified. Optional</li>
+          <li><strong>sort</strong> (array) – JSON array following sort syntax. Optional</li>
+          <li><strong>fields</strong> (array) – JSON array specifying which fields of each object should be returned. If it is omitted, the entire object is returned. More information provided in the section on filtering fields. Optional</li>
+          <li><strong>use_index</strong> (string|array) – Request a query to use a specific index. Specified either as "&lt;design_document&gt;" or ["&lt;design_document&gt;", "&lt;index_name&gt;"]. It is not guaranteed that the index will be actually used because if the index is not valid for the selector, fallback to a valid index is attempted. Therefore that is more like a hint. When fallback occurs, the details are given in the warning field of the response. Optional</li>
+          <li><strong>allow_fallback</strong> (boolean) – Tell if it is allowed to fall back to another valid index. This can happen on running a query with an index specified by use_index which is not deemed usable, or when only the built-in _all_docs index would be picked in lack of indexes available to support the query. Disabling this fallback logic causes the endpoint immediately return an error in such cases. Default is true. Optional</li>
+          <li><strong>conflicts</strong> (boolean) – Include conflicted documents if true. Intended use is to easily find conflicted documents, without an index or view. Default is false. Optional</li>
+          <li><strong>r</strong> (number) – Read quorum needed for the result. This defaults to 1, in which case the document found in the index is returned. If set to a higher value, each document is read from at least that many replicas before it is returned in the results. This is likely to take more time than using only the document stored locally with the index. Optional, default: 1</li>
+          <li><strong>bookmark</strong> (string) – A string that enables you to specify which page of results you require. Used for paging through result sets. Every query returns an opaque string under the bookmark key that can then be passed back in a query to get the next page of results. If any part of the selector query changes between requests, the results are undefined. Optional, default: null</li>
+          <li><strong>update</strong> (boolean) – Whether to update the index prior to returning the result. Default is true. Optional</li>
+          <li><strong>stable</strong> (boolean) – Whether or not the view results should be returned from a “stable” set of shards. Optional</li>
+          <li><strong>stale</strong> (string) – Combination of update=false and stable=true options. Possible options: "ok", false (default). Optional Note that this parameter is deprecated. Use stable and update instead. See Views Generation for more details.</li>
+          <li><strong>execution_stats</strong> (boolean) – Include execution statistics in the query response. Optional, default: false</li>
+        </ul>
+
+        <p>Example request body for finding documents using an index:</p>
+        <pre>POST /movies/_find HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: 168
+Host: localhost:5984
+
+{
+    "selector": {
+        "year": {"$gt": 2010}
+    },
+    "fields": ["_id", "_rev", "year", "title"],
+    "sort": [{"year": "asc"}],
+    "limit": 2,
+    "skip": 0,
+    "execution_stats": true
+}</pre>
+        <p>Example response when finding documents using an index:</p>
+        <pre>HTTP/1.1 200 OK
+Cache-Control: must-revalidate
+Content-Type: application/json
+Date: Thu, 01 Sep 2016 15:41:53 GMT
+Server: CouchDB (Erlang OTP)
+Transfer-Encoding: chunked
+
+{
+    "docs": [
+        {
+            "_id": "176694",
+            "_rev": "1-54f8e950cc338d2385d9b0cda2fd918e",
+            "year": 2011,
+            "title": "The Tragedy of Man"
+        },
+        {
+            "_id": "780504",
+            "_rev": "1-5f14bab1a1e9ac3ebdf85905f47fb084",
+            "year": 2011,
+            "title": "Drive"
+        }
+    ],
+    "execution_stats": {
+        "total_keys_examined": 200,
+        "total_docs_examined": 200,
+        "total_quorum_docs_examined": 0,
+        "results_returned": 2,
+        "execution_time_ms": 5.52
+    }
+}</pre>
+        <section>
+          <h3>Selector Syntax</h3>
+          <p>Selectors are expressed as a JSON object describing documents of interest. Within this structure, you can apply conditional logic using specially named fields.</p>
+          <p>Whilst selectors have some similarities with <a target="_blank" href="mongodb.html">MongoDB</a> query documents, these arise from a similarity of purpose and do not necessarily extend to commonality of function or result.</p>
+          <p>Elementary selector syntax requires you to specify one or more fields, and the corresponding values required for those fields. This selector matches all documents whose "director" field has the value <cite>Lars von Trier</cite>.</p>
+          <pre>{ "director": "Lars von Trier" }</pre>
+          <p>A simple selector, inspecting specific fields:</p>
+          <pre>"selector": {
+    "title": "Live And Let Die"
+},
+"fields": [
+    "title",
+    "cast"
+]</pre>
+          <p>You can create more complex selector expressions by combining operators. For best performance, it is best to combine ‘combination’ or ‘array logical’ operators, such as <code>$regex</code>, with an operator that defines a contiguous range of keys such as <code>$eq</code>, <code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code>, and <code>$beginsWith</code> (but not <code>$ne</code>). For more information about creating complex selector expressions, <i>see</i> <cite>creating selector expressions</cite>.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+
+
+:
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MongoDB: A JSON Document Database</title>
+    <title>Apache CouchDB</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Open Source Apache CouchDB: Another JSON Document DBMS"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
 
     <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
@@ -24,6 +24,8 @@
     <nav>
     <!-- -->
       <div>
+        <p><a rel="next" href="couchdb.using.html">Using Apache CouchDB</a></p>
+        <p><a            href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
         <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
         <p><a            href="mongodb.html">MongoDB: Another JSON Document DBMS</a></p>
@@ -75,10 +77,144 @@
         </dl>
         <p>CouchDB also offers a built-in administration interface accessible via Web called Fauxton.</p>
       </section>
-      <section>
+
+      <section id="special-features">
         <h2>Special Features</h2>
         <p>CouchDB implements a form of multiversion concurrency control (MVCC) so it does not lock the database file during writes. Conflicts are left to the application to resolve. Resolving a conflict generally involves first merging data into one of the documents, then deleting the stale one.</p>
         <p>Other features include (incremental) MapReduce, and (incremental) replication. One of CouchDB&apos;s distinguishing features is multi-master replication, which allows it to scale across machines to build high-performance systems. A built-in Web application called Fauxton (formerly Futon) helps with administration.</p>
+      </section>
+
+      <section id="install-on-ubuntu">
+        <h2>Installing CouchDB on Ubuntu Linux</h2>
+        <dl>
+
+          <dt>Update Your System</dt>
+          <dd>
+            <p>Your system packages must be updated to the newest version. Run the following command:</p>
+            <pre>sudo apt-get update &amp;&amp; sudo apt-get upgrade</pre>
+          </dd>
+
+          <dt>Install Software Properties Common Package</dt>
+          <dd>
+            <p>Next, install the <code>software-properties-common</code> package. This package provides an abstraction of the used apt repositories and allows you to manage distribution and independent software vendor software sources easily. Use the following command:</p>
+            <pre>sudo apt-get install software-properties-common</pre>
+          </dd>
+
+          <dt>Add CouchDB Repository</dt>
+          <dd>
+            <p>After installing the software-properties-common package, import the GPG key. Run the following command:</p>
+            <pre>curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null</pre>
+            <p>Then, using the signed-by option to specify the keyring file, we will add the CouchDB on Ubuntu repository:</p>
+            <pre>echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/couchdb.list</pre>
+          </dd>
+
+          <dt>Install CouchDB</dt>
+          <dd>
+            <p>Now, you&apos;re ready to install CouchDB. Use the following command:</p>
+            <pre>sudo apt-get update &amp;&amp; sudo apt-get install couchdb</pre>
+            <p>(126MB of data on hard disk.)</p>
+            <p>During the installation, you&apos;ll be asked to select the type of CouchDB installation. You can choose between a standalone or clustered setup. If you&apos;re installing CouchDB on a single server, select ‘standalone&apos;. For multiple servers, select ‘clustered&apos;. If your CouchDB instance is a standalone installation, you can input any string value as the cookie. This value will not matter unless you are setting up a cluster of CouchDB instances.</p>
+            <p>During installation, I make the following choices:</p>
+            <ol>
+              <li><strong>standalone</strong>, not cluster.</li>
+              <li>I choose magic cookie <code>skyblue</code>.</li>
+              <li>I bind to IP address 127.0.0.1</li>
+              <li>Password for the <var>admin</var> user: <code>skyblue</code></li>
+            </ol>
+          </dd>
+
+          <dt>Further Configure CouchDB on Ubuntu</dt>
+          <dd>
+            <p>After successful installation, open your web browser and navigate to http://localhost:5984/_utils/. This will open the CouchDB interface, Fauxton. Here, you can configure your CouchDB installation further.</p>
+            <p>To allow external access, you need to modify the CouchDB configuration file to bind the HTTP server to all network interfaces.</p>
+            <p>Open the <cite>local.ini</cite> file with a text editor:</p>
+            <pre>sudo nano /opt/couchdb/etc/local.ini</pre>
+            <p>Find the section [chttpd] and change the bind_address from 127.0.0.1 to 0.0.0.0:</p>
+            <pre>[chttpd]
+port = 5984
+bind_address = 0.0.0.0</pre>
+            <p>Save the file and exit the text editor.</p>
+            <p>Restart CouchDB for the changes to take effect:</p>
+            <pre>sudo systemctl restart couchdb</pre>
+            <p>(Alternatively, check status with: <code>systemctl status couchdb</code>)</p>
+            <p>Now, you should be able to access the CouchDB web interface from any machine in your network using the server IP address and port 5984. Make sure your network allows inbound connections to this port.</p>
+          </dd>
+
+          <dt>Verifying the Installation</dt>
+          <dd>
+            <p>To verify the installation of CouchDB, use the curl command:</p>
+            <pre>curl http://127.0.0.1:5984/</pre>
+            <p>If the installation is successful, you&apos;ll get a response similar to this:</p>
+            <pre>{"couchdb":"Welcome","version":"3.3.2","git_sha":"11a234070","uuid":"db4a4dee584977354d66c0eecf184718","features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}</pre>
+          </dd>
+
+        </dl>
+
+      </section>
+
+      <section id="first-steps">
+        <h2>First Steps with CouchDB: Access CouchDB Using HTTP API Endpoints</h2>
+        <p>You can access CouchDB using the HTTP API to send database requests to the backend server. Follow the steps below to use the Curl utility with the -u option to prompt you for the administrator password for every API request to the CouchDB localhost port 5984.</p>
+        <ol>
+          <li>
+            <p class="bridgehead">Get a list of all databases</p>
+            <pre>$ curl -u admin -X GET http://127.0.0.1:5984/_all_dbs</pre>
+            <p>Output:</p>
+            <pre>["exampledb"]</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Create a new database</p>
+            <p>Such as <cite>test_database</cite>.</p>
+            <pre>$ curl -u admin -X PUT http://127.0.0.1:5984/test_database</pre>
+            <p>Output:</p>
+            <pre>{"ok":true}</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Delete a database</p>
+            <p>For example, <var>test_database</var>.</p>
+            <pre>$ curl -u admin -X DELETE http://127.0.0.1:5984/test_database</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Retrieve database information</p>
+            <pre>$ curl -u admin http://127.0.0.1:5984/test_database</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Create a new document in a database</p>
+            <p>Replace the <code>-d</code> option value with your own JSON document data.</p>
+            <pre>$ curl -u admin -X POST -H "Content-Type: application/json" -d '{"name": "John Doe"}' http://127.0.0.1:5984/test_database</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Get a document's JSON data stored</p>
+            <p>Replace <code>test_database</code>,<code>76ca238ae15974746eeafe5c0b0302c1</code> with your database and document ID values respectively.</p>
+            <pre>$ curl -u admin http://127.0.0.1:5984/test_database/76ca238ae15974746eeafe5c0b0302c1</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Delete a document</p>
+            <p>Replace 76ca238ae15974746eeafe5c0b0302c1 with your document ID and 1-b9a5713ff0a5b6eee4347d4040a7f6bf with your actual revision number.</p>
+            <pre>$ curl -u admin -X DELETE http://127.0.0.1:5984/test_database/76ca238ae15974746eeafe5c0b0302c1?rev=1-b9a5713ff0a5b6eee4347d4040a7f6bf</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Get all documents in a database such as <cite>test_database</cite></p>
+            <pre>$ curl -u admin http://127.0.0.1:5984/test_database/_all_docs</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Compact a database</p>
+            <pre>$ curl -u admin -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/test_database/_compact</pre>
+          </li>
+          <li>
+            <p class="bridgehead">Get active tasks</p>
+            <pre>$ curl -u admin http://127.0.0.1:5984/_active_tasks</pre>
+          </li>
+        </ol>
+
+      </section>
+
+      <section id="fauxton">
+        <h2>Fauxton</h2>
+        <p>Welcome to Futon!</p>
+        <p>After having seen CouchDB&apos;s raw API, let&apos;s get our feet wet by playing with Futon, the built-in administration interface. Futon provides full access to all of CouchDB&apos;s features and makes it easy to work with some of the more complex ideas involved. With Futon we can create and destroy databases; view and edit documents; compose and run MapReduce views; and trigger replication between databases.</p>
+        <p>To load Futon in your browser, visit (locally):</p>
+        <pre>http://127.0.0.1:5984/_utils/</pre>
       </section>
 
 

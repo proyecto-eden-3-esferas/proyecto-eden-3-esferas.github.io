@@ -1,9 +1,38 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 - teléfonos y demás en *agenda.html*, oculto
-
+- https://docs.couchdb.org/en/stable/ (Apache CouchDB® 3.4.3 Documentation)
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] add
+<h2>Self-Contained Data</h2>
+<p>An invoice contains all the pertinent information about a single transaction—the seller, the buyer, the date, and a list of the items or services sold. There&apos;s no abstract reference on this piece of paper that points to some other piece of paper with the seller&apos;s name and address. Accountants appreciate the simplicity of having everything in one place. And given the choice, programmers appreciate that, too.</p>
+<p>Yet using references is exactly how we model our data in a relational database! Each invoice is stored in a table as a row that refers to other rows in other tables—one row for seller information, one for the buyer, one row for each item billed, and more rows still to describe the item details, manufacturer details, and so on and so forth.</p>
+<p>This isn&apos;t meant as a detraction of the relational model, which is widely applicable and extremely useful for a number of reasons. Hopefully, though, it illustrates the point that sometimes your model may not “fit” your data in the way it occurs in the real world.</p>
+<p>Let&apos;s take a look at the humble contact database to illustrate a different way of modeling data, one that more closely “fits” its real-world counterpart—a pile of business cards. Much like our invoice example, a business card contains all the important information, right there on the cardstock. We call this <dfn>self-contained</dfn> data, and it&apos;s an important concept in understanding document databases like CouchDB.</p>
+
+[ ] write *guerrilla-gardening.html*
+
+
+[ ] write *xquery.linux.html*
+
+- https://www.reddit.com/user/benibela/ has `xidel` (https://github.com/benibela/xidel)
+
+- `xqilla` Good question. xqilla is the best I've found that's open-source and not Java. It seems not very well-known either. Outside Java it might be the only lib with any Xpath2 support.
+
+- You can run Saxon (XQuery) from the command line. You can do this by pointing to a file that has the XPath/XQuery using -q or you can pass the query string directly using -qs.
+Here's an example of using -qs to process a simple XPath:
+```
+java -cp "saxon9he.jar" net.sf.saxon.Query -s:"input.xml" -qs:"/a/b[@id='x']" -o:"results.xml"
+```
+
+- Use `xmllint` with switch `--xpath` "XPath_expression" (Run an XPath expression given as argument and print the result. In case of a nodeset result, each node in the node set is serialized in full in the output. In case of an empty node set the "XPath set is empty" result will be shown and an error exit code will be returned.) Check out switch `--pattern`, too
+
+- `eXist` (http://exist-db.org/exist/apps/homepage/index.html)
+
+- `BaseX` (https://basex.org/)
+
+- `galax` at https://galax.sourceforge.net/
 
 [ ] finish *jq.html* from man page
 
