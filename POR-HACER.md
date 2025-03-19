@@ -4,6 +4,8 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] complete *MapReduce.html* (already linked to from *programming.html* and *couchdb.html*, by the by)
+
 [ ] add
 <h2>Self-Contained Data</h2>
 <p>An invoice contains all the pertinent information about a single transaction—the seller, the buyer, the date, and a list of the items or services sold. There&apos;s no abstract reference on this piece of paper that points to some other piece of paper with the seller&apos;s name and address. Accountants appreciate the simplicity of having everything in one place. And given the choice, programmers appreciate that, too.</p>
