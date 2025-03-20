@@ -4,6 +4,11 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] complete *fruits.html*,
+[x] make  *fruits.html* point to *types-of-fruits.html*
+[x] write *fruit-dispersal.html* <h1>Dispersal of Fruits</h1>
+[x] link to *angiosperms.html* <h1>Angiosperms: Flowering Plants</h1> from *plants.html*
+
 [ ] complete *MapReduce.html* (already linked to from *programming.html* and *couchdb.html*, by the by)
 
 [ ] add
