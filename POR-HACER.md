@@ -1,8 +1,19 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 - teléfonos y demás en *agenda.html*, oculto
 - https://docs.couchdb.org/en/stable/ (Apache CouchDB® 3.4.3 Documentation)
+- https://www.rhs.org.uk/vegetables/growing-in-greenhouse
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] see about *knowledge.html* (incomplete, poor section on Knowledge Pyramid)
+
+[ ] escribir  *signo-simbolo-senyal.html*
+[ ] enlazar a *signo-simbolo-senyal.html* desde *lengua.html*
+
+[ ] write *c.enum.html*           (points forward to *cpp.enum-class.html* and to *symbols.html*)
+[ ] write *cpp.enum-class.html*   (points back    to *c.enum.html*         and to *symbols.html*)
+
+[ ] write *butoh.html*
 
 [ ] complete *fruits.html*,
 [x] make  *fruits.html* point to *types-of-fruits.html*
