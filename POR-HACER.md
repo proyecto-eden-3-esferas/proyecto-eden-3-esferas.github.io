@@ -5,6 +5,9 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *satisfaccion-laboral.html* (Satisfacción laboral / Contentos y realizados)
+[ ] enlazar  *satisfaccion-laboral.html*
+
 [ ] see about *knowledge.html* (incomplete, poor section on Knowledge Pyramid)
 
 [ ] escribir  *signo-simbolo-senyal.html*
@@ -12,6 +15,19 @@
 
 [ ] write *c.enum.html*           (points forward to *cpp.enum-class.html* and to *symbols.html*)
 [ ] write *cpp.enum-class.html*   (points back    to *c.enum.html*         and to *symbols.html*)
+
+[ ] escribir *especificadores.html*
+<p>Un especificador es o está compuesto de uno o más símbolos que se utilizan para afinar o restringir la referencia que el hablante hace a un ente (persona, objeto, fenómeno etc.) de la realidad. Por ejemplo <q>monedas falsas</q> se refiere a un conjunto de monedas más restringido que <q>monedas</q>.</p>
+<p>Cuando digo <q>el motor de mi coche rojo</q> las palabras <q>mi</q> y <q>rojo</q> sirver para especificar qué coche, y <q>mi coche rojo</q> me sirven para especificar qué motor (el motor de qué coche).</p>
+<hr/>
+<p>La especificación y la <a target="_blank" href="enumeraciones.html">enumeración</a> sirven para estructurar un lenguaje. Forman o debería considerarse que forman parte de la Lógica <i lang="la">lato sensu</i></p>
+<section id="programacion">
+  <h2>Especificación en programación</h2>
+  <ul>
+    <li>Mediante espacios de nombres, para lo que a menudo se utilizan dos puntos. Por ejemplo, si dentro del campo <code>Logica</code> quiero utilizar el concepto de <code>Clase</code>, escribiré <code>Logica::Clase</code>. Esto me permite emplear símbolos con significado distinto pero mismo nombre (Escuela::Clase, Morfologia::Clase etc.)</li>
+    <li>por pertenencia a un objeto, a menudo mediante punto. Por ejemplo <q>el teléfono de Luis</q> se expresaría: <code>Luis.telefono</code></li>
+  </ul>
+</section>
 
 [ ] write *butoh.html*
 
