@@ -2,8 +2,53 @@
 - teléfonos y demás en *agenda.html*, oculto
 - https://docs.couchdb.org/en/stable/ (Apache CouchDB® 3.4.3 Documentation)
 - https://www.rhs.org.uk/vegetables/growing-in-greenhouse
+- https://www.faunaiberica.org/
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] *demasiada-informacion.html*
+<p>No necesitamos más información sino ordenarla y estructurarla para siquiera poder encontrarla.</p>
+<p>No soy original, no intento serlo, sino humilde, reconozco que nada original que se me ocurra o descubra aumentaría sustancialmente el acervo del conocimiento humano.</p>
+<p>La investigación, principalmente científica, no aportan nada al Ser Humano, incapaz de aprovechar los conocimientos de que ya dispone.</p>
+<p>Menos memorizar y más bases de datos. Aprendamos las técnicas de acceso a la información. La enseñanza memorística se ha quedado atrás.</p>
+
+[x] enlazar "innovacion.html" (Innovación) desde *creatividad-y-maquinas.html*
+[x] enlazar "innovacion.html" (Innovación) desde *creatividad.html*
+[ ] enlazar "innovacion.html" (Innovación) desde otros
+
+[ ] write *innovate.html*
+
+[ ] get/read "The Garden Against Time: In Search Of A Common Paradise", Olivia Laing
+From one of our most original contemporary voices, The Garden Against Time is an inventive and deeply felt exploration of the long dream of a shared Eden, a common paradise."
+Description
+‘What a wonderful book this is. I loved the enchanting and beautifully written story but also the fascinating and thoughtful excursions along the way.’ – Nigel Slater
+‘A garden contains secrets, we all know that: buried elements that might put on strange growth or germinate in unexpected places. The garden that I chose had walls, but like every garden it was interconnected, wide open to the world . . .’
+In 2020, Olivia Laing began to restore a walled garden in Suffolk, an overgrown Eden of unusual plants. The work drew them into an exhilarating investigation of paradise and its long association with gardens.
+Moving between real and imagined gardens, from Milton’s Paradise Lost to John Clare’s enclosure elegies, from a wartime sanctuary in Italy to a grotesque aristocratic pleasure ground funded by slavery, Laing interrogates the sometimes shocking cost of making paradise on earth.
+But the story of the garden doesn’t always enact larger patterns of privilege and exclusion. It’s also a place of rebel outposts and communal dreams. From the improbable queer utopia conjured by Derek Jarman on the beach at Dungeness to the fertile vision of a common Eden propagated by William Morris. New modes of living can and have been attempted amidst the flower beds, experiments that could prove vital in the coming era of climate change.
+The Garden Against Time is a beautiful and exacting account of the abundant pleasures and possibilities of gardens: not as a place to hide from the world but as a site of encounter and discovery, bee-loud and pollen-laden.
+
+[ ] get/read "Afterglow: Climate Fiction For Future Ancestors" by Grist
+Hopeful and forward-looking futuristic short stories that explore how the power of storytelling can help create the world we need.
+Description
+“This is a glorious book that challenges our conceptions of bookmaking as much as it questions our conceptions of world-building. We, as earthlings, will be better to the earth after experiencing this book. That is not hyperbole.”
+–New York Times bestselling author Kiese Laymon
+Afterglow is a stunning collection of original short stories in which writers from many different backgrounds envision a radically different climate future. Published in collaboration with Grist, a nonprofit media organization dedicated to telling stories of climate solutions, these stirring tales expand our ability to imagine a better world.
+Inspired by cutting-edge literary movements, such as Afrofuturism, hopepunk, and solarpunk, Afterglow imagines intersectional worlds in which no one is left behind—where humanity prioritizes equitable climate solutions and continued service to one’s community. Whether through abundance or adaptation, reform, or a new understanding of survival, these stories offer flickers of hope, even joy, as they provide a springboard for exploring how fiction can help create a better reality.
+Afterglow welcomes a diverse range of new voices into the climate conversation to envision the next 180 years of equitable climate progress. A creative work rooted in the realities of our present crisis, Afterglow presents a new way to think about the climate emergency—one that blazes a path to a clean, green, and more just future.
+
+[ ] get/read "How To Build A Universe That Doesn’t Fall Apart Two Days Later", by Philip K. Dick
+Against the surreal backdrop of Disneyland in 1978, visionary science fiction author Philip K. Dick delivers a mind-bending lecture on the fragile nature of reality and the quest for authentic human experience in an increasingly mediated world.
+
+[ ] write *organic-techniques.html* (short for Organic Farming Techniques), and include
+- *sheet-mulching.html*
+- *seed-balls.html*
+
+[ ] develop *seed-balls.html*
+[ ] then link to *seed-balls.html* from *fukuoka-s-true-nature.html*, as F. developed this method
+[ ] also link to *seed-balls.html* from *natural-farming.html*,       as F. developed this method
+
+[ ] write *The Ultimate Guide to Sheet Mulching* in *sheet-mulching.html*, from https://punkmed.com/blog/sheet-mulching/
 
 [ ] escribir *satisfaccion-laboral.html* (Satisfacción laboral / Contentos y realizados)
 [ ] enlazar  *satisfaccion-laboral.html*
@@ -45,7 +90,9 @@
 <p>This isn&apos;t meant as a detraction of the relational model, which is widely applicable and extremely useful for a number of reasons. Hopefully, though, it illustrates the point that sometimes your model may not “fit” your data in the way it occurs in the real world.</p>
 <p>Let&apos;s take a look at the humble contact database to illustrate a different way of modeling data, one that more closely “fits” its real-world counterpart—a pile of business cards. Much like our invoice example, a business card contains all the important information, right there on the cardstock. We call this <dfn>self-contained</dfn> data, and it&apos;s an important concept in understanding document databases like CouchDB.</p>
 
-[ ] write *guerrilla-gardening.html*
+
+[x] link to *guerrilla-gardening.html* from *farming.html*
+[ ] link to *guerrilla-gardening.html* from elsewhere
 
 
 [ ] write *xquery.linux.html*
@@ -663,7 +710,7 @@ class Cpp11 {
 
 [ ] escribir: *dilema-demanda.html*: muchas profesiones requieren una demanda de sus servicios (relacionar con *demanda-intrinseca-y-extrinseca.html*), una carencia, falta o desgracia en el resto de la sociedad (por ejemplo los bomberos); las soluciones son la autoproducción y la innovación
 
-[ ] escribir: *bibliteca.html*, como un conjunto de libros puede cubrir el conjunto de conocimientos... más o menos bien (especie frente a calidad)
+[ ] escribir: *biblioteca.html*, como un conjunto de libros puede cubrir el conjunto de conocimientos... más o menos bien (especie frente a calidad)
 
 [ ] enlaces a *libro-grafo.html* desde ¿*index.html*?
 
@@ -792,6 +839,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *streaming.html* from *networking.html*
+[ ] *streaming.html* from elsewhere
 
 [x] enlazar *libertad.html* desde *politica.html*
 [ ] enlazar *libertad.html* desde *orden.html*
