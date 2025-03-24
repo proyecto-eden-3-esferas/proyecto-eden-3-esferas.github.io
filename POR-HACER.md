@@ -3,8 +3,17 @@
 - https://docs.couchdb.org/en/stable/ (Apache CouchDB® 3.4.3 Documentation)
 - https://www.rhs.org.uk/vegetables/growing-in-greenhouse
 - https://www.faunaiberica.org/
+- https://www.mckinsey.com/industries/life-sciences/our-insights/the-bio-revolution-innovations-transforming-economies-societies-and-our-lives
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] link to *bio-revolution.html*
+
+[ ] write *growth.html*
+[x] link to *growth.html* from *innovation.html*
+[x] link to *growth.html* from *economy.html*
+[x] link to *innovation.html* from *economy.html*
+[ ] link to *innovation.html*
 
 [ ] *demasiada-informacion.html*
 <p>No necesitamos más información sino ordenarla y estructurarla para siquiera poder encontrarla.</p>
@@ -16,7 +25,14 @@
 [x] enlazar "innovacion.html" (Innovación) desde *creatividad.html*
 [ ] enlazar "innovacion.html" (Innovación) desde otros
 
-[ ] write *innovate.html*
+[ ] write *innovation.html*
+
+<h1>Innovation</h1>
+<p>When you think of innovation, what springs to mind? Maybe it&apos;s a flashy new gadget—but don&apos;t be mistaken. There&apos;s much more to the world of innovation, which extends far beyond new products and things you&apos;ll find on a store shelf.</p>
+<p>If products alone aren&apos;t the full story, what is innovation? In a business context, <dfn>innovation</dfn> is the ability to conceive, develop, deliver, and scale new products, services, processes, and business models for customers.</p>
+<p>Successful innovation delivers net new <a target="_blank" href="growth.html">growth</a> that is substantial. As McKinsey senior partner Laura Furstenthal notes in an episode of the <cite>Inside the Strategy Room</cite> podcast, <q>However you measure it, innovation has to increase value and drive growth.</q></p>
+
+
 
 [ ] get/read "The Garden Against Time: In Search Of A Common Paradise", Olivia Laing
 From one of our most original contemporary voices, The Garden Against Time is an inventive and deeply felt exploration of the long dream of a shared Eden, a common paradise."
