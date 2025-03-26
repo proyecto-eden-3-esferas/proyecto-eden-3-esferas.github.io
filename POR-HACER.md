@@ -4,8 +4,26 @@
 - https://www.rhs.org.uk/vegetables/growing-in-greenhouse
 - https://www.faunaiberica.org/
 - https://www.mckinsey.com/industries/life-sciences/our-insights/the-bio-revolution-innovations-transforming-economies-societies-and-our-lives
+- https://www.mckinsey.com/industries/life-sciences/our-insights/exploring-the-disruptive-potential-of-synthetic-biology
+
+- https://en.wikipedia.org/wiki/Valkey
+- https://valkey.io/
+- https://github.com/valkey-io/valkey
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] write *js.npm.html*
+
+[ ] write   *find.html* (Unix <code>find</code> Utility)
+[ ] link to *find.html* from *linux.html* and from *os.html*
+
+[ ] write   *couchdb.js.html*
+[ ] write   *database.aggregation.html* and
+[ ] link to *database.aggregation.html* from *redis.html*
+
+[ ] write *referencia-y-relacion.html*
+
+[ ] write *gene-editing.html* (Gene Editing)
 
 [ ] link to *bio-revolution.html*
 

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CouchDB and JavaScript</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="CouchDB and JavaScript"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a rel="prev" href="couchdb.html">Apache CouchDB: a JSON DBMS</a></p>
+        <p><a rel="next" href="couchdb.using.html">Using Apache CouchDB</a></p>
+        <p><a            href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
+        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="MapReduce.html">The MapReduce Programming Paradigm</a></p>
+      </div>
+      <div>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+      </div>
+      <div>
+        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+      </div>
+      <div>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+
+      <h1>CouchDB and JavaScript</h1>
+      <p>Since CouchDB makes use of HTTP protocol, therefore we can use any HTTP client to connect with CouchDB. However, there are some existing CouchDB client libraries that are very easy and convenience to use. Below I would like to...</p>
+      <section id="nano">
+        <h2>Nano</h2>
+        <p>Nano is the Offical Apache CouchDB library for Node.js.</p>
+        <p>Setup:</p>
+        <pre>npm install --save nano</pre>
+        <p>Connect to CouchDB server:</p>
+        <pre>const nano = require('nano')('http://localhost:5984');</pre>
+        <p>Create a new database:</p>
+        <pre>nano.db.create('blogs');</pre>
+        <p>Use an existing database:</p>
+        <pre>const blogs = nano.db.use('blogs');</pre>
+        <p>That's it, easy peasy. Now we can perform some queries with <var>blogs</var>. <code>nano</code> underlying is making HTTP API calls to CouchDB service. Such operations are asynchronous, we can use either <a href="#promises">Promises</a> or <a href="#callbacks">Callbacks</a> to receive the asynchronous data back from the library.</p>
+        <section id="promises">
+          <h2>Promises</h2>
+          <pre>blogs.get('post-A').then(response => {
+  // succeeded
+  console.info(response);
+}).catch(err => {
+  // failed
+  console.error(err)
+})
+});</pre>
+          <p>Or:</p>
+          <pre>try {
+  const response = await blogs.get('post-A')
+  // succeeded
+  console.log(response)
+} catch (e) {
+  // failed
+  console.error(e)
+}</pre>
+        </section>
+        <section id="callbacks">
+          <h2>Callbacks</h2>
+          <pre>blogs.get('post-A', (err, data) => {
+  // errors are in 'err' and response is in 'data'
+})</pre>
+          <p>Nano even supports <code>Stream</code>, which means we can proxy the whatever requests from CouchDB to the end user.</p>
+          <pre>blogs.listAsStream()
+  .on('error', (e) => console.error('error', e))
+  .pipe(process.stdout)</pre>
+        </section>
+        <section>
+          <h2>Pros and Cons</h2>
+          <p class="bridgehead">Pros</p>
+          <ul>
+            <li>Easy to use.</li>
+            <li>CouchDB API compatible.</li>
+            <li>Supports Stream.</li>
+            <li>The vast majority of library calls return native Promises.</li>
+            <li>Detailed TypeScript definitions are built in.</li>
+            <li>Easy to debug as errors are proxied directly from CouchDB: if you know CouchDB you already know <code>nano</code>.</li>
+          </ul>
+          <p class="bridgehead">Cons</p>
+          <ul>
+            <li>Cannot use in browser. Only <code>node.js</code>.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="axios">
+        <h2> Axios</h2>
+        <p>If you are a javascript developer, you should probably already know about axios. It is a Promise based HTTP client for the browser and node.js.</p>
+        <p>Setup:</p>
+        <pre>npm install --save axios</pre>
+        <p>Connect to CouchDB server:</p>
+        <pre>const couchdb = axios.create({
+  baseURL: 'http://localhost:5984',
+  timeout: 1000,
+  headers: { 'X-Custom-Header': 'foobar'}
+});</pre>
+        <p>Create a new database:</p>
+        <pre>couchdb.put('/blogs').then(response => {
+  // succeeded
+}).catch(err => {
+  // failed
+});</pre>
+        <p>Or:</p>
+        <pre>try {
+  const response = await couchdb.put('/blogs');
+  console.info(response.data);
+} catch (err) {
+  console.error(err);
+}</pre>
+        <p>Query::</p>
+        <pre>couchdb.get('/blogs/post-A').then(response => {
+  console.info(response.data);
+}).catch(err => {
+  console.error(err);
+});</pre>
+        <p>Or</p>
+        <pre>try {
+  const response = await couchdb.get('/blogs/post-A');
+  console.info(response.data);
+} catch (err) {
+  console.error(err);
+}</pre>
+        <p>Pros:</p>
+        <ul>
+          <li>Works in all modern browsers and Nodejs.</li>
+          <li>Supports the Promise API</li>
+          <li>Intercept request and response</li>
+          <li>Transform request and response data</li>
+          <li>Cancel requests</li>
+          <li>Automatic transforms for JSON data</li>
+        </ul>
+        <p>Cons:</p>
+        <ul>
+          <li>Codes are not as clean/minimal as PouchDB. In order to achieve minimal of code with axios, you will need to spend extra time to build your own factory functions on top of axios.</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

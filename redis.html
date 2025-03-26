@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoSQL DataBases</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+      -->
+      <div>
+        <p>Open Source Apache <a href="couchdb.html">CouchDB: a JSON Document DBMS</a></p>
+        <p><a href="couchdb.html">CouchDB: a JSON Document DBMS</a></p>
+        <p><a href="mongodb.html">MongoDB: a JSON Document DBMS</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="database.html">DataBases</a></p>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Redis</h1>
+      <blockquote>
+        <p>Redis (/ˈrɛdɪs/; Remote Dictionary Server) is an in-memory key–value database, used as a distributed cache and message broker, with optional durability. Because it holds all data in memory and because of its design, Redis offers low-latency reads and writes, making it particularly suitable for use cases that require a cache. Redis is the most popular <a target="_blank" href="nosql.html">NoSQL</a> database, and one of the most popular databases overall.</p>
+        <p>[...]</p>
+        <p>In March 2024, Redis switched to a different proprietary software license, styled as the Redis Source Available License v2, and the Server Side Public License v1, also for its core repository, breaking the 2018 pledge. As a consequence, the Linux Foundation created a fork under the name of <a href="#valkey">Valkey</a>, allowing community maintainers, contributors, and users to continue working on an open source version of the Redis database.</p>
+        <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+      </blockquote>
+      <section>
+        <h2>Differences from other database systems</h2>
+        <blockquote>
+          <p>Redis popularized the idea of a system that can be considered a store and a cache at the same time. It was designed so that data is always modified and read from the main computer memory, but also stored on disk in a format that is unsuitable for random data access. The formatted data is only reconstructed into memory once the system restarts.</p>
+          <p>Redis also provides a data model that is very unusual compared to a <a target="_blank" href="relational-database.html">relational database</a> management system (RDBMS). User commands do not describe a query to be executed by the database engine but rather specific operations that are performed on given abstract data types. Therefore data must be stored in a way which is suitable later for fast retrieval. The retrieval is done without help from the database system in form of secondary indexes, aggregations or other common features of traditional RDBMS. The Redis implementation makes heavy use of the <code>fork</code> system call, to duplicate the process holding the data, so that the parent process continues to serve clients while the child process writes the in-memory data to disk.</p>
+          <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Supported languages</h2>
+        <p>Since version 2.6, Redis features server-side scripting in the language Lua.</p>
+        <p>Many programming languages have Redis language bindings on the client side, including: ActionScript, C, C++, C#, Chicken, Clojure, Common Lisp, Crystal, D, Dart, Delphi,[38] Elixir, Erlang, Go, Haskell, Haxe, Io, Java, Nim, JavaScript (Node.js), Julia, Lua, Objective-C, OCaml, Perl, PHP, Pure Data, Python, R, Racket, Ruby, Rust, Scala, Smalltalk, Swift, and Tcl. Several client software programs exist in these languages.</p>
+      </section>
+
+      <section id="valkey">
+        <h2>Valkey</h2>
+        <p>Valkey is an open-source in-memory key–value database, used as a distributed cache and message broker, with optional durability. Because it holds all data in memory and because of its design, Valkey offers low-latency reads and writes, making it particularly suitable for use cases that require a cache. Valkey is a successor to Redis, the most popular NoSQL database and one of the most popular databases overall.<!-- Valkey or its predecessor Redis are used in companies like Twitter, Airbnb, Tinder, Yahoo, Adobe, Hulu, Amazon and OpenAI, and Valkey is supported by Alibaba Cloud, AWS, Ericsson, Google Cloud, Heroku, Oracle, Percona, and Verizon.--></p>
+        <p>Valkey supports different kinds of abstract data structures, such as strings, lists, maps, sets, sorted sets, HyperLogLogs, bitmaps, streams, and spatial indices.</p>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
