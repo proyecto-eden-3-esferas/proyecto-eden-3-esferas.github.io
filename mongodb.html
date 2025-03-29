@@ -199,7 +199,7 @@ $ atlas setup</pre>
           <p>Once there, I add my current IP address.</p>
         </section>
 
-        <section>
+        <section id="windows">
           <h3>Windows*</h3>
           <p>The unzipped directory contains:</p>
           <ul>
@@ -207,6 +207,125 @@ $ atlas setup</pre>
             <li><strong>mongos</strong> Sharding router.</li>
             <li><strong>mongo</strong> The database shell (uses interactive javascript).</li>
           </ul>
+          <section id="windows-procedure">
+            <h4>Procedure</h4>
+            <p>Follow these steps to install MongoDB Community Edition using the MongoDB Installer wizard. The installation process installs both the MongoDB binaries as well as the default configuration file <cite><var>install directory</var>\bin\mongod.cfg</cite>.</p>
+            <dl>
+              <dt>Download the installer.</dt>
+              <dd>
+                <p>Download the MongoDB Community <code>.msi</code> installer from the following link:</p>
+                <details>
+                  <summary>MongoDB Download Center</summary>
+                   <p><code><a href="https://www.mongodb.com/try/download/community?tck=docs_server">https://www.mongodb.com/try/download/community?tck=docs_server</a></code></p>
+                </details>
+                <ul>
+                  <li>In the Version dropdown, select the version of MongoDB to download.</li>
+                  <li>In the Platform dropdown, select Windows.</li>
+                  <li>In the Package dropdown, select msi.</li>
+                  <li>Click Download.</li>
+                </ul>
+              </dd>
+
+              <dt>Run the MongoDB installer.</dt>
+              <dd>
+                <p>For example, from the Windows Explorer/File Explorer:</p>
+                <ul>
+                  <li>Go to the directory where you downloaded the MongoDB installer (<code>.msi</code> file). By default, this is your <cite>Downloads</cite> directory.</li>
+                  <li>Double-click the <code>.msi</code> file.</li>
+                </ul>
+              </dd>
+
+              <dt>Follow the MongoDB Community Edition installation wizard.</dt>
+              <dd>
+                <p>The wizard steps you through the installation of MongoDB and <a href="#windows.compass">MongoDB Compass</a>.</p>
+                <p class="bridgehead">Choose Setup Type:</p>
+                <p>You can choose either the <strong>Complete</strong> (recommended for most users) or <strong>Custom</strong> setup type. The <strong>Complete</strong> setup option installs MongoDB and the MongoDB tools to the default location. The Custom setup option allows you to specify which executables are installed and where.</p>
+                <p class="bridgehead">Service Configuration</p>
+                <p>You can set up MongoDB as a Windows service during the install or just install the binaries.</p>
+                <p>MongoDB Service</p>
+                <p>MongoDB</p>
+                <p>You can configure and start MongoDB as a Windows service during the install, and the MongoDB service is started upon successful installation.</p>
+                <p>Select Install MongoDB as a Service.</p>
+                <p>Select one of these options:</p>
+                <p>- Run the service as Network Service user (Default)</p>
+                <p>This is a Windows user account that is built-in to Windows.</p>
+                <p>- Run the service as a local or domain user</p>
+                <p>For an existing local user account, specify a period (.) for the Account Domain and specify the Account Name and the Account Password for the user.</p>
+                <p>For an existing domain user, specify the Account Domain, Account Name and Account Password for that user.</p>
+                <p>Service Name. Specify the service name. Default name is MongoDB. If you already have a service with the specified name, you must choose another name.</p>
+                <p>Data Directory. Specify the data directory, which corresponds to the --dbpath. If the directory does not exist, the installer will create the directory and sets the directory access to the service user.</p>
+                <p>Log Directory. Specify the Log directory, which corresponds to the --logpath. If the directory does not exist, the installer will create the directory and sets the directory access to the service user.</p>
+              </dd>
+            </dl>
+          </section>
+          <section id="windows.compass">
+            <h4>Compass*</h4>
+          </section>
+          <section id="windows.mongosh">
+            <h4>Install <code>mongosh</code> on Windows</h4>
+            <p>The <code>.msi</code> installer does not include mongosh. Follow the <cite><a href="https://www.mongodb.com/docs/mongodb-shell/install/">mongosh installation instructions</a></cite> (at <code>https://www.mongodb.com/docs/mongodb-shell/install/</code>) to download and install the shell separately.</p>
+            <section>
+              <h5>Prerequisites</h5>
+              <p>To use the MongoDB Shell, you must have a MongoDB deployment to connect to.</p>
+              <ul>
+                <li>For a free cloud-hosted deployment, you can use MongoDB Atlas.</li>
+                <li>To learn how to run a local MongoDB deployment, see Install MongoDB.</li>
+              </ul>
+            </section>
+            <section>
+              <h5>Add the <code>mongosh</code> binary to your PATH environment variable.</h5>
+              <p>Ensure that the extracted MongoDB Shell binary is in the desired location in your filesystem, then add that location to your PATH environment variable.</p>
+              <p>To add the MongoDB Shell binary&apos;s location to your PATH environment variable:</p>
+              <ol>
+                <li>Open the Control Panel.</li>
+                <li>In the System and Security category, click System.</li>
+                <li>Click Advanced system settings. The System Properties modal displays.</li>
+                <li>Click Environment Variables.</li>
+                <li>In the System variables section, select Path and click Edit. The Edit environment variable modal displays.</li>
+                <li>Click New and add the filepath to your mongosh binary.</li>
+                <li>Click OK to confirm your changes. On each other modal, click OK to confirm your changes.</li>
+              </ol>
+              <p>To confirm that your <var>PATH</var> environment variable is correctly configured to find mongosh, open a command prompt and enter the <code>mongosh --help</code> command. If your <var>PATH</var> is configured correctly, a list of valid commands displays.</p>
+            </section>
+            <section>
+              <h5>Next Steps... Connect [to a Local Deployment on the Default Port]!</h5>
+              <p>Once you have successfully install mongosh, learn how to connect to your MongoDB deployment.</p>
+              <p>To connect to a MongoDB deployment running on localhost with default port 27017, run mongosh without any options:</p>
+              <pre>mongosh</pre>
+              <p>This is equivalent to the following command:</p>
+              <pre>mongosh "mongodb://localhost:27017"</pre>
+              <aside>
+                <p class="bridgehead">Connect to a Local Deployment on a Non-Default Port</p>
+                <p>To specify a port to connect to on localhost, you can use either:</p>
+                <ul>
+                  <li>A connection string with the chosen port</li>
+                  <li>The <code>--port</code> command-line option</li>
+                </ul>
+                <p>For example, the following commands connect to a deployment running on localhost port 28015:</p>
+                <pre>mongosh "mongodb://localhost:28015"</pre>
+                <p>or, equivalently,</p>
+                <pre>mongosh --port 28015</pre>
+              </aside>
+              <aside>
+                <p class="bridgehead">Connect to a Deployment on a Remote Host</p>
+                <p>To specify a remote host and port, you can use either:</p>
+                <ul>
+                  <li>A connection string with the chosen host and port.</li>
+                  <li>The <code>--host</code> and <code>--port</code> command-line options. If you omit the <code>--port</code> option, mongosh uses the default port 27017.</li>
+                </ul>
+                <p>For example, the following commands connect to a MongoDB deployment running on host <cite>mongodb0.example.com</cite> and port 28015:</p>
+                <pre>mongosh "mongodb://mongodb0.example.com:28015"</pre>
+                <p>Alternatively</p>
+                <pre>mongosh --host mongodb0.example.com --port 28015</pre>
+              </aside>
+              <aside>
+                <p>Connect to a Specific Database</p>
+                <p>To connect to a specific default database, specify a database in your connection string URI path. If unspecified by the connection string, the default database is the <var>test</var> database.</p>
+                <p>For example, to connect to a database called <cite>qa</cite> on localhost, run the following command:</p>
+                <pre>mongosh "mongodb://localhost:27017/qa"</pre>
+              </aside>
+            </section>
+          </section>
         </section>
 
         <section>
