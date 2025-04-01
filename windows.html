@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Microsoft&apos;s Windows</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Microsoft&apos;s Windows"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="next" href="linux.html">The Linux Operating System</a></p>
+      <p><a rel="prev" href="computing.html">Computer Science</a></p>
+      <p><a href="SoftwareStandard.html">Software Standards</a></p>
+    </nav>
+
+    <main>
+
+      <h1>Microsoft&apos;s Windows</h1>
+
+      <section>
+        <h2>The Power Shell: Window&apos;s New-Fangled Shell*</h2>
+        <p>[...]</p>
+      </section>
+
+      <section id="adding-a-path">
+        <h2>Adding a directory to the PATH environment variable in Windows</h2>
+        <dl>
+          <dt>Change <code>PATH</code> with the GUI</dt>
+          <dd>
+            <ol>
+              <li>Open Start Search, type <q>env</q>, and select <q>Edit the system environment variables</q>.</li>
+              <li>Click the <q>Environment Variables…</q> button.</li>
+              <li>In the <q>System Variables</q> section, locate <q>Path</q>, and click edit.</li>
+              <li>In the <q>Edit environment variable</q> UI, click <q>New</q> to add the new path.</li>
+            </ol>
+            <p>After you change PATH with the GUI, close and reopen the console window. This works because only programs started after the change will "see" the new PATH. This is because when you change the PATH environment variable using the GUI tool, it updates the variable for future processes but not for anything currently running.</p>
+          </dd>
+          <dt>Use the command line (<code>set</code>):</dt>
+          <dd>
+            <p>This option only affects your current shell session, not the whole system. Execute this command in the command window you have open:</p>
+            <pre>set PATH=%PATH%;C:<var>&lt;ANOTHER_PATH&gt;</var></pre>
+          </dd>
+          <dt>Use the command line (<code>xset</code>):</dt>
+          <dd>
+            <p>You can permanently add a path to PATH with the setx command:</p>
+            <pre>setx /M path "%path%;<var>&lt;ANOTHER_PATH&gt;</var>"</pre>
+            <pre>Remove the <code>/M</code> flag if you want to set the user <var>PATH</var> instead of the system <var>PATH</var>.</pre>
+            <aside><strong>WARNING:</strong> This solution may be destructive to your PATH, and the stability of your system. As a side effect, it will merge your user and system <var>PATH</var>, and truncate <var>PATH</var> to 1024 characters. The effect of this command is irreversible. Make a backup of <var>PATH</var> first. See the comments for more information.</aside>
+          </dd>
+        </dl>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -12,6 +12,19 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] add
+<p>By default, MongoDB listens for connections from clients on port 27017 , and stores data in the <cite>/data/db</cite> directory.</p>
+
+[ ] link to *windows.html* from *os.html*
+
+
+[ ] add to *mongodb.html*
+<p>Binaries get installed by default in <cite>C:\Program Files\MongoDB\Server\8.0\bin</cite>, whereas collections are written in <cite>\data\db</cite></p>
+<p>Then you may start the server with a line like:</p>
+<pre>"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath="c:\data\db"</pre>
+<p>To start the MongoDB service, close all other command prompts, then invoke the following command:</p>
+<pre>net start MongoDB</pre>
+
 [ ] write *js.npm.html*
 
 [ ] write   *find.html* (Unix <code>find</code> Utility)
