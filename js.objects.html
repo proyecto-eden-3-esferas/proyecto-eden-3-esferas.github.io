@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Objects</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript Objects (as a Data Type and as a Class)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects</a></p>
+        <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
+        <p><a rel="prev" href="programming.html">Programming</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>JavaScript Objects (as a Data Type and as a Class)</h1>
+      <!-- start at https://www.w3schools.com/js/js_object_definition.asp -->
+      <section id="definitions">
+        <h2>Object Definitions</h2>
+      </section>
+      <section id="prototypes">
+        <h2>Object Prototypes</h2>
+      </section>
+      <section id="methods">
+        <h2>Object Methods</h2>
+        <pre>// Copies properties from a source object to a target object
+Object.assign(target, source)
+
+// Creates an object from an existing object
+Object.create(<var>object</var>)
+
+// Returns an array of the key/value pairs of an object
+Object.entries(<var>object</var>)
+
+// Creates an object from a list of keys/values
+Object.fromEntries()
+
+// Returns an array of the keys of an object
+Object.keys(<var>object</var>)
+
+// Returns an array of the property values of an object
+Object.values(<var>object</var>)
+
+// Groups object elements according to a function
+Object.groupBy(<var>object</var>, <var>callback</var>)</pre>
+
+        <h3><code>Object.assign()</code></h3>
+        <p>The <code>Object.assign()</code> method copies properties from one or more source objects to a target object.</p>
+        <pre>// Create Target Object
+const person1 = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+
+// Create Source Object
+const person2 = {firstName: "Anne",lastName: "Smith"};
+
+// Assign Source to Target
+Object.assign(person1, person2);</pre>
+
+        <h3><code>Object.entries()</code></h3>
+        <p>ECMAScript 2017 added the Object.entries() method to objects.</p>
+        <p><code>Object.entries()</code> returns an array of the key/value pairs in an object:</p>
+        <p class="bridgehead">Example</p>
+        <pre>const person = {
+  firstName : "John",
+  lastName : "Doe",
+  age : 50,
+  eyeColor : "blue"
+};
+
+let text = Object.entries(person);</pre>
+        <p>Object.entries() makes it simple to use objects in loops:</p>
+        <p class="bridgehead">Example</p>
+        <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
+
+let text = "";
+for (let [fruit, value] of Object.entries(fruits)) {
+  text += fruit + ": " + value + "&lt;br&gt;";
+}</pre>
+        <p>Object.entries() also makes it simple to convert objects to maps:</p>
+        <p class="bridgehead">Example</p>
+        <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
+
+const myMap = new Map(Object.entries(fruits));</pre>
+        <p><code>Object.entries()</code> is supported in all modern browsers since March 2017:</p>
+
+        <h3><code>Object.fromEntries()</code></h3>
+        <p>The <code>fromEntries()</code> method creates an object from a list of key/value pairs.</p>
+        <p class="bridgehead">Example</p>
+        <pre>const fruits = [
+  ["apples", 300],
+  ["pears", 900],
+  ["bananas", 500]
+];
+
+const myObj = Object.fromEntries(fruits);</pre>
+        <h3><code>Object.values()</code></h3>
+        <p><code>Object.values()</code> is similar to Object.entries(), but returns a single dimension array of the object values:</p>
+        <p class="bridgehead">Example</p>
+        <pre>const person = {
+  firstName : "John",
+  lastName : "Doe",
+  age : 50,
+  eyeColor : "blue"
+};
+
+let text = Object.values(person);</pre>
+        <p><code>Object.values()</code> is supported in all modern browsers since March 2017:</p>
+
+        <h3><code>Object.groupBy()</code></h3>
+        <p>ES2024 added the Object.groupBy() method to JavaScript.</p>
+        <p>The Object.groupBy() method groups elements of an object according to string values returned from a callback function.</p>
+        <p>The <code>Object.groupBy()</code> method does not change the original object.</p>
+        <p class="bridgehead">Example</p>
+        <pre>// Create an Array
+const fruits = [
+  {name:"apples", quantity:300},
+  {name:"bananas", quantity:500},
+  {name:"oranges", quantity:200},
+  {name:"kiwi", quantity:150}
+];
+
+// Callback function to Group Elements
+function myCallback({ quantity }) {
+  return quantity &gt; 200 ? "ok" : "low";
+}
+
+// Group by Quantity
+const result = Object.groupBy(fruits, myCallback);</pre>
+        <p></p>
+        <pre></pre>
+        <h3><code></code></h3>
+        <p></p>
+        <pre></pre>
+        <h3><code></code></h3>
+        <p></p>
+        <pre></pre>
+        <h3><code></code></h3>
+        <p></p>
+        <pre></pre>
+        <h3><code></code></h3>
+        <p></p>
+        <pre></pre>
+        <h3><code></code></h3>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="properties">
+        <h2>Object Properties</h2>
+      </section>
+      <section id="get-set">
+        <h2>Object Get / Set</h2>
+      </section>
+      <section id="protection">
+        <h2>Object Protection</h2>
+      </section>
+    </main>
+
+  </body>
+
+</html>

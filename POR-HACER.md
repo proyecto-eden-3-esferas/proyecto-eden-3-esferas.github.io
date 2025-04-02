@@ -12,10 +12,33 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write   *hugel-kultur.html* (Hugel Kultur: burying wood for fertility)
+[ ] link to *hugel-kultur.html* from *permaculture.html* (just uncomment link)
+[ ] link to *hugel-kultur.html* from elsewhere
+
+[x] write    *orm.html*
+[ ] complete *orm.html*
+[x] link to *orm.html* from *database.html*
+[ ] link to *orm.html* from elsewhere
+
+
+[ ] complete *mongoose.html*
+[x] link to *mongoose.html* from *mongodb.html*
+
+
+[ ] complete *js.objects.html* starting at https://www.w3schools.com/js/js_object_definition.asp
+[x] link to  *js.objects.html* from *js.html*
+[ ] link to  *js.objects.html* from elsewhere
+
+
+[ ] añadir:
+<p>No hay levadura en los supermercados del barrio, ni siquiera en un espacioso DIA, tampoco en La Plaza. Estos madrileños no gastan de eso. Sin embargo, en un pueblo de Cataluña, Artesa de Segre, ya conocí una mujer que se hacía hasta la levadura madre...</p>
+
 [ ] add
 <p>By default, MongoDB listens for connections from clients on port 27017 , and stores data in the <cite>/data/db</cite> directory.</p>
 
-[ ] link to *windows.html* from *os.html*
+[x] link to *windows.html* from *os.html*
+[ ] link to *windows.html* from elsewhere
 
 
 [ ] add to *mongodb.html*
