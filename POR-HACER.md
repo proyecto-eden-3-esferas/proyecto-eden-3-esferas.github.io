@@ -12,6 +12,28 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir  *representacion-del-conocimiento.html*
+[ ] enlazar a *representacion-del-conocimiento.html* desde *ia.html*
+[ ] enlazar a *representacion-del-conocimiento.html* desde ???
+<h1>Representación del conocimiento</h1>
+<p>La <dfn>representación del conocimiento</dfn> es toda ayuda o método para almacenar, comunicar y consultar información.</p>
+<p>En informática convencional, no en inteligencia artificial, el conocimiento (datos) se guarda en <a target="_blank" href="bases-de-datos.html">bases de datos</a>.</p>
+<p>En tanto que <strong>memoria</strong>, se opone a <strong>razonamiento</strong> (raciocinio, inteligencia).</p>
+<ul>
+  <li>variable-valor (por ejemplo: <q>temperatura = 26 C</q>, donde <var>temperatura</var> es una variable y <q>26 C</q> es el valor que dicha variable adopta o asume.)</li>
+  <li>nota; puede contener parejas de variable-valor, textos breves, diagramas, etc. (por ejemplo en formato <a target="_blank" href="json.html">JSON</a>)</li>
+  <li>tabla (<i>ver</i> <a target="_blank" href="bases-de-datos-relacionales.html">bases de datos relacionales</a>)</li>
+  <li>grafo</li>
+  <li>diagrama</li>
+  <li>texto más o menos estructurado (a menudo <a target="_blank" href="xml.en.html">XML</a>)</li>
+</ul>
+<hr/>
+<p>Uno podría leer un texto e ir distribuyendo la información en notas, tablas, texto o textos (refundidos), diagramas... Y al revés, partir de varios medios y sintetizar un texto, una nota, una tabla...</p>
+
+
+[x] enlazar a *antropoceno.html* desde *sociedad.html*
+[ ] enlazar a *antropoceno.html* desde ???
+
 [ ] write   *hugel-kultur.html* (Hugel Kultur: burying wood for fertility)
 [ ] link to *hugel-kultur.html* from *permaculture.html* (just uncomment link)
 [ ] link to *hugel-kultur.html* from elsewhere
