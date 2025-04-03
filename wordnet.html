@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WordNET: a large lexical database of English</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="WordNET: a large lexical database of English"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="linguistics thought">
+    <nav>
+    <!--
+    -->
+      <div>
+        <p><a rel="prev" href="linguistics.html">Linguistics: The Study of (Natural) Languages</a></p>
+        <p><a            href="linguistics.classifier.html">Classifiers</a></p>
+        <p><a            href="morphology.html">Morphology: Analizing Words</a></p>
+        <p><a            href="phoneme-map.html">Mapping Phonemes to ASCII</a></p>
+      </div>
+      <div>
+        <p><a href="https://universaldependencies.org/#language-u">Universal Dependencies: a framework for consistent annotation of grammar</a></p>
+      </div>
+      <div>
+        <p>Eric Kafe [email] has released <a href="https://github.com/ekaf/wordnet-prolog">Prolog versions</a> of WordNet 3.0 and 3.1 bundled with the original WNprolog-3.0 documentation.</p>
+        <p>Look up <a href="https://wordnet.princeton.edu/related-projects">related projects</a> at <code>https://wordnet.princeton.edu/related-projects</code></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>WordNET: a large lexical database of English</h1>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://wordnet.princeton.edu/">WordNET</a></cite>, at <code>https://wordnet.princeton.edu/</code>)</p>
+      <p>WordNet® is a large lexical database of English. Nouns, verbs, adjectives and adverbs are grouped into sets of cognitive synonyms (<dfn>synsets</dfn>), each expressing a distinct concept. Synsets are interlinked by means of conceptual-semantic and lexical relations. The resulting network of meaningfully related words and concepts can be navigated with the browser. WordNet is also freely and publicly available for download. WordNet&apos;s structure makes it a useful tool for computational linguistics and natural language processing.</p>
+      <p>WordNet superficially resembles a thesaurus, in that it groups words together based on their meanings. However, there are some important distinctions. First, WordNet interlinks not just word forms—strings of letters—but specific senses of words. As a result, words that are found in close proximity to one another in the network are semantically disambiguated. Second, WordNet labels the semantic relations among words, whereas the groupings of words in a thesaurus does not follow any explicit pattern other than meaning similarity.</p>
+      <h2>Structure</h2>
+      <p>The main relation among words in WordNet is synonymy, as between the words <q>shut</q> and <q>close</q> or <q>car</q> and <q>automobile</q>. <dfn>Synonyms</dfn>--words that denote the same concept and are interchangeable in many contexts--are grouped into unordered sets (synsets). Each of WordNet&apos;s 117 000 synsets is linked to other synsets by means of a small number of <q>conceptual relations.</q> Additionally, a synset contains a brief definition (<q>gloss</q>) and, in most cases, one or more short sentences illustrating the use of the synset members. Word forms with several distinct meanings are represented in as many distinct synsets. Thus, each form-meaning pair in WordNet is unique.</p>
+      <h2>Relations</h2>
+      <p>The most frequently encoded relation among synsets is the super-subordinate relation (also called <dfn>hyperonymy</dfn>, <dfn>hyponymy</dfn> or ISA relation). It links more general synsets like {furniture, piece_of_furniture} to increasingly specific ones like {bed} and {bunkbed}. Thus, WordNet states that the category furniture includes bed, which in turn includes bunkbed; conversely, concepts like bed and bunkbed make up the category furniture. All noun hierarchies ultimately go up the root node {entity}. Hyponymy relation is transitive: if an armchair is a kind of chair, and if a chair is a kind of furniture, then an armchair is a kind of furniture. WordNet distinguishes among <dfn>Types</dfn> (common nouns) and <dfn>Instances</dfn> (specific persons, countries and geographic entities). Thus, armchair is a type of chair, Barack Obama is an instance of a president. Instances are always leaf (terminal) nodes in their hierarchies.</p>
+      <p><dfn>Meronymy</dfn>, the part-whole relation holds between synsets like {chair} and {back, backrest}, {seat} and {leg}. Parts are inherited from their superordinates: if a chair has legs, then an armchair has legs as well. Parts are not inherited <q>upward</q> as they may be characteristic only of specific kinds of things rather than the class as a whole: chairs and kinds of chairs have legs, but not all kinds of furniture have legs.</p>
+      <p>Verb synsets are arranged into hierarchies as well; verbs towards the bottom of the trees (<dfn>troponyms</dfn>) express increasingly specific manners characterizing an event, as in {communicate}-{talk}-{whisper}. The specific manner expressed depends on the semantic field; volume (as in the example above) is just one dimension along which verbs can be elaborated. Others are speed (move-jog-run) or intensity of emotion (like-love-idolize). Verbs describing events that necessarily and unidirectionally entail one another are linked: {buy}-{pay}, {succeed}-{try}, {show}-{see}, etc.</p>
+      <p>Adjectives are organized in terms of antonymy. Pairs of <q>direct</q> antonyms like wet-dry and young-old reflect the strong semantic contract of their members. Each of these polar adjectives in turn is linked to a number of <q>semantically similar</q> ones: dry is linked to parched, arid, dessicated and bone-dry and wet to soggy, waterlogged, etc. Semantically similar adjectives are <q>indirect antonyms</q> of the contral member of the opposite pole. Relational adjectives (<dfn>pertainyms</dfn>) point to the nouns they are derived from (criminal-crime). </p>
+      <p>There are only a few adverbs in WordNet (hardly, mostly, really, etc.) as the majority of English adverbs are straightforwardly derived from adjectives via morphological affixation (surprisingly, strangely, etc.)</p>
+      <h2>Cross-POS relations</h2>
+      <p>The majority of the WordNet&apos;s relations connect words from the same part of speech (POS). Thus, WordNet really consists of four sub-nets, one each for nouns, verbs, adjectives and adverbs, with few cross-POS pointers. Cross-POS relations include the <q>morphosemantic</q> links that hold among semantically similar words sharing a stem with the same meaning: observe (verb), observant (adjective) observation, observatory (nouns). In many of the noun-verb pairs the semantic role of the noun with respect to the verb has been specified: {sleeper, sleeping_car} is the LOCATION for {sleep} and {painter}is the AGENT of {paint}, while {painting, picture} is its RESULT.</p>
+    </main>
+
+  </body>
+
+</html>

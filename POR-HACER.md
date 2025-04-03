@@ -10,29 +10,38 @@
 - https://valkey.io/
 - https://github.com/valkey-io/valkey
 
+- https://www.ecologistasenaccion.org/revista/
+- https://www.ecologistasenaccion.org/315826/editorial-turistificacion-un-modelo-contra-el-medioambiente-y-las-personas/
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] escribir  *representacion-del-conocimiento.html*
-[ ] enlazar a *representacion-del-conocimiento.html* desde *ia.html*
-[ ] enlazar a *representacion-del-conocimiento.html* desde ???
-<h1>Representación del conocimiento</h1>
-<p>La <dfn>representación del conocimiento</dfn> es toda ayuda o método para almacenar, comunicar y consultar información.</p>
-<p>En informática convencional, no en inteligencia artificial, el conocimiento (datos) se guarda en <a target="_blank" href="bases-de-datos.html">bases de datos</a>.</p>
-<p>En tanto que <strong>memoria</strong>, se opone a <strong>razonamiento</strong> (raciocinio, inteligencia).</p>
+[ ] escribir *informacion.html* -> *.inform*.html
+    que tal vez se solape con *materia-energia-informacion-y-mas-alla.html*
+
+[ ] escribir *ecologismo.html*
+<p>Una de las Tres Esferas, la inferior.</p>
+<p>No debe confundirse con la Ecología, una disciplina de la Biología. Anillar rapaces no conlleva necesariamente protegerlas más y mejor.</p>
 <ul>
-  <li>variable-valor (por ejemplo: <q>temperatura = 26 C</q>, donde <var>temperatura</var> es una variable y <q>26 C</q> es el valor que dicha variable adopta o asume.)</li>
-  <li>nota; puede contener parejas de variable-valor, textos breves, diagramas, etc. (por ejemplo en formato <a target="_blank" href="json.html">JSON</a>)</li>
-  <li>tabla (<i>ver</i> <a target="_blank" href="bases-de-datos-relacionales.html">bases de datos relacionales</a>)</li>
-  <li>grafo</li>
-  <li>diagrama</li>
-  <li>texto más o menos estructurado (a menudo <a target="_blank" href="xml.en.html">XML</a>)</li>
+  <li>proteger</li>
+  <li>disfrutar (el centrarse en un lugar y paisaje que proponía Naess)</li>
 </ul>
-<hr/>
-<p>Uno podría leer un texto e ir distribuyendo la información en notas, tablas, texto o textos (refundidos), diagramas... Y al revés, partir de varios medios y sintetizar un texto, una nota, una tabla...</p>
+<p>Se realiza mediante la <a target="_blank" href="permacultura.html">permacultura</a>.</p>
+<p>Aclarar su vínculo con el vaganismo.</p>
+
+[ ] enlazar a *ecologia-profunda.eea.html* desde *permacultura.html*
+[ ] enlazar a *ecologia-profunda.eea.html* desde ???
+
+[x] escribir  *representacion-del-conocimiento.html*
+[ ] mejorar   *representacion-del-conocimiento.html*
+[x] enlazar a *representacion-del-conocimiento.html* desde *ia.html*
+[ ] enlazar a *representacion-del-conocimiento.html* desde ???
 
 
+[ ] mejorar   *antropoceno.html*
 [x] enlazar a *antropoceno.html* desde *sociedad.html*
 [ ] enlazar a *antropoceno.html* desde ???
+
+[ ] escribir *asumir.html*
 
 [ ] write   *hugel-kultur.html* (Hugel Kultur: burying wood for fertility)
 [ ] link to *hugel-kultur.html* from *permaculture.html* (just uncomment link)
@@ -44,7 +53,7 @@
 [ ] link to *orm.html* from elsewhere
 
 
-[ ] complete *mongoose.html*
+[?] complete *mongoose.html*
 [x] link to *mongoose.html* from *mongodb.html*
 
 
@@ -91,11 +100,9 @@
 [x] link to *innovation.html* from *economy.html*
 [ ] link to *innovation.html*
 
-[ ] *demasiada-informacion.html*
-<p>No necesitamos más información sino ordenarla y estructurarla para siquiera poder encontrarla.</p>
-<p>No soy original, no intento serlo, sino humilde, reconozco que nada original que se me ocurra o descubra aumentaría sustancialmente el acervo del conocimiento humano.</p>
-<p>La investigación, principalmente científica, no aportan nada al Ser Humano, incapaz de aprovechar los conocimientos de que ya dispone.</p>
-<p>Menos memorizar y más bases de datos. Aprendamos las técnicas de acceso a la información. La enseñanza memorística se ha quedado atrás.</p>
+[x] escribir  *demasiada-informacion.html* (Demasiada información)
+[x] enlazar a *demasiada-informacion.html* (Demasiada información) desde *pensamientos.html*
+[x] enlazar a *demasiada-informacion.html* (Demasiada información) desde *representacion-del-conocimiento.html*
 
 [x] enlazar "innovacion.html" (Innovación) desde *creatividad-y-maquinas.html*
 [x] enlazar "innovacion.html" (Innovación) desde *creatividad.html*
@@ -931,6 +938,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] link to *wordnet.html* (WordNET: a large lexical database of English) from *linguistics.html*
+[ ] link to *wordnet.html* (WordNET: a large lexical database of English) from would-be *semantics.html*
+[ ] link to *wordnet.html* (WordNET: a large lexical database of English) from would-be *SemanticWeb.html*
 
 [x] *streaming.html* from *networking.html*
 [ ] *streaming.html* from elsewhere
