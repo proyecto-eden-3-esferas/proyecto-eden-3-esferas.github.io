@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XML: un lenguage universal de marcado</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <a rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="es" class="tecnologia">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="herramientas.html">Herramientas y máquinas</a></p>
+      -->
+      <div>
+        <p> <a rel="next" href="ordenadores.html">Ordenadores digitales</a> </p>
+        <p> <a rel="prev" href="tecnologia.html">Tecnolog&#xED;a</a> </p>
+        <p> <a href="ia.html">Inteligencia Artificial</a> </p>
+      </div>
+      <div>
+        <p> <a href="computing.html">Computing (English)</a> </p>
+        <p> <a href="xml.en.html">XML: The eXtensible Markup Language</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)</h1>
+      <!--desde 10507 hasta 10577-->
+      <p>XML es una norma o conjunto de normas sobre c&#xF3;mo escribir un lenguaje, es decir que es un <dfn><a target="_blank" href="meta.html#metalenguajes">metalenguaje</a></dfn>. Con XML podemos escribir o representar informaci&#xF3;n <i lang="la">lato sensu</i> tan variada como una base de datos, una partitura o un libro. Las siglas XML significan <i lang="en">eXtensible Markup Language</i> o lenguaje ampliable de marcado (seg&#xFA;n wikipedia, <q>Lenguaje de Marcado Extensible</q> o <q>Lenguaje de Marcas Extensible</q>).</p>
+      <p>Esta norma proviene de un organismo internacional, el World Wide Web Consortium. XML a su vez es un subconjunto de SGML.</p>
+      <section>
+        <h2>La potencia de XML</h2>
+        <p>XML, o eXtensible Markup Language, es un milagro de consenso internacional sobre c&#xF3;mo escribir, un conjunto de reglas sobre c&#xF3;mo crear, dise&#xF1;ar o sencillamente inventar nuevos lenguajes estilo <a target="_blank" href="HTML.html">HTML</a>, una sintaxis abierta a que cada cu&#xE1;l defina su propio vocabulario.</p>
+        <p id="intro_xslt">El poder de XML se multiplica por cien, por mil, gracias al subsiguiente desarrollo de un lenguaje de transformaciones, XSLT, que permite transformar cualquier texto que siga las reglas de XML en cualquier otro formato (XML o no) que definamos y tal como definamos la transformaci&#xF3;n.</p>
+      </section>
+      <section>
+        <h2>XML estructura la informaci&#xF3;n en &#xE1;rboles</h2>
+        <p id="xml_arbol">Igual que un libro tradicional se estructura en partes, cap&#xED;tulos, secciones, e igual que tiras de letras (frases, palabras) pod&#xED;an ser t&#xED;tulo, p&#xE1;rrafo, nota, cita etc, de manera an&#xE1;loga XML obliga a estructurar todo documento de forma jer&#xE1;rquica en las unidades que el creador de cada vocabulario en particular elija. Esta estructuraci&#xF3;n suele llamarse <dfn>&#xE1;rbol</dfn>, con terminolog&#xED;a de teor&#xED;a de <a target="_blank" href="espacios-y-grafos.html#grafos">grafos</a>, <dfn>jerarqu&#xED;a</dfn>.</p>
+        <p id="xml_etiquetas">Una vez comprendida la estructuraci&#xF3;n <q>arb&#xF3;rea</q> de todo documento de XML, la caracter&#xED;stica m&#xE1;s llamativa de XML es el empleo de <dfn>etiquetas</dfn>. Cada elemento de texto se sit&#xFA;a entre una etiqueta de apertura y otra de cierre.</p>
+        <note>Las etiquetas de cierre se distinguen de las de apertura por llevar una barra inclinada (/) delante de su nombre, como en el siguiente ejemplo.</note>
+      </section>
+      <section>
+        <h2>Un ejemplo de XML antes profundizar</h2>
+        <p>A continuaci&#xF3;n se muestra un ejemplo sencill&#xED;simo de documento XML:</p>
+        <pre>&lt;?xml version=" 1.0 " encoding=" UTF-8 " standalone= " yes "?&gt;
+&lt;ficha&gt;
+  &lt;nombre&gt;Gabriel&lt;/nombre&gt;
+  &lt;apellido&gt;Molina&lt;/apellido&gt;
+  &lt;direccion&gt;Alfredo Vargas 36&lt;/direccion&gt;
+&lt;/ficha&gt;</pre>
+        <p>Obs&#xE9;rvese que hay un pr&#xF3;logo o declaraci&#xF3;n en el encabezamiento, una especie de etiqueta delimitada por signos de interrogaci&#xF3;n. Y que la estructura del documento no tiene por qu&#xE9; ser en cap&#xED;tulos y secciones, sino de la forma y manera que elijamos. Ahora bien, las aplicaciones que procesan documentos de XML no pueden adivinar la intenci&#xF3;n o sem&#xE1;ntica de nuestras etiquetas, dado que en principio cada usuario o entidad se inventa las suyas. Como poco debermos indicarle con qu&#xE9; tipo de letra y dem&#xE1;s rasgos deseamos que se muestre en la pantalla de un ordenador (CSS).</p>
+      </section>
+      <section>
+        <h2>Elementos vac&#xED;os de un archivo en XML</h2>
+        <p>Los elementos vac&#xED;os est&#xE1;n representados por etiquetas vac&#xED;as. Estas etiquetas vac&#xED;as se distinguen por llevar una barra inclinada <em>detr&#xE1;s</em> de su nombre. Por ejemplo, en <a target="_blank" href="HTML.html">HTML</a> bien formado, una barra horizontal o <i lang="en">horizontal rule</i> se marcaba con <userinput>&lt;hr/&gt;</userinput>.</p>
+      </section>
+    </main>
+  </body>
+</html>

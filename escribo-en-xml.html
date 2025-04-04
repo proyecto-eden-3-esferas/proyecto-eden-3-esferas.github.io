@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Escribo en XML</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <a rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="Razones por las que escribo en XML (eXtensible Mark-up Language)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="es" class="tecnologia">
+    <nav>
+      <div>
+        <p> <a rel="next" href="como-escribir.html">Cómo escribir: aspectos técnicos</a> </p>
+        <p> <a rel="prev" href="ordenadores.html">Ordenadores digitales</a> </p>
+        <p> <a            href="tecnologia.html">Tecnología</a> </p>
+      </div>
+      <div>
+        <p> <a href="computing.html">Computing (English)</a> </p>
+        <p> <a href="xml.en.html">XML: The eXtensible Markup Language (English)</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Escribo en XML</h1>
+      <p>En realidad mi sistema de escritura es XML. XML es una sintaxis a partir de la cuál se construyen lenguajes, lenguajes de representación de conocimiento por ejemplo. HTML estricto (strict HTML) es un lenguaje XML.</p>
+      <p>Yo escribo en el vocabulario DocBook y luego genero ePUB. Por cierto ePUB está formado por archivos en HTML estricto  con algunos archivos cortos en un lenguaje XML muy sencillo.</p>
+      <section>
+        <h2>(1)</h2>
+        <p>Una posible ventaja de XML es que es una norma (standard) emitida por un conjunto de empresas y aceptada internacionalmente. Reconozco que no es obvio que una norma consensuada supraempresarial sea mejor que una norma intraempresarial. Por ejemplo, ¿de qué sirve que linux siga unas normas internacionales tales que el 99% de los sistemas operativos que las siguen son linux? ¿Qué importa el 1% restante?</p>
+        <p>Otro aspecto de algunas normas intraempresariales es que los detalles no son públicos, como ocurre con algunas versiones del formato DOC. Esto dificulta el que otros grupos escriban software para archivos DOC dado que les obligan a adivinar o deducir el formato. ¿Se trata de un comportamiento monopolístico por parte de Microsoft?</p>
+        <p>Por cierto, el que hoy en día <a target="_blank" href="windows.html">Windows</a> y todo o parte de MS Office resulte relativamente barato es engañoso, como tu parte de economista reconocerá. En general conseguir aplicaciones (o información, o encargos, o favores) por la puerta de atrás a la larga perjudica al supuesto beneficiario, sobre todo cuando las cosas se pueden conseguir por la puerta de alante.</p>
+        <p>Me parece <q>peligroso</q> modificar archivos en la nube por procedimientos que desconocemos y por tanto no controlamos. (Tampoco soy partidario de utilizar programas que requieren una conexión a internet salvo excepciones obvias, si bien yo mismo utilizo el navegador para ver mis archivos docbook <q>locales</q>.) Para empezar, a diferencia del correo electrónico o la Red, no hay una norma que defina los protocolos (=formatos de mensaje entre ordenadores que se comunican). No controlamos el proceso. En mi opinión el caso se asemeja al de utilizar procesadores de texto para escribir texto puro, con lo que se ignora y se relega la tecnología de los <q>editores de texto</q>. En particular la tecnología <q>libre y abierta</q> de modificar textos en la nube es superpotente, está muy desarrollada y permitiría ese otro gran sueño de la humanidad, la <a target="_blank" href="como-escribir-interactivamente.html">escritura colectiva</a>. Se llama, llamémoslo, <i lang="en">version control</i>. Una vez más encontramos el viejo fenómeno del empobrecimiento de las <a target="_blank" href="herramientas.html">herramientas</a>, de que elijamos herramientas que nos permiten hacer <em>menos</em> cosas aunque brillen <em>más</em>.</p>
+        <p>En realidad XML es un formato de texto puro, lo cual equivale a que es <q>humanamente leible</q> (<i lang="en">human readable</i>). Por tanto no puede haber un lenguage (derivado del metalenguaje) XML de formato cerrado. ¿Tiene ventajas el que una base de datos, un libro (DocBook, ConTeXt, TEI), una partitura (MusicML), una composición musical (MusicML), un dibujo (SVG, metapost) o una fórmula matemática (MathML, Plain TeX) se escriban en un archivo que un ser humano pueda escribir, leer y modificar a mano porque está en <q>texto puro</q> y además en una forma de texto puro fácilmente inteligible?</p>
+        <p>Es innegable que muchos entendidos opinan que debería utilizarse texto puro y formatos públicos (<i lang="en">publicised</i>) siempre que se pueda. Salvo en situaciones contadas en las que la velocidad de procesamiento requiera un formato <q>binario</q></p>
+        <p>Por otro lado, aunque se nos ofrezcan gratis (aplicaciones, manuales, tutoriales), no disponemos de tiempo para aprender TODOS los formatos abiertos. Por tanto sólo si XML resultase útil y sencillo de aprender deberíamos estudiarlo.</p>
+      </section>
+
+      <section>
+        <h2>(2)</h2>
+        <p>En segundo lugar, XML es el único formato de archivo electrónico consensuado internacionalmente. XML es el futuro.</p>
+        <p>De hecho XML lleva asociada íntimamente otra norma, XSLT, sobre cómo definir transformaciones de un archivo XML a otro archivo XML o a cualquier otra cosa, por ejemplo a PDF. Digamos que un archivo escrito en el lenguaje XSLT (a su vez un XML) define una transformación textual. Esto puede parecer una ventaja insignificante. Existen varios aplicaciones que transforman XML siguiendo un guión XSLT que les indiquemos. Esta transformabilidad es uno de los sueños del ser humano.</p>
+        <p>Por otro lado, esta transformabilidad asegura la <q>portabilidad</q> y la pervivencia de los textos en el tiempo. Sería impensable que alguien escribiera un texto valioso de letras en un archivo que décadas después no consiguiéramos <q>abrir</q>... si se hubiese escrito en un XML. Aunque no supiésemos XML lo entenderíamos, y aunque contuviera fórmulas matemáticas en un XML desconocido fácilmente entenderíamos dichas fórmulas. Si XML hubiese pervivido, fácilmente escribiríamos una transformación (XSLT) con la que convertir un XML arcaico a otro moderno.</p>
+        <p>Que XML es el futuro es una apreciación mía subjetiva, pero no por ello menos válida o útil.</p>
+        <p>Otra razón por la que XML me parece el futuro de la escritura es que ciertamente está bien diseñado. Son un puñado de normas sintácticas muy sencillas que además permiten añadir ampliaciones, en particular mediante las llamadas <i lang="en">processing instructions</i>. Se trata de un tema muy técnico al que yo no le veía la utilidad pero con el tiempo he reconocido la sabiduría e <q>inclusividad</q> de haberlo puesto en la norma XML.</p>
+        <p>Inclusividad, libertad, ampliar el abanico de posibilidades... ¿os dice algo todo esto?</p>
+        <p>Un rasgo al que si le veo una gran utilidad es el de que en XML y ya en HTML pre-XML: uno puedo escribir comentarios, es decir texto que el navegador no muestra ni el procesador en general reconoce por defecto. Igual en un DOC también. Tan sencillo como...<!-- esta frase no me convence: modifícala en cuanto puedas -->.</p>
+        <p>En particular, dado que en lenguaje HTML (un XML cuando es <em>estricto</em>) se pueden incluir elementos que representen fórmulas matemáticas y  dibujos, y dado que el formato ePUB está formado principalmente por archivos de uno u otro XML, la potencia expresiva y cuota de cultura que entre los dos abarcan es hoy en día comparable a la que abarcan los archivos en PDF y los libros físicos.</p>
+      </section>
+
+      <section>
+        <h2>(3)</h2>
+        <p>En tercer lugar, si quiero escribir una novela o texto de letras en general formado por párrafos, capítulos, nombres de capítulas y alguna palabra en cursiva de vez en cuando, ¿qué necesidad hay de utilizar algo diseñado para otra cosa o con un superconjunto de prestaciones (<i lang="en">features</i>) tan grande y rico como tiene un procesador de texto? ¿por qué si lo que escribo es principalmente texto el archivo no está en texto puro si acaso con algunas marcas de cursiva, cambio de capitulo etc.? De hecho el Proyecto Gutemberg ofrece textos de letras en texto puro en los que la cursiva se representa entre guiones bajos (<code>Es _impresionante_</code>), aunque seguro que utiliza más convenciones.</p>
+      </section>
+
+      <section>
+        <h2>(4)</h2>
+        <p>No sé si convenzo. Lo más importante es que haya diálogo y lleve a modificar los puntos de vista de los participantes... <!--que se dé una relación horizontal entre las personas y no vertical o que no se dé ninguna relación y acabemos viviendo en guetos. Por supuesto no vamos a vivir en guetos porque muy arriba unas organizaciones intentan imponerse a otras, lo que se conoce por geopolítica, y las personas anónimas somos piezas prescindibles en ese juego.--> También es posible un futuro sin libros en el que la gente sólo maneje documentos, apuntes y folletos. ¿Un futuro sin libros será peor?</p>
+        <p>De modo que tendremos tres componentes: (1) cultura con escritura (que comprenderá no sólo libros sino también páginas web, planos, partituras y sobre todo <a target="_blank" href="programacion.html">programas informáticos</a>, parte importante de ellos de inteligencia artificial) y producciones no digitales (pintura, teatro, cocina etc.), (2) naturaleza (que nuestras tribus tienden a ver desde el ecologismo, <a target="_blank" href="ecologia-profunda.html">ecología profunda</a> etc.) y, opcional, (3) conciencia meditativa (la tercera de las <cite><a target="_blank" href="tres-esferas.html">Tres Esferas</a></cite> sobre las que versa este sitio o portal de internet).</p>
+        <p>Podríamos pensar que el primer componente, la cultura, se basa en el pensamiento critico pero de buena fe. Un pensamiento crítico de mala fe no me parecería una cultura beneficiosa, sólo confundiría. En segundo lugar, buena parte de nuestra cultura es texto, texto puro. Recordemos que los romanos escribían todo en mayúsculas y sin espacios ni puntuación. Por tanto convendría que todo archivo de texto estuviera encabezado por una indicación de cómo se representa cada letra: se llama codificación y lo encontramos en la primera línea de un archivo XML, normalmente:</p>
+        <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</pre>
+        <p>Y si un romano se hubiese contentado con un editor de texto puro y despreciado Word, no lo sé, remontándonos a tiempos más modernos se ha comentado que cada vez más nuestro mundo está compuesto de código y nos regimos por <a target="_blank" href="algoritmo.html">algoritmos</a> que hay en programas informáticos escritos en texto puro. No existe la programación gráfica fuera de las aulas de educación primaria.</p>
+        <p>O cualquier otra división que otro proponga o por la que yo me decante en el futuro. La cultura ha de ser un código abierto, por hacer un juego de palabras.</p>
+        <p>¿Nuestras preferencias por unos u otros modos de hacer las cosas se deben a prejuicios? Incluso yo podría preferir XML por puro prejuicio.</p>
+      </section>
+
+    </main>
+  </body>
+</html>

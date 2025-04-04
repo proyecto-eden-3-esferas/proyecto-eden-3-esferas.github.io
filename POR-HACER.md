@@ -13,23 +13,31 @@
 - https://www.ecologistasenaccion.org/revista/
 - https://www.ecologistasenaccion.org/315826/editorial-turistificacion-un-modelo-contra-el-medioambiente-y-las-personas/
 
+- MagicWorld.xml | Nature | Farming
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] llenar *basuraleza.html*
 
 [ ] escribir *informacion.html* -> *.inform*.html
     que tal vez se solape con *materia-energia-informacion-y-mas-alla.html*
 
-[ ] escribir *ecologismo.html*
-<p>Una de las Tres Esferas, la inferior.</p>
-<p>No debe confundirse con la Ecología, una disciplina de la Biología. Anillar rapaces no conlleva necesariamente protegerlas más y mejor.</p>
-<ul>
-  <li>proteger</li>
-  <li>disfrutar (el centrarse en un lugar y paisaje que proponía Naess)</li>
-</ul>
-<p>Se realiza mediante la <a target="_blank" href="permacultura.html">permacultura</a>.</p>
-<p>Aclarar su vínculo con el vaganismo.</p>
+[ ] refinar   *ecologismo.html*
+[ ] enlazar a *ecologismo.html* desde *tres-esferas.html*
+[x] enlazar a *ecologismo.html* desde *valores.html*
+[ ] enlazar a *ecologismo.html* desde *ideologia.html*
+[ ] enlazar a *ecologismo.html* desde ...
+<p><a            href="ecologismo.html">Ecologismo: la defensa del medio ambiente</a></p>
 
-[ ] enlazar a *ecologia-profunda.eea.html* desde *permacultura.html*
-[ ] enlazar a *ecologia-profunda.eea.html* desde ???
+
+[ ] continuar *meta.html#metalenguajes*
+
+[x] terminar/pulir *valores.html*
+[x] enlazar a      *valores.html* desde *pensamientos.html*
+
+[x] enlazar a *ecologia-profunda.eea.html* desde *ecologia-profunda.html*
+[x] enlazar a *ecologia-profunda.html* desde *permacultura.html*
+[ ] enlazar a *ecologia-profunda.html* desde *antropoceno.html*
 
 [x] escribir  *representacion-del-conocimiento.html*
 [ ] mejorar   *representacion-del-conocimiento.html*
@@ -938,6 +946,16 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] enlazar a *escribo-en-xml.html* desde *proceso-de-escribir.html*
+[ ] enlazar a *escribo-en-xml.html* desde *xml.es.html*
+[ ] enlazar a *escribo-en-xml.html* desde *como-escribir.html*
+<p><a            href="escribo-en-xml.html">(Porqué) escribo en XML (eXtensible Mark-up Language)</a></p>
+
+[ ] enlazar a *xml.es.html* (también existe *xml.en.html*)
+<p><a            href="xml.es.html">Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)</a></p>
+
+[ ] enlazar a *revolucion-verde.html* desde *agricultura.html*, *agriculturas.html* *poblacion.html*
 
 [x] link to *wordnet.html* (WordNET: a large lexical database of English) from *linguistics.html*
 [ ] link to *wordnet.html* (WordNET: a large lexical database of English) from would-be *semantics.html*
