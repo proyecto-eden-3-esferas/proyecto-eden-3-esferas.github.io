@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XML: un lenguage universal de marcado</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <a rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="es" class="tecnologia">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="herramientas.html">Herramientas y máquinas</a></p>
+      -->
+      <div>
+        <p> <a rel="prev" href="informatica.html">Informática</a> </p>
+        <p> <a rel="next" href="xml.es.html">XML: un lenguaje de marcado universal</a> </p>
+      </div>
+      <div>
+        <p> <a href="computing.html">Computing (English)</a> </p>
+        <p> <a href="xml.en.html">XML: The eXtensible Markup Language (English)</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Lenguajes de marcado</h1>
+      <p>Un <dfn>lenguaje de marcado</dfn> es un lenguaje formal (informático) no binario sino textual para escribir y leer archivos de texto que constan principalmente de contenido (<q>texto</q>) así como de marcas que indican la función o representación de determinadas tiras de texto.</p>
+      <hr/>
+      <p>A continuación daré un ejemplo de un lenguaje de marcado inventado pero fácilmente inteligible sin previa explicación salvo por el detalle de que las tiras en cursiva se ponen entre guiones bajos:</p>
+      <pre>CAPITULO: El huerto ecológico
+
+El objetivo principal de este libro es ayudar a que _cualquier_
+persona pueda cultivar y cosechar a lo largo de todo el año
+una gran variedad de verduras, frutos y demás plantas comestibles,
+condimentarias, medicinales u ornamentales
+de la forma más sana y ecológica posible.
+
+El cultivo de un huerto es mucho más fácilde lo que podría parecer.</pre>
+      <p>Observarmos o por lo menos imaginamos que el principio de un capítulo viene marcado por la secuencia <code>CAPITULO:</code>, y que dicha secuencia precede al título del capítulo. Después del título, los párrafos van marcados por la separación de una línea o varias en blanco y, por último, la cursiva viene marcada por guiones bajos (<code>_cualquier_</code>).</p>
+      <hr/>
+      <p>Actualmente los principales lenguajes de marcado son los que siguen la sintaxis <a rel="next" href="xml.es.html">XML</a>, en especial HTML (lenguaje de páginas Web), el <strong>markdown</strong> (un lenguaje de marcado simple), y por último TeX y derivados (LaTeX, ConTeXt etc.)</p>
+      <hr/>
+      <p>Un ejemplo de la diferencia entre marca de función y marca de representación sería el marcar que una palabra se va a definir (función), frente a marcar que ha de ponerse en cursiva (representar). Esto en HTML se escribiría de dos maneras diferentes, primero por su función o semántica:</p>
+      <pre>Un &lt;dfn&gt;hábito&lt;/dfn&gt; es una costumbre individual.</pre>
+      <p>donde la marca basada en <code>dfn</code> significa <q>definición</q>, frente a su marcado de presentación:</p>
+      <pre>Un &lt;i&gt;hábito&lt;/i&gt; es una costumbre individual.</pre>
+      <p>en el que la marca con <code>i</code> selecciona letra cursiva.</p>
+    </main>
+  </body>
+</html>

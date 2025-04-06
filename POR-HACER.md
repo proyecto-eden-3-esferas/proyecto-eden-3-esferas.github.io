@@ -13,12 +13,42 @@
 - https://www.ecologistasenaccion.org/revista/
 - https://www.ecologistasenaccion.org/315826/editorial-turistificacion-un-modelo-contra-el-medioambiente-y-las-personas/
 
+- https://psiquiatria.com/glosario/
+
 - MagicWorld.xml | Nature | Farming
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *HTML.std.html* (Standardized HTML)
+<li>Use semantic tags.</li>
+<li>Meaningful <code>id</code> attributes (not computer-generated)</li>
+<li>Avoid embedded <code>div</code> elements for, say, titles...</li>
+
+[ ] terminar de escribir *antropologia.html* Antropología
+[ ] escribir   *totem.es.html*
+[x] enlazar a *totem.es.html* desde *antropologia.html*
+
+[ ] escribir *totem.en.html*
+<blockquote>
+  <p>A totem (from Ojibwe: ᑑᑌᒼ or ᑑᑌᒻ doodem) is a spirit being, sacred object, or symbol that serves as an emblem of a group of people, such as a family, clan, lineage, or tribe, such as in the Anishinaabe clan system.</p>
+  <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+</blockquote>
+<blockquote>
+  <p>an object that is respected by a group of people, especially for religious reasons:</p>
+  <p><q>Television could be seen as a totem of modern society.</q></p>
+  <p style="text-align: right">(From <cite>https://dictionary.cambridge.org/dictionary/english/totem</cite>)</p>
+</blockquote>
+
+
+
+[ ] escribir *satan.es.html*
+<q>No serviré.</q>
+<p>La Humanidad se divide en buenos, los que intentan ser buenos, y los que no se proponen ser buenos (o se proponen no ser buenos)</p>
+<p>Lo satánico no es negar la existencia de Dios...</p>
+
 [ ] llenar *basuraleza.html*
 
+[ ] write *information.html*
 [ ] escribir *informacion.html* -> *.inform*.html
     que tal vez se solape con *materia-energia-informacion-y-mas-alla.html*
 
@@ -946,6 +976,14 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *animismo.html*
+
+[x] enlazar a *lenguajes-de-marcado.html* desde *xml.es.html*
+[x] enlazar a *lenguajes-de-marcado.html* desde *informatica.html*
+[ ] enlazar a *lenguajes-de-marcado.html* desde *lengua.html*
+[ ] enlazar a *lenguajes-de-marcado.html* desde
+<p><a href="lenguajes-de-marcado.html">Lenguajes de marcado</a></p>
 
 [x] enlazar a *escribo-en-xml.html* desde *proceso-de-escribir.html*
 [ ] enlazar a *escribo-en-xml.html* desde *xml.es.html*
