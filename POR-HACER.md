@@ -19,6 +19,34 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Write *paradoña-democracia.html* La paradoja de la democracia
+<p>¿Por qué la mayoría no elige un gobierno que los haga tan ricos como los más ricos?</p>
+
+[ ] look into          bulky (217k)    *GlimpsesOfAbhidharma_ChogyamTrungpa.html*
+[ ] turn some `div` elements in        *GlimpsesOfAbhidharma_ChogyamTrungpa.html* into `section`s
+[ ] worry: quoting the whole (217k) of *GlimpsesOfAbhidharma_ChogyamTrungpa.html* infringes copyright law
+    You should either
+    - split it up into several files
+    - hide it somehow, refrain from referencing it
+    - reference an abridged version of it
+Remember your command line:
+```
+cp MagicWorld_files/GlimpsesOfAbhidharma_ChogyamTrungpa.html github_pages/
+```
+[ ] Copy ~/former/home/francisco/Documents/mis_escritos/precious/psimple/SSPW.html to GitHub dir...
+Same caveats apply. Now it is a 352k file...
+
+
+[ ] anglicismos: escenario, teatro de operaciones (son metáforas a la inglesa)
+
+
+[ ] write *free-information.html* <blockquote>Information Wants to be Free</blockquote>
+
+[ ] <blockquote>The Future is already here, it&apos;s just not evenly spread</blockquote>
+
+[ ] escribir *int-med-ext.html* Interiores, talleres y exteriores
+<p>
+
 [ ] write *HTML.std.html* (Standardized HTML)
 <li>Use semantic tags.</li>
 <li>Meaningful <code>id</code> attributes (not computer-generated)</li>
@@ -976,6 +1004,13 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *informacion.html* = Información, desde
+
+[x] enlazar a *tres-tiempos.html* desde *tiempo.html*
+[x] enlazar a *tres-tiempos.html* desde *sociedad.html*
+<p><a href="tres-tiempos.html">Los Tres Tiempos: primitivo, moderno y postmoderno</a></p>
+
 
 [ ] *animismo.html*
 
