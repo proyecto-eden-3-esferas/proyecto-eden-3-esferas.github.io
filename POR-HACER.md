@@ -19,9 +19,32 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] Write *paradoña-democracia.html* La paradoja de la democracia
-<p>¿Por qué la mayoría no elige un gobierno que los haga tan ricos como los más ricos?</p>
+[ ] progresión: (1) par nombre-valor, (2) tabla, (3) nota estructurada (JSON), y (4) texto
+[ ] una nota o ficha es <q>unívoca</q>, plasma una sola idea, suceso, obra, persona etc.
 
+[x] link to *agricultural-sciences.html* from *farming.html*
+[ ] link to *agricultural-sciences.html* from *science.html*
+[ ] link to *green-revolution.html* from *bio-revolution.html*
+[ ] link to *bio-revolution.html* from *green-revolution.html*
+
+[ ] link to *insects-and-other-beasties.html* (Insects and Other Beasties)
+from 36281 to 36362
+
+[ ] write *gestalt-psychology.html* (Gestalt Psychology)
+
+[ ] Escribir *terminos-primitivos.html*
+<p>Distinción entre los términos que se emplean en una teoría, en especial las que se estructuran axiomáticamente. Ya Aristóteles llamó <dfn>términos primitivos</dfn> a los que no se definen (los llama también <i lang="he">arkhai</i> o <i lang="he">prota</i>), y <dfn>términos derivados</dfn> a los que se definen a partir de los primitivos. En los sistemas axiomáticos, o las teorías axiomáticas, se distinguen igualmente términos primitivos, introducidos sin definición, y términos derivados, o términos definidos a partir de los primitivos.</p>
+[ ] Enlazar a *terminos-primitivos.html* desde *ciencia.html*, *logica.html* *razon.html* etc
+
+
+[ ] Write *paradoja-democracia.html* "La paradoja de la democracia"
+<p>¿Por qué la mayoría no elige un gobierno que los haga tan ricos como los más ricos?</p>
+<p>¿Porque la clase obrera vota con falsa conciencia de clase?</p>
+<p>¿Porque ello violaría el principio de derecho a la propiedad privada?</p>
+<p>Analogía de alguien que pisa el acelerador creyendo que ello va a aumentar la velocidad de su vehículo, cuando quiera. Tal vez el motor no dé más potencia. O no haya una conexión directa entre pedal de aceleración y carburador...</p>
+
+
+[ ] write stylesheet for *SSPW.html* and *GlimpsesOfAbhidharma_ChogyamTrungpa.html*
 [ ] look into          bulky (217k)    *GlimpsesOfAbhidharma_ChogyamTrungpa.html*
 [ ] turn some `div` elements in        *GlimpsesOfAbhidharma_ChogyamTrungpa.html* into `section`s
 [ ] worry: quoting the whole (217k) of *GlimpsesOfAbhidharma_ChogyamTrungpa.html* infringes copyright law
@@ -67,12 +90,11 @@ Same caveats apply. Now it is a 352k file...
   <p style="text-align: right">(From <cite>https://dictionary.cambridge.org/dictionary/english/totem</cite>)</p>
 </blockquote>
 
-
-
-[ ] escribir *satan.es.html*
-<q>No serviré.</q>
-<p>La Humanidad se divide en buenos, los que intentan ser buenos, y los que no se proponen ser buenos (o se proponen no ser buenos)</p>
-<p>Lo satánico no es negar la existencia de Dios...</p>
+[ ] escribir *notacion.html* y
+[x] enlazar a *notacion.html* desde           *kokoro-alt.html* (notación)
+[x] enlazar a *notacion.html* desde           *lenguajes-informaticos.html*
+[ ] enlazar a *notacion.html* desde un futuro *lenguajes.html*
+<p><a            href="notacion.html">Notación: lenguajes específicos artificiales</a></p>
 
 [ ] llenar *basuraleza.html*
 
@@ -1004,6 +1026,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] enlazar a *satan.es.html*
 
 [ ] *informacion.html* = Información, desde
 
