@@ -15,9 +15,93 @@
 
 - https://psiquiatria.com/glosario/
 
+- https://universaldependencies.org/u/feat/Case.html
+
 - MagicWorld.xml | Nature | Farming
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] write "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
+
+[ ] nuevas clases de CSS: filosofia espanya poem
+
+[ ] escribir *imaginacion.html* (Imaginación)
+
+[ ] *posibilidad-teorica-y-practica.html* (Posibilidad teórica y posibilidad práctica): tosco, polaridad varón-mujer
+[x] enlazar a *posibilidad-teorica-y-practica.html* desde *imaginacion.html*
+[ ] enlazar a *posibilidad-teorica-y-practica.html* desde *aristoteles.html#acto-y-potencia*
+
+[ ] llenar *fisolosofia.html*
+[x] enlazar a *fisolosofia.html* desde *pensamientos.html*
+[x] enlazar a *aristoteles.html* desde *filosofia.html*
+
+[ ] escribir *guerra.html*
+<p>Hasta ahora la victoria en la guerra ha dependido del número de combatientes.</p>
+<ul>
+  <li>defensiva</li>
+  <li>ofensiva</li>
+</ul>
+<p>La guerra es uno de los <cite>Cuatro Jinetes del Apocalipsis</cite>, uno de los cuatro grandes males que se ciernen sobre la Humanidald.</p>
+<p>Las consecuencias de la guerra son:</p>
+<ul>
+  <li>bajas: muertos y heridos, algunos de ellos incurables (lisiados)</li>
+  <li>hambre: por pérdida de fuerza laboral, por abandono de la agricultura, por destrucción material (infraestructuras, campos etc.)</li>
+  <li>violaciones</li>
+</ul>
+<section>
+  <h2>Bombas</h2>
+  <p>Para tirar una bomba se necesita:</p>
+  <ul>
+    <li>Una bomba</li>
+    <li>Algo o alguien que lleve y coloque la bomba donde ha de explotar</li>
+  </ul>
+</section>
+
+
+<section>
+  <h2>Armas nucleares</h2>
+  <p>Se trata de bombas, y por tanto para utilizarlas se requiere (1) la bomba en sí y (2) un vehículo que la coloque sobre el blanco enemigo.</p>
+  <p>Poco se habla, escribe ni debate sobre las armas nucleares.</p>
+  <p>Se las suele considerar armas defensivas en un sentido muy especial: el de la <dfn>disuasión</dfn>.</p>
+</section>
+<p>EEUU construyó dos reactores nucleares para producir plutonio para usos militares. Éste plutonio se caracterizaba por una combinacion de isótopos diferente: predominaban los de número másico impar, los menos radioactivos y que con menos probabilidad provocarían una <dfn>predetonación</dfn>.</p>
+<p>Pronto se vio que el rendimiento (cuánto material fisible reaccionaba) y la potencia de las armas nucleares de fisión estaban limitados.</p>
+<hr/>
+<p>En seguida se barajó la posibilidad de conseguir fusionar hidrógeno, mucho más barato que el uranio enriquecido o el plutonio militar. Al principio se utilizó hidrógeno líquido. Después se utilizó hidruro de litio-6, un sólido, con la ventaja adicional de que durante la explosión el litio-6 se transformaba en deuterio y litio.</p>
+<p>En la segunda detonación termonuclear se midió una potencia de más de diez megatones. Los ingenieros dedujeron que se había fisionado el uranio inerte que en principio sólo servía para frenar la expansión del secundario y conseguir que de este modo se fusionase todo el hidruro de litio-6.</p>
+
+
+[ ] escribir *indices.html*
+<p>Un <dfn>índice</dfn> es (1) cualquier mecanismo o medio que nos permite encontrar un fragmento de información o entrada de entre muchas dado algún campo (2) sin tener que mirar todos los fragmentos o entradas hasta encontrar el que nos interesa. Por ejemplo, dado el nombre de una persona, localizar el resto de sus datos en un fichero.</p>
+<p>Uno elabora un índice para encontrar entradas (capítulos, secciones, filas de una tabla, documentos) por algún campo o combinación de campos.</p>
+<p>En todo sistema de <a target="_blank" href="representacion-del-conocimiento.html">representación del conocimiento</a>, y especialmente en una base de datos, puede requerirse o convenir elabora un índice.</p>
+<p>Algunos campos con los que se elabora un índice:</p>
+<ul>
+  <li>título</li>
+  <li>nombre (en el caso de una tabla de personas)</li>
+  <li>palabras, definiciones, etc.</li>
+  <li>fecha (de creación, de última modificación, de publicación etc.)</li>
+</ul>
+<p>En un fichero físico, al colocar las fichas según algún orden, ya se dispone de un índice. Por ejemplo si en un fichero de libros las ordenamos por título, podemos encontrar rápidamente cualquier libro si conocemos su título.</p>
+<p>En un fichero informático, los índices se confeccionan con una de dos estructuras de datos:</p>
+<ul>
+  <li>arbol binario, o</li>
+  <li>tabla <i lang="en">hash</i></li>
+</ul>
+
+[ ] enlazar a *indices.html* desde *informacion.html*
+[ ] enlazar a *indices.html* desde *representacion-del-conocimiento.html*
+
+
+
+[ ] Escribir *michio-kaku.html*
+<p>Considera que la Humanidad ha de esforzarse por colonizar otros planetas porque tarde o temprano nos golpeará un meteorito suficientemente grande para destruir la biosfera. Y también por superpoblación...</p>
+<p>En libros posteriores propone que los problemas de la Humanidad se solucionarán:</p>
+<ul>
+  <li>si descubrimos una fuente infinita de energía (fisión controlada), o</li>
+  <li>si desarrollamos la computación cuántica, es decir si accedemos a ordenadores infinitamente rapidos.</li>
+</ul>
+[ ] enlazar a *michio-kaku.html* desde *tecnologia.html*, *tres-esferas.html*...
 
 [ ] progresión: (1) par nombre-valor, (2) tabla, (3) nota estructurada (JSON), y (4) texto
 [ ] una nota o ficha es <q>unívoca</q>, plasma una sola idea, suceso, obra, persona etc.
