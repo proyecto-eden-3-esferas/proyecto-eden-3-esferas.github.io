@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSLT for Converting HTML to JSON</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p> <a rel="prev" href="XSLT.html">eXtensible Stylesheet Language Transformations</a> </p>
+        <p> <a href="xml.en.html">XML: The eXtensible Markup Language</a> </p>
+        <p> <a href="HTML.html">HTML: XML for the Web</a> </p>
+      </div>
+      <div>
+        <p> <a href="svg.html">SVG: XML for Drawing</a> </p>
+      </div>
+      <div>
+        <p> <a href="TheWeb.html">The Web</a> </p>
+      </div>
+    </nav>
+    <!-- TODO
+      [ ] Bring in Communicate.xml::<title>Transforming to HTML through XSLT</title>
+      [ ] transform elements: link
+    -->
+    <main>
+      <h1>XSLT for Converting HTML to JSON</h1>
+
+      <section>
+        <h2>Transforming <code>meta</code> Elements, a top header (<code>h1</code>) and children paragraphs in <code>main</code></h2>
+        <p style="text-align: right">(File <cite>html-to-json.meta-and-paragraphs-in-main.xsl</cite>)</p>
+        <p>Here is some sample code for converting from HTML to JSON.</p>
+        <p>First, we transform a simple page with some <code>meta</code> elements in its <code>head</code> element, and a <code>/html/body/main</code> element holding a header (<code>h1</code>) and some paragraphs:</p>
+        <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.1"
+                exclude-result-prefixes="html"&gt;
+
+&lt;xsl:output method="html"
+            encoding="UTF-8"
+            media-type="text/plain"
+            indent="yes"/&gt;
+
+&lt;!-- strip whitespace from whitespace-only nodes --&gt;
+&lt;xsl:strip-space elements="*"/&gt;
+
+&lt;xsl:template match="/"&gt;
+  &lt;xsl:apply-templates/&gt;
+&lt;/xsl:template&gt;
+
+&lt;!-- handle element nodes --&gt;
+&lt;xsl:template match="html"&gt;
+{
+  "title": "&lt;xsl:value-of select="head/title"/&gt;"&lt;xsl:if test="head/meta[@name='keywords']"&gt;,
+  "keywords": "&lt;xsl:value-of select="head/meta[@name='keywords']/@content"/&gt;"&lt;/xsl:if&gt;&lt;xsl:if test="head/meta[@name='author']"&gt;,
+  "author": "&lt;xsl:value-of select="head/meta[@name='author']/@content"/&gt;"&lt;/xsl:if&gt;&lt;xsl:if test="head/meta[@name='description']"&gt;,
+  "description": "&lt;xsl:value-of select="head/meta[@name='description']/@content"/&gt;"
+  &lt;/xsl:if&gt;&lt;xsl:if test="body//h1"&gt;,
+  "h1": "&lt;xsl:value-of select="body//h1[1]"/&gt;"&lt;/xsl:if&gt;&lt;xsl:if test="body/main"&gt;,
+  "main" : [
+    &lt;xsl:for-each select="body/main/p"&gt;"&lt;xsl:value-of select="."/&gt;"&lt;xsl:if test="position() &lt; last()"&gt;,
+    &lt;/xsl:if&gt;&lt;/xsl:for-each&gt;
+  ]
+  &lt;/xsl:if&gt;
+}
+&lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      -->
+        <aside>
+        </aside>
+      </section>
+
+      <section id="sections-as-objects">
+        <h2>Rewrite Sections (<code>section</code>) as Objects of an Array</h2>
+        <p>[...]</p>
+        <pre><![CDATA[]]></pre>
+      </section>
+
+    </main>
+  </body>
+</html>

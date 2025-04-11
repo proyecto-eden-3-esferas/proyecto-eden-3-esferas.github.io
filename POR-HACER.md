@@ -21,7 +21,24 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] write "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
+[ ] write   *sed.html*
+[ ] link to *sed.html*
+[ ] write   *bash.html*
+[ ] link to *bash.html*
+
+[ ] *rasgos-distintivos.html* (Rasgos distintivos)
+
+[ ] Escribir *obras.html*
+<a href="actuadores-y-creadores.html">Actuadores y creadores</a>
+<p>Los seres humanos producimos <dfn>obras</dfn> y realizamos acciones.</p>
+<p>Una obra puede estar terminada (conclusa) o quedar inconclusa.</p>
+
+[ ] escribir  *lenguaje.html*
+[ ] escribir  *gramatica.html*
+[ ] enlazar a *gramatica.html* desde *lengua.html*
+
+[ ] complete "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
+    with a fuller list of values for attribute <code>name</code>
 
 [ ] nuevas clases de CSS: filosofia espanya poem
 
