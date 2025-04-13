@@ -21,6 +21,61 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *onedrive.html*
+
+[ ] write
+
+<h2>A Safer Method</h2>
+
+
+Create a sh file eg. refresh.sh and save the following code.
+
+echo "" > /var/log/kern.log
+echo "" > /var/log/syslog
+service syslog restart
+journalctl --vacuum-size=50M
+run it as root eg. sudo sh refresh.sh
+
+It will clear the logs from
+
+/var/log/syslog
+/var/log/kern.log
+/run/log/journal
+
+
+
+<h2>Lubuntu Partition Keeps Filling Up</h2>
+<blockquote>
+  <p>So, how do I find out what is using my disk space, and how do I prevent it from filling up my root partition? This is a huge problem, please help! Thank you in advance :)</p>
+  <p>EDIT 2: As posted in the answer section, <code>sudo lsof / | awk '{if(\$7 > 1048576) print \$7/1048576 \"MB\" \" \" \$9 }' | sort -n -u</code> returns:</p>
+  <pre>11222.7MB /var/log/kern.log 11222.9MB /var/log/syslog</pre>
+  <p>However, I can't seem to figure out how to delete these files, and additionally, I would like to figure out how I can permanently prevent these files from growing this large. This answer to another question suggested that I look into the logs and see what's filling them up, so ideally I'd like some way to read the contents of these mystery files.</p>
+  <!--<p>EDIT 3: I have temporarily fixed this issue by mounting <cite>/var/log</cite> on a separate partition.</p>-->
+</blockquote>
+<p>One solution:</p>
+<blockquote>
+  <p>As root, do cd /proc/$(pidof rsyslogd)/fd ; ls -l | grep /var/log/kern.log. Look at the number to the left of the -> . Run tail -200 thatnumber. Fix the problem (could be a bad piece of hardware).</p>
+  <p>– Mark Plotnick</p>
+  <p>CommentedNov 21, 2016 at 21:52</p>
+  <p>Rebuilding the /var/log hierarchy that you removed will be harder, as there are a few dozen files and directories there that need to have specific owners and permissions. Do you have backups? </p>
+</blockquote>
+<p>Another:</p>
+<blockquote>
+  <p>You can use this command to find big files:</p>
+  <pre>sudo find /var -xdev -type f -size +500000k -exec ls -lh {} \;\
+| awk '{ print $9 ": " $5 }'</pre>
+  <p>of course you can adjust the size (500000k in this sample).</p>
+  <p>After that, you can remove or...</p>
+</blockquote>
+
+[ ] *emule.html*
+<h2>Is eMule Still a Thing?</h2>
+<p>As of October 2023, it is the fifth most downloaded project on SourceForge, with over 693 million downloads. Development was later restarted by the community as eMule Community.</p>
+
+[ ] write *docbook.html*
+[ ] write *docbook.article.html*
+[ ] write *article-to-html.xsl*
+
 [ ] write   *sed.html*
 [ ] link to *sed.html*
 [ ] write   *bash.html*

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Logging in Linux</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Logging (Events) in Linux"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="prev" href="os.html">Operating Systems</a></p>
+      <p><a rel="next" href="distros.html">Linux Distributions</a></p>
+      <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+      <p><a            href="linux.partitioning.html">Partitions in Linux</a></p>
+      <p><a            href="snap.html">Snap</a></p>
+      <p><a            href="samba.html">Samba (Open Source Implementation of the Microsoft&apos;s SMB Networking Protocol)</a></p>
+      <!--
+      <p><a            href="flatpak.html">Flatpak</a></p>
+      -->
+      <p><a            href="computing.open_system.html">Open Systems in Computing</a></p>
+      <p><a            href="SoftwareStandard.html">Software Standards</a></p>
+      <p><a            href="computing.html">Computer Science</a></p>
+    </nav>
+
+    <main>
+      <h1>Logging (Events) in Linux</h1>
+
+      <section id="logs-keep-growing">
+        <h2><cite>/var/log/kern.log</cite> and <cite>/var/log/syslog</cite> Keep Growing</h2>
+        <p>It's <cite>/var/log/kern.log</cite> and <cite>/var/log/syslog</cite> that are responsible for root partition bloat.</p>
+        <p>I run:</p>
+        <pre>sudo systemctl stop syslog</pre>
+        <p>This fixes the issue for the time being.</p>
+
+        <p>Or even</p>
+        <pre>sudo systemctl disable syslog</pre>
+
+        <section>
+          <h3>A Short Method</h3>
+          <p>Create a sh file eg. <cite>refresh.sh</cite> and save the following code:</p>
+          <pre>echo "" > /var/log/kern.log
+echo "" > /var/log/syslog
+service syslog restart
+journalctl --vacuum-size=50M</pre>
+          <p>Run it as root eg. <code>sudo sh refresh.sh</code></p>
+          <p>It will clear the logs from</p>
+          <ul>
+            <li><cite>/var/log/syslog</cite></li>
+            <li><cite>/var/log/kern.log</cite></li>
+            <li><cite>/run/log/journal</cite></li>
+          </ul>
+        </section>
+
+
+        <section id="safer">
+          <h3>Safer Log Bloat Fix</h3>
+          <p>Instead, here is a safer method that lets you keep the log files while reclaiming disk space while also stopping the log files from doing this again.</p>
+          <ol>
+            <li>Safely clear the logs: after looking at (or backing up) the logs to identify your system&apos;s problem, clear them by typing <code>&gt; /var/log/syslog</code> (including the <code>></code>). You may need to be root user for this, in which case enter sudo su, your password, and then the above command).</li>
+            <li>Then restart the syslog service (either <code>systemctl restart syslog</code> or <code>service syslog restart</code>).</li>
+            <li>
+              <p>Then, you can force the logs to rotate and delete automatically if they reach a certain size, using logrotate. In this case you can edit the config (<cite>/etc/logrotate.d/rsyslog</cite>= and add one line:</p>
+              <pre>/var/log/syslog
+{
+    rotate 7
+    daily
+    maxsize 1G # add this line
+    missingok
+    notifempty
+    delaycompress
+    compress
+    postrotate
+        /usr/lib/rsyslog/rsyslog-rotate
+    endscript
+}</pre>
+              <p>This will force your syslog to "rotate" (i.e., create a new log file and archive the previous log file) after either 1 day or when the file becomes 1GB, whichever comes first. Note that rotate 7 means your system will only keep 7 total syslog backups so it can only ever take up 7GB of space</p>
+              <p><strong>Note:</strong> you can change maxsize, rotate N, and other settings to customize your logs -- use the command man logrotate to see more.</p>
+            </li>
+            <li>
+              <p>While you're at it, you may want to add the same setting in the second part of the file, which governs the behavior of other log files (e.g. kern.log for kernel events, auth.log for authentication events, etc.). This setting will make it so that each of these other log files will only take 4GB in total.:</p>
+              <pre>...
+{
+    rotate 4
+    weekly
+    maxsize 1G
+...
+}</pre>
+              <p>This will allow your system to keep logging events without them filling your disk.</p>
+            </li>
+          </ol>
+        </section>
+
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>
