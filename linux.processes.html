@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux Processes</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Linux Processes: how to stop, terminate, resume etc. processes"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <p><a            href="os.html">Operating Systems</a></p>
+      <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+      <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+      <p><a rel="next" href="linux.logging.html">Logging (Events) in Linux</a></p>
+    </nav>
+
+    <main>
+      <h1>Linux Processes</h1>
+
+      <section id="pu">
+        <h2>Monitoring Processes with <code>pu</code>*</h2>
+      </section>
+
+      <section id="signals">
+        <h2>Sending Signals: How to Suspend and Resume Processes</h2>
+        <p>In the bash terminal I can hit Control+Z to suspend any running process... then I can type fg to resume the process.</p>
+        <p>Is it possible to suspend a process if I only have it&apos;s PID? And if so, what command should I use?</p>
+        <hr/>
+        <p>You can use <code>kill</code> to stop the process.</p>
+        <p>For a <q>polite</q> stop to the process (prefer this for normal use), send <code>SIGTSTP</code>:</p>
+        <pre>kill -TSTP <var>PID</var></pre>
+        <p>For a <q>hard</q> stop, send <code>SIGSTOP</code>:</p>
+        <pre>kill -STOP <var>PID</var></pre>
+        <p>Note that if the process you are trying to stop by <var>PID</var> is in your shell&apos;s job table, it may remain visible there, but terminated, until the process is <code>fg</code>&apos;d again.</p>
+        <p>To resume execution of the process, sent <code>SIGCONT</code>:</p>
+        <pre>kill -CONT <var>PID</var></pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

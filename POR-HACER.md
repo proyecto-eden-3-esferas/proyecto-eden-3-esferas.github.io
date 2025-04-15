@@ -23,6 +23,7 @@
 
 [ ] *onedrive.html*
 
+
 [ ] write
 
 <h2>A Safer Method</h2>
@@ -71,6 +72,9 @@ It will clear the logs from
 [ ] *emule.html*
 <h2>Is eMule Still a Thing?</h2>
 <p>As of October 2023, it is the fifth most downloaded project on SourceForge, with over 693 million downloads. Development was later restarted by the community as eMule Community.</p>
+
+[ ] escribir *etica.html*
+[ ] enlazar  *etica.html* a *amor.html* y a *m-k.html* (Maitri y Karuna)
 
 [ ] write *docbook.html*
 [ ] write *docbook.article.html*
