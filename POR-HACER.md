@@ -21,8 +21,37 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] incluir
+<li>
+  <strong>sabiduría</strong>
+  <ul>
+    <li><strong>caridad</strong></li>
+    <li><strong>protocolo</strong></li>
+    <li><strong>conciencia meditativa</strong></li>
+  </ul>
+</li>
+
+[ ] escribir *estetica.html*
+<h1>Estética</h1>
+<p>Más allá del arte, las percepciones forman parte integral de nuestro mundo.</p>
+<p>El mundo carece de sentido sin la percepción.</p>
+<p>La permacultura aúna ética, física y estética.</p>
+<p>Modelo <a href="ecs.html">Entrada-Cómputo-Salida</a>...</p>
+
+<p>Todo sistema filosófico contiene una <strong>física</strong>.</p>
+
+[ ] write *?.html*
+
+
+<h2>External Link[s]</h2>
+Vajrayogini (https://www.britannica.com/topic/Vajrayogini)
+Vajrayogini (https://en.wikipedia.org/wiki/Vajrayogini)
+Vajravarahi Thangka (https://traditionalartofnepal.com/shop/deities/vajrayogini-thangka-paintings/)
+
+
 [ ] *onedrive.html*
 
+[ ] write and link to *c.NULL.html*
 
 [ ] write
 
@@ -99,7 +128,7 @@ It will clear the logs from
 [ ] complete "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
     with a fuller list of values for attribute <code>name</code>
 
-[ ] nuevas clases de CSS: filosofia espanya poem
+[ ] nuevas clases de CSS: filosofia espanya poem buddhism
 
 [ ] escribir *imaginacion.html* (Imaginación)
 
@@ -110,6 +139,8 @@ It will clear the logs from
 [ ] llenar *fisolosofia.html*
 [x] enlazar a *fisolosofia.html* desde *pensamientos.html*
 [x] enlazar a *aristoteles.html* desde *filosofia.html*
+
+[ ] escribir *michiu-kaku.html*
 
 [ ] escribir *guerra.html*
 <p>Hasta ahora la victoria en la guerra ha dependido del número de combatientes.</p>

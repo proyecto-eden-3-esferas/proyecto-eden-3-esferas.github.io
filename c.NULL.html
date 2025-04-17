@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NULL in C/C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="NULL in C/C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+        <p><a            href="c.io.html">Input/Output in C</a></p>
+        <p><a            href="c.time.html">Handling Time in C with the <code>&lt;time.h&gt;</code> library</a></p>
+        <p><a            href="c.designated-initialization.html">Designated Initialization in C</a></p>
+        <p><a            href="c.decay.html">Decay: Loss of C-Array Length Information</a></p>
+        <p><a            href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+      </div>
+      <div>
+        <p><a            href="c.assert.html"><code>assert</code> in C</a></p>
+        <p><a            href="c.static_assert.html"><code>static_assert</code> in C</a></p>
+        <p><a            href="c.abort.html"><code>abort</code> for Abnormal Program Termination</a></p>
+        <p><a            href="c.exit.html"><code>exit</code> for Normal Program Termination with Cleaning Up</a></p>
+        <p><a            href="c.atexit.html"><code>atexit</code> to Register a Function to be Called on <code>exit()</code> Invocation</a></p>
+        <p><a            href="c.quick_exit.html"><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</a></p>
+      </div>
+      <div>
+        <p><a            href="c99.html">C99 (a Former Version of C)</a></p>
+        <p><a            href="c11.html">C11 (a Former Version of C)</a></p>
+        <p><a rel="next" href="cpp.memory.html#nullptr"><code>nullptr</code> in C++11</a></p>
+        <p>                              C17:the Current Version of C (minor changes))</p>
+      </div>
+      <div>
+        <p><a            href="linkage-and-scope.html">Linkage and Scope (focus on C/C++)</a></p>
+        <p><a            href="c-and-cpp.html">C and C++</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1><code>NULL</code> in C/C++</h1>
+      <blockquote>As far as I know, NULL is just another name for 0</blockquote>
+      <p>It is not. If you look here, you will see that NULL is defined in all of:</p>
+      <ul>
+        <li><code>&lt;stddef.h&gt;</code></li>
+        <li><code>&lt;string.h&gt;</code></li>
+        <li><code>&lt;wchar.h&gt;</code></li>
+        <li><code>&lt;time.h&gt;</code></li>
+        <li><code>&lt;locale.h&gt;</code></li>
+        <li><code>&lt;stdio.h&gt;</code></li>
+        <li><code>&lt;stdlib.h&gt;</code></li>
+      </ul>
+      <p>It is also defined in all of:</p>
+      <ul>
+        <li><code>&lt;clocale&gt;</code></li>
+        <li><code>&lt;cstddef&gt;</code></li>
+        <li><code>&lt;cstdio&gt;</code></li>
+        <li><code>&lt;cstdlib&gt;</code></li>
+        <li><code>&lt;cstring&gt;</code></li>
+        <li><code>&lt;ctime&gt;</code></li>
+        <li><code>&lt;cwchar&gt;</code></li>
+      </ul>
+      <p>You&apo;ll also find <code>NULL</code> defined in a lot of 3rd party libraries.</p>
+      <p>And in all instances it is <strong>IMPLEMENTATION DEFINED</strong>. It&apo;s not at all unreasonable to find <code>#define NULL ((void*)(0))</code> or <code>#define NULL ((char*)(0))</code> or any other such nonsense, both of which are both <strong>incorrect and not the same thing</strong>.</p>
+      <p>Problems arose when, for a misplaced sense of brevity, K&amp;R decided to reuse integer zero in a different context, where null doesn&apo;t mean the same thing. I guess this saved them some punch card space, but it introduced a lot of misunderstanding and conflation of what both null and pointers are, and we&apo;ve been dealing with this confusion as a source of bugs and exploits ever since. Then Bjarne admits he made the same mistake when declaring pure virtual methods as equal to zero.</p>
+      <p>There are many scenarios that can arise where you mean an integer and get a null pointer, or want a null pointer and get an integer. <code>nullptr</code> is type safe. Never use <code>NULL</code>, there is no scenario where it is necessary or preferred, not even for backward compatibility or when interfacing with a C library.</p>
+    </main>
+
+  </body>
+
+</html>

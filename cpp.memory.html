@@ -63,20 +63,70 @@ delete [] pArrayOfObj;</pre>
 
       <p>In the <a target="_blank" href="cpp.stl.html">Standard Template Library</a>, memory management is performed by allocators.</p>
 
-      <h2>Placement <code>new</code></h2>
-      <pre>// ...</pre>
-      <p>[...]</p>
+      <section id="placement-new">
+        <h2>Placement <code>new</code>*</h2>
+        <pre>// ...</pre>
+        <p>[...]</p>
+      </section>
 
-      <h2>Writing your own <code>new</code> operators overrides for specific types</h2>
-      <pre>// ...</pre>
-      <p>[...]</p>
-      <hr/>
-      <p>The STL provides three smart pointers...</p>
-      <ul>
-        <li><a href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a></li>
-        <li><a href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a></li>
-        <li><a href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a></li>
-      </ul>
+      <section id="writing-your-own-new">
+        <h2>Writing your own <code>new</code> operators overrides for specific types</h2>
+        <pre>// ...</pre>
+        <p>[...]</p>
+        <hr/>
+        <p>The STL provides three smart pointers...</p>
+        <ul>
+          <li><a href="cpp.unique_ptr.html"><code>std::unique_ptr</code>: a Smart Pointer that Cannot be Copied</a></li>
+          <li><a href="cpp.shared_ptr.html"><code>std::shared_ptr</code>: a Smart Pointer that Keeps Count of its Copies</a></li>
+          <li><a href="cpp.weak_ptr.html"><code>std::weak_ptr</code>: Breaking Cycles of Counted Rerences</a></li>
+        </ul>
+      </section>
+
+      <section id="nullptr">
+        <h2><code>std::nullpt</code> (since C++11)</h2>
+        <p>The keyword nullptr denotes the pointer literal. It is a prvalue of type <code>std::nullptr_t</code>. There exist implicit conversions from <code>nullptr</code> to null pointer value of any pointer type and any pointer to member type. Similar conversions exist for any null pointer constant, which includes values of type <code>std::nullptr_t</code> as well as the macro <code>NULL</code>.</p>
+
+        <p>The <code>nullptr</code> keyword can be used to test if a pointer or handle reference is null before the reference is used. Function calls among languages that use null pointer values for error checking should be interpreted correctly. You cannot initialize a handle to zero; only <code>nullptr</code> can be used.</p>
+        <pre>...</pre>
+        <p></p>
+
+        <p>Here is another, somewhat more sophisticated, sample:</p>
+        <pre>#include &lt;cstddef&gt;
+#include &lt;iostream&gt;
+
+template&lt;class T&gt;
+constexpr T clone(const T&amp; t)
+{
+  return t;
+}
+
+void g(int*)
+{
+  std::cout &lt;&lt; "Function g called\n";
+}
+
+int main()
+{
+  g(nullptr);        // Fine
+  g(NULL);           // Fine
+  g(0);              // Fine
+
+  g(clone(nullptr)); // Fine
+//  g(clone(NULL));    // ERROR: non-literal zero cannot be a null pointer constant
+//  g(clone(0));       // ERROR: non-literal zero cannot be a null pointer constant
+}</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
 
 
 

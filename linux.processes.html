@@ -50,6 +50,35 @@
         <pre>kill -CONT <var>PID</var></pre>
       </section>
 
+      <section id="file-locking">
+      <h2>Unable to Use Package Manager due to <q>exclusive lock</q> Error</h2>
+      <pre>Unable to get exclusive lock
+  This usually means that another package management application(like apt-get or
+  aptitude) is already running. Please close that application first.</pre>
+      <p>You might get away with:</p>
+      <pre>sudo rm /var/lib/dpkg/lock</pre>
+      <blockquote>
+        <p>You can remove the lock but you should be really sure that nothing is currently using the package management system, like automatic updates or the like:</p>
+        <pre>sudo rm -v /var/lib/dpkg/lock-frontend</pre>
+        <p>[...] best followed by:</p>
+        <pre>sudo dpkg --configure -a
+apt install -f</pre>
+      </blockquote>
+      <p>Still, that same user advised:</p>
+      <ol>
+        <li>
+          <p>You need sudo rights, so the full command is:</p>
+          <pre>sudo dpkg --configure -a</pre>
+        </li>
+        <li>
+          <p>Try using console terminal program instead. Make sure that all package managers are closed! Issue the commands:</p>
+          <pre>sudo apt-get update
+sudo apt-get upgrade</pre>
+        </li>
+      </ol>
+      <p>Now, in this case, running <code>sudo dpkg --configure -a</code> revealed that the process holding the lock was (already deleted) <code>/usr/bin/python3.12</code>, with pid 2062 and so on.</p>
+    </section>
+
     </main>
 
   </body>
