@@ -19,7 +19,25 @@
 
 - MagicWorld.xml | Nature | Farming
 
+- https://www.pdfdrive.com/
+
+- https://www.tsemrinpoche.com/free-downloads-texts
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] escribir *protocolos.html*
+[ ] enlazar a *protocolos.html* desde *sociedad.html*
+[ ] enlazar a *protocolos.html* desde *elementos.html*
+[ ] enlazar a *protocolos.html* desde *lenguajes-informaticos.html*
+
+[ ] write *fri-luft-liv.html*
+
+[ ] complete *finnish-values.html*
+[x] link to *finnish-values.html* from *society.html*
+[ ] link to *finnish-values.html* from elsewhere
+
+[ ] write *three-kayas.html* - The Doctrine of the Three Bodies (<i lang="sa">Kaya</i>) of the Buddha
+[ ] write *yab-yum.html*
 
 [ ] incluir
 <li>
@@ -32,31 +50,15 @@
 </li>
 
 [ ] escribir *estetica.html*
-<h1>Estética</h1>
-<p>Más allá del arte, las percepciones forman parte integral de nuestro mundo.</p>
-<p>El mundo carece de sentido sin la percepción.</p>
-<p>La permacultura aúna ética, física y estética.</p>
-<p>Modelo <a href="ecs.html">Entrada-Cómputo-Salida</a>...</p>
 
-<p>Todo sistema filosófico contiene una <strong>física</strong>.</p>
+[ ] look into *vajravarahi.html*
 
-[ ] write *?.html*
+[x] *onedrive.html*
 
-
-<h2>External Link[s]</h2>
-Vajrayogini (https://www.britannica.com/topic/Vajrayogini)
-Vajrayogini (https://en.wikipedia.org/wiki/Vajrayogini)
-Vajravarahi Thangka (https://traditionalartofnepal.com/shop/deities/vajrayogini-thangka-paintings/)
-
-
-[ ] *onedrive.html*
-
-[ ] write and link to *c.NULL.html*
+[x] write and link to *c.NULL.html*
 
 [ ] write
-
 <h2>A Safer Method</h2>
-
 
 Create a sh file eg. refresh.sh and save the following code.
 
