@@ -25,19 +25,57 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *three-kayas.html* - The Doctrine of the Three Bodies (<i lang="sa">Kaya</i>) of the Buddha
+[ ] write *yab-yum.html*
+[ ] write *fri-luft-liv.html*
+
+[ ] revisar *jerarquias-de-saberes.html*
+[x] enlazar a *jerarquias-de-saberes.html* desde *informacion.html*
+[ ] enlazar a *jerarquias-de-saberes.html* desde *ciencia.html*
+[ ] enlazar a *jerarquias-de-saberes.html* desde ???
+
+[ ] escribir *dependencias.html* (Relaciones de dependencia)
+
+[ ] revisar *arboles-o-jerarquias.html* (Árboles o jerarquías)
+[x] enlazar a *arboles-o-jerarquias.html* desde *elementos.html*
+[x] enlazar a    *espacios-y-grafos.html* desde *elementos.html*
+[ ] enlazar a             *sistemas.html* desde *elementos.html*
+[ ] enlazar a *jerarquias-de-saberes.html* desde *arboles-o-jerarquias.html*
+[ ] revisar *agentes.html*
+
+[ ] escribir  *prioridades.html* (Prioridades)
+[ ] enlazar a *prioridades.html* (Prioridades) desde *elementos.html*
+[ ] enlazar a *prioridades.html* (Prioridades) desde *politica.html*
+<p>Las personas o agentes deciden qué <strong>prioridad</strong> tiene una tarea. (Las personas y agentes en esencia realizan tareas.)</p>
+<p>Imaginemos un padre que una mañana se entera que su hija se ha perdido en un bosque cercano. Tardará unas diez horas en recorrerlo todo y encontrarla con certeza. Un padre irracional empezaría a reducir ese tiempo de búsqueda. Se diría a sí mismo, mmm, a las cuatro de la tarde televisan un partido en el que juega mi equipo. O, mi mujer me ha pedido que haga croquetas con la masa que ha dejado en la nevera. ¡Qué hay de malo en que dedique unas horas del largo día a tal o a cuál! Y así, entre lo uno y lo otro, podría acabar no encontrando a su hija. O encontrarla cerca del anochecer, cuando estuviera muerta de miedo por la noche que se echaba encima.</p>
+<p>No de otro modo actúan nuestros políticos. Hay tareas urgentes que demandan muchos <a target="_blank" href="recursos.html">recursos</a> y que de dedicárselos se conseguiría cumplir. Sin embargo también hay otras partidas de gasto menores que acaban acaparando gran parte del presupuesto.</p>
+<p>Típicas tareas prioritarias:</p>
+<ul>
+  <li>la salud</li>
+  <li>la pobreza</li>
+  <li>el medio ambiente</li>
+</ul>
+<p>Típicas tareas menores:</p>
+<ul>
+  <li>el deporte</li>
+  <li>los espectáculos</li>
+  <li>la investigación chorra</li>
+  <li>construcciones públicas</li>
+</ul>
+<p>Un agente racional diría: bien, primero voy a solucionar los problemas graves, y si sobran recursos ya veremos. Y no, como discurriría uno irracional, bueno, a las tareas no urgentes no les voy a dedicar la mayor parte de los recursos, tal vez sólo un cuarenta por ciento. O sólo un diez por ciento a cada una. Igual así acaba dedicando a las tareas no vitales la mayoría de los recursos.</p>
+
+
 [ ] escribir *protocolos.html*
-[ ] enlazar a *protocolos.html* desde *sociedad.html*
 [ ] enlazar a *protocolos.html* desde *elementos.html*
+[ ] enlazar a *protocolos.html* desde *sociedad.html*
 [ ] enlazar a *protocolos.html* desde *lenguajes-informaticos.html*
 
-[ ] write *fri-luft-liv.html*
+
 
 [ ] complete *finnish-values.html*
 [x] link to *finnish-values.html* from *society.html*
 [ ] link to *finnish-values.html* from elsewhere
 
-[ ] write *three-kayas.html* - The Doctrine of the Three Bodies (<i lang="sa">Kaya</i>) of the Buddha
-[ ] write *yab-yum.html*
 
 [ ] incluir
 <li>
@@ -560,19 +598,6 @@ De cosas en principio no perjudiciales.
 [ ] enlazar a *hipercrecimiento.html* desde *poblacion.html*
 
 [ ] write *mysql.json.html*
-
-[ ] Escribir *jerarquias-de-saberes.html* sobre *Jerarquías de saberes (ciencias y técnicas)*
-
-Solemos aceptar que todos los conocimientos y técnicas son iguales, pertenecen a la misma categoría. La principal razón es que negarlo llevaría a enfrentamientos con nuestros vecinos.
-
-El dinero y el Derecho formal permiten tratar igual a todas las profesiones y actividades económicas por igual.
-
-Además cada profesión y actividad profesional "lícita" argumenta su utilidad.
-
-- Algunos ejemplos aceptados:
-  - unos saberes son la base de otros: la filosofía (base de todo el conocimiento, incluída la ciencia), las matemáticas (base de las ciencias)
-  - los conocimientos prácticos (los que satisfacen una necesidad) se valoran más que los teóricos
-
 
 
 [ ] link to *how-to-make-coffee.html*
