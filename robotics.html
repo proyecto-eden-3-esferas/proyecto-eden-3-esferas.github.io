@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Robots</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Robotics: Machines that Do Complex Mechanical Work"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="robotics technology">
+    <nav>
+      <div>
+        <p><a rel="next" href="robot-kinematics.html">Robot Kinematics</a></p>
+        <p><a            href="electronics.html">Electronics</a></p>
+      </div>
+      <div>
+        <p><a            href="computing.html">Computer Science</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a rel="prev" href="technology.html">Technology</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Robotics: Machines that Do Complex Mechanical Work</h1>
+      <p style="text-align: right">(Source <cite>Wikipedia</cite>)</p>
+      <p><dfn>Robotics</dfn> is the interdisciplinary study and practice of the design, construction, operation, and use of robots.</p>
+      <p>Within mechanical engineering, robotics is the design and construction of the physical structures of robots, while in <a target="_blank" href="computing.html">computer science</a>, robotics focuses on robotic automation algorithms. Other disciplines contributing to robotics include electrical, control, software, information, <a target="_blank" href="electronics.html">electronic</a>, telecommunication, mechatronic, and materials engineering.</p>
+      <p>The goal of most robotics is to design machines that can help and assist humans. Many robots are built to do jobs that are hazardous to people, such as finding survivors in unstable ruins, and exploring space, mines and shipwrecks. Others replace people in jobs that are boring, repetitive, or unpleasant, such as cleaning, monitoring, transporting, and assembling. Today, robotics is a rapidly growing field, as technological advances continue; researching, designing, and building new robots serve various practical purposes.</p>
+      <section>
+        <h2>Defining robot structures</h2>
+        <p>A wide variety of robot mechanisms can be described by categorizing their arrangement of joints and joint types. For the  moment we will ignore the size and shape of links, and simply focus on broad categorization.</p>
+        <p>First, there are three typical joint types, each describing the form of relative transformations allowed between the two links to which it is attached:</p>
+        <ul>
+          <li><dfn>Revolute</dfn>: the attached links rotate about a common axis.</li>
+          <li><dfn>Prismatic</dfn>: the attached links translate about a common axis.</li>
+          <li><dfn>Spherical</dfn>: the attached links rotate about a point.</li>
+        </ul>
+        <p>More exotic joints, like helical (screw) joints, may also exist. One may also speak of fixed joints where the attached links are rigidly fixed together; since mathematically the two links could be considered as one, this is primarily for representational convenience. Is is customary to refer to one of the attached links as the <strong>parent</strong> and the other the <strong>child</strong>.</p>
+        <hr/>
+        <p>Second, mechanisms can be described by their topology, which describes how links and joints interconnect:</p>
+        <ul>
+          <li><dfn>Serial</dfn>: the links and joints form a single ordered chain, with the child link of one joint being the parent of the next.</li>
+          <li><dfn>Branched</dfn>: each link can have zero or more child links, but cutting any joint would detach the system into two disconnected mechanisms. Like a human body, in which fingers are attached to the hand, toes are attached to the feet, and arms, legs, and head are attached to the torso.</li>
+          <li><dfn>Parallel</dfn>: the series of joints forms at least one closed loop. I.e., there exist joints that, if cut, would not divide the system into two disconnected halves.</li>
+        </ul>
+        <p>The topology can be inspected by plotting a link graph, which is a network structure in which vertices are links and edges are joints. Serial mechanisms have a linear link graph, branched mechanisms are trees (i.e., graphs without loops), and parallel mechanisms have loops.</p>
+        <p>Serial mechanisms are usually characterized using an alphanumeric notation which lists the initials of the joint types in order from the base down the chain. For simplicity, when multiple joints of the same type are repeated, like "XXX", this is listed as "#X" where "#" is the number of repetitions. Examples include:</p>
+        <ul>
+          <li>3P (PPP): xyz gantry</li>
+          <li>3P3R (PPPRRR): 6-axis CNC machine</li>
+          <li>6R (RRRRRR): revolute joint industrial robot</li>
+        </ul>
+        <hr/>
+        <p>A third characterization defines whether the robot is affixed to the world or left free to move in space:</p>
+        <ul>
+          <li><dfn>Fixed base</dfn>: a base link is rigidly affixed to the world, like in an industrial robot.</li>
+          <li><dfn>Floating base</dfn>: all links are free to rotate and translate in workspace, like in a humanoid robot.</li>
+          <li><dfn>Mobile base</dfn>: the workspace is 3D, but a base link can rotate and translate on a 2D plane, like in a car.</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

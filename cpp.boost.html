@@ -33,6 +33,35 @@
 
     <main>
       <h1>The C++ Boost Library: Beyond the STL</h1>
+      <p>The Boost web site provides free, peer-reviewed, portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library. One goal is to establish <q>existing practice</q> and provide reference implementations so that the Boost libraries are suitable for eventual standardization. Some of the libraries have already been proposed for inclusion in the C++ Standards Committee&apos;s upcoming C++ Standard Library Technical Report.</p>
+      <hr/>
+      <p>Header files are found at <cite>/user/include/boost/</cite> while the documentation is found at <cite>/usr/share/doc/libboost*</cite></p>
+      <hr/>
+      <p>Some Boost libraries that I find useful or interesting to me are:</p>
+      <ul>
+        <li><cite>libboost-graph</cite>: Graphs are mathematical abstractions that are useful for solving many types of problems in computer science. Consequently, these abstractions must also be represented in computer programs. A standardized generic interface for traversing graphs is of utmost importance to encourage reuse of graph algorithms and data structures.</li>
+        <li>
+          <p><cite>libboost-json</cite>: focuses on a common and popular use-case: parsing and serializing to and from a container called value which holds JSON types.</p>
+          <p>Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
+        </li>
+        <li><cite>libboost-program-options</cite>: to let program developers obtain program options, that is (name, value) pairs from the user, via conventional methods such as command line and config file.</li>
+        <li>
+          <p><cite>libboost-serialization</cite>: containing the following functionalities:</p>
+          <ul>
+            <li>proper restoration of pointers to shared data</li>
+             <li>serialization of STL containers and other commonly used templates</li>
+            <li>data portability - streams of bytes created on one platform should be readable on any other</li>
+            <li>archive interface must be rich enough to permit the creation of an archive that presents serialized data as XML in a useful manner</li>
+          </ul>
+          <p>Here, "serialization" means the reversible deconstruction of an arbitrary set of C++ data structures to a sequence of bytes.</p>
+          <p><dfn>to archive</dfn>: to refer to a specific rendering of this stream of bytes.</p>
+        </li>
+        <!--
+        <li><cite>libboost-</cite>: </li>
+        <li><cite>libboost-</cite>: </li>
+        -->
+      </ul>
+
     </main>
 
   </body>

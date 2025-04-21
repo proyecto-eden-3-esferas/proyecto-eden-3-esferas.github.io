@@ -23,7 +23,31 @@
 
 - https://www.tsemrinpoche.com/free-downloads-texts
 
+
+- `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] write *saving-seed.html*
+
+[ ] escribir *recetas.html*
+Relacionar las recetas con la falta de iniciativa y (la esencia de) la mentalidad conservadora, que rehúsa aplicar principios generales (casuística) y gramáticas de conceptos
+
+[ ] escribir *regimen-animal.html*
+<ul>
+  <li>malestar de los animales de las macrogranjas</li>
+  <li>perros y gatos domésticos, siempre encerrados</li>
+</ul>
+
+[ ] write *ARIA.html* (Accesible Rich Internet Application)
+
+[ ] write *backlinks.html*
+<p>Backlinks are links on websites other than your own that go back to a page on your website. Backlinks are also called inbound links because they represent another website&apos;s traffic coming to your own site.</p>
+
+[ ] escribir *retroenlace.html*
+https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://es.wikipedia.org/wiki/Retroenlace&ved=2ahUKEwi5zLbjsueMAxUeR_EDHTg0K30QFnoECD8QAQ&usg=AOvVaw11zwNlag_QiODs-qQ_kaRX
+<p>En informática, un retroenlace (del inglés: backlink) es un hiperenlace que conecta un sitio web con otro. Los usuarios del sitio web pueden, de esta manera ...</p>
+<p style="text-align: right">Wikipedia</p>
 
 [ ] write *three-kayas.html* - The Doctrine of the Three Bodies (<i lang="sa">Kaya</i>) of the Buddha
 [ ] write *yab-yum.html*
@@ -168,7 +192,7 @@ It will clear the logs from
 [ ] complete "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
     with a fuller list of values for attribute <code>name</code>
 
-[ ] nuevas clases de CSS: filosofia espanya poem buddhism
+[ ] nuevas clases de CSS: filosofia espanya poem buddhism robotics
 
 [ ] escribir *imaginacion.html* (Imaginación)
 
@@ -1244,6 +1268,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *never-cry-wolf.html* from *dogs.html*
+[ ] *saving-seed.html*
+
+[ ] link to *explanation-and-prediction.html*
 
 [ ] enlazar a *satan.es.html*
 
