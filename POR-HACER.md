@@ -28,7 +28,16 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] write *saving-seed.html*
+[x] link to *mapping-texts.html* from *computing.html*
+[ ] link to *mapping-texts.html* from  elsewhere
+
+[ ] write *MichioKaku.html*
+
+[ ] write *saving-seed.html* from MagicWorld.xml#saving_seed
+
+[ ] write and link *pollination.html* from MagicWorld.xml#pollination
+
+[ ] write and link *composting.html* from MagicWorld.xml#composting
 
 [ ] escribir *recetas.html*
 Relacionar las recetas con la falta de iniciativa y (la esencia de) la mentalidad conservadora, que rehúsa aplicar principios generales (casuística) y gramáticas de conceptos
@@ -192,7 +201,7 @@ It will clear the logs from
 [ ] complete "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
     with a fuller list of values for attribute <code>name</code>
 
-[ ] nuevas clases de CSS: filosofia espanya poem buddhism robotics
+[ ] nuevas clases de CSS: filosofia espanya poem buddhism robotics health
 
 [ ] escribir *imaginacion.html* (Imaginación)
 
