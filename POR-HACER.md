@@ -23,10 +23,48 @@
 
 - https://www.tsemrinpoche.com/free-downloads-texts
 
+- https://libretexts.org/
 
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] escribir *agenda2030.es.html*
+<p>La Asamblea General adopta la Agenda 2030 para el Desarrollo Sostenible
+La Asamblea General de la ONU adoptó hoy la Agenda 2030 para el Desarrollo Sostenible, un plan de acción a favor de las personas, el planeta y la prosperidad, que también tiene la intención de fortalecer la paz universal y el acceso a la justicia.</p>
+<p>Los Estados miembros de la Naciones Unidas aprobaron una resolución en la que reconocen que el mayor desafío del mundo actual es la erradicación de la pobreza y afirman que sin lograrla no puede haber desarrollo sostenible.</p>
+<p>La Agenda plantea 17 Objetivos con 169 metas de carácter integrado e indivisible que abarcan las esferas económica, social y ambiental.</p>
+<p>La nueva estrategia regirá los programas de desarrollo mundiales durante los próximos 15 años. Al adoptarla, los Estados se comprometieron a movilizar los medios necesarios para su implementación mediante alianzas centradas especialmente en las necesidades de los más pobres y vulnerables.</p>
+<blockquote>Estamos resueltos a poner fin a la pobreza y el hambre en todo el mundo de aquí a 2030, a combatir las desigualdades dentro de los países y entre ellos, a construir sociedades pacíficas, justas e inclusivas, a proteger los derechos humanos y promover la igualdad entre los géneros y el empoderamiento de las mujeres y las niñas, y a garantizar una protección duradera del planeta y sus recursos naturales”, señalaron los Estados en la resolución.</blockquote>
+<p>Los 17 Objetivos de la Agenda se elaboraron en más de dos años de consultas públicas, interacción con la sociedad civil y negociaciones entre los países.</p>
+<p>La Agenda implica un compromiso común y universal, no obstante, puesto que cada país enfrenta retos específicos en su búsqueda del desarrollo sostenible, los Estados tienen soberanía plena sobre su riqueza, recursos y actividad económica, y cada uno fijará sus propias metas nacionales, apegándose a los Objetivos de Desarrollo Sostenible (ODS), dispone el texto aprobado por la Asamblea General.</p>
+<p>Además de poner fin a la pobreza en el mundo, los ODS incluyen, entre otros puntos, erradicar el hambre y lograr la seguridad alimentaria; garantizar una vida sana y una educación de calidad; lograr la igualdad de género; asegurar el acceso al agua y la energía; promover el crecimiento económico sostenido; adoptar medidas urgentes contra el cambio climático; promover la paz y facilitar el acceso a la justicia.</p>
+
+[ ] write    *agenda2030.en.html*
+
+[ ] write *sustainable.html*
+[ ] escribir *sostenible.html*
+
+[ ] write    *VitalikButerin.en.html*
+[ ] escribir *VitalikButerin.es.html*
+
+[ ] write *tipos-de-conocimientos* o <i lang="la">memorabilia</i>
+- lógicos (la lógica y la matemática)
+- naturales (ciencias naturales como la física, química y matemática)
+- convencionales (lenguajes, leyes, cualquier otra convención)
+
+[ ] escribir *permacultura-indirecta.html*
+<p>Tuve una finca de regadío, pero el proyecto, que en sus últimas fases bauticé <cite>Proyecto Edén - Tres Esferas</cite> fracasó. Más adelante explico por qué y qué hacer.</p>
+<p>Prepararse para practicar la permacultura:</p>
+<ul>
+  <li>ejercicio físico</li>
+  <li>insolación</li>
+  <li>estudio</li>
+  <li>trabajar todas las esferas en todos los aspectos, en especial la mental/espiritual</li>
+  <li>elaboración de documentos (textos, glosarios y bases de datos)</li>
+</ul>
+
+[ ] write *sedges.html*
 
 [x] link to *mapping-texts.html* from *computing.html*
 [ ] link to *mapping-texts.html* from  elsewhere
@@ -1277,6 +1315,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *libretexts.html*
+
+[x] link to *photosynthesis.html* from *plants.html*
+[ ] link to *photosynthesis.html* from elsewhere
 
 [x] *never-cry-wolf.html* from *dogs.html*
 [ ] *saving-seed.html*
