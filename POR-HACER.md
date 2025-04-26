@@ -29,6 +29,23 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir
+<h2>La gran cuestión del trabajo</h2>
+<p>La gran cuestión del trabajo consiste en utilizar las capacidades humanas al máximo.</p>
+<p>Ello se relaciona íntimamente con la <strong>dignidad</strong>.</p>
+<p>Realizar nuestra naturaleza.</p>
+
+[x] *sirvientes.html* sobre Sirvientes (domésticos)
+
+[ ] write and link to *georgism.html*
+
+[ ] write *blockchain.en.html*
+[ ] link to *blockchain.en.html* from *cryptography.html*
+[ ] link to *blockchain.en.html* from *computing.html*
+[ ] link to *blockchain.en.html* from  elsewhere
+
+[ ] in an XML-to-JSON transformation, we need to count how many elements of a given kind there are, such as paragraphs, sections, in order to transform all the elements of one kind into an array.
+
 [ ] escribir *agenda2030.es.html*
 <p>La Asamblea General adopta la Agenda 2030 para el Desarrollo Sostenible
 La Asamblea General de la ONU adoptó hoy la Agenda 2030 para el Desarrollo Sostenible, un plan de acción a favor de las personas, el planeta y la prosperidad, que también tiene la intención de fortalecer la paz universal y el acceso a la justicia.</p>
@@ -39,6 +56,7 @@ La Asamblea General de la ONU adoptó hoy la Agenda 2030 para el Desarrollo Sost
 <p>Los 17 Objetivos de la Agenda se elaboraron en más de dos años de consultas públicas, interacción con la sociedad civil y negociaciones entre los países.</p>
 <p>La Agenda implica un compromiso común y universal, no obstante, puesto que cada país enfrenta retos específicos en su búsqueda del desarrollo sostenible, los Estados tienen soberanía plena sobre su riqueza, recursos y actividad económica, y cada uno fijará sus propias metas nacionales, apegándose a los Objetivos de Desarrollo Sostenible (ODS), dispone el texto aprobado por la Asamblea General.</p>
 <p>Además de poner fin a la pobreza en el mundo, los ODS incluyen, entre otros puntos, erradicar el hambre y lograr la seguridad alimentaria; garantizar una vida sana y una educación de calidad; lograr la igualdad de género; asegurar el acceso al agua y la energía; promover el crecimiento económico sostenido; adoptar medidas urgentes contra el cambio climático; promover la paz y facilitar el acceso a la justicia.</p>
+[ ] Escribir sobre <h2>Coronavirus y agenda 2030</h2>
 
 [ ] write    *agenda2030.en.html*
 
@@ -239,7 +257,7 @@ It will clear the logs from
 [ ] complete "HTML.meta.html" (Metadata in HTML: the &lt;meta&gt; Element)
     with a fuller list of values for attribute <code>name</code>
 
-[ ] nuevas clases de CSS: filosofia espanya poem buddhism robotics health
+[ ] nuevas clases de CSS: sociedad filosofia espanya poem buddhism robotics health
 
 [ ] escribir *imaginacion.html* (Imaginación)
 
