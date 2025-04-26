@@ -29,6 +29,11 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *juego-y-deber.html*
+<p>Dos aspectos que alternan en toda tarea, y que deben coordinarse a lo largo de una vida, un período, una jornada, un rato de trabajo.</p>
+
+[ ] escribir *espiritismo.html*
+
 [ ] escribir
 <h2>La gran cuestión del trabajo</h2>
 <p>La gran cuestión del trabajo consiste en utilizar las capacidades humanas al máximo.</p>
