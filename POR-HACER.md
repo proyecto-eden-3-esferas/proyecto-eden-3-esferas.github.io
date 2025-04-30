@@ -29,6 +29,32 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+
+[ ] escribir *perro-recluido.html*
+<h1>Perro recluído/encerrado</h1>
+<p>A veces la familia iba a un chalet de las afueras. Si hacía bueno por la mañana, el perrito no podía salir temprano porque <q>tiene que descansar</q>. Y si a lo largo de un día frío había mejorado hacia pasadas las dos, pues ya había llegado la hora de acostarse la siesta. Si le dábamos un paseo largo, al regresar directo al cuarto oscuro, para compensar.</p>
+<p>Nadie de su familia reconocía el egoísmo y maldad con que lo trataba.</p>
+<p>La una le daba la razón, <q>¡quién mejor que ella iba a saber cómo cuidarlo!</q>, mientras que el progre argumentaba que las personas
+son más importantes que los animales.</p>
+<p>Nadie veía nada o bien no reconocía ver nada.</p>
+<p>Esto me ha llevado a preguntarme si los que ordenan la vida pública en un país del Sur no actuarán igual, con análoga crueldad y afán represivo.</p>
+
+
+[ ] escribir *autoridad.html* o *prestigio.html*
+<p>Solemos hacer caso y creer al que habla de algo en que posee autoridad o prestio.</p>
+
+[ ] <cite>Causalidad y Correlación</cite>
+
+[ ] escribir *complejidad.html*
+<blockquote>
+  <p>Make it simple, but not too simple.</p>
+  <p style="text-align: right">(Albert Einstein)</p>
+</blockquote>
+- comparar el Derecho y la Ingeniería de Software
+- pasado un umbral se convierte en complejidad de <a target="_blank" href="informacion.html">información</a>
+
+[ ] write *symmetry.html*
+
 [ ]
 On the relationship between symbols and integers
 Sobre la relación que guardan símbolos y enteros, enteros no usados para contar ni cuantificar sino para... <q>simbolizar</q>
@@ -977,8 +1003,11 @@ explicit constexpr Frequency(unsigned int h) : hertz(h) {};
 
 [ ] escribir *fija.html* (limpia, fija y da esplendor), enlazada desde *lengua.html* y *anglicismos.html*
 
-[ ] *health.html* should point to would-be *cyborg.html* (it already points to *implants.html*),
-    and *cyborg.html* to *implants.html*
+[x] *health.html* should point to would-be *cyborg.html*
+
+*health.html* already points to *implants.html*),
+
+[ ] *cyborg.html* should point to  to *implants.html*
 
 [ ] *imagined-communities.html*
 
@@ -1361,6 +1390,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *cyberpunk.en.html* from would-be *cyborg.html*
+[ ] *cyberpunk.en.html* from elsewhere
+
+[ ] *instituciones-y-hackers.html*
 
 [x] *morphic-resonance.html* from *science.html*
 [ ] *morphic-resonance.html* from elsewhere

@@ -68,7 +68,7 @@
 
       <p>MongoDB is an open-source, cross-platform, document-oriented database management system. MongoDB stores data as a series of JSON-like documents (actually stored as binary JSON, or BSON), as opposed to the table and row format of relational systems. This flexible approach to storing data makes it particularly suitable for developers who may not be database experts, yet want to use a database to support the development of their applications.</p>
       <p>Instead of having multiple tables you can simply keep all of your related data together. This makes reading your data very fast.</p>
-      <p>You can still have multiple groups of data too. In MongoDB, instead of tables these are called collections.</p>
+      <p>You can still have multiple groups of data too. In MongoDB, instead of tables these are called <dfn>collections</dfn>.</p>
       <p>Some structure can optionally be enforced on JSON documents through schemas.</p>
       <hr/>
       <p>MongoDB is developed by MongoDB Inc.</p>
@@ -113,7 +113,7 @@
           <dd><a href="js">JavaScript</a> can be used in queries, aggregation functions (such as MapReduce) and sent directly to the database to be executed.</dd>
 
           <dt>Capped collections</dt>
-          <dd>MongoDB supports fixed-size collections called capped collections. This type of collection maintains insertion order and, once the specified size has been reached, behaves like a <a href="adt.queue.html#circular">circular queue/buffer</a>.</dd>
+          <dd>MongoDB supports fixed-size collections called capped collections. This type of collection maintains insertion order and, once the specified size has been reached, behaves like a <a target="_blank" href="adt.queue.html#circular">circular queue/buffer</a>.</dd>
 
           <dt>Transactions</dt>
           <dd>MongoDB supports multi-document ACID <a href="database.transaction.html">transactions</a> since the 4.0 release in June 2018.</dd>
@@ -139,8 +139,9 @@
 
       <section>
         <h2>MongoDB Community Server</h2>
-        <p>The Community version of our distributed database offers a flexible document data model along with support for ad-hoc queries, secondary indexing, and real-time aggregations to provide powerful ways to access and analyze your data.</p>
+        <p>The Community version of MongoDB distributed database offers a flexible document data model along with support for ad-hoc queries, secondary indexing, and real-time aggregations to provide powerful ways to access and analyze your data.</p>
         <p>The database is also offered as a fully-managed service with MongoDB Atlas. Get access to advanced functionality such as auto-scale, full-text search, and data distribution across regions and clouds. Deploy in minutes on AWS, Google Cloud, and/or Azure, with no downloads necessary.</p>
+        <hr/>
         <p>Give it a try with a free, highly-available 512 MB cluster. or get started from your terminal with the following two commands:</p>
         <pre>$ sudo apt-get install mongodb-atlas
 $ atlas setup</pre>
@@ -155,13 +156,10 @@ $ atlas setup</pre>
         -->
       </section>
 
-
       <section id="install">
         <h2>Installation</h2>
         <p>MongoDB can be installed locally, which will allow you to host your own MongoDB server on your hardware. This requires you to manage your server, upgrades, and any other maintenance.</p>
         <p>You can download and use the <a target="_blank" href="https://www.mongodb.com/try/download/community">MongoDB open source Community Server</a> (at <code>https://www.mongodb.com/try/download/community</code>) on your hardware for free.</p>
-
-
 
         <section>
           <h3>Atlas (Cloud)*</h3>
@@ -178,7 +176,7 @@ $ atlas setup</pre>
           <blockquote>
             <p>You need to secure your MongoDB Atlas cluster before you can use it. Set which users and IP addresses can access your cluster now. Read more...</p>
             <p>Add a connection IP address</p>
-            <p>Your current IP address (80.39.56.130) has been added to enable local connectivity. Only an IP address you add to your Access List will be able to connect to your project&apos;s clusters. Add more later in Network Access</p>
+            <p>Your current IP address (say, 80.39.56.130) has been added to enable local connectivity. Only an IP address you add to your Access List will be able to connect to your project&apos;s clusters. Add more later in Network Access</p>
           </blockquote>
 
           <p>Create a database user</p>
@@ -198,7 +196,7 @@ $ atlas setup</pre>
           <p>After a shortish procedure, I choose a Free scheme with 512MB storage, name <code>franciscofvh</code>, leave options [v] automate security setup and [v] preload sample dataset, as well as default provider AWS. I also create my first tag... </p>
           <hr/>
           <p>From an email message I somehow land at <a href="https://account.mongodb.com/account/profile/overview">https://account.mongodb.com/account/profile/overview</a> and click to <a href="https://cloud.mongodb.com/user/detectSession">visit MongoDB Atlas</a> (<code>https://cloud.mongodb.com/user/detectSession</code>)</p>
-          <p>Once there, I add my current IP address.</p>
+          <p>Once there, I add my current IP address by just clicking a box.</p>
         </section>
 
         <section id="windows">
@@ -260,9 +258,11 @@ $ atlas setup</pre>
               </dd>
             </dl>
           </section>
+
           <section id="windows.compass">
             <h4>Compass*</h4>
           </section>
+
           <section id="windows.mongosh">
             <h4>Install <code>mongosh</code> on Windows</h4>
             <p>The <code>.msi</code> installer does not include mongosh. Follow the <cite><a href="https://www.mongodb.com/docs/mongodb-shell/install/">mongosh installation instructions</a></cite> (at <code>https://www.mongodb.com/docs/mongodb-shell/install/</code>) to download and install the shell separately.</p>
