@@ -29,6 +29,29 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ]
+On the relationship between symbols and integers
+Sobre la relación que guardan símbolos y enteros, enteros no usados para contar ni cuantificar sino para... <q>simbolizar</q>
+
+[ ] write *mature-tech.html*
+
+[x] write *dry-composting-toilet.html* (Dry Composting Toilets)</a>
+
+[ ] review/trim links in nav element in *panpsychism.html* (Panpsychism)
+
+[ ] write *Teilhard-de-Chardin.html* (Teilhard de Chardin), as it is linked to from *panpsychism.html*
+
+[ ]
+<p>Somos al fin y a la postre <a target="_blank" href="agentes.html">agentes</a> que discurren por <a target="_blank" href="caminos.html">caminos</a>, principales, secundarios, terciarios, hasta penetrar todo un vasto territorio de naturaleza humanizada.</p>
+<p>A lo largo de los cuales encontramos hogares y <a target="_blank" href="taller.html">talleres</a>.</p>
+
+[ ] write *gprolog.sockets.html*
+
+[ ] escribir *Seis aes* (Apreciar - Aceptar - Apoyar - Ayudar - Auxiliar) en *amor.html*
+
+[ ] write     *panpsychism.html*, as it is pointed to in *morphic-resonance.html*
+[ ] write *implicate-order.html*, as it is pointed to in *morphic-resonance.html*
+
 [ ] escribir *juego-y-deber.html*
 <p>Dos aspectos que alternan en toda tarea, y que deben coordinarse a lo largo de una vida, un período, una jornada, un rato de trabajo.</p>
 
@@ -1338,6 +1361,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *morphic-resonance.html* from *science.html*
+[ ] *morphic-resonance.html* from elsewhere
 
 [ ] *libretexts.html*
 
