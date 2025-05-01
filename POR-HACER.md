@@ -29,6 +29,31 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *mongodb.compass.html*
+<p>[Seems to be] a graphic interface to MongoDB.</p>
+https://www.mongodb.com/docs/compass/current/
+https://www.mongodb.com/docs/compass/current/query/filter/
+
+[ ] escribir *mongodb.es.html*
+<p>He creado una cuenta gratuita de Atlas:</p>
+<ul>
+  <li><strong>dirección web</strong>: <a target="_blank" href="https://cloud.mongodb.com/user/detectSession"><code>https://cloud.mongodb.com/user/detectSession</code></a></li>
+  <li><strong>usuario</strong>: <code>franciscofvh</code></li>
+  <li><strong>contraseña</strong>: <code>shambhalatlas</code></li>
+</ul>
+<p>Tan sencillo como:</p>
+<ol>
+  <li>ir a la página indicada (<a target="_blank" href="https://cloud.mongodb.com/user/detectSession"><code>https://cloud.mongodb.com/user/detectSession</code></a>)</li>
+  <li>añadir tu IP / <i lang="en">add your IP address</i> </li>
+  <li>teclear usuario y contraseña</li>
+</ol>
+<hr/>
+<p>He creado una base de datos, <cite>ffvh</cite>, y dentro de ella varias colecciones (<i lang="en">collections</i>), por ahora:</p>
+<ul>
+  <li><cite>farming</cite>: sobre Agricultura, en inglés</li>
+  <li><cite>antropologia</cite>: sobre Antropología, en castellano</li>
+</ul>
+
 
 [ ] escribir *perro-recluido.html*
 <h1>Perro recluído/encerrado</h1>
