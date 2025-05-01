@@ -29,6 +29,119 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] MongoDB Shell (Command Line)
+<p>To install the latest stable version of mongosh with the included OpenSSL libraries:</p>
+<pre>sudo apt-get install -y mongodb-mongosh</pre>
+<section>
+<h3>Connect to Atlas via <code>mongosh</code></h3>
+<p>My password is a55MIz2hOWLBvuE9</p>
+
+<p>If you want to check your database size you can use <code>db.stats()</code> command the command returns storage statistics for a given database.</p>
+<p>
+
+[ ]
+<section id="insert">
+  <h2>Insert Document(s)</h2>
+  <aside><b>Important</b> Inserting documents is not permitted in MongoDB Compass Readonly Edition.</aside>
+  <p>Compass provides two ways to insert documents into your collections: JSON Mode and a Field-by-Field Editor.</p>
+  <dl>
+    <dt>JSON Mode</dt>
+    <dd>Allows you to write or paste JSON documents in the editor. Use this mode to insert multiple documents at once as an array.</dd>
+    <dt>Field-by-Field Editor</dt>
+    <dd>Provides a more interactive experience to create documents, allowing you to select individual field values and types. This mode only supports inserting one document at a time.</dd>
+  </dl>
+  <h4 class="bridgehead">Procedure</h4>
+  <p>To insert documents into your collection:</p>
+  <ol>
+    <li>
+      <p>Click the Add Data dropdown and select Insert Document</p>
+    </li>
+    <li>
+      <p>Select the appropriate view based on how you would like to insert documents.</p>
+      <ul>
+        <li>Click the <code>{ }</code> brackets for JSON view. This is the default view.</li>
+        <li>Click the list icon for Field-by-Field mode.</li>
+      </ul>
+    </li>
+    <li>
+      <p>In JSON format, type or paste the document(s) you want to insert into the collection. To insert multiple documents, enter a comma-separated array of JSON documents.</p>
+      <p>If you do not provide an ObjectId in your document, Compass automatically generates an ObjectId.</p>
+    </li>
+    <li>Click <code>Insert</code></li>
+  </ol>
+</section>
+
+<section id="query">
+  <h2>Query Your Data</h2>
+  <p>You can type MongoDB filter documents into the query bar to display only documents which match the specified criteria. To learn more about querying documents, see <cite><a target="_blank" href="https://www.mongodb.com/docs/manual/tutorial/query-documents/">Query Documents</a></cite> in the MongoDB manual.</p>
+  <ol>
+    <li>
+      <p>In the <strong>Filter</strong> field, enter a filter document between the curly braces. You can use all the MongoDB query operators except the <code>$text</code> and <code>$expr</code> operators.</p>
+      <p>The following filter returns documents that have a <var>title</var> value of <q>Jurassic Park</q>:</p>
+      <pre>{ "title": "Jurassic Park" }</pre>
+    </li>
+    <li>
+      <p>Click <strong>Find</strong> to run the query and view the updated results.</p>
+    </li>
+  </ol>
+  <section>
+    <h3>Match by Multiple Conditions (<code>$and</code>)</h3>
+    <p>The following query filter finds all documents where scores array contains the value 75, and the name is Greg Powell:</p>
+    <pre>{ $and: [ { scores: 75, name: "Greg Powell" } ] }</pre>
+  </section>
+  <section>
+    <h3>Match by Multiple Possible Conditions (<code>$or</code>)</h3>
+    <p>The following query filter uses the <code>$or</code> operator to find documents where version is 4, or name is Andrea Le:</p>
+    <pre>{ $or: [ { version: 4 }, { name: "Andrea Le" } ] }</pre>
+  </section>
+  <section>
+    <h3>Match by Exclusion (<code>$not</code>)</h3>
+    <p>The following query filter uses the <code>$not</code> operator to find all documents where the value of the name field is not equal to "Andrea Le", or the name field does not exist:</p>
+    <pre>{ name: { $not: { $eq: "Andrea Le" } } }</pre>
+  </section>
+  <section>
+    <h3>Match with Comparison Operators</h3>
+    <p>The following query filter uses the <code>$lte</code> operator to find all documents where version is less than or equal to 4:</p>
+    <pre>{ version: { $lte: 4 } }</pre>
+  </section>
+  <section>
+    <h3>Match by Date</h3>
+    <p>The following query filter uses the <code>$gt</code> operator and <date>Date()</date> method to find all documents where the <var>dateCreated</var> field value is later than June 22nd, 2000:</p>
+    <pre>{ dateCreated: { $gt: new Date('2000-06-22') } }</pre>
+  </section>
+  <section>
+    <h3>Match by Array Conditions</h3>
+    <p>The following query filter uses the <code>$elemMatch</code> operator to find all documents where at least one value in the scores array is greater than 80 and less than 90:</p>
+    <pre>{ scores: { $elemMatch: { $gt: 80, $lt: 90 } } }</pre>
+  </section>
+  <section>
+    <h3>Match by Substring</h3>
+    <p>The following query filter uses the <code>$regex</code> operator to find all documents where the value of email includes the term /andrea_le/ (where the underscores stands for any character):</p>
+    <pre>{ email: { $regex: "andrea_le" } }</pre>
+  </section>
+  <section>
+    <h3>Match by Embedded Field</h3>
+    <p>The following query filter finds the document with the <var>school.name</var> subfield of <code>Northwestern</code>:</p>
+    <pre>{ "school.name": "Northwestern" }</pre>
+  </section>
+
+</section>
+
+[ ] write *mooc.html*
+on Massive Open Online Courses (MOOCs)
+visit: https://www.mooc.org/
+<h1>Massive Open Online Courses (MOOCs)</h1>
+<p>Massive Open Online Courses (MOOCs) are free online courses available for anyone to enroll. MOOCs provide an affordable and flexible way to learn new skills, advance your career and deliver quality educational experiences at scale.</p>
+<p>Millions of people around the world use MOOCs to learn for a variety of reasons, including: career development, changing careers, college preparations, supplemental learning, lifelong learning, corporate eLearning &amp; training, and more.</p>
+
+
+
+[ ] Madrid: moneda social
+<p>Desde hace más de tres años en Madrid se puede pagar en boniatos, una nueva moneda social que persigue el consumo responsable. 1 boniato=1 euro. Solo se puede usar en las empresas que integran el mercado social y existen varios métodos de pago, con tarjeta, a través de la web o mediante una aplicación móvil.</p>
+
+[ ] Madrid:
+[ ] Madrid:
+
 [ ] write *mongodb.compass.html*
 <p>[Seems to be] a graphic interface to MongoDB.</p>
 https://www.mongodb.com/docs/compass/current/

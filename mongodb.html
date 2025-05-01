@@ -28,13 +28,16 @@
         <p><a rel="next" href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
         <p><a            href="mongodb.tutorial.html">MongoDB Tutorial</a></p>
+        <p><a            href="mql.html">MongoDB Query Language</a></p>
+      </div>
+      <div>
+        <p><a            href="mongodb.tags.html">MongoDB Resource Tags</a></p>
         <p><a            href="mongoose.html">Mongoose: MongoDB and JavaScript</a></p>
         <p><a            href="mongodb-like-js.html">JavaScript Libraries that behave like MongoDB (Shell)</a></p>
       </div>
       <div>
         <p>Open Source Apache <a href="couchdb.html">CouchDB: Another JSON Document DBMS</a></p>
         <p><a rel="prev" href="nosql.html">NoSQL DataBases</a></p>
-        <p><a            href="mql.html">MongoDB Query Language</a></p>
         <p><a            href="database.html">DataBases</a></p>
         <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
         <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
@@ -122,21 +125,6 @@
 
       </section>
 
-      <section id="tags">
-        <h2>Resource Tags</h2>
-        <p>You can use resource tags to categorize resources by purpose, environment, team, or billing center. You can add tags to your projects and clusters to better understand, organize, and identify these resources. Each tag is a key-value pair. For example, you might add an environment : production tag. In this example, you set the tag key to environment and you set the tag value to production. You can manage resource tags from the Atlas UI, Atlas Administration API, and Atlas CLI.</p>
-        <p><strong>Note</strong> These resource tags differ from the pre-defined replica set tags that Atlas provides. You can&apos;t change those replica set tags. You can provide and manage these resource tags.</p>
-        <p>Requirements:</p>
-        <ul>
-          <li>You can have a maximum of 50 tags per cluster.</li>
-          <li>Each tag must contain a key and a value.</li>
-          <li>Each tag key can have a maximum of 255 characters.</li>
-          <li>Each tag key must be unique.</li>
-          <li>Each tag value can have a maximum of 255 characters.</li>
-          <li>Each tag can contain only the following allowable characters: letters, numbers, spaces, semi-colons (;), at symbols (@), underscores (_), dashes (-), periods (.), or plus signs (+)        </li>
-        </ul>
-      </section>
-
       <section>
         <h2>MongoDB Community Server</h2>
         <p>The Community version of MongoDB distributed database offers a flexible document data model along with support for ad-hoc queries, secondary indexing, and real-time aggregations to provide powerful ways to access and analyze your data.</p>
@@ -145,15 +133,6 @@
         <p>Give it a try with a free, highly-available 512 MB cluster. or get started from your terminal with the following two commands:</p>
         <pre>$ sudo apt-get install mongodb-atlas
 $ atlas setup</pre>
-        <!--
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        -->
       </section>
 
       <section id="install">
@@ -260,7 +239,7 @@ $ atlas setup</pre>
           </section>
 
           <section id="windows.compass">
-            <h4>Compass*</h4>
+            <h4>Compass on Windows*</h4>
           </section>
 
           <section id="windows.mongosh">
@@ -546,6 +525,12 @@ sudo rm -r /var/lib/mongodb</pre>
 
         </section>
 
+      </section>
+
+      <section id="compass">
+        <h2>Compass: the GUI for MongoDB</h2>
+        <p>Compass is a free interactive tool for querying, optimizing, and analyzing your MongoDB data. Get key insights, drag and drop to build pipelines, and more.</p>
+        <p>Read the documentation at <a target="_blank" href="https://www.mongodb.com/docs/compass/current/"><code>https://www.mongodb.com/docs/compass/current/</code></a>.</p>
       </section>
 
     </main>
