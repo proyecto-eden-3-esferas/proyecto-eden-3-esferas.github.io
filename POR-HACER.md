@@ -85,44 +85,9 @@
     </li>
   </ol>
   <section>
-    <h3>Match by Multiple Conditions (<code>$and</code>)</h3>
-    <p>The following query filter finds all documents where scores array contains the value 75, and the name is Greg Powell:</p>
-    <pre>{ $and: [ { scores: 75, name: "Greg Powell" } ] }</pre>
-  </section>
-  <section>
-    <h3>Match by Multiple Possible Conditions (<code>$or</code>)</h3>
-    <p>The following query filter uses the <code>$or</code> operator to find documents where version is 4, or name is Andrea Le:</p>
-    <pre>{ $or: [ { version: 4 }, { name: "Andrea Le" } ] }</pre>
-  </section>
-  <section>
-    <h3>Match by Exclusion (<code>$not</code>)</h3>
-    <p>The following query filter uses the <code>$not</code> operator to find all documents where the value of the name field is not equal to "Andrea Le", or the name field does not exist:</p>
-    <pre>{ name: { $not: { $eq: "Andrea Le" } } }</pre>
-  </section>
-  <section>
     <h3>Match with Comparison Operators</h3>
     <p>The following query filter uses the <code>$lte</code> operator to find all documents where version is less than or equal to 4:</p>
     <pre>{ version: { $lte: 4 } }</pre>
-  </section>
-  <section>
-    <h3>Match by Date</h3>
-    <p>The following query filter uses the <code>$gt</code> operator and <date>Date()</date> method to find all documents where the <var>dateCreated</var> field value is later than June 22nd, 2000:</p>
-    <pre>{ dateCreated: { $gt: new Date('2000-06-22') } }</pre>
-  </section>
-  <section>
-    <h3>Match by Array Conditions</h3>
-    <p>The following query filter uses the <code>$elemMatch</code> operator to find all documents where at least one value in the scores array is greater than 80 and less than 90:</p>
-    <pre>{ scores: { $elemMatch: { $gt: 80, $lt: 90 } } }</pre>
-  </section>
-  <section>
-    <h3>Match by Substring</h3>
-    <p>The following query filter uses the <code>$regex</code> operator to find all documents where the value of email includes the term /andrea_le/ (where the underscores stands for any character):</p>
-    <pre>{ email: { $regex: "andrea_le" } }</pre>
-  </section>
-  <section>
-    <h3>Match by Embedded Field</h3>
-    <p>The following query filter finds the document with the <var>school.name</var> subfield of <code>Northwestern</code>:</p>
-    <pre>{ "school.name": "Northwestern" }</pre>
   </section>
 
 </section>

@@ -137,7 +137,7 @@
           <li>To ... issue: <kbd>...</kbd></li>
         </ul>
         <section id="mongo_query_find">
-          <title>Introduction to <code class="methodname">find</code></title>
+          <h3>Introduction to <code class="methodname">find</code></h3>
           <p>The <code class="methodname">find</code> method is used to perform queries in MongoDB. Querying returns a subset of documents in a collection, from no documents at all to the entire collection. Which documents get returned is determined by the first argument to find, which is a document specifying the query criteria.</p>
           <p>An empty query document (i.e., {}) matches everything in the collection. If <code class="methodname">find</code> isn't given a query document, it defaults to {}. For example, the following:</p>
           <pre>&lt;db.c.find()</pre>
@@ -149,7 +149,7 @@
           <p>Multiple conditions can be strung together by adding more key/value pairs to the query document, which gets interpreted as "condition1 AND condition2 AND &#x2026; AND conditionN." For instance, to get all users who are 27-year-olds with the username "joe," we can query for the following:</p>
           <pre>&gt; db.users.find({"username":"joe","age":27})</pre>
           <section>
-            <title>Specifying Which Keys to Return</title>
+            <h4>Specifying Which Keys to Return</h4>
             <p>Sometimes you do not need all of the key/value pairs in a document returned. If this is the case, you can pass a second argument to find (or findOne) specifying the keys you want. This reduces both the amount of data sent over the wire and the time and memory used to decode documents on the client side.</p>
             <p>For example, if you have a user collection and you are interested only in the <var>username</var> and <var>email</var> keys, you could return just those keys with the following query:</p>
             <pre>&gt; db.users.find({},{"username":1,"email":1})
@@ -168,144 +168,169 @@
   }</pre>
           </section>
           <section>
-            <title>Limitations</title>
+            <h4>Limitations</h4>
             <p>There are some restrictions on queries. The value of a query document must be a constant as far as the database is concerned. (It can be a normal variable in your own code.) That is, it cannot refer to the value of another key in the document. For example, if we were keeping inventory and we had both <var>in_stock</var> and <var>num_sold</var> keys, we couldn't compare their values by querying the following:</p>
             <pre>&gt; db.stock.find({"in_stock":"this.num_sold"}) // doesn't work</pre>
             <p>There are ways to do this (see <citetitle class="section" href="#mongo_where_queries">$where Queries</citetitle>), but you will usually get better performance by restructuring your document slightly, such that a <emphasis>normal</emphasis> query will suffice. In this example, we could instead use the keys <var>initial_stock</var> and <var>in_stock</var>. Then, every time someone buys an item, we decrement the value of the <var>in_stock</var> key by one. Finally, we can do a simple query to check which items are out of stock:</p>
             <pre>&gt; db.stock.find({"in_stock": 0})</pre>
           </section>
         </section>
-        <section id="mongo_query_criteria">
-          <title>Query Criteria*</title>
-          <p>Queries can go beyond the exact matching described in the previous section; they can match more complex criteria, such as ranges, OR-clauses, and negation.</p>
+
+        <h3 class="bridgehead">Query Criteria</h3>
+        <p>Queries can go beyond the exact matching described in the previous section; they can match more complex criteria, such as ranges, OR-clauses, and negation.</p>
+
           <section>
-            <title>Query Conditionals</title>
+            <h3>Query: Comparisons</h3>
             <p>"$lt", "$lte", "$gt", and "$gte" are all comparison operators, corresponding to &lt;, &lt;=, &gt;, and &gt;=, respectively. They can be combined to look for a range of values. For example, to look for users who are between the ages of 18 and 30, we can do this:</p>
             <pre>&gt; db.users.find({"age":{"$gte":18,"$lte":30}})</pre>
             <p>This would find all documents where the <var>age</var> field was greater than or equal to 18 AND less than or equal to 30.</p>
-            <p>These types of range queries are often useful for dates. For example, to find people who registered before January 1, 2007, we can do this:</p>
-            <pre>&gt; start = newDate("01/01/2007")
-&gt; db.users.find({"registered":{"$lt":start}})</pre>
-            <p>Depending on how you create and store dates, an exact match might be less useful, since dates are stored with millisecond precision. Often you want a whole day, week, or month, making a range query necessary.</p>
+            <hr/>
             <p>To query for documents where a key's value is not equal to a certain value, you must use another conditional operator, "$ne", which stands for "not equal." If you want to find all users who do not have the username <var>joe</var>, you can query for them using this:</p>
             <pre>&gt; db.users.find({"username":{"$ne":"joe"}})</pre>
-            <p>"$ne" can be used with any type.</p>
+            <p>Actually, "$ne" can be used with any type.</p>
+            <section>
+              <h4>Match by Date</h4>
+              <p>These types of range queries are often useful for dates. For example, to find people who registered before January 1, 2007, we can do this:</p>
+              <pre>&gt; start = new Date("01/01/2007")
+&gt; db.users.find({"registered":{"$lt":start}})</pre>
+              <p>Depending on how you create and store dates, an exact match might be less useful, since dates are stored with millisecond precision. Often you want a whole day, week, or month, making a range query necessary.</p>
+              <p>The following query filter uses the <code>$gt</code> operator and <date>Date()</date> method to find all documents where the <var>dateCreated</var> field value is later than June 22nd, 2000:</p>
+              <pre>{ dateCreated: { $gt: new Date('2000-06-22') } }</pre>
+            </section>
+            <section>
+              <h4>Match by Multiple Conditions (<code>$and</code>)</h4>
+              <p>The following query filter finds all documents where scores array contains the value 75, and the name is Greg Powell:</p>
+              <pre>{ $and: [ { scores: 75, name: "Greg Powell" } ] }</pre>
+            </section>
+            <section>
+              <h4>Match by Multiple Possible Conditions (<code>$in</code> and <code>$or</code>)</h4>
+              <p>There are two ways to do an OR query in MongoDB. "$in" can be used to query for a variety of values for a single key. "$or" is more general; it can be used to query for any of the given values across multiple keys.</p>
+              <p>If you have more than one possible value to match for a single key, use an array of criteria with "$in". For instance, suppose we're running a raffle and the winning ticket numbers are 725, 542, and 390. To find all three of these documents, we can construct the following query:</p>
+              <pre>&gt; db.raffle.find({"ticket_no":{"$in":[725,542,390]}})</pre>
+              <p>"$in" is very flexible and allows you to specify criteria of different types as well as values. For example, if we are gradually migrating our schema to use usernames instead of user ID numbers, we can query for either by using this:</p>
+              <pre>&gt; db.users.find({"user_id":{"$in":[12345,"joe"]}})</pre>
+              <p>This matches documents with a <var>user_id</var> equal to 12345 and documents with a <var>user_id</var> equal to <code>joe</code>.</p>
+              <p>If "$in" is given an array with a single value, it behaves the same as directly matching the value. For instance, <kbd>{ticket_no : {$in : [725]}}</kbd> matches the same documents as <kbd>{ticket_no : 725}</kbd>.</p>
+              <p>The opposite of "$in" is "$nin", which returns documents that don't match any of the criteria in the array. If we want to return all of the people who didn't win anything in the raffle, we can query for them with this:</p>
+              <pre>&gt; db.raffle.find({"ticket_no":{"$nin":[725,542,390]}})</pre>
+              <p>This query returns everyone who did not have tickets with those numbers.</p>
+              <p>"$in" gives you an OR query for a single key, but what if we need to find documents where <var>ticket_no</var> is 725 or <var>winner</var> is true? For this type of query, we'll need to use the "$or" conditional. "$or" takes an array of possible criteria. In the raffle case, using "$or" would look like this:</p>
+              <pre>&gt; db.raffle.find({"$or":[{"ticket_no": 725},{"winner": true}]})</pre>
+              <p>"$or" can contain other conditionals. If, for example, we want to match any of the three <var>ticket_no</var> values or the <var>winner</var> key, we can use this:</p>
+              <pre>&gt; db.raffle.find({"$or":[{"ticket_no":{"$in":[725,542,390]}}, ... {"winner":true}]})</pre>
+              <p>With a normal AND-type query, you want to narrow down your results as far as possible in as few arguments as possible. OR-type queries are the opposite: they are most efficient if the first arguments match as many documents as possible.</p>
+              <p>While "$or" will always work, use "$in" whenever possible as the query optimizer handles it more efficiently.</p>
+              <hr/>
+              <p>The following query filter uses the <code>$or</code> operator to find documents where version is 4, or name is Andrea Le:</p>
+              <pre>{ $or: [ { version: 4 }, { name: "Andrea Le" } ] }</pre>
+            </section>
+            <section>
+              <h4>Match by Exclusion (<code>$not</code>)</h4>
+              <p>"$not" is a metaconditional: it can be applied on top of any other criteria. As an example, let's consider the modulus operator, "$mod". "$mod" queries for keys whose values, when divided by the first value given, have a remainder of the second value:</p>
+              <pre>&gt; db.users.find({"id_num":{"$mod":[5,1]}})</pre>
+              <p>The previous query returns users with <var>id_num</var>s of 1, 6, 11, 16, and so on. If we want, instead, to return users with <var>id_num</var>s of 2, 3, 4, 5, 7, 8, 9, 10, 12, etc., we can use "$not":</p>
+              <pre>&gt; db.users.find({"id_num":{"$not":{"$mod":[5,1]}}})</pre>
+              <p>"$not" can be particularly useful in conjunction with regular expressions to find all documents that don't match a given pattern (regular expression usage is described in the section <citetitle class="section" href="#mongo_regex">Regular Expressions</citetitle>).</p>
+              <hr/>
+              <p>The following query filter uses the <code>$not</code> operator to find all documents where the value of the name field is not equal to "Andrea Le", or the name field does not exist:</p>
+              <pre>{ name: { $not: { $eq: "Andrea Le" } } }</pre>
+            </section>
           </section>
-          <section>
-            <title>OR Queries</title>
-            <p>There are two ways to do an OR query in MongoDB. "$in" can be used to query for a variety of values for a single key. "$or" is more general; it can be used to query for any of the given values across multiple keys.</p>
-            <p>If you have more than one possible value to match for a single key, use an array of criteria with "$in". For instance, suppose we're running a raffle and the winning ticket numbers are 725, 542, and 390. To find all three of these documents, we can construct the following query:</p>
-            <pre>&gt; db.raffle.find({"ticket_no":{"$in":[725,542,390]}})</pre>
-            <p>"$in" is very flexible and allows you to specify criteria of different types as well as values. For example, if we are gradually migrating our schema to use usernames instead of user ID numbers, we can query for either by using this:</p>
-            <pre>&gt; db.users.find({"user_id":{"$in":[12345,"joe"]}})</pre>
-            <p>This matches documents with a <var>user_id</var> equal to 12345 and documents with a <var>user_id</var> equal to <literal>joe</literal>.</p>
-            <pre/>
-            <p>If "$in" is given an array with a single value, it behaves the same as directly matching the value. For instance, <kbd>{ticket_no : {$in : [725]}}</kbd> matches the same documents as <kbd>{ticket_no : 725}</kbd>.</p>
-            <p>The opposite of "$in" is "$nin", which returns documents that don't match any of the criteria in the array. If we want to return all of the people who didn't win anything in the raffle, we can query for them with this:</p>
-            <pre>&gt; db.raffle.find({"ticket_no":{"$nin":[725,542,390]}})</pre>
-            <p>This query returns everyone who did not have tickets with those numbers.</p>
-            <p>"$in" gives you an OR query for a single key, but what if we need to find documents where <var>ticket_no</var> is 725 or <var>winner</var> is true? For this type of query, we'll need to use the "$or" conditional. "$or" takes an array of possible criteria. In the raffle case, using "$or" would look like this:</p>
-            <pre>&gt; db.raffle.find({"$or":[{"ticket_no": 725},{"winner": true}]})</pre>
-            <p>"$or" can contain other conditionals. If, for example, we want to match any of the three <var>ticket_no</var> values or the <var>winner</var> key, we can use this:</p>
-            <pre>&gt; db.raffle.find({"$or":[{"ticket_no":{"$in":[725,542,390]}}, ... {"winner":true}]})</pre>
-            <p>With a normal AND-type query, you want to narrow down your results as far as possible in as few arguments as possible. OR-type queries are the opposite: they are most efficient if the first arguments match as many documents as possible.</p>
-            <p>While "$or" will always work, use "$in" whenever possible as the query optimizer handles it more efficiently.</p>
-          </section>
-          <section>
-            <title>$not*</title>
-            <p>"$not" is a metaconditional: it can be applied on top of any other criteria. As an example, let's consider the modulus operator, "$mod". "$mod" queries for keys whose values, when divided by the first value given, have a remainder of the second value:</p>
-            <pre>&gt; db.users.find({"id_num":{"$mod":[5,1]}})</pre>
-            <p>The previous query returns users with <var>id_num</var>s of 1, 6, 11, 16, and so on. If we want, instead, to return users with <var>id_num</var>s of 2, 3, 4, 5, 7, 8, 9, 10, 12, etc., we can use "$not":</p>
-            <pre>&gt; db.users.find({"id_num":{"$not":{"$mod":[5,1]}}})</pre>
-            <p>"$not" can be particularly useful in conjunction with regular expressions to find all documents that don't match a given pattern (regular expression usage is described in the section <citetitle class="section" href="#mongo_regex">Regular Expressions</citetitle>).</p>
-          </section>
-        </section>
-        <section id="mongo_type-specific_queries">
-          <title>Type-Specific Queries</title>
-          <p>MongoDB has a wide variety of types that can be used in a document. Some of these types have special behavior when querying.</p>
-          <section>
-            <title>
-              <literal>null</literal>
-            </title>
-            <p><literal>null</literal> behaves a bit strangely. It does match itself, so if we have a collection with the following documents:</p>
-            <pre>&gt; db.c.find()
+          <section id="mongo_type-specific_queries">
+            <h3>Type-Specific Queries</h3>
+            <p>MongoDB has a wide variety of types that can be used in a document. Some of these types have special behavior when querying.</p>
+            <section>
+              <h4><code>null</code></h4>
+              <p><code>null</code> behaves a bit strangely. It does match itself, so if we have a collection with the following documents:</p>
+              <pre>&gt; db.c.find()
 {"_id":ObjectId("4ba0f0dfd22aa494fd523621"),"y":null}
 {"_id":ObjectId("4ba0f0dfd22aa494fd523622"),"y":1}
 {"_id":ObjectId("4ba0f148d22aa494fd523623"),"y":2}</pre>
-            <p>we can query for documents whose <var>y</var> key is <literal>null</literal> in the expected way:</p>
-            <pre>&gt; db.c.find({"y":null})
+              <p>we can query for documents whose <var>y</var> key is <code>null</code> in the expected way:</p>
+              <pre>&gt; db.c.find({"y":null})
 {"_id":ObjectId("4ba0f0dfd22aa494fd523621"),"y":null}</pre>
-            <p>However, <literal>null</literal> also matches <quote>does not exist</quote>. Thus, querying for a key with the value <literal>null</literal> will return all documents lacking that key:</p>
-            <pre>&gt; db.c.find({"z":null})
+              <p>However, <code>null</code> also matches <quote>does not exist</quote>. Thus, querying for a key with the value <code>null</code> will return all documents lacking that key:</p>
+              <pre>&gt; db.c.find({"z":null})
 {"_id":ObjectId("4ba0f0dfd22aa494fd523621"),"y":null}
 {"_id":ObjectId("4ba0f0dfd22aa494fd523622"),"y":1}
 {"_id":ObjectId("4ba0f148d22aa494fd523623"),"y":2}</pre>
-            <p>If we only want to find keys whose value is <literal>null</literal>, we can check that the key is <literal>null</literal> and exists using the "$exists" conditional:</p>
-            <pre>&gt; db.c.find({"z":{"$eq":null,"$exists":true}})</pre>
-          </section>
-          <section id="mongo_regex">
-            <title>Regular Expression</title>
-            <p>"$regex" provides regular expression capabilities for pattern matching strings in queries. Regular expressions are useful for flexible string matching. For example, if we want to find all users with the name "Joe" or "joe," we can use a regular expression to do case-insensitive matching:</p>
-            <pre>&gt; db.users.find({"name":{"$regex":/joe/i}})</pre>
-            <p>Regular expression flags (e.g., i) are allowed but not required. If we want to match not only various capitalizations of "joe," but also "joey," we can continue to improve our regular expression:</p>
-            <pre>&gt; db.users.find({"name":/joey?/i})</pre>
-            <p>MongoDB uses the Perl Compatible Regular Expression (PCRE) library to match regular expressions; any regular expression syntax allowed by PCRE is allowed in MongoDB. It is a good idea to check your syntax with the JavaScript shell before using it in a query to make sure it matches what you think it matches.</p>
-            <note>
-              <p>MongoDB can leverage an index for queries on prefix regular expressions (e.g., /^joey/). Indexes cannot be used for case-insensitive searches (/^joey/i). A regular expression is a "prefix expression" when it starts with either a caret (^) or a left anchor (\A). If the regular expression uses a case-sensitive query, then if an index exists for the field, the matches can be conducted against values in the index. If it also is a prefix expression, then the search can be limited to the values within the range created by that prefix from the index.</p>
-            </note>
-            <p>Regular expressions can also match themselves. Very few people insert regular expressions into the database, but if you insert one, you can match it with itself:</p>
-            <pre>&gt; db.foo.insertOne({"bar":/baz/})
+              <p>If we only want to find keys whose value is <code>null</code>, we can check that the key is <code>null</code> and exists using the "$exists" conditional:</p>
+              <pre>&gt; db.c.find({"z":{"$eq":null,"$exists":true}})</pre>
+            </section>
+            <section>
+              <h4>Match by Substring</h4>
+              <p>The following query filter uses the <code>$regex</code> operator to find all documents where the value of email includes the term /andrea_le/ (where the underscores stands for any character):</p>
+              <pre>{ email: { $regex: "andrea_le" } }</pre>
+            </section>
+            <section id="mongo_regex">
+              <h4>Regular Expression</h4>
+              <p>"$regex" provides regular expression capabilities for pattern matching strings in queries. Regular expressions are useful for flexible string matching. For example, if we want to find all users with the name "Joe" or "joe," we can use a regular expression to do case-insensitive matching:</p>
+              <pre>&gt; db.users.find({"name":{"$regex":/joe/i}})</pre>
+              <p>Regular expression flags (e.g., i) are allowed but not required. If we want to match not only various capitalizations of "joe," but also "joey," we can continue to improve our regular expression:</p>
+              <pre>&gt; db.users.find({"name":/joey?/i})</pre>
+              <p>MongoDB uses the Perl Compatible Regular Expression (PCRE) library to match regular expressions; any regular expression syntax allowed by PCRE is allowed in MongoDB. It is a good idea to check your syntax with the JavaScript shell before using it in a query to make sure it matches what you think it matches.</p>
+              <note>
+                <p>MongoDB can leverage an index for queries on prefix regular expressions (e.g., /^joey/). Indexes cannot be used for case-insensitive searches (/^joey/i). A regular expression is a "prefix expression" when it starts with either a caret (^) or a left anchor (\A). If the regular expression uses a case-sensitive query, then if an index exists for the field, the matches can be conducted against values in the index. If it also is a prefix expression, then the search can be limited to the values within the range created by that prefix from the index.</p>
+              </note>
+              <p>Regular expressions can also match themselves. Very few people insert regular expressions into the database, but if you insert one, you can match it with itself:</p>
+              <pre>&gt; db.foo.insertOne({"bar":/baz/})
 &gt; db.foo.find({"bar":/baz/})
 {
   "_id":ObjectId("4b23c3ca7525f35f94b60a2d"),
   "bar":/baz/
 }</pre>
+            </section>
+            <section>
+              <h4>Querying Array</h4>
+              <p>The following query filter uses the <code>$elemMatch</code> operator to find all documents where at least one value in the <var>scores</var> array is greater than 80 and less than 90:</p>
+              <pre>{ scores: { $elemMatch: { $gt: 80, $lt: 90 } } }</pre>
+            </section>
+            <section>
+              <h4>Querying on Embedded Document</h4>
+              <p>The following query filter finds the document with the <var>school.name</var> subfield of <code>Northwestern</code>:</p>
+              <pre>{ "school.name": "Northwestern" }</pre>
+            </section>
           </section>
-          <section>
-            <title>Querying Array*</title>
+          <section id="mongo_where_queries">
+            <h3><kbd>$where</kbd> Queries*</h3>
+            <section>
+              <h4>*</h4>
+            </section>
+            <section>
+              <h4>*</h4>
+            </section>
           </section>
-          <section>
-            <title>Querying on Embedded Document*</title>
+          <section id="mongo_query_cursors">
+            <h3>Cursors*</h3>
+            <section>
+              <h4>*</h4>
+            </section>
+            <section>
+              <h4>*</h4>
+            </section>
+          </section>
+          <section id="mongo_filters">
+            <h3>MongoDB Filters*</h3>
+            <section>
+              <h4>*</h4>
+            </section>
+            <section>
+              <h4>*</h4>
+            </section>
+          </section>
+          <section id="mongo_Realm_filters">
+            <h3>MongoDB Realm Filters</h3>
+            <p>A filter modifies an incoming MongoDB query to return only a subset of the results matched by the query. Filters add additional query parameters and omit fields from query results before Realm runs the query.</p>
+            <p>Every filter has three components:</p>
+            <ul>
+              <li>An Apply When expression that determines if the filter applies to an incoming request. You can use variables like %%user and %%request in this expression. However, you cannot use MongoDB variables like %%root because Realm applies filters before it reads any data.</li>
+              <li>An optional query document, which uses standard MongoDB query syntax and merges with the existing query of any request the filter applies to.</li>
+              <li>An optional projection document, which uses standard MongoDB projection syntax and merges with the existing projection of any request the filter applies to.</li>
+            </ul>
           </section>
         </section>
-        <section id="mongo_where_queries">
-          <title><kbd>$where</kbd> Queries*</title>
-          <section>
-            <title>*</title>
-          </section>
-          <section>
-            <title>*</title>
-          </section>
-        </section>
-        <section id="mongo_query_cursors">
-          <title>Cursors*</title>
-          <section>
-            <title>*</title>
-          </section>
-          <section>
-            <title>*</title>
-          </section>
-        </section>
-        <section id="mongo_filters">
-          <title>MongoDB Filters*</title>
-          <section>
-            <title>*</title>
-          </section>
-          <section>
-            <title>*</title>
-          </section>
-        </section>
-        <section id="mongo_Realm_filters">
-          <title>MongoDB Realm Filters</title>
-          <p>A filter modifies an incoming MongoDB query to return only a subset of the results matched by the query. Filters add additional query parameters and omit fields from query results before Realm runs the query.</p>
-          <p>Every filter has three components:</p>
-          <ul>
-            <li>An Apply When expression that determines if the filter applies to an incoming request. You can use variables like %%user and %%request in this expression. However, you cannot use MongoDB variables like %%root because Realm applies filters before it reads any data.</li>
-            <li>An optional query document, which uses standard MongoDB query syntax and merges with the existing query of any request the filter applies to.</li>
-            <li>An optional projection document, which uses standard MongoDB projection syntax and merges with the existing projection of any request the filter applies to.</li>
-          </ul>
-        </section>
-      </section>
+
+
       <section>
         <h2>Indexes*</h2>
       </section>
@@ -319,19 +344,24 @@
         <h2>*</h2>
       </section>
       <section>
-        <h2>Updating and Removing</h2>
+        <h2>Updating Documents</h2>
         <ul>
           <li>To update someone's age issue: <kbd>db.myCollection.update({age : 20}, {$set: {age: 23}})</kbd></li>
-          <li>To remove a property issue: <kbd>db.myCollection.update({name: "navindu"}, {$unset: age});</kbd></li>
-          <li>To remove a document issue: <kbd>db.myCollection.remove({name: "navindu"});</kbd></li>
-          <li>To remove a whole collection issue: <kbd>db.myCollection.remove({});</kbd>. Note, this is not equal to the drop() method. The difference is drop() is used to remove all the documents inside a collection, but the remove() method is used to delete all the documents along with the collection itself.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Removing Documents</h2>
+        <ul>
+          <li>To remove a property (i.e. a key-value pair), issue: <kbd>db.myCollection.update({name: "navindu"}, {$unset: age});</kbd></li>
+          <li>To remove one document, issue: <kbd>db.myCollection.remove({name: "navindu"});</kbd></li>
+          <li>To remove a whole collection, issue: <kbd>db.myCollection.remove({});</kbd>. Note, this is not equal to the <code>drop()</code> method. The difference is that <code>drop()</code> is used to remove all the documents inside a collection, but the <code>remove()</code> method is used to delete all the documents along with the collection itself.</li>
         </ul>
       </section>
       <section>
         <h2>Outputing to and Inputing from a File</h2>
         <p>You can log all the shell session if you invoked the shell with tee command: <kbd>mongo | tee session.txt</kbd>. Or you can use the <kbd>--eval</kbd> switch like so: <kbd>mongo localhost:27017/dbname --eval "printjson(db.MyCollection.find().pretty())" &gt; sample.json</kbd>.</p>
         <section>
-          <title>Outputing to a File with <code class="command">mongoexport</code></title>
+          <h3>Outputing to a File with <code class="command">mongoexport</code></h3>
           <ul>
             <li>To get all documents in collection crops, in database farming, into file <filename>farming.crops.json</filename>, issue: <kbd>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty</kbd></li>
             <li>To get results as an array, add <kbd>--jsonArray</kbd>, as in: <kbd>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty --jsonArray</kbd></li>
@@ -340,7 +370,7 @@
           </ul>
         </section>
         <section>
-          <title>Inputing from a File with <code class="command">mongoimport</code></title>
+          <h3>Inputing from a File with <code class="command">mongoimport</code></h3>
           <p>Switches <kbd>--db</kbd>, <kbd>--collections</kbd>, <kbd>--fields</kbd>, <kbd>--fieldFile</kbd>, <kbd>--jsonArray</kbd> are the same as with <code class="command">mongoexport</code>.</p>
           <p>Command <code class="command">mongoimport</code> has some ingest switches, too:</p>
           <dl>
