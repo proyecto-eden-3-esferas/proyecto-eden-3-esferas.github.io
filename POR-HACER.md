@@ -29,6 +29,51 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *protists.html*
+
+[ ] edit *photosynthesis.pre.html*
+[ ] compare *photosynthesis.html* and *photosynthesis.pre.html* (extracted from MagicWorld.xml)
+[ ] uncomment/adapt inclusion of images in *photosynthesis.pre.html*
+[ ] link to *photosynthesis.pre.html*
+
+[x] link to *hacker-culture.html* from *open-source.html*
+[x] link to *hacker-culture.html* from *cathedral-and-bazaar.html*
+[ ] link to *hacker-culture.html* from elsewhere
+
+Link to
+<p><a href="cathedral-and-bazaar.html"><cite>The Cathedral &amp; the Bazaar</cite>, by Eric Raymond</a></p>
+from
+[ ] *open-science.html*
+[ ] *linux.html*
+
+[ ] escribir *informatica.directrices.html*
+<dl>
+  <strong>salvar</strong>
+  <strong>gratuidad</strong>
+  <strong>continuidad</strong>
+  <strong>formatos de archivo compatibles o convertibles</strong>
+</dl>
+<p>Los objetivos segundo y tercero (gratuidad y continuidad) se alcanzan mejor mediante Software Libre y Abierto.</p>
+
+[ ] enlazar a *ruderales.html*
+
+[ ] write *freeware.html*
+[ ] link to *freeware.html* from *society.html*
+[ ] link to *freeware.html* from *economy.html*
+[ ] link to *freeware.html* from *open-source.html*
+
+[ ] mover los enlaces a cultivos
+    (tales como  <p><a            href="okra.es.html">La okra (verdura)</a></p> en *agricultura.html*)
+    a un futuro *cultivos.html*
+
+[ ] write   *succulents.html*, on Succulent plants
+[ ] link to *succulents.html*, from        *plants.html*
+
+[x] write   *Portulaca-oleracea.en.html* on Portulaca oleracea (Purslane)
+[x] link to *Portulaca-oleracea.en.html* from *plants.html*
+[ ] link to *Portulaca-oleracea.en.html* from *photosynthesis.html*
+[ ] link to *Portulaca-oleracea.en.html* from *succulents.html*
+
 [ ] MongoDB Shell (Command Line)
 <p>To install the latest stable version of mongosh with the included OpenSSL libraries:</p>
 <pre>sudo apt-get install -y mongodb-mongosh</pre>
