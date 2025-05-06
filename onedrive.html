@@ -39,6 +39,35 @@
           <li>Web and mobile versions of Word, Excel, PowerPoint, OneNote, OneDrive, and other apps</li>
         </ul>
       </section>
+
+      <section id="linux">
+        <h2>OneDrive on Linux</h2>
+        <blockquote>
+          <p>There is no official OneDrive client for Linux computers. The functionality of drive syncing can be achieved by using the third party software RClone. RClone requires a Linux computer with a GUI interface (it will not work on command line only installs). RClone is a third party software not supported by Microsoft.</p>
+        </blockquote>
+        <dl>
+          <dt>onedriver</dt>
+          <dd>
+            <p>onedriver (at <code><a target="_blank" href="https://github.com/jstaf/onedriver">https://github.com/jstaf/onedriver</a></code>) is a native Linux filesystem for Microsoft OneDrive. Like onedrive (the 3rd OneDrive client for Linux in this list), it is strictly a client for Microsoft OneDrive, so it does not support any other online storage service. It has a command-line and an easy-to-use graphical interface.</p>
+            <p>Key features of onedriver includes on-demand file download, bidirectional sync, and offline use for already downloaded files.</p>
+            <p>If Microsoft OneDrive is the only online storage service you use and you want a no-frills command-line or graphical interface access to your files, onedriver is probably what you want to use, though it is not recommend if you&apos;ll be working with large files in the GB range.</p>
+          </dd>
+          <dt>rclone</dt>
+          <dd>
+            <p>rclone (at <code><a target="_blank" href="https://rclone.org/onedrive/">https://rclone.org/onedrive/</a></code>) is a command-line client that makes it possible to sync files on your local computer to about 70 online or cloud storage services. So it not only supports OneDrive, but also Google Drive, Amazon S3, iCould Drive, Zoho WorkDrive, etc. Though a command line client, it comes with an experimental graphical interface that you may launch from the command-line.</p>
+            <p>A more mature graphical interface that you may install is called rclone-browser. Both rclone and rclone-browser may be installed using your distro&apos;s package manager, but to get the very latest version of rclone, it is recommended to download it from the project&apos;s download page.</p>
+            <p>If you use multiple online storage services and frequently work with large files in the GB range, rclone is recommended.</p>
+          </dd>
+          <dt>onedrive</dt>
+          <dd>
+            <p>onedrive is a OneDrive client for Linux that works with OneDrive Personal, OneDrive for Business, OneDrive for Office365, and SharePoint Libraries. It also works with OneDrive national cloud deployments, including Microsoft Cloud for US Government, Microsoft Cloud Germany and Azure, and Office 365 operated by VNET in China.</p>
+            <p>While it supports most features you&apos;ll need, onedrive lacks support for on-the-fly file encryption and decryption, and on-demand file download.</p>
+            <p>Like rclone, onedrive is a command-line client, but OneDriveGUI, from a different developer, provides a graphical interface for it.</p>
+          </dd>
+        </dl>
+        <aside>If you use Ubuntu or any distro based on it, or any distro with a GNOME flavor, and you have a Microsoft 365 account, you can connect to that Microsoft 365 account from the distro&apos;s System Settings &gt; Online Accounts &gt; Microsoft 365 module and access any file you have in that account.</aside>
+      </section>
+
     </main>
   </body>
 </html>

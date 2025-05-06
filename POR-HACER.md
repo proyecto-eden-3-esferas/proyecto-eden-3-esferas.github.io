@@ -29,6 +29,17 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ]
+<section>
+  <h2>Local Mongodb</h2>
+  <pre>systemctl status mongod</pre>
+  <p>Since mongod had not started upon booting, I run:</p>
+  <pre>sudo systemctl start mongod</pre>
+  <hr/>
+  <p>Next connect to the server through <code>mongosh</code>:</p>
+  <pre>mongosh</pre>
+</section>
+
 [ ] write *protists.html*
 
 [ ] edit *photosynthesis.pre.html*
@@ -967,6 +978,25 @@ What about tables that are un-limited both horizontally and vertically? The Rela
 
 
 [ ] write *adventitious-roots.html* and link from [ ] *taproot.html*, [ ] *plants.html*, and [ ] elsewhere
+
+## Tasks on ASUS Laptop
+
+<h2>Removing ever-growing log files:</h2>
+<pre>sudo rm kern.log syslog</pre>
+<p>and preventing logging altogether:</p>
+<pre>sudo systemctl stop syslog</pre>
+
+<section>
+  <h2>Noisy Internal Hard Drive</h2>
+  <p>The following processes appear to be top consumers:</p>
+  <ul>
+    <li>systemd-journal</li>
+    <li>irq/123-aerdrv</li>
+  </ul>
+</section>
+
+
+
 
 ## Único, útil y adelantado
 [x] escribir *unico-y-util.html*

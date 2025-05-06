@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Monitoring Linux</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+        <p><a            href="linux.partitioning.html">Partitions in Linux</a></p>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a            href="linux.logging.html">Logging (Events) in Linux</a></p>
+        <p><a            href="snap.html">Snap</a></p>
+      </div>
+      <div>
+        <!-- <p><a            href="flatpak.html">Flatpak</a></p> -->
+        <p><a rel="next" href="distros.html">Linux Distributions</a></p>
+        <p><a            href="os.html">Operating Systems</a></p>
+        <p><a            href="samba.html">Samba (Open Source Implementation of the Microsoft&apos;s SMB Networking Protocol)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Monitoring Linux</h1>
+      <section>
+      <h2>nmon</h2>
+      <p>You can try <code>nmon</code> — a command line program. Install it by running:</p>
+      <pre>sudo apt-get install nmon</pre>
+      <p>Then run it as <code>nmon</code>. You would get the following screen...</p>
+      </section>
+      <section>
+        <h2>System Load Indicator</h2>
+        <p>I use System Load Indicator for a GUI solution. which is in the indicator-multiload package. It's available in the Universe repository for all currently supported versions of Ubuntu and can be installed either through the software center or via the CLI with <code>sudo apt-get install indicator-multiload</code></p>
+        <p>It is a system load monitor capable of displaying graphs for CPU, IOwait, ram, cache, and swap space use, plus disk and network traffic. It puts a display on the top menu bar that looks like this. SLI</p>
+        <p>Right clicking on it provides a drop down menu with live info regarding the following: CPU, Mem, Net, Swap, Load, and Disk.</p>
+        <p>Configuration is accomplished via the Preferences option on the same menu The colors are adjustable as well as the monitor width and update interval.</p>
+      </section>
+      <section>
+        <h2>Measuring Disk Activity</h2>
+
+        <section>
+          <h3>5 Linux Commands for Measuring Disk Activity</h3>
+          <p>Ever wonder how hard your disks are working? If so, you&apos;re in luck. Linux provides quite a few useful commands for gauging disk activity. This post examines five options that are all very useful and easy to use. This handy suite of commands will help you to see how busy your disks are, not just how full. Two of the commands (iostat and ioping) may have to be added to your system. The iotop command requires that you use sudo privileges.</p>
+          <ul>
+            <li><a href="#dstat">dstat</a></li>
+            <li><a href="#iostat">iostat</a></li>
+            <li><a href="#iotop">iotop</a></li>
+            <li><a href="#ioping">ioping</a></li>
+            <li><a href="#atop">atop</a></li>
+          </ul>
+          <section id="dstat">
+            <h4><code>dstat</code></h4>
+            <p> In spite of the fact that the dstat command begins with the letter “d”, it provides stats on a lot more than just disk activity. This includes CPU stats. If you use the command without specifying options, the command displays the data in the format shown below...</p>
+            <p>Note that the command output displays user, system and idle time along with other stats like disk read and write activity, interrupts and context switches.</p>
+            <hr/>
+            <p>The following command displays the top processes related to memory and CPU usage.</p>
+            <pre>$ dstat --top-mem --top-cpu</pre>
+            <p>If you want to view just disk activity, you can use the -d option. As shown below, you’ll get a continuous list of disk read/write measurements until you stop the display with a ^c. Note that after the first report, each subsequent row in the display will report disk activity in the following time interval, and the default is only one second.</p>
+            <pre>$ dstat -d</pre>
+            <p>Including a number after the -d option will set the interval to that number of seconds.</p>
+            <pre>$ dstat -d 10</pre>
+            <p>Notice that the reported data may be shown in a number of different units — e.g., M (megabytes), k (kilobytes), and B (bytes).</p>
+            <p>The dstat command provides valuable insights into overall Linux system performance, pretty much replacing a collection of older tools, such as vmstat, netstat, iostat, and ifstat, with a flexible and powerful command that combines their features.</p>
+          </section>
+          <section id="iostat">
+            <h4><code>iostat</code></h4>
+            <p>The iostat command helps monitor system input/output device loading by observing the time the devices are active in relation to their average transfer rates. It’s sometimes used to evaluate the balance of activity between disks.</p>
+            <p>Of course, all the stats provided on Linux loop devices can clutter the display when you want to focus solely on your disks. The command, however, does provide the -p option, which allows you to just look at your disks — as shown in the commands below...</p>
+            <pre>$ iostat -p sda</pre>
+            <p>Note that tps refers to transfers per second.</p>
+            <p>You can also get iostat to provide repeated reports. In the example below, we’re getting measurements every five seconds by using the -d option.</p>
+            <pre>$ iostat -p sda -d 5</pre>
+          </section>
+          <section id="iotop">
+            <h4><code>iotop</code></h4>
+            <p>The iotop command is a top-like utility for looking at disk I/O. It gathers I/O usage information provided by the Linux kernel so that you can get an idea which processes are most demanding in terms of disk I/O. In the example below, the loop time has been set to 5 seconds. The display will update itself periodically, overwriting the previous output.</p>
+            <pre>$ sudo iotop -d 5</pre>
+          </section>
+          <section id="ioping">
+            <h4><code>ioping</code></h4>
+            <p>The ioping command is an altogether different type of tool, but it can report disk latency — how long it takes a disk to respond to requests — and can be helpful in diagnosing disk problems.</p>
+            <pre>$ sudo ioping /dev/sda1</pre>
+          </section>
+          <section id="atop">
+            <h4><code>atop</code></h4>
+            <p>The atop command, like top,  provides a vast assortment of information on system performance, including some stats on disk activity and the amount of load on the system’s resources at the process level.</p>
+            <p>If you want to look at just the disk stats, you can easily manage that with a command like this:</p>
+            <pre>$ atop | grep DSK</pre>
+            <p>To view stats on memory usage, run a command like this one:</p>
+            <pre>$ atop | grep MEM</pre>
+          </section>
+        </section>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
