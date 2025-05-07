@@ -25,9 +25,48 @@
 
 - https://libretexts.org/
 
+- https://www.britannica.com/science/microbiology
+
+- https://www.asturnatura.com/naturaleza/flora/plantas-cultivos-ruderal
+
+- https://www.indefenseofplants.com/
+
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] write *seed-banks.html* from seed_banks
+
+[ ] añadir a bases de datos en castellano
+<p>La típica base de datos comercial (de una empresa dedicada a la venta o distribución) contendría tablas para:</p>
+<ul>
+  <li>clientes</li>
+  <li>pedidos</li>
+  <li>proveedores</li>
+  <li>productos</li>
+</ul>
+
+[ ] write *cam.html#agave* (CAM Photosynthesis) and move *Agave* into *agave.html*
+[x] link to *agave.html* from *dryland-agriculture.html*
+[ ] link to *agave.html* from similar
+[ ] link to *agave.html* from *cam.html*
+[x] link to *agave.html* from *photosynthesis.html*
+
+[ ] escribir *convenciones.html*
+- relacionar convención con *coordinatrices.html*
+<p>Tipos de convención:</p>
+<ul>
+  <li>lenguajes</li>
+  <li>nombres propios (de personas, geográficos, obras etc.)</li>
+  <li>títulos (nobiliarios, de propiedad, nombramientos etc.)</li>
+  <li>normas</li>
+  <li>¿protocolos?</li>
+</ul>
+
+[ ] escribir *titulos.html*
+<p>Decimos que un libro, una canción o una creación en general tienen un <q>título</q>, un nombre que nos sirve para hacer referencia a él, para nombrarlo (<dfn>título-nombre</dfn>).</p>
+<p>Un <dfn>título-posesión</dfn> en cambio es una predicación.</p>
+<p>Un título-posesión determina el comportamiento y uso de una persona, cosa u otro ente maś allá de lo obvio y natural.</p>
 
 [ ]
 <section>
@@ -979,7 +1018,36 @@ What about tables that are un-limited both horizontally and vertically? The Rela
 
 [ ] write *adventitious-roots.html* and link from [ ] *taproot.html*, [ ] *plants.html*, and [ ] elsewhere
 
+[ ]
+<h2>A Crop Origins</h2>
+<p>The progenitors of many of the crops grown in the temperate, northern hemisphere were ruderal species native to frequently disturbed areas in the Mediterranean Basin. Examples include wheat, barley, oat, sunflower, radish, and lettuce (Smartt and Simmonds, 1995). Many ruderal species share attributes such as (1) high rates of resource acquisition and vegetative growth, (2) allocation patterns that respond flexibly to changing resource availability, (3) low levels of defensive chemicals, (4) early onset of reproduction, (5) self-compatibility, (6) high seed production, (7) adaptations for short- and long-distance dispersal, and (8) variable seed dormancy (Baker, 1974; Chapin, 1980). Some of these attributes are obviously advantageous for crops in cultivated environments (termed preadaptations), whereas others, such as variable seed dormancy, are clearly problematic for maximizing harvestable yield. In general, early successional species have a greater breadth of response for such parameters as germination, survivorship, and growth to gradients of resource availability than do species typical of later successional stages (Bazzaz, 1987). Large niche breadth means that these species can establish and survive in unpredictable environments such as those that occur in disturbed or sparsely occupied sites.</p>
+From: https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/ruderal-species
+
+
 ## Tasks on ASUS Laptop
+
+<h2><code>systemd-journald</code> takes up 50% of CPU</h2>
+<p>Maybe it can be quietened down through <cite>journald.conf</cite>. Learn some more and edit its configuration file:</p>
+<pre>man journald.conf</pre>
+<hr/>
+<p>I run:</p>
+<pre>systemctl status systemd-journald.service</pre>
+<p>So next I try:</p>
+<pre>sudo systemctl stop systemd-journald.service</pre>
+<p>I get the following warning though:</p>
+<pre>Stopping 'systemd-journald.service', but its triggering units are still active:
+systemd-journald.socket, systemd-journald-dev-log.socket</pre>
+<p>So I run:</p>
+<pre>sudo systemctl stop systemd-journald.socket</pre>
+<pre>sudo systemctl stop systemd-journald-dev-log.socket</pre>
+
+<h2>How To Use Journalctl to View and Manipulate Systemd Logs</h2>
+<p>Some of the most compelling advantages of systemd are those involved with process and system logging. When using other tools, logs are usually dispersed throughout the system, handled by different daemons and processes, and can be fairly difficult to interpret when they span multiple applications. systemd attempts to address these issues by providing a centralized management solution for logging all kernel and userland processes. The system that collects and manages these logs is known as the journal.</p>
+<p>The journal is implemented with the journald daemon, which handles all of the messages produced by the kernel, initrd, services, etc. In this guide, we will discuss how to use the journalctl utility, which can be used to access and manipulate the data held within the journal.</p>
+
+<aside><i>See</i> <code><a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs">https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs</a></code></aside>
+<aside><i>See</i> <code><a target="_blank" href="https://www.freedesktop.org/software/systemd/man/latest/systemd-journald.service.html">https://www.freedesktop.org/software/systemd/man/latest/systemd-journald.service.html</a></code></aside>
+
 
 <h2>Removing ever-growing log files:</h2>
 <pre>sudo rm kern.log syslog</pre>
