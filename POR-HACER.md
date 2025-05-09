@@ -35,7 +35,16 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] write *seed-banks.html* from seed_banks
+[ ]
+<p>If you want to check your database size you can use <code>db.stats()</code> command. Still, it only produces statistics for the database you are in, not for all the other databases in your account.</p>
+
+[ ] *mongodb.atlas.html* is sketchy and fairly confusing; also, I see it as pointless at the moment as I favour mongosh full stop
+
+[ ] write *quinoa.html* Quinoa (<i lang="la">Chenopodium quinoa</i>)
+
+[ ] write *amaranth.html* Amaranth (<i lang="la">Amaranthus spp.</i>)
+
+[x] write *seed-banks.html* from seed_banks
 
 [ ] añadir a bases de datos en castellano
 <p>La típica base de datos comercial (de una empresa dedicada a la venta o distribución) contendría tablas para:</p>

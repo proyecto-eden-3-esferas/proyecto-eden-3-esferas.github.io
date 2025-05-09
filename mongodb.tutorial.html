@@ -25,22 +25,13 @@
     <!-- -->
       <div>
         <p><a rel="prev" href="mongodb.html">MongoDB: A JSON Document Database</a></p>
-        <p><a rel="next" href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
-        <p><a            href="mql.html">MongoDB Query Language</a></p>
+        <p><a             href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
-      </div>
-      <div>
-        <p><a            href="nosql.html">NoSQL DataBases</a></p>
         <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
       </div>
       <div>
         <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
         <p><a            href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
-      </div>
-      <div>
-        <p><a            href="database.html">DataBases</a></p>
-        <p><a            href="dataset.html">Data Sets</a></p>
-
       </div>
 
     </nav>
@@ -49,252 +40,138 @@
     <main>
 
       <h1>MongoDB Tutorial</h1>
+      <p>Having learned how to <a target="_blank" href="mongodb.html#install">install</a> and log in into MongoDB, we go on to manage our databases:</p>
+      <nav>
+        <p><a                 href="#managing">Handling DataBases and Collections</a></p>
+        <p><a target="_blank" href="mongodb.querying.html">Querying and Indexing a MongoDB Database</a></p>
+        <p><a                 href="#insert">Inserting (Objects) in MongoDB</a></p>
+        <p><a                 href="#update">Updating Documents</a></p>
+        <p><a                 href="#remove">Removing Documents</a></p>
+        <p><a                 href="#io">Outputing to and Inputing from a File</a></p>
+        <p><a                 href="#schema-validation">MongoDB Schema Validation</a></p>
+        <p><a                 href="#mongoimport">Inputing from a File with <code class="command">mongoimport</code></a></p>
+      </nav>
 
-      <section id="mongosh-windows">
-        <h2><code>mongosh</code> on Windows</h2>
+
+      <section id="managing">
+        <h2>Handling DataBases</h2>
+        <section>
+          <h3>Finding Which Database(s) you are <q>Using</q> Currently</h3>
+          <p>After connecting to your database using <code>mongosh</code>, you can see which database you are using by typing <code>db</code> in your terminal.</p>
+          <p>If you have used the connection string provided from the MongoDB Atlas dashboard, you should be connected to the <var>myFirstDatabase</var> database.</p>
+        </section>
+        <section>
+          <h3>Collections in MongoDB</h3>
+          <p>A <dfn>collection</dfn> is a set of JSON objects, and is analogous to a table in a relational database.</p>
+          <ul>
+            <li>
+              <p>To create a collection issue: <kbd>db.createCollection("myCollection")</kbd></p>
+            </li>
+            <li>
+              <p>To insert data into a (possibly non-existent) collection issue: <kbd>db.myCollection.insert({"name": "john", "age" : 22, "location": "colombo"})</kbd></p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Show all Databases or all Collections</h3>
+          <p>To see all available databases, in your terminal type <code>show databases</code> or <code>show dbs</code>.</p>
+          <p>To see all available collections, in your terminal type <code>show collections</code> or <code>show tables</code>.</p>
+          <hr/>
+          <p>Notice that <var>myFirstDatabase</var> is not listed. This is because the database is empty. An empty database is essentially non-existant.</p>
+        </section>
+        <section>
+          <h3>Change or Create a Database or Create a Collection</h3>
+          <p>You can change or create a new database by typing <code>use</code> then the name of the database.</p>
+          <h4>Example</h4>
+          <p>Create a new database called <var>blog</var>:</p>
+          <pre>use blog</pre>
+          <p>We are now in the <var>blog</var> database.</p>
+          <p>If database <var>blog</var> already existed, then <code>use blog</code> would just change into database <var>blog</var>.</p>
+          <p><strong>Remember:</strong> In MongoDB, a database is not actually created until it gets content!</p>
+        </section>
       </section>
 
-      <section id="using-mongosh">
-        <h2>Using <code>mongosh</code></h2>
-
-        <section id="databases">
-          <h3>Handling DataBases</h3>
-            <h4>Finding Which Database(s) you are <q>Using</q> Currently</h4>
-            <p>After connecting to your database using <code>mongosh</code>, you can see which database you are using by typing <code>db</code> in your terminal.</p>
-            <p>If you have used the connection string provided from the MongoDB Atlas dashboard, you should be connected to the <var>myFirstDatabase</var> database.</p>
-          <hr/>
-            <h4>Show all databases</h4>
-            <p>To see all available databases, in your terminal type <code>show dbs</code>.</p>
-            <p>Notice that <var>myFirstDatabase</var> is not listed. This is because the database is empty. An empty database is essentially non-existant.</p>
-          <hr/>
-            <h4>Change or Create a Database</h4>
-            <p>You can change or create a new database by typing <code>use</code> then the name of the database.</p>
-            <h5>Example</h5>
-            <p>Create a new database called <var>blog</var>:</p>
-            <pre>use blog</pre>
-            <p>We are now in the <var>blog</var> database.</p>
-            <p><strong>Remember:</strong> In MongoDB, a database is not actually created until it gets content!</p>
-        </section>
-
-        <section id="finding">
-          <h3>Finding Data</h3>
-          <p>There are two methods to and select data from a MongoDB collection, <code>find()</code> and <code>findOne()</code>.</p>
-            <h4><code>find(<var>QUERY_OBJECT</var>)</code></h4>
-            <p>This method accepts a query object, actually a query object. If left empty, all documents will be returned.</p>
-            <pre></pre>
-          <hr/>
-            <h4><code>findOne(<var>QUERY_OBJECT</var>)</code></h4>
-            <p><code>findOne()</code> is used to select only one document.</p>
-            <pre></pre>
-          <hr/>
-            <h4>Querying Data</h4>
-            <p>To query, or filter, data we can include a query in our <code>find()</code> or <code>findOne()</code> methods.</p>
-            <p>Example:</p>
-            <pre>db.posts.find( {category: "News"} )</pre>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4>Projection</h4>
-            <p>Both find methods accept a second parameter called projection.</p>
-            <p>This parameter is an object that describes which fields to include in the results.</p>
-            <p><strong>Note:</strong> This parameter is optional. If omitted, all fields will be included in the results.</p>
-            <p class="bridgehead">Example:</p>
-            <p>This example will only display the title and date fields in the results.</p>
-            <pre>db.posts.find({}, {title: 1, date: 1})</pre>
-            <p>Notice that the <code>_id</code> field is also included. This field is always included unless specifically excluded.</p>
-            <p>We use a <code>1</code> to include a field and <code>0</code> to exclude a field.</p>
-            <pre></pre>
-            <p class="bridgehead">Example:</p>
-            <p>This time, let&apos;s exclude the _id field.</p>
-            <pre>db.posts.find({}, {_id: 0, title: 1, date: 1})</pre>
-            <p><strong>Note:</strong> You cannot use both 0 and 1 in the same object. The only exception is the _id field. You should either specify the fields you would like to include or the fields you would like to exclude.</p>
-            <p class="bridgehead">Example:</p>
-            <p>Let&apos;s exclude the <var>category</var> field. All other fields will be included in the results.</p>
-            <pre>db.posts.find({}, {category: 0})</pre>
-            <p>We will get an error if we try to specify both 0 and 1 in the same object.</p>
-            <!--
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-            -->
-        </section>  <!-- end of "Finding Data" -->
-
-        <section id="indexing-search">
-          <h3>Indexing/Search</h3>
-          <p>To create an index, use the createIndex() shell method or equivalent method for your driver.</p>
-          <p>When you run a create index command in the MongoDB Shell or a driver, MongoDB only creates the index if an index of the same specification does not exist.</p>
-
-            <h4>Creating an Index using the node.js driver (<code>createIndex()</code>)</h4>
-            <p>o create an index using the Node.JS driver, use <code>createIndex()</code>.</p>
-            <pre>collection.createIndex( { &lt;key and index type specification&gt; }, function(&lt;err&gt;, &lt;result&gt;) {
-   console.log(&lt;result&gt;);
-   callback(&lt;result&gt;);
-} )</pre>
-            <p>This example creates a single key ascending index on the name field:</p>
-            <pre>collection.createIndex( { name : 1 }, function(err, result) {
-   console.log(result);
-   callback(result);
-} )</pre>
-            <hr/>
-            <p>To see what indexes exist on your collection, including indexes that are currently being built, run the <code>db.collection.getIndexes()</code> method:</p>
-            <pre>db.collection.getIndexes()</pre>
-            <hr/>
-            <p>To check if your index is being built, use the <code>$currentOp</code> aggregation stage to return information about active operations on your database. To run <code>$currentOp</code> in mongosh, use the <code>db.aggregate()</code> method on the admin database.</p>
-            <p>The following aggregation pipeline uses the <code>$match</code> stage to return information about an active operation that builds a descending index on the name field:</p>
-            <pre>db.getSiblingDB("admin").aggregate( [
-   { $currentOp : { idleConnections: true } },
-   { $match : {"command.createIndexes": { $exists: true } } }
-] )</pre>
-            <hr/>
-            <p>MongoDB marks index builds in various stages, including waiting on commit quorum, as an idle connection by setting the <var>active</var> field to <code>false</code>. The <code>idleConnections: true</code> setting includes these idle connections in the <code>$currentOp</code> output.</p>
-            <hr/>
-            <p class="bridgehead">Specify an Index Name</p>
-            <p>When you create an index, you can give the index a custom name. Giving your index a name helps distinguish different indexes on your collection. For example, you can more easily identify the indexes used by a query in the query plan&apos;s explain results if your indexes have distinct names.</p>
-            <p>To specify the index name, include the name option when you create the index:</p>
-            <pre>db.&lt;collection&gt;.createIndex(
-   { &lt;field&gt;: &lt;value&gt; },
-   { name: "&lt;indexName&gt;" }
-)</pre>
-            <p>Before you specify an index name, consider the following:</p>
-            <ul>
-              <li>Index names must be unique. Creating an index with the name of an existing index returns an error.</li>
-              <li>You can&apos;t rename an existing index. Instead, you must drop and recreate the index with a new name.</li>
-            </ul>
-            <p class="bridgehead">Default Index Names</p>
-            <p>If you don&apos;t specify a name during index creation, the system generates the name by concatenating each index key field and value with underscores. For example: <code>{ score : 1 }</code> will produce an index named  <var>score_1</var>, while <code>{ content : "text", "description.tags": "text" }</code> will produce an index named <var>content_text_description.tags_text</var>.</p>
-            <hr/>
-            <p class="bridgehead">Procedure</p>
-            <p>A <var>blog</var> collection contains data about blog posts and user interactions.</p>
-            <p>Create a text index on the <var>content</var>, <var>users.comments</var>, and <var>users.profiles</var> fields. Set the index name to <var>InteractionsTextIndex</var>:</p>
-            <pre>db.blog.createIndex(
-   {
-     content: "text",
-     "users.comments": "text",
-     "users.profiles": "text"
-   },
-   {
-     name: "InteractionsTextIndex"
-   }
-)</pre>
-            <!--
-            <p></p>
-            <pre></pre>
-            -->
-            <h4>Creating an Index using the *** driver (<code>???</code>)</h4>
-            <p></p>
-            <pre></pre>
-            <h4>Creating an Index using the *** driver (<code>???</code>)</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4>Running a Query with the <code>$search</code> Operator</h4>
-            <p>To use our search index, we will use the <code>$search</code> operator in our aggregation pipeline.</p>
-            <p class="bridgehead">Example:</p>
-            <pre>db.movies.aggregate([
+      <section id="insert">
+        <h2>Inserting (Objects) in MongoDB</h2>
+        <ul>
+          <li>
+            <p>To insert one data item in a collection issue:</p>
+            <pre>>db.myCollection.insertOne(
   {
-    $search: {
-      index: "default", // optional unless you named your index something other than "default"
-      text: {
-        query: "star wars",
-        path: "title"
-      },
-    },
+    "name": "navindu",
+    "age": 22
+  }
+)</pre>
+          </li>
+          <li>
+            <p>To insert several comma-separated data items in a collection issue:</p>
+            <pre>db.myCollection.insertMany([
+  {
+  "name": "navindu",
+  "age": 22
   },
   {
-    $project: {
-      title: 1,
-      year: 1,
-    }
+  "name": "kavindu",
+  "age": 20
+  },
+
+  {
+  "name": "john doe",
+  "age": 25,
+  "location": "colombo"
   }
 ])</pre>
-
-            <p>The first stage of this aggregation pipeline will return all documents in the movies collection that contain the word <q>star</q> or <q>wars</q> in the title field.</p>
-            <p>The second stage will project the <var>title</var> and <var>year</var> fields from each document.</p>
-            <!--
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          -->
-        </section>  <!-- end of "Indexing/Search" -->
+          </li>
+          <li>The <code class="function">insert()</code> method is similar to the <code class="function">insertMany()</code> method.</li>
+        </ul>
+      </section>
 
 
-        <section id="query-operators">
-          <h3>MongoDB Query Operators*</h3>
-          <p>There are many query operators that can be used to compare and reference document fields.</p>
-            <h4>Comparison</h4>
-            <p>The following operators can be used in queries to compare values:</p>
-            <ul>
-              <li><code>$eq</code>: Values are equal</li>
-              <li><code>$ne</code>: Values are not equal</li>
-              <li><code>$gt</code>: Value is greater than another value</li>
-              <li><code>$gte</code>: Value is greater than or equal to another value</li>
-              <li><code>$lt</code>: Value is less than another value</li>
-              <li><code>$lte</code>: Value is less than or equal to another value</li>
-              <li><code>$in</code>: Value is matched within an array</li>
-            </ul>
-          <hr/>
-            <h4>Logical</h4>
-            <p>The following operators can logically compare multiple queries.</p>
-            <ul>
-              <li><code>$and</code>: Returns documents where both queries match</li>
-              <li><code>$or</code>: Returns documents where either query matches</li>
-              <li><code>$nor</code>: Returns documents where both queries fail to match</li>
-              <li><code>$not</code>: Returns documents where the query does not match</li>
-            </ul>
-          <hr/>
-            <h4>Evaluation</h4>
-            <p>The following operators assist in evaluating documents.</p>
-            <ul>
-              <li><code>$regex</code>: Allows the use of regular expressions when evaluating field values</li>
-              <li><code>$text</code>: Performs a text search</li>
-              <li><code>$where</code>: Uses a JavaScript expression to match documents</li>
-            </ul>
-          <hr/>
-            <h4>Update</h4>
-            <p></p>
-            <pre></pre>
-            <h5>Fields</h5>
-            <p>The following operators can be used to update fields:</p>
-            <ul>
-              <li><code>$currentDate</code>: Sets the field value to the current date</li>
-              <li><code>$inc</code>: Increments the field value</li>
-              <li><code>$rename</code>: Renames the field</li>
-              <li><code>$set</code>: Sets the value of a field</li>
-              <li><code>$unset</code>: Removes the field from the document</li>
-            </ul>
-            <h5>Array</h5>
-            <p>The following operators assist with updating arrays.</p>
-            <ul>
-              <li><code>$addToSet</code>: Adds distinct elements to an array</li>
-              <li><code>$pop</code>: Removes the first or last element of an array</li>
-              <li><code>$pull</code>: Removes all elements from an array that match the query</li>
-              <li><code>$push</code>: Adds an element to an array</li>
-            </ul>
-          <!--
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          -->
-        </section>  <!-- end of "MongoDB Query Operators" -->
+      <section>
+        <h2>Special Index and Collection Types*</h2>
+      </section>
 
-        <section id="schema-validation">
-          <h3>MongoDB Schema Validation</h3>
-          <p>By default MongoDB has a flexible schema, unlike <a target="_blank" href="relational-database.html">Relational DataBases</a>. This means that there is no strict schema validation set up initially.</p>
-          <p>Schema validation rules can be created in order to ensure that all documents in a collection share a similar structure.</p>
+      <section>
+        <h2>Introduction to the Aggregation Framework*</h2>
+      </section>
 
-          <p>MongoDB supports <a target="_blank" href="json.html#validation">JSON Schema validation</a>. The <code>$jsonSchema</code> operator allows us to define our document structure.</p>
-          <pre>db.createCollection("posts", {
+
+
+      <section id="update">
+        <h2>Updating Documents</h2>
+        <ul>
+          <li>To update someone's age issue: <kbd>db.myCollection.update({age : 20}, {$set: {age: 23}})</kbd></li>
+        </ul>
+      </section>
+      <section id="remove">
+        <h2>Removing Documents</h2>
+        <ul>
+          <li>To remove a property (i.e. a key-value pair), issue: <kbd>db.myCollection.update({name: "navindu"}, {$unset: age});</kbd></li>
+          <li>To remove one document, issue: <kbd>db.myCollection.remove({name: "navindu"});</kbd></li>
+          <li>To remove a whole collection, issue: <kbd>db.myCollection.remove({});</kbd>. Note, this is not equal to the <code>drop()</code> method. The difference is that <code>drop()</code> is used to remove all the documents inside a collection, but the <code>remove()</code> method is used to delete all the documents along with the collection itself.</li>
+        </ul>
+      </section>
+      <section id="io">
+        <h2>Outputing to and Inputing from a File</h2>
+        <p>You can log all the shell session if you invoked the shell with tee command: <kbd>mongo | tee session.txt</kbd>. Or you can use the <kbd>--eval</kbd> switch like so: <kbd>mongo localhost:27017/dbname --eval "printjson(db.MyCollection.find().pretty())" &gt; sample.json</kbd>.</p>
+        <section>
+          <h3>Outputing to a File with <code class="command">mongoexport</code></h3>
+          <ul>
+            <li>To get all documents in collection crops, in database farming, into file <filename>farming.crops.json</filename>, issue: <kbd>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty</kbd></li>
+            <li>To get results as an array, add <kbd>--jsonArray</kbd>, as in: <kbd>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty --jsonArray</kbd></li>
+            <li>You can select which fields to get through <kbd>-f, --fields=&lt;field&gt;[,&lt;field&gt;]*</kbd> (a comma separated list of field names (required for exporting CSV) e.g. -f "name,age") or <kbd>--fieldFile=&lt;filename&gt;</kbd> (a file with field names, one per line)</li>
+            <li>You can specify a query filter through <kbd>-q, --query=&lt;json&gt;</kbd>, such as <kbd>{x:{$gt:1}}</kbd>, or set a path to a query file  containing a query filter for JSON files, through <kbd>--queryFile=&lt;filename&gt;</kbd></li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="schema-validation">
+        <h2>MongoDB Schema Validation</h2>
+        <p>By default MongoDB has a flexible schema, unlike <a target="_blank" href="relational-database.html">Relational DataBases</a>. This means that there is no strict schema validation set up initially.</p>
+        <p>Schema validation rules can be created in order to ensure that all documents in a collection share a similar structure.</p>
+
+        <p>MongoDB supports <a target="_blank" href="json.html#validation">JSON Schema validation</a>. The <code>$jsonSchema</code> operator allows us to define our document structure.</p>
+        <pre>db.createCollection("posts", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
@@ -328,84 +205,52 @@
     }
   }
 })</pre>
-          <p>This will create the posts collection in the current database and specify the JSON Schema validation requirements for the collection.</p>
-          <!--
-          <p></p>
-          <pre></pre>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          -->
-        </section>  <!-- end of "MongoDB Schema Validation" -->
+        <p>This will create the posts collection in the current database and specify the JSON Schema validation requirements for the collection.</p>
+      </section>  <!-- end of "MongoDB Schema Validation" -->
 
-        <!--
-        <section id="*">
-          <h3>Finding Data</h3>
-          <aside>***</aside>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-        </section>
-
-        <section id="*">
-          <h3>Finding Data</h3>
-          <aside>***</aside>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-          <hr/>
-            <h4><code></code> and <code></code>*</h4>
-            <p></p>
-            <pre></pre>
-        </section>
-        -->
-
-      </section>  <!-- end of "Using <code>mongosh</code>" -->
-
+      <section id="mongoimport">
+        <h2>Inputing from a File with <code class="command">mongoimport</code></h2>
+        <p>Switches <kbd>--db</kbd>, <kbd>--collections</kbd>, <kbd>--fields</kbd>, <kbd>--fieldFile</kbd>, <kbd>--jsonArray</kbd> are the same as with <code class="command">mongoexport</code>.</p>
+        <p>Command <code class="command">mongoimport</code> has some ingest switches, too:</p>
+        <dl>
+          <dt>
+            <kbd>--drop</kbd>
+          </dt>
+          <dd>drop collection before inserting documents</dd>
+          <dt>
+            <kbd>--ignoreBlanks</kbd>
+          </dt>
+          <dd>ignore fields with empty values in CSV and TSV</dd>
+          <dt>
+            <kbd>--maintainInsertionOrder</kbd>
+          </dt>
+          <dd>insert documents in the order of their appearance in the input source</dd>
+          <dt>
+            <kbd>-j, --numInsertionWorkers=&lt;number&gt;</kbd>
+          </dt>
+          <dd>number of insert operations to run concurrently (defaults to 1) (default: 1)</dd>
+          <dt>
+            <kbd>--stopOnError</kbd>
+          </dt>
+          <dd>stop importing at first insert/upsert error</dd>
+          <dt>
+            <kbd>--mode=[insert|upsert|merge]</kbd>
+          </dt>
+          <dd>insert: insert only; upsert: insert or replace existing documents; merge: insert or modify existing documents; defaults to insert</dd>
+          <dt>
+            <kbd>--upsertFields=&lt;field&gt;[,&lt;field&gt;]*</kbd>
+          </dt>
+          <dd>comma-separated fields for the query part when --mode is set to upsert or merge</dd>
+          <dt>
+            <kbd>--writeConcern=&lt;write-concern-specifier&gt;</kbd>
+          </dt>
+          <dd>write concern options e.g. --writeConcern majority, --writeConcern '{w: 3, wtimeout: 500, fsync: true, j: true}'</dd>
+          <dt>
+            <kbd>--bypassDocumentValidation</kbd>
+          </dt>
+          <dd>bypass document validation</dd>
+        </dl>
+      </section>
 
     </main>
 
