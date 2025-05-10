@@ -46,7 +46,7 @@
         <p><a target="_blank" href="mongodb.querying.html">Querying and Indexing a MongoDB Database</a></p>
         <p><a                 href="#insert">Inserting (Objects) in MongoDB</a></p>
         <p><a                 href="#update">Updating Documents</a></p>
-        <p><a                 href="#remove">Removing Documents</a></p>
+        <p><a                 href="#delete">Removing Documents</a></p>
         <p><a                 href="#io">Outputing to and Inputing from a File</a></p>
         <p><a                 href="#schema-validation">MongoDB Schema Validation</a></p>
         <p><a                 href="#mongoimport">Inputing from a File with <code class="command">mongoimport</code></a></p>
@@ -65,10 +65,10 @@
           <p>A <dfn>collection</dfn> is a set of JSON objects, and is analogous to a table in a relational database.</p>
           <ul>
             <li>
-              <p>To create a collection issue: <kbd>db.createCollection("myCollection")</kbd></p>
+              <p>To create a collection issue: <code>db.createCollection("myCollection")</code></p>
             </li>
             <li>
-              <p>To insert data into a (possibly non-existent) collection issue: <kbd>db.myCollection.insert({"name": "john", "age" : 22, "location": "colombo"})</kbd></p>
+              <p>To insert data into a (possibly non-existent) collection issue: <code>db.myCollection.insert({"name": "john", "age" : 22, "location": "colombo"})</code></p>
             </li>
           </ul>
         </section>
@@ -135,32 +135,140 @@
         <h2>Introduction to the Aggregation Framework*</h2>
       </section>
 
-
-
       <section id="update">
         <h2>Updating Documents</h2>
+        <p>To update one or several documents we often rely on <code>$set</code>. Actually, we construct an object where <code>$set</code> is the key and the intended values are <code>$set</code>&apos;s value, as in:</p>
+        <pre>{$set: {"<var>my_key</var>": <var>my_value</var>}</pre>
+        <p>Updating documents can be done in three ways in MongoDB:</p>
         <ul>
-          <li>To update someone's age issue: <kbd>db.myCollection.update({age : 20}, {$set: {age: 23}})</kbd></li>
+          <li><code>update()</code>: updates one or many documents matching the criteria, based on the value set for the boolean parameter <var>multi</var>. If multi is <code>false</code>, the query updates only one record.</li>
+          <li><code>updateOne()</code>: updates the first document found with the matching criteria</li>
+          <li><code>updateMany()</code>: updates all the documents that match the specified criteria</li>
+        </ul>
+        <h4 class="bridgehead">A very simple example</h4>
+        <p>To update someone&apos;s age issue: <code>db.myCollection.update({age : 20}, {$set: {age: 23}})</code></p>
+        <h4 class="bridgehead">A worked example</h4>
+        <p>Suppose we want to update the exam score to 35 in some document that we inserted above. The query is as follows:</p>
+        <pre>db.grades.updateOne({_id: 1, "scores.type": 'exam'},\</pre>
+        <pre>                    {$set:{'scores.$.score': 35}})</pre>
+        <p>Note that the <var>scores</var> field is an array/object, so we use the dot operator to access the fields. To update the value, we need to use the positional operator (<code>$</code>). If the document is updated successfully, you will get an acknowledgement:</p>
+        <pre>{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}</pre>
+        <p>Note the parameter upsertedCount. MongoDB uses an optional parameter known as ‘upsert&apos;, the value of which can be a boolean (true/false). While writing the update query, if upsert is set to true, the document is inserted if it doesn&apos;t exist.</p>
+        <h4 class="bridgehead">An example with <var>upset</var> set to <code>true</code></h4>
+        <p>For example, let&apos;s try to update a document with <var>_id</var> as 10000 (which doesn&apos;t exist), with <var>upsert</var> as <code>true</code>:</p>
+        <pre>db.grades.update(
+   { student_id: 10000 },
+   { $set:
+      {
+         class_id: 180, "scores.type": "exam", "scores.score" : 50
+      }
+   },
+   { upsert: true }
+)</pre>
+        <section>
+          <h3>Operator <code>$unset</code></h3>
+          <p>The <code>$unset</code> operator is the exact opposite of the <code>$set</code> operator. Rather than assigning a new value to a field, the $unset operator will give an empty value to a field thereby deleting it. Here&apos;s an example of the <code>$unset</code> operator,</p>
+          <pre>db.grades.update({_id: 1}, {$unset: {"scores.score": ""}}),\</pre>
+          <p>whereby <var>scores.score</var> is removed for object with <var>_id</var> equal to 1.</p>
+        </section>
+        <section>
+          <h3>Operator <code>$inc</code></h3>
+          <p>The <code>$inc</code> operator is MongoDB&apos;s abbreviation of <q>increment</q>, an operator designed to increase or decrease the value of a field. <code>$inc</code> can be used with either floats or integers, which means that decimal values can be passed through <code>$inc</code> without an issue. Here&apos;s an example of the <code>$inc</code> operator with an integer.</p>
+          <pre>db.grades.update({_id: 111}, {$inc: {"scores.score": -1}}),\</pre>
+          <p>Here the value of <var>scores.score</var> is decreased by one. For example, if its value was previously 10, now it would be 9.</p>
+        </section>
+        <section>
+          <h3>Operator <code>$push</code></h3>
+          <p>The <code>$push</code> operator can push a new element to an array field or modify an existing element. Elements are similar to values in a list and are held in a specific field.</p>
+          <p>An example</p>
+          <!--
+          <pre></pre>
+          -->
+          <section>
+            <h4>Modifiers</h4>
+            <p>In MongoDB there are four modifiers, <code>$each</code>, <code>$position</code>, <code>$slice</code>, and <code>$sort</code>. These all modify the functionality of the <code>$push</code> operator to help with organization or efficiency. While these modifiers are not required when performing an update on a document, they play a key role in simplifying the updating process.</p>
+            <section>
+              <h5><code>$each</code></h5>
+              <p>The <code>$each</code> modifier can be used with <code>$push</code> or <code>$addToSet</code> to select multiple items to append to a field. Rather than copying a previous $push command and complicating the query, the $each modifier allows users to seamlessly execute multiple $push commands.</p>
+            </section>
+            <section>
+              <h5><code>$position</code></h5>
+              <p>The <code>$position</code> modifier allows users to specify where in an array an item should be appended. In fields where proper ordering is crucial, the <code>$position</code> modifier is a simple solution to any issues with item placement.</p>
+            </section>
+            <section>
+              <h5><code>$slice</code></h5>
+              <p>The <code>$slice</code> modifier performs a similar function to the <code>$limit</code> operator in the aggregation pipeline; it reduces the total documents to a finite number. The <code>$slice</code> operator allows users to create a new limit in the updated collection which will be executed alongside any other updates.</p>
+            </section>
+            <section>
+              <h5><code>$sort</code></h5>
+              <p>The <code>$sort</code> modifier allows users to rearrange documents according to a given metric/field. For example, if a user wanted to arrange a list of books in order of publish date, the $sort modifier would allow them to do so.</p>
+            </section>
+            <section>
+              <h5><code>$bit</code></h5>
+              <p>The <code>$bit</code> operator is unique because it modifies the individual bits of a field. $bit uses bitwise functions such as <code>AND</code>, <code>OR</code>, and <code>XOR</code> to create conditionals for which bits it chooses to modify. $bit is a highly technical operator with limited uses in most day-to-day queries.</p>
+            </section>
+          </section>
+        </section>
+
+        <section>
+          <h3>Operator <code>$pull</code></h3>
+          <p>The <code>$pull</code> operator is the opposite of the <code>$push</code> operator. It removes one element from an array field or, if there is only one element left in the array, deletes the entire field from a document.</p>
+          <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+        <!--
+        <section>
+          <h3>Operator <code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3>Operator <code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+     v
+        -->
+      </section>
+
+      <section id="delete">
+        <h2>Deleting/Removing Documents</h2>
+        <p>Analogously to other operations, MongoDB provides <code>deleteOne()</code> and <code>deleteMany()</code> options.</p>
+        <p>Some common cases:</p>
+        <ul>
+          <li>To remove a document fulfilling a simple key-value condition, issue: <code>db.myCollection.remove({name: "navindu"});</code></li>
+          <li>To remove just a property (i.e. a key-value pair), issue: <code>db.myCollection.update({name: "navindu"}, {$unset: age});</code></li>
+        </ul>
+        <p>To remove whole collections you have a choice:</p>
+        <ul>
+          <li>To remove a whole collection, issue: <code>db.myCollection.remove({});</code>.</li>
+          <li>To remove all the documents in a collection, issue: <code>db.myCollection.drop();</code>.</li>
         </ul>
       </section>
-      <section id="remove">
-        <h2>Removing Documents</h2>
-        <ul>
-          <li>To remove a property (i.e. a key-value pair), issue: <kbd>db.myCollection.update({name: "navindu"}, {$unset: age});</kbd></li>
-          <li>To remove one document, issue: <kbd>db.myCollection.remove({name: "navindu"});</kbd></li>
-          <li>To remove a whole collection, issue: <kbd>db.myCollection.remove({});</kbd>. Note, this is not equal to the <code>drop()</code> method. The difference is that <code>drop()</code> is used to remove all the documents inside a collection, but the <code>remove()</code> method is used to delete all the documents along with the collection itself.</li>
-        </ul>
-      </section>
+
       <section id="io">
         <h2>Outputing to and Inputing from a File</h2>
-        <p>You can log all the shell session if you invoked the shell with tee command: <kbd>mongo | tee session.txt</kbd>. Or you can use the <kbd>--eval</kbd> switch like so: <kbd>mongo localhost:27017/dbname --eval "printjson(db.MyCollection.find().pretty())" &gt; sample.json</kbd>.</p>
+        <p>You can log all the shell session if you invoked the shell with tee command: <code>mongo | tee session.txt</code>. Or you can use the <code>--eval</code> switch like so: <code>mongo localhost:27017/dbname --eval "printjson(db.MyCollection.find().pretty())" &gt; sample.json</code>.</p>
         <section>
           <h3>Outputing to a File with <code class="command">mongoexport</code></h3>
           <ul>
-            <li>To get all documents in collection crops, in database farming, into file <filename>farming.crops.json</filename>, issue: <kbd>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty</kbd></li>
-            <li>To get results as an array, add <kbd>--jsonArray</kbd>, as in: <kbd>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty --jsonArray</kbd></li>
-            <li>You can select which fields to get through <kbd>-f, --fields=&lt;field&gt;[,&lt;field&gt;]*</kbd> (a comma separated list of field names (required for exporting CSV) e.g. -f "name,age") or <kbd>--fieldFile=&lt;filename&gt;</kbd> (a file with field names, one per line)</li>
-            <li>You can specify a query filter through <kbd>-q, --query=&lt;json&gt;</kbd>, such as <kbd>{x:{$gt:1}}</kbd>, or set a path to a query file  containing a query filter for JSON files, through <kbd>--queryFile=&lt;filename&gt;</kbd></li>
+            <li>To get all documents in collection crops, in database farming, into file <filename>farming.crops.json</filename>, issue: <code>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty</code></li>
+            <li>To get results as an array, add <code>--jsonArray</code>, as in: <code>mongoexport --db=farming --collection=crops --out="farming.crops.json" --pretty --jsonArray</code></li>
+            <li>You can select which fields to get through <code>-f, --fields=&lt;field&gt;[,&lt;field&gt;]*</code> (a comma separated list of field names (required for exporting CSV) e.g. -f "name,age") or <code>--fieldFile=&lt;filename&gt;</code> (a file with field names, one per line)</li>
+            <li>You can specify a query filter through <code>-q, --query=&lt;json&gt;</code>, such as <code>{x:{$gt:1}}</code>, or set a path to a query file  containing a query filter for JSON files, through <code>--queryFile=&lt;filename&gt;</code></li>
           </ul>
         </section>
       </section>
@@ -210,43 +318,43 @@
 
       <section id="mongoimport">
         <h2>Inputing from a File with <code class="command">mongoimport</code></h2>
-        <p>Switches <kbd>--db</kbd>, <kbd>--collections</kbd>, <kbd>--fields</kbd>, <kbd>--fieldFile</kbd>, <kbd>--jsonArray</kbd> are the same as with <code class="command">mongoexport</code>.</p>
+        <p>Switches <code>--db</code>, <code>--collections</code>, <code>--fields</code>, <code>--fieldFile</code>, <code>--jsonArray</code> are the same as with <code class="command">mongoexport</code>.</p>
         <p>Command <code class="command">mongoimport</code> has some ingest switches, too:</p>
         <dl>
           <dt>
-            <kbd>--drop</kbd>
+            <code>--drop</code>
           </dt>
           <dd>drop collection before inserting documents</dd>
           <dt>
-            <kbd>--ignoreBlanks</kbd>
+            <code>--ignoreBlanks</code>
           </dt>
           <dd>ignore fields with empty values in CSV and TSV</dd>
           <dt>
-            <kbd>--maintainInsertionOrder</kbd>
+            <code>--maintainInsertionOrder</code>
           </dt>
           <dd>insert documents in the order of their appearance in the input source</dd>
           <dt>
-            <kbd>-j, --numInsertionWorkers=&lt;number&gt;</kbd>
+            <code>-j, --numInsertionWorkers=&lt;number&gt;</code>
           </dt>
           <dd>number of insert operations to run concurrently (defaults to 1) (default: 1)</dd>
           <dt>
-            <kbd>--stopOnError</kbd>
+            <code>--stopOnError</code>
           </dt>
           <dd>stop importing at first insert/upsert error</dd>
           <dt>
-            <kbd>--mode=[insert|upsert|merge]</kbd>
+            <code>--mode=[insert|upsert|merge]</code>
           </dt>
           <dd>insert: insert only; upsert: insert or replace existing documents; merge: insert or modify existing documents; defaults to insert</dd>
           <dt>
-            <kbd>--upsertFields=&lt;field&gt;[,&lt;field&gt;]*</kbd>
+            <code>--upsertFields=&lt;field&gt;[,&lt;field&gt;]*</code>
           </dt>
           <dd>comma-separated fields for the query part when --mode is set to upsert or merge</dd>
           <dt>
-            <kbd>--writeConcern=&lt;write-concern-specifier&gt;</kbd>
+            <code>--writeConcern=&lt;write-concern-specifier&gt;</code>
           </dt>
           <dd>write concern options e.g. --writeConcern majority, --writeConcern '{w: 3, wtimeout: 500, fsync: true, j: true}'</dd>
           <dt>
-            <kbd>--bypassDocumentValidation</kbd>
+            <code>--bypassDocumentValidation</code>
           </dt>
           <dd>bypass document validation</dd>
         </dl>

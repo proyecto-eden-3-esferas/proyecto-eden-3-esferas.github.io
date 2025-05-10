@@ -35,6 +35,20 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] <p><a            href="plant-breeding.html">Plant Breeding</a></p>
+
+[ ] añadir a *narcisismo.html*
+<p>La sensación que uno tiene al convivir con un narcisista de ir contra corriente todo el tiempo. Si uno se esfuerza por hacer lo que a su juicio considera mejor para sí y para los demás, chocar con oposición de todo tipo: interrupciones, cambios de planes, críticas, incluso prohibiciones. Sentir la necesidad de aislarse completamente del narcisista e intentar por todos los medios que su desánimo no nos influya. Uno podría encontrarse desarrollando su labor en su estudio, taller, parcela de jardín etc. y necesitaría imaginar una barrera que mantuviese fuera al narcisista, impedir que afecte a la labor de uno. No caer en el nihilismo sino recordar de que antes del contacto con él o ella la meta estaba clara, remontarse a una situación imaginaria sin la ingerencia del narcisista.</p>
+<p>El narcisista interfiere constantemente en la vida de los demás, en dos aspectos:</p>
+<ul>
+  <li>En su actividad, como acabo de describir</li>
+  <li>en su ...</li>
+</ul>
+<p>El narcisista es nihilista. El narcisista se aburre, no le ve el sentido a la actividad humana, sólo se satisface al acaparar la atención y energía de los demás.</p>
+
+[ ] link to *sorghum.html* Sorghum
+[ ] link to *millet.html*  Millet
+
 [ ]
 <p>If you want to check your database size you can use <code>db.stats()</code> command. Still, it only produces statistics for the database you are in, not for all the other databases in your account.</p>
 
