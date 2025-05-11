@@ -35,6 +35,8 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[x] *restful.html* RESTful API(s)
+
 [ ] <p><a            href="plant-breeding.html">Plant Breeding</a></p>
 
 [ ] añadir a *narcisismo.html*
@@ -803,11 +805,11 @@ Same caveats apply. Now it is a 352k file...
 [ ] get/read "The Garden Against Time: In Search Of A Common Paradise", Olivia Laing
 From one of our most original contemporary voices, The Garden Against Time is an inventive and deeply felt exploration of the long dream of a shared Eden, a common paradise."
 Description
-‘What a wonderful book this is. I loved the enchanting and beautifully written story but also the fascinating and thoughtful excursions along the way.’ – Nigel Slater
-‘A garden contains secrets, we all know that: buried elements that might put on strange growth or germinate in unexpected places. The garden that I chose had walls, but like every garden it was interconnected, wide open to the world . . .’
+‘What a wonderful book this is. I loved the enchanting and beautifully written story but also the fascinating and thoughtful excursions along the way.&apos; – Nigel Slater
+‘A garden contains secrets, we all know that: buried elements that might put on strange growth or germinate in unexpected places. The garden that I chose had walls, but like every garden it was interconnected, wide open to the world . . .&apos;
 In 2020, Olivia Laing began to restore a walled garden in Suffolk, an overgrown Eden of unusual plants. The work drew them into an exhilarating investigation of paradise and its long association with gardens.
-Moving between real and imagined gardens, from Milton’s Paradise Lost to John Clare’s enclosure elegies, from a wartime sanctuary in Italy to a grotesque aristocratic pleasure ground funded by slavery, Laing interrogates the sometimes shocking cost of making paradise on earth.
-But the story of the garden doesn’t always enact larger patterns of privilege and exclusion. It’s also a place of rebel outposts and communal dreams. From the improbable queer utopia conjured by Derek Jarman on the beach at Dungeness to the fertile vision of a common Eden propagated by William Morris. New modes of living can and have been attempted amidst the flower beds, experiments that could prove vital in the coming era of climate change.
+Moving between real and imagined gardens, from Milton&apos;s Paradise Lost to John Clare&apos;s enclosure elegies, from a wartime sanctuary in Italy to a grotesque aristocratic pleasure ground funded by slavery, Laing interrogates the sometimes shocking cost of making paradise on earth.
+But the story of the garden doesn&apos;t always enact larger patterns of privilege and exclusion. It&apos;s also a place of rebel outposts and communal dreams. From the improbable queer utopia conjured by Derek Jarman on the beach at Dungeness to the fertile vision of a common Eden propagated by William Morris. New modes of living can and have been attempted amidst the flower beds, experiments that could prove vital in the coming era of climate change.
 The Garden Against Time is a beautiful and exacting account of the abundant pleasures and possibilities of gardens: not as a place to hide from the world but as a site of encounter and discovery, bee-loud and pollen-laden.
 
 [ ] get/read "Afterglow: Climate Fiction For Future Ancestors" by Grist
@@ -816,10 +818,10 @@ Description
 “This is a glorious book that challenges our conceptions of bookmaking as much as it questions our conceptions of world-building. We, as earthlings, will be better to the earth after experiencing this book. That is not hyperbole.”
 –New York Times bestselling author Kiese Laymon
 Afterglow is a stunning collection of original short stories in which writers from many different backgrounds envision a radically different climate future. Published in collaboration with Grist, a nonprofit media organization dedicated to telling stories of climate solutions, these stirring tales expand our ability to imagine a better world.
-Inspired by cutting-edge literary movements, such as Afrofuturism, hopepunk, and solarpunk, Afterglow imagines intersectional worlds in which no one is left behind—where humanity prioritizes equitable climate solutions and continued service to one’s community. Whether through abundance or adaptation, reform, or a new understanding of survival, these stories offer flickers of hope, even joy, as they provide a springboard for exploring how fiction can help create a better reality.
+Inspired by cutting-edge literary movements, such as Afrofuturism, hopepunk, and solarpunk, Afterglow imagines intersectional worlds in which no one is left behind—where humanity prioritizes equitable climate solutions and continued service to one&apos;s community. Whether through abundance or adaptation, reform, or a new understanding of survival, these stories offer flickers of hope, even joy, as they provide a springboard for exploring how fiction can help create a better reality.
 Afterglow welcomes a diverse range of new voices into the climate conversation to envision the next 180 years of equitable climate progress. A creative work rooted in the realities of our present crisis, Afterglow presents a new way to think about the climate emergency—one that blazes a path to a clean, green, and more just future.
 
-[ ] get/read "How To Build A Universe That Doesn’t Fall Apart Two Days Later", by Philip K. Dick
+[ ] get/read "How To Build A Universe That Doesn&apos;t Fall Apart Two Days Later", by Philip K. Dick
 Against the surreal backdrop of Disneyland in 1978, visionary science fiction author Philip K. Dick delivers a mind-bending lecture on the fragile nature of reality and the quest for authentic human experience in an increasingly mediated world.
 
 [ ] write *organic-techniques.html* (short for Organic Farming Techniques), and include
@@ -1086,7 +1088,31 @@ systemd-journald.socket, systemd-journald-dev-log.socket</pre>
   </ul>
 </section>
 
+## Text to Add to Already Existing Files
 
+[ ] add to *vajrayana.html*
+<p style="text-align: right"><cite>A Meditator&apos;s Guide to Buddhism</cite>, by Cortland Dahl</p>
+<p>The Vajrayana, or Vajra Vehicle, is rooted in the idea that awakening is not a goal or destination that we reach at the end of our journey. Rather, awakening is the true nature of our mind in this, and every, moment. The whole premise of the Vajrayana is that the path is a process of exploration and self-discovery. Awakening is not a special state of mind to gain or cultivate but rather something to recognize and grow familiar with.</p>
+<p>Vajrayana Buddhism is found throughout Tibet and the Himalayan regions, as well as in China and Japan. The Vajra Vehicle is perhaps the most colorful of the three vehicles. Some people even describe the practices as wild and esoteric. Its teachings are vast and varied—from instructions on using the breath and physical postures to access the subtle energies of your body to elaborate visualization exercises that tap into the power of your imagination. There are meditation practices to work with the dream state, with the process of death and dying, and with the powerful sexual energies of the body and mind. This diverse landscape of meditation techniques matches the vast range of human experiences we all have. Indeed, notwithstanding its esoteric reputation, the Vajra Vehicle helps us experience the Dharma on the most human of levels.</p>
+<p>What sets the Vajra Vehicle apart from the Foundational and Great Vehicles is its directness. In Tibet, it is often referred to as the <q>swift path</q> because it brings us face-to-face with our own awakened nature. The word vajra means <q>indestructible</q> and <q>unchanging</q>, referring to the awakened buddha nature that underlies all experience. The central idea is that there is no experience we could ever have—no matter how dark, disturbed, or neurotic—that could ever tarnish the pristine, luminous clarity of the mind. And precisely because our mind&apos;s true nature cannot be disturbed by our thoughts, emotions, and impulses, the pure nature of the mind is always available to us.</p>
+<section>
+  <h2>The View: The Fruition Is the Path</h2>
+  <blockquote>
+    <p>Until now you have been wandering the three realms of samsara, experiencing inconceivable suffering. Why? Because you have yet to realize the true nature of your own mind.</p>
+    <p style="text-align: right">—Mingyur Paldron</p>
+  </blockquote>
+  <!--
+  <p>My monthlong experience in the monastery was a turning point in my spiritual practice. It helped me see that the things I was resisting in my life could be gateways to the deepest understandings of my own capacity for awareness, compassion, and wisdom. My physical suffering, just like the anxiety earlier in my journey, became my teacher, my vehicle for insight.</p>
+  -->
+  <p>In the Vajra Vehicle, the idea that awakening is fully present in every moment of experience is referred to as <q>taking the fruition as the path.</q> This is contrasted with the approach of the Foundational and Great Vehicles, which are said to <q>take the cause as the path.</q></p>
+  <p>Let me explain. When most of us hear about the idea of awakening, enlightenment, or perhaps even less exalted notions like being content or happy, these things sound like nice experiences that we might have in the future, if we&apos;re lucky. We then set out on the path to move closer to these experiences. Maybe we meditate. Maybe we try to be more caring and compassionate. We do these things with the idea that they will help us reach our goal, achieving the fruition of our journey. In other words, we view the path as setting in place the causes for a future awakening.</p>
+  <p>This causal approach is what we find in the Foundational and Great Vehicles. On these paths, we calm the mind through tranquility meditation, examine experience through insight meditation, and let go of unwholesome behaviors and mental states and cultivate positive ones. The idea is that the more we practice, the closer we get to the fruition—the state of awakening.</p>
+  <p>The Vajrayana is a fruitional approach, and so its view is very different. The fruition of the path is not a distant goal that we might achieve at some undefined point in the future. Awakening is who we are right now. So in this approach, the <q>path,</q> if you can even call it one, is simply the process of learning to recognize our true nature here in the present moment. The path does not lead to a future fruition. The fruitional state of awakening is the path.</p>
+  <details>
+    <summary><p>When it comes to meditation practice and how we relate to our experience in each passing moment, the difference between the causal and fruitional approaches is profound.</p></summary>
+    <p>Take my experience at the monastery. Although I had heard all about the approach of the Vajra Vehicle, my understanding was only intellectual. When I was actually meditating, I didn&apos;t relate to my experience that way. I viewed my physical pain as a barrier to my progress on the path, as though I could only move forward once I got rid of it. I felt the same toward my mental and emotional states. My aversion and fear were just more obstacles, more evidence that I was light-years away from awakening … whatever that meant.</p>
+  </details>
+</section>
 
 
 ## Único, útil y adelantado

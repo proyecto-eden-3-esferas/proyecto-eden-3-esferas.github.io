@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RESTful API(s)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="RESTful API(s)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      -->
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a rel="next" href="programming.html">Programming Computers</a></p>
+        <p><a            href="encryption.html">Encryption</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="phoneme-map.html">Mapping Phonemes to ASCII</a></p>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="ai.html">Artificial Intelligence</a></p>
+        <p><a            href="os.html">Operating Systems: Ground Applications that Applications Run on</a></p>
+        <p><a            href="networking.html">Networking</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a rel="prev" href="technology.html">Technology</a></p>
+        <p><a            href="computational-geometry.html">Computational Geometry</a></p>
+        <p><a            href="tts.html">Text To Speech (TTS) Software</a></p>
+      </div>
+      <div>
+        <p><a            href="hardware.html">(Computer) Hardware</a></p>
+        <p><a            href="byte-order.html">Byte Order</a></p>
+        <p><a            href="quantum-computing.html">Quantum Computing</a></p>
+      </div>
+      <div>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/SVG/">My Code for Geometry and SVG Schematics</a></p>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/Cpp">Code Examples (Files)</a></p>
+      </div>
+      <div>
+        <p><a href="xml.en.html">XML: The eXtensible Markup Language</a></p>
+        <p><a href="HTML.html">HTML: XML for the Web</a></p>
+        <p><a href="TheWeb.html">The Web</a></p>
+      </div>
+      <div>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+      </div>
+      <div>
+        <p><a href="mapping-texts.html">Mapping Texts: Computational Text Analysis for the Social Sciences</a></p>
+        <p><a href="SemanticWeb.html">The Semantic Web</a></p>
+        <p><a href="Ontologies.html">Ontologies</a></p>
+        <p><a href="cryptography.html">Criptography</a></p>
+      </div>
+      <div>
+        <p><a href="index.en.html">Back to Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>RESTful API(s)</h1>
+      <p><dfn>REST</dfn>, which stands for Representational State Transfer, is an architectural style or set of principles for designing networked applications. REST has become the predominant way of designing APIs (Application Programming Interfaces) for web-based applications.</p>
+      <p>REST uses standard HTTP methods. Any client (web, mobile, IoT) capable of making HTTP requests can avail itself of the REST interface. Conversely, REST is supported by most programming languages and frameworks, which makes it a go-to choice for API development.</p>
+
+      <section>
+        <h2>RESTful API Key Concepts</h2>
+        <dl>
+          <dt>Resource-Oriented</dt>
+          <dd>
+            <p>In REST, every piece of data or functionality is treated as a resource, identified by a unique URI (Uniform Resource Identifier).</p>
+            <p>Examples are /users, /products, and /orders.</p>
+          </dd>
+          <dt>Client–Server Architecture</dt>
+          <dd>
+            <p>REST separates the client (the application making the request) from the server (the application fulfilling the request), which allows them to evolve independently.</p>
+          </dd>
+          <dt>Stateless Communication</dt>
+          <dd>
+            <p>Each API request contains all necessary information (authentication, state, etc.).</p>
+            <p>The server does not store session information about clients, ensuring scalability.</p>
+          </dd>
+          <dt>HTTP Methods/Verbs: RESTful APIs rely on standard HTTP methods to perform operations on resources</dt>
+          <dd>
+            <p>Methods or verbs define the type of operation to perform on a given resource. They provide a standardized way to perform actions on resources, ensuring clear communication between clients (e.g., web apps, mobile apps) and servers.</p>
+            <ul>
+              <li><code>GET</code>: make a read-only request to view either a single or list of multiple resources.</li>
+              <li><code>POST</code>: create a new resource based on the payload given in the body of the request</li>
+              <li><code>PUT</code>: Update the entire fields of the resource based on the given body of the request or create a new one if it does not already exist</li>
+              <li><code>DELETE</code>: Destroy the given resource based on the ID provided</li>
+              <li><code>PATCH: Partially update a resource</code></li>
+            </ul>
+          </dd>
+          <dt>Representation Formats</dt>
+          <dd>
+            <p>RESTful APIs commonly use JSON (JavaScript Object Notation) and XML to represent data.</p>
+            <p>JSON is preferred due to its simplicity and compatibility with modern web technologies.</p>
+          </dd>
+          <dt>Uniform Interface</dt>
+          <dd>REST enforces a standardized interface, ensuring consistent interaction between clients and servers</dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>HTTP Request Status Codes</h2>
+        <p>When we receive an HTTP request in the basic RESTful format, the server will return an HTTP status code and any optional JSON payloads.</p>
+      </section>
+
+      <section>
+        <h2>RESTful APIs Core Components</h2>
+        <p>Core Components of RESTful APIs include the following:</p>
+        <ul>
+          <li><strong>Endpoints</strong>: URLs that represent resources, e.g., https://api.example.com/users.</li>
+          <li><strong>HTTP Methods</strong>: Specify the action to perform on a resource.</li>
+          <li><strong>Headers</strong>: Provide metadata for requests and responses (e.g., authentication tokens, content types).</li>
+          <li><strong>Request Body</strong>: Contains data for POST, PUT, or PATCH requests (usually in JSON or XML format).</li>
+          <li><strong>Response Body</strong>: Contains the server&apos;s response, often including data or status messages.</li>
+          <li><strong>Status Codes</strong>: HTTP status codes inform clients of the result of their request (as explained previously).</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
