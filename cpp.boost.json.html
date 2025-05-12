@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Boost JSON</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+      -->
+      <div>
+        <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
+        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
+        <p><a href="cpp.boost.json.html">C++ Boost JSON</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The C++ Boost Library: Beyond the STL</h1>
+      <section id="overview">
+        <h2>Overview</h2>
+        <p>Boost.JSON is a portable C++ library which provides containers and algorithms that implement JavaScript Object Notation, (<a target="_blank" href="json.html">JSON</a>) a lightweight data-interchange format.</p>
+        <p>This library focuses on a common and popular use-case: parsing and serializing to and from a container called <var>value</var> which holds JSON types. Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
+        <p>The <var>value</var> container is designed to be well suited as a vocabulary type appropriate for use in public interfaces and libraries, allowing them to be composed. The library restricts the representable data types to the ranges which are almost universally accepted by most JSON implementations, especially <a target="_blank" href="js.html">JavaScript</a>. The parser and serializer are both highly performant, meeting or exceeding the benchmark performance of the best comparable libraries. Allocators are very well supported. Code which uses these types will be easy to understand, flexible, and performant.</p>
+
+        <hr/>
+
+        <p>Boost.JSON offers these features:</p>
+        <ul>
+          <li>Fast compilation</li>
+          <li>Require only C++11</li>
+          <li>Fast streaming parser and serializer</li>
+          <li>Constant-time key lookup for objects</li>
+          <li>Options to allow non-standard JSON</li>
+          <li>Easy and safe modern API with allocator support</li>
+          <li>Optional header-only, without linking to a library</li>
+        </ul>
+        <hr/>
+        <p>To use as header-only; that is, to eliminate the requirement to link a program to a static or dynamic Boost.JSON library, simply place the following line in exactly one new or existing source file in your project:</p>
+        <pre>#include &lt;boost/json/src.hpp&gt;</pre>
+
+        <hr/>
+
+        <p>The library relies heavily on these well known C++ types in its interfaces (henceforth termed standard types):</p>
+        <ul>
+          <li>string_view</li>
+          <li>memory_resource, polymorphic_allocator</li>
+          <li>error_category, error_code, error_condition, system_error</li>
+        </ul>
+      </section>
+
+      <section id="object">
+        <h2><code>boost::json::object</code> and <code>boost::json::object</code></h2>
+        <p>In this library the types <code class="classname">array</code>, <code class="classname">object</code>, and <code class="classname">string</code> hold JSON arrays, objects, and strings respectively while the type value is a special variant which can hold any JSON element. Here we construct an empty object and then insert the elements above:</p>
+        <pre>  object obj;                                                     // construct an empty object
+  obj[ "pi" ] = 3.141;                                            // insert a double
+  obj[ "happy" ] = true;                                          // insert a bool
+  obj[ "name" ] = "Boost";                                        // insert a string
+  obj[ "nothing" ] = nullptr;                                     // insert a null
+  obj[ "answer" ].emplace_object()["everything"] = 42;            // insert an object with 1 element
+  obj[ "list" ] = { 1, 0, 2 };                                    // insert an array with 3 elements
+  obj[ "object" ] = { {"currency", "USD"}, {"value", 42.99} };    // insert an object with 2 elements</pre>
+      </section>
+
+      <section id="value">
+        <h2><code>boost::json::value</code></h2>
+        <p>While keys are strings, the mapped type of objects and the element type of arrays is a special type called <code class="classname">value</code> which can hold any JSON element, as seen in the previous assignments. Instead of building the JSON document using a series of function calls, we can build it in one statement using an initializer list:</p>
+        <pre>  value jv = {
+    { "pi", 3.141 },
+    { "happy", true },
+    { "name", "Boost" },
+    { "nothing", nullptr },
+    { "answer", {
+        { "everything", 42 } } },
+    {"list", {1, 0, 2}},
+    {"object", {
+        { "currency", "USD" },
+        { "value", 42.99 }
+            } }
+  };</pre>
+        <p>...</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

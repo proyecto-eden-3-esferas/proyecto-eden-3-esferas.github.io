@@ -33,6 +33,10 @@
 
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
 
+- https://www.sokaglobal.org/es/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
+
+- https://www.sokaglobal.org/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
 [x] *restful.html* RESTful API(s)
