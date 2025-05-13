@@ -19,8 +19,10 @@
       <p><a href="A_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
         <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+        <p><a href="cpp.boost.json.serializing.html">C++ Boost JSON: Serializing</a></p>
       -->
       <div>
+        <p><a href="cpp.boost.json.parsing.html">C++ Boost JSON: Parsing</a></p>
         <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
         <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
         <p><a href="cpp.boost.json.html">C++ Boost JSON</a></p>
@@ -37,8 +39,9 @@
       <section id="overview">
         <h2>Overview</h2>
         <p>Boost.JSON is a portable C++ library which provides containers and algorithms that implement JavaScript Object Notation, (<a target="_blank" href="json.html">JSON</a>) a lightweight data-interchange format.</p>
-        <p>This library focuses on a common and popular use-case: parsing and serializing to and from a container called <var>value</var> which holds JSON types. Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
+        <p>This library focuses on a common and popular use-case: <a href="#parsing">parsing</a> and serializing to and from a container called <var>value</var> which holds JSON types. Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
         <p>The <var>value</var> container is designed to be well suited as a vocabulary type appropriate for use in public interfaces and libraries, allowing them to be composed. The library restricts the representable data types to the ranges which are almost universally accepted by most JSON implementations, especially <a target="_blank" href="js.html">JavaScript</a>. The parser and serializer are both highly performant, meeting or exceeding the benchmark performance of the best comparable libraries. Allocators are very well supported. Code which uses these types will be easy to understand, flexible, and performant.</p>
+
 
         <hr/>
 
@@ -96,6 +99,54 @@
             } }
   };</pre>
         <p>...</p>
+      </section>
+
+      <section id="serialize">
+        <h2>Serializing</h2>
+        <p>Serialization is the process where a JSON document represented in memory by a <code class="classname">value</code> is turned into a sequence of characters. The library provides the following free functions and types for serialization:</p>
+        <table border="1">
+          <caption>Serialization Functions and Types</caption>
+          <thead> <tr> <td>Name</td> <td>Description</td> </tr> </thead>
+          <tr> <td>operator&lt;&lt;</td> <td>Serialize a value, array, object, or string to a <code>std::ostream</code>.</td> </tr>
+          <tr> <td>serialize</td> <td>Return a <code>std::string</code> representing a serialized <code>value</code>, <code>array</code>, object, or string.</td> </tr>
+          <tr> <td>serializer</td> <td>A stateful object which may be used to efficiently serialize one or more instances of value, array, object, or string.</td> </tr>
+        </table>
+        <p>To facilitate debugging and ease of output, library container types may be written to standard output streams using the stream operator:</p>
+        <pre>value jv = { 1, 2, 3, 4, 5 };
+std::cout &lt;&lt; jv &lt;&lt; "\n";</pre>
+        <p>The <code>serialize</code> function converts a value into a <code>std::string</code>:</p>
+        <pre>value jv = { 1, 2, 3, 4, 5 };
+std::string s = serialize( jv );</pre>
+
+        <section>
+          <h2>Implementing <code>operator&lt;&lt;</code> Using a <code>serializer</code></h2>
+          <p>In situations where serializing a value in its entirety is inefficient or even impossible, serializer can be used to incrementally serialize a value incrementally. This may be done for a variety of reasons, such as to avoid buffering the entire output, or to ensure that a fixed amount of work is performed in each cycle. Instances of serializer maintain an output state using internal dynamically allocated structures, with an interface to retrieve successive buffers of the serialized output into a caller provided buffer. Here is an example, demonstrating how <code>operator&lt;&lt;</code> may be implemented using a <code>serializer</code>:</p>
+          <pre>// Serialize a value into an output stream
+
+std::ostream&amp;
+operator&lt;&lt;( std::ostream&amp; os, value const&amp; jv )
+{
+    // Create a serializer
+    serializer sr;
+
+    // Set the serializer up for our value
+    sr.reset( &amp;jv );
+
+    // Loop until all output is produced.
+    while( ! sr.done() )
+    {
+        // Use a local buffer to avoid allocation.
+        char buf[ BOOST_JSON_STACK_BUFFER_SIZE ];
+
+        // Fill our buffer with serialized characters and write it to the output stream.
+        os &lt;&lt; sr.read( buf );
+    }
+
+    return os;
+}</pre>
+          <p>As with the parser, the serializer may be reused by calling serializer::reset. This sets up the object to serialize a new instance and retains previously allocated memory. This can result in performance improvements when multiple variables are serialized.</p>
+        </section>
+
       </section>
 
     </main>

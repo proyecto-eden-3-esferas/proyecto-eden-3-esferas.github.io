@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Boost JSON: Parsing</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ Boost JSON: Parsing"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+        <p><a href="cpp.boost.json.serializing.html">C++ Boost JSON: Serializing</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.boost.json.html">C++ Boost JSON</a></p>
+        <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
+        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
+        <p><a href="cpp.boost.json.html">C++ Boost JSON</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ Boost JSON: Parsing</h1>
+      <p>Parsing is the process where a serialized JSON is validated and decomposed into elements. The library provides some functions:</p>
+      <table border="1">
+        <thead> <tr> <th>Name</th> <th>Description</th> </tr> </thead>
+        <tbody>
+          <tr> <td>basic_parser</td> <td>A SAX push parser implementation which converts a serialized JSON into a series of member function calls to a user provided handler. This allows custom behaviors to be implemented for representing the document in memory.</td> </tr>
+          <tr> <td>parse</td> <td>Parse a string containing a complete serialized JSON, and return a value.</td> </tr>
+        </tbody>
+      </table>
+      <p>and types to assist with parsing:</p>
+      <table border="1">
+        <thead> <tr> <th>Name</th> <th>Description</th> </tr> </thead>
+        <tbody>
+          <tr> <td>parser</td> <td>A stateful DOM parser object which may be used to efficiently parse a series of JSONs each contained in a single contiguous character buffer, returning each result as a value.</td> </tr>
+          <tr> <td>stream_parser</td> <td>A stateful DOM parser object which may be used to efficiently parse a series of JSONs incrementally, returning each result as a value.</td> </tr>
+          <tr> <td>parse_options</td> <td>A structure used to select which extensions are enabled during parsing.</td> </tr>
+          <tr> <td>value_stack</td> <td>A low level building block used for efficiently building a value. The parsers use this internally, and users may use it to adapt foreign parsers to produce this library's containers.</td> </tr>
+        </tbody>
+      </table>
+
+      <p>The <code class="function">parse</code> function offers a simple interface for converting a serialized JSON text to a value in a single function call. This overload uses exceptions to indicate errors:</p>
+      <pre>value jv = parse( "[1,2,3,4,5]" );</pre>
+
+      <section>
+        <h3>With <code>error_code</code>*</h3>
+        <p>Alternatively, an error_code can be used:</p>
+        <pre>error_code ec;
+value jv = parse( "[1,2,3,4,5]", ec );
+
+if( ec )
+    std::cout &lt;&lt; "Parsing failed: " &lt;&lt; ec.message() &lt;&lt; "\n";</pre>
+        <p>Even when using error codes, exceptions thrown from the underlying <code><a href="#memory_resource">memory_resource</a></code> are still possible:</p>
+        <pre>try
+{
+    error_code ec;
+    value jv = parse( "[1,2,3,4,5]", ec );
+    if( ec )
+        std::cout &lt;&lt; "Parsing failed: " &lt;&lt; ec.message() &lt;&lt; "\n";
+}
+catch( std::bad_alloc const&amp; e)
+{
+    std::cout &lt;&lt; "Parsing failed: " &lt;&lt; e.what() &lt;&lt; "\n";
+}</pre>
+      </section>
+      <section id="memory_resource">
+        <h3>Using Memory Resource <code>memory_resource</code></h3>
+        <p>The value returned in the preceding examples use the default memory resource. The following code uses a monotonic_resource, which results in faster parsing. <var>jv</var> is marked <code>const</code> to prevent subsequent modification, because containers using a monotonic resource waste memory when mutated.</p>
+        <pre>{
+    monotonic_resource mr;
+
+    value const jv = parse( "[1,2,3,4,5]", &amp;mr );
+}</pre>
+      </section>
+
+      <section>
+        <h3>Non-Standard JSON with <code>parse_options</code></h3>
+        <p>Unless otherwise specified, the parser in this library is strict. It recognizes only valid, standard JSON. The parser can be configured to allow certain non-standard extensions by filling in a <code class="struct">parse_options</code> structure and passing it by value. By default all extensions are disabled:</p>
+        <pre>parse_options opt;                                  // all extensions default to off
+opt.allow_comments = true;                          // permit C and C++ style comments to appear in whitespace
+opt.allow_trailing_commas = true;                   // allow an additional trailing comma in object and array element lists
+opt.allow_invalid_utf8 = true;                      // skip utf-8 validation of keys and strings
+
+value jv = parse( "[1,2,3,] // comment ", storage_ptr(), opt );</pre>
+        <p>When building with C++20 or later, the use of designated initializers with parse_options is possible:</p>
+        <pre>value jv = parse( "[1,2,3,] // comment ", storage_ptr(),
+    {
+        .allow_comments = true,             // permit C and C++ style comments to appear in whitespace
+        .allow_trailing_commas = true,      // allow a trailing comma in object and array lists
+        .allow_invalid_utf8 = true          // skip utf-8 validation of keys and strings
+    });</pre>
+      </section>
+
+      <section>
+        <h3><code>parser</code> Object*</h3>
+        <p>Instances of parser and stream_parser offer functionality beyond what is available when using the parse free functions:</p>
+        <ul>
+          <li>More control over memory</li>
+          <li>Streaming API, parse input JSON incrementally</li>
+          <li>Improved performance when parsing multiple JSONs</li>
+          <li>Ignore non-JSON content after the end of a JSON</li>
+        </ul>
+        <p>The parser implementation uses temporary storage space to accumulate values during parsing. When using the <code class="function">parse</code> free functions, this storage is allocated and freed in each call. However, by declaring an instance of <code class="classname">parser</code> or <code class="classname">stream_parser</code>, this temporary storage can be reused when parsing more than one JSON, reducing the total number of dynamic memory allocations.</p>
+        <p>To use the parser, declare an instance. Then call <code class="function">write</code> once with the buffer containing representing the input JSON. Finally, call <code class="function">release</code> to take ownership of the resulting <code class="classname">value</code> upon success. This example persists the parser instance in a class member to reuse across calls:</p>
+        <pre>class connection
+{
+    parser p_;                                      // persistent data member
+
+public:
+    void do_read( string_view s )                   // called for each complete message from the network
+    {
+        p_.reset();                                 // start parsing a new JSON using the default resource
+        p_.write( s );                              // parse the buffer, using exceptions to indicate error
+        do_rpc( p_.release() );                     // process the command
+    }
+
+    void do_rpc( value jv );
+};</pre>
+
+        <p>Sometimes a protocol may have a JSON text followed by data that is in a different format or specification. The JSON portion can still be parsed by using the function <code class="function">write_some</code>. Upon success, the return value will indicate the number of characters consumed from the input, which will exclude the non-JSON characters:</p>
+        <pre>stream_parser p;
+error_code ec;
+string_view s = "[1,2,3] %HOME%";
+std::size_t n = p.write_some( s, ec );
+assert( ! ec &amp;&amp; p.done() &amp;&amp; n == 8 );
+s = s.substr( n );
+value jv = p.release();
+assert( s == "%HOME%" );</pre>
+      </section>
+
+      <section>
+        <h3><code class="classname">stream_parser</code> Object*</h3>
+        <p>The <code class="classname">stream_parser</code> implements a streaming algorithm; it allows incremental processing of large JSON inputs using one or more contiguous character buffers. The entire input JSON does not need to be loaded into memory at once. A network server can use the streaming interface to process incoming JSON in fixed-size amounts, providing these benefits:</p>
+        <ul>
+          <li>CPU consumption per I/O cycle is bounded</li>
+          <li>Memory consumption per I/O cycle is bounded</li>
+          <li>Jitter, unfairness, and latency is reduced</li>
+          <li>Less total memory is required to process the full input</li>
+        </ul>
+        <p>To use the <code class="classname">stream_parser</code>, declare an instance. Then call <code class="function">write</code> zero or more times with successive buffers representing the input JSON. When there are no more buffers, call <code class="function">finish</code>. The function <code class="function">done</code> returns <code>true</code> after a successful call to <code class="function">write</code> or <code class="function">finish</code> if parsing is complete.</p>
+        <p>In the following example a JSON [object] is parsed from standard input a line at a time. Error codes are used instead. The function <code class="function">finish</code> is used to indicate the end of the input:</p>
+        <pre>value read_json( std::istream&amp; is, error_code&amp; ec )
+{
+    stream_parser p;
+    std::string line;
+    while( std::getline( is, line ) )
+    {
+        p.write( line, ec );
+        if( ec )
+            return nullptr;
+    }
+    p.finish( ec );
+    if( ec )
+        return nullptr;
+    return p.release();
+}</pre>
+        <hr/>
+        <p>The <code class="classname">stream_parser</code> instance may be constructed with parse options which allow some non-standard JSON extensions to be recognized:</p>
+        <pre>parse_options opt;                                  // All extensions default to off
+opt.allow_comments = true;                          // Permit C and C++ style comments to appear in whitespace
+opt.allow_trailing_commas = true;                   // Allow an additional trailing comma in object and array element lists
+opt.allow_invalid_utf8 = true;                      // Skip utf-8 validation of keys and strings
+stream_parser p( storage_ptr(), opt );              // The stream_parser will use the options</pre>
+      </section>
+
+      <section>
+        <h3>Controlling Memory</h3>
+        <p>After default construction, or after reset is called with no arguments, the value produced after a successful parse operation uses the default memory resource. To use a different memory resource, call reset with the resource to use. Here we use a monotonic_resource, which is optimized for parsing but not subsequent modification:</p>
+        <pre>{
+    monotonic_resource mr;
+
+    stream_parser p;
+    p.reset( &amp;mr );                                 // Use mr for the resulting value
+    p.write( "[1,2,3,4,5]" );                       // Parse the input JSON
+    value const jv = p.release();                   // Retrieve the result
+    assert( *jv.storage() == mr );                  // Same memory resource
+}</pre>
+        <p>To achieve performance and memory efficiency, the parser uses a temporary storage area to hold intermediate results. This storage is reused when parsing more than one JSON, reducing the total number of calls to allocate memory and thus improving performance. Upon construction, the memory resource used to perform allocations for this temporary storage area may be specified. Otherwise, the default memory resource is used. In addition to a memory resource, the parser can make use of a caller-owned buffer for temporary storage. This can help avoid dynamic allocations for small inputs. The following example uses a four kilobyte temporary buffer for the parser, and falls back to the default memory resource if needed:</p>
+        <pre>unsigned char temp[ 4096 ];                                 // Declare our buffer
+stream_parser p(
+    storage_ptr(),                                          // Default memory resource
+    parse_options{},                                        // Default parse options (strict parsing)
+    temp);                                                  // Use our buffer for temporary storage</pre>
+      </section>
+
+      <section>
+        <h3>Avoiding Dynamic Allocations*</h3>
+        <p>Through careful specification of buffers and memory resources, it is possible to eliminate all dynamic allocation completely when parsing JSON, for the case where the entire JSON is available in a single character buffer, as shown here:</p>
+        <pre>/*  Parse JSON and invoke the handler
+
+    This function parses the JSON specified in `s`
+    and invokes the handler, whose signature must
+    be equivalent to:
+
+        void( value const&amp; jv );
+
+    The operation is guaranteed not to perform any
+    dynamic memory allocations. However, some
+    implementation-defined upper limits on the size
+    of the input JSON and the size of the resulting
+    value are imposed.
+
+    Upon error, an exception is thrown.
+*/
+template &lt; class Handler &gt;
+void do_rpc( string_view s, Handler&amp;&amp; handler )
+{
+    unsigned char temp[ 4096 ];                 // The parser will use this storage for its temporary needs
+    parser p(                                   // Construct a strict parser using the temp buffer and no dynamic memory
+        get_null_resource(),                    // The null resource never dynamically allocates memory
+        parse_options(),                        // Default constructed parse options allow only standard JSON
+        temp );
+
+    unsigned char buf[ 16384 ];                 // Now we need a buffer to hold the actual JSON values
+    static_resource mr2( buf );                 // The static resource is monotonic, using only a caller-provided buffer
+    p.reset( &amp;mr2 );                            // Use the static resource for producing the value
+    p.write( s );                               // Parse the entire string we received from the network client
+
+    // Retrieve the value and invoke the handler with it.
+    // The value will use `buf` for storage. The handler
+    // must not take ownership, since monotonic resources
+    // are inefficient with mutation.
+    handler( p.release() );
+}</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
