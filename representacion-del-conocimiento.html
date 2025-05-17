@@ -14,14 +14,6 @@
   <body lang="es"  class="tecnologia">
     <nav>
     <!--
-      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
-      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
-      <hr/>
-      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
-      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
         <p><a href='herramientas.html'>Herramientas y máquinas</a></p>
       -->
       <div>
@@ -42,14 +34,54 @@
       <p>La <dfn>representación del conocimiento</dfn> es toda ayuda o método para almacenar, comunicar y consultar información.</p>
       <p>En informática convencional, no en inteligencia artificial, el conocimiento (datos) se guarda en <a target="_blank" href="bases-de-datos.html">bases de datos</a>.</p>
       <p>En tanto que <strong>memoria</strong>, se opone a <strong>razonamiento</strong> (raciocinio, inteligencia).</p>
-      <ul>
-        <li>variable-valor (por ejemplo: <q>temperatura = 26 C</q>, donde <var>temperatura</var> es una variable y <q>26 C</q> es el valor que dicha variable adopta o asume.)</li>
-        <li>nota; puede contener parejas de variable-valor, textos breves, diagramas, etc. (por ejemplo en formato <a target="_blank" href="json.html">JSON</a>)</li>
-        <li>tabla (<i>ver</i> <a target="_blank" href="bases-de-datos-relacionales.html">bases de datos relacionales</a>)</li>
-        <li>grafo</li>
-        <li>diagrama</li>
-        <li>texto más o menos estructurado (a menudo <a target="_blank" href="xml.en.html">XML</a>)</li>
-      </ul>
+
+      <section id="libreta">
+        <h2>La libreta</h2>
+        <p>El hombre inventó la escritura para poder anotar datos, informaciones... Escribiría sobre trozos de materiales como papiro, pergamino, o grabaría sobre tablillas de arcilla recubiertas de cera, o trazaría incisiones etc.</p>
+        <p>Hoy en día, o mejor hace un par de décadas, aún fuera de la cultura más rabiosamente digital, se utilizaba para lo mismo la <strong>libreta</strong>.</p>
+        <p>Uno escribía notas, anotaba informaciones, heterogéneas según se le ocurrían o venía la necesidad.</p>
+        <p>Llenaba una página y continuaba por la siguiente.</p>
+      </section>
+
+      <section id="cualidades">
+        <h2>Cualidades</h2>
+        <p>Se me ocurren dos cualidades o propiedades que un sistema de libreta no lograba satisfacer:</p>
+        <ul>
+          <li><strong>localización</strong>: uno nunca sabía en qué página, esquina ni lugar había anotado un dato que de repente necesitaba; y</li>
+          <li><strong>unicidad</strong>: el mismo dato se anotaba en varios sitios a la vez, en parte porque no había uno deducible lógicamente</li>
+        </ul>
+        <p>De modo que el sistema de libretas resultaba desorganizado (mala localización) y redundante (sin unicidad). En cambio sí cumplía dos propiedades deseables:</p>
+        <ul>
+          <li><strong>flexibilidad</strong>: uno gozaba de plena de liberatad o albedrío de escribir una nota como juzgase conveniente. Por ejemplo los datos de un amigo podrían incluír su fecha de nacimiento o su color preferido,</li>
+          <li><strong>visualidad</strong>: uno podía dibujar, hacer diagramas, incluír imágenes, escribir tablas, incluso fórmulas matemáticas etc.</li>
+        </ul>
+        <p>Curiosamente las <a target="_blank" href="bases-de-datos-relacionales.html">bases de datos relacionales</a> y los listines telefónicos cumplian las dos primeras condiciones (localización y unicidad), probablemente a costa de la flexibilidad. Justo al contrario que las libretas: flexibles pero desorganizadas y con datos repetidos.</p>
+      </section>
+
+      <section id="libretas-modernas">
+        <h2>Libretas modernas</h2>
+        <p>Hoy en día el procesador de texto (la aplicación Word, de Microsoft) funciona igual que una libreta. Además consigue subsanar el defecto de la deslocalización. Gracias a la velocidad de los actuales ordenadores, casi siempre podemos encontrar una información dentro de un texto mediante la función buscar, en muy poco tiempo.</p>
+        <p>La principal alternativa a los procesadores de texto consiste en escribir con <a target="_blank" href="lenguajes-de-marcado.html">marcas</a>. Veamos un ejemplo:</p>
+        <pre>&lt;p&gt;HTML es el lenguaje de marcado más difundido
+   y en él se escriben las páginas web.&lt;/p&gt;</pre>
+        <p>En este ejemplo <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code> son <strong>etiquetas</strong> que inician y terminan un párrafo, lo delimitan.</p>
+        <p>Además</p>
+        <pre>&lt;p&gt;HTML un dialecto de <a target="_blank" href="xml.es.html">XML</a>, en realidad el más difundido.&lt;/p&gt;</pre>
+        <p>HTML actualmente permite poner tablas, negrita, cursiva, subrayado, imágenes, fórmulas matemáticas, incluso dibujos vectoriales.</p>
+      </section>
+
+      <section id="tipos">
+        <h2>Tipos de representación del conocimiento</h2>
+        <ul>
+          <li>variable-valor (por ejemplo: <q>temperatura = 26 C</q>, donde <var>temperatura</var> es una variable y <q>26 C</q> es el valor que dicha variable adopta o asume.)</li>
+          <li>nota; puede contener parejas de variable-valor, textos breves, diagramas, etc. (por ejemplo en formato <a target="_blank" href="json.html">JSON</a>)</li>
+          <li>tabla (<i>ver</i> <a target="_blank" href="bases-de-datos-relacionales.html">bases de datos relacionales</a>)</li>
+          <li>grafo</li>
+          <li>diagrama</li>
+          <li>texto más o menos estructurado (a menudo <a target="_blank" href="xml.en.html">XML</a>)</li>
+        </ul>
+      </section>
+
       <hr/>
       <p>Uno podría leer un texto e ir distribuyendo la información en notas, tablas, texto o textos (refundidos), diagramas... Y al revés, partir de varios medios y sintetizar un texto, una nota, una tabla...</p>
     </main>

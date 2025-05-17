@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to write a Parser in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.manipulators.html">Changing C++ Streams through Manipulators</a></p>
+        <p><a            href="cpp.sstream.html">C++ String Streams</a></p>
+        <p><a            href="cpp.stl.html"></a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="cpp.streams.html">C++ Streams: Sources and Destinations of Data</a></p>
+        <p><a            href="programming.streams.html">Streams in Programming at Large</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>How to write a Parser in C++</h1>
+
+      <section>
+        <h2>Concepts</h2>
+        <ul>
+          <li><p><strong><a href="#ws">white space</a></strong></p></li>
+          <li><p><strong>delimiters</strong></li>
+          <li>
+            <p><strong>state</strong>: such as the reading cursor&apos;s being inside a string or inside a <code>CDATA</code> section (XML-specific)</p>
+            <p>Besides, a parser may keep track of matching delimiters.</p>
+            <p>Often enough state can be kept in a stack structure.</p>
+          </li>
+          <li><p><strong>tokens</strong></p></li>
+          <li><p><strong>structures</strong> to be filled in</p></li>
+          <li><p><strong>recursive</strong> structures and calls</p></li>
+        </ul>
+      </section>
+
+      <section id="actions">
+        <h2>Common Actions/Operations</h2>
+        <ul>
+          <li>
+            <p>Skipping whitespace</p>
+          </li>
+          <li>
+            <p>Initializing a <a target="_blank" href="cpp.sstream.html">string stream</a></p>
+            <p>You can Initialize a <code>std:istringstream</code> from a string <var>str</var> like so:</p>
+            <pre>std::istringstream iss(<var>str</var>);</pre>
+          </li>
+          <li>
+            <p>Recursive invocations</p>
+          </li>
+          <li>
+            <p><code>switch</code></p>
+          </li>
+          <li>
+            <p>Variants</p>
+          </li>
+          <li>
+            <p>Result structures</p>
+          </li>
+          <li>
+            <p>Reading a single character then prepending it to a whole run</p>
+            <pre>iss &gt;&gt; c;
+iss &gt;&gt; str;
+str = c + str;</pre>
+            <p>...</p>
+
+          </li>
+          <!--
+          <li>
+            <p>...</p>
+          </li>
+          -->
+        </ul>
+      </section>
+
+      <section>
+        <h2>C++ Elements</h2>
+        <ul>
+          <li>Streams: <code>cin</code> and <code>cout</code> (in <code>&lt;iostream&gt;</code>), file (in <code>&lt;fstream&gt;</code>) and string streams (in <code>&lt;sstream&gt;</code>)</li>
+          <li><code>std::getline(ISTREAM&amp; <var>is</var>, STRING&amp; <var>str</var>, CHAR <var>delimiter</var>)</code></li>
+          <li><code>std::basic_istream::peek()</code></li>
+          <li>strings: <code>std::string</code> and <code>string_view</code></li>
+          <li>manipulators, especifically <code>std::ws</code></li>
+          <li><code>get()</code> and <code>get(char&amp; c)</code>: extracts a single character from the stream. The character is either returned (first signature), or set as the value of its argument (second signature).</li>
+          <li><code>switch</code> keyword</li>
+        </ul>
+      </section>
+
+      <section id="ws">
+        <h2>Skipping White Space</h2>
+        <p><a target="_blank" href="cpp.manipulators.html">Manipulator</a> <code>std::ws</code> extracts as many whitespace characters as possible from the current position in the input sequence. The extraction stops as soon as a non-whitespace character is found. These extracted whitespace characters are discarded.</p>
+        <p><strong>Note</strong>: <code>basic_istream</code> objects have the skipws flag set by default: This applies a similar effect before the formatted extraction operations</p>
+        <hr/>
+        <p>Alternatively,</p>
+        <pre>ios_base&amp; skipws (ios_base&amp; <var>str</var>);</pre>
+        <p>sets the skipws format flag for the <var>str</var> stream.</p>
+        <p>When the skipws format flag is set, as many whitespace characters as necessary are read and discarded from the stream until a non-whitespace character is found before. This applies to every formatted input operation performed with <code>operator>></code> on the stream.</p>
+        <p>Tab spaces, carriage returns and blank spaces are all considered whitespaces<!-- (see isspace)-->.</p>
+        <p>This flag can be unset with the <code>noskipws</code> manipulator, forcing extraction operations to consider leading whitepaces as part of the content to be extracted.</p>
+        <p>For standard streams, the <code>skipws</code> flag is set on initialization.</p>
+      </section>
+
+      <!--
+      <section id="***">
+        <h2>***</h2>
+      </section>
+      <section id="***">
+        <h2>***</h2>
+      </section>
+      <section id="***">
+        <h2>***</h2>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

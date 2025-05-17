@@ -39,6 +39,12 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *analizadores.html*
+<p>Un analizador empieza por un tokenizador/toquenizador/separador-clasificador.</p>
+<p>Dada una cadena de caracteres nos devuelve un `std::variant<STRING,CHAR>` o, mejor,
+para mayor facilidad de copia, un `std::variant<STRING_VIEW,CHAR>`</p>
+<p>¿Qué tal una intervaz _iterator_?</p>
+
 [x] *restful.html* RESTful API(s)
 
 [ ] <p><a            href="plant-breeding.html">Plant Breeding</a></p>
@@ -48,7 +54,7 @@
 <p>El narcisista interfiere constantemente en la vida de los demás, en dos aspectos:</p>
 <ul>
   <li>En su actividad, como acabo de describir</li>
-  <li>en su ...</li>
+  <li>en su ánimo, motivación, auto-confianza</li>
 </ul>
 <p>El narcisista es nihilista. El narcisista se aburre, no le ve el sentido a la actividad humana, sólo se satisface al acaparar la atención y energía de los demás.</p>
 
