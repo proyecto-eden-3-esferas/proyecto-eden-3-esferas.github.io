@@ -39,29 +39,52 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] *analizadores.html*
-<p>Un analizador empieza por un tokenizador/toquenizador/separador-clasificador.</p>
-<p>Dada una cadena de caracteres nos devuelve un `std::variant<STRING,CHAR>` o, mejor,
-para mayor facilidad de copia, un `std::variant<STRING_VIEW,CHAR>`</p>
-<p>¿Qué tal una intervaz _iterator_?</p>
+[ ] *computing.text.html*
+  <h2>Escaping</h2>
+  <p><dfn>Escaping</dfn> refers to the process of converting certain characters in a string to other characters (that is, to their escaped representations). It typically consists of prepending a backslash (<code>\</code>).</p>
+  <p>Some characters have special meanings For example, double quotes are often used to define string values. If you need to include a double quote within a string, you would escape it to prevent it from being interpreted as the end of the string.</p>
+  <table border="1" id="escape-comparison">
+  <thead>
+    <tr> <th>Character</th> <th>C/C++</th> <th>javaScript/JSON</th> <th>SQL</th> </tr> </thead>
+    <tr> <td>Escaped double quote</td> <td>\"</td> <td>\"</td> <td>"</td> </tr>
+    <tr> <td>Escaped backslash</td>    <td>\\</td> <td>\\</td> <td>\\</td> </tr>
+    <tr> <td>Escaped forward slash (optional but often used)</td> <td>\/</td> <td>\/</td> <td>SQL</td> </tr>
+    <tr> <td>Newline</td> <td>\n</td> <td>\n</td> <td><!--SQL--></td> </tr>
+    <tr> <td>Unicode escape sequence for special characters</td> <td><!--C/C++--></td> <td>\uXXXX</td> <td><!--SQL--></td> </tr>
+    <tr> <td>Backspace</td> <td>\b</td> <td>\b</td> <td><!--SQL--></td> </tr>
+    <tr> <td>Form feed</td> <td>\f</td> <td>\f</td> <td><!--SQL--></td> </tr>
+    <tr> <td>Carriage return</td> <td>\r</td> <td>\r</td> <td><!--SQL--></td> </tr>
+    <tr> <td>Horizontal tab</td> <td>\t</td> <td>\t</td> <td><!--SQL--></td> </tr>
+    <!--
+    <tr> <td>Character</td> <td>C/C++</td> <td>javaScript/JSON</td> <td>SQL</td> </tr>
+    <tr> <td>Character</td> <td>C/C++</td> <td>javaScript/JSON</td> <td>SQL</td> </tr>
+    <tr> <td>Character</td> <td>C/C++</td> <td>javaScript/JSON</td> <td>SQL</td> </tr>
+    -->
+  </table>
+
+
+[ ] *cpp.stl.optional.html*
+
+<h1>Optional</h1>
+<p>Defined in header &lt;optional&gt;</p>
+<section>
+  <h2>Constant <code>std::nullopt</code> (since C++17)</h2>
+  <pre>inline constexpr nullopt_t nullopt{/*unspecified*/};</pre>
+  <p><code>std::nullopt</code> is a constant of type <code>std::nullopt_t</code>. Used to indicate that an <code>std::optional</code> does not contain a value.</p>
+</section>
+
 
 [x] *restful.html* RESTful API(s)
 
-[ ] <p><a            href="plant-breeding.html">Plant Breeding</a></p>
+[ ] Add links to *plant-breeding.html*
+    <p><a            href="plant-breeding.html">Plant Breeding</a></p>
+[ ] review *plant-breeding.html*
 
-[ ] añadir a *narcisismo.html*
-<p>La sensación que uno tiene al convivir con un narcisista de ir contra corriente todo el tiempo. Si uno se esfuerza por hacer lo que a su juicio considera mejor para sí y para los demás, chocar con oposición de todo tipo: interrupciones, cambios de planes, críticas, incluso prohibiciones. Sentir la necesidad de aislarse completamente del narcisista e intentar por todos los medios que su desánimo no nos influya. Uno podría encontrarse desarrollando su labor en su estudio, taller, parcela de jardín etc. y necesitaría imaginar una barrera que mantuviese fuera al narcisista, impedir que afecte a la labor de uno. No caer en el nihilismo sino recordar de que antes del contacto con él o ella la meta estaba clara, remontarse a una situación imaginaria sin la ingerencia del narcisista.</p>
-<p>El narcisista interfiere constantemente en la vida de los demás, en dos aspectos:</p>
-<ul>
-  <li>En su actividad, como acabo de describir</li>
-  <li>en su ánimo, motivación, auto-confianza</li>
-</ul>
-<p>El narcisista es nihilista. El narcisista se aburre, no le ve el sentido a la actividad humana, sólo se satisface al acaparar la atención y energía de los demás.</p>
 
 [ ] link to *sorghum.html* Sorghum
 [ ] link to *millet.html*  Millet
 
-[ ]
+[ ] (About MongoDB)
 <p>If you want to check your database size you can use <code>db.stats()</code> command. Still, it only produces statistics for the database you are in, not for all the other databases in your account.</p>
 
 [ ] *mongodb.atlas.html* is sketchy and fairly confusing; also, I see it as pointless at the moment as I favour mongosh full stop

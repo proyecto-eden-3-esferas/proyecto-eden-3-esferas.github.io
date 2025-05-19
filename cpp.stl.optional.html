@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Class optional</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ class optional"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a rel="prev" href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a href="cpp.aggregate-initialization.html">Aggregate Initialization in C++</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp11.html">C++11</a></p>
+        <p><a href="cpp.cpp14.html">C++14</a></p>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+      <div>
+        <p><a href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Using <code class="classname">std::optional</code> to store optional values</h1>
+      <p>Sometimes, it is useful to be able to store either a value or a null if a value is not available. A typical example for such a case is the return value of a function that may fail to produce a return value, but this failure is not an error. For instance, think of a function that finds and returns values from a dictionary by specifying a key. Not finding a value is a probable case and, therefore, the function would either return a Boolean (or an integer value, if more error codes are necessary) and have a reference argument to hold the return value or return a pointer (raw or smart pointer). In C++17, <code class="classname">std::optional</code> is a better alternative to these solutions. The class template <code class="classname">std::optional</code> is a template container for storing a value that may or may not exist. In this section, we will see how to use this container and what are its typical use cases.</p>
+      <p>The class template <code class="classname">std::optional&lt;T&gt;</code> was designed based on <code class="classname">boost::optional</code> and is available in the <cite>&lt;optional&gt;</cite> header. If you are familiar with <code class="classname">boost::optional</code> and have used it in your code, you can migrate it seamlessly to <code class="classname">std::optional</code>.</p>
+
+      <section>
+        <h2>How to Use <code class="classname">std::optional&lt;T&gt;</code></h2>
+        <p>Use the following operations to work with <code class="classname">std::optional</code>:</p>
+        <ul>
+          <li>
+            <p>To store a value, use the constructor or assign the value directly to an <code class="classname">std::optional</code> object:</p>
+            <pre>std::optional&lt;int&gt; v1; // v1 is empty
+std::optional&lt;int&gt; v2(42); // v2 contains 42
+v1 = 42; // v1 contains 42
+std::optional&lt;int&gt; v3 = v2; // v3 contains 42</pre>
+          </li>
+          <li>
+            <p>To read the stored value, use operator* or operator-&gt;:</p>
+            <pre>std::optional&lt;int&gt; v1{ 42 };
+std::cout &lt;&lt; *v1 &lt;&lt; std::endl; // 42
+std::optional&lt;foo&gt; v2{ foo{ 42, 10.5 } };
+std::cout &lt;&lt; v2-&gt;a &lt;&lt; ", " &lt;&lt; v2-&gt;b &lt;&lt; std::endl; // 42, 10.5</pre>
+          </li>
+          <li>
+            <p>Alternatively, use member functions <code class="methodname">value()</code> and <code class="methodname">value_or()</code> to read the stored value:</p>
+            <pre>std::optional&lt;std::string&gt; v1{ "text"s };
+std::cout &lt;&lt; v1.value() &lt;&lt; std::endl; // text
+
+std::optional&lt;std::string&gt; v2;
+std::cout &lt;&lt; v2.value_or("default"s) &lt;&lt; std::endl; // default</pre>
+          </li>
+          <li>
+            <p>To check whether the container stores a value, use a conversion operator to bool or the member function <code class="methodname">has_value()</code>:</p>
+            <pre>struct foo {
+  int a;
+  double b;
+};
+
+std::optional&lt;int&gt; v1{ 42 };
+if (v1) std::cout &lt;&lt; *v1 &lt;&lt;std::endl;
+
+std::optional&lt;foo&gt;v2{ foo{ 42, 10.5 } };
+if (v2.has_value())
+  std::cout &lt;&lt; v2-&gt;a &lt;&lt; ", " &lt;&lt; v2-&gt;b &lt;&lt; std::endl;</pre>
+          </li>
+          <li>
+            <p>To modify the stored value, use member functions <code class="methodname">emplace()</code>, <code class="methodname">reset()</code>, or <code class="methodname">swap()</code>:</p>
+            <pre>std::optional&lt;int&gt;v{ 42 }; // v contains 42
+v.reset(); // v is empty</pre>
+          </li>
+        </ul>
+        <p>Use std::optional to model any of the following:</p>
+        <ul>
+          <li>
+            <p>Return values from functions that may fail to produce a value:</p>
+            <pre>template &lt;typename K, typename V&gt;
+std::optional&lt;V&gt;find(int const key, std::map&lt;K, V&gt;const &amp;m) {
+  auto pos = m.find(key);
+  if (pos != m.end())
+    return pos-&gt;second;
+  return {};
+}
+
+std::map&lt;int, std::string&gt; m{
+  { 1, "one"s },{ 2, "two"s },{ 3, "three"s }
+};
+
+auto value = find(2, m);
+if (value)
+  std::cout &lt;&lt; *value &lt;&lt; std::endl; // two
+
+value = find(4, m);
+if (value)
+  std::cout &lt;&lt;*value &lt;&lt;std::endl;</pre>
+          </li>
+          <li>
+            <p>Parameters to functions that are optional:</p>
+            <pre>std::string extract(std::string const &amp;text,
+std::optional&lt;int&gt; start,
+std::optional&lt;int&gt; end) {
+  auto s = start.value_or(0);
+  auto e = end.value_or(text.length());
+  return text.substr(s, e - s);
+}
+
+auto v1 = extract("sample"s, {}, {});
+std::cout &lt;&lt; v1 &lt;&lt; std::endl; // sample
+
+auto v2 = extract("sample"s, 1, {});
+std::cout &lt;&lt; v2 &lt;&lt; std::endl; // ample
+
+auto v3 = extract("sample"s, 1, 4);
+std::cout &lt;&lt; v3 &lt;&lt; std::endl; // amp</pre>
+          </li>
+          <li>
+            <p>Class data members that are optional:</p>
+            <pre>struct book {
+  std::string title;
+  std::optional&lt;std::string&gt; subtitle;
+  std::vector&lt;std::string&gt; authors;
+  std::string publisher;
+  std::string isbn;
+  std::optional&lt;int&gt; pages;
+  std::optional&lt;int&gt; year;
+};</pre>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>How <code class="classname">std::optional</code> Works</h2>
+        <p>The class template <code class="classname">std::optional</code> is a class template that represents a container for an optional value. If the container does have a value, that value is stored as part of the optional object; no heap allocations and pointers are involved. The <code class="classname">std::optional</code> class template is conceptually implemented like this:</p>
+        <pre>template &lt;typename T&gt;
+class optional {
+  bool _initialized;
+  std::aligned_storage_t&lt;sizeof(t), alignof(T)&gt;_storage;
+};</pre>
+        <p>The <code class="classname">std::aligned_storage_t</code> alias template allows us to create uninitialized chunks of memory that can hold objects of a given type. The class template <code class="classname">std::optional</code> does not contain a value if it was default constructed, or if it was copy constructed or copy assigned from another empty optional object or from an <code class="classname">std::nullopt_t</code> value. This is a helper type, implemented as an empty class, that indicates an optional object with an uninitialized state.</p>
+        <p>The typical use for an optional type (called <dfn>nullable</dfn> in other programming languages) is the return type from a function that may fail. Some alternative solutions for this situation include the following:</p>
+        <ul>
+          <li>Return an std::pair&lt;T, bool&gt;, where T is the type of the return value; the second element of the pair is a Boolean flag that indicates whether the value of the first element is valid or not.</li>
+          <li>Return a bool and take an extra parameter of type T&amp; and assign a value to this parameter only if the function succeeds.</li>
+          <li>Return a raw or smart pointer type, and use <code>nullptr</code> to indicate a failure.</li>
+        </ul>
+        <p>The class template <code class="classname">std::optional</code> is a better approach because, on one hand, it does not involve output parameters to the function (which is unnatural for returning values) and does not require working with pointers, and, on the other hand, it better encapsulates the details of an std::pair&lt;T, bool&gt;. However, optional objects can also be used for class data members, and compilers are able to optimize the memory layout for an efficient storage.</p>
+        <note>The class template std::optional cannot be used to return polymorphic types. If you write, for instance, a factory method that needs to return different types from a hierarchy of types, you cannot rely on std::optional and need to return a pointer, preferably a std::shared_ptr or std::unique_ptr (depending if ownership of the object needs to be shared or not).</note>
+        <p>When you use std::optional to pass optional arguments to a function, you need to understand that it may incur creating copies, which can be a performance issue if large objects are involved. Let's consider the following example of a function that has a constant reference to the std::optional parameter:</p>
+        <pre>struct bar { /* details */ };
+
+void process(std::optional&lt;bar&gt;const &amp;arg) {
+  /* do something with arg */
+}
+
+std::optional&lt;bar&gt; b1{ bar{} };
+bar b2{};
+
+process(b1); // no copy
+process(b2); // copy construction</pre>
+        <p>The first call to process() does not involve any additional object construction because we pass an std::optional&lt;bar&gt;object. The second call, however, will involve the copy construction of a bar object, because b2 is a bar and needs to be copied to an std::optional&lt;bar&gt;; a copy is made even if bar has move semantics implemented. If bar was a small object, this shouldn't be of a great concern, but for large objects, it can prove a performance issue. The solution to avoid this depends on the context, and can involve creating a second overload that takes a constant reference to bar, or entirely avoiding using std::optional.</p>
+        <para/>
+        <pre></pre>
+      </section>
+
+    </main>
+  </body>
+</html>

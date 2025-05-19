@@ -678,7 +678,23 @@ int main ()
 
   return 0;
 }</pre>
-          <p></p>
+        </section>
+
+        <section>
+          <h2>Difference between <code>basic_string::c_str()</code> and <code>basic_string::data()</code></h2>
+          <p>The difference between <code>c_str()</code> and <code>data()</code> (in STL and other implementations) is that <code>c_str()</code> is always null terminated while <code>data()</code> is not.</p>
+          <p>In some implementation <code>data()</code> may turn out to perform better than <code>c_str()</code>.</p>
+          <aside>
+            <p>In C++11 onwards, both functions are required to be the same. i.e. data is now required to be null-terminated. According to cppreference: <q>The returned array is null-terminated, that is, <code>data()</code> and <code>c_str()</code> perform the same function.</q></p>
+            <pre>const charT* c_str() const noexcept;
+const charT* data() const noexcept;</pre>
+          </aside>
+          <p>Still, starting in C++17, <code>data()</code> returns a <code>char*</code> instead of <code>const char*</code></p>
+        </section>
+
+        <section>
+          <h2>Difference between <code>basic_string::resize()</code> and <code>basic_string::reserve()</code></h2>
+          <blockquote>Think of it this way: the string still has a size, which has not been changed by <code>reserve()</code>; however, you have allocated a contiguous chunk of memory so that the string may be <code>resize()</code>&apos;d without incurring a copying of the whole string. It will still, however, check that your index is in bounds with the (logical) size of the string. <code>reserve()</code> is an optimization when you have some ahead-of-time knowledge about how big the string gets. It&apos;s like the C idiom of <code>char[1000]</code> - you have 1000 bytes available even though the string may only be <q>Hello, world!</q></blockquote>
         </section>
 
       </section>

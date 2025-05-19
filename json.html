@@ -37,6 +37,7 @@
       <h1>JavaScript Object Notation</h1>
 
       <p><dfn>JSON</dfn> (JavaScript Object Notation) is a text-based, human-readable data interchange format used to exchange data between web clients and web servers. The format defines a set of structuring rules for the representation of structured data. JSON is used as an alternative to Extensible Markup Language (<a target="_blank" href="xml.en.html">XML</a>), but unlike XML, JSON is simply a way to represent data structures, as opposed to a full markup language.</p>
+      <p>The MIME type for JSON text is <code>application/json</code></p>
 
       <section id="syntax">
         <h2>JSON Syntax</h2>
@@ -72,6 +73,25 @@
   {"kind":"spider", "legs": 8}
  ]</pre>
         <p>Each line is an object, and both lines together would be part of an array. Names in the name and value pairs include kind and legs, while the value pairs would be the actual appearing names, like horse and spider.</p>
+      </section>
+
+      <section id="escape-chars">
+        <h2>Escaping Characters in JSON*</h2>
+      </section>
+
+      <section id="json-vs-js">
+        <h2>JSON vs. JavaScript</h2>
+        <p>In JavaScript, an object may also map to:</p>
+        <ul>
+          <li>a function</li>
+          <li>a date</li>
+          <li><code>undefined</code></li>
+        </ul>
+        <p>Also, in JSON, string values must be written between double quotes:</p>
+        <pre>{"name":"John"}</pre>
+
+        <p>In JavaScript, you can write string values with double or single quotes, as in <code>{name:'John'}</code>.</p>
+
       </section>
 
       <section id="json-vs-xml">

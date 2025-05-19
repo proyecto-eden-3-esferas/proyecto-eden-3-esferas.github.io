@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Initializer Lists in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Initializer Lists in C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      -->
+      <p>
+        <a rel="prev" href="cpp.stl.html">The C++ Standad Template Library (STL)</a>
+      </p>
+      <p>
+        <a href="cpp.constructors.html">Constructors in C++</a>
+      </p>
+      <p>
+        <a href="cpp.html">The C++ Programming Language</a>
+      </p>
+    </nav>
+    <main>
+      <h1>Initializer Lists in C++</h1>
+      <p>Initialization of standard containers, such as the vector and the map also shown above, is possible because all standard containers have an additional constructor in C++11 that takes an argument of type <code>std::initializer_list&lt;T&gt;</code>. This is basically a lightweight proxy over an array of elements of type T const. These constructors then initialize the internal data from the values in the initializer list.</p>
+      <p>The way the initialization using <code>std::initializer_list&lt;&gt;</code> works is the following:</p>
+      <ul>
+        <li>The compiler resolves the types of the elements in the initialization list (all elements must have the same type).</li>
+        <li>The compiler creates an array with the elements in the initializer list.</li>
+        <li>The compiler creates an <code>std::initializer_list&lt;T&gt;</code> object to wrap the previously created array.</li>
+        <li>The <code>std::initializer_list&lt;T&gt;</code> object is passed as an argument to the constructor.</li>
+      </ul>
+      <p>An initializer list always takes precedence over other constructors where brace-initialization is used. If such a constructor exists for a class, it will be called when brace-initialization is performed:</p>
+      <pre>#include &lt;initialized_list&gt;
+
+class foo
+{
+int a_;
+int b_;
+public:
+foo() :a_(0), b_(0) {}
+
+foo(int a, int b = 0) :a_(a), b_(b) {}
+foo(std::initializer_list&lt;int&gt;l) {}
+};
+
+foo f{ 1, 2 }; // calls constructor with initializer_list&lt;int&gt;</pre>
+      <p>There's more...</p>
+      <section>
+        <h2>More on Implicit <code>std::initializer_list&lt;T&gt;</code>'s</h2>
+        <p>The following sample shows several examples of direct-list-initialization and copy-list-initialization. In C++11, the deduced type of all these expressions is std::initializer_list&lt;int&gt;.</p>
+        <pre>auto a = {42}; // std::initializer_list&lt;int&gt;
+auto b {42}; // std::initializer_list&lt;int&gt;
+auto c = {4, 2}; // std::initializer_list&lt;int&gt;
+auto d {4, 2}; // std::initializer_list&lt;int&gt;</pre>
+        <p>C++17 has changed the rules for list initialization, differentiating between the direct- and copy-list-initialization. The new rules for type deduction are as follows:</p>
+        <ul>
+          <li>for copy list initialization auto deduction will deduce a <code>std::initializer_list&lt;T&gt;</code> if all elements in the list have the same type, or be ill-formed.</li>
+          <li>for direct list initialization auto deduction will deduce a T if the list has a single element, or be ill-formed if there is more than one element.</li>
+        </ul>
+        <p>Base on the new rules, the previous examples would change as follows: a and c are deduced as <code>std::initializer_list&lt;T&gt;</code>; b is deduced as an int; d, which uses direct initialization and has more than one value in the brace-init-list, triggers a compiler error.</p>
+        <pre>auto a = {42}; // std::initializer_list&lt;int&gt;
+auto b {42}; // int
+auto c = {4, 2}; // std::initializer_list&lt;int&gt;
+auto d {4, 2}; // error, too many</pre>
+      </section>
+      <section>
+        <h2>Uniform Initialization Summary</h2>
+        <ul>
+          <li>Brace initialization syntax now available everywhere.Aggregates are initialized top-to-bottom/front-to-back. Non-aggregates initialized via constructor.</li>
+          <li>Implicit narrowing not allowed.</li>
+          <li><code>std::initializer_list</code> parameters allow "initialization" lists to be passed to functions. Not actually limited to initialization (e.g., <code>std::vector::insert</code>).</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
