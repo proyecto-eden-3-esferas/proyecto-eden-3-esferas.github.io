@@ -39,7 +39,24 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+worth_reading in *directory.*.xml*
+[ ] ~/francisco_Downloads/to_save/ebooks/unclassified/TizianoBonini_EmilianoTrere-AlgorithmsOfResistance_TheEverydayFightAgainstPlatformPower-TheMITPress2024.epub
+[ ] ~/francisco_Downloads/to_save/ebooks/technology/computing/security_hacking_cryptography/BenCollier_Tor-FromTheDarkWebToTheFutureOfPrivacy-TheMITPress2024.epub
+
+[ ] Una gran parte de la Realidad consiste en <strong>comunicación simbólica</strong>
+
+[ ]
+  <h2>Binomial Notation/Nomenclature</h2>
+  <p>Used in taxonomy for classifying species of animals, plants and so on. Also called <strong>binary nomenclature</strong>.</p>
+  <p>The first part, the generic name, is the <strong>genus</strong> and is capitalized. The Second part is the specific name.</p>
+
+[ ] *linux.pipes.html*
+
+[ ] Internet Language Codes
+
 [ ] *computing.text.html*
+  <h2>ASCII</h2>
+  <h2>Encoding</h2>
   <h2>Escaping</h2>
   <p><dfn>Escaping</dfn> refers to the process of converting certain characters in a string to other characters (that is, to their escaped representations). It typically consists of prepending a backslash (<code>\</code>).</p>
   <p>Some characters have special meanings For example, double quotes are often used to define string values. If you need to include a double quote within a string, you would escape it to prevent it from being interpreted as the end of the string.</p>
@@ -1718,6 +1735,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] enlazar a *informatica.mis-proyectos.html* desde *informatica.html*
+[ ] enlazar a *informatica.mis-proyectos.html* desde *index.html*
+
 
 [ ] *cyberpunk.en.html* from would-be *cyborg.html*
 [ ] *cyberpunk.en.html* from elsewhere
