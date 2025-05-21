@@ -52,7 +52,7 @@
       <h1>Open Source Apache CouchDB: Another JSON Document DBMS</h1>
       <p>Apache CouchDB is an open-source document-oriented NoSQL database.</p>
       <p>CouchDB is implemented in Erlang.</p>
-      <p>CouchDB uses multiple formats and protocols to store, transfer, and process its data. It uses <a target="_blank" href="json.html">JSON</a> to store data, <a target="_blank" href="js.html">JavaScript</a> as its query language using <a target="_blank" href="MapReduce.html">MapReduce</a>, and HTTP for an API.</p>
+      <p>CouchDB uses multiple formats and protocols to store, transfer, and process its data. It uses <a target="_blank" href="json.html">JSON</a> to store data, <a target="_blank" href="js.html">JavaScript</a> as its query language using <a target="_blank" href="MapReduce.html">MapReduce</a>, and <a target="_blank" href="http.html">HTTP</a> for an API.</p>
       <p>CouchDB was first released in 2005 and later became an Apache Software Foundation project in 2008.</p>
       <hr/>
       <p>Each CouchDB database is a collection of independent documents. An application may access multiple databases, such as one stored on a user&apos;s mobile phone and another on a server. Document metadata contains revision information, making it possible to merge any differences that may have occurred while the databases were disconnected.</p>
@@ -155,57 +155,76 @@ bind_address = 0.0.0.0</pre>
       </section>
 
       <section id="first-steps">
-        <h2>First Steps with CouchDB: Access CouchDB Using HTTP API Endpoints</h2>
-        <p>You can access CouchDB using the HTTP API to send database requests to the backend server. Follow the steps below to use the Curl utility with the -u option to prompt you for the administrator password for every API request to the CouchDB localhost port 5984.</p>
+        <h2>First Steps with CouchDB: Access CouchDB Using HTTP API Endpoints (<code>curl</code>)</h2>
+        <p>You can access CouchDB using the HTTP API to send database standard GET and PUT requests to the backend server. Follow the steps below to use the Curl utility with the <code>-u</code> option to prompt you for the administrator password for every API request to the CouchDB localhost port 5984.</p>
+        <aside>
+          <p>The <code>curl</code> utility is a command line tool available on Unix, Linux, Mac OS X, Windows, and many other platforms. curl provides easy access to the HTTP protocol (among others) directly from the command line and is therefore an ideal way of interacting with CouchDB over the HTTP REST API.</p>
+          <p>Besides, the <code>curl</code> command issues <code>GET</code> requests by default.</p>
+        </aside>
+        <p>Use the <code>-X</code> flag to specify a method (like GET or PUT) for <code>curl</code>.</p>
+        <aside>
+          <p>You may provide the password on the command line, as in:</p>
+          <pre>curl -u admin:skyblue -X GET http://127.0.0.1:5984/_all_dbs</pre>
+        </aside>
         <ol>
           <li>
             <p class="bridgehead">Get a list of all databases</p>
-            <pre>$ curl -u admin -X GET http://127.0.0.1:5984/_all_dbs</pre>
+            <pre>$ curl -u admin:skyblue -X GET http://127.0.0.1:5984/_all_dbs</pre>
             <p>Output:</p>
             <pre>["exampledb"]</pre>
           </li>
           <li>
             <p class="bridgehead">Create a new database</p>
             <p>Such as <cite>test_database</cite>.</p>
-            <pre>$ curl -u admin -X PUT http://127.0.0.1:5984/test_database</pre>
+            <pre>$ curl -u admin:skyblue -X PUT http://127.0.0.1:5984/<var>my_database</var></pre>
             <p>Output:</p>
             <pre>{"ok":true}</pre>
           </li>
           <li>
             <p class="bridgehead">Delete a database</p>
             <p>For example, <var>test_database</var>.</p>
-            <pre>$ curl -u admin -X DELETE http://127.0.0.1:5984/test_database</pre>
+            <pre>$ curl -u admin:skyblue -X DELETE http://127.0.0.1:5984/<var>my_database</var></pre>
           </li>
           <li>
             <p class="bridgehead">Retrieve database information</p>
-            <pre>$ curl -u admin http://127.0.0.1:5984/test_database</pre>
+            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var></pre>
           </li>
           <li>
             <p class="bridgehead">Create a new document in a database</p>
             <p>Replace the <code>-d</code> option value with your own JSON document data.</p>
-            <pre>$ curl -u admin -X POST -H "Content-Type: application/json" -d '{"name": "John Doe"}' http://127.0.0.1:5984/test_database</pre>
+            <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" -d '{"name": "John Doe"}' http://127.0.0.1:5984/<var>my_database</var></pre>
+            <hr/>
+            <p>When adding a document to the database you may specify the unique ID of the record you want to create, then use -d to pass along the record's information in JSON format.</p>
           </li>
           <li>
             <p class="bridgehead">Get a document's JSON data stored</p>
-            <p>Replace <code>test_database</code>,<code>76ca238ae15974746eeafe5c0b0302c1</code> with your database and document ID values respectively.</p>
-            <pre>$ curl -u admin http://127.0.0.1:5984/test_database/76ca238ae15974746eeafe5c0b0302c1</pre>
+            <p>To <code>GET</code> a document, specify the document&apos;s ID at the end of the URL.</p>
+            <p>Replace <code>test_database</code>,<code>ff66</code> with your database and document ID values respectively.</p>
+            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var>/ff66</pre>
+            <hr/>
+            <p>Alternatively, you may pass in an object with a selector key matching an object after switch <code>-d</code>. In that case, remember to include a content type specification (<code>-H "Content-Type: application/json"</code>). For example:</p>
+            <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": { "term": "ethereum"}}'</pre>
+            <p>What about adding a <code>"fields": ["term", "name", "definition"]</code> key-value pair?</p>
+            <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": { "term": "ethereum"}, "fields": ["term", "name", "definition"]}'</pre>
+            <p>Last, you may make the selector match an empty object and only include the <code>"fields"</code> key-value pair:</p>
+            <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": {}, "fields": ["term", "name", "definition"]}'</pre>
           </li>
           <li>
             <p class="bridgehead">Delete a document</p>
-            <p>Replace 76ca238ae15974746eeafe5c0b0302c1 with your document ID and 1-b9a5713ff0a5b6eee4347d4040a7f6bf with your actual revision number.</p>
-            <pre>$ curl -u admin -X DELETE http://127.0.0.1:5984/test_database/76ca238ae15974746eeafe5c0b0302c1?rev=1-b9a5713ff0a5b6eee4347d4040a7f6bf</pre>
+            <p>Replace ff66 with your document ID and 1-b9a5713ff0a5b6eee4347d4040a7f6bf with your actual revision number.</p>
+            <pre>$ curl -u admin:skyblue -X DELETE http://127.0.0.1:5984/<var>my_database</var>/ff66?rev=1-b9a5713ff0a5b6eee4347d4040a7f6bf</pre>
           </li>
           <li>
             <p class="bridgehead">Get all documents in a database such as <cite>test_database</cite></p>
-            <pre>$ curl -u admin http://127.0.0.1:5984/test_database/_all_docs</pre>
+            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var>/_all_docs</pre>
           </li>
           <li>
             <p class="bridgehead">Compact a database</p>
-            <pre>$ curl -u admin -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/test_database/_compact</pre>
+            <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/<var>my_database</var>/_compact</pre>
           </li>
           <li>
             <p class="bridgehead">Get active tasks</p>
-            <pre>$ curl -u admin http://127.0.0.1:5984/_active_tasks</pre>
+            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/_active_tasks</pre>
           </li>
         </ol>
 
@@ -218,7 +237,6 @@ bind_address = 0.0.0.0</pre>
         <p>To load Futon in your browser, visit (locally):</p>
         <pre>http://127.0.0.1:5984/_utils/</pre>
       </section>
-
 
     </main>
 

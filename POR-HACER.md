@@ -31,6 +31,8 @@
 
 - https://www.indefenseofplants.com/
 
+- https://developer.mozilla.org/
+
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
 
 - https://www.sokaglobal.org/es/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
@@ -38,10 +40,6 @@
 - https://www.sokaglobal.org/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
-
-worth_reading in *directory.*.xml*
-[ ] ~/francisco_Downloads/to_save/ebooks/unclassified/TizianoBonini_EmilianoTrere-AlgorithmsOfResistance_TheEverydayFightAgainstPlatformPower-TheMITPress2024.epub
-[ ] ~/francisco_Downloads/to_save/ebooks/technology/computing/security_hacking_cryptography/BenCollier_Tor-FromTheDarkWebToTheFutureOfPrivacy-TheMITPress2024.epub
 
 [ ] Una gran parte de la Realidad consiste en <strong>comunicación simbólica</strong>
 
@@ -1735,6 +1733,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *http.html* from *networking.html*
+[x] *http.html* from *couchdb.html*
+[x] *HTML.html* from *couchdb.html*
 
 [ ] enlazar a *informatica.mis-proyectos.html* desde *informatica.html*
 [ ] enlazar a *informatica.mis-proyectos.html* desde *index.html*
