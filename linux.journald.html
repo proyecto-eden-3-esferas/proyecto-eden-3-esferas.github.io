@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux Journal</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Linux Journal"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a            href="linux.logging.html">Logging (Events) in Linux</a></p>
+        <p><a            href="linux.monitoring.html">Monitoring Linux</a></p>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+      </div>
+      <div>
+        <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+        <p><a            href="linux.partitioning.html">Partitions in Linux</a></p>
+        <p><a            href="snap.html">Snap</a></p>
+      <!--
+        <p><a            href="flatpak.html">Flatpak</a></p>
+      -->
+      </div>
+      <div>
+        <p><a            href="os.html">Operating Systems</a></p>
+        <p><a            href="computing.html">Computer Science</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The Linux Journal</h1>
+      <p style="text-aling: right">(From <cite>https://sematext.com/blog/journald-logging-tutorial/</cite>)</p>
+      <p><code>journald</code> is the part of <code>systemd</code> that deals with logging. <code>systemd</code>, at its core, is in charge of managing services: it starts them up and keeps them alive.</p>
+      <p>All services and <code>systemd</code> itself need to log: “ssh started” or “user root logged in”, they might say. That&apos;s where <code>journald</code> comes in: to capture these logs, record them, make them easy to find, and remove them when they pass a certain </p>
+      <hr/>
+      <p>Most Linux distros use <code>journald</code> for system logging by default. Most applications running as a service will also log to the journal.</p>
+      <hr/>
+      <p>So how do you make use of these logs to:</p>
+      <ul>
+        <li>find the error or debug message that you&apos;re looking for?</li>
+        <li>make sure logs don&apos;t fill your disk?</li>
+        <li>centralize journals so you don&apos;t have to ssh to each box?</li>
+      </ul>
+
+      <section id="managing-journald">
+        <h2>Managing <code>journald</code></h2>
+        <p>Learn about the current status of <code>journald</code> by typing:</p>
+        <pre>systemctl stop systemd-journald.service</pre>
+        <hr/>
+        <p>You can stop and start <code>journald</code>:</p>
+        <pre>sudo systemctl stop systemd-journald.service</pre>
+        <p>and</p>
+        <pre>sudo systemctl stop systemd-journald.service</pre>
+        <p>Still, when you try to stop it you get the following warning:</p>
+        <pre>Stopping 'systemd-journald.service', but its triggering units are still active:
+systemd-journald.socket, systemd-journald-dev-log.socket</pre>
+      </section>
+
+      <section id="configuring">
+        <h2>Configuring <code>journald</code></h2>
+        <p>To tweak how journald behaves, you&apos;ll edit <cite><a href="#conf">/etc/systemd/journald.conf</a></cite> and then reload the journal service:</p>
+        <pre>systemctl reload systemd-journald.service</pre>
+
+        <section id="storage">
+          <h3>Storage*</h3>
+          <p>The <var>Storage</var> option controls whether the journal is stored in memory (under <cite>/run/log/journal</cite>) or on disk (under <cite>/var/log/journal</cite>). Setting <code>Storage=volatile</code> will store the journal in memory, while <code>Storage=persistent</code> will store it on disk. Most distributions have it set to <code>auto</code>, which means it will store the journal on disk if <cite>/var/log/journal</cite> exists, otherwise it will be stored in memory.</p>
+          <p>Once you&apos;ve decided where to store the journal, you may want to set some limits. For example, <code>SystemMaxUse=4G</code> will limit <cite>/var/log/journal</cite> to about 4GB. Similarly, <code>SystemKeepFree=10G</code> will try to keep 10GB of disk space free. If you choose to keep the journal in memory, the equivalent options are <var>RuntimeMaxUse</var> and <var>RuntimeKeepFree</var>.</p>
+          <p>You can check the current disk usage of the journal with journalctl by typing <code>journalctl --disk-usage</code>. If you need to, you can clean it up on demand by typing <code>journalctl --vacuum-size=4GB</code> (i.e. to reduce it to 4GB).</p>
+        </section>
+
+        <section id="rate">
+          <h3><q>Bursts</q> or Rate</h3>
+          <p>Also by default, journald will drop all log messages from a service if it passes certain limits. These limits can be configured via <var>RateLimitBurst</var> and <var>RateLimitIntervalSec</var>, which default to 10000 and 30s respectively. Actual values will depend on the available free space. For example, if you have more than 64GB of free disk space, the multiplier will be 6. Meaning it will drop logs from a service after 60K messages sent in 30 seconds.</p>
+          <p>The rate limit defaults are sensible, unless you have a specific service that&apos;s generating lots of logs (e.g. a web server). In that case, it might be better to tweak or reduce <var>LogRateLimitBurst</var> and <var>LogRateLimitIntervalSec</var> in that application&apos;s service definition.</p>
+        </section>
+        <!--
+        <section id="*">
+          <h3>**</h3>
+        </section>
+        <section id="*">
+          <h3>**</h3>
+        </section>
+        <section id="*">
+          <h3>**</h3>
+        </section>
+        -->
+      </section>
+
+
+      <section id="conf">
+        <h2>The <cite>journald.conf</cite> Configuration File(s)*</h2>
+        <p>These files configure various parameters of the systemd journal service, systemd-journald.service(8). <i>See</i> systemd.syntax (7) (<code>man 7 systemd.syntax</code>) for a general description of the syntax.</p>
+        <p>The systemd-journald instance managing the default namespace is configured by <cite>/etc/systemd/journald.conf</cite> and associated drop-ins. Instances managing other namespaces read <cite>/etc/systemd/journald@<var>NAMESPACE</var>.conf</cite> and associated drop-ins with the namespace identifier filled in. This allows each namespace to carry a distinct configuration. <i>See</i> systemd-journald.service(8) (<code>man 8 systemd-journald.service</code>) for details about journal namespaces.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -41,7 +41,29 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *sense.h* / *cpp.sense.html*
+<p>A <code>sense&lt;&gt;</code> is a template class for creating functionally identical subclasses that differ only in the <q>sense</q> they are used.</p>
+<p>Possible uses:</p>
+<ul>
+  <li>As dimensions: you want a double to be classed as a weight, or as a length, or as a surface, to make your code more reliable, readable and easier to debug</li>
+  <li>
+    <p>As template parameters in a <code>std::variant&lt;&gt;</code>. Admitedly, <code>std::variant&lt;T, T&gt;</code> is a bit unwieldly as you cannot choose which to initialize. You want something like:</p>
+    <pre>std::variant&lt; sense&lt;T, 0&gt;, sense&lt;T, 2&gt; &gt;</pre>
+  </li>
+</ul>
+<p>A <code>sense&lt;&gt;</code> could be implemented like this:</p>
+template <typename T, int N = 0>
+class sense : public T {
+  using T::T;
+  operator       T& ()       {return static_cast<      T&>(*this)};
+  operator const T& () const {return static_cast<const T&>(*this);};
+};
+
+Further, you might specialize <code>sense&lt;&gt;</code> for integer and char types (first parameter) through concepts. Such specializations should return values, not references, for the sake of efficiency to begin with.
+
+
 [ ] Una gran parte de la Realidad consiste en <strong>comunicación simbólica</strong>
+
 
 [ ]
   <h2>Binomial Notation/Nomenclature</h2>

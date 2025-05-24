@@ -43,304 +43,302 @@
     </nav>
 
     <main>
-      <h1>STL Owning Strings: C-Strings and &lt;std::string&gt;</h1>
+      <h1>STL Owning Strings: &lt;std::string&gt;</h1>
 
       <section id="c-string">
         <h2>C-Strings*</h2>
       </section>
 
-      <section id="string">
-        <h2>&lt;string&gt;</h2>
-        <p>Strings are objects that represent sequences of characters.</p>
-        <p><code>std::basic_string</code> is the generalization of class string for any character type, whereas the <code>string</code> class is an instantiation of the <code>std::basic_string</code> class template that uses char (i.e., bytes) as its character type, with its default <code>char_traits</code> and <code>allocator</code> types<!-- (see basic_string for more info on the template)-->.</p>
-        <p>The standard string class provides support for such objects with an interface similar to that of a standard <a href="cpp.containers.html">container</a> of bytes, but adding features specifically designed to operate with strings of single-byte characters.</p>
-        <p>Note that this class handles bytes independently of the encoding used: If used to handle sequences of multi-byte or variable-length characters (such as UTF-8), all members of this class (such as length or size), as well as its iterators, will still operate in terms of bytes (not actual encoded characters).</p>
+      <p>Strings are objects that represent sequences of characters.</p>
+      <p><code>std::basic_string</code> is the generalization of class string for any character type, whereas the <code>string</code> class is an instantiation of the <code>std::basic_string</code> class template that uses char (i.e., bytes) as its character type, with its default <code>char_traits</code> and <code>allocator</code> types<!-- (see basic_string for more info on the template)-->.</p>
+      <p>The standard string class provides support for such objects with an interface similar to that of a standard <a href="cpp.containers.html">container</a> of bytes, but adding features specifically designed to operate with strings of single-byte characters.</p>
+      <p>Note that this class handles bytes independently of the encoding used: If used to handle sequences of multi-byte or variable-length characters (such as UTF-8), all members of this class (such as length or size), as well as its iterators, will still operate in terms of bytes (not actual encoded characters).</p>
 
-        <section>
-          <h3>Template parameters</h3>
-          <dl>
-            <dt>
-              <code>charT</code>
-            </dt>
-            <dd>
-              <p>Character type.
+      <section>
+        <h2>Template parameters</h2>
+        <dl>
+          <dt>
+            <code>charT</code>
+          </dt>
+          <dd>
+            <p>Character type.
     The string is formed by a sequence of characters of this type.
     This shall be a non-array POD type.</p>
-            </dd>
-            <dt>
-              <code>traits</code>
-            </dt>
-            <dd>
-              <p>Character traits class that defines essential properties of the characters used by basic_string objects (<i>see</i> char_traits).
+          </dd>
+          <dt>
+            <code>traits</code>
+          </dt>
+          <dd>
+            <p>Character traits class that defines essential properties of the characters used by basic_string objects (<i>see</i> char_traits).
     traits::char_type shall be the same as charT.
     Aliased as member type basic_string::traits_type.</p>
-            </dd>
-            <dt>
-              <code>Alloc</code>
-            </dt>
-            <dd>
-              <p>Type of the allocator object used to define the storage allocation model. By default, the allocator class template is used, which defines the simplest memory allocation model and is value-independent.
+          </dd>
+          <dt>
+            <code>Alloc</code>
+          </dt>
+          <dd>
+            <p>Type of the allocator object used to define the storage allocation model. By default, the allocator class template is used, which defines the simplest memory allocation model and is value-independent.
     Aliased as member type basic_string::allocator_type.</p>
-            </dd>
-          </dl>
-          <p><strong>Note:</strong> Because the first template parameter is not aliased as any member type, <code>charT</code> is used throughout this page to refer to this type.</p>
-        </section>
-        <section>
-          <h3>Template instantiations</h3>
-          <table border="1">
-            <tr>
-              <td>
-                <code>string</code>
-              </td>
-              <td>String class</td>
-            </tr>
-            <tr>
-              <td>
-                <code>wstring</code>
-              </td>
-              <td>Wide string</td>
-            </tr>
-            <tr>
-              <td>
-                <code>u16string</code>
-              </td>
-              <td>String of 16-bit characters</td>
-            </tr>
-            <tr>
-              <td>
-                <code>u32string</code>
-              </td>
-              <td>String of 32-bit characters</td>
-            </tr>
-          </table>
-        </section>
+          </dd>
+        </dl>
+        <p><strong>Note:</strong> Because the first template parameter is not aliased as any member type, <code>charT</code> is used throughout this page to refer to this type.</p>
+      </section>
+      <section>
+        <h2>Template instantiations</h2>
+        <table border="1">
+          <tr>
+            <td>
+              <code>string</code>
+            </td>
+            <td>String class</td>
+          </tr>
+          <tr>
+            <td>
+              <code>wstring</code>
+            </td>
+            <td>Wide string</td>
+          </tr>
+          <tr>
+            <td>
+              <code>u16string</code>
+            </td>
+            <td>String of 16-bit characters</td>
+          </tr>
+          <tr>
+            <td>
+              <code>u32string</code>
+            </td>
+            <td>String of 32-bit characters</td>
+          </tr>
+        </table>
+      </section>
 
-        <section>
-          <h3>Member types (C++11)</h3>
-          <table border="1">
-            <thead>
-              <tr>
-                <th>member type</th>
-                <th>definition</th>
-                <th>notes</th>
-              </tr>
-            </thead>
+      <section>
+        <h2>Member types (C++11)</h2>
+        <table border="1">
+          <thead>
             <tr>
-              <td>
-                <code>traits_type</code>
-              </td>
-              <td>The second template parameter (traits)</td>
-              <td>defaults to: char_traits&lt;charT&gt;</td>
+              <th>member type</th>
+              <th>definition</th>
+              <th>notes</th>
             </tr>
-            <tr>
-              <td>
-                <code>allocator_type</code>
-              </td>
-              <td>The third template parameter (Alloc)</td>
-              <td>defaults to: allocator&lt;charT&gt;</td>
-            </tr>
-            <tr>
-              <td>
-                <code>value_type</code>
-              </td>
-              <td>
-                <code>traits_type::char_type</code>
-              </td>
-              <td>shall be the same as charT</td>
-            </tr>
-            <tr>
-              <td>
-                <code>reference</code>
-              </td>
-              <td>
-                <code>value_type&amp;</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>const_reference</code>
-              </td>
-              <td>const value_type&amp;</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>pointer</code>
-              </td>
-              <td>
-                <code>allocator_traits&lt;allocator_type&gt;::pointer</code>
-              </td>
-              <td>for the default allocator: charT*</td>
-            </tr>
-            <tr>
-              <td>
-                <code>const_pointer</code>
-              </td>
-              <td>allocator_traits&lt;allocator_type&gt;::const_pointer</td>
-              <td>for the default allocator: const charT*</td>
-            </tr>
-            <tr>
-              <td>
-                <code>iterator</code>
-              </td>
-              <td>a random access iterator to charT</td>
-              <td>convertible to const_iterator</td>
-            </tr>
-            <tr>
-              <td>
-                <code>const_iterator</code>
-              </td>
-              <td>a random access iterator to const charT</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>reverse_iterator</code>
-              </td>
-              <td>
-                <code>reverse_iterator&lt;iterator&gt;</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>const_reverse_iterator</code>
-              </td>
-              <td>
-                <code>reverse_iterator&lt;const_iterator&gt;</code>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <code>difference_type</code>
-              </td>
-              <td>
-                <code>allocator_traits&lt;allocator_type&gt;::difference_type</code>
-              </td>
-              <td>usually the same as <code>ptrdiff_t</code></td>
-            </tr>
-            <tr>
-              <td>
-                <code>size_type</code>
-              </td>
-              <td>
-                <code>allocator_traits&lt;allocator_type&gt;::size_type</code>
-              </td>
-              <td>usually the same as <code>size_t</code></td>
-            </tr>
-          </table>
-        </section>
+          </thead>
+          <tr>
+            <td>
+              <code>traits_type</code>
+            </td>
+            <td>The second template parameter (traits)</td>
+            <td>defaults to: char_traits&lt;charT&gt;</td>
+          </tr>
+          <tr>
+            <td>
+              <code>allocator_type</code>
+            </td>
+            <td>The third template parameter (Alloc)</td>
+            <td>defaults to: allocator&lt;charT&gt;</td>
+          </tr>
+          <tr>
+            <td>
+              <code>value_type</code>
+            </td>
+            <td>
+              <code>traits_type::char_type</code>
+            </td>
+            <td>shall be the same as charT</td>
+          </tr>
+          <tr>
+            <td>
+              <code>reference</code>
+            </td>
+            <td>
+              <code>value_type&amp;</code>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <code>const_reference</code>
+            </td>
+            <td>const value_type&amp;</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <code>pointer</code>
+            </td>
+            <td>
+              <code>allocator_traits&lt;allocator_type&gt;::pointer</code>
+            </td>
+            <td>for the default allocator: charT*</td>
+          </tr>
+          <tr>
+            <td>
+              <code>const_pointer</code>
+            </td>
+            <td>allocator_traits&lt;allocator_type&gt;::const_pointer</td>
+            <td>for the default allocator: const charT*</td>
+          </tr>
+          <tr>
+            <td>
+              <code>iterator</code>
+            </td>
+            <td>a random access iterator to charT</td>
+            <td>convertible to const_iterator</td>
+          </tr>
+          <tr>
+            <td>
+              <code>const_iterator</code>
+            </td>
+            <td>a random access iterator to const charT</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <code>reverse_iterator</code>
+            </td>
+            <td>
+              <code>reverse_iterator&lt;iterator&gt;</code>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <code>const_reverse_iterator</code>
+            </td>
+            <td>
+              <code>reverse_iterator&lt;const_iterator&gt;</code>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <code>difference_type</code>
+            </td>
+            <td>
+              <code>allocator_traits&lt;allocator_type&gt;::difference_type</code>
+            </td>
+            <td>usually the same as <code>ptrdiff_t</code></td>
+          </tr>
+          <tr>
+            <td>
+              <code>size_type</code>
+            </td>
+            <td>
+              <code>allocator_traits&lt;allocator_type&gt;::size_type</code>
+            </td>
+            <td>usually the same as <code>size_t</code></td>
+          </tr>
+        </table>
+      </section>
 
-        <section>
-          <h3>Member Functions</h3>
-          <table border="1">
-            <tr><td>(constructor)</td> <td>Construct basic_string object (public member function)</td></tr>
-            <tr><td>(destructor)</td> <td>String destructor (public member function)</td></tr>
-            <tr><td><code>operator=</code></td> <td>String assignment (public member function)</td></tr>
-          </table>
-          <table border="1">
-            <caption>Iterators:</caption>
-            <tr><td><code>begin</code></td> <td>Return iterator to beginning (public member function)</td> </tr>
-            <tr><td><code>end</code></td> <td>Return iterator to end (public member function)</td></tr>
-            <tr><td><code>rbegin</code></td> <td>Return reverse iterator to reverse beginning (public member function)</td></tr>
-            <tr><td><code>rend</code></td> <td>Return reverse iterator to reverse end (public member function)</td></tr>
-            <tr><td><code>cbegin</code></td> <td>Return const_iterator to beginning (public member function)</td></tr>
-            <tr><td><code>cend</code></td> <td>Return const_iterator to end (public member function)</td></tr>
-            <tr><td><code>crbegin</code></td> <td>Return const_reverse_iterator to reverse beginning (public member function)</td></tr>
-            <tr><td><code>crend</code></td> <td>Return const_reverse_iterator to reverse end (public member function)</td></tr>
-          </table>
-          <table border="1">
-            <caption>Capacity:</caption>
-            <tr><td><code>size</code></td> <td>Return size (public member function)</td></tr>
-            <tr><td><code>length</code></td> <td>Return length of string (public member function)</td></tr>
-            <tr><td><code>max_size</code></td> <td>Return maximum size (public member function)</td></tr>
-            <tr><td><code>resize</code></td> <td>Resize string (public member function)</td></tr>
-            <tr><td><code>capacity</code></td> <td>Return size of allocated storage (public member function)</td></tr>
-            <tr><td><code>reserve</code></td> <td>Request a change in capacity (public member function)</td></tr>
-            <tr><td><code>clear</code></td> <td>Clear string (public member function)</td></tr>
-            <tr><td><code>empty</code></td> <td>Test whether string is empty (public member function)</td></tr>
-            <tr><td><code>shrink_to_fit</code></td> <td>Shrink to fit (public member function)</td></tr>
-          </table>
-          <table border="1">
-            <caption>Element access:</caption>
-            <tr><td><code>operator[]</code></td> <td>Get character of string (public member function)</td></tr>
-            <tr><td><code><a href="#at">at</a></code></td> <td>Get character of string (public member function)</td></tr>
-            <tr><td><code>back</code></td> <td>Access last character (public member function)</td></tr>
-            <tr><td><code>front</code></td> <td>Access first character (public member function)</td></tr>
-            <caption>Modifiers:</caption>
-            <tr><td><code>operator+=</code></td> <td>Append to string (public member function)</td></tr>
-            <tr><td><code>append</code></td> <td>Append to string (public member function)</td></tr>
-            <tr><td><code>push_back</code></td> <td>Append character to string (public member function)</td></tr>
-            <tr><td><code>assign</code></td> <td>Assign content to string (public member function)</td></tr>
-            <tr><td><code><a href="#insert">insert</a></code></td> <td>Insert into string (public member function)</td></tr>
-            <tr><td><code>erase</code></td> <td>Erase characters from string (public member function)</td></tr>
-            <tr><td><code><a href="#replace">replace</a></code></td> <td>Replace portion of string (public member function)</td></tr>
-            <tr><td><code>swap</code></td> <td>Swap string values (public member function)</td></tr>
-            <tr><td><code>pop_back</code></td> <td>Delete last character (public member function)</td></tr>
-          </table>
-          <table border="1">
-            <caption>String operations:</caption>
-            <tr><td><code>c_str</code></td> <td><code>const charT* c_str() const noexcept</code>: Get C-string equivalent</td></tr>
-            <tr><td><code>data</code></td> <td>Get string data (public member function)</td></tr>
-            <tr><td><code>get_allocator</code></td> <td>Get allocator (public member function)</td></tr>
-            <tr><td><code><a href="#copy">copy</a></code></td> <td>Copy sequence of characters from string (public member function)</td></tr>
-            <tr><td><code><a href="#find">find</a></code></td> <td>Find first occurrence in string (public member function)</td></tr>
-            <tr><td><code>rfind</code></td> <td>Find last occurrence in string (public member function)</td></tr>
-            <tr><td><code><a href="#find_first_of">find_first_of</a></code></td> <td>Find character in string (public member function)</td></tr>
-            <tr><td><code>find_last_of</code></td> <td>Find character in string from the end (public member function)</td></tr>
-            <tr><td><code>find_first_not_of</code></td> <td>Find non-matching character in string (public member function)</td></tr>
-            <tr><td><code>find_last_not_of</code></td> <td>Find non-matching character in string from the end (public member function)</td></tr>
-            <tr><td><code><a href="#substr">substr</a></code></td> <td>Generate substring (public member function)</td></tr>
-            <tr><td><code>compare</code></td> <td>Compare strings (public member function)</td></tr>
-          </table>
-        </section>
+      <section>
+        <h2>Member Functions</h2>
+        <table border="1">
+          <tr><td>(constructor)</td> <td>Construct basic_string object (public member function)</td></tr>
+          <tr><td>(destructor)</td> <td>String destructor (public member function)</td></tr>
+          <tr><td><code>operator=</code></td> <td>String assignment (public member function)</td></tr>
+        </table>
+        <table border="1">
+          <caption>Iterators:</caption>
+          <tr><td><code>begin</code></td> <td>Return iterator to beginning (public member function)</td> </tr>
+          <tr><td><code>end</code></td> <td>Return iterator to end (public member function)</td></tr>
+          <tr><td><code>rbegin</code></td> <td>Return reverse iterator to reverse beginning (public member function)</td></tr>
+          <tr><td><code>rend</code></td> <td>Return reverse iterator to reverse end (public member function)</td></tr>
+          <tr><td><code>cbegin</code></td> <td>Return const_iterator to beginning (public member function)</td></tr>
+          <tr><td><code>cend</code></td> <td>Return const_iterator to end (public member function)</td></tr>
+          <tr><td><code>crbegin</code></td> <td>Return const_reverse_iterator to reverse beginning (public member function)</td></tr>
+          <tr><td><code>crend</code></td> <td>Return const_reverse_iterator to reverse end (public member function)</td></tr>
+        </table>
+        <table border="1">
+          <caption>Capacity:</caption>
+          <tr><td><code>size</code></td> <td>Return size (public member function)</td></tr>
+          <tr><td><code>length</code></td> <td>Return length of string (public member function)</td></tr>
+          <tr><td><code>max_size</code></td> <td>Return maximum size (public member function)</td></tr>
+          <tr><td><code>resize</code></td> <td>Resize string (public member function)</td></tr>
+          <tr><td><code>capacity</code></td> <td>Return size of allocated storage (public member function)</td></tr>
+          <tr><td><code>reserve</code></td> <td>Request a change in capacity (public member function)</td></tr>
+          <tr><td><code>clear</code></td> <td>Clear string (public member function)</td></tr>
+          <tr><td><code>empty</code></td> <td>Test whether string is empty (public member function)</td></tr>
+          <tr><td><code>shrink_to_fit</code></td> <td>Shrink to fit (public member function)</td></tr>
+        </table>
+        <table border="1">
+          <caption>Element access:</caption>
+          <tr><td><code>operator[]</code></td> <td>Get character of string (public member function)</td></tr>
+          <tr><td><code><a href="#at">at</a></code></td> <td>Get character of string (public member function)</td></tr>
+          <tr><td><code>back</code></td> <td>Access last character (public member function)</td></tr>
+          <tr><td><code>front</code></td> <td>Access first character (public member function)</td></tr>
+          <caption>Modifiers:</caption>
+          <tr><td><code>operator+=</code></td> <td>Append to string (public member function)</td></tr>
+          <tr><td><code>append</code></td> <td>Append to string (public member function)</td></tr>
+          <tr><td><code>push_back</code></td> <td>Append character to string (public member function)</td></tr>
+          <tr><td><code>assign</code></td> <td>Assign content to string (public member function)</td></tr>
+          <tr><td><code><a href="#insert">insert</a></code></td> <td>Insert into string (public member function)</td></tr>
+          <tr><td><code>erase</code></td> <td>Erase characters from string (public member function)</td></tr>
+          <tr><td><code><a href="#replace">replace</a></code></td> <td>Replace portion of string (public member function)</td></tr>
+          <tr><td><code>swap</code></td> <td>Swap string values (public member function)</td></tr>
+          <tr><td><code>pop_back</code></td> <td>Delete last character (public member function)</td></tr>
+        </table>
+        <table border="1">
+          <caption>String operations:</caption>
+          <tr><td><code>c_str</code></td> <td><code>const charT* c_str() const noexcept</code>: Get C-string equivalent</td></tr>
+          <tr><td><code>data</code></td> <td>Get string data (public member function)</td></tr>
+          <tr><td><code>get_allocator</code></td> <td>Get allocator (public member function)</td></tr>
+          <tr><td><code><a href="#copy">copy</a></code></td> <td>Copy sequence of characters from string (public member function)</td></tr>
+          <tr><td><code><a href="#find">find</a></code></td> <td>Find first occurrence in string (public member function)</td></tr>
+          <tr><td><code>rfind</code></td> <td>Find last occurrence in string (public member function)</td></tr>
+          <tr><td><code><a href="#find_first_of">find_first_of</a></code></td> <td>Find character in string (public member function)</td></tr>
+          <tr><td><code>find_last_of</code></td> <td>Find character in string from the end (public member function)</td></tr>
+          <tr><td><code>find_first_not_of</code></td> <td>Find non-matching character in string (public member function)</td></tr>
+          <tr><td><code>find_last_not_of</code></td> <td>Find non-matching character in string from the end (public member function)</td></tr>
+          <tr><td><code><a href="#substr">substr</a></code></td> <td>Generate substring (public member function)</td></tr>
+          <tr><td><code>compare</code></td> <td>Compare strings (public member function)</td></tr>
+        </table>
+      </section>
 
-        <section>
-          <h3>Non-Member Function Overloads</h3>
-          <table border="1">
-            <tr>
-              <td>
-                <code>operator+</code>
-              </td>
-              <td>Concatenate strings (function template)</td>
-            </tr>
-            <tr>
-              <td>
-                <code>relational operators</code>
-              </td>
-              <td>Relational operators for <code>std::basic_string</code> (function template)</td>
-            </tr>
-            <tr>
-              <td>
-                <code>swap</code>
-              </td>
-              <td>Exchanges the values of two strings (function template)</td>
-            </tr>
-            <tr>
-              <td>
-                <code>operator&gt;&gt;</code>
-              </td>
-              <td>Extract string from stream (function template)</td>
-            </tr>
-            <tr>
-              <td>
-                <code>operator&lt;&lt;</code>
-              </td>
-              <td>Insert string into stream (function template)</td>
-            </tr>
-            <tr>
-              <td>
-                <code><a href="#getline">getline</a></code>
-              </td>
-              <td>Get line from stream into string (function template)</td>
-            </tr>
-          </table>
-          <section id="getline">
-            <h4><code>getline</code></h4>
-            <p><code>getline</code> reads characters from an input stream and places them into a string. Defined in <code>&lt;string&gt;</code></p>
-            <pre>template&lt; class CharT, class Traits, class Allocator &gt;
+      <section>
+        <h2>Non-Member Function Overloads</h2>
+        <table border="1">
+          <tr>
+            <td>
+              <code>operator+</code>
+            </td>
+            <td>Concatenate strings (function template)</td>
+          </tr>
+          <tr>
+            <td>
+              <code>relational operators</code>
+            </td>
+            <td>Relational operators for <code>std::basic_string</code> (function template)</td>
+          </tr>
+          <tr>
+            <td>
+              <code>swap</code>
+            </td>
+            <td>Exchanges the values of two strings (function template)</td>
+          </tr>
+          <tr>
+            <td>
+              <code>operator&gt;&gt;</code>
+            </td>
+            <td>Extract string from stream (function template)</td>
+          </tr>
+          <tr>
+            <td>
+              <code>operator&lt;&lt;</code>
+            </td>
+            <td>Insert string into stream (function template)</td>
+          </tr>
+          <tr>
+            <td>
+              <code><a href="#getline">getline</a></code>
+            </td>
+            <td>Get line from stream into string (function template)</td>
+          </tr>
+        </table>
+        <section id="getline">
+          <h3><code>getline</code></h3>
+          <p><code>getline</code> reads characters from an input stream and places them into a string. Defined in <code>&lt;string&gt;</code></p>
+          <pre>template&lt; class CharT, class Traits, class Allocator &gt;
 std::basic_istream&lt;CharT, Traits&gt;&amp;
     getline( std::basic_istream&lt;CharT, Traits&gt;&amp; input,
              std::basic_string&lt;CharT, Traits, Allocator&gt;&amp; str, CharT delim );
@@ -359,8 +357,8 @@ template&lt; class CharT, class Traits, class Allocator &gt;
 std::basic_istream&lt;CharT, Traits&gt;&amp;
     getline( std::basic_istream&lt;CharT, Traits&gt;&amp;&amp; input,
              std::basic_string&lt;CharT, Traits, Allocator&gt;&amp; str );</pre>
-            <p>The following example demonstrates how to use the getline function to read user input, and to process a stream line by line, or by parts of a line using the delim parameter.</p>
-            <pre>#include &lt;iostream&gt;
+          <p>The following example demonstrates how to use the getline function to read user input, and to process a stream line by line, or by parts of a line using the delim parameter.</p>
+          <pre>#include &lt;iostream&gt;
 #include &lt;sstream&gt;
 #include &lt;string&gt;
 
@@ -386,37 +384,37 @@ int main()
     for (std::string line; std::getline(input2, line, ';');)
         std::cout &amp;&amp; line &amp;&amp; '\n';
 }</pre>
-            <hr/>
-            <p>When consuming whitespace-delimited input (e.g. <code>int n; std::cin >> n;</code>) any whitespace that follows, including a newline character, will be left on the input stream. Then when switching to line-oriented input, the first line retrieved with <code>std::getline</code> will be just that whitespace. In the likely case that this is unwanted behaviour, possible solutions include:</p>
-            <ul>
-              <li>An explicit extraneous initial call to <code>getline</code>.</li>
-              <li>Removing consecutive whitespace with <code>std::cin >> std::ws</code>.</li>
-              <li>Ignoring all leftover characters on the line of input with <code>cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n');</code></li>
-            </ul>
-            <hr/>
-            <pre>???</pre>
-            <p>[...]</p>
-            <pre>???</pre>
-          </section>
+          <hr/>
+          <p>When consuming whitespace-delimited input (e.g. <code>int n; std::cin >> n;</code>) any whitespace that follows, including a newline character, will be left on the input stream. Then when switching to line-oriented input, the first line retrieved with <code>std::getline</code> will be just that whitespace. In the likely case that this is unwanted behaviour, possible solutions include:</p>
+          <ul>
+            <li>An explicit extraneous initial call to <code>getline</code>.</li>
+            <li>Removing consecutive whitespace with <code>std::cin >> std::ws</code>.</li>
+            <li>Ignoring all leftover characters on the line of input with <code>cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n');</code></li>
+          </ul>
+          <hr/>
+          <pre>???</pre>
+          <p>[...]</p>
+          <pre>???</pre>
         </section>
+      </section>
 
-        <section>
-          <h3>Member constants*</h3>
-        </section>
+      <section>
+        <h2>Member constants*</h2>
+      </section>
 
-        <section id="at">
-          <h3>Member <code>at(<var>index</var>)</code></h3>
-          <pre>reference at(size_type <var>pos</var>);
+      <section id="at">
+        <h2>Member <code>at(<var>index</var>)</code></h2>
+        <pre>reference at(size_type <var>pos</var>);
 const_reference at(size_type <var>pos</var>) const;</pre>
-          <p>It returns a reference to the character at position <var>pos</var>. It automatically checks whether <var>pos</var> is the valid position of a character in the string (i.e., whether pos is less than the string length), throwing an <code class="classname">out_of_range</code> exception if it is not.</p>
-        </section>
+        <p>It returns a reference to the character at position <var>pos</var>. It automatically checks whether <var>pos</var> is the valid position of a character in the string (i.e., whether pos is less than the string length), throwing an <code class="classname">out_of_range</code> exception if it is not.</p>
+      </section>
 
-        <section id="substr">
-          <h3>Member <code>substr(<var>index</var>)</code></h3>
-          <pre>basic_string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const;</pre>
-          <p>It returns a newly constructed <code>basic_string</code> object with its value initialized to a copy of a substring of this object. The substring is the portion of the object that starts at character position <var>pos</var> and spans <var>len</var> characters (or until the end of the string, whichever comes first).</p>
-          <p>Example:</p>
-          <pre>// string::substr
+      <section id="substr">
+        <h2>Member <code>substr(<var>index</var>)</code></h2>
+        <pre>basic_string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const;</pre>
+        <p>It returns a newly constructed <code>basic_string</code> object with its value initialized to a copy of a substring of this object. The substring is the portion of the object that starts at character position <var>pos</var> and spans <var>len</var> characters (or until the end of the string, whichever comes first).</p>
+        <p>Example:</p>
+        <pre>// string::substr
 #include &lt;&lt;iostream&gt;
 #include &lt;&lt;string&gt;
 
@@ -430,11 +428,11 @@ int main ()
   std::cout &lt;&lt; str2 &lt;&lt; ' ' &lt;&lt; str3 &lt;&lt; '\n';
   return 0;
 }</pre>
-        </section>
+      </section>
 
-        <section id="insert">
-          <h3><code>std::basic_string::insert</code></h3>
-          <pre>basic_string&amp; insert (size_type pos,
+      <section id="insert">
+        <h2><code>std::basic_string::insert</code></h2>
+        <pre>basic_string&amp; insert (size_type pos,
   const basic_string&amp;  str);
   // inserts string
 
@@ -470,8 +468,8 @@ iterator insert (iterator p,
 basic_string&amp; insert (const_iterator p,
                           initializer_list&lt;charT&gt; il);
                           // initializer list</pre>
-          <p>Example:</p>
-          <pre>// inserting into a string
+        <p>Example:</p>
+        <pre>// inserting into a string
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
@@ -495,11 +493,11 @@ int main ()
   std::cout &lt;&lt; str &lt;&lt; '\n';
   return 0;
 }</pre>
-        </section>
+      </section>
 
-        <section id="replace">
-          <h3><code>std::basic_string::replace</code></h3>
-          <pre>basic_string&amp;  replace (size_type pos,
+      <section id="replace">
+        <h2><code>std::basic_string::replace</code></h2>
+        <pre>basic_string&amp;  replace (size_type pos,
   size_type len,
   const basic_string&amp;  str);
 
@@ -548,8 +546,8 @@ basic_string&amp;  replace (const_iterator i1,
 basic_string&amp;  replace (const_iterator i1,
                             const_iterator i2,
                             initializer_list&lt;charT&gt; il);</pre>
-        <p>Example:</p>
-        <pre>// replacing in a string
+      <p>Example:</p>
+      <pre>// replacing in a string
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
@@ -579,16 +577,16 @@ int main ()
   std::cout &lt;&lt; str &lt;&lt; '\n';
   return 0;
 }</pre>
-        </section>
+      </section>
 
-        <section id="copy">
-          <h3><code>std::basic_string::copy</code></h3>
-          <pre>size_type copy (charT* s, size_type len, size_type pos = 0) const;</pre>
-          <p>Copies a substring of the current value of the basic_string object into the array pointed by s. This substring contains the len characters that start at position pos.</p>
-          <p>The function does not append a null character at the end of the copied content.</p>
-          <p><strong>Return value</strong>: The number of characters copied to the array pointed by s. This may be equal to len or to length()-pos (if the string value is shorter than pos+len).</p>
-          <p>Example:</p>
-          <pre>// string::copy
+      <section id="copy">
+        <h2><code>std::basic_string::copy</code></h2>
+        <pre>size_type copy (charT* s, size_type len, size_type pos = 0) const;</pre>
+        <p>Copies a substring of the current value of the basic_string object into the array pointed by s. This substring contains the len characters that start at position pos.</p>
+        <p>The function does not append a null character at the end of the copied content.</p>
+        <p><strong>Return value</strong>: The number of characters copied to the array pointed by s. This may be equal to len or to length()-pos (if the string value is shorter than pos+len).</p>
+        <p>Example:</p>
+        <pre>// string::copy
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
@@ -601,9 +599,11 @@ int main ()
   std::cout &lt;&lt; "buffer contains: " &lt;&lt; buffer &lt;&lt; '\n';
   return 0;
 }</pre>
-        </section>
+      </section>
 
-        <section id="find">
+      <section id="find">
+        <h2>Finding</h2>
+        <section>
           <h3><code>std::basic_string::find</code></h3>
           <pre>
 size_type find (const basic_string&amp; str, size_type pos = 0) const noexcept;
@@ -659,8 +659,8 @@ size_type find_first_of (const charT* s,
                          size_type n) const;
 size_type find_first_of (charT c,
                          size_type pos = 0) const noexcept;</pre>
-          <p>Example:</p>
-          <pre>// string::find_first_of
+            <p>Example:</p>
+            <pre>// string::find_first_of
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
@@ -679,24 +679,75 @@ int main ()
   return 0;
 }</pre>
         </section>
+      </section>
 
+      <section id="containing">
+        <h2>Containing: <code>contains(STRING)</code> (C++23), <code>starts_with</code> (C++20), <code>ends_with</code> (C++20)</h2>
         <section>
-          <h2>Difference between <code>basic_string::c_str()</code> and <code>basic_string::data()</code></h2>
-          <p>The difference between <code>c_str()</code> and <code>data()</code> (in STL and other implementations) is that <code>c_str()</code> is always null terminated while <code>data()</code> is not.</p>
-          <p>In some implementation <code>data()</code> may turn out to perform better than <code>c_str()</code>.</p>
-          <aside>
-            <p>In C++11 onwards, both functions are required to be the same. i.e. data is now required to be null-terminated. According to cppreference: <q>The returned array is null-terminated, that is, <code>data()</code> and <code>c_str()</code> perform the same function.</q></p>
-            <pre>const charT* c_str() const noexcept;
+          <h3><code>contains(STRING)</code> or <code>contains(CHAR)</code></h3>
+          <pre>constexpr bool
+    contains( std::basic_string_view&lt;CharT,Traits&gt; sv ) const noexcept;
+constexpr bool
+    contains( CharT ch ) const noexcept;
+constexpr bool
+    contains( const CharT* s ) const;</pre>
+          <p>Checks if the string contains the given substring.</p>
+          <p>All three overloads are equivalent to <code>return find(<var>x</var>) != npos;</code>, where <var>x</var> is the parameter, either a string_view, a C-string, or a single character.</p>
+        </section>
+        <section>
+          <h3><code>starts_with(STRING)</code> (C++20) and <code>ends_with(CHAR)</code> (C++20)</h3>
+          <p>Check if the string view begins with the given prefix:</p>
+          <pre>constexpr bool starts_with( basic_string_view sv ) const noexcept;
+constexpr bool starts_with( CharT ch ) const noexcept;
+constexpr bool starts_with( const CharT* s ) const;</pre>
+          <p>Check if the string view ends with the given suffix:</p>
+          <pre>constexpr bool ends_with( basic_string_view sv ) const noexcept;
+constexpr bool ends_with( CharT ch ) const noexcept;
+constexpr bool ends_with( const CharT* s ) const;</pre>
+          <p></p>
+        </section>
+        <section>
+          <h3><code>compare(STRING)</code> (C++17)</h3>
+          <p>Compare <code>*this</code> and another string.</p>
+          <p>It returns and integer negative value if this view is less than the other character sequence, zero if the both character sequences are equal, positive value if this view is greater than the other character sequence.</p>
+          <pre>constexpr int compare( basic_string_view v ) const noexcept;
+constexpr int compare( size_type pos1, size_type count1,
+                       basic_string_view v ) const;
+constexpr int compare( size_type pos1, size_type count1, basic_string_view v,
+                       size_type pos2, size_type count2 ) const;
+constexpr int compare( const CharT* s ) const;
+constexpr int compare( size_type pos1, size_type count1,
+                       const CharT* s ) const;
+constexpr int compare( size_type pos1, size_type count1,
+                       const CharT* s, size_type count2 ) const;</pre>
+          <p></p>
+          <table border="1">
+            <caption>Parameters</caption>
+            <tr> <td><strong>v</strong></td> <td>view to compare</td> </tr>
+            <tr> <td><strong>s</strong></td> <td>pointer to the character string to compare to</td> </tr>
+            <tr> <td><strong>count1</strong></td> <td>number of characters of this view to compare</td> </tr>
+            <tr> <td><strong>pos1</strong></td> <td>position of the first character in this view to compare</td> </tr>
+            <tr> <td><strong>count1</strong></td> <td>number of characters of the given view to compare</td> </tr>
+            <tr> <td><strong>pos2</strong></td> <td>position of the first character of the given view to compare</td> </tr>
+          </table>
+        </section>
+      </section>
+
+      <section>
+        <h2>Difference between <code>basic_string::c_str()</code> and <code>basic_string::data()</code></h2>
+        <p>The difference between <code>c_str()</code> and <code>data()</code> (in STL and other implementations) is that <code>c_str()</code> is always null terminated while <code>data()</code> is not.</p>
+        <p>In some implementation <code>data()</code> may turn out to perform better than <code>c_str()</code>.</p>
+        <aside>
+          <p>In C++11 onwards, both functions are required to be the same. i.e. data is now required to be null-terminated. According to cppreference: <q>The returned array is null-terminated, that is, <code>data()</code> and <code>c_str()</code> perform the same function.</q></p>
+          <pre>const charT* c_str() const noexcept;
 const charT* data() const noexcept;</pre>
-          </aside>
-          <p>Still, starting in C++17, <code>data()</code> returns a <code>char*</code> instead of <code>const char*</code></p>
-        </section>
+        </aside>
+        <p>Still, starting in C++17, <code>data()</code> returns a <code>char*</code> instead of <code>const char*</code></p>
+      </section>
 
-        <section>
-          <h2>Difference between <code>basic_string::resize()</code> and <code>basic_string::reserve()</code></h2>
-          <blockquote>Think of it this way: the string still has a size, which has not been changed by <code>reserve()</code>; however, you have allocated a contiguous chunk of memory so that the string may be <code>resize()</code>&apos;d without incurring a copying of the whole string. It will still, however, check that your index is in bounds with the (logical) size of the string. <code>reserve()</code> is an optimization when you have some ahead-of-time knowledge about how big the string gets. It&apos;s like the C idiom of <code>char[1000]</code> - you have 1000 bytes available even though the string may only be <q>Hello, world!</q></blockquote>
-        </section>
-
+      <section>
+        <h2>Difference between <code>basic_string::resize()</code> and <code>basic_string::reserve()</code></h2>
+        <blockquote>Think of it this way: the string still has a size, which has not been changed by <code>reserve()</code>; however, you have allocated a contiguous chunk of memory so that the string may be <code>resize()</code>&apos;d without incurring a copying of the whole string. It will still, however, check that your index is in bounds with the (logical) size of the string. <code>reserve()</code> is an optimization when you have some ahead-of-time knowledge about how big the string gets. It&apos;s like the C idiom of <code>char[1000]</code> - you have 1000 bytes available even though the string may only be <q>Hello, world!</q></blockquote>
       </section>
 
     </main>
