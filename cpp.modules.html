@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ Modules</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <p><a rel="next" href="cpp.separate_compilation.html">Separate Compilation in C++</a></p>
+      <p><a            href="cpp.separate_compilation.templates.html">Separate Compilation of Templates (Classes and Funcions) in C++</a></p>
+      <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+    </nav>
+
+    <main>
+      <h1>C++ Modules</h1>
+      <p>Modules offer a simpler, more efficient, and safer alternative to the traditional system of including files via the preprocessor.</p>
+      <p>Traditionally, C++ code has been organized in header files .h and implementation files .cpp. But this has frankly always been a hassle inherited from <a target="_blank" href="c.html">C</a>.</p>
+      <p>The introduction of modules in C++11 and their formalization in C++20 aims to completely change the way C++ projects are structured and managed.</p>
+      <p>A <dfn>module</dfn> in C++ is a unit of code that consists of a declaration and definition of functions, classes, all in the same file.</p>
+      <p>Key Features</p>
+      <ul>
+        <li><strong>Encapsulation</strong>: Modules allow you to define what is accessible from the outside (what is exported) and what is private to the module (what is kept internal).</li>
+        <li><strong>Compilation Optimization</strong>: Modules allow compiling once and reusing that result, reducing compilation times.</li>
+        <li><strong>Elimination of Circular Dependencies</strong>: Modules allow importing only the necessary components, avoiding unnecessary dependencies.</li>
+        <li><strong>Elimination of Redefinition Problems</strong> Headers often require the use of <code>#include</code> guards or non-standard <code>#pragma</code> once to avoid multiple inclusions that cause redefinition errors. Modules eliminate the need for these mechanisms, as their design automatically prevents multiple inclusions and redefinitions.</li>
+      </ul>
+
+      <section>
+        <h2>Basic Syntax of Modules</h2>
+        <p>A module in C++ is declared using the keyword <code>module</code> followed by the module name.</p>
+        <p>The declaration is generally placed in a separate file with the extension <code>.cppm</code> (or sometimes <code>.ixx</code>, although <code>.cppm</code> is more common and standard in most compilers).</p>
+        <pre>module mymodule;  // We declare a module called "mymodule"
+
+export void foo() {  // We export the function foo
+    std::cout &lt;&lt; "Hello from foo!" &lt;&lt; std::endl;
+}
+
+export class MyClass {  // We export a class MyClass
+public:
+    void sayHello() {
+        std::cout &lt;&lt; "Hello from MyClass!" &lt;&lt; std::endl;
+    }
+};</pre>
+        <p>Functions and classes prefixed with export become accessible from outside the module.</p>
+        <hr/>
+        <p>To use a module in another file, we simply use the keyword <code>import</code>, which replaces the traditional <code>#include</code>. <i>See</i></p>
+        <pre>import mymodule;  // We import the module "mymodule"
+
+int main() {
+    foo();  // We call the exported function from mymodule
+    MyClass obj;
+    obj.sayHello();  // We use the class exported from mymodule
+}</pre>
+        <hr/>
+        <p>The following file contains both the declaration and definition of the function sum, and it is exported for other files to use:</p>
+        <pre>export module sum;
+
+export int sum(int a, int b) {
+    return a + b;
+}</pre>
+        <p>To use the module, we simply import it in the <code>main.cpp</code> file.</p>
+        <pre>import sum;
+#include &lt;iostream&gt;
+
+int main() {
+    int result = sum(3, 4);
+    std::cout &lt;&lt; "The sum is: " &lt;&lt; result &lt;&lt; std::endl;
+    return 0;
+}</pre>
+        <p>To compile the program with modules, the command would be something like:</p>
+        <pre>g++ -fmodules-ts sum.cppm main.cpp -o program</pre>
+        <p>The option <code>-fmodules-ts</code> is used in some compilers like GCC to enable C++20 modules, although options may vary by compiler.</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+      <section>
+        <h2>Comparison with separate Compilation</h2>
+        <p>The C++ programming language inherited the <strong>translation unit</strong> model from C, where every source file is individually compiled with no knowledge about other parts of the project. This model has several drawbacks, and C++20 Modules is the Standard&apos;s answer for them. Moreover, Modules allows a cleaner encapsulation of concern.</p>
+
+      </section>
+    </main>
+
+  </body>
+
+</html>

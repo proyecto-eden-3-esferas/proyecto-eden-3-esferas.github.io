@@ -41,6 +41,8 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+-[ ] <p>Will one large <code>.h</code> &amp; and one <code>.cpp</code> file, compile faster than if the code was split across many h and cpp files, using a single core?</p>
+
 [ ] write *sense.h* / *cpp.sense.html*
 <p>A <code>sense&lt;&gt;</code> is a template class for creating functionally identical subclasses that differ only in the <q>sense</q> they are used.</p>
 <p>Possible uses:</p>
