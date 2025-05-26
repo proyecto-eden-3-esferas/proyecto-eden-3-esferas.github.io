@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File I/O in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ File I/O through File Streams"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="programming.streams.html">Streams in Programming at Large</a></p>
+        <p><a rel="next" href="cpp.manipulators.html">Changing C++ Streams through Manipulators</a></p>
+        <p><a rel="prev" href="cpp.streams.html">C++ Streams: Sources and Destinations of Data</a></p>
+        <p><a            href="cpp.sstream.html">C++ String Streams</a></p>
+        <p><a            href="cpp.stl.html"></a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.streams.parser.html">How to write a Parser in C++</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ File I/O through File Streams</h1>
+      <aside>The main include file for file streams is <code>&lt;fstream&gt;</code></aside>
+      <nav>
+        <p><a href="#bin-and-text-mode#">Binary and Text Modes</a></p>
+        <p><a href="#buf"><code>basic_streambuf</code> and <code>basic_filebuf</code></a></p>
+      </nav>
+
+      <section id="bin-and-text-mode">
+        <h2>Binary and Text Modes</h2>
+        <p>A <dfn>text stream</dfn> is an ordered sequence of characters that can be composed into lines; a line can be decomposed into zero or more characters plus a terminating '\n' (<q>newline</q>) character. Whether the last line requires a terminating '\n' is implementation-defined. Furthermore, characters may have to be added, altered, or deleted on input and output to conform to the conventions for representing text in the OS (in particular, C streams on Windows OS convert '\n' to '\r\n' on output, and convert '\r\n' to '\n' on input).</p>
+        <details>
+          <summary>Data read in from a text stream is guaranteed to compare equal to the data that were earlier written out to that stream only if...</summary>
+          <p>Data read in from a text stream is guaranteed to compare equal to the data that were earlier written out to that stream only if each of the following is true:</p>
+          <ul>
+            <li>The data consist of only printing characters and/or the control characters '\t' and '\n' (in particular, on Windows OS, the character '\0x1A' terminates input).</li>
+            <li>No '\n' character is immediately preceded by space characters (such space characters may disappear when such output is later read as input).</li>
+            <li>The last character is '\n'.</li>
+          </ul>
+        </details>
+        <p>A <dfn>binary stream</dfn> is an ordered sequence of characters that can transparently record internal data. Data read in from a binary stream always equal the data that were earlier written out to that stream, except that an implementation is allowed to append an indeterminate number of null characters to the end of the stream.</p>
+        <p>A wide binary stream doesn&apos;t need to end in the initial shift state.</p>
+      </section>
+
+
+
+      <section>
+        <h2></h2>
+        <p><code>basic_streambuf</code> is a class template that abstracts a raw device, whereas <code>basic_filebuf</code>
+	is a class template that implements raw file device.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

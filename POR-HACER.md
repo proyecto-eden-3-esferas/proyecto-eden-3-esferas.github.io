@@ -1,5 +1,7 @@
 # Lista de recomendaciones, recordatorios y otras directrices
+
 - teléfonos y demás en *agenda.html*, oculto
+
 - https://docs.couchdb.org/en/stable/ (Apache CouchDB® 3.4.3 Documentation)
 - https://www.rhs.org.uk/vegetables/growing-in-greenhouse
 - https://www.faunaiberica.org/
@@ -39,7 +41,13 @@
 
 - https://www.sokaglobal.org/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
 
+- https://en.cppreference.com/
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] add to #worth_reading:
+~/francisco_Downloads/to_save/ebooks/unclassified/PicoIyer-TheHalfKnownLife_InSearchOfParadise-RiverheadBooks2023.epub
+~/francisco_Downloads/to_save/ebooks/living/ecology/FredericLegault-EcologyForThe99percent_BetweenTheLines2024.epub
 
 -[ ] <p>Will one large <code>.h</code> &amp; and one <code>.cpp</code> file, compile faster than if the code was split across many h and cpp files, using a single core?</p>
 
@@ -65,6 +73,11 @@ Further, you might specialize <code>sense&lt;&gt;</code> for integer and char ty
 
 
 [ ] Una gran parte de la Realidad consiste en <strong>comunicación simbólica</strong>
+
+[ ] *audi-6.html*
+<h1>El Audi 6</h1>
+<p>No daba crédito a mis ojos cuando leí las letras del coche: Audi 6.</p>
+<p>Porque, bueno, si un Audi 4 es en esencia un coche de carretera, uno imagina que entonces un Audi para carretera grande se debería denominar <q>Audi 5</q>. En la práctica apenas he visto Audis 5.</p>
 
 
 [ ]
@@ -1758,11 +1771,14 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[x] *index.libro.html* desde *matrix.html*
+[ ] *index.libro.html* desde *index.html*
+
 [x] *http.html* from *networking.html*
 [x] *http.html* from *couchdb.html*
 [x] *HTML.html* from *couchdb.html*
 
-[ ] enlazar a *informatica.mis-proyectos.html* desde *informatica.html*
+[x] enlazar a *informatica.mis-proyectos.html* desde *informatica.html*
 [ ] enlazar a *informatica.mis-proyectos.html* desde *index.html*
 
 
