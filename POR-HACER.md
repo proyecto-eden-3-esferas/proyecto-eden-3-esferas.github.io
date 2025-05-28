@@ -43,7 +43,21 @@
 
 - https://en.cppreference.com/
 
+- https://econation.one/blog/
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] review, enlarge and improve *cpp.user-defined-literals.html*
+    on the topic of "User-defined literals (since C++11)"
+
+[ ] write *plant-litter.html* from Magic World's Plant Litter, 45560 to 45619
+[x] write *deep-ecology.html* from Magic World's Deep Ecology, 44856 to 44902
+[ ] amend local references in *deep-ecology.html*
+[ ] write *environmentalism.html*
+[?] write *wilderness-the-built-environment-poverty-and-politics.html*
+           Wilderness, the Built Environment, Poverty and Politics
+           from Magic World
+
 
 [ ] add to #worth_reading:
 ~/francisco_Downloads/to_save/ebooks/unclassified/PicoIyer-TheHalfKnownLife_InSearchOfParadise-RiverheadBooks2023.epub
@@ -1770,6 +1784,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+[x] *rewilding.html* from *natural-farming.html*
+[x] *rewilding.html* from *biophilia.html*
+[ ] *rewilding.html* from *???.html*
+[ ] *rewilding.html* from *???.html*
+Use: <p><a href="rewilding.html">Rewilding</a></p>
 
 [x] *index.libro.html* desde *matrix.html*
 [ ] *index.libro.html* desde *index.html*
