@@ -328,10 +328,12 @@ capture group: 21
 
       <section id="matching">
         <h2>Matching</h2>
-        <p><code>std::regex_match</code> determines if the text matches a text pattern. You can further analyze the search result, which is of type <code>std::match_results</code>.</p>
+        <p><code><a href="#regex_match">std::regex_match</a></code> determines if the text matches a text pattern. You can further analyze the search result, which is of type <code>std::match_results</code>, and is set by a different STL global: <code><a href="#regex_search">std::regex_search</a></code>.</p>
 
-        <p>The code snippet below shows three simple applications of <code>std::regex_match</code>: a C string, a C++ string, and a range returning only a boolean. The three variants are available for <code>std::match_results</code> objects, respectively.</p>
-        <pre>// match.cpp
+        <section>
+          <h3>An Example</h3>
+          <p>The code snippet below shows three simple applications of <code>std::regex_match</code>: a C string, a C++ string, and a range returning only a boolean. The three variants are available for <code>std::match_results</code> objects, respectively.</p>
+          <pre>// match.cpp
 ...
 #include &lt;regex&gt;
 ...
@@ -357,13 +359,60 @@ if (std::regex_match(numVec.begin(), numVec.end(), rgx)) {
   std::cout &lt;&lt; "is a number." &lt;&lt; '\n';
 } // if
 // -2.718281828 is a number.</pre>
+        </section>
+        <section id="regex_match">
+          <h3><code>std::regex_match</code> (C++11)</h3>
+          <p>Its constructors may take as its first argument(s):</p>
+          <ul>
+            <li>a beginning and an end iterators, or</li>
+            <li>a pointer to const CHAR (<code>const CHAR*</code>), or</li>
+            <li>a constant reference to a string (<code>std::basic_string&lt;CHAR&gt; &amp;</code>)</li>
+          </ul>
+          <p>These one or two paramenters may be followed by a <code>std::match_results</code> non-constant reference.</p>
+          <p>The next parameter is mandatory: a reference to a <code>std::basic_regex</code> object</p>
+          <p>Last is an optional flags parameter.</p>
+          <aside>
+            <h5 class="bridgehead"><code>regex_match</code> only considers full matches</h5>
+            <p>Because <code>regex_match</code> only considers full matches, the same regex may give different matches between <code>std::regex_match</code> and <code>std::regex_search</code>:</p>
+            <pre>std::regex re("Get|GetValue");
+std::cmatch m;
+std::regex_search("GetValue", m, re);  // returns true, and m[0] contains "Get"
+std::regex_match ("GetValue", m, re);  // returns true, and m[0] contains "GetValue"
+std::regex_search("GetValues", m, re); // returns true, and m[0] contains "Get"
+std::regex_match ("GetValues", m, re); // returns false</pre>
+          </aside>
+          <section>
+            <h4><code>std::regex_constants::match_flag_type</code> Flags</h4>
+            <p>Their type is implementation-defined.</p>
+            <table border="0">
+              <thead>
+                <tr> <th>Name</th> <th>Explanation</th> </tr> </thead>
+                <tr> <td><code>match_not_bol</code></td> <td>The first character in [first, last) will be treated as if it is not at the beginning of a line (i.e. ^ will not match [first, first)).</td> </tr>
+                <tr> <td><code>match_not_eol</code></td> <td>The last character in [first, last) will be treated as if it is not at the end of a line (i.e. $ will not match [last, last)).</td> </tr>
+                <tr> <td><code>match_not_bow</code></td> <td>\b will not match [first, first).</td> </tr>
+                <tr> <td><code>match_not_eow</code></td> <td>\b will not match [last, last).</td> </tr>
+                <tr> <td><code>match_any</code></td> <td>If more than one match is possible, then any match is an acceptable result.</td> </tr>
+                <tr> <td><code>match_not_null</code></td> <td>Do not match empty sequences.</td> </tr>
+                <tr> <td><code>match_continuous</code></td> <td>Only match a sub-sequence that begins at first.</td> </tr>
+                <tr> <td><code>match_prev_avail</code></td> <td>--first is a valid iterator position.</td> </tr>
+                <tr> <td><code>When</code></td> <td>set, causes match_not_bol and match_not_bow to be ignored.</td> </tr>
+                <tr> <td><code>format_default</code></td> <td>Use ECMAScript rules to construct strings in std::regex_replace (syntax documentation).</td> </tr>
+                <tr> <td><code>format_sed</code></td> <td>Use POSIX sed utility rules in std::regex_replace (syntax documentation).</td> </tr>
+                <tr> <td><code>format_no_copy</code></td> <td>Do not copy un-matched strings to the output in std::regex_replace.</td> </tr>
+                <tr> <td><code>format_first_only</code></td> <td>Only replace the first match in std::regex_replace.</td> </tr>
+            </table>
+            <p>All constants, except for match_default and format_default, are bitmask elements. The match_default and format_default constants are empty bitmasks.</p>
+          </section>
+        </section>
       </section>
 
       <section id="searching">
         <h2>Searching</h2>
         <p><code>std::regex_search</code> checks if the text contains a text pattern. You can use the function with and without a <code>std::match_results</code> object and apply it to a C string, a C++ string, or a range.</p>
-        <p>The example below shows how to use <code>std::regex_search</code> with texts of type <code>const char*</code>, <code>std::string</code>, <code>const wchar_t*</code>, and <code>std::wstring</code>.</p>
-        <pre>// search.cpp
+        <section>
+          <h3>An Example</h3>
+          <p>The example below shows how to use <code>std::regex_search</code> with texts of type <code>const char*</code>, <code>std::string</code>, <code>const wchar_t*</code>, and <code>std::wstring</code>.</p>
+          <pre>// search.cpp
 ...
 #include &lt;regex&gt;
 ...
@@ -408,6 +457,13 @@ if (std::regex_search(wstime, wsmatch, wrgx)) {
   std::wcout &lt;&lt; wstime &lt;&lt; '\n';
   std::wcout &lt;&lt; "Time: " &lt;&lt; wsmatch[0] &lt;&lt; '\n'; // Time: 00:03
 }</pre>
+        </section>
+        <section id="regex_search">
+          <h3><code>std::regex_search</code> (C++11)</h3>
+          <p>Determines if there is a match between the regular expression e and some subsequence in the target character sequence. The detailed match result is stored in input-output parameter <code>std::match_results&lt;&gt; <var>m</var></code> (if present).</p>
+          <p>The return type is <code>bool</code>.</p>
+          <p>The main difference between <code>std::regex_match</code> and <code>std::regex_search</code> is...</p>
+        </section>
       </section>
 
       <section id="replacing">

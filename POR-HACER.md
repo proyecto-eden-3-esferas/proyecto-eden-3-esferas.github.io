@@ -47,6 +47,8 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] <h3>Difference Between std::map::operator[](KEY) and std::map::at(KEY)</h3> in *cpp.containers.html*
+
 [ ] review, enlarge and improve *cpp.user-defined-literals.html*
     on the topic of "User-defined literals (since C++11)"
 
