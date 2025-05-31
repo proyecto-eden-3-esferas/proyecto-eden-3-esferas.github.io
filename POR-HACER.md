@@ -47,7 +47,7 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] <h3>Difference Between std::map::operator[](KEY) and std::map::at(KEY)</h3> in *cpp.containers.html*
+[ ] add class ecology
 
 [ ] review, enlarge and improve *cpp.user-defined-literals.html*
     on the topic of "User-defined literals (since C++11)"
@@ -55,6 +55,7 @@
 [ ] write *plant-litter.html* from Magic World's Plant Litter, 45560 to 45619
 [x] write *deep-ecology.html* from Magic World's Deep Ecology, 44856 to 44902
 [ ] amend local references in *deep-ecology.html*
+[ ] amend local references in *ego.en.html*
 [ ] write *environmentalism.html*
 [?] write *wilderness-the-built-environment-poverty-and-politics.html*
            Wilderness, the Built Environment, Poverty and Politics

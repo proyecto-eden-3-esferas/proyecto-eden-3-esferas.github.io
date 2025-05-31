@@ -654,6 +654,12 @@ int main() {
 
       <section id="stl_map">
         <h2><code class="classname">map</code> and <code class="classname">multimap</code>*</h2>
+        <section>
+          <h3>Difference Between <code>std::map::operator[](<var>KEY</var>)</code> and <code>std::map::at(<var>KEY</var>)</code></h3>
+          <p>f you access a key using the indexing operator [] that is not currently a part of a map, then it automatically adds a key for you. This is a huge caveat. For this reason, I prefer using the indexing operator [] for setting, and members <code>find()</code> / <code>at()</code> for lookup.</p>
+          <p>Another advantage of using <code>at()</code> over <code>[]</code> is the fact that it can operate on a const std::map, whereas <code>[]</code> won't.</p>
+          <p><code>at(<var>key</var>)</code> throws an exception if the key doesn't exist.</p>
+        </section>
       </section>
 
       <section>

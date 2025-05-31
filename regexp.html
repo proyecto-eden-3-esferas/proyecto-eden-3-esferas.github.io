@@ -16,8 +16,8 @@
       <div>
         <p><a rel="next" href="cpp.regexp.html">Regular Expressions in C++</a></p>
         <p><a rel="prev" href="programming.html">Programming Computers</a></p>
-        <p><a            href="computing.html">Computing with Computers</a></p>
-        <p><a            href="phoneme-map.html">Mapping Phonemes to ASCII... through Regular Expressions?</a></p>
+        <p><a href="computing.html">Computing with Computers</a></p>
+        <p><a href="phoneme-map.html">Mapping Phonemes to ASCII... through Regular Expressions?</a></p>
       </div>
       <div>
         <p><a href="index.en.html">Back to Home</a></p>
@@ -61,7 +61,7 @@
       </section>
 
       <section id="terminology">
-        <h2>Regular Expression Terminology</h2>
+        <h2>Regular Expression Components and Terminology</h2>
         <p>Before we can go into more detail on the regular expressions, there is some important terminology to know. The following terms are used throughout the discussion:</p>
         <ul>
           <li><dfn>Pattern</dfn> The actual regular expression is a pattern represented by a string.</li>
@@ -69,6 +69,54 @@
           <li><dfn>Search</dfn> Determines whether there is some sub-string within a given sequence [first,last) that matches a given regular expression.</li>
           <li><dfn>Replace</dfn>: Identifies sub-strings in a given sequence, and replaces them with a corresponding new sub-string computed from another pattern, called a <dfn>substitution pattern</dfn>.</li>
         </ul>
+
+        <section id="chars-in-brackets">
+          <h3>Character Classes and Bracket Expressions</h3>
+          <p>A <dfn>bracket expression</dfn> is a list of characters enclosed by [ and ]. It matches any single character in that list. If the first character of the list is the caret ^ then it matches any character not in the list; it is unspecified whether it matches an encoding error. For example, the regular expression <code>[0123456789]</code> matches any single digit.</p>
+          <p>Within a bracket expression, a <dfn>range expression</dfn> consists of two characters separated by a hyphen. It matches any single character that sorts between the two characters, inclusive, using the locale's collating sequence and character set. For example, in the default C locale, <code>[a-d]</code> is equivalent to <code>[abcd]</code>.</p>
+          <p>Many locales sort characters in dictionary order, and in these locales <code>[a-d]</code> is typically not equivalent to [abcd]; it might be equivalent to <code>[aBbCcDd]</code>, for example. To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the LC_ALL environment variable to the value C.</p>
+          <p>Finally, certain named classes of characters are predefined within bracket expressions, as follows. Their names are self explanatory, and they are <code>[:alnum:]</code>, <code>[:alpha:]</code>, <code>[:blank:]</code>, <code>[:cntrl:]</code>, <code>[:digit:]</code>, <code>[:graph:]</code>, <code>[:lower:]</code>, <code>[:print:]</code>, <code>[:punct:]</code>, <code>[:space:]</code>, <code>[:upper:]</code>, and <code>[:xdigit:]</code>. For example, <code>[[:alnum:]]</code> means the character class of numbers and letters in the current locale.  In the C  locale and ASCII character set encoding, this is the same as  <code>[0-9A-Za-z]</code>. (Note that the brackets in these class names are part of the symbolic names, and must be included in addition to the brackets delimiting the bracket expression.)   Most meta-characters lose their special meaning inside bracket expressions. To include a literal ] place it first in the list. Similarly, to include a literal ^ place it anywhere but first. Finally, to include a literal  - place it last.</p>
+        </section>
+
+        <section id="anchoring">
+          <h3>Anchoring</h3>
+          <p>The  caret  ^  and the dollar sign $ are meta-characters that respectively match the empty string at the beginning and end of a line.</p>
+        </section>
+
+        <section id="">
+          <h3>The Backslash Character and Special Expressions</h3>
+          <p>The symbols \&lt; and \&gt; respectively match the empty string at the beginning and end of a word. The symbol \b matches the empty string at the edge of a word, and \B matches the empty string provided it's not at the edge of a word. The symbol \w is a synonym for [_[:alnum:]] and \W is a synonym for [^_[:alnum:]].</p>
+        </section>
+
+        <section id="repetition">
+          <h3>Repetition</h3>
+          <p>A regular expression may be followed by one of several repetition operators:</p>
+          <table border="1">
+            <tr> <th><code>?</code></th> <td>The preceding item is optional and matched at most once.</td> </tr>
+            <tr> <th><code>*</code></th> <td>The preceding item will be matched zero or more times.</td> </tr>
+            <tr> <th><code>+</code></th> <td>The preceding item will be matched one or more times.</td> </tr>
+            <tr> <th><code>{n}</code></th> <td>The preceding item is matched exactly n times.</td> </tr>
+            <tr> <th><code>{n,}</code></th> <td>The preceding item is matched n or more times.</td> </tr>
+            <tr> <th><code>{,m}</code></th> <td>The preceding item is matched at most m times.  This is a GNU extension.</td> </tr>
+            <tr> <th><code>{n,m}</code></th> <td>The preceding item is matched at least n times, but not more than m times.</td> </tr>
+          </table>
+        </section>
+
+        <!--
+        <section id="">
+          <h3></h3>
+        </section>
+
+        <section id="">
+          <h3></h3>
+        </section>
+
+        <section id="">
+          <h3></h3>
+        </section>
+        -->
+
+
         <section id="capture-group">
           <h3>Capture Groups</h3>
           <p>A <dfn>capture group</dfn> allows further analyzing the search result in a regular expression. They are defined by a pair of parentheses ( ). The regular expression <code>((a+)(b+)(c+))</code> has four capture groups: ((a+)(b+)(c+)), (a+), (b+) and (c+) The total result is the 0-th capture group.</p>
