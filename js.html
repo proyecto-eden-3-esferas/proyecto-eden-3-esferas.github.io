@@ -22,6 +22,7 @@
       <div>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
         <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
         <p><a rel="prev" href="programming.html">Programming</a></p>
         <p><a            href="cpp.html">The C++ Programming Language</a></p>
@@ -31,6 +32,22 @@
 
     <main>
       <h1>JavaScript: the Web Programming Language</h1>
+
+      <section id="regex">
+        <h2>JavaScript Regular Expressions</h2>
+        <p><a target="_blank" href="regexp.html">Regular expressions</a> are patterns used to match character combinations in strings. In JavaScript, regular expressions are also objects. These patterns are used with the <code class="method">exec()</code> and <code class="method">test()</code> methods of <code>RegExp</code>, and with the <code class="method">match()</code>, <code class="method">matchAll()</code>, <code class="method">replace()</code>, <code class="method">replaceAll()</code>, <code class="method">search()</code>, and <code class="method">split()</code> methods of <code>String</code>.</p>
+        <hr/>
+        <p>To learn more, click to read a thorough discussion of <a target="_blank" href="js.regexp.html">JavaScript Regular Expressions</a></a>
+        <section>
+          <h3>Creating regular expressions</h3>
+          <p>A regular expression is typically created as a literal by enclosing a pattern in forward slashes (/):</p>
+          <pre>const regex1 = /ab+c/g;</pre>
+          <p>Regular expressions can also be created with the <code>RegExp()</code> constructor:</p>
+          <pre>const regex2 = new RegExp("ab+c", "g");</pre>
+          <p>They have no runtime differences, although they may have implications on performance, static analyzability, and authoring ergonomic issues with escaping characters.</p>
+        </section>
+      </section>
+
     </main>
 
   </body>

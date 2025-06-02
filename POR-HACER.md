@@ -47,6 +47,23 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *dilema-clase-objeto*
+<p>A veces nos conviene optimizar una clase, otras un objeto.</p>
+<p>Más en general, podemos optimizar un proceso de fabricación de artículos esencialmente idénticos, o podemos fabricar un sólo artículo. ¿Probablemente de menor calidad?</p>
+[ ]
+<p>Una clase es un molde mediante el cuál generamos objetos.</p>
+<pre>struct persona {
+  bool hembra;
+  string nombre;
+  unsigned int edad;
+};</pre>
+
+[ ] write/refine *information.html*
+<p><a            href="udc.html">Universal Decimal Classification (UDC)</a></p>
+[x] link to *udc.html* from *information.html* (Information)
+[ ] link to *udc.html* from *knowledge.html*
+[ ] link to *udc.html* from *knowledge-representation.html*
+
 [ ] add class ecology
 
 [ ] review, enlarge and improve *cpp.user-defined-literals.html*
@@ -797,7 +814,6 @@ Same caveats apply. Now it is a 352k file...
 
 [ ] llenar *basuraleza.html*
 
-[ ] write *information.html*
 [ ] escribir *informacion.html* -> *.inform*.html
     que tal vez se solape con *materia-energia-informacion-y-mas-alla.html*
 
@@ -1787,6 +1803,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] enlazar a *fijos y variables* desde *agua-y-civilizacion.html*
+[ ] enlazar a *fijos y variables* desde *recursos.html* o un futuro *impuestos.html*
+
+
 [x] *rewilding.html* from *natural-farming.html*
 [x] *rewilding.html* from *biophilia.html*
 [ ] *rewilding.html* from *???.html*

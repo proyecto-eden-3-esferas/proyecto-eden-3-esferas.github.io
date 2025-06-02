@@ -20,14 +20,17 @@
       <p><a            href="A_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
         <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a            href="cpp.containers.html">C++ STL Containers</a> </p>
       -->
       <div>
-        <p> <a rel="prev" href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
-        <p> <a            href="cpp.strings.html">The C++ Programming Language</a> </p>
-        <p> <a rel="next" href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
-        <p> <a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
-        <p> <a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
-        <p> <a            href="cpp.containers.html">C++ STL Containers</a> </p>
+        <p><a href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a rel="prev" href="js.regexp.html">JavaScript Regular Expressions</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.strings.html">The C++ Programming Language</a> </p>
+        <p><a rel="next" href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p><a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
       </div>
     </nav>
     <main>
@@ -84,10 +87,19 @@ int main (int argc, const char * argv[]) {
         <p>There are several different grammars for regular expressions. For this reason, C++ includes support for several of these grammars: ECMAScript, basic, extended, awk, grep, and egrep. If you already know any of these regular expression grammars, you can use it straight away in C++ by telling the regular expression library to use that specific syntax ( syntax_option_type ). The default grammar in C++ is ECMAScript whose syntax is explained in detail in the following section. It is also the most powerful grammar, so it&apos;s recommended to use ECMAScript instead of one of the other more limited grammars. Explaining the other regular expression grammars falls outside the scope of this section.</p>
         <section id="ECMAScript">
           <h3>ECMAScript Syntax</h3>
+          <p>The ECMAScript 3 regular expression grammar in C++ is ECMA-262 grammar with modifications marked with <a href="#ECMAScript-cpp-only">(C++ only)</a> below.</p>
+          <p>The modified regular expression grammar is mostly <a target="_blank" href="js.regexp.html">ECMAScript RegExp grammar</a> with a POSIX-type expansion on locales under ClassAtom. Some clarifications on equality checks and number parsing is made.</p>
+          <hr/>
+          <p>The <q>normative references</q> in the standard specifies ECMAScript 3.</p>
+          <p>See the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">MDN Guide on JavaScript RegExp</a> for an overview on the dialect features.</p>
+          <hr/>
           <p>ECMAScript syntax recognizes the following special characters:</p>
           <pre>^ $ \ . * + ? ( ) [ ] { } |</pre>
           <p>If you need to match one of these special characters, you need to escape it using the \ character. For example:</p>
           <pre>\[ or \. or \* or \\</pre>
+          <section id="ECMAScript-cpp-only">
+            <h3>C++-Only Differences</h3>
+          </section>
         </section>
 
         <section id="basic">
@@ -408,7 +420,7 @@ std::regex_match ("GetValues", m, re); // returns false</pre>
 
       <section id="searching">
         <h2>Searching</h2>
-        <p><code>std::regex_search</code> checks if the text contains a text pattern. You can use the function with and without a <code>std::match_results</code> object and apply it to a C string, a C++ string, or a range.</p>
+        <p><code>std::regex_search&lt;<var>CHAR</var>&gt;</code> checks if the text contains a text pattern. You can use the function with and without a <code>std::match_results</code> object and apply it to a C string, a C++ string, or a range.</p>
         <section>
           <h3>An Example</h3>
           <p>The example below shows how to use <code>std::regex_search</code> with texts of type <code>const char*</code>, <code>std::string</code>, <code>const wchar_t*</code>, and <code>std::wstring</code>.</p>
