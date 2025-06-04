@@ -33,6 +33,10 @@
 
 - https://www.indefenseofplants.com/
 
+- https://sowtrueseed.com/
+
+- http://hyperphysics.phy-astr.gsu.edu/hbase/Biology/phoc.html#:~:text=The%20drawback%20to%20C4%20photosynthesis,cell%20for%20conversion%20to%20PEP.
+
 - https://developer.mozilla.org/
 
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
@@ -45,7 +49,22 @@
 
 - https://econation.one/blog/
 
+- https://www.bbc.co.uk/programmes/genres
+
+
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] write *amaranth.html* and *quinoa.html*
+<p>Amaranth and quinoa are called the “super grains” because contain all eight amino acids required by the human body, and use C4 photosynthesis.</p>
+
+[ ] terminar *ciencia.html#mito-calculo-ciencia*
+[ ] añadir   *ciencia.html#son-una-pinya* : Los científicos (de la Investigación de Base) forma una <i>piña</i>
+
+
+[ ] *legume.html*
+<h1>Legume: fruit of <i lang="la">Fabaceae</i> plants</h1>
+
+
 
 [ ] *dilema-clase-objeto*
 <p>A veces nos conviene optimizar una clase, otras un objeto.</p>
@@ -1803,6 +1822,14 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *cowpea.html* from *dryland-crops.html*
+[x] *cowpea.html* from *dryland-agriculture.html*
+[x] *cowpea.html* from *legume.html*
+
+[x] *legume.html* from *farming.html*
+[x] *legume.html* from *cowpea.html*
+[ ] *legume.html* from elsewhere
 
 [ ] enlazar a *fijos y variables* desde *agua-y-civilizacion.html*
 [ ] enlazar a *fijos y variables* desde *recursos.html* o un futuro *impuestos.html*

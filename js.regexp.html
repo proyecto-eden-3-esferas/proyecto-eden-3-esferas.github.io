@@ -128,6 +128,14 @@
           <tr> <td><code>\x</code></td> <td>2 hexadecimal digits</td> <td>Character escape representing the character with the given value</td> </tr>
           <tr> <td><code>\0</code></td> <td>None</td> <td>Character escape representing U+0000 (NULL)</td> </tr>
         </table>
+        <p><code>\</code> followed by 0 and another digit becomes a legacy octal escape sequence, which is forbidden in Unicode-aware mode. <code>\</code> followed by any other digit sequence becomes a backreference.</p>
+        <p>In addition, <code>\</code> can be followed by some non-letter-or-digit characters, in which case the escape sequence is always a character escape representing the escaped character itself:</p>
+        <ul>
+          <li><code>\$, \(, \), \*, \+, \., \/, \?, \[, \\, \], \^, \{, \|, \}</code>: valid everywhere</li>
+          <li><code>\-</code>: only valid inside character classes</li>
+          <li><code>\!, \#, \%, \&amp;, \,, \:, \;, \&lt;, \=, \&gt;, \@, \`, \~</code>: only valid inside v-mode character classes</li>
+        </ul>
+        <p>The other ASCII characters, namely space character, <code>"</code>, <code>'</code>, <code>_</code>, and any letter character not mentioned above, are not valid escape sequences. In Unicode-unaware mode, escape sequences that are not one of the above become identity escapes: they represent the character that follows the backslash. For example, <code>\a</code> represents the character a. This behavior limits the ability to introduce new escape sequences without causing backward compatibility issues, and is therefore forbidden in Unicode-aware mode.</p>
       </section>
 
     </main>
