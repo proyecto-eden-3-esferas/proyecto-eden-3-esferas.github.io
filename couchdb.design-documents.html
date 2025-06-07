@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using Apache CouchDB</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Using Apache CouchDB"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a rel="prev" href="couchdb.html">Open Source Apache CouchDB: Another JSON Document DBMS</a></p>
+        <p><a            href="couchdb.using.html">Using CouchDB</a></p>
+        <p><a rel="next" href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+      </div>
+      <div>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Design Documents</h1>
+      <p style="text-align: right">(From <a target="_blank" href="https://docs.couchdb.org/en/stable/ddocs/index.html">https://docs.couchdb.org/en/stable/ddocs/index.html</a>)</p>
+      <p>CouchDB supports special documents within databases known as <dfn>design documents</dfn>. These documents, mostly driven by JavaScript you write, are used to build indexes, validate document updates, format query results, and filter replications.</p>
+      <hr/>
+      <p>Design documents contain functions such as <a target="_blank" href="couchdb.using.html#views-and-map-reduce">view</a> and update functions. These functions are executed when requested.</p>
+      <p>Design documents are denoted by an id field with the format <code>_design/<var>name</var></code>. Their structure follows the example below.</p>
+      <pre>{
+  "_id": "_design/example",
+  "views": {
+      "view-number-one": {
+          "map": "function (doc) {/* function code here - see below */}"
+      },
+      "view-number-two": {
+          "map": "function (doc) {/* function code here - see below */}",
+          "reduce": "function (keys, values, rereduce) {/* function code here - see below */}"
+      }
+  },
+  "updates": {
+      "updatefun1": "function(doc,req) {/* function code here - see below */}",
+      "updatefun2": "function(doc,req) {/* function code here - see below */}"
+  },
+  "filters": {
+      "filterfunction1": "function(doc, req){ /* function code here - see below */ }"
+  },
+  "validate_doc_update": "function(newDoc, oldDoc, userCtx, secObj) { /* function code here - see below */ }",
+  "language": "javascript"
+}</pre>
+      <p>As you can see, a design document can include multiple functions of the same type. The example defines two views, both of which have a map function and one of which has a reduce function. It also defines two update functions and one filter function. The <code>validate_doc_update</code> function is a special case, as each design document cannot contain more than one of those.</p>
+
+      <section id="view-functions">
+        <h2>View Functions</h2>
+        <p>Views are the primary tool used for querying and reporting on CouchDB databases.</p>
+
+        <section>
+          <h3>>Map Functions</h3>
+          <aside>
+            <pre><var>mapfun</var>(<var>doc</var>)</pre>
+            <p>where <var>doc</var> is the document that is being processed</p>
+          </aside>
+          <p>Map functions accept a single document as the argument and (optionally) <code>emit()</code> key/value pairs that are stored in a view.</p>
+          <p>An example:</p>
+          <pre>function (doc) {
+  if (doc.type === 'post' &amp;&amp; doc.tags &amp;&amp; Array.isArray(doc.tags)) {
+    doc.tags.forEach(function (tag) {
+      emit(tag.toLowerCase(), 1);
+    });
+  }
+}</pre>
+          <p>In this example a key/value pair is emitted for each value in the tags array of a document with a type of <q>post</q>. Note that <code>emit()</code> may be called many times for a single document, so the same document may be available by several different keys.</p>
+          <p>Also keep in mind that each document is <em>sealed</em> to prevent the situation where one map function changes document state and another receives a modified version.</p>
+          <p>For efficiency reasons, documents are passed to a group of map functions - each document is processed by a group of map functions from all views of the related design document. This means that if you trigger an index update for one view in the design document, all others will get updated too.</p>
+          <p>Since version 1.1.0, map supports CommonJS modules and the <code>require()</code> function.</p>
+        </section>
+
+        <section id="reduce-and-rereduce-functions">
+          <h3>Reduce and Rereduce Functions</h3>
+          <aside>
+            <pre><var>reduce_fun</var>(<var>keys</var>, <var>values</var>[, <var>rereduce</var>])</pre>
+            <p>Arguments</p>
+            <ul>
+              <li><strong>keys</strong> Array of pairs of key-docid for related map function results. Always <code>null</code> if <var>rereduce</var> is running (has <code>true</code> value).</li>
+              <li><strong>values</strong> Array of map function result values.</li>
+              <li><strong>rereduce</strong> Boolean flag to indicate a rereduce run.</li>
+            </ul>
+            <p>Returns:</p>
+            <ul>
+              <li>Reduces values</li>
+            </ul>
+          </aside>
+          <p>Reduce functions take two required arguments of <var>keys</var> and <var>values</var> lists - the result of the related map function - and an optional third value which indicates if rereduce mode is active or not. <var>Rereduce</var> is used for additional reduce values list, so when it is true there is no information about related keys (first argument is <code>null</code>).</p>
+          <p>Note that if the result of a reduce function is longer than the initial values list then a <var>Query Server error</var> will be raised. However, this behavior can be disabled by setting reduce_limit config option to false:</p>
+          <pre>[query_server_config]
+reduce_limit = false</pre>
+          <p>While disabling <var>reduce_limit</var> might be useful for debug proposes, remember that the main task of reduce functions is to reduce the mapped result, not to make it bigger. Generally, your reduce function should converge rapidly to a single value - which could be an array or similar object.</p>
+          <section>
+            <h4>Built-in Reduce Functions</h4>
+            <p>Additionally, CouchDB has a set of built-in reduce functions. These are implemented in Erlang and run inside CouchDB, so they are much faster than the equivalent JavaScript functions.</p>
+          </section>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Show Functions*</h2>
+        <aside>
+          <p><strong>Warning</strong> Show functions are deprecated in CouchDB 3.0, and will be removed in CouchDB 4.0.</p>
+        </aside>
+      </section>
+      <section>
+        <h2>List Functions*</h2>
+        <aside>
+          <p><strong>Warning</strong> List functions are deprecated in CouchDB 3.0, and will be removed in CouchDB 4.0.</p>
+        </aside>
+      </section>
+
+      <section>
+        <h2>Update Functions</h2>
+        <p>Update handlers are functions that clients can request to invoke server-side logic that will create or update a document. This feature allows a range of use cases such as providing a server-side last modified timestamp, updating individual fields in a document without first getting the latest revision, etc.</p>
+        <aside>
+          <pre><var>update-function</var>(<var>doc</var>, <var>req</var>)</pre>
+          <p>Arguments</p>
+          <ul>
+            <li><strong>doc</strong> The document that is being processed.</li>
+            <li><strong>req</strong> <a href="#request-objects">Request object</a></li>
+          </ul>
+          <p>Returns:</p>
+          <ul>
+            <li>Two-element array: the first element is the (updated or new) document, which is committed to the database. If the first element is <code>null</code> no document will be committed to the database. If you are updating an existing document, it should already have an <var>_id</var> set, and if you are creating a new document, make sure to set its <var>_id</var> to something, either generated based on the input or the <var>req.uuid</var> provided. The second element is the response that will be sent back to the caller.</li>
+          </ul>
+        </aside>
+        <p>When the request to an update handler includes a document ID in the URL, the server will provide the function with the most recent version of that document. You can provide any other values needed by the update handler function via the POST/PUT entity body or query string parameters of the request.</p>
+        <p>A basic example that demonstrates all use-cases of update handlers:</p>
+        <pre>function(doc, req) {
+  if (!doc) {
+    if ('id' in req &amp;&amp; req['id']) {
+      // create new document
+      return [{'_id': req['id']}, 'New World']
+    }
+    // change nothing in database
+    return [null, 'Empty World']
+  }
+  doc['world'] = 'hello';
+  doc['edited_by'] = req['userCtx']['name']
+  return [doc, 'Edited World!']
+}</pre>
+        <p>...</p>
+      </section>
+
+      <section>
+        <h2>Filter Functions</h2>
+        <p>Filter functions mostly act like Show Functions and List Functions: they format, or filter the changes feed.</p>
+        <aside>
+          <pre><var>filter-function</var>(<var>doc</var>, <var>req</var>)</pre>
+          <p>Arguments</p>
+          <ul>
+            <li><strong>doc</strong> The document that is being processed.</li>
+            <li><strong>req</strong> <a href="#request-objects">Request object</a></li>
+          </ul>
+          <p>Returns:</p>
+          <ul>
+            <li>Boolean value: <code>true</code> means that doc passes the filter rules, <code>false</code> means that it does not.</li>
+          </ul>
+        </aside>
+        <section>
+          <h3>Classic Filters</h3>
+          <p>By default the changes feed emits all database documents changes. But if you&apos;re waiting for some special changes, processing all documents is inefficient.</p>
+          <p>Filters are special design document functions that allow the changes feed to emit only specific documents that pass filter rules.</p>
+          <p>Let&apos;s assume that our database is a mailbox and we need to handle only new mail events (documents with the status: new). Our filter function would look like this:</p>
+          <pre>function(doc, req) {
+  // we need only `mail` documents
+  if (doc.type != 'mail') {
+    return false;
+  }
+  // we're interested only in `new` ones
+  if (doc.status != 'new') {
+    return false;
+  }
+  return true; // passed!
+}</pre>
+          <p>Filter functions must return <code>true</code> if a document passed all the rules. Now, if you apply this function to the changes feed it will emit only changes about <q>new mails</q>:</p>
+          <pre>GET /somedatabase/_changes?filter=mailbox/new_mail HTTP/1.1</pre>
+          <p>We probably need to filter the changes feed of our mailbox by more than a single status value. We&apos;re also interested in statuses like “spam” to update spam-filter heuristic rules, “outgoing” to let a mail daemon actually send mails, and so on. Creating a lot of similar functions that actually do similar work isn&apos;t good idea - so we need a dynamic filter.</p>
+          <p>You may have noticed that filter functions take a second argument named <var>request</var>. This allows the creation of dynamic filters based on query parameters, user context and more.</p>
+          <p>The dynamic version of our filter looks like this:</p>
+          <pre>function(doc, req) {
+  // we need only `mail` documents
+  if (doc.type != 'mail') {
+    return false;
+  }
+  // we're interested only in requested status
+  if (doc.status != req.query.status) {
+    return false;
+  }
+  return true; // passed!
+}</pre>
+          <p>and now we have passed the status query parameter in the request to let our filter match only the required documents:</p>
+          <pre>GET /somedatabase/_changes?filter=mailbox/by_status&amp;status=new HTTP/1.1></pre>
+          <p>and we can easily change filter behavior with:</p>
+          <pre>GET /somedatabase/_changes?filter=mailbox/by_status&amp;status=spam HTTP/1.1</pre>
+          <p>Combining filters with a continuous feed allows creating powerful event-driven systems.</p>
+        </section>
+        <section>
+          <h3>View Filters</h3>
+        </section>
+        <!--
+        <section>
+          <h3> Filters</h3>
+        </section>
+        <section>
+          <h3> Filters</h3>
+        </section>
+        <section>
+          <h3> Filters</h3>
+        </section>
+        -->
+      </section>
+
+      <section id="request-objects">
+        <h2>Request Objects*</h2>
+        <p>...</p>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

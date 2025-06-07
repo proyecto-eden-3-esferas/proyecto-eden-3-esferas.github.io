@@ -35,13 +35,29 @@
 
 try {
   // ...
-  throw exception("This is an error message"); // construct and exception object
+  throw exception(); // construct and exception object
   // ...
 } catch (exception &amp; ex) {
   cout &lt;&lt; "exception bearing message: \"" &lt;&lt; ex.what() &lt;&lt; "\" has been thrown..." &lt;&lt; endl;
 } // code resumes here</pre>
-      <p>Class <code class="classname">exception</code> is declared in <kbd>&lt;exception&gt;</kbd>. It can be initialized with a string message, later to be extracted, as shown in the example above. Thus, to handle an exception in a <code>catch</code> clause, you may use the <code class="classname">exception</code> interface. The interface of all standard exceptions classes contains only one member that can be used to get additional information besides the type itself: the member function <code class="method">what()</code>, which returns a null-terminated byte string. The content of the string is implementation defined. The C-string, returned by <code class="method">what()</code>, is valid until the exception object from which it is obtained gets destroyed.</p>
-      <p>(The remaining members of the standard exception classes create, copy, assign, and destroy exception objects. Note that besides <code class="method">what()</code> there is no additional member for any of the standard exception classes that describes the kind of exception. For example, there is no portable way to find out the context of an exception or the faulty index of a range error. Thus, a portable evaluation of an exception could only print the message returned from, well, <code class="method">what()</code>.)</p>
+
+      <section>
+        <h2>Class <code class="classname">std::exception</code></h2>
+        <p>Class <code class="classname">exception</code> is declared in <kbd>&lt;exception&gt;</kbd>. It cannot be initialized with a string message. Thus, to handle an exception in a <code>catch</code> clause, you may use the <code class="classname">exception</code> interface. The interface of all standard exceptions classes contains only one member that can be used to get additional information besides the type itself: the member function <code class="method">what()</code>, which returns a null-terminated byte string. The content of the string is implementation defined. The C-string, returned by <code class="method">what()</code>, is valid until the exception object from which it is obtained gets destroyed.</p>
+        <pre>#include &lt;exception&gt;
+class exception { // since C++11
+                  // all member functions are constexpr
+                  // since C++26
+public:
+  exception&amp; operator=(const exception&amp; <var>other</var>) noexcept; // since C++11
+                                                                            // constexpr since C++26
+  virtual const char* what()                                const noexcept; //
+                                                                            // constexpr since C++26
+  exception() noexcept;
+  exception(const exception&amp; <var>other</var>) noexcept;
+};</pre>
+        <p>(The remaining members of the standard exception classes create, copy, assign, and destroy exception objects. Note that besides <code class="method">what()</code> there is no additional member for any of the standard exception classes that describes the kind of exception. For example, there is no portable way to find out the context of an exception or the faulty index of a range error. Thus, a portable evaluation of an exception could only print the message returned from, well, <code class="method">what()</code>.)</p>
+      </section>
 
       <section>
         <h2>Exception Action</h2>
@@ -90,12 +106,76 @@ try {
         </ul>
       </section>
 
-      <section sect="sect2">
+      <section>
         <h2>Header Files for Exception Classes</h2>
         <p>The base class exception and class <code class="classname">bad_exception</code> are defined in <code>&lt;exception&gt;</code>. Class <code class="classname">bad_alloc</code> is defined in <code>&lt;new&gt;</code>. Classes <code class="classname">bad_cast</code> and <code class="classname">bad_typeid</code> are defined in <code>&lt;typeinfo&gt;</code>. Class <code class="classname">ios_base::failure</code> is defined in <code>&lt;ios&gt;</code>. All other classes are defined in <code>&lt;stdexcept&gt;</code>.</p>
       </section>
 
-      <section sect="sect2">
+      <section id="writing-your-own">
+        <h2>Writing Your Own Exception Classes</h2>
+        <p>To write an exception class, you should:</p>
+        <ol>
+          <li>
+            <p>Derive your class from <code>std::exception</code> or some other STL exception class, as in</p>
+            <pre>class <var>my_exception_class</var> : public std::exception {...</pre>
+          </li>
+          <li>
+            <p>override the <code>virtual const char* what() const noexcept</code> method in <code>std::exception</code></p>
+          </li>
+          <li>
+            <p>Optionally add some features such as initializing with a string or printing detailed information, as explained in the following subsections.</p>
+          </li>
+        </ol>
+        <section>
+          <h3>Writing Exception Classes that Initialize with a String</h3>
+          <p>Just add a non-public const string member and a constructor that takes a string:</p>
+          <pre>#include &lt;exception&gt;
+class string_initializable_exception : public std::exception {
+  const std::string str;
+public:
+  const char* what() const noexcept override {
+    return str.c_str();
+  };
+  string_initializable_exception(const char * txt) : str(txt) {};
+};</pre>
+          <p><strong>Note</strong> Quite probably you don&apos;t want to provide a default constructor, though.</p>
+
+        </section>
+        <section>
+          <h3>Writing Exception Classes that Build a Formated String through an <code>std::sstream</code></h3>
+          <p>You want to code an exception whose error message is as rich in information as possible by incorporating input parameters into the string that member <code>what()</code> outputs.</p>
+          <p>In all the examples in this subsection, <code>std::stringstream</code> <var>ss</var> is built with parameters (in the constructor&apos;s body), then assigned to member <code>std::string</code> <var>s</var>, wherefrom a C-string is extracted.</p>
+          <p>Yes, you might build your exception message outside your exception object and then initialize an <code>string_initializable_exception</code> object with that string. But let us assume you aim for something more <q>automatic</q>. You want to build the error message inside your exception object.</p>
+          <p>Now, since initialization is complex, member string <var>s</var> must not be marked as <code>const</code> as the message string needs to be built in stages inside the constructor&apos;s body, as already explained.</p>
+          <hr/>
+          <p>I shall first illustrate a simple class that takes one integer parameter, <var>x</var>:</p>
+          <pre>#include &lt;exception&gt;
+#include &lt;sstream&gt;
+
+class x_exception : public std::exception {
+  std::string        s;
+  std::stringstream ss;
+public:
+  const char* what() const noexcept override {
+    return s.c_str();
+  };
+  x_exception() = delete;
+  x_exception(int x) : s("x=") {
+    ss &lt;&lt; x;
+    s += ss.str();
+  };
+};</pre>
+          <p>Here, <code>std::stringstream</code> <var>ss</var> is used for converting a number to a string.</p>
+          <hr/>
+          <p>The next example is more sophisticated and allows for more complexity.</p>
+          <p>Also, two parameters of deducible types <code>X</code> and <code>Y</code> are read:</p>
+          <pre>...</pre>
+
+          <pre>...</pre>
+        </section>
+      </section>
+
+      <section>
         <h2>Order of <kbd>catch</kbd> blocks</h2>
         <p>Catch blocks for exceptions by reference will also latch onto derived exception classes, so it is advisable to place the most specific catch blocks at the start.</p>
         <p>Lastly, <q>all exceptions</q> is selected for as <kbd>catch (...)</kbd>. Here is an example. Assume that <code class="classname">derived_exception</code> is derived from <code class="classname">exception</code>, and that there are other exceptions not derived from <code class="classname">exception</code>:</p>
@@ -113,7 +193,7 @@ try {
 // code resumes here</pre>
       </section>
 
-      <section sect="sect2">
+      <section>
         <h2>Exception specification</h2>
         <p>A function may be declared to throw only one or several classes of exceptions:</p>
         <pre>voide f() throw (excpt1, excpt2);</pre>

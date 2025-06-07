@@ -54,6 +54,10 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *filtrar-transformar-agregar.html*, relacionado con *informacion.html*
+
+[ ] fill in table in *dryland-crops.html*
+
 [ ] write *amaranth.html* and *quinoa.html*
 <p>Amaranth and quinoa are called the “super grains” because contain all eight amino acids required by the human body, and use C4 photosynthesis.</p>
 

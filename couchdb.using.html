@@ -25,6 +25,7 @@
     <!-- -->
       <div>
         <p><a rel="prev" href="couchdb.html">Open Source Apache CouchDB: Another JSON Document DBMS</a></p>
+        <p><a rel="next" href="couchdb.design-documents.html">Design Documents</a></p>
         <p><a rel="next" href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
       </div>
@@ -165,10 +166,34 @@ Transfer-Encoding: chunked
         -->
       </section>
 
-      <section id="design-documents">
-        <h2>Design Documents*</h2>
-        <p style="text-align: right">(From <a target="_blank" href="https://docs.couchdb.org/en/stable/ddocs/index.html">https://docs.couchdb.org/en/stable/ddocs/index.html</a>)</p>
-        <p>CouchDB supports special documents within databases known as <dfn>design documents</dfn>. These documents, mostly driven by JavaScript you write, are used to build indexes, validate document updates, format query results, and filter replications.</p>
+      <section id="views-and-map-reduce">
+        <h2>Views and Map-Reduce</h2>
+        <p>CouchDB uses views filtered through map-reduce to query all the documents of your database. Each view has a map- and optionally a reduce-function. Doctrine CouchDB ODM allows you to create and query views in your application.</p>
+        <p><dfn>MapReduce</dfn> is a programming model and an associated implementation for processing and generating big data sets with a parallel, distributed algorithm on a cluster. A MapReduce program is composed of a <code>Map()</code> procedure (method) that performs filtering and sorting (such as sorting students by first name into queues, one queue for each name) and a <code>Reduce()</code> method that performs a summary operation (such as counting the number of students in each queue, yielding name frequencies).</p>
+
+        <p>A MapReduce view is created by adding it to the <cite><a href="couchdb.design-documents.html">_design</a></cite> document for the database (which we will discuss later). You can also use Futon, which is accessible with the following URL once you have CouchDB set up:</p>
+        <pre>http://127.0.0.1:5984/_utils/</pre>
+        <p>to create a <cite>Temporary View</cite> directly through the interface. So I would set up a map and a reduce function. The result which would be displayed at the bottom of the image is the result of the map step, which contains rows of data containing, say, the documents name as the key, and the age as the value. We can then enable the reduce step by ticking the reduce box just above the result set.</p>
+        <hr/>
+        <p>An example:</p>
+        <pre>function(doc){
+
+    if(doc.age > 29 &amp;&amp; doc.age &lt; 36){
+        emit(doc.age, doc.income);
+    }
+
+}</pre>
+        <p>whose result would be fed to a reduce function:</p>
+        <pre>function(keys, values) {
+  var averageIncome = sum(values) / values.length;
+  return averageIncome;
+}</pre>
+        <p>We might actually create more realistic MapReduce views and add them to the <cite>design</cite> doc (rather than just creating temporary views)</p>
+        <hr/>
+        <p>When you query a view, CouchDB will run the MapReduce function against every document in the database. On the surface, that sounds like a bad idea – especially if you&apos;ve got millions of documents. However, it only performs this process once to create the view initially, and when updates are made to the data it only needs to make updates to the resulting view for that specific document (it doesn&apos;t need to regenerate the entire view again).</p>
+        <p>To query a view, all you need to do it access its URL, which will look something like this (once you have added it to a design doc):</p>
+        <pre><var>mydb</var>/_design/<var>nameOfDesigndoc</var>/_view/<var>nameOfView</var></pre>
+        <p>You can also supply parameters to the URL to restrict the returned dataset by using things like <code>by_date?</code> with a <var>start_key</var> and an <var>end_key</var>. The process for this would go something like <q>Start at the row that has a date that equals the start_key and then keep returning rows until you reach a key that matches the end_key</q>.</p>
       </section>
 
     </main>
