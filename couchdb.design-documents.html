@@ -40,11 +40,16 @@
     <main>
       <h1>Design Documents</h1>
       <p style="text-align: right">(From <a target="_blank" href="https://docs.couchdb.org/en/stable/ddocs/index.html">https://docs.couchdb.org/en/stable/ddocs/index.html</a>)</p>
-      <p>CouchDB supports special documents within databases known as <dfn>design documents</dfn>. These documents, mostly driven by JavaScript you write, are used to build indexes, validate document updates, format query results, and filter replications.</p>
+      <p>CouchDB supports special documents within databases known as <dfn>design documents</dfn>. These documents, mostly driven by JavaScript you write, contain all of the database logic and are used to build indexes, validate document updates, format query results, and filter replications.</p>
+      <p>They are written in JavaScript and are executed within the CouchDB application.</p>
       <hr/>
-      <p>Design documents contain functions such as <a target="_blank" href="couchdb.using.html#views-and-map-reduce">view</a> and update functions. These functions are executed when requested.</p>
-      <p>Design documents are denoted by an id field with the format <code>_design/<var>name</var></code>. Their structure follows the example below.</p>
-      <pre>{
+      <p>Design documents are basically just like any other document within a CouchDB database; that is, a JSON structure that you can create and update using the same <code>PUT</code> and <code>POST</code> HTTP operations. The difference is that they are located within a special area of each database (<cite>_design</cite>), and they are processed and accessed differently when you want to actually execute the functional components.</p>
+      <p>Importantly, any database can have zero or more design documents. There are no limits to the number of design documents that you have, although from a practical perspective it&apos;s unlikely that you&apos;ll have more than ten for most databases, especially since for many of the <a href="#components">design document components</a> you can have more than one definition in each design document.</p>
+      <section>
+        <h2>structure of a Design Document</h2>
+        <p>Design documents contain functions such as <a target="_blank" href="couchdb.using.html#views-and-map-reduce">view</a> and update functions. These functions are executed when requested.</p>
+        <p>Design documents are denoted by an id field with the format <code>_design/<var>name</var></code>. Their structure follows the example below.</p>
+        <pre>{
   "_id": "_design/example",
   "views": {
       "view-number-one": {
@@ -65,7 +70,27 @@
   "validate_doc_update": "function(newDoc, oldDoc, userCtx, secObj) { /* function code here - see below */ }",
   "language": "javascript"
 }</pre>
-      <p>As you can see, a design document can include multiple functions of the same type. The example defines two views, both of which have a map function and one of which has a reduce function. It also defines two update functions and one filter function. The <code>validate_doc_update</code> function is a special case, as each design document cannot contain more than one of those.</p>
+        <p>As you can see, a design document can include multiple functions of the same type. The example defines two views, both of which have a map function and one of which has a reduce function. It also defines two update functions and one filter function. The <code>validate_doc_update</code> function is a special case, as each design document cannot contain more than one of those.</p>
+      </section>
+
+      <section id="components">
+        <h2>The Components of a Design Document</h2>
+        <p>A design document provides the following:</p>
+        <dl>
+          <dt>Views</dt>
+          <dd>Views are functions that take your document data and produce searchable lists of information based on the document&apos;s contents. Views are incredibly simple yet also very powerful and provide the main route of entry into your data for information for which you don&apos;t know the document ID.</dd>
+          <dt>Shows</dt>
+          <dd>A show converts a single document into another format, usually HTML, although you can output the document in any format, including JSON or XML, to suit your application. Shows can also be used to simplify the JSON content of a document into a simpler or reduced format.</dd>
+          <dt>Lists</dt>
+          <dd>A list is to a view (or collection of documents) as a show is to a single document. You can use a list to format the view as an HTML table, or a page of information or as XML of your document collection. In this way, a list acts as a transform on the entire content on the view into another format.</dd>
+          <dt>Document validation</dt>
+          <dd>Because you can store any JSON document in your database, one of the issues is maintaining consistency. This is what the document validation functions solve. When you save a document into CouchDB, the validation function is called, and it can either check or even reformat the incoming document to meet your requirements and standards for different documents.</dd>
+          <dt>Update handlers</dt>
+          <dd>Update handlers can be used to perform an action on a document when the document is updated. Unlike document validation, update handlers are explicitly called, but they can be used to make changes to a document within the server without having to retrieve the document, change it, and save it back (as would be required for a client process). For example, you can use update handlers to increment values in a document, or add and update timestamps.</dd>
+          <dt>Filters</dt>
+          <dd>When exchanging information between CouchDB databases when using replication or the changes feed, you may want to filter the content of the database. For example, if you store information about your CD and DVD collection in a single database, you may want to exchange only the CD records with another database. This is what a filter function is for: when called, it examines the list of supplied documents from the replication or changes feed and then either returns the document or null.</dd>
+        </dl>
+      </section>
 
       <section id="view-functions">
         <h2>View Functions</h2>

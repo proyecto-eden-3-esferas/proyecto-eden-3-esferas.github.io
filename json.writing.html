@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Writing JSON Documents</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Writing JSON Documents: structure, common fields, guidelines"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="json.html">JavaScript Object Notation (JSON)</a></p>
+        <p><a            href="js.html">JavaScript: the Internet Programming Language</a></p>
+        <p><a rel="next" href="jq.html"><code>jq</code>: a lightweight and flexible command-line JSON processor</a></p>
+      </div>
+      <div>
+        <p><a            href="sqlite.json.html">SQLite and JSON: Handling Text as JSON</a></p>
+        <p>Open Source Apache <a            href="couchdb.html">CouchDB: a JSON Document DBMS</a></p>
+        <p><a            href="mongodb.html">MongoDB: A JSON Document, NoSQL DataBase Management System</a></p>
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="programming.html">Programming</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Writing JSON Documents</h1>
+      <p>Let&apos;s discuss both the structure of JSON documents and the content of a collection of documents, say one held in a database.</p>
+      <p>There are three main areas to the consider: the basic document structure (fields and field types), the use of document types to track different document structures, and the structure and consistency of the documents that you store.</p>
+
+      <section id="structure">
+        <h2>Document Structure</h2>
+        <p>The main consideration is that because you can put all of the information about a single item into one document, you need a structure that is capable of defining and displaying that information. JSON is very flexible, but keep in mind that you also want to easily process the information.</p>
+        <p>Just like in a database that requires a schema, there are some conventions and field types that you should consider including in your documents.</p>
+        <p>Some good habits to get into:</p>
+        <ul>
+          <li>Don&apos;t store a separate ID or reference; use the document ID as the unique identifier. The exception to this rule, of course, is if you have a separate identifier (such as a product code, ISBN, or other information) that you want to use in addition to your main document ID because it provides reference or connectivity information.</li>
+          <li>Consider using a type to identify different document types. Some likely values for <var>type</var> are: <code>quote</code>, <code>comment</code>, <code>summary</code>, <code>discussion</code>, <code>anecdote</code> etc.</li>
+          <li>
+            <p>Use fields to store the document data, and use compound fields to store related information. For example, if you are modeling a blog post system, store the blog data as top-level fields in the document and comments as a compound element:</p>
+            <pre></pre>
+          </li>
+          <li>Remember to include standard fields such as timestamps (<var>created</var>, <var>updated</var>), and <var>status</var> so that you can organize and identify the content.</li>
+          <li>
+            <p>Use arrays for lists of values. Sounds obvious, but within a document database, the temptation can be to create a completely flat structure. A typical example is tags, often used to classify data:</p>
+            <pre>{
+  "tags" : ["blog", "article", "computing"]
+}</pre>
+          </li>
+          <li>
+            <p>Don&apos;t concatenate values because you can, but use a compound value to hold the information. For example, when listing ingredients within a recipe, the temptation is to put the full ingredient—2 cups carrots—into a single field within your document. When you come to extract or search on that information, you will probably want the carrots more than the measurement. Instead, store it as a compound value:</p>
+            <pre>[
+  {
+    "ingredient": "butter",
+    "measure": "50 g"
+  },
+  {
+    "ingredient": "onion",
+    "measure": "1"
+  },
+...
+]</pre>
+          </li>
+          <li>
+            <p>Don&apos;t rely on the implied field sequence of the document. For example, don&apos;t assume that if you create the document with three fields—<var>title</var>, <var>author</var>, and <var>description</var>—that the fields will be stored or returned in that order.</p>
+            <p>This doesn&apos;t affect top-level fields so much since you can access them by name, but it does affect compound values. If you want to retain a specific order, use an array of compound values, as in the previous ingredient example.</p>
+            <pre></pre>
+          </li>
+          <li>
+            <p>When thinking about your data structure, decide on whether you want to use one document that contains all of the information or multiple documents that you will later combine together with a clever view.</p>
+            <p>Using the blog post as an example, you can put the blog and comments into one document, or the blog content in one and the individual comments in further documents (one per comment).</p>
+            <p>The main consideration is how frequently you expect to update the information. If the blog and comments are one document, the entire document will need to be retrieved, updated with the new comment, and then saved back. If the blog and comments are separate documents, all you need do is another document with the comment content.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Document Types*</h2>
+        <p>If you are constrained to store all your documents in one database, you had better include a field called <var>type</var> or <var>schema</var> that identifies what the document contains. For example, in a blog enviroment you might store the blog posts and comments separately, so a blog post would like this:</p>
+        <pre>{
+  "title": "My Blog Post",
+  "created_at": "2011-11-27T14:34",
+  "content" : "My first blog post"
+  "author" : "MC Brown",
+  "schema" : "blogpost",
+}</pre>
+        <p>A comment should be identified (and formatted) differently:</p>
+        <pre>{
+  "schema": "comment",
+  "blogdocid": "myblogpost",
+  "from": "Joe Blog",
+  "comment": "Good post!",
+}</pre>
+        <p>When writing views and searching and referring the content, the type or schema field can be used to identify the different document types and create different views and representations of the information accordingly.</p>
+      </section>
+
+      <section>
+        <h2>Structure and Consistency</h2>
+        <p>There are no constraints or schemas for a document database, but that doesn&apos;t mean that you can ignore aspects like the simplicity and consistency of the format. For example, there&apos;s no point in using a field for the title of a recipe if in one document the field name is <q>title</q>, <q>recipetitle</q> in another, and <q>recipe_name</q> in yet others.</p>
+        <p>It is a good idea to employ some basic consistency in your field names and contents to ensure you can cope with future changes and updates. I recomend using the same field names for all sorts of different data types across many different databases.</p>
+        <p>It is advisable to store and use a <strong>sample document</strong> that contains the basic document structure, which you can then use as a template or reference for your other documents.</p>
+      </section>
+
+
+      <section>
+        <h2>ID&apos;s with <code>_id</code></h2>
+        <p>Both MongoDB and CouchDB add an ID field to the documents that they handle.</p>
+      </section>
+      <!--
+      <section>
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
