@@ -369,7 +369,7 @@ data3 = data2; // copy assignment
 data3 = data4; // non-copy assignment from member template</pre>
         <p>Any nonvirtual member function may be a template (member templates can't be virtual because the combination of these features results in insurmountable technical problems in their implementation). For example, we could implement a sort operation for our list...</p>
       </section>
-      <section>
+      <section id="template-template-args">
         <h2>Template Template Arguments</h2>
         <p>We want to implement a <code class="classname">Stack</code> template class with an underlying container. Naively:</p>
         <pre>template &lt;typename T, class Cont&gt;
@@ -382,6 +382,7 @@ public:
   Cont s_;
 };</pre>
         <p>A user of <code class="classname">Stack</code> now has to provide two template arguments, an element type and a container type, and the container has to be able to hold objects of the element type. This is confusing, error-prone and a lot of extra work.</p>
+        <hr/>
         <p>It would be much move convenient to just write</p>
         <pre>template &lt;typename T, template &lt;typename&gt; class Cont&gt;
 class Stack {

@@ -54,6 +54,12 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *estados-de-cosas.html*
+[ ] enlazar a *estados-de-cosas.html* desde *agentes.html#prioridades* / *prioridades.html*
+[ ] enlazar a *prioridades.html*
+[ ] enlazar a *agentes.html* desde *vida.html*
+[ ] enlazar a *agentes.html* desde *ecs.html*
+
 [ ] escribir *filtrar-transformar-agregar.html*, relacionado con *informacion.html*
 
 [ ] fill in table in *dryland-crops.html*
@@ -1826,6 +1832,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] link would-be to *audrey-tang.html* from          *thought.html*
+[ ] link would-be to *audrey-tang.html* from would-be *anarchism.html*
+[ ] link would-be to *audrey-tang.html* from would-be *democracy.html*
 
 [x] *greenpeace.es.html* desde *ecologismo.html*
 [ ] *greenpeace.es.html* desde ?
