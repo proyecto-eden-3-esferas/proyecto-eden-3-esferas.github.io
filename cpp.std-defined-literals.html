@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Standard (-Defined) Literals</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Standard-Defined Literals"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.user-defined-literals.html">User-Defined Literals: <code>operator&quot;&quot;</code> (C++11)</a></p>
+        <p><a            href="cpp.member-initializers.html">Member Initializers</a></p>
+        <p><a            href="cpp.attributes.html">Attributes (C++11)</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.cpp11.html">C++14</a></p>
+        <p><a            href="cpp.cpp14.html">C++14</a></p>
+        <p><a            href="cpp.cpp20.html">C++20</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Standard-Defined Literals</h1>
+
+      <section id="numeric">
+        <h2>Standard suffixes on Numeric Types</h2>
+        <p>The type of the integer literal is the first type in which the value can fit, from the list of types which depends on which numeric base and which integer-suffix was used.</p>
+        <table border="1">
+          <thead>
+          <tr> <th>Suffix</th> <th></th> </tr>
+          </thead>
+          <tr> <td>(no suffix)</td> <td>
+                                      <ul>
+                                        <li><code>int</code></li>
+                                        <li><code>unsigned int</code></li>
+                                        <li><code>long int</code></li>
+                                        <li><code>unsigned long int</code></li>
+                                        <li><code>long long int</code> (since C++11)</li>
+                                        <li><code>unsigned long long int</code> (since C++11)</li>
+                                      </ul>
+                                    </td> </tr>
+          <tr> <td><code>u</code> or <code>U</code></td> <td>
+                                                            <ul>
+                                        <li><code>unsigned int</code></li>
+                                        <li><code>unsigned long int</code></li>
+                                        <li><code>unsigned long long int</code> (since C++11)</li>
+                                      </ul>
+          </td> </tr>
+          <tr> <td><code>l</code> or <code>L</code></td> <td>
+                                      <ul>
+                                        <li><code>long int</code></li>
+                                        <li><code>unsigned long int</code></li>
+                                        <li><code>long long int (since C++11)</code></li>
+                                        <li><code>unsigned long long int (since C++11)</code></li>
+                                      </ul>
+          </td> </tr>
+          <tr> <td>both l/L and u/U</td> <td>
+                                      <ul>
+                                        <li><code>unsigned long int</code></li>
+                                        <li><code>unsigned long long int</code> (since C++11)</li>
+                                      </ul>
+          </td> </tr>
+          <tr> <td><code>ll</code> or <code>LL</code></td> <td>
+                                      <ul>
+                                        <li><code>long long int</code> (since C++11)</li>
+                                        <li><code>unsigned long long int</code> (since C++11)</li>
+                                      </ul>
+          </td> </tr>
+          <tr> <td>both ll/LL and u/U</td> <td><code>unsigned long long int</code> (since C++11)</td> </tr>
+
+          <tr> <td><code>z</code> or <code>Z</code></td> <td>
+                                      <ul>
+                                        <li>the signed version of <code>std::size_t</code> (since C++23)</li>
+                                        <li><code>std::size_t</code> (since C++23)</li>
+                                      </ul>
+          </td> </tr>
+          <tr> <td>both z/Z and u/U</td> <td><code>std::size_t</code> (since C++23)</td> </tr>
+        </table>
+        <p><strong>Notes</strong></p>
+        <ul>
+          <li>Letters in the integer literals are case-insensitive:</li>
+          <li>There are no negative integer literals.</li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Raw String Literals</h2>
+        <p>Raw string literals are string literals that can span across multiple lines of code, that don't require escaping of embedded double quotes, and where escape sequences like <kbd class="userinput">\t</kbd> and <kbd class="userinput">\n</kbd> are not processed as escape sequences, but as normal text. For example, if you write the following with a normal string literal, you will get a compiler error because the string contains non-escaped double quotes:</p>
+        <code>string str = "Hello "World"!"; // Error!</code>
+        <p>With a normal string you have to escape the double quotes as follows:</p>
+        <code>string str = "Hello \"World\"!";</code>
+        <p>With a raw string literal you can avoid the need to escape the quotes. The raw string literal starts with <kbd class="userinput">R " (</kbd> and ends with <kbd class="userinput">) "</kbd>.</p>
+        <code>string str = R"(Hello "World"!)";</code>
+        <p>Raw string literals can span across multiple lines. For example, if you write the following with a normal string literal, you will get a compiler error, because a normal string literal cannot span multiple lines:</p>
+        <code>string str = "Line 1
+Line 2 with \t"; // Error!</code>
+        <p>Instead, you can use a raw string literal as follows:</p>
+        <code>string str = R"(Line 1
+Line 2 with \t)";</code>
+        <p>This also demonstrates that with the raw string literal the \t escape character is not replaced with an actual tab character but is taken literally.</p>
+        <h4 class="bridgehead">Some more examples:</h4>
+        <!-- borrowed from another source -->
+        <ul class="itemizedlist">
+          <li>E.g., escaped characters and double quotes:
+	       <code>std::string noNewlines(R"(\n\n)");
+std::string cmd(R"(ls /home/docs | grep ".pdf")");</code>
+           </li>
+          <li>E.g., newlines:
+	     <code>std::string withNewlines(R"(Line 1 of the string...
+Line 2...
+Line 3)");</code>
+           </li>
+        </ul>
+        <p>"Rawness" may be added to any string encoding:</p>
+        <code>LR"(Raw Wide string literal \t (without a tab))"
+u8R"(Raw UTF-8 string literal \n (without a newline))"
+uR"(Raw UTF-16 string literal \\ (with two backslashes))"
+UR"(Raw UTF-32 string literal \u2620 (without a code point))"</code>
+        <p>"R" must come after "u8", "u", "U", etc. – it can't come in front of those specifiers.</p>
+        <h4 class="bridgehead">Extended Raw String Literal Syntax</h4>
+        <p>Since the raw string literal ends with ) " you cannot embed a ) " in your string using this syntax. For example, the following string is not valid because it contains the ) " in the middle of the string:</p>
+        <code>string str = R"(The characters )" are embedded in this string)";
+// ERROR!</code>
+        <p>If you need embedded ) " characters, you need to use the extended raw string literal syntax, which is as follows:</p>
+        <code>R"d-char-sequence(r-char-sequence)d-char-sequence"</code>
+        <p>The r-char-sequence is the actual raw string. The d-char-sequence is an optional delimiter sequence, which should be the same at the beginning and at the end of the raw string literal. This delimiter sequence can have at most 16 characters. You should choose this delimiter sequence as a sequence that will not appear in the middle of your raw string literal.</p>
+        <p>The previous example can be rewritten using a unique delimiter sequence as follows:</p>
+        <code>string str = R"-(The characters )" are embedded in this string)-";</code>
+      </section>
+
+      <section>
+        <h2>Developments in C++14 and C++17</h2>
+        <p>C++11 introduced the technology of user defined literals, but didn&apos;t provide any user defined suffix in the standard library. Those come in C++14 and C++17.</p>
+        <p>There are three types of literals provided by the standard library: string literals (C++14), chrono literals (C++14) and string view literals (C++17).</p>
+        <section>
+          <h3>String literals</h3>
+          <p>There is one user defined literal for strings in the standard library: <code>s</code>. Note that it doesn&apos;t have an underscore since it is provided by the standard library.</p>
+          <p><code>s</code> is in the <code>std::literals::string_literals</code> namespace. You can use it this way:</p>
+          <pre>using namespace std::literals::string_literals;
+
+auto myString = "hello"s;</pre>
+          <p>In this code, <var>myString</var> is of type <code>std::string</code>. Compare this to the following code:</p>
+          <pre>auto myString = "hello";</pre>
+          <p>In that case, myString is of type <code>const char*</code>.</p>
+        </section>
+        <section>
+          <h3>Chrono literals</h3>
+          <p>The part of the standard library that provides the most user defined suffixes is chrono, the part of the standard library dealing with date and times utilities.</p>
+          <p>In particular, chrono offers literals for all the typical units of duration: minutes, second, hours, etc:</p>
+          <pre>using namespace std::literals::chrono_literals;
+
+auto threeSeconds = 3s;
+auto tenMinutes = 10min;
+auto twoHours = 2h;
+
+auto oneMillisecond = 1ms;
+auto oneMicroSecond = 1us;
+auto oneNanoSecond = 1ns;</pre>
+        </section>
+
+        <section>
+          <h3>String view literals</h3>
+          <p>Finally, the user defined suffix that C++17 added is <code>sv</code>, in the <code>std::literals::string_view_literalsx</code> namespace. <code>sv</code> allows to create an <code>std::string_view</code>:</p>
+          <pre>using namespace std::literals::string_view_literals;
+
+auto myStringView = "hello"sv;</pre>
+          <p>In this above code, <var>myStringView</var> is of type <code>std::string_view</code>.</p>
+        </section>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

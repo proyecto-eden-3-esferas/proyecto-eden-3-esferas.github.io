@@ -54,6 +54,8 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[?] write on *Howard-Morland.html*
+
 [ ] escribir *estados-de-cosas.html*
 [ ] enlazar a *estados-de-cosas.html* desde *agentes.html#prioridades* / *prioridades.html*
 [ ] enlazar a *prioridades.html*

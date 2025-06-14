@@ -74,22 +74,33 @@ int main () {
 
    return 0;
 }</pre>
+        <!--
         <p></p>
         <pre></pre>
         <p></p>
         <pre></pre>
         <p></p>
         <pre></pre>
+        -->
       </section>
       <section id="include">
-        <h2>*</h2>
+        <h2>Inclusion</h2>
+        <p>Files are included <i lang="la">verbatim</i> through the <code>#include <var>FILENAME</var></code> directive.</p>
+        <hr/>
+        <p>The <code>__has_include(<var>FILENAME</var>)</code> directive (C++17) finds if a file exists, as in</p>
+        <pre>#if __has_include(&lt;optional&gt;)
+    #include &lt;optional&gt;
+    #define has_optional 1
+    template&lt;class T&gt;
+    using optional_t = std::optional&lt;T&gt;;</pre>
+        <!--
         <p></p>
         <pre></pre>
         <p></p>
         <pre></pre>
-        <p></p>
-        <pre></pre>
+        -->
       </section>
+
       <section id="conditional">
         <h2>Conditionals</h2>
         <p>There are several directives, which can be used to compile selective portions of your program&apos;s source code. This process is called <dfn>conditional compilation</dfn>.</p>
