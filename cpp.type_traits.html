@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,17 +6,17 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Header File &lt;type_traits&gt;"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
+      <!--
       <p><a href="A_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
         <p><a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a></p>
@@ -23,19 +24,186 @@
       <div>
         <p><a rel="prev" href="cpp.stl.html">The C++ Standad Template Library (STL)</a></p>
         <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a rel="next" href="cpp.std-concepts.html">C++ Standard Library Concepts</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
     </nav>
-
     <main>
       <h1>Handling Type with <code>&lt;type_traits&gt;</code></h1>
-
+      <!-- 25084 to 25245 -->
+      <section>
+      <h2>Types Defined in header <code>&lt;type_traits&gt;</code></h2>
+      <p>Header <cite class="filename">&lt;type_traits&gt;</cite> defines a series of classes to obtain type information at compile-time.</p>
+      <p>The header contains:</p>
+      <ul class="itemizedlist">
+        <dd>
+          <p>Helper classes: Standard classes to assist in creating compile-time constants.</p>
+          <dl class="variablelist">
+            <dt>integral_constant</dt>
+            <dd/>
+            <dt>true_type</dt>
+            <dd/>
+            <dt>false_type</dt>
+            <dd/>
+          </dl>
+        </dd>
+        <dd>
+          <p>Type traits: Classes to obtain characteristics of types in the form of compile-time constant values.</p>
+          <dl class="variablelist">
+            <dt>
+              <var class="classname">is_array</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_class</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_enum</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_floating_point</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_function</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_integral</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_lvalue_reference</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_member_function_pointer</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_member_object_pointer</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_pointer</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_rvalue_reference</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_union</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_void</var>
+            </dt>
+            <dd/>
+          </dl>
+        </dd>
+        <dd>
+          <p>Composite type categories</p>
+          <dl class="variablelist">
+            <dt>
+              <var class="classname">is_arithmetic</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_compound</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_fundamental</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_member_pointer</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_object</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_reference</var>
+            </dt>
+            <dd/>
+            <dt>
+              <var class="classname">is_scalar</var>
+            </dt>
+            <dd/>
+          </dl>
+        </dd>
+        <dd>
+          <p>Type transformations: Classes to obtain new types by applying specific transformations to existing types.</p>
+          <dl class="variablelist">
+            <dt>add_const</dt>
+            <dd/>
+            <dt>add_cv</dt>
+            <dd/>
+            <dt>add_volatile</dt>
+            <dd/>
+            <dt>remove_const</dt>
+            <dd/>
+            <dt>remove_cv</dt>
+            <dd/>
+            <dt>remove_volatile</dt>
+            <dd/>
+          </dl>
+          <h5 class="bridgehead">Compound type alterations</h5>
+          <dl class="variablelist">
+            <dt>add_pointer</dt>
+            <dd/>
+            <dt>add_lvalue_reference</dt>
+            <dd/>
+            <dt>add_rvalue_reference</dt>
+            <dd/>
+            <dt>decay</dt>
+            <dd/>
+            <dt>make_signed</dt>
+            <dd/>
+            <dt>make_unsigned</dt>
+            <dd/>
+            <dt>remove_all_extents</dt>
+            <dd/>
+            <dt>remove_extent</dt>
+            <dd/>
+            <dt>remove_pointer</dt>
+            <dd/>
+            <dt>remove_reference</dt>
+            <dd/>
+            <dt>underlying_type</dt>
+            <dd/>
+          </dl>
+          <h5 class="bridgehead">Other type generators</h5>
+          <dl class="variablelist">
+            <dt>aligned_storage</dt>
+            <dd/>
+            <dt>aligned_union</dt>
+            <dd/>
+            <dt>common_type</dt>
+            <dd/>
+            <dt>conditional</dt>
+            <dd/>
+            <dt>enable_if</dt>
+            <dd/>
+            <dt>result_of</dt>
+            <dd/>
+          </dl>
+        </dd>
+      </ul>
+      </section>
       <section>
         <h2>Associated Types and Traits Classes</h2>
         <p>One of the most important techniques used in generic programming is the traits class, which was introduced by Nathan Myers. The traits class technique may seem somewhat unnatural when first encountered (due to the syntax) but the essence of the idea is simple. It is essential to learn how to use traits classes, for they are used regularly in generic libraries such as the <a href="cpp.stl.html">STL</a> and the <a href="cpp.boost.html">Boost Library</a>.</p>
         <aside class="note">In c++11 traits are developed further in a <a href="cpp.type_traits.html"><cite>&lt;type_traits&gt;</cite></a> header file.</aside>
         <section>
-          <h2>(Unsatisfied) Associated Types Needed in a Function Template</h2>
+          <h3>(Unsatisfied) Associated Types Needed in a Function Template</h3>
           <p>A traits class is basically a way of determining information about a type that you would otherwise know nothing about. For example, consider a generic <code class="function">sum()</code> function:</p>
           <pre>template &lt;typename Array&gt;
 X sum(const Array&amp; v, int n) {
@@ -48,7 +216,7 @@ X sum(const Array&amp; v, int n) {
         </section>
         <!-- </sect4> -->
         <section>
-          <h2>Typedefs Nested in Classes</h2>
+          <h3>Typedefs Nested in Classes</h3>
           <p>One way to access information out of a type is to use the scope operator <code>::</code> to access <code>typedef</code>'s that are nested inside the class. For example, an array class might looks like the following:</p>
           <pre>class my array {
 public:
@@ -73,7 +241,7 @@ sum(x, n);</pre>
         </section>
         <!-- </sect4> -->
         <section>
-          <h2>Definition of a Traits Class</h2>
+          <h3>Definition of a Traits Class</h3>
           <p>The solution to this is a <dfn>traits class</dfn>, which is a class template whose sole purpose is to provide a mapping from a type to other types, functions, or constants. The language mechanism that allows a class template to create a mapping is <a target="_blank" href="cpp.templates.html#template_specialization">template specialization</a>. The mapping is accomplished by creating different versions of the traits class to handle specific type parameters. We will show how this works by creating an array traits class that can be used in the <code class="function">sum()</code> function.</p>
           <p>The <code class="classname">array_traits</code> class will be templated on the <code class="classname">Array</code> type and will allow us to determine the <code class="classname">value_type</code> (the type of the element) of the array. The default (fully templated) case will assume that the array is a class with a nested <code>typedef</code> such as <code class="classname">my_array</code>:</p>
           <pre>template &lt;typename Array&gt;
@@ -101,7 +269,7 @@ typename array_traits&lt;Array&gt;::value_type sum(const Array&amp; v, int n) {
         </section>
         <!-- </sect4> -->
         <section>
-          <h2>Tag Dispatching</h2>
+          <h3>Tag Dispatching</h3>
           <p>A technique that often goes hand in hand with traits classes is <dfn>tag dispatching</dfn>, which is a way of using function overloading to dispatch based on properties of a type. A good example of this is the implementation of the <code class="function">std::advance()</code> function in the STL, which, in the default case, increments an iterator <var>n</var> times. Depending on the kind of iterator, there are different optimizations that can be applied in the implementation. If the iterator is random access, then the <code class="function">advance()</code> function can simply be implemented with <code>i += n</code> and is very efficient; that is, it is in constant time. If the iterator is bidirectional, then it may be the case that <var>n</var> is negative, so we can decrement the iterator <var>n</var> times. The relation between external polymorphism and traits classes is that the property to be exploited for dispatch (in this case, the <code class="classname">iterator_category</code>) is accessed through a traits class.</p>
           <p>In the following example, the <code class="function">advance()</code> function uses the <code class="classname">iterator_traits</code> class to determine the <code class="classname">iterator_category</code>. It then makes a call to the overloaded <code class="function">advance_dispatch()</code> function. The appropriate <code class="function">advance_dispatch()</code> is selected by the compiler based on whatever type the <code class="classname">iterator_category</code> resolves to (one of the tag classes in the following code).</p>
           <p>A <dfn>tag</dfn> is simply a class whose only purpose is to convey some property for use in tag dispatching. By convention, the name of a tag class ends in <quote>_tag</quote>. We do not define a function overload for the <code class="classname">forward iterator_tag</code> because that case is handled by the function overloaded for <code class="classname">input_iterator_tag</code>.</p>
@@ -136,9 +304,6 @@ void advance(InputIterator&amp; i, Distance n) {
 similarly to <code class="classname">iterator_category</code>.</aside>
         </section>
       </section>
-
     </main>
-
   </body>
-
 </html>

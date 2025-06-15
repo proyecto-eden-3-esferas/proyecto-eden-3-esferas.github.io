@@ -54,6 +54,52 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *eternalismo-nihilismo.html*
+<p>Los extremos del eternalismo y el nihilismo consisten en creer o que nuestra realidad está completamente determinada por algo exterior a las personas o que está completamente indeterminada y los sucesos ocurren al azar.</p>
+
+[ ] *creatividad.html#tres-niveles*
+<ul>
+  <li>la diversidad</li>
+  <li>la creatividad</li>
+  <li>la creatividad útil</li>
+</ul>
+
+[ ] escribir *prestigio.html*
+<p>La mayoría de las cosas que creemos, apreciamos o consideramos útiles las reconocemos así por puro prestigio.</p>
+<p>En teoría el prestigio surge cuando alguien, normalmente un matón, en el patio del colegio, le sacude un puñetazo descomunal al anterior jefe. En el mejor de los casos. En el peor de los casos le disparó de lejos o se aprovechó de que el actual campeón tenía un mal día. O más frecuentemente se lo sujetaron. O sencillamente era mucho más fuerte, pero no necesariamente más valiente, inteligente ni bondadoso.</p>
+<p>Luego el prestigio se perpetúa a sí mismo.</p>
+<p>La mayoría de la gente adopta la mayoría de sus constituyentes (creencias y preferencias) por dos razones:</p>
+<ul>
+  <li>Porque le conviene, o</li>
+  <li>Porque ve que el resto lo ha adoptado</li>
+</ul>
+<p>La arruga el bella no porque uno realmente lo crea o siente, sino porque lo dicen por la tele.</p>
+<hr/>
+<p><p>Una parte considerable y nada desdeñable de nuestra cultura, de nuestra producción cultural, en especial la llamada <dfn>Alta Cultura</dfn> (literatura, música, pintura, filosofía etc.) bien podría ser basura. Se ha conservado, ha mantenido su prestigio, sin realmente merecerlo.</p>
+<hr/>
+<p>La Historia de la Cultura, y de la Civilización, es en realidad sorprendentemente simple y deceptionante.</p>
+<p>Esta dinámica del prestigio convierte al progresista, al socialdemócrata, en blanco fácil. El conservador sólo necesita recordarla que ha adoptado todas esas ideas e ideales por pura moda. Un buen conservador, no digo que abunden, un conservador consecuente, admiraría a un verdadero comunista o anarquista, a cualquier enemigo merecedor.</p>
+
+
+[ ] *noumeno-y-fenomeno.html*
+<p><a href="simulation-hipothesis.html">
+<p>Un Licenciado en Filosofía ridiculiza la Hipótesis de la Simulación. Después se me ocurre comentar que la inventó el filósofo Nick Bostrom en 2003, y que me parece análoga a la distinción que cree ver Kant entre nóumeno y fenómeno. El licenciado se muestra interesado por saber por qué rechazo la <cite>Teoría del Conocimiento de Kant</cite>, lo cuál me motiva a mirar en internet que leches dijo Kant, un tipo bastante abierto y concienzudo y que sólo por ello merecería nuestro respeto.</p>
+<p>...</p>
+<p>Apenas puedo creer que Kant haya propuesto o postulado algo tan burdo...</p>
+<p>La <cite>Teoría del Conocimiento de Kant</cite> es el típico ejemplo de pensamientos que para determinada clase de personas, tal vez nos llamemos filósofos analíticos, no dice nada.</p>
+<ul>
+  <li>La Teoría de las Ideas de Platón</li>
+  <li>Hipótesis de la Simulación</li>
+  <li>Los Universos Paralelos</li>
+  <li>Matrix</li>
+</ul>
+<p>De hecho muchas teorías ocultistas y conspiranoicas siguien la misma línea de postular una realidad invisible.</p>
+<ul>
+  <li>Somos la séptima raza (Madame Blavatsky)</li>
+  <li>Hasta un cincuenta por ciento de los que erróneamente tomamos por seres humanos son en realidad reptiles de apariencia humana</li>
+  <li>El mundo está dirigido por una logia masónica secreta</li>
+</ul>
+
 [?] write on *Howard-Morland.html*
 
 [ ] escribir *estados-de-cosas.html*

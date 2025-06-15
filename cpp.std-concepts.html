@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,96 +16,620 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
+      <!--
       <p><a href="A_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
         <p><a rel="prev" href="cpp.generics.concepts.html">C++ Concepts: Constraints on Template Arguments</a></p>
         <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a rel="next" href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a></p>
+      </div>
+      <div>
         <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
         <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
         <p><a            href="cpp.containers.html">C++ STL Containers</a></p>
       </div>
       <div>
-        <p><a                 href="computing.html">Computing</a></p>
-        <p><a                 href="cpp.html">The C++ Programming Language</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
         <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
       </div>
     </nav>
-
     <main>
       <h1>C++ Standard Library Concepts</h1>
-      <p>The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types.</p>
-      <p>Most concepts in the standard library impose both syntactic and semantic requirements. It is said that a standard concept is satisfied if its syntactic requirements are met, and is modeled if it is satisfied and its semantic requirements (if any) are also met.</p>
-      <hr/>
-      <p>All the concepts below demand inclusion of <code>&lt;concepts&gt;</code> (<a href="cpp.cpp20.html">C++20</a>).</p>
-
-      <table border="0">
-        <caption>Core language concepts</caption>
-        <tr> <td><code>same_as</code></td> <td>specifies that a type is the same as another type</td> </tr>
-        <tr> <td><code>derived_from</code></td> <td>specifies that a type is derived from another type</td> </tr>
-        <tr> <td><code>convertible_to</code></td> <td>specifies that a type is implicitly convertible to another type</td> </tr>
-        <tr> <td><code>common_reference_with</code></td> <td>specifies that two types share a common reference type</td> </tr>
-        <tr> <td><code>common_with</code></td> <td>specifies that two types share a common type</td> </tr>
-        <tr> <td><code>integral</code></td> <td>specifies that a type is an integral type</td> </tr>
-        <tr> <td><code>signed_integral</code></td> <td>specifies that a type is an integral type that is signed</td> </tr>
-        <tr> <td><code>unsigned_integral</code></td> <td>specifies that a type is an integral type that is unsigned</td> </tr>
-        <tr> <td><code>floating_point</code></td> <td>specifies that a type is a floating-point type</td> </tr>
-        <tr> <td><code>assignable_from</code></td> <td>specifies that a type is assignable from another type</td> </tr>
-        <tr> <td><code>swappable<br/>swappable_with</code></td> <td>specifies that a type can be swapped or that two types can be swapped with each other</td> </tr>
-        <tr> <td><code>destructible</code></td> <td>specifies that an object of the type can be destroyed</td> </tr>
-        <tr> <td><code>constructible_from</code></td> <td>specifies that a variable of the type can be constructed from or bound to a set of argument types</td> </tr>
-        <tr> <td><code>default_initializable</code></td> <td>specifies that an object of a type can be default constructed</td> </tr>
-        <tr> <td><code>move_constructible</code></td> <td>specifies that an object of a type can be move constructed</td> </tr>
-        <tr> <td><code>copy_constructible</code></td> <td>specifies that an object of a type can be copy constructed and move constructed</td> </tr>
-      </table>
-
-      <table border="0">
-        <caption>Comparison concepts</caption>
-        <tr> <td><code>boolean-testable</code></td> <td>specifies that a type can be used in Boolean contexts (exposition-only concept*)</td> </tr>
-        <tr> <td><code>equality_comparable<br/>equality_comparable_with</code></td> <td>specifies that operator == is an equivalence relation</td> </tr>
-        <tr> <td><code>totally_ordered<br/>totally_ordered_with</code> (Defined in header <code>&lt;compare&gt;</code>)</td> <td>specifies that the comparison operators on the type yield a total order</td> </tr>
-        <tr> <td><code>three_way_comparable<br/>three_way_comparable_with</code></td> <td>specifies that operator &lt;=&gt; produces consistent result on given types</td> </tr>
-      </table>
-
-      <table border="0">
-        <caption>Object concepts</caption>
-        <tr> <td><code>movable</code></td> <td>specifies that an object of a type can be moved and swapped</td> </tr>
-        <tr> <td><code>copyable</code></td> <td>specifies that an object of a type can be copied, moved, and swapped</td> </tr>
-        <tr> <td><code>semiregular</code></td> <td>specifies that an object of a type can be copied, moved, swapped, and default constructed</td> </tr>
-        <tr> <td><code>regular</code></td> <td>specifies that a type is regular, that is, it is both semiregular and equality_comparable</td> </tr>
-      </table>
-
-      <table border="0">
-        <caption>Callable concepts</caption>
-        <tr> <td><code>invocable<br/>regular_invocable</code></td> <td>specifies that a callable type can be invoked with a given set of argument types</td> </tr>
-        <tr> <td><code>predicate</code></td> <td>specifies that a callable type is a Boolean predicate</td> </tr>
-        <tr> <td><code>relation</code></td> <td>specifies that a callable type is a binary relation</td> </tr>
-        <tr> <td><code>equivalence_relation</code></td> <td>specifies that a relation imposes an equivalence relation</td> </tr>
-        <tr> <td><code>strict_weak_order</code></td> <td>specifies that a relation imposes a strict weak ordering</td> </tr>
-      </table>
-      <hr/>
-      <p>Additional concepts can be found in <a href="https://en.cppreference.com/w/cpp/iterator#C.2B.2B20_iterator_concepts">the iterators library</a>, <a href="https://en.cppreference.com/w/cpp/iterator#Algorithm_concepts_and_utilities">the algorithms library</a>, and <a href="https://en.cppreference.com/w/cpp/ranges#Range_concepts">ranges library</a>.</p>
-
+      <!-- 14776 to 15170 -->
+      <p>Concepts are an extension to C++'s templates, published as an ISO Technical Specification ISO/IEC TS 19217:2015. They are named boolean predicates on template parameters, evaluated at <em>compile</em> time.</p>
+      <p>A concept may be associated with a template (class template, function template, or member function of a class template), in which case it serves as a <a href="#cpp_constraint">constraint</a>: it limits the set of arguments that are accepted as template parameters.</p>
+      <p>The concept feature  was postponed many times. The good news is that the C++20 will includes this interesting feature.</p>
+      <p>The intent of concepts is to model semantic categories (Number, Range, RegularFunction) rather than syntactic restrictions (HasPlus, Array). According to ISO C++ core guideline T.20, <q>The ability to specify a meaningful semantics is a defining characteristic of a true concept, as opposed to a syntactic constraint.</q></p>
+      <p>Note that in generic programming (implemented as <a href="#cpp_templates">templates</a> in C++), we take the notion of an ADT a step further. Instead of writing down the specification for a single type, we describe a family of types that all have a common interface and semantic behavior. The set of requirements that describe the interface and semantic behavior is referred to as a <a href="#concept">concept</a>. Algorithms constructed in the generic style are then applicable to <em>any</em> type that satisfies the requirements of the algorithm. This ability to use many different types with the same variable (or parameter of a function) is referred to as <a href="#polymorphism">polymorphism</a>.</p>
+      <p>A <dfn class="firstterm">concept</dfn> is thus a description of the requirements placed by a generic component on one or more of its arguments. A type or group of types that satisfies a concept's requirements is said to <dfn class="firstterm">model</dfn> the concept or to <dfn class="firstterm">be a model of</dfn> the concept. A concept is said to <dfn class="firstterm">refine</dfn> another concept when its requirements are a superset of those of the other concept.</p>
       <section>
-        <h2>How these Concepts are used</h2>
-        <p>An example:</p>
-        <pre>template &lt;std::integral IDX&gt;
-value_type&amp; get(IDX idx);</pre>
-        <p>NOTE: You could use just any other concept that has been defined inside or outside the STL.</p>
+        <h2>Concept Requirements</h2>
+        <p>Concept requirements usually come from the following categories:</p>
+        <dl class="variablelist">
+          <dt>Valid expressions</dt>
+          <dd>C++ expressions that must compile successfully for the objects involved in the expression to be considered models of the concept. For example, an <kbd class="userinput">Iterator x</kbd> is expected to support the expressions <kbd class="userinput">++x</kbd> and <kbd class="userinput">*x</kbd>.</dd>
+          <dt>Associated types</dt>
+          <dd>Types that participate in one or more of the valid expressions and that can be computed from the type(s) modeling the concept. Typically, associated types can be accessed either through typedefs nested within a class definition for the modeling type or through a traits class. For example, an iterator's value type is associated with the iterator through <var class="classname">std::iterator_traits</var>.</dd>
+          <dt>Invariants</dt>
+          <dd>Runtime characteristics of a model's instances that must always be true; that is, all operations on an instance must preserve these characteristics. The invariants often take the form of pre-conditions and post-conditions. For instance, after a <kbd class="userinput">Forward Iterator</kbd> is copied, the copy and the original must compare equal.</dd>
+          <dt>Complexity guarantees</dt>
+          <dd>Maximum limits on how long the execution of one of the valid expressions will take, or how much of various resources its computation will use. Incrementing an <var class="classname">Iterator</var>, for example, is required to have constant complexity.</dd>
+        </dl>
+      </section>
+      <!-- </sect3> -->
+      <section>
+        <h2>Implementation in the C++20</h2>
+        <p>Class templates, function templates, and non-template functions (typically members of class templates) may be associated with a <a href="#cpp_constraint">constraint</a>, which specifies the requirements on template arguments, which can be used to select the most appropriate function overloads and template specializations.</p>
+        <p>Named sets of such requirements are called concepts. Each concept is a predicate, evaluated at compile time, and becomes a part of the interface of a template where it is used as a constraint:</p>
+        <code>#include &lt;string&gt;
+#include &lt;cstddef&gt;
+using namespace std::literals;
+
+// Declaration of the concept "Hashable", which is satisfied by
+// any type T such that for values a of type T,
+// the expression std::hash&lt;T&gt;{}(a) compiles and its result is convertible to std::size_t
+template&lt;typename T&gt;
+concept bool Hashable () {
+  return requires(T a) {
+    { std::hash&lt;T&gt;{}(a) } -&gt; std::size_t;
+  };
+};
+&lt;!--
+template&lt;typename T&gt;
+concept Hashable = requires(T a) {
+    { std::hash&lt;T&gt;{}(a) } -&gt; std::size_t;
+};
+--&gt;
+
+struct meow {};
+
+template&lt;Hashable T&gt;
+void f(T); // constrained C++20 function template
+
+// Alternative ways to apply the same constraint:
+// template&lt;typename T&gt;
+//    requires Hashable&lt;T&gt;
+// void f(T);
+//
+// template&lt;typename T&gt;
+// void f(T) requires Hashable&lt;T&gt;;
+
+int main() {
+  f("abc"s); // OK, std::string satisfies Hashable
+  f(meow{}); // Error: meow does not satisfy Hashable
+}</code>
+        <p>Violations of constraints are detected at compile time, early in the template instantiation process, which leads to easy to follow error messages.</p>
+        <code>std::list&lt;int&gt; l = {3,-1,10};
+std::sort(l.begin(), l.end());
+//Typical compiler diagnostic without concepts:
+//  invalid operands to binary expression ('std::_List_iterator&lt;int&gt;' and
+//  'std::_List_iterator&lt;int&gt;')
+//                           std::__lg(__last - __first) * 2);
+//                                     ~~~~~~ ^ ~~~~~~~
+// ... 50 lines of output ...
+//
+//Typical compiler diagnostic with concepts:
+//  error: cannot call std::sort with std::_List_iterator&lt;int&gt;
+//  note:  concept RandomAccessIterator&lt;std::_List_iterator&lt;int&gt;&gt; was not satisfied</code>
+      </section>
+      <!-- </sect3> -->
+      <section>
+        <h2>Syntax for Concepts</h2>
+        <code>template &lt;<parameter>template-parameter-list</parameter>&gt;
+
+concept <parameter>concept-name</parameter> = <parameter>constraint-expression;</parameter></code>
+        <p>as in</p>
+        <code>// concept
+template &lt;class T, class U&gt;
+concept Derived = std::is_base_of&lt;U, T&gt;::value;</code>
+        <p>Concepts cannot recursively refer to themselves and cannot be constrained:</p>
+        <code>template&lt;typename T&gt;
+concept V = V&lt;T*&gt;; // error: recursive concept
+
+template&lt;class T&gt; concept C1 = true;
+template&lt;C1 T&gt;
+concept Error1 = true; // Error: C1 T attempts to constrain a concept definition
+template&lt;class T&gt; requires C1&lt;T&gt;
+concept Error2 = true; // Error: the requires-clause attempts to constrain a concept</code>
+        <p>Explicit instantiations, explicit specializations, or partial specializations of concepts are not allowed (the meaning of the original definition of a <a href="#cpp_constraint">constraint</a> cannot be changed).</p>
+        <section class="section" sect="sect4" id="cpp_constraint">
+          <h3>Constraints</h3>
+          <p>A constraint is a sequence of logical operations and operands that specifies requirements on template arguments. They can appear within requires-expressions (see below) and directly as bodies of concepts.</p>
+          <p>There are three types of constraints:</p>
+          <ul class="itemizedlist">
+            <dd>1) conjunctions</dd>
+            <dd>2) disjunctions</dd>
+            <dd>3) atomic constraints</dd>
+          </ul>
+          <p>The constraint associated with a declaration are determined by normalizing a logical AND expression whose operands are in the following order:</p>
+          <ul class="itemizedlist">
+            <dd>the constraint expression introduced for each constrained template parameter, in order of appearance;</dd>
+            <dd>the constraint expression in the requires clause after the template parameter list;</dd>
+            <dd>the constraint expression in the trailing requires clause. </dd>
+          </ul>
+          <p>This order determines the order in which constraints are instantiated when checking for satisfaction.</p>
+          <p>A constrained declaration may only be redeclared using the same syntactic form. No diagnostic is required.</p>
+          <code>template&lt;Incrementable T&gt;
+void f(T) requires Decrementable&lt;T&gt;;
+
+template&lt;Incrementable T&gt;
+void f(T) requires Decrementable&lt;T&gt;; // OK, redeclaration
+
+template&lt;typename T&gt;
+    requires Incrementable&lt;T&gt; &amp;&amp; Decrementable&lt;T&gt;
+void f(T); // Ill-formed, no diagnostic required
+
+// the following two declarations have different constraints:
+// the first declaration has Incrementable&lt;T&gt; &amp;&amp; Decrementable&lt;T&gt;
+// the second declaration has Decrementable&lt;T&gt; &amp;&amp; Incrementable&lt;T&gt;
+// Even though they are logically equivalent.
+
+template&lt;Incrementable T&gt;
+void g(T) requires Decrementable&lt;T&gt;;
+
+template&lt;Decrementable T&gt;
+void g(T) requires Incrementable&lt;T&gt;; // ill-formed, no diagnostic required</code>
+          <section class="section" sect="sect5" id="cpp_conjunction_constraint">
+            <h4>Conjunctions</h4>
+            <p>The conjunction of two constraints is formed by using the &amp;&amp; operator in the constraint expression:</p>
+            <code>template &lt;class T&gt;
+concept Integral = std::is_integral&lt;T&gt;::value;
+template &lt;class T&gt;
+concept SignedIntegral = Integral&lt;T&gt; &amp;&amp; std::is_signed&lt;T&gt;::value;
+template &lt;class T&gt;
+concept UnsignedIntegral = Integral&lt;T&gt; &amp;&amp; !SignedIntegral&lt;T&gt;;</code>
+            <p>A conjunction of two constraints is satisfied only if both constraints are satisfied. Conjunctions are evaluated left to right and short-circuited (if the left constraint is not satisfied, template argument substitution into the right constraint is not attempted: this prevents failures due to substitution outside of immediate context).</p>
+            <code>template&lt;typename T&gt;
+constexpr bool get_value() { return T::value; }
+
+template&lt;typename T&gt;
+    requires (sizeof(T) &gt; 1 &amp;&amp; get_value&lt;T&gt;())
+void f(T); // #1
+
+void f(int); // #2
+
+void g() {
+    f('A'); // OK, calls #2. When checking the constraints of #1,
+            // 'sizeof(char) &gt; 1' is not satisfied, so get_value&lt;T&gt;() is not checked
+}</code>
+          </section>
+          <!-- </sect5> -->
+          <section class="section" sect="sect5" id="cpp_disjunction_constraint">
+            <h4>Disjunctions</h4>
+            <p>The disjunction of two constraints is formed by using the || operator in the constraint expression.</p>
+            <p>A disjunction of two constraints is satisfied if either constraint is satisfied. Disjunctions are evaluated left to right and short-circuited (if the left constraint is satisfied, template argument substitution into the right constraint is not attempted).</p>
+            <code>template &lt;class T = void&gt;
+    requires EqualityComparable&lt;T&gt; || Same&lt;T, void&gt;
+struct equal_to;</code>
+          </section>
+          <!-- </sect5> -->
+          <section class="section" sect="sect5" id="cpp_atomic_constraint">
+            <h4>Atomic Constraints</h4>
+            <p>An atomic constraint consists of an expression <var>E</var> and a mapping from the template parameters that appear within <var>E</var> to template arguments involving the template parameters of the constrained entity, called its <dfn class="firstterm">parameter mapping</dfn>.</p>
+            <p>Atomic constraints are formed during constraint normalization. <var>E</var> is never a logical AND or logical OR expression (those form conjunctions and disjunctions, respectively).</p>
+            <p>Satisfaction of an atomic constraint is checked by substituting the parameter mapping and template arguments into the expression <var>E</var>. If the substitution results in an invalid type or expression, the constraint is not satisfied. Otherwise, <var>E</var>, after any lvalue-to-rvalue conversion, shall be a prvalue constant expression of type bool , and the constraint is satisfied if and only if it evaluates to true.</p>
+            <p>The type of <var>E</var> after substitution must be exactly bool. No conversion is permitted:</p>
+            <code>template&lt;typename T&gt;
+struct S {
+    constexpr operator bool() const { return true; }
+};
+
+template&lt;typename T&gt;
+    requires (S&lt;T&gt;{})
+void f(T); // #1
+
+void f(int); // #2
+
+void g() {
+    f(0); // error: S&lt;int&gt;{} does not have type bool when checking #1,
+          // even though #2 is a better match
+}</code>
+            <p>Two atomic constraints are considered <em>identical</em> if they are formed from the same expression at the source level and their parameter mappings are equivalent.</p>
+            <code>template&lt;class T&gt; constexpr bool is_meowable = true;
+template&lt;class T&gt; constexpr bool is_cat = true;
+
+template&lt;class T&gt;
+concept Meowable = is_meowable&lt;T&gt;;
+
+template&lt;class T&gt;
+concept BadMeowableCat = is_meowable&lt;T&gt; &amp;&amp; is_cat&lt;T&gt;;
+
+template&lt;class T&gt;
+concept GoodMeowableCat = Meowable&lt;T&gt; &amp;&amp; is_cat&lt;T&gt;;
+
+template&lt;Meowable T&gt;
+void f1(T); // #1
+
+template&lt;BadMeowableCat T&gt;
+void f1(T); // #2
+
+template&lt;Meowable T&gt;
+void f2(T); // #3
+
+template&lt;GoodMeowableCat T&gt;
+void f2(T); // #4
+
+void g(){
+    f1(0); // error, ambiguous:
+           // the is_meowable&lt;T&gt; in Meowable and BadMeowableCat forms distinct
+           // atomic constraints that are not identical (and so do not subsume each other)
+
+    f2(0); // OK, calls #4, more constrained than #3
+           // GoodMeowableCat got its is_meowable&lt;T&gt; from Meowable
+}</code>
+
+          </section>
+          <!-- </sect5> -->
+        </section>
+      </section>
+      <!-- </sect3> -->
+      <section class="section" sect="sect3" id="conceptual_template_parameters">
+        <h2>Conceptual Template Parameters</h2>
+        <p id="concept"><dfn class="firstterm">Concepts</dfn> are template parameters that do <em>not</em> define types that are used by the class, but control the behaviour of the class through defining which abstract data type it implements.</p>
+        <p>One of the primary responsibilities of a generic library is to define the interfaces that allow algorithms to be written independently of any particular data structure. Note that by interface we do not merely mean a set of function prototypes. Instead, we mean a set of syntactic requirements&#x2014;things like function names and numbers of arguments&#x2014;as well as semantic requirements (executing the function must have certain effects) and time and space complexity guarantees.</p>
+        <p>Using the terminology from the book Generic <cite class="citetitle">Programming and the STL</cite>, we use the word <dfn class="firstterm">concept</dfn> to refer to this richer notion of an interface. The STL defines a collection of <a href="#iterators">iterator</a> concepts that provide a generic mechanism for traversing and accessing sequences of objects.</p>
+        <p>The authors of the <a href="#boost">Boost</a> library strongly recommend that:</p>
+        <blockquote>Every programmer writing class or function templates ought to make concept checking a normal part of their code writing routine.</blockquote>
+        <p>Indeed, Boost includes a library of classes for checking concepts and a mechanism for defining new concept-checking classes.</p>
+        <p>Here is an example of a class defined solely to be used as a template parameter for checking purposes:</p>
+        <code>class integer_class {};
+template &lt;typename I, class IS_INTEGER&gt; class integer {};</code>
+        <p>Next, a partial specialization is added for the case when the second template parameter is class <var class="classname">integer_class</var>. This becomes the only implementation of the class, whereas the general class is made unusable through having its constructors deleted or some other means.</p>
+        <code>template &lt;typename I&gt; class integer&lt;I,integer_class&gt; {/* code */};</code>
+        <p>...</p>
+      </section>
+      <!-- </sect3> -->
+      <section>
+        <h2>Sets of Requirements</h2>
+        <p>The requirements for a concept consist of a set of valid expressions, associated types, invariants, and complexity guarantees. A type that meets the set of requirements is said to <dfn class="firstterm">model</dfn> the concept. A concept can extend the requirements of another concept, which is called <dfn class="firstterm">refinement</dfn>.</p>
+        <ul class="itemizedlist">
+          <dd><dfn class="firstterm">Valid Expressions</dfn> are C++ expressions that must compile successfully for the types involved in the expression to be considered models of the concept.</dd>
+          <dd><dfn class="firstterm">Associated Types</dfn> are auxiliary types that have some relation to the type <var class="classname">T</var> modeling the concept. The requirements in a concept typically make statements about associated types. For example, iterator requirements typically include an associated type called the <var class="classname">value_type</var> and the requirement that objects returned by the iterator's dereference operator must be of the <var class="classname">value_type</var>. In C++ it is common to use a traits class to map from the type <var class="classname">T</var> to the associated types of the concept.</dd>
+          <dd><dfn class="firstterm">Invariants</dfn> are run-time characteristics of types that must always be true. The invariants often take the form of preconditions and postconditions. When a precondition is not fulfilled, the behavior of the operation is, in general, undefined and can lead to a segmentation fault. This is the case for the <a href="#boost_graph">Boost Graph Library</a>. Some libraries provide debugging versions that use assertions or throw exceptions when a precondition is violated.</dd>
+          <dd><dfn class="firstterm">Complexity Guarantees</dfn> are maximum limits on how long the execution of one of the valid expressions will take, or how much of the various resources its computation will use.</dd>
+        </ul>
+      </section>
+      <!-- </sect3> -->
+      <section>
+        <h2>Example: <var class="classname">InputIterator</var></h2>
+        <p>In this section, we take a closer look at <var class="classname">InputIterator</var> as an example of a <a href="#concept">concept</a>. First, the <var class="classname">InputIterator</var> concept is a refinement of <var class="classname">TrivialIterator</var> which, in turn, is a refinement of <var class="classname">Assignable</var> and <var class="classname">EqualityComparable</var> . Thus, the <var class="classname">InputIterator</var> meets all the requirements of a <var class="classname">TrivialIterator</var> (which meets all of the requirements of <var class="classname">Assignable</var> and <var class="classname">EqualityComparable</var>) The result is that a type that models <var class="classname">InputIterator</var> will have a dereference operator, it can be copied and assigned, and it can be compared with other iterator objects using <kbd class="userinput">==</kbd> and <kbd class="userinput">!= </kbd>.</p>
+        <p>The <var class="classname">InputIterator</var> concept adds the requirement for pre-increment and post-increment operators. These requirements are denoted by the following valid expressions. Objects <var>i</var> and <var>j</var> are instances of a type <var class="classname">T</var> that models <var class="classname">InputIterator</var>.</p>
+        <code>i = j   // assignment (from Assignable)
+T i(j)  // copy (from Assignable)
+i == j  // equality test (from EqualityComparable)
+i != j  // inequality test (from EqualityComparable)
+*i      // dereference (from TrivialIterator)
+++i     // pre-increment operator
+i++     // post-increment operator</code>
+        <p>The <var class="classname">std::iterator_traits</var> class provides access to the associated types of an iterator type. The type of an object that is pointed to by an iterator type (call it <var class="classname">X</var>) can be determined via the <var class="classname">value_type</var> of the traits class. The other associated types are <var class="classname">reference</var>, <var class="classname">pointer</var>, <var class="classname">difference_type</var>, and <var class="classname">iterator_category</var>.</p>
+        <p>In the following function template we show the use of the <var class="classname">iterator_traits</var> class to obtain the <var class="classname">value_type</var> of the iterator and dereference the iterator.</p>
+        <code>template &lt;typename Iterator&gt; void dereference example(Iterator i) {
+  typename iterator traits&lt;Iterator&gt;::value type t;
+  t = *i;
+}</code>
+        <p>As for complexity guarantees, all of the InputIterator operations are required to be constant time. Some types that model <var class="classname">InputIterator</var> are <kbd class="userinput">std::list&lt;int&gt;::iterator</kbd>, <kbd class="userinput">double*</kbd>, and <kbd class="userinput">std::istream iterator&lt;char&gt;</kbd>.</p>
+        <p>The purpose of defining concepts becomes clear when considering the implementation of generic algorithms. The implementation of the <function>std::for_each()</function> function follows. Inside the function precisely four operations are applied to the iterator objects first or last : comparison using <function>operator!=()</function>, increment with <function>operator++()</function>, dereference with <function>operator*()</function>, and copy construction. For this function to compile and operate properly the iterator arguments must support at least these four operations. The concept <var class="classname">InputIterator</var> includes these operations (and not many more), so it is a reasonable choice for succinctly describing the requirements of <function>for_each()</function>.</p>
+        <code>template &lt;typename InputIterator, typename Function&gt;
+Function for_each(InputIterator first, InputIterator last, Function f ) {
+  for ( ; first != last; ++first)
+  f(*first);
+  return f ;
+}</code>
+      </section>
+      <!-- </sect3> -->
+      <section>
+        <h2>Associated Types and Traits Classes</h2>
+        <p>One of the most important techniques used in generic programming is the traits class, which was introduced by Nathan Myers. The traits class technique may seem somewhat unnatural when first encountered (due to the syntax) but the essence of the idea is simple. It is essential to learn how to use traits classes, for they are used regularly in generic libraries such as the <a href="#stl">STL</a> and the <a href="#boost">Boost Library</a>.</p>
+        <div class="note" style="border-style: solid;">In c++11 traits are developed further in a <a href="#cpp_type_traits">&lt;type_traits&gt;</a> header file.</div>
+        <section>
+          <h3>(Unsatisfied) Associated Types Needed in a Function Template</h3>
+          <p>A traits class is basically a way of determining information about a type that you would otherwise know nothing about. For example, consider a generic <function>sum()</function> function:</p>
+          <code>template &lt;typename Array&gt;
+X sum(const Array&amp; v, int n) {
+  X total = 0;
+  for (int i = 0; i &lt; n; ++i)
+    total += v[i];
+  return total;
+}</code>
+          <p>From the point of view of this function template, not much is known about the template type <var class="classname">Array</var>. For instance, the type of the elements that are inside the array is not given. However, this information is necessary in order to declare the local variable <var>total</var>, which should be the same type as the elements of <var class="classname">Array</var>. The <var class="classname">X</var> that is there now is just a placeholder that needs to be replaced by something else to produce a correct <function>sum()</function> function.</p>
+        </section>
+        <section>
+          <h3>Typedefs Nested in Classes</h3>
+          <p>One way to access information out of a type is to use the scope operator <kbd class="userinput">::</kbd> to access <kbd class="userinput">typedef</kbd>'s that are nested inside the class. For example, an array class might looks like the following:</p>
+          <code>class my array {
+public:
+  typedef double value_type; // the type for elements in the array
+  double&amp; operator[](int i) { m_data[i];};
+private:
+  double* m_data;
+};</code>
+          <p>The type of the elements in the array can now be accessed via my <kbd class="userinput">array::value_type</kbd>. The generic <function>sum()</function> function can be realized using this technique as follows (note that the <var class="classname">X</var> placeholders have been replaced with <kbd class="userinput">typename Array::value_type</kbd>):</p>
+          <code>template &lt;typename Array&gt;
+typename Array::value_type sum(const Array&amp; v, int n) {
+  typename Array::value_type total = 0;
+  for (int i = 0; i &lt; n; ++i)
+    total += v[i];
+  return total;
+}</code>
+          <p>In the <function>sum()</function> function above, the technique of using a nested typedef works as long as <var class="classname">Array</var> is a class type that has such a nested typedef. However, there are important cases for which having a nested <kbd class="userinput">typedef</kbd> is neither practical nor possible. For instance, one might want to use the generic <function>sum()</function> function with a class from a third party that did not provide the required <kbd class="userinput">typedef</kbd>. Or, one might want to use the <function>sum()</function> function with a built-in type such as <kbd class="userinput">double *</kbd>.</p>
+          <code>int n = 100;
+double* x = new double[n];
+sum(x, n);</code>
+          <p>In both of these cases, it is quite likely that the functional requirements of our desired use are met; that is, the <kbd class="userinput">operator[]()</kbd> works with <kbd class="userinput">double*</kbd> and with our imaginary third-party array. The limitation to reuse is in how to communicate the type information from the classes we want to use to the <function>sum()</function> function.</p>
+        </section>
+        <section>
+          <h3>Definition of a Traits Class</h3>
+          <p>The solution to this is a <dfn class="firstterm">traits class</dfn>, which is a class template whose sole purpose is to provide a mapping from a type to other types, functions, or constants. The language mechanism that allows a class template to create a mapping is <a href="#template_specialization">template specialization</a>. The mapping is accomplished by creating different versions of the traits class to handle specific type parameters. We will show how this works by creating an array traits class that can be used in the <function>sum()</function> function.</p>
+          <p>The <var class="classname">array_traits</var> class will be templated on the <var class="classname">Array</var> type and will allow us to determine the <var class="classname">value_type</var> (the type of the element) of the array. The default (fully templated) case will assume that the array is a class with a nested <kbd class="userinput">typedef</kbd> such as <var class="classname">my_array</var>:</p>
+          <code>template &lt;typename Array&gt;
+struct array traits {
+  typedef typename Array::value_type value_type;
+};</code>
+          <p>We can then create a specialization of the array traits template to handle when the <var class="classname">Array</var> template argument is a built-in type like <kbd class="userinput">double*</kbd>:</p>
+          <code>template &lt;&gt; struct array_traits&lt;double*&gt; {
+  typedef double value_type;
+};</code>
+          <p>The <function>sum()</function> function, written with <var class="classname">array_traits</var> class, is shown below. To access the type for the total variable we extract the value type from <var class="classname">array_traits</var>:</p>
+          <code>template &lt;typename Array&gt;
+typename array_traits&lt;Array&gt;::value_type sum(const Array&amp; v, int n) {
+  typename array_traits&lt;Array&gt;::value_type total = 0;
+  for (int i = 0; i &lt; n; ++i)
+    total += v[i];
+  return total;
+}</code>
+          <p>But writing a <var class="classname">traits_class</var> for every pointer type is not practical or desirable. The following shows how to use partial specialization to provide array traits for all pointer types. The C++ compiler will attempt a pattern match between the template argument provided at the instantiation of the traits class and all the specializations defined, picking the specialization that is the best match. The partial specialization for <kbd class="userinput">T*</kbd> will match whenever the type is a pointer. The previous complete specializations for <kbd class="userinput">double*</kbd> would still match first for that particular pointer type.</p>
+          <code>template &lt;typename T&gt;
+  struct array_traits&lt;T*&gt; {
+  typedef T value_type;
+};</code>
+          <p>The most well-known use of a traits class is the <var class="classname">iterator_traits</var> class used in the STL. The BGL also uses traits classes such as <var class="classname">graph_traits</var> and the <var class="classname">property_traits</var> classes. Typically, a traits class is used with a particular concept or family of concepts. The <var class="classname">iterator_traits</var> class is used with the family of iterator concepts. The <var class="classname">graph_traits</var> class is used with the family of BGL graph concepts.</p>
+        </section>
+        <section>
+          <h3>Tag Dispatching</h3>
+          <p>A technique that often goes hand in hand with traits classes is <dfn class="firstterm">tag dispatching</dfn>, which is a way of using function overloading to dispatch based on properties of a type. A good example of this is the implementation of the <function>std::advance()</function> function in the STL, which, in the default case, increments an iterator <var>n</var> times. Depending on the kind of iterator, there are different optimizations that can be applied in the implementation. If the iterator is random access, then the <function>advance()</function> function can simply be implemented with <kbd class="userinput">i += n</kbd> and is very efficient; that is, it is in constant time. If the iterator is bidirectional, then it may be the case that <var>n</var> is negative, so we can decrement the iterator <var>n</var> times. The relation between external polymorphism and traits classes is that the property to be exploited for dispatch (in this case, the <var class="classname">iterator_category</var>) is accessed through a traits class.</p>
+          <p>In the following example, the <function>advance()</function> function uses the <var class="classname">iterator_traits</var> class to determine the <var class="classname">iterator_category</var>. It then makes a call to the overloaded <function>advance_dispatch()</function> function. The appropriate <function>advance_dispatch()</function> is selected by the compiler based on whatever type the <var class="classname">iterator_category</var> resolves to (one of the tag classes in the following code).</p>
+          <p>A <dfn class="firstterm">tag</dfn> is simply a class whose only purpose is to convey some property for use in tag dispatching. By convention, the name of a tag class ends in <q>_tag</q>. We do not define a function overload for the <var class="classname">forward iterator_tag</var> because that case is handled by the function overloaded for <var class="classname">input_iterator_tag</var>.</p>
+          <code>struct input iterator tag {};
+struct output iterator tag {};
+struct forward iterator tag : public input iterator tag {};
+struct bidirectional iterator tag : public forward iterator tag {};
+struct random access iterator tag : public bidirectional iterator tag {};
+
+template &lt;typename InputIterator, typename Distance&gt;
+void advance_dispatch(InputIterator&amp; i, Distance n, input_iterator_tag) {
+  while (n&#x2212;&#x2212;)
+    ++i;
+};
+template &lt;typename BidirectionalIterator, typename Distance&gt;
+void advance dispatch(BidirectionalIterator&amp; i, Distance n, bidirectional_iterator_tag) {
+  if (n &gt;= 0)
+    while (n&#x2212;&#x2212;) ++i;
+  else
+    while (n++) &#x2212;&#x2212;i;
+}
+template &lt;typename RandomAccessIterator, typename Distance&gt;
+void advance_dispatch(RandomAccessIterator&amp; i, Distance n, random_access_iterator_tag) {
+  i += n;
+};
+template &lt;typename InputIterator, typename Distance&gt;
+void advance(InputIterator&amp; i, Distance n) {
+  typedef typename iterator_traits&lt;InputIterator&gt;::iterator_category Cat;
+  advance dispatch(i, n, Cat());
+};</code>
+          <div class="note" style="border-style: solid;">The <a href="#boost_graph">BGL</a> graph traits class includes three categories: <var class="classname">directed_category</var>, <var class="classname">edge_parallel_category</var>, and <var class="classname">traversal_category</var>. The tags for these categories can be used for dispatching
+similarly to <var class="classname">iterator_category</var>.</div>
+        </section>
+      </section>
+      <section id="std-concepts">
+        <h2>Standard Concepts</h2>
+        <p>The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types.</p>
+        <p>Most concepts in the standard library impose both syntactic and semantic requirements. It is said that a standard concept is satisfied if its syntactic requirements are met, and is modeled if it is satisfied and its semantic requirements (if any) are also met.</p>
         <hr/>
-        <p>This is how to define a new concept from existing concepts:</p>
-        <pre>#include &lt;concepts&gt;
+        <p>All the concepts below demand inclusion of <code>&lt;concepts&gt;</code> (<a href="cpp.cpp20.html">C++20</a>).</p>
+        <table border="0">
+          <caption>Core language concepts</caption>
+          <tr>
+            <td>
+              <code>same_as</code>
+            </td>
+            <td>specifies that a type is the same as another type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>derived_from</code>
+            </td>
+            <td>specifies that a type is derived from another type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>convertible_to</code>
+            </td>
+            <td>specifies that a type is implicitly convertible to another type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>common_reference_with</code>
+            </td>
+            <td>specifies that two types share a common reference type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>common_with</code>
+            </td>
+            <td>specifies that two types share a common type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>integral</code>
+            </td>
+            <td>specifies that a type is an integral type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>signed_integral</code>
+            </td>
+            <td>specifies that a type is an integral type that is signed</td>
+          </tr>
+          <tr>
+            <td>
+              <code>unsigned_integral</code>
+            </td>
+            <td>specifies that a type is an integral type that is unsigned</td>
+          </tr>
+          <tr>
+            <td>
+              <code>floating_point</code>
+            </td>
+            <td>specifies that a type is a floating-point type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>assignable_from</code>
+            </td>
+            <td>specifies that a type is assignable from another type</td>
+          </tr>
+          <tr>
+            <td>
+              <code>swappable<br/>swappable_with</code>
+            </td>
+            <td>specifies that a type can be swapped or that two types can be swapped with each other</td>
+          </tr>
+          <tr>
+            <td>
+              <code>destructible</code>
+            </td>
+            <td>specifies that an object of the type can be destroyed</td>
+          </tr>
+          <tr>
+            <td>
+              <code>constructible_from</code>
+            </td>
+            <td>specifies that a variable of the type can be constructed from or bound to a set of argument types</td>
+          </tr>
+          <tr>
+            <td>
+              <code>default_initializable</code>
+            </td>
+            <td>specifies that an object of a type can be default constructed</td>
+          </tr>
+          <tr>
+            <td>
+              <code>move_constructible</code>
+            </td>
+            <td>specifies that an object of a type can be move constructed</td>
+          </tr>
+          <tr>
+            <td>
+              <code>copy_constructible</code>
+            </td>
+            <td>specifies that an object of a type can be copy constructed and move constructed</td>
+          </tr>
+        </table>
+        <table border="0">
+          <caption>Comparison concepts</caption>
+          <tr>
+            <td>
+              <code>boolean-testable</code>
+            </td>
+            <td>specifies that a type can be used in Boolean contexts (exposition-only concept*)</td>
+          </tr>
+          <tr>
+            <td>
+              <code>equality_comparable<br/>equality_comparable_with</code>
+            </td>
+            <td>specifies that operator == is an equivalence relation</td>
+          </tr>
+          <tr>
+            <td><code>totally_ordered<br/>totally_ordered_with</code> (Defined in header <code>&lt;compare&gt;</code>)</td>
+            <td>specifies that the comparison operators on the type yield a total order</td>
+          </tr>
+          <tr>
+            <td>
+              <code>three_way_comparable<br/>three_way_comparable_with</code>
+            </td>
+            <td>specifies that operator &lt;=&gt; produces consistent result on given types</td>
+          </tr>
+        </table>
+        <table border="0">
+          <caption>Object concepts</caption>
+          <tr>
+            <td>
+              <code>movable</code>
+            </td>
+            <td>specifies that an object of a type can be moved and swapped</td>
+          </tr>
+          <tr>
+            <td>
+              <code>copyable</code>
+            </td>
+            <td>specifies that an object of a type can be copied, moved, and swapped</td>
+          </tr>
+          <tr>
+            <td>
+              <code>semiregular</code>
+            </td>
+            <td>specifies that an object of a type can be copied, moved, swapped, and default constructed</td>
+          </tr>
+          <tr>
+            <td>
+              <code>regular</code>
+            </td>
+            <td>specifies that a type is regular, that is, it is both semiregular and equality_comparable</td>
+          </tr>
+        </table>
+        <table border="0">
+          <caption>Callable concepts</caption>
+          <tr>
+            <td>
+              <code>invocable<br/>regular_invocable</code>
+            </td>
+            <td>specifies that a callable type can be invoked with a given set of argument types</td>
+          </tr>
+          <tr>
+            <td>
+              <code>predicate</code>
+            </td>
+            <td>specifies that a callable type is a Boolean predicate</td>
+          </tr>
+          <tr>
+            <td>
+              <code>relation</code>
+            </td>
+            <td>specifies that a callable type is a binary relation</td>
+          </tr>
+          <tr>
+            <td>
+              <code>equivalence_relation</code>
+            </td>
+            <td>specifies that a relation imposes an equivalence relation</td>
+          </tr>
+          <tr>
+            <td>
+              <code>strict_weak_order</code>
+            </td>
+            <td>specifies that a relation imposes a strict weak ordering</td>
+          </tr>
+        </table>
+        <hr/>
+        <p>Additional concepts can be found in <a href="https://en.cppreference.com/w/cpp/iterator#C.2B.2B20_iterator_concepts">the iterators library</a>, <a href="https://en.cppreference.com/w/cpp/iterator#Algorithm_concepts_and_utilities">the algorithms library</a>, and <a href="https://en.cppreference.com/w/cpp/ranges#Range_concepts">ranges library</a>.</p>
+        <section>
+          <h3>How these Concepts are used</h3>
+          <p>An example:</p>
+          <pre>template &lt;std::integral IDX&gt;
+value_type&amp; get(IDX idx);</pre>
+          <p>NOTE: You could use just any other concept that has been defined inside or outside the STL.</p>
+          <hr/>
+          <p>This is how to define a new concept from existing concepts:</p>
+          <pre>#include &lt;concepts&gt;
 
 template &lt;typename T&gt;
 concept IsMySupportedInt = std::same_as&lt;T, int&gt;
                         || std::same_as&lt;T, long int&gt;;</pre>
-        <p></p>
+
+        </section>
       </section>
-
     </main>
-
   </body>
-
 </html>
