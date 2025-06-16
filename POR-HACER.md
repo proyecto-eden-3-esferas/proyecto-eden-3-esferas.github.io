@@ -54,6 +54,10 @@
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ]
+<p>En la práctica, las Humanidades no existen independientemente de la enseñanza, a la vez que la ciencia no existe al margen de la investigación. Porque la mayoría de los profesionales de las Humanidades se ganan enseñando, y la mayoría de los científicos de investigar.</p>
+
+
 [ ] escribir *eternalismo-nihilismo.html*
 <p>Los extremos del eternalismo y el nihilismo consisten en creer o que nuestra realidad está completamente determinada por algo exterior a las personas o que está completamente indeterminada y los sucesos ocurren al azar.</p>
 
