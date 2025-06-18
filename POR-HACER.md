@@ -1,7 +1,15 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 
+https://libgen.onl/library-genesis/
+https://libgen.li/ (Working September 2024 – This is a Library Genesis ‘fork’)
+https://libgen.lc/ (Working September 2024 – This is a Library Genesis ‘fork’)
+https://libgen.gs/ (Working September 2024 – This is a Library Genesis ‘fork’)
+https://libgen.vg/ (Working September 2024 – This is a Library Genesis ‘fork’)
+https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork’)
+
 - teléfonos y demás en *agenda.html*, oculto
 
+- https://colostate.pressbooks.pub/understudiedindigenouscrops/
 - https://docs.couchdb.org/en/stable/ (Apache CouchDB® 3.4.3 Documentation)
 - https://www.rhs.org.uk/vegetables/growing-in-greenhouse
 - https://www.faunaiberica.org/
@@ -53,6 +61,68 @@
 
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+
+[ ] recursos = {tiempo, dinero, atención (energía mental)}
+<p>Un ejemplo de algo que puede consumir mucha energía mental y relativo poco tiempo es tocar música, hablar o actuar ante un público.</p>
+
+[ ] En *prioridades.html*
+<p>Las prioridades son preferencias. Además, prioridad a menudo implica estar dispuesta a dedicar recursos y cierta elaboración racional. Por ejemplo alguien que se plantease aprender un instrumento musical y ponerse en forma podría preferir una de ellas, pongamos que la música, y sin embargo conceder mayor prioridad a la otra.</p>
+<hr/>
+<p>En una votación cada votante refleja sus preferencias en la papeleta.</p>
+
+<section>
+  <h2>Prioridades Estatales</h2>
+  <p>Un Estado Moderno contempla varias prioridades, a menudo reflejadas en Ministerios:</p>
+  <ul>
+    <li><strong>defensa</strong>: ejército, desarrollo de armas, participación en alianzas...</li>
+    <li><strong>trabajo</strong></li>
+    <li><strong>administración</strong>: gestiones, digitalización</li>
+    <li><strong>cultura y entretenimiento</strong></li>
+    <li><strong>deportes</strong></li>
+    <li><strong>orden</strong>: policía, jueces, cárceles etc.</li>
+    <li><strong>medio ambiente</strong>: subvenciones, vigilancia, legislación medioambiental...</li>
+  </ul>
+  <p>¡Uy, cuántas!</p>
+</section>
+
+<section>
+  <h2>Peso de prioridades</h2>
+  <p>Cuando hay varias tareas u objetivos, pueden darse dos extremos:</p>
+  <ul>
+    <li>que un objetivo o unos pocos acaparen toda o casi toda la prioridad, y</li>
+    <li>que las prioridades se distribuyan más o menos equitativamente entre los objetivos</li>
+  </ul>
+  <p>Observamos que suele optarse por lo segundo. En realidad se asignan recursos a gastos superfluos porque se practica una Macroeconomía Consumista: importa poco en qué se gasta mientras se gaste cuanto más mejor.</p>
+</section>
+
+[ ] En *agentes.html*
+<section>
+  <h2>Opciones</h2>
+  <p>Los agentes más sencillos responden automáticamente a los estímulos y oportunidades que les presenta el medio, mientras que otros encuentran <strong>opciones</strong> entre las que han de elegir, a menudo según sus <a  target="_blank" href="prioridades.html">prioridades</a>.</p>
+</section>
+
+[ ] *caminar.html*
+<nav>
+<p><a href="caminos.html">Caminos para acceder a todo un espacio</a></p>
+</nav>
+<h1>Deambular</h1>
+<p>Desde luego cuando hablamos de sufrimiento animal a manos de los seres humanos nos referimos sobre todo a la privación de moverse y en general realizar las acciones que les son propias, como andar.</p>
+<p>Supongo que estoy muy condicionado por sacar a un perro asiduamente. Pienso que los animales anhelan sobre todo andar, deambular por caminos, preferentemente los de un bosque, y que les vayan ocurriendo cosas, no sólo aventuras sexuales.</p>
+<p>En el caso de un perro observamos que anhela:</p>
+<ul>
+  <li><strong>escarbar</strong></li>
+  <li><strong>mordisquear</strong>: no necesariamente para cazar o hacer daño</li>
+  <li><strong>olfatear</strong></li>
+  <li><li><strong>pisar tierra</strong>...</li>
+</ul>
+<p>Y sobre todo andar, desplazarse por un espacio rico. Experimentar sorpresas, intemperie, encuentros.</p>
+<p>Me pregunto hasta qué punto los seres humanos compartimos ese anhelo. En buena parte lo compartimos.</p>
+<p>Recuerdo una escena que me impresionó de la película <cite>Alien</cite>. Unos astronautas habían entrado en una nave extraterrestre tripulada. Sobre una especie de sillón descansaba el esqueleto de un piloto. Pensé, por algún motivo, que ese extraterrestre hacía casi toda su vida ante unos mandos y unas pantallas. No la hacía caminando. Y las personas a menudo caemos en eso, modos de vida o de trabajar que no nos exigen caminar, en absoluto.</p>
+<p>Un caso relacionado fue durante la supuesta Pandemia la generalización del teletrabajo. De pronto era posible producir sentado ante un ordenador. No se trataba de trabajadores ambulantes, antes habrían acudido a sus puestos de trabajo en transportes motorizados la mayoría, y durante la jornada no necesariamente andarían mucho, sino que interactuarían.</p>
+<p>Los animales además de interactuar echan de menos andar, trotar, reptar, volar etc.</p>
+<hr/>
+<p>Se suele pensar que los animales sólo viven para <i>coco</i> (comer y copular). No exactamente...</p>
 
 [ ]
 <p>En la práctica, las Humanidades no existen independientemente de la enseñanza, a la vez que la ciencia no existe al margen de la investigación. Porque la mayoría de los profesionales de las Humanidades se ganan enseñando, y la mayoría de los científicos de investigar.</p>
@@ -1860,6 +1930,11 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] link between: amaranth, quinoa and buckwheat
+<p><a href="grow-amaranth.html">How to Grow Amaranth</a></p>
+<p><a href="grow-quinoa.html">How to Grow Quinoa</a></p>
+<p><a href="grow-buckwheat.html">How to Grow Buckwheat</a></p>
 
 [x] enlazar a *prestigio.html* desde *sociedad.html*
 [x] enlazar a *prestigio.html* desde *ciencia.html*
