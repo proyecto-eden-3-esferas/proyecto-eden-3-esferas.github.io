@@ -62,6 +62,8 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write to *legume.html* from https://colostate.pressbooks.pub/cropsciencefieldtour/part/chapter-4-legumes/
+
 
 [ ] recursos = {tiempo, dinero, atención (energía mental)}
 <p>Un ejemplo de algo que puede consumir mucha energía mental y relativo poco tiempo es tocar música, hablar o actuar ante un público.</p>
@@ -1930,6 +1932,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *grow-grass-peas.html*
 
 [ ] link between: amaranth, quinoa and buckwheat
 <p><a href="grow-amaranth.html">How to Grow Amaranth</a></p>
