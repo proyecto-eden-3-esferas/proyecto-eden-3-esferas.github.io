@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Three Design Principles in OOP</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Three Design Principles in OOP"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next"      href="SOLID.html">The SOLID Principles (of OOP)</a></p>
+        <p><a                 href="oop.patterns.html">Software Design Patterns</a></p>
+        <p><a rel="prev"      href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+      </div>
+      <div>
+        <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
+        <p><a                 href="adt.html">Abstract Data Types</a></p>
+        <p><a                 href="oop.classes.html">Classes of Objects</a></p>
+      </div>
+      <div>
+        <p><a                 href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Three Design Principles in OOP</h1>
+      <p style="text-align: right">(Heavily from <cite>C++\ The\ Art\,\ Philosophy\ and\ Science\ of\ Object\ Oriented\ Programming</cite>, by Rick Miller, 2003.)</p>
+      <!-- Heavily from <cite>Cpp_TheArtPhilosophy-and-ScienceOfObjectOrientedProgramming_RickMiller2003.epub -->
+      <section id="intro">
+        <h2>Introduction</h2>
+        <p>Building complex, well-behaved, object-oriented software is a difficult task for several reasons. First, simply programming in an OOP-language such as C++ does not automatically make your application object-oriented. A legacy C application rewritten in C++ without a proper object-oriented architecture design is just Cplusplusified C code. This comes as a shock to those who embrace and adopt C++ in hopes of finding a panacea.</p>
+        <p>Second, the process by which you become proficient at object-oriented design is characterized by experience. It takes a lot of time and money to learn the lessons of bad architecture design and then apply those lessons-learned to create good object-oriented architectures.</p>
+
+        <p>This page will help you jump-start your object-oriented architecture design efforts. It begins with a discussion of the preferred characteristics of a well-designed object-oriented architecture. It then presents and discusses three important object-oriented design principles and guidelines you can immediately apply to your architecture designs to drastically improve performance, reliability, and maintainability.</p>
+        <p>The three design principles include the Liskov substitution principle, the open-closed principle, and the dependency inversion principle. Bertrand Meyer&apos;s <cite>design by contract programming</cite> is discussed in the context of its close relationship to, and extension of, the Liskov substitution principle.</p>
+        <nav>
+          <p><a href="#LSP-and-DbC">The Liskov Substitution Principle and Design by Contract</a></p>
+          <p><a href="#open-close">The Open-Closed Principle</a></p>
+          <p><a href="#dependency-inversion">The Dependency Inversion Principle</a></p>
+        </nav>
+        <p>An understanding of these three design principles, along with an understanding of how to apply them using the C++ language, will significantly improve your ability to design robust, object-oriented architectures.</p>
+      </section>
+
+      <section id="preferred-characteristics">
+        <h2>The Preferred Characteristics of an Object-Oriented Architecture</h2>
+        <p>From a programmer&apos;s perspective, a well-designed, object-oriented architecture manifests itself as an inheritance hierarchy, including a set of abstract data type vertical and horizontal relationships, that exhibits several key characteristics. It is 1) easy to understand, 2) easy to reason about, and 3) easy to extend. Each of these three characteristics are discussed briefly below.</p>
+        <dl>
+          <dt>Easy to Understand - (How does this thing work?)</dt>
+          <dd>
+            <p>A programmer, when shown a component diagram of a complex software system, should be able to understand what it does, or what it is you are trying to do, in about five minutes flat. To do this a software architecture must be designed to be understood.</p>
+            <p>The organizational complexity of large software systems can be overwhelming if the architecture is poorly designed. An application comprised of even a small number of tightly coupled software components requires significantly more effort to understand than one designed to be understood quickly. An application software architecture must be thoroughly understood by a programmer before the effects of changing its components or adding functionality can be accurately assessed.</p>
+          </dd>
+          <dt>Easy to Reason About - (What are the effects of change?)</dt>
+          <dd>
+            <p>The effects of changing pieces of a software application must be fully predictable. Programmers must be confident that the changes they make to one code module will not mysteriously break another, seemingly unrelated, module in the system. If the effects of change can be accurately predicted then the architecture can be reasoned about. The best way to reason about the effects of change is to render the necessity for code changes unnecessary. (The effects of no change is definitely predictable!)</p>
+          </dd>
+          <dt>Easy to Extend - (Where do I add functionality?)</dt>
+          <dd>
+            <p>Well-designed application architectures accommodate the addition of features and facilitate component reuse. A programmer, when tasked with adding new functionality to an application, must know exactly where to put it. The act of adding functionality should not require the changing of existing code, but rather its extension.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section id="LSP-and-DbC">
+        <h2>The Liskov Substitution Principle and Design by Contract</h2>
+        <p>Dr. Barbara Liskov and Dr. Bertrand Meyer are both important figures in the object-oriented software research community. The two design principles and guidelines that bear their name are the Liskov substitution principle (LSP) and Bertrand Meyer&apos;s design by contract (DbC). These closely related object-oriented design concepts are covered together in this section and can be summarized in the following statement:</p>
+        <blockquote>Subtype objects must be behaviorally substitutable for supertype objects. Programmers must be able to reason correctly about and rely upon the behavior of subtypes using only the supertype behavior specification.</blockquote>
+        <section>
+          <h3>Reasoning About the Behavior of Supertypes and Subtypes</h3>
+          <p>Programmers must be able to reason correctly about the behavior of abstract data types and their derived subtypes. The LSP and DbC provide both theoretical and applied foundations upon which programmers can build well- behaved class inheritance hierarchies that facilitate the object-oriented architectural reasoning process.</p>
+          <section>
+            <h4>Relationship Between the LSP and DbC</h4>
+            <p>The LSP and DbC are closely related concepts primarily because they both draw from largely the same body of research in the formulation of their theories. They each address the question of how a programmer should be able to reason about the behavior of a subtype object when it is substituted for a supertype object, they each address the role of method preconditions and postconditions in the specification of desired object behavior, and they each discuss the role of class invariants and how method postconditions should ensure invariant state conditions are preserved. They both seek to provide a mechanism for programmers to create reliable object-oriented software.</p>
+            <p>Design by contract differs from the LSP in its emphasis on the notion of contracts between supertype and subtype. The base class (supertype) is a contractor that may, at runtime, have its interface functions performed by a subcontractor (subtype). Programmers should not need any apriori knowledge of the subtype&apos;s existence when they write the code that may come to rely on the subtype&apos;s behavior. The subtype, when substituted for the supertype, should fulfill the contract promised by the supertype. In other words, the subtype object should not pull any surprises.</p>
+            <p>Another difference between the LSP and DbC is that the LSP is more notional, while DbC is more practical. By this I mean no language, as of this writing, directly supports the LSP specifically, with perhaps the exception of the type checking facilities provided by a compiler. Design by contract, on the other hand, is directly supported by the Eiffel programming language.</p>
+          </section>
+          <section>
+            <h4>The Common Goal of the LSP and DbC</h4>
+            <p>The LSB and DbC share a common goal. They both aim to help software developers build correct software from the start. Given this common goal I will occasionally refer to both concepts collectively as the LSP/DbC.</p>
+          </section>
+          <section>
+            <h4>C++ Support for the LSP and DbC</h4>
+            <p>With the exception of type checking, C++ does not provide direct language support for either the LSP or DbC. However, there are techniques you can use to enforce preconditions and postconditions, and to ensure the state of class invariants. Regardless of the level of language support for either the LSP or DbC, programmers can realize significant improvements in their overall class hierarchy designs by simply keeping the LSP and DbC in mind during the design process.</p>
+          </section>
+        </section>
+        <section>
+          <h3>Designing with the LSP/DbC in Mind</h3>
+          <p>The LSP/DbC focuses on the correct specification of supertype and subtype behavioral relationships. By keeping the LSP/DbC in mind when designing class hierarchies programmers are much less likely to create subclasses that implement behavior incompatible with that specified by the base class.</p>
+          <section>
+            <h4>The Power and Danger of C++</h4>
+            <p>C++ gives programmers the powerful object-oriented language features of redeclaration, polymorphism, and dynamic binding. By declaring pointers to base class objects programmers can substitute derived class objects at runtime and thereby implement dynamic polymorphic behavior. It is this dynamic polymorphic behavior that programmers must be able to correctly reason about. Yet, what is powerful can also be dangerous.</p>
+            <p>The same language features of redeclaration, polymorphism, and dynamic binding that provide C++ programmers with enormous power and flexibility can cause significant problems if not wielded properly.</p>
+          </section>
+          <section>
+            <h4>Class Declarations Viewed as Behavior Specifications</h4>
+            <p>A class declaration introduces a new abstract data type into a programmer&apos;s environment. The class declaration is, by its very nature, a behavioral specification. The behavior is specified by the set of public interface functions made available to clients, by the set of possible states an object may assume, and by the side effects resulting from method execution.</p>
+            <p>A class declaration can specify behavior only, as is the case with an abstract base class containing only pure virtual functions, or, it can both specify and implement behavior, as is the case where class functions are implemented for a particular class.</p>
+            <p>An abstract data type can adopt the behavioral specification of another abstract data type. The former would be the subtype and the latter the supertype. When the supertype is an abstract base class the subtype inherits only a behavior specification. It must then either implement the specified behavior or further defer the implementation to yet another subtype. When a supertype provides behavior implementation, a subtype may adopt the supertype behavior outright or provide an overriding behavior. It is the correct implementation of this overriding behavior about which the LSP/DbC is most concerned. Programmers can create well-behaved subtypes by employing preconditions, postconditions, and class invariants.</p>
+          </section>
+        </section>
+
+        <section>
+          <h3>Preconditions, Postconditions, and Class Invariants</h3>
+          <p>Preconditions, postconditions, and class invariants are the three cornerstones of both the LSP and DbC. Their definitions and application are discussed in this section.</p>
+          <section>
+            <h4>Class Invariant</h4>
+            <p>A class invariant is an assertion about an object property that must hold true for all valid states an object can assume. For example, suppose an airplane object has a speed property that can be set to a range of integer values between 0 and 800. This rule should be enforced for all valid states an airplane object can assume. All methods that can be invoked on an airplane object must ensure they do not set the speed property to less than 0 or greater than 800.</p>
+          </section>
+          <section>
+            <h4>Precondition</h4>
+            <p>A precondition is an assertion about some condition that must be true before a function can be expected to perform its operation correctly. For example, suppose the airplane object&apos;s speed property can be incremented by some value and there exists in the set of airplane&apos;s public interface functions one that increments the speed property anywhere from 1 to 5 depending on the value of the argument supplied to the function. For this function to perform correctly, it must check that the argument is in fact a valid increment value of 1, 2, 3, 4, or 5. If the increment value tests valid then the precondition holds true and the increment function should perform correctly. The precondition must be true before the function is called, therefore it is the responsibility of the caller to make the precondition true, and the responsibility of the called function to enforce the truth of the precondition.</p>
+          </section>
+          <section>
+            <h4>Postcondition</h4>
+            <p>A postcondition is an assertion that must hold true when a function completes its operations and returns to the caller. For example, the airplane&apos;s speed increment function should ensure that the class invariant speed property being 0 &lt;= speed &lt;= 800 holds true when the increment function completes its operations.</p>
+          </section>
+          <!--
+          <section>
+            <h4>An Example</h4>
+            <p>
+          </section>
+          -->
+        </section>
+      </section>
+
+      <section id="open-close">
+        <h2>The Open-Closed Principle</h2>
+        <p>Software systems change over time. Change takes many forms, but changing and evolving system requirements provide the primary catalyst. A software system must accommodate change. It must evolve gracefully throughout its useful lifecycle. A software system that is rigid, fragile, and change-resistant exhibits bad design. A software system that is resilient, flexible, and extensible possesses the hallmark characteristics of thoughtful object-oriented architecture. The open-closed principle (OCP) provides the necessary framework for achieving an extensible and accommodating software architecture.</p>
+        <p>Formulated by Bertrand Meyer, the open-closed principle makes the following assertion:</p>
+        <blockquote>Software modules must be designed and implemented in a manner that opens them for extension but closes them for modification.</blockquote>
+        <p>Said another way, changes to software modules should be avoided and new system functionality added by writing new code.</p>
+        <p>It should be noted that writing code that is easy to extend and maintain is a requirement in and of itself. Writing such code takes longer initially but pays a big dividend later. I call it the <dfn>design dividend</dfn>.</p>
+        <section>
+          <h4>Achieving The Open-Closed Principle</h4>
+          <p>The key to writing code that conforms to the open-closed principle is to depend upon abstractions, not upon implementations. The reason - abstractions tend to be more stable. (Correctly designed abstractions are very stable!) This is achieved in C++ through the use of abstract base classes and dynamic polymorphic behavior. Code should rely only upon the interface functions and behavior promised via abstract base class interfaces. A code module that relies only upon abstractions will exhibit the characteristic of being closed to the need for modification yet open to the possibility of extension.</p>
+        </section>
+        <section>
+          <h4>Relationship Between the OCP and the LSP/DbC</h4>
+          <p>The OCP and LSP/DbC share a close relationship. Code written with the OCP in mind depends upon behavior promised by abstract base class specification. Depending upon promised behavior enables the subtype reasoning process. The LSP/DbC is used to achieve the proper subtype behavior within a type hierarchy thereby enabling the OCP.</p>
+        </section>
+        <section>
+          <h4>Quick Review</h4>
+          <p>The open-closed principle (OCP) attempts to optimize object-oriented software architecture design so it can accommodate change. Software modules should be designed so they are closed to modification yet open to extension. The OCP is achieved by depending only upon software abstractions. In C++ this means designing with abstract base classes with the goal of dynamic polymorphic behavior. The OCP relies heavily upon the Liskov substitution principle and design by contract (LSP/DbC).</p>
+        </section>
+      </section>
+
+      <section id="dependency-inversion">
+        <h2>The Dependency Inversion Principle</h2>
+        <p>When used together in a disciplined approach, the OCP and the LSP/DbC yield a desirable inversion of program module dependencies that is different from the usual top-down module dependencies attained with functional decomposition. This dependency inversion is generalized into a principle in its own right known as the dependency inversion principle (DIP). Robert C. Martin stated the definition of the DIP in two parts:</p>
+        <blockquote>
+          <p>A. High-level modules should not depend upon low-level modules. Both should depend upon abstractions.</p>
+          <p>B. Abstractions should not depend upon details. Details should depend upon abstractions.</p>
+        </blockquote>
+        <section>
+          <h3>Characteristics of Bad Software Architecture</h3>
+          <p>When a software module depends on the details of a lower-level software module it is hard to change and hard to reuse.</p>
+          <p>A <dfn>fragile software architecture</dfn> is one that breaks in unexpected ways when a change is made to one or more software modules. Fragile software leads to rigid software.</p>
+          <p>A <dfn>rigid software architecture</dfn> is one that is so difficult and painful to change that programmers do not want to change it.</p>
+          <p>An <dfn>immobile software architecture</dfn> is characterized by the inability to successfully extract the software module for reuse in another system. The software module may exhibit desirable behavior but if it is too dependent on other modules or anchored to the application architecture by intermodule dependencies then it will be difficult if not impossible to reuse in another similar context. If it is easier to rewrite a module from scratch than it is to adopt and reuse the module then the module is immobile.</p>
+        </section>
+        <section>
+          <h3>Characteristics of Good Software Architecture</h3>
+          <p>Object-oriented software architectures that subscribe to the OCP and the LSP/DbC will depend heavily upon abstractions. These abstractions will appear at or near the top of the software module hierarchy. Refer again to the fleet simulation model class diagram shown in figure 19-9. The Vessel, Weapon, and Plant abstract base classes serve as the foundation for all behavior inherited by the lower-level implementation classes. This inheritance relationship means that the lower-level derived classes are dependent upon the behavior specified by the higher-level base class abstractions.</p>
+          <p>The key to success with the DIP lies in choosing the right software abstractions. A software architecture based upon the right kinds of abstractions will exhibit the desirable characteristic of being easy to extend. It will be flexible because of its extensibility, it will be non-rigid in that the addition of new functionality via new derived classes will not affect the behavior of existing abstractions. Lastly, software modules that depend upon abstractions can generally be reused in a wider variety of contexts, thus achieving a greater degree of mobility.</p>
+        </section>
+        <section>
+          <h3>Selecting The Right Abstractions Takes Experience</h3>
+          <p>The ability to identify essential software component abstractions takes practice and experience. However, applying the OCP and the LSP/DbC in your object-oriented software architecture design will yield a better design, even if you do not get all the abstractions right the first time around.</p>
+        </section>
+        <section>
+          <h3>Quick Review</h3>
+          <p>The OCP and the LSP/DbC, when applied together, result in the realization of a third design principle known as the dependency inversion principle (DIP). The key to the DIP is that high-level software modules should not rely on low-level details, and that software modules at all hierarchy levels should rely only upon abstractions. When a software architecture achieves the goals of the DIP it is easier to extend and maintain (flexible and non-rigid). Software modules that conform to the DIP are easier to reuse in other contexts (mobile).</p>
+        </section>
+      </section>
+
+      <!--
+      <section id="">
+        <h2>*</h2>
+      </section>
+
+      <section id="">
+        <h2>*</h2>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
