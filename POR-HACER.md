@@ -62,8 +62,50 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] write to *legume.html* from https://colostate.pressbooks.pub/cropsciencefieldtour/part/chapter-4-legumes/
 
+[ ] On Concepts
+<p>Concepts are an extension to the templates feature provided by the C++ programming language. <dfn>Concepts</dfn> are named Boolean predicates on template parameters, evaluated at compile time.</p>
+
+<section>
+  <h2>Keywords</h2>
+  <ul>
+    <li><strong>concept</strong>: precedes the name of a concept</li>
+    <li><strong>requires</strong>: precedes a (<var>LIST_OF_PARAMETERS</var>) then a specificiation</li>
+  </ul>
+</section>
+<section>
+  <h2>Combining Concepts</h2>
+  <p>Say we have defined concepts <code></code> and <code></code>...</p>
+  <p>We can now combine the two concepts to make a new concept ShowableAndOrderable like this:</p>
+  <pre>template&lt;typename T&gt;
+concept ShowableAndOrderable = Orderable&lt;T&gt; && Showable&lt;T&gt;</pre>
+</section>
+<section>
+  <h2>Using concepts with <code>requires</code></h2>
+  <p>In one of the most common case, for a small function template, you’ll see the following syntax:</p>
+  <pre>template &lt;typename T&gt;
+requires <var>CONDITION</var>
+void DoSomething(T <var>t</var>) { }</pre>
+  <p>You can also use requires clause as the last part of a function declaration:</p>
+<pre>template &lt;typename T&gt;
+void DoSomething(T <var>t</var>) requires <var>CONDITION</var>
+{
+
+}</pre>
+</section>
+<section>
+  <h2>Concept Testing with <code>static_assert()</code>
+  <p>Say you define a class <code>MyObject</code> which you expect to fulfill <code>ShowableAndOrderable</code></p>
+  <pre>  class MyObject {...}
+
+  int main() {
+    static_assert(ShowableAndOrderable&lt;MyObject&gt;);
+    return 0;
+  }</pre>
+  <p></p>
+</section>
+
+[ ] write to *legume.html* from https://colostate.pressbooks.pub/cropsciencefieldtour/part/chapter-4-legumes/
 
 [ ] recursos = {tiempo, dinero, atención (energía mental)}
 <p>Un ejemplo de algo que puede consumir mucha energía mental y relativo poco tiempo es tocar música, hablar o actuar ante un público.</p>

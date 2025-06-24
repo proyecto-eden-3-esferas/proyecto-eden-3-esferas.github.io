@@ -37,9 +37,11 @@
         <p id="concept"><dfn>Concepts</dfn> are template parameters that do <em>not</em> define types that are used by the class, but control the behaviour of the class through defining which abstract data type it implements.</p>
         <p>One of the primary responsibilities of a generic library is to define the interfaces that allow algorithms to be written independently of any particular data structure. Note that by interface we do not merely mean a set of function prototypes. Instead, we mean a set of syntactic requirements&#x2014;things like function names and numbers of arguments&#x2014;as well as semantic requirements (executing the function must have certain effects) and time and space complexity guarantees.</p>
         <p>Using the terminology from the book Generic <cite>Programming and the STL</cite>, we use the word <dfn>concept</dfn> to refer to this richer notion of an interface. The STL defines a collection of <a target="_blank" href="cpp.iterators.html">iterator</a> concepts that provide a generic mechanism for traversing and accessing sequences of objects.</p>
-        <p>The authors of the <a href="cpp.boost.html">Boost</a> library strongly recommend that:</p>
-        <blockquote>Every programmer writing class or function templates ought to make concept checking a normal part of their code writing routine.</blockquote>
-        <p>Indeed, Boost includes a library of classes for checking concepts and a mechanism for defining new concept-checking classes.</p>
+        <aside>
+          <p>The authors of the <a href="cpp.boost.html">Boost</a> library strongly recommend that:</p>
+          <blockquote>Every programmer writing class or function templates ought to make concept checking a normal part of their code writing routine.</blockquote>
+          <p>Indeed, Boost includes a library of classes for checking concepts and a mechanism for defining new concept-checking classes.</p>
+        </aside>
         <p>Here is an example of a class defined solely to be used as a template parameter for checking purposes:</p>
         <pre>class integer_class {};
 template &lt;typename I, class IS_INTEGER&gt; class integer {};</pre>
@@ -68,8 +70,9 @@ i != j  // inequality test (from EqualityComparable)
 ++i     // pre-increment operator
 i++     // post-increment operator</pre>
         <p>The <code class="classname">std::iterator_traits</code> class provides access to the associated types of an iterator type. The type of an object that is pointed to by an iterator type (call it <code class="classname">X</code>) can be determined via the <code class="classname">value_type</code> of the traits class. The other associated types are <code class="classname">reference</code>, <code class="classname">pointer</code>, <code class="classname">difference_type</code>, and <code class="classname">iterator_category</code>.</p>
-        <p>In the following function template we show the use of the <code class="classname">iterator_traits</code> class to obtain the <code class="classname">value_type</code> of the iterator and dereference the iterator.</p>
-        <pre>template &lt;typename Iterator&gt; void dereference example(Iterator i) {
+        <p>In the following template function we show the use of the <code class="classname">iterator_traits</code> class to obtain the <code class="classname">value_type</code> of the iterator and dereference the iterator.</p>
+        <pre>template &lt;typename Iterator&gt;
+void dereference example(Iterator i) {
   typename iterator traits&lt;Iterator&gt;::value_type t;
   t = *i;
 }</pre>
@@ -78,7 +81,7 @@ i++     // post-increment operator</pre>
         <pre>template &lt;typename InputIterator, typename Function&gt;
 Function for_each(InputIterator first, InputIterator last, Function f ) {
   for ( ; first != last; ++first)
-  f(*first);
+    f(*first);
   return f ;
 }</pre>
       </section>

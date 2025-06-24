@@ -22,7 +22,8 @@
         <p><a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a></p>
       -->
       <div>
-        <p><a rel="prev" href="cpp.stl.html">The C++ Standad Template Library (STL)</a></p>
+        <p><a rel="prev" href="cpp.traits.html">(Implementing) Trait Classes in C++</a> </p>
+        <p><a            href="cpp.stl.html">The C++ Standad Template Library (STL)</a></p>
         <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
         <p><a rel="next" href="cpp.std-concepts.html">C++ Standard Library Concepts</a></p>
       </div>
@@ -197,112 +198,6 @@
           </dl>
         </dd>
       </ul>
-      </section>
-      <section>
-        <h2>Associated Types and Traits Classes</h2>
-        <p>One of the most important techniques used in generic programming is the traits class, which was introduced by Nathan Myers. The traits class technique may seem somewhat unnatural when first encountered (due to the syntax) but the essence of the idea is simple. It is essential to learn how to use traits classes, for they are used regularly in generic libraries such as the <a href="cpp.stl.html">STL</a> and the <a href="cpp.boost.html">Boost Library</a>.</p>
-        <aside class="note">In c++11 traits are developed further in a <a href="cpp.type_traits.html"><cite>&lt;type_traits&gt;</cite></a> header file.</aside>
-        <section>
-          <h3>(Unsatisfied) Associated Types Needed in a Function Template</h3>
-          <p>A traits class is basically a way of determining information about a type that you would otherwise know nothing about. For example, consider a generic <code class="function">sum()</code> function:</p>
-          <pre>template &lt;typename Array&gt;
-X sum(const Array&amp; v, int n) {
-  X total = 0;
-  for (int i = 0; i &lt; n; ++i)
-    total += v[i];
-  return total;
-}</pre>
-          <p>From the point of view of this function template, not much is known about the template type <code class="classname">Array</code>. For instance, the type of the elements that are inside the array is not given. However, this information is necessary in order to declare the local variable <var>total</var>, which should be the same type as the elements of <code class="classname">Array</code>. The <code class="classname">X</code> that is there now is just a placeholder that needs to be replaced by something else to produce a correct <code class="function">sum()</code> function.</p>
-        </section>
-        <!-- </sect4> -->
-        <section>
-          <h3>Typedefs Nested in Classes</h3>
-          <p>One way to access information out of a type is to use the scope operator <code>::</code> to access <code>typedef</code>'s that are nested inside the class. For example, an array class might looks like the following:</p>
-          <pre>class my array {
-public:
-  typedef double value_type; // the type for elements in the array
-  double&amp; operator[](int i) { m_data[i];};
-private:
-  double* m_data;
-};</pre>
-          <p>The type of the elements in the array can now be accessed via my <code>array::value_type</code>. The generic <code class="function">sum()</code> function can be realized using this technique as follows (note that the <code class="classname">X</code> placeholders have been replaced with <code>typename Array::value_type</code>):</p>
-          <pre>template &lt;typename Array&gt;
-typename Array::value_type sum(const Array&amp; v, int n) {
-  typename Array::value_type total = 0;
-  for (int i = 0; i &lt; n; ++i)
-    total += v[i];
-  return total;
-}</pre>
-          <p>In the <code class="function">sum()</code> function above, the technique of using a nested typedef works as long as <code class="classname">Array</code> is a class type that has such a nested typedef. However, there are important cases for which having a nested <code>typedef</code> is neither practical nor possible. For instance, one might want to use the generic <code class="function">sum()</code> function with a class from a third party that did not provide the required <code>typedef</code>. Or, one might want to use the <code class="function">sum()</code> function with a built-in type such as <code>double *</code>.</p>
-          <pre>int n = 100;
-double* x = new double[n];
-sum(x, n);</pre>
-          <p>In both of these cases, it is quite likely that the functional requirements of our desired use are met; that is, the <code>operator[]()</code> works with <code>double*</code> and with our imaginary third-party array. The limitation to reuse is in how to communicate the type information from the classes we want to use to the <code class="function">sum()</code> function.</p>
-        </section>
-        <!-- </sect4> -->
-        <section>
-          <h3>Definition of a Traits Class</h3>
-          <p>The solution to this is a <dfn>traits class</dfn>, which is a class template whose sole purpose is to provide a mapping from a type to other types, functions, or constants. The language mechanism that allows a class template to create a mapping is <a target="_blank" href="cpp.templates.html#template_specialization">template specialization</a>. The mapping is accomplished by creating different versions of the traits class to handle specific type parameters. We will show how this works by creating an array traits class that can be used in the <code class="function">sum()</code> function.</p>
-          <p>The <code class="classname">array_traits</code> class will be templated on the <code class="classname">Array</code> type and will allow us to determine the <code class="classname">value_type</code> (the type of the element) of the array. The default (fully templated) case will assume that the array is a class with a nested <code>typedef</code> such as <code class="classname">my_array</code>:</p>
-          <pre>template &lt;typename Array&gt;
-struct array traits {
-  typedef typename Array::value_type value_type;
-};</pre>
-          <p>We can then create a specialization of the array traits template to handle when the <code class="classname">Array</code> template argument is a built-in type like <code>double*</code>:</p>
-          <pre>template &lt;&gt; struct array_traits&lt;double*&gt; {
-  typedef double value_type;
-};</pre>
-          <p>The <code class="function">sum()</code> function, written with <code class="classname">array_traits</code> class, is shown below. To access the type for the total variable we extract the value type from <code class="classname">array_traits</code>:</p>
-          <pre>template &lt;typename Array&gt;
-typename array_traits&lt;Array&gt;::value_type sum(const Array&amp; v, int n) {
-  typename array_traits&lt;Array&gt;::value_type total = 0;
-  for (int i = 0; i &lt; n; ++i)
-    total += v[i];
-  return total;
-}</pre>
-          <p>But writing a <code class="classname">traits_class</code> for every pointer type is not practical or desirable. The following shows how to use partial specialization to provide array traits for all pointer types. The C++ compiler will attempt a pattern match between the template argument provided at the instantiation of the traits class and all the specializations defined, picking the specialization that is the best match. The partial specialization for <code>T*</code> will match whenever the type is a pointer. The previous complete specializations for <code>double*</code> would still match first for that particular pointer type.</p>
-          <pre>template &lt;typename T&gt;
-  struct array_traits&lt;T*&gt; {
-  typedef T value_type;
-};</pre>
-          <p>The most well-known use of a traits class is the <code class="classname">iterator_traits</code> class used in the STL. The BGL also uses traits classes such as <code class="classname">graph_traits</code> and the <code class="classname">property_traits</code> classes. Typically, a traits class is used with a particular concept or family of concepts. The <code class="classname">iterator_traits</code> class is used with the family of iterator concepts. The <code class="classname">graph_traits</code> class is used with the family of BGL graph concepts.</p>
-        </section>
-        <!-- </sect4> -->
-        <section>
-          <h3>Tag Dispatching</h3>
-          <p>A technique that often goes hand in hand with traits classes is <dfn>tag dispatching</dfn>, which is a way of using function overloading to dispatch based on properties of a type. A good example of this is the implementation of the <code class="function">std::advance()</code> function in the STL, which, in the default case, increments an iterator <var>n</var> times. Depending on the kind of iterator, there are different optimizations that can be applied in the implementation. If the iterator is random access, then the <code class="function">advance()</code> function can simply be implemented with <code>i += n</code> and is very efficient; that is, it is in constant time. If the iterator is bidirectional, then it may be the case that <var>n</var> is negative, so we can decrement the iterator <var>n</var> times. The relation between external polymorphism and traits classes is that the property to be exploited for dispatch (in this case, the <code class="classname">iterator_category</code>) is accessed through a traits class.</p>
-          <p>In the following example, the <code class="function">advance()</code> function uses the <code class="classname">iterator_traits</code> class to determine the <code class="classname">iterator_category</code>. It then makes a call to the overloaded <code class="function">advance_dispatch()</code> function. The appropriate <code class="function">advance_dispatch()</code> is selected by the compiler based on whatever type the <code class="classname">iterator_category</code> resolves to (one of the tag classes in the following code).</p>
-          <p>A <dfn>tag</dfn> is simply a class whose only purpose is to convey some property for use in tag dispatching. By convention, the name of a tag class ends in <quote>_tag</quote>. We do not define a function overload for the <code class="classname">forward iterator_tag</code> because that case is handled by the function overloaded for <code class="classname">input_iterator_tag</code>.</p>
-          <pre>struct input iterator tag {};
-struct output iterator tag {};
-struct forward iterator tag : public input iterator tag {};
-struct bidirectional iterator tag : public forward iterator tag {};
-struct random access iterator tag : public bidirectional iterator tag {};
-
-template &lt;typename InputIterator, typename Distance&gt;
-void advance_dispatch(InputIterator&amp; i, Distance n, input_iterator_tag) {
-  while (n&#x2212;&#x2212;)
-    ++i;
-};
-template &lt;typename BidirectionalIterator, typename Distance&gt;
-void advance dispatch(BidirectionalIterator&amp; i, Distance n, bidirectional_iterator_tag) {
-  if (n &gt;= 0)
-    while (n&#x2212;&#x2212;) ++i;
-  else
-    while (n++) &#x2212;&#x2212;i;
-}
-template &lt;typename RandomAccessIterator, typename Distance&gt;
-void advance_dispatch(RandomAccessIterator&amp; i, Distance n, random_access_iterator_tag) {
-  i += n;
-};
-template &lt;typename InputIterator, typename Distance&gt;
-void advance(InputIterator&amp; i, Distance n) {
-  typedef typename iterator_traits&lt;InputIterator&gt;::iterator_category Cat;
-  advance dispatch(i, n, Cat());
-};</pre>
-          <aside class="note">The <a href="cpp.boost.graph.html">BGL</a> graph traits class includes three categories: <code class="classname">directed_category</code>, <code class="classname">edge_parallel_category</code>, and <code class="classname">traversal_category</code>. The tags for these categories can be used for dispatching
-similarly to <code class="classname">iterator_category</code>.</aside>
-        </section>
       </section>
     </main>
   </body>
