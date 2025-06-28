@@ -62,6 +62,37 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] https://savvygardening.com/red-veined-sorrel/
+
+[ ] https://savvygardening.com/new-zealand-spinach/
+
+[ ] https://savvygardening.com/growing-loofah/ (loofah gourds)
+
+[ ] https://savvygardening.com/unique-vegetables-to-grow-in-your-garden/
+
+
+[ ] <p>Aphids are soft bodied, pear-shaped insects that suck the sap out of plant tissue. They are a familiar garden pest and seldom cause major damage. Aphids are also a favorite food source of ladybugs, lacewings, and other beneficial insects. Because of this, I tend to leave aphid colonies alone to provide food for these good bugs. If they&apos;re still around after a couple of days, and close inspection shows no sign of beneficial insects (look closely, they can be small!) I use a strong jet of water from my hose to knock the aphids off.</p>
+
+
+[ ] *lagom.en.html*
+<p><dfn>Lagom</dfn> (pronounced /ˈlɑ̂ːɡɔm/, LAW-gom) is a Swedish word meaning <q>just the right amount</q> or <q>not too much, not too little</q>.</p>
+<p>The word can be variously translated as <q>in moderation </q>, <q>in balance </q>, <q>perfect-simple </q>, <q>just enough </q>, <q>ideal </q> and <q>suitable </q> (in matter of amounts). Whereas words like sufficient and average suggest some degree of abstinence, scarcity, or failure, lagom carries the connotation of appropriateness, although not necessarily perfection. The archetypical Swedish proverb "Lagom är bäst", literally <q>The right amount is best </q>, is also translated as <q>Enough is as good as a feast</q>, or as <q>There is virtue in moderation</q></p>
+<section>
+  <h2>Cultural significance</h2>
+  <p>The value of <q>just enough</q> can be compared to the idiom <q>less is more</q>, or contrasted to the value of <q>more is better</q>. It is viewed favorably as a sustainable alternative to the hoarding extremes of consumerism: <q>Why do I need more than two? <i>Det är</i> [It is] <i>lagom</i></q> It can also be viewed as repressive: <q>You&apos;re not supposed to be too good, or too rich</q>.</p>
+  <p><i>Lagom</i> is said to describe the basis of the Swedish national psyche, one of consensus and equality. <q>My aunt used to hold out her closed fist and say, <q>How much can you get in this hand? It&apos;s much easier to get something in this [open] hand</q></q>.</p>
+</section>
+
+[ ] escribir en *vida.html*
+<section id="niksen">
+  <h2>Niksen</h2>
+</section>
+Sacado de https://www.bbc.com/mundo/vert-tra-65683334
+
+[ ] escribir sobre Opiniones de un payaso:
+- su trabajo
+- su ética
+<p><a href="opiniones-de-un-payaso.html"><cite>Opininiones de un payaso</cite>, novela de Heinrich Böll</a></p>
 
 [ ] On Concepts
 <p>Concepts are an extension to the templates feature provided by the C++ programming language. <dfn>Concepts</dfn> are named Boolean predicates on template parameters, evaluated at compile time.</p>
