@@ -59,6 +59,8 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://www.bbc.co.uk/programmes/genres
 
+- https://savvygardening.com/how-to-grow-quinoa/
+
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
@@ -69,6 +71,19 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 [ ] https://savvygardening.com/growing-loofah/ (loofah gourds)
 
 [ ] https://savvygardening.com/unique-vegetables-to-grow-in-your-garden/
+
+
+[ ] escribir *planeta-de-los-simios.html*
+[ ] relacionar *planeta-de-los-simios.html* con *monitos.html*
+
+
+[ ] write  "occam-s-razor.html"
+[ ] relate "occam-s-razor.html" to:
+- retribution / karma
+- reincarnation
+
+
+[/] write *cpp.core-types.html* C++ Core Types
 
 
 [ ] <p>Aphids are soft bodied, pear-shaped insects that suck the sap out of plant tissue. They are a familiar garden pest and seldom cause major damage. Aphids are also a favorite food source of ladybugs, lacewings, and other beneficial insects. Because of this, I tend to leave aphid colonies alone to provide food for these good bugs. If they&apos;re still around after a couple of days, and close inspection shows no sign of beneficial insects (look closely, they can be small!) I use a strong jet of water from my hose to knock the aphids off.</p>
