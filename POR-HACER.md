@@ -64,6 +64,23 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *tres.html*
+
+<a target="_blank" href="agricultura.html#tres">Tres agriculturas</a>
+
+Tres polos políticos:
+- conservador
+- progresista
+- liberal
+
+No dos sino tres clases sociales:
+- obrera
+- capitalista (dinámica)
+- rentista
+(La izquierda se deshace en vituperios a la capitalista...)
+
+No tesis-antítesis-síntesis sino tesis-antítesis-superación
+
 [ ] https://savvygardening.com/red-veined-sorrel/
 
 [ ] https://savvygardening.com/new-zealand-spinach/
