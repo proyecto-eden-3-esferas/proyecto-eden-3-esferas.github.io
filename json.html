@@ -78,7 +78,30 @@
       </section>
 
       <section id="escape-chars">
-        <h2>Escaping Characters in JSON*</h2>
+        <h2>Escaping Characters in JSON</h2>
+        <p>You escape a character by prepending a slash (\).</p>
+        <p>These characters can or must be escaped: <code>&quot;</code>. <code>\</code>, <code>/</code>, <code>b</code>, <code>f</code>, <code>n</code>, <code>r</code>, and <code>t</code></p>
+        <p>And here are some common escape sequences in JSON:</p>
+        <ul>
+          <li><code>\"</code> : Escaped double quote</li>
+          <li><code>\\</code> : Escaped backslash</li>
+          <li><code>\/</code> : Escaped forward slash (optional but often used)</li>
+          <li><code>\b</code> : Backspace</li>
+          <li><code>\f</code> : Form feed</li>
+          <li><code>\n</code> : Newline</li>
+          <li><code>\r</code> : Carriage return</li>
+          <li><code>\t</code> : Horizontal tab</li>
+          <li><code>\u<var>XXXX</var></code> : Unicode escape sequence for special characters</li>
+        </ul>
+      </section>
+
+      <section id="newlines">
+        <h2>Newlines in JSON</h2>
+        <p>Just use the sequence: <code>\\n</code></p>
+        <p>The escape sequence \n is used in JSON strings to represent newline characters, allowing text to span multiple lines.</p>
+        <hr/>
+        <p><q>\n</q> is really just two arbitrary characters right? An actual "newline" is just a single invisible character, but we represent it as <q>\n</q> for convenience.</p>
+        <p>So in json you are simply putting in the magic character sequence: <q>\n</q> in place of the real newline character.</p>
       </section>
 
       <section id="json-vs-js">
@@ -101,23 +124,6 @@
         <p>JSON is faster than XML because it is designed specifically for data interchange. JSON encoding is terse, which requires fewer bytes for transit. JSON parsers are less complex, which requires less processing time and memory overhead. XML is slower, because it is designed for a lot more than just data interchange.</p>
         <p>JSON is a more compact format than XML, meaning it weighs far less on the wire than the more verbose XML. JSON is easier to work with in some languages (such as JavaScript, python, and php). Formatted JSON is generally easier to read than formatted XML.</p>
         <p>Also, the JSON format is syntactically identical to the code for creating JavaScript objects. Because of this similarity, a JavaScript program can easily convert JSON data into native JavaScript objects.</p>
-      </section>
-
-      <section id="escape">
-        <h2>Characters to be Escaped</h2>
-        <p>You escape a character by prepending a slash (\).</p>
-        <p>These characters can or must be escaped:</p>
-        <ul>
-          <li><strong>"</strong></li>
-          <li><strong>\</strong></li>
-          <li><strong>/</strong></li>
-          <li><strong>b</strong></li>
-          <li><strong>f</strong></li>
-          <li><strong>n</strong></li>
-          <li><strong>r</strong></li>
-          <li><strong>t</strong></li>
-          <li><strong>u <var>hex</var> <var>hex</var> <var>hex</var> <var>hex</var></strong></li>
-        </ul>
       </section>
 
       <section id="validation">

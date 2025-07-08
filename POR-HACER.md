@@ -61,10 +61,21 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://savvygardening.com/how-to-grow-quinoa/
 
+# Some useful `jq` code snippets
+
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] *tres.html*
+[ ] escribir sobre faltarle a uno algo y necesitar algo
+
+[ ] write *fungi-in-soil.html*, or as a section
+
+[ ] write *filter-transform-aggregation.html*
+
+[ ] write *grow-taro.html*
+[ ] review *grow-yam.html*
+
+[ ] escribir *tres.html*
 
 <a target="_blank" href="agricultura.html#tres">Tres agriculturas</a>
 
@@ -2037,6 +2048,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] links to *grow-yam.html*
 
 [ ] *grow-grass-peas.html*
 
