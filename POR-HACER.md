@@ -61,6 +61,8 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://savvygardening.com/how-to-grow-quinoa/
 
+- https://www.almanac.com/what-hugelkultur-ultimate-raised-bed
+
 # Some useful `jq` code snippets
 
 
