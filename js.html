@@ -37,7 +37,7 @@
         <h2>JavaScript Regular Expressions</h2>
         <p><a target="_blank" href="regexp.html">Regular expressions</a> are patterns used to match character combinations in strings. In JavaScript, regular expressions are also objects. These patterns are used with the <code class="method">exec()</code> and <code class="method">test()</code> methods of <code>RegExp</code>, and with the <code class="method">match()</code>, <code class="method">matchAll()</code>, <code class="method">replace()</code>, <code class="method">replaceAll()</code>, <code class="method">search()</code>, and <code class="method">split()</code> methods of <code>String</code>.</p>
         <hr/>
-        <p>To learn more, click to read a thorough discussion of <a target="_blank" href="js.regexp.html">JavaScript Regular Expressions</a></a>
+        <p>To learn more, click to read a thorough discussion of <a target="_blank" href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <section>
           <h3>Creating regular expressions</h3>
           <p>A regular expression is typically created as a literal by enclosing a pattern in forward slashes (/):</p>
@@ -47,6 +47,84 @@
           <p>They have no runtime differences, although they may have implications on performance, static analyzability, and authoring ergonomic issues with escaping characters.</p>
         </section>
       </section>
+
+      <section id="node.js">
+        <h2>Node.js</h2>
+        <p>Node.js® is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.</p>
+        <p>Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside of the browser. This allows Node.js to be very performant.</p>
+
+        <p>A Node.js app runs in a single process, without creating a new thread for every request. Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm.</p>
+        <p>When Node.js performs an I/O operation, like reading from the network, accessing a database or the filesystem, instead of blocking the thread and wasting CPU cycles waiting, Node.js will resume the operations when the response comes back.</p>
+        <p>This allows Node.js to handle thousands of concurrent connections with a single server without introducing the burden of managing thread concurrency, which could be a significant source of bugs.</p>
+
+        <p>Node.js has a unique advantage because millions of frontend developers that write JavaScript for the browser are now able to write the server-side code in addition to the client-side code without the need to learn a completely different language.</p>
+        <p>In Node.js the new ECMAScript standards can be used without problems, as you don&apos;t have to wait for all your users to update their browsers - you are in charge of deciding which ECMAScript version to use by changing the Node.js version, and you can also enable specific experimental features by running Node.js with flags.</p>
+
+        <section>
+          <h3>An Example Node.js Application</h3>
+          <p>The most common example Hello World of Node.js is a web server:</p>
+          <pre>const { createServer } = require('node:http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});</pre>
+          <p>To run this snippet, save it as a <cite>server.js</cite> file and run <code>node server.js</code> in your terminal. If you use mjs version of the code, you should save it as a <cite>server.mjs</cite> file and run <code>node server.mjs</code> in your terminal.</p>
+          <p>This code first includes the Node.js <cite>http</cite> module.</p>
+          <p>Node.js has a fantastic standard library, including first-class support for networking.</p>
+          <p>The <code>createServer()</code> method of <cite>http</cite> creates a new HTTP server and returns it. The server is then set to listen on the specified port and host name. When the server is ready, the callback function is called, in this case informing us that the server is running.</p>
+
+          <p>Whenever a new request is received, the request event is called, providing two objects: a request (an <code>http.IncomingMessage</code> object) and a response (an <code>http.ServerResponse</code> object). Those two objects are essential to handle the HTTP call. The first provides the request details. In this simple example, this is not used, but you could access the request headers and request data.</p>
+          <p>The second is used to return data to the caller. In this case with:</p>
+          <pre>res.statusCode = 200;</pre>
+          <p>[...]</p>
+          <!--
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+
+        <section>
+          <h3>Differences between Node.js and the Browser</h3>
+          <p>Both the browser and Node.js use JavaScript as their programming language. Still, building apps that run in the browser is completely different from building a Node.js application. Despite the fact that it&apos;s always JavaScript, there are some key differences that make the experience radically different.</p>
+          <p>From the perspective of a frontend developer who extensively uses JavaScript, Node.js apps bring with them a huge advantage: the comfort of programming everything - the frontend and the backend - in a single language.</p>
+          <aside>What changes is the ecosystem.</aside>
+          <p>In the browser, most of the time what you are doing is interacting with the DOM, or other Web Platform APIs like Cookies. Those do not exist in Node.js, of course. You don&apos;t have the document, window and all the other objects that are provided by the browser. And in the browser, we don&apos;t have all the nice APIs that Node.js provides through its modules, like the filesystem access functionality.</p>
+
+          <p>Another big difference is that in Node.js you control the environment. Unless you are building an open source application that anyone can deploy anywhere, you know which version of Node.js you will run the application on. Compared to the browser environment, where you don&apos;t get the luxury to choose what browser your visitors will use, this is very convenient.</p>
+          <p>This means that you can write all the modern ES2015+ JavaScript that your Node.js version supports. Since JavaScript moves so fast, but browsers can be a bit slow to upgrade, sometimes on the web you are stuck with using older JavaScript / ECMAScript releases. You can use Babel to transform your code to be ES5-compatible before shipping it to the browser, but in Node.js, you won&apos;t need that.</p>
+
+          <p>Another difference is that Node.js supports both the CommonJS and ES module systems (since Node.js v12), while in the browser, we are starting to see the ES Modules standard being implemented. In practice, this means that you can use both require() and import in Node.js, while you are limited to import in the browser.</p>
+        </section>
+
+        <section>
+          <h3><code>npm</code></h3>
+          <p><code>npm</code> is the standard package manager for Node.js.</p>
+          <hr/>
+          <p><code>npm</code> installs, updates and manages downloads of dependencies of your project. Dependencies are pre-built pieces of code, such as libraries and packages, that your Node.js application needs to work.</p>
+          <h5 class="bridgehead">Installing all dependencies</h5>
+          <p>If a project has a package.json file, by running</p>
+          <pre>npm install</pre>
+          <p>it will install everything the project needs, in the node_modules folder, creating it if it&apos;s not existing already.</p>
+          <h5 class="bridgehead">Installing a single package</h5>
+          <p>You can also install a specific package by running</p>
+          <pre>npm install &lt;<var>package-name</var>&gt;</pre>
+          <p>Furthermore, since <code>npm 5</code>, this command adds &lt;<var>package-name</var>&gt; to the <cite>package.json</cite> file dependencies. Before version 5, you needed to add the flag <code>--save</code>.</p>
+          <h5 class="bridgehead">Updating packages</h5>
+          <p>Updating is also made easy, by running</p>
+          <pre>npm update</pre>
+          <p>npm will check all packages for a newer version that satisfies your versioning constraints.</p>
+        </section>
+
+      </section>  <!-- end of "Node.js" -->
 
     </main>
 

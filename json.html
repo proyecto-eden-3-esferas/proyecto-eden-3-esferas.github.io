@@ -165,6 +165,32 @@
 
       </section>
 
+      <section id="converting-to-initilization">
+        <h2>Converting JSON to Other Formats</h2>
+        <p>Ideally, you hold collections (MongoDB terminology) of JSON objects in JSON arrays.</p>
+        <p>I have tried to use <code>jq</code> to convert to non-json formats. Extremely difficult. It is some good for object validations. But I didn&apos;t see I was making much headway towards my ultimate goal:</p>
+        <blockquote>
+          <p>To convert JSON objects, or an array thereof, to C++/C initilization code.</p>
+          <p>I would like to turn:</p>
+          <pre>[{"name": "Kate", "age": 22}, {"name": "Andrew", "age": 21}]</pre>
+          <p>into something like:</p>
+          <pre>p.push_back("Kate", 22);
+p.push_back("Andrew", 21);</pre>
+          <p>Also, to initialize from objects themselves containing objects or arrays:</p>
+          <pre>[{"name": "Kate", "age": 22, "children": ["Anne", "Tom"]}, {"name": "Andrew", "age": 21}]</pre>
+        </blockquote>
+        <p>After pondering the matter and searching the web, I have concluded that the most straightforward way is to use JavaScript. After all, JSON stands for JavaScript Object Notation!</p>
+        <p>Furthermore, you might test some JavaScript code embedded in a Web Page as a script, then move it to a <code>node.js</code> programme.</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+
       <!--
       <section>
         <h2></h2>

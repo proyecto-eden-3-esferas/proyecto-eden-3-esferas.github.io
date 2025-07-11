@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTML Forms</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="HTML Forms"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
+        <p><a href="HTML.tips-and-tricks.html">HTML Tips and Tricks</a></p>
+        <p><a href="HTML.details-summary.html">&lt;details&gt; and &lt;summary&gt; to Show/Hide Content</a></p>
+        <p><a href="HTML.code.html">HTML Computer Code Elements</a></p>
+      </div>
+      <div>
+        <p><a href="css.html">Styling with CSS (Cascading Style Sheets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>HTML Forms</h1>
+      <p>An HTML form is used to collect user input. The user input is most often sent to a server for processing. Input might be processed locally through <a target="_blank" href="js.html">JavaScript</a>.</p>
+      <p>The HTML <code>&lt;form&gt;</code> element is used to create an HTML form for user input:</p>
+      <pre>&lt;form&gt;
+.
+<var>form elements</var>
+.
+&lt;/form&gt;</pre>
+      <p>The <code>&lt;form&gt;</code> element is a container for different types of input elements, such as: text fields, checkboxes, radio buttons, submit buttons, etc.</p>
+      <hr/>
+      <p>The HTML <code>&lt;input&gt;</code> element is the most used form element.</p>
+      <p>An &lt;input&gt; element can be displayed in many ways, depending on the type attribute. Here are some examples:</p>
+      <table border="1" id="input-type-attribute">
+        <thead>
+          <tr> <th>Type</th> <th>Description</th> </tr> </thead>
+               <tr> <td><code>&lt;input type="text"&gt;</code></td>
+                    <td>Displays a single-line text input field</td> </tr>
+               <tr> <td><code>&lt;input type="radio"&gt;</code></td>
+                    <td>Displays a radio button (for selecting one of many choices)</td> </tr>
+               <tr> <td><code>&lt;input type="checkbox"&gt;</code></td>
+                    <td>Displays a checkbox (for selecting zero or more of many choices)</td> </tr>
+               <tr> <td><code>&lt;input type="submit"&gt;</code></td>
+                    <td>Displays a submit button (for submitting the form)</td> </tr>
+               <tr> <td><code>&lt;input type="button"&gt;</code></td>
+                    <td>Displays a clickable button</td> </tr>
+      </table>
+
+      <section>
+        <h2>The HTML <code>&lt;form&gt;</code> Elements</h2>
+
+        <section id="text-fields">
+          <h3>Text Fields</h3>
+          <p>The &lt;input type="text"&gt; defines a single-line input field for text input.</p>
+          <p><strong>Example.</strong> a form with input fields for text:</p>
+          <pre>&lt;form&gt;
+  &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Last name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname"&gt;
+&lt;/form&gt;</pre>
+          <p><strong>Note:</strong> The form itself is not visible. Also note that the default width of an input field is 20 characters.</p>
+          <p>Ahis is how the HTML code above will be displayed in a browser:</p>
+          <div style="border-style: solid">
+<form>
+    <label for="fname">First name:</label><br/>
+    <input type="text" id="fname" name="fname"/><br/>
+    <label for="lname">Last name:</label><br/>
+    <input type="text" id="lname" name="lname"/>
+</form>
+          </div>
+        </section>
+        <section id="label">
+          <h3>The <code>&lt;label&gt;</code> Element</h3>
+          <p><strong>Notice</strong> the use of the <code>&lt;label&gt;</code> element in the example above.</p>
+          <p>The <code>&lt;label&gt;</code> tag defines a label for many form elements.</p>
+          <p>The <code>&lt;label&gt;</code> element is useful for screen-reader users, because the screen-reader will read out loud the label when the user focuses on the input element.</p>
+          <p>The <code>&lt;label&gt;</code> element also helps users who have difficulty clicking on very small regions (such as radio buttons or checkboxes) - because when the user clicks the text within the <code>&lt;label&gt;</code> element, it toggles the radio button/checkbox.</p>
+          <p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the <code>&lt;input&gt;</code> element to bind them together.</p>
+        </section>
+        <section id="radio">
+          <h3>Radio Buttons</h3>
+          <p>The <code>&lt;input type="radio"&gt;</code> defines a radio button.</p>
+          <p>Radio buttons let a user select ONE of a limited number of choices.</p>
+          <p><strong>Example.</strong> A form with radio buttons:</p>
+          <pre>&lt;p&gt;Choose your favorite Web language:&lt;/p&gt;
+&lt;form&gt;
+  &lt;input type="radio" id="html" name="fav_language" value="HTML"/&gt;
+  &lt;label for="html"&gt;HTML&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="radio" id="css" name="fav_language" value="CSS"/&gt;
+  &lt;label for="css"&gt;CSS&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="radio" id="javascript" name="fav_language" value="JavaScript"/&gt;
+  &lt;label for="javascript"&gt;JavaScript&lt;/label&gt;
+&lt;/form&gt;</pre>
+          <p></p>
+          <div style="border-style: solid">
+          <p>Choose your favorite Web language:</p>
+<form>
+    <input type="radio" id="html" name="fav_language" value="HTML"/>
+    <label for="html">HTML</label><br/>
+    <input type="radio" id="css" name="fav_language" value="CSS"/>
+    <label for="css">CSS</label><br/>
+    <input type="radio" id="javascript" name="fav_language" value="JavaScript"/>
+    <label for="javascript">JavaScript</label>
+</form>
+          </div>
+        </section>
+
+        <section>
+          <h3>Checkboxes</h3>
+          <p>The <code>&lt;input type="checkbox"&gt;</code> defines a checkbox.</p>
+          <p>Checkboxes let a user select ZERO or MORE options of a limited number of choices.</p>
+          <p><strong>Example</strong> A form with checkboxes:</p>
+          <pre>&lt;form&gt;
+  &lt;input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/&gt;
+  &lt;label for="vehicle1"&gt; I have a bike&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="checkbox" id="vehicle2" name="vehicle2" value="Car"/&gt;
+  &lt;label for="vehicle2"&gt; I have a car&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/&gt;
+  &lt;label for="vehicle3"&gt; I have a boat&lt;/label&gt;
+&lt;/form&gt;</pre>
+          <p>This is how the HTML code above will be displayed in a browser:</p>
+          <div style="border-style: solid">
+<form>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
+    <label for="vehicle1"> I have a bike</label><br/>
+    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"/>
+    <label for="vehicle2"> I have a car</label><br/>
+    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
+    <label for="vehicle3"> I have a boat</label>
+</form>
+          </div>
+        </section>
+
+        <section id="select">
+          <h3>The <code>&lt;select&gt;</code> Element</h3>
+          <p>The <code>&lt;select&gt;</code> element defines a drop-down list.</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+&lt;select id="cars" name="cars"&gt;
+  &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+  &lt;option value="saab"&gt;Saab&lt;/option&gt;
+  &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+  &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;</pre>
+          <p>The &lt;option&gt; element defines an option that can be selected. By default, the first item in the drop-down list is selected. To define a pre-selected option, add the <code>selected</code> attribute to the option:</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;option value="fiat" selected&gt;Fiat&lt;/option&gt;</pre>
+          <h4>Visible Values</h4>
+          <p>Use the <code>size</code> attribute to specify the number of visible values:</p>
+<pre>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+&lt;select id="cars" name="cars" size="3"&gt;
+  &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+  &lt;option value="saab"&gt;Saab&lt;/option&gt;
+  &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+  &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;</pre>
+          <h4>Allow Multiple Selections:</h4>
+          <p>Use the <code>multiple</code> attribute to allow the user to select more than one value:</p>
+<pre>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+&lt;select id="cars" name="cars" size="4" multiple&gt;
+  &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+  &lt;option value="saab"&gt;Saab&lt;/option&gt;
+  &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+  &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;</pre>
+        </section>
+
+        <section id="textarea">
+          <h3>The &lt;textarea&gt; Element</h3>
+          <p>The &lt;textarea&gt; element defines a multi-line input field (a text area):</p>
+          <pre>&lt;textarea name="message" rows="10" cols="30"&gt;
+The cat was playing in the garden.
+&lt;/textarea&gt;</pre>
+          <p>The <code>rows</code> attribute specifies the visible number of lines in a text area. The <code>cols</code> attribute specifies the visible width of a text area.</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;textarea name="message" style="width:200px; height:600px;"&gt;
+The cat was playing in the garden.
+&lt;/textarea&gt;</pre>
+          <p>This will be displayed as:</p>
+<textarea name="message" style="width:200px; height:600px;">
+The cat was playing in the garden.
+</textarea>
+        </section>
+
+        <section id="button">
+          <h3>The &lt;button&gt; Element*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="fieldset-and-legend">
+          <h3>The &lt;fieldset&gt; and &lt;legend&gt; Elements</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="datalist">
+          <h3>The &lt;datalist&gt; Element*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="output">
+          <h3>The &lt;output&gt; Element*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+
+        <section>
+          <h3>The Submit Button</h3>
+          <p>The <code>&lt;input type="submit"&gt;</code> defines a button for submitting the form data to a form-handler. The form-handler is typically a file on the server with a script for processing input data. The form-handler is specified in the form&apos;s <code>action</code> attribute.</p>
+          <p><strong>Example</strong> A form with a submit button:</p>
+          <pre>&lt;form action="/action_page.php"/&gt;
+  &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="text" id="fname" name="fname" value="John"&gt;&lt;br/&gt;
+  &lt;label for="lname"&gt;Last name:&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="text" id="lname" name="lname" value="Doe"&gt;&lt;br&gt;&lt;br/&gt;
+  &lt;input type="submit" value="Submit"/&gt;
+&lt;/form&gt;</pre>
+          <p>This is how the HTML code above will be displayed in a browser:</p>
+          <div style="border-style: solid">
+<form action="/action_page.php">
+    <label for="fname">First name:</label><br/>
+    <input type="text" id="fname" name="fname" value="John"/><br/>
+    <label for="lname">Last name:</label><br/>
+    <input type="text" id="lname" name="lname" value="Doe"/><br/>
+    <input type="submit" value="Submit"/>
+</form>
+          </div>
+        </section>
+        <section>
+          <h3>The Name Attribute for &lt;input&gt;</h3>
+          <p>Notice that each input field must have a name attribute to be submitted. If the name attribute is omitted, the value of the input field will not be sent at all.</p>
+          <p><strong>Example</strong> This example will not submit the value of the <cite>First name</cite> input field:</p>
+          <pre>&lt;form action="/action_page.php"&gt;
+  &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br/&gt;
+  &lt;input type="text" id="fname" value="John"&gt;&lt;br/&gt;&lt;br/&gt;
+  &lt;input type="submit" value="Submit"/&gt;
+&lt;/form&gt;</pre>
+        </section>
+
+      </section>
+
+
+
+
+
+
+      <section>
+        <h2>HTML Form Attributes*</h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <!--
+      <section>
+        <h2></h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2></h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2></h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2></h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
