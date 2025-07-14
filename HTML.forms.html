@@ -27,6 +27,7 @@
       -->
       <div>
         <p><a rel="prev" href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
+        <p><a rel="next" href="HTML.forms.processing.html">Processing HTML Forms (Locally Through JavaScript)</a></p>
         <p><a href="HTML.tips-and-tricks.html">HTML Tips and Tricks</a></p>
         <p><a href="HTML.details-summary.html">&lt;details&gt; and &lt;summary&gt; to Show/Hide Content</a></p>
         <p><a href="HTML.code.html">HTML Computer Code Elements</a></p>
@@ -38,7 +39,8 @@
 
     <main>
       <h1>HTML Forms</h1>
-      <p>An HTML form is used to collect user input. The user input is most often sent to a server for processing. Input might be processed locally through <a target="_blank" href="js.html">JavaScript</a>.</p>
+      <p>An <dfn>HTML form</dfn> is an HTML element that allows users to enter and submit data to a website/server or to an application. Input might be processed locally through <a target="_blank" href="js.html">JavaScript</a>.</p>
+      <hr/>
       <p>The HTML <code>&lt;form&gt;</code> element is used to create an HTML form for user input:</p>
       <pre>&lt;form&gt;
 .
@@ -202,41 +204,98 @@ The cat was playing in the garden.
         </section>
 
         <section id="button">
-          <h3>The &lt;button&gt; Element*</h3>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <h3>The &lt;button&gt; Element</h3>
+          <p>The &lt;button&gt; element defines a clickable button.</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;button type="button" onclick="alert('Hello World!')"&gt;Click Me!&lt;/button&gt;</pre>
+          <p>This is how the HTML code above will be displayed in a browser:</p>
+<button type="button" onclick="alert('Hello World!')">Click Me!</button>
+          <p><strong>Note:</strong> Always specify the type attribute for the button element. Different browsers may use different default types for the button element.</p>
         </section>
 
         <section id="fieldset-and-legend">
           <h3>The &lt;fieldset&gt; and &lt;legend&gt; Elements</h3>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <p>The &lt;fieldset&gt; element is used to group related data in a form. The &lt;legend&gt; element defines a caption for the &lt;fieldset&gt; element.</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;form action="/action_page.php"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Personalia:&lt;/legend&gt;
+    &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br/&gt;
+    &lt;input type="text" id="fname" name="fname" value="John"&gt;&lt;br/&gt;
+    &lt;label for="lname"&gt;Last name:&lt;/label&gt;&lt;br/&gt;
+    &lt;input type="text" id="lname" name="lname" value="Doe"&gt;&lt;br&gt;&lt;br/&gt;
+    &lt;input type="submit" value="Submit"/&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</pre>
+          <p>This is how the HTML code above will be displayed in a browser:</p>
+<form action="/action_page.php">
+  <fieldset>
+    <legend>Personalia:</legend>
+    <label for="fname">First name:</label><br/>
+    <input type="text" id="fname" name="fname" value="John"/><br/>
+    <label for="lname">Last name:</label><br/>
+    <input type="text" id="lname" name="lname" value="Doe"/><br/><br/>
+    <input type="submit" value="Submit"/>
+  </fieldset>
+</form>
         </section>
 
         <section id="datalist">
-          <h3>The &lt;datalist&gt; Element*</h3>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <h3>The &lt;datalist&gt; Element</h3>
+          <p>The &lt;datalist&gt; element specifies a list of pre-defined options for an &lt;input&gt; element. Users will see a drop-down list of the pre-defined options as they input data. The <code>list</code> attribute of the &lt;input&gt; element, must refer to the <code>id</code> attribute of the &lt;datalist&gt; element.</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;form action="/action_page.php"&gt;
+  &lt;input list="browsers"/&gt;
+  &lt;datalist id="browsers"&gt;
+    &lt;option value="Edge"/&gt;
+    &lt;option value="Firefox"/&gt;
+    &lt;option value="Chrome"/&gt;
+    &lt;option value="Opera"/&gt;
+    &lt;option value="Safari"/&gt;
+  &lt;/datalist&gt;
+&lt;/form&gt;</pre>
+          <p>And this is how the HTML code above will be displayed in a browser:</p>
+<form action="/action_page.php">
+  <input list="browsers"/>
+  <datalist id="browsers">
+    <option value="Edge"/>
+    <option value="Firefox"/>
+    <option value="Chrome"/>
+    <option value="Opera"/>
+    <option value="Safari"/>
+  </datalist>
+</form>
         </section>
 
         <section id="output">
-          <h3>The &lt;output&gt; Element*</h3>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <h3>The &lt;output&gt; Element</h3>
+          <p>The &lt;output&gt; element represents the result of a calculation (like one performed by a script).</p>
+          <p><strong>Example</strong></p>
+          <p>Perform a calculation and show the result in an &lt;output&gt; element:</p>
+          <pre>&lt;form action="/action_page.php"
+  oninput="x.value=parseInt(a.value)+parseInt(b.value)"&gt;
+  0
+  &lt;input type="range"  id="a" name="a" value="50"/&gt;
+  100 +
+  &lt;input type="number" id="b" name="b" value="50"/&gt;
+  =
+  &lt;output name="x" for="a b"&gt;&lt;/output&gt;
+  &lt;br/&gt;&lt;br/&gt;
+  &lt;input type="submit"/&gt;
+&lt;/form&gt;</pre>
+          <p>This is how the HTML code above will be displayed in a browser:</p>
+<form action="/action_page.php"
+  oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+  0
+  <input type="range"  id="a" name="a" value="50"/>
+  100 +
+  <input type="number" id="b" name="b" value="50"/>
+  =
+  <output name="x" for="a b"></output>
+  <br/><br/>
+  <input type="submit"/>
+</form>
         </section>
-
 
         <section>
           <h3>The Submit Button</h3>
@@ -274,10 +333,6 @@ The cat was playing in the garden.
       </section>
 
 
-
-
-
-
       <section>
         <h2>HTML Form Attributes*</h2>
         <pre></pre>
@@ -287,9 +342,11 @@ The cat was playing in the garden.
         <pre></pre>
       </section>
 
+
       <!--
+
       <section>
-        <h2></h2>
+        <h2>*</h2>
         <pre></pre>
         <p></p>
         <pre></pre>

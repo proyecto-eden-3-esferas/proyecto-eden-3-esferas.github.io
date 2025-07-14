@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTML versus XHTML</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="HTML versus XHTML"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="xml.en.html">XML: The eXtensible Markup Language</a></p>
+        <p><a rel="prev" href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
+      </div>
+      <div>
+        <p><a href="HTML.meta.html">Metadata in HTML: the &lt;meta&gt; Element</a></p>
+        <p><a href="HTML.head.html">The HTML &lt;head&gt; Element</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>HTML versus XHTML</h1>
+      <p>XHTML stands for EXtensible HyperText Markup Language. It is a stricter, more XML-based version of HTML.</p>
+      <p>XHTML is HTML defined as an XML application.</p>
+      <p>XHTML is supported by all major browsers</p>
+      <p>XHTML was developed to make HTML more extensible and flexible to work with other data formats (such as XML). Besides, browsers ignore errors in HTML pages, and try to display the website even if it has some errors in the markup. Not so with XHTML.</p>
+      <section id="differences">
+        <h2>The Most Important Differences from HTML</h2>
+        <ul>
+          <li>&lt;!DOCTYPE&gt; is mandatory</li>
+          <li>The xmlns attribute in &lt;html&gt; is mandatory</li>
+          <li>&lt;html&gt;, &lt;head&gt;, &lt;title&gt;, and &lt;body&gt; are mandatory</li>
+          <li>Elements must always be properly nested</li>
+          <li>Elements must always be closed</li>
+          <li>Elements must always be in lowercase</li>
+          <li>Attribute names must always be in lowercase</li>
+          <li>Attribute values must always be quoted</li>
+          <li>Attribute minimization is forbidden</li>
+        </ul>
+      </section>
+      <section id="example">
+        <h2>An Example</h2>
+        <pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+  &lt;title&gt;Title of document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  some content here...
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        <p>[...]</p>
+      </section>
+    </main>
+
+  </body>
+
+</html>

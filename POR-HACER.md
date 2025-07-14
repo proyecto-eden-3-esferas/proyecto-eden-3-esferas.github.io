@@ -65,6 +65,8 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://www.almanac.com/gardening/pests-and-diseases
 - https://www.almanac.com/what-hugelkultur-ultimate-raised-bed
 
+- https://www.w3schools.com/html/html_form_elements.asp
+
 # Some useful `jq` code snippets
 
 
