@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Strings</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript Strings"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a rel="next" href="js.regexp.html">JavaScript Regular Expressions</a></p>
+      </div>
+      <div>
+        <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>JavaScript Strings</h1>
+      <p>...</p>
+
+      <section>
+        <h2>UTF-16</h2>
+        <p>JavaScript strings are encoded as a sequence of 16-bit numbers. These are called <dfn>code units</dfn>. A Unicode character code was initially supposed to fit within such a unit (which gives you a little over 65,000 characters). When it became clear that wasn&apos;t going to be enough, many people balked at the need to use more memory per character. To address these concerns, UTF-16, the format also used by JavaScript strings, was invented. It describes most common characters using a single 16-bit code unit but uses a pair of two such units for others.</p>
+        <p>UTF-16 is generally considered a bad idea today. It seems almost intentionally designed to invite mistakes. It&apos;s easy to write programs that pretend code units and characters are the same thing. And if your language doesn&apos;t use two-unit characters, that will appear to work just fine. But as soon as someone tries to use such a program with some less common Chinese characters, it breaks. Fortunately, with the advent of emoji, everybody has started using two-unit characters, and the burden of dealing with such problems is more fairly distributed.</p>
+        <p>JavaScript&apos;s <code>charCodeAt</code> method gives you a code unit, not a full character code. The <code>codePointAt</code> method, added later, does give a full Unicode character, so we could use that to get characters from a string. But the argument passed to <code>codePointAt</code> is still an index into the sequence of code units. To run over all characters in a string, we&apos;d still need to deal with the question of whether a character takes up one or two code units.</p>
+      </section>
+
+      <section id="toString">
+        <h2><code>toString()</code></h2>
+        <p>When you call the <code>String(<var>OBJ</var>)</code> function (which converts a value to a string) on an object, it will call the <code>toString()</code> method on that object to try to create a meaningful string from it.</p>
+        <p>Some of the standard prototypes define their own version of <code>toString</code> so they can create a string that contains more useful information than <q>[object Object]</q>. You can also do that yourself.</p>
+        <pre>Rabbit.prototype.toString = function() {
+return `a ${this.type} rabbit`;
+};</pre>
+        <p>which you can use as follows:</p>
+        <pre>console.log(String(killerRabbit));
+// → a killer rabbit</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

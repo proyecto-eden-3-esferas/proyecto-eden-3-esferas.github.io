@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Higher-Order Functions</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Higher-Order Functions in JavaScript: Array.forEach, filter, map, reduce..."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+      </div>
+      <div>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Higher-Order Functions</h1>
+      <p>Higher-order function are functions that operate on other functions, either by taking them as arguments or by returning them. Given that functions in JavaScript are regular values, there is nothing particularly remarkable about the fact that such functions exist.</p>
+      <p>The term comes from mathematics, where the distinction between functions and other values is taken more seriously.</p>
+
+      <section>
+        <h2>Some Common Cases</h2>
+        <p>We can pass an action to be repeated <var>n</var> times as a function value:</p>
+        <pre>function repeat(n, action) {
+  for (let i = 0; i &lt; n; i++)
+    action(i);
+}</pre>
+        <p>which could be called for instance like this:</p>
+        <pre>repeat(3, console.log);</pre>
+        <p>We don&apos;t have to pass a predefined function to repeat. Often, it is easier to create a function value on the spot instead</p>
+        <pre>let labels = [];
+
+repeat(5, i =&gt;{
+labels.push(`Unit ${i + 1}`);
+});
+
+console.log(labels);
+// → ["Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5"]</pre>
+
+        <p>We can have functions that create new functions.</p>
+        <pre>function greaterThan(n) { return m =&gt; m &gt; n;
+}
+
+let greaterThan10 = greaterThan(10);
+
+console.log(greaterThan10(11));
+// → true</pre>
+
+        <p>We can also have functions that change other functions:</p>
+        <pre>function noisy(f) {
+  return (...args) =&gt; {
+    console.log("calling with", args);
+    let result = f(...args);
+    console.log("called with", args, ", returned", result);
+    return result;
+  };
+}
+
+noisy(Math.min) (3, 2, 1);
+// → calling with [3, 2, 1]
+// → called with [3, 2, 1] , returned 1</pre>
+
+        <p>We can even write functions that provide new types of control flow:</p>
+        <pre>function unless(test, then) {
+  if (!test) then();
+}
+
+repeat(3, n =&gt; {
+  unless(n % 2 == 1, () =&gt; {
+    console.log(n, "is even");
+  });
+});
+// → 0 is even
+// → 2 is even</pre>
+
+
+        <aside>
+          <p>There is a built-in array method, forEach, that provides something like a for/of loop as a higher-order function:</p>
+          <pre>["A", "B"].forEach(l =&gt; console.log(l));
+// → A
+// → B</pre>
+        </aside>
+      </section>
+
+      <section id="filter">
+        <h2>Filtering</h2>
+        <p><code>Array.filter(<var>FILTER_FUNCTION</var>)</code> is a built-in function that returns an array with only the elements that have passed the filter function. <var>FILTER_FUNCTION</var> is a function that takes an argument and returns either <code>true</code> or <code>false</code>.</p>
+        <p>Given an array (<var>People</var>) of persong objects, we could use <code>Array.filter()</code> like this to produce another array of elderly people:</p>
+        <pre>console.log(People.filter(e => e.age &gt;= 60));</pre>
+        <aside>
+          <p>We could implement our own filter function much like this:</p>
+          <pre>function filter(array, test) {
+  let passed = [];
+  for (let element of array) {
+    if (test(element))
+      passed.push(element);
+  } // for
+  return passed;
+}</pre>
+          <p>and go on to use it like this:</p>
+          <pre>console.log(filter(People, p => p.age &gt;= 20));
+// → [{name: "Adlam", ...}, ...]</pre>
+        </aside>
+      </section>
+
+      <section id="map">
+        <h2>Transforming with <code>map()</code></h2>
+        <p>Say we have an array of objects representing people, produced by filtering the people array somehow (those aged 60 or older, for instance). We want an array of personal names instead, which is easier to inspect.</p>
+        <p>The <code>map</code> method transforms an array by applying a function to all of its elements and building a new array from the returned values. The new array will have the same length as the input array, but its content will have been mapped to a new form by the function.</p>
+        <p>Like <code>forEach</code> and <code>filter</code>, <code>map</code> is a standard array method.</p>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <aside>
+          <p>Again, we could code our own version of <code>map()</code> like so:</p>
+          <pre>function map(array, transform) {
+  let mapped = [];
+  for (let element of array) {
+    mapped.push(transform(element));
+  }
+  return mapped;
+}</pre>
+          <p>And then use it like so:</p>
+          <pre>let Elderly = People.filter(p =&gt; p.age &gt;= 60);
+console.log(map(Elderly, p =&gt; p.name));
+// → ["Anne Junior", "Granny", ...]</pre>
+        </aside>
+      </section>
+
+      <section id="reduce">
+        <h2>Summarizing with <code>reduce()</code></h2>
+        <p>Another common thing to do with arrays is to compute a single value from them. Our recurring example, summing a collection of numbers, is an instance of this. Another example is finding the eldest person in an array of people.</p>
+        <p>The higher-order operation that represents this pattern is called <dfn>reduce</dfn> (sometimes also called <dfn>fold</dfn>). It builds a value by repeatedly taking a single element from the array and combining it with the current value. When summing numbers, you&apos;d start with the number zero and, for each element, add that to the sum.</p>
+        <pre>reduce(<var>callbackFn</var>)
+reduce(<var>callbackFn</var>, <var>initialValue</var>)</pre>
+        <p>The parameters to reduce are, apart from the array, a combining function and a start value. This function is a little less straightforward than <code>filter</code> and <code>map</code>, so take a close look at a plausible implementation:</p>
+        <pre>function reduce(array, combine, start) {
+  let current = start;
+  for (let element of array) {
+    current = combine(current, element);
+  }
+  return current;
+}</pre>
+        <p>which we might apply like so:</p>
+        <pre>console.log(reduce([1, 2, 3, 4], (a, b) =&gt; a +b, 0));
+// → 10</pre>
+        <p>There is indeed a standard array method <code>Array.reduce</code>, which of course corresponds to this function. Moreover, it has an added convenience: if your array contains at least one element, you are allowed to leave off the start argument. The method will take the first element of the array as its start value and start reducing at the second element.</p>
+        <p>An example of usage:</p>
+        <pre>console.log([1, 2, 3, 4].reduce((a, b) =&gt; a + b));
+// → 10</pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+
+
+      <section>
+        <h2>Composability*</h2>
+        <p>...</p>
+        <pre>Peple.filter(p => p.age &gt;= 60).map(p => p.name)</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

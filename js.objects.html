@@ -61,9 +61,10 @@ Object.values(<var>object</var>)
 // Groups object elements according to a function
 Object.groupBy(<var>object</var>, <var>callback</var>)</pre>
 
-        <h3><code>Object.assign()</code></h3>
-        <p>The <code>Object.assign()</code> method copies properties from one or more source objects to a target object.</p>
-        <pre>// Create Target Object
+        <section>
+          <h3><code>Object.assign()</code></h3>
+          <p>The <code>Object.assign()</code> method copies properties from one or more source objects to a target object.</p>
+          <pre>// Create Target Object
 const person1 = {
   firstName: "John",
   lastName: "Doe",
@@ -76,12 +77,13 @@ const person2 = {firstName: "Anne",lastName: "Smith"};
 
 // Assign Source to Target
 Object.assign(person1, person2);</pre>
-
-        <h3><code>Object.entries()</code></h3>
-        <p>ECMAScript 2017 added the Object.entries() method to objects.</p>
-        <p><code>Object.entries()</code> returns an array of the key/value pairs in an object:</p>
-        <p class="bridgehead">Example</p>
-        <pre>const person = {
+        </section>
+        <section>
+          <h3><code>Object.entries()</code></h3>
+          <p>ECMAScript 2017 added the Object.entries() method to objects.</p>
+          <p><code>Object.entries()</code> returns an array of the key/value pairs in an object:</p>
+          <p class="bridgehead">Example</p>
+          <pre>const person = {
   firstName : "John",
   lastName : "Doe",
   age : 50,
@@ -89,35 +91,38 @@ Object.assign(person1, person2);</pre>
 };
 
 let text = Object.entries(person);</pre>
-        <p>Object.entries() makes it simple to use objects in loops:</p>
-        <p class="bridgehead">Example</p>
-        <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
+          <p>Object.entries() makes it simple to use objects in loops:</p>
+          <p class="bridgehead">Example</p>
+          <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
 
 let text = "";
 for (let [fruit, value] of Object.entries(fruits)) {
   text += fruit + ": " + value + "&lt;br&gt;";
 }</pre>
-        <p>Object.entries() also makes it simple to convert objects to maps:</p>
-        <p class="bridgehead">Example</p>
-        <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
+          <p>Object.entries() also makes it simple to convert objects to maps:</p>
+          <p class="bridgehead">Example</p>
+          <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
 
 const myMap = new Map(Object.entries(fruits));</pre>
-        <p><code>Object.entries()</code> is supported in all modern browsers since March 2017:</p>
-
-        <h3><code>Object.fromEntries()</code></h3>
-        <p>The <code>fromEntries()</code> method creates an object from a list of key/value pairs.</p>
-        <p class="bridgehead">Example</p>
-        <pre>const fruits = [
+          <p><code>Object.entries()</code> is supported in all modern browsers since March 2017:</p>
+        </section>
+        <section>
+          <h3><code>Object.fromEntries()</code></h3>
+          <p>The <code>fromEntries()</code> method creates an object from a list of key/value pairs.</p>
+          <p class="bridgehead">Example</p>
+          <pre>const fruits = [
   ["apples", 300],
   ["pears", 900],
   ["bananas", 500]
 ];
 
 const myObj = Object.fromEntries(fruits);</pre>
-        <h3><code>Object.values()</code></h3>
-        <p><code>Object.values()</code> is similar to Object.entries(), but returns a single dimension array of the object values:</p>
-        <p class="bridgehead">Example</p>
-        <pre>const person = {
+        </section>
+        <section>
+          <h3><code>Object.values()</code></h3>
+          <p><code>Object.values()</code> is similar to Object.entries(), but returns a single dimension array of the object values:</p>
+          <p class="bridgehead">Example</p>
+          <pre>const person = {
   firstName : "John",
   lastName : "Doe",
   age : 50,
@@ -125,14 +130,15 @@ const myObj = Object.fromEntries(fruits);</pre>
 };
 
 let text = Object.values(person);</pre>
-        <p><code>Object.values()</code> is supported in all modern browsers since March 2017:</p>
-
-        <h3><code>Object.groupBy()</code></h3>
-        <p>ES2024 added the Object.groupBy() method to JavaScript.</p>
-        <p>The Object.groupBy() method groups elements of an object according to string values returned from a callback function.</p>
-        <p>The <code>Object.groupBy()</code> method does not change the original object.</p>
-        <p class="bridgehead">Example</p>
-        <pre>// Create an Array
+          <p><code>Object.values()</code> is supported in all modern browsers since March 2017:</p>
+        </section>
+        <section>
+          <h3><code>Object.groupBy()</code></h3>
+          <p>ES2024 added the Object.groupBy() method to JavaScript.</p>
+          <p>The Object.groupBy() method groups elements of an object according to string values returned from a callback function.</p>
+          <p>The <code>Object.groupBy()</code> method does not change the original object.</p>
+          <p class="bridgehead">Example</p>
+          <pre>// Create an Array
 const fruits = [
   {name:"apples", quantity:300},
   {name:"bananas", quantity:500},
@@ -147,27 +153,103 @@ function myCallback({ quantity }) {
 
 // Group by Quantity
 const result = Object.groupBy(fruits, myCallback);</pre>
-        <p></p>
-        <pre></pre>
-        <h3><code></code></h3>
-        <p></p>
-        <pre></pre>
-        <h3><code></code></h3>
-        <p></p>
-        <pre></pre>
-        <h3><code></code></h3>
-        <p></p>
-        <pre></pre>
-        <h3><code></code></h3>
-        <p></p>
-        <pre></pre>
-        <h3><code></code></h3>
-        <p></p>
-        <pre></pre>
+        </section>
+        <section>
+          <h3>Getters, Setters, and Statics</h3>
+          <p>Interfaces often contain plain properties, not just methods. For example, <code>Map</code> objects have a size property that tells you how many keys are stored in them.</p>
+          <p>It is not necessary for such an object to compute and store such a property directly in the instance. Even properties that are accessed directly may hide a method call. Such methods are called <dfn>getters</dfn> and are defined by writing <code>get</code> in front of the method name in an object expression or class declaration.</p>
+          <pre>let varyingSize = {
+  get size() {
+    return Math.floor(Math.random() * 100);
+  }
+};
+
+console.log(varyingSize.size);
+// → 73
+console.log(varyingSize.size);
+// → 49</pre>
+          <p>Whenever someone reads from this object&apos;s size property, the associated method is called. You can do a similar thing when a property is written to, using a <dfn>setter</dfn>, which is preceded by keyword <code>set</code>.</p>
+          <pre>class Temperature {
+  constructor(celsius) {
+    this.celsius = celsius;
+  }
+  get fahrenheit() {
+    return this.celsius * 1.8 + 32;
+  }
+  set fahrenheit(value) {
+    this.celsius = (value - 32) / 1.8;
+  }
+
+  static fromFahrenheit(value) {
+    return new Temperature((value - 32) / 1.8);
+  }
+}
+
+let temp = new Temperature(22);
+console.log(temp.fahrenheit);
+// → 71.6
+temp.fahrenheit = 86;
+console.log(temp.celsius);
+// → 30</pre>
+          <p>The <code>Temperature</code> class allows you to read and write the temperature in either degrees Celsius or degrees Fahrenheit, but internally it stores only Celsius and automatically converts to and from Celsius in the fahrenheit getter and setter.</p>
+
+          <p>Sometimes you want to attach some properties directly to your constructor function rather than to the prototype. Such methods won&apos;t have access to a class instance but can, for example, be used to provide additional ways to create instances.</p>
+          <p>Inside a class declaration, methods or properties that have <code>static</code> written before their name are stored on the constructor. For example, the Temperature class allows you to write <code>Temperature.fromFahrenheit(100)</code> to create a temperature using degrees Fahrenheit.</p>
+          <pre>let boil = Temperature.fromFahrenheit(212);
+  console.log(boil.celsius);
+// → 100</pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+        </section>
       </section>
+
       <section id="properties">
         <h2>Object Properties</h2>
+        <section>
+          <h3>Overriding Derived Properties</h3>
+          <p>When you add a property to an object, whether it is present in the prototype or not, the property is added to the object itself. If there was already a property with the same name in the prototype, this property will no longer affect the object, as it is now hidden behind the object&apos;s own property.</p>
+        </section>
+        <section id="private-properties">
+          <h3>Private Properties</h3>
+          <p>It is common for classes to define some properties and methods for internal use that are not part of their interface. These are called private properties, as opposed to public ones, which are part of the object&apos;s external interface.</p>
+          <p>To declare a private method, put a # sign in front of its name. Such methods can be called only from inside the class declaration that defines them.</p>
+        </section>
       </section>
+
       <section id="get-set">
         <h2>Object Get / Set</h2>
       </section>
