@@ -25,6 +25,7 @@
         <p><a            href="js.strings.html">JavaScript Strings</a></p>
         <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a            href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
       </div>
       <div>
         <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
@@ -37,6 +38,44 @@
     <main>
       <h1>JavaScript: the Web Programming Language</h1>
 
+      <section id="data-types">
+        <h2>JavaScript Data Types</h2>
+        <section id="symbols">
+          <h3>Symbols</h3>
+          <p><dfn>Symbols</dfn> are values created with the <code>Symbol(<var>STRING</var>)</code> function. Unlike strings, newly created symbols are unique—you cannot create the same symbol twice.</p>
+          <p>What&apos;s the use of symbols? It is also possible to use symbols as property names.</p>
+          <p>Here&apos;s an example:</p>
+          <pre>let sym = Symbol("name");
+console.log(sym == Symbol("name"));
+// → false
+Rabbit.prototype[sym] = 55;
+console.log(killerRabbit[sym]);
+// → 55</pre>
+          <p>The string you pass to <code>Symbol(...)</code> is included when you convert it to a string and can make it easier to recognize a symbol when, for example, showing it in the console. But it has no meaning beyond that—multiple symbols may have the same name.</p>
+          <p>Being both unique and usable as property names makes symbols suitable for defining interfaces that can peacefully live alongside other properties, no matter what their names are.</p>
+          <pre>const length = Symbol("length");
+Array.prototype[length] = 0;
+
+console.log([1, 2].length);
+// → 2
+console.log([1, 2][length]);
+// → 0</pre>
+          <p>It is possible to include symbol properties in object expressions and classes by using square brackets around the property name. That causes the expression between the brackets to be evaluated to produce the property name, analogous to the square bracket property access notation.</p>
+          <pre>let myTrip = {
+  length: 2,
+  0: "Lankwitz",
+  1: "Babelsberg",
+  [length]: 21500
+};
+
+console.log(myTrip[length], myTrip.length);
+// → 21500 2</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
       <section id="regex">
         <h2>JavaScript Regular Expressions</h2>
         <p><a target="_blank" href="regexp.html">Regular expressions</a> are patterns used to match character combinations in strings. In JavaScript, regular expressions are also objects. These patterns are used with the <code class="method">exec()</code> and <code class="method">test()</code> methods of <code>RegExp</code>, and with the <code class="method">match()</code>, <code class="method">matchAll()</code>, <code class="method">replace()</code>, <code class="method">replaceAll()</code>, <code class="method">search()</code>, and <code class="method">split()</code> methods of <code>String</code>.</p>

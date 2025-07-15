@@ -87,6 +87,13 @@ all:
 	      <li>When used in "replacing" mode, it takes the stem that was matched and replaces that in a string.</li>
         </ul>
         <p><code>%</code> is most often used in rule definitions and in some specific functions.</p>
+        <hr/>
+        <p>Besides, <var>%</var> may be referenced inside commands by means of <code>$*</code>. The following <code>make</code> rule defines a JavaScript rule for defining a variable (% or $*, as you choose) as the whole contents of file <cite><var>WHATEVER</var>.array.json</cite>, a JSON array actually.</p>
+        <pre>%.array.js: %.array.json
+	echo "\nlet $(ARRAY_PREFIX)$*$(ARRAY_SUFFIX) = " > $@
+	cat            $&lt;       >> $@
+	echo ";\n"              >> $@</pre>
+        <p>...</p>
       </section>
 
       <section>

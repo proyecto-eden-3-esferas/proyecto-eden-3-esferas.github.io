@@ -72,6 +72,10 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write scripts for saving and generating
+
+[ ] bring in *~/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files$ kate js.assorted.html* when this interactive file is ready.
+
 [ ] escribir sobre faltarle a uno algo y necesitar algo
 
 [ ] write *fungi-in-soil.html*, or as a section

@@ -35,9 +35,49 @@
       <section id="definitions">
         <h2>Object Definitions</h2>
       </section>
+
       <section id="prototypes">
         <h2>Object Prototypes</h2>
       </section>
+
+      <section id="inheritance">
+        <h2>Inheritance</h2>
+        <p>JavaScript&apos;s prototype system makes it possible to create a new class, much like the old class, but with new definitions for some of its properties. The prototype for the new class derives from the old prototype but adds a new definition for, say, the length getter.</p>
+        <p>In object-oriented programming terms, this is called <dfn>inheritance</dfn>. The new class inherits properties and behavior from the old class.</p>
+        <pre>class LengthList extends List {
+#length;
+
+  constructor(value, rest) {
+    super(value, rest);
+    this.#length = super.length;
+  }
+
+  get length() {
+    return this.#length;
+  }
+}
+
+console.log(LengthList.fromArray([1, 2, 3]).length);
+// → 3</pre>
+        <p>The use of the word <code>extends</code> indicates that this class shouldn&apos;t be directly based on the default <code>Object</code> prototype but on some other class. This is called the <dfn>superclass</dfn>. The derived class is the <dfn>subclass</dfn>.</p>
+        <p>To initialize a <var>LengthList</var> instance, the constructor calls the constructor of its superclass through the <code>super</code> keyword. This is necessary because if this new object is to behave (roughly) like a <strong>List</strong>, it is going to need the instance properties that lists have.</p>
+        <p>The constructor then stores the list&apos;s length in a private property (<code>#length</code>). If we had written <code>this.length</code> there, the class&apos;s own getter would have been called, which doesn&apos;t work yet, since #length hasn&apos;t been filled in yet. We can use <code>super.<var>something</var></code> to call methods and getters on the superclass&apos;s prototype, which is often useful.</p>
+        <section id="instanceof">
+          <h3>The <code>instanceof</code> Operator</h3>
+          <p>It is occasionally useful to know whether an object was derived from a specific class. For this, JavaScript provides a binary operator called <code>instanceof</code>.</p>
+          <pre>console.log(new LengthList(1, null) instanceof LengthList);
+// → true
+console.log(new LengthList(2, null) instanceof List);
+// → true
+console.log(new List(3, null) instanceof LengthList);
+// → false
+console.log([1] instanceof Array);
+// → true</pre>
+          <p>The operator will see through inherited types, so a LengthList is an instance of List. The operator can also be applied to standard constructors like Array.</p>
+          <p>Almost every object is an instance of Object.</p>
+        </section>
+      </section>
+
       <section id="methods">
         <h2>Object Methods</h2>
         <pre>// Copies properties from a source object to a target object
@@ -199,12 +239,21 @@ console.log(temp.celsius);
   console.log(boil.celsius);
 // → 100</pre>
         </section>
+
         <section>
-          <h3></h3>
-          <p></p>
+          <h3>Stringifying</h3>
+          <p>Use <code>JSON.stringify(<var>OBJECT</var>)</code></p>
           <pre></pre>
-          <p></p>
-          <pre></pre>
+          <hr/>
+          <p>Next, you can store your thus generated string in <strong>local storage</strong>, then retrieve it</p>
+          <pre>const myObj = {name: "John", age: 31, city: "New York"};
+const myJSON = JSON.stringify(myObj);
+localStorage.setItem("testJSON", myJSON);
+
+// Retrieving data:
+let text = localStorage.getItem("testJSON");
+let obj = JSON.parse(text);
+document.getElementById("demo").innerHTML = obj.name;</pre>
           <p></p>
           <pre></pre>
           <p></p>
@@ -253,9 +302,26 @@ console.log(temp.celsius);
       <section id="get-set">
         <h2>Object Get / Set</h2>
       </section>
+
       <section id="protection">
-        <h2>Object Protection</h2>
+        <h2>Object Protection*</h2>
       </section>
+
+      <section id="iterator-interface">
+        <h2>The Iterator Interface</h2>
+        <p>The object given to a for/of loop is expected to be <dfn>iterable</dfn>. This means it has a method named with the <code>Symbol.iterator</code> symbol (a <a target="_blank" href="js.html#symbols">symbol</a> value defined by the language, stored as a property of the <code>Symbol()</code> function).</p>
+        <p>When called, that method should return an object that provides a second interface, <code>iterator</code>. This is the actual thing that iterates. It has a <code>next()</code> method that returns the next result. That result should be an object with a <code>value</code> property that provides the next value, if there is one, and a <code>done</code> property, which should be <code>true</code> when there are no more results and <code>false</code> otherwise.</p>
+        <p>Note that the next, value, and done property names are plain strings, not symbols. Only <code>Symbol.iterator</code>, which is likely to be added to a lot of different objects, is an actual symbol.</p>
+        <p>We can directly use this interface ourselves, say, on a literal string:</p>
+        <pre>let okIterator = "OK"[Symbol.iterator]();
+console.log(okIterator.next());
+// → {value: "O", done: false}
+console.log(okIterator.next());
+// → {value: "K", done: false}
+console.log(okIterator.next());
+// → {value: undefined, done: true}</pre>
+      </section>
+
     </main>
 
   </body>
