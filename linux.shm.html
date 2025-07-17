@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Linux Operating System</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Linux /dev/shm/: a Shared Memory File Directory"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a            href="os.html">Operating Systems</a></p>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+      </div>
+      <div>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+        <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Linux <cite>/dev/shm/</cite>: a Shared Memory File Directory</h1>
+      <p><cite>/dev/shm</cite> is nothing but implementation of traditional shared memory concept. It is an efficient means of passing data between programs. One program will create a memory portion, which other processes (if permitted) can access. This will result into speeding up things on Linux.</p>
+      <p><cite>/dev/shm</cite> is intended to appear as a mounted file system, but one which uses virtual memory instead of a persistent storage device.</p>
+      <p>If you type the <code>mount</code> command you will see <cite>/dev/shm</cite> as a tempfs file system. Therefore, it is a file system, which keeps all files in virtual memory. Everything in tmpfs is temporary in the sense that no files will be created on your hard drive. If you unmount a tmpfs instance, everything stored therein is lost. By default almost all Linux distros configured to use <cite>/dev/shm</cite>.</p>
+      <section>
+        <h2>How do I restrict or modify size of /dev/shm permanently?</h2>
+        <p>You need to add or modify entry in /etc/fstab file so that system can read it after the reboot. Edit, /etc/fstab as a root user. Then append or modify <cite>/dev/shm</cite> entry as follows to set size to 2G:</p>
+        <pre>none      /dev/shm        tmpfs   defaults,size=2G        0 0</pre>
+        <p>Save and close the file. For the changes to take effect immediately remount <cite>/dev/shm:</cite></p>
+        <pre>mount -o remount /dev/shm</pre>
+        <p>Verify:</p>
+        <pre>df -h</pre>
+      </section>
+    </main>
+
+  </body>
+
+</html>

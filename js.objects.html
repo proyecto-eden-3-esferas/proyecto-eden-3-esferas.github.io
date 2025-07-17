@@ -119,9 +119,13 @@ const person2 = {firstName: "Anne",lastName: "Smith"};
 Object.assign(person1, person2);</pre>
         </section>
         <section>
-          <h3><code>Object.entries()</code></h3>
-          <p>ECMAScript 2017 added the Object.entries() method to objects.</p>
-          <p><code>Object.entries()</code> returns an array of the key/value pairs in an object:</p>
+          <h3><code>Object.keys(<var>OBJECT</var>)</code></h3>
+          <p>Returns an array of the keys to the properties as strings for objects and as natural numbers or indexes for arrays.</p>
+        </section>
+        <section>
+          <h3><code>Object.entries(<var>OBJECT</var>)</code></h3>
+          <p>ECMAScript 2017 added the Object.entries(<var>OBJECT</var>) method to objects.</p>
+          <p><code>Object.entries(<var>OBJECT</var>)</code> returns an array of the key/value pairs in an object:</p>
           <p class="bridgehead">Example</p>
           <pre>const person = {
   firstName : "John",
@@ -131,7 +135,7 @@ Object.assign(person1, person2);</pre>
 };
 
 let text = Object.entries(person);</pre>
-          <p>Object.entries() makes it simple to use objects in loops:</p>
+          <p>Object.entries(<var>OBJECT</var>) makes it simple to use objects in loops:</p>
           <p class="bridgehead">Example</p>
           <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
 
@@ -139,12 +143,12 @@ let text = "";
 for (let [fruit, value] of Object.entries(fruits)) {
   text += fruit + ": " + value + "&lt;br&gt;";
 }</pre>
-          <p>Object.entries() also makes it simple to convert objects to maps:</p>
+          <p>Object.entries(<var>OBJECT</var>) also makes it simple to convert objects to maps:</p>
           <p class="bridgehead">Example</p>
           <pre>const fruits = {Bananas:300, Oranges:200, Apples:500};
 
 const myMap = new Map(Object.entries(fruits));</pre>
-          <p><code>Object.entries()</code> is supported in all modern browsers since March 2017:</p>
+          <p><code>Object.entries(<var>OBJECT</var>)</code> is supported in all modern browsers since March 2017:</p>
         </section>
         <section>
           <h3><code>Object.fromEntries()</code></h3>
@@ -159,8 +163,8 @@ const myMap = new Map(Object.entries(fruits));</pre>
 const myObj = Object.fromEntries(fruits);</pre>
         </section>
         <section>
-          <h3><code>Object.values()</code></h3>
-          <p><code>Object.values()</code> is similar to Object.entries(), but returns a single dimension array of the object values:</p>
+          <h3><code>Object.values(<var>OBJECT</var>)</code></h3>
+          <p><code>Object.values(<var>OBJECT</var>)</code> is similar to Object.entries(<var>OBJECT</var>), but returns a single dimension array of the object values:</p>
           <p class="bridgehead">Example</p>
           <pre>const person = {
   firstName : "John",
@@ -170,7 +174,7 @@ const myObj = Object.fromEntries(fruits);</pre>
 };
 
 let text = Object.values(person);</pre>
-          <p><code>Object.values()</code> is supported in all modern browsers since March 2017:</p>
+          <p><code>Object.values(<var>OBJECT</var>)</code> is supported in all modern browsers since March 2017:</p>
         </section>
         <section>
           <h3><code>Object.groupBy()</code></h3>
@@ -194,6 +198,36 @@ function myCallback({ quantity }) {
 // Group by Quantity
 const result = Object.groupBy(fruits, myCallback);</pre>
         </section>
+
+        <section id="with">
+          <h3><code>Object.with(<var>key</var>, <var>value</var>)</code></h3>
+          <p>ES2023 added the Array with() method as a safe way to update elements in an array without altering the original array.</p>
+          <p>Example</p>
+          <pre>const months = ["Januar", "Februar", "Mar", "April"];
+const myMonths = months.with(2, "March");</pre>
+        </section>
+
+        <section id="spread-and-rest">
+          <h3>Spread (...) and Rest</h3>
+          <p>The ... operator expands an array into individual elements. This can be used join arrays/objects, as in</p>
+          <pre>const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+
+const arr3 = [...arr1, ...arr2];</pre>
+          <p>In the example above, ...arr1 expands arr1 into single elements, ...arr2 expands arr2 into single elements, and arr3 is constructed using ...arr1 and ...arr2.</p>
+          <hr/>
+          <p>The rest operator (...) allows us to destruct an array and collect the leftovers:</p>
+          <pre>let a, rest;
+const arr1 = [1,2,3,4,5,6,7,8];
+
+[a, ...rest] = arr1;</pre>
+          <p>Another example:</p>
+          <pre>let a, b, rest;
+const arr1 = [1,2,3,4,5,6,7,8];
+
+[a, b, ...rest] = arr1;</pre>
+        </section>
+
         <section>
           <h3>Getters, Setters, and Statics</h3>
           <p>Interfaces often contain plain properties, not just methods. For example, <code>Map</code> objects have a size property that tells you how many keys are stored in them.</p>
@@ -254,16 +288,8 @@ localStorage.setItem("testJSON", myJSON);
 let text = localStorage.getItem("testJSON");
 let obj = JSON.parse(text);
 document.getElementById("demo").innerHTML = obj.name;</pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-
         </section>
+        <!--
         <section>
           <h3><code></code></h3>
           <p></p>
@@ -284,6 +310,7 @@ document.getElementById("demo").innerHTML = obj.name;</pre>
           <p></p>
           <pre></pre>
         </section>
+        -->
       </section>
 
       <section id="properties">

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Arrays</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript: the Web Programming Language"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a            href="js.strings.html">JavaScript Strings</a></p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+      </div>
+      <div>
+        <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>JavaScript Arrays</h1>
+
+      <section id="search">
+        <h2>Array Search</h2>
+        <nav>
+          <p><a href="#indexOf">indexOf()</a></p>
+          <p><a href="#lastIndexOf">lastIndexOf()</a></p>
+          <p><a href="#includes">includes()</a></p>
+          <p><a href="#find">find(<var>test-function</var>)</a></p>
+          <p><a href="#findIndex">findIndex()</a></p>
+          <p><a href="#findLast">findLast()</a></p>
+          <p><a href="#findLastIndex">findLastIndex()</a></p>
+        </nav>
+        <section id="indexOf">
+          <h3>indexOf()</h3>
+          <p>The indexOf() method searches an array for an element value and returns its position.</p>
+          <p><strong>Note:</strong> The first item has position 0, the second item has position 1, and so on.</p>
+          <p><strong>Example</strong> Search an array for the item "Apple":</p>
+          <pre>const fruits = ["Apple", "Orange", "Apple", "Mango"];
+let position = fruits.indexOf("Apple") + 1;</pre>
+          <p>A second argument (<var>start</var> may be added and tells where to start the search. Negative values will start at the given position counting from the end, and search to the end.</p>
+          <p>Array.indexOf(<var>ITEM</var>) returns -1 if the item is not found.</p>
+          <p>(If the item is present more than once, it returns the position of the first occurrence.)</p>
+        </section>
+        <section id="lastIndexOf">
+          <h3>lastIndexOf()</h3>
+          <p>Array.lastIndexOf() is the same as <a href="#indexOf">Array.indexOf()</a>, but returns the position of the last occurrence of the specified element.</p>
+        </section>
+        <section id="includes">
+          <h3>includes()</h3>
+          <p>ECMAScript 2016 introduced Array.includes() to arrays. This allows us to check if an element is present in an array (including NaN, unlike indexOf).</p>
+          <pre>const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+fruits.includes("Mango"); // is true</pre>
+        </section>
+        <section id="find">
+          <h3>find(<var>test-function</var>)</h3>
+          <p>The find() method returns the value of the first array element that passes a test function.</p>
+          <p>This example finds (returns the value of) the first element that is larger than 18:</p>
+          <pre>const numbers = [4, 9, 16, 25, 29];
+let first = numbers.find(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}</pre>
+          <p>Note that the function takes 3 arguments:</p>
+          <ul>
+            <li>The item value</li>
+            <li>The item index</li>
+            <li>The array itself</li>
+          </ul>
+        </section>
+        <section id="findIndex">
+          <h3>findIndex()</h3>
+          <p>The findIndex() method returns the index of the first array element that passes a test function.</p>
+          <p>This example finds the index of the first element that is larger than 18:</p>
+          <pre>const numbers = [4, 9, 16, 25, 29];
+let first = numbers.findIndex(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}</pre>
+          <p>Note that the function takes 3 arguments:</p>
+          <ul>
+            <li>The item value</li>
+            <li>The item index</li>
+            <li>The array itself</li>
+          </ul>
+        </section>
+        <section id="findLast">
+          <h3>findLast()</h3>
+          <p>ES2023 added the findLast() method that will start from the end of an array and return the value of the first element that satisfies a condition.</p>
+        </section>
+        <section id="findLastIndex">
+          <h3>findLastIndex()</h3>
+          <p>The findLastIndex() method finds the index of the last element that satisfies a condition.</p>
+          <pre>const temp = [27, 28, 30, 40, 42, 35, 30];
+let pos = temp.findLastIndex(x => x > 40);</pre>
+        </section>
+      </section>
+
+      <section id="iterations">
+        <h2>Array Iterations</h2>
+        <p>Many of the iteration functions take 3 arguments:</p>
+          <ul>
+            <li>The item <var>value</var></li>
+            <li>The item <var>index</var></li>
+            <li>The array itself</li>
+          </ul>
+        <hr/>
+        <p>Functions <code><a target="_blank" href="js.higher-order-functions.html#filter">Array.filter()</a></code>, <code><a target="_blank" href="js.higher-order-functions.html#map">Array.map()</a></code>, and <code><a target="_blank" href="js.higher-order-functions.html#reduce">Array.reduce()</a></code> are discussed elsewhere.</p>
+
+        <section id="forEach">
+          <h3><code>forEach()</code></h3>
+          <p>The <code>forEach()</code> method calls a function (a callback function) once for each array element. Example:</p>
+          <pre>const numbers = [45, 4, 9, 16, 25];
+let txt = "";
+numbers.forEach(myFunction);
+
+function myFunction(value, index, array) {
+  txt += value + "&lt;br/&gt;";
+}</pre>
+          <p>The example above uses only the <var>value</var> parameter. The example can be rewritten to:</p>
+          <pre>const numbers = [45, 4, 9, 16, 25];
+let txt = "";
+numbers.forEach(myFunction);
+
+function myFunction(value) {
+  txt += value + "&lt;br/&gt;";
+}</pre>
+        </section>
+        <section id="every">
+          <h3><code>Array.every()</code></h3>
+          <p>The <code>every(value, index, array)</code> method checks if all array values pass a test.</p>
+          <p>This example checks if all array values are larger than 18:</p>
+          <pre>const numbers = [45, 4, 9, 16, 25];
+let allOver18 = numbers.every(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}</pre>
+        </section>
+        <section id="some">
+          <h3><code>Array.some</code></h3>
+          <p><code>Array.some(f)</code> is analogous to <code>Array.every(f)</code>. It will return <code>true</code> if any of the array&apos;s elements fulfill a condition.</p>
+          <p>Here is an example</p>
+          <pre>const numbers = [45, 4, 9, 16, 25];
+let someOver18 = numbers.some(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}</pre>
+        </section>
+
+        <section id="from">
+          <h3><code>Array.from()</code></h3>
+          <p>The <code>Array.from()</code> method returns an Array object from:</p>
+          <ul>
+            <li>Any iterable object</li>
+            <li>Any object with a <code>length</code> property</li>
+          </ul>
+          <p><strong>Example</strong> Create an Array from a String:</p>
+          <pre>let text = "ABCDEFG";
+Array.from(text);</pre>
+          <p><code>Array.from()</code> has an optional parameter which allows you to execute a function on each element of the new array.</p>
+          <p><strong>Example:</strong> Create an Array from an Array:</p>
+          <pre>const myNumbers = [1,2,3,4];
+const myArr = Array.from(myNumbers, (x) => x * 2);</pre>
+        </section>
+
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+      </section>  <!-- end of "Array Iterations" -->
+
+    </main>
+
+  </body>
+
+</html>

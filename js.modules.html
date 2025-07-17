@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Modules</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript Modules for Including Functionality"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a            href="js.strings.html">JavaScript Strings</a></p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+      </div>
+      <div>
+        <p><a href="json.html">JavaScript Object Notation</a></p>
+        <p><a href="programming.html">Programming</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>JavaScript Modules for Including Functionality</h1>
+      <p>The original JavaScript language did not have any concept of a module. All scripts ran in the same scope, and accessing a function defined in another script was done by referencing the global bindings created by that script. This actively encouraged accidental, hard-to-see entanglement of code and invited problems like unrelated scripts trying to use the same binding name.</p>
+      <p>Since ECMAScript 2015, JavaScript supports two different types of programs. Scripts behave in the old way: their bindings are defined in the global scope, and they have no way to directly reference other scripts. Modules get their own separate scope and support the import and export keywords, which aren&apos;t available in scripts, to declare their dependencies and interface. This module system is usually called ES modules (where ES stands for ECMAScript).</p>
+      <section>
+        <h2>Modern JavaScript Modules</h2>
+        <p>A modular program is composed of a number of such modules, wired together via their imports and exports.</p>
+        <p>The following example module converts between day names and numbers (as returned by Date&apos;s getDay method). It defines a constant that is not part of its interface, and two functions that are. It has no dependencies.
+        </p>
+        <aside><strong>Note</strong> Modules only work with the HTTP(s) protocol. A web-page opened via the file:// protocol cannot use import / export.</aside>
+        <pre>const names = ["Sunday", "Monday", "Tuesday", "Wednesday",
+  "Thursday", "Friday", "Saturday"];
+
+export function dayName(number) {
+  return names[number];
+}
+export function dayNumber(name) {
+  return names.indexOf(name);
+}</pre>
+        <p>The <code>export</code> keyword can be put in front of a function, class, or binding definition to indicate that that binding is part of the module&apos;s interface. This makes it possible for other modules to use that binding by importing it.</p>
+        <pre>import {dayName} from "./dayname.js";
+let now = new Date();
+console.log(`Today is ${dayName(now.getDay())}`);
+// → Today is Monday</pre>
+        <hr/>
+        <p>The <code>import</code> keyword, followed by a list of binding names in braces, makes bindings from another module available in the current module. Modules are identified by quoted strings.</p>
+        <p>How such a module name is resolved to an actual program differs by platform. The browser treats them as web addresses, whereas <code>Node.js</code> resolves them to files. When you run a module, all the other modules it depends on—and the modules those depend on—are loaded, and the exported bindings are made available to the modules that import them.</p>
+        <p>Import and export declarations cannot appear inside of functions, loops, or other <a target="_blank" href="programming.block.html">blocks</a>. They are immediately resolved when the module is loaded, regardless of how the code in the module executes. To reflect this, they must appear only in the outer module body.</p>
+        <p>A module&apos;s interface thus consists of a collection of named bindings, which other modules that depend on the module can access. Imported bindings can be renamed to give them a new local name using <code>as</code> after their name.</p>
+        <pre>import {dayName as nomDeJour} from "./dayname.js";
+
+console.log(nomDeJour(3));
+// → Wednesday</pre>
+        <hr/>
+        <p>A module may also have a special export named <code>default</code>, which is often used for modules that only export a single binding. To define a default export, write <code>export default</code> before an expression, a function declaration, or a class declaration.</p>
+        <pre>export default ["Winter", "Spring", "Summer", "Autumn"];</pre>
+        <p>Such a binding is imported by omitting the braces around the name of the import:</p>
+        <pre>import seasonNames from "./seasonname.js";</pre>
+        <p>To import all bindings from a module at the same time, you can use <code>import *</code>. You provide a name, and that name will be bound to an object holding all the module&apos;s exports. This can be useful when you are using a lot of different exports.</p>
+        <pre>import * as dayName from "./dayname.js";
+console.log(dayName.dayName(3));
+// → Wednesday</pre>
+      </section>
+      <section>
+        <h2>Packages and NPM</h2>
+        <p>We need a place to store and find packages and a convenient way to install and upgrade them. In the JavaScript world, this infrastructure is provided by NPM (https://www.npmjs.com).</p>
+        <p>NPM is two things: an online service where you can download (and upload) packages, and a program (bundled with Node.js) that helps you install and manage them.</p>
+        <p>At the time of writing, there are more than three million different packages available on NPM. A large portion of those are rubbish, to be fair. But almost every useful, publicly available JavaScript package can be found on NPM. For example, an INI file parser is available under the package name <cite>ini</cite>.</p>
+        <p>Having quality packages available for download is extremely valuable. It means that we can often avoid reinventing a program that 100 people have written before and get a solid, well-tested implementation at the press of a few keys.</p>
+        <p>Software is cheap to copy, so once someone has written it, distributing it to other people is an efficient process. Writing it in the first place is hard work, though, and responding to people who have found problems in the code or who want to propose new features is even more work.</p>
+        <p>By default, you own the copyright to the code you write, and other people may use it only with your permission. But because some people are just nice and because publishing good software can help make you a little bit famous among programmers, many packages are published under a license that explicitly allows other people to use it.</p>
+        <p>Most code on NPM is licensed this way. Some licenses require you to also publish code that you build on top of the package under the same license. Others are less demanding, requiring only that you keep the license with the code as you distribute it. The JavaScript community mostly uses the latter type of license. When using other people&apos;s packages, make sure you are aware of their licenses.</p>
+        <p>Now, instead of writing our own INI file parser, we can use one from NPM:</p>
+        <pre>import {parse} from "ini";
+
+console.log(parse("x = 10\ny = 20"));
+// → {x: "10", y: "20"}</pre>
+      </section>
+      <section>
+        <h2>CommonJS Modules</h2>
+        <p>Before 2015, when the JavaScript language had no built-in module system, people were already building large systems in JavaScript. To make that workable, they needed modules.</p>
+        <p>The community designed its own improvised module systems on top of the language. [...]</p>
+        <p>If we implement our own module loader, we can do better. The most widely used approach to bolted-on JavaScript modules is called <strong>CommonJS modules</strong>. Node.js used this module system from the start (though it now also knows how to load ES modules), and it is the module system used by many packages on NPM.</p>
+        <p>A CommonJS module looks like a regular script, but it has access to two bindings that it uses to interact with other modules. The first is a function called <code>require</code>. When you call this with the module name of your dependency, it makes sure the module is loaded and returns its interface. The second is an object named <code>exports</code>, which is the interface object for the module. It starts out empty and you add properties to it to define exported values.</p>
+        <hr/>
+        <p>This CommonJS example module provides a date-formatting function. It uses two packages from NPM—<cite>ordinal</cite> to convert numbers to strings like <q>1st</q> and <q>2nd</q>, and <cite>date-names</cite> to get the English names for weekdays and months. It exports a single function, <code>formatDate</code>, which takes a <code>Date</code> object and a template string.</p>
+        <p>The template string may contain codes that direct the format, such as YYYY for the full year and Do for the ordinal day of the month. You could give it a string like “MMMM Do YYYY” to get output like November 22nd 2017.</p>
+        <pre>const ordinal = require("ordinal");
+const {days, months} = require("date-names");
+
+exports.formatDate = function(date, format) {
+  return format.replace(/YYYY|M(MMM)?|Do?|dddd/g, tag =>{
+    if (tag == "YYYY") return date.getFullYear();
+    if (tag == "M") return date.getMonth();
+    if (tag == "MMMM") return months[date.getMonth()];
+    if (tag == "D") return date.getDate();
+    if (tag == "Do") return ordinal(date.getDate());
+    if (tag == "dddd") return days[date.getDay()];
+  });
+};</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

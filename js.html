@@ -23,6 +23,7 @@
         <p><a            href="json.html">JavaScript Object Notation</a></p>
         <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
         <p><a            href="js.strings.html">JavaScript Strings</a></p>
+        <p><a            href="js.arrays.html">JavaScript Arrays</a></p>
         <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
         <p><a            href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
@@ -40,6 +41,64 @@
 
       <section id="data-types">
         <h2>JavaScript Data Types</h2>
+        <section>
+          <h3>Primitive and Complex Data Types</h3>
+          <p>In JavaScript, a <dfn>primitive value</dfn> is a single value with no properties or methods.</p>
+          <p>JavaScript has seven <strong>primitive data types</strong>:</p>
+          <ul>
+            <li>string</li>
+            <li>number</li>
+            <li>boolean</li>
+            <li>bigint</li>
+            <li>symbol</li>
+            <li>null</li>
+            <li>undefined</li>
+          </ul>
+          <hr/>
+          <p>JavaScript has one complex data type: <code>object</code>. All other complex types like arrays, functions, sets, and maps are just different types of objects.</p>
+          <p>The typeof operator returns only two types:</p>
+          <ul>
+            <li><code>object</code></li>
+            <li><code>function</code></li>
+          </ul>
+          <p><strong>Example</strong></p>
+          <pre>typeof {name:'John'}   // Returns object
+typeof [1,2,3,4]       // Returns object
+typeof new Map()       // Returns object
+typeof new Set()       // Returns object
+
+typeof function (){}   // Returns function</pre>
+          <section>
+            <h4>How to Recognize an Array</h4>
+            <p>How to know if a variable is an array?</p>
+            <p>ECMAScript 5 (2009) defined a new method for this: <code>Array.isArray()</code></p>
+            <p><strong>Example</strong></p>
+            <pre>// Create an Array
+const fruits = ["apples", "bananas", "oranges"];
+Array.isArray(fruits);</pre>
+          </section>
+        </section>
+
+        <section id="null-and-undefined">
+          <h3>JavaScript&apos; Types <code>null</code> and <code>undefined</code>*</h3>
+          <p>The <code>typeof</code> of a variable with no value is <code>undefined</code>. The value is also <code>undefined</code>.</p>
+          <hr/>
+          <p>In JavaScript null is <q>nothing</q>. It is supposed to be something that doesn&apos;t exist. Unfortunately, in JavaScript, the data type of <code>null</code> is an <code>object</code>.</p>
+          <p>You can empty an object by setting it to <code>null</code>.</p>
+          <hr/>
+          <p><code>undefined</code> and <code>null</code> are equal in value but different in type:</p>
+          <pre>typeof undefined      // undefined
+typeof null           // object
+
+null === undefined    // false
+null == undefined     // true</pre>
+        </section>
+
+        <section id="typeof">
+          <h3>JavaScript&apos; <code>typeof</code> Operator*</h3>
+          <p>The <code>typeof</code> operator returns the type of a variable or an expression.</p>
+          <aside><strong>Note:</strong> In JavaScript, null is a primitive value. However, typeof returns "object". This is a well-known bug in JavaScript and has historical reasons.</aside>
+        </section>
         <section id="symbols">
           <h3>Symbols</h3>
           <p><dfn>Symbols</dfn> are values created with the <code>Symbol(<var>STRING</var>)</code> function. Unlike strings, newly created symbols are unique—you cannot create the same symbol twice.</p>

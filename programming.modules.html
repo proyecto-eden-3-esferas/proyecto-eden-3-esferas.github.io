@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Modules in Programming</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Modules for Structuring Programmes"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="algorithms.html">Algorithms</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a            href="programming.streams.html">Streams in Programming</a></p>
+        <p><a            href="programming.block.html">Blocks in Programming: Units of Scope and Execution</a></p>
+        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+        <p><a            href="linkage-and-scope.html">Linkage and Scope (focus on C/C++)</a></p>
+      </div>
+      <div>
+        <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+        <p><a            href="adt.html">Abstract Data Types (ADTs)</a></p>
+        <p><a            href="MapReduce.html">The MapReduce Programming Paradigm</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Modules for Structuring Programmes</h1>
+      <p>Ideally, a program has a clear, straightforward structure. The way it works is easy to explain, and each part plays a well-defined role.</p>
+      <p>In practice, programs grow organically. Pieces of functionality are added as the programmer identifies new needs. Keeping such a program well structured requires constant attention and work. This is work that will pay off only in the future, the next time someone works on the program, so it&apos;s tempting to neglect it and allow the various parts of the program to become deeply entangled.</p>
+      <p>This causes two practical issues. First, understanding an entangled system is hard. If everything can touch everything else, it is difficult to look at any given piece in isolation. You are forced to build up a holistic understanding of the entire thing. Second, if you want to use any of the functionality from such a program in another situation, rewriting it may be easier than trying to disentangle it from its context.</p>
+      <p>The phrase “big ball of mud” is often used for such large, structureless programs. Everything sticks together, and when you try to pick out a piece, the whole thing comes apart, and you succeed only in making a mess.</p>
+      <section>
+        <h2>Modular Programs</h2>
+        <p>Modules are an attempt to avoid these problems. A module is a piece of program that specifies which other pieces it relies on and which functionality it provides for other modules to use (its interface).</p>
+        <p>Module interfaces have a lot in common with object interfaces, as we saw them in Chapter 6. They make part of the module available to the outside world and keep the rest private.</p>
+        <p>But the interface that a module provides for others to use is only half the story. A good module system also requires modules to specify which code they use from other modules. These relations are called dependencies. If module A uses functionality from module B, it is said to depend on that module. When these are clearly specified in the module itself, they can be used to figure out which other modules need to be present to be able to use a given module and to automatically load dependencies.</p>
+        <p>When the ways in which modules interact with each other are explicit, a system becomes more like LEGO, where pieces interact through well-defined connectors, and less like mud, where everything mixes with everything else.</p>
+        <p>...</p>
+      </section>
+      <section id="packages">
+        <h2>Packages</h2>
+        <p>One of the advantages of building a program out of separate pieces and being able to run some of those pieces on their own is that you might be able to use the same piece in different programs.</p>
+        <p>But how do you set this up? Say I want to use such and such function in another program. Maybe the function depends on something, or nothing, and then I can just copy that module into my new project and use it. But then, if I find a mistake in the code, I&apos;ll probably fix it in whichever program I&apos;m working with at the time and forget to also fix it in the other program.</p>
+        <p>Once you start duplicating code, you&apos;ll quickly find yourself wasting time and energy moving copies around and keeping them up to date. That&apos;s where packages come in. A package is a chunk of code that can be distributed (copied and installed). It may contain one or more modules and has information about which other packages it depends on. A package also usually comes with documentation explaining what it does so that people who didn&apos;t write it might still be able to use it.</p>
+        <p>When a problem is found in a package or a new feature is added, the package is updated. Now the programs that depend on it (which may also be packages) can copy the new version to get the improvements that were made to the code.</p>
+        <p>Working in this way requires infrastructure. We need a place to store and find packages and a convenient way to install and upgrade them.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

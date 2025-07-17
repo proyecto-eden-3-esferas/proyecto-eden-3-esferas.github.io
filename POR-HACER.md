@@ -72,6 +72,59 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *linux.shm.html*
+
+
+[ ]
+<h2>Lugar</h2>
+<p>Los Gómez decidieron veranear una quincena en un apartamento del oeste de Asturias. Disfrutaron hasta de la ida: los campos abiertos de Castilla, las montañas, luego el verde de vertiente cantábrica. En su coche, a 120 kilómetros por hora, rozaban los paisajes, que se sucedían sin permanecer, sin ellos quedarse, variados, estimulantes. Por aclamación popular llevaron el aire acondicionado puesto, comidas en cafeterías de la autovía, luego un par de paradas más.</p>
+<p>Al llegar al pueblo se orientaron por el GPS. Encontraron todo limpio y ordenado, pintoresco y acogedor. Por suerte quedaba cerca su supermercado preferido y con la lista ya escrita al día siguiente fueron a hacer una compra. Cenaron en un restaurante recomendado en internet. Esa noche, y las siguientes, agradecieron el fresquito que les permitía dormir mejor, sobre todo los mayores. El resto de los días alternaron paseos cortos, excursiones a lugares de interés en coche, y playa.</p>
+<p>Esta estampa describe más o menos fielmente cómo se experimentan unas vacaciones positivas.</p>
+<p>Más en general, considero dos formas fundamentales de estar y sentir un lugar:</p>
+<ul>
+  <li><strong>adquirido</strong>, ya sea porque hemos comprado una vivienda, pagamos unos impuestos municipales, hacemos turismo, siempre hayamos vivido allí, nos hayan facilitado o invitado a pasar una temporada etc.; y</li>
+  <li><strong>autocreado</strong> (creado por nosotros mismos), construído con nuestras manos, plantado, cuidado, concebido, ejecutado...</li>
+</ul>
+
+
+[ ] <h2>Pure Functions</h2>
+<p>...</p>
+
+[ ] escribir *polos.html*
+<h1>Polos, polaridades, puntos extremos e intermedios</h1>
+<table border="1">
+  <thead>
+  <tr> <td></td> <td></td> </tr>
+  </thead>
+  <tr> <td>autogeneración</td> <td>especialización</td> </tr>
+  <tr> <td>castizo</td> <td>internacional/<i>snob</i></td> </tr>
+  <tr> <td>ultraizquierda</td> <td>ultraderecha</td> </tr>
+  <tr> <td>letras</td> <td>ciencias</td> </tr>
+  <tr> <td>licenciaturas</td> <td>carreras técnicas</td> </tr>
+  <!--
+  <tr> <td>IZQ</td> <td>DER</td> </tr>
+  <tr> <td>IZQ</td> <td>DER</td> </tr>
+  <tr> <td>IZQ</td> <td>DER</td> </tr>
+  -->
+</table>
+<table border="1">
+  <thead>
+  <tr> <td>Variedad</td> <td>Pureza</td> </tr>
+  </thead>
+  <tr> <td>Permacultura</td> <td>Monocultivo (de plantas anuales)</td> </tr>
+  <tr> <td>Dieta/naturaleza variada/<q>diversa</q></td> <td></td> </tr>
+  <tr> <td></td> <td>Sustancias puras</td> </tr>
+</table>
+<p>Pero también encontramos <strong>puntos intermedios</strong> entre los extremos.</p>
+<ul>
+  <li>servicios (entre autogeneración y fábricas)</li>
+  <li>cultura bastarda (entre casticismo e internacionalismo)</li>
+  <li>centro tibio (entre ultraizquierda y ultraderecha)</li>
+  <li>ciencias sociales (entre humanidades y ciencias materiales)</li>
+  <li>arte generado por ordenador</li>
+</ul>
+
+
 [ ] write scripts for saving and generating
 
 [ ] bring in *~/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files$ kate js.assorted.html* when this interactive file is ready.
