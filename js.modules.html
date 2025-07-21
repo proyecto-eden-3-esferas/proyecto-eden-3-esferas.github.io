@@ -77,6 +77,21 @@ console.log(dayName.dayName(3));
 // → Wednesday</pre>
       </section>
       <section>
+        <h2>Dynamic Imports (ES6)</h2>
+        <p>Dynamic imports allow you to load JavaScript modules at runtime, which is useful for lazy loading or conditionally including files.</p>
+        <p><strong>Example:</strong></p>
+        <pre>// Dynamically import the module
+import('./math.mjs').then((module) => {
+    console.log(module.add(2, 3)); // Output: 5
+    console.log(module.pi);        // Output: 3.14159
+});</pre>
+        <p><strong>Key Notes:</strong></p>
+        <ul>
+          <li><code>import()</code> returns a promise that resolves to the module.</li>
+          <li>Useful for optimizing performance in large applications by loading code only when needed.</li>
+        </ul>
+      </section>
+      <section>
         <h2>Packages and NPM</h2>
         <p>We need a place to store and find packages and a convenient way to install and upgrade them. In the JavaScript world, this infrastructure is provided by NPM (https://www.npmjs.com).</p>
         <p>NPM is two things: an online service where you can download (and upload) packages, and a program (bundled with Node.js) that helps you install and manage them.</p>

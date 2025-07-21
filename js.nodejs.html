@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node JS</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Node JS"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a            href="js.strings.html">JavaScript Strings</a></p>
+        <p><a            href="js.arrays.html">JavaScript Arrays</a></p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a            href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
+      </div>
+      <div>
+      </div>
+    </nav>
+    <main>
+      <h1>Node JS</h1>
+      <p>Node.js is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.</p>
+      <p>Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside of the browser. This allows Node.js to be very performant.</p>
+      <p>A Node.js app runs in a single process, without creating a new thread for every request. Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm.</p>
+      <p>When Node.js performs an I/O operation, like reading from the network, accessing a database or the filesystem, instead of blocking the thread and wasting CPU cycles waiting, Node.js will resume the operations when the response comes back.</p>
+      <p>This allows Node.js to handle thousands of concurrent connections with a single server without introducing the burden of managing thread concurrency, which could be a significant source of bugs.</p>
+      <p>Node.js has a unique advantage because millions of frontend developers that write JavaScript for the browser are now able to write the server-side code in addition to the client-side code without the need to learn a completely different language.</p>
+      <p>In Node.js the new ECMAScript standards can be used without problems, as you don't have to wait for all your users to update their browsers - you are in charge of deciding which ECMAScript version to use by changing the Node.js version, and you can also enable specific experimental features by running Node.js with flags.</p>
+      <section>
+        <h2>An Example Node.js Application</h2>
+        <p>The most common example Hello World of Node.js is a web server:</p>
+        <pre>const { createServer } = require('node:http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = createServer((req, res) =&gt; {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+});
+
+server.listen(port, hostname, () =&gt; {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});</pre>
+        <p>To run this snippet, save it as a <cite>server.js</cite> file and run <code>node server.js</code> in your terminal. If you use mjs version of the code, you should save it as a <cite>server.mjs</cite> file and run <code>node server.mjs</code> in your terminal.</p>
+        <p>This code first includes the Node.js <cite>http</cite> module.</p>
+        <p>Node.js has a fantastic standard library, including first-class support for networking.</p>
+        <p>The <code>createServer()</code> method of <cite>http</cite> creates a new HTTP server and returns it. The server is then set to listen on the specified port and host name. When the server is ready, the callback function is called, in this case informing us that the server is running.</p>
+        <p>Whenever a new request is received, the request event is called, providing two objects: a request (an <code>http.IncomingMessage</code> object) and a response (an <code>http.ServerResponse</code> object). Those two objects are essential to handle the HTTP call. The first provides the request details. In this simple example, this is not used, but you could access the request headers and request data.</p>
+        <p>The second is used to return data to the caller. In this case with:</p>
+        <pre>res.statusCode = 200;</pre>
+        <p>[...]</p>
+        <!--
+        <p></p>
+        <pre></pre>
+          -->
+      </section>
+      <section>
+        <h2>Differences between Node.js and the Browser</h2>
+        <p>Both the browser and Node.js use JavaScript as their programming language. Still, building apps that run in the browser is completely different from building a Node.js application. Despite the fact that it's always JavaScript, there are some key differences that make the experience radically different.</p>
+        <p>From the perspective of a frontend developer who extensively uses JavaScript, Node.js apps bring with them a huge advantage: the comfort of programming everything - the frontend and the backend - in a single language.</p>
+        <aside>What changes is the ecosystem.</aside>
+        <p>In the browser, most of the time what you are doing is interacting with the DOM, or other Web Platform APIs like Cookies. Those do not exist in Node.js, of course. You don't have the document, window and all the other objects that are provided by the browser. And in the browser, we don't have all the nice APIs that Node.js provides through its modules, like the filesystem access functionality.</p>
+        <p>Another big difference is that in Node.js you control the environment. Unless you are building an open source application that anyone can deploy anywhere, you know which version of Node.js you will run the application on. Compared to the browser environment, where you don't get the luxury to choose what browser your visitors will use, this is very convenient.</p>
+        <p>This means that you can write all the modern ES2015+ JavaScript that your Node.js version supports. Since JavaScript moves so fast, but browsers can be a bit slow to upgrade, sometimes on the web you are stuck with using older JavaScript / ECMAScript releases. You can use Babel to transform your code to be ES5-compatible before shipping it to the browser, but in Node.js, you won't need that.</p>
+        <p>Another difference is that Node.js supports both the CommonJS and ES module systems (since Node.js v12), while in the browser, we are starting to see the ES Modules standard being implemented. In practice, this means that you can use both require() and import in Node.js, while you are limited to import in the browser.</p>
+      </section>
+
+      <section>
+        <h2>The Node.js File System Module (<code>fs</code>)</h2>
+        <p style="text-align: right">(From <cite>https://www.w3schools.com/nodejs/nodejs_filesystem.asp</cite>)</p>
+        <p>The Node.js File System module (fs) provides a comprehensive set of methods for working with the file system on your computer. It allows you to perform file I/O operations in both synchronous and asynchronous ways.</p>
+        <p><strong>Note:</strong> The File System module is a core Node.js module, so no installation is required.</p>
+        <section>
+          <h3>Importing the File System Module</h3>
+          <p>You can import the File System module using CommonJS <code>require()</code> or ES modules <code>import</code> syntax:</p>
+          <p>CommonJS (Default in Node.js)</p>
+          <pre>const fs = require('fs');</pre>
+          <p>ES Modules (Node.js 14+ with "type": "module" in package.json)</p>
+          <pre>import fs from 'fs';
+// Or for specific methods:
+// import { readFile, writeFile } from 'fs/promises';</pre>
+        </section>
+        <section>
+          <h3>Promise-based API</h3>
+          <p>Node.js provides promise-based versions of the File System API in the <cite>fs/promises</cite> namespace, which is recommended for modern applications:</p>
+          <pre>// Using promises (Node.js 10.0.0+)
+const fs = require('fs').promises;
+
+// Or with destructuring
+const { readFile, writeFile } = require('fs').promises;
+
+// Or with ES modules
+// import { readFile, writeFile } from 'fs/promises';</pre>
+        </section>
+        <section>
+          <h3>Reading Files</h3>
+          <p>Node.js provides several methods to read files, including both callback-based and promise-based approaches.</p>
+          <p>The most common method is <code>fs.readFile()</code>.</p>
+          <p><strong>Note:</strong> Always handle errors when working with file operations to prevent your application from crashing.</p>
+          <section>
+            <h4>Reading Files with Callbacks</h4>
+            <p>Here&apos;s how to read a file using the traditional callback pattern. Say you write a text file called <cite>myfile.txt</cite> with contents:</p>
+            <blockquote>This is the content of myfile.txt</blockquote>
+            <p>Next, create a Node.js file that reads the text file, and return the content, with callbacks:</p>
+            <pre>const fs = require('fs');
+
+// Read file asynchronously with callback
+fs.readFile('myfile.txt', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading file:', err);
+    return;
+  }
+  console.log('File content:', data);
+});
+
+// For binary data (like images), omit the encoding
+fs.readFile('image.png', (err, data) => {
+  if (err) throw err;
+  // data is a Buffer containing the file content
+  console.log('Image size:', data.length, 'bytes');
+});</pre>
+          </section>
+          <section>
+            <h4>Reading Files with Promises (Modern Approach)</h4>
+            <p>Using fs.promises or util.promisify for cleaner async/await syntax. In the example we read a file with async/await</p>
+            <pre>// Using fs.promises (Node.js 10.0.0+)
+const fs = require('fs').promises;
+
+async function readFileExample() {
+  try {
+    const data = await fs.readFile('myfile.txt', 'utf8');
+    console.log('File content:', data);
+  } catch (err) {
+    console.error('Error reading file:', err);
+  }
+}
+
+readFileExample();
+
+// Or with util.promisify (Node.js 8.0.0+)
+const { promisify } = require('util');
+const readFileAsync = promisify(require('fs').readFile);
+
+async function readWithPromisify() {
+  try {
+    const data = await readFileAsync('myfile.txt', 'utf8');
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+readWithPromisify();</pre>
+          </section>
+          <section>
+            <h4>Reading Files Synchronously</h4>
+            <p>For simple scripts, you can use synchronous methods, but avoid them in production servers as they block the event loop:</p>
+            <p>Example: Reading a file synchronously</p>
+            <pre>const fs = require('fs');
+
+try {
+  // Read file synchronously
+  const data = fs.readFileSync('myfile.txt', 'utf8');
+  console.log('File content:', data);
+} catch (err) {
+  console.error('Error reading file:', err);
+}
+</pre>
+          </section>
+        </section>
+        <section>
+          <h3>Creating and Writing Files</h3>
+          <p>Node.js provides several methods for creating and writing to files. Here are the most common approaches:</p>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+        </section>
+
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
+      <section>
+        <h2><code>npm</code></h2>
+        <p><code>npm</code> is the standard package manager for Node.js.</p>
+        <hr/>
+        <p><code>npm</code> installs, updates and manages downloads of dependencies of your project. Dependencies are pre-built pieces of code, such as libraries and packages, that your Node.js application needs to work.</p>
+        <section>
+          <h3>Installing all dependencies</h3>
+          <p>If a project has a package.json file, by running</p>
+          <pre>npm install</pre>
+          <p>it will install everything the project needs, in the node_modules folder, creating it if it's not existing already.</p>
+        </section>
+        <section>
+          <h3>Installing a single package</h3>
+          <p>You can also install a specific package by running</p>
+          <pre>npm install &lt;<var>package-name</var>&gt;</pre>
+          <p>Furthermore, since <code>npm 5</code>, this command adds &lt;<var>package-name</var>&gt; to the <cite>package.json</cite> file dependencies. Before version 5, you needed to add the flag <code>--save</code>.</p>
+        </section>
+        <section>
+          <h3>Updating packages</h3>
+          <p>Updating is also made easy, by running</p>
+          <pre>npm update</pre>
+          <p>npm will check all packages for a newer version that satisfies your versioning constraints.</p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

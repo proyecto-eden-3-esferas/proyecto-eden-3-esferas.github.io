@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,30 +16,28 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
+      <!--
       <p><a href="A_PAGE.html">LINK_TEXT</a></p>
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
-        <p><a            href="json.html">JavaScript Object Notation</a></p>
-        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
-        <p><a            href="js.strings.html">JavaScript Strings</a></p>
-        <p><a            href="js.arrays.html">JavaScript Arrays</a></p>
-        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
-        <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
-        <p><a            href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
+        <p><a href="json.html">JavaScript Object Notation</a></p>
+        <p><a href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a href="js.strings.html">JavaScript Strings</a></p>
+        <p><a href="js.arrays.html">JavaScript Arrays</a></p>
+        <p><a href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a href="js.nodejs.html">Node JS</a></p>
+        <p><a href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
       </div>
       <div>
-        <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
+        <p><a href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
         <p><a rel="prev" href="programming.html">Programming</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
-
     </nav>
-
     <main>
       <h1>JavaScript: the Web Programming Language</h1>
-
       <section id="data-types">
         <h2>JavaScript Data Types</h2>
         <section>
@@ -58,10 +57,16 @@
           <p>JavaScript has one complex data type: <code>object</code>. All other complex types like arrays, functions, sets, and maps are just different types of objects.</p>
           <p>The typeof operator returns only two types:</p>
           <ul>
-            <li><code>object</code></li>
-            <li><code>function</code></li>
+            <li>
+              <code>object</code>
+            </li>
+            <li>
+              <code>function</code>
+            </li>
           </ul>
-          <p><strong>Example</strong></p>
+          <p>
+            <strong>Example</strong>
+          </p>
           <pre>typeof {name:'John'}   // Returns object
 typeof [1,2,3,4]       // Returns object
 typeof new Map()       // Returns object
@@ -72,18 +77,19 @@ typeof function (){}   // Returns function</pre>
             <h4>How to Recognize an Array</h4>
             <p>How to know if a variable is an array?</p>
             <p>ECMAScript 5 (2009) defined a new method for this: <code>Array.isArray()</code></p>
-            <p><strong>Example</strong></p>
+            <p>
+              <strong>Example</strong>
+            </p>
             <pre>// Create an Array
 const fruits = ["apples", "bananas", "oranges"];
 Array.isArray(fruits);</pre>
           </section>
         </section>
-
         <section id="null-and-undefined">
-          <h3>JavaScript&apos; Types <code>null</code> and <code>undefined</code>*</h3>
+          <h3>JavaScript' Types <code>null</code> and <code>undefined</code>*</h3>
           <p>The <code>typeof</code> of a variable with no value is <code>undefined</code>. The value is also <code>undefined</code>.</p>
           <hr/>
-          <p>In JavaScript null is <q>nothing</q>. It is supposed to be something that doesn&apos;t exist. Unfortunately, in JavaScript, the data type of <code>null</code> is an <code>object</code>.</p>
+          <p>In JavaScript null is <q>nothing</q>. It is supposed to be something that doesn't exist. Unfortunately, in JavaScript, the data type of <code>null</code> is an <code>object</code>.</p>
           <p>You can empty an object by setting it to <code>null</code>.</p>
           <hr/>
           <p><code>undefined</code> and <code>null</code> are equal in value but different in type:</p>
@@ -93,32 +99,31 @@ typeof null           // object
 null === undefined    // false
 null == undefined     // true</pre>
         </section>
-
         <section id="typeof">
-          <h3>JavaScript&apos; <code>typeof</code> Operator*</h3>
+          <h3>JavaScript' <code>typeof</code> Operator*</h3>
           <p>The <code>typeof</code> operator returns the type of a variable or an expression.</p>
           <aside><strong>Note:</strong> In JavaScript, null is a primitive value. However, typeof returns "object". This is a well-known bug in JavaScript and has historical reasons.</aside>
         </section>
         <section id="symbols">
           <h3>Symbols</h3>
-          <p><dfn>Symbols</dfn> are values created with the <code>Symbol(<var>STRING</var>)</code> function. Unlike strings, newly created symbols are unique—you cannot create the same symbol twice.</p>
-          <p>What&apos;s the use of symbols? It is also possible to use symbols as property names.</p>
-          <p>Here&apos;s an example:</p>
+          <p><dfn>Symbols</dfn> are values created with the <code>Symbol(<var>STRING</var>)</code> function. Unlike strings, newly created symbols are unique&#x2014;you cannot create the same symbol twice.</p>
+          <p>What's the use of symbols? It is also possible to use symbols as property names.</p>
+          <p>Here's an example:</p>
           <pre>let sym = Symbol("name");
 console.log(sym == Symbol("name"));
-// → false
+// &#x2192; false
 Rabbit.prototype[sym] = 55;
 console.log(killerRabbit[sym]);
-// → 55</pre>
-          <p>The string you pass to <code>Symbol(...)</code> is included when you convert it to a string and can make it easier to recognize a symbol when, for example, showing it in the console. But it has no meaning beyond that—multiple symbols may have the same name.</p>
+// &#x2192; 55</pre>
+          <p>The string you pass to <code>Symbol(...)</code> is included when you convert it to a string and can make it easier to recognize a symbol when, for example, showing it in the console. But it has no meaning beyond that&#x2014;multiple symbols may have the same name.</p>
           <p>Being both unique and usable as property names makes symbols suitable for defining interfaces that can peacefully live alongside other properties, no matter what their names are.</p>
           <pre>const length = Symbol("length");
 Array.prototype[length] = 0;
 
 console.log([1, 2].length);
-// → 2
+// &#x2192; 2
 console.log([1, 2][length]);
-// → 0</pre>
+// &#x2192; 0</pre>
           <p>It is possible to include symbol properties in object expressions and classes by using square brackets around the property name. That causes the expression between the brackets to be evaluated to produce the property name, analogous to the square bracket property access notation.</p>
           <pre>let myTrip = {
   length: 2,
@@ -128,12 +133,412 @@ console.log([1, 2][length]);
 };
 
 console.log(myTrip[length], myTrip.length);
-// → 21500 2</pre>
+// &#x2192; 21500 2</pre>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+        </section>
+        <section id="iterables">
+          <h3>JavaScript Iterables</h3>
+          <p>An <dfn>Iterable</dfn> is an Iterable Object.</p>
+          <p>An iterable can be iterated over with <code>for</code>... <code>of</code> loops</p>
+          <section>
+            <h4>The <code>for... of</code> Loop</h4>
+            <p>The JavaScript <code>for... of</code> statement loops through the elements of an iterable object.</p>
+            <pre>for (<var>variable</var> of <var>iterable</var>) {
+  // code block to be executed
+}</pre>
+            <p>Iterating means looping over a sequence of elements. Here are some easy examples:</p>
+            <ul>
+              <li>iterating over a String</li>
+              <li>iterating over an Array</li>
+              <li>iterating over a Set</li>
+              <li>iterating over a Map</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Iterators</h4>
+            <p>The <strong>iterator protocol</strong> defines how to produce a sequence of values from an object. An object becomes an iterator when it implements a <code>next()</code> method. The <code>next()</code> method must return an object with two properties:</p>
+            <ul>
+              <li><var>value</var>: the next value</li>
+              <li><var>done</var>: true or false</li>
+            </ul>
+            <aside>
+              <p><strong>Note</strong></p>
+              <p>Technically, iterables must implement the <code>Symbol.iterator</code> method.</p>
+              <p>In JavaScript the following are iterables:</p>
+              <ul>
+                <li>Strings</li>
+                <li>Arrays</li>
+                <li>Typed Arrays</li>
+                <li>Sets</li>
+                <li>Maps</li>
+              </ul>
+              <p>...because their prototype objects have a <code>Symbol.iterator</code> method, as mentioned above.</p>
+            </aside>
+            <p><strong>Implementing your own iterable object</strong></p>
+            <p>This iterable returns never ending number: 10,20,30,40,.... when the <code>next()</code> method is called:</p>
+            <pre>// Home Made Iterable
+function myNumbers() {
+  let n = 0;
+  return {
+    next: function() {
+      n += 10;
+      return {value:n, done:false};
+    }
+  };
+}
+
+// Run the Iterable
+const n = myNumbers();
+n.next(); // Returns 10
+n.next(); // Returns 20
+n.next(); // Returns 30</pre>
+            <p>A fully-compliant iterable:</p>
+            <pre>// Create an Object
+myNumbers = {};
+
+// Make it Iterable
+myNumbers[Symbol.iterator] = function() {
+  let n = 0;
+  done = false;
+  return {
+    next() {
+      n += 10;
+      if (n == 100) {done = true}
+      return {value:n, done:done};
+    }
+  };
+}</pre>
+            <p>Now you can use <code>for..of</code></p>
+            <pre>for (const num of myNumbers) {
+  // Any Code Here
+}</pre>
+            <p>The <code>Symbol.iterator</code> method is called automatically by <code>for..of</code>. But we can also do it "manually":</p>
+            <pre>let iterator = myNumbers[Symbol.iterator]();
+
+while (true) {
+  const result = iterator.next();
+  if (result.done) break;
+  // Any Code Here
+}</pre>
+          </section>
+          <section>
+            <h4>Helper Functions</h4>
+            <p style="text-align: right">(From <cite>https://www.w3schools.com/js/js_iterators.asp</cite>)</p>
+            <p>JavaScript 2025 (ECMAScript 2025) officially approved a set of new <strong>Iterator Helper methods</strong> that significantly enhance the functionality of iterators in JavaScript. The methods provide a more functional and efficient way to work with iterable objects, including generators, by allowing direct manipulation and transformation without first converting them to arrays:</p>
+            <table border="1">
+              <thead>
+                <tr> <th>Function</th> <th>Description</th> </tr>
+              </thead>
+                <tr> <td><code>drop()</code></td> <td>Returns an iterator that skips a specified number of elements before yielding the rest</td> </tr>
+                <tr> <td><code>every()</code></td> <td>Returns true if all elements satisfy a test function</td> </tr>
+                <tr> <td><code>filter()</code></td> <td>Returns an iterator containing elements that satisfy a filter function</td> </tr>
+                <tr> <td><code>find()</code></td> <td>Returns the first element that satisfies a test function</td> </tr>
+                <tr> <td><code>flatMap()</code></td> <td>Returns an iterator by mapping each element and then flattening the results</td> </tr>
+                <tr> <td><code>forEach()</code></td> <td>Executes a function once for each element in the iterator.</td> </tr>
+                <tr> <td><code>from()</code></td> <td>creates an iterator object from an iterable</td> </tr>
+                <tr> <td><code>map()</code></td> <td>Returns an iterator with all elements transformed by a map function</td> </tr>
+                <tr> <td><code>reduce()</code></td> <td>Applies a reducer function against each element to reduce it to a single value</td> </tr>
+                <tr> <td><code>some()</code></td> <td>Returns true if at least one element satisfy a test function</td> </tr>
+                <tr> <td><code>take()</code></td> <td>Returns an iterator that yields a specified number of elements</td> </tr>
+            </table>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+        </section>
+      </section>
+      <section id="functions">
+        <h2>JavaScript Functions</h2>
+        <sections>
+          <h3>Local Variables</h3>
+          <p>A <dfn>local variable</dfn> is a <q>private</q> variable defined inside a function. A function can access all variables in the local scope.</p>
+          <p>In the following example, <var>a</var> is a local variable defined inside the function:</p>
+          <pre>function myFunction() {
+  let a = 4;
+  return a * a;
+}</pre>
+          <hr/>
+          <p>A <dfn>global variable</dfn> is a <q>public</q> variable defined outside a function. A function can access all variables in the <strong>global scope</strong>.</p>
+          <aside>
+            <p><strong>Note</strong><dfn>Undeclared variables</dfn> (created without a keyword <code>var</code>, <code>let</code>, <code>const</code>), are always global, even if they are created inside a function.</p>
+            <p><strong>Example</strong> The variable <var>a</var> is a global variable because it is undeclared:</p>
+            <pre>function myFunction() {
+  a = 4;}</pre>
+          </aside>
+        </sections>
+        <section id="nested-functions">
+          <h3>Nested Functions</h3>
+          <p>All functions have access to the global scope. In fact, in JavaScript, all functions have access to the scope <q>above</q> them.</p>
+          <p>Besides, JavaScript supports <strong>nested functions</strong>. Nested functions have access to the scope <q>above</q> them, even if it is local.</p>
+          <p><strong>Example</strong> The inner function <code>plus()</code> has access to the <var>counter</var> variable in the parent function:</p>
+          <pre>function add() {
+  let counter = 0;
+  function plus() {counter += 1;}
+  plus();
+  return counter;
+}</pre>
+        </section>
+        <section>
+          <h3>JavaScript Closures</h3>
+          <p>A <dfn>closure</dfn> is a function that has access to the parent scope, after the parent function has closed.</p>
+          <p>
+            <strong>Example</strong>
+          </p>
+          <pre>function myCounter() {
+  let counter = 0;
+  return function() {
+    counter++;
+    return counter;
+  };
+}
+const add = myCounter();
+add();
+add();
+add();
+
+// the counter is now 3</pre>
+          <p>
+            <strong>Explanation</strong>
+          </p>
+          <p>The variable <var>add</var> is assigned to the return value of a function.</p>
+          <p>The function only runs once. It sets the counter to zero (0), and returns a function expression.</p>
+          <p>This way <var>add</var> becomes a function. The <q>wonderful</q> part is that it can access the <var>counter</var> in its parent scope. This is called a <dfn>closure</dfn>. It makes it possible for a function to have <q>private</q> variables.</p>
+          <p>The counter is protected by the scope of the <var>myCounter</var> function, and can only be changed using the <var>add</var> function.</p>
+          <hr/>
+          <p>Closures has historically been used to:</p>
+          <ul>
+            <li>Create private variables</li>
+            <li>Preserve state between function calls</li>
+            <li>Simulate block-scoping before <code>let</code> and <code>const</code> existed</li>
+            <li>Implement certain design patterns like currying and memoization</li>
+          </ul>
+          <aside>Old JavaScript code will often contain closures, but modern JavaScript will not use closures as frequently as before, as ECMAScript 2015 and subsequent JavaScript versions have introduced new language features that provide alternatives to closures. While closures are a powerful concept in JavaScript, new JavaScript features make some use cases for closures less necessary.</aside>
+        </section>
+        <section>
+          <h3>Arrow Function</h3>
+          <p>Arrow functions were introduced in ES6. They allow us to write shorter function syntax:</p>
+          <pre>let myFunction = (a, b) =&gt; a * b;</pre>
+          <p>Before arrow functions you could only code:</p>
+          <pre>hello = function() {
+  return "Hello World!";
+}</pre>
+          <p>
+            <p>Before arrow functions you can write:</p>
+          </p>
+          <pre>hello = () =&gt; {
+  return "Hello World!";
+}</pre>
+          <p>It gets shorter! If the function has only one statement, and the statement returns a value, you can remove the brackets and the return keyword. (Arrow functions return a value by default.)</p>
+          <pre>hello = () =&gt; "Hello World!"; </pre>
+          <p>When Arrow Function take Parameters, you enclose them in round brackets. In fact, if you have only one parameter, you can skip the parentheses as well</p>
+          <pre>hello = (val) =&gt; "Hello " + val;
+hello = val =&gt; "Hello " + val;</pre>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+        </section>
+      </section>
+      <section id="operators">
+        <h2>JavaScript Operators</h2>
+        <section id="spread">
+          <h3>JavaScript Spread (<code>...</code>) Operator</h3>
+          <p>The <strong>spread</strong> (<code>...</code>) syntax allows an iterable, such as an array or string, to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected. In an object literal, the spread syntax enumerates the properties of an object and adds the key-value pairs to the object being created.</p>
+          <p>Spread syntax looks exactly like <a href="#rest">rest</a> syntax. Yet, in a way, spread syntax is the reverse of rest syntax. Spread syntax <em>expands</em> an array into its elements, while rest syntax collects multiple elements and <em>condenses</em> them into a single element. (<i>See</i> rest parameters and rest property.)</p>
+          <p>An example expanding the arguments into a function:</p>
+          <pre>function sum(x, y, z) {
+  return x + y + z;
+}
+
+const numbers = [1, 2, 3];
+
+console.log(sum(...numbers));
+// Expected output: 6
+
+console.log(sum.apply(null, numbers));
+// Expected output: 6</pre>
+          <hr/>
+          <p>Spread syntax can be used when all elements from an object or array need to be included in a new array or object, or should be applied one-by-one in a function call's arguments list. There are three distinct places that accept the spread syntax:</p>
+          <ul>
+            <li>Function arguments list: <code>myFunction(a, ...iterableObj, b)</code></li>
+            <li>Array literals: <code>[1, ...iterableObj, '4', 'five', 6]</code></li>
+            <li>Object literals: <code>{ ...obj, key: 'value' }</code></li>
+          </ul>
+          <p>Although the syntax looks the same, they come with slightly different semantics.</p>
+          <p>Only <strong>iterable</strong> values, like <code>Array</code> and <code>String</code>, can be spread in array literals and argument lists. Many objects are not iterable, including all plain objects that lack a <code>Symbol.iterator</code> method:</p>
+          <pre>const obj = { key1: "value1" };
+const array = [...obj]; // TypeError: obj is not iterable</pre>
+          <hr/>
+          <p>You can use spread syntax to make a <strong>shallow copy</strong> of an array. Each array element retains its identity without getting copied.</p>
+          <pre>const arr = [1, 2, 3];
+const arr2 = [...arr]; // like arr.slice()
+
+arr2.push(4);
+// arr2 becomes [1, 2, 3, 4]
+// arr remains unaffected</pre>
+          <section>
+            <h4>Copying and merging objects</h4>
+            <p>You can use spread syntax to merge multiple objects into one new object.</p>
+            <pre>const obj1 = { foo: "bar", x: 42 };
+const obj2 = { bar: "baz", y: 13 };
+
+const mergedObj = { ...obj1, ...obj2 };
+// { foo: "bar", x: 42, bar: "baz", y: 13 }</pre>
+            <p>A single spread creates a shallow copy of the original object (but without non-enumerable properties and without copying the prototype), similar to copying an array.</p>
+            <pre>const clonedObj = { ...obj1 };
+// { foo: "bar", x: 42 }</pre>
+            <hr/>
+            <p>When one object is spread into another object, or when multiple objects are spread into one object, and properties with identical names are encountered, the property takes the last value assigned while remaining in the position it was originally set.</p>
+            <pre>const obj1 = { foo: "bar", x: 42 };
+const obj2 = { foo: "baz", y: 13 };
+
+const mergedObj = { x: 41, ...obj1, ...obj2, y: 9 }; // { x: 42, foo: "baz", y: 9 }</pre>
+            <hr/>
+            <p>You can make an element present or absent in an object literal, depending on a condition, using a conditional operator (<code>?:</code>).</p>
+            <pre>const isSummer = false;
+const fruits = {
+  apple: 10,
+  banana: 5,
+  ...(isSummer ? { watermelon: 30 } : {}),
+};
+// { apple: 10, banana: 5 }</pre>
+            <p>The case where the condition is <code>false</code> is an empty object, so that nothing gets spread into the final object. Note that this is different from the following:</p>
+            <pre>const fruits = {
+  apple: 10,
+  banana: 5,
+  watermelon: isSummer ? 30 : undefined,
+};
+// { apple: 10, banana: 5, watermelon: undefined }</pre>
+            <p>In this case, the watermelon property is always present and will be visited by methods such as <code>Object.keys()</code>.</p>
+            <p>Because primitives can be spread into objects as well, and from the observation that all falsy values do not have enumerable properties, you can simply use a logical AND operator:</p>
+            <pre>const isSummer = false;
+const fruits = {
+  apple: 10,
+  banana: 5,
+  ...(isSummer &amp;&amp; { watermelon: 30 }),
+};</pre>
+            <p>In this case, if <var>isSummer</var> is any <strong>falsy</strong> value, no property will be created on the <var>fruits</var> object.</p>
+          </section>
+        </section>
+        <section id="rest">
+          <h3>JavaScript Rest (<code>...</code>) Operator*</h3>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+          <p/>
+          <pre/>
+        </section>
+        <!--
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
           <p></p>
           <pre></pre>
           <p></p>
           <pre></pre>
         </section>
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3><code></code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
       </section>
       <section id="regex">
         <h2>JavaScript Regular Expressions</h2>
@@ -150,86 +555,44 @@ console.log(myTrip[length], myTrip.length);
         </section>
       </section>
 
-      <section id="node.js">
-        <h2>Node.js</h2>
-        <p>Node.js® is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.</p>
-        <p>Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside of the browser. This allows Node.js to be very performant.</p>
-
-        <p>A Node.js app runs in a single process, without creating a new thread for every request. Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm.</p>
-        <p>When Node.js performs an I/O operation, like reading from the network, accessing a database or the filesystem, instead of blocking the thread and wasting CPU cycles waiting, Node.js will resume the operations when the response comes back.</p>
-        <p>This allows Node.js to handle thousands of concurrent connections with a single server without introducing the burden of managing thread concurrency, which could be a significant source of bugs.</p>
-
-        <p>Node.js has a unique advantage because millions of frontend developers that write JavaScript for the browser are now able to write the server-side code in addition to the client-side code without the need to learn a completely different language.</p>
-        <p>In Node.js the new ECMAScript standards can be used without problems, as you don&apos;t have to wait for all your users to update their browsers - you are in charge of deciding which ECMAScript version to use by changing the Node.js version, and you can also enable specific experimental features by running Node.js with flags.</p>
-
+      <section id="file-io">
+        <h2>Reading and Writing to a File with JavaScript</h2>
+        <p>A simple way to include a file containing valid JavaScript, just apply the following syntax:</p>
+        <pre>&lt;script type="text/javascript" src="./<var>MYFILE</var>.js"&gt;&lt;/script&gt;</pre>
         <section>
-          <h3>An Example Node.js Application</h3>
-          <p>The most common example Hello World of Node.js is a web server:</p>
-          <pre>const { createServer } = require('node:http');
+          <h3>Writing to a (Local) File through a Blob</h3>
+          <p style="text-align: right">(Exemplified in <a target="_blank" href="template.js.write.blob.html">template.js.write.blob.html</a>)</p>
+          <p>The Blob object is a built-in JavaScript feature that allows you to create file-like objects of immutable raw data. Using a Blob, you can easily generate text files directly in the browser. Here&apos;s how to use it:</p>
+          <ul>
+            <li>Create a Blob object containing the data you want to write to a text file.</li>
+            <li>Use the <code>URL.createObjectURL()</code> method to create a downloadable link.</li>
+            <li>Trigger the file download automatically when the user clicks a button.</li>
+          </ul>
+          <p>The (relevant) code:</p>
+          <pre>
+    &lt;div&gt;
+      &lt;textarea id="textData" rows="6" cols="50" placeholder="Enter text to save"&gt;&lt;/textarea&gt;&lt;br/&gt;&lt;br/&gt;
+      &lt;textarea id="fileName" rows="1" cols="50" placeholder="FILENAME.txt"&gt;&lt;/textarea&gt;&lt;br/&gt;&lt;br/&gt;
+      &lt;button onclick="downloadTextFile()"&gt;Download Text File&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+      function downloadTextFile() {
+        var text = document.getElementById("textData").value;
+        var filename = document.getElementById("fileName").value;
+        var blob = new Blob([text], { type: 'text/plain' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+      }
+    &lt;/script&gt;
+          </pre>
 
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});</pre>
-          <p>To run this snippet, save it as a <cite>server.js</cite> file and run <code>node server.js</code> in your terminal. If you use mjs version of the code, you should save it as a <cite>server.mjs</cite> file and run <code>node server.mjs</code> in your terminal.</p>
-          <p>This code first includes the Node.js <cite>http</cite> module.</p>
-          <p>Node.js has a fantastic standard library, including first-class support for networking.</p>
-          <p>The <code>createServer()</code> method of <cite>http</cite> creates a new HTTP server and returns it. The server is then set to listen on the specified port and host name. When the server is ready, the callback function is called, in this case informing us that the server is running.</p>
-
-          <p>Whenever a new request is received, the request event is called, providing two objects: a request (an <code>http.IncomingMessage</code> object) and a response (an <code>http.ServerResponse</code> object). Those two objects are essential to handle the HTTP call. The first provides the request details. In this simple example, this is not used, but you could access the request headers and request data.</p>
-          <p>The second is used to return data to the caller. In this case with:</p>
-          <pre>res.statusCode = 200;</pre>
-          <p>[...]</p>
-          <!--
-          <p></p>
-          <pre></pre>
-          -->
+          <p>(You may of course change the identifiers, forego embedding your textarea and button in a div element, etc.)</p>
         </section>
 
-        <section>
-          <h3>Differences between Node.js and the Browser</h3>
-          <p>Both the browser and Node.js use JavaScript as their programming language. Still, building apps that run in the browser is completely different from building a Node.js application. Despite the fact that it&apos;s always JavaScript, there are some key differences that make the experience radically different.</p>
-          <p>From the perspective of a frontend developer who extensively uses JavaScript, Node.js apps bring with them a huge advantage: the comfort of programming everything - the frontend and the backend - in a single language.</p>
-          <aside>What changes is the ecosystem.</aside>
-          <p>In the browser, most of the time what you are doing is interacting with the DOM, or other Web Platform APIs like Cookies. Those do not exist in Node.js, of course. You don&apos;t have the document, window and all the other objects that are provided by the browser. And in the browser, we don&apos;t have all the nice APIs that Node.js provides through its modules, like the filesystem access functionality.</p>
-
-          <p>Another big difference is that in Node.js you control the environment. Unless you are building an open source application that anyone can deploy anywhere, you know which version of Node.js you will run the application on. Compared to the browser environment, where you don&apos;t get the luxury to choose what browser your visitors will use, this is very convenient.</p>
-          <p>This means that you can write all the modern ES2015+ JavaScript that your Node.js version supports. Since JavaScript moves so fast, but browsers can be a bit slow to upgrade, sometimes on the web you are stuck with using older JavaScript / ECMAScript releases. You can use Babel to transform your code to be ES5-compatible before shipping it to the browser, but in Node.js, you won&apos;t need that.</p>
-
-          <p>Another difference is that Node.js supports both the CommonJS and ES module systems (since Node.js v12), while in the browser, we are starting to see the ES Modules standard being implemented. In practice, this means that you can use both require() and import in Node.js, while you are limited to import in the browser.</p>
-        </section>
-
-        <section>
-          <h3><code>npm</code></h3>
-          <p><code>npm</code> is the standard package manager for Node.js.</p>
-          <hr/>
-          <p><code>npm</code> installs, updates and manages downloads of dependencies of your project. Dependencies are pre-built pieces of code, such as libraries and packages, that your Node.js application needs to work.</p>
-          <h5 class="bridgehead">Installing all dependencies</h5>
-          <p>If a project has a package.json file, by running</p>
-          <pre>npm install</pre>
-          <p>it will install everything the project needs, in the node_modules folder, creating it if it&apos;s not existing already.</p>
-          <h5 class="bridgehead">Installing a single package</h5>
-          <p>You can also install a specific package by running</p>
-          <pre>npm install &lt;<var>package-name</var>&gt;</pre>
-          <p>Furthermore, since <code>npm 5</code>, this command adds &lt;<var>package-name</var>&gt; to the <cite>package.json</cite> file dependencies. Before version 5, you needed to add the flag <code>--save</code>.</p>
-          <h5 class="bridgehead">Updating packages</h5>
-          <p>Updating is also made easy, by running</p>
-          <pre>npm update</pre>
-          <p>npm will check all packages for a newer version that satisfies your versioning constraints.</p>
-        </section>
-
-      </section>  <!-- end of "Node.js" -->
+      </section>
 
     </main>
-
   </body>
-
 </html>

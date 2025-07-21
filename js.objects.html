@@ -316,6 +316,32 @@ document.getElementById("demo").innerHTML = obj.name;</pre>
       <section id="properties">
         <h2>Object Properties</h2>
         <section>
+          <h3>Checking for Properties: Existence, <code>undefined</code>-ness, <code>null</code>...</h3>
+          <section>
+            <h4><code>Object.hasOwn(<var>OBJ</var>,<var>PROPERTY</var>)</code> and <code>Object.hasOwnProperty(<var>OBJ</var>,<var>PROPERTY</var>)</code></h4>
+            <p>If you want to know if an object physically contains a property (and it is not coming from somewhere up on the prototype chain) then <code>object.hasOwnProperty</code> is the way to go. All modern browsers support it.</p>
+            <p>If what you&apos;re looking for is if an object has a property on it that is iterable (when you iterate over the properties of the object, it will appear) then doing: prop in object will give you your desired effect.</p>
+            <pre></pre>
+            <p></p>
+            <pre>const object1 = {
+  prop: 'exists'
+};
+
+console.log(Object.hasOwn(object1, 'prop'));
+// expected output: true
+</pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <aside>
+              <p><code>Object.hasOwn()</code> is recommended over <code>Object.hasOwnProperty()</code> because it works for objects created using <code>Object.create(null)</code> and with objects that have overridden the inherited <code>hasOwnProperty()</code> method. While it is possible to workaround these problems by calling <code>Object.prototype.hasOwnProperty()</code> on an external object, <code>Object.hasOwn()</code> is more intuitive.</p>
+            </aside>
+          </section>
+        </section>
+        <section>
           <h3>Overriding Derived Properties</h3>
           <p>When you add a property to an object, whether it is present in the prototype or not, the property is added to the object itself. If there was already a property with the same name in the prototype, this property will no longer affect the object, as it is now hidden behind the object&apos;s own property.</p>
         </section>

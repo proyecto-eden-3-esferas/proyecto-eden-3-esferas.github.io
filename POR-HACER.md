@@ -72,9 +72,13 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] *linux.shm.html*
+[ ] *Cultivar entre árboles*
+<p>En la agricultura convencional uno cultiva en campos abiertos, salvo en silvicultura convencional, porque así entran los tractores y demás máquinas sin dificultad y las plantan reciben el máximo de insolación.</p>
+<p>Si en una huerta hay árboles dispersos que intercepten un tanto por ciento considerable de la luz solar directa continuamente quedan zonas en sombra. Algunas de estas zonas reciben sombra sólo en las primeras y últimas horas del día. Esto hace que siempre haya zonas a la sombra en las que el horticultor, jardinero, campesino etc. pueda trabajar más fresco. Por supuesto esta disposición de árboles dispersos resulta tanto más ventajosa cuanto más calor haga.</p>
+<p>Un inconveniente es que se priva a algunos cultivos del pleno sol que necesitan para llegar cuanto antes al mercado y así venderse a mejor precio por escasez de competencia. Por supuesto en zonas y temporadas soleadas y cálidas la sombra no supone una gran desventaja.</p>
 
-
+[ ] *Palabras llenas*
+[ ] *Escribir sólo con palabras llenas*
 [ ]
 <h2>Lugar</h2>
 <p>Los Gómez decidieron veranear una quincena en un apartamento del oeste de Asturias. Disfrutaron hasta de la ida: los campos abiertos de Castilla, las montañas, luego el verde de vertiente cantábrica. En su coche, a 120 kilómetros por hora, rozaban los paisajes, que se sucedían sin permanecer, sin ellos quedarse, variados, estimulantes. Por aclamación popular llevaron el aire acondicionado puesto, comidas en cafeterías de la autovía, luego un par de paradas más.</p>

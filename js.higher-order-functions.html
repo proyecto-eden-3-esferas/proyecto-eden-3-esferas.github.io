@@ -164,6 +164,19 @@ console.log(map(Elderly, p =&gt; p.name));
         <p>The higher-order operation that represents this pattern is called <dfn>reduce</dfn> (sometimes also called <dfn>fold</dfn>). It builds a value by repeatedly taking a single element from the array and combining it with the current value. When summing numbers, you&apos;d start with the number zero and, for each element, add that to the sum.</p>
         <pre>reduce(<var>callbackFn</var>)
 reduce(<var>callbackFn</var>, <var>initialValue</var>)</pre>
+        <p><strong>Note:</strong> If the first prototype is used, then the initial value is the first element in the array.</p>
+        <hr/>
+        <p>The full prototype of <code>reduce()</code> is:</p>
+        <pre>array.reduce(function(<var>total</var>, <var>currentValue</var>, <var>currentIndex</var>, <var>arr</var>), <var>initialValue</var> = <var>arr</var>[0])</pre>
+        <p>where</p>
+        <table border="1">
+        <thead> <tr> <td>Parameter</td> <td>Description</td> </tr> </thead>
+                <tr> <td><var>total</var> (required)</td> <td>The <var>initialValue</var>, or the previously returned value of the function</td> </tr>
+                <tr> <td><var>currentValue</var> (required)</td> <td>the value of the current element</td> </tr>
+                <tr> <td><var>currentIndex</var> (optional)</td> <td>the index of the current element</td> </tr>
+                <tr> <td><var>arr</var> (optional)</td> <td>the array the current element belongs to</td> </tr>
+        </table>
+        <hr/>
         <p>The parameters to reduce are, apart from the array, a combining function and a start value. This function is a little less straightforward than <code>filter</code> and <code>map</code>, so take a close look at a plausible implementation:</p>
         <pre>function reduce(array, combine, start) {
   let current = start;
