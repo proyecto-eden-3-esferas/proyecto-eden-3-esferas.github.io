@@ -24,7 +24,8 @@
         <p><a href="json.html">JavaScript Object Notation</a></p>
         <p><a href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
         <p><a href="js.strings.html">JavaScript Strings</a></p>
-        <p><a href="js.arrays.html">JavaScript Arrays</a></p>
+        <p><a href="js.arrays.html">JavaScript Arrays Data Structure</a></p>
+        <p><a href="js.maps.html">JavaScript Map Data Structure</a></p>
         <p><a href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
         <p><a href="js.nodejs.html">Node JS</a></p>
@@ -557,8 +558,11 @@ const fruits = {
 
       <section id="file-io">
         <h2>Reading and Writing to a File with JavaScript</h2>
-        <p>A simple way to include a file containing valid JavaScript, just apply the following syntax:</p>
-        <pre>&lt;script type="text/javascript" src="./<var>MYFILE</var>.js"&gt;&lt;/script&gt;</pre>
+        <section>
+          <h3>Including a (Local) File</h3>
+          <p>A simple way to include a file containing valid JavaScript, just apply the following syntax:</p>
+          <pre>&lt;script type="text/javascript" src="./<var>MYFILE</var>.js"&gt;&lt;/script&gt;</pre>
+        </section>
         <section>
           <h3>Writing to a (Local) File through a Blob</h3>
           <p style="text-align: right">(Exemplified in <a target="_blank" href="template.js.write.blob.html">template.js.write.blob.html</a>)</p>
@@ -589,6 +593,24 @@ const fruits = {
           </pre>
 
           <p>(You may of course change the identifiers, forego embedding your textarea and button in a div element, etc.)</p>
+        </section>
+
+        <section id="nodejs-io">
+          <h3>File I/O in Node.js File through the System Module (<code>fs</code>)</h3>
+          <p style="text-align: right">(From <cite>https://www.w3schools.com/nodejs/nodejs_filesystem.asp</cite>)</p>
+          <p>The Node.js File System module (fs) provides a comprehensive set of methods for working with the file system on your computer. It allows you to perform file I/O operations in both synchronous and asynchronous ways.</p>
+          <p><strong>Note:</strong> The File System module is a core Node.js module, so no installation is required.</p>
+          <p>In depth discussion to be found at <a target="_blank" href="js.nodejs.html#filesystem">js.nodejs.html#filesystem</a>.</p>
+          <hr/>
+          <p>Some examples/demos:</p>
+          <ul>
+            <li><cite><a target="_blank" href="nodejs.writeFile.promises.js">nodejs.writeFile.promises.js</a></cite></li>
+            <!--
+            <li><cite><a target="_blank" href=""></a></cite></li>
+            <li><cite><a target="_blank" href=""></a></cite></li>
+            <li><cite><a target="_blank" href=""></a></cite></li>
+            -->
+          </ul>
         </section>
 
       </section>

@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>javascript: the internet programming language</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript: the Web Programming Language"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a rel="next" href="js.arrays.html">JavaScript Arrays</a></p>
+        <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+      </div>
+      <div>
+        <p><a href="js.strings.html">JavaScript Strings</a></p>
+        <p><a href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a href="js.nodejs.html">Node JS</a></p>
+        <p><a href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
+        <p><a href="json.html">JavaScript Object Notation</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>JavaScript Map Data Structure</h1>
+      <p>The Map object holds key-value pairs and remembers the original insertion order of the keys. Any value (both objects and primitive values) may be used as either a key or a value.</p>
+      <pre>const map = new Map();
+
+map.set("a", 1);
+map.set("b", 2);
+map.set("c", 3);
+
+console.log(map.get("a"));
+// Expected output: 1
+
+map.set("a", 97);
+
+console.log(map.get("a"));
+// Expected output: 97
+
+console.log(map.size);
+// Expected output: 3
+
+map.delete("b");
+
+console.log(map.size);
+// Expected output: 2</pre>
+      <p>Map objects are collections of key-value pairs. A key in the Map <strong>may only occur once</strong>; it is unique in the Map&apos;s collection. A Map object is iterated by key-value pairs — a <code>for...of</code> loop returns a 2-member array of [<var>key</var>, <var>value</var>] for each iteration. Iteration happens in insertion order, which corresponds to the order in which each key-value pair was first inserted into the map by the <code>set()</code> method (that is, there wasn&apos;t a key with the same value already in the map when <code>set()</code> was called).</p>
+      <p>The specification requires maps to be implemented <q>that, on average, provide access times that are sublinear on the number of elements in the collection</q>. Therefore, it could be represented internally as a hash table (with O(1) lookup), a search tree (with O(log(N)) lookup), or any other data structure, as long as the complexity is better than O(N).</p>
+      <section id="setting">
+        <h2>Setting object properties</h2>
+        <p>Setting Object properties works for Map objects as well, and can cause considerable confusion. Therefore, this appears to work in a way:</p>
+        <pre>const wrongMap = new Map();
+wrongMap["bla"] = "blaa";
+wrongMap["bla2"] = "blaaa2";
+
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }</pre>
+        <p>But that way of setting a property does not interact with the Map data structure. It uses the feature of the generic object. The value of 'bla' is not stored in the Map for queries. Other operations on the data fail:</p>
+        <pre>wrongMap.has("bla"); // false
+wrongMap.delete("bla"); // false
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }</pre>
+        <p>The correct usage for storing data in the Map is through the set(key, value) method.</p>
+        <pre>const contacts = new Map();
+contacts.set("Jessie", { phone: "213-555-1234", address: "123 N 1st Ave" });
+contacts.has("Jessie"); // true
+contacts.get("Hilary"); // undefined
+contacts.set("Hilary", { phone: "617-555-4321", address: "321 S 2nd St" });
+contacts.get("Jessie"); // {phone: "213-555-1234", address: "123 N 1st Ave"}
+contacts.delete("Raymond"); // false
+contacts.delete("Jessie"); // true
+console.log(contacts.size); // 1
+</pre>
+      </section>
+
+      <section>
+        <h2>Iterating through Maps</h2>
+        <section>
+          <h3>Iterating Map with <code>for...of</code></h3>
+          <p>Maps can be iterated using a <code>for...of</code> loop:</p>
+          <pre>const myMap = new Map();
+myMap.set(0, "zero");
+myMap.set(1, "one");
+
+for (const [key, value] of myMap) {
+  console.log(`${key} = ${value}`);
+}
+// 0 = zero
+// 1 = one
+
+for (const key of myMap.keys()) {
+  console.log(key);
+}
+// 0
+// 1
+
+for (const value of myMap.values()) {
+  console.log(value);
+}
+// zero
+// one
+
+for (const [key, value] of myMap.entries()) {
+  console.log(`${key} = ${value}`);
+}
+// 0 = zero
+// 1 = one</pre>
+        </section>
+        <section>
+          <h3>Iterating Map with <code>forEach()</code></h3>
+          <p>Maps can be iterated using the <code>forEach()</code> method:</p>
+          <pre>myMap.forEach((value, key) => {
+  console.log(`${key} = ${value}`);
+});
+// 0 = zero
+// 1 = one</pre>
+        </section>
+      </section>
+
+      <section>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+
+      <section id="sorting">
+        <h2>Sorting*</h2>
+        <p>(Much like Array sorting?)</p>
+      </section>
+      <section id="indexes">
+        <h2>JavaScript Maps as Indexes</h2>
+      </section>
+      <!--
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      -->
+
+    </main>
+  </body>
+</html>
