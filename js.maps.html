@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>javascript: the internet programming language</title>
+    <title>JavaScript Maps</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
-    <meta name="description" content="JavaScript: the Web Programming Language"/>
+    <meta name="description" content="JavaScript Map Data Structure"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
@@ -22,9 +22,10 @@
       -->
       <div>
         <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="js.sets.html">JavaScript Set Data Structure</a></p>
         <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
         <p><a rel="next" href="js.arrays.html">JavaScript Arrays</a></p>
-        <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
       </div>
       <div>
         <p><a href="js.strings.html">JavaScript Strings</a></p>
@@ -58,8 +59,94 @@ map.delete("b");
 
 console.log(map.size);
 // Expected output: 2</pre>
-      <p>Map objects are collections of key-value pairs. A key in the Map <strong>may only occur once</strong>; it is unique in the Map&apos;s collection. A Map object is iterated by key-value pairs — a <code>for...of</code> loop returns a 2-member array of [<var>key</var>, <var>value</var>] for each iteration. Iteration happens in insertion order, which corresponds to the order in which each key-value pair was first inserted into the map by the <code>set()</code> method (that is, there wasn&apos;t a key with the same value already in the map when <code>set()</code> was called).</p>
+      <p>Map objects-- JavaScript maps are objects-- are collections of key-value pairs. A key in the Map <strong>may only occur once</strong>; it is unique in the Map&apos;s collection. A Map object is iterated by key-value pairs — a <code>for...of</code> loop returns a 2-member array of [<var>key</var>, <var>value</var>] for each iteration. Iteration happens in insertion order, which corresponds to the order in which each key-value pair was first inserted into the map by the <code>set()</code> method (that is, there wasn&apos;t a key with the same value already in the map when <code>set()</code> was called).</p>
       <p>The specification requires maps to be implemented <q>that, on average, provide access times that are sublinear on the number of elements in the collection</q>. Therefore, it could be represented internally as a hash table (with O(1) lookup), a search tree (with O(log(N)) lookup), or any other data structure, as long as the complexity is better than O(N).</p>
+      <section id="construction">
+        <h2>Construction of Maps</h2>
+        <p>Maps can be constructed from arrays of key-value subarrays:</p>
+        <pre>const kvArray = [
+  ["key1", "value1"],
+  ["key2", "value2"],
+];
+
+// Use the regular Map constructor to transform a 2D key-value Array into a map
+const myMap = new Map(kvArray);
+
+
+console.log(myMap.get("key1")); // "value1"
+
+// Use Array.from() to transform a map into a 2D key-value Array
+console.log(Array.from(myMap)); // Will show you exactly the same Array as kvArray
+
+// A succinct way to do the same, using the spread syntax
+console.log([...myMap]);
+
+// Or use the keys() or values() iterators, and convert them to an array
+console.log(Array.from(myMap.keys())); // ["key1", "key2"]</pre>
+        <p>Just like Arrays, Maps can be cloned:</p>
+        <pre>const original = new Map([[1, "one"]]);
+
+const clone = new Map(original);
+
+console.log(clone.get(1)); // one
+console.log(original === clone); // false (useful for shallow comparison)</pre>
+        <p><strong>Note:</strong> Keep in mind that the data itself is not cloned. In other words, it is only a shallow copy of the Map.</p>
+        <p>Maps can be merged, maintaining key uniqueness:</p>
+        <pre>const first = new Map([
+  [1, "one"],
+  [2, "two"],
+  [3, "three"],
+]);
+
+const second = new Map([
+  [1, "uno"],
+  [2, "dos"],
+]);
+
+// Merge two maps. The last repeated key wins.
+// Spread syntax essentially converts a Map to an Array
+const merged = new Map([...first, ...second]);
+
+console.log(merged.get(1)); // uno
+console.log(merged.get(2)); // dos
+console.log(merged.get(3)); // three</pre>
+        <p>Maps can be merged with Arrays, too:</p>
+        <pre>const first = new Map([
+  [1, "one"],
+  [2, "two"],
+  [3, "three"],
+]);
+
+const second = new Map([
+  [1, "uno"],
+  [2, "dos"],
+]);
+
+// Merge maps with an array. The last repeated key wins.
+const merged = new Map([...first, ...second, [1, "un"]]);
+
+console.log(merged.get(1)); // un
+console.log(merged.get(2)); // dos
+console.log(merged.get(3)); // three</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+
+      </section>
       <section id="setting">
         <h2>Setting object properties</h2>
         <p>Setting Object properties works for Map objects as well, and can cause considerable confusion. Therefore, this appears to work in a way:</p>
@@ -167,13 +254,72 @@ for (const [key, value] of myMap.entries()) {
         <p></p>
       </section>
 
+      <section id="groupBy">
+        <h2><code>Map.groupBy()</code> (ES2024)</h2>
+        <p>The <code>Map.groupBy()</code> method groups elements of an object according to string values returned from a callback function.</p>
+        <p>The Map.groupBy() method does not change the original object.</p>
+        <pre>// Create an Array
+const fruits = [
+  {name:"apples", quantity:300},
+  {name:"bananas", quantity:500},
+  {name:"oranges", quantity:200},
+  {name:"kiwi", quantity:150}
+];
+
+// Callback function to Group Elements
+function myCallback({ quantity }) {
+  return quantity > 200 ? "ok" : "low";
+}
+
+// Group by Quantity
+const result = Map.groupBy(fruits, myCallback);</pre>
+        <aside>
+          <h3><code>Object.groupBy()</code> vs <code>Map.groupBy()</code></h3>
+          <p>The difference between Object.groupBy() and Map.groupBy() is that <code>Object.groupBy()</code> groups elements into a JavaScript object, whereas <code>Map.groupBy()</code> groups elements into a Map object.</p>
+        </aside>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>Other Map Methods</h2>
+        <table border="1" id="simple_with_header_and_th">
+        <thead> <tr> <th>Method/Property</th> <th>Meaning/Action</th> </tr> </thead>
+                <tr> <td><code>size</code></td> <td>the number of elements in a map</td> </tr>
+                <tr> <td><code>delete()</code></td> <td>removes a map element, as in <code>fruits.delete("apples");</code></td> </tr>
+                <tr> <td><code>clear()</code></td> <td>removes all the elements from a map</td> </tr>
+                <tr> <td><code>has(<var>key</var>)</code></td> <td>returns true if a key exists in a map, as in <code>fruits.has("apples");</code></td> </tr>
+                <tr> <td><code>entries()</code></td> <td>returns an iterator object with the [key,values] in a map</td> </tr>
+                <tr> <td><code>keys()</code></td> <td>returns an iterator object with the keys in a map</td> </tr>
+                <tr> <td><code>values()</code></td> <td>returns an iterator object with the values in a map</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+                <tr> <td><code>MEMBER</code></td> <td>ACTION</td> </tr>
+        </table>
+      </section>
+
+      <!--
       <section id="sorting">
         <h2>Sorting*</h2>
         <p>(Much like Array sorting?)</p>
       </section>
+      -->
+
       <section id="indexes">
         <h2>JavaScript Maps as Indexes</h2>
       </section>
+
       <!--
       <section id="*">
         <h2>***</h2>

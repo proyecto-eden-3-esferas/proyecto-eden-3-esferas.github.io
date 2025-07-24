@@ -183,6 +183,7 @@ Array.from(text);</pre>
 const myArr = Array.from(myNumbers, (x) => x * 2);</pre>
         </section>
 
+        <!--
         <section id="">
           <h3><code></code></h3>
           <p></p>
@@ -210,8 +211,61 @@ const myArr = Array.from(myNumbers, (x) => x * 2);</pre>
           <p></p>
           <pre></pre>
         </section>
+        -->
 
       </section>  <!-- end of "Array Iterations" -->
+
+      <section>
+        <h2>JavaScript Sparse Arrays</h2>
+        <p>A <dfn>sparse array</dfn> is one in which the elements are not sequential, and they don&apos;t always start at 0. They are essentially Arrays with "holes", or gaps in the sequence of their indices.</p>
+        <p>So an example would be:</p>
+        <pre>let array = [];
+array[100] = "Holes now exist";
+array.length // 101, but only 1 element</pre>
+
+        <p>Normally, the <code>length</code> property of an Array accurately returns the number of elements in the array, but in sparse arrays they don&apos;t. If the array is sparse, the value of the length property is greater than the number of elements.</p>
+        <p>This behaviour is possible because <code>Arrays</code> under the hood in JavaScript are <code>Objects</code>. Their keys are numbers, and their values are the elements.</p>
+        <p>The <code>length</code> property on an <code>Array</code> takes the last element&apos;s index and adds one. So if you have an array with holes between index 0 through 100, and an element at index 101, the <code>length</code> will return 101, as it&apos;s the last index + 1.</p>
+
+        <section>
+          <h3>How to Create a Sparse Array</h3>
+          <dl>
+
+            <dt>Use the Array object</dt>
+            <dd>
+             <pre>let array = new Array(10); // array initialized with no elements
+array.length // 10</pre>
+            </dd>
+
+            <dt>Insert a key/value at a certain index</dt>
+            <dd>
+             <pre>array[1000] = 0; // Assignment adds one element
+array.length // But .length returns 1001</pre>
+            </dd>
+
+            <dt>Use the delete operator</dt>
+            <dd>
+             <pre>let array = [1, 2, 3, 4, 5]
+delete array[0]
+array.length // .length returns 5</pre>
+            </dd>
+
+            <dt>Initialize an Array with holes</dt>
+            <dd>
+             <pre>[,,,,] // You have created an array with nothing but holes
+[1,2,3,4,,5] // Oh no, you mistyped a comma and entered a hole between 4 and 5!</pre>
+            </dd>
+
+          </dl>
+          <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          -->
+        </section>
+
+      </section>
 
     </main>
 
