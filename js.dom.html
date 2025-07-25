@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript and DOM</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript and the HTML DOM (Document Object Model)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a            href="js.strings.html">JavaScript Strings</a></p>
+      </div>
+      <div>
+        <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1></h1>
+      <h1>JavaScript and the HTML DOM (Document Object Model)</h1>
+      <p>When a web page is loaded, the browser creates a Document Object Model of the page. The HTML DOM model is constructed as a tree of Objects.</p>
+      <p>The DOM is a W3C (World Wide Web Consortium) standard. It defines a standard for accessing documents:</p>
+      <blockquote>The W3C Document Object Model (DOM) is a platform and language-neutral interface that allows programs and scripts to dynamically access and update the content, structure, and style of a document.</blockquote>
+      <hr/>
+      <p>With the object model, JavaScript gets all the power it needs to create dynamic HTML. JavaScript can:</p>
+      <ul>
+        <li>change all and any of the HTML elements or its attributes in the page</li>
+        <li>modify all the CSS styles in the page</li>
+        <li>remove existing HTML elements and attributes, or add new ones</li>
+        <li>react to all existing HTML events in the page</li>
+        <li>create new HTML events in the page</li>
+      </ul>
+      <section>
+        <h2>The Basics: <code>...</code></h2>
+        <p>The most common way to access an HTML element is to use the <var>id</var> of the element by means of the document&apos;s <code>getElementById(ID)</code> methods.</p>
+        <p>And the easiest way to get the content of an element is by using the <code>innerHTML</code> property. The <code>innerHTML</code> property is useful for getting or replacing the content of HTML elements.</p>
+        <p>Last, the HTML DOM document object (<code>document</code>) is the owner of all other objects in your web page.</p>
+        <p>The following example applies all three components (<code>document</code>, <code>getElementById(<var>ID</var>)</code>, and <code>innerHTML</code>) to change the content (the innerHTML) of the &lt;p&gt; element with id="demo":</p>
+        <pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById("demo").innerHTML = "Hello World!";
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        <p>In the example above, <code>getElementById(ID)</code> is a method, while <code>innerHTML</code> is a property.</p>
+      </section>
+
+      <section>
+        <h2>Some Common Methods and Variables for Accessing the DOM</h2>
+        <section>
+          <h3>Finding HTML Elements</h3>
+          <table border="1">
+          <thead> <tr> <td>Method</td> <td>Description</td> </tr> </thead>
+                  <tr> <td><code>document.getElementById(<var>id</var>)</code></td> <td>Find an element by element id</td> </tr>
+                  <tr> <td><code>document.getElementsByTagName(<var>name</var>)</code></td> <td>Find elements by tag name</td> </tr>
+                  <tr> <td><code>document.getElementsByClassName(<var>name</var>)</code></td> <td>Find elements by class name</td> </tr>
+          </table>
+        </section>
+        <section>
+          <h3>Changing HTML Elements</h3>
+          <table border="1">
+          <thead> <tr> <td>Property/Method</td> <td>Description</td> </tr> </thead>
+                  <tr> <td><code>element.innerHTML =  <var>new_html_content</var></code></td> <td>Change the inner HTML of an element</td> </tr>
+                  <tr> <td><code>element.<var>attribute</var> = <var>new_value</var></code></td> <td>Change the attribute value of an HTML element</td> </tr>
+                  <tr> <td><code>element.style.<var>property</var> = <var>new_style</var></code></td> <td>Change the style of an HTML element</td> </tr>
+                  <tr> <td><code>element.setAttribute(<var>attribute</var>, <var>value</var>)</code></td> <td>Change the attribute value of an HTML element</td> </tr>
+          </table>
+        </section>
+        <section>
+          <h3>Adding and Deleting Elements</h3>
+          <table border="1">
+          <thead> <tr> <td>Method</td> <td>Description</td> </tr> </thead>
+                  <tr> <td><code>document.createElement(<var>element</var>)</code></td> <td>Create an HTML element</td> </tr>
+                  <tr> <td><code>document.removeChild(<var>element</var>)</code></td> <td>Remove an HTML element</td> </tr>
+                  <tr> <td><code>document.appendChild(element)</code></td> <td>Add an HTML element</td> </tr>
+                  <tr> <td><code>document.replaceChild(<var>new</var>, <var>old</var>)</code></td> <td>Replace an HTML element</td> </tr>
+                  <tr> <td><code>document.write(text)</code></td> <td>Write into the HTML output stream</td> </tr>
+          </table>
+        </section>
+        <section>
+          <h3>Adding Events Handlers</h3>
+          <table border="1">
+          <thead> <tr> <td>Method</td> <td>Description</td> </tr> </thead>
+                  <tr> <td><code>document.getElementById(<var>id</var>).onclick = function() {<var>code</var>}</code></td> <td>Adding event handler code to an onclick event</td> </tr>
+                  <tr> <td><code>document.getElementsByClassName(<var>className</var>)</code></td> <td>get all elements with the same class name</td> </tr>
+                  <tr> <td><code>document.querySelectorAll(<var>querySelector</var>)</code></td> <td>find all HTML elements that match a specified CSS selector</td> </tr>
+                  <!--
+                  <tr> <td><code>METHOD</code></td> <td>DESCRIPTION</td> </tr>
+                  <tr> <td><code>METHOD</code></td> <td>DESCRIPTION</td> </tr>
+                  -->
+          </table>
+        </section>
+        <section>
+          <h3>Finding HTML Objects</h3>
+          <p>The first HTML DOM Level 1 (1998), defined 11 HTML objects, object collections, and properties. These are still valid in HTML5. Later, in HTML DOM Level 3, more objects, collections, and properties were added.</p>
+          <table border="1">
+          <thead> <tr> <td>Method</td> <td>Description</td> <td>DOM</td> </tr> </thead>
+                  <tr> <td><code>document.anchors</code></td> <td>Deprecated. Do not use it</td> <td>1</td> </tr>
+                  <tr> <td><code>document.applets</code></td> <td>Deprecated. Do not use it</td> <td>1</td> </tr>
+                  <tr> <td><code>document.baseURI</code></td> <td>Returns the absolute base URI of the document</td> <td>3</td> </tr>
+                  <tr> <td><code>document.body</code></td> <td>Returns the &lt;body&gt; element</td> <td>1</td> </tr>
+                  <tr> <td><code>document.cookie</code></td> <td>Returns the document's cookie</td> <td>1</td> </tr>
+                  <tr> <td><code>document.doctype</code></td> <td>Returns the document's doctype</td> <td>3</td> </tr>
+                  <tr> <td><code>document.documentElement</code></td> <td>Returns the &lt;html&gt; element</td> <td>3</td> </tr>
+                  <tr> <td><code>document.documentMode</code></td> <td>Returns the mode used by the browser</td> <td>3</td> </tr>
+                  <tr> <td><code>document.documentURI</code></td> <td>Returns the URI of the document</td> <td>3</td> </tr>
+                  <tr> <td><code>document.domain</code></td> <td>Deprecated. Do not use it</td> <td>1</td> </tr>
+                  <tr> <td><code>document.domConfig</code></td> <td>Deprecated. Do not use it</td> <td>3</td> </tr>
+                  <tr> <td><code>document.embeds</code></td> <td>Returns all &lt;embed&gt; elements</td> <td>3</td> </tr>
+                  <tr> <td><code>document.forms</code></td> <td>Returns all &lt;form&gt; elements</td> <td>1</td> </tr>
+                  <tr> <td><code>document.head</code></td> <td>Returns the &lt;head&gt; element</td> <td>3</td> </tr>
+                  <tr> <td><code>document.images</code></td> <td>Returns all &lt;img&gt; elements</td> <td>1</td> </tr>
+                  <tr> <td><code>document.implementation</code></td> <td>Returns the DOM implementation</td> <td>3</td> </tr>
+                  <tr> <td><code>document.inputEncoding</code></td> <td>Returns the document's encoding (character set)</td> <td>3</td> </tr>
+                  <tr> <td><code>document.lastModified</code></td> <td>Returns the date and time the document was updated</td> <td>3</td> </tr>
+                  <tr> <td><code>document.links</code></td> <td>Returns all &lt;area&gt; and &lt;a&gt; elements that have a href attribute</td> <td>1</td> </tr>
+                  <tr> <td><code>document.readyState</code></td> <td>Returns the (loading) status of the document</td> <td>3</td> </tr>
+                  <tr> <td><code>document.referrer</code></td> <td>Returns the URI of the referrer (the linking document)</td> <td>1</td> </tr>
+                  <tr> <td><code>document.scripts</code></td> <td>Returns all &lt;script&gt; elements</td> <td>3</td> </tr>
+                  <tr> <td><code>document.strictErrorChecking</code></td> <td>Returns if error checking is enforced</td> <td>3</td> </tr>
+                  <tr> <td><code>document.title</code></td> <td>Returns the &lt;title&gt; element</td> <td>1</td> </tr>
+                  <tr> <td><code>document.URL</code></td> <td>Returns the complete URL of the document</td> <td>1</td> </tr>
+          </table>
+        </section>
+      </section>
+
+      <section>
+        <h2>Changing HTML Content</h2>
+        <p>The easiest way to modify the content of an HTML element is by using the <code>innerHTML</code> property. To change the content of an HTML element, use this syntax:</p>
+        <pre>document.getElementById(<var>id</var>).innerHTML = <var>newHTML</var></pre>
+        <hr/>
+        <p>To change the value of an HTML attribute, use this syntax:</p>
+        <pre>document.getElementById(id).<var>attribute</var> = <var>newValue</var></pre>
+        <section>
+          <h3>Dynamic HTML content</h3>
+          <p>JavaScript can create dynamic HTML content:</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;script&gt;
+document.getElementById("demo").innerHTML = "Date : " + Date();&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        </section>
+        <section>
+          <h3><code>document.write(<var>TEXT</var>)</code></h3>
+          <p>In JavaScript, <code>document.write()</code> can be used to write directly to the HTML output stream:</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;p&gt;Bla bla bla&lt;/p&gt;
+
+&lt;script&gt;
+document.write(Date());
+&lt;/script&gt;
+
+&lt;p&gt;Bla bla bla&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          <p><strong>Warning:</strong> Never use <code>document.write()</code> after the document is loaded. It will overwrite the document.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>JavaScript Forms</h2>
+        <section>
+          <h3>JavaScript Form Validation</h3>
+          <p>HTML form validation can be done by JavaScript.</p>
+          <p>If a form field (<var>fname</var>) is empty, this function alerts a message, and returns false, to prevent the form from being submitted:</p>
+          <pre>function validateForm() {
+  let x = document.forms["myForm"]["fname"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+}</pre>
+          <p>The function can be called when the form is submitted:</p>
+          <pre>&lt;form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post"&gt;
+Name: &lt;input type="text" name="fname"&gt;
+&lt;input type="submit" value="Submit"/&gt;
+&lt;/form&gt;</pre>
+        </section>
+        <section>
+          <h3>Automatic HTML Form Validation</h3>
+          <p>HTML form validation can be performed automatically by the browser. If a form field (fname) is empty, the required attribute prevents this form from being submitted:</p>
+          <pre>&lt;form action="/action_page.php" method="post"&gt;
+  &lt;input type="text" name="fname" required/&gt;
+  &lt;input type="submit" value="Submit"/&gt;
+&lt;/form&gt;</pre>
+        </section>
+        <section>
+          <h3>HTML Constraint Validation</h3>
+          <p>HTML5 introduced a new HTML validation concept called constraint validation. HTML constraint validation is based on:</p>
+          <ul>
+            <li>Constraint validation HTML Input Attributes</li>
+            <li>Constraint validation CSS Pseudo Selectors</li>
+            <li>Constraint validation DOM Properties and Methods</li>
+          </ul>
+          <section>
+            <h4>Constraint Validation HTML Input Attributes</h4>
+            <table border="1">
+            <thead> <tr> <th>Attribute</th> <th>Description</th> </tr> </thead>
+                    <tr> <td>disabled</td> <td>Specifies that the input element should be disabled</td> </tr>
+                    <tr> <td>max</td> <td>Specifies the maximum value of an input element</td> </tr>
+                    <tr> <td>min</td> <td>Specifies the minimum value of an input element</td> </tr>
+                    <tr> <td>pattern</td> <td>Specifies the value pattern of an input element</td> </tr>
+                    <tr> <td>required</td> <td>Specifies that the input field requires an element</td> </tr>
+                    <tr> <td>type</td> <td>Specifies the type of an input element</td> </tr>
+            </table>
+            <p style="text-align: right">For a full list, go to <cite><a target="_blank" href="https://www.w3schools.com/html/html_form_attributes.asp">HTML Input Attributes</a></cite></p>
+          </section>
+          <section>
+            <h4>Constraint Validation CSS Pseudo Selectors</h4>
+            <table border="1">
+            <thead> <tr> <th>Selector</th> <th>Description</th> </tr> </thead>
+                    <tr> <td>:disabled</td> <td>Selects input elements with the "disabled" attribute specified</td> </tr>
+                    <tr> <td>:invalid</td> <td>Selects input elements with invalid values</td> </tr>
+                    <tr> <td>:optional</td> <td>Selects input elements with no "required" attribute specified</td> </tr>
+                    <tr> <td>:required</td> <td>Selects input elements with the "required" attribute specified</td> </tr>
+                    <tr> <td>:valid</td> <td>Selects input elements with valid values</td> </tr>
+            </table>
+            <p style="text-align: right">For a full list, go to <cite><a target="_blank" href="https://www.w3schools.com/css/css_pseudo_classes.asp">CSS Pseudo Classes</a></cite></p>
+          </section>
+        </section>
+      </section>
+
+      <section id="CSS">
+        <h2>CSS*</h2>
+        <p>(<i>see</i> <a target="_blank" href="https://www.w3schools.com/js/js_htmldom_css.asp">https://www.w3schools.com/js/js_htmldom_css.asp</a>)</p>
+      </section>
+
+      <section id="animations">
+        <h2>Animations*</h2>
+        <p>(<i>see</i> <a target="_blank" href="https://www.w3schools.com/js/js_htmldom_animate.asp">https://www.w3schools.com/js/js_htmldom_animate.asp</a>)</p>
+      </section>
+
+      <!--
+      <section>
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+  </body>
+</html>

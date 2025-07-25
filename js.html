@@ -22,6 +22,7 @@
       -->
       <div>
         <p><a href="json.html">JavaScript Object Notation</a></p>
+        <p><a href="js.dom.html">JavaScript and the HTML DOM (Document Object Model)</a></p>
         <p><a href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
         <p><a href="js.strings.html">JavaScript Strings</a></p>
         <p><a href="js.arrays.html">JavaScript Arrays Data Structure</a></p>
@@ -32,13 +33,13 @@
         -->
         <p><a href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+      </div>
+      <div>
         <p><a href="js.nodejs.html">Node JS</a></p>
         <p><a href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
       </div>
       <div>
-        <p><a href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
         <p><a rel="prev" href="programming.html">Programming</a></p>
-        <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
     </nav>
     <main>
@@ -449,24 +450,66 @@ add();
           <p>When Arrow Function take Parameters, you enclose them in round brackets. In fact, if you have only one parameter, you can skip the parentheses as well</p>
           <pre>hello = (val) =&gt; "Hello " + val;
 hello = val =&gt; "Hello " + val;</pre>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
-          <p/>
-          <pre/>
+        </section>
+        <section id="bind">
+          <h3>Function Borrowing</h3>
+          <p>With the <code>bind()</code> method, an object can borrow a method from another object.</p>
+          <p>The example below creates 2 objects (person and member). The member object borrows the fullname method from the person object:</p>
+          <pre>const person = {
+  firstName:"John",
+  lastName: "Doe",
+  fullName: function () {
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+const member = {
+  firstName:"Hege",
+  lastName: "Nilsen",
+}
+
+let fullName = person.fullName.bind(member);</pre>
+          <hr/>
+          <p>Sometimes the <code>bind()</code> method has to be used to prevent losing object variable <code><a target="_blank" href="js.objects.html#this">this</a></code>.</p>
+          <p>In the following example, the person object has a display method. In the display method, this refers to the person object:</p>
+          <pre>const person = {
+  firstName:"John",
+  lastName: "Doe",
+  display: function () {
+    let x = document.getElementById("demo");
+    x.innerHTML = this.firstName + " " + this.lastName;
+  }
+}
+
+person.display();</pre>
+          <hr/>
+          <p>When a function is used as a callback, object variable <code>this</code> is lost.</p>
+          <p>This example will try to display the person name after 3 seconds, but it will display undefined instead:</p>
+          <pre>const person = {
+  firstName:"John",
+  lastName: "Doe",
+  display: function () {
+    let x = document.getElementById("demo");
+    x.innerHTML = this.firstName + " " + this.lastName;
+  }
+}
+
+setTimeout(person.display, 3000);</pre>
+          <p>The <code>bind()</code> method solves this problem.</p>
+          <p>In the following example, the <code>bind()</code> method is used to bind <var>person.display</var> to <var>person</var>. This example will display the person name after 3 seconds:</p>
+          <pre>const person = {
+  firstName:"John",
+  lastName: "Doe",
+  display: function () {
+    let x = document.getElementById("demo");
+    x.innerHTML = this.firstName + " " + this.lastName;
+  }
+}
+
+let display = person.display.bind(person);
+setTimeout(display, 3000);</pre>
+          <p></p>
+          <pre></pre>
         </section>
       </section>
       <section id="operators">

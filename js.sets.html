@@ -22,18 +22,22 @@
       -->
       <div>
         <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
-        <p><a            href="js.sets.html">JavaScript Set Data Structure</a></p>
+        <p><a            href="js.maps.html">JavaScript Map Data Structure</a></p>
         <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
         <p><a rel="next" href="js.arrays.html">JavaScript Arrays</a></p>
-        <p><a            href="js.higher-order-functions.html">Higher-Order Functions</a></p>
       </div>
       <div>
         <p><a href="js.strings.html">JavaScript Strings</a></p>
         <p><a href="js.regexp.html">JavaScript Regular Expressions</a></p>
+      </div>
+      <!--
+      <div>
         <p><a href="js.nodejs.html">Node JS</a></p>
+        <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
         <p><a href="js.modules.html">JavaScript Modules for Including Functionality</a></p>
         <p><a href="json.html">JavaScript Object Notation</a></p>
       </div>
+      -->
     </nav>
     <main>
       <h1>JavaScript Set Data Structure</h1>
@@ -60,22 +64,174 @@ letters.add("c");</pre>
         </dd>
       </dl>
 
+      <section id="methods">
+        <h2>JavaScript Set Methods and Properties</h2>
+        <section>
+          <h3>The <code>size</code> Property</h3>
+          <pre>// Create a new Set
+const mySet = new Set(["a","b","c"]);
+
+// The number of elements are
+mySet.size;</pre>
+        </section>
+        <section>
+          <h3>Listing with <code>for</code> ... <code>of</code></h3>
+          <p>You can list all Set elements (values) with a <code>for...of...</code> loop:</p>
+          <pre>// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// List all Elements
+let text = "";
+for (const x of letters) {
+  text += x;
+}</pre>
+        </section>
+        <section>
+          <h3>The <code>has()</code> Method</h3>
+          <p>The <code>has()</code> method returns true if a specified value exists in a set.</p>
+          <pre>// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// Does the Set contain "d"?
+answer = letters.has("d");</pre>
+        </section>
+        <section>
+          <h3>The <code>forEach()</code> Method</h3>
+          <p>The <code>forEach()</code> method invokes a function for each Set element:</p>
+          <pre>// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// List all entries
+let text = "";
+letters.forEach (function(value) {
+  text += value;
+})</pre>
+        </section>
+        <section>
+          <h3>The <code>keys()</code> and <code>values()</code> Methods</h3>
+          <p>They both return an Iterator object with the values in a Set:</p>
+          <pre>// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// List all entries
+let text = "";
+letters.forEach (function(value) {
+  text += value;
+})</pre>
+        </section>
+        <section>
+          <h3>The <code>entries()</code> Method</h3>
+          <p>The <code>entries()</code> method returns an Iterator with [value,value] pairs from a Set.</p>
+          <p><strong>Note.</strong> The <code>entries()</code> method is supposed to return a [key,value] pair from an object. On the other hand, a Set has no keys, so the <code>entries()</code> method returns [value,value]. This makes Sets compatible with <a target="_blank" href="js.maps.html">Maps</a>.</p>
+          <pre>// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// Get all Entries
+const myIterator = letters.entries();
+
+// List all Entries
+let text = "";
+for (const entry of myIterator) {
+  text += entry;
+}</pre>
+        </section>
+      </section>
+
+      <section id="logic">
+        <h2>Set Logic</h2>
+        <p>In JavaScript 2025, 7 new logical methods were added to the Set object:</p>
+        <ul>
+          <li><code><a href="#union">union()</a></code></li>
+          <li><code><a href="#difference">difference()</a></code></li>
+          <li><code><a href="#intersection">intersection()</a></code></li>
+          <li><code><a href="#isDisjointFrom">isDisjointFrom()</a></code></li>
+          <li><code><a href="#isSubsetOf">isSubsetOf()</a></code></li>
+          <li><code><a href="#isSupersetOf">isSupersetOf()</a></code></li>
+          <li><code><a href="#symmetricDifference">symmetricDifference()</a></code></li>
+        </ul>
+        <section id="union">
+          <h3><code>union()</code></h3>
+          <p>The <code>union()</code> method returns the union of two sets. The <code>union()</code> method returns a new set containing the elements which are in this set, or in the argument set, or in both:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+const C = A.union(B);</pre>
+        </section>
+        <section id="difference">
+          <h3><code>difference()</code></h3>
+          <p>The <code>difference()</code> method returns the difference between two sets. The <code>difference()</code> method returns a new set containing elements which are in this set but not in the argument set:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+const C = A.difference(B);</pre>
+        </section>
+        <section id="intersection">
+          <h3><code>intersection()</code>*</h3>
+          <p>The <code>intersection()</code> method returns the intersection of two sets. The <code>intersection()</code> method returns a new set containing the elements which are in this set and in the argument set:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+const C = A.intersection(B);</pre>
+        </section>
+        <section id="isDisjointFrom">
+          <h3><code>isDisjointFrom()</code>*</h3>
+          <p>The <code>isDisjointFrom()</code> method returns true if this set has no elements in common with the argument set:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+let answer = A.isDisjointFrom(B);</pre>
+        </section>
+        <section id="isSubsetOf">
+          <h3><code>isSubsetOf()</code></h3>
+          <p>The <code>isSubsetOf()</code> method returns true if all elements in this set is also elements in the argument set:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+let answer = A.isSubsetOf(B);</pre>
+        </section>
+        <section id="isSupersetOf">
+          <h3><code>isSupersetOf()</code>*</h3>
+          <p>The <code>isSupersetOf()</code> method returns true if all elements in the argument set are also in this set:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+let answer = A.isSupersetOf(B);</pre>
+        </section>
+        <section id="symmetricDifference">
+          <h3><code>symmetricDifference()</code>*</h3>
+          <p>The <code>symmetricDifference()</code> method returns the symmetric difference between to sets. The <code>symmetricDifference()</code> method returns a new set containing elements which are in this set or in the argument set, but not in both:</p>
+          <pre>const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+const C = A.symetricDifference(B);</pre>
+        </section>
+      </section>
+
+      <section id="refernce">
+        <h2>Complete Set Reference</h2>
+        <table border="1" id="simple_with_header_and_th">
+          <thead> <tr> <th>Method/Property</th> <th>Description</th> </tr> </thead>
+                  <tr> <td><code>new Set()</code></td> <td>Creates a new set</td> </tr>
+                  <tr> <td><code>add(<var>element</var>)</code></td> <td>Adds a new element to a set</td> </tr>
+                  <tr> <td><code>clear</code></td> <td>Removes all elements from a set</td> </tr>
+                  <tr> <td><code>delete(<var>element</var>)</code></td> <td>Removes an element from a set</td> </tr>
+                  <tr> <td><code>difference(<var>anotherSet</var>)</code></td> <td>Returns the difference between two sets</td> </tr>
+                  <tr> <td><code>entries()</code></td> <td>Returns an Iterator with the [value,value] pairs from a set</td> </tr>
+                  <tr> <td><code>forEach(<var>func</var>)</code></td> <td>Invokes a callback for each element in a set</td> </tr>
+                  <tr> <td><code>has</code></td> <td>Returns true if a value exists</td> </tr>
+                  <tr> <td><code>intersection()</code></td> <td>Returns the intersection of two sets</td> </tr>
+                  <tr> <td><code>isDisjointFrom()</code></td> <td>Returns true if no elements in a set are elements in another set</td> </tr>
+                  <tr> <td><code>isSubsetOf()</code></td> <td>Returns true if a set is a subset of another set</td> </tr>
+                  <tr> <td><code>isSupersetOf()</code></td> <td>Returns true if a set is a superset of another set</td> </tr>
+                  <tr> <td><code>keys()</code></td> <td>Same as <code>values()</code></td> </tr>
+                  <tr> <td><code>symmetricDifference</code></td> <td>Returns the symmetric difference between two set</td> </tr>
+                  <tr> <td><code>union()</code></td> <td>Returns the union of two sets</td> </tr>
+                  <tr> <td><code>values()</code></td> <td>Returns an Iterator with the values in a set</td> </tr>
+                  <tr> <td><code>size()</code></td> <td>Returns the number of elements in a Set</td> </tr>
+        </table>
+      </section>
 
       <!--
-      <section id="*">
-        <h2>***</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-      </section>
-      <section id="*">
-        <h2>***</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-      </section>
       <section id="*">
         <h2>***</h2>
         <p></p>

@@ -20,13 +20,15 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
-        <p><a            href="json.html">JavaScript Object Notation</a></p>
-        <p><a            href="js.objects.html">JavaScript Objects</a></p>
-        <p><a            href="adt-and-objects.html">Abstract Data Types and Objects (JavaScript)</a></p>
-        <p><a rel="prev" href="programming.html">Programming</a></p>
-        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="js.maps.html">JavaScript Maps</a></p>
+        <p><a            href="js.sets.html">JavaScript Sets</a></p>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
       </div>
-
+        <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+        <p><a            href="adt-and-objects.html">Abstract Data Types and Objects</a></p>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+      <div>
+      </div>
     </nav>
 
     <main>
@@ -352,8 +354,19 @@ console.log(Object.hasOwn(object1, 'prop'));
         </section>
       </section>
 
-      <section id="get-set">
-        <h2>Object Get / Set</h2>
+      <section id="this">
+        <h2>Object Variable <code>this</code>: a Reference to Itself</h2>
+        <p>In JavaScript, the <code>this</code> keyword refers to an object.</p>
+        <p>The <code>this</code> keyword refers to different objects depending on how it is used:</p>
+        <ul>
+          <li>In an object method, this refers to the object.</li>
+          <li>Alone, this refers to the global object.</li>
+          <li>In a function, this refers to the global object.</li>
+          <li>In a function, in strict mode, this is undefined.</li>
+          <li>In an event, this refers to the element that received the event.</li>
+          <li>Methods like call(), apply(), and bind() can refer this to any object.</li>
+        </ul>
+        <aside><code>this</code> is not a variable. It is a keyword. You cannot change the value of <code>this</code>.</aside>
       </section>
 
       <section id="protection">
