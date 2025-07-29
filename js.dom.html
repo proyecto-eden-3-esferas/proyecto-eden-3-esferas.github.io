@@ -72,7 +72,7 @@ document.getElementById("demo").innerHTML = "Hello World!";
           <table border="1">
           <thead> <tr> <td>Method</td> <td>Description</td> </tr> </thead>
                   <tr> <td><code>document.getElementById(<var>id</var>)</code></td> <td>Find an element by element id</td> </tr>
-                  <tr> <td><code>document.getElementsByTagName(<var>name</var>)</code></td> <td>Find elements by tag name</td> </tr>
+                  <tr> <td><code>document.getElementsByTagName(<var>name</var>)</code></td> <td>Find elements by tag name: returns an <code>HTMLCollection</code> object, which is an <a target="_blank" href="js.arrays.html">array</a>-like list (collection) of HTML elements</td> </tr>
                   <tr> <td><code>document.getElementsByClassName(<var>name</var>)</code></td> <td>Find elements by class name</td> </tr>
           </table>
         </section>
@@ -119,8 +119,8 @@ document.getElementById("demo").innerHTML = "Hello World!";
                   <tr> <td><code>document.applets</code></td> <td>Deprecated. Do not use it</td> <td>1</td> </tr>
                   <tr> <td><code>document.baseURI</code></td> <td>Returns the absolute base URI of the document</td> <td>3</td> </tr>
                   <tr> <td><code>document.body</code></td> <td>Returns the &lt;body&gt; element</td> <td>1</td> </tr>
-                  <tr> <td><code>document.cookie</code></td> <td>Returns the document's cookie</td> <td>1</td> </tr>
-                  <tr> <td><code>document.doctype</code></td> <td>Returns the document's doctype</td> <td>3</td> </tr>
+                  <tr> <td><code>document.cookie</code></td> <td>Returns the document&apos;s cookie</td> <td>1</td> </tr>
+                  <tr> <td><code>document.doctype</code></td> <td>Returns the document&apos;s doctype</td> <td>3</td> </tr>
                   <tr> <td><code>document.documentElement</code></td> <td>Returns the &lt;html&gt; element</td> <td>3</td> </tr>
                   <tr> <td><code>document.documentMode</code></td> <td>Returns the mode used by the browser</td> <td>3</td> </tr>
                   <tr> <td><code>document.documentURI</code></td> <td>Returns the URI of the document</td> <td>3</td> </tr>
@@ -131,7 +131,7 @@ document.getElementById("demo").innerHTML = "Hello World!";
                   <tr> <td><code>document.head</code></td> <td>Returns the &lt;head&gt; element</td> <td>3</td> </tr>
                   <tr> <td><code>document.images</code></td> <td>Returns all &lt;img&gt; elements</td> <td>1</td> </tr>
                   <tr> <td><code>document.implementation</code></td> <td>Returns the DOM implementation</td> <td>3</td> </tr>
-                  <tr> <td><code>document.inputEncoding</code></td> <td>Returns the document's encoding (character set)</td> <td>3</td> </tr>
+                  <tr> <td><code>document.inputEncoding</code></td> <td>Returns the document&apos;s encoding (character set)</td> <td>3</td> </tr>
                   <tr> <td><code>document.lastModified</code></td> <td>Returns the date and time the document was updated</td> <td>3</td> </tr>
                   <tr> <td><code>document.links</code></td> <td>Returns all &lt;area&gt; and &lt;a&gt; elements that have a href attribute</td> <td>1</td> </tr>
                   <tr> <td><code>document.readyState</code></td> <td>Returns the (loading) status of the document</td> <td>3</td> </tr>
@@ -141,6 +141,10 @@ document.getElementById("demo").innerHTML = "Hello World!";
                   <tr> <td><code>document.title</code></td> <td>Returns the &lt;title&gt; element</td> <td>1</td> </tr>
                   <tr> <td><code>document.URL</code></td> <td>Returns the complete URL of the document</td> <td>1</td> </tr>
           </table>
+        </section>
+        <section>
+          <h3>Properties <code>innerHTML</code>, <code>value</code>, <code>innerText</code>, <code>innerContent</code>*</h3>
+          <p>[...]</p>
         </section>
       </section>
 
@@ -254,6 +258,33 @@ Name: &lt;input type="text" name="fname"&gt;
       <section id="CSS">
         <h2>CSS*</h2>
         <p>(<i>see</i> <a target="_blank" href="https://www.w3schools.com/js/js_htmldom_css.asp">https://www.w3schools.com/js/js_htmldom_css.asp</a>)</p>
+        <p>The HTML DOM allows JavaScript to change the style of HTML elements. To change the style of an HTML element, use this syntax:</p>
+        <pre>document.getElementById(<var>id</var>).style.<var>property</var> = <var>newStyle</var>;</pre>
+        <p>The following example changes the style of a &lt;p&gt; element:</p>
+        <pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;p id="p2"&gt;Hello World!&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById("p2").style.color = "blue";
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        <p>The following example changes the style of the HTML element with id="id1", when the user clicks a button:</p>
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1 id="id1"&gt;My Heading 1&lt;/h1&gt;
+
+&lt;button type="button"
+onclick="document.getElementById('id1').style.color = 'red'"&gt;
+Click Me!&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
       </section>
 
       <section id="animations">
@@ -261,25 +292,410 @@ Name: &lt;input type="text" name="fname"&gt;
         <p>(<i>see</i> <a target="_blank" href="https://www.w3schools.com/js/js_htmldom_animate.asp">https://www.w3schools.com/js/js_htmldom_animate.asp</a>)</p>
       </section>
 
-      <!--
-      <section>
-        <h2></h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+      <section id="events">
+        <h2>JavaScript HTML DOM Events</h2>
+        <p>HTML DOM allows JavaScript to react to HTML events. JavaScript can be executed when an event occurs, like when a user clicks on an HTML element.</p>
+        <p>To execute code when a user clicks on an element, add JavaScript code to an HTML event attribute:</p>
+        <pre>onclick="<var>JavaScriptCode</var>"</pre>
+        <p>Examples of HTML events are triggered:</p>
+        <ul>
+          <li>When a user clicks the mouse</li>
+          <li>When a web page has loaded</li>
+          <li>When an image has been loaded</li>
+          <li>When the mouse moves over an element</li>
+          <li>When an input field is changed</li>
+          <li>When an HTML form is submitted</li>
+          <li>When a user strokes a key</li>
+        </ul>
+        <p>In this example, the content of the <code>&lt;h1&gt;</code> element is changed when a user clicks on it:</p>
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1 onclick="this.innerHTML = 'Ooops!'"&gt;Click on this text!&lt;/h1&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        <hr/>
+        <p>In this example, a function is called from the event handler:</p>
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1 onclick="changeText(this)"&gt;Click on this text!&lt;/h1&gt;
+
+&lt;script&gt;
+function changeText(id) {
+  id.innerHTML = "You did click inside this field!";
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        <section>
+          <h3>HTML Event Attributes</h3>
+          <p>To assign events to HTML elements you can use event attributes.</p>
+          <p>Assign an onclick event to a button element:</p>
+          <pre>&lt;button onclick="displayDate()"&gt;Try it&lt;/button&gt;</pre>
+          <p>In the example above, a function named <var>displayDate()</var> will be executed when the button is clicked.</p>
+          <p>Further, the HTML DOM allows you to assign events to HTML elements using JavaScript:</p>
+          <pre>&lt;script&gt;
+//Assign an onclick event to a button element:
+document.getElementById("myBtn").onclick = displayDate;
+&lt;/script&gt;</pre>
+        </section>
+        <section>
+          <h3>The <code>onload</code> and <code>onunload</code> Events</h3>
+          <p>The <code>onload</code> and <code>onunload</code> events are triggered when the user enters or leaves the page.</p>
+          <p>The onload event can be used to check the visitor&apos;s browser type and browser version, and load the proper version of the web page based on the information. Both the onload and onunload events can be used to deal with cookies.</p>
+          <pre>&lt;body onload="checkCookies()"&gt;</pre>
+        </section>
+        <section>
+          <h3>The <code>oninput</code> Event</h3>
+          <p>The <code>oninput</code> event is often to some action while the user input data.</p>
+          <p>Below is an example of how to use the <code>oninput</code> to change the content of an input field.</p>
+          <pre>&lt;input type="text" id="fname" oninput="upperCase()"/&gt;</pre>
+        </section>
+        <section>
+          <h3>The <code>onchange</code> Event</h3>
+          <p>The <code>onchange</code> event is often used in combination with validation of input fields.</p>
+          <p>In the example below the <code>upperCase()</code> function will be called when a user changes the content of an input field.</p>
+          <pre>&lt;input type="text" id="fname" onchange="upperCase()"/&gt;</pre>
+        </section>
+        <section>
+          <h3>The <code>onmouseover</code>, <code>onmouseout</code>, <code>onmousedown</code>, <code>onmouseup</code>, and <code>onclick</code> Events</h3>
+          <p>The <code>onmouseover</code> and <code>onmouseout</code> events can be used to trigger a function when the user mouses over, or out of, an HTML element. The <code>onmousedown</code>, <code>onmouseup</code>, and <code>onclick</code> events are all parts of a mouse-click. First when a mouse-button is clicked, the <code>onmousedown</code> event is triggered, then, when the mouse-button is released, the <code>onmouseup</code> event is triggered, finally, when the mouse-click is completed, the <code>onclick</code> event is triggered.</p>
+        </section>
       </section>
-      -->
+
+      <section>
+        <h2>JavaScript HTML DOM EventListener</h2>
+        <section>
+          <h3>The <code>addEventListener()</code> method</h3>
+          <p>Add an event listener that fires when a user clicks a button:</p>
+          <pre>document.getElementById("myBtn").addEventListener("click", displayDate);</pre>
+          <hr/>
+          <p>The <code>addEventListener()</code> method attaches an event handler to the specified element. It does not overwrite already existing event handlers. Thus, you can add many event handlers to one element. You can even add several event handlers of the same type to one element, i.e two "click" events.</p>
+          <p>You can add event listeners to any DOM object not only HTML elements. i.e the window object.</p>
+          <hr/>
+          <p>The <code>addEventListener()</code> method makes it easier to control how the event reacts to <a target="_blank" href="#event-bubbling-or-capturing">bubbling</a>.</p>
+          <p>When using the addEventListener() method, the JavaScript is separated from the HTML markup, for better readability and allows you to add event listeners even when you do not control the HTML markup.</p>
+          <hr/>
+          <p>You can easily remove an event listener by using the <code>removeEventListener()</code> method.</p>
+          <hr/>
+          <p><strong>Syntax</strong></p>
+          <pre>element.addEventListener(<var>event</var>, <var>function</var>, <var>useCapture</var>);</pre>
+          <p>The first parameter is the type of the event (like "click" or "mousedown" or any other HTML DOM Event.)</p>
+          <p>The second parameter is the function we want to call when the event occurs.</p>
+          <p>The third parameter is a boolean value specifying whether to use event bubbling or event capturing. This parameter is optional.</p>
+          <aside>Note that you don&apos;t use the "on" prefix for the event; use "click" instead of "onclick".</aside>
+          <hr/>
+          <p>In the following example <code>alert("Hello World!")</code> is executed when the user clicks on an <var>element</var>:</p>
+          <pre><var>element</var>.addEventListener("click", function(){ alert("Hello World!"); });</pre>
+          <p>You can also refer to an external "named" function:</p>
+          <pre><var>element</var>.addEventListener("click", <var>myFunction</var>);
+
+function myFunction() {
+  alert ("Hello World!");
+}</pre>
+        </section>
+        <section>
+          <h3>Add an Event Handler to the window Object</h3>
+          <p>The <code>addEventListener()</code> method allows you to add event listeners on any HTML DOM object such as HTML elements, the HTML document, the window object, or other objects that support events, like the <code>xmlHttpRequest</code> object.</p>
+          <p>Add an event listener that fires when a user resizes the window:</p>
+          <pre>window.addEventListener("resize", function() {
+  document.getElementById("demo").innerHTML = sometext;
+});</pre>
+        </section>
+        <section id="event-bubbling-or-capturing">
+          <h3>Event Bubbling or Event Capturing?</h3>
+          <p>There are two ways of event propagation in the HTML DOM, bubbling and capturing. Event propagation is a way of defining the element order when an event occurs. If you have a <code>&lt;p&gt;</code> element inside a <code>&lt;div&gt;</code> element, and the user clicks on the <code>&lt;p&gt;</code> element, which element&apos;s "click" event should be handled first?</p>
+          <p>In <dfn>bubbling</dfn> the innermost element&apos;s event is handled first and then the outer: the <code>&lt;p&gt;</code> element&apos;s click event is handled first, then the <code>&lt;div&gt;</code> element&apos;s click event.</p>
+          <p>In <dfn>capturing</dfn> the outermost element&apos;s event is handled first and then the inner: the <code>&lt;div&gt;</code> element&apos;s click event will be handled first, then the <code>&lt;p&gt;</code> element&apos;s click event.</p>
+          <p>With the <code>addEventListener()</code> method you can specify the propagation type by using the <var>>useCapture</var> parameter (in effect the third element):</p>
+          <pre>addEventListener(<var>event</var>, <var>function</var>, <var>useCapture</var>);</pre>
+          <p>The default value is <code>false</code>, which will use the bubbling propagation. When the value is set to <code>true</code>, the event uses the capturing propagation.</p>
+          <p><strong>Example</strong></p>
+          <pre>document.getElementById("myP").addEventListener("click", <var>myFunction</var>, true);
+document.getElementById("myDiv").addEventListener("click", <var>myFunction</var>, true);</pre>
+        </section>
+        <section>
+          <h3>The <code>removeEventListener()</code> method</h3>
+          <p>The <code>removeEventListener()</code> method removes event handlers that have been attached with the <code>addEventListener()</code> method:</p>
+          <pre>element.removeEventListener("mousemove", <var>myFunction</var>);</pre>
+        </section>
+      </section>
+
+      <section id="navigation">
+        <h2>JavaScript HTML DOM Navigation</h2>
+        <p>With the HTML DOM, you can navigate the node tree using node relationships.</p>
+        <section>
+          <h3>DOM Nodes</h3>
+          <p>According to the W3C HTML DOM standard, everything in an HTML document is a node:</p>
+          <ul>
+            <li>The entire document is a document node</li>
+            <li>Every HTML element is an element node</li>
+            <li>The text inside HTML elements are text nodes</li>
+            <li>Every HTML attribute is an attribute node (deprecated)</li>
+            <li>All comments are comment nodes</li>
+          </ul>
+          <p>With the HTML DOM, all nodes in the node tree can be accessed by JavaScript. New nodes can be created, and all nodes can be modified or deleted.</p>
+        </section>
+        <section>
+          <h3>DOM Root Nodes</h3>
+          <p>There are two special properties that allow access to the full document:</p>
+          <ul>
+            <li><code>document.body</code>: The body of the document</li>
+            <li><code>document.documentElement</code>: The full document</li>
+          </ul>
+          <p>Example</p>
+          <pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;JavaScript HTMLDOM&lt;/h2&gt;
+&lt;p&gt;Displaying document.body&lt;/p&gt;
+
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById("demo").innerHTML = document.body.innerHTML;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          <section id="nodeName">
+            <h4>The <code>nodeName</code> Property</h4>
+            <p>A node&apos;s <code>nodeName</code> property specifies its name.</p>
+            <ul>
+              <li><code>nodeName</code> is read-only</li>
+              <li><code>nodeName</code> of an element node is the same as the tag name</li>
+              <li><code>nodeName</code> of an attribute node is the attribute name</li>
+              <li><code>nodeName</code> of a text node is always #text</li>
+              <li><code>nodeName</code> of the document node is always #document</li>
+            </ul>
+            <p><strong>Example</strong></p>
+            <pre>&lt;h1 id="id01"&gt;My First Page&lt;/h1&gt;
+&lt;p id="id02"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById("id02").innerHTML = document.getElementById("id01").nodeName;
+&lt;/script&gt;</pre>
+            <p><strong>Note:</strong> nodeName always contains the uppercase tag name of an HTML element.</p>
+          </section>
+          <section>
+            <h4>The <code>nodeValue</code> Property</h4>
+            <p>The nodeValue property specifies the value of a node.</p>
+            <ul>
+              <li><code>nodeValue</code> for element nodes is null</li>
+              <li><code>nodeValue</code> for text nodes is the text itself</li>
+              <li><code>nodeValue</code> for attribute nodes is the attribute value</li>
+            </ul>
+          </section>
+          <section>
+            <h4>The <code>nodeType</code> Property</h4>
+            <p>The <code>nodeType</code> property is read only. It returns the type of a node.</p>
+            <pre>&lt;h1 id="id01"&gt;My First Page&lt;/h1&gt;
+&lt;p id="id02"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById("id02").innerHTML = document.getElementById("id01").nodeType;
+&lt;/script&gt;</pre>
+          </section>
+        </section>
+        <section>
+          <h3>Node Relationships</h3>
+          <p>The nodes in the node tree have a hierarchical relationship to each other. The terms <strong>parent</strong>, <strong>child</strong>, and <strong>sibling</strong> are used to describe the relationships.</p>
+          <ul>
+            <li>In a node tree, the top node is called the root (or root node)</li>
+            <li>Every node has exactly one parent, except the root (which has no parent)</li>
+            <li>A node can have a number of children</li>
+            <li>Siblings (brothers or sisters) are nodes with the same parent</li>
+          </ul>
+          <p>For instance, in an HTML document:</p>
+          <ul>
+            <li><code>&lt;html&gt;</code> is the root node</li>
+            <li><code>&lt;html&gt;</code> has no parents</li>
+            <li><code>&lt;html&gt;</code> is the parent of <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code></li>
+            <li><code>&lt;head&gt;</code> is the first child of <code>&lt;html&gt;</code></li>
+            <li><code>&lt;body&gt;</code> is the last child of <code>&lt;html&gt;</code></li>
+            <li><code>&lt;head&gt;</code> has at least one child: <code>&lt;title&gt;</code></li>
+            <li><code>&lt;title&gt;</code> has one child (a text node)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Navigating Between Nodes</h3>
+          <p>You can use the following node properties to navigate between nodes with JavaScript:</p>
+          <ul>
+            <li><code>parentNode</code></li>
+            <li><code>childNodes[<var>nodenumber</var>]</code></li>
+            <li><code>firstChild</code></li>
+            <li><code>lastChild</code></li>
+            <li><code>nextSibling</code></li>
+            <li><code>previousSibling</code></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Elements do not Contain Text: Use <code>innerHTML</code> and <code>nodeValue</code></h3>
+          <p>A common error in DOM processing is to expect an element node to contain text. Example:</p>
+          <pre>&lt;title id="demo"&gt;DOM Tutorial&lt;/title&gt;</pre>
+          <p>The element node &lt;title&gt; (in the example above) does not contain text. It contains a text node with the value <q>DOM Tutorial</q>.</p>
+          <p>The value of the text node can be accessed by the node&apos;s innerHTML property:</p>
+          <pre>myTitle = document.getElementById("demo").innerHTML;</pre>
+          <p>Accessing the innerHTML property is the same as accessing the nodeValue of the first child:</p>
+          <pre>myTitle = document.getElementById("demo").firstChild.nodeValue;</pre>
+          <p>Accessing the first child can also be done like this:</p>
+          <pre>myTitle = document.getElementById("demo").childNodes[0].nodeValue;</pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>JavaScript HTML DOM Elements (Nodes)</h2>
+        <section>
+          <h3>Creating New HTML Elements (Nodes)</h3>
+          <p>To add a new element to the HTML DOM, you must create the element (element node) first, and then append it to an existing element.</p>
+          <p><strong>Example</strong></p>
+          <pre>&lt;div id="div1"&gt;
+  &lt;p id="p1"&gt;This is a paragraph.&lt;/p&gt;
+  &lt;p id="p2"&gt;This is another paragraph.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const para = document.createElement("p");
+const node = document.createTextNode("This is new.");
+para.appendChild(node);
+
+const element = document.getElementById("div1");
+element.appendChild(para);
+&lt;/script&gt;</pre>
+        </section>
+        <section>
+          <h3>Creating new HTML Elements with <code>insertBefore(<var>node</var>)</code></h3>
+          <p>The <code>appendChild()</code> method in the previous example appended the new element as the last child of the parent. If you don&apos;t want that you can use the <code>insertBefore()</code> method:</p>
+          <pre>&lt;div id="div1"&gt;
+  &lt;p id="p1"&gt;This is a paragraph.&lt;/p&gt;
+  &lt;p id="p2"&gt;This is another paragraph.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const para = document.createElement("p");
+const node = document.createTextNode("This is new.");
+para.appendChild(node);
+
+const element = document.getElementById("div1");
+const child = document.getElementById("p1");
+element.insertBefore(para, child);
+&lt;/script&gt;</pre>
+        </section>
+        <section>
+          <h3>Removing Existing HTML Elements</h3>
+          <p>To remove an HTML element, use the <code>remove()</code> method:</p>
+          <pre>&lt;div&gt;
+  &lt;p id="p1"&gt;This is a paragraph.&lt;/p&gt;
+  &lt;p id="p2"&gt;This is another paragraph.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const elmnt = document.getElementById("p1"); elmnt.remove();
+&lt;/script&gt;</pre>
+        </section>
+        <section>
+          <h3>Replacing HTML Elements</h3>
+          <p>To replace an element to the HTML DOM, use the <code>replaceChild()</code> method:</p>
+          <pre>&lt;div id="div1"&gt;
+  &lt;p id="p1"&gt;This is a paragraph.&lt;/p&gt;
+  &lt;p id="p2"&gt;This is another paragraph.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const para = document.createElement("p");
+const node = document.createTextNode("This is new.");
+para.appendChild(node);
+
+const parent = document.getElementById("div1");
+const child = document.getElementById("p1");
+parent.replaceChild(para, child);
+&lt;/script&gt;</pre>
+        </section>
+      </section>
+
+      <section id="BOM">
+        <h2>Browser BOM</h2>
+        <p>There are no official standards for the Browser Object Model (BOM). Still, since modern browsers have implemented (almost) the same methods and properties for JavaScript interactivity, it is often referred to, as methods and properties of the BOM.</p>
+        <section>
+          <h3>The Window Object</h3>
+          <p>The window object is supported by all browsers. It represents the browser&apos;s window.</p>
+          <p>All global JavaScript objects, functions, and variables automatically become members of the window object. Global variables are properties of the window object. Global functions are methods of the window object. Even the document object (of the HTML DOM) is a property of the window object:</p>
+          <pre>window.document.getElementById("header");</pre>
+          <p>is the same as:</p>
+          <pre>document.getElementById("header");</pre>
+          <section>
+            <h4>Window Size</h4>
+            <p>Two properties can be used to determine the size of the browser window. Both properties return the sizes in pixels:</p>
+            <ul>
+              <li><code>window.innerHeight</code>: the inner height of the browser window (in pixels)</li>
+              <li><code>window.innerWidth</code>: the inner width of the browser window (in pixels)</li>
+            </ul>
+            <aside>The browser window (the browser viewport) is NOT including toolbars and scrollbars.</aside>
+            <p><strong>Example</strong></p>
+            <pre>let w = window.innerWidth;
+let h = window.innerHeight;</pre>
+          </section>
+          <section>
+            <h3>Other window methods</h3>
+            <ul>
+              <li><code>window.open()</code>: open a new window</li>
+              <li><code>window.close()</code>: close the current window</li>
+              <li><code>window.moveTo()</code>: move the current window</li>
+              <li><code>window.resizeTo()</code>: resize the current window</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>JavaScript Window History</h3>
+          <p>The <code>window.history</code> object contains the browsers history. This object can be written without the window prefix.</p>
+          <p>To protect the privacy of the users, there are limitations to how JavaScript can access this object.</p>
+          <p>Some methods:</p>
+          <ul>
+            <li><code>history.back()</code>: same as clicking back in the browser</li>
+            <li><code>history.forward()</code>: same as clicking forward in the browser</li>
+          </ul>
+        </section>
+        <!--
+        <section>
+          <h3></h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+      </section>
 
     </main>
   </body>

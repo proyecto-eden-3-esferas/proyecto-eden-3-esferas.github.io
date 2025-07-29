@@ -17,6 +17,9 @@ SVG_DIR = ~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electr
 MPCURVE_CLOSED_SVG = mpcurve-closed.svg
 MPCURVE_OPEN_SVG   = mpcurve-open.svg
 
+JSON_DIR = /home/francisco/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files/
+DROPBOX_DIR = /home/francisco/Dropbox/github_pages/
+
 %.res.html : %.html.inc
 	$(RESOLVE) --output $@   $<
 
@@ -25,8 +28,23 @@ $(IMG_DIR)/%.svg:   $(SVG_DIR)%.svg
 metapost.curves.html: metapost.curves.inc.html $(IMG_DIR)/mpcurve-closed.svg $(IMG_DIR)/mpcurve-open.svg
 	$(RESOLVE) --output $@   $<
 
+
+# Concernig JavaScript and JSON code:
+bring_in_js:
+	cp --update $(JSON_DIR)*.js ./
+bring_in_json:
+	cp --update $(JSON_DIR)*.json ./
+bring_all_from_JSON:
+	bring_in_js
+	bring_in_json
+#	cp --update $(JSON_DIR)js*.html ./
+
+# Saving
+save_to_Dropbox:
+	cp --update  *.html *.js *.svg POR-HACER.md $(DROPBOX_DIR)
+
+# git rules
 define_remote:
 	git remote add $(LOCAL) $(REMOTE)
-
 upload:
 	git push $(LOCAL) main

@@ -63,26 +63,46 @@
 
       <hr/>
 
-      <p>Tipos de lógica:</p>
-      <ul>
-        <li><strong>Proposicional.</strong> Una <dfn>proposición</dfn> es algo susceptible de ser verdadero o falso, por ejemplo <q>Llevas tres días sin ducharte</q>. Las proposiciones se suelen representar mediante letras minúsculas (<var>p</var>, <var>q</var> etc.) a modo de variables. Un ejemplo sencillo sería <q>Si llueve no vienen</q>, representable mediante <q>si <var>p</var> entonces <var>q</var></q>, donde <var>p</var> significa <q>si llueve</q> y <var>q</var> significa <q>no vienen</q>.</li>
-        <li><strong>De predicados.</strong>. Maneja objetos y relaciones o predicados. Un ejemplo sencillo sería: <q>conduce(Luis)</q>. Otro más complicado, por cierto falso: <q>si coche_propio(<var>X</var>) entonces conduce(<var>X</var>)</q>. Un lenguaje de programación que modela una lógica de predicados muy simple es <a target="_blank" href="prolog.es.html">PROLOG</a> (contracción del francés <i lang="fr">Programation Logique</i>). En PROLOG escribiríamos así el último ejemplo: <code>conduce(<var>X</var>) :- coche_propio(<var>X</var>)</code>. Por alguna razón histórica en lugar de <q>si</q> se utiliza <code>:-</code></li>
-        <li><strong>Deóntica.</strong> </li>
-        <li><strong>Modal.</strong> </li>
-        <li><strong>Difusa.</strong> (<i lang="en">fuzzy</i>) </li>
-        <li><strong>Matemática.</strong> La lógica específica de las matemáticas.</li>
-        <li><strong>Cuántica.</strong> </li>
-        <li><strong>Causas y condiciones.</strong> </li>
-        <!--
-        <li><strong>.</strong> </li>
-        <li><strong>.</strong> </li>
-        <li><strong>.</strong> </li>
-        <li><strong>.</strong> </li>
-        <li><strong>.</strong> </li>
-        <li><strong>.</strong> </li>
-        <li><strong>.</strong> </li>
-        -->
-      </ul>
+      <section>
+        <h2>Tipos de lógica</h2>
+        <ul>
+          <li><strong>Proposicional.</strong> Una <dfn>proposición</dfn> es algo susceptible de ser verdadero o falso, por ejemplo <q>Llevas tres días sin ducharte</q>. Las proposiciones se suelen representar mediante letras minúsculas (<var>p</var>, <var>q</var> etc.) a modo de variables. Un ejemplo sencillo sería <q>Si llueve no vienen</q>, representable mediante <q>si <var>p</var> entonces <var>q</var></q>, donde <var>p</var> significa <q>si llueve</q> y <var>q</var> significa <q>no vienen</q>.</li>
+          <li><strong>De predicados.</strong>. Maneja objetos y relaciones o predicados. Un ejemplo sencillo sería: <q>conduce(Luis)</q>. Otro más complicado, por cierto falso: <q>si coche_propio(<var>X</var>) entonces conduce(<var>X</var>)</q>. Un lenguaje de programación que modela una lógica de predicados muy simple es <a target="_blank" href="prolog.es.html">PROLOG</a> (contracción del francés <i lang="fr">Programation Logique</i>). En PROLOG escribiríamos así el último ejemplo: <code>conduce(<var>X</var>) :- coche_propio(<var>X</var>)</code>. Por alguna razón histórica en lugar de <q>si</q> se utiliza <code>:-</code></li>
+          <li><strong>Deóntica.</strong> </li>
+          <li><strong>Modal.</strong> </li>
+          <li><strong>Difusa.</strong> (<i lang="en">fuzzy</i>) </li>
+          <li><strong>Matemática.</strong> La lógica específica de las matemáticas.</li>
+          <li><strong>Cuántica.</strong> </li>
+          <li><strong>Causas y condiciones.</strong> </li>
+          <!--
+          <li><strong>.</strong> </li>
+          <li><strong>.</strong> </li>
+          <li><strong>.</strong> </li>
+          <li><strong>.</strong> </li>
+          <li><strong>.</strong> </li>
+          <li><strong>.</strong> </li>
+          <li><strong>.</strong> </li>
+          -->
+        </ul>
+      </section>
+
+      <section>
+        <h2>Identidad y diferencia</h2>
+        <p>La diferencia entre dos entes se explica rigurosamente porque no comparten una misma identidad y por la diferencia de rasgos, tanto en especímenes como en clases de entes. Por ejemplo un sillón se diferencia de una silla en que es acolchado.</p>
+        <p>En <a target="_blank" href="json.html">formato JSON</a> esto podría representarse:</p>
+        <pre>class sillon {
+  acolchado: 1,
+  respaldo: 1
+};
+
+class silla {
+  acolchado: 0,
+  respaldo: 1
+}</pre>
+        <hr/>
+        <p>Con respecto a la identidad, ésta se predica por compartir la misma sustancia (mi brazo derecho comparte la misma sustancia que mi extremidad superior derecha) y en muchos casos por ocupar el mismo lugar o volumen de espacio, en el caso de objetos densos no interpenetrables.</p>
+        <p>No obstante la mayoría de las veces nos importa la cuestión de la identidad por lo que hace al <a target="_blank" href="ego.en.html">ego</a>. Razonamos: <q>poseo identidad luego existo.</q></p>
+      </section>
 
     </main>
 

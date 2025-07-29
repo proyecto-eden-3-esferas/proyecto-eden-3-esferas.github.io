@@ -24,6 +24,9 @@ button {
   cursor: pointer;
 }
     </style>
+    <script type="text/javascript"
+            src="/home/francisco/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files/general.js"></script>
+
   </head>
   <body lang="en" class="computing">
     <nav>
@@ -61,20 +64,22 @@ button {
     &lt;div&gt;
       &lt;textarea id="textData" rows="6" cols="50" placeholder="Enter text to save"&gt;&lt;/textarea&gt;&lt;br/&gt;&lt;br/&gt;
       &lt;textarea id="fileName" rows="1" cols="50" placeholder="FILENAME.txt"&gt;&lt;/textarea&gt;&lt;br/&gt;&lt;br/&gt;
-      &lt;button onclick="downloadTextFile()"&gt;Download Text File&lt;/button&gt;
+      &lt;button onclick="saveTextFromIdToId('textData', 'fileName')"&gt;Download Text File using saveTextFromIdToId(txt,file)&lt;/button&gt;
     &lt;/div&gt;
     &lt;script&gt;
-      function downloadTextFile() {
-        var text = document.getElementById("textData").value;
-        var filename = document.getElementById("fileName").value;
-        var blob = new Blob([text], { type: 'text/plain' });
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-      }
-    &lt;/script&gt;
-      </pre>
+function saveText(text, fileName="saved.txt") {
+  var blob = new Blob([text], { type: 'text/plain' });
+  var link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+}
+
+function saveTextFromIdToId(textareaId, fileNameId) {
+  var text     = document.getElementById(textareaId).value;
+  var fileName = document.getElementById(fileNameId).value;
+  saveText(text,fileName);
+}</pre>
 
       <p>(You may of course change the identifiers, forego embedding your textarea and button in a div element, etc.)</p>
 
@@ -84,19 +89,10 @@ button {
       <!--<h2>JavaScript Program to Write Data to a Text File</h2>-->
       <textarea id="textData" rows="6" cols="50" placeholder="Enter text to save"></textarea><br/><br/>
       <textarea id="fileName" rows="1" cols="50" placeholder="FILENAME.txt"></textarea><br/><br/>
-      <button onclick="downloadTextFile()">Download Text File</button>
+      <button onclick="saveTextFromIdToId('textData', 'fileName')">Download Text File using saveTextFromIdToId(txt,file)</button>
+      <!--
+      -->
     </div>
-    <script>
-      function downloadTextFile() {
-        var text = document.getElementById("textData").value;
-        var filename = document.getElementById("fileName").value;
-        var blob = new Blob([text], { type: 'text/plain' });
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-      }
-    </script>
 
     </main>
   </body>

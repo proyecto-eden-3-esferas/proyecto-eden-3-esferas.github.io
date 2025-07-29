@@ -33,6 +33,7 @@
         -->
         <p><a href="js.regexp.html">JavaScript Regular Expressions</a></p>
         <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a href="js.json.html">JavaScript for Handling JSON</a></p>
       </div>
       <div>
         <p><a href="js.nodejs.html">Node JS</a></p>
@@ -44,6 +45,16 @@
     </nav>
     <main>
       <h1>JavaScript: the Web Programming Language</h1>
+      <p>[...]</p>
+      <nav>
+        <p><a href="#data-types">Data Types</a></p>
+        <p><a href="#control">Control Structures</a></p>
+        <p><a href="#functions">Functions</a></p>
+        <p><a href="#operators">Operators</a></p>
+        <p><a href="#regex">Regular Expressions</a></p>
+        <p><a href="#file-io">Reading and Writing to a File</a></p>
+      </nav>
+
       <section id="data-types">
         <h2>JavaScript Data Types</h2>
         <section>
@@ -595,6 +606,7 @@ const fruits = {
         </section>
         <section id="rest">
           <h3>JavaScript Rest (<code>...</code>) Operator*</h3>
+          <!--
           <p/>
           <pre/>
           <p/>
@@ -611,6 +623,34 @@ const fruits = {
           <pre/>
           <p/>
           <pre/>
+          -->
+        </section>
+        <section id="comparison">
+          <h3>Comparison and Logical Operators</h3>
+          <p>Comparison and Logical operators are used to test for true or false.</p>
+          <p>Comparison operators <code>==</code>, <code>&lt;</code> and so on are very much like those found in C/C++. Additionally, strict comparison (<code>===</code>) returns true if both operands are the same type.</p>
+          <p>Logical operators <code>&amp;&amp;</code>, <code>||</code> and <code>!</code>, as well as conditional operator (<code>?:</code>) are also the same as in C/C++.</p>
+          <hr/>
+          <p>When comparing a string with a number, JavaScript will convert the string to a number when doing the comparison. An empty string converts to 0. A non-numeric string converts to NaN which is always false. Thus <code>3 &lt; "4"</code> yields true.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>The Nullish Coalescing Operator (<code>??</code>)</h3>
+          <p>The <code>??</code> operator returns the first argument if it is not nullish (null or undefined). Otherwise it returns the second argument. Example:</p>
+          <pre>let name = null;
+let text = "missing";
+let result = name ?? text;</pre>
+        </section>
+        <section>
+          <h3>The Optional Chaining Operator (<code>?.</code>)</h3>
+          <p>The <code>?.</code> operator returns undefined if an object is undefined or null (instead of throwing an error). Example:</p>
+          <pre>// Create an object:
+const car = {type:"Fiat", model:"500", color:"white"};
+// Ask for car name:
+document.getElementById("demo").innerHTML = car?.name;</pre>
         </section>
         <!--
         <section id="">
@@ -670,27 +710,9 @@ const fruits = {
           <p></p>
           <pre></pre>
         </section>
-        <section id="">
-          <h3><code></code></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-        </section>
         -->
       </section>
+
       <section id="regex">
         <h2>JavaScript Regular Expressions</h2>
         <p><a target="_blank" href="regexp.html">Regular expressions</a> are patterns used to match character combinations in strings. In JavaScript, regular expressions are also objects. These patterns are used with the <code class="method">exec()</code> and <code class="method">test()</code> methods of <code>RegExp</code>, and with the <code class="method">match()</code>, <code class="method">matchAll()</code>, <code class="method">replace()</code>, <code class="method">replaceAll()</code>, <code class="method">search()</code>, and <code class="method">split()</code> methods of <code>String</code>.</p>

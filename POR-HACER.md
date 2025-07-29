@@ -72,6 +72,34 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] In *programming.html* | *Destructuring*
+
+[ ] terminar, rematar secciones *La otra vida* y *Dioses* de *religion.html*
+
+[ ] add FcoF-VH66 to passwords in *directory.%*
+
+[ ] &lt;regex&gt; Difference between <code>regex_search()</code> and <code>regex_match</code>
+
+[ ] arr.forEach( (e,i,arr) => {a[i] = e;});
+
+[ ] Actitudes ante la inmigración:
+- abierta
+- integrada
+- cerrada
+
+[ ] lengua:
+- conversar en el momento
+- crear obras
+
+[ ] `printSQLCell`
+check (for):
+- typeof
+- length
+- null
+- undefined
+
+
+
 [ ] *Cultivar entre árboles*
 <p>En la agricultura convencional uno cultiva en campos abiertos, salvo en silvicultura convencional, porque así entran los tractores y demás máquinas sin dificultad y las plantan reciben el máximo de insolación.</p>
 <p>Si en una huerta hay árboles dispersos que intercepten un tanto por ciento considerable de la luz solar directa continuamente quedan zonas en sombra. Algunas de estas zonas reciben sombra sólo en las primeras y últimas horas del día. Esto hace que siempre haya zonas a la sombra en las que el horticultor, jardinero, campesino etc. pueda trabajar más fresco. Por supuesto esta disposición de árboles dispersos resulta tanto más ventajosa cuanto más calor haga.</p>
@@ -2116,6 +2144,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[x] *template.js.write.blob.html* from *js.html*
+[ ] *template.js.write.blob.html* from elsewhere
+[ ] *template.js.write.blob.html* depends on file
+    */home/francisco/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files/general.js*
 [ ] links to *grow-yam.html*
 
 [ ] *grow-grass-peas.html*

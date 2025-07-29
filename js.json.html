@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript on JSON</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript for Handling JSON"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+      </div>
+        <p><a            href="js.strings.html">JavaScript Strings</a></p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
+        <p><a            href="js.arrays.html">JavaScript Arrays Data Structure</a></p>
+      <div>
+      </div>
+    </nav>
+    <main>
+      <h1>JavaScript for Handling JSON</h1>
+
+      <section id="json-data-types">
+        <h2>JSON Data Types</h2>
+        <p>In JSON, values must be one of the following data types:</p>
+        <ul>
+          <li>a string</li>
+          <li>a number</li>
+          <li>an object (JSON object)</li>
+          <li>an array</li>
+          <li>a boolean</li>
+          <li><code>null</code></li>
+        </ul>
+        <aside>
+          <p>JSON values <strong>cannot</strong> be one of the following data types:</p>
+          <ul>
+            <li>a function</li>
+            <li>a date</li>
+            <li><code>undefined</code></li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="parse">
+        <h2>Parsing JSON*</h2>
+        <p>A common use of JSON is to exchange data to/from a web server. When receiving data from a web server, the data is always a string. Parse the data with <code>JSON.parse()</code>, and the data becomes a JavaScript object.</p>
+        <hr/>
+        <p>Imagine we received this text from a web server:</p>
+        <pre>'{"name":"John", "age":30, "city":"New York"}'</pre>
+        <p>Use the JavaScript function <code>JSON.parse()</code> to convert text into a JavaScript object:</p>
+        <pre>const obj = JSON.parse('{"name":"John", "age":30, "city":"New York"}');</pre>
+        <hr/>
+        <p>When using the JSON.parse() on a JSON derived from an array, the method will return a JavaScript array, instead of a JavaScript object. An example:</p>
+        <pre>const text = '["Ford", "BMW", "Audi", "Fiat"]';
+const myArr = JSON.parse(text);</pre>
+        <section>
+          <h3>Parsing Dates</h3>
+          <p>Date objects are not allowed in JSON. If you need to include a date, write it as a string. You can convert it back into a date object later, as shown in the example:</p>
+          <pre>const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
+const obj = JSON.parse(text);
+obj.birth = new Date(obj.birth);
+
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth;</pre>
+          <hr/>
+          <p>Alternatively, you can use the second parameter, of the <code>JSON.parse()</code> function, called <var>reviver</var>. The <var>reviver</var> parameter is a function that checks each property, before returning the value.</p>
+          <pre>const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
+const obj = JSON.parse(text, function (key, value) {
+  if (key == "birth") {
+    return new Date(value);
+  } else {
+    return value;
+  }
+});
+
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth;</pre>
+        </section>
+        <section>·
+          <h3>Parsing Functions</h3>
+          <p>Functions are not allowed in JSON. If you need to include a function, write it as a string. You can convert it back into a function later:</p>
+          <pre>const text = '{"name":"John", "age":"function () {return 30;}", "city":"New York"}';
+const obj = JSON.parse(text);
+obj.age = eval("(" + obj.age + ")");
+
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.age();</pre>
+          <aside>You should avoid using functions in JSON, the functions will lose their scope, and you would have to use eval() to convert them back into functions.</aside>
+        </section>
+      </section>
+
+      <section id="stringify">
+        <h2><code>JSON.stringify()</code>*</h2>
+        <p>You can convert any JavaScript datatype into a string with <code>JSON.stringify()</code>.</p>
+        <p>Imagine we have this object in JavaScript:</p>
+        <pre>const obj = {name: "John", age: 30, city: "New York"};</pre>
+        <p>Use the JavaScript function <code>JSON.stringify()</code> to convert it into a string like so:</p>
+        <pre>const myJSON = JSON.stringify(obj);</pre>
+        <hr/>
+        <p>You can also stringify JavaScript arrays.</p>
+        <section>
+          <h3>Storing Data</h3>
+          <p>When storing data, the data has to be a certain format, and regardless of where you choose to store it, text is always one of the legal formats.</p>
+          <p>JSON makes it possible to store JavaScript objects as text. In the following example data is stored in local storage:</p>
+          <pre>// Storing data:
+const myObj = {name: "John", age: 31, city: "New York"};
+const myJSON = JSON.stringify(myObj);
+localStorage.setItem("testJSON", myJSON);
+
+// Retrieving data:
+let text = localStorage.getItem("testJSON");
+let obj = JSON.parse(text);
+document.getElementById("demo").innerHTML = obj.name;</pre>
+        </section>
+        <section>
+          <h3>Stringify a Function</h3>
+          <p>In JSON, functions are not allowed as object values. The <code>JSON.stringify()</code> function will remove any functions from a JavaScript object, both the key and the value:</p>
+          <pre>const obj = {name: "John", age: function () {return 30;}, city: "New York"};
+const myJSON = JSON.stringify(obj);</pre>
+          <p>This can be omitted if you convert your functions into strings before running the <code>JSON.stringify()</code> function.</p>
+          <pre>const obj = {name: "John", age: function () {return 30;}, city: "New York"};
+obj.age = obj.age.toString();
+const myJSON = JSON.stringify(obj);</pre>
+          <aside>If you send functions using JSON, the functions will lose their scope, and the receiver would have to use eval() to convert them back into functions.</aside>
+          <pre></pre>
+        </section>
+      </section>
+
+      <!--
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+  </body>
+</html>
