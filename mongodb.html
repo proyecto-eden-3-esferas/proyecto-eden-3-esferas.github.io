@@ -23,6 +23,8 @@
       <div>
         <p><a            href="https://www.mongodb.com/try">Sign up for a free MongoDB Atlas account</a> (at <cite>https://www.mongodb.com/try</cite>) to get started!</p>
         <p><a rel="next" href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
+      </div>
+      <div>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
         <p><a            href="mongodb.tutorial.html">MongoDB Tutorial</a></p>
         <p><a            href="mongodb.querying.html">Querying and Indexing a MongoDB Database</a></p>
@@ -39,15 +41,7 @@
         <p><a href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
         <p><a href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
       </div>
-      <div>
-        <p><a href="#features">MongoDB Features</a></p>
-        <p><a href="#install">Installing MongoDB</a></p>
-        <p><a href="#ubuntu.install">  Installing MongoDB on Linux (Ubuntu)</a></p>
-        <p><a href="#atlas">Atlas (Cloud, as oposed to Local)</a></p>
-        <p><a href="#run">Basic MongoDB Administration</a></p>
-      </div>
     </nav>
-
 
     <main>
 
@@ -65,6 +59,22 @@
       <p>Some structure can optionally be enforced on JSON documents through schemas.</p>
       <hr/>
       <p>MongoDB is developed by MongoDB Inc.</p>
+      <hr/>
+      <p>Sections in this page:</p>
+      <nav>
+        <p><a href="#features">MongoDB Features</a></p>
+        <div>
+          <p><a href="#install">Installing MongoDB</a></p>
+          <p><a href="#ubuntu.install">  Installing MongoDB on Linux (Ubuntu)</a></p>
+        </div>
+        <div>
+          <p><a href="#atlas">Atlas (Cloud, as oposed to Local)</a></p>
+          <p style="text-align: left"><a href="#atlas-create">Create a database user</a></p>
+          <p style="text-align: left"><a href="#atlas-connect">Procedure for Connecting</a></p>
+          <p style="text-align: left"><a href="#atlas-connect-mongosh">Procedure for Connecting (<code>mongosh</code>)</a></p>
+        </div>
+        <p><a href="#run">Basic MongoDB Administration</a></p>
+      </nav>
 
       <section id="features">
         <h2>MongoDB Features</h2>
@@ -131,7 +141,7 @@ $ atlas setup</pre>
         <p>To install on a Linux (Ubuntu) machine, go to section <cite><a href="#ubuntu.install">Install Official MongoDB Packages on Ubuntu</a></cite>.</p>
 
         <section id="atlas">
-          <h3>Atlas (Cloud)</h3>
+          <h3>Atlas: Getting and Using a Free 500MB MongoDB Account in the Cloud</h3>
           <p>You may use MongoDB Atlas, a cloud database platform. This is much easier than hosting your own local database.</p>
           <p><a target="_blank" href="https://www.mongodb.com/try">Sign up for a free MongoDB Atlas account</a> (at <cite>https://www.mongodb.com/try</cite>) to get started!</p>
           <!--
@@ -141,7 +151,7 @@ $ atlas setup</pre>
           franciscofvh@hotmail.com
           f2f7v2h8
           -->
-          <section>
+          <section id="atlas-create">
             <h4>Create a database user</h4>
             <p>After a shortish procedure, I choose a Free scheme with 512MB storage, name <code>franciscofvh</code>, leave options [v] automate security setup and [v] preload sample dataset, as well as default provider AWS. I also create my first tag... </p>
             <p>From an email message I somehow land at <a href="https://account.mongodb.com/account/profile/overview">https://account.mongodb.com/account/profile/overview</a> and click to <a href="https://cloud.mongodb.com/user/detectSession">visit MongoDB Atlas</a> (<code>https://cloud.mongodb.com/user/detectSession</code>)</p>
@@ -152,9 +162,11 @@ $ atlas setup</pre>
               <p>Username: franciscofvh</p>
               <p>Password: UbJMA7s1VBrDwWBn</p>
             </blockquote>
+
+            <aside>This (<code>UbJMA7s1VBrDwWBn</code>) is not the password needed to log in through <code>mongosh</code> shell, nor is it the the password into the browser interface (<code>franciscofvh:shambhalatlas</code>), but <code>a55MIz2hOWLBvuE9</code> is. Now, before logging through <code>mongosh</code>, you always need to go to <code>https://cloud.mongodb.com/user/detectSession</code>, log in with franciscofvh@hotmail.com:shambhalatlas, then add your current IP address, lastly connect and substitute <code>a55MIz2hOWLBvuE9</code> into the connection string. (This is the gist of your whole connection procedure after you have signed up and got an account, this is all you need to remember.)</aside>
           </section>
 
-          <section>
+          <section id="atlas-connect">
             <h4>Procedure for Connecting</h4>
             <ol>
               <li>
@@ -165,7 +177,7 @@ $ atlas setup</pre>
                 <p>Your current IP address (say, 80.39.56.130) has been added to enable local connectivity. Only an IP address you add to your Access List will be able to connect to your project&apos;s clusters. Add more later in <cite>Network Access</cite></p>
                 <p>You are already logged into your MongoDB account in the cloud and using the <a target="_blank" href="#compass">Compass</a> GUI.</p>
               </li>
-              <li>
+              <li  id="atlas-connect-mongosh">
                 <p>While there, if you want to use the command line interface (<code>mongosh</code>)</p>
                 <ol>
                   <li>first obtain a connection string by clicking on the <cite>Connect</cite> box. This will cause a pop up window to appear, where you should choose to <b>Access your data through tools</b>: Shell (the second out of four options)</li>

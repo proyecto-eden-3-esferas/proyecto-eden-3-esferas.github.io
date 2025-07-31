@@ -72,6 +72,14 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] pustule
+[ ] canker
+[ ] botrytis == grey mold
+[ ] oomycete
+
+[ ] *Terms, names, and titles*
+<p><dfn>Terms</dfn> have definitions or meanings and are actually tags for concepts. Individuals and generally specific instances have <dfn>names</dfn> (people, their pets, ships, car models). Lastly, creations that tell a story or that communicate something have titles (books, films, plays, but not performances).</p>
+
 [ ] In *programming.html* | *Destructuring*
 
 [ ] terminar, rematar secciones *La otra vida* y *Dioses* de *religion.html*
@@ -2143,6 +2151,10 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] to *rumex.html* from *plants.html*
+[x] to *rumex.html* from *grow-rhubarb.html*
+[ ] to *rumex.html* from elsewhere
 
 [x] *template.js.write.blob.html* from *js.html*
 [ ] *template.js.write.blob.html* from elsewhere

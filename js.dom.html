@@ -144,7 +144,21 @@ document.getElementById("demo").innerHTML = "Hello World!";
         </section>
         <section>
           <h3>Properties <code>innerHTML</code>, <code>value</code>, <code>innerText</code>, <code>innerContent</code>*</h3>
-          <p>[...]</p>
+          <p>The <code>innerHTML</code> property sets or returns the HTML content (inner HTML) of an element.</p>
+          <pre>let text = "Hello Dolly.";
+document.getElementById("myP").innerHTML = text;</pre>
+          <p>The <code>innerText</code> property returns just the text content of the element and all its children, without CSS hidden text spacing and tags, except &lt;script&gt; and &lt;style&gt; elements.</p>
+          <p>The <code>textContent</code> property returns the text content of the element and all descendants, with spacing and CSS hidden text, but without tags.</p>
+          <p>HTML Example</p>
+          <pre>&lt;p id="myP"&gt;   This element has extra spacing     and contains &lt;span&gt;a span element&lt;/span&gt;.&lt;/p&gt;</pre>
+          <p>JavaScript Examples:</p>
+          <pre>let text = document.getElementById("myP").innerText;
+
+let text = document.getElementById("myP").innerHTML;
+
+let text = document.getElementById("demo").textContent;</pre>
+          <hr/>
+          <p><code>value</code> is a property specifically for form elements like &lt;input&gt;, &lt;select&gt;, and &lt;textarea&gt;. It returns the user's value entered or selected in a form field.</p>
         </section>
       </section>
 

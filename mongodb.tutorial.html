@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,37 +23,57 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!-- -->
+      <!-- -->
       <div>
-        <p><a rel="prev" href="mongodb.html">MongoDB: A JSON Document Database</a></p>
-        <p><a             href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
-        <p><a            href="json.html">JavaScript Object Notation</a></p>
-        <p><a            href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a></p>
+        <p>
+          <a rel="prev" href="mongodb.html">MongoDB: A JSON Document Database</a>
+        </p>
+        <p><a href="https://docs.mongodb.com/manual/">Documentation</a> (at <cite>https://docs.mongodb.com/manual/</cite>)</p>
+        <p>
+          <a href="json.html">JavaScript Object Notation</a>
+        </p>
+        <p>
+          <a href="js.html">JavaScript: a Programming Language for MongoDB and the Web</a>
+        </p>
       </div>
       <div>
-        <p><a            href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a></p>
-        <p><a            href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a></p>
+        <p>
+          <a href="https://github.com/proyecto-eden-3-esferas/DataBases/">My (SQL) DataBases for Farming, Biology, Health etc.</a>
+        </p>
+        <p>
+          <a href="https://github.com/proyecto-eden-3-esferas/SQLite/">Handling SQLite through C++ (Code)</a>
+        </p>
       </div>
-
     </nav>
-
-
     <main>
-
       <h1>MongoDB Tutorial</h1>
       <p>Having learned how to <a target="_blank" href="mongodb.html#install">install</a> and log in into MongoDB, we go on to manage our databases:</p>
       <nav>
-        <p><a                 href="#managing">Handling DataBases and Collections</a></p>
-        <p><a target="_blank" href="mongodb.querying.html">Querying and Indexing a MongoDB Database</a></p>
-        <p><a                 href="#insert">Inserting (Objects) in MongoDB</a></p>
-        <p><a                 href="#update">Updating Documents</a></p>
-        <p><a                 href="#delete">Removing Documents</a></p>
-        <p><a                 href="#io">Outputing to and Inputing from a File</a></p>
-        <p><a                 href="#schema-validation">MongoDB Schema Validation</a></p>
-        <p><a                 href="#mongoimport">Inputing from a File with <code class="command">mongoimport</code></a></p>
+        <p>
+          <a href="#managing">Handling DataBases and Collections</a>
+        </p>
+        <p>
+          <a target="_blank" href="mongodb.querying.html">Querying and Indexing a MongoDB Database</a>
+        </p>
+        <p>
+          <a href="#insert">Inserting (Objects) in MongoDB</a>
+        </p>
+        <p>
+          <a href="#update">Updating Documents</a>
+        </p>
+        <p>
+          <a href="#delete">Removing Documents</a>
+        </p>
+        <p>
+          <a href="#io">Outputing to and Inputing from a File</a>
+        </p>
+        <p>
+          <a href="#schema-validation">MongoDB Schema Validation</a>
+        </p>
+        <p>
+          <a href="#mongoimport">Inputing from a File with <code class="command">mongoimport</code></a>
+        </p>
       </nav>
-
-
       <section id="managing">
         <h2>Handling DataBases</h2>
         <section>
@@ -82,21 +103,22 @@
         <section>
           <h3>Change or Create a Database or Create a Collection</h3>
           <p>You can change or create a new database by typing <code>use</code> then the name of the database.</p>
-          <h4>Example</h4>
-          <p>Create a new database called <var>blog</var>:</p>
-          <pre>use blog</pre>
-          <p>We are now in the <var>blog</var> database.</p>
-          <p>If database <var>blog</var> already existed, then <code>use blog</code> would just change into database <var>blog</var>.</p>
-          <p><strong>Remember:</strong> In MongoDB, a database is not actually created until it gets content!</p>
+          <section>
+            <h4>Example</h4>
+            <p>Create a new database called <var>blog</var>:</p>
+            <pre>use blog</pre>
+            <p>We are now in the <var>blog</var> database.</p>
+            <p>If database <var>blog</var> already existed, then <code>use blog</code> would just change into database <var>blog</var>.</p>
+            <p><strong>Remember:</strong> In MongoDB, a database is not actually created until it gets content!</p>
+          </section>
         </section>
       </section>
-
       <section id="insert">
         <h2>Inserting (Objects) in MongoDB</h2>
         <ul>
           <li>
             <p>To insert one data item in a collection issue:</p>
-            <pre>>db.myCollection.insertOne(
+            <pre>&gt;db.myCollection.insertOne(
   {
     "name": "navindu",
     "age": 22
@@ -125,19 +147,15 @@
           <li>The <code class="function">insert()</code> method is similar to the <code class="function">insertMany()</code> method.</li>
         </ul>
       </section>
-
-
       <section>
         <h2>Special Index and Collection Types*</h2>
       </section>
-
       <section>
         <h2>Introduction to the Aggregation Framework*</h2>
       </section>
-
       <section id="update">
         <h2>Updating Documents</h2>
-        <p>To update one or several documents we often rely on <code>$set</code>. Actually, we construct an object where <code>$set</code> is the key and the intended values are <code>$set</code>&apos;s value, as in:</p>
+        <p>To update one or several documents we often rely on <code>$set</code>. Actually, we construct an object where <code>$set</code> is the key and the intended values are <code>$set</code>'s value, as in:</p>
         <pre>{$set: {"<var>my_key</var>": <var>my_value</var>}</pre>
         <p>Updating documents can be done in three ways in MongoDB:</p>
         <ul>
@@ -145,24 +163,29 @@
           <li><code>updateOne()</code>: updates the first document found with the matching criteria</li>
           <li><code>updateMany()</code>: updates all the documents that match the specified criteria</li>
         </ul>
-        <h4 class="bridgehead">A very simple example</h4>
-        <p>To update someone&apos;s age issue: <code>db.myCollection.update({age : 20}, {$set: {age: 23}})</code></p>
-        <h4 class="bridgehead">A worked example</h4>
-        <p>Suppose we want to update the exam score to 35 in some document that we inserted above. The query is as follows:</p>
-        <pre>db.grades.updateOne({_id: 1, "scores.type": 'exam'},\</pre>
-        <pre>                    {$set:{'scores.$.score': 35}})</pre>
-        <p>Note that the <var>scores</var> field is an array/object, so we use the dot operator to access the fields. To update the value, we need to use the positional operator (<code>$</code>). If the document is updated successfully, you will get an acknowledgement:</p>
-        <pre>{
+        <section>
+          <h3>A very simple example</h3>
+          <p>To update someone's age issue: <code>db.myCollection.update({age : 20}, {$set: {age: 23}})</code></p>
+        </section>
+        <section>
+          <h3>A worked example</h3>
+          <p>Suppose we want to update the exam score to 35 in some document that we inserted above. The query is as follows:</p>
+          <pre>db.grades.updateOne({_id: 1, "scores.type": 'exam'},\</pre>
+          <pre>                    {$set:{'scores.$.score': 35}})</pre>
+          <p>Note that the <var>scores</var> field is an array/object, so we use the dot operator to access the fields. To update the value, we need to use the positional operator (<code>$</code>). If the document is updated successfully, you will get an acknowledgement:</p>
+          <pre>{
   acknowledged: true,
   insertedId: null,
   matchedCount: 1,
   modifiedCount: 1,
   upsertedCount: 0
 }</pre>
-        <p>Note the parameter upsertedCount. MongoDB uses an optional parameter known as ‘upsert&apos;, the value of which can be a boolean (true/false). While writing the update query, if upsert is set to true, the document is inserted if it doesn&apos;t exist.</p>
-        <h4 class="bridgehead">An example with <var>upset</var> set to <code>true</code></h4>
-        <p>For example, let&apos;s try to update a document with <var>_id</var> as 10000 (which doesn&apos;t exist), with <var>upsert</var> as <code>true</code>:</p>
-        <pre>db.grades.update(
+          <p>Note the parameter upsertedCount. MongoDB uses an optional parameter known as &#x2018;upsert', the value of which can be a boolean (true/false). While writing the update query, if upsert is set to true, the document is inserted if it doesn't exist.</p>
+        </section>
+        <section>
+          <h3>An example with <var>upsert</var> set to <code>true</code></h3>
+          <p>For example, let's try to update a document with <var>_id</var> as 10000 (which doesn't exist), with <var>upsert</var> as <code>true</code>:</p>
+          <pre>db.grades.update(
    { student_id: 10000 },
    { $set:
       {
@@ -171,15 +194,19 @@
    },
    { upsert: true }
 )</pre>
+        </section>
+      </section>
+      <section>
+        <h2>Operators</h2>
         <section>
           <h3>Operator <code>$unset</code></h3>
-          <p>The <code>$unset</code> operator is the exact opposite of the <code>$set</code> operator. Rather than assigning a new value to a field, the $unset operator will give an empty value to a field thereby deleting it. Here&apos;s an example of the <code>$unset</code> operator,</p>
+          <p>The <code>$unset</code> operator is the exact opposite of the <code>$set</code> operator. Rather than assigning a new value to a field, the $unset operator will give an empty value to a field thereby deleting it. Here's an example of the <code>$unset</code> operator,</p>
           <pre>db.grades.update({_id: 1}, {$unset: {"scores.score": ""}}),\</pre>
           <p>whereby <var>scores.score</var> is removed for object with <var>_id</var> equal to 1.</p>
         </section>
         <section>
           <h3>Operator <code>$inc</code></h3>
-          <p>The <code>$inc</code> operator is MongoDB&apos;s abbreviation of <q>increment</q>, an operator designed to increase or decrease the value of a field. <code>$inc</code> can be used with either floats or integers, which means that decimal values can be passed through <code>$inc</code> without an issue. Here&apos;s an example of the <code>$inc</code> operator with an integer.</p>
+          <p>The <code>$inc</code> operator is MongoDB's abbreviation of <q>increment</q>, an operator designed to increase or decrease the value of a field. <code>$inc</code> can be used with either floats or integers, which means that decimal values can be passed through <code>$inc</code> without an issue. Here's an example of the <code>$inc</code> operator with an integer.</p>
           <pre>db.grades.update({_id: 111}, {$inc: {"scores.score": -1}}),\</pre>
           <p>Here the value of <var>scores.score</var> is decreased by one. For example, if its value was previously 10, now it would be 9.</p>
         </section>
@@ -194,28 +221,37 @@
             <h4>Modifiers</h4>
             <p>In MongoDB there are four modifiers, <code>$each</code>, <code>$position</code>, <code>$slice</code>, and <code>$sort</code>. These all modify the functionality of the <code>$push</code> operator to help with organization or efficiency. While these modifiers are not required when performing an update on a document, they play a key role in simplifying the updating process.</p>
             <section>
-              <h5><code>$each</code></h5>
+              <h5>
+                <code>$each</code>
+              </h5>
               <p>The <code>$each</code> modifier can be used with <code>$push</code> or <code>$addToSet</code> to select multiple items to append to a field. Rather than copying a previous $push command and complicating the query, the $each modifier allows users to seamlessly execute multiple $push commands.</p>
             </section>
             <section>
-              <h5><code>$position</code></h5>
+              <h5>
+                <code>$position</code>
+              </h5>
               <p>The <code>$position</code> modifier allows users to specify where in an array an item should be appended. In fields where proper ordering is crucial, the <code>$position</code> modifier is a simple solution to any issues with item placement.</p>
             </section>
             <section>
-              <h5><code>$slice</code></h5>
+              <h5>
+                <code>$slice</code>
+              </h5>
               <p>The <code>$slice</code> modifier performs a similar function to the <code>$limit</code> operator in the aggregation pipeline; it reduces the total documents to a finite number. The <code>$slice</code> operator allows users to create a new limit in the updated collection which will be executed alongside any other updates.</p>
             </section>
             <section>
-              <h5><code>$sort</code></h5>
+              <h5>
+                <code>$sort</code>
+              </h5>
               <p>The <code>$sort</code> modifier allows users to rearrange documents according to a given metric/field. For example, if a user wanted to arrange a list of books in order of publish date, the $sort modifier would allow them to do so.</p>
             </section>
             <section>
-              <h5><code>$bit</code></h5>
+              <h5>
+                <code>$bit</code>
+              </h5>
               <p>The <code>$bit</code> operator is unique because it modifies the individual bits of a field. $bit uses bitwise functions such as <code>AND</code>, <code>OR</code>, and <code>XOR</code> to create conditionals for which bits it chooses to modify. $bit is a highly technical operator with limited uses in most day-to-day queries.</p>
             </section>
           </section>
         </section>
-
         <section>
           <h3>Operator <code>$pull</code></h3>
           <p>The <code>$pull</code> operator is the opposite of the <code>$push</code> operator. It removes one element from an array field or, if there is only one element left in the array, deletes the entire field from a document.</p>
@@ -243,7 +279,6 @@
      v
         -->
       </section>
-
       <section id="delete">
         <h2>Deleting/Removing Documents</h2>
         <p>Analogously to other operations, MongoDB provides <code>deleteOne()</code> and <code>deleteMany()</code> options.</p>
@@ -258,7 +293,6 @@
           <li>To remove all the documents in a collection, issue: <code>db.myCollection.drop();</code>.</li>
         </ul>
       </section>
-
       <section id="io">
         <h2>Outputing to and Inputing from a File</h2>
         <p>You can log all the shell session if you invoked the shell with tee command: <code>mongo | tee session.txt</code>. Or you can use the <code>--eval</code> switch like so: <code>mongo localhost:27017/dbname --eval "printjson(db.MyCollection.find().pretty())" &gt; sample.json</code>.</p>
@@ -272,12 +306,10 @@
           </ul>
         </section>
       </section>
-
       <section id="schema-validation">
         <h2>MongoDB Schema Validation</h2>
         <p>By default MongoDB has a flexible schema, unlike <a target="_blank" href="relational-database.html">Relational DataBases</a>. This means that there is no strict schema validation set up initially.</p>
         <p>Schema validation rules can be created in order to ensure that all documents in a collection share a similar structure.</p>
-
         <p>MongoDB supports <a target="_blank" href="json.html#validation">JSON Schema validation</a>. The <code>$jsonSchema</code> operator allows us to define our document structure.</p>
         <pre>db.createCollection("posts", {
   validator: {
@@ -314,8 +346,8 @@
   }
 })</pre>
         <p>This will create the posts collection in the current database and specify the JSON Schema validation requirements for the collection.</p>
-      </section>  <!-- end of "MongoDB Schema Validation" -->
-
+      </section>
+      <!-- end of "MongoDB Schema Validation" -->
       <section id="mongoimport">
         <h2>Inputing from a File with <code class="command">mongoimport</code></h2>
         <p>Switches <code>--db</code>, <code>--collections</code>, <code>--fields</code>, <code>--fieldFile</code>, <code>--jsonArray</code> are the same as with <code class="command">mongoexport</code>.</p>
@@ -359,9 +391,6 @@
           <dd>bypass document validation</dd>
         </dl>
       </section>
-
     </main>
-
   </body>
-
 </html>
