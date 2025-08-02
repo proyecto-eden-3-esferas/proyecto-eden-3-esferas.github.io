@@ -47,6 +47,11 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://developer.mozilla.org/
 
+- https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
+- https://www.learncpp.com/
+- https://www.geeksforgeeks.org/category/cpp/
+- https://www.geeksforgeeks.org/cpp/tuples-in-c/
+
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
 
 - https://www.sokaglobal.org/es/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Variable Initialization in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Initialization of Variables in C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.core-types.html">C++ Core Types</a></p>
+        <p><a            href="cpp.structured-binding.html">Structured Binding in C++</a></p>
+        <p><a            href="cpp.aggregate-initialization.html">Aggregate Initialization in C++</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a            href="cpp.functions.html">Functions in C++</a></p>
+        <p><a            href="cpp.memory.html">Memory Management in C++</a></p>
+        <p><a            href="cpp.type-aliases.html">Type Aliases in C++</a></p>
+        <p><a            href="cpp.constexpr-and-consteval.html"><code>constexpr</code> and <code>consteval</code></a></p>
+      </div>
+      <div>
+        <p><a href="cpp.bind.html">C++ <code>std::bind(<var>f</var>, <var>ARGS</var>)</code></a></p>
+        <p><a href="cpp.stack-smashing.html">C++ Stack Smashing</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp11.html">C++11</a></p>
+        <p><a href="cpp.cpp14.html">C++14</a></p>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Initialization of Variables in C++</h1>
+      <p>When an object is defined, you can optionally provide an initial value for the object. The process of specifying an initial value for an object is called <dfn>initialization</dfn>, and the syntax used to initialize an object is called an initializer. Informally, the initial value is often called an <q>initializer</q> as well.</p>
+      <hr/>
+      <p>There are 5 common forms of initialization in C++:</p>
+      <pre>int a;         // <a href="#default">default-initialization</a> (no initializer)
+
+// Traditional initialization forms:
+int b = 5;     // <a href="#copy">copy-initialization</a> (initial value after equals sign)
+int c ( 6 );   // <a href="#direct">direct-initialization</a> (initial value in parenthesis)
+
+// Modern initialization forms (preferred):
+int d { 7 };   // <a href="#list">direct-list-initialization</a> (initial value in braces)
+int e {};      // <a href="#value">value-initialization</a> (empty braces)</pre>
+      <p>You may see the above forms written with different spacing (e.g. int b=5; int c(6);, int d{7};, int e{};). Whether you use extra spaces for readability or not is a matter of personal preference.</p>
+      <p>As of C++17, copy-initialization, direct-initialization, and direct-list-initialization behave identically in most cases. We&apos;ll cover the most relevant case where they differ below.</p>
+      <aside>
+        <h3>For advanced readers</h3>
+        <p>Other forms of initialization include:</p>
+        <ul>
+          <li>Aggregate initialization (<i>see</i> 13.8 -- Struct aggregate initialization).</li>
+          <li>Copy-list-initialization (discussed below).</li>
+          <li>Reference initialization (<li>see</li> 12.3 -- Lvalue references).</li>
+          <li>Static-initialization, constant-initialization, and dynamic-initialization (see 7.8 -- Why (non-const) global variables are evil).</li>
+          <li>Zero-initialization (discussed below).</li>
+        </ul>
+      </aside>
+      <!--
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      -->
+      <section id="default">
+        <h2>Default-initialization</h2>
+        <p>When no initializer is provided (such as for variable a above), this is called <dfn>default-initialization</dfn>. In many cases, default-initialization performs no initialization, and leaves the variable with an indeterminate value (a value that is not predictable, sometimes called a <strong>garbage value</strong>).</p>
+      </section>
+      <section id="copy">
+        <h2>Copy-initialization</h2>
+        <p>When an initial value is provided after an equals sign, this is called <dfn>copy-initialization</dfn>. This form of initialization was inherited from the <a target="_blank" href="c.html">C</a> language.</p>
+        <pre>int width = 5; // copy-initialization of value 5 into variable width</pre>
+        <p>Much like copy-assignment, this copies the value on the right-hand side of the equals into the variable being created on the left-hand side. In the above snippet, variable width will be initialized with value 5.</p>
+        <p>Copy-initialization had fallen out of favor in modern C++ due to being less efficient than other forms of initialization for some complex types. However, C++17 remedied the bulk of these issues, and copy-initialization is now finding new advocates. You will also find it used in older code (especially code ported from C), or by developers who simply think it looks more natural and is easier to read.</p>
+      </section>
+      <section id="direct">
+        <h2>Direct-initialization</h2>
+        <p>When an initial value is provided inside parenthesis, this is called <dfn>direct-initialization</dfn>.</p>
+        <pre>int width ( 5 ); // direct initialization of value 5 into variable width</pre>
+        <p>Direct-initialization was initially introduced to allow for more efficient initialization of complex objects (those with class types). Just like copy-initialization, direct-initialization had fallen out of favor in modern C++, largely due to being superseded by direct-list-initialization. However, direct-list-initialization has a few quirks of its own, and so direct-initialization is once again finding use in certain cases.</p>
+        <aside>
+          <h4 class="bridgehead">For advanced readers</h4>
+          <p>Direct-initialization is also used when values are explicitly cast to another type (e.g. via <code>static_cast&lt;&gt;()</code>).</p>
+        </aside>
+      </section>
+      <section id="list">
+        <h2>List-initialization</h2>
+        <p>The modern way to initialize objects in C++ is to use a form of initialization that makes use of curly braces. This is called <dfn>list-initialization</dfn> (or uniform initialization or brace initialization).</p>
+        <p>List-initialization comes in two forms:</p>
+        <pre>int width { 5 };    // direct-list-initialization of initial value 5 into variable width (preferred)
+int height = { 6 }; // copy-list-initialization of initial value 6 into variable height (rarely used)</pre>
+        <p>Prior to C++11, some types of initialization required using copy-initialization, and other types of initialization required using direct-initialization. Copy-initialization can be hard to differentiate from copy-assignment (because both use an =). And direct-initialization can be difficult to differentiate from function-related operations (because both use parentheses).</p>
+        <p>List-initialization was introduced to provide a initialization syntax that works in almost all cases, behaves consistently, and has an unambiguous syntax that makes it easy to tell where we&apos;re initializing an object.</p>
+        <aside>
+          <h4 class="bridgehead">Key insight</h4>
+          <p>When we see curly braces, we know we&apos;re list-initializing an object.</p>
+        </aside>
+        <p>Additionally, list-initialization also provides a way to initialize objects with a list of values rather than a single value (which is why it is called <q>list-initialization</q>).</p>
+      </section>
+      <section id="value">
+        <h2>Value-initialization and zero-initialization</h2>
+        <p>When a variable is initialized using an empty set of braces, a special form of list-initialization called <dfn>value-initialization</dfn> takes place. In most cases, value-initialization will implicitly initialize the variable to zero (or whatever value is closest to zero for a given type). In cases where zeroing occurs, this is called <dfn>zero-initialization</dfn>.</p>
+        <pre>int width {}; // value-initialization / zero-initialization to value 0</pre>
+        <aside>
+          <h4 class="bridgehead">For advanced readers</h4>
+          <p>For class types, value-initialization (and default-initialization) may instead initialize the object to predefined default values, which may be non-zero.</p>
+        </aside>
+      </section>
+
+      <section>
+        <h2>Some Advantages of Universal/Uniform Initialization (Curly Braces <code>{}</code>)</h2>
+        <p>Using the <code>{}</code> allow us to guarantee that the variable will be initialized. If, for instance, you have an empty <code>{}</code> such as <code>int amount{}</code>, the compiler will initialize the variable amount to its type default value, in this case a 0 (zero) for <code>int</code>.</p>
+        <p>The use of an un-initialized variable can cause an undefined behavior because we have no way to know the value of the variable when the program starts. All calculations based on variables not initialized can&apos;t be trusted. When a variable is not initialized, for instance, <code>int count;</code> the compiler will allocate a block of memory that can hold an int (4 bytes). However we don&apos;t know what value is present in that block of memory. It could be 0 or it could be any <code>int</code> value.</p>
+        <hr/>
+        <p>Another advantage of using <code>{}</code> is to <strong>avoid narrowing</strong> your values. You can always fit a smaller value in a larger one. For instance, you can fit a char in a double, but the opposite may sometimes be possible and this can give you problems.</p>
+        <p>Imagine that you want to create a variable to hold a <code>double</code> value, but by mistake (you are human) you code an <code>int</code> variable and initialize it with a double value using <code>=</code> (see code below). Because of the <code>=</code>, the compiler will narrow down your <code>double</code> value in order to make it fit inside your int variable. However, this may not be what you wanted. This problem can be avoided and the compiler can help you to see the issue. Let&apos;s see the example below:</p>
+        <pre>int cost_1 = 19.99; //it will narrow down to 19
+int cost_2{29.99}; //the compiler will issue an error</pre>
+        <p>In the first example, we used an int variable to hold a double value. In this case, depending on your compiler or how you configured it, the compiler will narrow down the 19.99 to 19. If you don&apos;t catch that mistake, your calculation could be wrong and you may spend a long time trying to figure out where the bug is. However, if you use the second example with the <code>{}</code>, the compiler will give you an error message saying: <code>error: type &apos;double&apos; cannot be narrowed to &apos;int&apos; in initializer list and will not compile.</code> With that you can easily spot your mistake and correct it.</p>
+      </section>
+      <section>
+        <h2>Unused Initialized Variables</h2>
+        <p>Modern compilers will typically generate warnings if a variable is initialized but not used (since this is rarely desirable). And if <q>treat warnings as errors</q> is enabled, these warnings will be promoted to errors and cause the compilation to fail.</p>
+        <p>Consider the following innocent looking program:</p>
+        <pre>int main()
+{
+    int x { 5 }; // variable x defined
+
+    // but not used anywhere
+
+    return 0;
+}</pre>
+        <p>When compiling this with GCC and “treat warnings as errors” on, the following error is generated:</p>
+        <pre>prog.cc: In function 'int main()':
+prog.cc:3:9: error: unused variable 'x' [-Werror=unused-variable]</pre>
+        <p>and the program fails to compile.</p>
+        <hr/>
+        <p>There are a few easy ways to fix this.</p>
+        <ol>
+          <li>If the variable really is unused and you don&apos;t need it, then the easiest option is to remove the definition of x (or comment it out). After all, if it&apos;s not used, then removing it won&apos;t affect anything.</li>
+          <li>Another option is to simply use the variable somewhere</li>
+        </ol>
+        <section>
+          <h3>The <code>[[maybe_unused]]</code> attribute C++17</h3>
+          <p>In some cases, neither of the above options are desirable. Consider the case where we have a set of math/physics values that we use in many different programs:</p>
+          <pre>#include &lt;iostream&gt;
+
+int main()
+{
+    // Here's some math/physics values that we copy-pasted from elsewhere
+    double pi { 3.14159 };
+    double gravity { 9.8 };
+    double phi { 1.61803 };
+
+    std::cout &lt;&lt; pi &lt;&lt; '\n';  // pi is used
+    std::cout &lt;&lt; phi &lt;&lt; '\n'; // phi is used
+
+    // The compiler will likely complain about gravity being defined but unused
+
+    return 0;
+}</pre>
+          <p>If we use these values a lot, we probably have these saved somewhere and copy/paste/import them all together.</p>
+          <p>However, in any program where we don&apos;t use all of these values, the compiler will likely complain about each variable that isn&apos;t actually used. In the above example, we could easily just remove the definition of <var>gravity</var>. But what if there were 20 or 30 variables instead of 3? And what if we use them in multiple places? Going through the list of variables to remove/comment out the unused ones takes time and energy. And later if we need one that we&apos;ve previously removed, we&apos;ll have to spend more time and energy to go back and re-add/uncomment it.</p>
+          <p>To address such cases, C++17 introduced the <code>[[maybe_unused]]</code> attribute, which allows us to tell the compiler that we&apos;re okay with a variable being unused. The compiler will not generate unused variable warnings for such variables.</p>
+          <p>The following program should generate no warnings/errors:</p>
+          <pre>#include &lt;iostream&gt;
+
+int main()
+{
+    [[maybe_unused]] double pi { 3.14159 };  // Don't complain if pi is unused
+    [[maybe_unused]] double gravity { 9.8 }; // Don't complain if gravity is unused
+    [[maybe_unused]] double phi { 1.61803 }; // Don't complain if phi is unused
+
+    std::cout &lt;&lt; pi &lt;&lt; '\n';
+    std::cout &lt;&lt; phi &lt;&lt; '\n';
+
+    // The compiler will no longer warn about gravity not being used
+
+    return 0;
+}</pre>
+          <p>Additionally, the compiler will probably optimize these variables out of the program, so they have no performance impact.</p>
+          <p>The <code>[[maybe_unused]]</code> attribute should only be applied selectively to variables that have a specific and legitimate reason for being unused (e.g. because you need a list of named values, but which specific values are actually used in a given program may vary). Otherwise, unused variables should be removed from the program.</p>
+        </section>
+
+      </section>
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

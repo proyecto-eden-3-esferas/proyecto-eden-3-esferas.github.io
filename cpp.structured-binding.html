@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Structured Binding in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Structured Binding in C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.core-types.html">C++ Core Types</a></p>
+        <p><a rel="prev" href="cpp.initialization-of-vars.html">Initialization of Variables in C++</a></p>
+        <p><a rel="next" href="cpp.aggregate-initialization.html">Aggregate Initialization in C++</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a            href="cpp.functions.html">Functions in C++</a></p>
+        <p><a            href="cpp.type-aliases.html">Type Aliases in C++</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.bind.html">C++ <code>std::bind(<var>f</var>, <var>ARGS</var>)</code></a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Structured Binding in C++</h1>
+      <!--Prerequisite : Tuples in C++-->
+      <p><dfn>Structured binding</dfn> is one of the newest features of C++17 that binds the specified names to subobjects or elements of initializer. In simple words, Structured Bindings give us the ability to declare multiple variables initialized from a tuple or struct.</p>
+      <p>The main purpose of Structured Bindings in C++ 17 is to make the code clean and easy to understand. Like a reference, a structured binding is an alias to an existing object. Unlike a reference, the type of a structured binding does not have to be a reference type.</p>
+      <p>Here is an example:</p>
+      <pre>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Point
+{
+    int x;
+    int y;
+};
+
+int main( )
+{
+    Point p = { 1,2 };
+
+    // Structure binding
+    auto[ x_coord, y_coord ] = p;
+
+    cout &lt;&lt; "X Coordinate : " &lt;&lt; x_coord &lt;&lt; endl;
+    cout &lt;&lt; "Y Coordinate : " &lt;&lt; y_coord &lt;&lt; endl;
+
+    return 0;
+}</pre>
+      <p>with output:</p>
+      <pre>X Coordinate : 1
+Y Coordinate : 2</pre>
+      <section id="syntax">
+        <h2>Syntax</h2>
+        <p>Ths syntax for structured binding is:</p>
+        <pre>auto ref-operator(optional)[identifier-list] = expression;
+
+// Or
+
+auto ref-operator(optional)[identifier-list]{expression};
+
+// Or
+
+auto ref-operator(optional)[identifier-list](expression);
+</pre>
+        <p>Where the parameters mean:</p>
+        <ul>
+          <li><strong>auto </strong>:  auto</li>
+          <li><strong>ref operator </strong>:  either &amp; or &amp;&amp;</li>
+          <li><strong>identifier-list </strong>:  List of comma separated variable names.</li>
+          <li><strong>expression </strong>:  An expression that does not have the comma operator at the top level (i.e, an assignment-expression), and has either array or non-union class type.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Applications/Examples</h2>
+        <p>Structured Binding can be used with arrays to get the elements from the array. In this case, <var>E</var> is an array type, hence the names are bound to the array elements. Below is the implementation to show the same:</p>
+        <pre>#include &lt;bits/stdc++.h>
+using namespace std; ​
+
+int main() { ​
+    int arr[3] = { 1, 2, 3 };
+
+    // Here, E is an array type, hence the
+    // names are bound to the array elements.
+    auto[x, y, z] = arr;
+    cout &lt;&lt; x &lt;&lt; " " &lt;&lt; y &lt;&lt; " " &lt;&lt; z &lt;&lt; endl; ​
+
+    return 0;
+}</pre>
+        <p>Output:</p>
+        <pre>1 2 3</pre>
+        <p><strong>Note.</strong> The number of identifiers in the identifier list must be equal to the number of elements in the array. If the number of identifiers in the identifier list is less, then either a compile time error or design time error may occur. This means that we cannot take the specific set of elements from the array. A more practical example for using the structured bindings is as follows:</p>
+        <pre>#include &lt;bits/stdc++.h&gt;
+#include &lt;map&gt;
+using namespace std;
+
+int main()
+{
+    // Creating a map with key and value
+    // fields as String
+    map&lt;string, string&gt; sites;
+
+    sites.insert({ "GeeksforGeeks", "Coding Resources" });
+    sites.insert({ "StackOverflow", "Q-A type" });
+    sites.insert({ "Wikipedia", "Resources + References" });
+
+    for (auto &amp; [ key, value ] : sites)
+    {
+       cout &lt;&lt; key.c_str() &lt;&lt; " " &lt;&lt; value.c_str() &lt;&lt; endl;
+    }
+
+    return 0;
+}</pre>
+        <p>Output:</p>
+        <pre>GeeksforGeeks Coding Resources
+StackOverflow Q-A type
+Wikipedia Resources + References</pre>
+        <p><strong>Note:</strong> Qualifiers such as const and volatile can be used along with type to make the declaration variable constant or volatile.</p>
+      </section>
+
+
+      <!--
+      <section>
+        <h2>*</h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
