@@ -72,6 +72,9 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://www.w3schools.com/html/html_form_elements.asp
 
+- https://tc39.es/ecma262/multipage/
+`jq '.[] | .term' my-Array-of-Objects.json`
+
 # Some useful `jq` code snippets
 
 

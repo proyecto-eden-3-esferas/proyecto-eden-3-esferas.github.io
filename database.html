@@ -65,17 +65,39 @@
 
       <hr/>
 
-      <h2>Some common functions that a DBMS performs</h2>
-      <p>(<i>See also:</i> <a href="database-components.html">The Components of a DBMS</a>.)</p>
-      <ul>
-        <li><dfn>Administration tasks.</dfn> A DBMS supports many typical database administration tasks, including change management, performance monitoring and tuning, security, and backup and recovery. Most database management systems are also responsible for automated rollbacks and restarts as well as logging and auditing of activity in databases and the applications that access them.</li>
-        <li><dfn>Storage.</dfn> A DBMS provides efficient data storage and retrieval by ensuring that data is stored in tables, rows and columns; or in <strong>documents</strong>; or...</li>
-        <li><dfn>Concurrency control.</dfn> In environments where multiple users access and modify the database simultaneously, a DBMS guarantees controlled <a href="transactions.html">transaction</a> execution to prevent data corruption or inconsistency.</li>
-        <li><dfn>Centralized view.</dfn> A DBMS provides a centralized <dfn>view</dfn> of data that multiple users can access from multiple locations in a controlled manner. A DBMS can limit what data end users see and how they view the data, providing many views of a single database schema. End users and software programs are free from having to understand where the data is physically located or on what type of storage medium it resides because the DBMS handles all requests.</li>
-        <li><dfn>Data manipulation.</dfn> A DBMS ensures data integrity and consistency by letting users insert, update, delete and modify data inside a database.</li>
-        <li><dfn>Data independence.</dfn> A DBMS offers both logical and physical data independence to protect users and applications from having to know where data is stored or from being concerned about changes to the physical structure of data. As long as programs use the application programming interface (API) for the database that the DBMS provides, developers won't have to modify programs just because changes have been made to the database.</li>
-        <li><dfn>Backup and recovery.</dfn> A DBMS facilitates backup and recovery options by creating backup copies so that data can be restored to a consistent state. This protects against data loss due to hardware failures, software errors or other unforeseen events. In a relational database management system (RDBMS) -- the most widely used type of DBMS -- the API is structured query language (SQL), a standard programming language for defining, protecting and accessing data.</li>
-      </ul>
+      <section>
+        <h2>Some common functions that a DBMS performs</h2>
+        <p>(<i>See also:</i> <a href="database-components.html">The Components of a DBMS</a>.)</p>
+        <ul>
+          <li><dfn>Administration tasks.</dfn> A DBMS supports many typical database administration tasks, including change management, performance monitoring and tuning, security, and backup and recovery. Most database management systems are also responsible for automated rollbacks and restarts as well as logging and auditing of activity in databases and the applications that access them.</li>
+          <li><dfn>Storage.</dfn> A DBMS provides efficient data storage and retrieval by ensuring that data is stored in tables, rows and columns; or in <strong>documents</strong>; or...</li>
+          <li><dfn>Concurrency control.</dfn> In environments where multiple users access and modify the database simultaneously, a DBMS guarantees controlled <a href="transactions.html">transaction</a> execution to prevent data corruption or inconsistency.</li>
+          <li><dfn>Centralized view.</dfn> A DBMS provides a centralized <dfn>view</dfn> of data that multiple users can access from multiple locations in a controlled manner. A DBMS can limit what data end users see and how they view the data, providing many views of a single database schema. End users and software programs are free from having to understand where the data is physically located or on what type of storage medium it resides because the DBMS handles all requests.</li>
+          <li><dfn>Data manipulation.</dfn> A DBMS ensures data integrity and consistency by letting users insert, update, delete and modify data inside a database.</li>
+          <li><dfn>Data independence.</dfn> A DBMS offers both logical and physical data independence to protect users and applications from having to know where data is stored or from being concerned about changes to the physical structure of data. As long as programs use the application programming interface (API) for the database that the DBMS provides, developers won't have to modify programs just because changes have been made to the database.</li>
+          <li><dfn>Backup and recovery.</dfn> A DBMS facilitates backup and recovery options by creating backup copies so that data can be restored to a consistent state. This protects against data loss due to hardware failures, software errors or other unforeseen events. In a relational database management system (RDBMS) -- the most widely used type of DBMS -- the API is structured query language (SQL), a standard programming language for defining, protecting and accessing data.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Object[-Oriented] Databases</h2>
+
+        <section>
+          <h2>Object-Relational Mapping (ORM)</h2>
+          <blockquote>
+            <p>Object-Relational Mapping (ORM) is a technique that converts data between object-oriented programming languages and relational databases. It creates a "bridge" that allows developers to interact with databases using the familiar syntax of their programming language, rather than writing raw SQL queries. This simplifies database interactions, increases productivity, and speeds up development.</p>
+            <p style="text-align: right">Generated by Google&apos;s AI</p>
+          </blockquote>
+        </section>
+
+        <section>
+          <h3>ODB: C++ Object-Relational Mapping (ORM)</h3>
+          <p style="text-align: right"><i>See</i> <a target="_blank" href="https://www.codesynthesis.com/products/odb/">https://www.codesynthesis.com/products/odb/</a></p>
+          <p>ODB is an open-source, cross-platform, and cross-database object-relational mapping (ORM) system for C++. It allows you to persist C++ objects to a relational database without having to deal with tables, columns, or SQL and without manually writing any mapping code. ODB supports SQLite, PostgreSQL, MySQL, Oracle, and Microsoft SQL Server relational databases. It also comes with optional profiles for Boost and Qt which allow you to seamlessly use value types, containers, and smart pointers from these libraries in your persistent C++ classes. See Features for the detailed list of the supported functionality.</p>
+          <p>[...]</p>
+          <p>ODB is not a framework. It does not dictate how you should write your application. Rather, it is designed to fit into your style and architecture by only handling C++ object persistence and not interfering with any other functionality. As you can see, existing classes can be made persistent with only a few modifications. In particular, a persistent class can be declared without the default constructor, existing accessor and modifier functions can be automatically used to access the data members, and ODB pragmas can be moved out of the class and into a separate header, making the object-relational mapping completely non-intrusive. Support for automatic database schema evolution further allows you to treat ODB persistent objects like any other C++ classes in your application.</p>
+        </section>
+      </section>
 
     </main>
 

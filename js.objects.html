@@ -332,15 +332,27 @@ document.getElementById("demo").innerHTML = obj.name;</pre>
 console.log(Object.hasOwn(object1, 'prop'));
 // expected output: true
 </pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
             <aside>
               <p><code>Object.hasOwn()</code> is recommended over <code>Object.hasOwnProperty()</code> because it works for objects created using <code>Object.create(null)</code> and with objects that have overridden the inherited <code>hasOwnProperty()</code> method. While it is possible to workaround these problems by calling <code>Object.prototype.hasOwnProperty()</code> on an external object, <code>Object.hasOwn()</code> is more intuitive.</p>
             </aside>
+          </section>
+          <section>
+            <h4>Comparing to <code>undefined</code>*</h4>
+            <p>...</p>
+            <pre>const example = {prop = "exists"};
+console.log(example.prop !== undefined);     // => true</pre>
+            <p>...</p>
+          </section>
+          <section>
+            <h4>Using operator <code>in</code></h4>
+            <p>Operator <code>in</code> returns true for direct or inherited properties.</p>
+            <p>An example:</p>
+            <pre>const example = {prop = "exists"};
+
+"prop" in example; // true
+"toString" in example; // true
+"hasOwnProperty" in example; // true</pre>
+            <p>...</p>
           </section>
         </section>
         <section>
