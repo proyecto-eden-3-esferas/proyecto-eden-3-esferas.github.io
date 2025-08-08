@@ -134,6 +134,115 @@
         </section>
       </section>
 
+      <section>
+        <h2>Removing Constantness, Reference-ness, Pointer-ness from Types</h2>
+        <p>Constantness, Reference-ness, Pointer-ness can be removed from a type through:</p>
+        <ul>
+          <li><code>std::remove_const</code></li>
+          <li><code><a href="#remove_reference">std::remove_reference</a></code></li>
+          <li><code>std::remove_pointer</code>: obtains the type pointed by <var>T</var> (if <var>T</var> is a pointer)</li>
+          <li><code><a href="#decay">std::decay</a></code></li>
+        </ul>
+        <p>The stripped type is available as a member alias named <code>value</code>.</p>
+        <p>For each of these struct&apos;s there is a reverse one that adds a feature instead of removing it.</p>
+        <ul>
+          <li><code>add_const</code></li>
+          <li><code>add_pointer</code></li>
+          <li><code>add_lvalue_reference</code></li>
+          <li><code>add_rvalue_reference</code></li>
+          <li><code>add_volatile</code></li>
+          <li><code>add_cv</code>: obtains the type T with both const and volatile qualification</li>
+        </ul>
+        <section id="remove_reference">
+          <h3>Removing Reference-ness with <code>std::remove_reference</code></h3>
+          <p>Obtains the non-reference type to which <var>T</var> refers. The transformed type is aliased as member type <code>remove_reference::type</code>.</p>
+          <p>If <var>T</var> is a reference type (either lvalue reference or rvalue reference), this is the type to which it refers. Otherwise, it is the same as <var>T</var>, unchanged.</p>
+          <p>Notice that this class merely obtains a type using another type as model, but it does not transform values or objects between those types.</p>
+          <hr/>
+          <p>An example:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;type_traits&gt;
+
+int main() {
+  typedef int&amp;&amp; rval_int;
+  typedef std::remove_reference&lt;int&gt;::type A;
+  typedef std::remove_reference&lt;int&amp;&gt;::type B;
+  typedef std::remove_reference&lt;int&amp;&amp;&gt;::type C;
+  typedef std::remove_reference&lt;rval_int&gt;::type D;
+
+  std::cout &lt;&lt; std::boolalpha;
+  std::cout &lt;&lt; "typedefs of int:" &lt;&lt; std::endl;
+  std::cout &lt;&lt; "A: " &lt;&lt; std::is_same&lt;int,A&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "B: " &lt;&lt; std::is_same&lt;int,B&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "C: " &lt;&lt; std::is_same&lt;int,C&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "D: " &lt;&lt; std::is_same&lt;int,D&gt;::value &lt;&lt; std::endl;
+
+  return 0;
+}</pre>
+          <p>Its output:</p>
+          <pre>typedefs of int:
+A: true
+B: true
+C: true
+D: true</pre>
+
+        </section>
+        <section id="decay">
+          <h3>Decay Types and <code>std::decay</code> in <cite>&lt;type_traits&gt;</cite></h3>
+          <p>Struct <code>decay</code>:</p>
+          <pre>template &lt;class T&gt;
+struct decay;</pre>
+          <p>is used to obtain the decay type of <var>T</var>, which is aliased as member type <code>decay::type</code>.</p>
+          <p>The decay type of <var>T</var> is the same type that results from the standard conversions that happen when an lvalue expression is used as an rvalue, with its cv-qualifier stripped. This resembles the implicit conversions happening when an argument is passed by value to a function.</p>
+
+          <p>Put more simply, if <var>T</var> is a reference type (say <code>const int&amp;</code>), then member <code>value</code> is the type referred to by <var>T</var> with its const-ness removed (<code>int</code> in this case).</p>
+
+          <p>Cases:</p>
+          <ul>
+            <li>If <var>T</var> is a function type, a function-to-pointer conversion is applied and the decay type is the same as: <code>add_pointer&lt;T&gt;::type</code></li>
+            <li>If <var>T</var> is an array type, an array-to-pointer conversion is applied and the decay type is the same as: <code>add_pointer&lt;remove_extent&lt;remove_reference&lt;T&gt;::type&gt;::type&gt;::type</code>. (This very much resembles <a target="_blank" href="c.decay.html">C decay</a>)</li>
+            <li>Otherwise, a regular lvalue-to-rvalue conversion is applied and the decay type is the same as: <code>remove_cv&lt;remove_reference&lt;T&gt;::type&gt;::type</code>.</li>
+          </ul>
+
+          <p>Notice that this class merely obtains a type using another type as model, but it does not transform values or objects between those types.</p>
+
+          <p>An example:</p>
+          <pre>#include &lt;type_traits&gt;
+
+typedef std::decay&lt;int&gt;::type A;           // int
+typedef std::decay&lt;int&amp;&gt;::type B;          // int
+typedef std::decay&lt;int&amp;&amp;&gt;::type C;         // int
+typedef std::decay&lt;const int&amp;&gt;::type D;    // int
+typedef std::decay&lt;int[2]&gt;::type E;        // int*
+typedef std::decay&lt;int(int)&gt;::type F;      // int(*)(int)
+
+typedef int X[3];</pre>
+          <p>These typedef&apos;s could be tested with:</p>
+          <pre>#include &lt;iostream&gt;
+
+int main() {
+  std::cout &lt;&lt; std::boolalpha;
+  std::cout &lt;&lt; "typedefs of int:" &lt;&lt; std::endl;
+  std::cout &lt;&lt; "A: " &lt;&lt; std::is_same&lt;int,A&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "B: " &lt;&lt; std::is_same&lt;int,B&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "C: " &lt;&lt; std::is_same&lt;int,C&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "D: " &lt;&lt; std::is_same&lt;int,D&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "E: " &lt;&lt; std::is_same&lt;int,E&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "F: " &lt;&lt; std::is_same&lt;int,F&gt;::value &lt;&lt; std::endl;
+
+  return 0;
+}</pre>
+          <p>Output:</p>
+          <pre>typedefs of int:
+A: true
+B: true
+C: true
+D: true
+E: false
+F: false</pre>
+        </section>
+      </section>
+
     </main>
 
   </body>

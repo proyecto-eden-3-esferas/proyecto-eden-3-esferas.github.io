@@ -97,6 +97,99 @@ std::string foo = identity("foo"); // == "foo"</pre>
         </section>
       </section>
 
+      <section id="bind">
+        <h2>Binding Function Arguments with <code>std::bind()</code> (in the <code>&lt;functional&gt;</code> Header)</h2>
+        <p><code>std::bind()</code> returns a function object based on <var>fn</var>, but with its arguments bound to <var>args</var>.</p>
+        <pre>template &lt;           class Fn, class... Args&gt;  /* unspecified */
+bind (Fn&amp;&amp; fn, Args&amp;&amp;... args); // (1)
+template &lt;class Ret, class Fn, class... Args&gt;  /* unspecified */
+bind (Fn&amp;&amp; fn, Args&amp;&amp;... args); // (2)</pre>
+        <p>Each argument may either be bound to a value or be a placeholder (in namespace <code>std::placeholders</code>):</p>
+        <ul>
+          <li>If bound to a value, calling the returned function object will always use that value as argument.</li>
+          <li>If a placeholder, calling the returned function object forwards an argument passed to the call (the one whose order number is specified by the placeholder).</li>
+        </ul>
+        <p>Calling the returned object returns the same type as <var>fn</var>, unless a specific return type is specified as <var>Ret</var> (second prototype) (note that <var>Ret</var> is the only template parameter that cannot be implicitly deduced by the arguments passed to this function).</p>
+        <hr/>
+        <p>The type of the returned object has the following properties:</p>
+        <ul>
+          <li>Its functional call returns the same as <var>fn</var> with its arguments bound to args... (or forwarded, for placeholders).</li>
+          <li>For (1), it may have a member variable named <code>result_type</code>: if <var>Fn</var> is a pointer to function or member function type, it is defined as an alias of its return type. Otherwise, it is defined as <code>Fn::result_type</code>, if such a member type exists.</li>
+          <li>For (2), it has a member variable named <code>result_type</code>, defined as an alias of <var>Ret</var>.</li>
+          <li>It is move-constructible and, if the type of all of its arguments are copy-constructible, it is also copy-constructible. Both constructors never throw, provided none of the corresponding constructors of the decay types of <var>Fn</var> and <var>Args...</var> throw.</li>
+        </ul>
+        <section>
+          <h3>Parameters</h3>
+          <dl>
+            <dt><var>fn</var></dt>
+            <dd>
+              <p>A function object, pointer to function or pointer to member.</p>
+              <p><var>fn</var> shall have a decay type which is move-constructible from <var>fn</var>.</p>
+            </dd>
+            <dt><var>args...</var></dt>
+            <dd>
+              <p>List of arguments to bind: either values, or placeholders.</p>
+              <p>The types in <var>args...</var> shall have decay types which are move-constructible from their respective arguments in <var>args....</var></p>
+              <p>If for any argument, its decay type is a <a target="_blank" href="cpp.reference_wrapper.html">reference_wrapper</a>, it bounds to its referenced value instead.</p>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h3>Return Value</h3>
+          <p>A function object that, when called, calls <var>fn</var> with its arguments bound to <var>args</var>.</p>
+          <p>If <var>fn</var> is a pointer to member, the first argument expected by the returned function is an object of the class <code>*fn</code> is a member (or a reference to it, or a pointer to it).</p>
+        </section>
+        <section>
+          <h3>Example</h3>
+          <p></p>
+          <pre>#include &lt;iostream&gt;     // std::cout
+#include &lt;functional&gt;   // std::bind
+
+// a function: (also works with function object: std::divides&lt;double&gt; my_divide;)
+double my_divide (double x, double y) {return x/y;}
+
+struct MyPair {
+  double a,b;
+  double multiply() {return a*b;}
+};
+
+int main () {
+  using namespace std::placeholders;    // adds visibility of _1, _2, _3,...
+
+  // binding functions:
+  auto fn_five = std::bind (my_divide,10,2);               // returns 10/2
+  std::cout &lt;&lt; fn_five() &lt;&lt; '\n';                          // 5
+
+  auto fn_half = std::bind (my_divide,_1,2);               // returns x/2
+  std::cout &lt;&lt; fn_half(10) &lt;&lt; '\n';                        // 5
+
+  auto fn_invert = std::bind (my_divide,_2,_1);            // returns y/x
+  std::cout &lt;&lt; fn_invert(10,2) &lt;&lt; '\n';                    // 0.2
+
+  auto fn_rounding = std::bind&lt;int&gt; (my_divide,_1,_2);     // returns int(x/y)
+  std::cout &lt;&lt; fn_rounding(10,3) &lt;&lt; '\n';                  // 3
+
+  MyPair ten_two {10,2};
+
+  // binding members:
+  auto bound_member_fn = std::bind (&amp;MyPair::multiply,_1); // returns x.multiply()
+  std::cout &lt;&lt; bound_member_fn(ten_two) &lt;&lt; '\n';           // 20
+
+  auto bound_member_data = std::bind (&amp;MyPair::a,ten_two); // returns ten_two.a
+  std::cout &lt;&lt; bound_member_data() &lt;&lt; '\n';                // 10
+
+  return 0;
+}</pre>
+          <p>Output:</p>
+          <pre>5
+5
+0.2
+3
+20
+10</pre>
+        </section>
+
+      </section>
       <section>
         <h2>Trailing return types</h2>
         <p>C++11 allows functions and lambdas an alternative syntax for specifying their return types.</p>
