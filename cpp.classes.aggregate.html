@@ -22,20 +22,11 @@
         <p><a href="cpp.containers.html">C++ STL Containers</a></p>
       -->
       <div>
-        <p><a                 href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
-        <p><a                 href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
-        <p><a                 href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
-        <p><a                 href="cpp.classes.covariant-return-type.html">Covariant Return Type in C++</a></p>
-        <p><a                 href="cpp.classes.copy-ctor-and-assignment-op-in-derived.html">Copy Constructors and Assignment Operators in Derived Classes in C++</a></p>
-        <p><a                 href="cpp.inheriting-constructors.html">Inheriting Constructors in C++</a></p>
-        <p><a                 href="cpp.RAII.html">Resource Acquisition is Initialization (RAII)</a></p>
-        <p><a                 href="cpp.classes.non-public-inheritance.html">Non-public Inheritance in C++</a></p>
-        <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
+        <p><a rel="prev" href="cpp.initialization-of-vars.html">Initialization of Variables in C++</a></p>
+        <p><a            href="cpp.initializer_list.html">Initializer Lists in C++</a></p>
+        <p><a rel="next" href="cpp.slicing.html">Slicing in C++</a></p>
       </div>
       <div>
-        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
-        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
-        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
         <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
       </div>
 
@@ -43,31 +34,58 @@
 
     <main>
       <h1>Aggregates in C++</h1>
-      <p>An <dfn>aggregate</dfn> class gives users direct access to its members and has special initialization syntax. A class is an aggregate if</p>
+      <blockquote>
+        <p>An aggregate is just what it sounds like: a bunch of things clumped together. This definition includes aggregates of mixed types, like structs and classes. An array is an aggregate of a single type.</p>
+        <p style="text-align: right">(From Bruce Eckel&apos;s <cite>Thinking in C++</cite>)</p>
+      </blockquote>
+
+      <p>An <dfn>aggregate</dfn> is a class such that</p>
       <ul>
         <li>All of its data members are public,</li>
         <li>It does not define any constructors,</li>
         <li>It has no in-class initializers, and</li>
         <li>It has no base classes or virtual functions, which are class-related features that we’ll cover in Chapter 15,</li>
       </ul>
+      <p>An aggregate gives users direct access to its members and has special <a href="#syntax">initialization syntax</a>.</p>
+      <hr/>
       <p>For example, the following class is an aggregate:</p>
       <pre>struct Data {
   int ival;
   string s;
 };</pre>
-      <hr/>
-      <p>We can initialize the data members of an aggregate class by providing a braced list of member initializers:</p>
-      <pre>Data val1 = { 0, "Anna"};</pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
+
+      <section id="initialization">
+        <h2>Aggregate Initialization of Classes and Structures</h2>
+        <p>Initializing aggregates can be error-prone and tedious. C++ <strong>aggregate initialization</strong> makes it much safer. When you create an object that&apos;s an aggregate, all you must do is make an assignment, and the initialization will be taken care of by the compiler. This assignment comes in several flavors, depending on the type of aggregate you&apos;re dealing with, but in all cases the elements in the assignment must be surrounded by curly braces.</p>
+        <p>We can initialize the data members of an aggregate class by providing a braced list of member initializers:</p>
+        <pre>struct Data {
+  int ival;
+  string s;
+};
+Data val1 = { 0, "Anna"};</pre>
+      </section>
+
+      <section id="arrays">
+        <h2>Aggregate Initialization of Arrays</h2>
+        <p>For an array of built-in types initialization is quite simple:</p>
+        <pre>int a[5] = { 1, 2, 3, 4, 5 };</pre>
+        <hr/>
+        <p>If you try to give more initializers than there are array elements, the compiler gives an error message. But what happens if you give fewer initializers, such as</p>
+        <pre>int b[6] = {0};</pre>
+        <p>Here, the compiler will use the first initializer for the first array element, and then use zero for all the elements without initializers. Notice this initialization behavior doesn&apos;t occur if you define an array without a list of initializers. So the above expression is a very succinct way to initialize an array to zero, without using a for loop, and without any possibility of an off-by-one error (Depending on the compiler, it may also be more efficient than the for loop.)</p>
+        <p>A second shorthand advantage with arrays is <dfn>automatic counting</dfn>, where you let the compiler determine the size of the array based on the number of initializers:</p>
+        <pre>int c[] = { 1, 2, 3, 4 };</pre>
+      </section>
+
+      <section id="syntax">
+        <h2>Initialization Syntax</h2>
+        <pre>T object = { arg1, arg2, ... }; // (1)
+T object   { arg1, arg2, ... }; // (2) 	(since C++11)
+T object = { .des1 = arg1 , .des2 { arg2 } ... }; // (3) 	(since C++20)
+T object   { .des1 = arg1 , .des2 { arg2 } ... }; // (4) 	(since C++20)</pre>
+        <p>1) and 2) initialize an aggregate with an ordinary <a target="_blank" href="cpp.initializer_list.html">initializer list</a>.</p>
+        <p>3) and 4) initialize an aggregate with designated initializers (aggregate class only).</p>
+      </section>
 
     </main>
 

@@ -61,6 +61,61 @@ return `a ${this.type} rabbit`;
         <pre></pre>
       </section>
 
+      <section id="template">
+        <h2>Template Literals/Strings</h2>
+        <p><dfn>Template Strings</dfn> use back-ticks (``) rather than the quotes ("") to define a string:</p>
+        <pre>let text = `Hello World!`;</pre>
+        <p>Features:</p>
+        <dl>
+          <dt>Template Strings allow both single and double unscaped quotes inside a string:</dt>
+          <dd>
+            <p>Example:</p>
+            <pre>let text = `He's often called "Johnny"`;</pre>
+          </dd>
+          <dt>Multiline Strings</dt>
+          <dd>
+            <p>Template Strings allow multiline strings</p>
+            <pre>let text =
+`The quick
+brown fox
+jumps over
+the lazy dog`;</pre>
+          </dd>
+          <dt>Interpolation</dt>
+          <dd>
+            <p>Template Strings allow variables in strings. They provide an easy way to interpolate variables in strings.</p>
+            <p><strong>Syntax</strong></p>
+            <pre>${...}</pre>
+            <p>Example. Variable Substitutions:</p>
+            <pre>let firstName = "John";
+let lastName = "Doe";
+
+let text = `Welcome ${firstName}, ${lastName}!`;</pre>
+          </dd>
+          <dt>Expression Substitution</dt>
+          <dd>
+            <p>Template Strings allow interpolation of expressions in strings.</p>
+            <p>Example:</p>
+            <pre>let price = 10;
+let VAT = 0.25;
+
+let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;</pre>
+          </dd>
+          <dt>HTML Templates</dt>
+          <dd>
+            <p>Example:</p>
+            <pre>let header = "Template Strings";
+let tags = ["template strings", "javascript", "es6"];
+
+let html = `&lt;h2&gt;${header}&lt;/h2&gt;&lt;ul&gt;`;
+for (const x of tags) {
+  html += `&lt;li&gt;${x}&lt;/li&gt;`;
+}
+
+html += `&lt;/ul&gt;`;</pre>
+          </dd>
+        </dl>
+      </section>
 
     </main>
 
