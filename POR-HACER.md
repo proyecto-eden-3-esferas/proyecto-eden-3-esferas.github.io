@@ -80,6 +80,9 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Dealing with a variable number or args into a javaScript functions
+[ ] <code>null</code> and <code>undefined</code>
+
 [ ] pustule
 [ ] canker
 [ ] botrytis == grey mold

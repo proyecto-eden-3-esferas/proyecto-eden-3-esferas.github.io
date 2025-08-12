@@ -40,6 +40,30 @@
 
       <section id="prototypes">
         <h2>Object Prototypes</h2>
+        <p>The prototype is a property available with all JavaScript objects. It allows you to add new properties and methods to strings.</p>
+        <p><strong>Syntax</strong></p>
+        <pre><var>object</var>.prototype.<var>name</var> = <var>value</var></pre>
+        <p>Use the prototype property to add a new property to all objects of a given type:</p>
+        <pre>function employee(name, jobtitle, born) {
+  this.name = name;
+  this.jobtitle = jobtitle;
+  this.born = born;
+}
+employee.prototype.salary = 2000;
+
+const fred = new employee("Fred Flintstone", "Caveman", 1970);</pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
       </section>
 
       <section id="inheritance">

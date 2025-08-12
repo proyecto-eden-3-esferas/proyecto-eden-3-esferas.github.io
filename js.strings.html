@@ -117,6 +117,63 @@ html += `&lt;/ul&gt;`;</pre>
         </dl>
       </section>
 
+      <section id="replacing">
+        <h2>Replacing String Pieces with Other Pieces with <code>replace(<code>STARTSTRING</code>,<code>ENDSTRING</code>)</code> and <code>replaceAll(<code>STARTSTRING</code>,<code>ENDSTRING</code>)</code></h2>
+        <p>The <code>replace()</code> method searches a string for a value or a regular expression and returns a new string with the value(s) replaced. It does not change the original string.</p>
+        <pre>let text = "Visit Microsoft!";
+let result = text.replace("Microsoft", "W3Schools");</pre>
+        <p>Or with a regexp capture:</p>
+        <pre>let text = "Mr Blue has a blue house and a blue car";
+let result = text.replace(/blue/g, "red");</pre>
+        <p><strong>Note</strong> If you replace a value, only the first instance will be replaced. To replace all instances, use a regular expression with the <code>g</code> modifier set.</p>
+        <hr/>
+        <p>The <code>replaceAll()</code> method searches a string for a value or a regular expression. A new string with all values replaced is returned, while the original string is not changed. (Introduced in JavaScript 2021.)</p>
+        <p>You can replace <em>all</em> occurrances of a given substring:</p>
+        <pre>text = text.replaceAll("Cats","Dogs");
+text = text.replaceAll("cats","dogs");</pre>
+        <p>You can also replace <em>all</em> occurrances of a regexp capture:</p>
+        <pre>text = text.replaceAll(/Cats/g,"Dogs");
+text = text.replaceAll(/cats/g,"dogs");</pre>
+        <p><strong>Note</strong> If the parameter is a regular expression, the global flag (<code>g</code>) must be set, otherwise a <code>TypeError</code> is thrown.</p>
+      </section>
+
+      <section>
+        <h2><code><var>STRING</var>.search(<var>SUBSTRING/REGEX</var>)</code> and <code><var>STRING</var>.match(<var>SUBSTRING/REGEX</var>)</code></h2>
+        <p>The <code>search()</code> method matches a string against a substring or a regular expression and returns the index (position) of the first match, or -1 if no match is found. (The <code>search()</code> method is case sensitive.)</p>
+        <p>An example with a string argument:</p>
+        <pre>let text = "Mr. Blue has a blue house";
+let position = text.search("blue");</pre>
+        <p>An example with a regexp argument:</p>
+        <pre>let text = "Mr. Blue has a blue house";
+let position = text.search(/Blue/);</pre>
+        <aside>
+          <p>The <code>search()</code> cannot take a start position argument.</p>
+          <p>The <code>indexOf()</code> method cannot search against a regular expression.</p>
+          <p>The <code>match()</code> method returns an array of matches (and <code>null</code> if no match is found).</p>
+        </aside>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <!--
+      <section>
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
     </main>
 
   </body>

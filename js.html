@@ -103,8 +103,11 @@ Array.isArray(fruits);</pre>
           </section>
         </section>
         <section id="null-and-undefined">
-          <h3>JavaScript Types <code>null</code> and <code>undefined</code>*</h3>
+          <h3>JavaScript Types <code>null</code> and <code>undefined</code></h3>
           <p>The <code>typeof</code> of a variable with no value is <code>undefined</code>. The value is also <code>undefined</code>.</p>
+          <p>The <code>typeof</code> of a non-existing property is <code>undefined</code>.</p>
+          <p>An <code>undefined</code> yilds equal to another <code>undefined</code>:</p>
+          <pre>undefined === undefined    // true</pre>
           <hr/>
           <p>In JavaScript null is <q>nothing</q>. It is supposed to be something that doesn't exist. Unfortunately, in JavaScript, the data type of <code>null</code> is an <code>object</code>.</p>
           <p>You can empty an object by setting it to <code>null</code>.</p>
@@ -112,14 +115,13 @@ Array.isArray(fruits);</pre>
           <p><code>undefined</code> and <code>null</code> are equal in value but different in type:</p>
           <pre>typeof undefined      // undefined
 typeof null           // object
-
 null === undefined    // false
 null == undefined     // true</pre>
         </section>
         <section id="typeof">
           <h3>JavaScript <code>typeof</code> Operator*</h3>
           <p>The <code>typeof</code> operator returns the type of a variable or an expression.</p>
-          <aside><strong>Note:</strong> In JavaScript, null is a primitive value. However, typeof returns "object". This is a well-known bug in JavaScript and has historical reasons.</aside>
+          <aside><strong>Note:</strong> In JavaScript, <code>null</code> is a primitive value. However, typeof returns "object". This is a well-known bug in JavaScript and has historical reasons.</aside>
         </section>
         <section id="symbols">
           <h3>Symbols</h3>
