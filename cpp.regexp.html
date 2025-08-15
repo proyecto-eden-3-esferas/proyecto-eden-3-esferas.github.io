@@ -176,6 +176,108 @@ std::regex_search(text, result, rgx);</pre>
             <pre>std::cout &lt;&lt; result[0] &lt;&lt; '\n';</pre>
           </dd>
         </dl>
+        <section id="ex_raw-strings-exceptions">
+          <h3>An Example with Raw Strings, Exceptions...</h3>
+          <p>The following code snippet is a basic example that demonstrates how other elements of C++ work in tandem with regex. This snippet brings together core constructs such as string handling, control structures, and function definition, culminating in a small program that employs regex search functionality:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;regex&gt;
+#include &lt;string&gt;
+
+// Function to search for a pattern within a provided text
+bool containsPattern(const std::string&amp; text, const std::string&amp; patternStr) {
+  try {
+    std::regex pattern(patternStr);
+    return std::regex_search(text, pattern);
+  } catch (const std::regex_error&amp; e) {
+    std::cerr &lt;&lt; "Regex error: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    return false;
+  }
+}
+
+int main() {
+  // Defining a sample string and a simple regex pattern to identify an email address
+  std::string sampleText = "Contact: example@example.com for more information.";
+  std::string emailPattern = R"((\w+@\w+\.\w+))";
+
+  // Using the containsPattern function to check if an email address exists in the sample text
+  if (containsPattern(sampleText, emailPattern)) {
+    std::cout &lt;&lt; "A valid email address was found in the text." &lt;&lt; std::endl;
+  } else {
+    std::cout &lt;&lt; "No valid email address was found in the text." &lt;&lt; std::endl;
+  }
+  return 0;
+}</pre>
+        </section>
+
+        <section id="ex_basic-patterns">
+          <h3>An Example: Matching Basic Patterns</h3>
+          <p>The code below highlights how literal characters, metacharacters, character classes, quantifiers, grouping, and alternation can work together in a straightforward example. This example is implemented in a programming context and serves as a practical demonstration of the theoretical constructs of regex:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;regex&gt;
+#include &lt;string&gt;
+
+int main() {
+ // Define a basic regex pattern to match either "cat", "dog", or an email-like string
+ std::regex pattern(R"((cat|dog)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))");
+
+ // Sample texts to test the regex pattern
+ std::string test1 = "I have a cat and a dog.";
+ std::string test2 = "Please contact us at info@example.com.";
+
+ // Test the pattern against the sample texts using regex_search
+ std::smatch match;
+ if (std::regex_search(test1, match, pattern)) {
+ std::cout &lt;&lt; "Match found in test1: " &lt;&lt; match.str() &lt;&lt; std::endl;
+ }
+ if (std::regex_search(test2, match, pattern)) {
+ std::cout &lt;&lt; "Match found in test2: " &lt;&lt; match.str() &lt;&lt; std::endl;
+ }
+
+ return 0;
+}</pre>
+          <p>In this example, the regex pattern is constructed to match either the literal strings “cat” or “dog”, or an email address format. The use of grouping (with the parentheses) allows us to manage these two distinct options within a single pattern. The alternation operator (|) separates the options, and the pattern within the second group demonstrates the use of character classes and quantifiers.</p>
+        </section>
+        <section id="ex_greedy-lazy">
+          <h3>An Example...</h3>
+          <p>The following short programme demonstrates the difference between <a target="_blank" href="regexp.html#greedy-lazy">greedy and lazy</a> quantifiers:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;regex&gt;
+#include &lt;string&gt;
+
+int main() {
+  // Demonstration of greedy versus lazy quantifiers
+  std::string greedyTest = "&lt;tag&gt;Content&lt;/tag&gt;&lt;tag&gt;More&lt;/tag&gt;";
+  // Greedy quantifier: matches as much as possible
+  std::regex greedyPattern("&lt;tag&gt;.*&lt;/tag&gt;");
+  // Lazy quantifier: matches as little as possible
+  std::regex lazyPattern("&lt;tag&gt;.*?&lt;/tag&gt;");
+
+  std::smatch match;
+  if (std::regex_search(greedyTest, match, greedyPattern)) {
+    std::cout &lt;&lt; "Greedy match: " &lt;&lt; match.str() &lt;&lt; std::endl;
+  }
+  if (std::regex_search(greedyTest, match, lazyPattern)) {
+    std::cout &lt;&lt; "Lazy match: " &lt;&lt; match.str() &lt;&lt; std::endl;
+  }
+  return 0;
+}</pre>
+        </section>
+        <!--
+        <section>
+          <h3>An Example...</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3>An Example...</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
       </section>
 
       <section id="text-tỳpes">
@@ -474,8 +576,13 @@ if (std::regex_search(wstime, wsmatch, wrgx)) {
           <h3><code>std::regex_search</code> (C++11)</h3>
           <p>Determines if there is a match between the regular expression e and some subsequence in the target character sequence. The detailed match result is stored in input-output parameter <code>std::match_results&lt;&gt; <var>m</var></code> (if present).</p>
           <p>The return type is <code>bool</code>.</p>
-          <p>The main difference between <code>std::regex_match</code> and <code>std::regex_search</code> is...</p>
+          <p>The main difference between <code>std::regex_match</code> and <code>std::regex_search</code> is... (<i>see below</i>)</p>
         </section>
+      </section>
+
+      <section>
+        <h2>Difference Between <code>std::regex_match</code> and <code>std::regex_search</code></h2>
+        <p><code>regex_match</code> only returns true when the entire input sequence has been matched, while <code>regex_search</code> will succeed even if only a sub-sequence matches the regex.</p>
       </section>
 
       <section id="replacing">

@@ -111,16 +111,65 @@
           <h3></h3>
         </section>
 
-        <section id="">
-          <h3></h3>
-        </section>
         -->
-
+        <section id="greedy-lazy">
+          <h3>Greedy versus Lazy Quantifiers</h3>
+          <p>The distinction between greedy and lazy quantifiers concerns how much of the input string is consumed during a match. By default, quantifiers are <dfn>greedy</dfn>, meaning they match as many occurrences of the preceding element as possible. For instance, given the pattern <q>a.*b</q> applied to the string <q>aabab</q>, a greedy quantifier may consume more characters than intended, potentially causing the match to extend unexpectedly. <dfn>Lazy</dfn> quantifiers, on the other hand, attempt to match the fewest number of characters necessary to satisfy the pattern, typically indicated by appending a question mark to the quantifier itself. For example, <q>a.*?b</q> modifies the pattern to stop at the first occurrence of <q>b</q>.</p>
+          <p>Understanding the difference between greedy and lazy quantifiers is crucial, as it directly impacts the behavior of the regex when multiple potential matches are available.</p>
+        </section>
 
         <section id="capture-group">
           <h3>Capture Groups</h3>
           <p>A <dfn>capture group</dfn> allows further analyzing the search result in a regular expression. They are defined by a pair of parentheses ( ). The regular expression <code>((a+)(b+)(c+))</code> has four capture groups: ((a+)(b+)(c+)), (a+), (b+) and (c+) The total result is the 0-th capture group.</p>
         </section>
+      </section>
+
+      <section>
+        <h2>Some Common/Useful Regular Expressions</h2>
+        <p><strong>Note</strong> Often enough you will want to append switch <code>i</code> for <q>ignore case</q>...</p>
+        <dl>
+          <dt>Words</dt>
+          <dd>
+            <p>Either (no hyphens)</p>
+            <pre>/\b[\w]\b/</pre>
+            <p>or (hyphens allowed)</p>
+            <pre>/\b[\w-]+\b/</pre>
+          </dd>
+          <dt>E-mail Addresses</dt>
+          <dd>
+            <pre>/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/</pre>
+
+          </dd>
+          <dt></dt>
+          <dd>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </dd>
+          <dt></dt>
+          <dd>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </dd>
+          <dt></dt>
+          <dd>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </dd>
+          <dt></dt>
+          <dd>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </dd>
+
+        </dl>
       </section>
 
 

@@ -7,10 +7,9 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
-
     <meta name="author" content="AUTHOR"/>
     <meta name="description" content="A_DESCRIPTION"/>
-    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    ADD: https://mariusbancila.ro/blog/2019/01/20/cpp-code-samples-before-and-after-ranges/
     -->
   </head>
   <body lang="en" class="computing">
@@ -31,12 +30,22 @@
         <p><a            href="cpp.cpp14.html">C++14</a></p>
         <p><a            href="computing.html">Computing</a></p>
       </div>
+      <div>
+        <p><a href="https://hannes.hauswedell.net/post/2019/11/30/range_intro/">Hannes Hauswedell&apos;Introduction to C++ Ranges</a></p>
+      </div>
     </nav>
 
     <main>
       <h1>Ranges (C++20)</h1>
 
-      <p>Ranges are a new element of the STL that makes using algorithms more concise and adds the ability to write code in a functional style.</p>
+      <p>Ranges are a new element of the STL (in C++20, with extensions in C++23) that makes using algorithms more concise and adds the ability to write code in a functional style.</p>
+      <p>Range algorithms:</p>
+      <ul>
+        <li>are <dfn><a href="#lazy">lazy</a></dfn> (they compute a value just before it is needed),</li>
+        <li>operate directly on a container, not on its iterators, and</li>
+        <li>can be composed.</li>
+      </ul>
+      <p>Furthermore, most of the classical STL algorithms have range versions, which support projections and provide additional safety guarantees.</p>
       <p>[...]</p>
       <nav>
         <!--
@@ -67,20 +76,66 @@
           <h3>3.10.4: A more generalized pipe-syntax implementation</h3>
       -->
       </nav>
-      <!--
       <section id="motivation">
-        <h2>3.1: Motivation</h2>
-          <h3>3.1.1: Avoid code duplication</h3>
-          <h3>3.1.2: Consistency</h3>
-          <h3>3.1.3: Safety</h3>
-          <h3>3.1.4: Composability</h3>
+        <h2>Motivation/Advantages</h2>
+          <section><h3>Avoid code duplication*</h3></section>
+          <section><h3>Consistency*</h3></section>
+          <section id="safety">
+            <h3>Safety</h3>
+            <p>Concepts ensure that algorithms can operate on ranges in a type-safe manner.</p>
+            <pre>std::list&lt;int&gt; numbers{5, 6, 1, 3, 7};
+  // std::list is bidirectional_range
+std::ranges::sort(numbers);
+  // Compilation error: random_access_range not satisfied</pre>
+            <p>...</p>
+          </section>
+          <section id="lazy">
+            <h3>Lazy Evaluation</h3>
+            <p>A view is just the specification of a processing. The processing does not happen when one defines the view but is actually performed element by element when the next value is asked for.</p>
+            <p>An example:</p>
+            <pre>int main() {
+  auto lazySquares = std::views::iota(1, 10)
+                   | std::views::transform([](int i){ return i * i; });
+  for (auto n : lazySquares) {
+    std::cout &lt;&lt; n &lt;&lt; ' ';
+  // Squares are calculated here
+}</pre>
+          </section>
+
+          <section><h3>Composability*</h3></section>
       </section>
-      -->
+
+      <section id="simple-example">
+        <h2>A Very Simple Example</h2>
+        <pre>// rangesFilterTransform.cpp
+
+#include&lt;iostream&gt;
+#include&lt;ranges&gt;
+// ...
+std::vector&lt;int&gt;numbers = {1, 2, 3, 4, 5, 6};
+
+autoresults = numbers
+            | std::views::filter([]    (int n) {return n%2 == 0;})
+            | std::views::transform([] (int n) {return n*2;});
+for(auto v : results)
+  std::cout&lt;&lt;v&lt;&lt;" ";// 4 8 12</pre>
+        <p>You have to read the expression from left to right. The pipe symbol (|) stands for function composition: First, all numbers can pass which are even (<code>std::views::filter([](int n){ return n % 2 == 0; }))</code>. Afterwards, each remaining number is mapped to its double (<code>std::views::transform([](int n){ return n * 2; })</code>).</p>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
 
       <section id="terminology">
         <h2>Terminology</h2>
           <section>
-            <h3>A Range</h3>
+            <h3>Range</h3>
             <p>A <dfn>range</dfn> is a type with an iterator pair consisting of a <code>begin()</code> and <code>end()</code> function:</p>
             <pre>struct Range {
   T begin();
@@ -94,15 +149,311 @@
             <p>You can see <code>std::default_sentinel_t</code> as a tag type, which simply enables <code>end()</code> to have a return type and match the correct overload of <code>operator==</code> later on.</p>
           </section>
           <section>
-            <h3>A <code>common_range</code></h3>
+            <h3>Sentinel</h3>
+            <p>The <dfn>sentinel</dfn> specifies the end of a range. For the containers of the STL, the end iterator is the sentinel. Starting C++20, the type of the sentinel can be different from the type of the begin iterator.</p>
+            <p>The following example uses a space as a sentinel.</p>
+            <pre>#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+
+struct Space{
+bool operator==(auto pos) const {
+  return *pos == ' ';
+}
+
+// ...
+
+const char *rainerGrimm = "Rainer Grimm";
+std::ranges::for_each(rainerGrimm, Space{}, [](char c){std::cout&lt;&lt;c;});</pre>
+            <p>Output:</p>
+            <pre>Rainer</pre>
+            <p>Since the space works as a sentinel, only <q>Rainer</q> is displayed in the last line.</p>
+            <pre></pre>
+          </section>
+          <section>
+            <h3><code>common_range</code></h3>
             <p>Ranges, as explained, consist of an <code>end()</code> member function that provides a sentinel. A <code>common_range</code>, on the other hand, is a range where <code>begin(r)</code> and <code>end(r)</code> return the same type. This implies that a <code>common_range</code>&apos;s <code>end()</code> does not return a sentinel.</p>
             <p>All classic iterators model a <code>common_range</code>. Moreover, most STL types have a common_range constructor.</p>
           </section>
           <section>
-            <h3>A <code>sized_range</code></h3>
+            <h3><code>sized_range</code>*</h3>
           </section>
+
+          <section>
+            <h3>Views</h3>
+            <p><dfn>Views</dfn> are lightweight ranges. A view allows you to access ranges, iterate through ranges, or modify or filter elements of a range. A view does not own data, and its time complexity to copy, move, or assign is constant.</p>
+          </section>
+          <section>
+            <h3>Range Adaptors</h3>
+            <p>A <dfn>range adaptor</dfn> transforms a range into a view.</p>
+            <p>Example:</p>
+            <pre>std::vector&lt;int&gt; numbers = {1, 2, 3, 4, 5, 6};
+auto results = numbers
+             | std::views::filter([]   (int n) {return n%2==0;})
+             | std::views::transform([](int n){return n*2;});</pre>
+            <p>In this code snippet, <var>numbers</var> is the range, and <code>std::views::filter</code> and <code>std::views::transform</code> are the views.</p>
+            <p>The ranges library in C++20 has a rich set of views...</p>
+          </section>
+
+          <section id="owning">
+            <h3>Owning and non-owning C++ Ranges</h3>
+            <p style="text-align: right">(From <a target="_blank" href="https://hannes.hauswedell.net/post/2025/05/17/non-owning-range/">https://hannes.hauswedell.net/post/2025/05/17/non-owning-range/</a>, by Hannes Hauswedell)</p>
+            <p>Containers are the ranges everybody used before ranges were a thing. They <em>own</em> their elements, i.e. the storage of the elements is managed by the container and the elements disappear when the container does.</p>
+            <p>Containers are multi-pass ranges, i.e. you can iterate over them multiple times and will always observe the same elements.</p>
+            <p>If containers are owning ranges, what are non-owning ranges? C++17 introduced a first example: <code><a target="_blank" href="cpp.string_view.html">std::string_view</a></code>, a range that consists just of a begin and end pointer into another range&apos;s elements.</p>
+            <p>In general, non-owning ranges are the subset of ranges that do not manage the memory of their elements. <code>std::string_view</code> is such a range, and it even fulfils the stricter requirements of a <dfn>borrowed range</dfn>: A range that stores nothing beside the iterators, and where the iterators may not refer back to the range object. This has the important implication that the iterators of a borrowed range remain valid when the borrowed range itself goes out-of-scope. For a <code>string_view</code>, this design seems natural, but we will later encounter ranges where a trade-off has to be made.</p>
+          </section>
+
+          <section id="to">
+            <h3><code>ranges::to</code></h3>
+            <p><code>std::ranges::to</code> is a convenient way in C++23 to construct a container from a range:</p>
+            <pre>std::vector&lt;int&gt; range(int begin, int end, int stepsize=1) {
+  auto boundary = [end](int i) {return i&lt;end;};
+  std::vector&lt;int&gt; result = std::ranges::views::iota(begin)
+  | std::views::stride(stepsize)
+  |std::views::take_while(boundary)
+  |std::ranges::to&lt;std::vector&gt;();
+  return result;
+}</pre>
+            <p>The preceding function <code>range</code> creates a std::vector&lt;int&gt; consisting of all elements for <var>begin</var> to <var>end</var> with the stepsize <var>stepsize</var>. Understandably, <var>begin</var> must be smaller than <var>end</var>.</p>
+          </section>
+
       </section>
 
+      <section>
+        <h2>Views</h2>
+        <section>
+          <h3>Function Composition, Pipelines, Chaining</h3>
+          <p>Because a view is a range, one can use a view as an argument for another view to enable chaining:</p>
+          <pre>std::vector&lt;int&gt; numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  std::views::reverse(
+    std::views::take(
+      std::views::transform(
+        std::views::filter(numbers, [](const auto&amp; n) { return n % 2 == 0; }),
+      [](const auto&amp; n) { return n * n; }), // transformation
+    4) // how many items to "take" or allow through
+)</pre>
+          <p>Excessive nesting can lead to readability and maintenance issues.</p>
+          <p>There is another way to combine ranges and views by using operator <code>|</code> (pipe):</p>
+          <pre>std::vector&lt;int&gt; numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+auto result = numbers | std::views::filter([](const auto&amp; n) { return n % 2 == 0; })
+                      | std::views::transform([](const auto&amp; n) { return n * n; })
+                      | std::views::take(4)
+                      | std::views::reverse;</pre>
+        </section>
+
+        <section>
+          <h3>Bounded vs. Unbounded (Infinite) Range</h3>
+          <p>We shall be using <code>std::views::iota</code>, a range factory that generates a sequence of elements by repeatedly incrementing an initial value.</p>
+          <p>An <code>iota</code> invokation can be either bounded or unbounded (infinite). For instance, <code>std::views::iota(10)</code> is lazy. It only produces a new value if it is asked for, starting at number 10.</p>
+          <pre>std::vector&lt;int&gt; vec1, vec2, vec3;
+
+// Use bounded std::views::iota with begin and end value:
+for (int i : std::views::iota(0, 10)) vec1.push_back(i);
+
+// Use infinite std::views::iota in combination with std::views::take:
+for (int i : std::views::iota(0) | std::views::take(10))
+  vec2.push_back(i);
+
+// Use infinite std::views::iota in combination with std::views::take_while:
+for (int i : std::views::iota(0) | std::views::take_while([](int y) { return y &lt; 10; }))
+  vec3.push_back(i);</pre>
+          <p>All 3 vectors are equal. They are: 0 1 2 3 4 5 6 7 8 9</p>
+        </section>
+        <section id="projections">
+          <h3>Projections</h3>
+          <p>Many range-based algorithms have a <var>projection</var> parameter, a callback that transforms each element before it is processed.</p>
+          <p>One example of projection parameter is found in the declaration of the <code>std::ranges::sort()</code> function.</p>
+          <pre>template&lt;ranges::random_access_range R,
+                          class Comp = ranges::less,
+                          class Proj = std::identity&gt;
+requires std::sortable&lt;ranges::iterator_t&lt;R&gt;, Comp, Proj&gt;
+constexpr ranges::borrowed_iterator_t&lt;R&gt;
+sort( R&amp;&amp; r, Comp comp = {}, Proj proj = {} );</pre>
+          <p>For instance, you could use a projection to sort numbers by absolute value. Just make the last, third parameter a lambda transforming to absolute:</p>
+          <pre>std::vector&lt;int&gt; numbers = {-8, 4, -3, 2, -5, 10, 7, 1, -9};
+std::ranges::sort(numbers,
+                  std::ranges::less{},
+                  [] (auto n) {
+                    return std::abs(n);
+                  });</pre>
+          <p>Yet another possibility is to sort (say, a structure o class) by a specific field. For instance, often enough you would rather sort <code>Person</code> objects</p>
+          <pre>struct Person{
+  std::string name{};
+  std::size age{};
+};</pre>
+          <p>by name:</p>
+          <pre>std::vector&lt;Person&gt; persons{ {"A", 10}, {"B", 2},{"C", 30},
+{"D", 67}, {"E", 23}, {"F", 42} };
+std::ranges::sort(persons, {}, &amp;Person::name);</pre>
+          <p>We could alternatively settle of descending order: <code>std::ranges::greater()</code>:</p>
+          <pre>std::ranges::sort(persons, std::ranges::greater(), &amp;Person::name);</pre>
+        </section>
+        <section id="keys-values">
+          <h3>Keys View and Values View</h3>
+          <p>You might want to get the keys and values of an associative container such as a <code>std::map</code>, or an <code>std::unordered_map</code> etc.</p>
+          <p>In the examples below, note different ways to write the same code.</p>
+          <pre>std::map&lt;std::string, int&gt; numberMap{ {"one", 1}, {"two", 2}, {"three", 3}, {"four", 4}, {"five", 5}};
+auto strings = std::views::keys(numberMap);
+for (const auto&amp; s : strings){ std::cout &lt;&lt; s &lt;&lt; " "; }
+for (const auto&amp; s : std::views::keys(numberMap)){ std::cout &lt;&lt; s &lt;&lt; " "; }
+for (const auto&amp; s : numberMap | std::views::keys){ std::cout &lt;&lt; s &lt;&lt; " "; }
+auto numbers = std::views::values(numberMap);
+for (const auto&amp; n : numbers){ std::cout &lt;&lt; n &lt;&lt; " "; }
+for (const auto&amp; n : std::views::values(numberMap)) { std::cout &lt;&lt; n &lt;&lt; " ";}
+for (const auto&amp; n : numberMap | std::views::values) { std::cout &lt;&lt; n &lt;&lt; " ";}</pre>
+        </section>
+
+        <section id="predefined-views-cpp20">
+          <h3>Predefined Views in C++20</h3>
+          <p>Here&apos;s the list of predefined views that we get with C++20:</p>
+          <table border="1" id="predefined-views-cpp20-table">
+          <thead> <tr> <th>Name</th> <th>Notes</th> </tr> </thead>
+            <tr> <td><code>views::all</code></td> <td>returns a view that includes all elements of its range argument.</td> </tr>
+            <tr> <td><code>filter_view/filter</code></td> <td>returns a view of the elements of an underlying sequence that satisfy a predicate.</td> </tr>
+            <tr> <td><code>transform_view/transform</code></td> <td>returns a view of an underlying sequence after applying a transformation function to each element.</td> </tr>
+            <tr> <td><code>take_view/take</code></td> <td>returns a view of the first N elements from another view, or all the elements if the adapted view contains fewer than N.</td> </tr>
+            <tr> <td><code>take_while_view/take_while</code></td> <td>Given a unary predicate pred and a view r, it produces a view of the range [begin(r), ranges::find_if_not(r, pred)).</td> </tr>
+            <tr> <td><code>drop_view/drop</code></td> <td>returns a view excluding the first N elements from another view, or an empty range if the adapted view contains fewer than N elements.</td> </tr>
+            <tr> <td><code>drop_while_view/drop_while</code></td> <td>Given a unary predicate pred and a view r, it produces a view of the range [ranges::find_if_not(r, pred), ranges::end(r)).</td> </tr>
+            <tr> <td><code>join_view/join</code></td> <td>It flattens a view of ranges into a view</td> </tr>
+            <tr> <td><code>split_view/split</code></td> <td>It takes a view and a delimiter and splits the view into subranges on the delimiter. The delimiter can be a single element or a view of elements.</td> </tr>
+            <tr> <td><code>counted</code></td> <td>A counted view presents a view of the elements of the counted range ([iterator.requirements.general]) i+[0, n) for an iterator i and non-negative integer n.</td> </tr>
+            <tr> <td><code>common_view/common</code></td> <td>takes a view which has different types for its iterator and sentinel and turns it into a view of the same elements with an iterator and sentinel of the same type. It is useful for calling legacy algorithms that expect a range’s iterator and sentinel types to be the same.</td> </tr>
+            <tr> <td><code>reverse_view/reverse</code></td> <td>It takes a bidirectional view and produces another view that iterates the same elements in reverse order.</td> </tr>
+            <tr> <td><code>elements_view/elements</code></td> <td>It takes a view of tuple-like values and a size_t, and produces a view with a value-type of the Nth element of the adapted view’s value-type.</td> </tr>
+            <tr> <td><code>keys_view/keys</code></td> <td>Takes a view of tuple-like values (e.g. std::tuple or std::pair), and produces a view with a value-type of the first element of the adapted view’s value-type. It’s an alias for elements_view&lt;views::all_t&lt;R&gt;, 0&gt;.</td> </tr>
+            <tr> <td><code>values_view/values</code></td> <td>Takes a view of tuple-like values (e.g. std::tuple or std::pair), and produces a view with a value-type of the second element of the adapted view’s value-type. It’s an alias for elements_view&lt;views::all_t&lt;R&gt;, 1&gt;.</td> </tr>
+          </table>
+        </section>
+        <section id="predefined-views-cpp23">
+          <h3>Predefined Views in C++20</h3>
+          <p>Here&apos;s the list of additional predefined views that we get with C++23:</p>
+          <table border="1" id="predefined-views-cpp23-table">
+          <thead> <tr> <th>Name</th> <th>Notes</th> </tr> </thead>
+            <tr> <td><code>repeat_view/views::repeat</code></td> <td>a view consisting of a generated sequence by repeatedly producing the same value</td> </tr>
+            <tr> <td><code>cartesian_product_view/views::cartesian_product</code></td> <td>a view consisting of tuples of results calculated by the n-ary cartesian product of the adapted views</td> </tr>
+            <tr> <td><code>zip_view/views::zip</code></td> <td>a view consisting of tuples of references to corresponding elements of the adapted views</td> </tr>
+            <tr> <td><code>zip_transform_view/views::zip_transform</code></td> <td>a view consisting of tuples of results of application of a transformation function to corresponding elements of the adapted views</td> </tr>
+            <tr> <td><code>adjacent_view/views::adjacent</code></td> <td>a view consisting of tuples of references to adjacent elements of the adapted view</td> </tr>
+            <tr> <td><code>adjacent_transform_view/views::adjacent_transform</code></td> <td>a view consisting of tuples of results of application of a transformation function to adjacent elements of the adapted view</td> </tr>
+            <tr> <td><code>join_with_view/views::join_with</code></td> <td>a view consisting of the sequence obtained from flattening a view of ranges, with the delimiter in between elements</td> </tr>
+            <tr> <td><code>slide_view/views::slide</code></td> <td>a view whose Mth element is a view over the Mth through (M + N - 1)th elements of another view</td> </tr>
+            <tr> <td><code>ranges::chunk_view/views::chunk</code></td> <td>a range of views that are N-sized non-overlapping successive chunks of the elements of another view</td> </tr>
+            <tr> <td><code>ranges::chunk_by_view/views::chunk_by</code></td> <td>splits the view into subranges between each pair of adjacent elements for which the given predicate returns false</td> </tr>
+            <tr> <td><code>ranges::as_const_view/views::as_const</code></td> <td>converts a view into a constant_range</td> </tr>
+            <tr> <td><code>ranges::as_rvalue_view/views::as_rvalue</code></td> <td>a view of a sequence that casts each element to an rvalue</td> </tr>
+            <tr> <td><code>ranges::stride_view/views::stride</code></td> <td>a view consisting of elements of another view, advancing over N elements at a time</td> </tr>
+          </table>
+        </section>
+      </section>
+
+      <section>
+        <h2>Some Noteworthy, Illustrative, perhaps Useful Examples</h2>
+        <section>
+          <h3>Examplle with <code>std::variant</code></h3>
+          <p>We are going to:</p>
+          <ul>
+            <li>Create a vector containing numbers and strings (<var>mixedNumbers</var>) as variants</li>
+            <li>Filter out the strings using <code>std::views::filter</code></li>
+            <li>Print only the items actually holding a string instead of a number (<code>holds_alternative&lt;std::string&gt;</code>)</li>
+          </ul>
+          <pre>int main() {
+  std::vector&lt;std::variant&lt;int, std::string&gt;&gt; mixedNumbers
+    = {1, 2, 3, "four", "five"};
+  auto stringValues = mixedData | std::views::filter([](const auto&amp; val) {
+    return std::holds_alternative&lt;std::string&gt;(val);
+  });
+
+  for (const auto&amp; str : stringValues) {
+    std::cout &lt;&lt; std::get&lt;std::string&gt;(str) &lt;&lt; " ";
+  }// Output: four five
+
+  return 0;
+}</pre>
+        </section>
+        <section>
+          <h3>Mapping/Transforming Elements (into a Different Type, Actually)</h3>
+          <p>Transforming elements of a range (<strong>mapping</strong> in other contexts) doesn&apos;t require the resulting range to have elements of the same type. One can map elements to another type. For instance, from integers to strings.</p>
+          <pre>int main() {
+  std::vector&lt;int> numbers { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  std::map&lt;int, std::string> numberMap{
+    {1, "one"},
+    {2, "two"},
+    {3, "three"},
+    {4, "four"},
+    {5, "five"}
+  };
+  auto result = numbers
+              | std::views::filter([] (const auto&amp; n) { return n &lt;= 5; })
+              | std::views::transform([&amp;numberMap]
+                           (const auto&amp; n)
+                           { return numberMap[n]; });
+  for (const auto&amp; str : result) {
+    std::cout &lt;&lt; str &lt;&lt; " ";
+  }// Output: one two three four five
+}</pre>
+        </section>
+        <section>
+          <h3>Filtering and Accumulating Elements (Using <code>std::views::common</code>)</h3>
+          <p>We will be:</p>
+          <ul>
+            <li>Combining <code>std::ranges::views</code> and <code>std::accumulate</code></li>
+            <li>Since <code>std::accumulate</code> is not range-based algorithm, we will be relying on <code>std::views::common</code>, which creates a view with same-typed <var>begin</var> and <var>end</var> iterators.</li>
+          </ul>
+          <p><strong>Note</strong> <code>std::views::common</code> is similar to <code>std::views::all</code>, but it generates a <code>std::ranges::common_view</code> if the range has iterators with different types.</p>
+          <pre>// ...
+#include &lt;numeric&gt;
+#include &lt;ranges&gt;
+
+int main() {
+  std::vector&lt;int&gt; numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  auto numbers = std::views::iota(0) | std::views::take(10);
+  auto evenNumbers = numbers
+    | std::views::filter([](int n){ return n % 2 == 0; })
+    | std::views::common;
+  int sum = std::accumulate(evenNumbers.begin(), evenNumbers.end(), 0);
+  std::cout &lt;&lt; sum;// Output: 20
+}</pre>
+        </section>
+        <section>
+          <h3>Views <code>all_of</code>, <code>any_of</code>, <code>none_of</code></h3>
+          <p>In the example below, given a vector of integers (<var>numbers</var>), find (1) if any element is negative, (2) if none of the elements are negative, (3) if all elements are even</p>
+          <pre>// ...
+
+int main() {
+
+  std::vector&lt;int&gt; numbers = {2, 4, 6, 8, 10};
+
+  bool anyNegative
+    = std::ranges::any_of(numbers, [](int x) { return x &lt; 0; });
+    // false
+  bool noneNegative
+    = std::ranges::none_of(numbers, [](int x) { return x &lt; 0; });
+    // true
+  bool allEven
+    = std::ranges::all_of(numbers, [](int x) { return x % 2 == 0; });
+  //true
+
+  return 0;
+}</pre>
+        </section>
+
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+      </section>
+
+      <!--
       <section id="algo">
         <h2>3.4: A range algorithm</h2>
           <h3>3.4.1: Projections for range algorithms</h3>
@@ -118,15 +469,11 @@
       </section>
 
       <section id="new-ranges-namespaces">
-        <h2>3.7: The new ranges namespaces</h2>
+        <h2>The new ranges namespaces</h2>
       </section>
 
       <section id="concepts">
         <h2>3.8: Ranges Concepts</h2>
-      </section>
-
-      <section id="views">
-        <h2>3.9: Views</h2>
       </section>
 
       <section id="writing-your-own">
@@ -136,6 +483,8 @@
           <h3>3.10.3: Add the pipe-syntax to <code>custom_take_view</code></h3>
           <h3>3.10.4: A more generalized pipe-syntax implementation</h3>
       </section>
+      -->
+
     </main>
 
   </body>
