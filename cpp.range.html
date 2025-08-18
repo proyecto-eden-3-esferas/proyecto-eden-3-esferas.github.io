@@ -105,6 +105,12 @@ std::ranges::sort(numbers);
           <section><h3>Composability*</h3></section>
       </section>
 
+      <section>
+        <h2>Header <code>&lt;ranges&gt;</code></h2>
+        <p>To use the C++ Ranges Library, include it by typing:</p>
+        <pre>#include &lt;ranges&gt;</pre>
+      </section>
+
       <section id="simple-example">
         <h2>A Very Simple Example</h2>
         <pre>// rangesFilterTransform.cpp
@@ -348,9 +354,45 @@ for (const auto&amp; n : numberMap | std::views::values) { std::cout &lt;&lt; n 
       </section>
 
       <section>
-        <h2>Some Noteworthy, Illustrative, perhaps Useful Examples</h2>
+        <h2>Some Noteworthy, Illustrative, Perhaps Even Useful Examples</h2>
         <section>
-          <h3>Examplle with <code>std::variant</code></h3>
+          <h3>Transforming Words Into All-Capitals</h3>
+          <p></p>
+          <pre>#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;ranges&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main()
+{
+  vector&lt;string&gt; words
+    = { "hello", "world", "c++", "ranges" };
+  ranges::transform(
+    words, words.begin(), [](std::string s) {
+      transform(s.begin(), s.end(), s.begin(),
+               [](unsigned char c) {
+                 return toupper(c);
+               });
+      return s;
+    }); // transform
+  for (auto word : words) {
+    std::cout &lt;&lt; word &lt;&lt; " ";
+  }
+
+  return 0;
+}</pre>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3>Example with <code>std::variant</code></h3>
           <p>We are going to:</p>
           <ul>
             <li>Create a vector containing numbers and strings (<var>mixedNumbers</var>) as variants</li>
@@ -476,14 +518,92 @@ int main() {
         <h2>3.8: Ranges Concepts</h2>
       </section>
 
-      <section id="writing-your-own">
-        <h2>3.10: Creating a custom range</h2>
-          <h3>3.10.1: Implementing the view</h3>
-          <h3>3.10.2: A range adaptor for <code>custom_take_view</code></h3>
-          <h3>3.10.3: Add the pipe-syntax to <code>custom_take_view</code></h3>
-          <h3>3.10.4: A more generalized pipe-syntax implementation</h3>
-      </section>
       -->
+      <section id="writing-a-custom-range">
+        <h2>Creating a custom range</h2>
+        <p>In this section, we will be exploring how we can create a custom view, including its corresponding range adaptor. For the sake of simplicity, we will (re)implement <code>take_view</code>, which is also present in the STL.</p>
+        <p>Our goal is that the following code compiles and gives the correct result, as it would with <code>std::views::take</code>:</p>
+        <pre>const std::vector&lt;int&gt; n{2, 3, 5, 6, 7, 8, 9};
+auto v = n | rv::filter(is_even) | views::custom_take(2);
+std::ranges::copy(v,
+std::ostream_iterator&lt;int&gt;(std::cout, " "));</pre>
+
+
+        <section>
+          <h3>Implementing the view</h3>
+          <p>The first step is to implement the actual view to a range. In this view, we need to store the range and the number of elements this view should process from the range. While implementing this, we apply the range concepts available in C++20. The listing below shows an implementation, which we will walk through next.</p>
+          <pre>template&lt;std::ranges::view R&gt;// #A Using ranges::view concept
+class custom_take_view
+: public std::ranges::view_interface&lt;custom_take_view&lt;R&gt;&gt; {
+  // #B Necessary data members:
+  R base_{};
+  std::ranges::range_difference_t&lt;R&gt; count_{};
+
+public:
+  // #C Default constructible:
+  custom_take_view() = default;
+
+  // #D Constructor for range and count:
+  constexpr custom_take_view(
+    R base,
+    std::ranges::range_difference_t&lt;R&gt; count)
+    :base_{std::move(base)} ,count_{count}
+  {}
+
+  // #E view_interface members:
+  constexpr R base() const &amp; {return base_;}
+  constexpr R base()&amp;&amp;   {return std::move(base_);}
+
+  // #F Actual begin and end:
+  constexpr auto begin() {return std::ranges::begin(base_);}
+  constexpr auto end() {
+    return std::ranges::next(std::ranges::begin(base_),count_);
+  }
+};
+
+template&lt;std::ranges::range R&gt;// #G Deduction guide
+custom_take_view(R&amp;&amp; base, std::ranges::range_difference_t&lt;R&gt;)
+  -&gt;custom_take_view&lt;std::ranges::views::all_t&lt;R&gt;&gt;;</pre>
+          <p>In the template head of the class template <code>custom_take_view</code>, we directly start applying concepts #A. This class should work only with a view type. This concept checks that <var>R</var> is a range that is movable, default initializable, and is a view. The last concept checks whether <var>R</var> is derived from view_base. Our <code>custom_take_view</code> derives from view_base with the help of <code>view_interface</code>, using Curiously Recurring Template Pattern (CRTP).</p>
+          <p>After the head, we declare the required data members #B. In #C, we ensure that custom_take_view is default-constructible. The next constructor in #D is used when our view is created from a range and a count. This is the second item in the list in §3.</p>
+          <p>The view_interface requires a couple of members, which are implemented in #E. The actual implementation for <code>begin</code> and <code>end</code> is presented in #F. Here, we use the ranges <code>begin</code> version. In <code>end</code> you can see the actual implementation, the only part here that does something other than setting defaults. Using <code>std::ranges::next</code>, we retrieve the next iterator element after <code>begin</code> with an offset of <code>count</code>. With that, we already have a working implementation of <code>custom_take_view</code>.</p>
+          <hr/>
+          <p>Please note that this is a simplified version. The STL has to deal with different range types, depending on whether <var>R</var> is a <code>simple_view</code> or a <code>sized_range</code>. We leave this out here.</p>
+          <p>What is also needed is the Class Template Argument Deduction (CTAD) deduction guide in #G. Without this deduction guide, we cannot create a <code>custom_take_view</code> just by passing a range and a count.</p>
+          <p>We now have the base for our <code>custom_take_view</code>. Let&apos;s make our view fit nicely into all the other ranges and add the missing range adaptor.</p>
+        </section>
+        <section>
+          <h3>A range adaptor for <code>custom_take_view</code></h3>
+          <p>The next thing we need for <code>custom_take_view</code> is a range adaptor. The code shown below should, in practice, be wrapped in a dedicated namespace like <code>details</code>.</p>
+          <pre>template&lt;std::integral T&gt; // #A Only integrals
+struct custom_take_range_adaptor_closure {
+  T count_;// #B Store the count
+  constexpr custom_take_range_adaptor_closure(T count)
+  : count_{count}
+  {}
+
+  // #C Allow it to be called with a range:
+  template&lt;std::ranges::viewable_range R&gt;
+  constexpr auto operator()(R&amp;&amp;r)const {
+    return custom_take_view(std::forward&lt;R&gt;(r),count_);
+  }
+};</pre>
+          <!--
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+        <!--
+        <section>
+          <h3>Add the pipe-syntax to <code>custom_take_view</code></h3>
+        </section>
+        <section>
+          <h3>A more generalized pipe-syntax implementation</h3>
+        </section>
+        -->
+      </section>
 
     </main>
 

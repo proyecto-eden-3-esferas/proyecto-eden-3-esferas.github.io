@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multithreading in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Brief Introduction to the (Formidable) C++ Programming Language"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a target="_blank" href="https://www.modernescpp.com/index.php/multithreading-in-modern-c/"><cite>Multithreading in Modern C++</cite>, by Rainer Grimm, 2023</a></p>
+        <p><a href="cpp.core-types.html">C++ Core Types</a></p>
+        <p><a href="cpp.initialization-of-vars.html">Initialization of Variables in C++</a></p>
+        <p><a href="cpp.functions.html">Functions in C++</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.memory.html">Memory Management in C++</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.stl.html">C++ Standard Template Library (STL)</a></p>
+      </div>
+      <div>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/Cpp">Code Examples (Files)</a></p>
+        <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
+      </div>
+      <div>
+        <p><a href="linkage-and-scope.html">Linkage and Scope (focus on C/C++)</a></p>
+        <p><a href="cpp.separate_compilation.html">Separate Compilation</a></p>
+        <p><a href="cpp.modules.html">C++ Modules</a></p>
+        <p><a href="cpp.separate_compilation.templates.html">Separate Compilation of Templates</a></p>
+        <p><a href="cpp.linking-c-object-files-in.html">Linking C++ and C Object Files Together</a></p>
+        <p><a href="c-and-cpp.html">C and C++</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.platform-specific.html">Platform-Specific Features in C++</a></p>
+        <!--
+        <p><a href="cpp.boost.geometry.html.bak">C++ Boost Geomety (<code>.bak</code>)</a></p>
+        <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
+        -->
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a            href="index.en.html">Home</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Multithreading in C++</h1>
+      <p style="text-align: right">(Partly from <a target="_blank" href="https://www.modernescpp.com/index.php/multithreading-in-modern-c/">https://www.modernescpp.com/index.php/multithreading-in-modern-c/</a>)</p>
+      <p>The <a target="_blank" href="cpp.cpp11.html">2011 published standard</a> defines how a C++ program has to behave in the presence of multiple threads. These capabilities are composed of two components:</p>
+      <ol>
+        <li>the memory model, and</li>
+        <li>the standardized threading interface.</li>
+      </ol>
+
+      <section id="thread">
+        <h2>Threads as Subprocesses</h2>
+        <p style="text-align: right">(Heavily from <a target="_blank" href="https://www.geeksforgeeks.org/cpp/multithreading-in-cpp/">https://www.geeksforgeeks.org/cpp/multithreading-in-cpp/</a>)</p>
+        <p>The &lt;thread&gt; header in C++ provides a simple and powerful interface for managing threads. Below are some of the most common operations performed on threads:</p>
+        <section>
+          <h3>Create a Thread</h3>
+          <p>The <code>std::thread</code> class represents the thread. Instantiating an instance of this class will create a thread with the given callable as its task.</p>
+          <pre>thread thread_name(<var>callable</var>);</pre>
+          <p>where,</p>
+          <ul>
+            <li><var>thread_name</var> is an object of the <code>thread</code> class, and</li>
+            <li><var>callable</var> is a callable object such as a function pointer, function object, or a lambda.</li>
+          </ul>
+          <p>Example:</p>
+          <pre>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+// Function to be run by the thread
+void func() {
+  cout &lt;&lt; "Hello from the thread!" &lt;&lt; endl;
+}
+
+int main() {
+
+  // Create a thread that runs
+  // the function func
+  thread t(func);
+
+  // Main thread waits for 't' to finish
+  t.<a href="#join">join()</a>;
+  cout &lt;&lt; "Main thread finished.";
+  return 0;
+}</pre>
+          <p>Output</p>
+          <pre>Hello from the thread!
+Main thread finished.</pre>
+          <p><strong>Explanation</strong>: In the above program we have created a thread <var>t</var> that prints <q>Hello from the thread!</q> and this thread is <a href="#join">joined</a> with the main thread so that the main thread waits for the completion of this thread. Once the thread <var>t</var> is finished the main thread resumes its execution and prints <q>Main thread finished</q>.</p>
+        </section>
+        <section id="join">
+          <h3>Joining a Thread</h3>
+          <p>Before joining a thread it is preferred to check if the thread can be joined using the <code>joinable()</code> method, which checks whether the thread is in a state suitable for joining.</p>
+          <pre><var>thread_name</var>.joinable();</pre>
+          <p>(The <code>joinable()</code> method returns true if the thread is joinable, else returns false.)</p>
+          <hr/>
+          <p>Joining two threads in C++ blocks the current thread until the thread associated with the <code>std::thread</code> object finishes execution. To join two threads in C++ we use the <code>join()</code> function, which is called inside the body of the thread to which the specified thread is to be joined.</p>
+          <pre><var>thread_name</var>.join();</pre>
+          <p>The <code>join()</code> function throws <code>std::system_error</code> if the thread is not joinable.</p>
+          <p><strong>Note</strong>: Joining two non-main threads is risky as it may lead to race condition or logic errors.</p>
+        </section>
+        <section id="detach">
+          <h3>Detaching a Thread</h3>
+          <p>A joined thread can be detached from the calling thread using the <code>std::thread::detach()</code> member function. When a thread is detached, it runs independently in the background, and the other thread does not waits for it to finish.</p>
+          <pre>thread_name.detach();</pre>
+        </section>
+        <section id="get_id">
+          <h3>Getting Thread ID</h3>
+          <p>Each thread in C++ has a unique ID which can be obtained by using the <code>get_id()</code> function.</p>
+          <pre>thread_name.get_id();</pre>
+          <p>The <code>get_id()</code> function returns an object representing the thread&apos;s ID</p>
+        </section>
+        <section>
+          <h3>Example Program Using the Operations Above</h3>
+          <pre>#include &lt;iostream>
+#include &lt;thread>
+#include &lt;chrono>
+
+using namespace std;
+
+void task1() {
+    cout &lt;&lt; "Thread 1 is running. ID: " &lt;&lt; this_thread::get_id() &lt;&lt; "\n";
+}
+
+void task2() {
+    cout &lt;&lt; "Thread 2 is running. ID: " &lt;&lt; this_thread::get_id() &lt;&lt; "\n";
+}
+
+int main() {
+
+    thread t1(task1);
+    thread t2(task2);
+
+    // Show thread IDs
+    cout &lt;&lt; "t1 ID: " &lt;&lt; t1.get_id() &lt;&lt; "\n";
+    cout &lt;&lt; "t2 ID: " &lt;&lt; t2.get_id() &lt;&lt; "\n";
+
+    // Join t1 if joinable
+    if (t1.joinable()) {
+        t1.join();
+        cout &lt;&lt; "t1 joined\n";
+    }
+
+    // Detach t2
+    if (t2.joinable()) {
+        t2.detach();
+        cout &lt;&lt; "t2 detached\n";
+    }
+
+    cout &lt;&lt; "Main thread sleeping for 1 second...\n";
+    this_thread::sleep_for(chrono::seconds(1));
+    cout &lt;&lt; "Main thread awake.\n";
+
+    return 0;
+
+}</pre>
+        </section>
+      </section>
+      <section>
+        <h2>Callables in Multithreading</h2>
+        <p>A <strong>callable</strong> (such as a function, lambda, or function object) is passed to a thread. The callable is executed in parallel by the thread when it starts. For instance, <code>thread t(func);</code> creates a thread that runs the <var>func</var> callable.</p>
+        <p>Moreover, we can also pass parameters along with callable, like this <code>thread t(func, param1, param2);</code></p>
+        <p>There are four categories of Callables in C++:</p>
+        <ul>
+          <li><a href="#function-call">Function</a></li>
+          <li><a href="#lambda-call">Lambda Expression</a></li>
+          <li><a href="#function-obj-call">Function Object</a></li>
+          <li><a href="#member-function-call">Non-Static or static Member Function</a></li>
+        </ul>
+        <section id="function-call">
+          <h3>Function Pointer</h3>
+          <p>A function can be a callable object to pass to the thread constructor for initializing a thread.</p>
+          <pre>#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+// Function to be run
+// by the thread
+void func(int n) {
+  cout &lt;&lt; n;
+}
+
+int main() {
+
+  // Create a thread that runs
+  // the function func:
+  thread t(func, 4);
+
+  // Wait for thread to finish
+  t.join();
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>4</pre>
+        </section>
+        <section id="lambda-call">
+          <h3>Lambda Expression</h3>
+          <p>A thread object can also be initialized with a lambda expression as a callable. This can be passed directly inside the thread object:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+using namespace std;
+
+int main() {
+
+  int n = 3;
+
+  // Create a thread that runs
+  // a lambda expression
+  thread t([](int n){
+      cout &lt;&lt; n;
+  }, n);
+
+  // Wait for the thread to complete
+  t.join();
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>3</pre>
+        </section>
+        <section id="function-obj-call">
+          <h3>Function Objects</h3>
+          <p>Function Objects or Functors can also be passed into a thread as a callable. To make functors callable, we need to overload the operator parentheses or <code>operator()</code>.</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+using namespace std;
+
+// Define a function object (functor)
+class SumFunctor {
+public:
+  int n;
+  SumFunctor(int a) : n(a) {}
+
+  // Overload the operator() to
+  // make it callable
+  void operator()() const {
+    cout &lt;&lt; n;
+  };
+};
+
+int main() {
+
+  // Create a thread using
+  // the functor object
+  thread t(SumFunctor(3));
+
+  // Wait for the thread to
+  // complete
+  t.join();
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>3</pre>
+        </section>
+        <section id="member-function-call">
+          <h3>Non-Static and Static Member Function</h3>
+          <p>We can also use thread using the non-static or static member functions of a class. For non-static member function, we need to create an object of a class, but this is not necessary with static member functions.</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+using namespace std;
+
+class MyClass {
+public:
+  // Non-static member function
+  void f1(int num) {
+    cout &lt;&lt; num &lt;&lt; endl;
+  };​
+
+  // Static member function that takes one parameter
+  static void f2(int num) {
+      cout &lt;&lt; num;
+  };
+};
+
+int main() {
+
+  // Member functions
+  // requires an object
+  MyClass obj;
+
+  // Passing object and parameter
+  thread t1(&amp;MyClass::f1, &amp;obj, 3);
+
+  t1.join();
+
+  // Static member function can
+  // be called without an object
+  thread t2(&amp;MyClass::f2, 7);
+
+  // Wait for the thread to finish
+  t2.join();
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>3
+7</pre>
+        </section>
+      </section>  <!-- end of "Threads as Subprocesses" -->
+
+      <section id="thread-management-funs-and-methods">
+        <h2>Thread Management</h2>
+        <p>In the C++ thread library, various classes and functions are defined to manage threads that can be used to perform multiple tasks. Some of them are listed below:</p>
+        <table border="0">
+          <thead>
+          <tr> <th>Class/Function</th> <th>Description</th> </tr>
+          </thead>
+          <tr> <td><code>join()</code></td> <td>It ensures that the calling thread waits for the specified thread to complete its execution.</td> </tr>
+          <tr> <td><code>detach()</code></td> <td>Allows the thread to run independently of the main thread, meaning the main thread does not need to wait.</td> </tr>
+          <tr> <td><code>mutex</code></td> <td>A mutex is used to protect shared data between threads to prevent data races and ensure <a href="#thread-synchronization">synchronization</a>.</td> </tr>
+          <tr> <td><code><a href="#lock_guard">lock_guard</a></code></td> <td>A wrapper for mutexes that automatically locks and unlocks the mutex in a scoped block.</td> </tr>
+          <tr> <td><code>condition_variable</code></td> <td>Used to synchronize threads, allowing one thread to wait for a condition before proceeding.</td> </tr>
+          <tr> <td><code>atomic</code></td> <td>Manages shared variables between threads in a thread-safe manner without using locks.</td> </tr>
+          <tr> <td><code>sleep_for()</code></td> <td>Pauses the execution of the current thread for a specified duration.</td> </tr>
+          <tr> <td><code>sleep_until()</code></td> <td>Pauses the execution of the current thread until a specified time point is reached.</td> </tr>
+          <tr> <td><code>hardware_concurrency()</code></td> <td>Returns the number of hardware threads available for use, allowing you to optimize the use of system resources.</td> </tr>
+          <tr> <td><code>get_id</code></td> <td>Retrieves the unique ID of the current thread, useful for logging or debugging purposes.</td> </tr>
+        </table>
+        <section id="mutex">
+          <h3><code>std::mutex</code>*</h3>
+        </section>
+        <section id="lock_guard">
+          <h3><code>std::lock_guard</code></h3>
+          <p><code>lock_guard</code> is a simple class that is used to manage the locking and unlocking of a mutex. Its main purpose is to automatically lock a mutex when it is created and automatically unlock it when the <code>lock_guard</code> object goes out of scope. Following is the syntax to use lock_guard in C++:</p>
+          <pre>lock_guard&lt;mutex&gt; name(myMutex);</pre>
+          <p>where,</p>
+          <ul>
+            <li><strong>name:</strong> name assigned to the shared_lock object</li>
+            <li><strong>myMutex:</strong> a placeholder for the actual type of the mutex.</li>
+          </ul>
+          <p>Example. The following program illustrates the use of <code>lock_guard</code> in C++:</p>
+          <pre>// C++ Program using std::lock_guard
+#include &lt;mutex&gt;
+#include &lt;thread&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+// Global mutex to protect shared_data
+mutex mtx;
+
+// Shared data variable
+int shared_data = 0;
+
+// Function to increment shared_data
+void increment_data() {
+  // Create a lock_guard object which locks the mutex
+  lock_guard&lt;mutex&gt; lock(mtx);
+
+  // Critical section: safely modify shared_data
+  shared_data+=2;
+
+  // Lock is automatically released when 'lock' goes out of scope
+}
+
+int main() {
+  // Create two threads that run the increment_data function
+  thread t1(increment_data);
+  thread t2(increment_data);
+
+  // Wait for both threads to finish
+  t1.join();
+  t2.join();
+
+  // Output the value of shared_data
+  cout &lt;&lt; "Value of shared variable: " &lt;&lt; shared_data;
+
+  return 0;
+}</pre>
+          <p>Output</p>
+          <pre>Value of shared variable: 4</pre>
+          <hr/>
+          <p>Some key features of <code>unique_lock</code>:</p>
+          <ul>
+            <li><strong>Simplicity:</strong> lock_guard is very simple to use with minimal overhead.</li>
+            <li><strong><a target="_blank" href="cpp.RAII.html">RAII(Resource Acquisition Is Initialization)</a>:</strong> Ensures that mutex is released when the lock_guard goes out of scope.</li>
+            <li><strong>No Unlocking:</strong> Does not support manual unlocking before the end of its scope.</li>
+          </ul>
+          <p>These are the use cases when you should consider using lock_guard:</p>
+          <ul>
+            <li>When you need simple lock that automatically unlocks when the scope ends. The locking operation is straightforward and does not require unlocking before scope ends.</li>
+            <li>You prioritize minimal overhead and simplicity.</li>
+          </ul>
+        </section>
+        <section id="unique_lock">
+          <h3><code>std::unique_lock</code></h3>
+          <p><code>unique_lock</code> offers more flexibility than <code>lock_guard</code>. It provides features like manual locking and unlocking, deferred locking, and ownership transfer. Unlike <code>lock_guard</code>, which automatically locks and unlocks the mutex, <code>unique_lock</code> requires explicit calls to lock and unlock.</p>
+          <p>The following is the syntax to use unique_lock in C++:</p>
+          <pre>shared_lock&lt;mutex&gt; <var>Name</var>(
+  <var>myMutex</var>,
+  <var>lockingBehavior</var>);</pre>
+          <p>where,</p>
+          <ul>
+            <li><strong>name:</strong> Name assigned to the shared_lock object</li>
+            <li><strong>myMutex:</strong> a placeholder for the actual type of the mutex</li>
+            <li><strong>lockingBehavior:</strong> (optional) determines how the mutex is locked and managed</li>
+          </ul>
+          <p>Example. The following program illustrates the use of <code>unique_lock</code> in C++:</p>
+          <pre>// C++ Program using std::unique_lock
+
+#include &lt;mutex&gt;
+#include &lt;thread&gt;
+#include &lt;iostream&gt;
+using namespace std; ​
+
+// Global mutex to protect shared_data
+mutex mtx; ​
+
+// Shared data variable
+int shared_data = 0;
+​
+// Function to increment shared_data
+void increment_data() {
+  // Create a unique_lock object, but defer locking the mutex
+  unique_lock&lt;mutex&gt; ulck(mtx, defer_lock);
+
+  // Explicitly acquire the lock
+  ulck.lock();
+
+  // Critical section: safely modify shared_data:
+  shared_data += 2;
+
+  // Manually release the lock:
+  ulck.unlock();
+} ​
+
+int main() {
+
+  // Create two threads that run the increment_data function
+  thread t1(increment_data);
+  thread t2(increment_data);
+
+  // Wait for both threads to finish
+  t1.join();
+  t2.join();
+
+  // Output the value of shared_data
+  cout &lt;&lt; "Value of shared variable: " &lt;&lt; shared_data;
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>Value of shared variable: 4</pre>
+          <hr/>
+          <p>These are the key features of <code>unique_lock</code>:</p>
+          <ul>
+            <li><strong>Flexibility:</strong> can lock and unlock multiple times within its scope</li>
+            <li><strong>Deferred Locking:</strong> This can be constructed without locking the mutex immediately</li>
+            <li><strong>Timed Locking:</strong> Supports times and try-locking operations</li>
+            <li><strong>Ownership Transfer:</strong> It allows transferring mutex ownership to another unique_lock</li>
+          </ul>
+          <hr/>
+          <p>These are some use cases when you should consider using unique_lock:</p>
+          <ul>
+            <li>You need more control over the locking mechanism including ability to lock and unlock manually.</li>
+            <li>You need to defer locking or conditionally lock a mutex.</li>
+            <li>You require timed locking to prevent blocking indefinitely.</li>
+            <li>You need to transfer lock ownership between different scopes or threads.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <h2>Problems with Multithreading</h2>
+        <p>Multithreading improves the performance and utilization of CPU, but it is also subject to several problems:</p>
+        <ul>
+          <li><a href="#deadlock">Deadlock</a></li>
+          <li><a href="#race-conditions">Race Condition</a></li>
+          <li><a href="#starvation">Starvation</a></li>
+        </ul>
+        <dl>
+          <dt>Deadlock</dt>
+          <dd id="deadlock">A <dfn>deadlock</dfn> occurs when two or more threads are blocked forever because they are each waiting for shared resources that the other threads hold. This creates a cycle of waiting, and none of the threads can go ahead.</dd>
+          <dt>Race Conditions</dt>
+          <dd id="race-conditions">A <dfn>race condition</dfn> occurs when two or more threads access shared resources at the same time, and at least one of them modifies the resource. Since the threads are competing to read and write the data, the final result depends on the order in which the threads execute, leading to unpredictable or incorrect results.</dd>
+          <dt>Starvation</dt>
+          <dd id="starvation">Starvation occurs when a thread is continuously unable to access shared resources because other threads enjoy a higher priority, effectively preventing it from executing and making progress.</dd>
+        </dl>
+      </section>
+
+      <section id="thread-synchronization">
+        <h2>Thread Synchronization</h2>
+        <p>In multithreading, <dfn>synchronization</dfn> is the way to control the access of multiple threads to shared resources, ensuring that only one thread can access a resource at a time to prevent data corruption or inconsistency. This is typically done using tools like mutexes, locks, and condition variables.</p>
+        <section id="mutex">
+          <h3>Mutexes with <code>std::mutex</code></h3>
+          <p>Mutex is a synchronization primitive that locks the access to the shared resource if some thread is already accessing it.</p>
+          <p>An example where a mutex is used to achieve synchronization:</p>
+          <pre>// C++ program to illustrate the use of mutex locks to
+// synchronize the threads
+#include &lt;iostream&gt;
+#include &lt;mutex&gt;
+#include &lt;thread&gt;
+using namespace std; ​
+
+// data shared and lockable:
+double val = 0; ​
+
+// mutex:
+mutex m; ​
+
+int cnt = 0; ​
+
+void add(double num) {
+    m.lock();
+    val += num;
+    cnt++;
+    cout &lt;&lt; "Thread " &lt;&lt; cnt &lt;&lt; ": " &lt;&lt; val &lt;&lt; endl;
+    m.unlock();
+} ​
+
+// driver code
+int main() {
+
+    thread t1(add, 300);
+    thread t2(add, 600);
+
+    t1.join();
+    t2.join();
+
+    cout &lt;&lt; "After addition : " &lt;&lt; val &lt;&lt; endl;
+
+    return 0;
+
+}</pre>
+          <p>Output:</p>
+          <pre>Thread 1: 300
+Thread 2: 900
+After addition : 900</pre>
+          <p>or</p>
+          <pre>Thread 1: 600
+Thread 2: 900
+After addition : 900</pre>
+          <p><strong>Note:</strong> In the above code after applying mutex we can get any of the two outputs as shown above. This is because, after applying mutex we have prevented both the threads from entering inside the add() function together, but, either thread t1 or thread t2 enters the add() function first and therefore the output varies with respect to that.</p>
+        </section>
+        <section id="condition_variable">
+          <h3>Condition Variables with <code>std::condition_variable</code></h3>
+          <p>The condition variable is another such synchronization primitive. It is mainly used to notify the threads about the state of the shared data. It is used with the mutex locks to create processes that automatically wait and notify the state of the resource to each other.</p>
+          <p>Example:</p>
+          <pre>// C++ program to illustrate the use of condition variable
+
+#include &lt;condition_variable&gt;
+#include &lt;iostream&gt;
+#include &lt;mutex&gt;
+#include &lt;thread&gt;
+
+using namespace std;
+
+// condition variable and mutex to be locked
+condition_variable cv;
+mutex m;
+
+// shared resource
+int val = 0; ​
+
+void add(int num) {
+  lock_guard&lt;mutex&gt; lock(m);
+  val += num;
+  cout &lt;&lt; "After addition: " &lt;&lt; val &lt;&lt; endl;
+  cv.notify_one();
+}
+​
+void sub(int num) {
+  unique_lock&lt;mutex&gt; ulock(m);
+  cv.wait(ulock,
+          [] { return (val != 0) ? true : false; });
+  if (val &gt;= num) {
+      val -= num;
+      cout &lt;&lt; "After subtraction: " &lt;&lt; val &lt;&lt; endl;
+  } else {
+      cout &lt;&lt; "Cannot Subtract now!" &lt;&lt; endl;
+  }
+  cout &lt;&lt; "Total number Now: " &lt;&lt; val &lt;&lt; endl;
+} ​
+
+// driver code:
+int main() {
+
+  thread t2(sub, 600);
+  thread t1(add, 900);
+
+  t1.join();
+  t2.join();
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>After addition: 900
+After subtraction: 300
+Total number Now: 300</pre>
+          <p><strong>Explaination:</strong></p>
+          <p>In the foregoing program we first created two threads and then we tried to perform addition first followed by subtraction. But as we can see in the above program, we passed thread <var>t2</var> first and then <var>t1</var>. Assuming thread <var>t2</var> goes to the <code>sub()</code> function first, it first locks the mutex and then checks the condition whether the val is 0 or not. As the <var>val</var> is 0 initially, the predicate returns false and as soon as it returns false, it releases the mutex and waits for the condition to be true i.e., val!=0. Now as the mutex is released, addition is performed in the <code>add()</code> function and after that <code>notify_one()</code> gets executed which notifies the waiting thread which in turn tries to get the lock and again checks the condition. This way the process continues.</p>
+          <p>One of the best use case of condition variable is Producer-Consumer Problem.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+        <section id="promises-and-futures">
+          <h3>Promises and Futures with <code>std::future</code> and <code>std::promise</code></h3>
+          <p>The <code>std::future</code> and <code>std::promise</code> are used to return data from a task executed on the other thread. The <code>std::promise</code> is used to send the data and the <code>std::future</code> is used to receive the data on the main process. The <code>std::future::get()</code> method can be used to retrieve the data returned by the process and is able to hold the current process till the value is returned.</p>
+          <p>This method is generally preferred over the condition variable when we only want the task to be executed once.</p>
+          <p>Example</p>
+          <pre>// C++ program to illustrate the use of std::future and
+// std::promise in thread synchronization.
+
+#include &lt;future&gt;
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+using namespace std; ​
+
+// callable:
+void EvenNosFind(promise&lt;int&gt;&amp;&amp; EvenPromise,
+                 int begin,
+                 int end) {
+  int evenNo = 0;
+  for (int i = begin; i &lt;= end; i++) {
+    if (i % 2 == 0) {
+      evenNo += 1;
+    }
+  }
+  EvenPromise.set_value(evenNo);
+}
+​
+// driver code
+int main() {
+
+  int begin = 0, end = 1000;
+
+  promise&lt;int&gt; evenNo;
+  future&lt;int&gt; evenFuture = evenNo.get_future();
+  cout &lt;&lt; "My thread is created !!!" &lt;&lt; endl;
+
+  thread t1(EvenNosFind, move(evenNo), begin, end);
+  cout &lt;&lt; "Waiting..........." &lt;&lt; endl;
+​
+
+  // getting the data
+  cout &lt;&lt; "The no. of even numbers are : "
+       &lt;&lt; evenFuture.get() &lt;&lt; endl;
+
+  t1.join();
+
+  return 0;
+
+}</pre>
+          <p>Output</p>
+          <pre>My thread is created !!!
+Waiting...........
+The no. of even numbers are : 501</pre>
+          <p>In the program above, we try to find the number of even numbers in the given range. We first create a promise object and then we create a future object from that promise object. We send the promise object to the thread and then once we are ready with the value (after the function has been executed) ,we set the promise object. Then we create a future object from that promise. Finally we get the output from the future object to get our answer.</p>
+        </section>
+        <!--
+        <section id="*">
+          <h3> with <code></code></h3>
+          <p></p>
+        </section>
+        <section id="*">
+          <h3> with <code></code></h3>
+          <p></p>
+        </section>
+        <section id="*">
+          <h3> with <code></code></h3>
+          <p></p>
+        </section>
+        -->
+      </section>
+
+
+
+      <section id="memory-model">
+        <h2>A well-defined memory model</h2>
+        <p>The defined memory model is the necessary basis so that multithreaded programming makes sense in C++. It has to provide answers to the following questions:</p>
+        <dl>
+          <dt>What are atomic operations?</dt>
+          <dd>
+            <p><dfn>Atomic operations</dfn> are operations that follow the first three letters of the famous <a target="_blank" href="acid">ACID Idioms</a> from the database theory. Atomic operations are atomic (A), going from one consistent (C) state to the next and are executed in isolation (I). This means in particular, no other thread can observe an intermediate state of an atomic operation. The incrementation <code>atomVar++</code> shows the consistency and isolation of an atomic operation neatly. If <var>atomVar</var> is an atomic variable, it can have only the old or the new value. The consistency of the variable <var>atomVar</var> entails that it changes only from one state to the other in isolation, so that another thread can not observe any intermediate value.</p>
+          </dd>
+          <dt>Which order of operations is ensured?</dt>
+          <dd>
+            <p>Both the compiler that translates the program into assembler instructions and the processor that executes the assembler instructions, can rearrange the operations. In most cases this is done for the sake performance. In addition the various tiers of storage (cache) bring the possibility that the result of the operations be provided in a delayed way.</p>
+          </dd>
+          <dt>When are the memory effects of operations visible?</dt>
+          <dd>
+            <p>Since it is quite possible that one thread sees an operation on a variable later than another does, the threads have to comply with certain rules.</p>
+          </dd>
+        </dl>
+      </section>
+      <section id="threading-interface">
+        <h2>The standardized threading interface</h2>
+        <p>The standardized threading interface in C++11 consists of the following components:</p>
+        <dl>
+          <dt><a href="#thread">Threads</a></dt>
+          <dd><dfn>Threads</dfn> are the basic building blocks of multithreaded programming. They do their work autonomously, are parameterized by arguments and interact with other threads via shared variables.</dd>
+          <dt>Tasks</dt>
+          <dd>Tasks are a relatively modern concept. Tasks consist of two components, which are connected by a communication channel. One component at one endpoint of the channel produces the result, while the other endpoint consumes it. The producer is called <dfn>Promise</dfn>, the consumer <dfn>Future</dfn>.</dd>
+          <dt>Thread local data</dt>
+          <dd>A thread&apos;s local data is data that explicitly belongs to it.</dd>
+          <dt>Condition variables</dt>
+          <dd>Condition variables enable the implementation of producer/consumer workflows. The consumer waits for the notification of the producer while doing something else.</dd>
+        </dl>
+        <p>...</p>
+      </section>
+
+      <section>
+        <h2>Coroutines</h2>
+        <p>A <dfn>coroutine</dfn> is a function that can suspend itself and resume, on and on.</p>
+        <p>What are resumable functions are? While a regular function is executed in one go, a coroutine can suspend itself and return to the caller. This can happen multiple times. Also, a coroutine can call another coroutine.</p>
+        <section>
+          <h3>Generating a sequence with coroutines</h3>
+          <p>Instead of having a non-interruptible control flow where some kind of callback mechanism is required to signal a change to the caller, we can use coroutines to suspend and resume them. Here is such an implementation:</p>
+          <pre>IntGenerator // #A Returning a coroutine object
+counter(int start,int end) {
+  while(start &lt; end){
+    co_yield start;// #B Yielding a value and giving control back to the caller
+    ++start;
+  }
+}
+
+void UseCounter()
+{
+  auto g = counter(1,5);
+
+  // #C This sequence runs from 1 to 5:
+  for(auto i : g)
+    UseCounterValue(i);
+}</pre>
+        </section>
+        <section>
+          <h3>The Elements of Coroutines in C++</h3>
+          <section>
+            <h4>Stackless Coroutines in C++</h4>
+            <p>Coroutines come in two flavors: stackful and stackless coroutines. C++20 brings us <dfn>stackless coroutines</dfn>. What that means is the following: A coroutine can be seen as a transformation of a coroutine-function into a <strong>finite state machine (FSM)</strong>. The FSM maintains the internal state, where the coroutine was left when it returned earlier, the values that were passed to the coroutine upon creation. This internal state of the FSM, as well as the values, passed to the coroutine, need to be stored somewhere. This storage section is called a coroutine-frame.</p>
+            <p>The approach C++20 implements is to store the coroutine-frame in a stackless manner, meaning the frame is allocated on the heap. As we will later see, the heap allocation is done by the compiler automatically every time a coroutine is created.</p>
+          </section>
+          <section>
+            <h4>New Keywords: <code>co_await</code>, <code>co_return</code> and <code>co_yield</code></h4>
+            <p>Whenever we use one of these keywords in a function, this function automatically becomes a coroutine. In C++, these three keywords are the syntactic markers for a coroutine.</p>
+            <!--<p>The difference between the three keywords is summarized in table below:</p>-->
+          </section>
+          <section>
+            <h4>The generator</h4>
+            <p>When we look at our initial example of a coroutine, we can see therein at #A a type <code>IntGenerator</code>. Behind this hides a special type required for a coroutine. In C++, we cannot have a plain return type like <code>int</code> or <code>std::string</code>. We need to wrap the type into a so-called <dfn>generator</dfn>. The reason is that coroutines in C++ are a very small abstraction for a FSM. The generator gives us implementation freedom and the choice of how we like to model our coroutine. For a class or struct to be a generator type, this class needs to fulfill an Application Programming Interface (API) required to make the FSM work. There was a new keyword <code>co_yield</code> in the <code>counter</code> example, which suspends the coroutine and returns a value to the caller. However, during the suspension, the coroutines state needs to be stored somewhere, plus we need a mechanism to obtain the yielded value from outside the coroutine. A generator manages this.</p>
+            <p>Below, you see the generator for <code>counter</code>.</p>
+            <pre>template&lt;typename T&gt;
+struct generator {
+  using promise_type =
+    promise_type_base&lt;T,generator&gt;;// #A The PromiseType
+  using PromiseTypeHandle = std::coroutine_handle&lt;promise_type&gt;;
+
+  // #B Make the generator iterable
+  using iterator = coro_iterator::iterator&lt;promise_type&gt;;
+  iterator begin() {return {mCoroHdl};}
+  iterator   end() {return {};}
+
+  generator(generator const&amp;) = delete;
+  generator(generator&amp;&amp; rhs)
+  : mCoroHdl(std::exchange(rhs.mCoroHdl, nullptr))
+  {}
+
+  ~generator() {
+    // #C We have to maintain the life-time of the coroutine
+    if(mCoroHdl)
+      mCoroHdl.destroy();
+  }
+
+private:
+  friend promise_type;// #D As the default ctor is private promise_type needs to be a friend
+
+  explicit generator(promise_type* p)
+  :mCoroHdl{PromiseTypeHandle::from_promise(*p)}
+  {}
+
+  PromiseTypeHandle mCoroHdl;// #E The coroutine handle
+};</pre>
+            <p>At the very top at #A, we see using promise_type. This is a name the compiler looks for. The promise type is slightly comparable with what we already know from the std::promise part of an std::future. However, probably a better view is to see the promise_type as a state controller of a coroutine. Hence its promise_type, does not necessarily give us only one value. We will look at the promise_type after the generator.</p>
+            <p>At #B, we see an iterator. This is due to our range-based for-loop needing a begin and end. The implementation of iterator is nothing special, as we will see after the promise_type.</p>
+            <p>Next, we look at #C and #E, as they belong together. In #E, we see the coroutine handle. This handle is our access key to the coroutine state machine. This type, std::coroutine_handle&lt;T&gt; from the new header &lt;coroutine&gt;, can be seen as a wrapper around a pointer, pointing to the coroutine frame. A special thing about the coroutine frame is that the compiler calls new for us whenever a coroutine, and with that, a generator and promise_type, is created. This memory is the coroutine-frame The compiler knows when a coroutine is started. However, the compiler does not, at least easily, know when a coroutine is finished or no longer needed. This is why we have to free the memory for the coroutine-frame ourselves. The easiest way is to let generator free the coroutine-frame in its destructor, as we can see in #C. The memory resource is also the reason why generator is move-only.</p>
+            <p>We left out #D so far, the constructor of the generator, and the friend declaration. Looking closely, you will see that the constructor of generator is private. That is because generator is part of promise_type, or better promise_type_base, as you can see at #A. During the allocation of the coroutine-frame, the promise_type is created. Let’s have a look at promise_type_base.</p>
+          </section>
+          <section>
+            <h4>The <code>promise_type</code></h4>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+
+        </section>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

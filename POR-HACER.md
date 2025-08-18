@@ -1,5 +1,10 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 
+https://archive.org/details/Sept2024
+https://archive.org/details/artsandmusicvideos
+https://archive.org/details/spiritualityandreligion
+https://archive.org/details/computersandtechvideos
+
 https://libgen.onl/library-genesis/
 https://libgen.li/ (Working September 2024 – This is a Library Genesis ‘fork’)
 https://libgen.lc/ (Working September 2024 – This is a Library Genesis ‘fork’)
@@ -47,11 +52,6 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://developer.mozilla.org/
 
-- https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
-- https://www.learncpp.com/
-- https://www.geeksforgeeks.org/category/cpp/
-- https://www.geeksforgeeks.org/cpp/tuples-in-c/
-
 - `file:///home/francisco/audiobooks/ePUB_mobi_PDF/Documentation/Boost_1.80_documentation_356MB/doc/libs/1_80_0/index.html` while `file:///usr/share/doc/libboost1.83-doc/doc/html/index.html` seems incomplete
 
 - https://www.sokaglobal.org/es/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
@@ -59,6 +59,20 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://www.sokaglobal.org/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
 
 - https://en.cppreference.com/
+- https://www.modernescpp.com/
+- https://www.modernescpp.com/index.php/table-of-content/
+- https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
+- https://www.learncpp.com/
+- https://www.geeksforgeeks.org/category/cpp/
+- https://www.geeksforgeeks.org/cpp/
+- https://www.geeksforgeeks.org/cpp/tuples-in-c/
+- https://medium.com/@simontoth/daily-bit-e-of-c-implementing-custom-views-bb21e63a2d4f for *Daily bit(e) of C++ | Implementing custom views*
+- https://whtwnd.com/int2str.net/3lfsneh4tcc2y
+
+
+- https://medium.com/@petehouston/download-youtube-videos-using-youtube-dl-6756c2b01e55
+- https://greycoder.com/yt-dlp-a-free-app-for-advanced-youtube-downloading/
+- https://medevel.com/download-youtube-videos-as-mp4/
 
 - https://econation.one/blog/
 
@@ -77,8 +91,54 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 # Some useful `jq` code snippets
 
+`jq '.' *TEMA.array.json*` will either output *TEMA.array.json* or point out a syntax error
+
+
+
+
+# Vivienda Alternativa
+
+- https://www.milanuncios.com/parcelas-en-murcia-murcia/parcela-con-casa-pequena-506805689.htm en Murcia (Murcia)
+- https://www.milanuncios.com/venta-de-estudios-en-pedrezuela-madrid/pedrezuela-537473414.htm Pedrezuela o el Molar 94.000
+- https://www.milanuncios.com/venta-de-estudios-en-alcala-de-henares-madrid/alcala-de-henares-544890985.htm Alcalá de Henares 75.000 43m2, 1996, sin cédula de habitabilidad por política urbanística
+- https://www.milanuncios.com/venta-de-apartamentos-en-pradoluengo-burgos/pradoluengo-av-dionisio-roman-zaldo-549874306.htm 74.000€ 2hab 50m2 en Pradoluengo
+
+
+## https://comunidaddelsol.es/, El Escorial, Madrid
+Ecoaldea con ideales pero promete ser cara.
+- viviendas sostenibles
+- vida en comunidad
+- escuela alternativa (espiritualidad y crecimiento personal)
+
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] *Computación Distribuída* ~ *computacion-distribuida.html*
+<p>¿Para qué sirve y en qué casos o situaciones?</p>
+<p>Dos respuestas:</p>
+<ul>
+  <li>Cada ordenador aporta más de varios tipos de recursos (memoria RAM, disco duro, CPU)</li>
+  <li>Cada ordenador aporta alguna idiosincrasia o peculiaridad en razón de su arquitectura, localización, status legal, conexión etc.</li>
+</ul>
+<p>La pregunta y sus respuestas se parecen peligrosamente a para qué necesitamos varios trabajadores para realizar una misma tarea, a menos que éstos realicen un trabajo mortalmente mecánico y por tanto deshumanizado.</p>
+<p>En un modelo interesante cada ordenador estaría regido o configurado por un administrador diferente.</p>
+<p>Necesitamos masa.</p>
+<section>
+  <h2>El modelo dispersa-reúne (<i lang="en">scatter-gather</i>)</h2>
+  <p>Cada ordenador aporta recursos, actúan como meros soldados rasos de un ejército.</p>
+</section>
+<section>
+  <h2>El modelo de objetos distribuídos</h2>
+  <p>Cada ordenador o <q>proceso</q> comunica o hace públicos los objetos que oferta.</p>
+</section>
+<section>
+  <h2>El modelo cliente-servidor</h2>
+  <p>...</p>
+</section>
+<section>
+  <h2>El modelo de entre iguales (<i lang="en">peer-to-peer</i>)</h2>
+  <p>...</p>
+</section>
 
 [ ] Dealing with a variable number or args into a javaScript functions
 [ ] <code>null</code> and <code>undefined</code>
