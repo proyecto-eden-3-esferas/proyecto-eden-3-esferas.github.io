@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Multithreading in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Brief Introduction to the (Formidable) C++ Programming Language"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.multithreading.html">Multithreading in C++</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a target="_blank" href="https://www.modernescpp.com/index.php/multithreading-in-modern-c/"><cite>Multithreading in Modern C++</cite>, by Rainer Grimm, 2023</a></p>
+        <p><a href="cpp.memory.html">Memory Management in C++</a></p>
+        <p><a href="cpp.stl.html">C++ Standard Template Library (STL)</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Advanced Multithreading in C++</h1>
+      <p>The <a target="_blank" href="cpp.cpp11.html">2011 published standard</a> defines how a C++ program has to behave in the presence of multiple threads. These capabilities are composed of two components:</p>
+      <ol>
+        <li>the <a href="#memory-model">memory model</a>, and</li>
+        <li>the standardized <a href="#threading-interface">threading interface</a>.</li>
+      </ol>
+
+      <section id="memory-model">
+        <h2>A well-defined memory model</h2>
+        <p>The defined memory model is the necessary basis so that multithreaded programming makes sense in C++. It has to provide answers to the following questions:</p>
+        <dl>
+          <dt>What are atomic operations?</dt>
+          <dd>
+            <p><dfn>Atomic operations</dfn> are operations that follow the first three letters of the famous <a target="_blank" href="acid">ACID Idioms</a> from the database theory. Atomic operations are atomic (A), going from one consistent (C) state to the next and are executed in isolation (I). This means in particular, no other thread can observe an intermediate state of an atomic operation. The incrementation <code>atomVar++</code> shows the consistency and isolation of an atomic operation neatly. If <var>atomVar</var> is an atomic variable, it can have only the old or the new value. The consistency of the variable <var>atomVar</var> entails that it changes only from one state to the other in isolation, so that another thread can not observe any intermediate value.</p>
+          </dd>
+          <dt>Which order of operations is ensured?</dt>
+          <dd>
+            <p>Both the compiler that translates the program into assembler instructions and the processor that executes the assembler instructions, can rearrange the operations. In most cases this is done for the sake performance. In addition the various tiers of storage (cache) bring the possibility that the result of the operations be provided in a delayed way.</p>
+          </dd>
+          <dt>When are the memory effects of operations visible?</dt>
+          <dd>
+            <p>Since it is quite possible that one thread sees an operation on a variable later than another does, the threads have to comply with certain rules.</p>
+          </dd>
+        </dl>
+      </section>
+      <section id="threading-interface">
+        <h2>The standardized threading interface</h2>
+        <p>The standardized threading interface in C++11 consists of the following components:</p>
+        <dl>
+          <dt><a href="#thread">Threads</a></dt>
+          <dd><dfn>Threads</dfn> are the basic building blocks of multithreaded programming. They do their work autonomously, are parameterized by arguments and interact with other threads via shared variables.</dd>
+          <dt>Tasks</dt>
+          <dd>Tasks are a relatively modern concept. Tasks consist of two components, which are connected by a communication channel. One component at one endpoint of the channel produces the result, while the other endpoint consumes it. The producer is called <dfn>Promise</dfn>, the consumer <dfn>Future</dfn>.</dd>
+          <dt>Thread local data</dt>
+          <dd>A thread&apos;s local data is data that explicitly belongs to it.</dd>
+          <dt>Condition variables</dt>
+          <dd>Condition variables enable the implementation of producer/consumer workflows. The consumer waits for the notification of the producer while doing something else.</dd>
+        </dl>
+        <p>...</p>
+      </section>
+
+      <section>
+        <h2>Coroutines</h2>
+        <p>A <dfn>coroutine</dfn> is a function that can suspend itself and resume, on and on.</p>
+        <p>What are resumable functions are? While a regular function is executed in one go, a coroutine can suspend itself and return to the caller. This can happen multiple times. Also, a coroutine can call another coroutine.</p>
+        <section>
+          <h3>Generating a sequence with coroutines</h3>
+          <p>Instead of having a non-interruptible control flow where some kind of callback mechanism is required to signal a change to the caller, we can use coroutines to suspend and resume them. Here is such an implementation:</p>
+          <pre>IntGenerator // #A Returning a coroutine object
+counter(int start,int end) {
+  while(start &lt; end){
+    co_yield start;// #B Yielding a value and giving control back to the caller
+    ++start;
+  }
+}
+
+void UseCounter()
+{
+  auto g = counter(1,5);
+
+  // #C This sequence runs from 1 to 5:
+  for(auto i : g)
+    UseCounterValue(i);
+}</pre>
+        </section>
+        <section>
+          <h3>The Elements of Coroutines in C++</h3>
+          <section>
+            <h4>Stackless Coroutines in C++</h4>
+            <p>Coroutines come in two flavors: stackful and stackless coroutines. C++20 brings us <dfn>stackless coroutines</dfn>. What that means is the following: A coroutine can be seen as a transformation of a coroutine-function into a <strong>finite state machine (FSM)</strong>. The FSM maintains the internal state, where the coroutine was left when it returned earlier, the values that were passed to the coroutine upon creation. This internal state of the FSM, as well as the values, passed to the coroutine, need to be stored somewhere. This storage section is called a coroutine-frame.</p>
+            <p>The approach C++20 implements is to store the coroutine-frame in a stackless manner, meaning the frame is allocated on the heap. As we will later see, the heap allocation is done by the compiler automatically every time a coroutine is created.</p>
+          </section>
+          <section>
+            <h4>New Keywords: <code>co_await</code>, <code>co_return</code> and <code>co_yield</code></h4>
+            <p>Whenever we use one of these keywords in a function, this function automatically becomes a coroutine. In C++, these three keywords are the syntactic markers for a coroutine.</p>
+            <!--<p>The difference between the three keywords is summarized in table below:</p>-->
+          </section>
+          <section>
+            <h4>The generator</h4>
+            <p>When we look at our initial example of a coroutine, we can see therein at #A a type <code>IntGenerator</code>. Behind this hides a special type required for a coroutine. In C++, we cannot have a plain return type like <code>int</code> or <code>std::string</code>. We need to wrap the type into a so-called <dfn>generator</dfn>. The reason is that coroutines in C++ are a very small abstraction for a FSM. The generator gives us implementation freedom and the choice of how we like to model our coroutine. For a class or struct to be a generator type, this class needs to fulfill an Application Programming Interface (API) required to make the FSM work. There was a new keyword <code>co_yield</code> in the <code>counter</code> example, which suspends the coroutine and returns a value to the caller. However, during the suspension, the coroutines state needs to be stored somewhere, plus we need a mechanism to obtain the yielded value from outside the coroutine. A generator manages this.</p>
+            <p>Below, you see the generator for <code>counter</code>.</p>
+            <pre>template&lt;typename T&gt;
+struct generator {
+  using promise_type =
+    promise_type_base&lt;T,generator&gt;;// #A The PromiseType
+  using PromiseTypeHandle = std::coroutine_handle&lt;promise_type&gt;;
+
+  // #B Make the generator iterable
+  using iterator = coro_iterator::iterator&lt;promise_type&gt;;
+  iterator begin() {return {mCoroHdl};}
+  iterator   end() {return {};}
+
+  generator(generator const&amp;) = delete;
+  generator(generator&amp;&amp; rhs)
+  : mCoroHdl(std::exchange(rhs.mCoroHdl, nullptr))
+  {}
+
+  ~generator() {
+    // #C We have to maintain the life-time of the coroutine
+    if(mCoroHdl)
+      mCoroHdl.destroy();
+  }
+
+private:
+  friend promise_type;// #D As the default ctor is private promise_type needs to be a friend
+
+  explicit generator(promise_type* p)
+  :mCoroHdl{PromiseTypeHandle::from_promise(*p)}
+  {}
+
+  PromiseTypeHandle mCoroHdl;// #E The coroutine handle
+};</pre>
+            <p>At the very top at #A, we see using promise_type. This is a name the compiler looks for. The promise type is slightly comparable with what we already know from the std::promise part of an std::future. However, probably a better view is to see the promise_type as a state controller of a coroutine. Hence its promise_type, does not necessarily give us only one value. We will look at the promise_type after the generator.</p>
+            <p>At #B, we see an iterator. This is due to our range-based for-loop needing a begin and end. The implementation of iterator is nothing special, as we will see after the promise_type.</p>
+            <p>Next, we look at #C and #E, as they belong together. In #E, we see the coroutine handle. This handle is our access key to the coroutine state machine. This type, std::coroutine_handle&lt;T&gt; from the new header &lt;coroutine&gt;, can be seen as a wrapper around a pointer, pointing to the coroutine frame. A special thing about the coroutine frame is that the compiler calls new for us whenever a coroutine, and with that, a generator and promise_type, is created. This memory is the coroutine-frame The compiler knows when a coroutine is started. However, the compiler does not, at least easily, know when a coroutine is finished or no longer needed. This is why we have to free the memory for the coroutine-frame ourselves. The easiest way is to let generator free the coroutine-frame in its destructor, as we can see in #C. The memory resource is also the reason why generator is move-only.</p>
+            <p>We left out #D so far, the constructor of the generator, and the friend declaration. Looking closely, you will see that the constructor of generator is private. That is because generator is part of promise_type, or better promise_type_base, as you can see at #A. During the allocation of the coroutine-frame, the promise_type is created. Let’s have a look at promise_type_base.</p>
+          </section>
+          <section>
+            <h4>The <code>promise_type</code>*</h4>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+
+          <!--
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          -->
+
+        </section>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

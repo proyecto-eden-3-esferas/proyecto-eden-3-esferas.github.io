@@ -20,6 +20,7 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
+        <p><a rel="next" href="cpp.multithreading.advanced.html">Advanced Multithreading in C++</a></p>
         <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
       </div>
       <div>
@@ -66,9 +67,18 @@
       <p style="text-align: right">(Partly from <a target="_blank" href="https://www.modernescpp.com/index.php/multithreading-in-modern-c/">https://www.modernescpp.com/index.php/multithreading-in-modern-c/</a>)</p>
       <p>The <a target="_blank" href="cpp.cpp11.html">2011 published standard</a> defines how a C++ program has to behave in the presence of multiple threads. These capabilities are composed of two components:</p>
       <ol>
-        <li>the memory model, and</li>
-        <li>the standardized threading interface.</li>
+        <li>the <a target="_blank" href="cpp.multithreading.advanced.html#memory-model">memory model</a>, and</li>
+        <li>the standardized <a target="_blank" href="cpp.multithreading.advanced.html#threading-interface">threading interface</a>.</li>
       </ol>
+      <hr/>
+      <p>The headers supporting atomic and thread are:</p>
+      <ul>
+        <li>&lt;atomic&gt;</li>
+        <li>&lt;thread&gt;</li>
+        <li>&lt;mutex&gt;</li>
+        <li>&lt;condition_variable&gt;</li>
+        <li>&lt;future&gt;</li>
+      </ul>
 
       <section id="thread">
         <h2>Threads as Subprocesses</h2>
@@ -174,6 +184,121 @@ int main() {
     return 0;
 
 }</pre>
+        </section>
+        <section id="this_thread">
+          <h3>The <code>std::this_thread</code></h3>
+          <p>This namespace groups a set of functions that access the current thread.</p>
+          <table>
+            <caption>Functions</caption>
+            <tr>
+              <td><code>thread::id get_id() noexcept;</code></td>
+              <td>
+                <p>Returns the thread id of the calling thread. This value uniquely identifies the thread.</p>
+                <pre>// thread::get_id / this_thread::get_id
+#include &lt;iostream&gt;       // std::cout
+#include &lt;thread&gt;         // std::thread, std::thread::id, std::this_thread::get_id
+#include &lt;chrono&gt;         // std::chrono::seconds
+
+std::thread::id main_thread_id = std::this_thread::get_id();
+
+void is_main_thread() {
+  if ( main_thread_id == std::this_thread::get_id() )
+    std::cout &lt;&lt; "This is the main thread.\n";
+  else
+    std::cout &lt;&lt; "This is not the main thread.\n";
+}
+
+int main()
+{
+  is_main_thread();
+  std::thread th (is_main_thread);
+  th.join();
+}</pre>
+                <p>Output:</p>
+                <pre>This is the main thread.
+This is not the main thread.</pre>
+              </td> </tr>
+            <tr>
+              <td><code>void yield() noexcept;</code></td>
+              <td>
+                <p>Yield to other threads. The calling thread yields, offering the implementation the opportunity to reschedule. This function shall be called when a thread waits for other threads to advance without blocking.</p>
+                <pre>// this_thread::yield example
+#include &lt;iostream&gt;       // std::cout
+#include &lt;thread&gt;         // std::thread, std::this_thread::yield
+#include &lt;atomic&gt;         // std::atomic
+
+std::atomic&lt;bool&gt; ready (false);
+
+void count1m(int id) {
+  while (!ready) {             // wait until main() sets ready...
+    std::this_thread::yield();
+  }
+  for (volatile int i=0; i&lt;1000000; ++i) {}
+  std::cout &lt;&lt; id;
+}
+
+int main ()
+{
+  std::thread threads[10];
+  std::cout &lt;&lt; "race of 10 threads that count to 1 million:\n";
+  for (int i=0; i&lt;10; ++i) threads[i]=std::thread(count1m,i);
+  ready = true;               // go!
+  for (auto&amp; th : threads) th.join();
+  std::cout &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+                <p>Possible output (last line may vary):</p>
+                <pre>race of 10 threads that count to 1 million...
+6189370542</pre>
+              </td> </tr>
+            <tr>
+              <td><code>sleep_until</code></td>
+              <td>
+                <pre>template &lt;class Clock, class Duration&gt;
+void sleep_until (const chrono::time_point&lt;Clock, Duration&gt;&amp; abs_time);</pre>
+                <p>Output (after an avg. of 30 seconds):</p>
+                <pre>Current time: 11:52:36
+Waiting for the next minute to begin...
+11:53:00 reached!</pre>
+              </td> </tr>
+            <tr>
+              <td><code>sleep_for</code></td>
+              <td>
+                <pre>template &lt;class Rep, class Period&gt;  void sleep_for (const chrono::duration&lt;Rep,Period&gt;&amp; rel_time);</pre>
+                <p>The execution of the current thread is stopped until at least <var>rel_time</var> has passed from now. Other threads continue their execution.</p>
+                <p>Example:</p>
+                <pre>// this_thread::sleep_for example
+#include &lt;iostream&gt;       // std::cout, std::endl
+#include &lt;thread&gt;         // std::this_thread::sleep_for
+#include &lt;chrono&gt;         // std::chrono::seconds
+
+int main()
+{
+  std::cout &lt;&lt; "countdown:\n";
+  for (int i=10; i &gt; 0; --i) {
+    std::cout &lt;&lt; i &lt;&lt; std::endl;
+    std::this_thread::sleep_for (std::chrono::seconds(1));
+  }
+  std::cout &lt;&lt; "Lift off!\n";
+
+  return 0;
+}</pre>
+                <p>Output (after 10 seconds):</p>
+                <pre>countdown:
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+Lift off!</pre>
+              </td> </tr>
+          </table>
         </section>
       </section>
       <section>
@@ -484,6 +609,287 @@ int main() {
             <li>You need to transfer lock ownership between different scopes or threads.</li>
           </ul>
         </section>
+        <section id="atomic">
+          <h3><code>std::atomic</code>*</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://cplusplus.com/reference/atomic/">https://cplusplus.com/reference/atomic/</a></cite>)</p>
+          <p><dfn>Atomic types</dfn> are types that encapsulate a value whose access is guaranteed to not cause data races and can be used to synchronize memory accesses among different threads.</p>
+          <p>This header declares two C++ classes, <code>atomic</code> and <code>atomic_flag</code>, that implement all the features of atomic types in self-contained classes. The header also declares an entire set of C-style types and functions compatible with the atomic support in C.</p>
+
+          <section>
+            <h4>Class <code>std::atomic</code></h4>
+            <pre>template &lt;class T&gt; struct atomic;</pre>
+            <p>The main characteristic of atomic objects is that access to this contained value from different threads cannot cause data races (i.e., doing that is well-defined behavior, with accesses properly sequenced). Generally, for all other objects, the possibility of causing a data race for accessing the same object concurrently qualifies the operation as undefined behavior.</p>
+            <p>Additionally, atomic objects have the ability to synchronize access to other non-atomic objects in their threads by specifying different memory orders.</p>
+            <table>
+              <caption>Public Member Functions </caption>
+              <tr> <td>(constructor)</td> <td></td> </tr>
+              <tr> <td><code>operator=</code></td>
+                   <td>
+                     <pre>T operator= (T val) noexcept;T operator= (T val) volatile noexcept;
+atomic&amp; operator= (const atomic&amp;)          = delete;
+atomic&amp; operator= (const atomic&amp;) volatile = delete;</pre>
+                     <p>Replaces the stored value by <var>val</var>.</p>
+                     <p>This operation is atomic and uses sequential consistency (<code>memory_order_seq_cst</code>). To modify the value with a different memory ordering, see <code>atomic::store</code>.</p>
+                     <p><code><a href="#atomic">atomic</a></code> objects have no copy assignment defined, but note that they are implicitly convertible to <code>T</code>.</p>
+                   </td> </tr>
+              <tr> <td><code>std::atomic::is_lock_free()</code></td>
+                   <td>
+                     <pre>bool is_lock_free() const volatile noexcept;
+bool is_lock_free() const noexcept;</pre>
+                     <p>A lock-free object does not cause other threads to be blocked when accessed (possibly using some sort of transactional memory for the type).</p>
+                   </td>
+              </tr>
+              <tr> <td><code>store(<var>VALUE</var>)</code></td>
+                   <td>
+                     <p>Modify contained value</p>
+                     <pre>void store (T val, memory_order sync = memory_order_seq_cst) volatile noexcept;
+void store (T val, memory_order sync = memory_order_seq_cst) noexcept;</pre>
+                   </td> </tr>
+              <tr> <td><code>load</code></td>
+                   <td>
+                     <p>Read contained value</p>
+                     <pre>T load (memory_order sync = memory_order_seq_cst) const volatile noexcept;
+T load (memory_order sync = memory_order_</pre>
+                   </td> </tr>
+              <tr> <td><code>operator T</code></td>
+                   <td>
+                     <pre>operator T() const volatile noexcept;
+operator T() const noexcept;</pre>
+                     <p>Returns the stored value by val.</p>
+                     <p>This is a type-cast operator: evaluating an atomic object in an expression that expects a value of its contained type (T), calls this member function, accessing the contained value.</p>
+                     <p>This operation is atomic and uses sequential consistency (memory_order_seq_cst). To retrieve the value with a different memory ordering, see atomic::load.</p>
+                    </td> </tr>
+              <tr> <td><code>exchange</code></td>
+                   <td>
+                     <pre>T exchange (T val, memory_order sync = memory_order_seq_cst) volatile noexcept;
+T exchange (T val, memory_order sync = memory_order_seq_cst) noexcept;</pre>
+                     <p>Replaces the contained value by val and returns the value it had immediately before.</p>
+                     <p>The entire operation is atomic (an atomic read-modify-write operation): the value is not affected by other threads between the instant its value is read (to be returned) and the moment it is modified by this function.</p>
+                   </td> </tr>
+              <tr> <td><code>compare_exchange_weak</code></td>
+                   <td>
+                     <p>Compare and exchange contained value (weak)</p>
+                     <pre>
+bool compare_exchange_weak (T&amp; expected, T val,
+                            memory_order sync = memory_order_seq_cst)
+                            volatile noexcept;
+bool compare_exchange_weak (T&amp; expected, T val,
+                            memory_order sync = memory_order_seq_cst)
+                            noexcept;
+
+bool compare_exchange_weak (T&amp; expected, T val,
+                            memory_order success,
+                            memory_order failure)
+                            volatile noexcept;
+bool compare_exchange_weak (T&amp; expected, T val,
+                            memory_order success,
+                            memory_order failure)
+                            noexcept;</pre>
+                     <p>Compares the contents of the atomic object&apos;s contained value with expected:</p>
+                     <ul>
+                       <li>if true, it replaces the contained value with <var>val</var> (like <code>store</code>).</li>
+                       <li>if false, it replaces expected with the contained value.</li>
+                     </ul>
+                     <p>The function always accesses the contained value to read it, and -if the comparison is true- it then also replaces it. But the entire operation is atomic: the value cannot be modified by other threads between the instant its value is read and the moment it is replaced.</p>
+                     <hr/>
+                     <p>The <a href="#memory-orders">memory order</a> used in the second set of prototypes depends on the result of the comparison: if true, it uses success; if false, it uses failure.</p>
+                     <p>Note that this function compares directly the physical contents of the contained value with the contents of expected; This may result in failed comparisons for values that compare equal using <code>operator==</code> (if the underlying type has padding bits, trap values, or alternate representations of the same value), although this comparison shall converge rapidly in a loop that preserves expected.</p>
+                     <hr/>
+                     <p>Unlike <code>compare_exchange_strong</code>, this weak version is allowed to fail spuriously by returning false even when expected indeed compares equal to the contained object. This may be acceptable behavior for certain looping algorithms, and may lead to significantly better performance on some platforms. On these spurious failures, the function returns false while not modifying expected.</p>
+                     <p>For non-looping algorithms, compare_exchange_strong is generally preferred.</p>
+                   </td> </tr>
+              <tr> <td><code>compare_exchange_strong</code></td>
+                   <td>
+                     <p>Compare and exchange contained value (strong)</p>
+                     <p>Operation completely analogous to its twin <code>compare_exchange_weak</code> save for the fact that this strong version is required to always return true when expected indeed compares equal to the contained object, not allowing spurious failures.</p>
+                     <p>However, on certain machines, and for certain algorithms that check this in a loop, <code>compare_exchange_weak</code> may lead to significantly better performance.</p>
+                   </td> </tr>
+            </table>
+            <section>
+              <h5>Template Specializations of Class <code>std::atomic&lt;T&gt;</code></h5>
+              <p>The <code>atomic</code> class template is fully specialized for all fundamental integral types (except bool), and any extended integral types needed for the typedefs in &lt;cstdint&gt;.</p>
+              <p>Besides, aliases are provided like <code>typedef atomic&lt;char&gt; atomic_char</code>, that is, prefix <code>atomic_</code> is added.</p>
+              <p>These specializations have the following additional member functions listed below.</p>
+              <p>Each of these functions accesses the contained value, apply the proper operator and return the value the contained value had immediately before the operation; all in a single atomic operation that cannot be affected by other threads.</p>
+              <ul>
+                <li><code>atomic::fetch_add</code></li>
+                <li><code>atomic::fetch_sub</code></li>
+                <li><code>atomic::fetch_and</code></li>
+                <li><code>atomic::fetch_or</code></li>
+                <li><code>atomic::fetch_xor</code></li>
+                <li><code>atomic::operator++</code></li>
+                <li><code>atomic::operator--</code></li>
+                <li>
+                  <p><code>operator<var>?</var>=(<var>SOMETHING</var>)</code></p>
+                  <pre>T operator+= (T val) volatile noexcept;
+T operator+= (T val) noexcept;
+T operator-= (T val) volatile noexcept;
+T operator-= (T val) noexcept;
+T operator&amp;= (T val) volatile noexcept;
+T operator&amp;= (T val) noexcept;
+T operator|= (T val) volatile noexcept;
+T operator|= (T val) noexcept;
+T operator^= (T val) volatile noexcept;
+
+T operator+= (ptrdiff_t val) volatile noexcept;
+T operator+= (ptrdiff_t val) noexcept;
+T operator-= (ptrdiff_t</pre>
+                </li>
+              </ul>
+            </section>
+          </section>
+
+          <section>
+            <h4>Global Functions</h4>
+
+            <table border="0">
+              <tr> <td><code>kill_dependency</code></td> <td>Kill dependency</td> </tr>
+              <tr> <td><code>atomic_thread_fence</code></td> <td>Thread fence</td> </tr>
+              <tr> <td><code>atomic_signal_fence</code></td> <td>Signal fence</td> </tr>
+            </table>
+
+            <table border="0">
+              <caption>Functions for atomic objects (C-style)</caption>
+              <tr> <td><code>atomic_is_lock_free</code></td> <td>Is lock-free</td> </tr>
+              <tr> <td><code>atomic_init</code></td> <td>Initialize atomic object</td> </tr>
+              <tr> <td><code>atomic_store</code></td> <td>Modify contained value</td> </tr>
+              <tr> <td><code>atomic_store_explicit</code></td> <td>Modify contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_load</code></td> <td>Read contained value</td> </tr>
+              <tr> <td><code>atomic_load_explicit</code></td> <td>Read contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_exchange</code></td> <td>Read and modify contained value</td> </tr>
+              <tr> <td><code>atomic_exchange_explicit</code></td> <td>Read and modify contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_compare_exchange_weak</code></td> <td>Compare and exchange contained value (weak)</td> </tr>
+              <tr> <td><code>atomic_compare_exchange_weak_explicit</code></td> <td>Compare and exchange contained value (weak, explicit)</td> </tr>
+              <tr> <td><code>atomic_compare_exchange_strong</code></td> <td>Compare and exchange contained value (strong)</td> </tr>
+              <tr> <td><code>atomic_compare_exchange_strong_explicit</code></td> <td>Compare and exchange contained value (strong, explicit)</td> </tr>
+              <tr> <td><code>atomic_fetch_add</code></td> <td>Add to contained value</td> </tr>
+              <tr> <td><code>atomic_fetch_add_explicit</code></td> <td>Add to contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_fetch_sub</code></td> <td>Subtract from contained value</td> </tr>
+              <tr> <td><code>atomic_fetch_sub_explicit</code></td> <td>Subtract from contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_fetch_and</code></td> <td>Apply bitwise AND to contained value</td> </tr>
+              <tr> <td><code>atomic_fetch_and_explicit</code></td> <td>Apply bitwise AND to contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_fetch_or</code></td> <td>Apply bitwise OR to contained value</td> </tr>
+              <tr> <td><code>atomic_fetch_or_explicit</code></td> <td>Apply bitwise OR to contained value (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_fetch_xor</code></td> <td>Apply bitwise XOR to contained value</td> </tr>
+              <tr> <td><code>atomic_fetch_xor_explicit</code></td> <td>Apply bitwise XOR to contained value (explicit memory order)</td> </tr>
+            </table>
+
+            <table border="0">
+              <caption>Functions for atomic flags (C-style)</caption>
+              <tr> <td><code>atomic_flag_test_and_set</code></td> <td>Test and set atomic flag</td> </tr>
+              <tr> <td><code>atomic_flag_test_and_set_explicit</code></td> <td>Test and set atomic flag (explicit memory order)</td> </tr>
+              <tr> <td><code>atomic_flag_clear</code></td> <td>Clear atomic flag</td> </tr>
+              <tr> <td><code>atomic_flag_clear_explicit</code></td> <td>Clear atomic flag (explicit memory order)</td> </tr>
+            </table>
+
+            <table border="0">
+              <caption>Macro Functions</caption>
+              <tr> <td><code>ATOMIC_VAR_INIT</code></td> <td>Initialization of atomic variable (macro)</td> </tr>
+              <tr> <td><code>ATOMIC_FLAG_INIT</code></td> <td>Initialization of atomic flag (macro)</td> </tr>
+            </table>
+
+          </section>
+
+          <section>
+            <h4><code>struct atomic_flag</code></h4>
+            <p>Atomic flags are boolean atomic objects that support two operations: test-and-set and clear.</p>
+            <p>Atomic flags are lock-free (this is the only type guaranteed to be lock-free on all library implementations).</p>
+            <p>Member Functions</p>
+            <table>
+              <tr> <td><var>(constructor)</var></td> <td>Construct atomic flag</td> </tr>
+              <tr> <td><code>test_and_set</code></td> <td>Test and set flag</td> </tr>
+              <tr> <td><code>clear</code></td> <td>Clear flag</td> </tr>
+            </table>
+            <p>Example:</p>
+            <pre>// using atomic_flag as a lock
+#include &lt;iostream&gt;       // std::cout
+#include &lt;atomic&gt;         // std::atomic_flag
+#include &lt;thread&gt;         // std::thread
+#include &lt;vector&gt;         // std::vector
+#include &lt;sstream&gt;        // std::stringstream
+
+std::atomic_flag lock_stream = ATOMIC_FLAG_INIT;
+std::stringstream stream;
+
+void append_number(int x) {
+  while (lock_stream.test_and_set()) {}
+  stream &lt;&lt; "thread #" &lt;&lt; x &lt;&lt; '\n';
+  lock_stream.clear();
+}
+
+int main ()
+{
+  std::vector&lt;std::thread&gt; threads;
+  for (int i=1; i&lt;=10; ++i) threads.push_back(std::thread(append_number,i));
+  for (auto&amp; th : threads) th.join();
+
+  std::cout &lt;&lt; stream.str();
+  return 0;
+}</pre>
+            <p>Possible output (order of lines may vary):</p>
+            <pre>thread #1
+thread #2
+thread #3
+thread #4
+thread #5
+thread #6
+thread #7
+thread #8
+thread #9
+thread #10</pre>
+          </section>
+
+        </section>
+
+        <section id="memory-orders">
+          <h3>Memory Ordering with <code>memory_order</code>*</h3>
+          <p>Used as an argument to functions that conduct atomic operations to specify how other operations on different threads are synchronized.</p>
+          <p>It is defined as:</p>
+          <pre>typedef enum memory_order {
+    memory_order_relaxed,   // relaxed
+    memory_order_consume,   // consume
+    memory_order_acquire,   // acquire
+    memory_order_release,   // release
+    memory_order_acq_rel,   // acquire/release
+    memory_order_seq_cst    // sequentially consistent
+} memory_order;</pre>
+          <p>All <a href="#atomic">atomic</a> operations produce well-defined behavior with respect to an atomic object when multiple threads access it: each atomic operation is entirely performed on the object before any other atomic operation can access it. This guarantees no data races on these objects, and this is precisely the feature that defines atomicity.</p>
+          <p>Still, each thread may perform operations on memory locations other than the atomic object itself: and these other operations may produce visible side effects on other threads. Arguments of this type allow to specify a memory order for the operation that determines how these (possibly non-atomic) visible side effects are synchronized among threads, using the atomic operations as synchronization points:</p>
+          <dl>
+            <dt><code>memory_order_relaxed</code></dt>
+            <dd>
+              <p>The operation is ordered to happen atomically at some point.</p>
+              <p>This is the loosest memory order, providing no guarantees on how memory accesses in different threads are ordered with respect to the atomic operation.</p>
+            </dd>
+            <dt><code>memory_order_consume</code></dt>
+            <dd>
+              <p>[Applies to loading operations]</p>
+              <p>The operation is ordered to happen once all accesses to memory in the releasing thread that carry a dependency on the releasing operation (and that have visible side effects on the loading thread) have happened.</p>
+            </dd>
+            <dt><code>memory_order_acquire</code></dt>
+            <dd>
+              <p>[Applies to loading operations]</p>
+              <p>The operation is ordered to happen once all accesses to memory in the releasing thread (that have visible side effects on the loading thread) have happened.</p>
+            </dd>
+            <dt><code>memory_order_release</code></dt>
+            <dd>
+              <p>[Applies to storing operations]</p>
+              <p>The operation is ordered to happen before a consume or acquire operation, serving as a synchronization point for other accesses to memory that may have visible side effects on the loading thread.</p>
+            </dd>
+            <dt><code>memory_order_acq_rel</code></dt>
+            <dd>
+              <p>[Applies to loading/storing operations]</p>
+              <p>The operation loads acquiring and stores releasing (as defined above for memory_order_acquire and memory_order_release).</p>
+            </dd>
+            <dt><code>memory_order_seq_cst</code></dt>
+            <dd>
+              <p>The operation is ordered in a sequentially consistent manner: All operations using this memory order are ordered to happen once all accesses to memory that may have visible side effects on the other threads involved have already happened.</p>
+              <p>This is the <em>strictest</em> memory order, guaranteeing the least unexpected side effects between thread interactions though the non-atomic memory accesses.</p>
+              <p>For consume and acquire loads, sequentially consistent store operations are considered releasing operations.</p>
+            </dd>
+          </dl>
+        </section>
+
       </section>
 
       <section>
@@ -696,154 +1102,6 @@ The no. of even numbers are : 501</pre>
           <p></p>
         </section>
         -->
-      </section>
-
-
-
-      <section id="memory-model">
-        <h2>A well-defined memory model</h2>
-        <p>The defined memory model is the necessary basis so that multithreaded programming makes sense in C++. It has to provide answers to the following questions:</p>
-        <dl>
-          <dt>What are atomic operations?</dt>
-          <dd>
-            <p><dfn>Atomic operations</dfn> are operations that follow the first three letters of the famous <a target="_blank" href="acid">ACID Idioms</a> from the database theory. Atomic operations are atomic (A), going from one consistent (C) state to the next and are executed in isolation (I). This means in particular, no other thread can observe an intermediate state of an atomic operation. The incrementation <code>atomVar++</code> shows the consistency and isolation of an atomic operation neatly. If <var>atomVar</var> is an atomic variable, it can have only the old or the new value. The consistency of the variable <var>atomVar</var> entails that it changes only from one state to the other in isolation, so that another thread can not observe any intermediate value.</p>
-          </dd>
-          <dt>Which order of operations is ensured?</dt>
-          <dd>
-            <p>Both the compiler that translates the program into assembler instructions and the processor that executes the assembler instructions, can rearrange the operations. In most cases this is done for the sake performance. In addition the various tiers of storage (cache) bring the possibility that the result of the operations be provided in a delayed way.</p>
-          </dd>
-          <dt>When are the memory effects of operations visible?</dt>
-          <dd>
-            <p>Since it is quite possible that one thread sees an operation on a variable later than another does, the threads have to comply with certain rules.</p>
-          </dd>
-        </dl>
-      </section>
-      <section id="threading-interface">
-        <h2>The standardized threading interface</h2>
-        <p>The standardized threading interface in C++11 consists of the following components:</p>
-        <dl>
-          <dt><a href="#thread">Threads</a></dt>
-          <dd><dfn>Threads</dfn> are the basic building blocks of multithreaded programming. They do their work autonomously, are parameterized by arguments and interact with other threads via shared variables.</dd>
-          <dt>Tasks</dt>
-          <dd>Tasks are a relatively modern concept. Tasks consist of two components, which are connected by a communication channel. One component at one endpoint of the channel produces the result, while the other endpoint consumes it. The producer is called <dfn>Promise</dfn>, the consumer <dfn>Future</dfn>.</dd>
-          <dt>Thread local data</dt>
-          <dd>A thread&apos;s local data is data that explicitly belongs to it.</dd>
-          <dt>Condition variables</dt>
-          <dd>Condition variables enable the implementation of producer/consumer workflows. The consumer waits for the notification of the producer while doing something else.</dd>
-        </dl>
-        <p>...</p>
-      </section>
-
-      <section>
-        <h2>Coroutines</h2>
-        <p>A <dfn>coroutine</dfn> is a function that can suspend itself and resume, on and on.</p>
-        <p>What are resumable functions are? While a regular function is executed in one go, a coroutine can suspend itself and return to the caller. This can happen multiple times. Also, a coroutine can call another coroutine.</p>
-        <section>
-          <h3>Generating a sequence with coroutines</h3>
-          <p>Instead of having a non-interruptible control flow where some kind of callback mechanism is required to signal a change to the caller, we can use coroutines to suspend and resume them. Here is such an implementation:</p>
-          <pre>IntGenerator // #A Returning a coroutine object
-counter(int start,int end) {
-  while(start &lt; end){
-    co_yield start;// #B Yielding a value and giving control back to the caller
-    ++start;
-  }
-}
-
-void UseCounter()
-{
-  auto g = counter(1,5);
-
-  // #C This sequence runs from 1 to 5:
-  for(auto i : g)
-    UseCounterValue(i);
-}</pre>
-        </section>
-        <section>
-          <h3>The Elements of Coroutines in C++</h3>
-          <section>
-            <h4>Stackless Coroutines in C++</h4>
-            <p>Coroutines come in two flavors: stackful and stackless coroutines. C++20 brings us <dfn>stackless coroutines</dfn>. What that means is the following: A coroutine can be seen as a transformation of a coroutine-function into a <strong>finite state machine (FSM)</strong>. The FSM maintains the internal state, where the coroutine was left when it returned earlier, the values that were passed to the coroutine upon creation. This internal state of the FSM, as well as the values, passed to the coroutine, need to be stored somewhere. This storage section is called a coroutine-frame.</p>
-            <p>The approach C++20 implements is to store the coroutine-frame in a stackless manner, meaning the frame is allocated on the heap. As we will later see, the heap allocation is done by the compiler automatically every time a coroutine is created.</p>
-          </section>
-          <section>
-            <h4>New Keywords: <code>co_await</code>, <code>co_return</code> and <code>co_yield</code></h4>
-            <p>Whenever we use one of these keywords in a function, this function automatically becomes a coroutine. In C++, these three keywords are the syntactic markers for a coroutine.</p>
-            <!--<p>The difference between the three keywords is summarized in table below:</p>-->
-          </section>
-          <section>
-            <h4>The generator</h4>
-            <p>When we look at our initial example of a coroutine, we can see therein at #A a type <code>IntGenerator</code>. Behind this hides a special type required for a coroutine. In C++, we cannot have a plain return type like <code>int</code> or <code>std::string</code>. We need to wrap the type into a so-called <dfn>generator</dfn>. The reason is that coroutines in C++ are a very small abstraction for a FSM. The generator gives us implementation freedom and the choice of how we like to model our coroutine. For a class or struct to be a generator type, this class needs to fulfill an Application Programming Interface (API) required to make the FSM work. There was a new keyword <code>co_yield</code> in the <code>counter</code> example, which suspends the coroutine and returns a value to the caller. However, during the suspension, the coroutines state needs to be stored somewhere, plus we need a mechanism to obtain the yielded value from outside the coroutine. A generator manages this.</p>
-            <p>Below, you see the generator for <code>counter</code>.</p>
-            <pre>template&lt;typename T&gt;
-struct generator {
-  using promise_type =
-    promise_type_base&lt;T,generator&gt;;// #A The PromiseType
-  using PromiseTypeHandle = std::coroutine_handle&lt;promise_type&gt;;
-
-  // #B Make the generator iterable
-  using iterator = coro_iterator::iterator&lt;promise_type&gt;;
-  iterator begin() {return {mCoroHdl};}
-  iterator   end() {return {};}
-
-  generator(generator const&amp;) = delete;
-  generator(generator&amp;&amp; rhs)
-  : mCoroHdl(std::exchange(rhs.mCoroHdl, nullptr))
-  {}
-
-  ~generator() {
-    // #C We have to maintain the life-time of the coroutine
-    if(mCoroHdl)
-      mCoroHdl.destroy();
-  }
-
-private:
-  friend promise_type;// #D As the default ctor is private promise_type needs to be a friend
-
-  explicit generator(promise_type* p)
-  :mCoroHdl{PromiseTypeHandle::from_promise(*p)}
-  {}
-
-  PromiseTypeHandle mCoroHdl;// #E The coroutine handle
-};</pre>
-            <p>At the very top at #A, we see using promise_type. This is a name the compiler looks for. The promise type is slightly comparable with what we already know from the std::promise part of an std::future. However, probably a better view is to see the promise_type as a state controller of a coroutine. Hence its promise_type, does not necessarily give us only one value. We will look at the promise_type after the generator.</p>
-            <p>At #B, we see an iterator. This is due to our range-based for-loop needing a begin and end. The implementation of iterator is nothing special, as we will see after the promise_type.</p>
-            <p>Next, we look at #C and #E, as they belong together. In #E, we see the coroutine handle. This handle is our access key to the coroutine state machine. This type, std::coroutine_handle&lt;T&gt; from the new header &lt;coroutine&gt;, can be seen as a wrapper around a pointer, pointing to the coroutine frame. A special thing about the coroutine frame is that the compiler calls new for us whenever a coroutine, and with that, a generator and promise_type, is created. This memory is the coroutine-frame The compiler knows when a coroutine is started. However, the compiler does not, at least easily, know when a coroutine is finished or no longer needed. This is why we have to free the memory for the coroutine-frame ourselves. The easiest way is to let generator free the coroutine-frame in its destructor, as we can see in #C. The memory resource is also the reason why generator is move-only.</p>
-            <p>We left out #D so far, the constructor of the generator, and the friend declaration. Looking closely, you will see that the constructor of generator is private. That is because generator is part of promise_type, or better promise_type_base, as you can see at #A. During the allocation of the coroutine-frame, the promise_type is created. Let’s have a look at promise_type_base.</p>
-          </section>
-          <section>
-            <h4>The <code>promise_type</code></h4>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-
-          <section>
-            <h4></h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-
-          <section>
-            <h4></h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-
-        </section>
       </section>
 
     </main>

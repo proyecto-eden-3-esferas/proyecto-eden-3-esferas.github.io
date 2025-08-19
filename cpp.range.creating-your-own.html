@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Creating Your Own Ranges/Views</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Creating your own ranges/views"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    ADD: https://mariusbancila.ro/blog/2019/01/20/cpp-code-samples-before-and-after-ranges/
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.coroutines.html">C++ Coroutines</a></p>
+        <p><a href="cpp.modules.html">C++ Coroutines</a></p>
+        <p><a href="cpp.format.html">C++20 Formatting</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.range.html">Ranges (C++20)</a></p>
+        <p><a rel="next" href="cpp.generics.concepts.html">Concepts or Template Constraints in C++</a></p>
+        <p><a            href="cpp.range.creating-a-custom-range.html">Creating a custom range in C++ (incomplete)</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.cpp20.html">C++20</a></p>
+        <p><a            href="cpp.cpp11.html">C++11</a></p>
+        <p><a            href="cpp.cpp14.html">C++14</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a href="https://hannes.hauswedell.net/post/2019/11/30/range_intro/">Hannes Hauswedell&apos;Introduction to C++ Ranges</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Creating Your Own Ranges/Views (C++20)</h1>
+      <p style="text-align: right">(From Andre Eisenbach&apos;s <cite><a target="_blank" href="https://whtwnd.com/int2str.net/3lfsneh4tcc2y">Making a custom C++ ranges view</a></cite>, 16/01/2025)</p>
+      <p>To keep the example here as simple as possible, we will demonstrate a custom <code>nm_pairs_view</code>. This is a specialized version of k-combinations, where k is 2. In otherwords, the <q>bubble sort</q> iterator.</p>
+      <section id="bubble-sort">
+        <h2>The Bubble Sort Algorithm and Example</h2>
+        <p>Here&apos;s the classic bubble sort algorithm in C++:</p>
+        <pre>for (size_t n = 0; n != values.size() - 1; ++n) {
+  for (size_t m = n + 1; m != values.size(); ++m) {
+    if (values[m] &lt; values[n])
+      std::swap(values[n], values[m]);
+  }
+}</pre>
+        <hr/>
+        <p>This is the standard nested for-loop version of the algorithm. The <code>nm_pairs_view</code> outlined in this example allows us to write bubble sort using <code>std::ranges</code>:</p>
+        <pre>auto less = [](const auto&amp; pair) { return pair.second &lt; pair.first; };
+auto swap = [](auto pair) { std::swap(pair.first, pair.second); };
+
+std::ranges::for_each(
+      range | views::nm_pairs | std::views::filter(less),  swap);</pre>
+        <p>This particular example is obviously contrived, but chosen to be simple and to showcase the core usage of the algorithm. It also outlines two out of the three ways a custom view interacts with <code>std::ranges</code>.</p>
+      </section>
+
+      <section id="left-side-of-pipe">
+        <h2>Left side of the pipe (<code>|</code>)</h2>
+        <p>The first, and simplest (?) way your custom view can interact with a range pipeline is to be on the left side of the pipe operator (<code>|</code>). Or, in other words, just to provide data.</p>
+        <p>To do this, all your view has to do is to satisfy the <code>std::ranges::view_interface</code>. That is as simble as providing a <code>begin()</code> and <code>end()</code> function that returns a valid iterator.</p>
+        <p>Here&apos;s a simple "hello_view" example:</p>
+        <pre>class hello_view : public std::ranges::view_interface&lt;hello_view&gt; {
+  static constexpr auto hello = std::string_view("Hello, World!\n");
+
+ public:
+  auto begin() { return hello.begin(); };
+  auto end() { return hello.end(); }
+};
+
+auto main() -> int {
+  for (const auto&amp; chr : hello_view{} | std::views::drop(7))
+    std::print("{}", chr);
+}
+</pre>
+        <p>Note that inheriting from std::ranges::view_interface here is only for clarity/documentation and not necessary for this example to work. Also note that std::string_view itself can be used within a pipe operation since it provides the begin() and end() functions itself, but again, this is just to illustrate how simple this can be.</p>
+      </section>
+
+      <section id="right-side-of-pipe">
+        <h2>Right side of the pipe (<code>|</code>)</h2>
+        <p>For a custom view to be on the right side of a pipe, it has to be ready to receive data from previous ranges. Data is generally received in the form of iterators, due to the lazy evaluation capability of many ranges and pipeline operations.</p>
+        <p>Your custom view has choices here as to what kind of ranges it accepts. C++ provides a number of <strong>range concepts</strong> that your view can limit itself to. For the sake of simplicity, we will limit our view to accept a <code>std::ranges::forward_range</code>.</p>
+        <p>Before actually integrating into a pipe operator chain, it&apos;s easiest to first make a custom constructor of your view accept such a forward range. This is not strictly necessary, but will make things a lot easier to test and debug.</p>
+        <p>Here&apos;s an (incomplete?) example for our nm_pairs_view:</p>
+        <pre>template &lt;std::ranges::forward_range RANGE&gt;
+  requires std::ranges::view&lt;RANGE&gt;
+class nm_pairs_view : public std::ranges::view_interface&lt;nm_pairs_view&lt;RANGE&gt;&gt; {
+  RANGE base_;
+
+ public:
+  [[nodiscard]] constexpr nm_pairs_view() = default;
+
+  [[nodiscard]] constexpr explicit nm_pairs_view(RANGE range)
+      : base_{std::move(range)} {}
+...
+};</pre>
+
+        <section id="deduction-guide">
+          <h3>Supplying a Deduction Guide</h3>
+          <p>Note that our view is a template and we certainly don&apos;t want the user to have to figure out what (probably very complicated) type of range is passed into the constructor. Therefore, we provide a <strong>deduction guide</strong> so the user does not have to worry about that:</p>
+          <pre>template &lt;std::ranges::sized_range RANGE&gt;
+nm_pairs_view(RANGE&amp;&amp;) -&gt; nm_pairs_view&lt;std::views::all_t&lt;RANGE&gt;&gt;;</pre>
+          <p>With the constructor and deduction guide in place, we can test this view already without the use of a pipe operator to make sure it accepts the type of ranges we had in mind.</p>
+          <pre>std::vector&lt;int&gt; numbers{1, 2, 3, 4};
+for (const auto&amp; [a, b] : nm_pairs_view(numbers))
+  std::print("[{}, {}] ", a, b);
+// Prints: [1, 2]  [1, 3]  [1, 4]  [2, 3]  [2, 4]  [3, 4]</pre>
+        </section>
+
+        <section id="range_adapter_closure">
+          <h3>Pipelining by dint of <code>std::ranges::range_adapter_closure</code></h3>
+          <p>To get to next step we will make use of C++23&apos;s <code>std::ranges::range_adapter_closure</code> helper class.</p>
+          <p>The documentation on cppreference has a great explanation here:</p>
+          <blockquote>
+            <p>Range adaptor closure objects are FunctionObjects that are callable via the pipe operator: if <var>C</var> is a range adaptor closure object and <var>R</var> is a range, these two expressions are equivalent:</p>
+            <ul>
+              <li><code>C(R)</code></li>
+              <li><code>R | C</code></li>
+            </ul>
+          </blockquote>
+          <p>This is the magic glue that allows us to use the constructor we&apos;ve outlined above and use it in a pipe expresson on the right side of the pipe operator.</p>
+          <p>We can do this simply by providing a <code>std::ranges::range_adaptor_closure</code> derived class (CRTP) that calls our constructor:</p>
+          <pre>namespace views {
+
+struct nm_pairs_fn : std::ranges::range_adaptor_closure&lt;nm_pairs_fn&gt; {
+  template &lt;typename RANGE&gt;
+  constexpr auto operator()(RANGE&amp;&amp; range) const {
+    return nm_pairs_view{std::forward&lt;RANGE&gt;(range)};
+  }
+};
+
+constexpr inline auto nm_pairs = nm_pairs_fn{};
+
+}  // namespace views</pre>
+          <p>There are two things provided here: The actual range_adapter_closure is called <code>views::nm_pairs_fn</code>. It could be invoked by creating a temporary object of this type as part of the ranges pipeline:</p>
+          <pre>for (const auto&amp; [a, b] : numbers | views::nm_pairs_fn())
+  ...</pre>
+          <p>For convenience, the "nm_pairs" inline object is provided to make the usage simpler:</p>
+          <pre>for (const auto&amp; [a, b] : numbers | views::nm_pairs)
+  ...</pre>
+          <p>Once such a closure object is provided, your custom view can now be on both sides of the pipe operator!</p>
+        </section>
+
+        <section id="on-iterators">
+          <h3>On iterators and C++ template error messages...</h3>
+          <p>The above explanations are correct (to the best of my abilities) and do work. BUT, they do not work in isolation. Further more, very minor mistakes (typos even), can lead to the infamous mile long C++ template error messages and other pitfalls.</p>
+          <p>Jacob Rice, in his talk <cite><a target="_blank" href="https://www.youtube.com/watch?v=P9XXJuAYhMQ">Custom Views for the rest of us</a></cite> notes that the iterators returned <q>require a postfix increment operator</q>. This is one of the many details often ommited in other talks and one I have not seen explained elsewhere.</p>
+          <p>To qualify as a range, a valid iterator has to be returned by the <code>begin()</code> function of your view. This iterator can have many types, but similarly to <code>std::forward_iterator</code>, it is one of the simpler ones. <code>std::forward_iterator</code> ultimately requires the iterator to be weakly_incrementable, which in turn requires working pre- and pos-fix increment operators. Failure to meet this and other concepts will yield a very long, seemingly unrelated error message.</p>
+          <p>It gets worse. The iterator provided by the view also must have all relevant iterator traits. Failure to provide them, or even a simple typo here will create endlessly long, completely unrelated error messages with seemingly no hope of recovery.</p>
+          <p>If you&apos;re so inclined, download and compile the example <cite>nm_pairs_view</cite>, then change <code>difference_type</code> in <cite>nm_pairs.hh</cite> to <code>difference_t</code> and compile again...</p>
+        </section>
+
+        <section>
+          <h3>Conclusions, source code and more</h3>
+          <p>Custom views in C++23 are awesome and, all things considered, pretty easy to implement. As with many things in C++, details matter and can be frustrating at times, but the payoff is rewarding.</p>
+          <p>Source code for this example above can be found here: <a target="_blank" href="https://github.com/int2str/nm_pairs">https://github.com/int2str/nm_pairs</a></p>
+        </section>
+
+      </section>
+
+
+      <section id="creating-container-sinks">
+        <h2>A Third Way to Interact with C++ Ranges: to Sink into a Custom Container</h2>
+        <p>In the beginning, I stated there are three principle ways to interact with ranges:</p>
+        <ul>
+          <li>On the left side of a pipe operator, as data provider.</li>
+          <li>On the right side of a pipe operator, as data consumer.</li>
+        </ul>
+        <p>So what&apos;s the third? As a <q>sink</q> for ranges to be committed into a container.</p>
+        <p>>C++ provides the <code>std::ranges::to&lt;<var>CONTAINER</var>&gt;</code> conversion construct that allows a (potentially lazily evaluated) range to be committed/converted into a suitable container.</p>
+        <p>For example:</p>
+        <pre>auto my_vector = std::views::iota(1)
+  | std::views::take(5)
+  | std::ranges::to&lt;std::vector&gt;();
+</pre>
+        <p>Here, the range is committed into a std::vector.</p>
+        <hr/>
+        <p>While not related to the custom view example above, a custom container can be adapted so it can be used in the <code>std::ranges::to&lt;<var>CONTAINER</var>&gt;</code> construct.</p>
+        <p>To enable this, the following constructor should be added to your custom container:</p>
+        <pre>template &lt;typename RANGE&gt;
+constexpr MyCustomContainer(std::from_range_t /*unused*/, RANGE&amp;&amp; range) {
+  for (auto coordinate : range) insert(coordinate);
+}</pre>
+        <p>The <code>std::from_range_t</code> parameter tag is used here to invoke the correct constructor for your custom container (in this case <code>MyCustomContainer</code>). Very simple and effective in allowing your custom container to be integrated into a range pipeline.</p>
+        <p>For example:</p>
+        <pre>auto data_set = my_data
+  | std::views::filter(some_requirement)
+  | std::ranges::to&lt;MyCustomContainer&gt;();
+</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
