@@ -113,6 +113,26 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *otium-negotium.html*
+
+[ ] escribir *esquemas-de-escritura.html*
+- qué elementos pueden estar dentro de otros, cuántos y en qué número; por ejemplo una sección ha de contener un título y sólo uno
+- qué marcas poner
+<h>Formatos textuales y binarios</h>
+<h2>Marcas</h2>
+<p>Son combinaciones de letras, puntuación y en general caracteres ...</p>
+<h2>Jerarquías o árboles (explícitos)</h2>
+<p>Opciones:</p>
+<ul>
+  <li>entre puntuación complementaria: por ejemplo entre llaves (<code>{...}</code>), como en javaScript
+  <li>entre etiquetas más sofisticadas, como en XML (<code>&lt;section&gt;...&lt;/section&gt;</code>)
+</ul>
+
+[ ] Escribir/Copiar *taller.html* o *El Taller*
+- sin interrupción continua
+- distinción entre deseo (voluntad) y capricho (pasión, abandono)
+-
+
 [ ] *Computación Distribuída* ~ *computacion-distribuida.html*
 <p>¿Para qué sirve y en qué casos o situaciones?</p>
 <p>Dos respuestas:</p>
@@ -250,6 +270,8 @@ check (for):
 [ ] review *grow-yam.html*
 
 [ ] escribir *tres.html*
+- otium-negotium y su superación: <dfn>empresa</dfn>
+- tesis-síntesis-antítesis
 
 <a target="_blank" href="agricultura.html#tres">Tres agriculturas</a>
 
@@ -2222,6 +2244,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[ ] *brujas.html* desde *vampiros.html*
+[ ] *brujas.html* desde un futuro *mal.html* o *el-mal.html*
 
 [x] to *rumex.html* from *plants.html*
 [x] to *rumex.html* from *grow-rhubarb.html*

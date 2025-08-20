@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bases de datos documentales</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="Bases de datos documentales (colecciones de documentos JSON, XML...)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="es"  class="tecnologia">
+    <nav>
+    <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href='herramientas.html'>Herramientas y máquinas</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="bases-de-datos.html">Bases de datos: Qué son y para qué sirven</a></p>
+        <p><a rel="next" href="bases-de-datos-relacionales.html">Bases de datos relacionales (tablas interrelacionadas)</a></p>
+        <p><a rel="next" href="bases-de-datos-documentales.html">Bases de datos documentales (colecciones de documentos JSON, XML...)</a></p>
+        <p><a            href="memoria.html">La memoria: una base de datos biológicas</a></p>
+      </div>
+      <div>
+        <p><a href="informatica.html">Informática</a></p>
+        <p><a href='computing.html'>Computing (English)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Bases de datos documentales (colecciones de documentos JSON, XML...)</h1>
+      <p>Las bases de datos documentales constituyen una alternativa a las bases de datos relacionales. Para comprender lo que son necesitamos asimilar los dos tipos de documentos sobre los que pueden estar basadas: JSON y <a target="_blank" href="xml.es.html">XML</a>.</p>
+      <p>Algunas características notables de las bases de datos documentales:</p>
+      <ul>
+        <li>son más <strong>flexibles</strong>: no es necesario que un experimentado administrador las diseñe concienzudamente ante de que los usuarios empiecen a añadir datos</li>
+        <li>a consecuencia de esta flexibilidad, una base de datos documental puede diseñarse informalmente según uno va ampliándola, por ejemplo imponiéndole esquemas y estableciendo directrices (sobre nombres de campos, aridad etc.)</li>
+        <li>se inventan después de las bases de datos relacionales</li>
+      </ul>
+
+      <section id="bases-de-datos-json">
+        <h2>Bases de datos documentales JSON</h2>
+        <p>JSON es el formato o forma de escribir <a target="_blank" href="programacion.html#poo">objetos</a> en el lenguaje de programación JavaScript.</p>
+        <p>Sus características se derivan de la sencillez del formato JSON y de sus limitaciones.</p>
+        <section id="json">
+          <h3>El formato JSON</h3>
+          <p>El formato JSON proviene de la representación de objetos en lenguaje de programación JavaScript. Igual que JavaScript, su meta y gran virtud es la sencillez.</p>
+          <p>Muy someramente, un documento JSON:</p>
+          <ul>
+            <li>se escribe entre llaves (<code>{...}</code>)</li>
+            <li>consta de claves y valores separadas por dos puntos (<code>"<var>clave</var>": <var>valor</var></code>)</li>
+            <li>los tipos de valores sencillos son cadenas de caracteres (<code>"abcd..."</code>), números, valores de verdad (<code>true</code> o <code>false</code>) y <code>null</code></li>
+            <li>un valor también puede consistir en una lista, por ejemplo: <code>"hijos": ["maria", "tomás"]</code>. (Las listas pueden contener cualquier clase de valor, incluídas sublistas y subobjetos)</li>
+            <li>un valor también puede consistir en un objeto o <q>subobjeto</q>, por ejemplo: <code>"nacimiento": {"año": 1999, "mes": 12, "día": 16}</code></li>
+          </ul>
+          <p>Un ejemplo:</p>
+          <pre>{
+  "term": "Euskal Herria",
+  "lang": "eu",
+  "translation": [{"lang": "es", "word": "Pueblo Vasco"},
+                  {"lang": "en", "word": "Basque People"}
+                 ],
+  "field": "anthropology"
+}</pre>
+          <p>Observamos cómo los pares clave-valor están separados por comas y que el campo <var>translation</var> está formado por una lista con dos elementos, que a su vez son objetos con campos <var>lang</var> (lengua o idioma) y <var>word</var> (palabra).</p>
+        </section>
+        <section>
+          <h3>Gestores de JSON</h3>
+          <p>Uno puede empezar a escribir notas en JSON sin ningún inconveniente ni desventaja. Muchos editores de texto resaltan la sintaxis de modo que se señalan los errores de formato (comas que faltan o que sobran, por ejemplo) que impedirían que la nota se pudiese procesar debidamente.</p>
+          <p>En lugar de tablas las bases de datos JSON constan de listas de objetos JSON: <code>[{<var>obj1</var>}, {<var>obj2</var>}, ...]</code>. Cada lista puede contener objetos de un mismo tipo o de varios, a diferencia de las tablas relacionales, que exigen una homogeneidad casi absoluta.</p>
+          <p>Habría por tanto cuatro modos de manejar documentos JSON:</p>
+          <ul>
+            <li>un editor de texto como <code>kate</code>, con resalte de sintaxis (<i lang="en">syntax highlighting</i>)</li>
+            <li>un procesador o transformador de objetos y listas de objetos JSON, entre los que destaca la herramienta <code><a target="_blank" href="jq.html">jq</a></code></li>
+            <li>un gestor de bases de datos JSON, de los que destacan los gratuitos <a target="_blank" href="mongodb.html">MongoDB</a> y <a target="_blank" href="couchdb.html">CouchDB</a></li>
+            <li>el lenguaje de programación JavaScript, dado que JSON es un estándard suyo.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="bases-de-datos-xml">
+        <h2>Bases de datos documentales XML*</h2>
+        <p>...</p>
+        <section id="xml">
+          <h3>El formato XML</h3>
+          <p>Ya he dicho que HTML es un ejemplo de <a target="_blank" href="xml.es.html">XML</a>. El formato XML sirve para escribir desde una breve nota hasta un tratado o un manual de instrucciones.</p>
+        </section>
+      </section>
+
+      <section id="comparacion">
+        <h2>Comparación entre JSON y XML</h2>
+        <ul>
+          <li>JSON no debería utilizarse para escribir textos muy extensos o redactados en forma de párrafos, capítulos, secciones sino un dialecto de XML, como DocBook</li>
+          <li>JSON es completamente fácilmente legible, mientras que XML no tanto</li>
+          <li>En teoría, uno escribe un documento XML siguiendo un esquema (<i lang="en">schema</i>) o estructura predeterminada, mientras que JSON se presta a una escritura más libre que podríamos formalizar después.</li>
+          <li>JSON, al ser en esencia el formato de objetos <a target="_blank" href="js.html">JavaScript</a>, el lenguaje de programación más utilizado de todos, resulta fácilmente manipulable por él, mientras que XML require herramientas específicas.</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

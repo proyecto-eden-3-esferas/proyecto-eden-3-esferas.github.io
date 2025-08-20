@@ -26,16 +26,19 @@
         <p><a href='herramientas.html'>Herramientas y máquinas</a></p>
       -->
       <div>
+        <p><a            href="representacion-del-conocimiento.html">Representación del conocimiento</a></p>
         <p><a rel="next" href="bases-de-datos-relacionales.html">Bases de datos relacionales (tablas interrelacionadas)</a></p>
-        <p><a            href="informacion.html">Información</a></p>
-        <p><a            href="ordenadores.html">Ordenadores digitales</a></p>
+        <p><a            href="bases-de-datos-documentales.html">Bases de datos documentales (colecciones de documentos JSON, XML...)</a></p>
         <p><a            href="memoria.html">La memoria: una base de datos biológicas</a></p>
-        <p><a            href="digital.html">Lo digital</a></p>
-        <p><a rel="prev" href="informatica.html">Informática</a></p>
       </div>
       <div>
-        <p><a href="representacion-del-conocimiento.html.html">Representación del conocimiento</a></p>
-        <p><a href='computing.html'>Computing (English)</a></p>
+        <p><a            href="informacion.html">Información</a></p>
+        <p><a rel="prev" href="informatica.html">Informática</a></p>
+        <p><a            href="ordenadores.html">Ordenadores digitales</a></p>
+        <p><a            href="digital.es.html">Lo digital</a></p>
+      </div>
+      <div>
+        <p><a href="computing.html">Computing (English)</a></p>
       </div>
     </nav>
 
@@ -59,7 +62,7 @@
       <hr/>
       <p>Cada sistema de bases de datos se caracteriza y se diferencia de los demás por:</p>
       <ol>
-        <li>cómo está organizada la información: tablas, <a href="#json">notas</a>, listas</li>
+        <li>cómo está organizada la información: tablas, <a href="#json">notas</a>, listas, textos</li>
         <li>lo bien que cumplen sus diferentes cometidos: perdurabilidad, rapidez (de escritura o de lectura), ciberseguridad etc.</li>
         <li>facilidad de uso</li>
         <li>precio (desde las muy caras hasta no pocas que son gratuitas)</li>
@@ -71,13 +74,25 @@
 
       <section>
         <h2>Bases de datos documentales*</h2>
-        <p>Las bases datos documentales constan de documentos, en el sentido especial de textos estructurados. Se diferencias de las filas de las tablas (de las bases de datos relacionales) en que su formato es más libre: uno puede improvisar campos porque no parte de un esquema inicial.</p>
-        <section id="json">
-          <h2>Bases de datos documentales de JSON*</h2>
-        </section>
-        <section id="xml">
-          <h2>Bases de datos documentales de XML*</h2>
-        </section>
+        <p>Las <a taget="_blank" href="bases-de-datos-relacionales.html">bases datos documentales</a> constan de documentos, en el sentido especial de textos estructurados. Se diferencias de las filas de las tablas (de las bases de datos relacionales) en que su formato es más libre: uno puede improvisar campos porque no parte de un esquema inicial.</p>
+        <p>Los dos principales tipos de documentos son:</p>
+        <ul>
+          <li id="json">
+            <p><strong>JSON</strong>: un formato sencillo de <q>notas</q>; el principal formato de intercambio de información entre ordenadores</p>
+            <p>Un ejemplo sencillo de documento JSON sería:</p>
+            <pre>{
+  "nombre": "Marina",
+  "nacimiento": 1997,
+  "domicilio": null
+}</pre>
+            <p>Gestores gratuitos de bases de datos JSON: <a target="_blank" href="mongodb.html">MongoDB</a> y <a target="_blank" href="couchdb.html">CouchDB</a></p>
+          </li>
+          <li id="xml">
+            <p><strong>XML</strong>: un formato más sofisticado y amplio (complicado) apoyado por un entorno de herramientas de validación (esquemas) y transformación (XSLT y XQuery).</p>
+            <p>El formato de páginas web sin ir más lejos (<a target="_blank" href="HTML.html">HTML</a>) es un ejemplo de XML.</p>
+            <p>Gestores gratuitos de bases de datos documentales XML: BaseX y eXist</p>
+          </li>
+        </ul>
       </section>
     </main>
 
