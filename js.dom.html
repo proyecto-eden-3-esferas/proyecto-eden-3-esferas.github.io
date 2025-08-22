@@ -97,8 +97,118 @@ document.getElementById("demo").innerHTML = "Hello World!";
                   <tr> <td><code>document.write(text)</code></td> <td>Write into the HTML output stream</td> </tr>
           </table>
         </section>
+
+        <section id="event-attributes">
+          <h3>Event Attributes</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.w3schools.com/tags/ref_eventattributes.asp">https://www.w3schools.com/tags/ref_eventattributes.asp</a></cite>)</p>
+          <p>(See also <cite><a target="_blank" href="https://www.w3schools.com/jsref/obj_keyboardevent.asp">HTML DOM KeyboardEvent</a></cite>, at <code>https://www.w3schools.com/jsref/obj_keyboardevent.asp</code>)</p>
+
+          <p><dfn>Events</dfn> are triggered by some action... They are either ignored or dealt with code as the value of an attribute, which is typically a function taking one <var>event</var> argument.</p>
+          <pre>&lt;button onclick="myClickHandler()"&gt;Click Me&lt;/button&gt;</pre>
+          <p>The following lists show the name of the attributes:</p>
+
+          <table>
+            <caption>Window Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>onafterprint</code></td> <td>Script to be run after the document is printed</td> </tr>
+            <tr> <td><code>onbeforeprint</code></td> <td>Script to be run before the document is printed</td> </tr>
+            <tr> <td><code>onbeforeunload</code></td> <td>Script to be run when the document is about to be unloaded</td> </tr>
+            <tr> <td><code>onerror</code></td> <td>Script to be run when an error occurs</td> </tr>
+            <tr> <td><code>onhashchange</code></td> <td>Script to be run when there has been changes to the anchor part of the a URL</td> </tr>
+            <tr> <td><code>onload</code></td> <td>Fires after the page is finished loading</td> </tr>
+            <tr> <td><code>onmessage</code></td> <td>Script to be run when the message is triggered</td> </tr>
+            <tr> <td><code>onoffline</code></td> <td>Script to be run when the browser starts to work offline</td> </tr>
+            <tr> <td><code>ononline</code></td> <td>Script to be run when the browser starts to work online</td> </tr>
+            <tr> <td><code>onpagehide</code></td> <td>Script to be run when a user navigates away from a page</td> </tr>
+            <tr> <td><code>onpageshow</code></td> <td>Script to be run when a user navigates to a page</td> </tr>
+            <tr> <td><code>onpopstate</code></td> <td>Script to be run when the window's history changes</td> </tr>
+            <tr> <td><code>onresize</code></td> <td>Fires when the browser window is resized</td> </tr>
+            <tr> <td><code>onstorage</code></td> <td>Script to be run when a Web Storage area is updated</td> </tr>
+            <tr> <td><code>onunload</code></td> <td>Fires once a page has unloaded (or the browser window has been closed)</td> </tr>
+          </table>
+
+          <table>
+            <caption>Keyboard Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>onkeydown</code></td> <td>Fires when a user is pressing a key (works for all keys)</td> </tr>
+            <tr> <td><code>onkeypress</code></td> <td>Fires when a user presses a key (deprecated)</td> </tr>
+            <tr> <td><code>onkeyup</code></td> <td>Fires when a user releases a key</td> </tr>
+          </table>
+
+          <table>
+            <caption>Mouse Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>onclick</code></td> <td>Fires on a mouse click on the element</td> </tr>
+            <tr> <td><code>ondblclick</code></td> <td>Fires on a mouse double-click on the element</td> </tr>
+            <tr> <td><code>onmousedown</code></td> <td>Fires when a mouse button is pressed down on an element</td> </tr>
+            <tr> <td><code>onmousemove</code></td> <td>Fires when the mouse pointer is moving while it is over an element</td> </tr>
+            <tr> <td><code>onmouseout</code></td> <td>Fires when the mouse pointer moves out of an element</td> </tr>
+            <tr> <td><code>onmouseover</code></td> <td>Fires when the mouse pointer moves over an element</td> </tr>
+            <tr> <td><code>onmouseup</code></td> <td>Fires when a mouse button is released over an element</td> </tr>
+            <tr> <td><code>onmousewheel</code></td> <td>Deprecated. Use the onwheel attribute instead</td> </tr>
+            <tr> <td><code>onwheel</code></td> <td>Fires when the mouse wheel rolls up or down over an element</td> </tr>
+          </table>
+
+          <table>
+            <caption>Drag Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>ondrag</code></td> <td>Script to be run when an element is dragged</td> </tr>
+            <tr> <td><code>ondragend</code></td> <td>Script to be run at the end of a drag operation</td> </tr>
+            <tr> <td><code>ondragenter</code></td> <td>Script to be run when an element has been dragged to a valid drop target</td> </tr>
+            <tr> <td><code>ondragleave</code></td> <td>Script to be run when an element leaves a valid drop target</td> </tr>
+            <tr> <td><code>ondragover</code></td> <td>Script to be run when an element is being dragged over a valid drop target</td> </tr>
+            <tr> <td><code>ondragstart</code></td> <td>Script to be run at the start of a drag operation</td> </tr>
+            <tr> <td><code>ondrop</code></td> <td>Script to be run when dragged element is being dropped</td> </tr>
+            <tr> <td><code>onscroll</code></td> <td>Script to be run when an element's scrollbar is being scrolled            </td> </tr>
+          </table>
+
+          <table>
+            <caption>Clipboard Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>oncopy</code></td> <td>Fires when the user copies the content of an element</td> </tr>
+            <tr> <td><code>oncut</code></td> <td>Fires when the user cuts the content of an element</td> </tr>
+            <tr> <td><code>onpaste</code></td> <td>Fires when the user pastes some content in an element</td> </tr>
+          </table>
+
+          <table>
+            <caption>Form Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>onblur</code></td> <td>Fires the moment that the element loses focus</td> </tr>
+            <tr> <td><code>onchange</code></td> <td>Fires the moment when the value of the element is changed</td> </tr>
+            <tr> <td><code>oncontextmenu</code></td> <td>Script to be run when a context menu is triggered</td> </tr>
+            <tr> <td><code>onfocus</code></td> <td>Fires the moment when the element gets focus</td> </tr>
+            <tr> <td><code>oninput</code></td> <td>Script to be run when an element gets user input</td> </tr>
+            <tr> <td><code>oninvalid</code></td> <td>Script to be run when an element is invalid</td> </tr>
+            <tr> <td><code>onreset</code></td> <td>Fires when the Reset button in a form is clicked</td> </tr>
+            <tr> <td><code>onsearch</code></td> <td>Fires when the user writes something in a search field (for <code>&lt;input="search"&gt;</code>)</td> </tr>
+            <tr> <td><code>onselect</code></td> <td>Fires after some text has been selected in an element</td> </tr>
+            <tr> <td><code>onsubmit</code></td> <td>Fires when a form is submitted</td> </tr>
+          </table>
+
+          <table>
+            <caption>Misc Events</caption>
+            <thead>
+            <tr> <td>Attribute</td> <td>Description</td> </tr>
+            </thead>
+            <tr> <td><code>ontoggle</code></td> <td>Fires when the user opens or closes the &lt;details&gt; element</td> </tr>
+          </table>
+
+        </section>
+
         <section>
-          <h3>Adding Events Handlers</h3>
+          <h3>Adding Event Handlers</h3>
           <table border="1">
           <thead> <tr> <td>Method</td> <td>Description</td> </tr> </thead>
                   <tr> <td><code>document.getElementById(<var>id</var>).onclick = function() {<var>code</var>}</code></td> <td>Adding event handler code to an onclick event</td> </tr>
@@ -157,8 +267,22 @@ document.getElementById("myP").innerHTML = text;</pre>
 let text = document.getElementById("myP").innerHTML;
 
 let text = document.getElementById("demo").textContent;</pre>
-          <hr/>
-          <p><code>value</code> is a property specifically for form elements like &lt;input&gt;, &lt;select&gt;, and &lt;textarea&gt;. It returns the user's value entered or selected in a form field.</p>
+          <section>
+            <h4>The <code>value</code> Attribute</h4>
+            <p><code>value</code> is a property specifically for form elements like &lt;input&gt;, &lt;select&gt;, and &lt;textarea&gt;. It returns the user's value entered or selected in a form field.</p>
+            <p>These are the elements bearing a <code>value</code> property:</p>
+            <ul>
+              <li><strong>&lt;button&gt;</strong>: specifies the initial value of the element</li>
+              <li><strong>&lt;input&gt;</strong>:  specifies the initial value of the element</li>
+              <li><strong>&lt;option&gt;</strong>: specifies the initial value of the element</li>
+              <hr/>
+              <li><strong>&lt;li&gt;</strong>: sets the value of the list item (for ordered lists). The next list items will increment from that value</li>
+              <hr/>
+              <li><strong>&lt;meter&gt;</strong>: specifies the current value of the gauge</li>
+              <li><strong>&lt;progress&gt;</strong>: specifies how much of the task has been completed</li>
+              <li><strong>&lt;param&gt;</strong>: specifies the value of the parameter</li>
+            </ul>
+          </section>
         </section>
       </section>
 

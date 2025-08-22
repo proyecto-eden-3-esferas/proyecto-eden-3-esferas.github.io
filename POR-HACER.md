@@ -68,6 +68,7 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://www.geeksforgeeks.org/cpp/tuples-in-c/
 - https://medium.com/@simontoth/daily-bit-e-of-c-implementing-custom-views-bb21e63a2d4f for *Daily bit(e) of C++ | Implementing custom views*
 - https://whtwnd.com/int2str.net/3lfsneh4tcc2y
+- https://medium.com/@xersendo/moving-to-c-26-how-to-build-and-set-up-gcc-15-1-on-ubuntu-f52cc9173fa0
 
 
 - https://medium.com/@petehouston/download-youtube-videos-using-youtube-dl-6756c2b01e55
@@ -113,12 +114,52 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+*HTML <option> Tag*
+
+The <option> tag defines an option in a select list.
+
+<option> elements go inside a <select>, <optgroup>, or <datalist> element.
+
+Note: The <option> tag can be used without any attributes, but you usually need the value attribute, which indicates what is sent to the server on form submission.
+
+Tip: If you have a long list of options, you can group related options within the <optgroup> tag.
+
+Example
+-------
+
+A drop-down list with four options:
+```
+<label for="cars">Choose a car:</label>
+<select id="cars">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="opel">Opel</option>
+  <option value="audi">Audi</option>
+</select>
+```
+
+*XML has, JSON has not*
+- namespaces
+- schema
+- comments
+- transformations (XSLT)
+
+[ ] *transvase-contabilidad.html*
+<h1>El modelo económico de transvase y contabilidad.</h1>
+<p>Un transvase interno consiste en la transferencia de riqueza dentro de un sistema.</p>
+<p>Su contrario es la generación de riqueza.</p>
+<p>Además se necesita la colaboración de una contabilidad que declare, falsamente, que el sistema de transvases genera riqueza.</p>
+
+[ ] *asimilacion-convenida.html*
+<p>La <dfn>asimilación convenida</dfn> consiste en hacer propia o asimilar la ideología que le conviene a uno. Por ejemplo un funcionario tiende a mantener una actitud acrítica con el Estado, quien le da de comer. Difiere de la corrupción en que el asimilado no tiene conciencia de realizar acciones antisociales.</p>
+<p>La asimilación convenida constituye un caso de doble pensar.</p>
+
 [ ] escribir *otium-negotium.html*
 
 [ ] escribir *esquemas-de-escritura.html*
 - qué elementos pueden estar dentro de otros, cuántos y en qué número; por ejemplo una sección ha de contener un título y sólo uno
 - qué marcas poner
-<h>Formatos textuales y binarios</h>
+<h2>Formatos textuales y binarios</h2>
 <h2>Marcas</h2>
 <p>Son combinaciones de letras, puntuación y en general caracteres ...</p>
 <h2>Jerarquías o árboles (explícitos)</h2>
