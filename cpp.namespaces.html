@@ -69,6 +69,63 @@ int g();
       </section>
 
       <section>
+        <h2>Inline Namespaces (<code>inline namespace <var>my_namespace</var></code>)</h2>
+        <p> inline namespaces. <dfn>Inline namespaces</dfn> aren&apos;t really namespaces: Everything declared inside of them are also part of the parent namespace.</p>
+        <p>Introduced in C++11.</p>
+        <p>An example:</p>
+        <pre>namespace foo // normal namespace
+{
+    void foo_func(); // function inside normal namespace
+}
+
+inline namespace bar // inline namespace
+{
+    void bar_func(); // function inside inline namespace
+}
+
+foo::foo_func(); // okay
+bar::bar_func(); // also okay
+
+foo_func(); // error, no such function
+bar_func(); // okay, inline namespace!</pre>
+        <p>Useless?</p>
+        <section>
+          <h3>API Versioning</h3>
+          <p>Suppose you have written a library with some utility class foo:</p>
+          <pre>namespace my_library
+{
+    class foo
+    {
+        …
+    };
+}</pre>
+          <p>But you&apos;re not quite happy with foo, so in a future version, you&apos;ve improved it substantially. Sadly, the new foo is not completely backwards compatible: Some users have to use the old version.</p>
+          <p>So to ease the transition, you still provide both:</p>
+          <pre>namespace my_library
+{
+    namespace v1
+    {
+        // old foo
+        class foo { … };
+    }
+    inline namespace v2
+    {
+        // new, improved foo
+        class foo { … };
+    }
+
+    // note: no `foo` in `my_library` directly
+}</pre>
+          <p>Most users just continue to use <code>my_library::foo</code> and will silently get the v2 version. Users that can&apos;t use v2 just need to switch to <code>my_library::v1::foo</code> instead. This can be a transition that is a lot easier to do.</p>
+          <pre>// on update it will get the shiny new v2 version
+my_library::foo f;
+
+// but maybe I don&apos;t want it, just change the namespace
+my_library::v1::foo f;</pre>
+        </section>
+      </section>
+
+      <section>
         <h2>Koenig Lookup</h2>
         <p><strong>Note:</strong> Koenig Lookup is sometimes called <q>argument dependent lookup.</q></p>
         <p>Overloaded functions may be called without qualifying the function name with the namespace. Using a process called <dfn>Koenig lookup</dfn> the C++ compiler examines the argument type and looks for overloaded functions in the namespace of the argument type.</p>

@@ -398,8 +398,9 @@ switch (new Date().getDay()) {
         </sections>
         <section id="nested-functions">
           <h3>Nested Functions</h3>
+          <p>A <dfn>nested function</dfn> is a function defined inside another function.</p>
           <p>All functions have access to the global scope. In fact, in JavaScript, all functions have access to the scope <q>above</q> them.</p>
-          <p>Besides, JavaScript supports <strong>nested functions</strong>. Nested functions have access to the scope <q>above</q> them, even if it is local.</p>
+          <p>Besides, JavaScript supports nested functions, which have access to the scope <q>above</q> them (or <q>around</q> them), even though it is local.</p>
           <p><strong>Example</strong> The inner function <code>plus()</code> has access to the <var>counter</var> variable in the parent function:</p>
           <pre>function add() {
   let counter = 0;
@@ -407,6 +408,12 @@ switch (new Date().getDay()) {
   plus();
   return counter;
 }</pre>
+        </section>
+        <section>
+          <h3>Functions redefining themselves in JavaScript</h3>
+          <p>These are same-named nested functions, as in</p>
+          <pre></pre>
+          <p>[...]</p>
         </section>
         <section>
           <h3>JavaScript Closures</h3>

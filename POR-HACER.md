@@ -69,6 +69,7 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://medium.com/@simontoth/daily-bit-e-of-c-implementing-custom-views-bb21e63a2d4f for *Daily bit(e) of C++ | Implementing custom views*
 - https://whtwnd.com/int2str.net/3lfsneh4tcc2y
 - https://medium.com/@xersendo/moving-to-c-26-how-to-build-and-set-up-gcc-15-1-on-ubuntu-f52cc9173fa0
+- https://www.foonathan.net/2018/11/inline-namespaces/
 
 
 - https://medium.com/@petehouston/download-youtube-videos-using-youtube-dl-6756c2b01e55
