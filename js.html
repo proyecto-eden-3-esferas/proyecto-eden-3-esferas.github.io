@@ -59,37 +59,43 @@
         <h2>JavaScript Data Types</h2>
         <section>
           <h3>Primitive and Complex Data Types</h3>
-          <p>In JavaScript, a <dfn>primitive value</dfn> is a single value with no properties or methods.</p>
-          <p>JavaScript has seven <strong>primitive data types</strong>:</p>
-          <ul>
-            <li>string</li>
-            <li>number</li>
-            <li>boolean</li>
-            <li>bigint</li>
-            <li>symbol</li>
-            <li>null</li>
-            <li>undefined</li>
-          </ul>
-          <hr/>
-          <p>JavaScript has one complex data type: <code>object</code>. All other complex types like arrays, functions, sets, and maps are just different types of objects.</p>
-          <p>The typeof operator returns only two types:</p>
-          <ul>
-            <li>
-              <code>object</code>
-            </li>
-            <li>
-              <code>function</code>
-            </li>
-          </ul>
-          <p>
-            <strong>Example</strong>
-          </p>
-          <pre>typeof {name:'John'}   // Returns object
+          <section id="primitive">
+            <h3>Primitive Data Types</h3>
+            <p>In JavaScript, a <dfn>primitive value</dfn> is a single value with no properties or methods.</p>
+            <p>JavaScript has seven <strong>primitive data types</strong>:</p>
+            <ul>
+              <li>string</li>
+              <li>number</li>
+              <li>boolean</li>
+              <li>bigint</li>
+              <li>symbol</li>
+              <li>null</li>
+              <li>undefined</li>
+            </ul>
+            <hr/>
+            <p>JavaScript has one complex data type: <code>object</code>. All other complex types like arrays, functions, sets, and maps are just different types of objects.</p>
+          </section>
+          <section id="typeof">
+            <h4>The <code>typeof</code> Operator</h4>
+            <p>The <code>typeof</code> operator returns the type of a variable or an expression.</p>
+            <p>The <code>typeof</code> operator returns only two non-primitive types:</p>
+            <ul>
+              <li>
+                <code>object</code>
+              </li>
+              <li>
+                <code>function</code>
+              </li>
+            </ul>
+            <p><strong>Example</strong></p>
+            <pre>typeof {name:'John'}   // Returns object
 typeof [1,2,3,4]       // Returns object
 typeof new Map()       // Returns object
 typeof new Set()       // Returns object
 
 typeof function (){}   // Returns function</pre>
+            <aside><strong>Note:</strong> In JavaScript, <code>null</code> is a primitive value. However, typeof returns "object". This is a well-known bug in JavaScript and has historical reasons.</aside>
+          </section>
           <section>
             <h4>How to Recognize an Array</h4>
             <p>How to know if a variable is an array?</p>
@@ -118,11 +124,7 @@ typeof null           // object
 null === undefined    // false
 null == undefined     // true</pre>
         </section>
-        <section id="typeof">
-          <h3>JavaScript <code>typeof</code> Operator*</h3>
-          <p>The <code>typeof</code> operator returns the type of a variable or an expression.</p>
-          <aside><strong>Note:</strong> In JavaScript, <code>null</code> is a primitive value. However, typeof returns "object". This is a well-known bug in JavaScript and has historical reasons.</aside>
-        </section>
+
         <section id="symbols">
           <h3>Symbols</h3>
           <p><dfn>Symbols</dfn> are values created with the <code>Symbol(<var>STRING</var>)</code> function. Unlike strings, newly created symbols are unique&#x2014;you cannot create the same symbol twice.</p>
@@ -411,9 +413,25 @@ switch (new Date().getDay()) {
         </section>
         <section>
           <h3>Functions redefining themselves in JavaScript</h3>
-          <p>These are same-named nested functions, as in</p>
+          <p>These are same-named nested functions.</p>
+          <p>The dynamic nature of JavaScript means that a function is able to not only call itself, but define itself, and even redefine itself. This is done by assigning an anonymous function to a variable that has the same name as the function.</p>
+          <p>Consider the following function:</p>
+          <pre>function party() {
+  console.log('Wow this is amazing!');
+  party = function(){
+    console.log('Been there, got the T-Shirt');
+  }
+}</pre>
+          <p>Calling this function for the first time logs a message in the console, then redefines itself to log a different message in the console. When the function has been called once, it will be as if it was defined like this:</p>
+          <pre>function party() {
+  console.log('Been there, got the T-Shirt');
+}</pre>
+          <!--
+          <p></p>
           <pre></pre>
-          <p>[...]</p>
+          <p></p>
+          <pre></pre>
+          -->
         </section>
         <section>
           <h3>JavaScript Closures</h3>

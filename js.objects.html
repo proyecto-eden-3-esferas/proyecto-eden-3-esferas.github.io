@@ -35,16 +35,35 @@
       <h1>JavaScript Objects (as a Data Type and as a Class)</h1>
       <!-- start at https://www.w3schools.com/js/js_object_definition.asp -->
       <section id="definitions">
-        <h2>Object Definitions</h2>
+        <h2>Object Definitions*</h2>
       </section>
 
-      <section id="prototypes">
-        <h2>Object Prototypes</h2>
-        <p>The prototype is a property available with all JavaScript objects. It allows you to add new properties and methods to strings.</p>
-        <p><strong>Syntax</strong></p>
-        <pre><var>object</var>.prototype.<var>name</var> = <var>value</var></pre>
-        <p>Use the prototype property to add a new property to all objects of a given type:</p>
-        <pre>function employee(name, jobtitle, born) {
+      <section>
+        <h2>Objects as Instantiations of Classes</h2>
+        <section>
+          <h3>Functions for Instantiating Objects</h3>
+          <p>These functions assign properties and functions (methods) to <code><a target="_blank" href="#this">this</a></code> and may be used with the <code>new</code> operator.</p>
+          <pre>function Person(first, last, age, eyecolor) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eyecolor;
+}
+
+const myFather = new Person("Jose María", "Fernández-Victorio de la Fuente", 88, "brown");</pre>
+          <p>Some alternative ways of contructions an object are:</p>
+          <ul>
+            <li>static method <code>Object.<a href="#create">create</a>(<var>obj</var>[, <var>addedObject</var>])</code></li>
+            <li>static method <code>Object.<a href="#fromEntries">fromEntries</a>(<var>arrayOfKeyValuePairs</var>)</code></li>
+          </ul>
+        </section>
+        <section id="prototypes">
+          <h3>Object Prototypes</h3>
+          <p>The prototype is a property available with all JavaScript objects. It allows you to add new properties and methods to strings.</p>
+          <p><strong>Syntax</strong></p>
+          <pre><var>object</var>.prototype.<var>name</var> = <var>value</var></pre>
+          <p>Use the prototype property to add a new property to all objects of a given type:</p>
+          <pre>function employee(name, jobtitle, born) {
   this.name = name;
   this.jobtitle = jobtitle;
   this.born = born;
@@ -52,18 +71,22 @@
 employee.prototype.salary = 2000;
 
 const fred = new employee("Fred Flintstone", "Caveman", 1970);</pre>
-        <!--
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        -->
+        </section>
+        <section>
+          <h3>In JavaScript, Objects are King</h3>
+          <aside>If you Understand Objects, you Understand JavaScript</aside>
+          <p>In JavaScript, nearly everything is an object:</p>
+          <ul>
+            <li>Objects</li>
+            <li>Maths</li>
+            <li>Functions</li>
+            <li>Dates</li>
+            <li>Arrays</li>
+            <li>Maps</li>
+            <li>Sets</li>
+          </ul>
+          <p>All JavaScript values, except primitives, are objects.</p>
+        </section>
       </section>
 
       <section id="inheritance">
@@ -176,7 +199,7 @@ for (let [fruit, value] of Object.entries(fruits)) {
 const myMap = new Map(Object.entries(fruits));</pre>
           <p><code>Object.entries(<var>OBJECT</var>)</code> is supported in all modern browsers since March 2017:</p>
         </section>
-        <section>
+        <section id="fromEntries">
           <h3><code>Object.fromEntries()</code></h3>
           <p>The <code>fromEntries()</code> method creates an object from a list of key/value pairs.</p>
           <p class="bridgehead">Example</p>
@@ -315,12 +338,29 @@ let text = localStorage.getItem("testJSON");
 let obj = JSON.parse(text);
 document.getElementById("demo").innerHTML = obj.name;</pre>
         </section>
-        <!--
-        <section>
-          <h3><code></code></h3>
+        <section id="create">
+          <h3><code>Object.create(<var>obj</var>)</code></h3>
+          <p>The <code>Object.create()</code> static method creates a new object, using an existing object as the prototype of the newly created object.</p>
+          <pre>const person = {
+  isHuman: false,
+  printIntroduction() {
+    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+  },
+};
+
+const me = Object.create(person);
+
+me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
+me.isHuman = true; // Inherited properties can be overwritten</pre>
+          <p>Syntax:</p>
+          <pre>Object.create(<var>obj</var>)
+Object.create(<var>obj</var>, <var>propertiesObject</var>)</pre>
+          <p>where <var>propertiesObject</var>, if specified and not undefined, an object whose enumerable own properties specify property descriptors to be added to the newly-created object, with the corresponding property names. These properties correspond to the second argument of <code>Object.defineProperties()</code>.</p>
+          <pre></pre>
           <p></p>
           <pre></pre>
         </section>
+        <!--
         <section>
           <h3><code></code></h3>
           <p></p>
@@ -377,6 +417,23 @@ console.log(example.prop !== undefined);     // => true</pre>
 "toString" in example; // true
 "hasOwnProperty" in example; // true</pre>
             <p>...</p>
+          </section>
+          <section>
+            <h4>Iterating through <var>Key:Value</var> Pairs with <code>of Object.entries(<var>obj</var>))</code></h4>
+            <p>The <code>Object.entries(<var>obj</var>)</code> static method returns an array of a given object&apos;s own enumerable string-keyed property key-value pairs.</p>
+            <p>Using array destructuring, you can iterate through objects easily:</p>
+            <pre>for (const [key, value] of Object.entries(object)) {
+  console.log(`${key}: ${value}`);
+}</pre>
+            <p>his is the same as iterating with a <code>for...in</code> loop, except that a <code>for...in</code> loop enumerates properties in the prototype chain as well.</p>
+            <p>The order of the array returned by <code>Object.entries(<var>obj</var>)</code> is the same as that provided by a <code>for...in</code> loop.</p>
+            <!--
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            -->
           </section>
         </section>
         <section>

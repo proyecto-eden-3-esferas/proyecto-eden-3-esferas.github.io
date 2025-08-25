@@ -85,6 +85,8 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://www.almanac.com/
 - https://www.almanac.com/gardening/pests-and-diseases
 - https://www.almanac.com/what-hugelkultur-ultimate-raised-bed
+- https://rodaleinstitute.org/science/articles/
+- https://rodaleinstitute.org/
 
 - https://www.w3schools.com/html/html_form_elements.asp
 
@@ -112,8 +114,23 @@ Ecoaldea con ideales pero promete ser cara.
 - vida en comunidad
 - escuela alternativa (espiritualidad y crecimiento personal)
 
+## Lista socajones izq.
+- huerta
+- Drawing on the Right Side of the Brain sobre Artificial Intelligence: Structures and Strategies
+- The Art of War, by Sun Tzu, sobre cuadernos tamaño cuartilla uno liso y otro cuadriculado sobre Self-sufficiency, de John Seymour
+
+- Catálogo de caravaneo
+- Chemistry del Bachillerato Internacional
+- The Emperor's New Mind, by Roger Penrose
+- Pass the Port
+
+## Lista socajones der.
+- en fracés
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+
+
 
 *HTML <option> Tag*
 
@@ -312,23 +329,6 @@ check (for):
 [ ] review *grow-yam.html*
 
 [ ] escribir *tres.html*
-- otium-negotium y su superación: <dfn>empresa</dfn>
-- tesis-síntesis-antítesis
-
-<a target="_blank" href="agricultura.html#tres">Tres agriculturas</a>
-
-Tres polos políticos:
-- conservador
-- progresista
-- liberal
-
-No dos sino tres clases sociales:
-- obrera
-- capitalista (dinámica)
-- rentista
-(La izquierda se deshace en vituperios a la capitalista...)
-
-No tesis-antítesis-síntesis sino tesis-antítesis-superación
 
 [ ] https://savvygardening.com/red-veined-sorrel/
 
