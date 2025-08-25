@@ -130,6 +130,9 @@ Ecoaldea con ideales pero promete ser cara.
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
 
+[ ] añadir a *creatividad.html*
+<p>Anotaba en un cuaderno toda suerte de ideas que se le iban ocurriendo para luego desarrollarlas.</p>
+
 
 
 *HTML <option> Tag*
@@ -171,8 +174,6 @@ A drop-down list with four options:
 [ ] *asimilacion-convenida.html*
 <p>La <dfn>asimilación convenida</dfn> consiste en hacer propia o asimilar la ideología que le conviene a uno. Por ejemplo un funcionario tiende a mantener una actitud acrítica con el Estado, quien le da de comer. Difiere de la corrupción en que el asimilado no tiene conciencia de realizar acciones antisociales.</p>
 <p>La asimilación convenida constituye un caso de doble pensar.</p>
-
-[ ] escribir *otium-negotium.html*
 
 [ ] escribir *esquemas-de-escritura.html*
 - qué elementos pueden estar dentro de otros, cuántos y en qué número; por ejemplo una sección ha de contener un título y sólo uno

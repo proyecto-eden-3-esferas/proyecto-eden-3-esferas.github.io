@@ -1,0 +1,465 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sed: Stream EDitor</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="sed, the Unix Stream EDitor"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="Francisco Fernández-Victorio Hernández" />
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p>
+          <a rel="prev" href="linux.html">Operating Systems</a>
+        </p>
+        <p>
+          <a rel="next" href="regexp.html">Regular Expressions: A Language of Text Patterns</a>
+        </p>
+      </div>
+      <div>
+        <p>
+          <a href="mapping-texts.html">Mapping Texts: Computational Text Analysis for the Social Sciences</a>
+        </p>
+        <p>
+          <a href="computing.html">Computer Science</a>
+        </p>
+      </div>
+    </nav>
+    <main>
+      <h1><pre>sed</pre>, the Unix Stream EDitor</h1>
+      <section>
+        <h2>Editing standard input</h2>
+        <p>sed has various commands to manipulate text input. substitute command is most commonly used, which will be briefly discussed in this chapter. It is used to replace matching text with something else. The syntax is s/REGEXP/REPLACEMENT/FLAGS where</p>
+        <ul>
+          <li>s stands for substitute command</li>
+          <li>/ is a delimiter character to separate various portions of the command</li>
+          <li>REGEXP stands for regular expression</li>
+          <li>REPLACEMENT specifies the replacement string </li>
+          <li>FLAGS are options to change default behavior of the command</li>
+        </ul>
+        <p>For now, it is enough to know that the s command is used for search and replace operations.</p>
+      </section>
+      <section>
+        <h2>Some Simple Examples</h2>
+        <p>For each input line, change only the first ',' to '-'</p>
+        <pre>$ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/'</pre>
+        <p>Change all matches by adding the 'g' flag</p>
+        <pre>$ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/g'</pre>
+        <div class="warning" style="border-style: solid;">If you have a file with a different line ending style, you'll need to preprocess it first. For example, a text file downloaded from internet or a file originating from Windows OS would typically have lines ending with \r\n (carriage return + line feed). Modern text editors, IDEs and word processors can handle both styles easily. But every character matters when it comes to command line text processing.</div>
+        <p>Here sample input is created using <code>printf</code> command to showcase stream editing. By default, <code>sed</code> processes input line by line. To determine a line, <code>sed</code> uses the \n newline character.</p>
+      </section>
+      <section id="escape">
+        <h2>Escaping Characters</h2>
+        <p>There are two levels of interpretation here: the shell, and sed.</p>
+        <p>In the shell, everything between single quotes is interpreted literally, except for single quotes themselves. You can effectively have a single quote between single quotes by writing <kbd class="userinput"/>'\'' (close single quote, one literal single quote, open single quote).</p>
+        <!--<userinput><![CDATA[]]></userinput>-->
+        <p>Sed uses basic regular expressions. In a BRE, in order to have them treated literally, the characters $.*[\^ need to be quoted by preceding them by a backslash, except inside character sets ([&#x2026;]). Letters, digits and (){}+?| must not be quoted (you can get away with quoting some of these in some implementations). The sequences \(, \), \n, and in some implementations \{, \}, \+, \?, \| and other backslash+alphanumerics have special meanings. You can get away with not quoting $^ in some positions in some implementations.</p>
+        <p>Furthermore, you need a backslash before / if it is to appear in the regex outside of bracket expressions. You can choose an alternative character as the delimiter by writing, e.g., s~/dir~/replacement~ or \~/dir~p; you'll need a backslash before the delimiter if you want to include it in the BRE. If you choose a character that has a special meaning in a BRE and you want to include it literally, you'll need three backslashes; I do not recommend this, as it may behave differently in some implementations.</p>
+        <p>In a nutshell, for sed <kbd class="userinput">'s/&#x2026;/&#x2026;/'</kbd>:</p>
+        <ul>
+          <li>Write the regex between single quotes.</li>
+          <li>Use <kbd class="userinput">'\''</kbd> to end up with a single quote in the regex.</li>
+          <li>Put a backslash before $.*/[\]^ and only those characters (but not inside bracket expressions). (Technically you shouldn't put a backslash before ] but I don't know of an implementation that treats ] and \] differently outside of bracket expressions.)</li>
+          <li>Inside a bracket expression, for - to be treated literally, make sure it is first or last ([abc-] or [-abc], not [a-bc]).</li>
+          <li>Inside a bracket expression, for ^ to be treated literally, make sure it is not first (use [abc^], not [^abc]).</li>
+          <li>To include ] in the list of characters matched by a bracket expression, make it the first character (or first after ^ for a negated set): []abc] or [^]abc] (not [abc]] nor [abc\]]).</li>
+        </ul>
+        <p>In the replacement text:</p>
+        <ul>
+          <li>&amp; and \ need to be quoted by preceding them by a backslash, as do the delimiter (usually /) and newlines.</li>
+          <li>\ followed by a digit has a special meaning. \ followed by a letter has a special meaning (special characters) in some implementations, and \ followed by some other character means \c or c depending on the implementation.</li>
+          <li>With single quotes around the argument (<kbd class="userinput">sed 's/&#x2026;/&#x2026;/'</kbd>), use <kbd class="userinput">'\''</kbd> to put a single quote in the replacement text.</li>
+        </ul>
+        <p>If the regex or replacement text comes from a shell variable, remember that</p>
+        <ul>
+          <li>The regex is a BRE, not a literal string.</li>
+          <li>In the regex, a newline needs to be expressed as \n (which will never match unless you have other sed code adding newline characters to the pattern space). But note that it won't work inside bracket expressions with some sed implementations.</li>
+          <li>In the replacement text, &amp;, \ and newlines need to be quoted.</li>
+          <li>The delimiter needs to be quoted (but not inside bracket expressions).</li>
+          <li>Use double quotes for interpolation: <kbd class="userinput">sed -e "s/$BRE/$REPL/"</kbd>.</li>
+        </ul>
+        <section>
+          <h3>Escape Sequences: specifying special characters</h3>
+          <p>This section introduces another kind of escape&#x2014;that is, escapes that are applied to a character or sequence of characters that ordinarily are taken literally, and that sed replaces with a special character. This provides a way of encoding non-printable characters in patterns in a visible manner. There is no restriction on the appearance of non-printing characters in a sed script but when a script is being prepared in the shell or by text editing, it is usually easier to use one of the following escape sequences than the binary character it represents:</p>
+          <dl class="variablelist">
+            <dt>
+              <kbd class="userinput">\a</kbd>
+            </dt>
+            <dd>Produces or matches a BEL character, that is an <q>alert</q> (ASCII 7).</dd>
+            <dt>
+              <kbd class="userinput">\f</kbd>
+            </dt>
+            <dd>Produces or matches a form feed (ASCII 12).</dd>
+            <dt>
+              <kbd class="userinput">\n</kbd>
+            </dt>
+            <dd>Produces or matches a newline (ASCII 10).</dd>
+            <dt>
+              <kbd class="userinput">\r</kbd>
+            </dt>
+            <dd>Produces or matches a carriage return (ASCII 13).</dd>
+            <dt>
+              <kbd class="userinput">\t</kbd>
+            </dt>
+            <dd>Produces or matches a horizontal tab (ASCII 9).</dd>
+            <dt>
+              <kbd class="userinput">\v</kbd>
+            </dt>
+            <dd>Produces or matches a so called <q>vertical tab</q> (ASCII 11).</dd>
+            <dt>
+              <kbd class="userinput">\c<var>x</var></kbd>
+            </dt>
+            <dd>Produces or matches CONTROL-<var>x</var>, where <var>x</var> is any character. The precise effect of <kbd class="userinput">\cx</kbd> is as follows: if x is a lower case letter, it is converted to upper case. Then bit 6 of the character (hex 40) is inverted. Thus '\cz' becomes hex 1A, but '\c{' becomes hex 3B, while &#x2018;\c;' becomes hex 7B.</dd>
+            <dt>
+              <kbd class="userinput">\d<var>xxx</var></kbd>
+            </dt>
+            <dd>Produces or matches a character whose decimal ASCII value is <var>xxx</var>.</dd>
+            <dt>
+              <kbd class="userinput">\o<var>xxx</var></kbd>
+            </dt>
+            <dd>Produces or matches a character whose octal ASCII value is <var>xxx</var>.</dd>
+            <dt>
+              <kbd class="userinput">\x<var>xx</var></kbd>
+            </dt>
+            <dd>Produces or matches a character whose hexadecimal ASCII value is <var>xx</var>.</dd>
+          </dl>
+          <p><kbd class="userinput">\b</kbd> (backspace) was omitted because of the conflict with the existing <dfn class="firstterm">word boundary</dfn> meaning.</p>
+        </section>
+        <section>
+          <h3>Escaping Precedence</h3>
+          <p>GNU sed processes escape sequences before passing the text onto the regular-expression matching of the <kbd class="userinput">s///</kbd> command and Address matching. Thus the follwing two commands are equivalent ('0x5e' is the hexadecimal ASCII value of the character '^'):</p>
+          <pre>$ echo 'a^c' | sed 's/^/b/'
+ba^c
+
+$ echo 'a^c' | sed 's/\x5e/b/'
+ba^c</pre>
+          <p>As are the following ('0x5b','0x5d' are the hexadecimal ASCII values of '[',']', respectively):</p>
+          <pre>$ echo abc | sed 's/[a]/x/'
+Xbc
+$ echo abc | sed 's/\x5ba\x5d/x/'
+Xbc</pre>
+          <p>However it is recommended to avoid such special characters due to unexpected edge-cases. For example, the following are not equivalent:</p>
+          <pre>$ echo 'a^c' | sed 's/\^/b/'
+abc
+
+$ echo 'a^c' | sed 's/\\\x5e/b/'
+a^c</pre>
+        </section>
+      </section>
+      <section>
+        <h2>Editing File Input</h2>
+        <p>Although <code>sed</code> derives its name from stream editing, it is common to use <code>sed</code> for file editing. To do so, append one or more input filenames to the command. You can also specify <cite class="filename">stdin</cite> as a source by using - as the filename. By default, output will go to stdout and the input files will not be modified. <a href="#sed.in-place-file-editing">In-place File Editing</a> section will discuss how to apply the changes back to the source file(s). </p>
+        <p>Say file <cite class="filename">greeting.txt</cite> contains <q>Hi there\nHave a nice day</q>, then:</p>
+        <pre>sed 's/day/weekend/' greeting.txt</pre>
+        <p>produces</p>
+        <pre>Hi there
+Have a nice weekend</pre>
+      </section>
+      <section>
+        <h2>Mapping from Character Set to Character Set</h2>
+        <p>When you need to map one or more characters with another set of corresponding characters, you can use the y command. Quoting from the manual:</p>
+        <blockquote>y/src/dst/ Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.</blockquote>
+      </section>
+      <section id="backref-subexpr">
+        <h2>Back-references and Subexpressions</h2>
+        <p><dfn class="firstterm">back-references</dfn> are regular expression commands which refer to a previous part of the matched regular expression. Back-references are specified with backslash and a single digit (e.g. '\1'). The part of the regular expression they refer to is called a <dfn class="firstterm">subexpression</dfn>, and is designated with parentheses.</p>
+        <p>Back-references and subexpressions are used in two cases: in the regular expression search pattern, and in the replacement part of the s command<!-- (see Regular Expression Addresses and The "s" Command)-->.</p>
+        <p>In a regular expression pattern, back-references are used to match the same content as a previously matched subexpression. In the following example, the subexpression is '.' - any single character (being surrounded by parentheses makes it a subexpression). The back-reference '\1' asks to match the same content (same character) as the sub-expression.</p>
+        <p>The command below matches words starting with any character, followed by the letter 'o', followed by the same character as the first.</p>
+        <pre>$ sed -E -n '/^(.)o\1$/p' /usr/share/dict/words
+bob
+mom
+non
+pop
+sos
+tot
+wow</pre>
+        <p>Multiple subexpressions are automatically numbered from left-to-right. This command searches for 6-letter palindromes (the first three letters are 3 subexpressions, followed by 3 back-references in reverse order):</p>
+        <pre>$ sed -E -n '/^(.)(.)(.)\3\2\1$/p' /usr/share/dict/words
+redder</pre>
+        <p>In the <code>s</code> command, back-references can be used in the <em>replacement</em> part to refer back to subexpressions in the <em>regexp</em> part.</p>
+        <p>The following example uses two subexpressions in the regular expression to match two space-separated words. The back-references in the replacement part prints the words in a different order:</p>
+        <pre>$ echo "James Bond" | sed -E 's/(.*) (.*)/The name is \2, \1 \2./'
+The name is Bond, James Bond.</pre>
+        <p>When used with alternation, if the group does not participate in the match then the back-reference makes the whole match fail. For example, <kbd class="userinput">&#x2018;a(.)|b\1&#x2019;</kbd> will not match <kbd class="userinput">&#x2018;ba&#x2019;</kbd>. When multiple regular expressions are given with <code>-e</code> or from a file (<kbd class="userinput">&#x2018;-f file&#x2019;</kbd>), back-references are local to each expression.</p>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section id="in-place-file-editing">
+        <h2>In-place File Editing*</h2>
+        <p>This section will discuss how to write back the changes to the input file(s) itself using the -i command line option. This option can be configured to make changes to the input file(s) with or without creating a backup of original contents. When backups are needed, the original filename can get a prefix or a suffix or both. And the backups can be placed in the same directory or some other directory as needed.</p>
+        <pre>sed -i.bkp 's/blue/green/' colors.txt</pre>
+        <p>When an extension is provided as an argument to -i option, the original contents of the input file gets preserved as per the extension given. For example, if the input file is ip.txt and -i.orig is used, the backup file will be named as ip.txt.orig</p>
+        <section>
+          <h3>Multiple files</h3>
+          <p>Multiple input files are treated individually and the changes are written back to respective files.</p>
+          <p>Say the current directory contains two files: <cite class="filename">f1.txt</cite> and <cite class="filename">f2.txt</cite>. Then</p>
+          <pre>sed -i.bkp 's/bad/good/' f1.txt f2.txt</pre>
+          <p>will effect a replacement and keep back up files.</p>
+        </section>
+        <section>
+          <h3>Prefix backup name</h3>
+          <p>A * character in the argument to -i option is special. It will get replaced with the input filename. This is helpful if you need to use a prefix instead of suffix for the backup filename. Or any other combination that may be needed.</p>
+          <pre>sed -i'bkp.*' 's/green/yellow/' colors.txt</pre>
+        </section>
+        <section>
+          <h3>Place backups in different directory</h3>
+          <p>The * trick can also be used to place the backups in another directory instead of the parent directory of input files. The backup directory should already exist for this to work.</p>
+          <pre>sed -i'backups/*' 's/good/nice/' f1.txt f2.txt</pre>
+        </section>
+      </section>
+      <!-- end of "In-place File Editing" -->
+      <section>
+        <h2>Selective Editing</h2>
+        <p>By default, <code>sed</code> acts on the entire input content. Many a times, you only want to act upon specific portions of the input. To that end, sed has features to filter lines, similar to tools like <code>grep</code>, <code>head</code> and <code>tail</code>. sed can replicate most of grep's filtering features without too much fuss. And has features like line number based filtering, selecting lines between two patterns, relative addressing, etc which isn't possible with grep. If you are familiar with functional programming, you would have come across map, filter, reduce paradigm. A typical task with sed involves filtering a subset of input and then modifying (mapping) them. Sometimes, the subset is the entire input, as seen in the examples of previous subsections.</p>
+        <section>
+          <h3>Conditional execution</h3>
+          <p>As seen earlier, the syntax for substitute command is s/REGEXP/REPLACEMENT/FLAGS. The /REGEXP/FLAGS portion can be used as a conditional expression to allow commands to execute only for the lines matching the pattern.</p>
+          <p>In the following example, commas are changed to hyphens only if the input line contains <q>2</q>. space between the filter and the command is optional.</p>
+          <pre>printf '1,2,3,4\na,b,c,d\n'
+| sed '/2/ s/,/-/g'</pre>
+        </section>
+        <section>
+          <h3>Delete command </h3>
+          <p>To delete the filtered lines, use the <code>d</code> command. Recall that all input lines are printed by default. Example:</p>
+          <pre>printf 'sea\neat\ndrop\n'
+| sed '/at/d'</pre>
+          <p>To get the default grep filtering, use !d combination. Sometimes, negative logic can get confusing to use. It boils down to personal preference, similar to choosing between if and unless conditionals in programming languages.</p>
+          <pre>$ printf 'sea\neat\ndrop\n'
+| sed '/at/!d'</pre>
+        </section>
+        <section>
+          <h3>Print command</h3>
+          <p>To print the filtered lines, use the <code>p</code> command. But, recall that all input lines are printed by default. So, this command is typically used in combination with <code>-n</code> command line option, which would turn off the default printing. Example:</p>
+          <pre>$ sed -n '/twice/p' programming_quotes.txt</pre>
+          <p>prints all lines containing <q>twice</q> found in <cite class="filename">programming_quotes.txt</cite>, whereas</p>
+          <pre>sed -n 's/1/one/gp' programming_quotes.txt</pre>
+          <p>will print all lines containing digit 1 and will change <q>1</q> to <q>one</q>.</p>
+          <p>Using !p with -n option will be equivalent to using the d command.</p>
+          <pre>printf 'sea\neat\ndrop\n'
+| sed -n '/at/!p'</pre>
+        </section>
+        <section>
+          <h3>Quit commands</h3>
+          <p>Using <code>q</code> command will exit sed immediately, without any further processing.</p>
+          <pre>sed '/if/q' programming_quotes.txt</pre>
+          <p>The <code>Q</code> command is similar to <code>q</code> but won't print the matching line:</p>
+          <pre>sed '/if/Q' programming_quotes.txt</pre>
+          <p>Use <code>tac</code> to get all lines starting from last occurrence of the search string with respect to entire file content.</p>
+          <pre>tac programming_quotes.txt
+| sed '/not/q' | tac</pre>
+          <p>You can optionally provide an exit status (from 0 to 255) along with the quit commands:</p>
+          <pre>printf 'sea\neat\ndrop\n' | sed '/at/q2'</pre>
+        </section>
+        <section>
+          <h3>Multiple commands</h3>
+          <p>Commands seen so far can be specified more than once by separating them using ; or using the -e command line option.</p>
+          <pre>printf 'sea\neat\ndrop\n'
+| sed -n -e 'p' -e 's/at/AT/p'</pre>
+          <p>or, equivalently:</p>
+          <pre>printf 'sea\neat\ndrop\n'
+| sed -n 'p; s/at/AT/p'</pre>
+          <p>(Space around ; is optional.)</p>
+          <p>Another way is to separate the commands using a literal newline character. If more than 2-3 lines are needed, it is better to use a sed script instead.</p>
+          <pre>$ sed -n '
+&gt; /not/ s/in/**/gp
+&gt; s/1/one/gp
+&gt; s/2/two/gp
+&gt; ' programming_quotes.txt</pre>
+          <div class="warning" style="border-style: solid;">Do not use multiple commands to construct conditional OR of multiple search strings, as you might get lines duplicated in the output. For example, check what output you get for <kbd class="userinput">sed -ne '/use/p' -e '/two/p' programming_quotes.txt command</kbd>. You can use regular expression feature alternation for such cases.</div>
+          <p>To execute multiple commands for a common filter, use {} to group the commands. You can also nest them if needed.</p>
+          <pre># same as: sed -n 'p; s/at/AT/p'
+printf 'sea\neat\ndrop\n' |
+sed '/at/{p; s/at/AT/}'</pre>
+          <p>Also:</p>
+          <pre># spaces around {} is optional
+printf 'gates\nnot\nused\n'
+| sed '/e/{s/s/*/g; s/t/*/g}'</pre>
+          <p>Command grouping is an easy way to construct conditional AND of multiple search strings.</p>
+          <pre># same as: grep 'in' programming_quotes.txt | grep 'not'
+sed -n '/in/{/not/p}' programming_quotes.txt</pre>
+          <p>Also</p>
+          <pre># same as: grep 'in' programming_quotes.txt
+| grep 'not' | grep 'you'
+$ sed -n '/in/{/not/{/you/p}}' programming_quotes.txt</pre>
+          <p>Also</p>
+          <pre># same as: grep 'not' programming_quotes.txt
+| grep -v 'you'
+sed -n '/not/{/you/!p}' programming_quotes.txt</pre>
+        </section>
+        <!-- end of "Multiple commands" -->
+        <section>
+          <h3>Line addressing*</h3>
+          <p>Line numbers can also be used as a filtering criteria.</p>
+          <pre>xyz</pre>
+        </section>
+        <section>
+          <h3>Print only line number*</h3>
+          <p>The = command will display the line numbers of matching lines.</p>
+          <pre>xyz</pre>
+        </section>
+        <section>
+          <h3>Address range*</h3>
+          <p>So far, filtering has been based on specific line number or lines matching the given REGEXP/FLAGS pattern. Address range gives the ability to define a starting address and an ending address, separated by a comma.</p>
+          <pre>xyz</pre>
+        </section>
+        <section>
+          <h3>Relative addressing*</h3>
+          <p>Prefixing + to line number as the second address gives relative filtering. This is similar to using <kbd class="userinput">grep -A&lt;num&gt; --no-group-separator</kbd> but grep will start a new group if a line matches within context lines.</p>
+          <pre>xyz</pre>
+        </section>
+        <section>
+          <h3>n and N commands</h3>
+          <p>So far, the commands used have all been processing only one line at a time. The address range option provides the ability to act upon a group of lines, but the commands still operate one line at a time for that group. There are cases when you want a command to handle a string that contains multiple lines. As mentioned in the preface, this book will not cover advanced commands related to multiline processing and I highly recommend using awk or perl for such scenarios. However, this section will introduce two commands n and N which are relatively easier to use and will be seen in coming sections as well.</p>
+          <p>This is also a good place to give more details about how sed works. Quoting from sed manual: How sed Works:</p>
+          <blockquote>
+            <p>sed maintains two data buffers: the active pattern space, and the auxiliary hold space. Both are initially empty.</p>
+            <p>sed operates by performing the following cycle on each line of input: first, sed reads one line from the input stream, removes any trailing newline, and places it in the pattern space. Then commands are executed; each command can have an address associated to it: addresses are a kind of condition code, and a command is only executed if the condition is verified before the command is to be executed.</p>
+            <p>When the end of the script is reached, unless the -n option is in use, the contents of pattern space are printed out to the output stream, adding back the trailing newline if it was removed. Then the next cycle starts for the next input line.</p>
+          </blockquote>
+          <p>The pattern space buffer has only contained single line of input in all the examples seen so far. By using n and N commands, you can change the contents of the pattern space and use commands to act upon entire contents of this data buffer. For example, you can perform substitution on two or more lines at once.</p>
+          <p>First up, the n command. Quoting from <cite>sed manual: Often-Used Commands</cite>:</p>
+          <blockquote>
+            <p>If auto-print is not disabled, print the pattern space, then, regardless, replace the pattern space with the next line of input. If there is no more input then sed exits without processing any more commands.</p>
+          </blockquote>
+          <pre># same as: sed -n '2~2p'
+# n will replace pattern space with the next line of input
+# as -n option is used, the replaced line won't be printed
+# then the new line is printed as p command is used
+seq 10 | sed -n 'n; p'</pre>
+          <p>Also:</p>
+          <pre># if line contains 't', replace pattern space with the next line
+# substitute all 't' with 'TTT' for the new line thus fetched
+# note that 't' wasn't substituted in the line that got replaced
+# replaced pattern space gets printed as -n option is NOT used here
+printf 'gates\nnot\nused\n'
+| sed '/t/{n; s/t/TTT/g}'</pre>
+          <p>Next, the N command. Quoting from <cite>sed manual: Often-Used Commands</cite>:</p>
+          <blockquote>
+            <p>Add a newline to the pattern space, then append the next line of input tothe pattern space. If there is no more input then sed exits without processing any more commands.</p>
+            <p>When -z is used, a zero byte (the ascii 'NUL' character) is added between the lines (instead of a new line).</p>
+          </blockquote>
+          <pre># append the next line to the pattern space
+# and then replace newline character with colon character
+seq 7 | sed 'N; s/\n/:/'</pre>
+          <p>Also:</p>
+          <pre># then the substitution is performed
+# on the two lines in the buffer
+printf 'gates\nnot\nused\n'
+| sed '/at/{N; s/s\nnot/d/}'</pre>
+          <div class="tip" style="border-style: solid;">See <cite class="citetitle">grymoire: sed tutorial</cite> (https://www.grymoire.com/Unix/Sed.html) if you wish to explore about the data buffers in detail and learn about the various multiline commands.</div>
+        </section>
+      </section>
+      <!-- end of "Selective Editing" -->
+      <section>
+        <h2>BRE/ERE Regular Expressions*</h2>
+        <p>This section will cover Basic and Extended Regular Expressions as implemented in GNU sed. Though not strictly conforming to POSIX specifications, most of it is applicable to other sed implementations as well. Unless otherwise indicated, examples and descriptions will assume ASCII input.</p>
+        <p>By default, sed treats the search pattern as Basic Regular Expression (BRE). Using -E option will enable Extended Regular Expression (ERE). Older versions used -r for ERE, which can still be used, but -E is more portable. In GNU sed, BRE and ERE only differ in how metacharacters are applied, there's no difference in features.</p>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <!-- end of "BRE/ERE Regular Expressions" -->
+      <section>
+        <h2>Flags*</h2>
+        <p>Just like options change the default behavior of shell commands, flags are used to change aspects of regular expressions. Some of the flags like g and p have been already discussed. For completeness, they will be discussed again in this section. In regular expression parlance, flags are also known as modifiers.</p>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section>
+        <h2>Shell substitutions*</h2>
+        <p>So far, the sed commands have been constructed statically. All the details were known. For example, which line numbers to act upon, the search REGEXP, the replacement string and so on. When it comes to automation and scripting, you'd often need to construct commands dynamically based on user input, file contents, etc. And sometimes, output of a shell command is needed as part of the replacement string. This section will discuss how to incorporate shell variables and command output to compose a sed command dynamically. As mentioned before, bash is assumed to be the shell being used.</p>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section>
+        <h2>z, s and f Command Line Options*</h2>
+        <p>This section covers the -z, -s and -f command line options. These come in handy for specific use cases. For example, the -z option helps to process input separated by ASCII NUL character and the -f option allows you to pass sed commands from a file.</p>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section>
+        <h2><code>append</code>, <code>change</code>, <code>insert</code>*</h2>
+        <p>These three commands come in handy for specific operations as suggested by their names. The substitute command could handle most of the features offered by these commands. But where applicable, these commands would be easier to use.</p>
+        <div class="note" style="border-style: solid;">Unless otherwise specified, rules mentioned in the following subsections will apply similarly for all the three commands.</div>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section>
+        <h2>Adding content from file*</h2>
+        <p>The previous section discussed how to use <code>a</code>, <code>c</code> and <code>i</code> commands to append, change or insert the given string for matching address. Any \ in the string argument is treated according to sed escape sequence rules and it cannot contain literal newline character.</p>
+        <p>The r and R commands allow to use file contents as the source string which is always treated literally and can contain newline characters. Thus, these two commands provide a robust way to add multiline text literally.</p>
+        <p>However, r and R provide only append functionality for matching address. Other sed features will be used to show examples for c and i variations.</p>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section>
+        <h2>Control structures*</h2>
+        <p><code>sed</code> supports two types of branching commands that helps to construct control structures. These commands (and other advanced features not discussed here) allow you to emulate a wide range of features that are common in programming languages. This section will show basic examples and you'll find some more use cases in a later section.</p>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+      <section>
+        <h2>Gotchas and Tricks*</h2>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+        <p/>
+        <pre/>
+      </section>
+    </main>
+  </body>
+</html>
