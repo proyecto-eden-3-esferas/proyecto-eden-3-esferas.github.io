@@ -41,7 +41,7 @@ bring_all_from_JSON:
 
 # Saving
 save_to_Dropbox:
-	cp --update  *.html *.js *.svg POR-HACER.md $(DROPBOX_DIR)
+	cp --update  *.html *.js *.svg POR-HACER.md *.css Makefile $(DROPBOX_DIR)
 
 # git rules
 define_remote:

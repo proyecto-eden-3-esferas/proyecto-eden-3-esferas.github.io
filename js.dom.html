@@ -391,6 +391,106 @@ Name: &lt;input type="text" name="fname"&gt;
             <p style="text-align: right">For a full list, go to <cite><a target="_blank" href="https://www.w3schools.com/css/css_pseudo_classes.asp">CSS Pseudo Classes</a></cite></p>
           </section>
         </section>
+
+        <section>
+          <h3>Reading User Input with the <code>&lg;input&gt;</code> Element</h3>
+          <p>(For buttons, <i>see</i> <a target="_blank" href="HTML.forms.html#button">here</a>.)</p>
+          <section id="text">
+            <h4>Text (Attribute <code>type</code> Set to <q>text</q>)</h4>
+            <p>Some common attributes:</p>
+            <table border="1" id="simple_with_header_and_th">
+              <thead> <tr> <th>Property</th> <th>Description</th> </tr> </thead>
+              <tr> <td>autocomplete</td> <td>Sets or returns the value of the autocomplete attribute of a text field</td> </tr>
+              <tr> <td>autofocus</td> <td>Sets or returns whether a text field should automatically get focus when the page loads</td> </tr>
+              <tr> <td>defaultValue</td> <td>Sets or returns the default value of a text field</td> </tr>
+              <tr> <td>disabled</td> <td>Sets or returns whether the text field is disabled, or not</td> </tr>
+              <tr> <td>form</td> <td>Returns a reference to the form that contains the text field</td> </tr>
+              <tr> <td>list</td> <td>Returns a reference to the datalist that contains the text field</td> </tr>
+              <tr> <td>maxLength</td> <td>Sets or returns the value of the maxlength attribute of a text field</td> </tr>
+              <tr> <td>name</td> <td>Sets or returns the value of the name attribute of a text field</td> </tr>
+              <tr> <td>pattern</td> <td>Sets or returns the value of the pattern attribute of a text field, which is a regular expression that the text field's value is checked against</td> </tr>
+              <tr> <td>placeholder</td> <td>Sets or returns the value of the placeholder attribute of a text field</td> </tr>
+              <tr> <td>readOnly</td> <td>Sets or returns whether a text field is read-only, or not</td> </tr>
+              <tr> <td>required</td> <td>Sets or returns whether the text field must be filled out before submitting a form</td> </tr>
+              <tr> <td>size</td> <td>Sets or returns the value of the size attribute of a text field</td> </tr>
+              <tr> <td>type</td> <td>Returns which type of form element a text field is</td> </tr>
+              <tr> <td>value</td> <td>Sets or returns the value of the value attribute of the text field</td> </tr>
+            </table>
+            <hr/>
+            <p>In the following example the text shown by an input element of type text is changed when a button is pressed:</p>
+            <pre>Name: &lt;input type="text" id="myText" value="Mickey"&gt;
+
+&lt;p&gt;Click the button to change the value of the text field.&lt;/p&gt;
+
+&lt;button onclick="myFunction()"&gt;Try it&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction() {
+  document.getElementById("myText").value = "Johnny Bravo";
+}</pre>
+<div>
+Name: <input type="text" id="myText" value="Mickey"/>
+
+<p>Click the button to change the value of the text field.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction() {
+  document.getElementById("myText").value = "Johnny Bravo";
+}
+</script>
+</div>
+            <p>...</p>
+            <p>In the following example ...</p>
+            <pre></pre>
+
+          </section>
+          <section id="checkbox">
+            <h4>Checkboxes (Attribute <code>type</code> Set to <q>checkbox</q>)</h4>
+            <p>Checkboxes are realized as <code>input</code> elements with <code>type</code> attribute = <q>checkbox</q>. They also have a <code>name</code> and a <code>value</code> attribute.</p>
+            <pre>&lt;input type="checkbox" name="coffee" value="cream"&gt;With cream&lt;/input&gt;</pre>
+            <p>To find if the checkbox has been checked, read the <code>checked</code> attribute (a Boolean).</p>
+            <p>Here is an example where a containing <code>form</code> element and a function are defined:</p>
+            <pre>&lt;form action="/action_page.php"&gt;
+      &lt;input type="checkbox" name="coffee" value="cream"&gt;With cream&lt;/input&gt;
+      &lt;input type="checkbox" name="coffee" value="sugar"&gt;With sugar&lt;/input&gt;
+      &lt;br/&gt;
+      &lt;input type="button" onclick="myFunction()" value="Process!"/&gt;
+      &lt;br/&gt;
+      &lt;br/&gt;
+      &lt;input type="text" id="order" size="50"/&gt;
+      &lt;input type="submit" value="Submit"/&gt;
+    &lt;/form&gt;
+
+&lt;script&gt;
+function myFunction() {
+  var coffee = document.forms[0];
+  var txt = "";
+  var i;
+  for (i = 0; i &lt; coffee.length; i++) {
+    if (coffee[i].checked) {
+
+      txt = txt + coffee[i].value + " ";
+    }
+  }
+  document.getElementById("order").value = "You ordered a coffee with: " + txt;
+}
+&lt;/script&gt;</pre>
+            <aside>
+              <p><strong>NOTE:</strong> You can delete:</p>
+              <ul>
+                <li>attribute "action" in element form, and</li>
+                <li>element <code>&lt;input type="submit" value="Submit"/&gt;</code> in element form</li>
+              </ul>
+              <p>and the code will work just the same.</p>
+            </aside>
+          </section>
+          <section id="radio">
+            <h4>Radio Buttons (Attribute <code>type</code> Set to <q>radio</q>)*</h4>
+          </section>
+        </section>
+
       </section>
 
       <section id="CSS">

@@ -52,7 +52,38 @@
 
     <main>
       <h1>HTML (Hyper Text Markup Language)</h1>
-      <p>[...]</p>
+      <p>This page, almost all webpages are written in the HTML markup language, which is an instance of <a target="_blank" href="xml.en.html">XML</a>.</p>
+      <p>An HTML document comprises an <code>&lt;html&gt;</code> top element, which comprises an optional <code>&lt;head&gt;</code> element and a <code>&lt;body&gt;</code> element.</p>
+      <p>The first line of an HTML documents is usually a document type declaration like:</p>
+      <pre>&lt;!DOCTYPE html&gt;</pre>
+      <p>which, very much XML-wise, declares the top element to be <code>html</code>.</p>
+      <section id="head">
+        <h2>The <code>&lt;head&gt;</code> Element</h2>
+        <section id="meta">
+          <h3>The <code>&lt;meta&gt;</code> Element</h3>
+          <p>You often find several <code>&lt;meta&gt;</code> elements in the <code>&lt;head&gt;</code> element.</p>
+          <p>They follow the structure:</p>
+          <pre>&lt;meta name="<var>KEY</var>" content="<var>value</var>"/&gt;</pre>
+          <p>For instante, it is fairly common to include the following:</p>
+          <pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;</pre>
+          <p>Some common meta elements are:</p>
+          <pre>
+&lt;meta charset="UTF-8"/&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+&lt;meta name="description" content="<var>A DESCRIPTION OF THE PAGE</var>"/&gt;
+&lt;meta name="keywords" content="KW1, KW2, KW3"/&gt;
+&lt;meta name="author" content="<var>AUTHOR</var>"/&gt;
+          </pre>
+        </section>
+        <section id="base">
+          <h3>The <code>&lt;base&gt;</code> Element</h3>
+          <p>The <code>&lt;base&gt;</code> element specifies a default URL and/or a default target for all links on a page through a <code>href</code> and/or <code>target</code> attribute.</p>
+          <p>There can only be one single &lt;base&gt; element in a document. It must be inside the &lt;head&gt; element. <code>target</code> values are one of <code>_blank</code>, <code>_parent</code>, <code>_self</code>, and <code>_top</code>.</p>
+        </section>
+      </section>
+      <section id="body">
+        <h2>The <code>&lt;body&gt;</code> Element*</h2>
+      </section>
     </main>
 
   </body>

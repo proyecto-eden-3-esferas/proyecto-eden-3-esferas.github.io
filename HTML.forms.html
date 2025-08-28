@@ -126,6 +126,41 @@
           </div>
         </section>
 
+        <section id="button">
+          <h3>Buttons</h3>
+          <p>The <code>&lt;input type="button"&gt;</code> defines a button.</p>
+          <p>The <code>value</code> attribute holds the button&apos;s caption.</p>
+          <hr/>
+          <p>In the following example triggers an action as defined through attribute <code>onclick</code>...</p>
+          <div>
+            <p>Click the button to create an Input Button with a "Click me" text.</p>
+            <button onclick="myFunction()">Try it</button>
+            <script>
+function myFunction() {
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "button");
+  x.setAttribute("value", "Click me");
+  document.body.appendChild(x);
+}
+          </script>
+          <p>This is a listing of the code:</p>
+          <pre>
+&lt;p&gt;Click the button to create an Input Button with a "Click me" text.&lt;/p&gt;
+
+&lt;button onclick="myFunction()"&gt;Try it&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction() {
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "button");
+  x.setAttribute("value", "Click me");
+  document.body.appendChild(x);
+}
+&lt;/script&gt;
+          </pre>
+          <p>...</p>
+        </section>
+
         <section>
           <h3>Checkboxes</h3>
           <p>The <code>&lt;input type="checkbox"&gt;</code> defines a checkbox.</p>

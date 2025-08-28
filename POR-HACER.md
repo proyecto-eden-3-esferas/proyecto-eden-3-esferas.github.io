@@ -129,6 +129,11 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *valentia.html*
+Están el miedo, el peligro y la cobardía-valentía.
+A veces tenemos miedo de cosas que no suponen un peligro. Peligro y miedo son cosas distintas.
+Tener miedo no implica ser cobarde.
+La clave parece estar en sentir el miedo. El cobarde es un ignorante de su propio miedo, no lo ha llegado a sentir. Cuando se toca y se investiga, surge la intrepidez, la valentía.
 
 [ ] añadir a *creatividad.html*
 <p>Anotaba en un cuaderno toda suerte de ideas que se le iban ocurriendo para luego desarrollarlas.</p>
