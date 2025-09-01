@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spice</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Spice: an Analog-Circuit Simulator"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a rel="next" href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <p><a            href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Transient Simulation</a></p>
+      </div>
+      <div>
+        <p><a            href="electronics.html">Electronics</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Spice 3: an Analog-Circuit Simulator</h1>
+      <p>SPICE is an analog-circuit simulator that is used to calculate and display the circuit behaviour. It was originally developed at the Electronics Research Laboratory of the University of California, Berkeley (1975). The source code was made freely available and has been used as the basis of many commercial simulators, and academic projects.</p>
+      <blockquote>SPICE is a useful tool, not a magic wand, and its results should always be examined critically; in some cases it may not give results at all, for others the results may be misleading.</blockquote>
+
+      <section id="source-files">
+        <h2>SPICE Source Files</h2>
+        <p>The SPICE-3 source is a text file comprising various types of lines each terminated by a newline character:</p>
+        <ul>
+          <li><strong>Title line</strong> the first line of the file will be printed, but otherwise ignored;</li>
+          <li><strong>Element lines</strong> describe the components and how they are connected into a network;</li>
+          <li><strong>Comment lines</strong> start with a '*' and are ignored by SPICE</li>
+          <li><strong>Continuation lines</strong> lines starting with a '+' are continuations of the statement on the preceeding line;</li>
+          <li><strong>Control lines</strong> tell SPICE what type(s) of analysis; to perform on the circuit and how results are to be displayed;</li>
+          <li><strong>Final line</strong> must be <code>.end</code>.</li>
+        </ul>
+        <p>SPICE does not like <q>invisible</q> or <q>junk</q> characters in its source file; they often cause baffling error messages.</p>
+      </section>
+
+      <section id="circuit-elements">
+        <h2>Circuit Elements</h2>
+        <p>Each element in the circuit is specified in the source file by a line that gives the element name, the circuit nodes to which the element is connected, and the values of the parameters that determine the electrical characteristics of the element. The first letter of the element name specifies the element type. For example, a resistor name must begin with the letter 'r' and can contain one or more characters. Hence, <var>r</var>, <var>r1</var>, <var>rse</var>, <var>rout</var>, and <var>r3ac2zy</var> are valid resistor names. Fields on a line are separated by one or more blanks, a comma, an equal ('=') sign, or a left or right parenthesis; extra spaces are ignored. A name field must begin with a letter (A through Z).</p>
+        <p><strong>Note</strong>: Some versions of SPICE use case sensitive element and node names during analysis, others are case-insensitive. The interactive processor is usually case sensitive and it does not consider, for example, <var>r1</var> and <var>R1</var> to be synonyms. One can avoid a lot of confusion by typing source files in lower-case characters.</p>
+        <hr/>
+        <p>Number fields may be integers or floating-point numbers. A floating-point number can be followed by an integer exponent or one of the following scale factors:</p>
+        <ul>
+          <li><code>T</code> = 10<sup>12</sup></li>
+          <li><code>G</code> = 10<sup>9</sup></li>
+          <li><code>Meg</code> = 10<sup>6</sup></li>
+          <li><code>K</code> = 10<sup>3</sup></li>
+          <li><code>mil</code> = 25.4x10<sup>-6</sup></li>
+          <li><code>m</code> = 10<sup>-3</sup></li>
+          <li><code>u</code> = 10<sup>-6</sup></li>
+          <li><code>n</code> = 10<sup>-9</sup></li>
+          <li><code>p</code> = 10<sup>-12</sup></li>
+          <li><code>f</code> = 10<sup>-15</sup></li>
+        </ul>
+        <p>Letters immediately following a number that are not scale factors are ignored, and letters immediately following a scale factor are ignored. Hence, 10, 10V, 10Volts, and 10Hz all represent the same number, and M, MA, MSec, and MMhos all represent the same scale factor. Note that 1000, 1000.0, 1000Hz, 1e3, 1.0e3, 1KHz, and 1K all represent the same number.</p>
+        <p><strong>Remember:</strong> Spice is not case-sensitive, so both scale-factors 'M' and 'm' mean 'milli-'; use 'MEG' to represent 'mega-'.</p>
+        <p>Node names can be arbitrary character strings. The 'ground' node must be present and named '0'. The circuit cannot contain a loop of voltage sources and/or inductors and cannot contain a cut-set of current sources and/or capacitors. Each node in the circuit must have a dc path to ground. Every node must have at least two connections except for transmission line nodes (to permit unterminated transmission lines) and MOSFET substrate nodes (which have two internal connections anyway).</p>
+        <section id="resistors">
+          <h3>Resistors</h3>
+          <p>General form:</p>
+          <pre>rxxxxxxx N1 N2 VALUE</pre>
+          <p>Examples:</p>
+          <pre>r1 1 2 100
+rc1 12 17 1K</pre>
+          <p><var>N1</var> and <var>N2</var> are the two element nodes. <var>VALUE</var> is the resistance (in ohms) and may be positive or negative but not zero.</p>
+        </section>
+        <section id="capacitors">
+          <h3>Capacitors</h3>
+          <p>General form:</p>
+          <pre>cxxxxxxx n+ n- VALUE &lt;ic=incond&gt;</pre>
+          <p>Examples:</p>
+          <pre>cbyp 13 0 1uF
+cosc 17 23 10u ic=3V</pre>
+          <p><var>N+</var> and <var>N-</var> are the positive and negative element nodes, respectively. <var>VALUE</var> is the capacitance in farads.</p>
+          <p>The (optional) initial condition is the initial (time-zero) value of capacitor voltage (in volts). Note that the initial conditions (if any) apply 'only' if a transient analysis specifies the UIC option. </p>
+        </section>
+        <section id="independent-sources">
+          <h3>Independent Current / Voltage Sources</h3>
+          <p>General form:</p>
+          <pre>vxxxxxxx N+ N- TYPE VALUE
+iyyyyyyy N+ N- TYPE VALUE</pre>
+          <p>Examples</p>
+          <pre>vcc 10 0 DC 6
+iin 13 2 AC 1
+vmeas 12 9</pre>
+          <p><var>N+</var> and <var>N−</var> are the positive and negative nodes, respectively. Note that voltage sources need not be grounded. Voltage sources, in addition to being used for circuit excitation, are the 'ammeters' for SPICE, that is, zero-valued voltage sources may be inserted into the circuit for the purpose of measuring current. They, of course, have no effect on circuit operation since they represent short-circuits.</p>
+          <p>Possible TYPEs include <code>DC</code>, <code>AC</code> or <code>TRAN</code>. In the examples, 'vcc' is a 6V DC source connected between ground and node 10, 'iin' is an AC source of magnitude 1A (used during AC analysis), 'vmeas' is useful as an ammeter.</p>
+          <p><strong>Polarity Conventions</strong> Positive current is assumed to flow from the positive node, through the source, to the negative node. A current source of positive value forces current to flow into the N+ node, through the source, and out from the N− node.</p>
+        </section>
+      </section>
+
+      <section id="models">
+        <h2>Models</h2>
+        <p>The elements that have been described above require only a few parameters to specify their electrical characteristics. The models of semiconductor devices have many parameters. A set of parameters is assigned a unique name and defined in a separate <code>.MODEL</code> line. Thus a semiconductor device is specified by two command lines: an element and model statement.</p>
+        <p>The syntax for the model statement is:</p>
+        <pre>.MODEL <var>MODName</var> Type (<var>parameterValues</var>)</pre>
+        <p><var>MODName</var> is the name of the model for the device. The parameter <var>Type</var> specifies the type of device from a list including:</p>
+        <ul>
+          <li><code>d</code> Diode</li>
+          <li><code>npn</code> bipolar transistor</li>
+          <li><code>pnp</code> bipolar transistor</li>
+          <li><code>njf</code> N-channel JFET model</li>
+          <li><code>pjf</code> P-channel JFET model</li>
+        </ul>
+        <p>For example, if one required <code>1N4148</code> diodes for a simulation one might include the line</p>
+        <pre>.model d1n4148 D (IS=0.1PA, RS=16 CJO=2PF TT=12N BV=100 IBV=0.1PA)</pre>
+        <section id="diode">
+          <h3>Junction Diodes</h3>
+          <p>General form:</p>
+          <pre>dxxxxxxx <var>N+</var> <var>N-</var> <var>MNAME</var></pre>
+          <p>Example:</p>
+          <pre>dbridge 2 10 d1n4148</pre>
+          <p><var>N+</var> and <var>N-</var> are the positive and negative nodes, respectively. <var>MNAME</var> is the model name.</p>
+        </section>
+        <section id="bjt">
+          <h3>Bipolar Junction Transistors (BJTs)</h3>
+          <p>General form:</p>
+          <pre>qxxxxxxx NC NB NE MNAME</pre>
+          <p>Example:</p>
+          <pre>q23 10 24 13 qmod</pre>
+          <p><var>NC</var>, <var>NB</var>, and <var>NE</var> are the collector, base, and emitter nodes, respectively. <var>MNAME</var> is the model name.</p>
+        </section>
+        <section id="jfet">
+          <h3>Junction Field-Effect Transistors (JFETs)</h3>
+          <p>General form:</p>
+          <pre>jxxxxxxx ND NG NS MNAME</pre>
+          <p>Example:</p>
+          <pre>j1 7 2 3 jm1</pre>
+          <p><var>ND</var>, <var>NG</var>, and <var>NS</var> are the drain, gate, and source nodes, respectively. <var>MNAME</var> is the model name.</p>
+        </section>
+        <section id="subcirtuit">
+          <h3>Subcircuits</h3>
+          <p>A <dfn>subcircuit</dfn> allows you to define a collection of elements as a subcircuit (e.g. an operational amplifier) and then to use this subcircuit one or times as an element in a larger circuit. A subcircuit is defined by a <code>.SUBCKT</code> control statement as follows:</p>
+          <pre>ELEMENT LINE
+  ...
+  ELEMENT LINE
+.ends SUBNAM
+
+.subckt SUBNAM N1 N2 N3 ...</pre>
+          <p>where <var>SUBNAM</var> is the subcircuit name and <var>N1</var>, <var>N2</var>, <var>N3</var> are its external nodes. There can be any number of external nodes with aritrary names (but not 0). The node names used inside the subcircuit are strictly local, except for node 0 which is always global. Once defined, a subcircuit is used in a similar way to any other element...</p>
+          <p>General form:</p>
+          <pre>xyyyyyyy N1 &lt;N2 N3 ...&gt; SUBNAM</pre>
+          <p>Examples:</p>
+          <pre>x1 2 4 17 OPAMP</pre>
+          <p>which connects nodes <var>N1</var>, <var>N2</var>, <var>N3</var> of the subcircuit <var>OPAMP</var> to nodes 2, 4, and 17 respectively in the main circuit.</p>
+        </section>
+        <section>
+          <h3>Control Lines</h3>
+          <p>Interactive commands (see below) can be included in the source file as follows:</p>
+          <pre>.control
+  FIRST COMMAND
+  ...
+  LAST COMMAND
+.endc</pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>How results are stored - Data Structures</h2>
+        <p>SPICE stores the results of each analysis it performs in a data structure called (confusingly) a 'plot' (analogous to a table of results). Each 'plot' contains a set of 'vectors' (analogous to a column of data) which store the numerical results. The interactive interpreter provides a set of functions that operate on vectors. There is a command to destroy unwanted plots, and the special read-only variable 'plots' is a list of the available plots.</p>
+        <p>In general, the vector, say, <code>foovec</code> which is contained in the plot <code>barplot</code> must be referred to by using its full name <code>barplot.foovec</code>. However, to save typing the plot explicitly every time, it is possible to set a default <code>current plot</code> by using the <code>setplot</code> command.</p>
+      </section>
+
+      <section id="interactive-commands">
+        <h2>Interactive Commands</h2>
+        <p>SPICE has a set of interactive commands can be typed by the user and execute immediately. The command-line interpreter has many facilities, and can be customised and used as a (not very elegant) programming language. Not all commands work on all platforms. Like many not-very-elegant programming languages, it is possible to use the SPICE command interpreter to create and execute very complicated tasks, but it is wise only to use it for things it does easily and well.</p>
+        <section id="source">
+          <h3><code>source</code>: Read a Spice3 input file</h3>
+          <p>General form:</p>
+          <pre>source <var>filespec</var></pre>
+          <p>Reads the input file <var>filespec</var> which will contain a circuit netlist and/or interactive commands enclosed between the lines <code>.control</code> and <code>.endc</code>. These commands are executed immediately.</p>
+        </section>
+        <section id="op">
+          <h3><code>op</code>: Perform an operating point analysis</h3>
+          <p>General form:</p>
+          <pre>op</pre>
+          <p>Causes SPICE to perform an operating-point analysis to determine the quiescent state of the circuit with inductors shorted and capacitors opened. The results of this analysis are used to calculate values for the linearised, small-signal models of nonlinear devices.</p>
+        </section>
+        <section id="dc">
+          <h3><code>DC</code>: Perform a DC-sweep analysis</h3>
+          <p>During a DC-sweep analysis SPICE steps the value of a specified independent voltage or current source over the user-specified range and performs an operating point analysis at each value. This permits the evaluation of the DC transfer function, and also provides a mechanism for plotting the characteristic curves of devices and models.</p>
+          <p>General form:</p>
+          <pre>dc <var>Source-Name</var> <var>Vstart</var> <var>Vstop</var> <var>Vincr</var> [ <var>Source2</var> <var>Vstart2</var> <var>Vstop2</var> <var>Vincr2</var> ]</pre>
+          <p>Examples:</p>
+          <pre>dc vin 0.25 5.0 0.25
+dc vin 0 10 .5 vgs 0 5 1
+dc vce 0 10 .25 ib 0 10u 1u</pre>
+          <p>The parameters define the dc transfer-curve source and sweep limits. <var>Source-Name</var> is the name of an independent voltage or current source. <var>Vstart</var>, <var>Vstop</var>, and <var>Vincr</var> are the starting, final, and incrementing values respectively. The first example causes the value of the voltage source vin to be swept from 0.25 volts to 5.0 volts in increments of 0.25 volts. A second source (<var>Source2</var>) may optionally be specified with associated sweep parameters. In this case, the first source is swept over its range for each value of the second source.</p>
+        </section>
+        <section id="ac">
+          <h3><code>AC</code>: Small-Signal AC Analysis</h3>
+          <p>The ac small-signal portion of SPICE computes the ac output variables as a function of frequency. The program first computes the dc operating point of the circuit and determines linearized, small-signal models for all of the nonlinear devices in the circuit. The resultant linear circuit is then analyzed over a user-specified range of frequencies. The desired output of an ac small-signal analysis is usually a transfer function (voltage gain, transimpedance, etc). If the circuit has only one ac input, it is convenient to set that input to unity and zero phase, so that output variables have the same value as the transfer function of the output variable with respect to the input.</p>
+          <p>General form:</p>
+          <pre>ac ( DEC | OCT | LIN ) <var>N</var> <var>Fstart</var> <var>Fstop</var></pre>
+          <p>Examples:</p>
+          <pre>ac dec 10 1 10K
+     ac dec 10 1k 100meg
+     ac lin 100 1 100HZ</pre>
+          <p><strong>Use:</strong> 'dec' for decade variation, in which case <var>N</var> is the number of points per decade; 'oct' for octave variation, in which case <var>N</var> is the number of points per octave; 'lin' for linear variation, when <var>N</var> is the total number of points. <var>Fstart</var> is the starting frequency, and <var>Fstop</var> is the final frequency.</p>
+        </section>
+        <section id="tran">
+          <h3><code>tran</code>: Perform a transient analysis</h3>
+          <p>The transient analysis portion of SPICE computes the transient output variables as a function of time over a user-specified time interval. The initial conditions are automatically determined by a dc analysis. All sources which are not time dependent (for example, power supplies) are set to their dc value.</p>
+          <p>General form:</p>
+          <pre>tran <var>Tstep</var> <var>Tstop</var> [ <var>Tstart</var> [ <var>Tmax</var> ] ] [ <var>uic</var> ]</pre>
+          <p>Examples:</p>
+          <pre>tran 1ns 100ns 0ns 2ns
+tran 1ns 1000ns 500ns 10ns
+tran 10ns 1us 0us 20ns uic</pre>
+          <p><var>Tstep</var> is the printing or plotting increment for line-printer output. For use with the post-processor, <var>Tstep</var> is the suggested computing increment. <var>Tstop</var> is the final time, and <var>Tstart</var> is the initial time. If Tstart is omitted, it is assumed to be zero. The transient analysis always begins at time zero. In the interval &lt;zero, Tstart&gt;, the circuit is analyzed (to reach a steady state), but no outputs are stored. In the interval &lt;Tstart, Tstop&gt;, the circuit is analyzed and outputs are stored. <var>Tmax</var> is the maximum step-size that SPICE uses; try <code>Tmax=(Tstop-Tstart)/50.0</code> to start with.</p>
+          <p>The optional keyword <code>uic</code> (use initial conditions) indicates that the user wants to interfere with how SPICE solves for the quiescent operating point before beginning the transient analysis.</p>
+        </section>
+        <section id="plot">
+          <h3><code>plot</code>: Plot values on the display</h3>
+          <p>General form:</p>
+          <pre>plot exprs [ylimit ylo yhi] [xlimit xlo xhi] [xlog] [ylog] [loglog]
+[vs xname] [xlabel word] [ylabel word] [title word] [linear]</pre>
+          <p>Plot the given <var>exprs</var> on the screen. The <var>xlimit</var> and <var>ylimit</var> arguments determine the high and low x- and y-limits of the axes, respectively.</p>
+          <p>The <var>xname</var> argument is an expression to use as the scale on the x-axis. If <code>xlog</code> or <code>ylog</code> are present then the X or Y scale, respectively, is logarithmic (<code>loglog</code> is the same as specifying both). The <code>xlabel</code> and <code>ylabel</code> arguments cause the specified labels to be used for the X and Y axes, respectively. The <code>title</code> argument is used in the place of the plot name at the bottom of the graph. The <code>linear</code> keyword is used to override a default log-scale plot (as in the output for an AC analysis).</p>
+        </section>
+        <section id="print">
+          <h3><code>print</code>: Print values</h3>
+          <p>General form:</p>
+          <pre>print <var>expr</var> ...</pre>
+          <p>Prints the vector described by the expression <var>expr</var>. If the expression is <code>all</code>, all of the vectors available are printed. Thus the command <code>print col all > myfile</code> prints everything into the file <cite>myfile</cite> (in SPICE2 format). The scale vector (time, frequency, etc) is printed in the first column.</p>
+        </section>
+        <section id="quit">
+          <h3><code>quit</code>: Leave Spice3 or Nutmeg</h3>
+          <p>General form:</p>
+          <pre>quit</pre>
+          <p>Quits the SPICE application.</p>
+        </section>
+      </section>
+
+      <!--
+      <section id="*">
+        <h2></h2>
+        <p></p>
+        <section id="*">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
