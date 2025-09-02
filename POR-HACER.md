@@ -129,6 +129,9 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] revisar *el-jardin.html* y su imagen idéntica *el-jardin.2.html*
+[ ] comparar *el-jardin.html* y su actualmente imagen idéntica *el-jardin.2.html*, luego ver desde dónde se enlazan, para crear adaptaciones...
+
 [ ] *valentia.html*
 Están el miedo, el peligro y la cobardía-valentía.
 A veces tenemos miedo de cosas que no suponen un peligro. Peligro y miedo son cosas distintas.
@@ -264,11 +267,6 @@ check (for):
 
 
 
-[ ] *Cultivar entre árboles*
-<p>En la agricultura convencional uno cultiva en campos abiertos, salvo en silvicultura convencional, porque así entran los tractores y demás máquinas sin dificultad y las plantan reciben el máximo de insolación.</p>
-<p>Si en una huerta hay árboles dispersos que intercepten un tanto por ciento considerable de la luz solar directa continuamente quedan zonas en sombra. Algunas de estas zonas reciben sombra sólo en las primeras y últimas horas del día. Esto hace que siempre haya zonas a la sombra en las que el horticultor, jardinero, campesino etc. pueda trabajar más fresco. Por supuesto esta disposición de árboles dispersos resulta tanto más ventajosa cuanto más calor haga.</p>
-<p>Un inconveniente es que se priva a algunos cultivos del pleno sol que necesitan para llegar cuanto antes al mercado y así venderse a mejor precio por escasez de competencia. Por supuesto en zonas y temporadas soleadas y cálidas la sombra no supone una gran desventaja.</p>
-
 [ ] *Palabras llenas*
 [ ] *Escribir sólo con palabras llenas*
 [ ]
@@ -361,15 +359,6 @@ check (for):
 [ ] <p>Aphids are soft bodied, pear-shaped insects that suck the sap out of plant tissue. They are a familiar garden pest and seldom cause major damage. Aphids are also a favorite food source of ladybugs, lacewings, and other beneficial insects. Because of this, I tend to leave aphid colonies alone to provide food for these good bugs. If they&apos;re still around after a couple of days, and close inspection shows no sign of beneficial insects (look closely, they can be small!) I use a strong jet of water from my hose to knock the aphids off.</p>
 
 
-[ ] *lagom.en.html*
-<p><dfn>Lagom</dfn> (pronounced /ˈlɑ̂ːɡɔm/, LAW-gom) is a Swedish word meaning <q>just the right amount</q> or <q>not too much, not too little</q>.</p>
-<p>The word can be variously translated as <q>in moderation </q>, <q>in balance </q>, <q>perfect-simple </q>, <q>just enough </q>, <q>ideal </q> and <q>suitable </q> (in matter of amounts). Whereas words like sufficient and average suggest some degree of abstinence, scarcity, or failure, lagom carries the connotation of appropriateness, although not necessarily perfection. The archetypical Swedish proverb "Lagom är bäst", literally <q>The right amount is best </q>, is also translated as <q>Enough is as good as a feast</q>, or as <q>There is virtue in moderation</q></p>
-<section>
-  <h2>Cultural significance</h2>
-  <p>The value of <q>just enough</q> can be compared to the idiom <q>less is more</q>, or contrasted to the value of <q>more is better</q>. It is viewed favorably as a sustainable alternative to the hoarding extremes of consumerism: <q>Why do I need more than two? <i>Det är</i> [It is] <i>lagom</i></q> It can also be viewed as repressive: <q>You&apos;re not supposed to be too good, or too rich</q>.</p>
-  <p><i>Lagom</i> is said to describe the basis of the Swedish national psyche, one of consensus and equality. <q>My aunt used to hold out her closed fist and say, <q>How much can you get in this hand? It&apos;s much easier to get something in this [open] hand</q></q>.</p>
-</section>
-
 [ ] escribir en *vida.html*
 <section id="niksen">
   <h2>Niksen</h2>
@@ -428,104 +417,28 @@ void DoSomething(T <var>t</var>) requires <var>CONDITION</var>
 [ ] recursos = {tiempo, dinero, atención (energía mental)}
 <p>Un ejemplo de algo que puede consumir mucha energía mental y relativo poco tiempo es tocar música, hablar o actuar ante un público.</p>
 
-[ ] En *prioridades.html*
-<p>Las prioridades son preferencias. Además, prioridad a menudo implica estar dispuesta a dedicar recursos y cierta elaboración racional. Por ejemplo alguien que se plantease aprender un instrumento musical y ponerse en forma podría preferir una de ellas, pongamos que la música, y sin embargo conceder mayor prioridad a la otra.</p>
-<hr/>
-<p>En una votación cada votante refleja sus preferencias en la papeleta.</p>
-
-<section>
-  <h2>Prioridades Estatales</h2>
-  <p>Un Estado Moderno contempla varias prioridades, a menudo reflejadas en Ministerios:</p>
-  <ul>
-    <li><strong>defensa</strong>: ejército, desarrollo de armas, participación en alianzas...</li>
-    <li><strong>trabajo</strong></li>
-    <li><strong>administración</strong>: gestiones, digitalización</li>
-    <li><strong>cultura y entretenimiento</strong></li>
-    <li><strong>deportes</strong></li>
-    <li><strong>orden</strong>: policía, jueces, cárceles etc.</li>
-    <li><strong>medio ambiente</strong>: subvenciones, vigilancia, legislación medioambiental...</li>
-  </ul>
-  <p>¡Uy, cuántas!</p>
-</section>
-
-<section>
-  <h2>Peso de prioridades</h2>
-  <p>Cuando hay varias tareas u objetivos, pueden darse dos extremos:</p>
-  <ul>
-    <li>que un objetivo o unos pocos acaparen toda o casi toda la prioridad, y</li>
-    <li>que las prioridades se distribuyan más o menos equitativamente entre los objetivos</li>
-  </ul>
-  <p>Observamos que suele optarse por lo segundo. En realidad se asignan recursos a gastos superfluos porque se practica una Macroeconomía Consumista: importa poco en qué se gasta mientras se gaste cuanto más mejor.</p>
-</section>
-
-[ ] En *agentes.html*
-<section>
-  <h2>Opciones</h2>
-  <p>Los agentes más sencillos responden automáticamente a los estímulos y oportunidades que les presenta el medio, mientras que otros encuentran <strong>opciones</strong> entre las que han de elegir, a menudo según sus <a  target="_blank" href="prioridades.html">prioridades</a>.</p>
-</section>
-
-[ ] *caminar.html*
-<nav>
-<p><a href="caminos.html">Caminos para acceder a todo un espacio</a></p>
-</nav>
-<h1>Deambular</h1>
-<p>Desde luego cuando hablamos de sufrimiento animal a manos de los seres humanos nos referimos sobre todo a la privación de moverse y en general realizar las acciones que les son propias, como andar.</p>
-<p>Supongo que estoy muy condicionado por sacar a un perro asiduamente. Pienso que los animales anhelan sobre todo andar, deambular por caminos, preferentemente los de un bosque, y que les vayan ocurriendo cosas, no sólo aventuras sexuales.</p>
-<p>En el caso de un perro observamos que anhela:</p>
-<ul>
-  <li><strong>escarbar</strong></li>
-  <li><strong>mordisquear</strong>: no necesariamente para cazar o hacer daño</li>
-  <li><strong>olfatear</strong></li>
-  <li><li><strong>pisar tierra</strong>...</li>
-</ul>
-<p>Y sobre todo andar, desplazarse por un espacio rico. Experimentar sorpresas, intemperie, encuentros.</p>
-<p>Me pregunto hasta qué punto los seres humanos compartimos ese anhelo. En buena parte lo compartimos.</p>
-<p>Recuerdo una escena que me impresionó de la película <cite>Alien</cite>. Unos astronautas habían entrado en una nave extraterrestre tripulada. Sobre una especie de sillón descansaba el esqueleto de un piloto. Pensé, por algún motivo, que ese extraterrestre hacía casi toda su vida ante unos mandos y unas pantallas. No la hacía caminando. Y las personas a menudo caemos en eso, modos de vida o de trabajar que no nos exigen caminar, en absoluto.</p>
-<p>Un caso relacionado fue durante la supuesta Pandemia la generalización del teletrabajo. De pronto era posible producir sentado ante un ordenador. No se trataba de trabajadores ambulantes, antes habrían acudido a sus puestos de trabajo en transportes motorizados la mayoría, y durante la jornada no necesariamente andarían mucho, sino que interactuarían.</p>
-<p>Los animales además de interactuar echan de menos andar, trotar, reptar, volar etc.</p>
-<hr/>
-<p>Se suele pensar que los animales sólo viven para <i>coco</i> (comer y copular). No exactamente...</p>
 
 [ ]
 <p>En la práctica, las Humanidades no existen independientemente de la enseñanza, a la vez que la ciencia no existe al margen de la investigación. Porque la mayoría de los profesionales de las Humanidades se ganan enseñando, y la mayoría de los científicos de investigar.</p>
 
 
-[ ] escribir *eternalismo-nihilismo.html*
-<p>Los extremos del eternalismo y el nihilismo consisten en creer o que nuestra realidad está completamente determinada por algo exterior a las personas o que está completamente indeterminada y los sucesos ocurren al azar.</p>
-
-[ ] *noumeno-y-fenomeno.html*
-<p><a href="simulation-hipothesis.html">
-<p>Un Licenciado en Filosofía ridiculiza la Hipótesis de la Simulación. Después se me ocurre comentar que la inventó el filósofo Nick Bostrom en 2003, y que me parece análoga a la distinción que cree ver Kant entre nóumeno y fenómeno. El licenciado se muestra interesado por saber por qué rechazo la <cite>Teoría del Conocimiento de Kant</cite>, lo cuál me motiva a mirar en internet que leches dijo Kant, un tipo bastante abierto y concienzudo y que sólo por ello merecería nuestro respeto.</p>
-<p>...</p>
-<p>Apenas puedo creer que Kant haya propuesto o postulado algo tan burdo...</p>
-<p>La <cite>Teoría del Conocimiento de Kant</cite> es el típico ejemplo de pensamientos que para determinada clase de personas, tal vez nos llamemos filósofos analíticos, no dice nada.</p>
-<ul>
-  <li>La Teoría de las Ideas de Platón</li>
-  <li>Hipótesis de la Simulación</li>
-  <li>Los Universos Paralelos</li>
-  <li>Matrix</li>
-</ul>
-<p>De hecho muchas teorías ocultistas y conspiranoicas siguien la misma línea de postular una realidad invisible.</p>
-<ul>
-  <li>Somos la séptima raza (Madame Blavatsky)</li>
-  <li>Hasta un cincuenta por ciento de los que erróneamente tomamos por seres humanos son en realidad reptiles de apariencia humana</li>
-  <li>El mundo está dirigido por una logia masónica secreta</li>
-</ul>
+[x] enlazar a *noumeno-y-fenomeno.html* desde *filosofia.html*
+[ ] enlazar a *noumeno-y-fenomeno.html* desde otras páginas
 
 [?] write on *Howard-Morland.html*
 
 [ ] escribir *estados-de-cosas.html*
 [ ] enlazar a *estados-de-cosas.html* desde *agentes.html#prioridades* / *prioridades.html*
 [ ] enlazar a *prioridades.html*
-[ ] enlazar a *agentes.html* desde *vida.html*
-[ ] enlazar a *agentes.html* desde *ecs.html*
+[x] enlazar a *agentes.html* desde *vida.html*
+[x] enlazar a *agentes.html* desde *ecs.html*
 
 [ ] escribir *filtrar-transformar-agregar.html*, relacionado con *informacion.html*
 
 [ ] fill in table in *dryland-crops.html*
 
 [ ] write *amaranth.html* and *quinoa.html*
-<p>Amaranth and quinoa are called the “super grains” because contain all eight amino acids required by the human body, and use C4 photosynthesis.</p>
+<p>Amaranth and quinoa are called the “super grains” because they contain all eight amino acids required by the human body, and use C4 photosynthesis.</p>
 
 [ ] terminar *ciencia.html#mito-calculo-ciencia*
 [ ] añadir   *ciencia.html#son-una-pinya* : Los científicos (de la Investigación de Base) forma una <i>piña</i>
@@ -2293,6 +2206,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[x] link to *lagom.en.html* from *finnish-values.html*
+[ ] link to *lagom.en.html* from elsewhere
+
 [ ] *brujas.html* desde *vampiros.html*
 [ ] *brujas.html* desde un futuro *mal.html* o *el-mal.html*
 
@@ -2306,7 +2222,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
     */home/francisco/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files/general.js*
 [ ] links to *grow-yam.html*
 
-[ ] *grow-grass-peas.html*
+[x] *grow-grass-peas.html* from *how-to-grow.html*
+[ ] *grow-grass-peas.html* from elsewhere
 
 [ ] link between: amaranth, quinoa and buckwheat
 <p><a href="grow-amaranth.html">How to Grow Amaranth</a></p>
