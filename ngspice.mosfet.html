@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NgSpice MOSFET Models</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a            href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a rel="next" href="ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
+        <p><a            href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <p><a            href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Transient Simulation</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>NGSpice MOSFET models (NMOS/PMOS)</h1>
+      <p style="text-align: right">(From <code><a target="_blank" href="https://nmg.gitlab.io/ngspice-manual/mosfets/mosfetmodels_nmos_pmos.html">https://nmg.gitlab.io/ngspice-manual/mosfets/mosfetmodels_nmos_pmos.html</a></code>)</p>
+      <p>MOSFET models are the central part of ngspice, probably because they are the most widely used devices in the electronics world. Ngspice provides all the MOSFETs implemented in the original Spice3f and adds several models developed by UC Berkeley&apos;s Device Group and other independent groups.</p>
+      <p>Each model is invoked with a <code>.model</code> card. A minimal version is:</p>
+      <pre>.model MOSN NMOS level=8 version=3.3.0</pre>
+      <p>The model name <code>MOSN</code> corresponds to the model name in the instance card. Parameter <code>NMOS</code> selects an n-channel device, <code>PMOS</code> would point to a p-channel transistor. The level and version parameters select the specific model. Further model parameters are optional and replace ngspice default values. Due to the large number of parameters (more than 100 for modern models), model cards may be stored in extra files and loaded into the netlist by the <code>.include</code> command. Model cards are specific for a an IC manufacturing process and are typically provided by the IC foundry. Some generic parameter sets, not linked to a specific process, are made available by the model developers, e.g. UC Berkeley&apos;s Device Group for BSIM4 and BSIMSOI.</p>
+      <p>Ngspice provides several MOSFET device models, which differ in the formulation of the I-V characteristic, and are of varying complexity. Models available are listed in a table<!-- 11.1-->. Current models for IC design are BSIM3 (11.2.10, down to channel length of 0.25 µm), BSIM4 (11.2.11, below 0.25 µm), BSIMSOI (11.2.13, silicon-on-insulator devices), HiSIM2 and HiSIM_HV (11.2.15, surface potential models for standard and high voltage/high power MOS devices).</p>
+
+      <!--
+      <section id="*">
+        <h2></h2>
+        <p></p>
+      </section>
+
+      <section id="*">
+        <h2></h2>
+        <p></p>
+      </section>
+
+      <section id="*">
+        <h2></h2>
+        <p></p>
+      </section>
+
+      <section id="*">
+        <h2></h2>
+        <p></p>
+      </section>
+
+      <section id="*">
+        <h2></h2>
+        <p></p>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

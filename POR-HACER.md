@@ -97,7 +97,11 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 `jq '.' *TEMA.array.json*` will either output *TEMA.array.json* or point out a syntax error
 
+# Spice(3) and NGSpice
 
+Examples found at:
+~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/spice_code/
+(that is, at WHEREVER/Documents/mis_escritos/precious/psimple/Electric_files/spice_code/)
 
 
 # Vivienda Alternativa
