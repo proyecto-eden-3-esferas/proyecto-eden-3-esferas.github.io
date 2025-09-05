@@ -39,6 +39,21 @@
       <h1>Computational Geometry</h1>
       <p>[...]</p>
 
+      <section id="bitmap-vs-vector">
+        <h4>Bitmap and Vector Graphics</h4>
+        <p>We need to understand that there are two ways of holding an image in a file or two kinds of graphic file: bitmap and vector.</p>
+        <p>If you think of producing an image on graph paper, bitmap graphics work by describing which squares should be filled in with which colors. Vector graphics on the other hand work by describing the grid points at which lines or curves are to be drawn. Some people describe vector graphics as a set of instructions for a drawing, while bitmap graphics (rasters) are points of color in specific places. Vector graphics "understand" what they are - a square "knows" it's a square and text "knows" that it is text. Because they are objects rather than a series of pixels, vector objects can change their shape and color, whereas bitmap graphics cannot.</p>
+        <!--
+      <para>Another way to think of raster graphics is as paint on canvas, while vector graphics are lines and shapes made of a stretchable material which can be moved around on a background.</para>
+      -->
+        <p>In bitmap graphics, an image is represented as a rectangular array or matrix of picture elements, points, or pixels. Each pixel is represented either by its color value, by its gray value, or by a bit (the choice between 0 and 1) denoting whether it is black or white. This array is often stored in a compressed format. Since most modern display devices are also raster devices, that is bitmap, displaying an image requires a viewer program to do little more than uncompress the bitmap and transfer it to the screen.</p>
+        <p>In a vector graphic system, an image is described as a series of geometric shapes. Rather than receiving a ready-made set of pixels, a vector viewing program receives commands to draw shapes at specified sets of coordinates.</p>
+        <p>This is a simple SVG program for drawing a rectangle:</p>
+        <code>&lt;svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" version="1.1"&gt;
+  &lt;rect x="10" y="10" width="80" height="80" style="fill:none; stroke:blue;"/&gt;
+&lt;/svg&gt;</code>
+      </section>
+
       <section>
         <h2>Normalization of Angles</h2>
         <p>We want to change any given angle to fit inside a two pi interval or range.</p>

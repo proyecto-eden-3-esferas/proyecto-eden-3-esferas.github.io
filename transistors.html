@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Transistors</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Transistors: Controlled Current Sources"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      -->
+      <div>
+      <div>
+        <p><a rel="prev" href="electronics.html">Electronics</a></p>
+        <!--
+        <p><a rel="next" href="fet.html">FETs (Field-Effect Transistors)</a></p>
+        -->
+        <p><a rel="next" href="mosfet.html">MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</a></p>
+        <p><a            href="bjt.html">The Bipolar Junction Transistor (BJT)</a></p>
+      </div>
+      <div>
+        <p><a href="electronics.transient-response.html">Transient Response</a></p>
+        <p><a href="electronics.time-constant.html">RC Time Constant</a></p>
+      </div>
+        <p><a href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+      </div>
+      <div>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Transistors: Controlled Current Sources</h1>
+      <p>A <dfn>transistor</dfn> is a three-port (3-pin, 3-legs, 3-terminals) electronics device where a current or a voltage signals controls the intensity of a larger current.</p>
+
+      <aside>
+        <p>One of the issues with transistors is that it takes a while before using a transistor becomes intuitive. Transistors, as we will see in the forthcoming chapters, wind up needing a lot of special considerations. Because of this, many people don&apos;t use transistors directly and instead choose to only use integrated circuits (see Chapter 11). Integrated circuits, since they are based on the needs of a circuit instead of simple physical properties, tend to be much easier to work with. Most of the guess work has been taken out, and the chips are built so that they can be inserted into a circuit in a straightforward way. Even though some people opt to use integrated circuits instead of using transistors directly, it is worthwhile to understand their operation.</p>
+        <p style="text-align: right">(From <cite>Electronics for Beginners</cite>, by Jonathan Bartlett)</p>
+      </aside>
+
+      <section id="IGBT-IEGT">
+        <h2>IGBTs/IEGTs</h2>
+        <p>An Insulated Gate Bipolar Transistor, IGBT, and an Injection Enhanced Gate Transistor, IEGT, are devices that switch power on and off between a collector and emitter by controlling the voltage between the gate and emitter in the same way as MOSFET.</p>
+      </section>
+
+
+      <section id="comparison-power">
+        <h2>Comparison of Bipolar Power Transistors and Power MOSFETs</h2>
+        <table border="1" id="simple_with_header_and_th">
+        <thead>
+          <tr> <th></th> <th>Bipolar Power Transistor Power</th> <th>MOSFET</th> </tr>
+        </thead>
+          <tr> <td>CONCEPT</td> <td>BJT</td> <td>MOSFET</td> </tr>
+          <tr> <td>\1</td> <td>\2</td> <td>\3</td> </tr>
+
+          <tr>
+            <td>Drive circuit</td>
+            <td>Drive conditions are difficult to determine because switching time varies with drive current conditions. Also, the drive circuit suffers high power loss.</td>
+            <td>The drive circuit for the voltage control of a power MOSFETs is simpler and offers lower power loss than that of a bipolar resistor.</td>
+          </tr>
+          <tr>
+            <td>Switching time</td>
+            <td>Due their structure, bipolar transistors have a storage time <var>t<sub>stg</sub></var> and therefore a longer switching time than MOSFETs.</td>
+            <td>Power MOSFETs are much faster than bipolar power transistors. Power MOSFETs have no storage time and are less affected by temperature.</td>
+           </tr>
+          <tr>
+            <td>Safe operating area (SOA)</td>
+            <td>Restricted due to the risk of secondary breakdown.</td>
+            <td>Restricted mainly by power dissipation (equal power lines).</td>
+          </tr>
+          <tr>
+            <td>Breakdown voltage (Collector-emitter, drain-source)</td>
+            <td>Bipolar power transistors are often used with a reverse current between the base and emitter. Sometimes, both <var>V<sub>CES</sub></var> and <var>V<sub>CEX</sub></var> (<var>V<sub>CBO</sub></var>) are rated.</td>
+            <td>The withstand voltage is limited by <var>V<sub>DSS</sub></var> except for trench MOSFETs operating in a reverse gate bias condition (during which the withstand voltage is restricted by <var>V<sub>DSX</sub></var>).</td>
+          </tr>
+          <tr>
+            <td>On-state voltage</td>
+            <td>Even high voltage bipolar power transistors have very low on-state voltage and generally have a negative temperature coefficient.</td>
+            <td>Low-voltage power MOSFETs have an extremely low on-state voltage. High voltage devices have a slightly higher on-state voltage. Power MOSFETs have a positive temperature coefficient, which is beneficial in connecting multiple devices in parallel.</td>
+          </tr>
+          <tr>
+            <td>Parallel connection</td>
+            <td>It is necessary, but difficult, to equalize the current flowing through multiple transistors connected in parallel.</td>
+            <td>Multiple power MOSFETs can be connected in parallel, but it requires a bit of care to prevent oscillation and match the switching times of the parallel devices.</td>
+          </tr>
+          <tr>
+            <td>Temperature stability</td>
+            <td>A certain amount of care is required because an increase in temperature causes <var>h<sub>FE</sub></var> to increase and <var>V<sub>BE</sub></var> to decrease.</td>
+            <td>Various characteristics exhibit outstanding temperature stability.</td>
+          </tr>
+        </table>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Bipolar Junction Transistors</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="The Bipolar Junction Transistor (BJT): a Current-Controlled Current Source"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      -->
+      <div>
+      <div>
+        <p><a rel="prev" href="transistors.html">Transistors</a></p>
+        <p><a href="mosfet.html">MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</a></p>
+        <p><a href="electronics.transient-response.html">Transient Response</a></p>
+        <p><a href="electronics.time-constant.html">RC Time Constant</a></p>
+      </div>
+        <p><a href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+      </div>
+      <div>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>The Bipolar Junction Transistor (BJT)</h1>
+
+      <section id="parts">
+        <h2>Parts of the BJT*</h2>
+      </section>
+
+      <section id="npn-operation">
+        <h2>NPN Transistor Operation Basics</h2>
+        <p style="text-align: right">(Largely from <cite>Electronics for Beginners: A Practical Introduction to Schematics, Circuits, and Microcontrollers</cite>, by Jonathan Bartlett)</p>
+        <p>To fully understand NPN transistor operation requires a lot of complicated mathematics. However, you can get a <q>good enough</q> understanding of it just by remembering a few simple rules.</p>
+        <dl>
+          <dt><i>Rule 1:</i> The Transistor Is Off by Default</dt>
+          <dd>By default, if there is no current flowing in the base, there will be no current flowing from the collector to the emitter. NPN transistors default to an <q>off</q> state.</dd>
+          <dt><i>Rule 2:</i> VBE Needs to Be 0.6 V to Turn the Transistor On</dt>
+          <dd>Remember that there is essentially a diode connecting the base to the emitter. Diodes have a voltage drop of about 0.6 V. Therefore, once the base voltage rises to 0.6 V above the emitter voltage, the transistor will turn on, and current will start to flow.</dd>
+          <dt><i>Rule 3:</i> <var>V<sub>BE</sub></var> Will Always Be Exactly 0.6 V When the Transistor Is On</dt>
+          <dd>This is a corollary of the previous rule. Because the <var>BE</var> junction acts as a diode, the base will always be 0.6 V above the emitter while the transistor is turned on.</dd>
+          <dt><i>Rule 4:</i> The Collector Should Always Be More Positive Than the Emitter</dt>
+          <dd>While technically you can have the collector go below the voltage of the base or the emitter, it is generally a bad idea with NPN transistors. It makes the circuit much harder to analyze.</dd>
+          <dt><i>Rule 5:</i> When the Transistor Is On, <var>I<sub>CE</sub></var> Is a Linear Amplification of <var>I<sub>BE</sub></var></dt>
+          <dd>
+            <p>When the transistor is on, the transistor amplifies the current flowing from the base to the emitter by adjusting the floodgates between the collector and the emitter. The multiplier that the transistor amplifies by is known as the transistor&apos;s <dfn>beta</dfn>—this is the current gain that an NPN transistor provides. The symbol for this value can be either <var>β</var> or <var>h<sub>FE</sub></var>.</p>
+            <p>The problem with a transistor&apos;s beta is that it isn&apos;t very exact or very constant. A batch of <q>identical</q> transistors can have betas that vary quite a bit. And, while they are operating, their temperature and other environmental factors will affect the beta as well. There are things you can do to compensate for this, but for now just realize that it happens.</p>
+            <p>While there are transistors with a wide variety of ranges of their betas, the most common NPN transistors have a beta of around 100.</p>
+            <p>The exceptions to this are in Rules 6 and 7.</p>
+          </dd>
+          <dt><i>Rule 6:</i> The Transistor Cannot Amplify More Than the Collector Can Supply</dt>
+          <dd>
+            <p>This is mostly a reminder that the amplification comes from the collector current. If the collector can&apos;t supply the amplification, it won&apos;t happen.</p>
+            <p>Basically, we need to think of the transistor as controlling a resistor from the collector to the emitter which will adjust itself to maintain the ratio (beta) between the base-emitter current and the collector-emitter current. Thus, it can&apos;t provide less resistance than no resistance.</p>
+          </dd>
+          <dt><i>Rule 7:</i> If the Base Voltage Is Greater Than the Collector Voltage, the Transistor Is Saturated</dt>
+          <dd>If the base voltage rises above the collector voltage, this causes the transistor to behave as if there was no resistance going from the collector to the emitter. This is known as saturation mode.</dd>
+        </dl>
+      </section>
+
+      <section id="switch">
+        <h2>The Transistor as a Switch*</h2> <!--p 364-->
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

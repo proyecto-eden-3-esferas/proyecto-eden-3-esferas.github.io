@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,50 +16,205 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-     <!--
+      <!--
      -->
       <div>
-        <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
-        <p><a href="svg.marker.html">SVG: Markers</a></p>
-        <p><a href="svg.common-attributes.html">SVG Common attributes</a></p>
-        <p><a href="svg.transform.html">SVG Transformations</a></p>
-        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
-        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
-        <p><a href="svg.mask-clipPath.html">Mask and Clip Images</a></p>
+        <p>
+          <a rel="prev" href="computational-geometry.html">Computational Geometry</a>
+        </p>
+        <p>
+          <a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a>
+        </p>
+        <p>
+          <a href="svg.marker.html">SVG: Markers</a>
+        </p>
+        <p>
+          <a href="svg.common-attributes.html">SVG Common attributes</a>
+        </p>
+        <p>
+          <a href="svg.transform.html">SVG Transformations</a>
+        </p>
+        <p>
+          <a href="svg.path.html">Complex SVG Paths with <code>path</code></a>
+        </p>
+        <p>
+          <a href="svg.arc.html">Drawing Arcs in SVG</a>
+        </p>
+        <p>
+          <a href="svg.mask-clipPath.html">Mask and Clip Images</a>
+        </p>
         <p><a href="svg.bb.html">Calculate the Bounding Box of an SVG Element</a> (JavaScript)</p>
       </div>
       <div>
-        <p><a href="https://github.com/proyecto-eden-3-esferas/SVG/">My Code for SVG Schematics <i>et al.</i></a></p>
+        <p>
+          <a href="https://github.com/proyecto-eden-3-esferas/SVG/">My Code for SVG Schematics <i>et al.</i></a>
+        </p>
       </div>
       <div>
-        <p><a href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a></p>
-        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
-        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
-        <p><a href="svg.text.html">SVG Text</a></p>
-        <p><a href="svg.embedding.html">Embedding SVG in an HTML Document</a></p>
-        <p><a href="svg.styling.html">Styling SVG with CSS</a></p>
-
+        <p>
+          <a href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a>
+        </p>
+        <p>
+          <a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a>
+        </p>
+        <p>
+          <a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a>
+        </p>
+        <p>
+          <a href="svg.text.html">SVG Text</a>
+        </p>
+        <p>
+          <a href="svg.embedding.html">Embedding SVG in an HTML Document</a>
+        </p>
+        <p>
+          <a href="svg.styling.html">Styling SVG with CSS</a>
+        </p>
       </div>
       <div>
-        <p><a href="xml.en.html">XML: The eXtensible Markup Language</a></p>
-        <p><a href="HTML.html">HTML: XML for the Web</a></p>
-        <p><a href="mathml.html">MathML: XML for Mathematical Notation</a></p>
+        <p>
+          <a href="xml.en.html">XML: The eXtensible Markup Language</a>
+        </p>
+        <p>
+          <a href="HTML.html">HTML: XML for the Web</a>
+        </p>
+        <p>
+          <a href="mathml.html">MathML: XML for Mathematical Notation</a>
+        </p>
       </div>
       <div>
-        <p><a href="metapost.html">MetaPost: Drawing for PostScript</a></p>
-        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+        <p>
+          <a href="metapost.html">MetaPost: Drawing for PostScript</a>
+        </p>
+        <p>
+          <a href="asymptote.html">Asymptote: The Vector Graphics Language</a>
+        </p>
       </div>
     </nav>
-
     <main>
       <h1>SVG: XML for Drawing</h1>
-      <p><dfn>Scalable Vector Graphics</dfn> (SVG) is a web-friendly vector file format for describing two-dimensional based vector graphics. As opposed to pixel-based raster files like JPEGs, vector files store images via mathematical formulas based on points and lines on a grid. This means that vector files like SVG can be significantly resized without losing any of their quality, which makes them ideal for logos and complex online graphics.</p>
+      <p><dfn>Scalable Vector Graphics</dfn> (SVG) is a web-friendly vector file format for describing two-dimensional based <a target="_blank" href="computational-geometry.html#bitmap-vs-vector">vector graphics</a>.</p>
+      <aside>As opposed to pixel-based raster files like JPEGs, vector files store images via mathematical formulas based on points and lines on a grid. This means that vector files like SVG can be significantly resized without losing any of their quality, which makes them ideal for logos and complex online graphics.</aside>
+      <imagedata>
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" version="1.1">
+          <rect x="10" y="10" width="80" height="80" style="fill:aqua; stroke:blue; stroke-width: 2; fill-opacity: 0.5; stroke-opacity: 0.9"/>
+        </svg>
+      </imagedata>
+      <imagedata>
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" version="1.1">
+          <rect x="10" y="10" width="200" height="20" stroke="black" fill="none">
+            <animate attributeName="width" attributeType="XML" from="200" to="20" begin="0s" dur="5s" fill="freeze"/>
+          </rect>
+        </svg>
+      </imagedata>
       <p>Essentially, SVG is to graphics what HTML is to text.</p>
+      <hr/>
       <p>Besides, SVGs are written in <a href="xml.en.html">XML</a> code, meaning they store any text information as literal text.</p>
+      <p>All elements are defined between <code>&lt;svg&gt;</code> tags, as in:</p>
+      <pre>&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;
+  ...
+&lt;/svg&gt;</pre>
+      <p>or, more generally:</p>
+      <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+  ...
+&lt;/svg&gt;</pre>
       <p>Being a vector file format means that it can be scaled up or down without losing any of its resolution.</p>
-
+      <hr/>
+      <p>The functionality in SVG partially overlaps the graphic operators of PostScript and seems to improve on them and make right some of its shortcomings. For instance, SVG recognizes the whole gamut of <a href="#units">units</a> (mm, cm, pixels, points etc.), whereas PostScript only recognizes points.</p>
+      <section>
+        <h2>A Simple Example in SVG</h2>
+        <p>Below there is the code for a web page without an xml declarations (<kbd class="userinput">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</kbd>) or an SVG namespace declaration inside an opening tag (<kbd class="userinput">xmlns:svg="http://www.w3.org/2000/svg"</kbd>)...</p>
+        <code>&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;My first SVG&lt;/h1&gt;
+      &lt;svg width="100" height="100"&gt;
+        &lt;circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /&gt;
+      &lt;/svg&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+      </code>
+        <p>, which should show a page with a header and a yellow-filled, green-lined triangle like the picture below.</p>
+        <aside>ePUB 2, unlike ePUB 3, does not render SVG pictures.</aside>
+        <imagedata>
+          <svg width="100" height="100">
+            <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow"/>
+          </svg>
+        </imagedata>
+      </section>
+      <section id="coordinates">
+        <h2>Coordinates</h2>
+        <p>SVG pictures are painted on an infinite canvas. Here we'll discuss how you tell a viewer program where your picture is located, what its dimensions are, and how you locate points within that area.</p>
+        <section class="section">
+          <h3>Coordinates</h3>
+          <p>In a normal cartesian coordinate system the point x=0, y=0 is at the lower left corner of the graph. In the SVG coordinate system the point x=0, y=0 is the upper left corner. The y-axis is thus reversed compared to a normal graph coordinate system. As y increases in SVG, the points, shapes etc. move down, not up.</p>
+        </section>
+        <section class="section">
+          <h3>The Viewport</h3>
+          <p>The area of the canvas that your document intends to use is called the viewport. You establish the size of this viewport with the width and height attributes on the &lt;svg&gt; element. The values of these attributes can be simply a number, which is presumed to be in pixels. This is said to be specified in user coordinates. You may also specify width and height as a number followed by a unit identifier.</p>
+          <p>Examples:</p>
+          <code>&lt;svg width="200" height="150"&gt;
+&lt;svg width="200px" height="200px"&gt;</code>
+          <p>or:</p>
+          <pre>&lt;svg width="2cm" height="3cm"&gt;</pre>
+          <p>(If you have one &lt;svg&gt; element nested within another &lt;svg&gt; element, the nested tag may also specify its width and height as a percentage, measured in terms of the enclosing element.)</p>
+        </section>
+        <section class="section">
+          <h3>Using Default User Coordinates</h3>
+          <p>When you do not use unit specifiers on your &lt;svg&gt; element, the viewer sets up a coordinate system where the horizontal, or x-coordinate, increases as you go to the right, and the vertical, or y-coordinate, increases as you move vertically downward. The upper left corner of the viewport is defined to have an x- and y-coordinate of zero. This point, written as (0, 0) is also called the origin.</p>
+        </section>
+        <section class="section">
+          <h3>Specifying User Coordinates for a Viewport (viewBox)</h3>
+          <p>In the examples so far, numbers without units have been considered to be pixels. Sometimes this is not what you want. For example, you might want to set up a system where each user coordinate represents one-sixteenth of a centimeter. (We're using this coordinate system to prove a point, not to show a paragon of good design.) In this system, a square that is 40 units by 40 units will display as 2.5 centimeters on a side.</p>
+          <p>To accomplish this effect, you set the viewBox attribute on the &lt;svg&gt; element. The value of this attribute consists of four numbers that represent the minimum x-coordinate, minimum y-coordinate, width, and height of the user coordinate system that you want to superimpose on the viewport.</p>
+          <p>So, to set up the sixteen-units-per-centimeter coordinate system for a four centimeter by five centimeter drawing, you'd use this starting tag:</p>
+          <pre>&lt;svg width="4cm" height="5cm" viewBox="0 0 64 80"&gt;</pre>
+          <p>Example using a viewBox:</p>
+          <pre>&lt;svg width="4cm" height="5cm" viewBox="0 0 64 80"&gt;
+  &lt;rect x="10" y="35" width="40" height="40" style="stroke: black; fill: none;" /&gt;
+  &lt;!-- roof --&gt;
+  &lt;polyline points="10 35, 30 7.68, 50 35" style="stroke:black; fill: none;" /&gt;
+  &lt;!-- door --&gt;
+  &lt;polyline points="30 75, 30 55, 40 55, 40 75" style="stroke:black; fill: none;" /&gt;
+&lt;/svg</pre>
+        </section>
+        <section class="section">
+          <h3>Preserving Aspect Ratio</h3>
+          <p>In the previous example, the aspect ratio, or ratio of width to height, of the viewport and the viewBox were identical (4/5 = 64/80). What happens, though, if the aspect ratio of the viewport and the viewBox are not the same, as in this example, where viewBox has an aspect ratio of one to one, but the viewport has an aspect ratio of one to three?</p>
+          <p>There are three things that SVG can do in this situation:</p>
+          <ul class="itemizedlist">
+            <it>Scale the graphic uniformly according to the smaller dimension so the graphic will fit entirely into the viewport. In the example, the picture would become half its original width and height. We'll show you examples of this in a further section.</it>
+            <it>Scale the graphic uniformly according to the larger dimension and cut off the parts that lie outside the viewport. In the example, the picture would become one and a half times its original width and height. We'll show you examples in another section.</it>
+            <it>Stretch and squash the drawing so that it fits precisely into the new viewport. (That is, don't preserve the aspect ratio at all.) We will cover this in another section.</it>
+          </ul>
+          <p>In the first case, since the image will be smaller than the viewport in one dimension, you must specify where to position it. In the example, the picture will be scaled uniformly to a width and height of 45 pixels. The width of the reduced graphic fits the width of the viewport perfectly, but you must now decide whether the image meets (is aligned with) the top, middle, or bottom of the 135-pixel viewport height.</p>
+          <p>In the second case, since the image will be larger than the viewport in one dimension, you must specify which area is to be sliced away. In the example, the picture will be scaled uniformly to a width and height of 135 pixels. Now the height of the graphic fits the viewport perfectly, but you must decide whether to slice off the right side, left side, or both edges of the picture to fit within the 45-pixel viewport width.</p>
+        </section>
+        <section class="section">
+          <h3>Specifying Alignment for preserveAspectRatio</h3>
+          <p>The <samp class="computeroutput">preserveAspectRatio</samp> attribute lets you specify the alignment of the scaled image with respect to the viewport, and whether you want it to meet the edges or be sliced off. The model for this attribute is:</p>
+          <p text-align="center">preserveAspectRatio="alignment [meet | slice]"</p>
+          <p>where <samp class="computeroutput">alignment</samp> specifies the axis and location, and is one of <samp class="computeroutput">xMinYMin, xMinYMid, xMinYMax, xMidYMin, xMidYMid, xMidYMax, xMaxYMin, xMaxYMid,</samp> or <samp class="computeroutput">xMaxYMax</samp>. This alignment specifier is formed by concatenating an x-alignment and a y-alignment as shown in the table. The default value for <samp class="computeroutput">preserveAspectRatio</samp> is <samp class="computeroutput">xMidYMid meet</samp>.</p>
+          <aside class="sidebar">The y-alignment begins with a capital letter, since the x- and y-alignments are concatenated into a single word.</aside>
+          <p>So, if you want to have the picture with a <samp class="computeroutput">viewBox="0 0 90 90"</samp> fit entirely within a viewport that is 45 pixels wide and 135 pixels high, aligned at the top of the viewport, you would write:</p>
+          <pre>&lt;svg width="45px" height="135px" viewBox="0 0 90 90"
+        preserveAspectRatio="xMinYMin meet"&gt;</pre>
+          <aside class="sidebar">In this case, since the width fits precisely, the x-alignment is irrelevant; you could equally well use xMidYmin or xMaxYMin. However, in the interests of consistency, it's usually best to make both specifiers the same when only one axis is affected.</aside>
+          <p>This is all fairly abstract; here are some concrete examples that show you how the combinations of alignment and meet and slice interact with one another.</p>
+        </section>
+      </section>
+      <section id="units">
+        <h2>SVG Units</h2>
+        <ul>
+          <li><strong>em</strong> The font size of the default font, usually equivalent to the height of a character</li>
+          <li><strong>ex</strong> The height of the letter x</li>
+          <li><strong>px</strong> Pixels</li>
+          <li><strong>pt</strong> Points (1/72 of an inch)</li>
+          <li><strong>pc</strong> Picas (1/6 of an inch)</li>
+          <li><strong>cm</strong> Centimeters</li>
+          <li><strong>mm</strong> Millimeters</li>
+          <li><strong>in</strong> Inches</li>
+        </ul>
+        <p>(Angles are given in degrees, not radians.)</p>
+      </section>
     </main>
-
   </body>
-
 </html>

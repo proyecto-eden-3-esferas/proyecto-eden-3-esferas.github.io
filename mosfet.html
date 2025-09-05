@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MOSFETs</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="transistors.html">Transistors: Controlled Current Sources</a></p>
+        <p><a            href="electronics.html">Electronics</a></p>
+        <p><a rel="next" href="transistors.html#comparison-power">Comparison of Bipolar Power Transistors and Power MOSFETs</a></p>
+        <!--
+        <p><a rel="next" href="***.html">Electronics</a></p>
+        -->
+        <p><a href="electronics.transient-response.html">Transient Response</a></p>
+        <p><a href="electronics.time-constant.html">RC Time Constant</a></p>
+      </div>
+      <div>
+        <p><a href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</h1>
+      <blockquote>
+        <p>A MOSFET (Metal-Oxide-Semiconductor Field-Effect Transistor) is a semiconductor device that uses an electric field to control the flow of current between its drain and source terminals, with the gate terminal controlling the conductivity. It functions as a highly efficient electronic switch or amplifier, with its most common applications being in integrated circuits like microprocessors and memories, and in power applications.</p>
+        <hr/>
+        <p>How a MOSFET Works:</p>
+        <ul>
+          <li><strong>Gate Voltage:</strong> A voltage applied to the gate terminal creates an electric field that controls the current flow between the drain and source.</li>
+          <li><strong>Insulated Gate:</strong> The gate is insulated by a thin layer of metal oxide, making it act like a capacitor and giving the MOSFET a very high input resistance.</li>
+          <li><strong>Channel Control:</strong> This electric field alters the conductivity of the semiconductor channel, allowing or restricting current to pass</li>
+        </ul>
+        <hr/>
+        <p>Key Characteristics &amp; Types</p>
+        <ul>
+          <li><strong>N-type and P-type:</strong> MOSFETs are classified by the polarity of their channel.</li>
+          <li><strong>Enhancement vs. Depletion:</strong> They also come in enhancement types (normally off) and depletion types (normally on)</li>
+          <li><strong>MOSFETs vs. BJTs:</strong> MOSFETs offer advantages such as high-speed and low-loss operation compared to some other transistor types like Bipolar Junction Transistors (BJTs).</li>
+        </ul>
+        <hr/>
+        <p>Applications</p>
+        <ul>
+          <li><strong>Digital Circuits:</strong> They are the most common component in integrated circuits.</li>
+          <li><strong>Power Electronics:</strong> Larger MOSFETs are used for high-power switching applications in power supplies and inverters.</li>
+          <li><strong>Amplification:</strong> Their ability to change conductivity makes them ideal for amplifying electronic signals</li>
+        </ul>
+        <p style="text-align: right">(From <cite>AI Overview</cite> by Google)</p>
+      </blockquote>
+
+      <section>
+        <h2>Power MOSFET&apos;s</h2>
+        <p style="text-align: right">(From Toshiba)</p>
+        <p>Since Power MOSFETs operate principally as majority-carrier devices, they are not affected by minority carriers. This is in contrast to the situation with minority-carrier devices such as bipolar transistors where such effects create more serious design problems. Also, the input impedance of power MOSFETs is basically higher than that of junction FETs.</p>
+        <p>Even though power MOSFETs excel in speed, in the beginning of their development, it was thought that achieving low on-state resistance, high breakdown voltage and high power would be difficult. In recent years, however, we have witnessed major improvement in the performance of power MOSFETs with the prevalence of a planar gate double diffusion structure, followed by trench gate and superjunction (SJ) structures. Power MOSFETs with these new structures deliver higher speed, lower on-state resistance, and higher breakdown voltage. Today, power MOSFETs are widely used as switching devices in commercial, industrial, automotive and other applications.</p>
+        <section>
+          <h3>Power MOSFET Characteristics</h3>
+          <p>The general characteristics of power MOSFETs are:</p>
+          <ul>
+            <li>Basically, MOSFETs are majority-carrier devices and operationally different from bipolar transistors that are minority-carrier devices.</li>
+            <li>While bipolar transistors are current-controlled devices, MOSFETs are voltage-controlled devices that are controlled by gate-source voltage.</li>
+            <li>Since MOSFETs are majority-carrier devices, they do not suffer delay due to the carrier storage effect, making high frequency switching possible.</li>
+            <li>In bipolar transistors, current concentrates in the high voltage region, making them vulnerable to junction destruction due to secondary breakdown. Operating conditions are de-rated as necessary to prevent junction destruction. In contrast, power MOSFETs are much more immune to secondary breakdown and therefore more rugged. However, the electrical characteristics of recent MOSFET devices should be carefully examined as some of them are vulnerable to secondary breakdown.</li>
+            <li>Since power MOSFETs have a positive temperature coefficient of on-state resistance, RDS(ON) at high temperatures should be considered during thermal design</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Power MOSFET Structure</h3>
+          <p>Power MOSFETs can be broadly categorized according to their gate and drift structures.</p>
+          <dl>
+            <dt>Double diffusion MOS (D-MOS) structure</dt>
+            <dd>For the fabrication of D-MOS devices, channels are formed in a double diffusion process that provides high withstand voltage. The D-MOS process is well suited to increasing device density, making it possible to realize high performance power MOSFETs with low on-state resistance and low power loss.</dd>
+            <dt>Trench gate structure</dt>
+            <dd>The trench-gate process forms a vertical gate channel in the shape of a U groove in order to increase device density and thereby further reduce on-state resistance. The trench gate structure is employed to fabricate power MOSFETs with relatively low voltage.</dd>
+            <dt>Superjunction (SJ) structure</dt>
+            <dd>This structure has a drift region that consists of alternating p- and n-type semiconductor layers. This process overcomes the inherent limitations of the vertical silicon process used with conventional power MOSFETs and delivers extremely low on-state resistance. Compared to conventional power MOSFETs, the superjunction process provides significant improvement in the trade-off between VDSS (maximum drain-source voltage) and Ron∙A (normalized on-state resistance per specific area), and therefore helps to considerably reduce conduction loss.</dd>
+          </dl>
+        </section>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

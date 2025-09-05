@@ -1,5 +1,8 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 
+Reading:
+~/latest_books/books/technology/electronics/Jonathan\ Bartlett\ -\ Electronics\ For\ Beginners_\ A\ Practical\ Introduction\ To\ Schematics\,\ Circuits\,\ And\ Microcontrollers\ -\ Apress\ 2020.503s.16.pdf
+
 https://archive.org/details/Sept2024
 https://archive.org/details/artsandmusicvideos
 https://archive.org/details/spiritualityandreligion
@@ -102,6 +105,16 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 Examples found at:
 ~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/spice_code/
 (that is, at WHEREVER/Documents/mis_escritos/precious/psimple/Electric_files/spice_code/)
+
+Links to and downloads of models at: https://ngspice.sourceforge.io/modelparams.html
+Specifically recommended are:
+-  A basic model parameter set is available as a starter or for a quick analysis. This set is by far not complete, but offers examples for various device classes (BJT, MOS, JFet, OpAmp, diodes, and a few others):
+https://ngspice.sourceforge.io/model-parameters/basic_models.7z
+- A broad selection of models and model parameters for devices dated before 2000 has been collected by A. Roldan from University of Granada. While no longer available from the original web pages, it will be offered below.
+https://ngspice.sourceforge.io/model-parameters/models_ugr.7z (maintained up to ca. 2010)
+- Another very comprehensive selection of models and model parameters for devices, covering active and passive devices from many device vendors has been derived from the simulator package Micro-Cap 12, a formerly (up to 2019) professionally maintained commercial spice simulator, now free and publicly available.
+https://ngspice.sourceforge.io/model-parameters/MicroCap-LIBRARY.7z (maintained up to 2019)
+
 
 
 # Vivienda Alternativa
