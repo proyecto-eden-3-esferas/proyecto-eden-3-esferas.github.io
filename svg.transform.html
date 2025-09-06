@@ -31,7 +31,7 @@
         <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
       </div>
       <div>
-        <p><a href="svg.html">SVG: </p>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
       </div>
 
     </nav>
@@ -117,6 +117,38 @@
           <dt>Three-value syntax</dt>
           <dd>The first two values are the same as for the two-value syntax. The third value must be a &lt;length&gt;. It always represents the <var>Z offset</var>.</dd>
         </dl>
+      </section>
+
+      <section class="section">
+        <h2>Using a transformation matrix(<var>a</var>, <var>b</var>, <var>c</var>, <var>d</var>, <var>e</var>, <var>f</var>)</h2>
+        <p>It is possible to effect transformations through a matrix, too. The matrix looks like this:</p>
+        <pre>a  c  e
+b  d  f
+0  0  1</pre>
+        <p>where <var>e</var> and <var>f</var> are the x and y displacements (for translation), and <var>a</var> and <var>d</var> are the x- and y-scale. Lastly, <var>c</var> and <var>b</var> are used for scaling.</p>
+        <blockquote class="equation">x' = ax + cy + e</blockquote>
+        <blockquote class="equation">y' = bx + dy + f</blockquote>
+        <p>Thus, a translation by <var>(tx,ty)</var> is expressed through a matrix <kbd class="userinput">matrix(1,0,0,1,tx,ty)</kbd>, a rotation is expressed through <kbd class="userinput"></kbd>matrix( cos(a), sin(a),-sin(a),cos(a),0,0 ), from</p>
+        <pre>cos(a)   -sin(a)  0
+sin(a)    cos(a)  0
+     0        0   1</pre>
+        <p>A skew transformation along the x-axis is expressed through <kbd class="userinput">matrix(1,0,tan(a),1,0,0)</kbd> and a skew transformation along the y-axis through <kbd class="userinput">matrix(1,tan(a),0,1,0,0)</kbd>, where <var>a</var> is an angle (degrees).</p>
+      </section>
+      <section class="section">
+        <h2>Combining Transformations</h2>
+        <p>You can combine transformations by by putting multiple transformation specifications inside the transform attribute. In the following example a rectangle is first painted straight and filled in yellow and then it is displaced, rotated, and outlined in black:</p>
+        <pre>&lt;rect x="50" y="10" width="20" height="30"
+      style="stroke: none; fill:yellow;"
+        /&gt;
+&lt;rect x="50" y="10" width="20" height="30"
+      style="stroke: black; fill:none;"
+      transform="translate(50,0) rotate(30)" /&gt;</pre>
+      </section>
+      <section class="section">
+        <h2>Making the Top Y-HalfAxis Positive</h2>
+        <p>In SVG, the top Y half-axis is negative by default. This is not compatible with PS, which is the other way round. One hack around this is to invert the Y axis by applying a negative scale factor, like so: <kbd class="userinput">scale(1,-1)</kbd>. Also, since we want the figure to print below the origin, we need to translate the origin downwards as well by as high as the figure is:</p>
+        <pre>transform="translate(0, <var>height</var>) scale(1,-1)"</pre>
+        <p>Actually, we also need to translate horizontally if the figure does not start at x=0...</p>
       </section>
 
 

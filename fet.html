@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FETs</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="FETs (Field-Effect Transistors)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="transistors.html">Transistors</a></p>
+        <p><a rel="next" href="mosfet.html">MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</a></p>
+        <p><a            href="bjt.html">The Bipolar Junction Transistor (BJT)</a></p>
+      </div>
+      <div>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>FETs (Field-Effect Transistors)</h1>
+      <p>[...]</p>
+      <section>
+        <h2>Operation of a FET</h2>
+        <p>A FET has a very similar set of parts to a BJT. There are three parts—a gate, a source, and a drain.</p>
+        <aside>Some FETs also have a <strong>substrate</strong> (or <strong>body</strong>) terminal/port.</aside>
+        <p>The basic operation of the FET is that a voltage at the gate controls the current conduction between the drain and the source. The gate controls the conduction between the drain and the source.</p>
+        <p>Like BJTs, FETs have fully off, fully on, and partially on states. However, unlike BJTs, even when <q>fully on,</q> FETs still offer a resistance between the drain and the source. This is why, for current-focused applications, BJTs are often used—in their fully on state, as they don&apos;t limit the current from the collector to the emitter.</p>
+        <p>Unlike the BJT, the FET is operated by voltages rather than current. Because of this, the gate essentially consumes almost no current whatsoever (it can have a Thévenin equivalence of hundreds of megaohms of resistance). So, while BJTs consume current to perform their operation, FETs consume almost none.</p>
+      </section>
+      <section id="types">
+        <h2>Two Types: Enhancement and Depletion FETs</h2>
+        <p>FETs can be built to perform in one of two operating modes:</p>
+        <ul>
+          <li>
+            <p>A <dfn>depletion mode</dfn> FET is normally <q>on</q> (allowing current to flow between the drain and the source), but turns off when a sufficient voltage (compared to the source) is applied at the gate. The voltage works to <q>deplete</q> the transistor of its conducting ability.</p>
+          </li>
+          <li>
+            <p>An <dfn>enhancement mode</dfn> FET is normally <q>off</q> (blocking current flow between the drain and the source), but turns on when a sufficient voltage (compared to the source) is applied at the gate. The voltage works to <q>enhance</q> the transistor&apos;s ability to conduct.</p>
+            <p>Most FETs have a <q>threshold voltage</q> that the gate must achieve before it switches on.</p>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>N-channel or P-channel</h2>
+        <p>FETs are distinguished as N-channel or P-channel based on their orientation. In an <dfn>N-channel FET</dfn>, the current flows from the drain to the source (i.e., the drain acts like the collector, and the source acts like the emitter). In a <dfn>P-channel FET</dfn>, the current flows from the source to the drain (i.e., the source acts like the collector, and the drain acts like the emitter).</p>
+        <p>For an enhancement mode FET, the gate activates the channel when the gate voltage (compared to the source) is sufficiently positive if it is an N-channel and sufficiently negative if it is a P-channel. For a depletion mode FET, the gate closes the channel when the gate voltage (compared to the source) is sufficiently negative if it is an N-channel and sufficiently positive if it is a P-channel.</p>
+        <p>So, for instance, in a P-channel depletion mode FET, the source will be positive, the drain will be negative, and the channel will close as the gate voltage becomes more and more negative compared to the source.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG Patterns</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="SVG: Creating Patterns with &lt;pattern&gt;"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+     -->
+      <div>
+        <p><a rel="prev" href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a></p>
+        <p><a href="svg.marker.html">SVG: Markers</a></p>
+        <p><a href="svg.transform.html">SVG Transformations</a></p>
+        <p><a href="svg.path.html">Complex SVG Paths with <code>path</code></a></p>
+        <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
+        <p><a href="svg.mask-clipPath.html">Mask and Clip Images</a></p>
+        <p><a href="svg.bb.html">Calculate the Bounding Box of an SVG Element</a> (JavaScript)</p>
+      </div>
+      <div>
+        <p><a href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a></p>
+        <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
+        <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
+        <p><a href="svg.image.html">Embedding Images in an SVG Element/Document</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>SVG: Creating Patterns with <code>&lt;pattern&gt;</code></h1>
+      <p>The SVG language helps you create and reuse patterns with ease. Patterns are extremely useful—in fact, the grid background found in many of this book's examples is just a simple pattern that consists of a single 10-by-10-pixel rectangle. The &lt;defs&gt; element can be used to store content that will not be directly displayed. This stored hidden content can then be referenced and displayed by other SVG elements, which makes it ideal for things such as patterns that contain reusable graphics.</p>
+      <p>To create a basic pattern in SVG, first place a rectangle within a &lt;pattern&gt; element, and then put everything inside of a &lt;defs&gt; element.</p>
+      <pre>&lt;defs&gt;
+  &lt;pattern id="Pattern01" width="10" height="10" patternUnits="userSpaceOnUse"&gt;
+    &lt;rect width="10" height="10" fill="#FFFFFF" stroke="#000000" stroke-width="0.1"/&gt;
+  &lt;/pattern&gt;
+&lt;/defs&gt;</pre>
+      <p>Now, to use this pattern anywhere in your SVG graphic, simply set your element's fill attribute
+value to the id of the pattern, like this: url(#Pattern01).</p>
+      <pre>&lt;rect id="Background" x="0" y="0" width="100%" height="100%"
+  fill="url(#Pattern01)" stroke-width="0.5" stroke="#000000" /&gt;</pre>
+
+    </main>
+  </body>
+</html>

@@ -101,6 +101,46 @@
 
       </section>
 
+      <section id="color">
+        <h2>SVG Color</h2>
+        <p>You can specify the stroke color in a variety of ways:</p>
+          <ul>
+            <li>
+              <p>One of the color keyword names: aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+            </li>
+            <li>
+              <p>A six-digit hexadecimal specifier in the form <code>#rrggbb</code>, where <var>rr</var> is the red component, <var>gg</var> is the green component, and <var>bb</var> is the blue component in the range 0-ff.</p>
+            </li>
+            <li>
+              <p>A three-digit hexadecimal specifier in the form <code>#rgb</code>, where <var>r</var> is the red component, <var>g</var> is the green component, and <var>b</var> is the blue component in the range 0-f. This is a shorthand form of the previous method of specifying color. To produce the six-digit equivalent, each digit of the short form is duplicated; thus <code>#d6e</code> is the same as <code>#dd66ee</code>.</p>
+            </li>
+            <li>
+              <p>An rgb specifier in the form rgb(red-value, green-value, blue-value), where each value is in the range 0-255 or a percentage in the range 0% to 100%</p>
+            </li>
+          </ul>
+      </section>
+
+      <section>
+        <h4>Internal Stylesheets</h4>
+        <p>You don't need to place your styles inside each SVG element; you can create an internal stylesheet to collect commonly-used styles that you can apply to all occurrences of a particular element, or use as named classes to apply to individual elements. The following example sets up an internal stylesheet that will draw all circles in a blue double-thick dashed line with a light yellow interior. We have placed the stylesheet within a <samp class="computeroutput">&lt;defs&gt;</samp> element, which we will discuss later.</p>
+        <p>The example then draws several circles. The circles in the second row have inline styles that override the specification in the internal stylesheet.</p>
+        <pre><!-- title: Use of internal stylesheet -->&lt;svg width="200px" height="200px" viewBox="0 0 200 200"&gt;
+&lt;defs&gt;
+&lt;style type="text/css"&gt;
+  circle {
+    fill: #ffc;
+    stroke: blue;
+    stroke-width: 2;
+    stroke-dasharray: 5 3
+  }&lt;/style&gt;
+&lt;/defs&gt;
+&lt;circle cx="20" cy="20" r="10"/&gt;
+&lt;circle cx="60" cy="20" r="15"/&gt;
+&lt;circle cx="20" cy="60" r="10" style="fill: #cfc"/&gt;
+&lt;circle cx="60" cy="60" r="15" style="stroke-width: 1; stroke-dasharray: none;"/&gt;
+&lt;/svg&gt;</pre>
+      </section>
+
       <!--
       <section>
         <h2>SVG Elements by Category</h2>
