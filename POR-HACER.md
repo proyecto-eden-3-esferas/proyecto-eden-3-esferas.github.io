@@ -1,5 +1,11 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 
+https://lasindias.net/indianopedia/
+https://lasindias.net/indianopedia/L%C3%B3gica_de_la_abundancia
+
+<blockquote>Polyarchy is the empowerment of individuals and communities and the end of statism.</blockquote>
+https://polyarchy.org/index.html
+
 Reading:
 ~/latest_books/books/technology/electronics/Jonathan\ Bartlett\ -\ Electronics\ For\ Beginners_\ A\ Practical\ Introduction\ To\ Schematics\,\ Circuits\,\ And\ Microcontrollers\ -\ Apress\ 2020.503s.16.pdf
 
@@ -145,6 +151,20 @@ Ecoaldea con ideales pero promete ser cara.
 - en fracés
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] *The consumtariat*
+<p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+<p>Alexander Bard describes a new underclass called the <dfn>consumtariat</dfn>, a portmanteau of consumer and proletariat, whose main activity is consumption, regulated from above. It is kept occupied with private problems, its desires provoked with the use of advertisements and its active participation is limited to things like product choice, product customization, engaging with interactive products and life-style choice.</p>
+
+[ ] *Cyberdeutocracy*
+<p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
+<p>Similar to netocracy, is the concept of cyberdeutocracy. Karl W. Deutsch in his book <cite>The Nerves of Government: Models of Political Communication and Control</cite> hypothesized about <q>information elites, controlling means of mass communication and, accordingly, power institutions, the functioning of which is based on the use of information in their activities.</q> Thus Deutsch introduced the concept of <dfn>deutocracy</dfn>, combining the words <q>Deutsch'</q> and <q>autocracy</q> to get the new term. <dfn>Cyberdeutocracy</dfn> combines <q>deutocracy</q> with the prefix <q>cyber-</q> and is defined as a political regime based on the control by the political and corporate elites of the information and communication infrastructure of the Internet space. As a tool of social control, Cyberdeutocracy allows elites to engage in the:</p>
+<ul>
+  <li>destruction and/or transformation of existing meanings, symbols, values, and ideas</li>
+  <li>generation of new meanings, symbols, values, and ideas</li>
+  <li>introduction of these transformed and new meanings, symbols, values, and ideas into the public consciousness to shape society&apos;s perception of political reality.</li>
+</ul>
+<p>The term was coined by Phillip Freiberg in his 2018 paper <cite>What are CyberSimulacra and Cyberdeutocracy?</cite></p>
 
 [ ] escribir *normalizar.html*: encarecer, so capa de enriquecer
 
@@ -2229,6 +2249,16 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+
+[x] link to *consumariat.html* from *society.html*
+[ ] link to *consumariat.html* from elsewhere
+<p><a            href="consumariat.html">The Consumariat: devoted to consumtion</a></p>
+
+
+[x] *ciberpunk.html* (Ciberpunk: descentralizar para prevenir la distopía) desde *plurarquia.critica.html*
+[x] *ciberpunk.html* (Ciberpunk: descentralizar para prevenir la distopía) desde *anarquismo.html*
+[ ] *ciberpunk.html* (Ciberpunk: descentralizar para prevenir la distopía) desde ???
 
 [x] link to *lagom.en.html* from *finnish-values.html*
 [ ] link to *lagom.en.html* from elsewhere
