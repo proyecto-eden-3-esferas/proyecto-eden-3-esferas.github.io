@@ -146,6 +146,13 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *normalizar.html*: encarecer, so capa de enriquecer
+
+[ ] write on protozoans
+[ ] write on nematodes
+[ ] write on rotifers
+[ ] write on tardigrades
+
 [ ] revisar *el-jardin.html* y su imagen idéntica *el-jardin.2.html*
 [ ] comparar *el-jardin.html* y su actualmente imagen idéntica *el-jardin.2.html*, luego ver desde dónde se enlazan, para crear adaptaciones...
 
