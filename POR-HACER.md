@@ -1,5 +1,7 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 
+https://concepto.de/
+
 https://lasindias.net/indianopedia/
 https://lasindias.net/indianopedia/L%C3%B3gica_de_la_abundancia
 
@@ -148,9 +150,34 @@ Ecoaldea con ideales pero promete ser cara.
 - Pass the Port
 
 ## Lista socajones der.
-- en fracés
+- en francés
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] *situacion-y-estado.html*
+<p>Hoy en día escuchamos utilizar la palabra <q>escenario</q> en lugar de <q>situación</q>. También escuchamos <q>condición</q> en lugar de <q>estado</q>.</p>
+<p>Un escenario es una plataforma elevada sobre la que se representa una obra de teatro o se da una actuación. Ya que estamos, un <dfn>teatro</dfn> es un edificio donde se representan obras de teatro, no la geografía en la que se libran una o una serie de batallas.</p>
+<p>Una <dfn>condición</dfn> es algo que ha de cumplirse, normalmente por imposición. Se parece mucho a <q>requisito</q>, que carece del matiz de impuesto externamente. Por ejemplo la pobreza es un estado, no una condición, a menos que interpretemos que algo o alguien (¿Dios?) le pone a una persona la condición de ser pobre (para ir al Cielo).</p>
+
+[ ] *AI Structures*
+[ ] *AI Lists in C++*
+<p>Your types are either atomic or compound...</p>
+<p>You set for a set of types (typeset), wherefrom specific types may be deduced</p>
+<ol>
+  <li>forward-declare a class</li>
+</ol>
+
+[ ] *data-science.html*
+<h1>Data Science</h1>
+<blockquote>
+  <p>Data science is an interdisciplinary field that extracts meaningful insights and knowledge from various forms of data by combining principles from statistics, computer science, and domain expertise. It involves using computational and statistical methods, programming, machine learning, and visualization to uncover patterns, make predictions, and guide data-driven decision-making across many industries, such as finance, marketing, and autonomous vehicles.</p>
+  <p style="text-align: right">(From <cite>AI Overview</cite> by Google)</p>
+</blockquote>
+<section>
+  <h2>Programming</h2>
+  <p>Does data science involve programming or "coding"?</p>
+  <p>At its core, data science is about extracting meaningful insights from vast amounts of data. This process often involves cleaning, analysing, and visualising data, which is typically accomplished through coding. Therefore, yes, data science is very much about programming.</p>
+</section>
 
 [ ] *The consumtariat*
 <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>

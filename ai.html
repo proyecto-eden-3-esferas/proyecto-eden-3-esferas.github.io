@@ -67,15 +67,22 @@
         <p><a target="_blank" href="VitalikButerin.en.html">Vitalik Buterin</a>, co-founder of Ethereum, has shown particular concern for the development of AI technology, noting that if not properly controlled, superintelligent AI could surpass human intelligence and pose a threat. He advocates for a cautious development strategy in the AI field, avoiding centralized power or monopolies while promoting a diversified AI ecosystem. Additionally, Buterin emphasizes the key role of blockchain technology in building a world that prefers defense, highlighting the importance of <a target="_blank" href="blockchain.en.html">blockchain</a> and <a target="_blank" href="cryptography.html">cryptography</a> in creating decentralized, empowering economic and social structures.</p>
       </aside>
 
+      <section>
+        <h2>Origin</h2>
+        <p>The origins of artificial intelligence trace back to the 1940s and 1950s, when pioneers like Alan Turing laid the groundwork for the field. Turing&apos;s seminal paper <cite>Computing Machinery and Intelligence</cite> (1950) proposed the concept of machines capable of simulating human intelligence, introducing the <strong>Turing Test</strong> as a measure of a machine&apos;s ability to exhibit intelligent behaviour. This era was marked by the development of early computers and theoretical models, such as Warren McCulloch and Walter Pitts&apos; model of artificial neurons (1943), which provided a mathematical framework for understanding neural activity and logical operations. These foundational ideas set the stage for future research and experimentation in AI.</p>
+      </section>
       <section id="symbolic">
         <h2>Symbolic AI</h2>
         <p>From the mid-1950s to the mid-1990s, the dominant paradigm  in AI research was <dfn>Symbolic AI</dfn> (also called <q>Classical</q> or <q>Logical</q> AI). This approach to AI was based on logical reasoning, using <a target="_blank" href="symbols.html">symbols</a> and rules—hand-written by human programmers—to represent concepts and the relationships between them, as opposed to perfoming calculations on numerical data.</p>
         <p>It relies on a top-down, knowledge-based approach, where human experts encode rules and knowledge into the system. Classical AI systems typically use techniques like <a href="expert-systems.html">expert systems</a>, <a href="prolog.html">logic programming</a>, and rule-based reasoning to solve problems.</p>
+        <aside>
+          <p>Symbolic AI is rooted in <a target="_blank" href="logic.html">formal logic</a>, <a target="_blank" href="knowledge-representation.html">knowledge representation</a>, and reasoning techniques. The theoretical underpinnings of symbolic AI involve the development and application of formal systems to represent and manipulate knowledge.</p>
+        </aside>
         <p>Classical AI had many successes, including AIs that could play games, hold basic conversations, and answer queries using expert systems.</p>
         <hr/>
         <p>In Symbolic Artificial Intelligence, a <dfn>symbol</dfn> is a representation  of a real-world item or concept. One simple type of symbol is a picture. A symbol can also be a group  of other symbols, such as the letters that make  up the name of an object. In symbolic AI, symbols embody the total sum of the relevant facts and information required for the system to understand what something is. To achieve this, data is labeled and attached to a symbol.</p>
         <hr/>
-        <p>AI&apos;s are programmed to follow strictly logical rules, with the aim of producing reliable conclusions. One such rule is the syllogism, which states: <q>If all <var>A</var>s are <var>B</var>s and all <var>B</var>s are <var>C</var>s, then all <var>A</var>s are <var>C</var>s.</q> This simple principle enables AIs to know that all items  of a particular class will always have a particular characteristic.</p>
+        <p>AI&apos;s are <a target="_blank" href="programming.html">programmed</a> to follow strictly logical rules, with the aim of producing reliable conclusions. One such rule is the syllogism, which states: <q>If all <var>A</var>s are <var>B</var>s and all <var>B</var>s are <var>C</var>s, then all <var>A</var>s are <var>C</var>s.</q> This simple principle enables AIs to know that all items  of a particular class will always have a particular characteristic.</p>
 
         <section id="heuristics">
           <h3>Heuristics</h3>
@@ -86,6 +93,40 @@
           <h3>Rule-Based Systems</h3>
           <p>A rule-based AI system uses instructions, consisting of <code>IF-THEN</code> statements, to draw conclusions based on an initial set of facts. In its simplest form, an IF-THEN statement says to the system:  <q>If this condition is true for the current facts, then do this; if it  is false, do nothing.</q> Adding an <code>ELSE</code> option allows for more complicated statements: <q>If this is true, then do this; otherwise (else), do that.</q></p>
           <p>Rule-based systems are predictable, reliable, and <q>transparent,</q> meaning it is easy to see which rules the AI applies. However, rule-based AIs cannot <q>learn</q> by adding to their store  of rules and facts without human intervention.</p>
+        </section>
+        <section id="knowledge-representation">
+          <h3>Knowledge Representation in Symbolic Artificial Intelligence</h3>
+          <p>Symbolic AI emphasises the representation of knowledge in a form that is both human-readable and machine-processable. Several key methods have been developed for knowledge representation, to wit:</p>
+          <dl>
+            <dt>Semantic Networks</dt>
+            <dd>are graph-based structures where nodes represent concepts and edges represent relationships between them, used to model hierarchical knowledge and relationships.</dd>
+            <dt>Frames</dt>
+            <dd id="frames">Frames, introduced by Marvin Minsky, are data structures for representing stereotypical situations, with each frame consisting of <dfn>slots</dfn> (attributes) and <dfn>fillers</dfn> (values), providing a structured way to represent knowledge about objects and events.</dd>
+            <dt>Rules and Production Systems</dt>
+            <dd>these encode knowledge in the form of <q>if-then</q> rules, which define actions to be taken when certain conditions are met, and are used to infer new knowledge or make decisions.</dd>
+            <dt>Ontologies</dt>
+            <dd><a target="_blank" href="Ontologies.html">Ontologies</a> provide formal representations of a set of concepts and their relationships within a domain, used to standardise and organise knowledge, facilitating interoperability between different systems.</dd>
+          </dl>
+        </section>
+        <section id="data-structures">
+          <h3>Data Structures in Symbolic Artificial Intelligence*</h3>
+          <p>The more outstanding data structures found in Symbolic Artificial Intelligence are:</p>
+          <dl>
+            <dt>weekly-typed lists (and other containers of weekly-typed elements)</dt>
+            <dd>
+              <p>These can contain atoms/objects of <em>any</em> legal datatype, including other containers. For example:</p>
+              <pre>myList = [3, "year", [5, 4, true]]</pre>
+              <p>where <var>myList</var> contains a sublist (<code>[5, 4, true]</code>) consisting of two integers and a truth value.</p>
+              <p>Both in Prolog and in Lisp a list naturally splits into a <dfn>head</dfn> (its first element) and its <dfn>tail</dfn> (a list of its remaining elements).</p>
+            </dd>
+            <dt>Graphs</dt>
+            <dd>
+              <p>These may be called conceptual graphs, semantic networks, etc. Basically, a symbol is related to another symbol, and thus a network of relationships is built up.</p>
+            </dd>
+            <dt><a href="#frames">Frames</a></dt>
+            <dd>Very much like trivial objects in <a target="_blank" href="oop.html">Object-Oriented Programming</a>, or table rows in a <a target="_blank" href="relational-database.html">relational database</a>, or like <a target="_blank" href="cpp.classes.aggregate.html">C++ aggregate objects</a>.</dd>
+          </dl>
+          <p>AI languages like Prolog lack an array-like data structure such as arrays in C and JavaScript or, more the more elaborate <code>std::vector</code> in C++ despite it is pretty straighforward to implement array even if they are not in keeping with the spirit of AI. For instance, if a programmer wants to access the seventh element in a list she will need to unpack (that is, get the tail of the list) as many as seven times. So accessing the seventh element takes seven times as long as accessing the first element.</p>
         </section>
       </section>
 
