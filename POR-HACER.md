@@ -154,6 +154,17 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Write a tokenizer for a human language cum morphological analizer in C++
+- include a list of irregular stems (<code>std::map</code> or <code>std::unordered_map</code>) to be acted on
+- include a list of empty words (<code>std::set</code> or <code>std::unordered_set</code>)
+
+[ ] Write a primitive text editor for paragraphs
+- ability to insert links
+- sectioning
+- dating
+- versioning
+- numbering
+
 [ ] *situacion-y-estado.html*
 <p>Hoy en día escuchamos utilizar la palabra <q>escenario</q> en lugar de <q>situación</q>. También escuchamos <q>condición</q> en lugar de <q>estado</q>.</p>
 <p>Un escenario es una plataforma elevada sobre la que se representa una obra de teatro o se da una actuación. Ya que estamos, un <dfn>teatro</dfn> es un edificio donde se representan obras de teatro, no la geografía en la que se libran una o una serie de batallas.</p>

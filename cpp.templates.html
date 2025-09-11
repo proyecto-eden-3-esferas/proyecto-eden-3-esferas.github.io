@@ -384,7 +384,7 @@ public:
 };</pre>
         <p>A user of <code class="classname">Stack</code> now has to provide two template arguments, an element type and a container type, and the container has to be able to hold objects of the element type. This is confusing, error-prone and a lot of extra work.</p>
         <hr/>
-        <p>It would be much move convenient to just write</p>
+        <p>It would be much more convenient to just write</p>
         <pre>template &lt;typename T, template &lt;typename&gt; class Cont&gt;
 class Stack {
   Cont&lt;T&gt; its_container;
@@ -408,7 +408,8 @@ class Wrapper3;</pre>
           <p>However, the standard container templates (like <code class="classname">std::list</code>) may legally be declared to take more than two parameters...</p>
         </p>
         <aside class="note">
-          <p>The Boost Library uses <a target="_blank" href="cpp.boost.container-selectors.html">Container Selectors</a> to choose an underlying container. This requires writing a lot of partial specializations by hand, but is safe and complient.</p>
+          <p>The Boost Library uses <a target="_blank" href="cpp.boost.container-selectors.html">Container Selectors</a> to choose an underlying container. This requires writing a lot of partial specializations by hand, but is safe and compliant.</p>
+          <p>Furthermore, this has been rendered unnecessary with the introduction of <a href="#template-template-args">Template Template Arguments</a> syntax.</p>
         </aside>
       </section>
 

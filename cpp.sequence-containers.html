@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STL Containers</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.containers.html">C++ Standard Containers</a></p>
+        <p><a rel="next" href="cpp.associative-containers.html">C++ Associative Containers: Maps, Sets...</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a></p>
+        <p><a            href="cpp.stl.html">The C++ Standard Template Library</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Sequence Containers</h1>
+      <section id="lists">
+        <h2>Lists with <code>std::list</code> and <code>std::forward_list</code></h2>
+        <p>A list is a sequence optimized for insertion and deletion of elements. When you insert into a list or delete an element from a list , the locations of other elements of the list are not affected. In particular, iterators referring to other elements are not affected.</p>
+        <p>The main drawback of <code>std::list</code> and <code>std::forward_list</code> compared to these other sequence containers is that they lack direct access to the elements by their position; For example, to access the sixth element in a list, one has to iterate from a known position (like the beginning or the end) to that position, which takes linear time in the distance between these. They also consume some extra memory to keep the linking information associated to each element (which may be an important factor for large lists of small-sized elements).</p>
+        <p><a target="_blank" href="ai.html#symbolic">Artificial Intelligence</a> lists are basically weakly-typed or untyped lists. Such lists may contain elements of any type, even sublists... Just like lists in C++, they are <em>not</em> index-addressable.</p>
+        <hr/>
+        <p>The STL provides two linked-list types:</p>
+        <ol>
+          <li>list: a doubly-linked list, and</li>
+          <li><a href="#forward_list">forward_list</a>: a singly-linked list introduced in recent revisions (C++11)</li>
+        </ol>
+        <p>These are implemented in container <code>std::list&lt;&gt;</code>.</p>
+        <p id="list_shared_members">With the exception of subscripting, capacity management, and <code class="function">size()</code> for <code>forward_list</code>, the STL lists provide the member types and operations offered by <code>vector&lt;&gt;</code>. In addition, <code>list&lt;&gt;</code> and <code>forward_list&lt;&gt;</code> provide specific list member functions:</p>
+        <section id="list">
+          <h3>Doubly-Linked Lists with <code>std::list</code></h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>st.push_front(x)</td>
+                <td>Add x to lst (using copy or move) before the first element</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.pop_front()</td>
+                <td>Remove the first element from lst</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.emplace_front(args)</td>
+                <td>Add T{args} to lst before the first element</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.remove(v)</td>
+                <td>Remove all elements of lst with value v</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.remove_if(f)</td>
+                <td>Remove all elements of lst for which f(x)==true</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.unique()</td>
+                <td>Remove adjacent duplicate elements of lst</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.unique(f)</td>
+                <td>Remove adjacent duplicate elements of lst using f for equality</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.merge(lst2)</td>
+                <td>Merge the ordered lists lst and lst2 using &lt; as the order; lst2 is merged into lst and emptied in the process</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.merge(lst2,f)</td>
+                <td>Merge the ordered lists lst and lst2 using f as the order; lst2 is merged into lst and emptied in the process</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.sort()</td>
+                <td>Sort lst using &lt; as the order</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.sort(f)</td>
+                <td>Sort lst using f as the order</td>
+              </tr>
+              <tr>
+                <td><var>lst</var>.reverse()</td>
+                <td>Reverse the order of the elements of lst ; noexcept</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="forward_list">
+          <h3>Singly-Linked Lists with <code>std::forward_list</code>*</h3>
+          <p><code>std::forward_list</code> objects are single-linked lists, and thus they can only be iterated forwards, in exchange for being somewhat smaller and more efficient than doubly-linked <code>std::list</code>&apos;s.</p>
+
+        </section>
+      </section>
+
+      <section id="vector">
+        <h2>Vectors</h2>
+        <p>std::<code>vectors</code> are automatic arrays which keep track of their <dfn>size</dfn>, that is how many places have been occupied (pressumably in an integer variable), as well as their <dfn>capacity</dfn>, which is the total number of objects of the given type that they can accomodate. Further, when they have filled up, they reallocate their sequence of objects in a larger chunk of memory, the start of this run of memory is updated (in a pointer variable), and the new, larger capacity is updated, too. This means that indeces into the array-like structure remain valid, but pointers are invalidated, so they must never be taken in the first place.</p>
+        <p>Unlike with linked lists, insertions (or deletions) are either meaningless or demand that all objects after the one inserted be shifted one place, which is done in linear time, whereas lists perform insertions and deletions in constant time. Furthermore, insertions and deletions would invalidate all subsequent indeces...</p>
+      </section>
+
+      <section id="stl_deque">
+        <h2>Deques</h2>
+        <p>A <code>deque</code> (pronounced "deck") is very similar to a vector. It manages its elements with a dynamic array, provides random access, and has almost the same interface as a vector. The difference is that with a <code>deque</code> the dynamic array is open at both ends. Thus, a <code>deque</code> is fast for insertions and deletions at both the end and the beginning.</p>
+        <p>Deques have the following differences compared with the abilities of vectors:</p>
+        <ol>
+          <li>Inserting and removing elements is fast both at the beginning and at the end (for vectors it is only fast at the end). These operations are done in amortized constant time.</li>
+          <li>The internal structure has one more indirection to access the elements, so element access and iterator movement of <code>deque</code>&apos;s are usually a bit slower.</li>
+          <li>Iterators must be smart pointers of a special type rather than ordinary pointers because they must jump between different blocks.</li>
+          <li>In systems that have size limitations for blocks of memory (for example, some PC systems), a <code>deque</code> might contain more elements because it uses more than one block of memory. Thus, max_size() might be larger for <code>deque</code>'s.</li>
+          <li>Deques provide no support to control the capacity and the moment of reallocation. In particular, any insertion or deletion of elements other than at the beginning or end invalidates all pointers, references, and iterators that refer to elements of the <code>deque</code>.</li>
+          <li>However, reallocation may perform better than for vectors, because according to their typical internal structure, <code>deque</code>&apos;s don&apos;t have to copy all elements on reallocation.</li>
+          <li>Blocks of memory might get freed when they are no longer used, so the memory size of a <code>deque</code> might shrink (however, whether and how this happens is implementation specific).</li>
+        </ol>
+      </section>
+
+      <section id="bitmap">
+        <h2>Bitmap's*</h2>
+      </section>
+
+      <section>
+        <h2>Random Access Returning Reference</h2>
+        <p>Sequence containers based on an array offer access through indexes. They will declare:</p>
+        <pre>reference operator[](size_type idx);
+const_reference operator[](size_type idx) const;</pre>
+        <p>These are fast but do not perform bound checking. Trying to access beyond the end of the underlying array may, well, crash the program or yield the wrong result. If unsure, use:</p>
+        <pre id="bounds_checking_at">      reference at(size_type idx);
+const_reference at(size_type idx) const;</pre>
+        <p>Member function <code class="function">at(size_type idx)</code> returns a <code>reference</code> or <code>const_reference</code> all right, but will throw an <code>out_of_range</code> exception. Use <code class="function">at(size_type idx)</code> inside a <kbd>try {...}</kbd> block.</p>
+        <p>If you write a container in the STL tradition that returns references to elements of an array, write the body of your <code class="function">at(size_type idx)</code> like this:</p>
+        <pre>if(idx &gt;= size())
+  throw out_of_range("Container::at() used with idx past the end");
+else
+  return the_array[idx];</pre>
+      </section>
+
+      <section>
+        <h2>Find and Replace Operations</h2>
+        <p>Functions <code class="function">find(...)</code> returns a <kbd>size_type</kbd> variable, actually an integer representing an index to the element found. A <code>string</code>&apos;s <code class="function">find()</code> operation may return <kbd>npos</kbd>, for <q>no position</q>, which should be defined as <inlineequation>-1</inlineequation>.</p>
+      </section>
+
+    </main>
+  </body>
+</html>

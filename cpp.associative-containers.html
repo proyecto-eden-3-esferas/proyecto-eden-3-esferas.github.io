@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STL Containers</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.containers.html">C++ Standard Containers</a></p>
+        <p><a rel="next" href="cpp.sequence-containers.html">C++ Sequence Containers: Arrays, Lists...</a></p>
+      <div>
+      </div>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a></p>
+        <p><a            href="cpp.stl.html">The C++ Standard Template Library</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Associative Containers</h1>
+      <p>An <dfn>associative container</dfn> is a variable-sized container that supports efficient retrieval of elements (values) based on keys. It supports insertion and removal of elements, but differs from a <a target="_blank" href="cpp.sequence-containers.html">sequence container</a> in that it does not provide a mechanism for inserting an element at a specific position but the container itself keeps its elements in order internally in a suitable data structure.</p>
+      <section id="associative_container_immutability">
+        <h2>Immutability of Associative Containers</h2>
+        <p> Since the elements of an associative container are stored according to their keys (in a binary tree, hash table...), it is essential that the key associated with each element is <dfn>immutable</dfn>. In simple associative containers this means that the elements themselves are immutable, while in other types of associative containers, such as pair associative containers, the elements themselves are mutable but the part of an element that is its key cannot be modified or assigned a value to. This has an important consequence: associative containers cannot have <dfn>mutable iterators</dfn> in the sense that  if <var>it</var> is an iterator for an associative container and <var>t</var> is an object of <var>it</var>&apos;s value type, then <kbd>*it = t</kbd> is <em>not</em> a valid expression.</p>
+        <p>Consequently, every element of a <em>simple</em> associative container is immutable: objects may be inserted and erased, but not modified.</p>
+      </section>
+
+      <!-- end of "Immutability of Associative Containers" -->
+      <section id="associative_container_types">
+        <h2>Types of Associative Containers</h2>
+        <p>Associative containers are either maps or sets. A map associates or <q>maps</q> a key to a value, whereas in a set (<code href="#set">set</code> and <code href="#multiset">multiset</code>) their elements are their own keys.</p>
+        <p>A map may be either a <code>stl::map</code> or a <code>stl::multi_map</code>, and a set may be either a <code>stl::set</code> or a <code>stl::multi_set</code>. Here the prefix <q>multi</q> means that elements with the same key are allowed. Furthermore, sameness is to be understood not literally but according to a function or a function object that takes to objects and returns a boolean value.</p>
+        <p>According to their implementation and performance, associative containers are further divided into:</p>
+        <ol>
+          <li>ordered containers: and are <code>set</code>, <code>multiset</code>, <code>map</code>, and <code>multimap</code>. They are implemented as binary trees, often red-black trees. They use a comparison function or a <a href="#ordered_comparison_fo">comparison function object</a> to compare keys.</li>
+          <li>unordered containers: and are <code>unordered_set</code>, <code>unordered_multiset</code>, <code>unordered_map</code>, and <code>unordered_multimap</code>. According to Bjarne Stroutstrup, they are implemented as hash tables with linked overflow.</li>
+        </ol>
+      </section> <!-- end of "Types of Associative Containers" -->
+
+      <section id="comparison_fo">
+        <h2>Comparison Function Objects for STL&apos;s Associative Containers</h2>
+        <section>
+          <h3>Introduction</h3>
+          <p>To use the Standard Template Library (STL) associative containers, the type of keys stored must be comparable.</p>
+          <p>For sorted containers (e.g <code>std::set</code>), the comparison is by equivalence, which roughly means overloading the <code class="function">operator&lt;</code>, and for unsorted containers (e.g <code>std::unordered_set</code>) the comparison is by equality, which in turn (again, roughly) means overloading the <code class="function">operator==</code>.</p>
+        </section>
+        <section>
+          <h3>Custom Comparison for STL&apos;s Associative Containers</h3>
+          <p>For some instances of a container with a predefined comparison function for the stored type, you may want to supply an alternative comparison function that makes more sense for the container instance&apos;s purpose.</p>
+          <p>For example, given a type <code>Person</code> that are normally sorted by <var>Person::id</var>, for some <code>std::set&lt;Person&gt;</code> called <var>names</var> you may want to compare the elements by <var>Person::name</var> instead of <var>Person::id</var>. How do you <q>override</q> the default comparison function for Person to achieve the desired behavior for this particular instance of <code>std::set&lt;Person&gt;</code>?</p>
+          <section>
+            <h4>The Complete Declaration for Associative Containers</h4>
+            <p>To exemplify the concepts, I'll consider <code>std::set</code> as a representative of the STL&apos;s associative containers, the differences between it and the others aren&apos;t significant for our purpose: how to create an associative container with a different comparison function from the one defined by the type of element held inside the container?</p>
+            <p>The complete declaration for std::set is:</p>
+            <pre>template
+&lt;
+class T,
+class Compare = less&lt;T&gt;,
+class Alloc = allocator&lt;T&gt;
+&gt;
+class set;</pre>
+            <p>Where:</p>
+            <ol>
+              <li><code>T</code> is the type of elements that will be held</li>
+              <li>Alloc is the memory allocator, with the default being <code>allocator&lt;T&gt;</code></li>
+            </ol>
+            <p>And the most important aspect for this discussion:</p>
+            <blockquote>Compare is the type of the comparison used, with the default being <code>std::less&lt;T&lt;</code></blockquote>
+            <p>But, what&apos;s <code>std::less&lt;T&lt;</code>?</p>
+            <p><code>std::less&lt;T&lt;</code> is a function object that expresses the <q>less-than</q> semantic for objects of type <code>T</code>. Its behavior is to call the <code class="function">operator&lt;()</code> overloaded by the type <code>T</code> to check the relative order of two objects <var>A</var> and <var>B</var> of type <code>T</code>.</p>
+            <p>Given the declaration for <code>std::set</code>, we can see that the way for providing our desired behavior is to supply a different type of comparison function object for the template parameter: <code>Compare</code>. Alright? Let&apos;s do it then!</p>
+            <p>Our type <code>Person</code> looks like this:</p>
+            <pre>#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+
+class Person {
+public:
+	explicit Person(int id, const std::string &amp;name) : m_id{id}, m_name{name} {}
+	const int id() const {return m_id;}
+	const std::string&amp; name() const {return m_name;}
+private:
+	const int m_id;
+	const std::string m_name;
+};
+
+bool operator&lt;(const Person &amp;lhs, const Person &amp;rhs) { // compare by id
+	return lhs.id() &lt; rhs.id();
+}
+
+std::ostream&amp; operator&lt;&lt;(std::ostream &amp;os, const Person &amp;rhs) { // for formatted output
+	os &lt;&lt; "Id: " &lt;&lt; rhs.id() &lt;&lt; ", Name: " &lt;&lt; rhs.name();
+	return os;
+}</pre>
+            <p>And the use of <code>Person</code> inside <code>std::se</code>t and comparing by <var>Person::name</var> instead of <var>Person::id</var> can be achieved by:</p>
+            <pre>struct PersonCompareByName {
+	bool operator()(const Person &amp;lhs, const Person &amp;rhs) const {
+		return lhs.name() &lt; rhs.name();
+	}
+};
+
+int main() {
+	auto people = {Person{2, "C"}, Person{3, "A"}, Person{1, "B"}};
+
+	// By Id
+	std::set&lt;Person&gt; peopleById = people;
+	std::cout &lt;&lt; "By Id: " &lt;&lt; "\n\n";
+	std::copy(cbegin(peopleById), cend(peopleById), std::ostream_iterator&lt;Person&gt;{std::cout, "\n"});
+
+	std::cout &lt;&lt; '\n';
+
+	// By Name (1)
+	std::set&lt;Person, PersonCompareByName&gt; peopleByName = people;
+	std::cout &lt;&lt; "By Name (1): " &lt;&lt; "\n\n";
+	std::copy(cbegin(peopleByName), cend(peopleByName), std::ostream_iterator&lt;Person&gt;{std::cout, "\n"});
+
+	std::cout &lt;&lt; '\n';
+
+	// By Name (2)
+	auto personComparator = [](const auto &amp;lhs, const auto &amp;rhs) {return lhs.name() &lt; rhs.name();};
+	std::set&lt;Person, decltype(personComparator)&gt; peopleByName2{people, personComparator};
+	std::cout &lt;&lt; "By Name (2): " &lt;&lt; "\n\n";
+	std::copy(cbegin(peopleByName2), cend(peopleByName2), std::ostream_iterator&lt;Person&gt;{std::cout, "\n"});
+
+	return 0;
+}</pre>
+            <p>First, we'd created the peopleById that uses the internal (default) comparison function for the type Person: By Person::id(). Thus, every element inside the container will be sorted based on its id.</p>
+            <p>Then, at (1) we created <var>peopleName</var> that relies on the function object <code>PersonCompareByName</code> as the argument for the template parameter <code>Compare</code>, establishing the comparison by Person::name().</p>
+            <p>At (2) we achieved the same behavior of (1) but employing an alternative syntax that uses the lambda <var>personComparator</var> and supplied the template parameter with decltype.</p>
+          </section>
+        </section>
+        <section id="ordered_comparison_fo">
+          <h3>Function Objects for Ordered Associative Containers</h3>
+          <p>Ordered associative containers use compare <a href="cpp.function-object.html">function objects</a> to keep themselves sorted. The default upon construction is <code>less&lt;Key&gt;</code>, which is defined in <filename>functional</filename>. You may define and pass in your own. It should overload <code class="function">bool operator()(const Key&amp; l, const Key&amp; r)</code> and meet the following three requirements for a <dfn>strict weak ordering</dfn>:</p>
+          <dl>
+            <!-- <varlistentry> -->
+              <dt>It has to be <dfn>antisymmetric</dfn></dt>
+              <dd>That is, if <kbd>less&lt;Key&gt;(<var>val1</var>,<var>val2</var>)</kbd> is true, then <kbd>less&lt;Key&gt;(<var>val2</var>,<var>val1</var>)</kbd> must be false.</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>It has to be <dfn>transitive</dfn></dt>
+              <dd/>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+              <dt>It has to be <dfn>irreflexive</dfn></dt>
+              <dd>That is, a key is never <kbd>less</kbd> than itself, or more formally <kbd>less&lt;Key&gt;(<var>val</var>,<var>val</var>)</kbd> is always false.</dd>
+            <!-- </varlistentry> -->
+          </dl>
+          <p>On this definition we define an <dfn>equality</dfn> test given two elements: <q>they are equal if neither is <em>less</em> than the other.</q></p>
+        </section>
+      </section>
+      <!-- end of "Comparison Function Objects for STL&apos;s Associative Containers" -->
+
+      <section id="set">
+        <h2><code>set</code> and <code>multiset</code></h2>
+        <p>Set and multiset containers sort their elements automatically according to a certain sorting criterion. The difference between the two is that a <code id="multiset">multiset</code> allows duplicates, whereas a <code>set</code> does not.</p>
+        <p>They are good for finding out if an element is in a set, or for retrieving an element that is <q>equal</q> to another, which actually is useful if function object <code>less&lt;T&gt;</code> is specialized to suit our goals.</p>
+        <p>Search, removal, and insertion operations have logarithmic complexity. Sets are usually implemented as red-black trees.</p>
+        <section>
+          <h3>Using a <code>std::set</code> for Recording <q>Visited</q> Items</h3>
+          <p>We will be using the following:</p>
+          <ol>
+            <li>insertions, and possibly deletions</li>
+            <li>
+              <code class="function">const_iterator std::set::find( const Key&amp; key ) const</code>
+            </li>
+            <li><code class="function">const_iterator std::set::end() const</code> for comparing the returned value</li>
+          </ol>
+          <p>This would enable us to write a <code class="function">bool has(<var>s</var>, <var>k</var>) const</code>, and a similar <code class="function">bool has_or_add(<var>s</var>, <var>k</var>)</code> function.</p>
+          <p>In many situations the key type would be just a pointer...</p>
+        </section>
+
+      </section>
+
+      <section id="map">
+        <h2><code>map</code> and <code>multimap</code>*</h2>
+        <section>
+          <h3>Difference Between <code>std::map::operator[](<var>KEY</var>)</code> and <code>std::map::at(<var>KEY</var>)</code></h3>
+          <p>f you access a key using the indexing operator [] that is not currently a part of a map, then it automatically adds a key for you. This is a huge caveat. For this reason, I prefer using the indexing operator [] for setting, and members <code>find()</code> / <code>at()</code> for lookup.</p>
+          <p>Another advantage of using <code>at()</code> over <code>[]</code> is the fact that it can operate on a const std::map, whereas <code>[]</code> won't.</p>
+          <p><code>at(<var>key</var>)</code> throws an exception if the key doesn't exist.</p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
