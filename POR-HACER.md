@@ -154,6 +154,10 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] enlazar `<strong>multiverso</strong>` en *conflicto.html* a un futuro *multiverso.html*
+
+[ ] en *casas-moviles.html* sección sobre mi conversación con el amo de dos machos...
+
 [ ] Write a tokenizer for a human language cum morphological analizer in C++
 - include a list of irregular stems (<code>std::map</code> or <code>std::unordered_map</code>) to be acted on
 - include a list of empty words (<code>std::set</code> or <code>std::unordered_set</code>)

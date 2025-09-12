@@ -54,7 +54,7 @@ private:
         <p>This code appears outside of any function or member function bodies. It's almost like declaring a global variable, except that the <code>MyClass::</code> scope resolution specifies that it's part of the MyClass class.</p>
         <p>Just as for normal data members, access control specifiers apply to static data members as well. You could make the <var>counter</var> data member public, but, as you already know, it's not recommended to have public data members (<code>const static</code> data members discussed in an upcoming section are an exception). You should grant access to data members through public getters and setters. If you want to grant access to static data members, you can provide public static get/set member functions.</p>
         <section id="inline_static">
-          <h3>Inline Variables</h3>
+          <h3><code>static inline</code> Member Variables</h3>
           <p>You can declare your static data members as <code>inline</code>. The benefit of this is that you do not have to allocate space for them in a source file. Here's an example:</p>
           <pre>export class MyClass
 {
