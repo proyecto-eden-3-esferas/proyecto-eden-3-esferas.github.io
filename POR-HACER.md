@@ -154,6 +154,10 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] review *cpp.regexp.html* while reading https://cplusplus.com/reference/regex/
+
+[ ] *proyectos.html*
+
 [ ] enlazar `<strong>multiverso</strong>` en *conflicto.html* a un futuro *multiverso.html*
 
 [ ] en *casas-moviles.html* sección sobre mi conversación con el amo de dos machos...

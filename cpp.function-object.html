@@ -26,55 +26,213 @@
       </div>
       <div>
         <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
-        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself (<em>online</em>)</p>
+        <p><a href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself (<em>online</em>)</p>
       </div>
     </nav>
 
     <main>
-      <h1>Function Object in C++</h1>
+      <h1>Function Objects in C++</h1>
+      <p style="text-align: right">(Heavily from <a target="_blank" href="https://cplusplus.com/reference/functional/">https://cplusplus.com/reference/functional/</a>)</p>
       <p>Function objects are objects that work as functions. On an implementation level, however, function objects are objects of a class that implement <code>operator()</code>, with zero to any number of arguments. Although functions and function-pointers can also be classified as function objects, it is the capability of an object of a class that implements operator() to carry state (that is, values in member attributes of the class) that makes it so useful.</p>
-      <p>Function objects that return a boolean type naturally are used in algorithms that need decision-making.</p>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
-      <hr/>
-      <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
-      </aside>
+      <p>Function objects that return a boolean type (<dfn>predicates</dfn>) naturally are used in algorithms that need decision-making.</p>
+      <p>They are typically used as arguments to functions, such as predicates or comparison functions passed to <a target="_blank" href="algorithms.html">standard algorithms</a>.</p>
+      <section id="header">
+        <h2>Header <code>&lt;functional&gt;</code></h2>
+        <p>This header defines some functions, wrapper classes and namespace <code><a href="#placeholders">placeholders</a></code>.</p>
+        <section id="functions">
+          <h3>Functions</h3>
+          <p>These functions create objects of wrapper classes based on its arguments:</p>
+          <dl>
+            <dt><code>bind</code></dt>
+            <dd>Bind function arguments<!--  (function template) --></dd>
 
-      Erase this comment when done writing your page!
-      -->
-      <p>C++ is a general-purpose programming language developed as an extension of C, and both languages have almost the same syntax. Besides being based on C, C++ is object-oriented, gives a clear structure to programs and allows code to be reused, lowering development costs.</p>
-      <p>Like C, C++ gives programmers a high level of control over system resources and memory.</p>
-      <aside>
-        <h2>Did you know?</h2>
-        <p>Bjarne Stroustrup invented C++ in 1979 to extend C, a procedural programming language. It was designed to offer programmers more control over memory and system resources.</p>
-      </aside>
+            <dt><code>cref</code></dt>
+            <dd>Construct reference_wrapper to const<!--  (function template) --></dd>
 
-      <!-- <hr/> -->
+            <dt><code>mem_fn</code></dt>
+            <dd>Convert member function to function object<!--  (function template) --></dd>
 
-      <p>One reason why C++ is so effective is its ability to work very closely with hardware. Additionally, as an object-oriented programming language, it offers flexibility in development. This makes it the go-to language when speed and performance are non-negotiable.</p>
+            <dt><code>not1</code></dt>
+            <dd>Return negation of unary function object<!--  (function template) --></dd>
 
-      <h2>What is C plus-plus used for?</h2>
-      <p>Over time, C++ has become a choice language for building fast and reliable software. Its versatility makes it an excellent match for complex applications, embedded systems, and internet of things (IoT) devices. A few of its most common use cases are as follows:</p>
-      <ul>
-        <li><strong>Software engineering.</strong> A couple of applications you might use daily that were created with C plus-plus include Netflix and Amazon.</li>
-        <li><strong>Operating system (OS) development</strong> Examples of OS that were created with C++ include Microsoft Windows, Mac OS X, and iOS.</li>
-        <li><strong>Graphical user interfaces</strong> C++ is often recommended for graphical user interface design or, GUI.</li>
-        <li><strong>Virtual reality (VR)</strong> C++ can be an excellent language to learn if you want to develop VR applications.</li>
-        <li><strong>Blockchain technology</strong> The well-known cryptocurrency Bitcoin was developed in C++. It can also be used to create smart contracts.</li>
-        <li><strong>Game development</strong> You can develop games and gaming consoles with C++. For example, the game World of Warcraft and the Xbox console.</li>
-      </ul>
+            <dt><code>not2</code></dt>
+            <dd>Return negation of binary function object<!--  (function template) --></dd>
+
+            <dt><code>ref</code></dt>
+            <dd>Construct reference_wrapper<!--  (function template) --></dd>
+
+          </dl>
+        </section>
+        <section id="classes">
+          <h3>Classes*</h3>
+          <section>
+            <h4>Wrapper classes</h4>
+            <p><dfn>Wrapper classes</dfn> are classes that hold an object and have an interface similar to that object, but adding or changing some of its features:</p>
+            <dl>
+
+              <dt><code>binary_negate</code></dt>
+              <dd>Negate binary function object class<!-- (class template) --></dd>
+
+              <dt><code>function</code></dt>
+              <dd>Function wrapper<!-- (class template) --></dd>
+
+              <dt><code>reference_wrapper</code></dt>
+              <dd>Reference wrapper<!-- (class template) --></dd>
+
+              <dt><code>unary_negate</code></dt>
+              <dd>Negate unary function object class<!-- (class template) --></dd>
+
+            </dl>
+          </section>
+          <section>
+            <h4>Operator classes</h4>
+            <p>Operator classes are classes that define functional objects that call operators:</p>
+            <dl>
+
+              <dt><code>bit_and</code></dt>
+              <dd>Bitwise AND function object class<!-- (class template) --></dd>
+
+              <dt><code>bit_or</code></dt>
+              <dd>Bitwise OR function object class<!-- (class template) --></dd>
+
+              <dt><code>bit_xor</code></dt>
+              <dd>Bitwise XOR function object class<!-- (class template) --></dd>
+
+              <dt><code>divides</code></dt>
+              <dd>Division function object class<!-- (class template) --></dd>
+
+              <dt><code>equal_to</code></dt>
+              <dd>Function object class for equality comparison<!-- (class template) --></dd>
+
+              <dt><code>greater</code></dt>
+              <dd>Function object class for greater-than inequality comparison<!-- (class template) --></dd>
+
+              <dt><code>greater_equal</code></dt>
+              <dd>Function object class for greater-than-or-equal-to comparison<!-- (class template) --></dd>
+
+              <dt><code>less</code></dt>
+              <dd>Function object class for less-than inequality comparison<!-- (class template) --></dd>
+
+              <dt><code>less_equal</code></dt>
+              <dd>Function object class for less-than-or-equal-to comparison<!-- (class template) --></dd>
+
+              <dt><code>logical_and</code></dt>
+              <dd>Logical AND function object class<!-- (class template) --></dd>
+
+              <dt><code>logical_not</code></dt>
+              <dd>Logical NOT function object class<!-- (class template) --></dd>
+
+              <dt><code>logical_or</code></dt>
+              <dd>Logical OR function object class<!-- (class template) --></dd>
+
+              <dt><code>minus</code></dt>
+              <dd>Subtraction function object class<!-- (class template) --></dd>
+
+              <dt><code>modulus</code></dt>
+              <dd>Modulus function object class<!-- (class template) --></dd>
+
+              <dt><code>multiplies</code></dt>
+              <dd>Multiplication function object class<!-- (class template) --></dd>
+
+              <dt><code>negate</code></dt>
+              <dd>Negative function object class<!-- (class template) --></dd>
+
+              <dt><code>not_equal_to</code></dt>
+              <dd>Function object class for non-equality comparison<!-- (class template) --></dd>
+
+              <dt><code>plus</code></dt>
+              <dd>Addition function object class<!-- (class template) --></dd>
+
+            </dl>
+          </section>
+          <section>
+            <h4>Other classes</h4>
+            <dl>
+
+              <dt><code>bad_function_call</code></dt>
+              <dd>Exception thrown on bad call (class)</dd>
+
+              <dt><code>hash</code></dt>
+              <dd>Default hash function object class<!-- (class template) --></dd>
+
+              <dt><code>is_bind_expression</code></dt>
+              <dd>Is bind expression<!-- (class template) --></dd>
+
+              <dt><code>is_placeholder</code></dt>
+              <dd>Is placeholder<!-- (class template) --></dd>
+
+            </dl>
+          </section>
+        </section>
+        <section id="placeholders">
+          <h3>Namespace <code>placeholders</code></h3>
+          <p></p>
+        </section>
+      </section>
+
+      <section id="bind">
+        <h2>Function <code>std::bind</code> in Deapth (<code>&lt;functional&gt;</code>)</h2>
+        <p><strong>Prototypes:</strong></p>
+        <pre>template &lt;class Fn, class... Args&gt;
+bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);
+template &lt;class Ret, class Fn, class... Args&gt;
+bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);</pre>
+        <p><code>bind()</code> returns a function object based on <var>fn</var>, but with its arguments bound to <var>args</var>. Each argument may either be bound to a value or be a placeholder:</p>
+        <ul>
+          <li>If bound to a value, calling the returned function object will always use that value as argument.</li>
+          <li>If a placeholder, calling the returned function object forwards an argument passed to the call (the one whose order number is specified by the placeholder).</li>
+        </ul>
+        <p>Calling the returned object returns the same type as <var>fn</var>, unless a specific return type is specified as <var>Ret</var> (second prototype). (Note that <var>Ret</var> is the only template parameter that cannot be implicitly deduced by the arguments passed to this function).</p>
+        <hr/>
+        <p>The type of the returned object has the following properties:</p>
+        <ul>
+          <li>Its functional call returns the same as <var>fn</var> with its arguments bound to <var>args...</var> (or forwarded, for placeholders).</li>
+          <li>For the first prototype, it may have a member <code>result_type</code>: if <var>Fn</var> is a pointer to function or member function type, it is defined as an alias of its return type. Otherwise, it is defined as <code>Fn::result_type</code>, if there should be such a member type.</li>
+        </ul>
+        <section id="bind.example">
+          <h3>An Example</h3>
+          <p></p>
+          <pre>// bind example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;functional&gt;   // std::bind
+
+// a function: (also works with function object: std::divides&lt;double&gt; my_divide;)
+double my_divide (double x, double y) {return x/y;}
+
+struct MyPair {
+  double a,b;
+  double multiply() {return a*b;}
+};
+
+int main () {
+  using namespace std::placeholders;    // adds visibility of _1, _2, _3,...
+
+  // binding functions:
+  auto fn_five = std::bind (my_divide,10,2);               // returns 10/2
+  std::cout &lt;&lt; fn_five() &lt;&lt; '\n';                          // 5
+
+  auto fn_half = std::bind (my_divide,_1,2);               // returns x/2
+  std::cout &lt;&lt; fn_half(10) &lt;&lt; '\n';                        // 5
+
+  auto fn_invert = std::bind (my_divide,_2,_1);            // returns y/x
+  std::cout &lt;&lt; fn_invert(10,2) &lt;&lt; '\n';                    // 0.2
+
+  auto fn_rounding = std::bind&lt;int&gt; (my_divide,_1,_2);     // returns int(x/y)
+  std::cout &lt;&lt; fn_rounding(10,3) &lt;&lt; '\n';                  // 3
+
+  MyPair ten_two {10,2};
+
+  // binding members:
+  auto bound_member_fn = std::bind (&amp;MyPair::multiply,_1); // returns x.multiply()
+  std::cout &lt;&lt; bound_member_fn(ten_two) &lt;&lt; '\n';           // 20
+  auto bound_member_data = std::bind (&amp;MyPair::a,ten_two); // returns ten_two.a
+  std::cout &lt;&lt; bound_member_data() &lt;&lt; '\n';                // 10
+
+  return 0;
+}</pre>
+          <p></p>
+        </section>
+      </section>
 
     </main>
 
