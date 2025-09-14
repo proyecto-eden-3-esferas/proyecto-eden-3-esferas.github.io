@@ -43,10 +43,10 @@
           <h3>Functions</h3>
           <p>These functions create objects of wrapper classes based on its arguments:</p>
           <dl>
-            <dt><code>bind</code></dt>
+            <dt><code><a href="#bind">bind</a></code></dt>
             <dd>Bind function arguments<!--  (function template) --></dd>
 
-            <dt><code>cref</code></dt>
+            <dt><code><a href="#ref-cref">cref</a></code></dt>
             <dd>Construct reference_wrapper to const<!--  (function template) --></dd>
 
             <dt><code>mem_fn</code></dt>
@@ -58,7 +58,7 @@
             <dt><code>not2</code></dt>
             <dd>Return negation of binary function object<!--  (function template) --></dd>
 
-            <dt><code>ref</code></dt>
+            <dt><code><a href="#ref-cref">ref</a></code></dt>
             <dd>Construct reference_wrapper<!--  (function template) --></dd>
 
           </dl>
@@ -171,7 +171,7 @@
       </section>
 
       <section id="bind">
-        <h2>Function <code>std::bind</code> in Deapth (<code>&lt;functional&gt;</code>)</h2>
+        <h2>Function <code>std::bind</code> in Depth (<code>&lt;functional&gt;</code>)</h2>
         <p><strong>Prototypes:</strong></p>
         <pre>template &lt;class Fn, class... Args&gt;
 bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);
@@ -189,10 +189,9 @@ bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);</pre>
           <li>Its functional call returns the same as <var>fn</var> with its arguments bound to <var>args...</var> (or forwarded, for placeholders).</li>
           <li>For the first prototype, it may have a member <code>result_type</code>: if <var>Fn</var> is a pointer to function or member function type, it is defined as an alias of its return type. Otherwise, it is defined as <code>Fn::result_type</code>, if there should be such a member type.</li>
         </ul>
-        <section id="bind.example">
-          <h3>An Example</h3>
-          <p></p>
-          <pre>// bind example
+        <p>>An <strong>example</strong>:</p>
+        <p>[...]</p>
+        <pre>// bind example
 #include &lt;iostream&gt;     // std::cout
 #include &lt;functional&gt;   // std::bind
 
@@ -230,8 +229,77 @@ int main () {
 
   return 0;
 }</pre>
-          <p></p>
-        </section>
+        <p>[...]</p>
+      </section>
+
+      <section id="ref-cref">
+        <h2>Functions <code>std::ref</code> and <code>std::cref</code> in Depth (<code>&lt;functional&gt;</code>)</h2>
+        <p>...</p>
+        <p><strong>Prototypes:</strong></p>
+        <pre>template &lt;class T&gt; reference_wrapper&lt;T&gt; ref (T&amp; elem) noexcept;
+template &lt;class T&gt; reference_wrapper&lt;T&gt; ref (reference_wrapper&lt;T&gt;&amp; x) noexcept;
+template &lt;class T&gt; void ref (const T&amp;&amp;) = delete;
+
+template &lt;class T&gt;  reference_wrapper&lt;const T&gt; cref (const T&amp; elem) noexcept;
+template &lt;class T&gt;  reference_wrapper&lt;const T&gt; cref (reference_wrapper&lt;T&gt;&amp; x) noexcept;
+template &lt;class T&gt;  void cref (const T&amp;&amp;) = delete;</pre>
+        <p>These functions return a <code><a target="_blank" ref="">reference_wrapper</a></code> object of the appropriate type to hold an element of type <code>T</code> or <code>const T</code> respectively.</p>
+        <p>An <strong>example</strong>:</p>
+        <pre>// ref example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;functional&gt;   // std::ref
+
+int main () {
+  int foo (10);
+
+  auto bar = std::ref(foo);
+
+  ++bar;
+  std::cout &lt;&lt; foo &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+        <p>(Note that should we have invoked <code>std::cref</code> instead, the returned object, <var>bar</var>, would not be incrementable, but the source object, <var>foo</var>, would.)</p>
+      </section>
+
+      <section id="mem_fn">
+        <h2>Function <code>std::mem_fn</code> (<code>&lt;functional&gt;</code>)</h2>
+        <pre>template &lt;class Ret, class T&gt;
+/* unspecified */ mem_fn (Ret T::* pm);</pre>
+        <p><code>std::mem_fn</code> converts member function <var>pm</var> to a function object. It returns a function object whose functional call invokes the member function pointed by <var>pm</var>.</p>
+        <hr/>
+        <p>The type of the returned object has the following properties:</p>
+        <ul>
+          <li>Its functional call takes as first argument an object of type <var>T</var> (or a reference or a pointer to it) and, as additional arguments, the arguments taken by <var>pm</var> (if any). The effect of such a call with <var>fn</var> as first argument are the same as calling <code><var>fn</var></code>.*<var>pm</var> (or <code>(*<var>fn</var>).*<var>pm</var></code> if <var>fn</var> is a pointer), forwarding any additional arguments.</li>
+          <li>It has a member <code>result_type</code>, defined as an alias of <var>Ret</var> (which is the return type of <var>pm</var>).</li>
+          <li>If the member pointed by <var>pm</var> takes no arguments, it has a member argument_type, defined as an alias of <code>T*</code>.</li>
+          <li>If the member pointed by <var>pm</var> takes one argument, it has a member <code>first_argument_type</code>, defined as an alias of <code>T*</code>, and a member <code>second_argument_type</code>, defined as an alias of the argument taken by <var>pm</var>.</li>
+          <li>It is nothrow move-constructible, nothrow copy-constructible and nothrow copy-assignable.</li>
+          <hr/>
+          <p>An <strong>example</strong>:</p>
+          <pre>// mem_fn example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;functional&gt;   // std::mem_fn
+
+struct int_holder {
+  int value;
+  int triple() {return value*3;}
+};
+
+int main () {
+  int_holder five {5};
+
+  // call member directly:
+  std::cout &lt;&lt; five.triple() &lt;&lt; '\n'; // 15
+
+  // same as above using a mem_fn:
+  auto triple = std::mem_fn (&amp;int_holder::triple);
+  std::cout &lt;&lt; triple(five) &lt;&lt; '\n'; // 15
+
+  return 0;
+}</pre>
+          <p>[...]</p>
+        </ul>
       </section>
 
     </main>

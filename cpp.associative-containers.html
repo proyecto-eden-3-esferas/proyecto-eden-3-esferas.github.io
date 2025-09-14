@@ -355,11 +355,75 @@ iterator  erase (const_iterator first, const_iterator last);</pre>
       <section id="unordered_set">
         <h2><code>std::unordered_set</code> and <code>std::unordered_multiset</code></h2>
         <p style="text-align: right">(Heavily from <a target="_blank" href="https://cplusplus.com/reference/unordered_set/">https://cplusplus.com/reference/unordered_set/</a>)</p>
+        <p>Unordered sets are containers that store unique elements in no particular order, and which allow for fast retrieval of individual elements based on their value.</p>
+        <p>Internally, the elements are organized into buckets depending on their hash values to allow for fast access to individual elements directly by their values (with a constant average time complexity on average).</p>
+        <p><code>std::unordered_set</code> containers are faster than <code>std::set</code> containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.</p>
+        <section id="unordered_set.buckets">
+          <h3>Buckets in <code>std::unordered_set</code>&apos;s</h3>
+          <dl>
+            <dt><code>bucket_count()</code></dt>
+            <dd><p>Return number of buckets (public member function)</p></dd>
+            <dt><code>max_bucket_count()</code></dt>
+            <dd><p>Return maximum number of buckets (public member function)</p></dd>
+            <dt><code>bucket_size()</code></dt>
+            <dd><p>Return bucket size (public member type)</p></dd>
+            <dt><code>bucket()</code></dt>
+            <dd><p>Locate element's bucket (public member function)</p></dd>
+          </dl>
+        </section>
+
+        <section id="hash-policy">
+          <h3>Hash policy</h3>
+          <dl>
+            <dt><code>load_factor()</code></dt>
+            <dd id="load_factor">
+              <p><code>load_factor()</code> returns the load factor (public member function)</p>
+              <pre>float load_factor() const noexcept;</pre>
+              <p>The <dfn>load factor</dfn> is the ratio between the number of elements in the container (its size) and the number of buckets (<code>bucket_count()</code>):</p>
+              <blockquote>load_factor = size / bucket_count</blockquote>
+              <p>The load factor influences the probability of collision in the hash table (i.e., the probability of two elements being located in the same bucket). The container automatically increases the number of buckets to keep the load factor below a specific threshold (its <code>max_load_factor</code>), causing a rehash each time an expansion is needed.</p>
+              <p>To retrieve or change this threshold, use member function <code>max_load_factor()</code>.</p>
+            </dd>
+            <dt><code>max_load_factor()</code></dt>
+            <dd id="max_load_factor">
+              <p><code>max_load_factor()</code> gets or sets the maximum load factor (public member function)</p>
+              <pre>float max_load_factor() const noexcept;
+void max_load_factor( float <var>mlf</var>);</pre>
+              <p>By default, unordered_set containers have a <var>max_load_factor</var> of 1.0.</p>
+            </dd>
+            <dt><code>rehash()</code></dt>
+            <dd>
+              <pre>void rehash ( size_type n );</pre>
+              <p>Sets the number of buckets in the container to <var>n</var> or more.</p>
+              <p>If <var>n</var> is greater than the current number of buckets in the container (<code>bucket_count()</code>), a rehash is forced. The new bucket count can either be equal or greater than <var>n</var>.</p>
+              <p>If <var>n</var> is lower than the current number of buckets in the container (<code>bucket_count()</code>), the function may have no effect on the bucket count and may not force a rehash.</p>
+              <p>A <dfn>rehash</dfn> is the reconstruction of the hash table: All the elements in the container are rearranged according to their hash value into the new set of buckets. This may alter the order of iteration of elements within the container.</p>
+              <p>Rehashes are automatically performed by the container whenever its load factor is going to surpass its <var>max_load_factor</var> in an operation.</p>
+              <p>[...]</p>
+            </dd>
+            <dt><code>reserve()</code></dt>
+            <dd><p>Request a capacity change (public member function)</p></dd>
+          </dl>
+        </section>
+
+        <section id="observers">
+          <h3>Observers</h3>
+          <dl>
+            <dt><code>hash_function()</code></dt>
+            <dd><p>Get hash function (public member type)</p></dd>
+            <dt><code>key_eq()</code></dt>
+            <dd><p>Get key equivalence predicate (public member type)</p></dd>
+            <dt><code>get_allocator()</code></dt>
+            <dd><p>Get allocator (public member function)</p></dd>
+          </dl>
+        </section>
+
       </section>
 
       <section id="unordered_map">
         <h2><code>std::unordered_map</code> and <code>std::unordered_multimap</code></h2>
         <p style="text-align: right">(Heavily from <a target="_blank" href="https://cplusplus.com/reference/unordered_map/">https://cplusplus.com/reference/unordered_map/</a>)</p>
+        <p>[...]</p>
       </section>
 
     </main>

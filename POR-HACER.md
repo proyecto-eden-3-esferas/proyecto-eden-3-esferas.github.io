@@ -154,6 +154,8 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write section/page *Incomplete Types* to go into *cpp.core-types.html*
+
 [ ] review *cpp.regexp.html* while reading https://cplusplus.com/reference/regex/
 
 [ ] *proyectos.html*

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux Networks</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Networking on Linux"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="Francisco Fernández-Victorio Hernández" />
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a            href="distros.html">Linux Distributions</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="samba.html">Samba (Open Source Implementation of the Microsoft&apos;s SMB Networking Protocol)</a></p>
+      </div>
+      <div>
+        <p><a target="_blank" href="https://wiki.archlinux.org/title/Ad-hoc_networking">Ad-hoc Networking (Archlinux)</a></p>
+        <p><a target="_blank" href="https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw.html">About <code>iw</code></a></p>
+        <p><a target="_blank" href="https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw/vif.html">mac80211 Multiple Virtual Interface (vif) Support</a></p>
+        <!--
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        <p><a target="_blank" href="ADDRESS">XYZ</a></p>
+        -->
+      </div>
+    </nav>
+
+    <main>
+      <h1>Networking on Linux</h1>
+
+      <section>
+        <h2>Sharing an Internet Connection</h2>
+        <p>(<i>See</i> <a target="_blank" href="https://wiki.archlinux.org/title/Internet_sharing">Internet Sharing (Archlinux)</a></p>
+      </section>
+
+      <section>
+        <h2>IBSS/ad-hoc</h2>
+        <p>An <dfn>IBSS</dfn> (Independent Basic Service Set) network, often called an <dfn>ad-hoc</dfn> network, is a way to have a group of devices talk to each other wirelessly, without a central controller. All devices talk directly to each other, with no inherent relaying.</p>
+        <pre>  A
+ / \
+B---C</pre>
+        <hr/>
+        <p><var>A</var> can talk to <var>B</var>, <var>B</var> can talk to <var>A</var> and <var>C</var>, <var>C</var> can talk to <var>B</var>, but <var>A</var> and <var>C</var> can not talk directly (without setting up routes):</p>
+        <pre>A---B---C</pre>
+
+        <section>
+          <h2>Command Line ()</h2>
+          <p>To create an ad-hoc network, you first create an ad-hoc interface (in this example named <code>ah0</code>):</p>
+          <pre>iw phy &lt;phyname&gt; interface add &lt;devname&gt; type ibss</pre>
+          <p>Next, you join/create the ibss: <code>iw dev &lt;devname&gt; ibss join &lt;SSID&gt; &lt;freq in MHz&gt; [fixed-freq] [&lt;fixed bssid&gt;] [key d:0:abcde]</code></p>
+          <p>Example:</p>
+          <pre>iw phy phy0 interface add ah0 type ibss
+ifconfig ah0 up
+iw dev ah0 ibss join AdHocNetworkName 2412</pre>
+          <p>Repeat these steps on all devices you want to network together.</p>
+          <hr/>
+          <p>To leave an ibss you do: <code>iw dev &lt;devname&gt; ibss leave</code></p>
+          <p>Example:</p>
+          <pre>dev ah0 ibss leave</pre>
+        </section>
+
+        <section>
+          <h2>How to Setup an Ad-hoc Network</h2>
+          <p>(From <a target="_blank" href="https://www.thinkpenguin.com/gnu-linux/how-setup-ad-hoc-network">https://www.thinkpenguin.com/gnu-linux/how-setup-ad-hoc-network</a>)</p>
+          <h2>(Tested on Ubuntu 12.04 &amp; Ubuntu 12.10)</h2>
+          <ol>
+            <li>Right click on network applet in the top right corner</li>
+            <li>Open Edit Connections</li>
+            <li>Click on Wireless tab</li>
+            <li>Click on Add button</li>
+            <li>Enter SSID “adhoc_test”</li>
+            <li>Change mode from infrastructure to Ad-hoc</li>
+            <li>Click on IPv4 Settings tab</li>
+            <li>Change the Method from Automatic (DHCP) to Manual</li>
+            <li>Click Add button</li>
+            <li>Enter 192.168.1.13 and hit tab</li>
+            <li>Enter 255.255.255.0 and hit tab</li>
+            <li>Enter 0.0.0.0</li>
+            <li>Click the Save button</li>
+            <li>Hit the Close button</li>
+            <li>Go to the network applet and click Connect to hidden wireless network</li>
+            <li>Select the Wireless adapter: 1b75 9170 from the drop down list</li>
+            <li>From Connection select Wireless connection 1</li>
+            <li>Click Connect button</li>
+          </ol>
+          <p>Repeat steps for each network- adjust IP as needed to be different for each machine.</p>
+          <hr/>
+          <p>To test this is working:</p>
+          <ol>
+            <li>Open a terminal</li>
+            <li>type ping 192.168.1.xx where xx is another machine that is in the ad-hoc network</li>
+            <li>Wait 30 seconds and hold ctrl key down and while doing so press C key</li>
+            <li>You may see dropped packets- it should be less than 100% packet loss in any event, anything less than 100% packet loss indicates a successful connection has been mad to the other machine(s) in the ad-hoc network</li>
+          </ol>
+        </section>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
