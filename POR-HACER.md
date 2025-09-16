@@ -154,6 +154,15 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir *arquitectura.materiales.html*
+    con una tabla de: densidad, aislamiento térmico, ventajas, inconvenientes
+[ ] sección: el procedimiento ideal:
+- fijarse y copiar de las casas móviles
+- prefabricado frente a ...
+- saltarnos los arquitectos
+[ ] escribir *arquitectura.peso-y-coste.html*
+
+
 [ ] write section/page *Incomplete Types* to go into *cpp.core-types.html*
 
 [ ] review *cpp.regexp.html* while reading https://cplusplus.com/reference/regex/

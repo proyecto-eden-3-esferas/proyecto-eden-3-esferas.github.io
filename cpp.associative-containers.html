@@ -136,7 +136,7 @@ int main() {
 
 	return 0;
 }</pre>
-            <p>First, we'd created the peopleById that uses the internal (default) comparison function for the type Person: By Person::id(). Thus, every element inside the container will be sorted based on its id.</p>
+            <p>First, we&apos;d created the peopleById that uses the internal (default) comparison function for the type Person: By Person::id(). Thus, every element inside the container will be sorted based on its id.</p>
             <p>Then, at (1) we created <var>peopleName</var> that relies on the function object <code>PersonCompareByName</code> as the argument for the template parameter <code>Compare</code>, establishing the comparison by Person::name().</p>
             <p>At (2) we achieved the same behavior of (1) but employing an alternative syntax that uses the lambda <var>personComparator</var> and supplied the template parameter with decltype.</p>
           </section>
@@ -360,15 +360,24 @@ iterator  erase (const_iterator first, const_iterator last);</pre>
         <p><code>std::unordered_set</code> containers are faster than <code>std::set</code> containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.</p>
         <section id="unordered_set.buckets">
           <h3>Buckets in <code>std::unordered_set</code>&apos;s</h3>
+          <p>A <dfn>bucket</dfn> is a slot in the container&apos;s internal hash table to which elements are assigned based on their hash value.</p>
+          <p>Buckets are numbered from 0 to (<code>bucket_count()</code> - 1).</p>
           <dl>
             <dt><code>bucket_count()</code></dt>
             <dd><p>Return number of buckets (public member function)</p></dd>
             <dt><code>max_bucket_count()</code></dt>
             <dd><p>Return maximum number of buckets (public member function)</p></dd>
             <dt><code>bucket_size()</code></dt>
-            <dd><p>Return bucket size (public member type)</p></dd>
+            <dd id="bucket_size">
+              <p><code>bucket_size()</code> returns the bucket size</p>
+              <pre>size_type bucket_size ( size_type idx) const;</pre>
+              <p>where <var>idx</var> is the bucket number, which should be lower than <code>bucket_count()</code>.</p>
+            </dd>
             <dt><code>bucket()</code></dt>
-            <dd><p>Locate element's bucket (public member function)</p></dd>
+            <dd>
+              <pre>size_type bucket ( const key_type&amp; <var>k</var> ) const;</pre>
+              <p>Returns the bucket number (or index) where the element with value <var>k</var> is located.</p>
+            </dd>
           </dl>
         </section>
 
@@ -402,19 +411,33 @@ void max_load_factor( float <var>mlf</var>);</pre>
               <p>[...]</p>
             </dd>
             <dt><code>reserve()</code></dt>
-            <dd><p>Request a capacity change (public member function)</p></dd>
+            <dd>
+              <p>Request a capacity change</p>
+              <pre>void reserve( size_type <var>n</var>);</pre>
+              <p>Sets the number of buckets in the container (<code>bucket_count()</code>) to the most appropriate to contain at least <var>n</var> elements. If <var>n</var> is greater than the current <var>bucket_count</var> multiplied by the <var>max_load_factor</var>, the container&apos;s bucket_count is increased and a rehash is forced. If <var>n</var> is lower than that, the function may have no effect.</p>
+            </dd>
           </dl>
         </section>
 
         <section id="observers">
           <h3>Observers</h3>
           <dl>
-            <dt><code>hash_function()</code></dt>
-            <dd><p>Get hash function (public member type)</p></dd>
+            <dt><code>hash_function()</code>
+            </dt>
+            <dd>
+              <p>Get hash function</p>
+              <pre><var>hasher</var> hash_function() const;</pre>
+            </dd>
             <dt><code>key_eq()</code></dt>
-            <dd><p>Get key equivalence predicate (public member type)</p></dd>
+            <dd>
+              <p>Get key equivalence predicate</p>
+              <pre><var>key_equal</var> key_eq() const;</pre>
+              <p>The key equivalence comparison is a predicate that takes the value of two elements as arguments and returns a <code>bool</code> value indicating whether they are to be considered equivalent. It is adopted by the container on construction. By default, it is <code>equal_to&lt;key_type&gt;</code>, which returns the same as applying the equal-to operator (<code>==</code>) to the arguments.</p>
+            </dd>
             <dt><code>get_allocator()</code></dt>
-            <dd><p>Get allocator (public member function)</p></dd>
+            <dd>
+              <p>Get allocator (public member function)</p>
+            </dd>
           </dl>
         </section>
 

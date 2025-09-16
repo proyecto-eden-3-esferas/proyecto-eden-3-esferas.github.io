@@ -691,6 +691,28 @@ for (auto wordIt: allWords)
 // (as:2)(of:1)(level:1)(find:1)(ever:1)(and:2)(natural:1)</pre>
           <p>A word consists of a least one word-character <code>(\w+)</code>. This regular expression is used to define the begin iterator <var>wordItBegin</var>, then the end iterator <var>wordItEnd</var> is defined (default constructor).</p>
           <p>The iteration through the matches happens in the <code>for</code> loop. Each word increments the counter: <code>++<var>allWords</var>[<var>wordItBegin</var>]->str()]</code>. A word whose counter equals 1 is created if it is not already in <var>allWords</var>.</p>
+          <hr/>
+          <p>Another example, from the <cite><a target="_blank" href="https://cplusplus.com/reference/regex/regex_iterator/regex_iterator/">CPlusPlus</a></cite> site:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;regex&gt;
+
+int main ()
+{
+  std::string s ("this subject has a submarine as a subsequence");
+  std::regex e ("\\b(sub)([^ ]*)");   // matches words beginning by "sub"
+
+  std::regex_iterator&lt;std::string::iterator&gt; rit ( s.begin(), s.end(), e );
+  std::regex_iterator&lt;std::string::iterator&gt; rend;
+
+  while (rit!=rend) {
+    std::cout &lt;&lt; rit-&gt;str() &lt;&lt; std::endl;
+    ++rit;
+  }
+
+  return 0;
+}</pre>
+          <p>[...]</p>
         </section>
         <section>
           <h3><code>std::regex_token_iterator</code></h3>
@@ -733,13 +755,8 @@ const sregex_token_iterator bookItNameIssueEnd;</pre>
         </section>
       </section>
 
+
       <!--
-      <section>
-        <h2>ing *</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-      </section>
 
       <section>
         <h2>ing *</h2>
@@ -753,6 +770,14 @@ const sregex_token_iterator bookItNameIssueEnd;</pre>
         <h2>Removing Greediness</h2>
         <p>To make regular expression repetitions non-greedy, a ? can be added behind the repeat as in *? , +? , ?? , and {...}? . A non-greedy repetition repeats its pattern as few times as possible while still matching the remainder of the regular expression.</p>
       </section>
+
+      <section id="compiling">
+        <h2>Compiling Classes and Functions into an Object File, say (<cite>regex.o</cite>)*</h2>
+        <p>Specialization <code>std::regex&lt;char&gt;</code> is particularly easy to declare</p>
+        <pre>template class std::regex&lt;char&gt;;</pre>
+        <p>and is bound to save about eight seconds&apos; compilation time.</p>
+      </section>
+
     </main>
   </body>
 </html>

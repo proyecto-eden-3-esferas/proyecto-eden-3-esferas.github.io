@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Handling Text in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Handling Text in C++: Tokenizing/Analysing/Lexing..."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a            href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a            href="cpp.containers.html">C++ STL Containers</a> </p>
+      -->
+      <div>
+        <p><a rel="prev" href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="cpp.regexp.html">Regular Expressions in the STL</a> </p>
+        <p><a            href="js.regexp.html">JavaScript Regular Expressions</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="cpp.strings.html">The C++ Programming Language</a> </p>
+        <p><a            href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Handling Text in C++: Tokenizing/Analysing/Lexing...</h1>
+      <section>
+        <h2>Tokenizing</h2>
+        <!-- https://www.geeksforgeeks.org/cpp/tokenizing-a-string-cpp/ -->
+        <p>Tokenizing a string programmatically means splitting a string with respect to some delimiter(s). There are serveral ways to tokenize a string.</p>
+
+        <section id="getline">
+          <h3>Using <code><a href="cpp.strings.html#getline">std::getline</a></code> and <code>stringstream</code></h3>
+          <p>We shall be relying on <a href="cpp.strings.html#getline">std::getline(<var>ISTREAM</var>, <var>STRING</var>, <var>DELIMITER</var>)</a> to...</p>
+          <p>A <a target="_blank" href="cpp.sstream.html">stringstream</a> associates a string object with a stream allowing you to read from the string as if it were a stream.</p>
+          <p>Below is a C++ implementation:</p>
+          <pre>// Tokenizing a string using stringstream
+#include &lt;iostream>
+#include &lt;sstream>
+using namespace std;
+
+int main() {
+
+  string line = "GeeksForGeeks is a must try";
+
+  // Declare a vector of string to save tokens:
+  vector &lt;string> tokens;
+
+  // Declare stringstream 'check1' to extract tokens from:
+  stringstream check1(line);
+
+  string intermediate;
+
+  // Tokenizing space ' ';
+  while(getline(check1, intermediate, ' '))
+  {
+      tokens.push_back(intermediate);
+  }
+
+  // Printing the token vector:
+  for(int i = 0; i &lt; tokens.size(); i++)
+    cout &lt;&lt; tokens[i] &lt;&lt; '\n';
+
+  return 0;
+
+}</pre>
+        </section>
+        <section id="strtok">
+          <h3>Using C&apos;s <code>strtok()</code></h3>
+          <p><code>strtok()</code> splits a C-string according to given delimiters and returns the next token. It needs to be called in a loop to get all tokens. It returns <code>NULL</code> when there are no more tokens.</p>
+          <p><strong>Prototype:</strong></p>
+          <pre>char * strtok(char str[], const char *delims);</pre>
+          <p>Below is a C++ demonstration:</p>
+          <pre>// C/C++ program for splitting a string
+// using strtok()
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+  char str[] = "Geeks-for-Geeks";
+
+  // get first token:
+  char *token = strtok(str, "-");
+
+  // Keep printing tokens while one of the
+  // delimiters present in str[].
+  while (token != NULL)
+  {
+    printf("%s\n", token);
+    token = strtok(NULL, "-");
+  }
+
+  return 0;
+}</pre>
+          <p>[...]</p>
+        </section>
+        <section id="strtok_r">
+          <h3>Using C&apos;s <code>strtok_r()</code></h3>
+          <p>Just like <code>strtok()</code> function in C, <code>strtok_r()</code> parses a string into a sequence of tokens. <code>strtok_r()</code> is a reentrant version of <code>strtok()</code>.</p>
+          <pre>char *strtok_r(      char * str,
+               const char * delim,
+                     char ** saveptr);</pre>
+          <p>There are two ways we can call strtok_r().</p>
+          <p>The third argument <var>saveptr</var> is a pointer to a <code>char *</code> variable that is used internally by <code>strtok_r()</code> in order to maintain context between successive calls that parse the same string.</p>
+          <p>Below is a simple C++ program to show the use of <code>strtok_r()</code>:</p>
+          <pre>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main()
+{
+  char str[] = "Geeks for Geeks";
+  char *token;
+  char *rest = str;
+
+  while ((token = strtok_r(rest, " ", &amp;rest)))
+    printf("%s\n", token);
+
+  return(0);
+}</pre>
+          <p>[...]</p>
+        </section>
+        <section id="">
+          <h3>Using <code>std::sregex_token_iterator</code></h3>
+          <p>In this method the tokenization is done on the basis of regex matches. Better for use cases when multiple delimiters are needed.</p>
+          <p>Below is a simple C++ program to show the use of <code>std::sregex_token_iterator</code>:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;regex&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+/* Tokenize the given vector according to the regex
+   and remove the empty tokens. */
+
+std::vector&lt;std::string&gt; tokenize(
+                     const std::string str,
+                          const std::regex re)
+{
+    std::sregex_token_iterator it{ str.begin(),
+                             str.end(), re, -1 };
+    std::vector&lt;std::string&gt; tokenized{ it, {} };
+
+    // Additional check to remove empty strings
+    tokenized.erase(
+        std::remove_if(tokenized.begin(),
+                            tokenized.end(),
+                       [](std::string const&amp; s) {
+                           return s.size() == 0;
+                       }),
+        tokenized.end());
+
+    return tokenized;
+}
+
+// Driver Code
+int main()
+{
+    const std::string str = "Break string
+                   a,spaces,and,commas";
+    const std::regex re(R"([\s|,]+)");
+
+    // Function Call
+    const std::vector&lt;std::string&gt; tokenized =
+                           tokenize(str, re);
+
+    for (std::string token : tokenized)
+        std::cout &lt;&lt; token &lt;&lt; std::endl;
+    return 0;
+}</pre>
+        </section>
+      </section>
+      <section>
+        <h2>Lexing*</h2>
+        <blockquote>
+          <p>A <dfn>lexer</dfn> (or <dfn>lexical analyzer</dfn>) is a program that takes a stream of raw input characters, such as source code, and breaks it down into a sequence of meaningful units called tokens. These tokens represent keywords, operators, identifiers, numbers, and other linguistic components, which are then passed to a parser for syntactic analysis.</p>
+          <hr/>
+          <p><strong>How it works:</strong></p>
+          <ol>
+            <li><strong>Input:</strong>: The lexer receives a string of characters (e.g., int x = 1;) as input.</li>
+            <li><strong>Tokenization:</strong>: It scans the input, identifying patterns and classifying sequences of characters into specific token categories.</li>
+            <li><strong>Output:</strong>: The output is a stream of tokens, where each token typically includes its type (like "keyword," "identifier," or "operator") and its actual value. For example, int x = 1; would be broken into tokens: int (keyword), x (identifier), = (operator), 1 (number), and ; (punctuation).</li>
+            <li><strong>Discarding Whitespace:</strong>: A lexer also typically ignores whitespace and comments, which are not considered part of the core language structure.</li>
+          </ol>
+          <p><strong>Purpose in Compilers:</strong></p>
+          <p>The lexer is the first phase in the compilation process. By converting the input characters into a more manageable and structured stream of tokens, it simplifies the task of the parser, which handles the grammatical correctness of the code.</p>
+          <p><strong>Analogy:</strong></p>
+          <p>Think of a lexer as the process of breaking down a sentence into individual words and punctuation marks (tokens). The parser would then take these words and understand the overall structure and meaning of the sentence.</p>
+          <p style="text-align: right">(From <cite>AI Overview</cite>, by Google)</p>
+        </blockquote>
+      </section>
+    </main>
+  </body>
+</html>
