@@ -154,6 +154,19 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *equilibrio.html*
+- entre teórico y práctico
+- entre ciencias y letras (y tecnología?)
+
+[ ] add to *fungi.html#disease* from https://wellcome.org/news/climate-change-putting-millions-more-people-risk-infection-causing-fungi
+
+[ ] write *use-of-endothermy.html*
+<h1><cite>Mammalian endothermy optimally restricts fungi and metabolic costs</cite>, by Aviv Bergman and Arturo Casadevall</h1>
+<p style="text-align: right">(At <cite>https://pubmed.ncbi.nlm.nih.gov/21060737/</cite>)</p>
+<p>Endothermy and homeothermy are mammalian characteristics whose evolutionary origins are poorly understood. Given that fungal species rapidly lose their capacity for growth above ambient temperatures, we have proposed that mammalian endothermy enhances fitness by creating exclusionary thermal zones that protect against fungal disease. According to this view, the relative paucity of invasive fungal diseases in immunologically intact mammals relative to other infectious diseases would reflect an inability of most fungal species to establish themselves in a mammalian host. In this study, that hypothesis was tested by modeling the fitness increase with temperature versus its metabolic costs. We analyzed the tradeoff involved between the costs of the excess metabolic rates required to maintain a body temperature and the benefit gained by creating a thermal exclusion zone that protects against environmental microbes such as fungi. The result yields an optimum at 36.7°C, which closely approximates mammalian body temperatures. This calculation is consistent with and supportive of the notion that an intrinsic thermally based resistance against fungal diseases could have contributed to the success of mammals in the Tertiary relative to that of other vertebrates.</p>
+
+
+
 [ ] escribir *arquitectura.materiales.html*
     con una tabla de: densidad, aislamiento térmico, ventajas, inconvenientes
 [ ] sección: el procedimiento ideal:
@@ -212,6 +225,7 @@ Ecoaldea con ideales pero promete ser cara.
 [ ] *The consumtariat*
 <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
 <p>Alexander Bard describes a new underclass called the <dfn>consumtariat</dfn>, a portmanteau of consumer and proletariat, whose main activity is consumption, regulated from above. It is kept occupied with private problems, its desires provoked with the use of advertisements and its active participation is limited to things like product choice, product customization, engaging with interactive products and life-style choice.</p>
+[ ] link *The consumtariat*/*consumtariat* to/from *consumariat.html*
 
 [ ] *Cyberdeutocracy*
 <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>

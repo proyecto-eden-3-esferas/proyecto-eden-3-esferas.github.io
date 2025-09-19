@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>move semantics</title>
+    <title>Move Semantics</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Move Semantics: on l- and r-values, moving and forwarding"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
@@ -20,26 +20,50 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
-        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.references.html">C++ References</a></p>
         <p><a rel="next" href="cpp.rule-of-five.html">Rule of Five in C++</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
         <p><a            href="computing.html">Computing</a></p>
-        <p><a            href="index.en.html">Home</a></p>
       </div>
     </nav>
 
     <main>
       <h1>Move Semantics in C++</h1>
+      <p>In C++, to <dfn>move</dfn> means to move the contents (of an object) from one place in memory to another. You typically move something pointed to or some acquired resource such as a file handle or a connection (to a database, or a socket, or...).</p>
 
+      <section>
+        <h2>L- and R-Values</h2>
+        <p>The term lvalue originally referred to an expression that could be the left hand side of an assignment. Correspondingly, an rvalue (although as I recall that term was not used by the C89 standard), was originally just the opposite: an expression that could not be the left hand side of an assignment, but that could only be the right hand side.</p>
+        <p>C++11 complicated this by adding several more nuanced terms, but let&apos;s concentrate on the C++03 meanings. For example, if you have</p>
+        <pre>int x;</pre>
+        <p>then the assignment <code>x = 42</code> is OK, so x is an lvalue expression.</p>
+        <p>As a counter-example, the assigment <code>x+0 = 42</code> is not OK, so <var>x+0</var> is an rvalue expression.</p>
+        <p>And so is the expression <code>2+2</code>, it&apos;s an rvalue expression.</p>
+        <p>So, if the requirement is that your program should include an rvalue, then just write 2+2 or something analogous.</p>
+        <p>Original <a target="_blank" href="c.html">C</a> didn&apos;t have <code>const</code>. In C++, with <code>const</code>, you have to cannot rely on <code>const</code> for the purpose of making an expression an lvalue or an rvalue. The critical point is then whether the expression guaranteed refers to an object in memory, an object with an address: if so, then the expression is an lvalue.</p>
+        <p>Thus, a reference type implies an lvalue, because an expression of reference type is necessarily referring to an object with a memory address, i.e. that expression is an lvalue. However, other than references there&apos;s no connection between type and lvalue/rvalue. For example, both <var>x</var> and <var>x+0</var> are expressions of type <code>int</code>, and they do indeed yield the same <code>int</code> value. But the former is an lvalue expression, while the latter is an rvalue expression.</p>
+        <p>As a general rule, if you can apply the built-in address operator, then it&apos;s an lvalue expression, and otherwise it&apos;s an rvalue expression.</p>
+        <hr/>
+        <p>In C++, an rvalue is an unnamed object or a member of such an object which is not a reference.</p>
+      </section>
 
-      <h2>Causing Move Semantics with <code>std::move()</code></h2>
-      <p>...</p>
-      <pre>// Creating an object using Move constructor
+      <section>
+        <h2>Causing Move Semantics with <code>std::move()</code></h2>
+        <p>...</p>
+        <pre>// Creating an object using Move constructor
 Object obj2 = std::move(obj1);
 
 // Creating an object using Move assignment operator
 Object obj3;
 obj3 = std::move(obj2);</pre>
-      <p>...</p>
+        <p>...</p>
+      </section>
+
+      <section>
+        <h2><code>std::forward</code> in Header <cite>&lt;utility&gt;</cite></h2>
+      </section>
 
 
     </main>

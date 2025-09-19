@@ -33,7 +33,7 @@
 
     <main>
       <h1><code>jq</code>: a lightweight and flexible command-line JSON processor</h1>
-      <p><code>jq</code> is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text.</p>
+      <p><code>jq</code> is like <a target="_blank" href="sed.html">sed</a> for JSON data - you can use it to slice and filter and map and transform JSON structured data with the same ease that sed, awk, grep and friends let you play with text.</p>
       <p><code>jq</code> is written in portable <a target="_blank" href="c.html">C</a>, and it has zero runtime dependencies.<!-- You can download a single binary, scp it to a far away machine of the same type, and expect it to work.--></p>
       <hr/>
       <p><code>jq</code> is built around the concept of filters that work over a stream of JSON. Each filter takes an input and emits JSON to standard out. As we&apos;re going to see, there are many predefined filters that we can use. We can effortlessly combine these filters using pipes to quickly construct and apply complex operations and transformations to our JSON data.</p>
@@ -57,7 +57,7 @@
 </pre>
         <p>We can also apply this filter directly to a JSON file:</p>
         <pre>$ jq '.' fruit.json</pre>
-        <p>It seems that a file must consist of either one JSON objecto or a space-separated string of JSON objects, like:</p>
+        <p>It seems that a file must consist of either one JSON object or a space-separated string of JSON objects, like:</p>
         <pre>{
   "fruit": {
     "name": "apple",
