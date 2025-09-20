@@ -154,6 +154,12 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] add *Perfect Forwarding* to *cpp.move-semantics.html*,
+    possibly before *<h2><code>std::forward</code> in Header <cite>&lt;utility&gt;</cite></h2>*
+
+[ ] add ideas/frases de https://www.sciencedirect.com/science/article/pii/S1369527419300190#tblfn0005
+    a *antibiotics.html#resistence*
+
 [ ] *equilibrio.html*
 - entre teórico y práctico
 - entre ciencias y letras (y tecnología?)
