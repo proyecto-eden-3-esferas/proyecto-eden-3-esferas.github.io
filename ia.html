@@ -47,31 +47,33 @@
 
       <p>Desde que se construyeron ordenadores se ha intentado dotarlos de alguna inteligencia artificial específica además de utilizarlos para cálculos y otras tareas mecánicas. De hecho LISP se plantea en los años 50 y es el segundo lenguaje en antigüedad que todavía se emplea.</p>
 
-      <p>Algunas de las tareas:</p>
-      <ol>
-        <li>jugar al ajedrez y otros juegos intelectuales (como el oriental go)</li>
-        <li>planificar rutas y otras tareas espaciales</li>
-        <li>demostrar teoremas</li>
-        <li>reconocer imágenes</li>
-        <li>entender y generar textos</li>
-        <!--
-        <li></li>
-        -->
-      </ol>
-      <p>En cierto sentido la historia de la Inteligencia Artificial es el logro de cada una de estas tareas sucesivamente.</p>
+      <section id="tareas">
+        <h2>Aplicaciones o <q>tareas</q> desempeñadas  por la Inteligencia Artificial</h2>
+        <p>En un mundo cada vez más práctico la inteligencia artificial evoca principalmente sus aplicaciones.</p>
+        <p>Algunas de las tareas exclusivas de la Inteligencia Artificial, en las que podrían sustituir nuestra inteligencia biológica:</p>
+        <ol>
+          <li>jugar al ajedrez y otros juegos intelectuales (como el oriental go)</li>
+          <li>planificar rutas y otras tareas espaciales</li>
+          <li>demostrar teoremas</li>
+          <li>reconocer imágenes</li>
+          <li><a href="#texto">entender, traducir y generar textos</a></li>
+          <!--
+          <li></li>
+          -->
+        </ol>
+        <p>En cierto sentido la historia de la Inteligencia Artificial es el logro de cada una de estas tareas sucesivamente.</p>
+      </section>
 
-      <hr/>
-
-      <p>Existen dos tipos de inteligencia artificial:</p>
+      <section id="simbolica-y-estadistica">
+      <h2>Dos tipos de Inteligencia Artificial: simbólica y estadística</h2>
+      <p>Existen dos tipos de inteligencia artificial, los cuales se suceden en el tiempo:</p>
       <dl>
-
         <dt>Simbólica</dt>
         <dd>
           <p>Simbólico significa que emplea lenguajes de programación, los cuáles sirven tanto para realizar cálculos como para manejar símbolos. Estos lenguajes de programación son sumamente flexibles.</p>
           <p>Tanto LISP como PROLOG, los dos grandes lenguajes de IA, se basan en la <a href="adt.html">estructura de datos</a> llamada <dfn>lista</dfn>. Estas se parecen a los <i lang="en">arrays</i> y listas enlazadas de C ó C++, o a los contenedores secuenciales de C++ (<code>std::vector</code>, <code>std::deque</code>, <code>std::array</code>) con la salvedad de que un elemento de una lista de IA puede contener a su vez una lista, el cuál a su vez [...] y así indefinidamente.</p>
           <p>Otra característica de los lenguajes de programación empleados en IA Simbólica es que permiten que un programa se modifique a sí mismo según se ejecuta (<dfn>homoiconicidad</dfn>).</p>
         </dd>
-
         <dt>No simbólica o <q>estadística</q></dt>
         <dd>
           <p>Ya desde los inicios se propone resolver ciertos problemas mediante redes neuronales artificiales, formadas por circuitos electrónicos (actualmente circuitos electrónicos integrados) que emulan neuronas, o por programas de ordenador que simulan redes neuronales. ¿Acaso no es así como funciona el cerebro humano, si bien con materia orgánica?</p>
@@ -80,12 +82,60 @@
           <p>Se intuye que estas estructuras realizan un procesamiento en paralelo y que este paralelismo es lo que permite al cerebro animal reconocer imágenes y sonidos, orientarse, etc.</p>
           <p>El programador se substituye por una especie de mago que configura o prepara la red neuronal, la <q>forma</q> o <q>enseña</q>, y la lanza al mundo. Dicho sistema se convierte en una <a target="_blank" href="un-sma-es-una-caja-negra.html">caja negra</a>, funciona (realiza esa clase de tareas que entonces o ahora se consideran inteligentes) pero no se sabe con certeza cómo.</p>
         </dd>
-
       </dl>
+      </section>
 
-      <hr/>
-
-      <p>En un mundo cada vez más práctico la inteligencia artificial evoca principalmente sus aplicaciones.</p>
+      <section id="texto">
+        <h2>Texto: Máquinas que entienden, traducen, escriben, generan...</h2>
+        <p>El dueño del campechano camping, a cien kilómetros de la frontera con Francia, no me necesita para que haga de intérprete con extranjeros. Le basta con hablarle al teléfono y éste se lo traduce por escrito. Con un holandés, utilizando de lengua común el inglés, no considero que yo lo haría mejor.</p>
+        <p>Por tanto de primeras me han llamado la atención dos interacciones lingüísticas con los ordenadores:</p>
+        <ul>
+          <li>La traducción automática, de la que actualmente se ofrecen versiones gratuitas bastante potentes, y</li>
+          <li>la redacción automática de textos, que trae de cabeza a los profesores, casi incapaces de averiguar si los ha escrito el alumno o una suscripción gratuita a ChatGPT</li>
+        </ul>
+        <hr/>
+        <p>Muchas Inteligencias Artificiales disponen de un potente módulo consistente en un modelo o representación interna de una lengua, un <dfn>Gran Modelo Lingüístico</dfn> (Large Language Model o LLM). Fijémonos en que muchas de las tareas que les pedimos a los ordenadores y que nos hacen considerarlos cuasi-inteligentes se basan fuertemente en el lenguaje. Por ejemplo el Test de Turing ciertamente es marcadamente lingüístico: una máquina se hace pasar por un ser humano por su interacción escrita con los examinadores.</p>
+        <p>A menudo el modelo empieza por un divisor o troceador (<i lang="en">tokenizer</i>) que extrae las palabras de un texto y las presenta en forma de lista. Las versiones más sofisticadas podrían conservar la puntuación en trozos separados, o entregar una tira de palabras por cada frase terminada en punto, etc.</p>
+        <p>Esta fase inicial de troceado se podría realizar fácilmente mediante <a target="_blank" href="expresiones-regulares.html">expresiones regulares</a>.</p>
+        <p>Por ejemplo el siguiente párrafo:</p>
+        <blockquote>
+          <p>Los jugadores, viendo llegar el final, aflojaron la atención. El gol del desempate llegó antes de que el árbitro diera el postrer silbido.</p>
+        </blockquote>
+        <p>podría dar lugar a dos tiras:</p>
+        <ul>
+          <li>Los jugadores viendo llegar el final aflojaron la atención</li>
+          <li>El gol del desempate llegó antes de que el árbitro diera el postrer silbido</li>
+        </ul>
+        <hr/>
+        <p>A continuación el modelo intentaría analizar morfológicamente cada palabra y presentar por cada una (1) su raíz y (2) su flexión. Por ejemplo de <q>jugadores</q> la raíz es <q>jugador</q> y su flexión es masculino plural.</p>
+        <p>El análisis morfológico se realizaría mediante expresiones regulares.</p>
+        <hr/>
+        <p>Estas dos fases de división en palabras y análisis aislado (morfológico) de las mismas resulta muy sencillo gracias a, repito, las <a target="_blank" href="expresiones-regulares.html">expresiones regualares</a>.</p>
+        <p>A continuación se me ocurren dos tipos de operaciones:</p>
+        <ul>
+          <li><strong>simples</strong>: observar correlaciones, frecuencias de términos, variedad de vocabulario etc.</li>
+          <li><strong>de comprensión</strong>: el modelo intenta comprender el texto y generar una representación interna del mismo</li>
+        </ul>
+        <section id="simples">
+          <h3>Operaciones simples o sencillas</h3>
+          <p>Se me ocurren algunas deducciones bastante simples:</p>
+          <p>Por ejemplo podría notar que determinados textos, probablemente una minoría, utilizan la palabra <q>consiguiente</q> no precedida por la palabra <q>por</q>. Normalmente utilizamos la palabra <q>consiguiente</q> en la expresión <q>por consiguiente</q>, su uso como adjetivo es relativamente culto (como en <q>el consiguiente destrozo ocasionado</q>).</p>
+          <p>Sin llegar a ser exhaustivo un análisis sencillo podría establecer:</p>
+          <ul>
+            <li><strong>frecuencias</strong>: número de veces que se emplea una palabra o raíz</li>
+            <li><strong>correlaciones</strong>: lo cerca que una palabra tiende a aparecer de otra</li>
+            <li><strong>tema</strong>: a qué campo pertenece el texto en vista de su vocabulario específico</li>
+            <li><strong>tono</strong>: determinar si el texto es vulgar, delicado, retorcido, simplón, insultante, subjetivo, formal etc.</li>
+            <li><strong>persona</strong>: si está escrito en primera persona de singular, o de plural, en segunda (tú, vosotros), su género (masculino o femenino)...</li>
+          </ul>
+        </section>
+        <section id="comprension">
+          <h3>Operaciones de comprensión y generación</h3>
+          <p>Exigen un aparato mucho más complejo un verdadero Gran Modelo de Lenguaje (LLM), mediante el cual se produce una representación interna del significado del texto.</p>
+          <p>Estos mismos modelos sirven para la operación inversa: la generación de textos a partir de representaciones internas.</p>
+          <p>Estas aplicaciones parecen haber saltado otra gran barrera, por no decir la más alta o más emblemática, la de comprender, manejar conceptos, generar contenido. Un coto que hasta hace poco considerábamos exclusivo de la mente humana.</p>
+        </section>
+      </section>
 
     </main>
 

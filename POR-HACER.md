@@ -150,9 +150,23 @@ Ecoaldea con ideales pero promete ser cara.
 - Pass the Port
 
 ## Lista socajones der.
-- en francés
+- libros en francés, novelas principalmente
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] añadir *Combinaciones significativas* (incorporar a un futuro *diviersidad.html* u homólogo)
+<p>Dado un espacio discreto, se definen en él un número fijo <var>n</var> de configuraciones posibles. (Dado un espacio continuo, el número de configuraciones posibles es un infinito de mayor o menos orden.)</p>
+<p>Ahora bien, dentro de un espacio de configuraciones posibles suele haber un subconjunto de ellas que son <dfn>configuraciones significativas</dfn>, es decir configuraciones que no resultan de una combinación aleatoria sino que según alguna <a target="_blank" href="teorias.html">teoría</a> tienen un sentido, razón de ser, funcionalidad única etc.</p>
+<p>Por ejemplo imaginemos el armario ropero de Alberto. Algunos de los <q>conjuntos</q> posibles resultarán disparatados: un abrigo de invierno con un bañador, una camisa vestida encima de un jersey, una corbata con zapatillas de deporte (según gustos, claro) etc. Otros tienen mucho sentido, desde el estético (zapatos marrones con resto de ropa en tonos crema), práctico (pantalones y camiseta rotos para realizar una chapuza en verano) etc.</p>
+
+[ ] add:
+<blockquote>
+  <p><strong>Work with nature rather than against</strong></p>
+  <p>Work with nature rather than against the natural elements, forces, pressures, agencies, and evolutions, so that we assist rather than impede natural developments.</p>
+  <p style="text-align: right">(From <cite>https://www.permaculture.org.uk/principles/work-nature-rather-against</cite>)</p>
+</blockquote>
+
+
 
 [ ] add *Perfect Forwarding* to *cpp.move-semantics.html*,
     possibly before *<h2><code>std::forward</code> in Header <cite>&lt;utility&gt;</cite></h2>*

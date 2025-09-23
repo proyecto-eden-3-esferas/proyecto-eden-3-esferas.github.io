@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Expresiones regulares</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="Expresiones regulares"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="es" class="tecnologia">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
+      <hr/>
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="herramientas.html">Herramientas y máquinas</a></p>
+        <p><a            href="ia.html">Inteligencia Artificial</a></p>
+      -->
+      <div>
+        <p>
+          <a href="notacion.html">Notación: lenguajes específicos artificiales</a>
+        </p>
+        <p>
+          <a rel="next" href="lenguajes-informaticos.html">Lenguajes informáticos</a>
+        </p>
+        <p>
+          <a href="ordenadores.html">Ordenadores digitales</a>
+        </p>
+        <p>
+          <a href="informacion.html">Información</a>
+        </p>
+        <p>
+          <a href="programacion.html">Programación</a>
+        </p>
+      </div>
+      <div>
+        <p>
+          <a href="lenguajes-de-marcado.html">Lenguajes de marcado</a>
+        </p>
+        <p>
+          <a href="xml.es.html">Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)</a>
+        </p>
+      </div>
+      <div>
+        <p>
+          <a href="computing.html">Computing (English)</a>
+        </p>
+        <p>
+          <a href="xml.es.html">XML : eXtensible Mark-up Language (English))</a>
+        </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Expresiones regulares</h1>
+      <p>Muchos editores y procesadores de textos ofrecen la posibilidad de cambiar una cadena de caracteres por otra. Supongamos que hemos escrito sistemáticamente <q>mv</q> entre vocales en lugar de <q>nv</q>: fácilmente sustituiríamos lo primero por lo segundo, por ejemplo <q>comvenir</q> por <q>convenir</q>. En espa&#xF1;ol aplicaríamos esta sustitución a <em>todas</em> las palabras, y de un golpe de tecla habríamos terminado.</p>
+      <p>A veces se nos ofrece además imponer la restricción de que la secuencia de caracteres sea una palabra entera. Por ejemplo cambiar <q>magia</q> por <q>majia</q> para dar un toque Nueva Era. Entonces, ¡atención!, la sustitución habrá tenido en cuenta el <em>contexto</em>.</p>
+      <p>Las <dfn>expresiones regulares</dfn> hacen esto y mucho más. No sólo reconocen secuencias de caracteres y palabras enteras, sino también principios de palabra o de línea y en general cualquier <dfn>esquema</dfn>. Por ejemplo podríamos buscar todas las palabras que terminan en <q>y</q> utilizando la marca de límite de palabra (<code>\b</code>), así: <code>y\b</code>. Más adelante explicaremos todos los componentes que encontramos en un esquema, intervalos de caracteres (<code>[a-z]</code>), opciones (<code>este|ese</code>), etc.</p>
+      <p>Además las expresiones regulares nos permiten seleccionar una parte de la secuencia de caracteres encontrada (<dfn>captura</dfn>) y utilizarla en la sustitución. Tal vez esto no resulte muy útil en textos <q>redactados</q> pero piénsese en una lista de nombres en la que el nombre de pila apareza al final después de una coma, como es usual, y deseáramos quitar la coma y ponerlo al principio. Querríamos cambiar <code>Domínguez Herrera, Laura</code> por <code>Laura Domínguez Herrera</code> etc. Entonces tendríamos que capturar los apellidos y el nombre y escribir el nombre seguido de los apellidos, sin la coma, claro.</p>
+      <p>En general las expresiones regulares resultan muy útiles para tratar todo tipo de textos que estructuren la información según un formato. Cumplimos así uno de los objetivos principales de la informática: automatizar las tareas mecánicas. Las aplicaciones irán saliendo solas si manejamos este tipo de textos. En lo que sigue voy a explicar tanto los esquemas como la forma de capturar trozos de cadenas para ponerlas en el texto final.</p>
+      <aside>
+        <p><q>Una expresión regular es una plantilla que encaja o se corresponde con un conjunto de cadenas de caracteres</q> -Ken Thompson</p>
+      </aside>
+      <section>
+        <h2>Abreviaturas</h2>
+        <p>En los esquemas con los que seleccionamos cadenas de caracteres utilizamos las llamadas <dfn>abreviaturas</dfn>. Van todas precedidas de una barra hacia atrás que evita que la letra que sigue se interprete literalmente. Si queremos referirnos a una barra inclinada hacia atrás, entonces la escribimos dos veces: <code>\\</code>. Nada más hay que explicar. La lista de abreviaturas es:</p>
+        <ul>
+          <li>
+            <p>El punto (.) se corresponde con cualquier carácter, pero entre corchetes se interpreta literalmente: <code>[.]</code> se corresponde con un punto</p>
+          </li>
+          <li>
+            <p><code>^</code> se corresponde con el principio de una línea</p>
+          </li>
+          <li>
+            <p><code>$</code> se corresponde con el final de una línea</p>
+          </li>
+          <li>
+            <p><code>\xxx</code> se corresponde con un valor hexadecimal</p>
+          </li>
+          <li>
+            <p><code>\uxxx</code> se corresponde con un valor de Unicode</p>
+          </li>
+          <li>
+            <p><code>\b</code> se corresponde con un límite de palabra</p>
+          </li>
+          <li>
+            <p><code>\B</code> se corresponde con un no límite de palabra</p>
+          </li>
+          <li>
+            <p><code>\c</code> se corresponde con un <q>retorno de carro</q></p>
+          </li>
+          <li>
+            <p><code>\d</code> se corresponde con un dígito</p>
+          </li>
+          <li>
+            <p><code>\D</code> se corresponde con un no dígito</p>
+          </li>
+          <li>
+            <p><code>\f</code> se corresponde con un <q>form feed</q></p>
+          </li>
+          <li>
+            <p><code>\s</code> se corresponde con un espacio</p>
+          </li>
+          <li>
+            <p><code>\t</code> se corresponde con un tabulador</p>
+          </li>
+          <li>
+            <p><code>\w</code> se corresponde con una letra o dígito (word)</p>
+          </li>
+          <li>
+            <p><code>\W</code> se corresponde con lo que no sea ni letra ni dígito</p>
+          </li>
+        </ul>
+        <p>Obsérvese que la mayúscula es la negación de la minúscula.</p>
+      </section>
+      <!-- end of "Abreviaturas" -->
+      <section>
+        <h2>Conjuntos de caracteres y disyunciones</h2>
+        <p>En lugar de un caracter podemos poner un conjunto de caracteres de los cuales puede aparecer uno cualquiera en la selección. La regla es que ha de ir encerrado entre corchetes. Por ejemplo, cualquier vocal no acentuada se representaría mediante <code>[aeiou]</code>. También podemos establecer intervalos separando los extremos mediante un guión. Todas las minúsculas se encajaría mediante <code>[a-z]</code>. Y todas las letras, minúsculas o mayúsculas, mediante <code>[a-zA-Z]</code>.</p>
+        <p>Si entre corchetes aparece el sombrero (<code>^</code>), ninguno de los caracteres que le siguen pueden aparecer. <code>[^0]</code> selecciona cualquier carácter que no sea el cero, y <code>[^ ]</code> selecciona cualquiera que no sea el espacio.</p>
+        <p>Podemos especificar varias opciones separándolas mediante barra vertical (<code>|</code>), que significa <q>o</q>. Una manera alternativa de especificar todas las letras sería por tanto: <code>[a-z]|[A-Z]</code>. Si especificamos más de dos opciones, intercalamos la barra vertical entre cada par, como en <code>duque|rey|reina</code>, sin a&#xF1;adir espacios de separación.</p>
+      </section>
+      <!-- end of "Conjuntos de caracteres y disyunciones" -->
+      <section>
+        <h2>Cuantificadores</h2>
+        <p>Los elementos de un esquema que no sean <em>literales</em> llevan a la derecha una indicación de cuantas veces puede aparecer. El cuantificador más elemental consiste en un número entre llaves o un mínimo y un máximo separados por coma entre llaves. Por ejemplo, <code>[aeiou]{2}</code> -donde el cuantificador es <code>{2}</code>, por supuesto- encajaría con cualquier vocal doble, y <code>[aeiou]{1,2}</code> encajaría con cualquier vocal simple o doble.</p>
+        <p>En lugar de números entre llaves se pueden usar: <em>?</em> (cero o uno), <em>+</em> (uno o más), y <em>*</em> (cualquier cantidad, incluído cero).</p>
+      </section>
+      <!-- "Cuantificadores" -->
+      <section>
+        <h2>Ejemplos de búsqueda</h2>
+        <ul>
+          <li>
+            <p><code>[^.;:\(\)][ ][A-Z][a-z]</code> busca palabras que empiezan por mayúscula pero cuya segunda letra es minúscula y no siguen un punto y seguido, punto y coma, dos puntos ni paréntesis (lo que nos sirve para ver cuántos sustantivos comunes hemos resaltado con mayúscula);</p>
+          </li>
+          <li>
+            <p><code>ao\b</code> busca palabras terminadas en <q>ao</q>;</p>
+          </li>
+          <li>
+            <p><code>\b[^ ]{7}\b</code> busca palabras de 7 letras (o caracteres), incluída <q>e2porta</q>;</p>
+          </li>
+          <li>
+            <p><code>\\|\(|\)</code> busca barras verticales así como apertura y cierre de paréntesis, todos los cuales ha habido que resguardar con barra inclinada;</p>
+          </li>
+          <li>
+            <p><code>\b[^ aeiou][aeiou]\b</code> busca palabras (<code>\b</code>) bisílabas compuestas de una no vocal seguida de una vocal (incluídas secuencias erróneas como <q>_a</q>);</p>
+          </li>
+          <li>
+            <p><code>delante (d[^e]|[^d])</code> busca todas las veces que la palabra <q>delante</q> no va seguida de la secuencia <q>de</q>, y hemos tenido que poner los miembros de la disyunción entre paréntesis para forzar a que se interprete así;</p>
+          </li>
+          <li>
+            <p><code>desde [ w]* hasta [ w]*</code> busca secuencias <q>desde ... hasta ...</q> sin signos de puntuación entre medias dado que sólo permite letras (<code>\w</code>) y espacios;</p>
+          </li>
+        </ul>
+      </section>
+      <!-- end of "Ejemplos de búsqueda" -->
+      <section>
+        <h2>Capturas</h2>
+        <p>Se <q>capturan</q> grupos de caracteres para repetirlos en el texto final. Esto se hace encerrando entre paréntesis las secuencias que nos interesan. Se pueden hacer varias capturas. Las capturas se utilizan o recuperan poniendo en la <dfn>secuencia de sustitución</dfn> una barra inclinada seguida de un número, empezando por el 1 (<code>\1, \2</code> etc.).</p>
+        <p>Para comprenderlo resolveré el problema propuesto al principio de la lista de nombres en la que el nombre de pila aparecía al final después de coma. Supongamos además que cada nombre ocupa una línea. Tenemos que escribir dos cadenas:</p>
+        <ol>
+          <li>
+            <p>una cadena de búsqueda con dos capturas, la de los apellidos sin la coma y la del nombre: <code>^([^,]*), (.*)</code>;</p>
+          </li>
+          <li>
+            <p>una cadena de sustitución: <code>\2 \1</code>.</p>
+          </li>
+        </ol>
+        <p>En general se cumple que la cadena de sustitución es lo más fácil. Otros ejemplos de captura con sustitución serían:</p>
+        <ul>
+          <li>
+            <p><code>(d{2,3})[-]?(d{6,7})</code> captura las dos partes de un número de teléfono con el prefijo (entre 2 y 3 dígitos) separado del resto (6 ó 7 dígitos) por un guión opcional, todo lo cual podemos sustituir por el número de teléfono sin guiones (<code>\1\2</code>);</p>
+          </li>
+          <li>
+            <p><code>trans([^aeiouáéíóú])</code> busca <q>trans</q> seguido de consonante, la cual captura, que podríamos sustituir por <q>tras</q> seguido de la consonante, mediante <code>tras\1</code>;</p>
+          </li>
+        </ul>
+        <!-- smallskip -->
+        <p>Pero para apreciar el gran potencial de las expresiones regulares con sustitución desarrollamos a continuación una serie de ejemplos de tratamiento de textos de HTML y XML.</p>
+      </section>
+      <!-- end of "Capturas" -->
+      <section>
+        <h2>Captura de mitades en las que partir una palabra</h2>
+        <p>Las siguientes expresiones regulares sirven para capturar dos grupos entre los que se desea partir una palabra insertando la secuencia <code>&lt;breakable/&gt;</code> y llevan todas la substitución <q>\1<!-- breakable -->\2</q>:</p>
+        <ul>
+          <li>
+            <p><q>(^[^&lt;]*[áéíóú])([bcdfghjklmnprstvwxyz][áéíóúaeiou&#xFC;])</q>, para tratar la secuencia vocal acentuada, consonante y vocal acentuada o no, análoga de...</p>
+          </li>
+          <li>
+            <p><q>(^[^&lt;]*[aeiou])([bcdfghjklmnprstvwxyz][áéíóú&#xFC;])</q>;</p>
+          </li>
+          <li>
+            <p><q>(^[^&lt;]*[aeiouáéíóú])(&#xF1;)</q> para la e&#xF1;e;</p>
+          </li>
+          <li>
+            <p><q>([aeiouáéíóú])(g&#xFC;)</q>,</p>
+          </li>
+          <li>
+            <p><q>(^[^&lt;]*([^&lt;]*n)(s[bcdfghjklmnprstvwxyz])</q> divide <q>ins-piración</q>, pero sólo en la primera línea de una cadena de caracteres entre paréntesis;</p>
+          </li>
+        </ul>
+        <p>Otras expresiones regulares útiles son:</p>
+        <ul>
+          <li>
+            <p><q>([^ ]&lt;[^&lt;]&gt;) </q> se substituye por por <q> \1</q> para intercambiar espacio y orden en XML,</p>
+          </li>
+          <li>
+            <p><q>^([^{]*(.*)[ ]*linkdest)</q> captura la declaración de un destino para encerrarlo entre <code>(&lt;) pop</code> y <code>(&gt;) pop</code> a fin de evitar que se inserten marcas de ruptura de palabra por estar supuestamente dentro o constituir parte de una orden XML.</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
