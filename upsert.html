@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upsert: Update or Insert</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Upsert: Update or Insert"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="database.html">Databases</a></p>
+        <p><a            href="database.transaction.html">DataBases Transactions</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="oo-database.html">Object-Oriented DataBases</a></p>
+        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Upsert: Update or Insert</h1>
+      <p>An <dfn>upsert</dfn> is a database operation that either <a target="_blank" href="UPDATE.html">updates</a> an existing record or <a target="_blank" href="INSERT.html">inserts</a> a new record into a table, depending on whether a matching record already exists.</p>
+      <hr/>
+      <p>Different databases have their own syntax for the upsert operation:</p>
+      <table border="1" id="simple">
+        <tr> <td>MySQL</td> <td><code>INSERT ... ON DUPLICATE KEY UPDATE</code></td> </tr>
+        <tr> <td>PostgreSQL</td> <td>INSERT ... ON CONFLICT</td> </tr>
+        <tr> <td>SQL Server</td> <td>Uses the MERGE statement to combine insert, update, and sometimes delete operations.</td> </tr>
+        <tr> <td>MongoDB</td> <td>Uses the updateOne method with an <a target="_blank" href="mongodb.tutorial.html#upsert">upsert</a> option.</td> </tr>
+      </table>
+    </main>
+
+  </body>
+
+</html>

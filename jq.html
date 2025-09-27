@@ -38,10 +38,25 @@
       <hr/>
       <p><code>jq</code> is built around the concept of filters that work over a stream of JSON. Each filter takes an input and emits JSON to standard out. As we&apos;re going to see, there are many predefined filters that we can use. We can effortlessly combine these filters using pipes to quickly construct and apply complex operations and transformations to our JSON data.</p>
 
-      <h3 class="bridgehead">Usage</h3>
+      <hr/>
+
+      <p><strong>Basic Usage</strong></p>
       <pre>jq [&lt;options&gt;] &lt;jq_filter&gt; [&lt;file...&gt;]</pre>
 
-      <section>
+      <nav>
+        <p><a href="#prettify">Prettify JSON</a></p>
+        <p><a href="#accessing-properties">Accessing Properties</a></p>
+        <p><a href="#results-without-double-quotes">Yielding Results without Double Quotes</a></p>
+        <p><a href="#arg">Using Shell Variables through <code>--arg</code></a></p>
+        <p><a href="#compressing">Compressing JSON Objects through <code>-c</code> or <code>--compact-output</code></a></p>
+        <p><a href="#arrays">JSON Arrays</a></p>
+        <p><a href="#functions">Using Functions</a></p>
+        <p><a href="#creating">Creating and Editing JSON Objects</a></p>
+        <p><a href="#transforming">Transforming JSON</a></p>
+        <p><a href="#appendix">Appendix</a></p>
+      </nav>
+
+      <section id="prettify">
         <h2>Prettify JSON</h2>
         <p>Let&apos;s start by taking a look at the simplest filter of all, which incidentally is one of the most useful and frequently used features of <code>jq</code>:</p>
         <pre>$ echo '{"fruit":{"name":"apple","color":"green","price":1.20}}' | jq '.'</pre>
@@ -80,7 +95,7 @@
         <p>This gives us a JSON response for the current position of the International Space Station.</p>
       </section>
 
-      <section>
+      <section id="accessing-properties">
         <h2>Accessing Properties</h2>
         <p>We can access property values by using another simple filter: the <code>.<varname>FIELD</varname></code> operator. To find a property value, we simply combine this filter followed by the property name.</p>
         <p>We can also chain property values together, allowing us to access nested objects:</p>
@@ -101,16 +116,16 @@
         </aside>
       </section>
 
-      <section>
+      <section id="results-without-double-quotes">
         <h2>Yielding Results without Double Quotes</h2>
         <p>The <code>-r</code> flag is used for stripping out the double quotes.</p>
       </section>
 
-      <section>
+      <section id="arg">
         <h2>Using Shell Variables through <code>--arg</code></h2>
       </section>
 
-      <section>
+      <section id="compressing">
         <h2>Compressing JSON Objects through <code>-c</code> or <code>--compact-output</code></h2>
         <pre>$ jq -c '.employees[]' sample.json
 {"name":"Tony","age":"35","gender":"male"}

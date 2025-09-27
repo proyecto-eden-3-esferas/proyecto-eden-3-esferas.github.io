@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Spacing in CSS</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Text Spacing in CSS"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="css.html">Styling with CSS (Cascading Style Sheets)</a></p>
+        <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p>
+      </div>
+      <div>
+        <p><a href="css.font.html">CSS Font Parameters</a></p>
+        <p><a href="css.colours.html">CSS Colours</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Text Spacing in CSS</h1>
+      <p>CSS has several properties to control text spacing:</p>
+      <ul>
+        <li><code><a href="#white-space">white-space</a></code></li>
+        <li><code><a href="#line-height">line-height</a></code></li>
+        <li><code><a href="#text-indent">text-indent</a></code></li>
+        <li><code><a href="#word-spacing">word-spacing</a></code></li>
+        <li><code><a href="#letter-spacing">letter-spacing</a></code></li>
+      </ul>
+
+      <section id="white-space">
+        <h2>Preserving/Collapsing Whitespace with CSS</h2>
+        <p><strong>CSS Syntax</strong></p>
+        <pre>white-space: normal|nowrap|pre|pre-line|pre-wrap|initial|inherit;</pre>
+        <table>
+          <caption>Property Values</caption>
+          <thead>
+            <tr> <td>Value</td> <td>Description</td> </tr> </thead>
+            <tr> <td>normal</td> <td>Sequences of whitespace will collapse into a single whitespace. Text will wrap when necessary. This is default</td> </tr>
+            <tr> <td>nowrap</td> <td>Sequences of whitespace will collapse into a single whitespace. Text will never wrap to the next line. The text continues on the same line until a &lt;br&gt; tag is encountered</td> </tr>
+            <tr> <td>pre</td> <td>Whitespace is preserved by the browser. Text will only wrap on line breaks. Acts like the &lt;pre&gt; tag in HTML</td> </tr>
+            <tr> <td>pre-line</td> <td>Sequences of whitespace will collapse into a single whitespace. Text will wrap when necessary, and on line breaks</td> </tr>
+            <tr> <td>pre-wrap</td> <td>Whitespace is preserved by the browser. Text will wrap when necessary, and on line breaks</td> </tr>
+            <tr> <td>initial</td> <td>Sets this property to its default value. Read about initial</td> </tr>
+            <tr> <td>inherit</td> <td>Inherits this property from its parent element.</td> </tr>
+        </table>
+      </section>
+
+      <section id="line-height">
+        <h2>CSS Line Height</h2>
+        <p>The CSS <code>line-height</code> property is used to specify the space between lines. Negative values are not allowed.</p>
+        <p>An <strong>example</strong> whereby the space between lines is specified (default is 1.0):</p>
+        <pre>p.small {
+  line-height: 0.8;
+}
+
+p.big {
+  line-height: 1.8;
+}</pre>
+      </section>
+
+      <section id="text-indent">
+        <h2>CSS Text Indentation</h2>
+        <p>The CSS <code>text-indent</code> property is used to specify the indentation of the first line in a text-block. Negative values are allowed. The first line will be indented to the left if the value is negative.</p>
+        <p><strong>Example</strong></p>
+        <pre>p {
+  text-indent: 50px;
+}</pre>
+      </section>
+
+      <section id="word-spacing">
+        <h2>CSS Word Spacing</h2>
+        <p>The CSS word-spacing property is used to specify the space between the words in a text. Negative values are allowed.</p>
+        <p>An <strong>example</strong> whereby the space between words is increased or decreased:</p>
+        <pre>p.one {
+  word-spacing: 10px;
+}
+
+p.two {
+  word-spacing: -2px;
+}</pre>
+      </section>
+
+      <section id="letter-spacing">
+        <h2>CSS Letter Spacing</h2>
+        <p>The CSS <code>letter-spacing</code> property is used to specify the space between the characters in a text. Negative values are allowed.</p>
+        <p>An <strong>example</strong> where the space between characters is increased or decreased:</p>
+        <pre>h1 {
+  letter-spacing: 5px;
+}
+
+h2 {
+  letter-spacing: -2px;
+}</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -180,11 +180,12 @@
   modifiedCount: 1,
   upsertedCount: 0
 }</pre>
-          <p>Note the parameter upsertedCount. MongoDB uses an optional parameter known as &#x2018;upsert', the value of which can be a boolean (true/false). While writing the update query, if upsert is set to true, the document is inserted if it doesn't exist.</p>
+          <p>Note the parameter <var>upsertedCount</var>. MongoDB uses an optional parameter known as <code>upsert</code>, the value of which can be a boolean (true/false). While writing the update query, if upsert is set to true, the document is inserted if it doesn't exist.</p>
         </section>
-        <section>
-          <h3>An example with <var>upsert</var> set to <code>true</code></h3>
-          <p>For example, let's try to update a document with <var>_id</var> as 10000 (which doesn't exist), with <var>upsert</var> as <code>true</code>:</p>
+        <section id="upsert">
+          <h3><var>upsert</var>, with an Example thereof Set to <code>true</code></h3>
+          <p>MongoDB uses an optional parameter known as <code><a target="_blank" href="upsert.html">upsert</a></code>, the value of which can be a boolean (true/false). While writing the update query, if upsert is set to true, the document is inserted if it doesn&apos;t exist.</p>
+          <p>For example, let&apos;s try to update a document with <var>_id</var> as 10000 (which doesn&apos;t exist), with <var>upsert</var> as <code>true</code>:</p>
           <pre>db.grades.update(
    { student_id: 10000 },
    { $set:
@@ -200,13 +201,13 @@
         <h2>Operators</h2>
         <section>
           <h3>Operator <code>$unset</code></h3>
-          <p>The <code>$unset</code> operator is the exact opposite of the <code>$set</code> operator. Rather than assigning a new value to a field, the $unset operator will give an empty value to a field thereby deleting it. Here's an example of the <code>$unset</code> operator,</p>
+          <p>The <code>$unset</code> operator is the exact opposite of the <code>$set</code> operator. Rather than assigning a new value to a field, the $unset operator will give an empty value to a field thereby deleting it. Here&apos;s an example of the <code>$unset</code> operator,</p>
           <pre>db.grades.update({_id: 1}, {$unset: {"scores.score": ""}}),\</pre>
           <p>whereby <var>scores.score</var> is removed for object with <var>_id</var> equal to 1.</p>
         </section>
         <section>
           <h3>Operator <code>$inc</code></h3>
-          <p>The <code>$inc</code> operator is MongoDB's abbreviation of <q>increment</q>, an operator designed to increase or decrease the value of a field. <code>$inc</code> can be used with either floats or integers, which means that decimal values can be passed through <code>$inc</code> without an issue. Here's an example of the <code>$inc</code> operator with an integer.</p>
+          <p>The <code>$inc</code> operator is MongoDB&apos;s abbreviation of <q>increment</q>, an operator designed to increase or decrease the value of a field. <code>$inc</code> can be used with either floats or integers, which means that decimal values can be passed through <code>$inc</code> without an issue. Here&apos;s an example of the <code>$inc</code> operator with an integer.</p>
           <pre>db.grades.update({_id: 111}, {$inc: {"scores.score": -1}}),\</pre>
           <p>Here the value of <var>scores.score</var> is decreased by one. For example, if its value was previously 10, now it would be 9.</p>
         </section>
