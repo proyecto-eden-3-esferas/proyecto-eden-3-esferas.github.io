@@ -154,6 +154,11 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+
+[ ] enlazar a *futuro.html* con
+<p><a href="futuro.html">El Futuro: ¿Qué nos depara? ¿Qué adivinar, suponer o temer?</a></p>
+
+
 [ ]
 <blockquote>
   <p style="text-align: right">(From Wikipedia)</p>

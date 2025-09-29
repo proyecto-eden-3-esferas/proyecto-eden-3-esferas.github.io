@@ -36,8 +36,46 @@
     <main>
       <h1>Regular Expressions in the STL</h1>
 
-      <p>Regular expressions, defined in the <cite><code>&lt;regex&gt;</code></cite> header, are a powerful feature of the Standard Library. They are a special mini-language for string processing. They might seem complicated at first, but once you get to know them, they make working with strings easier.</p>
+      <p>Regular expressions are a powerful feature of the Standard Library. They are a special mini-language for string processing. They might seem complicated at first, but once you get to know them, they make working with strings easier.</p>
 
+      <p>The standard C++ library provides support for regular expressions in the <cite><code>&lt;regex&gt;</code></cite> header through a series of operations. All these operations make use of some typical regex parameters:</p>
+      <ul>
+        <li><strong>Target sequence (subject)</strong> The sequence of characters searched for the pattern. Generally, this is a range specified by two iterators, but some functions also accept a c-string or a string object instead.</li>
+        <li><strong>Regular expression (pattern)</strong> The pattern which is searched for in the target sequence. This must be an object of a basic_regex type (such as regex), generally constructed from a string with a special syntax that describes what constitutes a match (see ECMAScript syntax).</li>
+        <li><strong>Matches array</strong> Some operations allow to retrieve information about matches. This information is stored in one of the special match_results array types (such as cmatch or smatch).</li>
+        <li><strong>Replacement string</strong> Some operations can replace matches. These replacements are specified in strings that allow for a special format (<i>see</i> <a href="#ECMAScript">ECMAScript syntax</a>).</li>
+      </ul>
+
+      <hr/>
+
+      <p>Header <code>&lt;regex&gt;</code> contains the following <a href="#functions">functions</a>, iterator types, classes, and namespace <code>regex_constants</code>.</p>
+      <p><strong>Functions:</strong></p>
+      <table border="1">
+        <tr> <td><code>regex_match</code></td> <td>Match sequence (function template)</td> </tr>
+        <tr> <td><code>regex_search</code></td> <td>Search sequence (function template)</td> </tr>
+        <tr> <td><code>regex_replace</code></td> <td>Replace matched sequence (function template)        </td> </tr>
+      </table>
+
+      <p><strong>Iterator Types:</strong></p>
+      <table border="1">
+        <tr> <td><code>regex_iterator</code></td> <td>Regex iterator (class template)</td> </tr>
+        <tr> <td><code>regex_token_iterator</code></td> <td>Regex token iterator (class template)</td> </tr>
+      </table>
+
+      <p><strong>Classes:</strong></p>
+      <table border="1">
+        <tr> <td><code>basic_regex</code></td> <td>Regular expression (class template)</td> </tr>
+        <tr> <td><code>match_results</code></td> <td>Match results (class template)</td> </tr>
+        <tr> <td><code>sub_match</code></td> <td>Sub-expression match (class template)</td> </tr>
+        <tr> <td><code>regex_traits</code></td> <td>Regex traits (class template)</td> </tr>
+        <tr> <td><code>regex_error</code></td> <td>Regex exception (class)</td> </tr>
+      </table>
+
+      <p><strong>Namespace <code>regex_constants</code>:</strong></p>
+
+      <hr/>
+
+      <p>These are the sections in this page:</p>
       <nav>
         <p><a href="#functions">Regular Expression Functions Provided</a></p>
         <p><a href="#versions">Different Regular Expression Grammars</a></p>
@@ -54,9 +92,6 @@
         <p><a href="#repeated-search">Repeated Search</a></p>
         <p><a href="#removing-greediness">Removing Greediness</a></p>
       </nav>
-
-
-
 
       <section id="functions">
         <h2>Regular Expression Functions Provided</h2>
