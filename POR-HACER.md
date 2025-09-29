@@ -154,6 +154,23 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ]
+<blockquote>
+  <p style="text-align: right">(From Wikipedia)</p>
+  <p>The Maillard reaction (/maɪˈjɑːr/ my-YAR; French: [majaʁ]) is a chemical reaction between amino acids and reducing sugars to create melanoidins, the compounds that give browned food its distinctive flavor. Seared steaks, fried dumplings, cookies and other kinds of biscuits, breads, toasted marshmallows, falafel and many other foods undergo this reaction.</p>
+  <p>[...]</p>
+  <p>The reaction is a form of non-enzymatic browning which typically proceeds rapidly from around 140 to 165 °C (280 to 330 °F). Many recipes call for an oven temperature high enough to ensure that a Maillard reaction occurs. At higher temperatures, caramelization (the browning of sugars, a distinct process) and subsequently pyrolysis (final breakdown leading to burning and the development of acrid flavors) become more pronounced.</p>
+</blockquote>
+
+[ ]
+<p>Se me acercó y me preguntó la fecha, a lo que le respondí que estábamos a veintisiete de septiembre. Pero no se había quedado satisfecho. Añadió --¿De qué año?.</p>
+<p>--De dos mil veinticinco, por supuesto-- le respondí.</p>
+<p>Le miré de arriba a abajo. Su apariencia era perfectamente normal.</p>
+<p>--Es que soy muy despistado.</p>
+<p>Me cayó bien. En las siguientes semanas le conocí mejor.</p>
+<p>De él aprendí que era perfectamente normal desconocer no ya el día sino el año en el que se estaba. ¿Por qué no?</p>
+
+
 [ ] añadir *Combinaciones significativas* (incorporar a un futuro *diviersidad.html* u homólogo)
 <p>Dado un espacio discreto, se definen en él un número fijo <var>n</var> de configuraciones posibles. (Dado un espacio continuo, el número de configuraciones posibles es un infinito de mayor o menos orden.)</p>
 <p>Ahora bien, dentro de un espacio de configuraciones posibles suele haber un subconjunto de ellas que son <dfn>configuraciones significativas</dfn>, es decir configuraciones que no resultan de una combinación aleatoria sino que según alguna <a target="_blank" href="teorias.html">teoría</a> tienen un sentido, razón de ser, funcionalidad única etc.</p>
@@ -2341,6 +2358,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[x] link to *slow-food.html* from *health.html*
+[x] link to *slow-food.html* from *farming.html*
+[ ] link to *slow-food.html* from elsewhere
 
 [x] link to *consumariat.html* from *society.html*
 [ ] link to *consumariat.html* from elsewhere

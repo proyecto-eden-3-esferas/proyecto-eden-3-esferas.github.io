@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Animations</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript Animations"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="js.html">JavaScript: the Web Programming Language</a></p>
+        <p><a            href="js.dom.html">JavaScript and the HTML DOM (Document Object Model)</a></p>
+        <p><a            href="js.objects.html">JavaScript Objects (as a Data Type and as a Class)</a></p>
+      </div>
+      <div>
+        <!--
+        <p><a href="js.exceptions.html">JavaScript Exception Handling</a></p>
+        -->
+        <p><a href="js.higher-order-functions.html">Higher-Order Functions</a></p>
+        <p><a href="json.html">JavaScript Object Notation</a></p>
+        <p><a href="js.json.html">JavaScript for Handling JSON</a></p>
+      </div>
+
+    </nav>
+    <main>
+      <h1>JavaScript Animations</h1>
+      <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://javascript.info/js-animation">https://javascript.info/js-animation</a></cite>, and <cite><a target="_blank" href="https://developer.mozilla.org/">Mozila Development Network</a></cite>)</p>
+      <section>
+        <h2>Using <code>setInterval</code></h2>
+        <p>An animation can be implemented as a sequence of frames – usually small changes to HTML/CSS properties.</p>
+        <p>For instance, changing <var>style.left</var> from <code>0px</code> to <code>100px</code> moves the element. And if we increase it in <code>setInterval</code>, changing by <code>2px</code> with a tiny delay, like 50 times per second, then it looks smooth. That&apos;s the same principle as in the cinema: 24 frames per second is enough to make it look smooth.</p>
+        <p>The pseudo-code can look like this:</p>
+        <pre>let timer = setInterval(function() {
+  if (animation complete) clearInterval(timer);
+  else increase style.left by 2px
+}, 20); // change by 2px every 20ms, about 50 frames per second</pre>
+        <p>A more complete example of the animation:</p>
+        <pre>let start = Date.now(); // remember start time
+
+let timer = setInterval(function() {
+  // how much time passed from the start?
+  let timePassed = Date.now() - start;
+
+  if (timePassed >= 2000) {
+    clearInterval(timer); // finish the animation after 2 seconds
+    return;
+  }
+
+  // draw the animation at the moment timePassed
+  draw(timePassed);
+
+}, 20);
+
+// as timePassed goes from 0 to 2000
+// left gets values from 0px to 400px
+function draw(timePassed) {
+  train.style.left = timePassed / 5 + 'px';
+}</pre>
+      </section>
+
+      <section id="setTimeout">
+        <h2>The <code>Window.setTimeout()</code> Method</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout">https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout</a></cite>)</p>
+        <p>The <code>setTimeout()</code> method of the Window interface sets a timer which executes a function or specified piece of code once the timer expires.</p>
+        <pre>setTimeout(code) // not recommended
+setTimeout(code, delay) // not recommended
+
+setTimeout(functionRef)
+setTimeout(functionRef, delay)
+setTimeout(functionRef, delay, param1)
+setTimeout(functionRef, delay, param1, param2)
+setTimeout(functionRef, delay, param1, param2, /* …, */ paramN)
+</pre>
+        <p>The <code>setTimeout()</code> method returns a positive integer (typically within the range of 1 to 2,147,483,647) that uniquely identifies the timer created by the call. This identifier, often referred to as a <var>timeout ID</var>, can be passed to <code>clearTimeout()</code> to cancel the timer.</p>
+        <aside>To call a function repeatedly (e.g., every <var>n</var> milliseconds), consider using <code>setInterval()</code>.</aside>
+        <hr/>
+        <p>If <code>setTimeout()</code> is called with delay value that&apos;s not a number, implicit <strong>type coercion</strong> is silently done on the value to convert it to a number. For example, the following code incorrectly uses the string "1000" for the delay value, rather than the number 1000 – but it nevertheless works, because when the code runs, the string is coerced into the number 1000, and so the code executes 1 second later.</p>
+        <pre>setTimeout(() => {
+  console.log("Delayed for 1 second.");
+}, "1000");</pre>
+        <hr/>
+        <p><code>setTimeout()</code> is an asynchronous function, meaning that the timer function will not pause execution of other functions in the functions stack. In other words, you cannot use <code>setTimeout()</code> to create a <q>pause</q> before the next function in the function stack fires.</p>
+      </section>
+
+      <section>
+        <h2>Using <code>requestAnimationFrame</code></h2>
+        <p>Let&apos;s imagine we have several animations running simultaneously. If we run them separately, then even though each one has <code>setInterval(..., 20)</code>, then the browser would have to repaint much more often than every 20ms. That&apos;s because they have different starting time, so <q>every 20ms</q> differs between different animations. The intervals are not aligned. So we&apos;ll have several independent runs within 20ms.</p>
+        <p>In other words, this:</p>
+        <pre>setInterval(function() {
+  animate1();
+  animate2();
+  animate3();
+}, 20)</pre>
+        <p>…Is lighter than three independent calls:</p>
+        <pre>setInterval(animate1, 20); // independent animations
+setInterval(animate2, 20); // in different places of the script
+setInterval(animate3, 20);</pre>
+        <p>These several independent redraws should be grouped together, to make the redraw easier for the browser and hence load the CPU less and make it look smoother.</p>
+        <p>There&apos;s one more thing to keep in mind. Sometimes the CPU is overloaded, or there are other reasons to redraw less often (like when the browser tab is hidden), so we really shouldn&apos;t run it every 20ms.</p>
+        <p>But how do we know about that in JavaScript? There&apos;s a specification <cite>Animation timing</cite> that provides the function requestAnimationFrame. It addresses all these issues and even more.</p>
+        <p>The syntax:</p>
+        <pre>let requestId = requestAnimationFrame(<var>callback</var>)</pre>
+        <p>That schedules the callback function to run in the closest time when the browser is available to do animation.</p>
+        <p>If we make changes in elements in <var>callback</var> then they will be grouped together with other <code>requestAnimationFrame</code> callbacks and with CSS animations. So there will be one geometry recalculation and repaint instead of many.</p>
+        <hr/>
+        <p>The returned value <var>requestId</var> can be used to cancel the call:</p>
+        <pre>// cancel the scheduled execution of callback
+cancelAnimationFrame(requestId);</pre>
+        <hr/>
+        <p>The callback gets one argument – the time passed from the beginning of the page load in milliseconds. This time can also be obtained by calling <code>performance.now()</code>.</p>
+        <hr/>
+        <p>Usually the callback runs right away, unless the CPU is overloaded or the laptop battery is almost discharged, or for some other reason.</p>
+        <p>The code below shows the time between first 10 runs for <code>requestAnimationFrame</code>. Usually it&apos;s 10-20ms:</p>
+        <pre>let prev = performance.now();
+  let times = 0;
+
+  requestAnimationFrame(function measure(time) {
+    document.body.insertAdjacentHTML("beforeEnd", Math.floor(time - prev) + " ");
+    prev = time;
+
+    if (times++ &lt; 10) requestAnimationFrame(measure);
+  })</pre>
+      </section>
+
+      <section>
+        <h2>Structured animation*</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://javascript.info/js-animation#structured-animation">Structured Animation</a></cite>, at <cite>https://javascript.info</cite>)</p>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+    </main>
+  </body>
+</html>

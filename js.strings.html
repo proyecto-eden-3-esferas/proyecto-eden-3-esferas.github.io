@@ -37,8 +37,25 @@
       <section>
         <h2>UTF-16</h2>
         <p>JavaScript strings are encoded as a sequence of 16-bit numbers. These are called <dfn>code units</dfn>. A Unicode character code was initially supposed to fit within such a unit (which gives you a little over 65,000 characters). When it became clear that wasn&apos;t going to be enough, many people balked at the need to use more memory per character. To address these concerns, UTF-16, the format also used by JavaScript strings, was invented. It describes most common characters using a single 16-bit code unit but uses a pair of two such units for others.</p>
+        <hr/>
         <p>UTF-16 is generally considered a bad idea today. It seems almost intentionally designed to invite mistakes. It&apos;s easy to write programs that pretend code units and characters are the same thing. And if your language doesn&apos;t use two-unit characters, that will appear to work just fine. But as soon as someone tries to use such a program with some less common Chinese characters, it breaks. Fortunately, with the advent of emoji, everybody has started using two-unit characters, and the burden of dealing with such problems is more fairly distributed.</p>
-        <p>JavaScript&apos;s <code>charCodeAt</code> method gives you a code unit, not a full character code. The <code>codePointAt</code> method, added later, does give a full Unicode character, so we could use that to get characters from a string. But the argument passed to <code>codePointAt</code> is still an index into the sequence of code units. To run over all characters in a string, we&apos;d still need to deal with the question of whether a character takes up one or two code units.</p>
+        <section>
+          <h3>Surrogate Pairs</h3>
+          <p>As said, the entire Unicode character set is much, much bigger than 65536. The extra characters are stored in UTF-16 as <dfn>surrogate pairs</dfn>, which are pairs of 16-bit code units that represent a single character. To avoid ambiguity, the two parts of the pair must be between 0xD800 and 0xDFFF, and these code units are not used to encode single-code-unit characters. (More precisely, <strong>leading surrogates</strong>, also called <strong>high-surrogate code units</strong>, have values between 0xD800 and 0xDBFF, inclusive, while <strong>trailing surrogates</strong>, also called <strong>low-surrogate code units</strong>, have values between 0xDC00 and 0xDFFF, inclusive.) Each Unicode character, comprised of one or two UTF-16 code units, is also called a Unicode code point. Each Unicode code point can be written in a string with \u{xxxxxx} where xxxxxx represents 1–6 hex digits.</p>
+        </section>
+        <section>
+          <h3>Lone Surrogates</h3>
+          <p>A <dfn>lone surrogate</dfn> is a 16-bit code unit satisfying one of the descriptions below:</p>
+          <ul>
+            <li>It is in the range 0xD800–0xDBFF, inclusive (i.e., is a leading surrogate), but it is the last code unit in the string, or the next code unit is not a trailing surrogate.</li>
+            <li>It is in the range 0xDC00–0xDFFF, inclusive (i.e., is a trailing surrogate), but it is the first code unit in the string, or the previous code unit is not a leading surrogate.</li>
+          </ul>
+          <p>Lone surrogates do not represent any Unicode character. Although most JavaScript built-in methods handle them correctly because they all work based on UTF-16 code units, lone surrogates are often not valid values when interacting with other systems — for example, <code>encodeURI()</code> will throw a <code>URIError</code> for lone surrogates, because URI encoding uses UTF-8 encoding, which does not have any encoding for lone surrogates. Strings not containing any lone surrogates are called <dfn>well-formed strings</dfn>, and are safe to be used with functions that do not deal with UTF-16 (such as <code>encodeURI()</code> or <code>TextEncoder</code>). You can check if a string is well-formed with the <code>isWellFormed()</code> method, or sanitize lone surrogates with the <code>toWellFormed()</code> method.</p>
+        </section>
+        <section>
+          <h3>Accessing Characters with Old <code>String.charCodeAt</code>, New <code>codePointAt</code>...</h3>
+          <p>JavaScript&apos;s <code>charCodeAt</code> method gives you a code unit, not a full character code. The <code>codePointAt</code> method, added later, does give a full Unicode character, so we could use that to get characters from a string. But the argument passed to <code>codePointAt</code> is still an index into the sequence of code units. To run over all characters in a string, we&apos;d still need to deal with the question of whether a character takes up one or two code units.</p>
+        </section>
       </section>
 
       <section id="toString">

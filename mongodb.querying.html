@@ -46,15 +46,15 @@
         <h2>Finding Data</h2>
         <p>Querying returns a subset of documents in a collection, from no documents at all to the entire collection. Which documents get returned is determined by the first argument to find, which is a document specifying the query criteria.</p>
         <p>An empty query document (i.e., {}) matches everything in the collection. If <code class="methodname">find</code> isn't given a query document, it defaults to {}. For example, the following:</p>
-        <pre>&lt;db.c.find()</pre>
+        <pre>&gt; db.c.find()</pre>
         <p>matches every document in the collection <var>c</var> (and returns these documents in batches).</p>
         <hr/>
-        <p>There are two methods to and select data from a MongoDB collection, <code>find()</code> and <code>findOne()</code>.</p>
-        <p>Also, if you want to see this data in a cleaner, way just add .pretty() to the end of it. This will display document in pretty-printed JSON format: <kbd>db.myCollection.find().pretty()</kbd></p>
+        <p>There are two methods to query and select data from a MongoDB collection, <code>find()</code> and <code>findOne()</code>.</p>
+        <p>Also, if you want to see this data in a cleaner, way just add <code>.pretty()</code> to the end of it. This will display document in pretty-printed JSON format: <code>db.myCollection.find().pretty()</code></p>
 
         <section>
           <h3><code>find(<var>QUERY_OBJECT</var>)</code></h3>
-          <p>This method accepts a query object, actually a query object. If left empty, all documents will be returned.</p>
+          <p>This method accepts a query object. If left empty, all documents will be returned.</p>
         </section>
         <section>
           <h3><code>findOne(<var>QUERY_OBJECT</var>)</code></h3>
@@ -139,7 +139,7 @@
             <p>"$in" is very flexible and allows you to specify criteria of different types as well as values. For example, if we are gradually migrating our schema to use usernames instead of user ID numbers, we can query for either by using this:</p>
             <pre>&gt; db.users.find({"user_id":{"$in":[12345,"joe"]}})</pre>
             <p>This matches documents with a <var>user_id</var> equal to 12345 and documents with a <var>user_id</var> equal to <code>joe</code>.</p>
-            <p>If "$in" is given an array with a single value, it behaves the same as directly matching the value. For instance, <kbd>{ticket_no : {$in : [725]}}</kbd> matches the same documents as <kbd>{ticket_no : 725}</kbd>.</p>
+            <p>If "$in" is given an array with a single value, it behaves the same as directly matching the value. For instance, <code>{ticket_no : {$in : [725]}}</code> matches the same documents as <code>{ticket_no : 725}</code>.</p>
             <p>The opposite of "$in" is "$nin", which returns documents that don't match any of the criteria in the array. If we want to return all of the people who didn't win anything in the raffle, we can query for them with this:</p>
             <pre>&gt; db.raffle.find({"ticket_no":{"$nin":[725,542,390]}})</pre>
             <p>This query returns everyone who did not have tickets with those numbers.</p>
@@ -221,7 +221,7 @@
           </section>
         </section>
         <section id="mongo_where_queries">
-          <h3><kbd>$where</kbd> Queries*</h3>
+          <h3><code>$where</code> Queries*</h3>
           <section>
             <h4>*</h4>
           </section>
