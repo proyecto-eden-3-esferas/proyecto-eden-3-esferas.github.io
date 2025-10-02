@@ -18,6 +18,7 @@
     <nav>
       <div>
         <p><a href="cpp.stl.optional.html">Using <code>std::optional</code> to store optional values</a></p>
+        <p><a href="cpp.stl.any.html">Using <code>std::any</code> to store values of <em>any</em> type</a></p>
         <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
         <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
         <p><a rel="prev" href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
@@ -28,11 +29,80 @@
         <p><a href="cpp.cpp20.html">C++20</a></p>
       </div>
       <div>
-        <p><a href="programming.html">Programming Computers</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
     </nav>
+
     <main>
       <h1><code>std::variant</code>&apos;s: Intelligent C++ Unions</h1>
+      <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://www.cppstories.com/2018/06/variant/">https://www.cppstories.com/2018/06/variant/</a></cite>)</p>
+
+      <section id="type">
+        <h2>The Currently Used Typed</h2>
+        <p>We learn the currently used type via <code><var>my_variant</var>.index()</code>, which returns an integer, or via <code>std::holds_alternative&lt;<var>aType</var>&gt;(<var>my_variant</var>)</code>.</p>
+        <aside>If you don&apos;t initialize a variant with a value, then the variant is initialized with the first type. In that case the first alternative type must have a default constructor.</aside>
+      </section>
+
+      <section id="get">
+        <h2>Getting the Value</h2>
+        <p>You can use either <code>std::get&lt;<var>its_type</var>&gt;(<var>my_variant</var>)</code> or <code>std::get&lt;<var>its_index</var>&gt;(<var>my_variant</var>)</code>.</p>
+        <p>If you write the wrong index or the wrong type, a <code>bad_variant_access</code> exception is thrown.</p>
+      </section>
+
+      <section id="visit">
+        <h2><code>std::get&lt;<var>index/type</var>&gt;(<var>my_variant</var>)</code></h2>
+      </section>
+
+      <section id="visit">
+        <h2><code>std::visit(<var>visitor-function-object</var>, <var>element</var>)</code></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p>An example:</p>
+        <pre>#include &lt;iostream&gt;
+#include &lt;variant&gt;
+#include &lt;vector&gt;
+
+struct NodeA {};
+struct NodeB {};
+struct NodeC {};
+
+using Nodes = std::variant&lt;NodeA, NodeB, NodeC&gt;;
+
+struct Visitor {
+    void operator() (const NodeA&amp;) { std::cout &lt;&lt; "NodeA" &lt;&lt; std::endl; }
+    void operator() (const NodeB&amp;) { std::cout &lt;&lt; "NodeB" &lt;&lt; std::endl; }
+    void operator() (const NodeC&amp;) { std::cout &lt;&lt; "NodeC" &lt;&lt; std::endl; }
+};
+
+int main() {
+    std::vector&lt;Nodes&gt; nodes = {
+        NodeA{},
+        NodeB{},
+        NodeA{},
+        NodeC{}
+    };
+
+    for (auto&amp;&amp; node : nodes)
+      std::visit(Visitor{}, node);
+
+    return 0;
+}</pre>
+        <p>Output:</p>
+        <pre>NodeA
+NodeB
+NodeA
+NodeC</pre>
+        <p>As you can see, all you need is a callable struct with overloads for required types. Note that you need to overload on all types that belong to Nodes or you’ll get a compiler error (like with pattern matching in other languages).</p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
 
     </main>
   </body>

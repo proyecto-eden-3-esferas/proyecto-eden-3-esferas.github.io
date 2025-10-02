@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::any</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Using std::any to store values of ANY type"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="cpp.stl.optional.html">Using <code>std::optional</code> to store optional values</a></p>
+        <p><a href="cpp.stl.variant.html"><code>std::variant</code>&apos;s: Intelligent C++ Unions</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a rel="prev" href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp11.html">C++11</a></p>
+        <p><a href="cpp.cpp14.html">C++14</a></p>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Using <code>std::any</code> to store values of <em>any</em> type</h1>
+      <p>With std::optional you can represent some Type or nothing. With <code><a target="_blank" href="cpp.std.variant.html">std::variant</a></code> you can wrap several variants into one entity. And C++17 gives us one more wrapper type: <code>std::any</code> that can hold anything (any type) in an object, and reports errors (or throw exceptions) when you&apos;d like to access a type that is not active.</p>
+      <p>A little demo:</p>
+      <pre>std::any a(12);
+
+// set any value:
+a = std::string("Hello!");
+a = 16;
+// reading a value:
+
+// we can read it as int
+std::cout &lt;&lt; std::any_cast&lt;int&gt;(a) &lt;&lt; '\n';
+
+// but not as string:
+try
+{
+    std::cout &lt;&lt; std::any_cast&lt;std::string&gt;(a) &lt;&lt; '\n';
+}
+catch(const std::bad_any_cast&amp; e)
+{
+    std::cout &lt;&lt; e.what() &lt;&lt; '\n';
+}
+
+// reset and check if it contains any value:
+a.reset();
+if (!a.has_value())
+{
+    std::cout &lt;&lt; "a is empty!" &lt;&lt; "\n";
+}
+
+// you can use it in a container:
+std::map&lt;std::string, std::any&gt; m;
+m["integer"] = 10;
+m["string"] = std::string("Hello World");
+m["float"] = 1.0f;
+
+for (auto &amp;[key, val] : m)
+{
+    if (val.type() == typeid(int))
+        std::cout &lt;&lt; "int: " &lt;&lt; std::any_cast&lt;int&gt;(val) &lt;&lt; "\n";
+    else if (val.type() == typeid(std::string))
+        std::cout &lt;&lt; "string: " &lt;&lt; std::any_cast&lt;std::string&gt;(val) &lt;&lt; "\n";
+    else if (val.type() == typeid(float))
+        std::cout &lt;&lt; "float: " &lt;&lt; std::any_cast&lt;float&gt;(val) &lt;&lt; "\n";
+}</pre>
+      <p>A true variable type in C++? If you like <a target="_blank" href="js.html">JavaScript</a> then you can even make all of your variables <code>std::any</code> and use C++ like JavaScript :)</p>
+
+      <section id="features">
+        <h2>Main Features</h2>
+        <ul>
+          <li><code>std::any</code> is not a template class like <code>std::optional</code> or <code>std::variant</code>.</li>
+          <li>by default it contains no value, and you can check it via <code>.has_value()</code>.</li>
+          <li>you can reset an any object via .reset().</li>
+          <li>it works on <strong>decayed</strong> types - so before assignment, initialization, emplacement the type is transformed by <code>std::decay</code>.</li>
+          <li>when a different type is assigned, then the active type is destroyed.</li>
+          <li>you can access the value by using <code>std::any_cast&lt;T&gt;</code>, it will throw <code>bad_any_cast</code> if the active type is not <code>T</code>.</li>
+          <li>you can discover the active type by using <code>.type()</code> that returns <code>std::type_info</code> of the type.</li>
+        </ul>
+      </section>
+
+      <section id="uses">
+        <h2>Some of its Uses</h2>
+        <p>While <code>void*</code> seems an extremely unsafe pattern with some limited use cases, <code>std::any</code> adds type-safety and thushas some real use cases. Such as</p>
+        <ul>
+          <li><strong>In Libraries</strong> when a library type has to hold or pass anything without knowing the set of available types.</li>
+          <li><strong>Parsing files</strong> if you really cannot specify what are the supported types.</li>
+          <li><strong>Message passing</strong></li>
+          <li><strong>Bindings with a scripting language</strong></li>
+          <li><strong>Implementing an interpreter for a scripting language</strong></li>
+          <li><strong>User Interface</strong> controls might hold anything</li>
+          <li><strong>Entities in an editor</strong></li>
+        </ul>
+        <p>Still, in a lot of cases where we can limit the set of supported types <code>std::variant</code> would be a better choice. (Of course, it gets tricky when you implement a library without knowing the final applications, so you don’t know the possible types that will be stored in an object.)</p>
+      </section>
+
+      <section id="creation">
+        <h2>Creation of <code>std::any</code></h2>
+        <p>There are several ways you can create <code>std::any</code> object:</p>
+        <ul>
+          <li>a default initialization: then the object is empty</li>
+          <li>a direct initialization with a value/object</li>
+          <li>in place <code>std::in_place_type</code></li>
+          <li>via <code>std::make_any</code></li>
+        </ul>
+        <p>You can see in the following example:</p>
+        <pre>// default initialization:
+std::any a;
+assert(!a.has_value());
+
+// initialization with an object:
+std::any a2(10); // int
+std::any a3(MyType(10, 11));
+
+// in_place:
+std::any a4(std::in_place_type&lt;MyType&gt;, 10, 11);
+std::any a5{std::in_place_type&lt;std::string&gt;, "Hello World"};
+
+// make_any
+std::any a6 = std::make_any&lt;std::string&gt;("Hello World");
+</pre>
+      </section>
+      <section id="changing">
+        <h2>Changing the Value Held</h2>
+        <p>When you want to change the currently stored value in <code>std::any</code> then you have two options: use member <code>emplace</code> or the assignment:</p>
+        <pre>std::any a;
+
+a = MyType(10, 11);
+a = std::string("Hello");
+
+a.emplace&lt;float&gt;(100.5f);
+a.emplace&lt;std::vector&lt;int&gt;&gt;({10, 11, 12, 13});
+a.emplace&lt;MyType&gt;(10, 11);</pre>
+      </section>
+
+      <section id="accessing">
+        <h2>Accessing The Stored Value</h2>
+        <p>In order to read the currently active value in <code>std::any</code> you have essentially one option: <code>std::any_cast</code>. This function returns the value of the requested type if it&apos;s in the object.</p>
+        <p>This function template though is quite powerful, as it has many ways of using:</p>
+        <ul>
+          <li>to return a copy of the value, and throw <code>std::bad_any_cast</code> when it fails</li>
+          <li>to return a reference (also writable), and throw <code>std::bad_any_cast</code> when it fails</li>
+          <li>to return a pointer to the value (const or not) or <code>nullptr</code> on failure</li>
+        </ul>
+        <pre>struct MyType
+{
+    int a, b;
+
+    MyType(int x, int y) : a(x), b(y) { }
+
+    void Print() { std::cout &lt;&lt; a &lt;&lt; ", " &lt;&lt; b &lt;&lt; "\n"; }
+};
+
+int main()
+{
+    std::any var = std::make_any&lt;MyType&gt;(10, 10);
+    try
+    {
+        std::any_cast&lt;MyType&amp;&gt;(var).Print();
+        std::any_cast&lt;MyType&amp;&gt;(var).a = 11; // read/write
+        std::any_cast&lt;MyType&amp;&gt;(var).Print();
+        std::any_cast&lt;int&gt;(var); // throw!
+    }
+    catch(const std::bad_any_cast&amp; e)
+    {
+        std::cout &lt;&lt; e.what() &lt;&lt; '\n';
+    }
+
+    int* p = std::any_cast&lt;int&gt;(&amp;var);
+    std::cout &lt;&lt; (p ? "contains int... \n" : "doesn't contain an int...\n");
+
+    MyType* pt = std::any_cast&lt;MyType&gt;(&amp;var);
+    if (pt)
+    {
+        pt-&gt;a = 12;
+        std::any_cast&lt;MyType&amp;&gt;(var).Print();
+    }
+}</pre>
+        <p>As you see you have two options regarding error handling: via exceptions (<code>std::bad_any_cast</code>) or by returning a pointer (or <code>nullptr</code>). The function overloads for <code>std::_any_cast</code> pointer access is also marked with <code>noexcept</code>.</p>
+      </section>
+
+      <!--
+      <section>
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+      -->
+    </main>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Variadic Templates</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Variadic Templates in C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.templates.html">C++ Templates</a></p>
+        <p><a rel="prev" href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a            href="cpp.traits.html">(Implementing) Trait Classes in C++</a></p>
+        <p><a            href="cpp.type-aliases.html">Type Aliases in C++</a></p>
+        <p><a            href="cpp.alias-templates.html">C++ Alias Templates</a></p>
+        <p><a            href="cpp.separate_compilation.templates.html">Separate Compilation of Templates</a></p>
+        <p><a            href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Variadic Templates</h1>
+      <section>
+        <h2>Variadic Templates and Perfect Forwarding</h2>
+        <p>Forwarding parameters is a way to receive all the arguments received by a function and resend them as they come. This is achieved through <dfn class="firstterm">variadic templates</dfn>, which allow the programmer to pass an undefined number of arguments to a function/method.</p>
+        <p>The code that follows combines two new features of the C++11, <kbd class="userinput">constexpr</kbd> and variadic parameters. <dfn class="firstterm">constexpr</dfn> allows making computations at compile time if they are feasable (there are several conditions to meet, but for now, we just assume that they are fulfilled). In this example, we find the minimum of a list of arguments at compile time (thanks to <kbd class="userinput">constexpr</kbd>!). This is a generic version that works only with integers but works on 2, 3, 4, ... n arguments.</p>
+        <pre>constexpr int min(int n, int p)
+{
+  return n &lt; p ? n : p;
+}
+template&lt;typename... Args&gt; constexpr int min(int n, Args... args)
+{
+    return min(n, min(args...));
+}
+
+int main(int argc, char *argv[])
+{
+  static_assert(min(4, 5, 6, 42, 7, 3, 6) == 3, "min is incorrect");
+  return 0;
+}</pre>
+        <p>Forwarding is done through the <kbd class="userinput">std::forward</kbd> function from the <cite class="filename">utility</cite> header. It forwards the arguments exactly as they are received (more information in the man). Here is a little example of how it works:</p>
+        <pre>#include &lt;iostream&gt;
+#include &lt;utility&gt;
+
+struct Item
+{
+  Item(): value{0} {}
+
+  Item(const Item&amp; p){ std::cout &lt;&lt; "Copy" &lt;&lt; std::endl; }
+
+  int value;
+};
+
+void take_args(int&amp; a, int&amp;&amp; b, int c, Item&amp; f)
+{
+  std::cout &lt;&lt; a &lt;&lt; " - " &lt;&lt; b &lt;&lt; " - " &lt;&lt; c
+            &lt;&lt; " - " &lt;&lt;  f.value &lt;&lt; std::endl;
+}
+
+template &lt;typename... Args&gt;
+void call_take_args(Args&amp;&amp;... args)
+{
+  take_args(std::forward&lt;Args&gt;(args)...);
+}
+
+int main()
+{
+  Item f;
+  int i = 2;
+  call_take_args(i, 4, 5, f);
+}
+// The program outputs "2 - 4 - 5 - 0".</pre>
+
+      </section>
+    </main>
+  </body>
+</html>
