@@ -22,37 +22,22 @@
       -->
       <div>
         <p><a rel="prev" href="cpp.manipulators.html">Manipulators in C++</a></p>
-        <p><a href="computing.html">Computing</a></p>
-        <p><a href="index.en.html">Home</a></p>
-      </div>
-      <!--
-      <div>
-        <p><a href="cpp.separate_compilation.html">Separate Compilation</a></p>
-        <p><a href="cpp.separate_compilation.templates.html">Separate Compilation of Templates</a></p>
-        <p><a href="cpp.mathematical-constants.html">Mathematical constants (<code>&lt;numbers&gt;</code>)</a></p>
-        <p><a href="cpp.get.html">C++ get()</a></p>
-        <p><a href="cpp.stack-smashing.html">C++ Stack Smashing</a></p>
+        <p><a            href="cpp.streams.html">C++ Streams: Sources and Destinations of Data</a></p>
       </div>
       <div>
-        <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
-        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
-      <div>
-        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
-      </div>
-      -->
     </nav>
 
     <main>
       <h1>Writing (Your Own) Stream Manipulators in C++</h1>
-      <p>Streams are typically more than just dumping or loading grounds for basic data. Their strength lies in accommodation of new data types and customisation. As objects their state may also be controlled via either a method or a manipulator interface; I am going to concentrate on manipulators. I'll wrap up the article with a worked example.</p>
-
-      <p>There are two kinds of manipulators: those that accept arguments and those that don't. Manipulators that take no arguments are easy to write. All you have to do is write a function that accepts a stream parameter, does something to it , and returns it. Writing a manipulator that takes one or more arguments is more complicated because you need to create additional classes and functions ...</p>
+      <p>Streams are typically more than just dumping or loading grounds for basic data. Their strength lies in accommodation of new data types and customisation. As objects their state may also be controlled via either a member function or a <strong>manipulator</strong> interface</p>.</p>
+      <p>Next, there are two kinds of manipulators: those that accept arguments and those that don&apos;t. Manipulators that take no arguments are easy to write. All you have to do is write a function that accepts a stream parameter, does something to it , and returns it. Writing a manipulator that takes one or more arguments is more complicated because you need to create additional classes and functions ...</p>
 
       <section>
         <h2>Simple manipulators</h2>
 
-        <blockquote>To write a manipulator that doesn't take an argument, write a function that takes an <code>std::iostream</code> reference, does some work on the stream, and then returns it.</blockquote>
+        <blockquote>To write a manipulator that doesn&apos;t take an argument, write a function that takes an <code>std::iostream</code> reference, does some work on the stream, and then returns it.</blockquote>
 
         <p>Data flow and control are the two basic operations on a stream. Returning references and the syntactic sugar of operator overloading offer a convenient way to chain together successive items for input or output in a single expression:</p>
         <p>Besides <code>std::endl</code>, other simple manipulators include: <code>ws</code>, to act as a sink and eat whitespace from an istream; <code>ends</code>, to NUL terminate a string; <code>flush</code>, to flush an ostream; and <code>hex</code>, <code>dec</code> and <code>oct</code>, to convert input from and output to the appropriate base.</p>

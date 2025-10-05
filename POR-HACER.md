@@ -154,6 +154,85 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *Custom Hash Functions for C++ Unordered Containers*
+<section>
+  <h3>Motivation and Background</h3>
+  <p>C++ unordered containers (e.g. unordered_map, unordered_set, etc.) uses <q>hashing</q> to store objects. The STL provides hash functions for commonly used types, like string and numeric values such as int, meaning that we won’t have to provide any hash functions explicitly when creating an unordered container instance.</p>
+  <p>However, when we want to hold a more complex type, or even a user-defined class, C++ unordered containers would fail to find a matching hash function. We will have to explicitly define a hash function for the type (e.g. pair&lt;string, int&gt;) that we want to use as a template argument for some unordered container.</p>
+</section>
+<section>
+  <h3>Implementation Idea: Exclusive-Or</h3>
+  <p>According to the book <cite>A Tour of C++</cite> by Bjarne Stroustrup, <q>A hash function is often provided as a function object</q>. And creating a new hash function by <q>combining existing functions using exclusive-or (^) is simple and often very effective</q>.</p>
+  <p>Intuitively, this means that if we want to hash a pair of string and integer, we could use the following <q>new</q> hash function:</p>
+  <pre>// p is a pair&lt;string, int&gt;
+hash&lt;string&gt;{}(p.first) ^ hash&lt;int&gt;{}(p.second);</pre>
+  <p>The next thing we need to do is to pass that as a template argument when creating our unordered container. For an unordered_set, that will be the second argument. For an unordered_map, that&apos;ll be the third argument after the key type and the value type. Note that we only need the hashing function for a map&apos;s <em>key</em>, not the value.</p>
+</section>
+<section>
+  <h3>Method 1: Function Object with Struct</h3>
+  <p>Perhaps the most commonly used method is to create a function object (functor) using a <code>struct</code>, and implement its <code>operator()</code> function. This function is to be qualified as <code>const</code>, and takes a const reference to the custom type and returns a <code>size_t</code>. Defining a function object outside as a standalone struct also gives it the flexibility of <a target="_blank" href="cpp.templates.html">generic programming</a> with templates. Meaning that it can work with pairs of different template arguments, not just strings and ints.</p>
+  <p>Putting this all together, we have:</p>
+  <pre>struct PairHash {
+  template &lt;typename T1, typename T2&gt;
+  auto operator()(const pair&lt;T1, T2&gt; &amp;p) const -&gt; size_t {
+    return hash&lt;T1&gt;{}(p.first) ^ hash&lt;T2&gt;{}(p.second);
+  }
+};
+
+class Example {
+ public:
+  void func() {
+    unordered_set&lt;pair&lt;string, int&gt;, PairHash&gt; uset;
+    unordered_map&lt;pair&lt;double, string&gt;, int , PairHash&gt; umap;
+  }
+};</pre>
+</section>
+<section>
+  <h3>Method 2: Custom Lambda Hash Function</h3>
+  <p>Alternatively, we can also implement our custom hash function as a lambda. Some may find this inline implementation more elegant. A drawback is that C++11 lambdas do not support templates. Fortunately, we have “generic lambdas” since C++14 (as seen below).</p>
+  <p>Another drawback is that we need to use decltype of the lambda as the extra custom hash function argument for our unordered containers, and also provide constructor arguments in parentheses after the declared variable name. Both unordered_set and unordered_map have a constructor that takes an initial number of buckets and a hashing object as inputs. Here, I just arbitrarily let the initial buckets be 10.</p>
+  <pre>class Example {
+ public:
+  void func() {
+    auto pairHash = []&lt;typename T1, typename T2&gt;(const pair&lt;T1, T2&gt; &amp;p) {
+      return hash&lt;T1&gt;{}(p.first) ^ hash&lt;T2&gt;{}(p.second);
+    };
+    unordered_set&lt;pair&lt;int, int&gt;, decltype(pairHash)&gt; seen(10, pairHash);
+    unordered_map&lt;pair&lt;double, string&gt;, int , decltype(pairHash)&gt; umap(10, pairHash);
+  }
+};</pre>
+</section>
+<section>
+  <h3>Method 3: Defining a Specialization of <code>std::hash()</code></h3>
+  <p>In this method, we add a specialization of standard-library&apos;s hash function to the namespace <code>std</code>. This is quite similar to the first method, except now we must use <code>hash</code> as the name of our function object. We also have to specify the template class for which we are defining the specialization. The immediate advantage is that we do not need to pass in any extra template arguments to our unordered container when declaring an instance.</p>
+  <p>Here is an example of this method, suppose we want to be able to hash a user-defined class XYZ, which has a member called <var>value</var>:</p>
+  <pre>namespace std {
+template &lt;&gt;
+struct hash&lt;XYZ&gt; {
+  auto operator()(const XYZ &xyz) const -&gt; size_t {
+    return hash&lt;XYZ&gt;{}(xyz.value);
+  }
+};
+}  // namespace std
+
+unordered_set&lt;XYZ&gt; xset;</pre>
+</section>
+<section>
+  <h3>Overloading <code>operator==()</code></h3>
+  <p>Note that the unordered containers also need the ability to compare two different keys using ==. In previous examples, I have been using std::pair, and the STL already defines operator==() for pairs, so I didn&apos;t have to define my own equality logic. However, if we are using our own user-defined class, then we need to define the equality operator.</p>
+</section>
+<!--
+<aside>If you&apos;d like to read more on this topic, I recommend <a target="_blank" href="https://marknelson.us/posts/2011/09/03/hash-functions-for-c-unordered-containers.html">this blog post</a> by Mark Nelson</aside>
+-->
+
+<section>
+  <pre></pre>
+  <p></p>
+  <pre></pre>
+</section>
+
+[ ] write an operators section in *cpp.functions.html*
+[x] include therein a section named *C++20: The Three-Way Comparison Operator*
 
 [ ] enlazar a *futuro.html* con
 <p><a href="futuro.html">El Futuro: ¿Qué nos depara? ¿Qué adivinar, suponer o temer?</a></p>
@@ -546,7 +625,7 @@ concept ShowableAndOrderable = Orderable&lt;T&gt; && Showable&lt;T&gt;</pre>
 </section>
 <section>
   <h2>Using concepts with <code>requires</code></h2>
-  <p>In one of the most common case, for a small function template, you’ll see the following syntax:</p>
+  <p>In one of the most common case, for a small function template, you&apos;ll see the following syntax:</p>
   <pre>template &lt;typename T&gt;
 requires <var>CONDITION</var>
 void DoSomething(T <var>t</var>) { }</pre>

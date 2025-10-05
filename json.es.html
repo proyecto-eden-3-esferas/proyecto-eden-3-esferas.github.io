@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Object Notation (JSON)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="JSON: un lenguaje sencillo para intercambio de información"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="es"  class="tecnologia">
+    <nav>
+      <div>
+        <p></p>
+
+        <p><a rel="prev" href="lenguajes-informaticos.html">Lenguajes informáticos</a></p>
+        <p><a rel="next" href="expresiones-regulares.html">Expresiones regulares</a></p>
+        <p><a            href="ordenadores.html">Ordenadores digitales</a></p>
+        <p><a            href="informacion.html">Información</a></p>
+        <p><a            href="bases-de-datos.html">Bases de datos</a></p>
+      </div>
+      <div>
+        <p><a            href="lenguajes-de-marcado.html">Lenguajes de marcado</a></p>
+        <p><a            href="xml.es.html">Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>JSON (JavaScript Object Notation): JSON: un lenguaje sencillo para intercambio de información</h1>
+      <p><dfn>JSON</dfn> (JavaScript Object Notation) es un formato  basado en texto puro legible por personas orientado a la comunicación entre personas y ordenadores o entre ordenadores.</p>
+      <p>La norma define un conjunto de reglas estructurales para representar datos estructurados.</p>
+      <p>JSON se emplea en lugar del Extensible Markup Language (<a target="_blank" href="xml.es.html">XML</a>), del que (JSON) se diferencia en que se limita a representar datos estructurados, sin llegar a contituir un <a target="_blank" href="lenguajes-de-marcado.html">lenguaje de marcado</a> completo.</p>
+      <p>El tipo MIME de texto en JSON es <code>application/json</code></p>
+
+      <section id="sintaxis">
+        <h2>Sintaxis de JSON</h2>
+        <p>JSON consta de tipos atómicos (texto, números--tanto enteros como fraccionarios--, boolenos y <code>null</code>), así como <i lang="en">arrays</i> (listas) y objetos.</p>
+        <p>Un objeto de JSON consta de pares de nombre y valor. El nombre es texto (secuencia de caracteres) entre comillas y el valor es o atómico o compuesto (un <i lang="en">array</i> o un objeto a su vez). Los pares se separan mediante comas y se encierran entre llaves.</p>
+        <p>Nombre y valor de un campo se separan mediante dos puntos.</p>
+        <p>Un ejemplo:</p>
+        <pre>{
+  "nombre": "Pedro",
+  "apellidos": ["Mora", "Gutiérrez"],
+  "nacido": 1988,
+  "cónyuge": null
+}</pre>
+        <p>Los signos de puntuación empleados en JSON son:</p>
+        <ul>
+          <li>comillas</li>
+          <li>llaves para encerrar objetos (<code>{<var>objeto</var>}</code>)</li>
+          <li>corchetes para encerrar <i lang="en">arrays</i>/listas (<code>[<var>lista</var>]</code>)</li>
+          <li>comas para separar elementos de una lista</li>
+          <li>dos puntos para separar el nombre de un campo de su valor</li>
+        </ul>
+        <aside>
+          <p>Los objetos de JavaScript también puden contener funciones (métodos), a la vez que <a target="_blank" href="programacion.html#poo">heredan</a> de <code>Object</code>, un objeto matriz especial.</p>
+        </aside>
+        <section id="objetos">
+          <h3>Objetos en JSON</h3>
+          <p>Un objeto de JSON es un conjunto no ordenado de múltiples pares de nombre y valor. Se escriben entre llaves: { }. Los nombres van seguidos de dos puntos y su valor, con espacios entre medias opcionales. Cada par de un objeto se separa del siguiente mediante coma.</p>
+        </section>
+        <section id="arrays">
+          <h3><i lang="en">Arrays</i> de JSON</h3>
+          <!--
+          <p>JSON arrays are an ordered list of values. Arrays are used to store objects, strings, number notation and Boolean notation. An array can be made up of multiple data types.</p>
+          -->
+          <p>Los arrays se encierran entre corchetes ([]) y se separan mediante comas. Un array puede contener, entre otros elementos, un array o un subobjeto. Un array que sólo contenga arrays se consideraría un array multidimensional.</p>
+          <p>Un objeto puede a su vez contener objetos y arrays: el valor de un par nombre-valor de un objeto puede ser un array o un objeto.</p>
+          <p>Por ejemplo, un campo <q>animales</q> podría consisistir en un array de objetos que representasen animales:</p>
+          <pre>"animales": [
+  {"tipo":"caballo", "patas": 4},
+  {"tipo":"araña", "patas": 8}
+ ]</pre>
+        </section>
+      </section>
+
+      <section id="escape-chars">
+        <h2>Caracteres <q>escapados</q> (especiales) en JSON</h2>
+        <p>Uno escapa un carácter precediéndolo de barra invertida (\).</p>
+        <p>Los caracteres que pueden o deben escaparse son: <code>&quot;</code>. <code>\</code>, <code>/</code>, <code>b</code>, <code>f</code>, <code>n</code>, <code>r</code>, y <code>t</code></p>
+        <p>Esto genera las siguientes secuencias JSON:</p>
+        <ul>
+          <li><code>\"</code></li>
+          <li><code>\\</code></li>
+          <li><code>\/</code> : (opcional pero frecuente)</li>
+          <li><code>\b</code> : retroceso</li>
+          <li><code>\f</code></li>
+          <li><code>\n</code> : nueva línea</li>
+          <li><code>\r</code> : retorno de carro</li>
+          <li><code>\t</code> : tabulación</li>
+          <li><code>\u<var>XXXX</var></code> : secuencia de unicode</li>
+        </ul>
+      </section>
+
+      <section id="nueva-">
+        <h2>Línea nueva en JSON</h2>
+        <p>Basta con teclear la secuencia: <code>\\n</code> dentro de una cadena de caracteres.</p>
+        <hr/>
+        <p><q>\n</q> no es más que la concatenación de dos caracteres.</p>
+      </section>
+
+      <section id="json-vs-js">
+        <h2>JSON comparado con JavaScript</h2>
+        <p>En JavaScript, un objeto también puede hacer corresponder un nombre con:</p>
+        <ul>
+          <li>una función (método)</li>
+          <li>una fecha (de la clase <code>Date</code>)</li>
+          <li>un objeto de cualquier otra de las clases fundamentales, tales como <code>Set</code>, <code>RegExp</code></li>
+          <li>un objeto de una clase que uno haya definido o copiado</li>
+          <li><code>undefined</code></li>
+        </ul>
+        <p>Además, en JSON el texto sólo puede escribirse entre comillas, mientras que en JavaScript también entre apóstrofos y acentos graves.</p>
+        <pre>{"name":"John"}</pre>
+      </section>
+
+      <section id="json-vs-xml">
+        <h2>JSON frente a XML</h2>
+        <p>JSON se procesa y transmite más rápido XML porque se diseñó específicamente para el intercambio de datos. Es conciso y por tanto requiere menos bytes para su almacenamiento y transmisión. Sus analizadores son más sencillos, por tanto tarda menos en procesarse y ocupa menos memoria. XML es lento y pesado porque se diseñó para muchos más usos que el intercambio de datos.</p>
+        <p>JSON es más fácil de manejar en varios lenguajes de programación (JavaScript, Python, PHP). También es más fácil de leer que XML.</p>
+        <p>El hecho de que el formato JSON sea idéntico a la sintaxis de los objetos de JavaScript permite que un programa en JavaScript convierta JSON en objetos de JavaScript (mediante <code>JSON.parse()</code>) y viceversa (mediante <code>JSON.stringify()</code>).</p>
+      </section>
+
+      <section id="validacion">
+        <h2>Validación de esquemas JSON*</h2>
+      </section>
+
+
+      <section id="linux">
+        <h2>Herramientas JSON disponibles en linux</h2>
+        <p>Desde la más sencilla a la más potente:</p>
+        <dl>
+
+          <dt>jq</dt>
+          <dd>procesador de JSON en modo texto</dd>
+
+          <dt>jmespath</dt>
+          <dd>cuya orden <code>jp</code> es la interfaz de <code>JMESPath</code>, un lenguaje de expresiones para la manipulación de JSON (igual que XPath lo es de XML).</dd>
+
+          <dt>taoJSON</dt>
+          <dd>
+            <p>Una biblioteca de C++ sin dependencias ni ejecutables que viene con una clase <code>Value</code> (valor) todouso, emplea <a target="_blank" href="cpp.traits.html">Type Traits</a> para interactuar con los tipos de C++, con una Interfaz de Eventos para convertir entre JSON, JAXN, CBOR, MsgPack y UBJSON. Y mucho más.</p>
+            <p>Los archivos correspondientes se instalan en los siguientes directorios:</p>
+            <ul>
+              <li>Cabeceras (*.hpp) en el directorio: /usr/include/tao/json/ y sus subdirectorios</li>
+              <li>Ejemplos (*.cpp) en el directorio: /usr/share/doc/tao-json-examples</li>
+            </ul>
+          </dd>
+
+          <dt><a target="_blank" href="couchdb.html">CouchDB</a></dt>
+          <dd>Una base de datos de documentos JSON.</dd>
+
+          <dt><a target="_blank" href="mongodb.html">MongoDB</a></dt>
+          <dd>Otra base de datos de documentos JSON.</dd>
+
+          <dt>Virtuoso</dt>
+          <dd>...</dd>
+
+        </dl>
+
+      </section>
+
+      <section id="convertir-a-inicializacion">
+        <h2>Convertir JSON a otros formatos</h2>
+        <p>Uno almacena colecciones (terminología de MongoDB) de objetos JSON en arrays (de objetos).</p>
+        <p>No parece que <code>jq</code> sirva para convertir JSON a otros formatos (salvo unos pocos predefinidos), si bien funciona bien para comprobar la sintaxis (validación).</p>
+        <aside>
+          <p>Mi <strong>meta</strong> era:</p>
+          <p>Convertir objetos JSON, o un array de ellos, a código de inicialización para C++/C</p>
+          <p>Querría transformar:</p>
+          <pre>[{"nombre": "Celia", "edad": 22}, {"nombre": "Pedro", "edad": 21}]</pre>
+          <p>into something like:</p>
+          <pre>p.push_back("Celia", 22);
+p.push_back("Pedro", 21);</pre>
+          <p>También inicializar a partir de objetos que a su vez contuvieran subobjetos o subarrays:</p>
+          <pre>[
+  {"nombre": "Celia",
+   "edad": 22,
+   "children": ["Anne", "Tom"]
+  },
+  {"nombre": "Pedro",
+  "edad": 21
+  }
+]</pre>
+        </aside>
+        <p>Tras mucho reflexionar y navegar he llegado a la conclusión de que me conviene usar JavaScript porque de fábrica reconoce el formato. No en vano JSON son las siglas de JavaScript Object <a target="_blank" href="notacion.html">Notation</a>!</p>
+        <p>Tal vez, después de desarrollar y depurar código en JavaScript para una página web, lo trasladaría a un programa de <a target="_blank" href="js.nodejs.html">node.js</a>...</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

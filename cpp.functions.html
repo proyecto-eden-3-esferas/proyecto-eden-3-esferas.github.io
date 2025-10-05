@@ -39,8 +39,67 @@
     <main>
       <h1>Functions in C++</h1>
 
+      <section id="operators">
+        <h2>Operators*</h2>
+        <section id="3-way">
+          <h3>C++20: The Three-Way Comparison Operator</h3>
+          <p style="text-align: right">(June 11, 2020/1 Comment/in C++20/by Rainer Grimm at <code><a target="_blank" href="https://www.modernescpp.com/index.php/c-20-the-three-way-comparison-operator/">https://www.modernescpp.com/index.php/c-20-the-three-way-comparison-operator/</a></code>)</p>
+          <p>The <dfn>three-way comparison operator</dfn> <code>&lt;=></code> is often just called the spaceship operator. The spaceship operator determines whether <var>A</var> &lt; <var>B</var>, <var>A</var> = <var>B</var>, or <var>A</var> > <var>B</var> for two values, <var>A</var> and <var>B</var>. You can define the spaceship operator, or the compiler can auto-generate it.</p>
+          <p>Before C++20 introduced the three-way comparison operator, it was not enough to define <code>operator&lt;</code> but you also needed to define the remaining five in a consistent way, something like this:</p>
+          <pre>bool operator==(const MyInt&amp; rhs) const {
+    return value == rhs.value;
+}
+bool operator!=(const MyInt&amp; rhs) const {
+    return !(*this == rhs);
+}
+bool operator&lt;=(const MyInt&amp; rhs) const {
+    return !(rhs &lt; *this);
+}
+bool operator&gt;(const MyInt&amp; rhs)  const {
+    return rhs &lt; *this;
+}
+bool operator&gt;=(const MyInt&amp; rhs) const {
+    return !(*this &lt; rhs);
+}</pre>
+          <p>You can define the three-way comparison operator or request it from the compiler with =default. In both cases, you get all six comparison operators: ==, !=, &lt;, &lt;=, &gt;, and &gt;=.</p>
+          <p>The programmer could define it like this:</p>
+          <pre>struct MyInt {
+    int value;
+    explicit MyInt(int val): value{val} { }
+    auto operator&lt;=&gt;(const MyInt&amp; rhs) const {           // (1)
+        return value &lt;=&gt; rhs.value;
+    }
+};</pre>
+          <p>or just let the compiler define it:</p>
+          <pre>struct MyDouble {
+  double value;
+  explicit constexpr MyDouble(double val): value{val} { }
+  auto operator&lt;=&gt;(const MyDouble&amp;) const = default;   // (2)
+};</pre>
+          <p>The compiler-generated three-way comparison operator needs the header <cite>&lt;compare&gt;</cite>, which is <code>implicit</code> <code>constexpr</code> and <code>noexcept</code>. Additionally, it performs a lexicographical comparison.</p>
+          <aside><dfn>Lexicographical comparison</dfn> means that all base classes are compared left to right and all non-static members in their declaration order. I have to qualify: for performance reasons, the compiler-generated == and != operators behave differently in C++20.</aside>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+
+        </section>
+      </section>
+
       <section id="lambdas">
-        <h2>lambdas*</h2>
+        <h2>lambdas</h2>
 
         <section>
           <h3>Lambda Capture Initializers</h3>

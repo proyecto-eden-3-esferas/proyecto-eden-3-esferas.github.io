@@ -47,13 +47,11 @@
       </section>
       <section id="nullptr_t">
         <h2><code>std::nullptr_t</code></h2>
+        <p><code>nullptr</code> was introduced in C++11 and represents a null pointer value with a proper type (<code>std::nullptr_t</code>). It is implicitly convertible and comparable to any pointer type. Unlike <code>NULL</code>, <code>nullptr</code> is not an integer and cannot be converted into one.</p>
         <p>(Defined in header <code>&lt;cstddef&gt;</code>)</p>
         <blockquote>
           <pre>typedef decltype(nullptr) nullptr_t;</pre>
-          <p>(since C++11)</p>
         </blockquote>
-        <p><code>std::nullptr_t</code> is the type of the null pointer literal, <code>nullptr</code>. It is a distinct type that is not itself a pointer type or a pointer to member type. All Its prvalues are null pointer constants.</p>
-        <blockquote><code>sizeof(std::nullptr_t)</code> is equal to <code>sizeof(void*)</code>.</blockquote>
       </section>
 
       <section id="int">

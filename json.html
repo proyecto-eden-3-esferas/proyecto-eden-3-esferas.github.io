@@ -14,10 +14,6 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
-      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
-      -->
       <div>
         <p><a rel="next" href="json.writing.html">Writing JSON Documents</a></p>
         <p><a            href="js.json.html">JavaScript for Handling JSON</a></p>
@@ -39,7 +35,7 @@
     <main>
       <h1>JavaScript Object Notation (JSON)</h1>
 
-      <p><dfn>JSON</dfn> (JavaScript Object Notation) is a text-based, human-readable data interchange format used to exchange data between web clients and web servers. The format defines a set of structuring rules for the representation of structured data. JSON is used as an alternative to Extensible Markup Language (<a target="_blank" href="xml.en.html">XML</a>), but unlike XML, JSON is simply a way to represent data structures, as opposed to a full markup language.</p>
+      <p><dfn>JSON</dfn> (JavaScript Object Notation) is a text-based, human-readable data interchange format used to exchange data between people and computers or between computers. The format defines a set of structuring rules for the representation of structured data. JSON is used as an alternative to Extensible Markup Language (<a target="_blank" href="xml.en.html">XML</a>), but unlike XML, JSON is simply a way to represent data structures, as opposed to a full markup language.</p>
       <p>The MIME type for JSON text is <code>application/json</code></p>
 
       <section id="syntax">
@@ -55,9 +51,9 @@
   married: false,
   children: ["Monica", "Chris"],
   wife: null}</pre>
-        <p>Punctuation used in the JSON format includes quotations, curly and square brackets, parentheses, commas and colons.</p>
+        <p>Punctuation used in the JSON format includes quotations, curly and square brackets, commas and colons.</p>
         <aside>
-          <p>JavaScript objects may also contain functions (member functions) or methods, and they inherit from <code>Object</code>, a special master object.</p>
+          <p>JavaScript objects may also contain functions (methods) or methods, and they inherit from <code>Object</code>, a special master object.</p>
         </aside>
         <section id="objects">
           <h3>JSON objects</h3>
@@ -70,19 +66,26 @@
           <p>Arrays in JSON are surrounded by square brackets, like these [ ]. Each value in the array is separated by a comma. In JavaScript, programmers can access array values and update, delete or loop them. An array can be stored inside another JSON array; that&apos;s called a <dfn>multidimensional array</dfn>.</p>
         </section>
         <p>A JSON object may contain another object, or even an array of objects (<i>see next</i>).</p>
-        <p>For example, an array of employee names may look like this:</p>
-        <pre>"animals":[
+        <p>For example, an array of animals may look like this:</p>
+        <pre>"animals": [
   {"kind":"horse", "legs": 4},
   {"kind":"spider", "legs": 8}
  ]</pre>
         <p>Each line is an object, and both lines together would be part of an array. Names in the name and value pairs include kind and legs, while the value pairs would be the actual appearing names, like horse and spider.</p>
+        <aside>
+          <p>Pure JSON has no provision for writing comments. Still, you could simulate them by adding a field named something like <q>comments</q>, <q>remarks</q>...</p>
+          <pre>{
+  "name": "dodo",
+  "remarks": ["currently extinct"]
+}</pre>
+        </aside>
       </section>
 
       <section id="escape-chars">
         <h2>Escaping Characters in JSON</h2>
         <p>You escape a character by prepending a slash (\).</p>
         <p>These characters can or must be escaped: <code>&quot;</code>. <code>\</code>, <code>/</code>, <code>b</code>, <code>f</code>, <code>n</code>, <code>r</code>, and <code>t</code></p>
-        <p>And here are some common escape sequences in JSON:</p>
+        <p>This results in the main escape sequences in JSON:</p>
         <ul>
           <li><code>\"</code> : Escaped double quote</li>
           <li><code>\\</code> : Escaped backslash</li>
@@ -107,17 +110,16 @@
 
       <section id="json-vs-js">
         <h2>JSON vs. JavaScript</h2>
-        <p>In JavaScript, an object may also map to:</p>
+        <p>In JavaScript, an object may also map a key to:</p>
         <ul>
-          <li>a function</li>
-          <li>a date</li>
+          <li>a function (effectively a method)</li>
+          <li>a date (of class <code>Date</code>)</li>
+          <li>an object of any other core classes such as <code>Set</code>, <code>RegExp</code></li>
+          <li>an object of a user-defined or just borrowed class</li>
           <li><code>undefined</code></li>
         </ul>
-        <p>Also, in JSON, string values must be written between double quotes:</p>
+        <p>Also, in JSON, string values may only be written between double quotes, never between single quotes nor backticks:</p>
         <pre>{"name":"John"}</pre>
-
-        <p>In JavaScript, you can write string values with double or single quotes, as in <code>{name:'John'}</code>.</p>
-
       </section>
 
       <section id="json-vs-xml">
@@ -133,7 +135,7 @@
 
 
       <section id="linux">
-        <h2>JSON Query tools available in linux</h2>
+        <h2>JSON tools available in linux</h2>
         <p>From simplest to most complex and complete</p>
         <dl>
 
@@ -145,7 +147,7 @@
 
           <dt>taoJSON</dt>
           <dd>
-            <p>A zero-dependency C++ header-only JSON library that provides a generic Value Class, uses Type Traits to interoperate with C++ types, uses an Events Interface to convert to and from JSON, JAXN, CBOR, MsgPack and UBJSON, and much, much more.</p>
+            <p>A zero-dependency C++ header-only JSON library that provides a generic Value Class, uses <a target="_blank" href="cpp.traits.html">Type Traits</a> to interoperate with C++ types, uses an Events Interface to convert to and from JSON, JAXN, CBOR, MsgPack and UBJSON, and much, much more.</p>
             <p>Files are located in the following directories:</p>
             <ul>
               <li>Headers (*.hpp) in directory: /usr/include/tao/json/ and subdirectories</li>
@@ -154,10 +156,10 @@
           </dd>
 
           <dt><a target="_blank" href="couchdb.html">CouchDB</a></dt>
-          <dd>...</dd>
+          <dd>A DataBase for JSON documents.</dd>
 
           <dt><a target="_blank" href="mongodb.html">MongoDB</a></dt>
-          <dd>...</dd>
+          <dd>Another DataBase for JSON documents.</dd>
 
           <dt>Virtuoso</dt>
           <dd>...</dd>
@@ -170,7 +172,7 @@
         <h2>Converting JSON to Other Formats</h2>
         <p>Ideally, you hold collections (MongoDB terminology) of JSON objects in JSON arrays.</p>
         <p>I have tried to use <code>jq</code> to convert to non-json formats. Extremely difficult. It is some good for object validations. But I didn&apos;t see I was making much headway towards my ultimate goal:</p>
-        <blockquote>
+        <aside>
           <p>To convert JSON objects, or an array thereof, to C++/C initilization code.</p>
           <p>I would like to turn:</p>
           <pre>[{"name": "Kate", "age": 22}, {"name": "Andrew", "age": 21}]</pre>
@@ -179,7 +181,7 @@
 p.push_back("Andrew", 21);</pre>
           <p>Also, to initialize from objects themselves containing objects or arrays:</p>
           <pre>[{"name": "Kate", "age": 22, "children": ["Anne", "Tom"]}, {"name": "Andrew", "age": 21}]</pre>
-        </blockquote>
+        </aside>
         <p>After pondering the matter and searching the web, I have concluded that the most straightforward way is to use JavaScript. After all, JSON stands for JavaScript Object Notation!</p>
         <p>Furthermore, you might test some JavaScript code embedded in a Web Page as a script, then move it to a <code>node.js</code> programme.</p>
         <!--
