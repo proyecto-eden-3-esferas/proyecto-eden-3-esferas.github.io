@@ -19,6 +19,7 @@
       <div>
         <p><a rel="prev" href="cpp.containers.html">C++ Standard Containers</a></p>
         <p><a rel="next" href="cpp.sequence-containers.html">C++ Sequence Containers: Arrays, Lists...</a></p>
+        <p><a            href="cpp.hash.html">Hash Function(s) for Containers Based on Hash Tables (C++)</a></p>
       <div>
       </div>
         <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
@@ -356,7 +357,7 @@ iterator  erase (const_iterator first, const_iterator last);</pre>
         <h2><code>std::unordered_set</code> and <code>std::unordered_multiset</code></h2>
         <p style="text-align: right">(Heavily from <a target="_blank" href="https://cplusplus.com/reference/unordered_set/">https://cplusplus.com/reference/unordered_set/</a>)</p>
         <p>Unordered sets are containers that store unique elements in no particular order, and which allow for fast retrieval of individual elements based on their value.</p>
-        <p>Internally, the elements are organized into buckets depending on their hash values to allow for fast access to individual elements directly by their values (with a constant average time complexity on average).</p>
+        <p>Internally, the elements are organized into buckets depending on their <a target="_blank" href="cpp.hash.html">hash</a> values to allow for fast access to individual elements directly by their values (with a constant average time complexity on average).</p>
         <p><code>std::unordered_set</code> containers are faster than <code>std::set</code> containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.</p>
         <section id="unordered_set.buckets">
           <h3>Buckets in <code>std::unordered_set</code>&apos;s</h3>

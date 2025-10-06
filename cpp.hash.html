@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hashing in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Hash Function(s) in C++"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="next" href="cpp.associative-containers.html#unordered_set"><code>std::unordered_set</code></a></p>
+        <p><a rel="prev" href="cpp.functions.html">Functions in C++</a></p>
+        <p><a            href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+      </div>
+      <!--
+      <div>
+        <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself (<em>online</em>)</p>
+      </div>
+      -->
+      <div>
+        <p><a href="cpp.cpp11.html">C++11</a></p>
+        <p><a href="cpp.cpp14.html">C++14</a></p>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Hash Function(s) in C++</h1>
+
+      <section id="std_hash">
+        <h2>Class <code>std::hash&lt;&gt;</code> and its Member <code>std::hash&lt;&gt;::hash()</code>*</h2>
+        <p style="text-align: right">(From <cite>Geeks for Geeks</cite>)</p>
+        https://www.geeksforgeeks.org/cpp/stdhash-class-in-c-stl/
+        <p>In C++, the <code>hash</code> class is default constructible function class (functor) that provides the default hash function used by <a target="_blank" href="cpp.stl.html">STL</a>. It is used to get the hash value of the argument that is being passed to it. If the argument doesn&apos;t change, the value doesn&apos;t change either.</p>
+        <p>Let&apos;s take a quick look at an example:</p>
+        <pre>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    string s = "geeksforgeeks";
+
+    hash&lt;string&gt; h;
+
+    // Get the hash value of character
+    cout &lt;&lt; h(s);
+
+    return 0;</pre>
+        <p>Output</p>
+        <pre>5146686323530302118</pre>
+
+        <section id="syntax">
+          <h3>Syntax of <code>hash</code> Function Class</h3>
+          <p>The hash function class is defined as std::hash class template in <cite>&lt;functional&gt;</cite> header file.</p>
+          <pre>hash&lt;T&gt; h;      // Create hash function for type T
+h(val);               // Generate the hash value</pre>
+          <p>where, <var>h</var> is the name of object by which we can access the member function of hash class.</p>
+          <p>Parameters:</p>
+          <ul>
+            <li><var>val</var>: Data whose hash value to be generate.</li>
+            <li><var>T</var>: Type of val.</li>
+          </ul>
+          <p><strong>Return Value</strong>: a hash value of given arguments.</p>
+        </section>
+
+        <section id="examples">
+          <h3>Examples of hash Function Class</h3>
+          <p>The following examples demonstrates the use of hash class in different scenarios:</p>
+          <section>
+            <h4>Generate the Hash Value of a Bitset</h4>
+            <pre>#include &lt;bits/stdc++.h&gt;
+using namespace std; ​
+
+int main() {
+
+    bitset&lt;5&gt; b("10101"); ​
+
+    // Create an object of hash class
+    hash&lt;bitset&lt;5&gt;&gt; h; ​
+
+    // Generate the hash value of given bitset
+    cout &lt;&lt; h(b);
+
+    return 0;
+
+}</pre>
+            <p>Output</p>
+            <pre>17123654466142159564</pre>
+          </section>
+          <section>
+            <h4>Generate the Hash Value of Vector</h4>
+            <pre>#include &lt;bits/stdc++.h&gt;
+using namespace std; ​
+
+int main() {
+
+    vector&lt;bool&gt; v = {true, false}; ​
+
+    // Create an object of hash class
+    hash&lt;vector&lt;bool&gt;&gt; h; ​
+
+    // Generate the hash value of given vector
+    cout &lt;&lt; h(v) &lt;&lt; endl;
+
+    return 0;
+}</pre>
+            <p>Output:</p>
+            <pre>4334672815104069193</pre>
+          </section>
+          <section>
+            <h4>Generate the Hash Value of Custom Data Type</h4>
+            <p>To generate hash value for custom data type, a hash function for that type has to be defined manually. It can be done by specializing the hash class template to the given data type.</p>
+            <pre>#include &lt;bits/stdc++.h&gt;
+using namespace std; ​
+
+struct A {
+  int a;
+  A(int x = 0): a(x) {}
+}; ​
+
+// Specialization of hash for A type
+namespace std {
+  template &lt;&gt;
+  struct hash&lt;A&gt; {
+    size_t operator()(const A&amp; p) const {
+      return hash&lt;int&gt;{}(p.a);
+    }
+  };
+} ​
+
+int main() {
+
+  A obj(11);
+
+  // Creating hash function class instance for
+  // A type:
+  hash&lt;A&gt; h;
+
+  cout &lt;&lt; h(obj);
+
+  return 0;
+
+}</pre>
+            <p>Output</p>
+            <pre>11</pre>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+
+        </section>
+
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+        </section>
+      </section>
+
+      <section id="write-your-own">
+        <h2>Custom Hash Functions for C++ Unordered Containers</h2>
+        <section>
+          <h3>Motivation and Background</h3>
+          <p>C++ unordered containers (e.g. unordered_map, unordered_set, etc.) uses <q>hashing</q> to store objects. The STL provides hash functions for commonly used types, like string and numeric values such as int, meaning that we won’t have to provide any hash functions explicitly when creating an unordered container instance.</p>
+          <p>However, when we want to hold a more complex type, or even a user-defined class, C++ unordered containers would fail to find a matching hash function. We will have to explicitly define a hash function for the type (e.g. pair&lt;string, int&gt;) that we want to use as a template argument for some unordered container.</p>
+        </section>
+        <section>
+          <h3>Implementation Idea: Exclusive-Or</h3>
+          <p>According to the book <cite>A Tour of C++</cite> by Bjarne Stroustrup, <q>A hash function is often provided as a function object</q>. And creating a new hash function by <q>combining existing functions using exclusive-or (^) is simple and often very effective</q>.</p>
+          <p>Intuitively, this means that if we want to hash a pair of string and integer, we could use the following <q>new</q> hash function:</p>
+          <pre>// p is a pair&lt;string, int&gt;
+hash&lt;string&gt;{}(p.first) ^ hash&lt;int&gt;{}(p.second);</pre>
+          <p>The next thing we need to do is to pass that as a template argument when creating our unordered container. For an unordered_set, that will be the second argument. For an unordered_map, that&apos;ll be the third argument after the key type and the value type. Note that we only need the hashing function for a map&apos;s <em>key</em>, not the value.</p>
+        </section>
+        <section>
+          <h3>Method 1: Function Object with Struct</h3>
+          <p>Perhaps the most commonly used method is to create a function object (functor) using a <code>struct</code>, and implement its <code>operator()</code> function. This function is to be qualified as <code>const</code>, and takes a const reference to the custom type and returns a <code>size_t</code>. Defining a function object outside as a standalone struct also gives it the flexibility of <a target="_blank" href="cpp.templates.html">generic programming</a> with templates. Meaning that it can work with pairs of different template arguments, not just strings and ints.</p>
+          <p>Putting this all together, we have:</p>
+          <pre>struct PairHash {
+  template &lt;typename T1, typename T2&gt;
+  auto operator()(const pair&lt;T1, T2&gt; &amp;p) const -&gt; size_t {
+    return hash&lt;T1&gt;{}(p.first) ^ hash&lt;T2&gt;{}(p.second);
+  }
+};
+
+class Example {
+ public:
+  void func() {
+    unordered_set&lt;pair&lt;string, int&gt;, PairHash&gt; uset;
+    unordered_map&lt;pair&lt;double, string&gt;, int , PairHash&gt; umap;
+  }
+};</pre>
+        </section>
+        <section>
+          <h3>Method 2: Custom Lambda Hash Function</h3>
+          <p>Alternatively, we can also implement our custom hash function as a lambda. Some may find this inline implementation more elegant. A drawback is that C++11 lambdas do not support templates. Fortunately, we have “generic lambdas” since C++14 (as seen below).</p>
+          <p>Another drawback is that we need to use decltype of the lambda as the extra custom hash function argument for our unordered containers, and also provide constructor arguments in parentheses after the declared variable name. Both unordered_set and unordered_map have a constructor that takes an initial number of buckets and a hashing object as inputs. Here, I just arbitrarily let the initial buckets be 10.</p>
+          <pre>class Example {
+ public:
+  void func() {
+    auto pairHash = []&lt;typename T1, typename T2&gt;(const pair&lt;T1, T2&gt; &amp;p) {
+      return hash&lt;T1&gt;{}(p.first) ^ hash&lt;T2&gt;{}(p.second);
+    };
+    unordered_set&lt;pair&lt;int, int&gt;, decltype(pairHash)&gt; seen(10, pairHash);
+    unordered_map&lt;pair&lt;double, string&gt;, int , decltype(pairHash)&gt; umap(10, pairHash);
+  }
+};</pre>
+        </section>
+        <section>
+          <h3>Method 3: Defining a Specialization of <code>std::hash()</code></h3>
+          <p>In this method, we add a specialization of standard-library&apos;s hash function to the namespace <code>std</code>. This is quite similar to the first method, except now we must use <code>hash</code> as the name of our function object. We also have to specify the template class for which we are defining the specialization. The immediate advantage is that we do not need to pass in any extra template arguments to our unordered container when declaring an instance.</p>
+          <p>Here is an example of this method, suppose we want to be able to hash a user-defined class XYZ, which has a member called <var>value</var>:</p>
+          <pre>namespace std {
+template &lt;&gt;
+struct hash&lt;XYZ&gt; {
+  auto operator()(const XYZ &amp;xyz) const -&gt; size_t {
+    return hash&lt;XYZ&gt;{}(xyz.value);
+  }
+};
+}  // namespace std
+
+unordered_set&lt;XYZ&gt; xset;</pre>
+        </section>
+        <section>
+          <h3>Overloading <code>operator==()</code></h3>
+          <p>Note that the unordered containers also need the ability to compare two different keys using ==. In previous examples, I have been using std::pair, and the STL already defines operator==() for pairs, so I didn&apos;t have to define my own equality logic. However, if we are using our own user-defined class, then we need to define the equality operator.</p>
+        </section>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
