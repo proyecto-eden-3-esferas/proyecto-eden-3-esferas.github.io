@@ -154,6 +154,21 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write page/section
+    <h1>C++17 in detail: language clarifications</h1>
+    from: https://www.cppstories.com/2017/06/cpp17-details-clarifications/
+
+[ ] write page/section
+    <h1>A Menu Class: an Example of Modern C++17 STL features</h1>
+    The process of building a menu that is based on std::any, std::variant and std::optional.
+    from: https://www.cppstories.com/2018/07/menu-cpp17-example/
+
+[ ] write a section/page based on:
+<p><a rel="next" href="https://tristanbrindle.com/posts/a-quicker-study-on-tokenising/">A Quicker Study on Tokenising,</a> Tristan Brindle, 2016</p>
+- already linked to from *analizadores-linguisticos.html*
+- already linked to from *tokenization.html*
+
+
 [ ] escribir *proyecto-eden-tres-esferas.html*
 [x] enlazar de/a *proyecto-eden-tres-esferas.html* de/a *ecoaldeas.html*
 [x] enlazar de/a *proyecto-eden-tres-esferas.html* de/a *index.2.html*

@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>In-Place Construction</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="In-Place Construction for std::any, std::variant and std::optional"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a            href="cpp.stl.variant.html"><code>std::variant</code>&apos;s: Intelligent C++ Unions</a></p>
+        <p><a            href="cpp.stl.optional.html">Using <code>std::optional</code> to store optional values</a></p>
+        <p><a            href="cpp.stl.any.html">Using <code>std::any</code> to store values of <em>any</em> type</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a rel="prev" href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp11.html">C++11</a></p>
+        <p><a href="cpp.cpp14.html">C++14</a></p>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>In-Place Construction for <code>std::any</code>, <code>std::variant</code> and <code>std::optional</code></h1>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://www.cppstories.com/2018/07/in-place-cpp17/">C++ Stories</a></cite>)</p>
+      <p>We have the following <code>in_place</code> helper types:</p>
+      <ul>
+        <li><code>std::in_place_t</code> type and a global value <code>std::in_place</code> - used for <code>std::optional</code></li>
+        <li><code>std::in_place_type_t</code> type and a global value <code>std::in_place_type</code> - used for <code>std::variant</code> and <code>std::any</code></li>
+        <li><code>std::in_place_index_t</code> type and a global value <code>std::in_place_index</code> - used for <code>std::variant</code></li>
+      </ul>
+      <p>These helpers are used to efficiently initialise objects <q>in-place</q>, that is, without additional temporary copy or <a target="_blank" href="cpp.move-semantics.html">move</a> operations.</p>
+      <p>Let&apos;s see how those helpers are used.</p>
+
+      <section id="optional">
+        <h2>In <code>std::optional</code></h2>
+        <p><code>std::optional</code> being a wrapper type, you should be able to create optional objects almost in the same way as the wrapped object. And in most cases you can:</p>
+        <pre>std::optional&lt;std::string&gt; ostr{"Hello World"};
+std::optional&lt;int&gt; oi{10};</pre>
+        <p>You can write the above code without stating the constructor like:</p>
+        <pre>std::optional&lt;std::string&gt; ostr{std::string{"Hello World"}};
+std::optional&lt;int&gt; oi{int{10}};</pre>
+        <p>Because <code>std::optional</code> has a constructor that takes <var>U&amp;&amp;</var> (r-value reference to a type that converts to the type stored in the optional). In our case it&apos;s recognised as <code>const char*</code>, and strings can be initialised from this.</p>
+        <hr/>
+        <p>So what&apos;s the advantage of using <code>std::in_place_t</code> in <code>std::optional</code>?</p>
+        <p>We have at least two aspects:</p>
+        <ul>
+          <li>Default constructor</li>
+          <li>Efficient construction for constructors with many arguments</li>
+        </ul>
+        <section>
+          <h3>Default Construction</h3>
+          <p>If you have a class with a default constructor, like:</p>
+          <pre>class UserName {
+public:
+    UserName() : mName("Default") {
+
+    }
+    // ...
+
+private:
+    std::string mName;
+};</pre>
+          <p>How would you create an <code>std::optional</code> object that contains <code>UserName{}</code>?</p>
+          <p>You can write:</p>
+          <pre>std::optional&lt;UserName&gt; u0; // empty optional
+std::optional&lt;UserName&gt; u1{}; // also empty
+
+// optional with default constructed object:
+std::optional&lt;UserName&gt; u2{UserName()};
+</pre>
+          <p>That works but it creates additional temporary object.</p>
+          <p>The code creates a temporary object and then moves it into the object stored in <code>std::optional</code>.</p>
+          <hr/>
+          <p>We can use more efficient constructor by leveraging <code>std::in_place_t</code>:</p>
+          <pre>std::optional&lt;UserName&gt; opt{std::in_place};</pre>
+          <p>The object stored in the optional is created in place, in the same way as you&apos;d call UserName{}. No additional copy or move is needed.</p>
+        </section>
+        <section>
+          <h3>Non Copyable/Movable Types</h3>
+          <p>As you saw in the example from the previous section, if you use a temporary object to initialise the contained value inside <code>std::optional</code> then the compiler will have to use move or copy construction.</p>
+          <p>But what if your type doesn&apos;t allow that? For example <code>std::mutex</code> is not movable or copyable.</p>
+          <p>In that case <code>std::in_place</code> is the only way to work with such types.</p>
+        </section>
+        <section>
+          <h2>Constructors With Many Arguments</h2>
+          <p>Another use case is a situation where your type has more arguments in a constructor. By default optional can work with a single argument (r-value ref), and efficiently pass it to the wrapped type. But what if you&apos;d like to initialise <code>std::complex(double, double)</code> or <code>std::vector</code>?</p>
+          <p>You can always create a temporary copy and then pass it in the construction:</p>
+          <pre>// vector with 4 1's:
+std::optional&lt;std::vector&lt;int&gt;&gt; opt{std::vector&lt;int&gt;{4, 1}};
+
+// complex type:
+std::optional&lt;std::complex&lt;double&gt;&gt; opt2{std::complex&lt;double&gt;{0, 1}};</pre>
+          <p>or use in_place and the version of the constructor that handles variable argument list:</p>
+          <pre>// either simply
+template&lt; class... Args &gt;
+constexpr explicit optional( std::in_place_t, Args&amp;&amp;... args );
+
+// or an initializer_list:
+template&lt; class U, class... Args &gt;
+constexpr explicit optional( std::in_place_t,
+                             std::initializer_list&lt;U&gt; ilist,
+                             Args&amp;&amp;... args );
+
+std::optional&lt;std::vector&lt;int&gt;&gt; opt{std::in_place_t, 4, 1};
+std::optional&lt;std::complex&lt;double&gt;&gt; opt2{std::in_place_t, 0, 1};</pre>
+          <p>The second option is quite verbose and omits to create temporary objects. Temporaries, especially for containers or larger objects, are not as efficient as constructing in place.</p>
+        </section>
+        <section>
+          <h3><code>std::make_optional()</code></h3>
+          <p>If you don&apos;t like <code>std::in_place</code> then you can look at <code>std::make_optional</code> factory function.</p>
+          <p>The code:</p>
+          <pre>auto opt = std::make_optional&lt;UserName&gt;();
+
+auto opt = std::make_optional&lt;std::vector&lt;int&gt;&gt;(4, 1);</pre>
+          <p>Is as efficient as:</p>
+          <pre>std::optional&lt;UserName&gt; opt{std::in_place};
+
+std::optional&lt;std::vector&lt;int&gt;&gt; opt{std::in_place_t, 4, 1};</pre>
+          <p><code>make_optional</code> implements in place construction equivalent to:</p>
+          <pre>return std::optional&lt;T&gt;(std::in_place, std::forward&lt;Args&gt;(args)...);</pre>
+          <p>And also thanks to mandatory copy elision from C++17 there is no temporary object involved.</p>
+        </section>
+      </section>
+
+      <section id="variant">
+        <h2>In <code>std::variant</code>*</h2>
+        <p><code>std::variant</code> has two <strong>in_place</strong> helpers that you can use:</p>
+        <ul>
+          <li>
+            <p><code>std::in_place_type</code>: used to specify which type you want to change/set in the variant</p>
+          </li>
+          <li>
+            <p><code>std::in_place_index</code>: used to specify which index you want to change/set. Types are numerated from 0.</p>
+            <p>In a variant <code>std::variant&lt;int, float, std::string&gt;</code> <code>int</code> has the index 0, <code>float</code> has index 1 and the string has index of 2. The index is the same value as returned from <code>variant::index()</code> method.</p>
+          </li>
+        </ul>
+        <p>Fortunately, you don&apos;t always have to use the helpers to create a variant. A variant is smart enough to recognise if it can be constructed from the passed single parameter:</p>
+        <pre>// this constructs the second/float:
+std::variant&lt;int, float, std::string&gt; intFloatString { 10.5f };</pre>
+        <p>For variant we need the helpers in at least two cases:</p>
+        <ul>
+          <li><strong><a href="#ambiguity">ambiguity</a></strong>: to distinguish which type should be created where several could match</li>
+          <li><strong><a href="#variant-complex-types">efficient complex type creation</a></strong> (similar to optional)</li>
+        </ul>
+        <aside><strong>Note:</strong> by default variant is initialised with the first type - assuming it has a default constructor. If the default constructor is not available, then you&apos;ll get a compiler error. This is different from <code>std::optional</code> which is initialised to an empty optional, as mentioned in the previous subsection.</aside>
+        <section id="ambiguity">
+          <h3>Ambiguity</h3>
+          <p>What if you have an initialization like:</p>
+          <pre>std::variant&lt;int, float&gt; intFloat { 10.5 }; // conversion from double?</pre>
+          <p>The value 10.5 could be converted to <code>int</code> or <code>float</code> so the compiler will report a few pages of template errors… but basically, it cannot deduce what type should double be converted to.</p>
+          <p>Still, you can easily handle such error by specifying which type you&apos;d like to create:</p>
+          <pre>std::variant&lt;int, float&gt; intFloat { std::in_place_index&lt;0&gt;, 10.5 };
+
+// or
+
+std::variant&lt;int, float&gt; intFloat { std::in_place_type&lt;int&gt;, 10.5 };</pre>
+        </section>
+        <section id="variant-complex-types">
+          <h3>Complex Types</h3>
+          <p>Similarly to <code>std::optional</code> if you want to efficiently create objects that get several constructor arguments - the just use <code>std::in_place*</code>:</p>
+          <p>For example:</p>
+          <pre>std::variant&lt;std::vector&lt;int&gt;, std::string&gt; vecStr {
+    std::in_place_index&lt;0&gt;, { 0, 1, 2, 3 } // initializer list passed into vector
+};</pre>
+        </section>
+      </section>
+
+      <section id="any">
+        <h2>In <code>std::any</code>*</h2>
+        <p>Following the style of two previous types, <code>std::any</code> can use <code>std::in_place_type</code> to efficiently create objects in place.</p>
+        <section id="any-complex-types">
+          <h3>Complex Types</h3>
+          <p>In the below example a temporary object will be needed:</p>
+          <pre>std::any a{UserName{"hello"}};</pre>
+          <p>but with:</p>
+          <pre>std::any a{std::in_place_type&lt;UserName&gt;,"hello"};</pre>
+          <p>the object is created in place with the given set of arguments.</p>
+        </section>
+        <section id="make_any">
+          <h3><code>std::make_any</code></h3>
+          <p>For convenience <code>std::any</code> has a factory function called <code>std::make_any</code> that returns</p>
+          <pre>return std::any(std::in_place_type&lt;T&gt;, std::forward&lt;Args&gt;(args)...);</pre>
+          <p>Instead we could write:</p>
+          <pre>auto a = std::make_any&lt;UserName&gt;{"hello"};</pre>
+          <p>Using <code>make_any</code> is probably more straightforward.</p>
+        </section>
+      </section>
+
+    </main>
+  </body>
+</html>
