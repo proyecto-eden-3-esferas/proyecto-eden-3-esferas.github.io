@@ -20,7 +20,7 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
-        <p><a rel="next" href="ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
+        <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
         <p><a            href="https://ngspice.sourceforge.io/">ngspice - open source spice simulator</a>, at <code>https://ngspice.sourceforge.io/</code></p>
         <p><a            href="ngspice.mosfet.html">MOSFET models (NMOS/PMOS)</a></p>
         <p><a            href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
@@ -35,31 +35,311 @@
 
     <main>
       <h1>NGSpice, the Open Source Spice Simulator</h1>
-      <p><dfn>ngspice</dfn> is a circuit simulator that numerically solves equations describing (electronic) circuits: These are made of passive and active devices. Time varying currents and voltages are simulated as well as noise and small signal behavior. ngspice is the <a target="_blank" href="open-source.html">Open Source</a> successor of the venerable spice3f5 from UC at Berkeley.</p>
-      <p><del>As shown in Fig. 1, </del>You start with a circuit (here: an inverter). You have to create a <dfn>netlist</dfn> describing this circuit. The netlist is the input to ngspice, telling it about the circuit to be simulated. Together with some simulation commands this input cares for reading and parsing the netlist, starting the simulation and plotting the output.<del> The output voltage (plotted in red) is the inverse of the (green) input. Both voltages are plotted versus time.</del></p>
-
-      <p>The input to ngspice is read from a file, and it may be enhanced by commands given on the command line. The simulated output may be written to a file, or be plotted as a Y-X graph or a smith chart. There is no graphical user interface with schematic capture of circuit diagrams and automatic netlist generation.</p>
-
-      <p>In the next section we shall be looking at a simple example, a <a href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a>.</p>
-
-      <p>However, there are <a target="_blank" href="https://ngspice.sourceforge.io/resources.html">third party tools</a> available to draw the circuit and generate a ngspice netlist.</p>
-
-
-
-      <hr/>
-
+      <p><dfn>ngspice</dfn> is a text-mode circuit simulator that numerically solves equations describing (electronic) circuits: These are made of passive and active devices. Time varying currents and voltages are simulated as well as noise and small signal behavior.</p>
+      <p>Ngspice is an <a target="_blank" href="open-source.html">open source</a> update of Spice3f5, the last Berkeley&apos;s release of Spice3 simulator family. Ngspice is being            developed to include new features to existing Spice3f5 and to fix its bugs. Improving a complex software like a       circuit simulator is a very hard task and, while some improvements have been made, most of the work has been          done on bug fixing and code refactoring.</p>
+      <aside>There are <a target="_blank" href="https://ngspice.sourceforge.io/resources.html">third party tools</a> available to draw the circuit and generate a ngspice netlist.</aside>
+      <p>On a <a href="linux.html">linux</a> (here Ubuntu) distribution several packages are available:</p>
+      <ul>
+        <li><strong>ngspice</strong>: the executable, man pages and some documentation at <cite>/usr/share/doc/ngspice/</cite>, containing mainly an examples subdirectory (<cite>/usr/share/doc/ngspice/examples</cite>)</li>
+        <li><strong>ngspice-doc</strong>: in directory <cite>/usr/share/doc/ngspice-doc/html</cite> are found one large HTML file (<cite>/usr/share/doc/ngspice-doc/html/manual.html</cite>, 4.2MB), a compressed PDF version of the manual (<cite>/usr/share/doc/ngspice-doc/manual.pdf.gz</cite>), and sundry image files presumably used by <cite>manual.html</cite>.</li>
+      </ul>
       <p>There is a detailed <a target="_blank" href="https://sourceforge.net/projects/ngspice/files/ng-spice-rework/37/ngspice-37-manual.pdf/download">reference manual</a> available for ngspice. This manual describes all commands and procedures available in ngspice and lists numerous examples. However, it is not an ngspice how-to or introductory text.<del> This tutorial here gives you some information how to start. If you are interested in getting more in-depth information, you may refer to our <a href="https://ngspice.sourceforge.io/books.html">book page</a> or to a list of third party <a href="https://ngspice.sourceforge.io/tutorials.html">tutorials</a>.</del></p>
 
-      <!--
-      <section id="*">
-        <h2></h2>
+      <section id="example">
+        <h2>An Example/Procedure</h2>
+        <p><del>As shown in Fig. 1, </del>You start with a circuit (here: an inverter). You have to create a <dfn>netlist</dfn> describing this circuit. The netlist is the input to ngspice, telling it about the circuit to be simulated. Together with some simulation commands this input cares for reading and parsing the netlist, starting the simulation and plotting the output.<del> The output voltage (plotted in red) is the inverse of the (green) input. Both voltages are plotted versus time.</del></p>
+        <p>The input to ngspice is read from a file, and it may be enhanced by commands given on the command line. The simulated output may be written to a file, or be plotted as a Y-X graph or a smith chart. There is no graphical user interface with schematic capture of circuit diagrams and automatic netlist generation.</p>
+        <p>Next we shall be looking at a simple example, a <a href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a>.</p>
+      </section>
+
+      <section id="supported-analyses">
+        <h2>Supported Analyses*</h2> <!-- section 1.2 -->
+      </section>
+
+      <section id="description">
+        <h2>Circuit Description</h2>
+        <section id="structure-and-conventions">
+          <h3>General Structure and Conventions</h3>
+          <p>The circuit to be analyzed is described to ngspice by a set of <strong>element lines</strong>, which define the circuit topology and element values, and a set of <strong>control lines</strong>, which define the model parameters and the run controls. All lines are assembled in an input file to be read by ngspice.</p>
+          <p>Two lines are essential:</p>
+          <ul>
+            <li>
+              <p>The first line in the input file must be the <strong>title</strong>, which is the only comment line that does not need any special character in the first place.</p>
+            </li>
+            <li>
+              <p>The last line must be <code>.end</code> (mind the leading period).</p>
+            </li>
+          </ul>
+          <p>The order of the remaining lines is arbitrary (except, of course, that continuation lines must immediately follow the line being continued).</p>
+
+          <section>
+            <h3>Circuit Elements</h3>
+            <p>Each element in the circuit is specified by an element line that contains:</p>
+            <ul>
+              <li>the element name,</li>
+              <li>the circuit nodes to which the element is connected, and</li>
+              <li>the values of the parameters that determine the electrical characteristics of the element.</li>
+            </ul>
+            <p>The first letter of the element name specifies the element type. For example, a resistor name must begin with the letter R and can contain one or more characters. Hence, <code>R</code>, <code>R1</code>, <code>RSE</code>, <code>ROUT</code>, and <code>R3AC2ZY</code> are valid resistor names. Details of each type of device are supplied below.</p>
+            <p>Fields on a line are separated by one or more blanks, a comma, an equal (=) sign, or a left or right parenthesis; extra spaces are ignored. A line may be continued by entering a <q>+</q> (plus) in column 1 of the following line; ngspice continues reading beginning with column 2. A name field must begin with a letter (A through Z) and cannot contain any delimiters. A number field may be an integer field (12, -44), a floating point field (3.14159), either an integer or floating point number followed by an integer exponent (1e-14, 2.65e3), or either an integer or a floating point number followed by one of the following scale factors:</p>
+            <table border="1">
+            <thead>
+              <caption>Ngspice scale factors</caption>
+              <tr> <th>Suffix</th> <th>Name</th> <th>Factor</th> </tr> </thead>
+                   <tr> <td>T</td> <td>Tera</td> <td>10<sup>12</sup></td> </tr>
+                   <tr> <td>G</td> <td>Giga</td> <td>10<sup>9</sup></td> </tr>
+                   <tr> <td>Meg</td> <td>Mega</td> <td>10<sup>6</sup></td> </tr>
+                   <tr> <td>K</td> <td>Kilo</td> <td>10<sup>3</sup></td> </tr>
+                   <tr> <td>mil</td> <td>Mil</td> <td>25.4 × 10<sup>−6</sup></td> </tr>
+                   <tr> <td>m</td> <td>milli</td> <td>10<sup>−3</sup></td> </tr>
+                   <tr> <td>u</td> <td>micro</td> <td>10<sup>−6</sup></td> </tr>
+                   <tr> <td>n</td> <td>nano</td> <td>10<sup>−9</sup></td> </tr>
+                   <tr> <td>p</td> <td>pico</td> <td>10<sup>−12</sup></td> </tr>
+                   <tr> <td>f</td> <td>femto</td> <td>10<sup>−15</sup></td> </tr>
+            </table>
+            <p>Letters immediately following a number that are not scale factors are ignored, and letters immediately following a scale factor are ignored. Hence, 10, 10V, 10Volts, and 10Hz all represent the same number, and M, MA, MSec, and MMhos all represent the same scale factor. Note that 1000, 1000.0, 1000Hz, 1e3, 1.0e3, 1kHz, and 1k all represent the same number.</p>
+
+            <p>Node names may be arbitrary character strings and are case insensitive. The ground node must be named <q>0</q> (zero). For compatibility reason <q>gnd</q> is accepted as ground node, and will internally be treated as a global node and be converted to <q>0</q>.</p>
+            <p>Each circuit has to have a ground node (gnd or 0)!</p>
+            <p>Note the difference in ngspice where the nodes are treated as character strings and not evaluated as numbers, thus <q>0</q> and <q>00</q> are distinct nodes in ngspice but not in SPICE2.</p>
+            <hr/>
+            <p>Ngspice requires that the following topological constraints are satisfied:</p>
+            <ul>
+              <li>The circuit cannot contain a loop of voltage sources and/or inductors and cannot contain a <strong>cut-set</strong> of current sources and/or capacitors.</li>
+              <li>Each node in the circuit must have a dc path to ground.</li>
+              <li>Every node must have at least two connections except for transmission line nodes (to permit unterminated transmission lines) and MOSFET substrate nodes (which have two internal connections anyway).</li>
+            </ul>
+          </section>
+          <section id="basic-lines">
+            <h3>Basic lines</h3>
+            <section id="title">
+              <h4>Title</h4>
+              <p>Example:</p>
+              <pre>POWER AMPLIFIER CIRCUIT
+* additional comment lines following
+*...</pre>
+              <p>You can also precede the title with period command <code>.TITLE</code>:</p>
+              <pre>.TITLE line example:
+* additional lines following
+* ...</pre>
+            </section>
+            <section id="end">
+              <h4><code>.END</code> Line</h4>
+              <p>The <q>.End</q> line must always be the last in the input file. Note that the period is an integral part of the name.</p>
+              <p>Example:</p>
+              <pre>. end</pre>
+            </section>
+            <section id="comments">
+              <h4>Comments</h4>
+              <p>The general form of a whole line comment is:</p>
+              <pre>* &lt;<var>any comment</var>&gt;</pre>
+              <p>Examples:</p>
+              <pre>* RF=1K Gain should be 100
+* Check open−loop gain and phase margin</pre>
+              <p>The asterisk in the first column indicates that this line is a comment line. Comment lines may be placed anywhere in the circuit description.</p>
+              <hr/>
+              <p>The general form of end-of-line comments is:</p>
+              <pre>&lt;<var>any command</var>&gt; ; &lt;<var>any comment</var>&gt;</pre>
+              <p>Examples:</p>
+              <pre>RF2=1K ; Gain should be 100
+C1=10 p $ Check open−loop gain and phase margin</pre>
+              <p>ngspice also supports comments that begin with single characters ’;’ or double characters ’$ ’ or ’//’ or ’- -’.</p>
+            </section>
+          </section>
+          <section id="device-models">
+              <h3>Device Models</h3>
+              <p>General form:</p>
+              <pre>.model mname type ( pname1=pval1 pname2=pval2 ... )</pre>
+              <p>Example:</p>
+              <pre>.model MOD1 npn ( bf=50 is=1e−13 vbf=50 )</pre>
+              <p>Most simple circuit elements typically require only a few parameter values. However, some devices (semiconductor devices in particular) that are included in ngspice require many parameter values. Often, many devices in a circuit are defined by the same set of device model parameters. For these reasons, a set of device model parameters is defined on a separate <code>.model</code> line and assigned a unique model name. The device element lines in ngspice then refer to the model name.</p>
+              <p>For these more complex device types, each device element line contains the device name, the nodes to which the device is connected, and the device model name. In addition, other optional parameters may be specified for some devices: geometric factors and an initial condition<!-- (see the following section on Transistors (8 to 11) and Diodes (7) for more details)-->. <var>mname</var> in the above is the model name, and <var>type</var> is one of the following fifteen types:</p>
+              <table border="1">
+                  <caption>Ngspice model types</caption>
+                  <thead> <tr> <th>Code</th> <th>Model Type</th> </tr> </thead>
+                          <tr> <td>R</td> <td>Semiconductor resistor model</td> </tr>
+                          <tr> <td>C</td> <td>Semiconductor capacitor model</td> </tr>
+                          <tr> <td>L</td> <td>Inductor model</td> </tr>
+                          <tr> <td>SW</td> <td>Voltage controlled switch</td> </tr>
+                          <tr> <td>CSW</td> <td>Current controlled switch</td> </tr>
+                          <tr> <td>URC</td> <td>Uniform distributed RC model</td> </tr>
+                          <tr> <td>LTRA</td> <td>Lossy transmission line model</td> </tr>
+                          <tr> <td>D</td> <td>Diode model</td> </tr>
+                          <tr> <td>NPN</td> <td>NPN BJT model</td> </tr>
+                          <tr> <td>PNP</td> <td>PNP BJT model</td> </tr>
+                          <tr> <td>NJF</td> <td>N-channel JFET model</td> </tr>
+                          <tr> <td>PJF</td> <td>P-channel JFET model</td> </tr>
+                          <tr> <td>NMOS</td> <td>N-channel MOSFET model</td> </tr>
+                          <tr> <td>PMOS</td> <td>P-channel MOSFET model</td> </tr>
+                          <tr> <td>NMF</td> <td>N-channel MESFET model</td> </tr>
+                          <tr> <td>PMF</td> <td>P-channel MESFET model</td> </tr>
+              </table>
+              <p>Parameter values are defined by appending the parameter name followed by an equal sign and the parameter value. Model parameters that are not given a value are assigned the default values given below for each model type. Models are listed in the section on each device along with the description of device element lines<!--. Model parameters and their default values are given in chapter 30.--></p>
+          </section>
+          <section>
+              <h3>Subcircuits</h3>
+              <p>A subcircuit that consists of ngspice elements can be defined and referenced in a fashion similar to device models. Subcircuits are the way ngspice implements hierarchical modeling, but this is not entirely true because each subcircuit instance is flattened during parsing, and thus ngspice is not a hierarchical simulator.</p>
+              <p>The subcircuit is defined in the input deck by a grouping of element cards delimited by the <code>.subckt</code> and the <code>.ends</code> cards<!-- (or the keywords defined by the substart and subend options (see 17.7))-->; the program then automatically inserts the defined group of elements wherever the subcircuit is referenced. Instances of subcircuits within a larger circuit are defined through the use of an instance card which begins with the letter <q>X</q>. A complete example of all three of these cards follows:</p>
+              <pre>* The following is the instance card :
+*
+xdiv1 10 7 0 vdivide
+
+* The following are the subcircuit definition cards :
+*
+.subckt vdivide 1 2 3
+  r1 1 2 10 K
+  r2 2 3 5 K
+.ends</pre>
+              <p>The above specifies a subcircuit with ports numbered <q>1</q>, <q>2</q> and <q>3</q>:</p>
+              <ul>
+                <li>Resistor <var>R1</var> is connected from port “1” to port “2”, and has value 10 kOhms.</li>
+                <li>Resistor <var>R2</var> is connected from port “2” to port “3”, and has value 5 kOhms.</li>
+              </ul>
+              <p>The instance card, when placed in an ngspice deck, will cause subcircuit port “1” to be equated to circuit node “10”, while port “2” will be equated to node “7” and port “3” will equated to node “0”.</p>
+              <p>There is no limit on the size or complexity of subcircuits, and subcircuits may contain other subcircuits.<!-- An example of subcircuit usage is given in chapter 20.6.--></p>
+              <hr/>
+              <p>The general form of the <code>.SUBCKT</code> line is:</p>
+              <pre>.SUBCKT subnam N1 &lt;N2 N3 . . . &gt;</pre>
+              <p>Example:</p>
+              <pre>. SUBCKT OPAMP 1 2 3 4</pre>
+              <p>A circuit definition is begun with a <code>.SUBCKT</code> line. <var>SUBNAM</var> is the subcircuit name, and <var>N1</var>, <var>N2</var>, ... are the external nodes, which cannot be zero. The group of element lines which immediately follow the <code>.SUBCKT</code> line define the subcircuit. The last line in a subcircuit definition is the <code>.ENDS</code> line (<i>see</i> below). Control lines may not appear within a subcircuit definition; however, subcircuit definitions may contain anything else, including other subcircuit definitions, device models, and subcircuit calls (<i>see</i> below). Note that any device models or subcircuit definitions included as part of a subcircuit definition are strictly local (i.e., such models and definitions are not known outside the subcircuit definition). Also, any element nodes not included on the <code>.SUBCKT</code> line are strictly local, with the exception of 0 (ground) which is always global. If you use parameters, the <code>.SUBCKT</code> line will be extended<!-- (see 2.8.3)-->.</p>
+              <p>The <code>.ENDS [<var>subcircuit_name</var>]</code> line must be the last one for any subcircuit definition. The subcircuit name, if included, indicates which subcircuit definition is being terminated; if omitted, all subcircuits being defined are terminated. Therefore, the name is needed only when nested subcircuit definitions are being made.</p>
+              <p>Last, a subcircuit is called with syntax:</p>
+              <pre>X&lt;<var>any_name</var>&gt; <var>N1</var> [N2 N3 ...] <var>subnam</var></pre>
+              <p>For example:</p>
+              <pre>X1 2 4 17 3 1 MULTI</pre>
+              <p>Subcircuits are used in ngspice by specifying pseudo-elements beginning with the letter <q>X</q>, followed by the circuit nodes to be used in expanding the subcircuit. If you use parameters, the subcircuit call will be modified<!-- (see 2.8.3).--></p>
+          </section>
+          <section>
+            <h3>Other Dot Directives</h3>
+            <section>
+              <h4><code>.GLOBAL</code></h4> <!-- section 2.5 on page 51 -->
+              <p>General form:</p>
+              <pre>.GLOBAL <var>nodename1</var> [ <var>nodename2</var> ... ]</pre>
+              <p>Examples:</p>
+              <pre>. GLOBAL gnd vcc</pre>
+              <p>Nodes defined in the <code>.GLOBAL</code> statement are available to all circuit and subcircuit blocks independently from any circuit hierarchy. After parsing the circuit, these nodes are accessible from top level.</p>
+            </section>
+            <section>
+              <h4><code>.INCLUDE</code></h4>
+              <p>General form:</p>
+              <pre>.INCLUDE <var>filename</var></pre>
+              <p>Examples:</p>
+              <pre>. INCLUDE /users/spice/common/bsim3-param.mod</pre>
+              <p>Frequently, portions of circuit descriptions will be reused in several input files, particularly with common models and subcircuits. In any ngspice input file, the <code>.INCLUDE</code> line may be used to copy some other file as if that second file appeared in place of the <code>.INCLUDE</code> line in the original file.</p>
+              <p>If the filename is a relative path and the file is not found, it is searched for in the locations given by variable <code>sourcepath</code>. There is no restriction on the file name imposed by ngspice beyond those imposed by the local operating system.</p>
+            </section>
+            <section>
+              <h4><code>.LIB</code></h4>
+              <p>General form:</p>
+              <pre>.LIB <var>filename</var> <var>libname</var></pre>
+              <p>Examples:</p>
+              <pre>.LIB /users/spice/common/mosfets.lib mos1</pre>
+              <p>The <code>.LIB</code> statement allows including library descriptions into the input file. Inside the <cite>*.lib</cite> file a library libname will be selected. The statements of each library inside the <cite>*.lib</cite> file are enclosed in <code>.LIB <var>libname</var> &lt;...&gt; .ENDL</code> statements. The file is searched for in the same way as for <code>.include.</code></p>
+              <p>If the compatibility mode is set to <q>ps</q> by <code>set ngbehavior=ps</code> in <code>spinit</code> or <code>.spiceinit</code>, then a simplified syntax <code>.LIB <var>filename</var></code> is available: a warning is issued and filename is simply included.</p>
+            </section>
+          </section>
+        </section>
+        <section>
+              <h3><code>.PARAM</code> for Parametric netlists</h3>
+              <p>Ngspice allows for the definition of parametric attributes in the netlists. This is an enhancement of the ngspice front-end that adds arithmetic functionality to the circuit description language.</p>
+              <p>The general form of a <code>.param</code> line is:</p>
+              <pre>.param &lt;<var>ident</var>&gt;= &lt;<var>expr</var>&gt; &lt;<var>ident</var>&gt;=&lt;<var>expr</var>&gt;...</pre>
+              <p>Examples:</p>
+              <pre>.param pippo = 5
+.param po = 6 pp = 7.8 pap = { AGAUSS (pippo, 1, 1.67)}
+.param pippp = { pippo + pp }
+.param p = { pp }
+.param pop = 'pp + p'</pre>
+              <p>This line assigns numerical values to identifiers. More than one assignment per line is possible using a separating space. Parameter identifier names must begin with an alphabetic character. The other characters must be either alphabetic, a number, or ! # $ % [ ] _ as special char  acters. The variables time, temper, and hertz (see 5.1.1) are not valid identifier names. Other restrictions on naming conventions apply as well<!--, see 2.9.6-->.</p>
+              <p>The <code>.param</code> lines inside subcircuits are copied per call, like any other line. All assignments are executed sequentially through the expanded circuit. Before its first use, a parameter name must have been assigned a value. Expressions defining a parameter should be put within braces <code>{p+p2}</code>, or alternatively within single quotes <code>'AGAUSS(pippo, 1, 1.67)'</code>. An assignment cannot be self-referential, something like <code>.param pip = 'pip+3'</code> will not work.</p>
+              <p>The current ngspice version does not always need quotes or braces in expressions, especially when spaces are used sparingly. However, it is recommended to do so, as the following examples demonstrate.</p>
+              <pre>.param a = 123*3 b=sqrt(9) $ doesn't work, a &lt;= 123
+.param a = '123 * 3' b = sqrt (9) $ ok .
+.param c = a + 123 $ won't work
+.param c = 'a + 123 ' $ ok
+.param c = a +123 $ ok</pre>
+              <p>Parameters may also have string values, but support is limited. String-valued parameters can be
+defined by <code>.param</code> and used in the same ways as numeric parameters. The only operation on
+string values is concatenation and that is possible only in top-level <code>.param</code> assignments.</p>
+<pre>.param str1 = "first" str2 = "second"
+.param both ={str1}" and "str2</pre>
+            </section>
+            <section>
+              <h4>Brace expressions in circuit elements</h4>
+              <p>General form:</p>
+              <pre>{&lt;<var>expression</var>&gt;}</pre>
+              <p>These are allowed in <code>.model</code> lines and in device lines. A SPICE number is a floating point number with an optional scaling suffix, immediately glued to the numeric tokens. Brace expressions (<code>{..}</code>) cannot be used to parameterize node names or parts of names. All identifiers used within an <code><var>expr</var></code> must have known values at the time when the line is evaluated, else an error is flagged.</p>
+            </section>
+            <section>
+              <h4>Subcircuit parameters</h4>
+              <p>General form:</p>
+              <pre>.subckt &lt;identn&gt; node node ... &lt;ident&gt;= &lt;value&gt; &lt;ident&gt;= &lt;value&gt; ...</pre>
+              <p>Example:</p>
+              <pre>.subckt myfilter in out rval =100 k cval =100 nF</pre>
+              <p>&lt;identn&gt; is the name of the subcircuit given by the user. <var>node</var> is an integer number or an identifier, for one of the external nodes. The first &lt;ident&gt;=&lt;value&gt; introduces an optional section of the line. Each &lt;ident&gt; is a formal parameter, and each &lt;value&gt; is either a SPICE number or a brace expression. Inside the <code>.subckt ... .ends</code> context, each formal parameter may be used like any identifier that was defined on a <code>.param</code> control line. The &lt;value&gt; parts are default values of the parameters.</p>
+              <p>The syntax of a subcircuit call (invocation) is:</p>
+              <pre>X &lt;name&gt; node node ... &lt;identn&gt; &lt;ident&gt;=&lt;value&gt; &lt;ident&gt;= &lt;value&gt; ...</pre>
+              <p>Example:</p>
+              <pre>X1 input output myfilter rval=1k</pre>
+              <p>Here &lt;name&gt; is the symbolic name given to that instance of the subcircuit, &lt;identn&gt; is the name of a subcircuit defined beforehand. <code><var>node</var> <var>node</var> ...</code> is the list of actual nodes where the subcircuit is connected. &lt;value&gt; is either a SPICE number or a brace expression {&lt;expr&gt;}.</p>
+              <p>Subcircuit example with parameters:</p>
+              <pre>* Param - example
+.param amplitude = 1 V
+*
+.subckt myfilter in out rval=100 k cval=100 nF
+Ra in p1 {2* rval }
+Rb p1 out {2* rval }
+C1 p1 0 {2* cval }
+Ca in p2 { cval }
+Cb p2 out { cval }
+R1 p2 0 { rval }
+.ends myfilter
+*
+X1 input output myfilter rval=1k cval=1n
+V1 input 0 AC {amplitude}
+.end</pre>
+            </section>
+            <section>
+              <h4>Symbol scope</h4>
+              <p><em>All subcircuit and model names are considered global and must be unique.</em> The <code>.param</code> symbols that are defined outside of any <code>.subckt ... .ends</code> section are global. Inside such a section, the pertaining params: symbols and any <code>.param</code> assignments are considered local: they mask any global identical names, until the <code>.ends</code> line is encountered. You cannot reassign to a global number inside a <code>.subckt</code>, a local copy is created instead. Scope nesting works up to a level of 10. For example, if the main circuit calls <var>A</var> that has a formal parameter <var>xx</var>, <var>A</var> calls <var>B</var> that has a param. <var>xx</var>, and <var>B</var> calls <var>C</var> that also has a formal param. <var>xx</var>, there will be three versions of <var>xx</var> in the symbol table but only the most local one --belonging to C-- is visible.</p>
+            </section>
+          </section>
+          <section>
+              <h3><code>.FUNC</code>*</h3>
+              <p></p>
+              <pre></pre>
+            </section>
+            <section>
+              <h3><code>.CSPARAM</code>*</h3>
+              <p></p>
+              <pre></pre>
+            </section>
+            <section>
+              <h3><code>.TEMP</code>*</h3>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+        </section>
+
+      <section id="circuit-elements-and-models">
+        <h2>Circuit Elements and Models*</h2>
         <p></p>
       </section>
 
-      <section id="*">
-        <h2></h2>
-        <p></p>
-      </section>
+      <!--
+
 
       <section id="*">
         <h2></h2>
