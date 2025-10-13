@@ -102,6 +102,7 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://www.w3schools.com/html/html_form_elements.asp
 
 - https://www.thespruce.com/
+- https://www.attainable-sustainable.net/
 
 - https://tc39.es/ecma262/multipage/
 `jq '.[] | .term' my-Array-of-Objects.json`
@@ -155,6 +156,39 @@ Ecoaldea con ideales pero promete ser cara.
 - libros en francés, novelas principalmente
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] https://www.reddit.com/r/Permaculture/comments/12ekgs0/the_two_main_sets_of_permaculture_principles_for/
+
+[ ] write section on <h2>Sprouts</h2> inside *microgreens-and-sprouts.html*
+
+[ ] ekistics
+<p><dfn>Ekistics</dfn> is the science of human settlements, studying all kinds of settlements and aiming for harmony between inhabitants and their environments. (Britannica)</p>
+<blockquote>
+  <p>Ekistics is the science of human settlements, which includes the study of how to create and manage them in a sustainable and harmonious way. Coined by Constantinos Doxiadis, the field draws on a wide range of disciplines like architecture, sociology, engineering, and ecology. It views settlements as dynamic, living organisms and is organized around five principles: nature, human beings (anthropos), society, shells (buildings), and networks (transportation, communication).</p>
+  <p style="text-align: right">AI Overview, by Google</p>
+</blockquote>
+
+[ ] dynamic accumulators
+
+[ ] Pattern Language
+
+[ ] section up *permaculture.html*
+[ ] add material from https://www.anordinaryexistence.com/what-is-permaculture/ to *permaculture.html*
+[ ]
+
+<p>The ethics, principles, and design strategies of permaculture can be used to address almost any part of our lives – from our selves (“Zone 0”) to our communities, to our landscapes, and beyond. The possibilities are endless.</p>
+
+[ ] *cuatro-dimensiones.html*
+<h1>Las cuatro dimensiones del trabajador/persona</h1>
+<p>En condiciones ideales los seres humanos trabajamos todo el tiempo, por remuneración, gratis, por mejorarnos o mejorar el mundo etc.</p>
+<p>Las <cite>Cuatro Dimensiones</cite> son cuatro aspectos de cada individuo que influyen en cómo trabaja en sentido general:</p>
+<ul>
+  <li><strong>talento específico</strong>: qué se nos da bien, por ejemplo ¿nos va <a target="_blank" target="">la acción o la creación</a>?</li>
+  <li><strong>formación y experiencia</strong>: que experiencias formativas hemos tenido</li>
+  <li><strong>inclinación</strong>: qué fenómenos y actividades nos interesan y motivan</li>
+</ul>
+[ ] enlazar con *actuadores-creadores.html*
+
 
 [ ] write *persona.en.html*
 
