@@ -157,6 +157,11 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *inoculants.html*
+[ ] link to *inoculating-legumes.html* from *inoculants.html*
+[ ] link back to *inoculants.html* from *inoculating-legumes.html*
+[ ] link to *inoculants.html* from elsewhere
+
 [ ] https://www.reddit.com/r/Permaculture/comments/12ekgs0/the_two_main_sets_of_permaculture_principles_for/
 
 [ ] write section on <h2>Sprouts</h2> inside *microgreens-and-sprouts.html*
