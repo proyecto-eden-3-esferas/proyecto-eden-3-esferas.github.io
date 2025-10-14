@@ -37,6 +37,158 @@
     <main>
       <h1>Variadic Templates</h1>
       <section>
+        <h2>Variadic function templates in C++</h2>
+        <p>Variadic templates are class or function templates, that can take any variable(zero or more) number of arguments. In C++, templates can have a fixed number of parameters only that have to be specified at the time of declaration. However, variadic templates help to overcome this issue. Douglas Gregor and Jaakko Järvi came up with this feature for C++.</p>
+        <p>Variadic arguments are very similar to arrays in C++. We can easily iterate through the arguments, find the size (i.e. length) of the template, can access the values by an index, and can slice the templates too.</p>
+        <p>So basically, Variadic function templates are functions that can take multiple numbers of arguments.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>template &lt;typename arg, typename... Args&gt;
+return_type function_name(arg var1, Args... args)</pre>
+        <p>The ellipsis (<code>...</code>) makes <var>Args</var> or <var>args</var> a so-called <dfn>parameter pack</dfn>. To be precise, <var>Args</var> is a template parameter pack and <var>args</var> a function parameter pack. Two operations are possible with parameter packs. They can be packed and unpacked. If the ellipse is to the left of <var>Args</var>, the parameter pack will be packed; if it is to the right of <var>Args</var>, it will be unpacked. Because of the function template argument deduction, the compiler can derive the template arguments.</p>
+        <aside>Usually, you don&apos;t apply pack expansion directly. You use variadic templates doing it automatically, using fold expression, or constexpr if in C++17.</aside>
+        <!--<p><strong>Note:</strong> The arguments must be put inside angular brackets.</p>-->
+        <p>Below is an example in C++ to show how we can use a variadic function template:</p>
+        <pre>// C++ program to demonstrate working of
+// Variadic function Template
+#include &lt;iostream&gt;
+using namespace std;
+
+// To handle base case of below recursive
+// Variadic function Template
+void print()
+{
+    cout &lt;&lt; "I am empty function and "
+            "I am called at last.\n";
+}
+
+// Variadic function Template that takes
+// variable number of arguments and prints
+// all of them.
+template &lt;typename T, typename... Types&gt;
+void print(T var1, Types... var2)
+{
+    cout &lt;&lt; var1 &lt;&lt; endl;
+
+    print(var2...);
+}
+
+// Driver code
+int main()
+{
+    print(1, 2, 3.14,
+          "Pass me any "
+          "number of arguments",
+          "I will print\n");
+
+    return 0;
+}</pre>
+        <p>Output:</p>
+        <pre>1
+2
+3.14
+Pass me any number of arguments
+I will print
+
+I am empty function and I am called at last.</pre>
+        <aside>Remember that templates are replaced by actual functions by the compiler.</aside>
+        <hr/>
+        <p><strong>Explanation:</strong> The variadic templates work as follows:</p>
+        <p>The statement, <code>print(1, 2, 3.14, "Pass me any number of arguments", "I will print\n");</code> is evaluated in the following manner:</p>
+        <p>Firstly, the compiler resolves the statement into</p>
+        <pre>cout &lt;&lt; 1 &lt;&lt; endl ;
+print(2, 3.14, "Pass me any number of arguments",
+      "I will print\n");</pre>
+        <p>Now, the compiler finds a print() function which can take those arguments and in result executes the variadic print() function again in a similar manner. And so on.</p>
+        <pre></pre>
+        <p></p>
+        <section>
+          <h3>Variadic Templates in the STL</h3>
+          <p>Variadic templates are often used in the Standard Template Library and the core language.</p>
+          <pre>template &lt;typename... Types&gt;                                              // (1)
+class tuple;
+
+template &lt;typename Callable, typename... Args &gt;                           // (2)
+explicit thread(Callable&amp;&amp; f, Args&amp;&amp;... args);
+
+template &lt;typename Lockable1, typename Lockable2, typename... LockableN&gt;  // (3)
+void lock(Lockable1&amp; lock1, Lockable2&amp; lock2, LockableN&amp;... lockn);
+
+sizeof...(ParameterPack);</pre>
+        </section>
+        <section>
+          <h3><code>sizeof...</code> Operator</h3>
+          <p>The <code>sizeof...</code> operator can be used to determine how many elements a parameter pack contains directly. The elements are not evaluated.</p>
+          <pre>// printSize.cpp
+
+#include &lt;iostream&gt;
+
+using namespace std::literals;
+
+template &lt;typename ... Args&gt;
+void printSize(Args&amp;&amp; ... args){
+    std::cout &lt;&lt; sizeof...(Args) &lt;&lt; ' ';              // (1)
+    std::cout &lt;&lt; sizeof...(args) &lt;&lt; '\n';             // (2)
+}
+
+int main() {
+
+    std::cout &lt;&lt; '\n';
+
+    printSize();                                       // (3)
+    printSize("C string", "C++ string"s, 2011, true);  // (4)
+
+    std::cout &lt;&lt; '\n';
+
+}</pre>
+        </section>
+        <section>
+          <h3>Usage of Parameter Packs</h3>
+          <p>(From <cite><a target="_blank" href="https://www.modernescpp.com/index.php/more-arbout-variadic-templates/">https://www.modernescpp.com/index.php/more-arbout-variadic-templates/</a></cite>, by Rainer Grimm)</p>
+          <p>The usage of parameter packs obeys a typical pattern for class templates.</p>
+          <ol>
+            <li>Operate on the first element of the parameter pack and recursively invoke the operation on the remaining elements. This step reduces the parameter pack successively by its first element.</li>
+            <li>The recursion ends after a finite number of steps.</li>
+            <li>The boundary condition is typically a fully specialized template.</li>
+          </ol>
+          <p>Thanks to this functional pattern for processing lists, you can calculate the product of numbers at compile time, for instance.</p>
+          <pre>// multVariadicTemplates.cpp
+
+#include &lt;iostream&gt;
+
+template&lt;int ...&gt;                                                 // (1)
+struct Mult;
+
+template&lt;&gt;                                                        // (2)
+struct Mult&lt;&gt; {
+    static const int value = 1;
+};
+
+template&lt;int i, int ... tail&gt;                                     // (3)
+struct Mult&lt;i, tail ...&gt; {
+    static const int value = i * Mult&lt;tail ...&gt;::value;
+};
+
+int main(){
+
+    std::cout &lt;&lt; '\n';
+
+    std::cout &lt;&lt; "Mult&lt;10&gt;::value: " &lt;&lt; Mult&lt;10&gt;::value &lt;&lt; '\n';  // (4)
+    std::cout &lt;&lt; "Mult&lt;10,10,10&gt;::value: " &lt;&lt; Mult&lt;10, 10, 10&gt;::value &lt;&lt; '\n';
+    std::cout &lt;&lt; "Mult&lt;1,2,3,4,5&gt;::value: " &lt;&lt; Mult&lt;1, 2, 3, 4, 5&gt;::value &lt;&lt; '\n';
+
+    std::cout &lt;&lt; '\n';
+
+}</pre>
+          <p>The class template Mult consists of a primary template and two specializations. Since the primary template (1) is not needed, a declaration is sufficient in this case: template&lt;int ...&gt; struct Mult. The specializations of the class template exist for no element (2) and at least one element (3). If Mult&lt;10,10,10&gt;::value is called, the last template is used by successively calling the first element with the rest of the parameter pack so that the value expands to the product 10*10*10. In the final recursion, the parameter pack contains no elements, and the boundary condition comes into action: template&lt;&gt; struct Mult&lt;&gt; (1). This returns the result of Mult&lt;10,10,10&gt;::value= 10*10*10*1 at compile time.</p>
+          <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+
+      </section>
+      <section>
         <h2>Variadic Templates and Perfect Forwarding</h2>
         <p>Forwarding parameters is a way to receive all the arguments received by a function and resend them as they come. This is achieved through <dfn class="firstterm">variadic templates</dfn>, which allow the programmer to pass an undefined number of arguments to a function/method.</p>
         <p>The code that follows combines two new features of the C++11, <kbd class="userinput">constexpr</kbd> and variadic parameters. <dfn class="firstterm">constexpr</dfn> allows making computations at compile time if they are feasable (there are several conditions to meet, but for now, we just assume that they are fulfilled). In this example, we find the minimum of a list of arguments at compile time (thanks to <kbd class="userinput">constexpr</kbd>!). This is a generic version that works only with integers but works on 2, 3, 4, ... n arguments.</p>

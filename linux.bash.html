@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux Bash</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Bash: the Born Again SHell"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="Francisco Fernández-Victorio Hernández" />
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a            href="os.html">Operating Systems</a></p>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+        <p><a            href="linux.partitioning.html">Partitions in Linux</a></p>
+      </div>
+      <div>
+        <p><a href="linux.monitoring.html">Monitoring Linux</a></p>
+        <p><a href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Bash: the Born Again SHell</h1>
+
+      <section>
+        <h2>Introduction*</h2>
+      </section>
+
+      <section id="commands">
+        <h2>Common Utilities/Tools/Commands*</h2>
+      </section>
+
+      <section id="scripting">
+        <h2>Bash Scripting</h2>
+        <section id="basic">
+          <h3>Basic Bash Scripting</h3>
+          <p>Each script starts with a <em class="wordasword">shebang</em> and the path to the shell that you want the script to use, like so:</p>
+          <pre>#!/bin/bash</pre>
+          <p>The <kbd class="userinput">#!</kbd> combo is called a shebang by most Unix geeks. This is used by the shell to decide which interpreter to run the rest of the script, and ignored by the shell that actually runs the script. Confused? Scripts can be written for all kinds of interpreters — bash, tsch, zsh, or other shells, or for Perl, Python, and so on. You could even omit that line if you wanted to run the script by sourcing it at the shell, but let's save ourselves some trouble and add it to allow scripts to be run non-interactively.</p>
+          <p>What's next? You might want to include a comment or two about what the script is for. Preface comments with the hash (#) character:</p>
+          <pre>#!/bin/bash
+# A simple script</pre>
+          <p>Let's say you want to run an WHATEVER command from the script, rather than typing it each time. Just add the WHATEVER command to the script that you want to use:</p>
+          <pre>#!/bin/bash
+# WHATEVER script
+WHATEVER -abc /home/user/Documents/FILE</pre>
+          <p>Save your file, and then make sure that it's set executable. You can do this using the <code class="command">chmod</code> utility, which changes a file's mode. To set it so that a script is executable by you and not the rest of the users on a system, use <kbd class="userinput">chmod 700 scriptname</kbd> — this will let you read, write, and execute (run) the script — but only your user. To see the results, run <kbd class="userinput">ls -lh SCRIPTNAME</kbd> and you'll see something like this:</p>
+          <pre>-rwx------ 1 yourself yourself   21 2010-02-01 03:08 echo</pre>
+          <p>The first column of rights, rwx, shows that the owner of the file (yourself) has read, write, and execute permissions. The other columns with a dash show that other users have no rights for that file at all.</p>
+          <section>
+            <h4>Variables</h4>
+            <p>The above script is useful, but it has hard-coded paths. That might not be a problem, but if you want to write longer scripts that reference paths often, you probably want to utilize variables. Here's a quick sample:</p>
+            <pre>#!/bin/bash
+# WHATEVER using variables
+
+SOURCEDIR=/home/user/Documents/
+
+WHATEVER -abc $SOURCEDIR/aFile.txt</pre>
+            <p>There's not a lot of benefit if you only reference the directories once, but if they're used multiple times, it's much easier to change them in one location than changing them throughout a script.</p>
+          </section>
+          <section>
+            <h4>Taking Input</h4>
+            <p>Non-interactive scripts are useful, but what if you need to give the script new information each time it's run? For instance, what if you want to write a script to modify a file? One thing you can do is take an argument from the command line. So, for instance, when you run <cite class="filename">script func</cite>, the script will take the name of the first argument (foo):</p>
+            <pre>#!/bin/bash
+echo $1</pre>
+            <p>Here bash will read the command line and echo (print) the first argument — that is, the first string after the command itself.</p>
+            <p>You can also use read to accept user input. Let's say you want to prompt a user for input:</p>
+            <pre>#!/bin/bash
+echo -e "Please enter your name: "
+read name
+echo "Nice to meet you, $name"</pre>
+            <p>That script will wait for the user to type in their name (or any other input, for that matter) and use it as the variable <var>$name</var>. Pretty simple, yeah?</p>
+          </section>
+          <section>
+            <h4>A More Advanced Example</h4>
+            <p>The following script reads the user's name, declares an array of strings, stores its length, generates a random indez and last invites the user to participate in some activity.</p>
+            <pre>#!/bin/bash
+
+# Greet user and request their name
+echo "The activity generator"
+read -p "What is your name? " name
+
+# Create an array of activities
+activity[0]="Football"
+activity[1]="Table Tennis"
+activity[2]="8 Ball Pool"
+activity[3]="PS5"
+activity[4]="Blackjack"
+
+array_length=${#activity[@]} # Store the length of the array
+index=$(($RANDOM % $array_length)) # Randomly select an index from 0 to array_length
+
+# Invite the user to join you to participate in an activity
+echo "Hi" $name, "would you like to play" ${activity[$index]}"?"
+read -p "Answer: " answer</pre>
+          </section>
+          <section>
+            <h4>How to Create a Function in a Bash Script</h4>
+            <p>In programming, functions are used to bundle a set of repeated instructions together. The purpose of writing functions is to avoid writing the same code constantly, and it also makes your code more readable.</p>
+            <p>A bash function may be considered a typical function: a set of commands that can be called several times. However, bash functions are slightly more limited when compared to the majority of programming languages (i.e., bash functions do not allow you to return a value when called).</p>
+            <p>Before we create a bash script using a function, let's take a look at the syntax for declaring a bash function. We can define a function by writing a function name, followed by parentheses and curly braces for the function's body – this is the most common way to write a bash function. Here is it looks in code:</p>
+            <pre># Most common way to write a bash function.
+example_function () {
+  commands
+}</pre>
+            <p>The other way to format a bash function is to begin the line with the reserved bash keyword <code class="command">function</code>, then the function name and curly braces for the function body – we do not need the parentheses.</p>
+            <pre># Another way to write a bash function.
+function example_function {
+  commands
+}</pre>
+          </section>
+          <section>
+            <h4>Passing arguments to bash functions</h4>
+            <p>Arguments are variables used in a specific function. In bash, we can not pass arguments to functions like you would in high-level programming languages such as Python, Julia, etc. Instead, bash functions have their own command line argument and we can pass parameters to a function by placing them after a call to the function name – separated by a space if there are multiple arguments.</p>
+            <p>In essence, function arguments are treated as positional parameters and shell variables ($1, $2, ..., $n) are used to access arguments passed to the function.</p>
+            <pre>#!/bin/bash
+greet () {
+echo "Hello $1 $2"
+}
+
+greet "John" "Doe"</pre>
+            <p>In the bash script above, we passed two arguments, John and Doe, to our greet function. When the bash script is run now, we should see the following output:</p>
+            <pre>Hello John Doe</pre>
+          </section>
+          <section>
+            <h4>Writing <q>If</q> Statements in Bash</h4>
+            <p><q>If</q> statements are conditional statements used in programming languages. If a statement is proven to be true, then a condition would run. This functionality enables us to determine the circumstances under which a certain piece of code shall be executed.</p>
+            <p>In bash, we start the conditional with an if statement and end it with fi (if spelled backward). Here is an example bash script with if conditionals:</p>
+            <pre>#!/bin/bash
+
+read -p "Give me a number: " number
+if [ $number -gt 10 ];
+then
+  echo "Your number is greater than 10."
+fi</pre>
+            <p>In the bash script above, the user is asked to provide a number. If the number provided by the user is greater than 10, then <q>Your number is greater than 10</q> will be outputted to the terminal, but if it is not, the program will end.</p>
+
+            <p>Here is another example:</p>
+            <pre>#!/bin/bash
+salary=1000
+expenses=800
+#Check if salary and expenses are equal
+if [ $salary == $expenses ];
+  then
+    echo "Salary and expenses are equal"
+#Check if salary and expenses are not equal
+  elif [ $salary != $expenses ];
+    then
+      echo "Salary and expenses are not equal"
+fi</pre>
+            <p></p>
+          </section>
+          <section>
+            <h4>Loops</h4>
+            <p>A loop is an essential tool in various programming languages. To put it simply, a bash loop is a set of instructions that are repeated until a user-specified condition is reached. Start by creating a loop bash program (<cite class="filename">whileloop.sh</cite>):</p>
+            <pre>#!/bin/bash
+n=0
+while :
+do
+  echo "Countdown: $n"
+  ((n++))
+done</pre>
+            <p>This will work as a countdown to infinity until you press CTRL + C to stop the script.</p>
+            <p>Now that we've tested the while loop, we can move on to the for loop. Create a bash file (<cite class="filename">forloop.sh</cite>) for it:</p>
+            <pre>#!/bin/bash
+for (( n=2; n&lt;=10; n++ ))
+  do
+  echo "$n seconds"
+  done</pre>
+            <p>The script prints out numbers from 2 to 10 while adding the seconds keyword to it.</p>
+          </section>
+          <section>
+            <h4>Creating an Array</h4>
+            <p>A bash array is a data structure designed to store information in an indexed way. It is extra useful if users need to store and retrieve thousands of pieces of data fast. What makes bash arrays special is that unlike any other programming language, they can store different types of elements. For example, you can use a bash array to store both strings and numbers.</p>
+            <p>First, create a new file (<cite class="filename">array.sh</cite>) in the current directory:</p>
+            <!--Combine the freshly learned for loop with a new indexed array:-->
+            <pre>#!/bin/bash
+# Create an indexed array
+IndexedArray=(egg burger milk)
+#Iterate over the array to get all the values
+for i in "${IndexedArray[@]}"; do echo "$i"; done</pre>
+            <p>This script iterates over the <var>IndexedArray</var> and prints out all the values.</p>
+          </section>
+          <section>
+            <h4>Strings</h4>
+            <p>We can calculate the length of a string with the # operator, as in:</p>
+            <pre>#!/bin/bash
+# Create a new string
+mystring="lets count the length of this string"
+i=${#mystring}
+echo "Length: $i"</pre>
+            <p>If we need to remove unnecessary parts from strings, we can use the Bash string extraction facilities. The following script has 4 values, 3 of them being strings. In our example, we will extract only the number value. This can be done via the <code class="command">cut</code> command. First, we instruct the command that each variable is separated by a comma by using the -d flag. Then we ask the <code class="command">cut</code> command to extract the 5th value.</p>
+            <code>#!/bin/bash
+cut -d , -f 5 &lt;&lt;&lt; "Website,Domain,DNS,SMTP,5005"</code>
+            <p>In another example, we have a string that is mixed with some numbers. We will use expr substr commands to extract only the <literal>randomized</literal> text value.</p>
+            <code>#!/bin/bash
+expr substr "458449randomized4132" 7 9</code>
+            <p>Another common bash operation is to find and replace, which doesn't require any special commands. It can all be done with string manipulation.</p>
+            <code>#!/bin/bash
+first="I drive a BMW and Volvo"
+second="Audi"
+echo "${first/BMW/"$second"}"</code>
+            <p>Concatenaing strings can be as simple as:</p>
+            <code>#!/bin/bash
+firststring="The secret is..."
+secondstring="Bash"
+thirdstring="$firststring$secondstring"
+echo "$thirdstring"</code>
+            <p>The above script will connect the values of firststring and secondstring variables creating a whole new thirdstring.</p>
+            <p>A more advanced example would look like this:</p>
+            <code>#!/bin/bash
+firststring="The secret is..."
+firststring+="Bash"
+echo "$firststring"</code>
+          </section>
+        </section>
+        <!-- end of "Introduction" -->
+        <section id="intermediate">
+          <h3>Intermediate Bash Scripting</h3>
+          <section>
+            <h4>Generating the Factorial of Number</h4>
+            <p>The factorial of a number is the result of all positive descending integers. For example, the factorial of 5 would be 120:</p>
+            <blockquote>5! = 5*4*3*2*1 = 120</blockquote>
+            <p>Factorial scrips are very useful for users learning about recursion! Look at the following example:</p>
+            <code>#!/bin/bash
+echo Enter the number you want to get factorial for
+read mynumber
+factorial=1
+for ((i=1;i&lt;=mynumber;i++))
+  do
+  factorial=$(($factorial*$i))
+  done
+echo $factorial</code>
+            <p>The preceding script will ask the user to enter a number they want to get the factorial of and use a for loop to calculate it.</p>
+          </section>
+          <section>
+            <h4>Creating Directories</h4>
+            <p>It is effortless to create directories in bash unless you need to create a lot of directories quickly. In the following example, we will use the bash script to create a set of directories with the same subdirectories in each. The following script does just that. Note that this line of code will achieve the same on the command line.</p>
+            <code>#!/bin/bash
+mkdir -p {Painting,Science,Electronics}/{bibliography,textbooks,images}</code>
+          </section>
+          <section>
+            <h4>Reading Files</h4>
+            <p>We will be using a sample file (<cite class="filename">mysamplefile.txt</cite>) to read from. Then you can load a variable with it in one line:</p>
+            <code>#!/bin/bash
+myvalue=`cat mysamplefile.txt`
+echo "$myvalue"</code>
+            <div class="note" style="border-style: solid;">Note how the subcommand <kbd class="userinput">cat mysamplefile.txt</kbd> has been enclosed in back ticks.</div>
+          </section>
+          <section>
+            <h4>Reading Lines One-by-one</h4>
+            <p>We'll print a file (<cite class="filename">apoem.txt</cite>) with its line count. The file is a poem, so each line is a verse. In the following example, each iteration of <code class="command">read</code> stores a line in variable <var>verse</var>. Then a line number, a colon and the line are printed.</p>
+            <code>#!/bin/bash
+myfile='apoem.txt'
+i=1
+while read verse; do
+echo "$i : $verse"
+i=$((i+1))
+done &lt; $myfile</code>
+            <p>Note how counter <var>i</var> is incremented (<kbd class="userinput">i=$((i+1))</kbd>) and the input is fed in at the back through <kbd class="userinput">&lt; $myfile</kbd></p>
+          </section>
+          <section>
+            <h4>Testing if a File Exists*</h4>
+            <p>Use an if statement with a -f flag. The flag checks if a given file exists and is a regular file.</p>
+            <code>#!/bin/bash
+myfile='apoem.txt'
+if [ -f "$myfile" ]; then
+echo "$myfile exists."
+else
+echo "$myfile does not exist."
+fi</code>
+          </section>
+        </section>
+        <!-- end of "Intermediate Bash Scripting" -->
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

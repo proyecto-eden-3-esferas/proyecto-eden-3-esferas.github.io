@@ -224,10 +224,6 @@ Ecoaldea con ideales pero promete ser cara.
 [ ] link to *Doers and Makers* from *technology.html*
 [ ] link to *Doers and Makers* from *thought.html*
 
-[ ] write *linux.bash.html* from
-- directory.no-xmlns.resolved.html > <h4>Bash Scripting</h4>, and
-- directory.no-xmlns.resolved.html > <h4>Intermediate Bash Scripting</h4>
-
 [ ] write *How to Propagate Plants From Cuttings*, possibly as a top-level section in *gardening.html*
     from https://www.thespruce.com/make-more-plants-with-cuttings-1402474
 
