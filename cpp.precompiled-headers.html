@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Precompiled Headers in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="cpp.modules.html">C++ Modules: a Better Alternative</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.separate_compilation.templates.html">Separate Compilation of Templates (Classes and Funcions) in C++</a></p>
+        <p><a            href="cpp.separate_compilation.html">Separate Compilation in C++</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Precompiled Headers in C++</h1>
+      <blockquote>
+        <p><dfn>Precompiled headers</dfn> are a performance optimization for C/C++ compilers that compile a stable set of header files into an <em>intermediate</em> form (a file with an extension like <code>.pch</code> or <code>.gch</code> in the <a href="#GCC">GNU Compiler Collection</a>) and save the compiled state to a binary file, significantly speeding up subsequent compilations by skipping the parsing and <a target="_blank" href="tokenization">tokenization</a> of those headers. This is particularly useful for large projects or when a common set of headers is included in many source files. The compiled header is then included at the beginning of source files, which acts as a stand-in for the original headers and avoids recompiling them unless the precompiled files themselves are changed.</p>
+      </blockquote>
+
+      <p>The ideas of precompiled headers were central to the development of C++ <a target="_blank" href="cpp.modules.html">modules</a>. Modules allow greater encapsulation and control of exported symbols, and like precompiled headers allow for faster compilation. Modules are handled entirely by the compiler rather than the preprocessor, and thus unlike precompiled headers, cannot export macros due to being handled after the preprocessing step.</p>
+      <section id="GCC">
+        <h2>GCC</h2>
+        <p>Precompiled headers are supported in GCC (3.4 and newer). GCC&apos;s approach is similar to these of VC and compatible compilers. GCC saves precompiled versions of header files using a <code>.gch</code> suffix. When compiling a source file, the compiler checks whether this file is present in the same directory and uses it if possible.</p>
+        <p>GCC can only use the precompiled version if the same compiler switches are set as when the header was compiled and it may use at most one. Further, only preprocessor instructions may be placed before the precompiled header (because it must be directly or indirectly included through another normal header, before any compilable code).</p>
+        <p>GCC automatically identifies most header files by their extension. However, if this fails (e.g. because of non-standard header extensions), the <code>-x</code> switch can be used to ensure that GCC treats the file as a header.</p>
+        <p>(<i>See also</i> <a target="_blank" href="https://gcc.gnu.org/onlinedocs/gcc/Precompiled-Headers.html">https://gcc.gnu.org/onlinedocs/gcc/Precompiled-Headers.html</a>)</p>
+      </section>
+      <section id="clang">
+        <h2>clang</h2>
+        <p>The clang compiler added support for PCH in Clang 2.5 / LLVM 2.5 of 2009. The compiler both tokenizes the input source code and performs syntactic and semantic analyses of headers, writing out the compiler&apos;s internal generated abstract syntax tree (AST) and symbol table to a precompiled header file.</p>
+        <p>clang&apos;s precompiled header scheme, with some improvements such as the ability for one precompiled header to reference another, internally used, precompiled header, also forms the basis for its modules mechanism. It uses the same bitcode file format that is employed by LLVM, encapsulated in clang-specific sections within Common Object File Format or Extensible Linking Format files.</p>
+      </section>
+    </main>
+
+  </body>
+
+</html>

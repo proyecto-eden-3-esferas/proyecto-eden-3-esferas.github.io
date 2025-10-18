@@ -157,6 +157,12 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *Clang and LLVM*
+<blockquote>
+<p>Clang is the frontend of the compiler that parses C, C++, and Objective-C code, while LLVM is the backend that takes the parsed code&apos;s intermediate representation and performs optimizations to generate machine code for a specific architecture. Think of Clang as the language translator and LLVM as the optimizer and code generator, working together to form a complete compiler toolchain.</p>
+  <p>(From AI Overview, by Google)</p>
+</blockquote>
+
 [ ] write *inoculants.html*
 [ ] link to *inoculating-legumes.html* from *inoculants.html*
 [ ] link back to *inoculants.html* from *inoculating-legumes.html*
@@ -228,7 +234,7 @@ Ecoaldea con ideales pero promete ser cara.
     from https://www.thespruce.com/make-more-plants-with-cuttings-1402474
 
 [ ] *Cold Frame*
-<p>At its simplest, a cold frame is a wooden box with no bottom, which is covered in some kind of transparent top that is usually hinged. It's similar to a greenhouse. The biggest difference is the top can be opened or closed as a way of protecting plants and gradually exposing them to the elements.</p>
+<p>At its simplest, a cold frame is a wooden box with no bottom, which is covered in some kind of transparent top that is usually hinged. It&apos;s similar to a greenhouse. The biggest difference is the top can be opened or closed as a way of protecting plants and gradually exposing them to the elements.</p>
 
 [ ] write *verilog.html*
 [ ] link from "electronics.html"
@@ -399,7 +405,7 @@ Ecoaldea con ideales pero promete ser cara.
 
 [ ] *Cyberdeutocracy*
 <p style="text-align: right">(From <cite>Wikipedia</cite>)</p>
-<p>Similar to netocracy, is the concept of cyberdeutocracy. Karl W. Deutsch in his book <cite>The Nerves of Government: Models of Political Communication and Control</cite> hypothesized about <q>information elites, controlling means of mass communication and, accordingly, power institutions, the functioning of which is based on the use of information in their activities.</q> Thus Deutsch introduced the concept of <dfn>deutocracy</dfn>, combining the words <q>Deutsch'</q> and <q>autocracy</q> to get the new term. <dfn>Cyberdeutocracy</dfn> combines <q>deutocracy</q> with the prefix <q>cyber-</q> and is defined as a political regime based on the control by the political and corporate elites of the information and communication infrastructure of the Internet space. As a tool of social control, Cyberdeutocracy allows elites to engage in the:</p>
+<p>Similar to netocracy, is the concept of cyberdeutocracy. Karl W. Deutsch in his book <cite>The Nerves of Government: Models of Political Communication and Control</cite> hypothesized about <q>information elites, controlling means of mass communication and, accordingly, power institutions, the functioning of which is based on the use of information in their activities.</q> Thus Deutsch introduced the concept of <dfn>deutocracy</dfn>, combining the words <q>Deutsch</q> and <q>autocracy</q> to get the new term. <dfn>Cyberdeutocracy</dfn> combines <q>deutocracy</q> with the prefix <q>cyber-</q> and is defined as a political regime based on the control by the political and corporate elites of the information and communication infrastructure of the Internet space. As a tool of social control, Cyberdeutocracy allows elites to engage in the:</p>
 <ul>
   <li>destruction and/or transformation of existing meanings, symbols, values, and ideas</li>
   <li>generation of new meanings, symbols, values, and ideas</li>
