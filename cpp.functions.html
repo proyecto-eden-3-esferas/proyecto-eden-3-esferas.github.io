@@ -35,12 +35,50 @@
 
     <main>
       <h1>Functions in C++</h1>
+      <p>A <dfn>function</dfn> is a block of code which only runs when it is called.</p>
+      <p>You can pass data, known as <dfn>parameters</dfn>, into a function.</p>
+      <p>Functions are used to perform certain actions, and they are important for reusing code: Define the code once, and use it many times.</p>
 
       <section id="operators">
-        <h2>Operators*</h2>
+        <h2>Operators</h2>
+        <p>An <dfn>operator</dfn> is actually a function which uses different syntax. So, instead of <code>add(<var>a</var>,<var>b</var></code>) after defining function <code>add(...)</code> you would just type <code>a + b</code>, as long as operator + is defined for the types of <var>a</var> and <var>b</var>.</p>
+        <p>Note that, when calling a binary operator, you write it between its operands (<code><var>x</var> + <var>y</var></code>). A unary operator is written before its one operand (as in <code>!<var>married</var></code>)</p>
+        <p>C++ divides the operators into the following groups:</p>
+        <ul>
+          <li>arithmetic operators</li>
+          <li>assignment operators</li>
+          <li>comparison operators</li>
+          <li>logical operators</li>
+          <li>bitwise operators</li>
+        </ul>
+
+        <section id="operator-precedence">
+          <h3>Operator Precedence</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.w3schools.com/cpp/cpp_operators_precedence.asp">https://www.w3schools.com/cpp/cpp_operators_precedence.asp</a></cite>)</p>
+          <p>Here are some common operators in C++, from highest to lowest priority:</p>
+          <ol>
+            <li><code>()</code>: Parentheses</li>
+            <li><code>*, /, %</code>: Multiplication, Division, Modulus</li>
+            <li><code>+, -</code>: Addition, Subtraction</li>
+            <li><code>>, &lt;, >=, &lt;=</code>: Comparison</li>
+            <li><code>==, !=</code>: Equality</li>
+            <li><code>&amp;&amp;</code>: Logical AND</li>
+            <li><code>||</code>: Logical OR</li>
+            <li><code>=</code>: Assignment</li>
+          </ol>
+          <p>An <strong>Example</strong> illustrating that subtraction and addition are done from left to right, unless you add parentheses:</p>
+          <pre>int result1 = 10 - 2 + 5;    // (10 - 2) + 5 = 13
+int result2 = 10 - (2 + 5);  // 10 - 7 = 3
+
+cout &lt;&lt; result1 &lt;&lt; "\n";
+cout &lt;&lt; result2 &lt;&lt; "\n";</pre>
+          <p>[...]</p>
+
+        </section>
+
         <section id="3-way">
           <h3>C++20: The Three-Way Comparison Operator</h3>
-          <p style="text-align: right">(June 11, 2020/1 Comment/in C++20/by Rainer Grimm at <code><a target="_blank" href="https://www.modernescpp.com/index.php/c-20-the-three-way-comparison-operator/">https://www.modernescpp.com/index.php/c-20-the-three-way-comparison-operator/</a></code>)</p>
+          <p style="text-align: right">(June 11, 2020 by Rainer Grimm at <code><a target="_blank" href="https://www.modernescpp.com/index.php/c-20-the-three-way-comparison-operator/">https://www.modernescpp.com/index.php/c-20-the-three-way-comparison-operator/</a></code>)</p>
           <p>The <dfn>three-way comparison operator</dfn> <code>&lt;=></code> is often just called the spaceship operator. The spaceship operator determines whether <var>A</var> &lt; <var>B</var>, <var>A</var> = <var>B</var>, or <var>A</var> > <var>B</var> for two values, <var>A</var> and <var>B</var>. You can define the spaceship operator, or the compiler can auto-generate it.</p>
           <p>Before C++20 introduced the three-way comparison operator, it was not enough to define <code>operator&lt;</code> but you also needed to define the remaining five in a consistent way, something like this:</p>
           <pre>bool operator==(const MyInt&amp; rhs) const {
@@ -75,6 +113,7 @@ bool operator&gt;=(const MyInt&amp; rhs) const {
 };</pre>
           <p>The compiler-generated three-way comparison operator needs the header <cite>&lt;compare&gt;</cite>, which is <code>implicit</code> <code>constexpr</code> and <code>noexcept</code>. Additionally, it performs a lexicographical comparison.</p>
           <aside><dfn>Lexicographical comparison</dfn> means that all base classes are compared left to right and all non-static members in their declaration order. I have to qualify: for performance reasons, the compiler-generated == and != operators behave differently in C++20.</aside>
+          <!--
           <pre></pre>
           <p></p>
           <pre></pre>
@@ -91,12 +130,81 @@ bool operator&gt;=(const MyInt&amp; rhs) const {
           <p></p>
           <pre></pre>
           <p></p>
-
+          -->
         </section>
       </section>
 
       <section id="lambdas">
         <h2>lambdas</h2>
+        <p style="text-align: right">(Largely from <cite>https://www.w3schools.com/cpp/cpp_functions_lambda.asp</cite>)</p>
+        <p>A lambda function is a small, anonymous function you can write directly in your code. It's useful when you need a quick function without naming it or declaring it separately.</p>
+        <p><strong>Syntax</strong></p>
+        <pre>[<var>capture</var>] (<var>parameters</var>) {<var>code</var>};</pre>
+
+        <section>
+          <h3>A Simple Lambda Example</h3>
+          <p>Here, <var>message</var> holds a lambda function that prints a message to the screen:</p>
+          <pre>Example
+int main() {
+  auto message = []() {
+    cout &lt;&lt; "Hello World!\n";
+  };
+
+  message();
+
+  return 0;
+
+}</pre>
+        </section>
+        <section>
+          <h3>Lambda with Parameters</h3>
+          <p>You can pass values into a lambda just like a regular function:</p>
+          <pre>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+  auto add = [](int a, int b) {
+    return a + b;
+  };
+
+  cout &lt;&lt; add(3, 4);
+  return 0;
+}</pre>
+        </section>
+        <section>
+          <h3>Passing Lambdas to Functions</h3>
+          <p>You can also pass a lambda function as an argument to another function. This is useful when you want to tell a function what to <em>do</em>, not just what data to use.</p>
+          <p>In the example below, we send a small lambda function to another function, which then runs it twice:</p>
+          <pre>#include &lt;iostream&gt;
+#include &lt;functional&gt; // Needed for std::function
+using namespace std;
+
+// A function that takes another function as parameter
+void myFunction(std;;function&lt;void()> func) {
+  func();
+  func();
+}
+
+int main() {
+  auto message = []() {
+    cout &lt;&lt; "Hello World!\n";
+  };
+
+  myFunction(message);
+
+  return 0;
+} </pre>
+          <p>Note that you must include the <cite>&lt;functional&gt;</cite> header for this example to work.</p>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+
 
         <section>
           <h3>Lambda Capture Initializers</h3>

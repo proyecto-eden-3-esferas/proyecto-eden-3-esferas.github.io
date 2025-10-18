@@ -38,7 +38,7 @@
       <h1>Variadic Templates</h1>
       <section>
         <h2>Variadic function templates in C++</h2>
-        <p>Variadic templates are class or function templates, that can take any variable(zero or more) number of arguments. In C++, templates can have a fixed number of parameters only that have to be specified at the time of declaration. However, variadic templates help to overcome this issue. Douglas Gregor and Jaakko Järvi came up with this feature for C++.</p>
+        <p>Variadic templates are class or function templates that can take any variable(zero or more) number of arguments. In C++, templates can have a fixed number of parameters only that have to be specified at the time of declaration. However, variadic templates help to overcome this issue. Douglas Gregor and Jaakko Järvi came up with this feature for C++.</p>
         <p>Variadic arguments are very similar to arrays in C++. We can easily iterate through the arguments, find the size (i.e. length) of the template, can access the values by an index, and can slice the templates too.</p>
         <p>So basically, Variadic function templates are functions that can take multiple numbers of arguments.</p>
         <p><strong>Syntax:</strong></p>
@@ -143,7 +143,7 @@ int main() {
         </section>
         <section>
           <h3>Usage of Parameter Packs</h3>
-          <p>(From <cite><a target="_blank" href="https://www.modernescpp.com/index.php/more-arbout-variadic-templates/">https://www.modernescpp.com/index.php/more-arbout-variadic-templates/</a></cite>, by Rainer Grimm)</p>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.modernescpp.com/index.php/more-arbout-variadic-templates/">https://www.modernescpp.com/index.php/more-arbout-variadic-templates/</a></cite>, by Rainer Grimm)</p>
           <p>The usage of parameter packs obeys a typical pattern for class templates.</p>
           <ol>
             <li>Operate on the first element of the parameter pack and recursively invoke the operation on the remaining elements. This step reduces the parameter pack successively by its first element.</li>
@@ -240,6 +240,14 @@ int main()
 // The program outputs "2 - 4 - 5 - 0".</pre>
 
       </section>
+
+      <!--
+      <section id="generic-factory">
+        <h2>Implementing the C++ Idiom for a Fully Generic Factory</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://www.modernescpp.com/index.php/the-first-big-update-of-my-c-20-book">https://www.modernescpp.com/index.php/the-first-big-update-of-my-c-20-book</a></cite>)</p>
+      </section>
+      -->
+
     </main>
   </body>
 </html>

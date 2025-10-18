@@ -49,6 +49,34 @@ int main()
   return 0;</pre>
       <p><strong>Note:</strong> emplace operations seem to bypass ordinary constructors and use the copy constructor instead.</p>
 
+      <section id="list">
+        <h2>Emplacing in STL List Containers</h2>
+        <p>You can emplace at the front or back with:</p>
+        <pre>template &lt;class... Args&gt;  void emplace_front (Args&amp;&amp;... args);
+template &lt;class... Args&gt;  void emplace_back (Args&amp;&amp;... args);</pre>
+        <p>For emplacing with hint, the first argument is an iterator that the new item is to be constructed before:</p>
+        <pre>template &lt;class... Args&gt;
+iterator emplace (const_iterator position, Args&amp;&amp;... args);</pre>
+        <p>[...]</p>
+      </section>
+
+      <section id="associative">
+        <h2>Emplacing in STL Associtive Containers</h2>
+        <p><code>std::set</code> has an <code>emplace(...)</code> member function whose prototype is:</p>
+        <pre>template &lt;class... Args&gt;  pair&lt;iterator,bool&gt; emplace (Args&amp;&amp;... args);</pre>
+        <p>where <var>args</var> are the arguments to construct a new set element.</p>
+        <p>(If the function successfully inserts the element (because no equivalent element existed already in the set), the function returns a pair of an iterator to the newly inserted element and a value of <code>true</code>. Otherwise, it returns an iterator to the equivalent element within the container and a value of <code>false</code>.)</p>
+        <p>Analogously, ...</p>
+        <pre></pre>
+        <p>where <var>args</var> is the arguments forwarded to construct the new element (of type <code>std::pair&lt;const key_type, mapped_type&gt;</code>).</p>
+        <p>These can be one of:</p>
+        <ul>
+          <li>Two arguments: one for the key, the other for the mapped value.</li>
+          <li>A single argument of a pair type with a value for the key as first member, and a value for the mapped value as second.</li>
+          <li><code>piecewise_construct</code> as first argument, and two additional arguments with tuples to be forwarded as arguments for the key value and for the mapped value respectivelly.</li>
+        </ul>
+      </section>
+
     </main>
 
   </body>

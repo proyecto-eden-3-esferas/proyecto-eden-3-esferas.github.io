@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arduino</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Arduino: a User-Friendly Microcontroller Board"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+      <div>
+        <p><a href="ic">Integrated Circuits</a></p>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+      </div>
+      <div>
+        <p><a href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Arduino: a User-Friendly Microcontroller Board</h1>
+      <p>After <a target="_blank" href="install">installing Arduino:</a></p>
+      <ul>
+        <li>Try your hand at making smart things with projects at the <a target="_blank" href="https://create.arduino.cc/projecthub">Arduino Project Hub</a></li>
+        <li>Learn more about how the Arduino language works with Arduino’s <a target="_blank" href="https://www.arduino.cc/en/Tutorial/Sketch">tutorial</a></li>
+      </ul>
+      <p>Further readings: More resources from Arduino at their <cite><a target="_blank" href="https://www.arduino.cc/en/Guide/HomePage">Getting Started</a></cite> page.</p>
+
+      <section id="install">
+        <h2>Installing</h2>
+
+        <section>
+          <h3>Installing a Linux Distro Package</h3>
+          <p>While there is a package for the Arduino IDE on current APT repositories, it has not been updated for a while. As such, while it is still possible to install the IDE by running <code>sudo apt install arduino</code>, it is not recommended to do so, as asking for support when using outdated software is more difficult.</p>
+        </section>
+
+        <section id="install-tarball">
+          <h3>Installing via a Tarball</h3>
+          <p>What you’ll need:</p>
+          <ul>
+            <li>Ubuntu 16.04 (and above) Desktop</li>
+            <li>An Arduino board, and included mini-USB cable</li>
+            <li>Some basic command-line knowledge (including how to use cd to change directories)</li>
+          </ul>
+          <p>We can download the latest version of the Arduino IDE from the Arduino website (<a target="_blank" href="https://www.arduino.cc/en/Main/Software">here</a>) as a tarball. A <dfn>tarball</dfn> is a type of compressed folder, like a .zip file, commonly used to distrubute software in Linux; its file extension is usually <code>.tar.xz</code> (or <code>.tar.gz</code>, if it uses Z compression.).</p>
+          <ol>
+            <li>
+              <p>In order to extract the files we need from the tarball, we can open a terminal, <code>cd</code> to where the downloaded tarball is, then run</p>
+              <pre>tar xvf <var>FILENAME</var></pre>
+              <p>where <var>FILENAME</var> is the name of the download (typically <code>arduino-<var>version_number</var>-linux64.tar.xz</code>).</p>
+              <p>The command can be read as <q>eXtract from an archive…</q> Verbosely (meaning it prints the name of every file it finds)… * from a file given by <var>FILENAME</var>.</p>
+              <p>When the command finishes, run <code>ls</code> again; tar should have created a new folder named <cite>arduino-<var>version_number</var></cite>.</p>
+            </li>
+            <li>
+              <p><cd>cd</cd> into the folder; there will be a file named <cite>install.sh</cite> in the folder. To install the IDE, execute <cite>install.sh</cite> with</p>
+              <pre>./install.sh</pre>
+              <p>If the script executes correctly and outputs <q>done!</q> at the end of its output, the IDE was installed correctly! Let’s try to launch it in the next step.</p>
+            </li>
+            <li>
+              <p>Before launching the IDE, connect your Arduino board to your computer with a USB cable. Arduino should be available in the (Unity menu?); if not, it can be launched from the command line by running <code>arduino</code>.</p>
+              <p><strong>Permissions checker</strong> The first time we launch Arduino, a window will pop up asking to add us to the dialout group. We will get back to what this means later, but for now just click on <cite>Add</cite>.</p>
+            </li>
+            <li>
+              <p><strong>The editor</strong> After that, we should see the IDE’s main editor window.</p>
+              <p>The IDE comes with example files that we can use to test if everything works. Let’s try open one such file: Under File > Examples > 01.Basics, choose Blink.</p>
+              <p>Try running the code on your Arduino by clicking <cite>Upload</cite> (the right arrow along the top).</p>
+              <p>We should get an error:</p>
+              <pre>Binary sketch size: 1,054 bytes (of a 32,256 byte maximum)
+processing.app.SerialNotFoundException: Serial port 'COM1' not found. Did you select the right one from the Tools > Serial Port menu?
+(...)</pre>
+              <p>But if we try following the suggestion in the error above, the Serial Port menu is greyed out and can’t be entered. What’s going on?</p>
+            </li>
+            <li>
+              <p>This is happening because the IDE doesn’t have sufficient permissions to access the Arduino device.</p>
+              <p>We can look at the Arduino device by running</p>
+              <pre>ls -l /dev/ttyACM*</pre>
+              <p>in a terminal. The output looks mostly like this:</p>
+              <pre>crw-rw---- 1 root dialout 166, 0 Des 14 09:47 /dev/ttyACM0</pre>
+              <p>The ‘0’ at the end of ‘ACM’ might be different, and multiple entries might be listed, but the parts we need to focus on are the string of letters and dashes in front, and the two names root and dialout.</p>
+              <p>The first name root is the owner of the device, and dialout is the owner group of the device.</p>
+              <p>The letters and dashes in front, starting after ‘c’, represent the permissions for the device by user: - The first triplet rw- mean that the owner (root) can read and write to this device - The second triplet rw- mean that members of the owner group (dialout) can read and write to this device - The third triplet --- means that other users have no permissions at all (meaning that nobody else can read and write to the device)</p>
+              <p>In short, nobody except root and members of dialout can do anything with the Arduino; since we aren’t running the IDE as root or as a member of dialout, the IDE can’t access the Arduino due to insufficient permissions.</p>
+              <p>But wait! Earlier, when we were launching the IDE, we did add ourselves to the dialout group! So why does the IDE still not have permission to access the Arduino? The changes that the prompt makes don’t apply until we log out and log back in again, so we have to save our work, log out, and log back in again. After you log back in and launch the Arduino IDE, the <cite>Serial Port</cite> option should be available; change that, and we should be able to upload code to the Arduino.</p>
+            </li>
+          </ol>
+        </section>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
