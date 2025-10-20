@@ -157,6 +157,16 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *terms, names and titles*
+- matched to definitions, descriptions, contents
+- what about discussions?
+
+[ ] *MOSFET Channel Width (<var>W</var>) and Gate Length (<var>L</var>)*
+<p>MOSFET width (W) and length (L) are crucial physical dimensions that determine its electrical characteristics, with W being the channel width and L being the gate length. The ratio of these dimensions, (W/L), is known as the <dfn>aspect ratio</dfn> and is directly related to parameters like transconductance and resistance, with a higher ratio generally leading to lower resistance and higher current flow. These dimensions are critical for circuit design, with the length often limited by the fabrication process, while the width can be adjusted to fine-tune performance.</p>
+
+[ ] write *c.time.html*
+    from https://www.w3schools.com/cpp/cpp_date.asp
+
 [ ] *Clang and LLVM*
 <blockquote>
 <p>Clang is the frontend of the compiler that parses C, C++, and Objective-C code, while LLVM is the backend that takes the parsed code&apos;s intermediate representation and performs optimizations to generate machine code for a specific architecture. Think of Clang as the language translator and LLVM as the optimizer and code generator, working together to form a complete compiler toolchain.</p>

@@ -49,8 +49,8 @@ int main()
   return 0;</pre>
       <p><strong>Note:</strong> emplace operations seem to bypass ordinary constructors and use the copy constructor instead.</p>
 
-      <section id="list">
-        <h2>Emplacing in STL List Containers</h2>
+      <section id="list-and-deque">
+        <h2>Emplacing in STL List and Deque Containers</h2>
         <p>You can emplace at the front or back with:</p>
         <pre>template &lt;class... Args&gt;  void emplace_front (Args&amp;&amp;... args);
 template &lt;class... Args&gt;  void emplace_back (Args&amp;&amp;... args);</pre>

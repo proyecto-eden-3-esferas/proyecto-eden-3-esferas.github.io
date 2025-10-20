@@ -22,14 +22,17 @@
       <div>
         <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
         <p><a            href="https://ngspice.sourceforge.io/">ngspice - open source spice simulator</a>, at <code>https://ngspice.sourceforge.io/</code></p>
+        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials (external page)</p>
+      </div>
+      <div>
         <p><a            href="ngspice.mosfet.html">MOSFET models (NMOS/PMOS)</a></p>
         <p><a            href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
         <p><a            href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Transient Simulation</a></p>
       </div>
       <div>
         <p><a rel="prev" href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
-        <p><a href="electronics.html">Electronics</a></p>
-        <p><a href="computing.html">Computing</a></p>
+        <p><a            href="electronics.html">Electronics</a></p>
+        <p><a            href="computing.html">Computing</a></p>
       </div>
     </nav>
 
@@ -45,10 +48,31 @@
       </ul>
       <p>There is a detailed <a target="_blank" href="https://sourceforge.net/projects/ngspice/files/ng-spice-rework/37/ngspice-37-manual.pdf/download">reference manual</a> available for ngspice. This manual describes all commands and procedures available in ngspice and lists numerous examples. However, it is not an ngspice how-to or introductory text.<del> This tutorial here gives you some information how to start. If you are interested in getting more in-depth information, you may refer to our <a href="https://ngspice.sourceforge.io/books.html">book page</a> or to a list of third party <a href="https://ngspice.sourceforge.io/tutorials.html">tutorials</a>.</del></p>
 
+      <section id="install">
+        <h2>Installing</h2>
+        <section id="install.linux">
+          <h3>Linux Installing</h3>
+          <p>If you are using LINUX, please check if your distribution already offers a ngspice package for installation. If not, you will need to download the latest <cite>ngspice-<var>XX</var>.tar.gz</cite> at <code><a target="_blank" href="https://sourceforge.net/projects/ngspice/files/ng-spice-rework/">https://sourceforge.net/projects/ngspice/files/ng-spice-rework/</a></code> and compile ngspice with</p>
+          <pre>./configure --with-x --enable-xspice --enable-cider\
+--with-readline=yes --enable-openmp --disable-debug\
+CFLAGS="-m64 -O2" LDFLAGS="-m64 -s"
+make -j8
+sudo make install</pre>
+          <p>or by running the script <cite>compile_linux.sh</cite> from folder <cite>ngspice/</cite> by</p>
+          <pre>./compile_linux.sh 64</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+      </section>
       <section id="example">
         <h2>An Example/Procedure</h2>
         <p><del>As shown in Fig. 1, </del>You start with a circuit (here: an inverter). You have to create a <dfn>netlist</dfn> describing this circuit. The netlist is the input to ngspice, telling it about the circuit to be simulated. Together with some simulation commands this input cares for reading and parsing the netlist, starting the simulation and plotting the output.<del> The output voltage (plotted in red) is the inverse of the (green) input. Both voltages are plotted versus time.</del></p>
-        <p>The input to ngspice is read from a file, and it may be enhanced by commands given on the command line. The simulated output may be written to a file, or be plotted as a Y-X graph or a smith chart. There is no graphical user interface with schematic capture of circuit diagrams and automatic netlist generation.</p>
+        <p>The input to ngspice is read from a file (either at the command line, as in <code>ngspice vdiv.cir</code> or at the ngspice prompt with command <code>source</code>, as in <code>ngspice 1 -> source ./vdiv.cir</code>), and it may be enhanced by commands given on the command line. The simulated output may be written to a file, or be plotted as a Y-X graph or a smith chart. There is no graphical user interface with schematic capture of circuit diagrams and automatic netlist generation.</p>
         <p>Next we shall be looking at a simple example, a <a href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a>.</p>
       </section>
 
@@ -338,13 +362,246 @@ V1 input 0 AC {amplitude}
         <p></p>
       </section>
 
+      <section id="control-language">
+        <h2>Control Language (Formerly Nutmeg)</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://ngspice.sourceforge.io/ngspice-control-language-tutorial.html">https://ngspice.sourceforge.io/ngspice-control-language-tutorial.html</a></cite>)</p>
+
+
+        <p>ngspice circuit simulator offers a built-in control language (formerly know as nutmeg language). It allows to create scripts which automate the simulation flow and provide support for simulation data analysis.</p>
+        <p>There are three basic methods to start a simulation with ngspice. The traditional method is the <dfn>batch mode</dfn>. With an input netlist given (see below), the command <code>ngspice -b -r inv-example.raw inv-example.cir</code> will start the simulation, executing the dot commands from the netlist, saving the simulation data in the <q>raw</q> file, without any further user interaction. Besides, we have the <dfn>interactive mode</dfn>. You start ngspice by <code>ngspice inv-example.cir</code>. ngspice sources the netlist and then waits for user input. You may type any of the commands found in chapter 17.5 of the <cite>ngspice manual</cite> or the <cite>ngspice xhtml manual</cite> to initiate some action (e.g. running the simulation, plotting or saving the data etc.). The real power of using these commands however is unfolded in the third mode of running ngspice, the <dfn>control mode</dfn>. You assemble a sequence of commands into a script, add this script to the netlist, and then start ngspice as usual by <code>ngspice inv-example.cir</code>. ngspice will execute the commands from the script, enabling multiple simulations, loops, data processing, plotting and saving data. About 100 commands are available, scripts may range from simple ones with few lines up to complex ones with several hundred commands.</p>
+        <p>More info on starting ngspice is available in chapter 16.4 of the ngspice manual. Commands used in the scripts below are not all explained in detail, please use the <cite>ngspice manual chapter 17.5</cite> as your reference.</p>
+        <aside>
+          <p>The control section is enclosed between directives <code>.control</code> and <code>.endc</code>:</p>
+          <pre>.control
+* lines with control commands
+.endc</pre>
+        </aside>
+        <section id="tran">
+          <h3><code>.tran</code> and <code>tran</code>*</h3>
+          <p>...</p>
+          <pre>tran 100p 500n</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="tran">
+          <h3><code>dc</code> and <code>tran</code>*</h3>
+          <p></p>
+          <pre>dc vin 0 2 0.01</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3>Looping a simulation, altering the supply voltage</h3>
+          <p>The next script executes a repeat loop. For five times the inverter supply voltage is changed, each time a new dc simulation is run. Finally all dc simulation results are plotted in a single plot. In addition we plot the inverter gain and its current consumption during the dc sweep.</p>
+          <pre>* control language script
+.control
+let vccc = 1.2            ; create a vector vccc and assign value 1.2
+repeat 5                  ; loop start
+  alter Vcc $&amp;vccc        ; alter the voltage Vcc using vector vccc
+  dc vin 0 2 0.01         ; run the dc simulation
+  let vccc = vccc + 0.2   ; calculate new voltage value for Vcc by updating vector vccc
+end                       ; loop end, jump back to loop start
+set xbrushwidth=2         ; assign value 2 to the predefined variable
+plot dc1.v(out) dc2.v(out) dc3.v(out) dc4.v(out) dc5.v(out)
+set nounits               ; do not plot units on the x and y axes.
+plot deriv(dc1.v(out)) deriv(dc2.v(out)) deriv(dc3.v(out)) deriv(dc4.v(out)) deriv(dc5.v(out)) ylabel 'Inverter gain V / V' xlabel 'vsweep V'
+unset nounits             ; undo the previous set command
+plot dc1.I(vcc) dc2.I(vcc) dc3.I(vcc) dc4.I(vcc) dc5.I(vcc) ylabel 'Inverter current consumption'
+.endc</pre>
+          <p>Several new concepts are introduced in this script. Please refer to chapter 17.5 of the manual for details of the commands. <code>repeat 5 ... end</code> will loop the enclosed commands five times. <code>let vccc = 1.2</code> creates a vector (of length 1) and assigns a value 1.2 to it. <code>let vccc = vccc + 0.2</code> adds 0.2 to the current vector value. alter <code>Vcc $&amp;vccc</code> changes the voltage <var>Vcc</var> according to the value of vector <var>vccc</var>. <code>$&amp;vccc</code> returns the value of vector <var>vccc</var>. <code>nounits</code> and <code>xbrushwidth</code> are predefined variables (<i>see</i> manual chapter 17.7). Command <code>plot</code> generates a graphical output by plotting one or several vectors versus a scale vector (predefined is scale vector <q>time</q> for transient, <q>v-sweep</q> for dc). The results of the last and all previous dc simulations are accessed by <code>dc1.v(out) dc2.v(out) ...</code>. This will be explained in the next paragraph. <code>plot deriv(dc1.v(out))</code> uses function <code>deriv</code>, returning the derivative of v(out) versus v-sweep (see manual, chapt. 17.2), therefore plotting the voltage gain of the inverter. The supply current during dc sweep is measured as current out of the voltage source <var>Vcc</var>, thus appearing negative.</p>
+        </section>
+        <section>
+          <h3>About plots, variables and vectors</h3>
+          <p>The output data of any simulation is available as vectors. An operating point simulation will create vectors of length 1. A dc simulation will create vectors with length determined by the number of points during sweeping. These vectors are stored in <strong>plots</strong>, a traditional SPICE notion (see also chapter 17.3 of the manual). <q>Plot</q> here is not to be confused with a plot resulting from plotting data. So a plot is a group of vectors. In our previous example the first <code>dc</code> command will generate several vectors within a plot <var>dc1</var>. A subsequent <code>dc</code> command will store their vectors in plot <var>dc2</var> and so on. Transient simulation vectors would have been stored in plots <var>tran1</var>, <var>tran2</var>, etc. So each simulation command (<code>dc</code>, <code>op</code>, <code>tran</code>, <code>sp</code> ...) creates a new plot. The lastly created plot will stay active, until another plot is created or selected. There are also some functions creating their own plots, e.g. <code>fft</code> or <code>linearize</code>. The command <code>setplot</code> will show all plots and mark the active plot. For our example we have this</p>
+          <pre>List of plots available:
+
+Current dc5	inverter example circuit for control language tutorial (DC transfer characteristic)
+	dc4	inverter example circuit for control language tutorial (DC transfer characteristic)
+	dc3	inverter example circuit for control language tutorial (DC transfer characteristic)
+	dc2	inverter example circuit for control language tutorial (DC transfer characteristic)
+	dc1	inverter example circuit for control language tutorial (DC transfer characteristic)
+	const	Constant values (constants)</pre>
+          <p>with <var>dc5</var> being the current plot. There is a pre-defined plot named <code>const</code>. It contains several constants. Command <code>display</code> will list all vectors in the current plot. <code>setplot dc2</code> will switch the current plot to <var>dc2</var>.</p>
+          <pre>Here are the vectors currently active:
+
+Title: inverter example circuit for control language tutorial
+Name: dc5 (DC transfer characteristic)
+Date: Tue Jun  7 17:25:58  2022
+
+    cc                  : voltage, real, 201 long
+    in                  : voltage, real, 201 long
+    out                 : voltage, real, 201 long
+    v-sweep             : voltage, real, 201 long [default scale]
+    vcc#branch          : current, real, 201 long
+    vin#branch          : current, real, 201 long</pre>
+          <p><code>[default scale]</code> denotes the scale vector, which is used as X axis (during plotting or for calculating the derivative). Vectors contain numbers (format double as real or complex numbers). They may contain a single value, be one-dimensional or multi-dimensional. In the above example we have vectors of real numbers of length 201 each. Vectors are local to their plot. You may access vectors from a different plot by prepending the plot name to the vector name, separated by a dot, e.g. <code>dc1.v(out)</code> or <code>dc2.I(vcc)</code>. <code>Btw. I(vcc)</code> is equal to <code>vcc#branch</code>, the branch current through voltage source <var>Vcc</var>. The user may create their own vectors with the <code>let</code> command, e.g. by <code>let vccc = 1.2</code>. As this command has been given before any simulation is run, the vector <var>vccc</var> will reside in plot <var>const</var>. All vectors in plot <var>const</var> are globally available, no need to prepend anything.</p>
+          <p>Another class of storage elements is created by the ngspice variables. These are globally accessible and may contain numbers, strings, or lists. There are pre-defined variables (see manual chapter 17.7) which control many ngspice features. The command <code>set</code> will instantiate a variable and/or assign a content of it. in our example we have used the pre-defined <code>set xbrushwidth=2</code> to increase the plotting line width.</p>
+        </section>
+        <section>
+          <h3>Looping a simulation, plot the maximum gain versus supply voltage</h3>
+          <p>In the following example the loop is used to simulate and extract the inverter's voltage gain as function of its supply voltage. We simulate the output versus input of the inverter as a series of dc sweeps, the maximum gain for each voltage is determined and saved for plotting.</p>
+          <pre>* control language script
+.control
+let loops = 6                     ; number of loops, vector in plot 'const'
+let vecmaxgain = vector(loops)    ; vector in plot 'const'
+let vecvcc = vector(loops)        ; vector in plot 'const'
+let vccc = 1.0                    ; supply voltage in plot 'const'
+let index = 0                     ; loop index in plot 'const'
+repeat $&amp;loops                    ; loop start
+  alter Vcc $&amp;vccc                ; alter the voltage Vcc
+  dc vin 0 2 0.01                 ; run the dc simulation
+  let gain = deriv(v(out))        ; calculate the gain
+  let maxgain = vecmin(gain)      ; find the maximum of the gain (min because gain is negative)
+  let vecmaxgain[index] = maxgain ; store the maximum gain
+  let vecvcc[index] = vccc        ; store the corresponding voltage
+  let vccc = vccc + 0.2           ; calculate new voltage value for Vcc
+  let index = index + 1           ; raise the index
+end                               ; loop end
+destroy all                       ; delete all plot dc1 ..., no longer needed
+set xbrushwidth=2                 ; linewidth of graph
+set nolegend                      ; no legend on graph
+plot vecmaxgain vs vecvcc xlabel 'Inverter supply voltage /V' ylabel 'Inverter gain V/V'
+.endc                             ; end of control section</pre>
+          <p>The vectors loops, vecmaxgain, vecvcc, vccc, and index are created in plot const, which is the current plot in the beginning of the script execution, before any simulation command is run. So these vectors will be accessible from within all plots created later by the simulation runs.</p>
+          <p>vector loops sets the number of loops and the size of the data storage vectors vecmaxgain and vecvcc. repeat $&amp;loops requires $&amp;loops for reading the vector value.</p>
+          <p>During each simulation run the voltage Vcc is set, the dc simulation executed, the derivative of the output vector v(out) calculated, its maximum (minimum of the negative gain as function of the sweep voltage) determined and saved to the indexed location of vecmaxgain, together with vccc saved to vecvcc. Finally supply voltage and index are increased appropriately.</p>
+          <p>After the loop has ended, the command destroy all deletes all plots created during dc simulation (dc1 to dc6). They are no longer needed, so we save their memory. set nolegend supresses the legend, because we have only a single vector plotted. plot vecmaxgain vs vecvcc plots our new output (the max gain) versus the user selected scale, the corresponding supply voltage.</p>
+          <p>An alternative to the destroy all is to delete only the most recent (current) plot by destroy $curplot, now from inside the loop. curplot is another predefined variable containing a string with the name of the current plot. Accessing the string is possible by the prepended $.</p>
+          <pre>...
+  let index = index + 1           ; raise the index
+  destroy $curplot                ; remove the current plot (created by dc...)
+end                               ; loop end
+set xbrushwidth=2                 ; linewidth of graph</pre>
+        </section>
+        <section>
+          <h3>Looping the simulation as in 5., no plot, write data to file only</h3>
+          <p>The inverter's voltage gain is determined as in the example above. The result is, however, not plotted, but written into a file as a simple table.</p>
+          <pre>* control language script
+.control
+let loops = 11                    ; number of loops, vector in plot 'const'
+let vccc = 1.0                    ; supply voltage in plot 'const'
+repeat $&amp;loops                    ; loop start
+  alter Vcc $&amp;vccc                ; alter the voltage Vcc
+  dc vin 0 2 0.01                 ; run the dc simulation
+  let gain = deriv(v(out))        ; calculate the gain
+  let maxgain = vecmin(gain)      ; find the maximum of the gain (min because gain is negative)
+  setscale vccc                   ; define the x axis (scale) with vector of length 1
+  wrdata mgain.out maxgain        ; write out maxgain versus vccc for the current plot
+  let vccc = vccc + 0.1           ; calculate new voltage value for Vcc
+  destroy $curplot                ; remove the current plot (created by dc...)
+  set appendwrite                 ; wrdata now adds data to existing file mgain.out
+end                               ; loop end
+.endc                             ; end of control section</pre>
+          <p><code>wrdata</code> writes vector(s) to a file as a simple table. Each vector is written as a pair, first the scale (x axis value), then the output value. In our case the output is maxgain (vector of length 1). The scale after a dc simulation is the voltage sweep. This is not what we need here, as the scale for maxgain is vccc. So we use setscale vccc to re-define the scale (before writing to file). wrdata creates a file or overwrites an existing file with the current data. Here we use a trick: When entering the loop for the first time, wrdata mgain.out maxgain creates the file mgain.out. Then, after first writing, set appendwrite is issued. From then on, wrdata appends all data to the already existing file. Calling set appendwrite several times does not hurt.</p>
+        </section>
+        <section>
+          <h3>About loops in general</h3>
+          <p>Several control structures are available for creating loops. Each loop starts with a keyword and ends with end. Nesting is supported. We use vectors (instatiated by let, de-referenced by $&amp;, like $&amp;loopindex) and variables (instantiated by set, de-referenced by $, like $val).</p>
+          <p>Here we have foreach...end and if...else...end:</p>
+          <pre>foreach val -40 -20 0 20 40
+  if $val &lt; 0
+    echo variable $val is less than 0
+  else
+    echo variable $val is greater than or equal to 0
+  end
+end</pre>
+          <p>dowhile allows looping until a condition is fulfilled. The condition is tested after the statements in the loop have been executed:</p>
+          <pre>let loopindex = 0
+dowhile loopindex &lt;> 5
+  echo index is $&amp;loopindex
+  let loopindex = loopindex + 1
+end</pre>
+          <p>We have already used the repeat loop:</p>
+          <pre>set loops = 7
+repeat $loops
+  echo How many loops? $loops
+end</pre>
+          <p>while allows looping until a condition is fulfilled. The condition is tested befor the statements are executed:</p>
+          <pre>let loopindex = 0
+while loopindex &lt; 5
+  echo index is $&amp;loopindex
+  let loopindex = loopindex + 1
+end</pre>
+          <p>In the Sourceforge <cite><a target="_blank" href="https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/examples/loops/">git examples for loops</a></cite> page you will find examples netlists for all loops, ready to run. You may also have a look at the manual, chapter 17.6 on Control Structures, where additionally the commands label, goto, break and continue are described.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+
+        </section>
+        <section>
+          <h3>*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3>*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3>*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
+
       <!--
 
 
-      <section id="*">
-        <h2></h2>
-        <p></p>
-      </section>
 
       <section id="*">
         <h2></h2>

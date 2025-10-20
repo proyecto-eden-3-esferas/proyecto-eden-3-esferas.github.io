@@ -197,15 +197,52 @@ int main() {
           <p>Note that you must include the <cite>&lt;functional&gt;</cite> header for this example to work.</p>
         </section>
         <section>
-          <h3></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
+          <h3>Capture Clause <code>[]</code></h3>
+          <p>You can use the [ ] brackets to give a lambda access to variables outside of it. This is called the <dfn>capture clause</dfn>.</p>
+          <p>In the example below, the lambda captures the variable <var>x</var> by value (a copy):</p>
+          <pre>#include &lt;iostream&gt;
+int main() {
+  int x = 10;
+  auto show = [x]() {
+    cout &lt;&lt; x;
+  };
+  show();
 
+  return 0;
+}</pre>
+          <p><strong>Note</strong> The lambda uses a copy of <var>x</var>. If you change <var>x</var> after defining the lambda, it won&apos;t affect the value inside the lambda, but you can also use <code>[&amp;]</code> to capture by reference.</p>
+          <p>This is an example of <dfn>capture by reference</dfn> (the lambda will work with the original variable, not a separate copy):</p>
+          <pre>int main() {
+  int x = 10;
+
+  auto show = [&amp;x]() {
+    cout &lt;&lt; x;
+    ++x;
+  };
+
+  x = 20;  // Change x after the lambda is created
+  show();  // output: 20
+           // now x==21
+
+  return 0;
+}</pre>
         </section>
-
-
+        <section>
+          <h3>Regular Functions vs Lambda Functions</h3>
+          <p>Both regular functions and lambda functions let you group code and run it later, but they are used in slightly different situations.</p>
+          <p>Use a regular function when:</p>
+          <ul>
+            <li>You plan to reuse the function in multiple places</li>
+            <li>You want to give the function a clear, meaningful name</li>
+            <li>The logic is long or complex</li>
+          </ul>
+          <p>Use a lambda function when:</p>
+          <ul>
+            <li>You only need the function once</li>
+            <li>The code is short and simple</li>
+            <li>You want to pass a quick function into another function</li>
+          </ul>
+        </section>
         <section>
           <h3>Lambda Capture Initializers</h3>
           <p>This allows creating lambda captures initialized with arbitrary expressions. The name given to the captured value does not need to be related to any variables in the enclosing scopes and introduces a new name inside the lambda body. The initializing expression is evaluated when the lambda is created (not when it is invoked).</p>

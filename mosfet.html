@@ -64,7 +64,178 @@
         <p style="text-align: right">(From <cite>AI Overview</cite> by Google)</p>
       </blockquote>
 
-      <section>
+      <section id="operation">
+        <h2>Operation of MOSFET&apos;s</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://www.allaboutcircuits.com/technical-articles/mosfet-channel-length-modulation/">https://www.allaboutcircuits.com/technical-articles/mosfet-channel-length-modulation/</a></cite>)</p>
+        <p>(<strong>Note</strong>: This section simplifies the discussion by addressing only NMOS transistors; the information applies to PMOS devices as well, with the typical modifications, e.g., V<sub>TH</sub> is negative, V<sub>GS</sub> &lt; V<sub>TH</sub> to leave the cutoff region, µ<sub>p</sub> instead of µ<sub>n</sub>.)</p>
+        <p>Analysis of MOSFET circuits is based on three possible operating modes: cutoff, triode (aka linear), and saturation. (The subthreshold region is a fourth mode, but we don&apos;t need to worry about that as yet.)</p>
+        <p>In <dfn>cutoff</dfn>, the gate-to-source voltage is not greater than the threshold voltage, and the MOSFET is inactive.</p>
+        <p>In <dfn>triode</dfn>, the gate-to-source voltage is high enough to allow current flow from drain to source, and the nature of the induced channel is such that the magnitude of the drain current is influenced by the gate-to-source voltage and the drain-to-source voltage. As the drain-to-source voltage increases, the triode region transitions to the <dfn>saturation region</dfn>, in which drain current is (ideally) independent of drain-to-source voltage and thus influenced only by the physical characteristics of the FET and the gate-to-source voltage.</p>
+        <p>The saturation-region relationship between gate-to-source voltage (V<sub>GS</sub>) and drain current (I<sub>D</sub>) is expressed as follows:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>I</mi>
+    <mi>D</mi>
+  </msub>
+  <mo>=</mo>
+  <mfrac>
+    <mn>1</mn>
+    <mn>2</mn>
+  </mfrac>
+  <msub>
+    <mi>&#x03BC;<!-- μ --></mi>
+    <mi>n</mi>
+  </msub>
+  <msub>
+    <mi>C</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>o</mi>
+      <mi>x</mi>
+    </mrow>
+  </msub>
+  <mfrac>
+    <mi>W</mi>
+    <mi>L</mi>
+  </mfrac>
+  <mo stretchy="false">(</mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>G</mi>
+      <mi>S</mi>
+    </mrow>
+  </msub>
+  <mo>&#x2212;<!-- − --></mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>T</mi>
+      <mi>H</mi>
+    </mrow>
+  </msub>
+  <msup>
+    <mo stretchy="false">)</mo>
+    <mn>2</mn>
+  </msup>
+</math>
+        <p>The transition to saturation mode occurs because the channel gets <q>pinched off</q> at the drain end. The “pinching off” isn’t the end of the influence exerted by the drain-to-source voltage. Further increases continue to affect the channel because the pinch-off point moves closer to the source.</p>
+        <p>The resistance of the channel is inversely proportional to its width-to-length ratio; reducing the length leads to decreased resistance and hence higher current flow. Thus, <dfn>channel-length modulation</dfn> means that the saturation-region drain current will increase slightly as the drain-to-source voltage increases.</p>
+        <p>So we need to modify the saturation-region drain-current expression/formula to account for channel-length modulation. We do this by incorporating the incremental channel-length reduction into the original expression:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>I</mi>
+    <mi>D</mi>
+  </msub>
+  <mo>=</mo>
+  <mfrac>
+    <mn>1</mn>
+    <mn>2</mn>
+  </mfrac>
+  <msub>
+    <mi>&#x03BC;<!-- μ --></mi>
+    <mi>n</mi>
+  </msub>
+  <msub>
+    <mi>C</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>o</mi>
+      <mi>x</mi>
+    </mrow>
+  </msub>
+  <mfrac>
+    <mi>W</mi>
+    <mrow>
+      <mi>L</mi>
+      <mo>&#x2212;<!-- − --></mo>
+      <mi mathvariant="normal">&#x0394;<!-- Δ --></mi>
+      <mi>L</mi>
+    </mrow>
+  </mfrac>
+  <mo stretchy="false">(</mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>G</mi>
+      <mi>S</mi>
+    </mrow>
+  </msub>
+  <mo>&#x2212;<!-- − --></mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>T</mi>
+      <mi>H</mi>
+    </mrow>
+  </msub>
+  <msup>
+    <mo stretchy="false">)</mo>
+    <mn>2</mn>
+  </msup>
+</math>
+        <p>(Note how the subtraction will reduce the denominator of the <var>W</var>/<var>L</var> term, leading to higher current.) By assuming that the incremental change is much less than the length of the physical channel (i.e., the distance between the source and drain regions), we can rearrange this as follows:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>I</mi>
+    <mi>D</mi>
+  </msub>
+  <mo>=</mo>
+  <mfrac>
+    <mn>1</mn>
+    <mn>2</mn>
+  </mfrac>
+  <msub>
+    <mi>&#x03BC;<!-- μ --></mi>
+    <mi>n</mi>
+  </msub>
+  <msub>
+    <mi>C</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>o</mi>
+      <mi>x</mi>
+    </mrow>
+  </msub>
+  <mfrac>
+    <mi>W</mi>
+    <mi>L</mi>
+  </mfrac>
+  <mo stretchy="false">(</mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>G</mi>
+      <mi>S</mi>
+    </mrow>
+  </msub>
+  <mo>&#x2212;<!-- − --></mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>T</mi>
+      <mi>H</mi>
+    </mrow>
+  </msub>
+  <msup>
+    <mo stretchy="false">)</mo>
+    <mn>2</mn>
+  </msup>
+  <mo stretchy="false">(</mo>
+  <mn>1</mn>
+  <mo>+</mo>
+  <mfrac>
+    <mrow>
+      <mi mathvariant="normal">&#x0394;<!-- Δ --></mi>
+      <mi>L</mi>
+    </mrow>
+    <mi>L</mi>
+  </mfrac>
+  <mo stretchy="false">)</mo>
+</math>
+        <p>...</p>
+        <p>...</p>
+        <p>...</p>
+      </section>
+
+      <section id="power">
         <h2>Power MOSFET&apos;s</h2>
         <p style="text-align: right">(From Toshiba)</p>
         <p>Since Power MOSFETs operate principally as majority-carrier devices, they are not affected by minority carriers. This is in contrast to the situation with minority-carrier devices such as bipolar transistors where such effects create more serious design problems. Also, the input impedance of power MOSFETs is basically higher than that of junction FETs.</p>
