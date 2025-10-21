@@ -22,7 +22,8 @@
       <div>
         <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
         <p><a            href="https://ngspice.sourceforge.io/">ngspice - open source spice simulator</a>, at <code>https://ngspice.sourceforge.io/</code></p>
-        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials (external page)</p>
+        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials</a> (external page)</p>
+        <p><a href="https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/examples/">Lots of Ngspice Examples,</a> where especially the Monte Carlo simulations make heavy use of more or less complex control scripts (external page)</p>
       </div>
       <div>
         <p><a            href="ngspice.mosfet.html">MOSFET models (NMOS/PMOS)</a></p>
@@ -39,7 +40,7 @@
     <main>
       <h1>NGSpice, the Open Source Spice Simulator</h1>
       <p><dfn>ngspice</dfn> is a text-mode circuit simulator that numerically solves equations describing (electronic) circuits: These are made of passive and active devices. Time varying currents and voltages are simulated as well as noise and small signal behavior.</p>
-      <p>Ngspice is an <a target="_blank" href="open-source.html">open source</a> update of Spice3f5, the last Berkeley&apos;s release of Spice3 simulator family. Ngspice is being            developed to include new features to existing Spice3f5 and to fix its bugs. Improving a complex software like a       circuit simulator is a very hard task and, while some improvements have been made, most of the work has been          done on bug fixing and code refactoring.</p>
+      <p>Ngspice is an <a target="_blank" href="open-source.html">open source</a> update of Spice3f5, the last Berkeley&apos;s release of Spice3 simulator family. Ngspice is being developed to include new features to existing Spice3f5 and to fix its bugs. Improving a complex software like a circuit simulator is a very hard task and, while some improvements have been made, most of the work has been done on bug fixing and code refactoring.</p>
       <aside>There are <a target="_blank" href="https://ngspice.sourceforge.io/resources.html">third party tools</a> available to draw the circuit and generate a ngspice netlist.</aside>
       <p>On a <a href="linux.html">linux</a> (here Ubuntu) distribution several packages are available:</p>
       <ul>
@@ -482,7 +483,7 @@ end                               ; loop end
 set xbrushwidth=2                 ; linewidth of graph</pre>
         </section>
         <section>
-          <h3>Looping the simulation as in 5., no plot, write data to file only</h3>
+          <h3>Looping the simulation as before, no plot, write data to file only</h3>
           <p>The inverter's voltage gain is determined as in the example above. The result is, however, not plotted, but written into a file as a simple table.</p>
           <pre>* control language script
 .control
@@ -531,22 +532,359 @@ while loopindex &lt; 5
   let loopindex = loopindex + 1
 end</pre>
           <p>In the Sourceforge <cite><a target="_blank" href="https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/examples/loops/">git examples for loops</a></cite> page you will find examples netlists for all loops, ready to run. You may also have a look at the manual, chapter 17.6 on Control Structures, where additionally the commands label, goto, break and continue are described.</p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-
-
         </section>
+        <section>
+          <h3>String substitution</h3>
+          <p>Vectors contain numbers. They may be one-dimensional (often with only a single element, aka length = 1) or multi-dimensional. Variables may contain integer or real numbers, strings, a boolean yes, or a list of elements as strings.</p>
+          <p>Both are used in the following script as part of new variables. Substitution is done by replacing the <code>{}</code> with the contents of the vector or variable element named inside of the <code>{}</code>.</p>
+          <pre>*ng_script                ; this is a script only
+.control
+* simple replacement
+let ii = 1                ; new 1D vector containing value 1
+set myplot = tran2        ; new variable containing a string
+* substitution
+set subs1 = {$myplot}.out ; {} is substituted by string of variable <var>myplot</var>
+set subs2 = dc{$&amp;ii}.in   ; {} is substituted by vector contents converted to string
+echo $subs1 $subs2        ; print both variables
+
+* somewhat more complex substitutions
+let vec = vector(6)             ; new vector with 6 elements, numbered from 0 to 5
+set myplots = ( tran3 dc5 op1 ) ; new variable with list of 3 elements, numbered from 1 to 3
+let vec4 = vec[4]               ; intermediate stage, read vector element 4 into a new vector.
+set subs3 = {$myplots[3]}.out   ; {} is substituted by element 3 of string list in variable myplots
+set subs4 = dc{$&amp;vec4}.in       ; {} is substituted by vector contents converted to string
+echo $subs3 $subs4              ; print both variables
+
+.endc
+.end</pre>
+          <p>The outputs echoed to the console are:</p>
+          <pre>tran2.out dc1.in
+op1.out dc4.in</pre>
+          <p>Some comments to this script are due:</p>
+          <ul>
+            <li><code>*ng_script</code> in the upper left of the first row will tell <code>ngspice</code> that a pure script is following, thus skipping any circuit parsing.</li>
+            <li>Substitution may happen with a single element from a vector or variable.</li>
+            <li>Elements of a vector are numbered by 0 to number-of-elements - 1</li>
+            <li>elements of a string list in a variable are numbered 1 to number-of-elements.</li>
+            <li>Elements of a vector may be used for substituting only after an intermediate step of converting them to a vector of length 1.</li>
+            <li>When defining a list variable, take care for spaces between ( or ) and the elements.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Nested loops</h3>
+          <p>In the following netlist there is a very simple circuit: 3 resistors in series, powered by a voltage source. We want to change each resistor using the <code>alter</code> command. We use 3 interlaced while loops.</p>
+          <pre>3 interlaced while loops, simple circuit
+
+R1 1 11 1
+R2 11 12 1
+R3 12 0 1
+
+V1 1 0 1
+
+.control
+* initialization (vectors in plot const)
+let rsta1 = 1k
+let rsto1 = 5k
+let rste1 = 1k
+let rsta2 = 200  ; start value for R2
+let rsto2 = 1000 ; stop value
+let rste2 = 200  ; step value
+let rsta3 = 20
+let rsto3 = 200
+let rste3 = 20
+let rloop1 = rsta1
+let rloop2 = rsta2 ; loop value for R2
+let rloop3 = rsta3
+* three nested while loops
+while rloop1 &lt; rsto1
+  alter R1 rloop1
+  while rloop2 &lt; rsto2
+    alter R2 rloop2 ; modify R2 by current rloop2 value
+    while rloop3 &lt;= rsto3
+      alter R3 rloop3
+      op
+      let rtotal = rloop1 + rloop2 + rloop3
+      echo $&amp;rloop1 $&amp;rloop2 $&amp;rloop3 $&amp;rtotal $&amp;V1#branch
+      let rloop3 = rloop3 + rste3
+    end
+    let rloop3 = rsta3
+    let rloop2 = rloop2 + rste2 ; calculate new rloop2 value
+  end
+  let rloop2 = rsta2            ; reset rloop2 to its start value
+  let rloop1 = rloop1 + rste1
+end
+rusage
+.endc
+
+.end</pre>
+          <p>In varying each resistor, each resistor gets its vectors for the start, stop and step values. The three <code>rloop</code> vectors will be varied during looping.</p>
+          <p>One has to be careful where to place the command lines <code>alter R2 rloop2</code>, and <code>let rloop2 = rloop2 + rste2</code>. Right after a loop has finished, its corresponding rloop vector has to be reset to its start value, e.g. by <code>let rloop2 = rsta2</code> again.</p>
+        </section>
+        <section>
+          <h3>Emulate nested <code>.step</code> commands</h3>
+          <p>Creating nested loops and running several simulations in series without external intervention are a powerful tool to characterize circuits. Unfortunately, currently ngspice does not offer the <code>.step</code> command, which may simplify setting up such simulation loops. However the control language allows us to emulate such behaviour. The netlist below will emulate code like</p>
+          <pre>.step lin R1 list 10k 20k 30k
+.step lin C2 list 1u 0.5u 0.25u
+.step lin R2 list 1m 3.3k 6.6k</pre>
+          <p>In the future ngspice may be able to translate such <code>.step</code> commands into emulating control sections automatically and transparently to the user, thus simplifying their job. For now we may use such a netlist for learning about some new features of the control language.</p>
+          <pre>* .step emulation: 3 nested loops, ac simulation
+* R1, C2 change by param, R2 changes directly
+* loops by foreach
+* commands alterparam, alter: all three alter commands inside of inner loop
+* alterparam first, followed by reset, only then followed by alter
+* print out the results into a file threeloopsac.txt, located in the input
+* directory (where this netlist has been found).
+
+.param rr1 = 1k cc2 = 1u
+
+V1 1 0 dc 0 ac 1
+R1 1 11 {rr1}
+R2 11 10 100
+C2 10 0 {cc2}
+
+.ac dec 10 1 1e4
+
+.control
+let index = 0        ; new loop index vector (in plot 'const')
+set plotstrdb = ' '  ; new variable containing string with space (will become a list of strings, see below)
+set plotstrph = ' '  ; new variable containing string with space (will become a list of strings, see below)
+set writestr = ' '   ; new variable containing string with space (will become a list of strings, see below)
+set cvalues = ( 1u 0.5u 0.25u ) ; variable containing loop values for C2
+
+** loop start **
+foreach val1 10k 20k 30k                                    ; outermost loop with a value list
+  foreach val2 $cvalues                                     ; loop in the middle with a variable containing a value list
+    foreach val3 1m 3.3k 6.6k                               ; inner loop with a value list
+      let index = index + 1                                 ; raise loop index
+      echo ac sim no. $&amp;index',' R1=$val1',' R2=$val3',' C2=$val2 ; print to console where we are
+      alterparam rr1 = $val1                                ; change parameter of outer loop
+      alterparam cc2 = $val2                                ; change paramater of middle loop
+      reset                                                 ; reset to activate above parameter changes
+      alter R2 $val3                                        ; change inner loop value (possible only after reset!)
+      run                                                   ; run the simulation (see .ac ... above)
+      set plotstrdb = ( $plotstrdb db({$curplot}.v(10)) )   ; add a new item (string) to already exising list of strings
+      set plotstrph = ( $plotstrph cph({$curplot}.v(10)) )  ; add a new item (string) to already exising list of strings
+      set writestr = ( $writestr {$curplot}.v(10) )         ; add a new item (string) to already exising list of strings
+    end
+  end
+end
+** loop end, start plotting **
+set nolegend                  ; legend for 27 graphs is unreadable
+set units=degrees             ; phase in degrees
+set xbrushwidth=2             ; increase linewidth of graphs
+plot $plotstrdb xlimit 1 1e4  ; plot all 27 magnitudes
+plot $plotstrph xlimit 1 1e4  ; plot all 27 phases
+set wr_singlescale            ; for wrdata: write the scale only once
+set wr_vecnames               ; for wrdata: write the vector names
+option numdgt = 3             ; for wrdata: 3 digits after decimal point
+wrdata $inputdir/threeloopsac.txt $writestr  ; write ac output v(10) into file for all runs
+rusage                        ; list some resource usage
+.endc
+
+.end</pre>
+          <p>The output file, written by command wrdata, looks like this:</p>
+          <pre>frequency  ac1.v(10)  ac1.v(10)  ac2.v(10)  ac2.v(10)  ac3.v(10)  ac3.v(10) ...
+ 1.000e+00  9.961e-01 -6.258e-02  9.931e-01 -8.299e-02  9.892e-01 -1.032e-01 ...
+ 1.259e+00  9.938e-01 -7.861e-02  9.891e-01 -1.041e-01  9.831e-01 -1.291e-01 ...
+ 1.585e+00  9.902e-01 -9.860e-02  9.828e-01 -1.302e-01  9.734e-01 -1.609e-01 ...
+ 1.995e+00  9.845e-01 -1.234e-01  9.730e-01 -1.622e-01  9.585e-01 -1.995e-01 ...
+ ...</pre>
+          <p>The first column is the frequency, the next 2 columns are the real and the imaginary parts of complex vector v(10) from plot ac1, then follow real and imaginary parts of vector V(10) from plot ac2 etc.</p>
+          <p>Some comments also here: The circuit is simply two resistors in series (<var>R1</var> + <var>R2</var>) with capacitor <var>C2</var> from output <var>v(1)</var> to ground, a low pass filter. We set three variables in the beginning, each containing just a space. '...' delimit a string, even if it contains special characters (e.g. a space). Three nested <code>foreach</code> loops are used with a value list or with a variable containing such a list. The echo command in the loop again uses '...' for formatting. Otherwise spaces or commas would just be swallowed and replaced by a single space. The <code>alterparam</code> command has to be followed by a <code>reset</code> command to become activated. Also, <code>alter</code> commands are resetted by <code>reset</code>. Therefore all three altering commands have to be in the inner loop, repeated each time the loop is executed. Any <code>alterparam</code> has to come first, then <code>reset</code>, only then any <code>alter</code> (or <code>altermod</code>) commands.</p>
+          <p><code>set plotstrdb = ( $plotstrdb db({$curplot}.v(10)) )</code> requires some explanation: <code>{$curplot}.v(10)</code> substitutes the {} part with the name of the current plot (e.g. <var>ac3</var>), just to obtain, say, <var>ac3.v(10)</var>. This string, embedded in <code>db(...)</code> is added to the variable <var>plotstrdb</var>, increasing its string list. In the beginning <var>plotstrdb</var> started with a space, then one item is added per loop, e.g. yielding <var>db(ac1.v(10))</var> <var>db(ac2.v(10))</var> <var>db(ac3.v(10))</var> ....</p>
+          <hr/>
+          <p>Another group of <code>.step</code> commands loops the temperature and device parameters given by a start, stop and step value for each parameter, like</p>
+          <pre>* .step temp -55 125 10
+* .step npn 2N2222 (VAF) 50 300 50
+* .step param R1 2k 10k 2k</pre>
+          <p>Again there are three nested loops, but now we use the <code>while ... end</code> loop command.</p>
+          <pre>*** Emulate the .step command
+
+.param ptemp = -55 R1 = 2k
+.temp {ptemp}                      ; set the overall circuit temperature
+
+V1 vcc 0 5                         ; the circuit
+R1 vcc cc {R1}
+Q1 cc bb 0 BC546B
+R2 vcc bb 500k
+
+.probe I(Q1)                       ; measure the Q1 terminal currents
+.save all                          ; not only save the Q1 current values, but all node values
+
+.op
+
+.control
+let index = 1                       ; new loop index vector (in plot 'const')
+let tcur = 25                       ; new temperature vector (in plot 'const')
+while tcur &lt;= 125                   ; the temperature loop
+  let mvaf = 50                     ; new model parameter vector (in plot 'const')
+  while mvaf &lt;= 300                 ; the VAF loop
+    let rr1 = 2k                    ; new resistance parameter vector (in plot 'const')
+    while rr1 &lt;= 10k                ; the resistor R1 loop
+      echo
+      echo
+      echo *** op no. $&amp;index',' R1=$&amp;rr1',' VAF=$&amp;mvaf',' temp=$&amp;tcur *** ; print to console where we are
+      alterparam ptemp = $&amp;tcur     ; change the temperature parameter
+      alterparam R1 = $&amp;rr1         ; change the R1 resistance parameter
+      reset                         ; activate the parameter changes by reloading the ciruit
+      altermod BC546B VAF = $&amp;mvaf  ; change the VAF model parameter
+      run                           ; run the op simulation
+      print v(cc) v(bb) i(q1:c) i(q1:b) ; the data output, i(q1:c) is the same as q1:c#branch
+      let rr1 = rr1 + 2k            ; new resistance value
+      let index = index + 1
+    end
+    let mvaf = mvaf + 50            ; new VAF value
+  end
+  let tcur = tcur + 10              ; new temperature value
+end
+display
+rusage
+.endc
+
+*From Philips SC04 "Small signal transistors 1991"
+* Base spreading parameters (RB,IRB,RBM) estimated. TR derived using BCY58 data
+.model BC546B npn ( IS=7.59E-15 VAF=73.4 BF=480 IKF=0.0962 NE=1.2665
++ ISE=3.278E-15 IKR=0.03 ISC=2.00E-13 NC=1.2 NR=1 BR=5 RC=0.25 CJC=6.33E-12
++ FC=0.5 MJC=0.33 VJC=0.65 CJE=1.25E-11 MJE=0.55 VJE=0.65 TF=4.26E-10
++ ITF=0.6 VTF=3 XTF=20 RB=100 IRB=0.0001 RBM=10 RE=0.5 TR=1.50E-07)
+
+.end</pre>
+          <p>So what is new here? Command <code>.temp {ptemp}</code> sets the overall circuit temperature to the value of parameter <var>ptemp</var>. We now use an active device, the npn bipolar transistor Q1, whose model parameters are given in the <code>.model BC546B npn ...</code> line. The <code>.probe(Q1)</code> command allows to measure the device Q1 terminal currents as shown by the display command:</p>
+          <pre>q1:b#branch         : current, real, 1 long
+    q1:c#branch         : current, real, 1 long
+    q1:e#branch         : current, real, 1 long</pre>
+          <p>The three nested loops start with <code>while tcur &lt;= 125</code>. One has to be careful where to place correctly the initial loop value <code>let tcur = 25</code> and the command let <code>tcur = tcur + 10</code> to increase the value. Changing the model parameter <var>VAF</var> (forward Early voltage) is done by <code>altermod</code>, again after setting the parameters by <code>alterparam</code> and after <code>reset</code>. Data output is provided here by the simple <code>print</code> command.</p>
+          <p>The above netlist implicitely provides a linear increase of parameters. A <code>.step</code> command like</p>
+          <pre>* .step oct v1 1 100 5</pre>
+          <p>with its option <code>oct</code> implies a non-linear distribution of input parameters (here 5 values per octave, that is within a factor of 2). A netlist with a single loop demonstrates this command:</p>
+          <pre>*** Emulate the .step command
+* .step oct v1 1 100 5
+
+V1 vcc 0 1                          ; the circuit
+R1 vcc 0 1
+
+.op                                 ; simulation type required
+
+.control
+let vstart = 1                      ; start voltage vector (in plot 'const')
+let vend = 100                      ; end voltage vector (in plot 'const')
+let numb = 5                        ; number of points per octave (in plot 'const')
+
+let index = 1                       ; new loop index vector (in plot 'const')
+let vmult = 2^(1/numb)              ; multiplicator
+
+let xx = vend/vstart                ; find the total number of steps
+let ind1 = 0
+while xx > 1
+  let xx = xx / vmult
+  let ind1 = ind1 + 1
+end
+echo number of steps $&amp;ind1
+
+if ind1 &lt; 1                          ; move on when number of steps is positive
+  echo error with number of steps $&amp;ind1 --'>'  stop!
+else
+  let vecx = vector(ind1)            ; create vectors for x and y
+  let vecy = vector(ind1)
+  settype voltage vecx               ; set the correct vector type
+  settype current vecy
+
+  let vcur = vstart                   ; current voltage value in the loop
+  while vcur &lt;= vend                  ; the voltage loop
+    alter V1 vcur                     ; a new voltage value for V1
+    echo run no. $&amp;index
+    run                               ; simulate
+    let indloc = index - 1            ; indexes for vectors start with 0
+    let vecx[indloc] = vcur           ; x value into vector
+    let vecy[indloc] = v1#branch      ; y value into vector
+*    print vcur v1#branch
+    unlet indloc                      ; remove vector no longer used
+    echo
+    let vcur = vcur * vmult           ; calculate new voltage value
+    let index = index + 1
+  end
+  plot vecy vs vecx pointplot xlog    ; plot y versus x
+end
+rusage                                ; memory and time used
+.endc
+
+.end</pre>
+          <p>Here we use a multiplicator to alter the voltage value, derived from the information "5 values per octave". After calculating the total number of steps, we create and use 2 vectors vecx, vecy to store the result of the op simulation versus the V1 value. Some checking against wrong point numbers is done. A pointplot in Fig. 5 demonstrates the uniform x value distribution, when plotted logarithmically.</p>
+        </section>
+        <section>
+          <h3>Modify a circuit on the fly</h3>
+          <p>By using the <code>.if ... .elseif ... .endif</code> construct, you may choose from different circuit blocks which are enclosed within the conditional statements. Selection is done by altering a parameter as selector with the alterparam command.</p>
+          <p>In the first example we switch between a simple low pass and a high pass circuit, run an <code>.ac</code> simulation for each one and plot the output in a single plot window.</p>
+          <pre>High pass, low pass on the fly
+
+.param select = 0          ; selector
+
+.IF (select == 0)          ; select low pass
+    R1 in out 1k
+    C1 out 0 1u
+.ELSEIF (select == 1)      ; select high pass
+    R1 out 0 1k
+    C1 in out 1u
+.ENDIF
+
+Vin in 0 dc 0 ac 1         ; input voltage
+
+.ac dec 10 1 100k
+
+.control
+run                        ; run the simulation
+alterparam select = 1      ; modify the selector from 0 to 1
+reset                      ; reload the circuit with new selector, so with new circuit
+run                        ; run the simulation again
+set xbrushwidth=3          ; increase linewidth of graphs
+plot db(ac1.out) db(ac2.out) xlimit 1 1e5 ; plot both simulations in one graph
+.endc
+
+.end</pre>
+          <p>Some restrictions apply, as the following netlist components are not supported within the .IF ... .ENDIF block: .SUBCKT, .INC, .LIB, and .PARAM.</p>
+          <p>In the next example we choose from 2 different operational amplifiers. We have to include all of their models, and we select by calling the appropriate model in the call to their subcircuit (X line).</p>
+          <pre>* Modify circuit (here: changing OpAmps) using .IF ... .ENDIF
+
+.param select = 0                ; selector
+
+.IF (select == 0)                ; select OpAmp
+    X1 0 INM P6V M6V OUT OPA1656
+.ELSEIF (select == 1)
+    X2 0 INM P6V M6V OUT OPA164x
+.ENDIF
+
+R1 INM OUT 10K                    ; inverting amplifier, gain -2
+R2 IN INM 5k
+
+V1 P6V 0 4V                       ; power supply
+V2 M6V 0 -4V
+
+Vin IN 0 dc 0 ac 1                ; input (for ac)
+
+.ac dec 20 1e4 1e8                ; ac simulation conditions
+
+.include OPA1656.lib ; download OpAmp model from TI's web site
+.include OPA164x.lib ; download OpAmp model from TI's web site
+
+.control
+save out                   ; save only the output, all other nodes are discarded
+run                        ; run the simulation
+alterparam select = 1      ; modify the selector from 0 to 1
+reset                      ; reload the circuit with new selector, so with new OpAmp
+run                        ; run the simulation again
+
+let dbout1 = db(ac1.out)   ; calculate db in preparation for meas command, previous run
+let dbout2 = db(out)       ; calculate db in preparation for meas command, current run
+set xbrushwidth=3          ; increase linewidth of graphs
+plot dbout1 dbout2
+meas ac fmin3db1 when dbout1=3 ; gain 6 dB, measure fall-off to 3 dB
+meas ac fmin3db2 when dbout2=3 ; gain 6 dB, measure fall-off to 3 dB
+.endc
+
+.end</pre>
+          <p>Finally we use two meas(ure) commands to find the frequency where the opamp gain has rolled off by -3 dB.</p>
+        </section>
+        <!--
         <section>
           <h3>*</h3>
           <pre></pre>
@@ -568,7 +906,6 @@ end</pre>
           <pre></pre>
           <p></p>
           <pre></pre>
-
         </section>
         <section>
           <h3>*</h3>
@@ -589,7 +926,6 @@ end</pre>
           <pre></pre>
           <p></p>
           <pre></pre>
-
         </section>
         <section>
           <h3>*</h3>
@@ -597,12 +933,10 @@ end</pre>
           <p></p>
           <pre></pre>
         </section>
+        -->
       </section>
 
       <!--
-
-
-
       <section id="*">
         <h2></h2>
         <p></p>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ std::decay</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ std::decay for..."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a></p>
+      -->
+      <div>
+        <p><a href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a></p>
+        <p><a href="cpp.traits.html">(Implementing) Trait Classes in C++</a></p>
+        <p><a href="c.decay.html">Decay: Loss of C-Array Length Information</a></p>
+      </div>
+      <div>
+        <p><a href="https://cplusplus.com/reference/type_traits/remove_reference/"><code>remove_reference</code></a> to Remove Reference Qualifier (at https://cplusplus.com)</p>
+        <p><a href="https://cplusplus.com/reference/type_traits/remove_cv/"><code>remove_cv</code></a> to Remove const-volatile Qualifications (at https://cplusplus.com)</p>
+      </div>
+      <div>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.stl.html">The C++ Standad Template Library (STL)</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>C++ <code>std::decay&lt;<var>T</var>&gt;</code> Structure for Stripping Types</h1>
+      <pre>template &lt;typename <var>T</var>&gt;
+struct decay;</pre>
+      <p><code>std::decay&lt;<var>T</var>&gt;</code> is a structure that obtains the <strong>decay type</strong> of <var>T</var> as member type decay::type.</p>
+      <p>The <dfn>decay type</dfn> of <var>T</var> is the same type that results from the standard conversions that happen when an <strong>lvalue</strong> expression is used as an <strong>rvalue</strong>, with its <strong>cv-qualifier</strong> stripped. This resembles the implicit conversions happening when an argument is passed by value to a function.</p>
+      <ul>
+        <li>If <var>T</var> is a function type, a function-to-pointer conversion is applied and the decay type is the same as: <code>add_pointer&lt;<var>T</var>&gt;::type</code></li>
+        <li>If <var>T</var> is an array type, an array-to-pointer conversion is applied and the decay type is the same as: <code>add_pointer&lt;remove_extent&lt;remove_reference&lt;<var>T</var>&gt;::type&gt;::type&gt;::type</code></li>
+        <li>Otherwise, a regular lvalue-to-rvalue conversion is applied and the decay type is the same as: <code>remove_cv&lt;remove_reference&lt;<var>T</var>&gt;::type&gt;::type</code>.</li>
+      </ul>
+
+      <p><strong>Example</strong></p>
+      <pre>// decay example
+#include &lt;iostream&gt;
+#include &lt;type_traits&gt;
+
+typedef std::decay&lt;int&gt;::type A;           // int
+typedef std::decay&lt;int&amp;&gt;::type B;          // int
+typedef std::decay&lt;int&amp;&amp;&gt;::type C;         // int
+typedef std::decay&lt;const int&amp;&gt;::type D;    // int
+typedef std::decay&lt;int[2]&gt;::type E;        // int*
+typedef std::decay&lt;int(int)&gt;::type F;      // int(*)(int)
+
+typedef int X[3];
+
+int main() {
+  std::cout &lt;&lt; std::boolalpha;
+  std::cout &lt;&lt; "typedefs of int:" &lt;&lt; std::endl;
+  std::cout &lt;&lt; "A: " &lt;&lt; std::is_same&lt;int,A&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "B: " &lt;&lt; std::is_same&lt;int,B&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "C: " &lt;&lt; std::is_same&lt;int,C&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "D: " &lt;&lt; std::is_same&lt;int,D&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "E: " &lt;&lt; std::is_same&lt;int,E&gt;::value &lt;&lt; std::endl;
+  std::cout &lt;&lt; "F: " &lt;&lt; std::is_same&lt;int,F&gt;::value &lt;&lt; std::endl;
+
+  return 0;
+}</pre>
+
+      <p>Output:</p>
+      <pre>typedefs of int:
+A: true
+B: true
+C: true
+D: true
+E: false
+F: false</pre>
+
+    </main>
+  </body>
+</html>

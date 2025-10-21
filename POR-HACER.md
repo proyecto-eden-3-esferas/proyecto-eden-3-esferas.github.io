@@ -157,6 +157,16 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] escribir "Conversiones"
+<p>Uno puede adoptar unos valores y costumbres. Incluso unas escrituras, unos símbolos, un estilo de pensar y de sentir.</p>
+<p>Los seres humanos tomamos decisiones a la vez que albergamos creencias. ¡Pero decidir creer!</p>
+<p>El miércoles de ceniza se nos insta:</p>
+<blockquote>Convertios y creed en el Evangelio</blockquote>
+
+[ ] Ley de Causa y Efecto, no estamos condicionados absolutamente, ahora bien ¿una causa tiene un efecto <em>del mismo tipo</em>? Entonces creeremos en la continuidad de la mente, o por lo menos en el Sentido.
+
+[ ] Los cristianos dicen que basta con amar. Los budistas adoptan un punto de vista más sofisticado, o complejo según se mire. Para hacer el bien a los demás y a uno mismo se ha de realizar una acción específica de un modo específico. En particular un Buda no es sólo una persona bienintencionada sino que dispone de una sabiduría y unas técnicas.
+
 [ ] write *terms, names and titles*
 - matched to definitions, descriptions, contents
 - what about discussions?

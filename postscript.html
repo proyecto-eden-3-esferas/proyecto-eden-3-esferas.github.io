@@ -1,0 +1,2221 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PostScript</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="PostScript: Programming Text and Graphics"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+        <p><a            href="sc.html">SuperCollider: a modern audio synthesis and sequencing language</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>PostScript: Programming Text and Graphics</h1>
+      <!-- from Programming.xml#postscript p 1281 to 3095 -->
+      <section>
+        <h2>PostScript Features</h2>
+        <blockquote>
+          <p>PostScript from Adobe Systems is an underappreciated yet superb general purpose computing language.</p>
+          <p>Among its many other capabilities, PostScript can read or write virtually any disk file format in just about any language. PostScript is a premier choice any time exotic calculations need to be combined with fancy visual presentations. PostScript also has unique robotics potential.</p>
+          <p style="text-align: right" class="attribution">The Guru's Lair</p>
+        </blockquote>
+        <aside class="warning">All PostScript programs must begin with the magic characters <kbd>%!PS&#x2212;Adobe&#x2212;2.0</kbd>, or at least with its first four characters (<kbd>%!PS</kbd>). It also seems that after the last command a space character must be typed, although conversion to PDF does not strictly demand this.</aside>
+        <aside class="warning">
+          <p>Assuming that you are using A4 paper sizes, run your scripts through <strong class="application">ghostview</strong> with a line like:</p>
+          <pre>gs -sPAPERSIZE=a4 filename.ps</pre>
+          <p>or make a pdf with a line like</p>
+          <pre>ps2pdf -sPAPERSIZE=a4 filename.ps</pre>
+        </aside>
+        <p>PostScript is an interpreted, complete, stack-based, weakly- and dynamically-typed programming language with primitives for printing and drawing on an output device. Being a weakly typed programming language means that a variable can hold data of any type and the type of its object can even change throghout the running of the program... that is at interpretation as oposed to compilation. Like other programming languages, PostScript uses variables and functions (<dfn>procedures</dfn>), has a sufficient set of control structures, comparison, arithmetic and logical operators, console and file input-output, and so on.</p>
+        <p>Some remarks on PostScript are:</p>
+        <ul>
+          <li>That PostScript uses <dfn>postfix</dfn> notation means that an operator follows (the "post" part in PostScript) its operands. Thus the expression 1 + 30 in PostScript is written "1 3 add". This feature is tightly tied to PostScript's being stack-based.  When the interpreter encounters the token "1" it <em>pushes</em> "1" onto a stack, then encounters and pushes "3", and last encounters operator "add", which assumes two numeric operands on the stack, and executes it.</li>
+          <li>PostScript is probably the only complete programming language that offers primitives for drawing and printing on a page. Moreover, a PDF document can be generated from a PostScript program, usually through a utility named <strong class="application">ghostscript</strong>. To this end at each moment during execution (interperation) the <dfn>graphics state</dfn> may be in a "current point", have a given "linewidth", color, "transformation matrix", "path", etc.</li>
+          <li>PostScript offers three data structures: <dfn>dictionaries</dfn>, which basically are associative arrays and are used much like namespaces, <dfn>arrays</dfn>, and <dfn>strings</dfn> of characters (actually bytes), which are very similar to arrays and share many of their features and accessors but can additionally be used to print text on a page. Both arrays and strings are random access, sliceable (operator "getinterval"), carry information about their size, are copyable by value (operator "copy") etc.</li>
+          <li>PostScript is dynamically typed. A variable or procedure is created by associating a name to any other element in the programming language: another name, a number, a string, an array, or a block of executable code, by means of operator "def". For example "/greeting (Hello!) def" associates name "/greeting" with string (Hello!) in the current dictionary. But further down a script the name "/greeting" can be associated with an element of a different type, such as a procedure, as in "/greeting {(Hello!) show} def". In fact PostScript has no concept of variables as opposed to procedures.</li>
+        </ul>
+        <section id="ps_stack">
+          <h3>The PostScript Stack (and its Operators)</h3>
+          <p>PostScript uses postfix notation. This is more than a syntactic feature. Postfix operators operate on operands that have been pushed onto a virtual stack. This <i class="foreignphrase">modus operandi</i> supports implementations on machines with lean RAM, such as printers.</p>
+          <ul>
+            <li><kbd>dup</kbd>: duplicates an item, that is pushes a copy of itself</li>
+            <li><kbd>copy</kbd>: similar to dup, only it takes another argument, the number of (top) items to be copied. <kbd>1 copy</kbd> does the same as <kbd>dup</kbd>.</li>
+            <li><kbd>index</kbd>: it takes a number, an index to an item, and returns the item. For example, <kbd>0 index</kbd> returns the top item, just as <kbd>dup</kbd>.</li>
+            <li><kbd>roll</kbd>: performs a rotation. The first argument is the number of items or depth of stack that rotates, and the second arguments is the number of places that this chunk rotates. Thus, <kbd>2 1 roll</kbd> is the same as <kbd>exch</kbd>.</li>
+            <li><kbd>exch</kbd>: exchanges or <q>swaps</q> the two top items on the stack. Thus, <kbd>\first \second exch</kbd> leaves the stack <code class="computeroutput">\second \first</code>.</li>
+            <li><kbd>count</kbd>: returns how many items are on the stack</li>
+          </ul>
+          <p>Some other operators are:</p>
+          <ul>
+            <li><kbd>=</kbd>: print the top item on standard output</li>
+            <li><kbd>==</kbd>: print the top item on standard output</li>
+            <li><kbd>cleartomark</kbd>: </li>
+            <li><kbd>mark</kbd>: </li>
+            <li><kbd>counttomark</kbd>: </li>
+          </ul>
+        </section>
+
+        <section id="ps_dynamic_and_interpreted">
+          <h3>On Being Dynamic and Interpreted</h3>
+          <p>PostScript is both dynamically-typed and interpreted. Maybe these two go hand in hand...</p>
+          <section>
+            <h4>The Variable-Procedure Duality</h4>
+            <p>In PostScript a name may be associated to a constant value (such as another name, a number, a string, an array) or to a procedure. Throughout the run of a PostScript program a name may change its type between constant and procedure, too.</p>
+            <p>Consider how the distance between two lines (<var>lead</var>) may be defined subtly differently in terms of <var>fontscale</var>. First as a constant:</p>
+            <pre>/lead fontscale def</pre>
+            <p>Then as a procedure:</p>
+            <pre>/lead {fontscale} def</pre>
+            <p>As long as <var>fontscale</var> doesn't change, the former definition results in faster execution. Perhaps we should do all our font changes through an intelligent procedure (<code class="function"><a href="#ps_myselectfont">myselectfont</a></code>) that updates <var>lead</var> as a constant, among other tasks.</p>
+          </section>
+
+          <section>
+            <h4>The <code class="function">bind</code> Mechanism*</h4>
+          </section>
+
+        </section>
+
+        <section id="ps_bind">
+          <h3>Binding</h3>
+          <p>Binding a procedure replaces all executable operator names by their values. The overall effect is that all procedure names as well as procedures nested in those procedures and so on become tightly bound to their original definitions. When a bound procedure is executed, the interpreter encounters the operators themselves rather than the names.</p>
+          <p>Thus, the <kbd>bind</kbd> operator implements a form of static binding. It trades in dynamic binding for speed.</p>
+          <aside class="warning">You must never <kbd>bind</kbd> a procedure that takes another procedure as it input or that relies on other procedures that might change after the procedure to be bound has been declared.</aside>
+        </section>
+
+        <!-- end of "Binding" -->
+        <section>
+          <h3>Relationship Between PostScript and PDF</h3>
+          <p>PDF is a <dfn>page description language</dfn>, not a full-fledged programming language.</p>
+          <blockquote>
+            <p>A PDF file is a static representation of the result of executing a PostScript file on a single occasion.</p>
+          </blockquote>
+        </section>
+
+        <section>
+          <h3>Some Basic Programs in PostScript</h3>
+          <p>Here is a simple program that paints a diagonal:</p>
+          <pre>%!PS&#x2212;Adobe&#x2212;2.0
+
+100 100  moveto
+350 350 rlineto
+stroke
+showpage</pre>
+          <p>And here is another program that greets you into PostScript in 30 point Times-Roman font:</p>
+          <pre>%!PS&#x2212;Adobe&#x2212;2.0
+
+50 400  moveto
+/Times-Roman 16 selectfont
+(Welcome to PostScript!) show
+showpage</pre>
+        </section>
+
+        <!-- end of "Some Basic Programs in PostScript" -->
+        <section id="non_programmatic_ps">
+          <h3>Non-Programmatic or Flat PostScript</h3>
+          <p>It is possible to use PostScript as a page description language and do all the logic in another programming language such as C++ that will produce a PostScript file. You would eschew all comparison and control structures, mathematics, loops, dictionary and array features, etc.</p>
+          <p>These are the PostScript operators you would need to do everything possible:</p>
+          <ul>
+            <li>path construction operators: <kbd>newpath</kbd>, <kbd>moveto</kbd>, <kbd>rmoveto</kbd>, <kbd>lineto</kbd>, <kbd>rlineto</kbd>, <kbd>curveto</kbd>, <kbd>rcurveto</kbd>, and <kbd>closepath</kbd>;</li>
+            <li>font selection operators: either <kbd>findfont</kbd>, <kbd>scalefont</kbd>, and <kbd>setfont</kbd>, or just <kbd>selectfont</kbd>;</li>
+            <li>for showing text: <kbd>show</kbd>, and probably also <kbd>widthshow</kbd> (to stretch to right margin by widening inter-word spacing) and <kbd>charpath</kbd>;</li>
+            <li>to eject a page: <kbd>showpage</kbd> </li>
+            <li>to stroke or fill a path: <kbd>stroke</kbd> and <kbd>fill</kbd>;</li>
+            <li>to select a color or shade of gray: <kbd>setrgbcolor</kbd>, <kbd>setymckcolor</kbd>, <kbd>sethsbcolor</kbd>, and <kbd>setgray</kbd>;</li>
+            <li>for saving and restoring the graphic context: <kbd>gsave</kbd> and <kbd>grestore</kbd>;</li>
+            <li>for clipping: <kbd>clip</kbd> </li>
+          </ul>
+          <p>You would probably like to use, too:</p>
+          <ul>
+            <li>further path-building operators: <kbd>arc</kbd>, <kbd>arcn</kbd>, possibly also <kbd>arct</kbd>;</li>
+          </ul>
+          <p>If you want to make PostScript paragraphs from outside PostScript, you need to know the <a href="#getting_ps_font_widths">widths</a> of the characters in your font.</p>
+        </section>
+        <!-- end of "Non-Programmatic or Flat PostScript" -->
+      </section>
+
+      <section>
+        <h2>Direct PostScript</h2>
+        <p>David Byram-Wigfield has called <dfn>direct PostScript</dfn> as work created by writing in PostScript from the start. PostScript is a powerful language that is not difficult to begin to learn, can express sophisticated graphical ideas in few words, and has the final say as to just where every mark appears on the output, giving unsurpassed visual control.</p>
+        <p>PostScript is a full programming language tailored to graphics, so it is great for getting a computer/printer to do many precise, repetitive, calculated things all on its own. Design, illustration, and typesetting can all involve precise, repetitive, calculated things, and direct PostScript techniques are justly popular with people who would rather tell the computer to do the work than drag it by the mouse every step of the way.</p>
+        <p>It could be said that pure, vanilla PostScript is hardly ever&#x2014;except for simple jobs&#x2014;the language you really write in: you write in a language that you get by sending a prolog of one or more resources that grow PostScript into a language suiting your job, which may retain the basic syntax and flavor of PostScript, or have a whole new look.</p>
+        <section>
+          <h3>Benefits: PostScript in the small</h3>
+          <p>Frequent, low-volume projects with highly individualized requirements can be natural jobs for direct PostScript. Often it is easy with a WYSIWYG program to get ninety percent of the desired result, and then the last ten percent becomes a battle with the program's built-in style or assumptions. Even if you can find the way to tell the program what you want, it is not guaranteed to be easier than to say it in PostScript&#x2014;and to say it in PostScript can be the more promising investment, in learning coherent concepts of one established graphical language rather than workarounds and tricks for a hodge-podge of application programs.</p>
+          <p>For those doing mathematical figures, the point could not be made better than by Bill Casselman in his book, <cite>Mathematical Illustrations</cite>:</p>
+          <blockquote>
+            <p>The truth is that the trade-off is unnecessary--once one has made a small initial investment of effort, by far the best thing to do in most situations is to write a program in the graphics programming language PostScript. [...] The apparent complexity involved in producing simple figures by programming in PostScript, as I hope this book will demonstrate, is largely an illusion. And the amount of work involved in producing more complicated figures will usually be neither more nor less than what is necessary.</p>
+          </blockquote>
+          <p>For those who have taken to heart Edward Tufte's work on presenting information visually, there is no such thing any more as a generic chart or graph. Any information display worth making is worth making with close attention to how all the visual and typographic aspects combine to convey the information without distortion or distraction. A sampling of published papers in some fields might invite the conclusion that many charts and graphs were not worth making! The trouble is, they are typically made with software that tries to make charts and graphs generic, and then offers a cornucopia of ways to dress them up with gee-whiz chartjunk that adds nothing to the presentation.</p>
+          <p>All the ornamentation and noise in that sort of a graph would be tedious to replicate in PostScript&#x2014;but a clean, readable graph is not hard, and in PostScript your control over the position and typography of every element, legend, and callout is more direct than in any graphing program.</p>
+          <p>Don Lancaster's pages (see below) offer examples of many other publishing-in-the-small projects&#x2014;stationery, cards and numbered tickets, fancy borders (exactly the kind of repetitive work the computer excels at) and so on&#x2014;where direct PostScript can be the way to go.</p>
+        </section>
+
+      </section>
+
+      <section id="ps_objects">
+        <h2>PostScript Data Types and Objects</h2>
+        <section id="ps_simple_and_composite_objects">
+          <h3>Simple and Composite Objects and Virtual Memory (VM) in PostScript</h3>
+          <p>There are two classes of objects: simple and composite. A simple object's value is contained in the object itself. A composite object's value is stored separately; the object contains a reference to it. The <a href="#ps_vm">virtual memory (VM)</a> is the storage in which the values of composite objects reside.</p>
+          <p>For example, the program fragment</p>
+          <pre>234 (Here is a string)</pre>
+          <p> pushes two objects, an integer and a string, on the operand stack. The integer, which is a simple object, contains the value 234 as part of the object itself. The string, which is a composite object, contains a reference to the value (Here is a string), which is a text string that resides in VM. The elements of the text string are characters (actually, integers in the range 0 to 255) that can be individually selected or replaced.</p>
+          <p>Here is another example:</p>
+          <pre>{234 (Here is a string)}</pre>
+          <p>This pushes a single object, a two-element executable array, on the operand stack. The array is a composite object whose value resides in VM. The value in turn consists of two objects, an integer and a string. Those objects are elements of the array, which can be individually selected or replaced.</p>
+          <p>Several composite objects can share the same value. For example, in</p>
+          <pre>{234 (Here is a string)} dup</pre>
+          <p>the <code class="function">dup</code> operator pushes a second copy of the array object on the operand stack. The two objects share the same value&#x2014;that is, the same storage in VM. So, replacing an element of one array will affect the other. Other types of composite objects, including strings and dictionaries, behave similarly.</p>
+          <p>Creating a new composite object consumes VM storage for its value.</p>
+        </section>
+        <!-- end of "Simple and Composite Objects and Virtual Memory (VM) in PostScript" -->
+      </section>
+      <!-- end of "PostScript Data Types and Objects" -->
+      <section id="ps_vm">
+        <h2>PostScript Virtual Memory (VM)</h2>
+        <p>The <dfn>virtual memory (VM)</dfn> is the storage in which the values of composite objects reside.</p>
+        <section id="ps_local_and_global_vm">
+          <h3>PostScript Local and Global Virtual Memory (VM)</h3>
+          <p>There are two divisions of VM containing the values of <a href="#ps_simple_and_composite_objects">composite objects</a>: local and global. Only composite objects occupy VM. An <q>object in VM</q> means a <q>composite object whose value occupies VM</q>; the location of the object (for example, on a stack or stored as an element of some other object) is immaterial.</p>
+          <aside>Global VM exists only in Level 2 and Display PostScript implementations of the PostScript language. In Level 1 implementations, all of VM is local.</aside>
+          <p>Local VM is a storage pool that obeys a stack-like discipline. Allocations in local VM and modifications to existing objects in local VM are subject to a feature called save and restore, named after the operators that invoke it. save and restore bracket a section of a PostScript language program whose local VM activity is to be encapsulated. restore deallocates new objects and undoes modifications to existing objects that were made since the matching save.</p>
+          <p>Global VM is a storage pool for objects that don't obey a fixed discipline. Objects in global VM can come into existence and disappear in an arbitrary order during execution of a program. Modifications to existing objects in global VM are not affected by occurrences of save and restore within the program. However, an entire job's VM activity can be encapsulated, enabling separate jobs to be executed independently.</p>
+          <p>In a hierarchically structured program, such as a page description, local VM is used to hold information whose lifetime conforms to the structure; that is, it persists to the end of a structural division, such as a single page. Global VM may be used to hold information whose lifetime is independent of the structure, such as definitions of fonts and other resources that are loaded dynamically during execution of a program.</p>
+          <p>Control over allocation of objects in local versus global VM is provided by the <code class="function">setglobal</code> operator (a Level 2 feature). This operator establishes a VM allocation mode, a boolean value that determines where subsequent allocations are to occur (false means local, true means global). It affects objects created implicitly by the scanner and objects created explicitly by operators. The default VM allocation mode is local; a program can switch to global VM allocation mode when it needs to.</p>
+        </section>
+
+        <!-- end of "PostScript Local and Global Virtual Memory (VM) -->
+      </section>
+
+      <!-- end of "PostScript Virtual Memory (VM)" -->
+      <section id="ps_dicts">
+        <h2>Dictionaries in PostScript</h2>
+        <p>...</p>
+        <section id="ps_predefined_dict">
+          <h3>Predefined Dictionaries in PostScript</h3>
+          <p>Some of these are read-only (systemdict), some read-writeable.</p>
+          <p>In Level 1 implementations of the PostScript language, there are two built-in dictionaries permanently on the dictionary stack; they are called systemdict and userdict. In Level 2 implementations, there are three dictionaries: systemdict, globaldict, and userdict.</p>
+          <ul>
+            <li>systemdict is a read-only dictionary that associates the names of all the PostScript operators (those defined in this manual) with their values (the built-in actions that implement them).</li>
+            <li>globaldict (Level 2) is a writable dictionary in global VM.</li>
+            <li>userdict is a writable dictionary in local VM. It is the default modifiable naming environment normally used by PostScript language programs.</li>
+          </ul>
+          <p>userdict is the topmost of the permanent dictionaries on the dictionary stack. The def operator puts definitions there unless the program has pushed some other dictionary on the dictionary stack. Applications can and should create their own dictionaries rather than put things in userdict.</p>
+          <aside class="warning">A dictionary is a composite object. Copying a dictionary object does not copy the dictionary's contents. Instead, the contents are shared.</aside>
+        </section>
+
+        <!-- end of "Predefined Dictionaries in PostScript" -->
+      </section>
+
+      <section id="ps_resources">
+        <h2>PostScript Resources</h2>
+        <p>A <dfn>resource</dfn> is a collection of named objects that either reside in <a href="#ps_vm">VM</a> or can be located and brought into VM on demand.</p>
+        <section>
+          <h3>PostScript Resource Operators</h3>
+          <p>There are five operators that apply to resources: <code class="command">findresource</code>, <code class="command">resourcestatus</code>, <code class="command">resourceforall</code>, <code class="command">defineresource</code>, and <code class="command">undefineresource</code>. These operators and the general concept of named resources are Level 2 features. A more limited facility applicable only to fonts&#x2014;the <code class="command">findfont</code> and <code class="command">definefont</code> operators&#x2014;is available in Level 1.</p>
+          <p>The <code class="command">findresource</code> operator is the key feature of the resource facility. Given a resource category name and an instance name, <code class="command">findresource</code> returns an object. If the requested resource instance does not already exist as an object in VM, <code class="command">findresource</code> gets it from an external source and loads it into VM. A PostScript language program can access named resources without knowing if they are already in VM or how they are obtained from external storage.</p>
+          <p>Other important features include <code class="command">resourcestatus</code>, which returns information about a resource instance, and <code class="command">resourceforall</code>, which enumerates all available resource instances in a particular category. These operators apply to all resource instances, whether or not they reside in VM; the operators do not cause the resource instances to be brought into VM. <code class="command">resourceforall</code> should be used with care and only when absolutely necessary, since the set of available resource instances is potentially extremely large.</p>
+          <p>A program can explicitly define a named resource instance in VM. That is, it can create an object in VM, then execute <code class="command">defineresource</code> to associate the object with a name in a particular resource category. This resource instance will be visible in subsequent executions of <code class="command">findresource</code>, <code class="command">resourcestatus</code>, and <code class="command">resourceforall</code>. A program can also execute <code class="command">undefineresource</code> to reverse the effect of a prior <code class="command">defineresource</code>. The <code class="command">findresource</code> operator automatically executes <code class="command">defineresource</code> and <code class="command">undefineresource</code> to manage the VM for resource instances that it obtains from external storage.</p>
+          <p>Resource instances can be defined in either <a href="#ps_local_and_global_vm">local or global VM</a>. The lifetime of the definition depends on the VM allocation mode in effect at the time the definition is made. Normally, both local and global resource instances are visible and available to a program. However, when the current VM allocation mode is global, only global instances are visible; this ensures correct behavior of resource instances that are defined in terms of other resource instances.</p>
+          <p>When a program executes <code class="command">defineresource</code> to define a resource instance explicitly, it has complete control over whether to use local or global VM. However, when execution of <code class="command">findresource</code> causes a resource instance to be brought into VM automatically, the decision whether to use local or global VM is independent of the VM allocation mode at the time <code class="command">findresource</code> is executed. Usually, resource instances are loaded into global VM; this enables them to be managed independently of the save and restore activity of the executing program. However, certain resource instances do not function correctly when they reside in global VM; they are loaded into local VM instead.</p>
+          <p>The language does not specify a standard method for installing resources in external storage. Installation typically consists of writing a named file in a file system. However, details of how resource names are mapped to file names and how the files are managed are environment dependent. In some environments, resources may be installed using facilities entirely separate from the PostScript interpreter.</p>
+          <p>Resource instances are identified by keys that ordinarily are name or string objects; the resource operators treat names and strings equivalently. Use of other types of keys is permitted but not recommended. The <code class="command">defineresource</code> operator can define a resource instance with a key that is not a name or string; the other resource operators can access the instance using that key. However, such a key can never match any resource instance in external storage.</p>
+        </section>
+        <!-- end of "PostScript Resource Operators" -->
+        <section>
+          <h3>PostScript Resource Categories</h3>
+          <p>Resource categories are identified by name. The standard resource categories are shown below. Within a given category, every resource instance that resides in VM is of a particular type and has a particular intended interpretation or use.</p>
+        </section>
+        <!-- end of "PostScript Resource Categories" -->
+      </section>
+
+      <section id="ps_coordinate_systems_and_transformations">
+        <h2>Coordinate Systems and Transformations</h2>
+        <p>Paths and shapes are defined in terms of pairs of points on the Cartesian plane specified as coordinates. A coordinate pair is a pair of real numbers x and y that locate a point within a Cartesian (two-axis) coordinate system superimposed on the current page. The PostScript language defines a default coordinate system that PostScript language programs can use to locate any point on the current page.</p>
+        <p>Coordinates specified in a PostScript language program refer to locations within a coordinate system that always bears the same relationship to the current page regardless of the output device on which printing or displaying will be done. This coordinate system is called <dfn>user space</dfn>.</p>
+        <p>Initially, the user space origin is located at the lower-left corner of the output page or display window, with the positive x axis extending horizontally to the right and the positive y axis extending vertically upward, as in standard mathematical practice. The length of a unit along both the x and y axes is 1/72 of an inch. This coordinate system is the <dfn>default user space</dfn>. In default user space, all points within the current page have positive x and y coordinate values.</p>
+        <section id="ps_tx_and_ctm">
+          <h3>Transformations and the Current Transformation Matrix (CTM)</h3>
+        </section>
+        <!-- end of "Transformations and the Current Transformation Matrix (CTM)" -->
+      </section>
+      <!-- end of "Coordinate Systems and Transformations" -->
+      <section id="ps_page">
+        <h2>The Page in PostScript</h2>
+        <section id="ps_page_dims">
+          <h3>Page Dimensions in PostScript</h3>
+          <p>Before painting anything we need to establish the absolute page dimensions and then the dimensions of the smaller printing area.</p>
+          <section id="ps_paper_sizes">
+            <h4>Paper Sizes</h4>
+            <pre>
+   Paper Size                      Dimension (in points)
+   ------------------              ---------------------
+   Comm #10 Envelope               297 x 684
+   C5 Envelope                     461 x 648
+   DL Envelope                     312 x 624
+   Folio                           595 x 935
+   Executive                       522 x 756
+   Letter                          612 x 792
+   Legal                           612 x 1008
+   Ledger                          1224 x 792
+   Tabloid                         792 x 1224
+   A0                              2384 x 3370
+   A1                              1684 x 2384
+   A2                              1191 x 1684
+   A3                              842 x 1191
+   A4                              595 x 842
+   A5                              420 x 595
+   A6                              297 x 420
+   A7                              210 x 297
+   A8                              148 x 210
+   A9                              105 x 148
+   B0                              2920 x 4127
+   B1                              2064 x 2920
+   B2                              1460 x 2064
+   B3                              1032 x 1460
+   B4                              729 x 1032
+   B5                              516 x 729
+   B6                              363 x 516
+   B7                              258 x 363
+   B8                              181 x 258
+   B9                              127 x 181
+   B10                             91 x 127
+</pre>
+          </section>
+
+          <section id="ps_absolute_dims">
+            <h4>Absolute Dimensions in PostScript</h4>
+            <p>First there are the absolute dimensions left, right, bottom and top. These are called <var>abslm</var>, <var>absrm</var>, <var>absbm</var>, and <var>abstm</var> for <q>absolute left margin</q>, <q>absolute right margin</q>, <q>absolute bottom margin</q>, and <q>absolute top margin</q>. Actually, <var>abslm</var> and <var>absbm</var> are 0.</p>
+            <p>For each paper size we define a procedure to update absolute dimensions. Here is one for A4:</p>
+            <pre>/inch {72.27 mul} bind def
+/setupa4 {
+  /absrm  8.26 inch def % A4 paper width
+  /abstm 11.69 inch def % A4 paper height
+  /abslm 0 def
+  /absbm 0 def
+} def</pre>
+            <!-- ... -->
+          </section>
+
+          <!-- end of "Absolute Dimensions in PostScript" -->
+          <section id="ps_printing_area">
+            <h4>Printing Area Dimensions in PostScript</h4>
+            <p>These are the left, right, bottom and top of the area where glyphs and geometric objects may be printed, which is strictly inside the absolute page boundaries. Paragraph procedures such as <code class="function"><a href="#ps_paragraph">showpar</a></code> rely heavily on these, as well as the <code class="function"><a href="#ps_newline">newline</a></code> procedure.</p>
+            <p>A procedure <code class="function"/> may be defined to update <var>lm</var>, <var>rm</var>, <var>bm</var>, and <var>tm</var> whenever necessary.</p>
+            <pre>/applymargin { % stack: margin
+  /lm abslm 2 index add def
+  /rm absrm 2 index sub def
+  /tm abstm 2 index sub def
+  /bm absbm 2 index add def
+  pop % drop the margin off the stack
+} def</pre>
+            <p>which, given a moderate margin of 33, might be used like this:</p>
+            <pre>33 applymargin</pre>
+          </section>
+
+          <!-- end of "Printing Area Dimensions in PostScript" -->
+        </section>
+
+        <!-- end of "Page Dimensions in PostScript" -->
+        <section id="ps_turn_page">
+          <h3>Turning a Page in PostScript</h3>
+          <p>The language offers operator <code class="function">showpage</code>, but we may elaborate a little more on this:</p>
+          <pre>/movetostart {lm tm moveto} def
+/turnpage {showpage movetostart} def</pre>
+          <aside>
+            <p>This version of <code class="function">movetostart</code> does not take the font size (<var>fontscale</var>) into account, so we ought to redefine it as:</p>
+            <pre>/movetostart {lm tm lead sub moveto} def</pre>
+            <p>where <var>lead</var> has a default definition like <kbd>/lead {fontscale} def</kbd></p>
+          </aside>
+          <p>Actually, we should define two dummy procedures and redefine <code class="function">turnpage</code> as:</p>
+          <pre>/preturnpage {} def
+/postturnpage {} def
+/turnpage {preturnpage showpage postturnpage movetostart} def</pre>
+          <p>Moreover, turning a page often involves printing the page number, and sometimes an appropriate header and footer, too. I will not go into how to handle page numbers. The pagenumber, its font name and scale, and the position where it is printed should be kept in an overall-accessible dictionary like <var>commondict</var>.</p>
+        </section>
+
+        <!-- end of "Turning a Page in PostScript" -->
+      </section>
+
+      <!-- end of "The Page in PostScript"  -->
+      <section id="ps_text">
+        <h2>Text in PostScript</h2>
+        <p>Much of the code for handling text depends on the size of the current font, which is the <var>fontscale</var> variable. <var>fontscale</var> may be understood to be local, so a global <var>absfontscale</var> should then be defined in, say, an overall-accessible dictionary (<var>commondict</var>?).</p>
+        <p>Printing text on a page consists of the following parts:</p>
+        <ul>
+          <li>setting a font by <strong>font name</strong> through intelligent procedure <code class="function"><a href="#ps_myselectfont">myselectfont</a></code>,</li>
+          <li>printing a <a href="#ps_paragraph">paragraph</a>, which relies on <code class="function"><a href="#ps_newline">newline</a></code>.</li>
+          <li>higher stuff, auxiliaries, etc.</li>
+        </ul>
+        <section id="ps_fonts">
+          <h3>Fonts in PostScript</h3>
+          <section>
+            <h4>FontDirectory</h4>
+            <p><code class="command">FontDirectory</code> pushes a dictionary of defined fonts on the operand stack. FontDirectory is not an operator; it is a name in <var>systemdict</var> associated with the dictionary object.</p>
+            <p>The <var>FontDirectory</var> dictionary associates font names with font dictionaries. <code class="command">definefont</code> places entries in <var>FontDirectory</var>, and <code class="command">findfont</code> looks there first. The dictionary is read-only; only <code class="command">definefont</code> and <code class="command">undefinefont</code> can change it.</p>
+            <p>Although <var>FontDirectory</var> contains all fonts that are currently defined in <a href="#ps_vm">VM</a>, it does not necessarily describe all the fonts available to a PostScript language program. This is because the <code class="command">findfont</code> operator can sometimes obtain fonts from an external source and load them into VM dynamically. Consequently, examining FontDirectory is not a reliable method of inquiring about available fonts. The preferred method is to use the <code class="command">resourcestatus</code> and <code class="command">resourceforall</code> operators, which are Level 2 features, to inquire about the <var>Font</var> resource category. (See section Named Resources.)</p>
+            <p>In Level 2, when global VM allocation mode is in effect (see section Local and Global VM), the name <var>FontDirectory</var> is temporarily rebound to the value of <var>GlobalFontDirectory</var>, which contains only those fonts that have been defined in global VM. This ensures the correct behavior of fonts that are defined in terms of other fonts.</p>
+          </section>
+
+          <section id="ps_font_names">
+            <h4>The Names of the PostScript Fonts</h4>
+            <p>Sans-Serif fonts:</p>
+            <ul>
+              <li>AvantGarde-Book</li>
+              <li>AvantGarde-BookOblique</li>
+              <li>AvantGarde-Demi</li>
+              <li>AvantGarde-DemiOblique</li>
+              <li>Helvetica</li>
+              <li>Helvetica-Oblique</li>
+              <li>Helvetica-Bold</li>
+              <li>Helvetica-BoldOblique</li>
+              <li>Helvetica-Narrow</li>
+              <li>Helvetica-Narrow-Oblique</li>
+              <li>Helvetica-Narrow-Bold</li>
+              <li>Helvetica-Narrow-BoldOblique</li>
+            </ul>
+            <p>Special Fonts:</p>
+            <ul>
+              <li>Courier</li>
+              <li>Courier-Oblique</li>
+              <li>Courier-Bold</li>
+              <li>Courier-BoldOblique</li>
+              <li>Symbol</li>
+              <li>ZapfChancery-MediumItalic</li>
+              <li>ZapfDingbats</li>
+            </ul>
+            <p>Serif fonts:</p>
+            <ul>
+              <li>Bookman-Light</li>
+              <li>Bookman-LightItalic</li>
+              <li>Bookman-Demi</li>
+              <li>Bookman-DemiItalic</li>
+              <li>NewCenturySchlbk-Roman</li>
+              <li>NewCenturySchlbk-Italic</li>
+              <li>NewCenturySchlbk-Bold</li>
+              <li>NewCenturySchlbk-BoldItalic</li>
+              <li>Palatino-Roman</li>
+              <li>Palatino-Italic</li>
+              <li>Palatino-Bold</li>
+              <li>Palatino-BoldItalic</li>
+              <li>Times-Roman</li>
+              <li>Times-Italic</li>
+              <li>Times-Bold</li>
+              <li>Times-BoldItalic</li>
+            </ul>
+          </section>
+
+          <!-- end of "The Names of the PostScript Fonts" -->
+        </section>
+
+        <!-- end of "Fonts in PostScript" -->
+        <section>
+          <h3>Intelligent Procedures For Setting Fonts</h3>
+          <p>Procedure <code class="function">myselectfont</code> is polymorphic, hence its complication. I reproduce it in full here:</p>
+          <pre id="ps_myselectfont">/leadk 0.88 def
+/myselectfont {
+% stack: /fontname scale|[a b c d e f]
+  /currentfontname 2 index def % update var currentfontname
+  dup
+  dup type /arraytype eq
+  {
+   dup 0 get /fontscale exch def % fontscale = horizontal scale factor
+   /fonttransformationmatrix
+  } {/fontscale} ifelse exch def
+  selectfont
+  /lead fontscale leadk mul def
+  /space_width ( ) stringwidth pop def
+  gsave
+    setbackgroundcolor
+    newpath 0 0 moveto
+    (g) true charpath pathbbox /fontbodyheight exch def pop /fontdepth exch def pop
+    (t) true charpath pathbbox /fontheight exch def 3 {pop} repeat
+  grestore
+} def</pre>
+          <p>Here is a non-polymorphic and much simplified version of <var>myselectfont</var>:</p>
+          <pre>/leadk 0.88 def
+/myselectfont {
+% stack: /fontname scale
+  /fontscale exch def
+  /fontname exch def % update var currentfontname
+  currentfontname fontscale selectfont
+  /lead fontscale leadk mul def
+} def</pre>
+        </section>
+
+        <section id="ps_show_relative">
+          <h3>Show a String Left of, Below, Over, or At a Given Point</h3>
+          <p>When we show a string with built-in operator <code class="function">show</code> the lower left hand corner of the first glyph is at the initial currentpoint. This is showing a string <em>right of</em> the currentpoint.</p>
+          <p>The names of these procedures bear a short (one-letter) abbreviation for center (<q>c</q>), left, under, and over. More complete procedures should take into account the body height of the font.</p>
+          <p>This is a simple procedure for showing a string centered at the current point:</p>
+          <pre>/showcat { % stack: (string) x y
+  gsave moveto
+    dup stringwidth pop 2 div neg  0  rmoveto
+    show
+  grestore
+} def</pre>
+          <p>A procedure for printing a string left of the currentpoint could be defined analogously. Just don't divide by 2:</p>
+          <pre>/showleft of { % stack: (string) x y
+  gsave moveto
+    dup stringwidth pop       neg  0  rmoveto
+    show
+  grestore
+} def</pre>
+          <p>whereas procedures for printing over and under would compound adding to or subtracting (vertical line separation) from the top argument on the stack:</p>
+          <pre>lead add showcat</pre>
+          <p>and</p>
+          <pre>lead sub showcat</pre>
+        </section>
+
+        <section id="ps_newline">
+          <h3>New Lines in PostScript</h3>
+          <p>Next we shall define a <code class="function">newline</code> procedure that will move the current point to the left margin and one line separation below. If should fall under the bottom margin line, a page will be turned through <code class="function"><a href="#ps_turn_page">turnpage</a></code>.</p>
+          <p>Procedure <code class="function">newline</code> relies on <var>lead</var>, for vertical line separation.</p>
+          <pre>/newline {
+  currentpoint
+  dup lead sub  bm  gt
+  {
+    exch pop lm exch
+    lead sub
+    moveto
+  } {pop pop turnpage} ifelse
+} def</pre>
+        </section>
+
+        <section id="ps_paragraph">
+          <h3>Printing Paragraphs in PostScript</h3>
+          <p>Printing a paragraph may involve breaking the line and moving to the start of the next line. The following sections deal with different situations.</p>
+          <!--<p>You may also want to see or run a <a href='#paragraph_demo_ps'>paragraph demonstration</a> program in the Appendix.</p>-->
+          <section id="showpar">
+            <h4>Breaking a String Into Lines with <code class="function">showpar</code></h4>
+            <p>We shall begin by printing ragged-right (or right-unjustified), non-word-breaking paragraphs. This is our first attempt:</p>
+            <pre>/showpar { % stack: (string to be printed)
+  ( )
+  {
+    search
+    {
+      dup stringwidth pop currentpoint pop add rm gt {newline} if
+      show ( ) show
+    }
+    {
+      dup stringwidth pop currentpoint pop add rm gt {newline} if
+      show
+      exit
+    }
+    ifelse
+  } loop
+} def</pre>
+            <p>Note that the twin longest lines (<kbd>dup stringwidth ...</kbd>) cause a newline event if the word to be printed would move the current point past <var>rm</var>.</p>
+            <aside>The afore-defined procedure <code class="function">showpar</code> starts printing type at the current point. It does not handle indentation, which ought to be implemented in a containing procedure, say <code class="function">showpars</code> (<em>plural</em>).</aside>
+          </section>
+
+          <section>
+            <h4>Mixed Paragraphs</h4>
+            <p>A <dfn>mixed paragraph</dfn> is represented as an heterogenous array of (strings) and {executables} (<code class="function" id="showmixedpar2">showmixedpar2</code>). Each string is printed through afore-defined showpar, and each procedure is, well, executed! The code for is this simple:</p>
+            <pre>/showmixed2 { % stack: [{text|executable}*]
+  {dup type /stringtype eq {showpar}{exec} ifelse} forall
+} def</pre>
+            <aside class="warning">Beware of including unmatched scope commands (<kbd>begin</kbd>, <kbd>end</kbd>, <kbd>gsave</kbd>, or <kbd>grestore</kbd>) in your executable objects because unclosed scope might interact poorly with calling code. You probably had better limit yourself to changing fonts.</aside>
+            <p>Additionally, a paragraph may be represented as an heterogenous array of (strings), {executables}, <em>and</em> numbers. Each of these numbers in the array precedes an executable. The paragraph composer uses this information to find if printing the procedure would move the current point beyond the right margin. The following procedure (<code class="function" id="showmixedpar3">showmixedpar3</code>) just expands [the <kbd>exec</kbd> keyword in] preceding <code class="function">showmixedpar2</code>:</p>
+            <pre>/showmixed3 { % stack: [{text|executable|number}*]
+  {dup type /stringtype eq {showpar}{
+    dup xcheck {exec}{currentpoint pop add rm gt {newline} if} ifelse
+  } ifelse} forall
+} def</pre>
+            <aside class="warning">A number in the paragraph array must always be followed by an executable object. Otherwise the interpretation will fail.</aside>
+          </section>
+
+          <section>
+            <h4>Strategies and Schemes for Breaking Words*</h4>
+          </section>
+
+        </section>
+
+        <section id="getting_ps_font_widths">
+          <h3>Having PostScript Declare an Array of Widths for Each of its Fonts</h3>
+          <p>The intended purpose of this is to let another program written in a more congenial programming language (C, C++, etc.) do the computing and output a <em>dumb</em> PostScript script.</p>
+          <section>
+            <h4>Printing the widths of a font for C, C++, or other</h4>
+            <p>The actual procedure used is slightly involved because it declares an array of 256 widths as well as a two dimensional array of 256 fourfold items representing the bounding box of each character. (The Bounding Box of a picture is the coordinates of its lower left-hand and upper right-hand corners.)</p>
+            <p> I have named it <code class="computeroutput">definecharbb</code>. It takes the name of an existing (possibly reencoded) font, a more convenient name without hyphens, and a string holding the name of the output file. It depends on variable <code class="computeroutput">definecharbb_fontscale</code>, which is defined as 10. Its code is:</p>
+            <pre>/definecharbb { % stack: /fontname /fontid (file_name)
+  10 dict begin
+    256 string cvs (w) file /fo exch def % open output file
+    /char 1 string def               % define 1-char string
+    /fontid   exch def
+    /fontname exch def
+    gsave
+      % selectfont at given fontscale:
+      fontname definecharbb_fontscale selectfont
+    % DEFINE BOUNDING BOX ARRAY:
+      fo               (float )  writestring
+      fo  fontid 256 string cvs  writestring
+      fo    (_bb[256][4] = {\n)  writestring
+      clear
+      % iterate through all characters to write bb array[255][4]:
+      0 1 255 {
+        /idx exch def
+        fo (  {) writestring
+        0 0 moveto
+        idx char exch 0 exch put % load char
+        char true charpath pathbbox % push bounding box
+        4 -1 1 {-1 roll} for % reverse order
+        4 {definecharbb_fontscale div 4 1 roll} repeat % divide by fontscale used
+        3 {
+          20 string cvs fo exch writestring
+          fo (,) writestring
+        } repeat
+          20 string cvs fo exch writestring
+        fo  idx 255 lt {(},\n)}{(}\n)} ifelse  writestring
+      } for
+      % terminate:
+      fo (};\n) writestring
+    % DEFINE WIDTHS ARRAY:
+      fo               (float )  writestring
+      fo  fontid 256 string cvs  writestring
+      fo    (_widths[256] = {\n)  writestring
+      clear
+      % iterate through all characters to write widths array[255]:
+      0 1 255 {
+        /idx exch def
+        fo (  ) writestring
+        0 0 moveto
+        idx char exch 0 exch put % load char
+        char stringwidth pop     % push char's width
+        definecharbb_fontscale div
+        20 string cvs  fo exch  writestring
+        fo  idx 255 lt {(,\n)}{(\n};)} ifelse  writestring
+      } for
+    grestore
+    fo flushfile
+    fo closefile
+  end
+} def</pre>
+            <p>If you don't want to declare a bounding box array, delete all code between comments <code class="computeroutput">% DEFINE BOUNDING BOX ARRAY</code> and <code class="computeroutput">% DEFINE WIDTHS ARRAY:</code>.</p>
+          </section>
+
+          <!-- end of "Printing the widths of a font for C, C++, or other" -->
+        </section>
+
+        <!-- end of "Having PostScript Declare an Array of Widths for Each of its Fonts" -->
+        <section id="ps_making_or_changing_fonts">
+          <h3>Making or Changing Fonts</h3>
+          <aside>Most of this section has been borrowed or adapted from <cite>PostScript Language Tutorial and CookBook</cite>, by Adobe Systems Incorporated, 1985, which is distributed free of charge.</aside>
+          <p>The first example, <a href="#ps_re-encoding_an_entire_font">Re-encoding an Entire Font,</a> presents a general procedure (<code class="function">ReEncode</code>) for changing the encoding vector of a font. The second example, <a href="#ps_making_small_changes_to_encoding_vectors">Making Small Changes to Encoding Vectors,</a> presents an alternative to replacing the entire encoding vector for situations when the encoding vector only needs to be changed slightly. Most of the built-in fonts contain characters that have not been encoded, such as accented characters. To print such characters, the name of the character must be inserted into the encoding vector. However, we do not want to specify the entire encoding vector to insert a few new characters so the procedure <code class="function">ReEncodeSmall</code> has been defined to handle this insertion.</p>
+          <p>The third example, <a href="#ps_changing_char_widths">Changing the Character Widths of a Font,</a> defines a general procedure, <code class="function">ModifyWidths,</code> for changing some or all of the character widths in a given font. It changes the necessary entries in the font dictionary. In this example the character widths of a font are rounded such that when the characters are printed at a certain point size, the widths will be an integral number of pixels in device space. This is useful for avoiding round-off error in positioning characters with the show operator.</p>
+          <p>The fourth program, <a href="#ps_creating_an_analytic_font">Creating an Analytic Font,</a> demonstrates how to create a new font whose character descriptions are geometric in nature. The program defines all the necessary font dictionary entries as well as some new entries of its own. The font created has 4 characters: bullets of three sizes and an open box shape. Each character is described using the PostScript graphic operators. After the font has been defined it is used in an example that prints the various characters intermixed with one of the built-in fonts.</p>
+          <!-- <p>The final program, <a href='#ps_creating_a_bitmap_font'>Creating a Bitmap Font,</a> demonstrates an efficient way to create a new font whose character descriptions are bitmaps.</p> -->
+          <section id="ps_copy_font">
+            <h4>Copying a Font</h4>
+            <p>Since fonts are kept in dictionaries, you copy them by declaring a long-enough dictionary and copying everything but the ID field.</p>
+            <p>There are two important steps to remember when copying a font. The first is not to copy the <var>FID</var> field from the original font dictionary to the new dictionary. The <var>FID</var> field will automatically get created when the <code class="function">definefont</code> operator is executed. Attempting to perform a <code class="function">definefont</code> operation on a dictionary that already contains an <var>FID</var> field results in an <q>invalidfont</q> error. The second step is to change the <var>FontName</var> field in the new dictionary. The same name which appears in the <var>FontName</var> field should be provided as an argument to the <code class="function">definefont</code> operator. <em>The <var>FontName</var> should always be a unique name.</em></p>
+            <p>In addition, for fonts that have a <var>UniqueID</var> field, it is important to change the <var>UniqueID</var> field when the font is modified. The only case when the <var>UniqueID</var> field should not be changed is when the <var>Encoding</var> field of a font dictionary has been changed.</p>
+            <aside class="warning">Changing the <var>UniqueID</var> should be done with care. See the programs <a href="#ps_making_an_outline_font">Making an Outline Font</a> and <a href="#ps_changing_char_widths">Changing the Character Widths of a Font</a> for examples of this.</aside>
+          </section>
+
+          <!-- end of "Copying a Font" -->
+          <section id="ps_reencode_font">
+            <h4>Re-Encoding a Font</h4>
+            <p>To reencode a font you have to <a href="#ps_copy_font">copy</a> everything in it except the ID and then define your own <var>Encoding</var> array variable.</p>
+            <p>The encoding vector is a mapping of character codes (in the range of 0 to 255) to character names.</p>
+            <p>A font can hold more than 256 glyphs. An encoding is a mapping from the range of naturals 0-255 to 256 glyphs in the font or fewer. Most of the built-in fonts are encoded according to a standard encoding, which allows access to only the ASCII character set, good enough for English, inadequate for Spanish, French, German etc.</p>
+            <p>Reencoding entails defining a new font (which is a type in the PostScript programming language).</p>
+            <p>Below is a general encoding procedure. Further down we define a more specific procedure for encoding into ISOLATIN1.</p>
+            <pre>/ReEncode {
+  reencodedict begin
+    /newencoding exch def
+    /newfontname exch def
+    /basefontname exch def
+    /basefontdict basefontname findfont def
+    /newfont basefontdict maxlength dict def
+    basefontdict {
+      exch dup dup /FID ne exch /Encoding ne and
+      { exch newfont 3 1 roll put }
+      { pop pop }
+      ifelse
+    } forall
+    newfont /FontName newfontname put
+    newfont /Encoding newencoding put
+    newfontname newfont definefont pop
+  end
+} def</pre>
+            <p>Usually we want to redefine a font to the ISOLatin1 encoding, as its tables are included in the documentation. We shall avail ourselves of the following convenient PostScript procedure lifted from the internet:</p>
+            <pre id="EncodeAsISOLatin1">/EncodeAsISOLatin1 { % usage: /existingFont /newfont EncodeAsISOLatin1
+  /newfontname exch def
+  findfont            %
+  dup length dict begin
+  { 1 index /FID ne
+    {def} {pop pop} ifelse
+  } forall
+  /Encoding ISOLatin1Encoding def
+  currentdict
+  end
+  newfontname exch definefont pop
+} def/</pre>
+            <p>and is used like this:</p>
+            <pre>/Times-Roman /Times-Roman-ISOLatin1 EncodeAsISOLatin1
+/Times-Bold /Times-Bold-ISOLatin1 EncodeAsISOLatin1
+...</pre>
+            <p>When encoding accented characters it is important to understand that accented characters (also known as <dfn>composite characters</dfn>) are actually a composite of the letter and the accent. In order to print accented characters properly, both the letter and the accent of the composite character must be encoded in the encoding vector, as well as the composite character itself. For example, if you wish to encode the composite character <var>Aacute</var> both the <var>A</var> and the <var>acute</var> must be encoded.</p>
+            <section id="ps_re-encoding_an_entire_font">
+              <h5>Re-encoding an Entire Font*</h5>
+            </section>
+
+            <!-- end of "Re-encoding an Entire Font" -->
+            <section id="ps_making_small_changes_to_encoding_vectors">
+              <h5>Making Small Changes to Encoding Vectors*</h5>
+            </section>
+
+            <!-- end of "Making Small Changes to Encoding Vectors" -->
+          </section>
+
+          <!-- end of "Re-Encoding a Font" -->
+          <section>
+            <h4>Modifying Existing Fonts</h4>
+            <p> The basic strategy for modifying an existing font is to create an entirely new font dictionary and to copy all the references to entries in the original font dictionary, except for the <var>FID</var> entry, into the new dictionary. The next step is to modify the appropriate fields. The last step is to perform a <code class="function">definefont</code> operation on the modified font dictionary to make it into a PostScript font.</p>
+            <section id="ps_changing_char_widths">
+              <h5>Changing the Character Widths of a Font</h5>
+            </section>
+
+            <!-- end of "Changing the Character Widths of a Font" -->
+            <section id="ps_making_an_outline_font">
+              <h5>Making an Outline Font*</h5>
+            </section>
+
+            <!-- end of "Making an Outline Font" -->
+          </section>
+
+          <!-- end of "Modifying Existing Fonts" -->
+          <section id="ps_creating_new_fonts">
+            <h4>Creating New Fonts</h4>
+            <p>When creating new fonts, certain font dictionary entries must be present. They are FontMatrix, FontType, FontBBox, Encoding and BuildChar. For a user defined font, the FontType should always have the value 3. In addition, it is useful, although not necessary, to have a UniqueID entry. The UniqueID entry facilitates better caching of characters on disk-based implementations of the PostScript interpreter. (Be forewarned that the UniqueID must truly be a unique 24 bit number and that the creator of the font is responsible for ensuring this.)</p>
+            <p>The BuildChar procedure is responsible for specifying how a character in the new font is rendered. It should always call either the setcachedevice or setcharwidth operator. The BuildChar procedure can use almost all of the PostScript operators to render a character. However, there are some restrictions when the character is to be cached (i.e., when the setcachedevice operator has been used). In this case, any of the operators related to gray-level and color are invalid (e.g., setgray, setrgbcolor, image, etc).</p>
+            <p id="ps_font_notdef">In the character descriptions for a new font, it is a good idea to create a character description that will be printed for <em>undefined</em> characters. This character is called <q>.notdef</q> in the built-in fonts, and it is defined to print nothing. When users try to print characters that have not been defined in the font, the <q>.notdef</q> character is printed; the <q>.notdef</q> character is a graceful way of avoiding unexpected errors. As well as creating a character description for the undefined character, it is important that the encoding vector have the name of this undefined character in each location that does not have a character defined. The simplest way to do this is to initialize all the entries in the encoding vector to contain the <q>.notdef</q> character and then enter the character names in the desired positions.</p>
+            <section id="ps_creating_an_analytic_font">
+              <h5>Creating an Analytic Font</h5>
+            </section>
+
+            <!-- end of "Creating an Analytic Font" -->
+          </section>
+
+          <!-- end of "Creating New Fonts" -->
+        </section>
+
+        <!-- end of "Making or Changing Fonts" -->
+      </section>
+
+      <!-- end of "Text in PostScript" -->
+      <section id="ps_pdfmarks">
+        <h2>Pdfmarks</h2>
+        <p><dfn>pdfmarks</dfn> are an extension of PostScript&#xAE; code used to represent PDF features.</p>
+        <p>PDF features defined by pdfmarks are automatically generated when the PostScript code is converted into a PDF.</p>
+        <section>
+          <h3>What can you do with pdfmarks?</h3>
+          <p>pdfmarks enable you to:</p>
+          <ul>
+            <li>ADD annotations, links, form fields, bookmarks, articles, named destinations, page transitions</li>
+            <li>SET page cropping, to open to a specific page, to open with bookmarks or thumbnails displayed</li>
+            <li>DEFINE page labels, document information fields</li>
+          </ul>
+          <p>In other words many of the enhancements that make PDFs dynamic and interactive can be implemented with pdfmarks.</p>
+        </section>
+
+        <section>
+          <h3>Understanding pdfmarks</h3>
+          <p>Pdfmarks have three parts:</p>
+          <ul>
+            <li>Every pdfmark starts with the mark object - this is the [ (left bracket) character.</li>
+            <li>Arguments: these describe what the pdfmark's features are. These are the ingredients of the pdfmark recipe.</li>
+            <li>A name: this specifies the kind of pdfmark.</li>
+          </ul>
+          <pre>[
+
+  /Rect [ 0 0 216 144 ]
+  /Open true
+  /Title (Lynn)
+  /Contents (This is a Red Note)
+  /Color [1 0 0 ]
+  /Subtype /Text
+
+  /ANN pdfmark</pre>
+          <aside>Most pdfmark arguments resemble PDF dictionary keys. This is an important fact to remember. If you are unsure how to construct a specific argument sometimes you can open a pdf that contains a similar feature and determine from the dictionary entry (reverse engineer) how the pdfmark entry should look.</aside>
+          <p>Arguments are expressed as Key-Value pairs. Each type of pdfmark uses a set of required and optional key-value pairs. Some key-value pairs are specific to a type of pdfmark, some are used more globally.</p>
+          <p>Keys, being PostScript <q>names</q>, start with a slash (/), followed by the name of the key (first character capitalized). Some examples of keys are: <kbd>/Rect</kbd>, <kbd>/Color</kbd>, <kbd>/Page</kbd>.</p>
+          <p>Values can be expressed in several different formats: string, array, integer, boolean, name.</p>
+          <section>
+            <h4>Specifying page numbers</h4>
+            <p>All pages in a PDF document are numbered sequentially; the first page in a document is page 1. When referring to pages in a pdfmark recipe, all page numbers must be specified using this sequence number, not the page number as it appears on the printed page.</p>
+            <p>This is an example of an argument specifying a page number:</p>
+            <pre>/Page 2</pre>
+          </section>
+
+          <section>
+            <h4>Defining Colors</h4>
+            <p>Colors are defined by an array of three numbers placed between brackets that represent RGB values and look something like this: <kbd>[1 0 .65 ]</kbd>.</p>
+            <p>These numbers must be 0, 1 or any decimal in between and represent percentages of Red, Green and Blue. Percentages between 0 and 100% are defined by decimals. There is no required number of digits to the right of the decimal point. 1, .6, ,.25, .824 are all valid.</p>
+            <p>This is an example of an argument that defines color:</p>
+            <pre>/Color [ .3 .6 .734 ]</pre>
+          </section>
+
+          <section>
+            <h4>Rectangles</h4>
+            <p>A rectangle is described by an array of four numbers:</p>
+            <pre>[X<sub>LL</sub> Y<sub>LL</sub> X<sub>UR</sub> Y<sub>UR</sub> ]</pre>
+          </section>
+
+          <section>
+            <h4>Setting Views</h4>
+            <p>To define how a page will display on the screen you use the <kbd>/View</kbd> key. The <kbd>/View</kbd> key can be used when defining links, named destinations, open options, or bookmarks. The following list describes the different values available, what they mean:</p>
+            <dl>
+              <!-- <varlistentry> -->
+              <dt>/Fit</dt>
+              <dd>
+                <p>Fit the page to the window</p>
+                <p><em>parameters:</em> none</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [ /Fit ]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/FitB</kbd>
+              </dt>
+              <dd>
+                <p>Fit the bounding box of the page contents to the window.</p>
+                <p><em>parameters:</em> none</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [ /FitB ]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/FitH</kbd>
+              </dt>
+              <dd>
+                <p>Fit the width of the page to the window. top specifies the distance from the page origin to the top of the window. If top value is -32768 the top value is calculated automatically.</p>
+                <p><em>parameters:</em> top</p>
+                <p><em>examples:</em><kbd>/View [ /FitH -32768 ]</kbd> and <kbd>/View [ /FitH 5 ]</kbd></p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/FitBH</kbd>
+              </dt>
+              <dd>
+                <p>Fit the width of the bounding box of the page contents to the window. top specifies the distance from the page origin to the top of the window.</p>
+                <p><em>parameters:</em> top</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [ /FitBH 5]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/FitR</kbd>
+              </dt>
+              <dd>
+                <p>Fit the rectangle specified by the parameters to the window.</p>
+                <p><em>parameters:</em> x1 y1 x2 y2</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [/FitR 30 648 209 761]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/FitV</kbd>
+              </dt>
+              <dd>
+                <p>Fit the height of the page to the window. <var>left</var> specifies the distance in from the page origin to the left edge of the window.</p>
+                <p><em>parameters:</em> left</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [ /FitV -5 ]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/FitBV</kbd>
+              </dt>
+              <dd>
+                <p>Fit the height of the bounding box of the page contents to the window. <var>left</var> specifies the distance from the page origin to the left edge of the window.</p>
+                <p><em>parameters:</em>left</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View / [ /FitBV 18 ]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+              <!-- <varlistentry> -->
+              <dt>
+                <kbd>/XYZ</kbd>
+              </dt>
+              <dd>
+                <p><var>left</var> and <var>top</var> specify the distance from the origin of the page to the top-left corner of the window. <var>zoom</var> specifies the zoom factor, with 1 being 100% magnification.</p>
+                <p>specifying a view destination of</p>
+                <pre>/View [/XYZ null null null ]</pre>
+                <p>goes to the specified page and retains the same horizontal and vertical offset and zoom as the current page. A <var>zoom</var> of 0 has the same meaning as a zoom of NULL.</p>
+                <p><em>parameters:</em> left top zoom</p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [/XYZ 5 802 1.5 ]</kbd>
+                </p>
+                <p>
+                  <em>example:</em>
+                  <kbd>/View [/XYZ null null 0 ]</kbd>
+                </p>
+              </dd>
+              <!-- </varlistentry> -->
+            </dl>
+          </section>
+
+        </section>
+
+        <section>
+          <h3>Specifying Actions and Destinations</h3>
+          <p>When a user opens a file, clicks on a link, or clicks on a bookmark, there are several types of information that need to be specified in order to indicate what should happen. Different pdfmark types require one or more of the following:</p>
+          <dl>
+            <!-- <varlistentry> -->
+            <dt>
+              <a href="#pdfmark_actions">Actions</a>
+            </dt>
+            <dd>
+              <p>Actions specify what type of action should be taken. They are indicated by the <kbd>Action</kbd> key in a pdfmark.</p>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>
+              <a href="#pdfmark_destinations">Destinations</a>
+            </dt>
+            <dd>
+              <p>Destinations specify a particular location in a file, and a zoom factor.</p>
+              <p>View destinations require a <kbd>Page</kbd> key and a <kbd>View</kbd> key. Typically they are used along with an <kbd>Action</kbd> key; if there is no <kbd>Action</kbd> key, the action is the equivalent of <kbd>GoTo</kbd>, meaning to jump to the destination in the current file.</p>
+              <p>Alternatively, named destinations can be used, specified by the <kbd>Dest</kbd> key. They specify a destination in the same file or another file, by name.</p>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>Files</dt>
+            <dd>
+              <p>File specifiers are indicate the target of an action when it is not the current file.</p>
+            </dd>
+            <!-- </varlistentry> -->
+          </dl>
+          <section id="pdfmark_actions">
+            <h4><kbd>pdfmark</kbd> actions</h4>
+            <p>PDF defines several types of actions that can be specified for bookmarks and annotations. The types defined as of PDF 1.3 are:</p>
+            <ul>
+              <li>
+                <p><kbd>GoTo</kbd>: Go to a destination in the current document</p>
+              </li>
+              <li>
+                <p><kbd>GoToR</kbd>: Go to a destination in another document</p>
+              </li>
+              <li>
+                <p><kbd>Launch</kbd>: Launch an application, usually to open a file</p>
+              </li>
+              <li>
+                <p><kbd>Thread</kbd>: Begin reading an article thread</p>
+              </li>
+              <li>
+                <p><kbd>URI</kbd>: Resolve a uniform resource identifier</p>
+              </li>
+              <li>
+                <p><kbd>Sound</kbd>: Play a sound</p>
+              </li>
+              <li>
+                <p><kbd>Movie</kbd>: Play a movie</p>
+              </li>
+              <li>
+                <p><kbd>Hide</kbd>: Set an annotation's Hidden flag</p>
+              </li>
+              <li>
+                <p><kbd>Named</kbd>: Execute an action predefined by the viewer application</p>
+              </li>
+              <li>
+                <p><kbd>SubmitForm</kbd>: Send data to a URL</p>
+              </li>
+              <li>
+                <p><kbd>ResetForm</kbd>: Set fields to their default values</p>
+              </li>
+              <li>
+                <p><kbd>ImportData</kbd>: Import field values from a file</p>
+              </li>
+              <li>
+                <p><kbd>JavaScript</kbd>: Execute a JavaScript script</p>
+              </li>
+            </ul>
+            <p>When using pdfmark, the type of action for the annotation or bookmark is specified by the <kbd>Action</kbd> key. It takes one of the following values:</p>
+            <ul>
+              <li>A predefined name corresponding to one of the first four items in the foregoing table: GoTo, GoToR, Launch, or Article (which corresponds to the Thread type in PDF).</li>
+              <li>
+                <p>A dictionary specifying one of the other types, or a custom action. This dictionary must contain the key&#x2013;value pairs that are to be placed into the action dictionary in the PDF file. See Section 8.5 in the <cite>PDF Reference</cite> for a detailed description of all the actions and their dictionaries. The syntax for this type of <kbd>Action</kbd> key is:</p>
+                <pre>/Action &lt;&lt; / Subtype actiontype
+...other action dictionary key&#x2013;value pairs... &gt;&gt;</pre>
+                <p>If the <kbd>Action</kbd> key is not present, the action is assumed to be the equivalent of <kbd>GoTo</kbd>; that is, jumping to a location in the current document. Actions other than <kbd>GoTo</kbd> may require a file-specifier key to specify an external document</p>
+              </li>
+            </ul>
+            <section>
+              <h5>Custom link action (URI link for the Acrobat WebLink plug-in): Examples</h5>
+              <pre>[ /Rect [50 425 295 445]
+/Action &lt;&lt; /Subtype /URI /URI (http://www.adobe.com) &gt;&gt;
+/Border [0 0 2]
+/Color [.7 0 0]
+/Subtype /Link
+/ANN pdfmark</pre>
+              <pre>% Equivalent link using Launch action
+[ /Rect [50 425 295 445]
+/Action /Launch
+/Border [0 0 2]
+/Color [.7 0 0]
+/URI (http://www.adobe.com)
+/Subtype /Link
+/ANN pdfmark</pre>
+              <pre>% URI link with a named destination
+[ /Rect [50 425 295 445]
+/Action &lt;&lt; /Subtype /URI /URI (http://www.adobe.com#YourDestination) &gt;&gt;
+/Border [0 0 2]
+/Color [.7 0 0]
+/Subtype /Link
+/ANN pdfmark</pre>
+            </section>
+
+            <section>
+              <h5><kbd>GoTo</kbd> Actions</h5>
+              <p><kbd>GoTo</kbd> actions jump to a specified page and zoom factor within the current document. They require the <kbd><a href="#pdfmark_destinations">Dest</a></kbd> key, or both the <kbd>Page</kbd> and <kbd>View</kbd> keys.</p>
+            </section>
+
+            <section>
+              <h5><kbd>GoToR</kbd> Actions</h5>
+              <p><kbd>GoToR</kbd> actions specify a location in another PDF file. They require the <kbd>Dest</kbd> key, or both the <kbd>Page</kbd> and <kbd>View</kbd> keys, plus one or more file-specifier keys. Here is a bookmark whose action consists of opening a file:</p>
+              <pre>[ /Action /GoToR /File (test.pdf) /Page 2 /View [/FitR 30 648 209 761]
+/Title (Open test.pdf on page 2) /OUT pdfmark</pre>
+              <p>The following list specifies keys that can be used with the <kbd>GoToR</kbd>, <kbd>Launch</kbd>, and <kbd>Article</kbd> actions to specify the target file:</p>
+              <dl id="pdfmark_gotor_keys">
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>File</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">string</code> (Required)</p>
+                  <p>The device-independent pathname of the PDF file.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>DOSFile</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">string</code> (Optional)</p>
+                  <p>The MS-DOS pathname (in the PDF pathname format), of the PDF file. Acrobat viewer applications on Windows and DOS computers ignore the File key if the DOSFile key is present.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>MacFile</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">string</code> (Optional)</p>
+                  <p>The Mac OS filename (in the PDF pathname format) of the PDF file. Acrobat viewer applications on Mac OS computers ignore the File key if the MacFile key is present.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>UnixFile</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">string</code> (Optional)</p>
+                  <p>The UNIX filename (in the PDF pathname format) of the PDF file. Acrobat viewer applications on UNIX computers ignore the File key if the UnixFile key is present.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>URI</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">string</code> (Optional)</p>
+                  <p>The uniform resource identifier (URI) of a file on the internet. It can be an HTML file as well as a PDF file. Acrobat viewer applications ignore the <kbd>File</kbd> key if the <kbd>URI</kbd> key is present. Named destinations may be appended to URLs, following a <q>#</q> character, as in http://www.adobe.com/test.pdf#name. The Acrobat viewer displays the part of the PDF file specified by the named destination.</p>
+                  <aside>This key is used with the <kbd>Launch</kbd> action. URIs can also be specified with an action dictionary where the value of the Subtype key is /URI</aside>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>ID</kbd>
+                </dt>
+                <dd>array (Optional) An array of two strings specifying the PDF file ID. This key can be used to ensure the correct version of the destination file is found. If present, the destination PDF file's <var>ID</var> is compared with <var>ID</var>, and the user is warned if they are different.</dd>
+                <!-- </varlistentry> -->
+              </dl>
+            </section>
+
+            <section>
+              <h5>Launch Actions</h5>
+              <p>Launch actions launch an arbitrary application or document, specified by the <kbd>File</kbd> key.</p>
+              <p>Here is an example of a link that launches another file:</p>
+              <pre>[ /Rect [70 600 210 625]
+/Border [16 16 1]
+/Color [0 0 1]
+/Action /Launch
+/File (test.doc)
+/Subtype /Link
+/ANN pdfmark</pre>
+            </section>
+
+            <section>
+              <h5>Article Actions</h5>
+              <p>Article actions set the Acrobat viewer to article-reading mode, at the beginning of a specified article in the current document or another PDF document.</p>
+              <p>They require the <kbd>Dest</kbd> key, which takes one of the following values:</p>
+              <ul>
+                <li>An integer that specifies the article's index in the document (the first article in a document has an index of 0)</li>
+                <li>A string that matches the article's Title.</li>
+              </ul>
+              <p>In addition, article actions require one or more file-specifier keys if the article is in a different PDF file (see list of <a href="#pdfmark_gotor_keys">GoToR actions</a>).</p>
+              <p>Here is an example:</p>
+              <pre>[ /Action /Article /Dest (Now is the Time)
+/Title (Now is the Time)
+/OUT pdfmark</pre>
+            </section>
+
+          </section>
+
+          <section id="pdfmark_destinations">
+            <h4><kbd>pdfmark</kbd> destinations</h4>
+            <p>There are two ways of specifying a location within a document that is the target of an action:</p>
+            <ul>
+              <li>View destinations explicitly specify a page, a location on the page, and a fit type.</li>
+              <li>Named destinations specify the target as a name which has been defined.</li>
+            </ul>
+            <section id="pdfmark_view_destinations">
+              <h5>View Destinations</h5>
+              <p>View destinations require the following two keys:</p>
+              <dl>
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>Page</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <code class="classname">integer or name</code>
+                  </p>
+                  <p>The destination page.</p>
+                  <p>An integer value represents the sequence number of the page within the PDF file.</p>
+                  <aside>The first page in a file is page 1, not page 0.</aside>
+                  <p>The name objects <kbd>Next</kbd> and <kbd>Prev</kbd> are valid destination page values for links and articles.</p>
+                  <p>If the destination of a link is on the same page, the <kbd>Page</kbd> key should be omitted. If the value of the <kbd>Page</kbd> key is 0, the bookmark or link has a NULL destination.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>View</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <code class="classname">array</code>
+                  </p>
+                  <p>Specifies a link or bookmark's destination on a page, and its <a href="#pdfmark_fit_list">fit</a> type. The first array entry is one of the fit type names shown below. The remaining entries, if any, specify the location as either a rectangle, a point, or an x&#x2013; or y&#x2013;coordinate, depending on the fit type.</p>
+                </dd>
+                <!-- </varlistentry> -->
+              </dl>
+              <p>These are the fit type names and parameters:</p>
+              <dl id="pdfmark_fit_list">
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>Fit</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <em>No parameters.</em>
+                  </p>
+                  <p>Fit the page to the window. This is a shortcut for specifying <kbd>FitR</kbd> with the rectangle being the crop box for the page.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitB</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <em>No parameters.</em>
+                  </p>
+                  <p>Fit the bounding box of the page contents to the window.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitH</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <var>top</var>
+                  </p>
+                  <p>Fit the width of the page to the window. <var>top</var> specifies the distance from the page origin to the top of the window. This is a shortcut for specifying <kbd>FitR</kbd> with the rectangle having the width of the page, and both y-coordinates equal to <var>top</var>.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitBH</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <var>top</var>
+                  </p>
+                  <p>Fit the width of the bounding box of the page contents to the window. <var>top</var> specifies the distance from the page origin to the top of the window.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitR</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <var>x1 y1 x2 y2</var>
+                  </p>
+                  <p>Fit the rectangle specified by the parameters to the window.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitV</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <var>left</var>
+                  </p>
+                  <p>Fit the height of the page to the window. <var>left</var> specifies the distance in from the page origin to the left edge of the window. This is a shortcut for specifying <kbd>FitR</kbd> with the rectangle having the height of the page, and both x-coordinates equal to left.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitBV</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <var>left</var>
+                  </p>
+                  <p>Fit the height of the bounding box of the page contents to the window. <var>left</var> specifies the distance from the page origin to the left edge of the window.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>FitXYZ</kbd>
+                </dt>
+                <dd>
+                  <p>
+                    <var>left top zoom</var>
+                  </p>
+                  <p><var>left</var> and <var>top</var> specify the distance from the origin of the page to the top-left corner of the window. <var>zoom</var> specifies the zoom factor, with 1 being 100% magnification. If <var>left</var>, <var>top</var> or <var>zoom</var> is NULL, the current value of that parameter is retained. For example, specifying a view destination of</p>
+                  <pre>/View [/XYZ NULL NULL NULL]</pre>
+                  <p>goes to the specified page and retain the same horizontal and vertical offset and zoom as the current page. A zoom of 0 has the same meaning as a zoom of NULL.</p>
+                </dd>
+                <!-- </varlistentry> -->
+              </dl>
+              <p>The zoom factors for the horizontal and vertical directions are identical; there are not separate zoom factors for the two directions. As a result, more of the page may be shown than specified by the destination. For example, when using <kbd>FitR</kbd>, portions of the page outside the destination rectangle appear in the window, unless the window happens to have the same aspect ratio (height-to-width ratio) as the destination rectangle.</p>
+              <p>A common destination is <q>upper left corner of the specified page, with a zoom factor of 1.</q> This can be obtained using the <kbd>XYZ</kbd> destination form, with a <var>left</var> of -4 and a <var>top</var> equal to the top of the <kbd>CropBox</kbd> (or the page size if no <kbd>CropBox</kbd> was specified) plus 4. The offset of 4 is used to slightly move the page corner from the corner of the window, to provide a visual cue that the corner of the page is being shown.</p>
+            </section>
+
+            <section id="pdfmark_named_destinations">
+              <h5>Named Destinations</h5>
+              <p>Locations in PDF files can be specified by name instead of by page number and view. These names can then be used as destinations of bookmarks or links. Using named destinations is particularly advantageous for cross-document links, because if the document containing a link's destination is revised, the link will still work, regardless of whether its location in the file has changed.</p>
+              <p>A named destination is specified by using the pdfmark operator in conjunction with the name DEST. The syntax for a named destination pdfmark is:</p>
+              <pre> [ /Dest <var>name</var>
+  /Page <var>pagenum</var>
+  /View <var>destination</var>
+  /DEST pdfmark</pre>
+              <p>These are the named destination attributes</p>
+              <dl>
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>Dest</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">name</code> (Required): The destination's name.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>Page</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">integer</code> (Optional): The sequence number of the destination page. If present, the named destination pdfmark may be placed anywhere in the PostScript language file. If omitted, the pdfmark must occur within the PostScript language description for the destination page.</p>
+                </dd>
+                <!-- </varlistentry> -->
+                <!-- <varlistentry> -->
+                <dt>
+                  <kbd>View</kbd>
+                </dt>
+                <dd>
+                  <p><code class="classname">array</code> (Optional): The view to display on the destination page. If omitted, defaults to a null destination (lower left corner of the page at a zoom of 100%). See <cite><a href="#pdfmark_view_destinations">Destinations</a></cite> for information on specifying a view destination.</p>
+                </dd>
+                <!-- </varlistentry> -->
+              </dl>
+              <p>In addition to the keys listed above, named destinations may also specify arbitrary key&#x2013;value pairs.</p>
+              <p>Named destinations may be appended to URLs, following a <q>#</q> character, as in <kbd>http://www.adobe.com/test.pdf#nameddest=name</kbd>. The Acrobat viewer displays the part of the PDF file specified in the named destination.</p>
+            </section>
+
+            <section>
+              <h5>Referencing Named Destinations</h5>
+              <p>Named destinations that have been defined with the <kbd>DEST</kbd> pdfmark can be used as the target of a bookmark or link, or by the optional open action in a document's Catalog dictionary. They are specified using the <kbd>Dest</kbd> key.</p>
+            </section>
+
+            <section>
+              <h5>Example of a Named Destination</h5>
+              <p>Definition of named destination</p>
+              <pre>[ /Dest /MyNamedDestination
+  /Page 1
+  /View [/FitH 5]
+  /DEST pdfmark</pre>
+              <p>Link to a named destination:</p>
+              <pre>[ /Rect [70 650 210 675]
+  /Border [16 16 1 [3 10]]
+  /Color [0 .7 1]
+  /Dest /MyNamedDest
+  /Subtype /Link
+  /ANN pdfmark</pre>
+            </section>
+
+          </section>
+
+        </section>
+
+        <!-- end of "Specifying Actions and Destinations" -->
+        <section>
+          <h3>Page Cropping (<kbd>PAGES</kbd>, <kbd>PAGE</kbd>)</h3>
+          <p>Page cropping is used to specify the dimensions of a page or pages in a PDF file that will be displayed or printed (without altering the actual data in the file). Cropping is specified by using the pdfmark operator in conjunction with the names <kbd>PAGES</kbd> (for the entire document) or <kbd>PAGE</kbd> (for an individual page).</p>
+          <p>The syntax for specifying the default page cropping for a document is:</p>
+          <pre>[ /CropBox [xll yll xur yur]
+  /PAGES pdfmark</pre>
+          <p>The syntax for specifying a non-default page cropping for a particular page in a document is:</p>
+          <pre>[ /CropBox [xll yll xur yur]
+  /PAGE pdfmark</pre>
+          <p>The <kbd>CropBox</kbd> key is an array representing the location and size of the viewable area of the page. <kbd>CropBox</kbd> is an array of four numbers [xll, yll, xur, yur] specifying the lower-left x, lower- left y, upper-right x, and upper-right y coordinates&#x2014;measured in default user space&#x2014;of the rectangle defining the cropped page. The minimum allowed page size is .04 x .04 inch (3 x 3 units) and the maximum allowed page size is 200 x 200 inches (14,400 x 14,400 units) in the default user space coordinate system.</p>
+          <p>The <kbd>PAGES</kbd> pdfmark can be placed anywhere in the PostScript language program, but it is recommended that it be placed at the beginning of the file, in the Document Setup section between the document structuring comments <kbd>%%BeginSetup</kbd> and <kbd>%%EndSetup</kbd>, before any marks are placed on the first page.</p>
+          <p>The <kbd>PAGE</kbd> pdfmark must be placed before the <kbd>showpage</kbd> operator for the page it is to affect. It is recommended that it be placed before any marks are made on the page. For example, it affects only the first page of a document if it is placed before any marks are made on the first page.</p>
+          <section>
+            <h4>Examples of Cropping</h4>
+            <section>
+              <h5>Crop this page</h5>
+              <pre>
+% ...
+[ /CropBox [0 0 288 288] /PAGE pdfmark
+/Helvetica findfont 12 scalefont setfont
+/DrawBorder              {
+  10 278 moveto 278 278 lineto 278 10 lineto
+  10 10 lineto closepath stroke
+} bind def
+%%EndSetup
+%%Page: 1 1
+
+DrawBorder
+75 250 moveto (This is Page 3) show
+75 230 moveto (Click here to go to page 1.) show
+75 200 moveto (Click here to open test.doc.) show</pre>
+            </section>
+
+            <section>
+              <h5>Crop all pages</h5>
+              <pre>% ...
+[ /CropBox [54 403 558 720] /PAGES pdfmark
+/DrawBorder
+{
+58 407 moveto 554 407 lineto 554 716 lineto
+58 716 lineto closepath stroke
+} bind def
+
+/Helvetica findfont 10 scalefont setfont
+%%EndSetup
+
+%%Page: 1 1
+DrawBorder
+75 690 moveto (This is Page 1) show
+75 670 moveto (Below is a closed, default note created using pdfmark:) show
+75 570 moveto (Below is an open note with a custom color and label:) show
+400 670 moveto (Below is a closed note) show
+400 655 moveto (containing private data:) show
+400 570 moveto (Below is a custom annotation.) show
+400 555 moveto (It should appear as an unknown) show
+400 540 moveto (annotation icon:) show</pre>
+            </section>
+
+          </section>
+
+        </section>
+
+        <section>
+          <h3>Info Dictionary (<kbd>DOCINFO</kbd>)</h3>
+          <p>A document's Info dictionary contains key&#x2013;value pairs that provide various pieces of information about the document. Info dictionary information is specified by using the pdfmark operator in conjunction with the name <kbd>DOCINFO</kbd>.</p>
+          <p>The syntax for specifying Info dictionary entries is:</p>
+          <pre>[ /Author       <code class="classname">string</code>
+  /CreationDate <code class="classname">string</code>
+  /Creator      <code class="classname">string</code>
+  /Producer     <code class="classname">string</code>
+  /Title        <code class="classname">string</code>
+  /Subject      <code class="classname">string</code>
+  /Keywords     <code class="classname">string</code>
+  /ModDate      <code class="classname">string</code>
+  /DOCINFO pdfmark</pre>
+          <p>All the allowable keys are <code class="classname">string</code>s, and they are all optional. In addition to the keys listed above, arbitrary keys (which must also take <code class="classname">string</code> values) can be specified.</p>
+          <p><kbd>/Producer</kbd> is the name of the application that converted the document from its native form to PDF.</p>
+          <p>The date and time the document was last modified should be of the form:</p>
+          <blockquote class="equation">(D:YYYYMMDDHHmmSSOHH'mm')</blockquote>
+          <p><q>D:</q> is an optional prefix. YYYY is the year. All fields after the year are optional. MM is the month (01-12), DD is the day (01-31), HH is the hour (00-23), mm are the minutes (00-59), and SS are the seconds (00-59). The remainder of the string defines the relation of local time to GMT. O is either + for a positive difference (local time is later than GMT) or - (minus) for a negative difference. HH' is the absolute value of the offset from GMT in hours, and mm' is the absolute value of the offset in minutes. If no GMT information is specified, the relation between the specified time and GMT is considered unknown. Regardless of whether or not GMT information is specified, the remainder of the string should specify the local time.</p>
+        </section>
+
+        <section>
+          <h3>Document Open Options (<kbd>DOCVIEW</kbd>)*</h3>
+        </section>
+
+      </section>
+
+      <!-- end of "Pdfmarks" -->
+      <section>
+        <h2>Tips, Common Idioms, and Techniques</h2>
+        <section>
+          <h3>Scope</h3>
+          <p>Name scope is usually needed to avoid name clash and enables reusing short, easy, descriptive names inside procedures and other blocks.</p>
+          <p>Name scope in PostScript is enforced through local dictionaries. Graphic scope is enforced through "gsave"..."grestore" blocks.</p>
+          <section>
+            <h4>Variables Writeable from Anywhere</h4>
+            <p>A global variable can be read from anywhere. But writing to it from inside a local, enclosed dictionary just creates a same-named local variable (think "association") that is lost as soon as the interpreter leaves the local dictionary. Consider the scenario of a global variable "pagenum" and a procedure that attempts to increment it from within a local dictionary:</p>
+            <pre>/pagenum 0 def
+3 dict begin
+  /pagenum pagenum 1 add def
+end</pre>
+            <p>The code inside the local dictionary just creates a local variable "/pagenum" with value 2. When the dictionary closes, all its associations get lost and forgotten.</p>
+            <p>The workaround is to define a named dictionary at the top level -and therefore accessible everywhere- meant to hold global writeable variables. You may call it "writeabledict", "commondict" or whatever. For instance you would code:</p>
+            <pre>/commondict 20 dict def
+commondict begin
+  /pagenum pagenum 1 add def
+end</pre>
+            <p>or just:</p>
+            <pre>/commondict 20 dict def
+commondict /pagenum 1 put</pre>
+            <p>You could write accessors to read and modify "commondict", possibly availing yourself of operators "put" and "get":</p>
+            <pre>/getpagenum {commondict /pagenum get} def
+/resetpagenum {commondict /pagenum 1 put} def
+/incpagenum {commondict /pagenum getpagenum 1 add put} def</pre>
+          </section>
+
+          <section>
+            <h4>Dictionaries</h4>
+            <p>Dictionaries are scopes where names are mapped to other objects such as numbers, arrays, strings, procedures or possibly names or dictionaries, too. They behave very much like namespaces in C++.</p>
+            <p>You create a dictionary on the stack by pushing a positive integer followed by procedure <code class="function">dict</code>. The positive integer is the dictionary's initial capacity, which in later versions grows automatically on demand. Afterwards, a dictionary is opened by operator <code class="function">begin</code>, and is closed by operator <code class="function">end</code>. The following code creates an unnamed dictionary, opens it, declares some variables (<var>c<sub>1</sub></var> and <var>c<sub>2</sub></var>), uses them to show the square root of c<sub>1</sub><sup>2</sup> + c<sub>2</sub><sup>2</sup>, and closes it without polluting the global namespace.</p>
+            <pre>5 dict begin
+  /c1 3 def
+  /c2 4 def
+  c1 dup mul c2 dup mul add sqrt  =
+end</pre>
+            <p>Dictionaries define local scope, so they are used heavily in the body of procedures. Also they are good for prototyping complex behaviour or computations. They resemble classes in OOP.</p>
+          </section>
+
+        </section>
+
+        <section>
+          <h3>Advanced Classes</h3>
+          <section id="mixin_classes">
+            <h4>Mixin Classes</h4>
+            <p>A <dfn>mixin</dfn> is a class that contains members for use by other classes without having to be the parent class of those other classes. Mixins are sometimes described as being <q>included</q> rather than <q>inherited</q>.</p>
+            <p>Mixins encourage code reuse and can be used to avoid the inheritance ambiguity that <a href="#multiple_inheritance">multiple inheritance</a> can cause, or to work around lack of support for multiple inheritance in a language. A mixin can also be viewed as an interface with implemented methods.<!-- This pattern is an example of enforcing the dependency inversion principle-->.</p>
+          </section>
+
+          <!-- end of "Mixin Classes" -->
+        </section>
+
+        <!-- end of "Advanced Classes" -->
+        <section id="ps_polymorphism">
+          <h3>Polymorphism</h3>
+          <p>Polymorphism means a procedure's behaving differently according to the type of the operands. Many standard operators exhibit some degree of polymorphism: "copy", "get", and "put" are applied to arrays, strings, and dictionaries, for instance.</p>
+          <p>To implement polimorphism use operator "type", which returns a name, one of /stringtype, /arraytype, /nametype, and so on. For instance, to use an input argument which is either a name or a string, you might code:</p>
+          <pre>dup type /nametype eq {...}{...} ifelse</pre>
+          <p>In the first block you would process the argument as a name, in the second as a string.</p>
+        </section>
+
+        <section>
+          <h3>Common PostScript Idioms</h3>
+          <ul>
+            <li>If you are going to use an argument inside a procedure more than once, it may be convenient to define it inside a local unnamed dictionary: "1 dict begin /myvar exch def ... end"</li>
+            <li>You can define several arguments on the stack like this: "[/name_n ... /name2 /name1] {exch def} forall"</li>
+            <li>To check if any element of an array fullfills a condition, which is given in a procedure ({cond}) reading one argument and returning true or false, code like this: "false &lt;array&gt; {{cond} exec or} forall" When "forall" finishes executing the top of the stack will be either true or false.</li>
+            <li>Move into a local graphic context while keeping the current point like this: "currentpoint gsave moveto ... grestore".</li>
+            <li>To fill and stroke a path, notice that either "fill" or "stroke" erase the current path. To fill the path in gray, and then stroke its outline, code "... gsave 0.5 setgray fill grestore stroke"</li>
+          </ul>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Encapsulated PostScript</h2>
+        <p>An encapsulated PostScript file is a PostScript language program describing the appearance of a single page. Typically, the purpose of the EPS file is to be included, or <q>encapsulated,</q> in another PostScript language page description. The EPS file can contain any combination of text, graphics, and images, and it is the same as any other PostScript language page description with only a few restrictions</p>
+        <p>At minimum, an EPS file contains a header comment (<kbd>%!PS-Adobe-3.0 EPSF-3.0</kbd>) and a BoundingBox DSC comment, describing the rectangle containing the image described by the EPS file. Applications can use this information to lay out the page, even if they are unable to directly render the PostScript inside. An application importing an EPS file must parse the EPS file for DSC comments and extract at least the bounding box and resource dependencies of the EPS file.Here is a typical EPS prolog:</p>
+        <pre>%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: dvips(k) 5.95a Copyright 2005 Radical Eye Software
+%%Title: texput.dvi
+%%Pages: 1
+%%PageOrder: Ascend
+%%BoundingBox: 0 0 612 792
+%%DocumentPaperSizes: Letter
+%%EndComments</pre>
+        <p>The four arguments of the bounding box comment correspond to the lower-left (<var>llx</var>, <var>lly</var>) and upper-right (<var>urx</var>, <var>ury</var>) corners of the bounding box. They are expressed in the default PostScript coordinate system. For an EPS file, the bounding box is the smallest rectangle that encloses all the marks painted on the single page of the EPS file.</p>
+        <p>Graphics state information, such as the current line width and line join parameters, must be considered when calculating the bounding box. The following example shows a minimally conforming EPS file that draws a square with a line width of 10 units.</p>
+        <pre>%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 5 5 105 105
+10 setlinewidth
+10 10 moveto
+0 90 rlineto 90 0 rlineto 0 -90 rlineto closepath
+stroke</pre>
+        <p>If the line width were not considered when calculating the bounding box, the bounding box would be incorrectly positioned by five units on each side of the square, causing the application to incorrectly place and clip the imported EPS file. The bounding box specified for this example is therefore correct.</p>
+        <section>
+          <h3>EPS Restrictions</h3>
+          <p>The EPS program must not use operators that initialize or permanently change the state of the machine in a manner that cannot be undone by the enclosing application's use of save and restore (e.g.. the operators starting with <q>init</q>, such as <code class="function">initgraphics</code>). As a special case, the EPS program may use the showpage operator. The importing application is responsible for disabling the normal effects of showpage. The EPS program should make no environment-sensitive decisions (the importing application may be trying to attain some special effect, and the EPS program shouldn't screw this up), although it can use some device-dependent tricks to improve appearance such as a snap-to-pixel algorithm.</p>
+          <p>There are some operators that should not be used within an EPS file: banddevice, cleardictstack, copypage, erasepage, exitserver, framedevice, grestoreall, initclip, initgraphics, initmatrix, quit, renderbands, setglobal, setpagedevice, setshared and startjob. These also include operators from statusdict and userdict operators like legal, letter, a4, b5, etc. There are some operators that should be carefully used: nulldevice, setgstate, sethalftone, setmatrix, setscreen, settransfer and undefinefont.</p>
+        </section>
+
+        <section>
+          <h3>Including EPS files in Plain TeX</h3>
+          <p>You can use the simple epsf package which is designed for plain TeX:</p>
+          <pre>\input epsf
+%optional \epsfxsize=dimen or \epsfysize=dimen
+\epsfbox{filename.eps}</pre>
+          <section>
+            <h4>Including EPS files in Plain TeX (<code class="command">pdftex</code> Users)</h4>
+            <p>For pdftex users the \pdfximage approach might seem appealing. The \pdfximage command creates an image object. The dimensions can be controlled in a similar way to a rule, i.e.</p>
+            <pre>\pdfximage width ... height ... depth ... &lt;general text&gt;</pre>
+            <p>where &lt;general text&gt; is the file name. (\pdfximage has many more parameters which can be looked up in the pdftex manual. For advanced things such as adjusting the bounding box also consult the manual.)</p>
+            <p>Still, \pdfximage only creates an object but does not insert anything yet. Therefore \pdfrefximage has to be used. The command</p>
+            <pre>\pdfrefximage &lt;integer&gt;</pre>
+            <p>places a whatsit including the image stored in the object referred to by &lt;integer&gt; in the output at shipout. In principle one could output the number corresponding to each image object, write them down and then later do, e.g. \pdfrefximage3. This is tedious and error prone, though. That's why there is \pdflastximage which is a count register always containing the number of the last \pdfximage, so including an image can be boiled down the following code</p>
+            <pre>\pdfximage width 3cm {example-image-a.pdf}
+\pdfrefximage\pdflastximage
+\bye</pre>
+          </section>
+
+        </section>
+
+        <section id="eps_to_jpeg">
+          <h3>Converting EPS to JPEG</h3>
+          <p>This is one suggesting for conversion:</p>
+          <pre>gs -sDEVICE=jpeg -dJPEGQ=<var>100</var> -dNOPAUSE -dBATCH -dSAFER  -dDEVICEWIDTHPOINTS=<var>w</var> -dDEVICEHEIGHTPOINTS=<var>h</var> -r<var>300</var> -sOutputFile=myfile.jpg myfile.eps</pre>
+          <p>The <kbd>-r</kbd> switch selects the resolution. You will have to substitute the actual width and height as well, unless you want A4 size.</p>
+          <p>The format of the output file is included in the <dfn>output device</dfn>. <var>-sDEVICE</var> may be <kbd>jpeg</kbd>, <kbd>png16m</kbd>, or some gray-scale version, like <kbd>jpeggray</kbd>, <kbd>pnggray</kbd> etc.</p>
+        </section>
+
+      </section>
+
+      <section id="ps_drawing">
+        <h2>Drawing in PostScript</h2>
+        <p>If you create an Encapsulated PostScript file, you may converted it to a jpeg-extension file as explained <a href="#eps_to_jpeg">here</a>.</p>
+        <section id="ps_paths">
+          <h3>PostScript Paths</h3>
+          <p>A <dfn>path</dfn> is a set of open and closed lines. For practical purposes, lines may be stroked in the color that has been set, whereas only closed lines may be filled with color.</p>
+          <section>
+            <h4>Preserving and Erasing the Current Path</h4>
+            <p>The following operators, among others, erase the current path and <var>currentpoint</var>:</p>
+            <ul>
+              <li><kbd>newpath</kbd>: </li>
+              <li><kbd>fill</kbd>: </li>
+              <li><kbd>stroke</kbd>: </li>
+              <li><kbd>showpage</kbd>: </li>
+              <!-- <li><kbd></kbd>: </li> -->
+            </ul>
+            <p>The following operators, among others, do not erase the current path or <var>currentpoint</var>:</p>
+            <ul>
+              <li><kbd>clip</kbd>: </li>
+              <li><kbd>show</kbd> and such: </li>
+              <!-- <li><kbd></kbd>: </li> -->
+            </ul>
+          </section>
+
+          <section>
+            <h4>Getting and Setting the Current Path</h4>
+            <p>Operator <kbd>upath</kbd> takes a boolean and pushes the <code class="classname">userpath</code>. If the boolean is <kbd>true</kbd> then ucache is included.</p>
+            <p>Complementary operator <kbd>uappend</kbd> takes a <code class="classname">userpath</code> argument and appends it to the current path.</p>
+          </section>
+
+          <section>
+            <h4>Adding Paths from an Enclosed Graphics Scope</h4>
+            <p>In the following template, operator <code class="function">upath</code> pushes the user path onto the stack, while <code class="function">uappend</code> appends it to the current, enclosing path.</p>
+            <pre>gsave
+  % your code
+  false upath
+grestore uappend.</pre>
+          </section>
+
+          <!-- end of "Adding Paths from an Enclosed Graphics Scope" -->
+        </section>
+
+        <!-- end of "PostScript Paths" -->
+        <section>
+          <h3>Recurrent Pictures</h3>
+          <p>For a picture such as an electronic component that is to be drawn several times you need a template. I suggest that you create a dictionary for each class... These are the steps:</p>
+          <ul>
+            <li>define a dictionary to paint your component</li>
+            <li>include procedures <code class="function">initialize</code>, <code class="function">drawat</code>, possibly <code class="function">drawscaledat</code> too, and so on...</li>
+            <li>after that, make it readonly, so that it must be copied in order to be modified</li>
+          </ul>
+          <p>Such a dictionary you might use like this:</p>
+          <ul>
+            <li>Copy it into a named or unnamed dictionary.</li>
+            <li>Change or redefine its parameters inside it.</li>
+            <li>Call <code class="function">initialize</code> once, and</li>
+            <li>
+              <i class="foreignphrase">presto</i>
+            </li>
+          </ul>
+          <p>You may also derive another dictionary from it and thereby reuse parameters and procedures. All you have to do is:</p>
+          <ul>
+            <li>Copy it.</li>
+            <li>Change or add some parameters.</li>
+            <li>Write an <code class="function">initialize</code> procedure that calls the previous <code class="function">initialize</code> and does some more work as well.</li>
+            <li>Overwrite your <code class="function">drawat</code> procedure and such maybe to call previous <code class="function">drawat</code> first thing.</li>
+            <li>Don't forget to run <code class="function">initialize</code>.</li>
+          </ul>
+        </section>
+
+        <section id="ps_gradients">
+          <h3>Gradients in PostScript</h3>
+          <p>This is a procedure for simulating a gradient that changes upwards from one RGB color to another:</p>
+          <pre>%!PS-Adobe-3.0
+
+/gradientup { % stack: x y w h begR begG begB endR endG endB absVerticalStep
+  15 dict begin
+    [/vStep /endB /endG /endR /begB /begG /begR /h /w /y /x] {exch def} forall
+    y  vStep  y h add {
+      gsave
+        dup y sub h div /idx exch def % 'idx' ranges from 0 to 1
+        begR 1 idx sub mul  endR idx mul  add  2 div
+        begG 1 idx sub mul  endG idx mul  add  2 div
+        begB 1 idx sub mul  endB idx mul  add  2 div
+        setrgbcolor
+        x  exch  w  vStep  rectfill
+      grestore
+    } for
+  end
+} def</pre>
+          <p>To be tested with code like:</p>
+          <pre>100 100 200 200  0.9 0.7 0.3  0.3 0.9 0.9  10  gradientup
+showpage</pre>
+          <p>And this is a procedure for simulating a gradient that changes rightwards from one RGB color to another:</p>
+          <pre>%!PS-Adobe-3.0
+
+/gradientright { % stack: x y w h begR begG begB endR endG endB absHorizontalStep
+  15 dict begin
+    [/hStep /endB /endG /endR /begB /begG /begR /h /w /y /x] {exch def} forall
+    x  hStep  x w add {
+      gsave
+        dup x sub w div /idx exch def % 'idx' ranges from 0 to 1
+        begR 1 idx sub mul  endR idx mul  add  2 div
+        begG 1 idx sub mul  endG idx mul  add  2 div
+        begB 1 idx sub mul  endB idx mul  add  2 div
+        setrgbcolor
+        y  hStep  h  rectfill
+      grestore
+    } for
+  end
+} def</pre>
+          <section id="ps_gradient_2d">
+            <h4>A Four Color Gradient</h4>
+            <pre>%!PS-Adobe-3.0
+/gradientoversizek 1.05 def
+/gradientupright { % stack: x y w h llR llG llB lrR lrG lrB ulR ulG ulB urR urG urB absHorizontalStep absVerticalStep
+  15 dict begin
+    [/vStep /hStep  /urB /urG /urR  /ulB /ulG /ulR  /lrB /lrG /lrR /llB /llG /llR /h /w /y /x] {exch def} forall
+    x  hStep  x w add {
+      dup /X exch def
+      x sub w div /idx exch def % 'idx' ranges from 0 to 1 (horizontal)
+      y  vStep y h add {
+        dup /Y exch def
+	y sub h div /jdx exch def % 'jdx' ranges from 0 to 1 (vertical)
+        gsave
+          llR 1 idx sub mul  lrR idx mul  add 2 div  1 jdx sub mul
+	  ulR 1 idx sub mul  urR idx mul  add 2 div    jdx     mul  add 2 div
+	  llG 1 idx sub mul  lrG idx mul  add 2 div  1 jdx sub mul
+	  ulG 1 idx sub mul  urG idx mul  add 2 div    jdx     mul  add 2 div
+	  llB 1 idx sub mul  lrB idx mul  add 2 div  1 jdx sub mul
+	  ulB 1 idx sub mul  urB idx mul  add 2 div    jdx     mul  add 2 div
+          setrgbcolor
+        X  Y  hStep gradientoversizek mul  vStep gradientoversizek mul  rectfill
+        grestore
+      } for
+    } for
+  end
+} def</pre>
+            <p>To be tested with some driver code like:</p>
+            <pre>100 100 300 300
+1 0.1 0.1  1 1 0.1  0.1 1 0.1  0.1 0.1 1
+50 50 gradientupright
+showpage</pre>
+          </section>
+
+          <section id="ps_radial_gradient">
+            <h4>Radial Gradients in PostScript</h4>
+            <pre>%!PS-Adobe-3.0
+
+/gradientradial { % stack: x y R begR begG begB endR endG endB dr
+  15 dict begin
+    [/dr /endB /endG /endR /begB /begG /begR /R /y /x] {exch def} forall
+    R  dr neg  0 {
+      gsave
+        dup /r exch def
+        R div /rdx exch def % 'rdx' ranges from 0 to 1
+        begR 1 rdx sub mul  endR rdx mul  add  2 div
+        begG 1 rdx sub mul  endG rdx mul  add  2 div
+        begB 1 rdx sub mul  endB rdx mul  add  2 div
+        setrgbcolor
+	x r add  y  moveto
+	x y  r  0 360 arc
+	closepath % not really necessary
+        fill
+      grestore
+    } for
+  end
+} def</pre>
+          </section>
+
+          <section>
+            <h4>Using the <kbd>gradient</kbd> Procedures in PostScript and EPS</h4>
+            <p>Since the afore-defined procedures fill a rectangle with a gradients, in order to fill a shape with a gradient, a stack of gradients, or a grid of gradients, you would execute the following steps:</p>
+            <ul>
+              <li>open a <code class="function">gsave</code> block by writing <kbd>gsave</kbd>, and then erase currentpath with <kbd>newpath</kbd></li>
+              <li>create a closed path or set thereof using <kbd>moveto</kbd>, <kbd>lineto</kbd>, <kbd>curveto</kbd>, and so on</li>
+              <li>clip the graphic context to it,</li>
+              <li>paint a large enough gradient rectangle to hold all closed paths, and</li>
+              <li>close the graphic context by typing <kbd>grestore</kbd></li>
+            </ul>
+          </section>
+
+        </section>
+
+        <!-- end of "Gradients in PostScript" -->
+      </section>
+
+      <!-- end of "Drawing Pictures in PostScript" -->
+      <section id="writing_ps_lib">
+        <h2>Writing a General Purpose Library in PostScript</h2>
+        <p>I have included a <a href="#lib_basic_ps">listing</a> of my work in this document. The guidelines and scope of this library can be learned from its comments.</p>
+        <pre>cat <filename>lib.basic.ps</filename> | grep '^[ ]*%' | less</pre>
+        <p>There is even a table of contents that can be found by searchin <kbd>Table of contents</kbd> or, more specifically, <kbd>% Table of contents:</kbd>.</p>
+        <section id="ps_four_pillars">
+          <h3>Four Pillars for a General Purpose PostScript Library</h3>
+          <p>This library should be understood to rest on four pillars:</p>
+          <dl>
+            <!-- <varlistentry> -->
+            <dt>Page (or printing area)</dt>
+            <dd>
+              <p>The following variables and procedures are defined:</p>
+              <ul>
+                <li>page dimensions: where text starts and ends (<var>lm</var> or left margin, <var>rm</var> or right margin, <var>bm</var> or bottom margin, and <var>tm</var> or top margin); these are based on the <em>absolute</em> dimensions of the page (<var>absrm</var> and <var>abstm</var>). The absolute left and bottom margin are 0.</li>
+                <li>a <code class="command">turnpage</code> procedure, which calls <code class="command">...</code> before turning the page, then turns the page and moves the current point to (<var>lm</var>, <var>tm</var>), and lasts calls <code class="command">...</code>. The middle command relies on knowledge of the page count.</li>
+                <li>variables and procedures for recording and incrementing the page number, probably inside a <var>commondict</var> dictionary accessible everywhere.</li>
+              </ul>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>Text</dt>
+            <dd>
+              <p>Routines to print paragraph and align text. Some of this is discussed in section <cite><a href="#ps_text">Text in PostScript</a></cite>.</p>
+              <ul>
+                <li>a <code class="command">newline</code> procedure to move to the beginning of the next line, and possibly turn the page if the currentpoint falls below <var>bm</var>.</li>
+                <li>showing a string left of, below, over, or at a given point, that is, <a href="#ps_show_relative">showing relative</a>, which is useful for simple diagrams,</li>
+                <li>printing strings that break into a new line when too long with <code class="function"><a href="#ps_paragraph">showpar</a></code> and such.</li>
+              </ul>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>Numerics and Geometry</dt>
+            <dd>Some of this is discussed in section <cite><a href="#ps_drawing">Drawing in PostScript</a></cite>.</dd>
+            <dd>
+              <ul>
+                <li>trigonometry</li>
+                <li>adding and subtracting points, as well as parameterized interpolation between points</li>
+                <li>etc.</li>
+              </ul>
+            </dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>Pdf Specifics (Navigation)</dt>
+            <dd>
+              <p>This section is of lesser importance.</p>
+              <ul>
+                <li>hyperlinks</li>
+                <li>bookmarks</li>
+              </ul>
+            </dd>
+            <!-- </varlistentry> -->
+          </dl>
+        </section>
+
+        <!-- end of "Four Pillars for a General Purpose PostScript Library" -->
+      </section>
+
+      <section>
+        <h2>Using GhostScript</h2>
+        <p>I have already explained how to convert eps-format files to jpeg-format files <a href="#eps_to_jpeg">here</a>.</p>
+        <section>
+          <h3>Converting to PDF</h3>
+          <p>This is a template command line for converting to PDF:</p>
+          <pre>gs -q -dNOPAUSE -dBATCH -sPAPERSIZE=a4 -sDEVICE=pdfwrite -sOutputFile=<var>filename</var>.pdf <var>filename</var>.ps</pre>
+          <p>Additionally, you may use switches <kbd>-dFirstPage=<var>pagenumber</var></kbd> and <kbd>-dLastPage=<var>pagenumber</var></kbd>.</p>
+        </section>
+
+        <section>
+          <h3>Enabling Writing To and Reading From Other Files</h3>
+          <p>This feature is activated through switch <kbd>-dNOSAFER</kbd>. This also enables executing or including a file by specifying its name, probably with extension <kbd>.ps</kbd> or <kbd>.eps</kbd>:</p>
+          <pre><filename>filename</filename> run</pre>
+        </section>
+
+        <section>
+          <h3>Printing One Page Per File</h3>
+          <p>This option is useful when you want images of each page of a multi-page document. You can tell Ghostscript to put each page of output in a series of similarly named files. To do this place a template '%d' in the filename which Ghostscript will replace with the page number.</p>
+          <p> You can also control the number of digits used in the file name:</p>
+          <dl>
+            <!-- <varlistentry> -->
+            <dt>
+              <kbd>-sOutputFile=ABC-%d.png</kbd>
+            </dt>
+            <dd>produces: 'ABC-1.png', ... , 'ABC-10.png', ...</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>
+              <kbd>-sOutputFile=ABC-%03d.pgm</kbd>
+            </dt>
+            <dd>produces: 'ABC-001.pgm', ... , 'ABC-010.pgm', ...</dd>
+            <!-- </varlistentry> -->
+            <!-- <varlistentry> -->
+            <dt>
+              <kbd>-sOutputFile=ABC_p%04d.tiff</kbd>
+            </dt>
+            <dd>produces: 'ABC_p0001.tiff', ... , 'ABC_p0510.tiff', ... , 'ABC_p5238.tiff'</dd>
+            <!-- </varlistentry> -->
+          </dl>
+          <p>Generally <kbd>%03d</kbd> is the best option for normal documents.</p>
+          <aside>On MS Windows systems, you will have to double the % character, e.g., <kbd>gs -sOutputFile=ABC%%03d.xyz</kbd></aside>
+        </section>
+
+        <section>
+          <h3>Selecting the Paper Size</h3>
+          <p>Ghostscript is distributed configured to use U.S. letter paper as its default page size. There are two ways to select other paper sizes from the command line:</p>
+          <ul>
+            <li>
+              <p>If the desired paper size is <a href="#gs_paper_sizes">known to Ghostscript</a>, you can select it as the default paper size for a single invocation of Ghostscript by using the <kbd>-sPAPERSIZE=</kbd> switch, for instance:</p>
+              <pre>-sPAPERSIZE=a4</pre>
+              <pre>-sPAPERSIZE=legal</pre>
+            </li>
+            <li>
+              <p>Otherwise you can set the page size using the pair of switches:</p>
+              <pre>-dDEVICEWIDTHPOINTS=<var>w</var> -dDEVICEHEIGHTPOINTS=<var>h</var></pre>
+              <p>Where <var>w</var> be the desired paper width and <var>h</var> be the desired paper height in points (units of 1/72 of an inch).</p>
+            </li>
+          </ul>
+          <p>Individual documents can (and often do) specify a paper size, which takes precedence over the default size. To force a specific paper size and ignore the paper size specified in the document, select a paper size as just described, and also include the <kbd>-dFIXEDMEDIA</kbd> switch on the command line.</p>
+          <p class="bridgehead" id="gs_paper_sizes">Paper Sizes Known to GhostScript</p>
+          <p>U.S. Standard:</p>
+          <table>
+            <thead>
+              <tr>
+                <td>name</td>
+                <td>W (in)</td>
+                <td>H (in)</td>
+                <td>W (mm)</td>
+                <td>H (mm)</td>
+                <td>W (pt)</td>
+                <td>H (pt)</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11x17</td>
+                <td>11.0</td>
+                <td>17.0</td>
+                <td>279</td>
+                <td>432</td>
+                <td>792</td>
+                <td>1224</td>
+              </tr>
+              <tr>
+                <td>ledger</td>
+                <td>17.0</td>
+                <td>11.0</td>
+                <td>432</td>
+                <td>279</td>
+                <td>1224</td>
+                <td>792</td>
+              </tr>
+              <tr>
+                <td>legal</td>
+                <td>8.5</td>
+                <td>14.0</td>
+                <td>216</td>
+                <td>356</td>
+                <td>612</td>
+                <td>1008</td>
+              </tr>
+              <tr>
+                <td>letter</td>
+                <td>8.5</td>
+                <td>11.0</td>
+                <td>216</td>
+                <td>279</td>
+                <td>612</td>
+                <td>792</td>
+              </tr>
+              <tr>
+                <td>lettersmall</td>
+                <td>8.5</td>
+                <td>11.0</td>
+                <td>216</td>
+                <td>279</td>
+                <td>612</td>
+                <td>792</td>
+              </tr>
+              <tr>
+                <td>archE</td>
+                <td>36.0</td>
+                <td>48.0</td>
+                <td>914</td>
+                <td>1219</td>
+                <td>2592</td>
+                <td>3456</td>
+              </tr>
+              <tr>
+                <td>archD</td>
+                <td>24.0</td>
+                <td>36.0</td>
+                <td>610</td>
+                <td>914</td>
+                <td>1728</td>
+                <td>2592</td>
+              </tr>
+              <tr>
+                <td>archC</td>
+                <td>18.0</td>
+                <td>24.0</td>
+                <td>457</td>
+                <td>610</td>
+                <td>1296</td>
+                <td>1728</td>
+              </tr>
+              <tr>
+                <td>archB</td>
+                <td>12.0</td>
+                <td>18.0</td>
+                <td>305</td>
+                <td>457</td>
+                <td>864</td>
+                <td>1296</td>
+              </tr>
+              <tr>
+                <td>archA</td>
+                <td>9.0</td>
+                <td>12.0</td>
+                <td>229</td>
+                <td>305</td>
+                <td>648</td>
+                <td>864</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>ISO Standard:</p>
+          <table>
+            <thead>
+              <tr>
+                <td>name</td>
+                <td>W (in)</td>
+                <td>H (in)</td>
+                <td>W (mm)</td>
+                <td>H (mm)</td>
+                <td>W (pt)</td>
+                <td>H (pt)</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>a0</td>
+                <td>33.1</td>
+                <td>46.8</td>
+                <td>841</td>
+                <td>1189</td>
+                <td>2384</td>
+                <td>3370</td>
+              </tr>
+              <tr>
+                <td>a1</td>
+                <td>23.4</td>
+                <td>33.1</td>
+                <td>594</td>
+                <td>841</td>
+                <td>1684</td>
+                <td>2384</td>
+              </tr>
+              <tr>
+                <td>a2</td>
+                <td>16.5</td>
+                <td>23.4</td>
+                <td>420</td>
+                <td>594</td>
+                <td>1191</td>
+                <td>1684</td>
+              </tr>
+              <tr>
+                <td>a3</td>
+                <td>11.7</td>
+                <td>16.5</td>
+                <td>297</td>
+                <td>420</td>
+                <td>842</td>
+                <td>1191</td>
+              </tr>
+              <tr>
+                <td>a4</td>
+                <td>8.3</td>
+                <td>11.7</td>
+                <td>210</td>
+                <td>297</td>
+                <td>595</td>
+                <td>842</td>
+              </tr>
+              <tr>
+                <td>a4small</td>
+                <td>8.3</td>
+                <td>11.7</td>
+                <td>210</td>
+                <td>297</td>
+                <td>595</td>
+                <td>842</td>
+              </tr>
+              <tr>
+                <td>a5</td>
+                <td>5.8</td>
+                <td>8.3</td>
+                <td>148</td>
+                <td>210</td>
+                <td>420</td>
+                <td>595</td>
+              </tr>
+              <tr>
+                <td>a6</td>
+                <td>4.1</td>
+                <td>5.8</td>
+                <td>105</td>
+                <td>148</td>
+                <td>297</td>
+                <td>420</td>
+              </tr>
+              <tr>
+                <td>a7</td>
+                <td>2.9</td>
+                <td>4.1</td>
+                <td>74</td>
+                <td>105</td>
+                <td>210</td>
+                <td>297</td>
+              </tr>
+              <tr>
+                <td>a8</td>
+                <td>2.1</td>
+                <td>2.9</td>
+                <td>52</td>
+                <td>74</td>
+                <td>148</td>
+                <td>210</td>
+              </tr>
+              <tr>
+                <td>a9</td>
+                <td>1.5</td>
+                <td>2.1</td>
+                <td>37</td>
+                <td>52</td>
+                <td>105</td>
+                <td>148</td>
+              </tr>
+              <tr>
+                <td>a10</td>
+                <td>1.0</td>
+                <td>1.5</td>
+                <td>26</td>
+                <td>37</td>
+                <td>73</td>
+                <td>105</td>
+              </tr>
+              <tr>
+                <td>isob0</td>
+                <td>39.4</td>
+                <td>55.7</td>
+                <td>1000</td>
+                <td>1414</td>
+                <td>2835</td>
+                <td>4008</td>
+              </tr>
+              <tr>
+                <td>isob1</td>
+                <td>27.8</td>
+                <td>39.4</td>
+                <td>707</td>
+                <td>1000</td>
+                <td>2004</td>
+                <td>2835</td>
+              </tr>
+              <tr>
+                <td>isob2</td>
+                <td>19.7</td>
+                <td>27.8</td>
+                <td>500</td>
+                <td>707</td>
+                <td>1417</td>
+                <td>2004</td>
+              </tr>
+              <tr>
+                <td>isob3</td>
+                <td>13.9</td>
+                <td>19.7</td>
+                <td>353</td>
+                <td>500</td>
+                <td>1001</td>
+                <td>1417</td>
+              </tr>
+              <tr>
+                <td>isob4</td>
+                <td>9.8</td>
+                <td>13.9</td>
+                <td>250</td>
+                <td>353</td>
+                <td>709</td>
+                <td>1001</td>
+              </tr>
+              <tr>
+                <td>isob5</td>
+                <td>6.9</td>
+                <td>9.8</td>
+                <td>176</td>
+                <td>250</td>
+                <td>499</td>
+                <td>709</td>
+              </tr>
+              <tr>
+                <td>isob6</td>
+                <td>4.9</td>
+                <td>6.9</td>
+                <td>125</td>
+                <td>176</td>
+                <td>354</td>
+                <td>499</td>
+              </tr>
+              <tr>
+                <td>c0</td>
+                <td>36.1</td>
+                <td>51.1</td>
+                <td>917</td>
+                <td>1297</td>
+                <td>2599</td>
+                <td>3677</td>
+              </tr>
+              <tr>
+                <td>c1</td>
+                <td>25.5</td>
+                <td>36.1</td>
+                <td>648</td>
+                <td>917</td>
+                <td>1837</td>
+                <td>2599</td>
+              </tr>
+              <tr>
+                <td>c2</td>
+                <td>18.0</td>
+                <td>25.5</td>
+                <td>458</td>
+                <td>648</td>
+                <td>1298</td>
+                <td>1837</td>
+              </tr>
+              <tr>
+                <td>c3</td>
+                <td>12.8</td>
+                <td>18.0</td>
+                <td>324</td>
+                <td>458</td>
+                <td>918</td>
+                <td>1298</td>
+              </tr>
+              <tr>
+                <td>c4</td>
+                <td>9.0</td>
+                <td>12.8</td>
+                <td>229</td>
+                <td>324</td>
+                <td>649</td>
+                <td>918</td>
+              </tr>
+              <tr>
+                <td>c5</td>
+                <td>6.4</td>
+                <td>9.0</td>
+                <td>162</td>
+                <td>229</td>
+                <td>459</td>
+                <td>649</td>
+              </tr>
+              <tr>
+                <td>c6</td>
+                <td>4.5</td>
+                <td>6.4</td>
+                <td>114</td>
+                <td>162</td>
+                <td>323</td>
+                <td>459</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>Overriding Definitions With CommandLine Switches</h3>
+          <p>You can pass parameters into your program with a switch like so:</p>
+          <pre>-s<var>PARAM</var>=<var>VALUE</var></pre>
+          <p>Yet, if your commandline parameter is defined inside your file, its value gets lost. You need to <em>conditionally</em> define parameters inside your file. Use the <code class="command">where</code> operator, as in <code class="function">ifnotdefthendefas</code> procedure below:</p>
+          <pre>/ifnotdefthendefas { %stack: /name obj
+  exch
+  dup where {pop pop pop} {exch def} ifelse
+} def</pre>
+          <p>You may also define a procedure that conditionally defines a variable or procedure:</p>
+          <pre>/ifnotdefthendef {1 index where {pop pop pop}{def} ifelse} def</pre>
+        </section>
+
+        <section id="gs_bb_output">
+          <h3>GhostScript Bounding Box Output</h3>
+          <p>There is a special bbox <q>device</q> that just prints the bounding box of each page. You select it in the usual way:</p>
+          <pre>gs -dNOPAUSE -dBATCH -sDEVICE=bbox</pre>
+          <p>It prints the output in a format like this:</p>
+          <pre>%%BoundingBox: 14 37 570 719
+%%HiResBoundingBox: 14.308066 37.547999 569.495061 718.319158</pre>
+          <p>Currently, it always prints the bounding box on stderr; eventually, it should also recognize <kbd>-sOutputFile=</kbd>.</p>
+          <p>Note that this device, like other devices, has a resolution and a (maximum) page size. As for other devices, the product (resolution x page size) is limited to approximately 500K pixels. By default, the resolution is 4000 DPI and the maximum page size is approximately 125 inches, or approximately 9000 default (1/72 inches) user coordinate units. If you need to measure larger pages than this, you must reset both the resolution and the page size in pixels, e.g.,</p>
+          <pre>gs -dNOPAUSE -dBATCH -sDEVICE=bbox -r100 -g500000x500000</pre>
+        </section>
+
+        <!-- end of "GhostScript Bounding Box Output" -->
+      </section>
+
+    </main>
+  </body>
+</html>
