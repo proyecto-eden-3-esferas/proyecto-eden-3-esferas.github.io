@@ -157,6 +157,24 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *Plant pathology* (partly from https://en.wikipedia.org/wiki/Plant_pathology)
+[ ] write *Plant Disease Resistance* (https://en.wikipedia.org/wiki/Plant_disease_resistance)
+[ ] write *Peak Phosphorus* (partly from https://en.wikipedia.org/wiki/Peak_phosphorus)
+[ ] write *Cadmium in Phosphate Deposits*
+
+[ ] write *inoculants.html*
+[ ] link to *inoculating-legumes.html* from *inoculants.html*
+[ ] link back to *inoculants.html* from *inoculating-legumes.html*
+[ ] link to *inoculants.html* from elsewhere
+
+[ ] https://www.reddit.com/r/Permaculture/comments/12ekgs0/the_two_main_sets_of_permaculture_principles_for/
+
+[ ] write section on <h2>Sprouts</h2> inside *microgreens-and-sprouts.html*
+
+[ ] write *c.time.html*
+    from https://www.w3schools.com/cpp/cpp_date.asp
+
+
 [ ] escribir "Conversiones"
 <p>Uno puede adoptar unos valores y costumbres. Incluso unas escrituras, unos símbolos, un estilo de pensar y de sentir.</p>
 <p>Los seres humanos tomamos decisiones a la vez que albergamos creencias. ¡Pero decidir creer!</p>
@@ -171,11 +189,7 @@ Ecoaldea con ideales pero promete ser cara.
 - matched to definitions, descriptions, contents
 - what about discussions?
 
-[ ] *MOSFET Channel Width (<var>W</var>) and Gate Length (<var>L</var>)*
-<p>MOSFET width (W) and length (L) are crucial physical dimensions that determine its electrical characteristics, with W being the channel width and L being the gate length. The ratio of these dimensions, (W/L), is known as the <dfn>aspect ratio</dfn> and is directly related to parameters like transconductance and resistance, with a higher ratio generally leading to lower resistance and higher current flow. These dimensions are critical for circuit design, with the length often limited by the fabrication process, while the width can be adjusted to fine-tune performance.</p>
 
-[ ] write *c.time.html*
-    from https://www.w3schools.com/cpp/cpp_date.asp
 
 [ ] *Clang and LLVM*
 <blockquote>
@@ -183,14 +197,6 @@ Ecoaldea con ideales pero promete ser cara.
   <p>(From AI Overview, by Google)</p>
 </blockquote>
 
-[ ] write *inoculants.html*
-[ ] link to *inoculating-legumes.html* from *inoculants.html*
-[ ] link back to *inoculants.html* from *inoculating-legumes.html*
-[ ] link to *inoculants.html* from elsewhere
-
-[ ] https://www.reddit.com/r/Permaculture/comments/12ekgs0/the_two_main_sets_of_permaculture_principles_for/
-
-[ ] write section on <h2>Sprouts</h2> inside *microgreens-and-sprouts.html*
 
 [ ] ekistics
 <p><dfn>Ekistics</dfn> is the science of human settlements, studying all kinds of settlements and aiming for harmony between inhabitants and their environments. (Britannica)</p>
