@@ -157,6 +157,13 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] metal-chelating
+
+https://bio.libretexts.org/Bookshelves
+https://bio.libretexts.org/Bookshelves/Botany/Botany_(Ha_Morrow_and_Algiers)/04%3A_Plant_Physiology_and_Regulation/4.05%3A_Transport/4.5.02%3A_Translocation_(Assimilate_Transport)
+
+[ ] Real Decreto 2545/1982 sobre campings
+
 [ ] write *Plant pathology* (partly from https://en.wikipedia.org/wiki/Plant_pathology)
 [ ] write *Plant Disease Resistance* (https://en.wikipedia.org/wiki/Plant_disease_resistance)
 [ ] write *Peak Phosphorus* (partly from https://en.wikipedia.org/wiki/Peak_phosphorus)
