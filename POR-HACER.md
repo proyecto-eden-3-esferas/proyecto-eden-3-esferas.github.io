@@ -157,7 +157,30 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] metal-chelating
+[ ] Linux Package <code>clang-format</code>
+<p>Clang-format is both a library and a stand-alone tool with the goal of automatically reformatting C++ sources files according to configurable style guides. To do so, clang-format uses Clang's Lexer to transform an input file into a token stream and then changes all the whitespace around those tokens. The goal is for clang-format to both serve both as a user tool (ideally with powerful IDE integrations) and part of other refactoring tools, e.g. to do a reformatting of all the lines changed during a renaming.</p>
+
+[ ] mahl stick:
+- stick diameter: half to one inch
+- length: 24' (travel), 36' (studio), 48' (deluxe)
+- rubber tipped, skateboard tape, hook hanger, tennis ball, spring clap
+
+[ ] Ways of starting an Oil Painting
+- imprimatura or stain layer
+- grizaille
+- direct painting or alla prima
+
+[ ] Anders Zorn Palette
+- white
+- yellow ochre
+- vermillion red
+- ivory black
+
+[ ] <h2>Pointers to Container Elements</h2>
+<p>Do pointers to std::CONTAINER elements remain valid?</p>
+<p>Pointers to elements of lists, sets and maps (of type <code>std::pair<key_type,value_type></key_type,value_type>) do not become invalidated as the container changes, grows or shrinks.</code>
+
+[ ] metal-chelating/chelation
 
 https://bio.libretexts.org/Bookshelves
 https://bio.libretexts.org/Bookshelves/Botany/Botany_(Ha_Morrow_and_Algiers)/04%3A_Plant_Physiology_and_Regulation/4.05%3A_Transport/4.5.02%3A_Translocation_(Assimilate_Transport)

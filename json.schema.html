@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>javascript object notation</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JavaScript Object Notation (JSON): A lightweight, popular document format"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="next" href="json.schema.html">JSON Schema</a> for JSON Validating, Formating etc.</p>
+        <p><a            href="https://json-schema.org/">json-schema.org</a> (Web Site)</p>
+        <p><a            href="https://json-schema.org/reference/">json-schema.org Reference</a> (Web Page)</p>
+        <p><a            href="json.writing.html">Writing JSON Documents</a></p>
+        <p><a            href="js.json.html">JavaScript for Handling JSON</a></p>
+        <p><a rel="prev" href="js.html">JavaScript: the Internet Programming Language</a></p>
+      </div>
+      <div>
+        <p><a            href="jq.html"><code>jq</code>: a lightweight and flexible command-line JSON processor</a></p>
+        <p><a            href="sqlite.json.html">SQLite and JSON: Handling Text as JSON</a></p>
+        <p>Open Source Apache <a            href="couchdb.html">CouchDB: a JSON Document DBMS</a></p>
+        <p><a            href="mongodb.html">MongoDB: A JSON Document, NoSQL DataBase Management System</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>JSON Schema for JSON Validating, Formating etc.</h1>
+      <p>A <dfn>JSON Schema</dfn> is a JSON object that defines the structure of a set of JSON objects.</p>
+
+      <section id="simple-example">
+        <h2>An Example</h2>
+        <p></p>
+        <pre>{
+  "type": "object",
+  "properties": {
+    "first_name": { "type": "string" },
+    "last_name":  { "type": "string" },
+    "birthday": { "type": "string", "format": "date" },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street_address": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "country": { "type" : "string" }
+      }
+    }
+  }
+}</pre>
+      </section>
+      <section>
+        <h2>The <code>type</code> Keyword</h2>
+        <p>The most common thing to do in a JSON Schema is to restrict to a specific type. The <code>type</code> keyword is used for that.</p>
+        <pre>type = {string | ...}</pre>
+      </section>
+      <section>
+        <h2>Declaring a JSON Schema</h2>
+        <p>It's not always easy to tell which draft a JSON Schema is using. You can use the <code>$schema</code> keyword to declare which version of the JSON Schema specification the schema is written to. <i>See</i> <code>$schema</code> for more information. It's generally good practice to include it, though it is not required.</p>
+        <pre>{ "$schema": "https://json-schema.org/draft/2020-12/schema" }</pre>
+      </section>
+
+      <section id="type">
+        <h2>The <code>type</code> Keyword</h2>
+        <p>The most common thing to do in a JSON Schema is to restrict to a specific type. The <code>type</code> keyword is used for that.</p>
+        <p>The types/literals/values allowed for <code>type</code> are: array, boolean, integer, number, null, object, regular expressions, and string.</p>
+        <hr/>
+        <p>The type keyword can take two forms:</p>
+        <dl>
+          <dt>A single string</dt>
+          <dd>
+            <p>When it is a single string, it must be one of the types mentioned above (array, boolean, integer, number, null, object, regular expressions, or string). This specifies that the instance data is only valid when it matches that specific type.</p>
+            <p>Here is an example of using the string keyword as a single string:</p>
+            <pre>{ "type": "number" }</pre>
+          </dd>
+          <dt>An array of strings</dt>
+          <dd>
+            <p>When type is used as an array, it contains more than one string specifying the types mentioned above. In this case, the instance data is valid if it matches any of the given types.</p>
+            <p>Here is an example using the type keyword as an array of strings, where instance data of the type string and number are valid but array isn't:</p>
+            <pre>{ "type": ["number", "string"] }</pre>
+          </dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>JSON Data Types</h2>
+        <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://json-schema.org/understanding-json-schema/reference/type">https://json-schema.org/understanding-json-schema/reference/type</a></cite>)</p>
+
+        <section id="arrays">
+          <h3>Arrays</h3>
+          <p>There are two ways in which arrays are generally used in JSON:</p>
+          <ul>
+            <li><strong>List validation:</strong> a sequence of arbitrary length where each item matches the same schema.</li>
+            <li><strong>Tuple validation</strong>: a sequence of fixed length where each item may have a different schema. In this usage, the index (or location) of each item is meaningful as to how the value is interpreted. (This usage is often given a whole separate type in some programming languages, such as <code>std::tuple</code> in C++).</li>
+          </ul>
+          <section id="items">
+            <h4>List Validation with <code>items</code></h4>
+            <p>List validation is useful for arrays of arbitrary length where each item matches the same schema. For this kind of array, set the items keyword to a single schema that will be used to validate all of the items in the array.</p>
+            <p>In the following example, we define that each item in an array is a number:</p>
+            <pre>{
+  "type": "array",
+  "items": {
+    "type": "number"
+  }
+}</pre>
+          </section>
+          <section id="">
+            <h4>Tuple Validation with <code>prefixItems</code></h4>
+            <p>Tuple validation is useful when the array is a collection of items where each has a different schema and the ordinal index of each item is meaningful.</p>
+            <p>For example, you may represent a street address such as 1600 Pennsylvania Avenue NW as a 4-tuple of the form:</p>
+            <pre>[number, street_name, street_type, direction]﻿</pre>
+            <p>where each field will have a different schema.</p>
+            <p>We enforce this with the <code>prefixItems</code> keyword. <code>prefixItems</code> is an array, where each item is a schema that corresponds to each index of the document's array. That is, an array where the first element validates the first element of the input array, the second element validates the second element of the input array, etc.</p>
+            <p>Here's the example schema:</p>
+            <pre>{
+  "type": "array",
+  "prefixItems": [
+    { "type": "number" },
+    { "type": "string" },
+    { "enum": ["Street", "Avenue", "Boulevard"] },
+    { "enum": ["NW", "NE", "SW", "SE"] }
+  ]
+}</pre>
+          </section>
+          <section>
+            <h4>Additional Items</h4>
+            <p>The items keyword can be used to control whether it's valid to have additional items in a tuple beyond what is defined in prefixItems. The value of the items keyword is a schema that all additional items must pass in order for the keyword to validate.</p>
+            <aside>
+              <p>Before to <cite>Draft 2020-12</cite>, you would use the <code>additionalItems</code> keyword to constrain additional items on a tuple. It works the same as <code>items</code>, only the name has changed.</p>
+              <p>In Draft 6 - 2019-09, the <code>additionalItems</code> keyword is ignored if there is not a <q>tuple validation</q> <code>items</code> keyword present in the same schema.</p>
+            </aside>
+            <p>Here, we'll reuse the example schema above, but set items to false, which has the effect of disallowing extra items in the tuple.</p>
+            <pre>{
+  "type": "array",
+  "prefixItems": [
+    { "type": "number" },
+    { "type": "string" },
+    { "enum": ["Street", "Avenue", "Boulevard"] },
+    { "enum": ["NW", "NE", "SW", "SE"] }
+  ],
+  "items": false
+}</pre>
+            <p>You can express more complex constraints by using a non-boolean schema to constrain what value additional items can have. In that case, we could say that additional items are allowed, as long as they are all strings:</p>
+            <pre>{
+  "type": "array",
+  "prefixItems": [
+    { "type": "number" },
+    { "type": "string" },
+    { "enum": ["Street", "Avenue", "Boulevard"] },
+    { "enum": ["NW", "NE", "SW", "SE"] }
+  ],
+  "items": { "type": "string" }}</pre>
+          </section>
+          <section>
+            <h4>Unevaluated Items</h4>
+            <p>The <code>unevaluatedItems</code> keyword is useful mainly when you want to add or disallow extra items to an array.</p>
+            <p><code>unevaluatedItems</code> applies to any values not evaluated by an <code>items</code>, <code>prefixItems</code>, or <code>contains</code> keyword. Just as <code>unevaluatedProperties</code> affects only properties in an object, <code>unevaluatedItems</code> affects only items in an array.</p>
+            <aside>Watch out! The word "unevaluated" does not mean "not evaluated by items, prefixItems, or contains." "Unevaluated" means "not successfully evaluated", or "does not evaluate to true".</aside>
+            <p>As with <code>items</code>, if you set <code>unevaluatedItems</code> to false, you can disallow extra items in the array.</p>
+            <pre>{
+  "prefixItems": [
+    { "type": "string" },
+    { "type": "number" }
+  ],
+  "unevaluatedItems": false
+}</pre>
+          </section>
+          <section id="contains">
+            <h4>Contains</h4>
+            <!--See https://json-schema.org/understanding-json-schema/reference/array-->
+            <aside>New in draft 6</aside>
+            <p>While the <code>items</code> schema must be valid for every item in the array, the contains schema only needs to validate against one or more items in the array.</p>
+            <pre>{
+  "type": "array",
+  "contains": { "type": "number"  }}</pre>
+            <p>﻿ A single <code>number</code> is enough to make this pass:</p>
+            <pre>["life", "universe", "everything", 42]</pre>
+            <section>
+              <h5><code>minContains</code> and <code>maxContains</code></h5>
+              <aside>New in draft 2019-09</aside>
+              <p><code>minContains</code> and <code>maxContains</code> can be used with <code>contains</code> to further specify how many times a schema matches a contains constraint. These keywords can be any non-negative number including zero.</p>
+              <pre>{
+  "type": "array",
+  "contains": {    "type": "number"  },
+  "minContains": 2,
+  "maxContains": 3
+}</pre>
+            </section>
+          </section>
+          <section>
+            <h4>Array Size</h4>
+            <p>The length of the array can be specified using the <code>minItems</code> and <code>maxItems</code> keywords. The value of each keyword must be a non-negative number. These keywords work whether doing list validation or tuple-validation.</p>
+            <pre>{
+  "type": "array",
+  "minItems": 2,
+  "maxItems": 3
+}</pre>
+          </section>
+          <section>
+            <h4>Uniqueness</h4>
+            <p>A schema can ensure that each of the items in an array is unique. Simply set the <code>uniqueItems</code> keyword to true.</p>
+            <pre>{
+  "type": "array",
+  "uniqueItems": true
+}</pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+        </section>
+        <section id="objects">
+          <h3>Objects</h3>
+          <p>The properties (key-value pairs) on an object are defined using the <code>properties</code> keyword. The value of <code>properties</code> is an object, where each key is the name of a property and each value is a schema used to validate that property. Any property that doesn't match any of the property names in the properties keyword is ignored by this keyword.</p>
+          <aside>See <cite><a href="#additionalProperties">Additional Properties</a></cite> and <cite>Unevaluated Properties</cite> for how to disallow properties that don't match any of the property names in properties.</aside>
+          <p>For example, let's say we want to define a simple schema for an address made up of a number, street name and street type:</p>
+          <pre>{
+  "type": "object",
+  "properties": {
+    "number": { "type": "number" },
+    "street_name": { "type": "string" },
+    "street_type": { "enum": ["Street", "Avenue", "Boulevard"]}
+  }
+}</pre>
+          <p>which would match an object such as:</p>
+          <pre>{"number": 1600, "street_name": "Pennsylvania", "street_type": "Avenue" }}</pre>
+          <section id="patternProperties">
+            <h4>Pattern Properties </h4>
+            <p>Sometimes you want to say that, given a particular kind of property name, the value should match a particular schema. That's where patternProperties comes in: it maps regular expressions to schemas. If a property name matches the given regular expression, the property value must validate against the corresponding schema.</p>
+            <aside>Regular expressions are not anchored. This means that when defining the regular expressions for patternProperties, it's important to note that the expression may match anywhere within the property name. For example, the regular expression "p" will match any property name with a p in it, such as "apple", not just a property whose name is simply "p". It's therefore usually less confusing to surround the regular expression in ^...$, for example, "^p$".</aside>
+            <p>In this example, any properties whose names start with the prefix <q>S_</q> must be strings, and any with the prefix <q>I_</q> must be integers. Any properties that do not match either regular expression are ignored.</p>
+            <pre>{
+  "type": "object",
+  "patternProperties": {
+    "^S_": { "type": "string" },
+    "^I_": { "type": "integer" }
+  }
+}</pre>
+            <p>which would match:</p>
+            <pre>{ "S_25": "This is a string" }</pre>
+            <p>or</p>
+            <pre>{ "I_0": 42 }</pre>
+          </section>
+          <section id="additionalProperties">
+            <h4>Additional Properties</h4>
+            <p>The <code>additionalProperties</code> keyword is used to control the handling of extra stuff, that is, properties whose names are not listed in the properties keyword or match any of the regular expressions in the <code>patternProperties</code> keyword. By default any additional properties are allowed.</p>
+            <p>The value of the <code>additionalProperties</code> keyword is a schema that will be used to validate any properties in the instance that are not matched by properties or patternProperties. Setting the <code>additionalProperties</code> schema to false means no additional properties will be allowed.</p>
+            <p>Reusing the example from <cite>Properties</cite>, but this time setting <code>additionalProperties</code> to false:</p>
+            <pre>{
+  "type": "object",
+  "properties": {
+    "number": { "type": "number" },
+    "street_name": { "type": "string" },
+    "street_type": { "enum": ["Street", "Avenue", "Boulevard"] }
+  },
+  "additionalProperties": false
+}</pre>
+            <p>You can use non-boolean schemas to put more complex constraints on the additional properties of an instance. For example, one can allow additional properties, but only if their values are each a string:</p>
+            <pre>{
+  "type": "object",
+  "properties": {
+    "number": { "type": "number" },
+    "street_name": { "type": "string" },
+    "street_type": { "enum": ["Street", "Avenue", "Boulevard"] }
+  },
+  "additionalProperties": {"type": "string"}
+}</pre>
+          </section>
+          <section id="unevaluatedProperties">
+            <h4>Unevaluated Properties*</h4>
+            <p>The <code>unevaluatedProperties</code> keyword is similar to additionalProperties except that it can recognize properties declared in subschemas.</p>
+            <p>[...]</p>
+          </section>
+          <section>
+            <h4>Required Properties</h4>
+            <p>By default, the properties defined by the <code>properties</code> keyword are not required. However, one can provide a list of required properties using the <code>required</code> keyword.</p>
+            <p>The required keyword takes an array of zero or more strings. Each of these strings must be unique.</p>
+            <p>In the following example schema defining a user record, we require that each user has a name and e-mail address, but we don't mind if they don't provide their address or telephone number:</p>
+            <pre>{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "email": { "type": "string" },
+    "address": { "type": "string" },
+    "telephone": { "type": "string" }
+  },
+  "required": ["name", "email"]
+}</pre>
+          </section>
+          <section>
+            <h4>Property Names</h4>
+            <p>The names of properties can be validated against a schema, irrespective of their values. This can be useful if you don't want to enforce specific properties, but you want to make sure that the names of those properties follow a specific convention. You might, for example, want to enforce that all names are valid ASCII tokens so they can be used as attributes in a particular programming language.</p>
+            <pre>{
+  "type": "object",
+  "propertyNames": {
+    "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+  }
+}</pre>
+          </section>
+          <section>
+            <h4>Size</h4>
+            <p>The number of properties on an object can be restricted using the minProperties and maxProperties keywords. Each of these must be a non-negative integer.</p>
+            <pre>{
+  "type": "object",
+  "minProperties": 2,
+  "maxProperties": 3
+}</pre>
+          </section>
+        </section>
+        <section id="strings">
+          <h3>Strings</h3>
+          <p>The length of a string can be constrained using the <code>minLength</code> and <code>maxLength</code> keywords. For both keywords, the value must be a non-negative number.</p>
+          <pre>{
+  "type": "string",
+  "minLength": 2,
+  "maxLength": 3
+}</pre>
+          <section id="regex">
+            <h4>Strings that are Regular Expressions</h4>
+            <p>The <code>pattern</code> and <code>patternProperties</code> keywords use regular expressions to express constraints.</p>
+            <p>The following example matches a simple North American telephone number with an optional area code:</p>
+            <pre>{
+  "type": "string",
+  "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"}</pre>
+            <p>so that both <kbd>"555-1212"</kbd> and <kbd>"(888)555-1212"</kbd> would be matched.</p>
+          </section>
+        </section>
+        <section>
+          <h3>Enumerated Values</h3>
+          <p>The enum keyword is used to restrict a value to a fixed set of values. It must be an array with at least one element, where each element is unique.</p>
+          <p>Below are several examples demonstrating its usage.</p>
+          <p>This example demonstrates how to validate that the color property of a street light is either "red", "amber", or "green":</p>
+          <pre>{
+  "properties": {
+    "color": {
+      "enum": ["red", "amber", "green"]
+    }
+  }
+}</pre>
+          <p>In the following example, the schema is extended to include <code>null</code> (to represent an "off" state) and the number 42:</p>
+          <pre>{
+  "properties": {
+    "color": {
+      "enum": ["red", "amber", "green", null, 42]
+    }
+  }
+}</pre>
+        </section>
+        <section>
+          <h3>Constant values</h3>
+          <p>The <code>const</code> keyword is used to restrict a value to a single value.</p>
+          <p>For example, if you only support shipping to the United States for export reasons:</p>
+          <pre>{
+  "properties": {
+    "country": {
+      "const": "United States of America"
+    }
+  }
+}</pre>
+        </section>
+      </section>
+
+      <section id="format">
+        <h2>The <code>format</code> Keyword</h2>
+        <p>The <code>format</code> keyword conveys semantic information for values that may be difficult or impossible to describe using JSON Schema. Typically, this semantic information is described by other documents. The <cite>JSON Schema Validation</cite> specification defines several formats, but this keyword also allows schema authors to define their own formats.</p>
+        <p>For example, because JSON doesn't have a <q>DateTime</q> type, dates need to be encoded as strings. <code>format</code> allows the schema author to indicate that the string value should be interpreted as a date. By default, <code>format</code> is just an annotation and does not affect validation.</p>
+        <p>Optionally, validator implementations can provide a configuration option to enable <code>format</code> to function as an assertion rather than just an annotation. That means that validation fails when, for example, a value with a date format isn't in a form that can be parsed as a date. This allows values to be constrained beyond what other tools in JSON Schema, including Regular Expressions, can do.</p>
+        <p>The JSON Schema specification has a bias toward networking-related formats due to its roots in web technologies. However, custom formats may also be used if the parties exchanging the JSON documents share information about the custom format types. A JSON Schema validator will ignore any format type it does not understand.</p>
+        <pre></pre>
+      </section>
+
+      <section id="jsonschema">
+        <h2>Open-Source Command Line (CLI) <code>jsonschema</code></h2>
+        <p>(<i>Visit</i> this project at <cite><a target="_blank" href="https://github.com/sourcemeta/jsonschema">https://github.com/sourcemeta/jsonschema</a></cite>)</p>
+        <p>A comprehensive solution for maintaining repositories of schemas and ensuring their quality, both during local development and when running on CI/CD pipelines. For example:</p>
+        <ul>
+          <li>Ensure your schemas are valid</li>
+          <li>Debug unexpected schema validation results</li>
+          <li>Unit test your schemas against valid and invalid instances</li>
+          <li>Enforce consistent indentation and keyword ordering in your schema files</li>
+          <li>Detect and fix common JSON Schema anti-patterns</li>
+          <li>Inline external references for conveniently distributing your schemas</li>
+        </ul>
+        <section id="simple-validation-ex">
+          <h3>A Simple Validation Example</h3>
+          <pre>jsonschema validate schema-for-person.json a-person.json</pre>
+          <p>where <cite>schema-for-person.json</cite> is:</p>
+          <pre>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "first_name": { "type": "string" },
+    "last_name":  { "type": "string" },
+    "age":        {"type": "number"}
+  }
+}</pre>
+          <p>and <cite>a-person.json</cite> is:</p>
+          <pre>{
+  "first_name": "Joanne",
+  "last_name":  "Stein",
+  "born":        1999
+}</pre>
+          <p>Note that our schema would also allow an object lacking any of the properties, or all of them:</p>
+          <pre>{
+  "first_name": "Joanne",
+  "born":        1999
+}</pre>
+          <p>We could add a property outside the schema:</p>
+          <pre>{
+  "first_name": "Joanne",
+  "last_name":  "Stein",
+  "born":        1999,
+  "married":     false
+}</pre>
+          <p>and so on.</p>
+          <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+
+        <section id="jsonschema">
+          <h3><code>jsonschema</code> Usage</h3>
+          <p>The functionality provided by the JSON Schema CLI is divided into commands. The following sections describe each feature in detail. Additionally, running the JSON Schema CLI without passing a command will print convenient reference documentation:</p>
+          <ul>
+            <li><code>jsonschema version</code>: print the current version of the JSON Schema CLI to standard output, without the <code>v</code> prefix. Example: <code>jsonschema version</code></li>
+            <li><code><a href="#jsonschema.validate">jsonschema validate</a></code></li>
+            <li><code><a href="#jsonschema.metaschema">jsonschema metaschema</a></code> (ensure a schema is valid)</li>
+            <li><code>jsonschema compile</code> (for pre-compiling schemas)</li>
+            <li><code>jsonschema test</code> (write unit tests for your schemas)</li>
+            <li><code><a href="#jsonschema.fmt">jsonschema fmt</a></code></li>
+            <li><code><a href="#jsonschema.lint">jsonschema lint</a></code></li>
+            <li><code><a target="_blank" href="https://github.com/sourcemeta/jsonschema/blob/main/docs/bundle.markdown">jsonschema bundle</a></code> (for inlining remote references in a schema). A schema may contain references to remote schemas outside the scope of the given schema. These remote schemas may live in other files, or may be served by others over the Internet. JSON Schema supports a standardized process, referred to as <dfn>bundling</dfn>, to resolve remote references in advance and inline them into the given schema for local consumption or further distribution. The JSON Schema CLI supports this functionality through the <code>bundle</code> command.</li>
+            <li><code>jsonschema inspect</code> (for debugging references)</li>
+            <li><code>jsonschema encode</code> (for binary compression)</li>
+            <li><code>jsonschema decode</code></li>
+          </ul>
+        </section>
+        <section id="jsonschema.validate">
+          <h3><code>jsonschema validate</code> for Validation</h3>
+        </section>
+        <section id="jsonschema.metaschema">
+          <h3><code>jsonschema metaschema</code> for ***</h3>
+          <aside><strong>Warning</strong> JSON Schema Draft 3 and older are not supported at this point in time.</aside>
+          <p>One usually validates a metaschema like so:</p>
+          <pre>jsonschema metaschema [schemas-or-directories...]
+  [--http/-h] [--verbose/-v] [--extension/-e &lt;<var>extension</var>&gt;]
+  [--resolve/-r &lt;<var>schemas-or-directories</var>&gt; ...]
+  [--ignore/-i &lt;<var>schemas-or-directories</var>&gt;] [--trace/-t]
+  [--default-dialect/-d &lt;<var>uri</var>&gt;] [--json/-j]</pre>
+          <p>Ensure that a schema or a set of schemas are considered valid with regards to their metaschemas. The --json/-j option outputs the evaluation result using the JSON Schema Basic standard format.</p>
+          <aside><strong>Warning</strong> The point of this command is to help schema writers make sure their schemas are valid. As a consequence, this command prioritises useful error messages and exhaustive evaluation rather than validation speed. If you require fast validation, use the validate command with its --fast/-f option instead.</aside>
+          <p>The <code>--resolve/-r</code> option is crucial to import custom meta-schemas into the resolution context, otherwise the validator won't know where to look for them.</p>
+          <hr/>
+          <p>Common usage:</p>
+          <pre>jsonschema metaschema <var>mySchema.json</var></pre>
+          <p>For example, consider this fictitious JSON Schema that follows the Draft 4 dialect but sets the type property to an invalid value:</p>
+          <pre>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": 1
+}</pre>
+          <p>Running the metaschema command on it will print an error.</p>
+        </section>
+        <section id="jsonschema.lint">
+          <h3><code>jsonschema lint</code> for Linting</h3>
+          <p>Like with traditional programming languages, writing efficient and maintainable schemas takes experience, and there are lots of common pitfalls. The JSON Schema CLI provides a <code>lint</code> command that can check your schemas against various common anti-patterns and automatically fix many of them.</p>
+          <p>Use <code>--list/-l</code> to print all the available rules and brief descriptions about them.</p>
+          <p>The <code>--strict/-s</code> enables additional opinionated strict rules with a focus on preventing mistakes and promoting correctness.</p>
+        </section>
+        <section id="jsonschema.fmt">
+          <h3><code>jsonschema fmt</code> for Formating Schema</h3>
+          <p>The default is for a schema to be formated in-place, that is, the formatted version will be substituted.</p>
+          <pre>jsonschema fmt [schemas-or-directories...]
+  [--check/-c] [--verbose/-v] [--resolve/-r &lt;schemas-or-directories&gt; ...]
+  [--extension/-e &lt;extension&gt;] [--ignore/-i &lt;schemas-or-directories&gt;]
+  [--keep-ordering/-k] [--indentation/-n &lt;spaces&gt;] [--default-dialect/-d &lt;uri&gt;]</pre>
+          <p>Typicall invokation:</p>
+          <pre>jsonschema fmt <var>mySchema.json</var> --keep-ordering</pre>
+          <p>You can change the default indentation (2 spaces) with switch <code>--indentation</code>, as in <code>--indentation 4</code> (4 spaces)</p>
+          <p>You can check that a single JSON Schema is properly formatted with switch <code>--check</code>.</p>
+        </section>
+        <section id="jsonschema.***">
+          <h3><code>jsonschema ***</code> for ***</h3>
+        </section>
+      </section>
+
+
+      <!--
+      <section>
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

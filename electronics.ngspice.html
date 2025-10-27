@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NGSpice, the Open Source Spice Simulator</title>
+    <title>NGSpice: Analog Simulator</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="NGSpice, the Open Source Spice Simulator"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
-    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
   <body lang="en" class="electronics">
@@ -201,7 +200,7 @@ C1=10 p $ Check open−loop gain and phase margin</pre>
               </table>
               <p>Parameter values are defined by appending the parameter name followed by an equal sign and the parameter value. Model parameters that are not given a value are assigned the default values given below for each model type. Models are listed in the section on each device along with the description of device element lines<!--. Model parameters and their default values are given in chapter 30.--></p>
           </section>
-          <section>
+          <section id="subcircuits">
               <h3>Subcircuits</h3>
               <p>A subcircuit that consists of ngspice elements can be defined and referenced in a fashion similar to device models. Subcircuits are the way ngspice implements hierarchical modeling, but this is not entirely true because each subcircuit instance is flattened during parsing, and thus ngspice is not a hierarchical simulator.</p>
               <p>The subcircuit is defined in the input deck by a grouping of element cards delimited by the <code>.subckt</code> and the <code>.ends</code> cards<!-- (or the keywords defined by the substart and subend options (see 17.7))-->; the program then automatically inserts the defined group of elements wherever the subcircuit is referenced. Instances of subcircuits within a larger circuit are defined through the use of an instance card which begins with the letter <q>X</q>. A complete example of all three of these cards follows:</p>
@@ -358,9 +357,110 @@ V1 input 0 AC {amplitude}
               <pre></pre>
         </section>
 
-      <section id="circuit-elements-and-models">
-        <h2>Circuit Elements and Models*</h2>
+      <section id="elements">
+        <h2>Circuit Elements*</h2>
         <p></p>
+      </section>
+
+      <section id="models">
+        <h2>Models for NGSpice</h2>
+        <p style="text-align: right">(Largely from <a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials</a>)</p>
+        <p>For simulation you need as input to ngspice your circuit (aka the netlist), device models (or model parameters), <a href="#control-language">simulation commands, and output commands</a>. The ngspice distribution does offer some <strong>default model parameters</strong> only for the basic, intrinsic devices. Device makers, vendors and modeling specialists however provide models, and you may find many of them in the two collections offered below, or in the web (see links below, or search for a specific device or use a general search term like <q>get SPICE models</q>). Generally PSPICE, HSPICE, and (many) LTSPICE models are compatible with ngspice. Sometimes models by commercial vendors are encrypted. These cannot be used by open source ngspice. Some hints on how to make models and model parameters available to ngspice are given below.</p>
+
+        <section>
+          <h3>Model and model parameter collections*</h3>
+        </section>
+
+        <section>
+          <h3>PDKs (Process Design Kits) for IC design*</h3>
+        </section>
+
+        <section>
+          <h3>How to add models and model parameters to the ngspice netlist</h3>
+          <p>Basically ngspice may use three types of model data: the PDKs (we will not talk about them here, see our <a target="_blank" href="https://ngspice.sourceforge.io/applic.html#sky">Application page</a>), sets of model parameters for the intrinsic ngspice device models, and complete subcircuit models for OpAmps and other devices and circuits.</p>
+          <p>A set of model parameters is used by ngspice device models like bipolar or MOS transistors, JFETs or transmission lines. Such a model parameter set is arranged in a single line and looks like</p>
+          <pre>.model <var>mname</var> <var>type</var> ( pname1=pval1 pname2=pval2 ... )</pre>
+          <p>where mname is the model name, type is the ngspice model type, and pnamxx are the model parameters with their values pvalxx. The parameters are prescribed by the model type, the values are used to achieve best correlation between model and measured device reality. Please note that sometimes the .model is split into several lines, where consecutive lines start with a <code>+</code> in the first column. This is regarded as a single line. A typical example is:</p>
+          <pre>*SRC=BC546;BC546;BJTs NPN;Gen. Purpose;65V 100mA
+.MODEL BC546 NPN (IS=50.7F NF=1 BF=318 VAF=145 IKF=.3
++ ISE=15.9P NE=2 BR=4 NR=1 VAR=24 IKR=.45 RE=1.54 RB=6.17
++ RC=.617 XTB=1.5 CJE=20.8P CJC=8.33P TF=611P TR=138N)
+*   National 65 Volt  .5 Amp  260 MHz  SiNPN  Transistor  01-26-1991
+*PINOUT TO-92 3 2 1</pre>
+          <p>The other model type is a subcircuit model, putting several interconnected intrinsic devices into a <a href="#subcircuits">subcircuit</a>, which is enclosed in <code>.subckt ... .ends</code> and looks like</p>
+          <pre>.subckt sname node1 node2 node3
+    ...
+.ends</pre>
+          <!--
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+
+        <section>
+          <h3>Including a Model</h3>
+          <pre>.include <var>model-directory</var>/<var>mymodels.lib</var></pre>
+          <p>or just:</p>
+          <pre>.include <var>mymodels.lib</var></pre>
+          <p>Now, in a lib file, if you are looking for a model from TI, e.g. the OpAmp OPA1641, you will find a PSPICE compatible, zipped model file assembly <cite>sbom627b.zip</cite> on the TI web pages. If you unzip it, the ngspice compatible device model is contained in the file <cite>OPA1641.lib</cite>. To check its eligibility, open the file in a text editor. After the introduction (comment lines), you will find the characteristic line</p>
+          <pre>.subckt OPA1641 IN+ IN- VCC VEE OUT</pre>
+          <p>as the begin of the main subcircuit. So copy this file <cite>OPA1641.lib</cite> to your model folder and invoke it by:</p>
+          <pre>.include model/OPA1641.lib
+Xopamp inp inm vc ve opout OPA1641</pre>
+          <p>And because this OpAmp model is a PSPICE model, don't forget to set</p>
+          <pre>set ngbehavior=ltpsa</pre>
+          <p>in file <cite>.spiceinit</cite>.</p>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
       </section>
 
       <section id="control-language">
