@@ -31,18 +31,18 @@
       <h1>Sequence Containers</h1>
       <section id="lists">
         <h2>Lists with <code>std::list</code> and <code>std::forward_list</code></h2>
-        <p>A list is a sequence optimized for insertion and deletion of elements. When you insert into a list or delete an element from a list , the locations of other elements of the list are not affected. In particular, iterators referring to other elements are not affected.</p>
+        <p>A <dfn><a target="_blank" href="adt.linked-list.html">list</a></dfn> is a sequence optimized for insertion and deletion of elements. When you insert into a list or delete an element from a list , the locations of other elements of the list are not affected. In particular, iterators referring to other elements are not affected.</p>
         <p>The main drawback of <code>std::list</code> and <code>std::forward_list</code> compared to these other sequence containers is that they lack direct access to the elements by their position; For example, to access the sixth element in a list, one has to iterate from a known position (like the beginning or the end) to that position, which takes linear time in the distance between these. They also consume some extra memory to keep the linking information associated to each element (which may be an important factor for large lists of small-sized elements).</p>
         <p><a target="_blank" href="ai.html#symbolic">Artificial Intelligence</a> lists are basically weakly-typed or untyped lists. Such lists may contain elements of any type, even sublists... Just like lists in C++, they are <em>not</em> index-addressable.</p>
         <hr/>
         <p>The STL provides two linked-list types:</p>
         <ol>
-          <li>list: a doubly-linked list, and</li>
+          <li><a href="#std_list">list</a>: a doubly-linked list, and</li>
           <li><a href="#forward_list">forward_list</a>: a singly-linked list introduced in recent revisions (C++11)</li>
         </ol>
-        <p>These are implemented in container <code>std::list&lt;&gt;</code>.</p>
+        <p>These are implemented in container <code>std::list&lt;&gt;</code> and <code>std::forward_list&lt;&gt;</code>.</p>
         <p id="list_shared_members">With the exception of subscripting, capacity management, and <code class="function">size()</code> for <code>forward_list</code>, the STL lists provide the member types and operations offered by <code>vector&lt;&gt;</code>. In addition, <code>list&lt;&gt;</code> and <code>forward_list&lt;&gt;</code> provide specific list member functions:</p>
-        <section id="list">
+        <section id="std_list">
           <h3>Doubly-Linked Lists with <code>std::list</code></h3>
           <table>
             <tbody>
@@ -96,11 +96,81 @@
               </tr>
             </tbody>
           </table>
+          <section>
+            <h4>List Element Access</h4>
+            <ul>
+              <li><code>front()</code> Access first element</li>
+              <li><code>back()</code> Access last element</li>
+            </ul>
+          </section>
+          <section>
+            <h4><code>splice</code></h4>
+            <p><code>splice</code> is a public member function that transfers elements from list to list.</p>
+            <pre>// entire list (1):
+void splice (const_iterator position, list&amp; x);
+void splice (const_iterator position, list&amp;&amp; x);
+
+// single element (2):
+void splice (const_iterator position, list&amp; x, const_iterator i);
+void splice (const_iterator position, list&amp;&amp; x, const_iterator i);
+
+// element range (3):
+void splice (const_iterator position, list&amp;  x, const_iterator first, const_iterator last);
+void splice (const_iterator position, list&amp;&amp; x, const_iterator first, const_iterator last);</pre>
+            <p>This member function effectively inserts those elements into the container and removes them from x, altering the sizes of both containers. The operation does not involve the construction or destruction of any element. They are transferred, no matter whether <var>x</var> is an lvalue or an rvalue, or whether the value_type supports move-construction or not.</p>
+            <hr/>
+            <p>An example:</p>
+            <pre>// splicing lists
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+
+int main ()
+{
+  std::list&lt;int&gt; mylist1, mylist2;
+  std::list&lt;int&gt;::iterator it;
+
+  // set some initial values:
+  for (int i=1; i&lt;=4; ++i)
+     mylist1.push_back(i);      // mylist1: 1 2 3 4
+
+  for (int i=1; i&lt;=3; ++i)
+     mylist2.push_back(i*10);   // mylist2: 10 20 30
+
+  it = mylist1.begin();
+  ++it;                         // points to 2
+
+  mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
+                                // mylist2 (empty)
+                                // "it" still points to 2 (the 5th element)
+
+  mylist2.splice (mylist2.begin(),mylist1, it);
+                                // mylist1: 1 10 20 30 3 4
+                                // mylist2: 2
+                                // "it" is now invalid.
+  it = mylist1.begin();
+  std::advance(it,3);           // "it" points now to 30
+
+  mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+                                // mylist1: 30 3 4 1 10 20
+
+  std::cout &lt;&lt; "mylist1 contains:";
+  for (it=mylist1.begin(); it!=mylist1.end(); ++it)
+    std::cout &lt;&lt; ' ' &lt;&lt; *it;
+  std::cout &lt;&lt; '\n';
+
+  std::cout &lt;&lt; "mylist2 contains:";
+  for (it=mylist2.begin(); it!=mylist2.end(); ++it)
+    std::cout &lt;&lt; ' ' &lt;&lt; *it;
+  std::cout &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+          </section>
+
         </section>
         <section id="forward_list">
           <h3>Singly-Linked Lists with <code>std::forward_list</code>*</h3>
           <p><code>std::forward_list</code> objects are single-linked lists, and thus they can only be iterated forwards, in exchange for being somewhat smaller and more efficient than doubly-linked <code>std::list</code>&apos;s.</p>
-
         </section>
       </section>
 
@@ -111,7 +181,7 @@
       </section>
 
       <section id="stl_deque">
-        <h2>Deques</h2>
+        <h2>Double-Ended Queues with <code>std::deque</code></h2>
         <p>A <code>deque</code> (pronounced "deck") is very similar to a vector. It manages its elements with a dynamic array, provides random access, and has almost the same interface as a vector. The difference is that with a <code>deque</code> the dynamic array is open at both ends. Thus, a <code>deque</code> is fast for insertions and deletions at both the end and the beginning.</p>
         <p>Deques have the following differences compared with the abilities of vectors:</p>
         <ol>
@@ -120,9 +190,47 @@
           <li>Iterators must be smart pointers of a special type rather than ordinary pointers because they must jump between different blocks.</li>
           <li>In systems that have size limitations for blocks of memory (for example, some PC systems), a <code>deque</code> might contain more elements because it uses more than one block of memory. Thus, max_size() might be larger for <code>deque</code>'s.</li>
           <li>Deques provide no support to control the capacity and the moment of reallocation. In particular, any insertion or deletion of elements other than at the beginning or end invalidates all pointers, references, and iterators that refer to elements of the <code>deque</code>.</li>
-          <li>However, reallocation may perform better than for vectors, because according to their typical internal structure, <code>deque</code>&apos;s don&apos;t have to copy all elements on reallocation.</li>
+          <li>However, reallocation may perform better than for vectors, because according to their typical internal structure, <code>deque</code>&apos;s don&apos;t have to copy all elements on reallocation, only the block (out of several blocks) targeted by the insertion/deletion.</li>
           <li>Blocks of memory might get freed when they are no longer used, so the memory size of a <code>deque</code> might shrink (however, whether and how this happens is implementation specific).</li>
         </ol>
+      </section>
+
+      <section id="array">
+        <h2>Fixed-sized Arrays with <code>std::array</code></h2>
+        <p><code>std::array</code> is a fixed-sized array, kind of a paired-down <code>std::vector</code>.</p>
+        <p><code>std::array</code> is defined in <cite>&lt;array&gt;</cite>.</p>
+        <p>The size of an <code>std::array</code> object is passed in as a template parameter.</p>
+        <hr/>
+        <p>Synopsis:</p>
+        <pre>template &lt;typename T, size_t N&gt; class array;</pre>
+        <p>where <var>T</var> is the type of the elements contained and is aliased as member type <code>array::value_type</code>.</p>
+        <hr/>
+        <p>It is as efficient in terms of storage size as an ordinary array declared with the language's bracket syntax (<code>[]</code>). This class merely adds a layer of member and global functions to it, so that arrays can be used as standard containers.</p>
+        <hr/>
+        <p>Unlike with the other containers in the Standard Library, swapping two array containers is a linear operation that involves swapping all the elements in the ranges individually, which generally is a considerably less efficient operation. On the other side, this allows the iterators to elements in both containers to keep their original container association.</p>
+        <p>Another unique feature of array containers is that they can be treated as tuple objects: The <cite>&lt;array&gt;</cite> header overloads the global <code>std::get</code> function to access the elements of the array as if it was a tuple, as well as specialized <code>tuple_size</code> and <code>tuple_element</code> types.</p>
+        <hr/>
+        <p><code>std::array</code> has the full set of iterator member functions: <code>begin()</code>, <code>end()</code>, <code>rbegin()</code>, <code>rend()</code>, <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, and <code>crend()</code></p>
+        <hr/>
+        <p>The capacity interface has three these constant member functions: <code>size()</code>, <code>max_size()</code>, and <code>emply()</code>. Both <code>size()</code> and <code>max_size</code> are always equal to the second template parameter used to instantiate the array template class. <code>empty()</code> only return true if the array size is 0, that is, if the second template parameter is 0.</p>
+        <hr/>
+        <p>Member <code>fill(const value_type&amp; <var>value</var>)</code> fills array with <var>value</var>.</p>
+        <hr/>
+        <p>Member <code>data()</code> returns a pointer to the first element in the <code>std::array</code> object.</p>
+        <pre>value_type* data() noexcept;
+const value_type* data() const noexcept;</pre>
+        <section>
+          <h3>Element Access Members</h3>
+          <p>Access is limited to the following member functions:</p>
+          <ul>
+            <li><code>operator[](<var>INDEX</var>)</code> Access element (public member function)</li>
+            <li><code>at(<var>INDEX</var>)</code> Access element (public member function) and throws <code>std::out_of_range</code> exception if <var>INDEX</var> is beyond boundaries</li>
+            <li><code>front()</code> Access first element (public member function)</li>
+            <li><code>back()</code> Access last element (public member function)</li>
+            <li><code>data()</code> Get pointer to data (public member function)</li>
+          </ul>
+        </section>
+
       </section>
 
       <section id="bitmap">

@@ -157,6 +157,10 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+in *json.schema.html*:
+[ ] references to / inclusions of external schemata
+[ ] elaborate on "format" (*json.schema.html#format*)
+
 [ ] Linux Package <code>clang-format</code>
 <p>Clang-format is both a library and a stand-alone tool with the goal of automatically reformatting C++ sources files according to configurable style guides. To do so, clang-format uses Clang's Lexer to transform an input file into a token stream and then changes all the whitespace around those tokens. The goal is for clang-format to both serve both as a user tool (ideally with powerful IDE integrations) and part of other refactoring tools, e.g. to do a reformatting of all the lines changed during a renaming.</p>
 

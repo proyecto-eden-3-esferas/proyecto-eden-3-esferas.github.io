@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linked Lists</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="The Linked List: a Chain of Links"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="adt.html">Abstract Data Types (ADTs)</a></p>
+        <p><a href="adt.queue.html">The Queue (First In First Out)</a></p>
+      </div>
+      <div>
+        <p><a href="programming.html">Programming: Getting Computers to Do Stuff</a></p>
+        <p><a href="polymorphism.html">Polymorphism</a></p>
+        <p><a href="cpp.sequence-containers.html#std_list">Double-Linked</a> and <a href="cpp.sequence-containers.html#forward_list">Singly-Linked</a> Lists in C++</p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The Linked List: a Chain of Links</h1>
+      <p>A <dfn>linked list</dfn> is an (abstract) is data structure consisting of a set of nodes where each node holds a pointer to the next node and a pointer to the previous node.</p>
+      <p>Linked lists offer dynamic memory allocation, and efficient insertion, and deletion operations anywhere, wheras arrays can only insert and delete in constant time at their back.</p>
+
+      <section id="types">
+        <h2>Types of Linked List</h2>
+        <ul>
+          <li><dfn>Singly Linked List</dfn>: Each node contains data and a reference to the next node. It only allows traversal in one direction.</li>
+          <li><dfn>Doubly Linked List</dfn>: Each node contains data, a reference to the next node, and a reference to the previous node. This structure allows traversal in both directions.</li>
+          <li><dfn>Circular Linked List</dfn>: In this type of linked list, the last node points back to the first node, creating a circular structure. It can be singly or doubly linked.</li>
+        </ul>
+      </section>
+
+      <section id="applications">
+        <h2>Applications of Linked Lists</h2>
+        <dl>
+
+          <dt>Dynamic Memory Allocation</dt>
+          <dd>Linked lists are widely used in applications where dynamic memory allocation is crucial. Unlike arrays, which require predefined memory space, linked lists can efficiently manage memory at runtime. This makes them ideal for scenarios where the size of the data structure is not known in advance or varies significantly during execution.</dd>
+
+          <dt>Singly-Linked Lists Implementing Stacks and Queues</dt>
+          <dd>
+            <p>Stacks and queues are fundamental data structures used in various applications. Linked lists are an efficient way to implement both structures, overcoming the limitations of array-based implementations, such as fixed size.</p>
+            <ul>
+              <li><strong>Stack</strong>: Using a singly linked list, a stack can be implemented where elements are pushed or popped from the head of the list.</li>
+              <li><strong>Queue</strong>: A queue can be implemented using a singly linked list where elements are enqueued at the tail and dequeued from the head.</li>
+            </ul>
+          </dd>
+
+          <dt>Polynomial Manipulation</dt>
+          <dd>In mathematics and computer science, linked lists can represent polynomial expressions efficiently. Each node in the linked list can store the coefficient and exponent of a term in the polynomial. Operations such as addition and multiplication of polynomials become easier to implement using a linked list. Such lists must be kept sorted by exponent.</dd>
+
+          <dt>Adjacency List in Graphs</dt>
+          <dd>Graphs are represented using an adjacency list, where each node corresponds to a vertex, and its adjacent vertices are stored in a linked list. This structure is efficient in terms of both time and space, especially for sparse graphs.</dd>
+
+          <dt>Undo and Redo Operations in Text Editors and other Applications</dt>
+          <dd>
+            <p>A doubly linked list stores user actions (add, change, delete, etc.).</p>
+            <p>Text editors, graphic design tools, and many other software applications use doubly linked lists to implement undo and redo functionalities. Every action (such as typing a letter or deleting content) is stored in a node. The undo action moves to the previous node, while the redo action moves to the next.</p>
+            <p>Also, browsers store browser history in a doubly linked list, which enables moving forward and backward to already visited pages.</p>
+          </dd>
+
+          <dt>Singly Linked List in Hashing</dt>
+          <dd>In hashing, singly linked lists are employed to handle collisions using chaining. When two or more elements hash to the same index, a linked list is created at that index to store the colliding elements. This ensures efficient management of collisions and helps maintain the overall performance of the hash table.</dd>
+
+          <dt>Everyday Software Development and Systems</dt>
+          <dd>
+            <ul>
+              <li><strong>File Allocation in Operating Systems</strong>: Operating systems use linked lists to manage file storage on disk. For example, the File Allocation Table (FAT) system uses a linked list to keep track of the blocks of a file, ensuring that the file can be stored across non-contiguous blocks on the disk.</li>
+              <li><strong>Job Scheduling</strong>: In certain job scheduling algorithms, a linked list is used to maintain a list of jobs to be executed in a specific order. Each job can be dynamically added or removed as required by the system.</li>
+            </ul>
+          </dd>
+
+        </dl>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

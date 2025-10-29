@@ -9,14 +9,13 @@
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
     <meta name="author" content="AUTHOR"/>
-    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
   <body lang="en" class="computing">
     <nav>
       <div>
-        <p><a rel="next" href="json.schema.html">JSON Schema</a> for JSON Validating, Formating etc.</p>
-        <p><a            href="https://json-schema.org/">json-schema.org</a> (Web Site)</p>
+        <p><a            href="json.schema.html">JSON Schema</a> for JSON Validating, Formating etc.</p>
+        <p><a rel="next" href="https://json-schema.org/">json-schema.org</a> (Web Site)</p>
         <p><a            href="https://json-schema.org/reference/">json-schema.org Reference</a> (Web Page)</p>
         <p><a            href="json.writing.html">Writing JSON Documents</a></p>
         <p><a            href="js.json.html">JavaScript for Handling JSON</a></p>
@@ -58,7 +57,7 @@
       <section>
         <h2>The <code>type</code> Keyword</h2>
         <p>The most common thing to do in a JSON Schema is to restrict to a specific type. The <code>type</code> keyword is used for that.</p>
-        <pre>type = {string | ...}</pre>
+        <pre>"type" = {"string" | "boolean" | "integer" | "number" | "array" | "object" | "null" | "regular expression" ...}</pre>
       </section>
       <section>
         <h2>Declaring a JSON Schema</h2>
@@ -94,10 +93,10 @@
 
         <section id="arrays">
           <h3>Arrays</h3>
-          <p>There are two ways in which arrays are generally used in JSON:</p>
+          <p>There are two ways in which arrays are generally used in JSON Schema:</p>
           <ul>
-            <li><strong>List validation:</strong> a sequence of arbitrary length where each item matches the same schema.</li>
-            <li><strong>Tuple validation</strong>: a sequence of fixed length where each item may have a different schema. In this usage, the index (or location) of each item is meaningful as to how the value is interpreted. (This usage is often given a whole separate type in some programming languages, such as <code>std::tuple</code> in C++).</li>
+            <li><strong><a href="#items">List validation:</a></strong> a sequence of arbitrary length where each item matches the same schema.</li>
+            <li><strong><a href="#prefixItems">Tuple validation</a></strong>: a sequence of fixed length where each item may have a different schema. In this usage, the index (or location) of each item is meaningful as to how the value is interpreted. (This usage is often given a whole separate type in some programming languages, such as <code>std::tuple</code> in C++).</li>
           </ul>
           <section id="items">
             <h4>List Validation with <code>items</code></h4>
@@ -110,13 +109,13 @@
   }
 }</pre>
           </section>
-          <section id="">
+          <section id="prefixItems">
             <h4>Tuple Validation with <code>prefixItems</code></h4>
             <p>Tuple validation is useful when the array is a collection of items where each has a different schema and the ordinal index of each item is meaningful.</p>
             <p>For example, you may represent a street address such as 1600 Pennsylvania Avenue NW as a 4-tuple of the form:</p>
             <pre>[number, street_name, street_type, direction]﻿</pre>
             <p>where each field will have a different schema.</p>
-            <p>We enforce this with the <code>prefixItems</code> keyword. <code>prefixItems</code> is an array, where each item is a schema that corresponds to each index of the document's array. That is, an array where the first element validates the first element of the input array, the second element validates the second element of the input array, etc.</p>
+            <p>We enforce this with the <code>prefixItems</code> keyword. <code>prefixItems</code> is an array, where each item is a schema object that corresponds to each index of the document's array. That is, an array where the first element validates the first element of the input array, the second element validates the second element of the input array, etc.</p>
             <p>Here's the example schema:</p>
             <pre>{
   "type": "array",
@@ -128,9 +127,9 @@
   ]
 }</pre>
           </section>
-          <section>
+          <section id="additional-items">
             <h4>Additional Items</h4>
-            <p>The items keyword can be used to control whether it's valid to have additional items in a tuple beyond what is defined in prefixItems. The value of the items keyword is a schema that all additional items must pass in order for the keyword to validate.</p>
+            <p>The <code>items</code> keyword can be used to control whether it's valid to have additional items in a tuple beyond what is defined in prefixItems. The value of the <code>items</code> keyword is a schema that all additional items must pass in order for the keyword to validate.</p>
             <aside>
               <p>Before to <cite>Draft 2020-12</cite>, you would use the <code>additionalItems</code> keyword to constrain additional items on a tuple. It works the same as <code>items</code>, only the name has changed.</p>
               <p>In Draft 6 - 2019-09, the <code>additionalItems</code> keyword is ignored if there is not a <q>tuple validation</q> <code>items</code> keyword present in the same schema.</p>
@@ -160,7 +159,7 @@
           <section>
             <h4>Unevaluated Items</h4>
             <p>The <code>unevaluatedItems</code> keyword is useful mainly when you want to add or disallow extra items to an array.</p>
-            <p><code>unevaluatedItems</code> applies to any values not evaluated by an <code>items</code>, <code>prefixItems</code>, or <code>contains</code> keyword. Just as <code>unevaluatedProperties</code> affects only properties in an object, <code>unevaluatedItems</code> affects only items in an array.</p>
+            <p><code>unevaluatedItems</code> applies to any values not evaluated by an <code>items</code>, <code><a href="#prefixItems">prefixItems</a></code>, or <code><a href="#contains">contains</a></code> keyword. Just as <code>unevaluatedProperties</code> affects only properties in an object, <code>unevaluatedItems</code> affects only items in an array.</p>
             <aside>Watch out! The word "unevaluated" does not mean "not evaluated by items, prefixItems, or contains." "Unevaluated" means "not successfully evaluated", or "does not evaluate to true".</aside>
             <p>As with <code>items</code>, if you set <code>unevaluatedItems</code> to false, you can disallow extra items in the array.</p>
             <pre>{
@@ -193,7 +192,7 @@
 }</pre>
             </section>
           </section>
-          <section>
+          <section id="array-size">
             <h4>Array Size</h4>
             <p>The length of the array can be specified using the <code>minItems</code> and <code>maxItems</code> keywords. The value of each keyword must be a non-negative number. These keywords work whether doing list validation or tuple-validation.</p>
             <pre>{
@@ -202,22 +201,18 @@
   "maxItems": 3
 }</pre>
           </section>
-          <section>
+          <section id="uniqueItems">
             <h4>Uniqueness</h4>
             <p>A schema can ensure that each of the items in an array is unique. Simply set the <code>uniqueItems</code> keyword to true.</p>
             <pre>{
   "type": "array",
   "uniqueItems": true
 }</pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
           </section>
         </section>
         <section id="objects">
           <h3>Objects</h3>
-          <p>The properties (key-value pairs) on an object are defined using the <code>properties</code> keyword. The value of <code>properties</code> is an object, where each key is the name of a property and each value is a schema used to validate that property. Any property that doesn't match any of the property names in the properties keyword is ignored by this keyword.</p>
+          <p>The properties (key-value pairs) on an object are defined using the <code>properties</code> keyword. The value of <code>properties</code> is an object, where each key is the name of a property and each value is a schema used to validate that property. Any property that doesn't match any of the property names in the <code>properties</code> keyword is ignored by this keyword.</p>
           <aside>See <cite><a href="#additionalProperties">Additional Properties</a></cite> and <cite>Unevaluated Properties</cite> for how to disallow properties that don't match any of the property names in properties.</aside>
           <p>For example, let's say we want to define a simple schema for an address made up of a number, street name and street type:</p>
           <pre>{
@@ -232,8 +227,8 @@
           <pre>{"number": 1600, "street_name": "Pennsylvania", "street_type": "Avenue" }}</pre>
           <section id="patternProperties">
             <h4>Pattern Properties </h4>
-            <p>Sometimes you want to say that, given a particular kind of property name, the value should match a particular schema. That's where patternProperties comes in: it maps regular expressions to schemas. If a property name matches the given regular expression, the property value must validate against the corresponding schema.</p>
-            <aside>Regular expressions are not anchored. This means that when defining the regular expressions for patternProperties, it's important to note that the expression may match anywhere within the property name. For example, the regular expression "p" will match any property name with a p in it, such as "apple", not just a property whose name is simply "p". It's therefore usually less confusing to surround the regular expression in ^...$, for example, "^p$".</aside>
+            <p>Sometimes you want to say that, given a particular kind of property name, the value should match a particular schema. That's where <code>patternProperties</code> comes in: it maps regular expressions to schemas. If a property name matches the given regular expression, the property value must validate against the corresponding schema.</p>
+            <aside>Regular expressions are not anchored. This means that when defining the regular expressions for <code>patternProperties</code>, it's important to note that the expression may match anywhere within the property name. For example, the regular expression "p" will match any property name with a "p" in it, such as "apple", not just a property whose name is simply "p". It's therefore usually less confusing to surround the regular expression in ^...$, for example, "^p$".</aside>
             <p>In this example, any properties whose names start with the prefix <q>S_</q> must be strings, and any with the prefix <q>I_</q> must be integers. Any properties that do not match either regular expression are ignored.</p>
             <pre>{
   "type": "object",
@@ -249,7 +244,7 @@
           </section>
           <section id="additionalProperties">
             <h4>Additional Properties</h4>
-            <p>The <code>additionalProperties</code> keyword is used to control the handling of extra stuff, that is, properties whose names are not listed in the properties keyword or match any of the regular expressions in the <code>patternProperties</code> keyword. By default any additional properties are allowed.</p>
+            <p>The <code>additionalProperties</code> keyword is used to control the handling of extra stuff, that is, properties whose names are not listed in the properties keyword or match any of the regular expressions in the <code>patternProperties</code> keyword. By default any additional properties are allowed (default is <code>true</code>).</p>
             <p>The value of the <code>additionalProperties</code> keyword is a schema that will be used to validate any properties in the instance that are not matched by properties or patternProperties. Setting the <code>additionalProperties</code> schema to false means no additional properties will be allowed.</p>
             <p>Reusing the example from <cite>Properties</cite>, but this time setting <code>additionalProperties</code> to false:</p>
             <pre>{
@@ -274,7 +269,7 @@
           </section>
           <section id="unevaluatedProperties">
             <h4>Unevaluated Properties*</h4>
-            <p>The <code>unevaluatedProperties</code> keyword is similar to additionalProperties except that it can recognize properties declared in subschemas.</p>
+            <p>The <code>unevaluatedProperties</code> keyword is similar to <code>additionalProperties</code> except that it can recognize properties declared in subschemas.</p>
             <p>[...]</p>
           </section>
           <section>
@@ -315,12 +310,15 @@
         </section>
         <section id="strings">
           <h3>Strings</h3>
-          <p>The length of a string can be constrained using the <code>minLength</code> and <code>maxLength</code> keywords. For both keywords, the value must be a non-negative number.</p>
-          <pre>{
+          <section id="string-length">
+            <h4>String Length</h4>
+            <p>The length of a string can be constrained using the <code>minLength</code> and <code>maxLength</code> keywords. For both keywords, the value must be a non-negative number.</p>
+            <pre>{
   "type": "string",
   "minLength": 2,
   "maxLength": 3
 }</pre>
+          </section>
           <section id="regex">
             <h4>Strings that are Regular Expressions</h4>
             <p>The <code>pattern</code> and <code>patternProperties</code> keywords use regular expressions to express constraints.</p>
@@ -331,9 +329,9 @@
             <p>so that both <kbd>"555-1212"</kbd> and <kbd>"(888)555-1212"</kbd> would be matched.</p>
           </section>
         </section>
-        <section>
+        <section id="enum">
           <h3>Enumerated Values</h3>
-          <p>The enum keyword is used to restrict a value to a fixed set of values. It must be an array with at least one element, where each element is unique.</p>
+          <p>The <code>enum</code> keyword is used to restrict a value to a fixed set of values. It must be an array with at least one element, where each element is unique.</p>
           <p>Below are several examples demonstrating its usage.</p>
           <p>This example demonstrates how to validate that the color property of a street light is either "red", "amber", or "green":</p>
           <pre>{
@@ -352,7 +350,7 @@
   }
 }</pre>
         </section>
-        <section>
+        <section id="const">
           <h3>Constant values</h3>
           <p>The <code>const</code> keyword is used to restrict a value to a single value.</p>
           <p>For example, if you only support shipping to the United States for export reasons:</p>
