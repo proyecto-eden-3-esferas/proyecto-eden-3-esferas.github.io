@@ -157,6 +157,16 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] add everand franciscofvh@hotmail.com:FcoF-VH1966 for www.everand.com
+
+[ ] unglue.it
+
+[ ] https://www.obooko.com/
+[ ] https://z-library.cc/
+[ ] https://www.pdfbooksworld.com/
+[ ] https://pdfdrive.webs.nf/
+[ ] https://www.epubbooks.com/
+
 in *json.schema.html*:
 [ ] references to / inclusions of external schemata
 [ ] elaborate on "format" (*json.schema.html#format*)
@@ -2556,6 +2566,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+[x] *cpp.allocators.html* from  *cpp.containers.html* as "<p><a href="cpp.allocators.html">Allocators</a></p>"
+[ ] *cpp.allocators.html* from  elsewhere as "<p><a href="cpp.allocators.html">Allocators</a></p>"
 
 [x] link to *slow-food.html* from *health.html*
 [x] link to *slow-food.html* from *farming.html*

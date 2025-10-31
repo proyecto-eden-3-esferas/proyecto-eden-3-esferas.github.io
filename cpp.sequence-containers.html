@@ -76,7 +76,16 @@
               </tr>
               <tr>
                 <td><var>lst</var>.merge(lst2)</td>
-                <td>Merge the ordered lists lst and lst2 using &lt; as the order; lst2 is merged into lst and emptied in the process</td>
+                <td>
+                  <p>Merge the ordered lists <var>lst</var> and <var>lst2</var> using &lt; as the order, unless a two argument prototype is applied; <var>lst2</var> is merged into <var>lst</var> and emptied in the process</p>
+                  <pre>void merge (list&amp; x);
+void merge (list&amp;&amp; x);
+template &lt;class Compare&gt;
+void merge (list&amp; x, Compare comp);
+template &lt;class Compare&gt; void merge (list&amp;&amp; x, Compare comp);</pre>
+                  <p><strong>Note</strong> both lists should be sorted (by the same comparison predicate) before merging.</p>
+                  <pre></pre>
+                </td>
               </tr>
               <tr>
                 <td><var>lst</var>.merge(lst2,f)</td>
@@ -172,12 +181,103 @@ int main ()
           <h3>Singly-Linked Lists with <code>std::forward_list</code>*</h3>
           <p><code>std::forward_list</code> objects are single-linked lists, and thus they can only be iterated forwards, in exchange for being somewhat smaller and more efficient than doubly-linked <code>std::list</code>&apos;s.</p>
         </section>
+        <section id="sorting-lists">
+          <h3>Sorting Lists with <code>std::forward_list::sort(<var>f</var>)</code> and <code>std::list::sort(<var>f</var>)</code></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre>void sort();
+template &lt;typename Compare&gt;
+void sort (Compare comp);</pre>
+          <p>A code example (with <code>std::forward_list</code>):</p>
+          <pre>// forward_list::sort
+#include &lt;iostream&gt;
+#include &lt;forward_list&gt;
+#include &lt;functional&gt;
+
+int main ()
+{
+  std::forward_list&lt;int&gt; mylist = {22, 13, 5, 40, 90, 62, 31};
+
+  mylist.sort();
+
+  std::cout &lt;&lt; "default sort (operator&lt;):";
+  for (int&amp; x: mylist) std::cout &lt;&lt; ' ' &lt;&lt; x;
+  std::cout &lt;&lt; '\n';
+
+  mylist.sort(std::greater&lt;int&gt;());
+
+  std::cout &lt;&lt; "sort with std::greater():";
+  for (int&amp; x: mylist) std::cout &lt;&lt; ' ' &lt;&lt; x;
+  std::cout &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+          <p>Output:</p>
+          <pre>default sort (operator&lt;): 5 13 22 31 40 62 90
+sort with std::greater(): 90 62 40 31 22 13 5</pre>
+          <hr/>
+          <p>Another example (with <code>std::list</code>)</p>
+          <pre>// list::sort
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;string&gt;
+#include &lt;cctype&gt;
+
+// comparison, not case sensitive.
+bool compare_nocase (const std::string&amp; first, const std::string&amp; second)
+{
+  unsigned int i=0;
+  while ( (i&lt;first.length()) &amp;&amp; (i&lt;second.length()) )
+  {
+    if (tolower(first[i])&lt;tolower(second[i])) return true;
+    else if (tolower(first[i]) &gt; tolower(second[i])) return false;
+    ++i;
+  }
+  return ( first.length() &lt; second.length() );
+}
+
+int main ()
+{
+  std::list&lt;std::string&gt; mylist;
+  std::list&lt;std::string&gt;::iterator it;
+  mylist.push_back ("one");
+  mylist.push_back ("two");
+  mylist.push_back ("Three");
+
+  mylist.sort();
+
+  std::cout &lt;&lt; "mylist contains:";
+  for (it=mylist.begin(); it!=mylist.end(); ++it)
+    std::cout &lt;&lt; ' ' &lt;&lt; *it;
+  std::cout &lt;&lt; '\n';
+
+  mylist.sort(compare_nocase);
+
+  std::cout &lt;&lt; "mylist contains:";
+  for (it=mylist.begin(); it!=mylist.end(); ++it)
+    std::cout &lt;&lt; ' ' &lt;&lt; *it;
+  std::cout &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
       </section>
 
       <section id="vector">
-        <h2>Vectors</h2>
+        <h2>Dynamic Arrays with Class <code>std::vector</code></h2>
         <p>std::<code>vectors</code> are automatic arrays which keep track of their <dfn>size</dfn>, that is how many places have been occupied (pressumably in an integer variable), as well as their <dfn>capacity</dfn>, which is the total number of objects of the given type that they can accomodate. Further, when they have filled up, they reallocate their sequence of objects in a larger chunk of memory, the start of this run of memory is updated (in a pointer variable), and the new, larger capacity is updated, too. This means that indeces into the array-like structure remain valid, but pointers are invalidated, so they must never be taken in the first place.</p>
         <p>Unlike with linked lists, insertions (or deletions) are either meaningless or demand that all objects after the one inserted be shifted one place, which is done in linear time, whereas lists perform insertions and deletions in constant time. Furthermore, insertions and deletions would invalidate all subsequent indeces...</p>
+        <hr/>
+        <p>Only vectors have a <code>capacity()</code> member, which returns the size of the storage space currently allocated for the vector, expressed in terms of elements, that is, how many elements it can accomodate without reallocation. This capacity is not necessarily equal to the vector size but can be equal or greater, with the extra space allowing to accommodate for growth without the need to reallocate on each insertion.</p>
+        <p>Notice that this capacity does not suppose a limit on the size of the vector. When this capacity is exhausted and more is needed, it is automatically expanded by the container (reallocating it storage space). The theoretical limit on the size of a vector is given by member <code>max_size()</code>.</p>
       </section>
 
       <section id="stl_deque">
@@ -238,7 +338,7 @@ const value_type* data() const noexcept;</pre>
       </section>
 
       <section>
-        <h2>Random Access Returning Reference</h2>
+        <h2>Random Access Returning Reference with <code>operator[](<var>index</var>)</code></h2>
         <p>Sequence containers based on an array offer access through indexes. They will declare:</p>
         <pre>reference operator[](size_type idx);
 const_reference operator[](size_type idx) const;</pre>
@@ -257,6 +357,24 @@ else
         <h2>Find and Replace Operations</h2>
         <p>Functions <code class="function">find(...)</code> returns a <kbd>size_type</kbd> variable, actually an integer representing an index to the element found. A <code>string</code>&apos;s <code class="function">find()</code> operation may return <kbd>npos</kbd>, for <q>no position</q>, which should be defined as <inlineequation>-1</inlineequation>.</p>
       </section>
+
+      <section id="changing-capacity">
+        <h2>Changing Capacity with <code><var>CONTAINER</var>::resize(<var>new_size</var>)</code> and <code><var>CONTAINER</var>::shrink_to_fit()</code> (only <code>std::vector</code> and <code>std::queue</code>)</h2>
+
+        <section id="resize">
+          <h3><code><var>CONTAINER</var>::resize(<var>new_size</var>)</code></h3>
+          <pre>void resize (size_type <var>n</var>);void resize (size_type <var>n</var>, const value_type&amp; <var>val</var>);</pre>
+          <p><code><var>CONTAINER</var>::resize(<var>new_size</var>)</code> resizes the container so that it contains n elements. If <var>n</var> is smaller than the current container size, the content is reduced to its first n elements, removing those beyond (and destroying them). If <var>n</var> is greater than the current container size, the content is expanded by inserting at the end as many elements as needed to reach a size of <var>n</var>. If <var>val</var> is specified, the new elements are initialized as copies of <var>val</var>, otherwise, they are value-initialized. If <var>n</var> is also greater than the current container <a href="#changing-capacity">capacity</a>, an automatic reallocation of the allocated storage space takes place.</p>
+          <p>Notice that this function changes the actual content of the container by inserting or erasing elements from it.</p>
+        </section>
+
+        <section id="shrink_to_fit">
+          <h3><code>shrink_to_fit()</code></h3>
+          <p><code>shrink_to_fit()</code> requests the container to reduce a container's capacity to fit its size. The request is non-binding, and the container implementation is free to optimize otherwise and leave the container with a capacity greater than its size. This may cause a reallocation, but has no effect on its <code>size()</code> and cannot alter its elements.</p>
+        </section>
+
+      </section>
+
 
     </main>
   </body>

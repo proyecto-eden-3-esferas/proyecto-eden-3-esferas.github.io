@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STL Containers</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Container Adaptors: std::queue, std::priority_queue, and std::stack"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.containers.html">C++ Standard Containers</a></p>
+        <p><a rel="next" href="cpp.associative-containers.html">C++ Associative Containers: Maps, Sets...</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a></p>
+        <p><a            href="cpp.stl.html">The C++ Standard Template Library</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Container Adaptors: <code>std::queue</code>, <code>std::priority_queue</code>, and <code>std::stack</code></h1>
+      <p><dfn>Containers adaptors</dfn> are classes that use an encapsulated object of a specific container class as its <strong>underlying container</strong>, providing a specific (somewhat reduced) set of member functions to access its elements.</p>
+
+      <section id="queue">
+        <h2><code>std::queue</code></h2>
+        <p>Both <code>std::queue</code> and <code>std::priority_queue</code> are defined in header <cite>&lt;queue&gt;</cite>.</p>
+        <p><code>std::queue</code>s are a type of container adaptor, specifically designed to operate in a FIFO context (first-in first-out), where elements are inserted into one end of the container and extracted from the other.</p>
+        <p>In a <code>std::queue</code> elements are pushed into the <q>back</q> of the specific container and popped from its <q>front</q>.</p>
+        <p>The underlying container may be one of the standard container class template in the <a target="_blank" href="cpp.stl.html">STL</a> or some other specifically designed container class. This underlying container shall support at least the following operations:</p>
+        <ul>
+          <li><code>empty()</code></li>
+          <li><code>size()</code></li>
+          <li><code>front()</code></li>
+          <li><code>back()</code></li>
+          <li><code>push_back(<var>element</var>)</code></li>
+          <li><code>pop_front()</code></li>
+        </ul>
+        <p>The standard container classes <code>std::deque</code> and <code>std::list</code> fulfill these requirements. By default, if no container class is specified for a particular queue class instantiation, the standard container <code>std::deque</code> is used.</p>
+        <hr/>
+        <p><code>std::queue</code> has the following member functions:</p>
+        <table>
+          <tr> <td>(<var>constructor</var>)()</td> <td>Construct queue (public member function)</td> </tr>
+          <tr> <td><code>empty()</code></td> <td>Test whether container is empty (public member function)</td> </tr>
+          <tr> <td><code>size()</code></td> <td>Return size (public member function)</td> </tr>
+          <tr> <td><code>front()</code></td> <td>Access next element (public member function)</td> </tr>
+          <tr> <td><code>back()</code></td> <td>Access last element (public member function)</td> </tr>
+          <tr> <td><code>push(<var>element</var>)</code></td> <td>Insert element (public member function)</td> </tr>
+          <tr> <td><code>emplace(<var>args_pack</var>)</code></td> <td>Construct and insert element (public member function)</td> </tr>
+          <tr> <td><code>pop()</code></td> <td>Remove next element (public member function)</td> </tr>
+          <tr> <td><code>swap()</code></td> <td>Swap contents (public member function)</td> </tr>
+        </table>
+
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="priority_queue">
+        <h2><code>std::priority_queue</code></h2>
+        <p>Both <code>std::queue</code> and <code>std::priority_queue</code> are defined in header <cite>&lt;queue&gt;</cite>.</p>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="priority_queue">
+        <h2><code>std::stack</code></h2>
+        <p><code>std::stack</code> is defined in header <cite>&lt;stack&gt;</cite>.</p>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+    </main>
+  </body>
+</html>
