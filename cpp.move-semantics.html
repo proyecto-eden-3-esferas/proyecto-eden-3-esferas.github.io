@@ -33,7 +33,7 @@
       <h1>Move Semantics in C++</h1>
       <p>In C++, to <dfn>move</dfn> means to move the contents (of an object) from one place in memory to another. You typically move something pointed to or some acquired resource such as a file handle or a connection (to a database, or a socket, or...).</p>
 
-      <section>
+      <section id="l-and-r-values">
         <h2>L- and R-Values</h2>
         <p>The term lvalue originally referred to an expression that could be the left hand side of an assignment. Correspondingly, an rvalue (although as I recall that term was not used by the C89 standard), was originally just the opposite: an expression that could not be the left hand side of an assignment, but that could only be the right hand side.</p>
         <p>C++11 complicated this by adding several more nuanced terms, but let&apos;s concentrate on the C++03 meanings. For example, if you have</p>
@@ -49,7 +49,7 @@
         <p>In C++, an rvalue is an unnamed object or a member of such an object which is not a reference.</p>
       </section>
 
-      <section>
+      <section id="std_move">
         <h2>Causing Move Semantics with <code>std::move()</code></h2>
         <p>...</p>
         <pre>// Creating an object using Move constructor
@@ -61,12 +61,10 @@ obj3 = std::move(obj2);</pre>
         <p>...</p>
       </section>
 
-
-
-      <section>
+      <section id="forwarding">
         <h2>Forwarding</h2>
         <p><dfn>Forwarding</dfn> is the process where one function forwards its parameter to another function.</p>
-        <section>
+        <section id="perfect-forwarding">
           <h3>Perfect Forwarding</h3>
           <p>With <dfn>perfect forwarding</dfn>, the function should receive the same object passed from the function that does the forwarding. In other words, <dfn>perfect forwarding</dfn> means we do not just forward objects, we also forward their salient properties, whether they are lvalues or rvalues, const or volatile.</p>
           <aside>

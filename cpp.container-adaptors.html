@@ -28,6 +28,7 @@
     <main>
       <h1>Container Adaptors: <code>std::queue</code>, <code>std::priority_queue</code>, and <code>std::stack</code></h1>
       <p><dfn>Containers adaptors</dfn> are classes that use an encapsulated object of a specific container class as its <strong>underlying container</strong>, providing a specific (somewhat reduced) set of member functions to access its elements.</p>
+      <aside>All three container adaptors have a member function <a href="#emplace"><code>emplace(<var>args</var>)</code></a>.</aside>
 
       <section id="queue">
         <h2><code>std::queue</code></h2>
@@ -53,56 +54,54 @@
           <tr> <td><code>front()</code></td> <td>Access next element (public member function)</td> </tr>
           <tr> <td><code>back()</code></td> <td>Access last element (public member function)</td> </tr>
           <tr> <td><code>push(<var>element</var>)</code></td> <td>Insert element (public member function)</td> </tr>
-          <tr> <td><code>emplace(<var>args_pack</var>)</code></td> <td>Construct and insert element (public member function)</td> </tr>
+          <tr> <td><code><a href="#emplace">emplace(<var>args_pack</var>)</a></code></td> <td>Construct and insert element (public member function)</td> </tr>
           <tr> <td><code>pop()</code></td> <td>Remove next element (public member function)</td> </tr>
           <tr> <td><code>swap()</code></td> <td>Swap contents (public member function)</td> </tr>
         </table>
-
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
       </section>
 
       <section id="priority_queue">
         <h2><code>std::priority_queue</code></h2>
         <p>Both <code>std::queue</code> and <code>std::priority_queue</code> are defined in header <cite>&lt;queue&gt;</cite>.</p>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+        <p>Priority queues (<code>std::priority_queue</code>) are a type of container adaptors, specifically designed such that its first element is always the greatest of the elements it contains, according to some strict weak ordering criterion.</p>
+        <pre>template &lt;class T, class Container = vector&lt;T&gt;,  class Compare = less&lt;typename Container::value_type&gt; &gt;
+class priority_queue;</pre>
+        <p>This context is similar to a heap, where elements can be inserted at any moment, and only the max heap element can be retrieved (the one at the top in the priority queue).</p>
+        <p>Elements are <strong>popped</strong> from the <q>back</q> of the specific container, which is known as the <strong>top</strong> of the priority queue and accessed through member <code>priority_queue::top()</code>.</p>
+        <p>The standard container classes <code><a target="_blank" href="cpp.sequence-containers.html#vector">std::vector</a></code> and <code><a target="_blank" href="cpp.sequence-containers.html#deque">std::deque</a></code> fulfill the requirements for an underlying container. By default, if no container class is specified for a particular priority_queue class instantiation, the standard container <code>std::vector</code> is used.</p>
+        <p>Support of random access iterators is required to keep a heap structure internally at all times. This is done automatically by the container adaptor by automatically calling the algorithm functions <code>std::make_heap</code>, <code>std::push_heap</code> and <code>std::pop_heap</code> (defined in <cite>&lt;algorithm&gt;</cite>) when needed.</p>
+        <hr/>
+        <p><strong>Member Functions for Accessing the Top Element:</strong></p>
+        <p>Besides <code>push(<var>element</var>)</code>, <code>pop()</code>, and <code><a href="#emplace">emplace(<var>args</var>)</a></code>, there is <code>top()</code>.</p>
+        <section id="compare">
+          <h3><code><var>Compare</var></code></h3>
+          <p><code><var>Compare</var></code> is a binary predicate that takes two elements (of type <code><var>T</var></code>) as arguments and returns a bool.</p>
+          <p>The expression <code>comp(<var>a</var>,<var>b</var>)</code>, where <var>comp</var> is an object of this type and <var>a</var> and <var>b</var> are elements in the container, shall return true if a is considered to go before b in the strict weak ordering the function defines.</p>
+          <p>The <code>priority_queue</code> uses this function to maintain the elements sorted in a way that preserves heap properties (i.e., that the element popped is the last according to this strict weak ordering).</p>
+          <p>This can be a function pointer or a function object, and defaults to <code>less&lt;T&gt;</code>, which returns the same as applying the less-than operator (a&lt;b).</p>
+        </section>
       </section>
 
-      <section id="priority_queue">
+      <section id="stack">
         <h2><code>std::stack</code></h2>
         <p><code>std::stack</code> is defined in header <cite>&lt;stack&gt;</cite>.</p>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+        <p>Stacks are a type of container adaptor, specifically designed to operate in a LIFO context (last-in first-out), where elements are inserted and extracted only from one end of the container.</p>
+        <p>Elements in a <code>std::stack</code> are pushed/popped from the <q>back</q> of the specific container, which is known as the <strong>top</strong> of the stack.</p>
+        <p>The underlying container may be any of the standard container class templates or some other specifically designed container class. The container shall support the following operations:</p>
+        <ul>
+          <li><code>empty()</code></li>
+          <li><code>size()</code></li>
+          <li><code>back()</code></li>
+          <li><code>push_back(<var>element</var>)</code></li>
+          <li><code>pop_back()</code></li>
+        </ul>
+      </section>
+
+      <section id="emplace">
+        <h2><code>queue::emplace(<var>...args</var>)</code> and <code>priority_queue::emplace(<var>...args</var>)</code></h2>
+        <p><code><var>CONTAINER</var>::emplace(<var>...args</var>)</code> adds a new element at the end of the queue, after its current last element. This new element is constructed in place passing args as the arguments for its constructor.</p>
+        <pre>template &lt;class... Args&gt; void emplace (Args&amp;&amp;... args);</pre>
+        <p>This member function effectively calls the member function <code>emplace_back(<var>args</var>)</code> of the underlying container, <a target="_blank" href="cpp.move-semantics.html#forwarding">forwarding</a> args.</p>
       </section>
 
     </main>

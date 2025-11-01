@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NGSpice Examples</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Some NGSpice examples (roughly) by category as a not so structured way of learning NGSpice, the only alternative being perusing its formidable Manual"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a            href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <p><a            href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Transient Simulation</a></p>
+        <!--
+        <p><a            href="ngspice.diodes-and-transistors.html">Simulating Diodes and Transistors in NGSpice</a></p>
+        -->
+        <p><a            href="ngspice.mosfet.html">MOSFET models (NMOS/PMOS)</a></p>
+      </div>
+      <div>
+        <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
+        <p><a            href="https://ngspice.sourceforge.io/">ngspice - open source spice simulator</a>, at <code>https://ngspice.sourceforge.io/</code></p>
+        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials</a> (external page)</p>
+        <p><a href="https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/examples/">Lots of Ngspice Examples,</a> where especially the Monte Carlo simulations make heavy use of more or less complex control scripts (external page)</p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Some NGSpice Examples (Roughly) by Category</h1>
+
+      <section id="A">
+        <h2>Examples of ***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+
+        <section id="small-signal-amp-with-limit-diodes">
+          <h3>Small Signal Amplifier with Limit Diodes</h3>
+          <p></p>
+          <pre>Small Signal Amplifier with Limit Diodes
+*
+* This circuit simulates a small signal amplifier
+* with a diode limiter.
+*
+.dc Vin -1 1 .05
+
+Vin       Input 0 DC            0
+R_source  Input Amp_In        100
+D_Neg     0 Amp_In            1n4148
+D_Pos     Amp_In 0            1n4148
+C1        Amp_In 0            1uF
+X1        Amp_In 0 Amp_Out    Amplifier
+R_Load    Amp_Out 0           1000
+
+.model 1n4148 D (is=2.495e-09 rs=4.755e-01 n=1.679e+00
++ tt=3.030e-09 cjo=1.700e-12 vj=1 m=1.959e-01 bv=1.000e+02
++ ibv=1.000e-04)
+
+.subckt Amplifier Input Common Output
+E1        (Output Common) (Input Common) -10
+R_Input   Input           Common 1meg
+.ends Amplifier
+
+.end</pre>
+          <p>Note that the <q>E</q> prefix stands for a voltage controlled voltage source, and the <q>X</q> prefix stands for subcircuit between <code>.subckt</code> and <code>.ends</code> keywords, which in this circuit is named <cite>Amplifier</cite>.</p>
+        </section>
+
+        <section id="small-signal-amp-with-limit-diodes_code-model">
+          <h3>Small Signal Amplifier with Code Model</h3>
+          <p>In the <a href="#small-signal-amp-with-limit-diodes">previous example</a>, the specification of the amplifier was accomplished by using a NGSPICE Voltage Controlled Voltage Source device. This is an idealization of the actual amplifier. Practical amplifiers include numerous non-ideal effects, such as offset error voltages and non-ideal input and output impedances. The accurate simulation of complex, real-world components can lead to cumbersome subcircuit files, long simulation run times, and difficulties in synthesizing the behavior to be modeled from a limited set of internal devices known to the simulator.</p>
+          <p>To address these problems, XSPICE allows you to create <dfn>Code Models</dfn> that simulate complex, non-ideal effects without the need to develop a subcircuit design. For example, the following file provides a simulation with the subcircuit amplifier replaced with a Code Model called <code>Amp</code> that models several non-ideal effects including input and output impedance and input offset voltage.</p>
+          <pre>Small Signal Amplifier
+*
+* This circuit simulates a small signal amplifier
+* with a diode limiter.
+*
+.dc Vin -1 1 .05
+
+Vin       Input 0             DC 0
+R_source  Input Amp_In        100
+D_Neg 0   Amp_In              1n4148
+D_Pos     Amp_In 0            1n4148
+C1        Amp_In 0            1uF
+A1        Amp_In 0 Amp_Out    Amplifier
+R_Load    Amp_Out 0           1000
+
+.model 1n4148 D (is=2.495e-09 rs=4.755e-01 n=1.679e+00
++ tt=3.030e-09 cjo=1.700e-12 vj=1 m=1.959e-01 bv=1.000e+02
++ ibv=1.000e-04)
+
+.model Amplifier Amp (gain = -10 in_offset = 1e-3
++                     rin = 1meg rout = 0.4)
+.end</pre>
+          <p>A statement with a device label beginning with <q>A</q> alerts the simulator that the device uses a <em>Code Model</em>. The model statement is similar in form to the one used to specify the diode. The model label <code>Amp</code> directs XSPICE to use the code model with that name. Parameter information has been added to specify a gain of -10, an input offset of 1 millivolt, an input impedance of 1 meg ohm, and an output impedance of 0.4 ohm.</p>
+        </section>
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        -->
+
+      </section>
+
+      <section id="B">
+        <h2>Examples of B</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="C">
+        <h2>Examples of C</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="D">
+        <h2>Examples of D</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="E">
+        <h2>Examples of E</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
