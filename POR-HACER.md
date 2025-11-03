@@ -157,6 +157,15 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] write *cpp.valarray.html*
+- template class valarray at https://cplusplus.com/reference/valarray/valarray/
+- header valarray         at https://cplusplus.com/reference/valarray/
+
+[ ] write *control-engineering.html* on *Control engineering*
+
+[ ] Hospital Universitario Ramón y Cajal > Gestión de Citas:
+    https://www.comunidad.madrid/hospital/ramonycajal/ciudadanos/gestion-citas/gestion-citas/
+
 [ ] add everand franciscofvh@hotmail.com:FcoF-VH1966 for www.everand.com
 
 [ ] unglue.it

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diodes in NGSpice</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Simulating Diodes in NGSpice"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
+        <p><a            href="https://ngspice.sourceforge.io/">ngspice - open source spice simulator</a>, at <code>https://ngspice.sourceforge.io/</code></p>
+        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials</a> (external page)</p>
+        <p><a href="https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/examples/">Lots of Ngspice Examples,</a> where especially the Monte Carlo simulations make heavy use of more or less complex control scripts (external page)</p>
+      </div>
+      <div>
+        <p><a            href="ngspice.passive-elems-op.html">Circuit with Passive Elements, Operating Point</a></p>
+        <p><a            href="ngspice.passive-elems-pulse.html">Circuit with Passive Elements, Transient Simulation</a></p>
+        <p><a            href="ngspice.examples.html">Some NGSpice Examples (Roughly) by Category</a></p>
+        <!--
+        <p><a            href="ngspice.diodes-and-transistors.html">Simulating Diodes and Transistors in NGSpice</a></p>
+        -->
+        <p><a            href="ngspice.bjt.html">BJT models in NGSpice</a></p>
+        <p><a            href="ngspice.mosfet.html">MOSFET models (NMOS/PMOS)  in NGSpice</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a            href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+        <p><a            href="electronics.html">Electronics</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Simulating Diodes in NGSpice</h1>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://www.allaboutcircuits.com/textbook/designing-analog-chips/simulation/the-diode-spice-model/">https://www.allaboutcircuits.com/textbook/designing-analog-chips/simulation/the-diode-spice-model/</a></cite> for the Spice Model)</p>
+
+      <p>The current/voltage relationship of an ideal junction is given by:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>I</mi>
+    <mn>1</mn>
+  </msub>
+  <mtext>&#xA0;</mtext>
+  <mo>=</mo>
+  <mtext>&#xA0;</mtext>
+  <msub>
+    <mi>I</mi>
+    <mi>S</mi>
+  </msub>
+  <mspace width="thinmathspace" />
+  <mspace width="thinmathspace" />
+  <msup>
+    <mi>e</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>q</mi>
+          <msub>
+            <mi>V</mi>
+            <mi>d</mi>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>k</mi>
+          <mi>T</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </msup>
+</math>
+      <p>where:</p>
+      <ul>
+        <li><var>I<sub>S</sub></var> is the diffusion current</li>
+        <li><var>V<sub>d</sub></var> is the voltage across the diode current source. This does not include the voltage drop across RS.</li>
+        <li><var>q</var> is the electron charge</li>
+        <li><var>k</var> is the Boltzmann constant</li>
+        <li><var>T</var> is the temperature in Kelvin</li>
+      </ul>
+
+      <hr/>
+
+      <p>In SPICE this diode equation is greatly expanded:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>I</mi>
+    <mn>1</mn>
+  </msub>
+  <mtext>&#xA0;</mtext>
+  <mo>=</mo>
+  <mtext>&#xA0;</mtext>
+  <msub>
+    <mi>I</mi>
+    <mi>S</mi>
+  </msub>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="2.470em" minsize="2.470em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <msup>
+    <mi>e</mi>
+    <mfrac>
+      <mrow>
+        <mi>q</mi>
+        <msub>
+          <mi>V</mi>
+          <mi>d</mi>
+        </msub>
+      </mrow>
+      <mrow>
+        <mi>k</mi>
+        <mi>T</mi>
+        <mi>N</mi>
+      </mrow>
+    </mfrac>
+  </msup>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="2.470em" minsize="2.470em">)</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <msup>
+    <mi>e</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mo stretchy="false">(</mo>
+      <mo stretchy="false">(</mo>
+      <mi mathvariant="normal">&#x0394;<!-- Δ --></mi>
+      <mi>T</mi>
+      <mo>&#x2212;<!-- − --></mo>
+      <mn>1</mn>
+      <mo stretchy="false">)</mo>
+      <mo>&#x00D7;<!-- × --></mo>
+      <mfrac>
+        <mrow>
+          <mi>q</mi>
+          <msub>
+            <mi>E</mi>
+            <mi>g</mi>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>k</mi>
+          <mi>T</mi>
+          <mi>N</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </msup>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mi mathvariant="normal">&#x0394;<!-- Δ --></mi>
+  <mi>T</mi>
+  <mfrac>
+    <mrow>
+      <mi>X</mi>
+      <mi>T</mi>
+      <mi>I</mi>
+    </mrow>
+    <mi>N</mi>
+  </mfrac>
+  <mtext>&#xA0;</mtext>
+  <mo>+</mo>
+  <mtext>&#xA0;</mtext>
+  <mi>I</mi>
+  <mi>S</mi>
+  <mi>R</mi>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="2.470em" minsize="2.470em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <msup>
+    <mi>e</mi>
+    <mfrac>
+      <mrow>
+        <mi>q</mi>
+        <msub>
+          <mi>V</mi>
+          <mi>d</mi>
+        </msub>
+      </mrow>
+      <mrow>
+        <mi>k</mi>
+        <mi>T</mi>
+        <msub>
+          <mi>N</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>R</mi>
+          </mrow>
+        </msub>
+      </mrow>
+    </mfrac>
+  </msup>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="2.470em" minsize="2.470em">)</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="2.470em" minsize="2.470em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mn>1</mn>
+  <mo>&#x2212;<!-- − --></mo>
+  <mfrac>
+    <msub>
+      <mi>V</mi>
+      <mi>d</mi>
+    </msub>
+    <msub>
+      <mi>V</mi>
+      <mi>J</mi>
+    </msub>
+  </mfrac>
+  <msup>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo maxsize="1.623em" minsize="1.623em">)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <mn>2</mn>
+  </msup>
+  <mtext>&#xA0;</mtext>
+  <mo>+</mo>
+  <mtext>&#xA0;</mtext>
+  <msup>
+    <mn>0.005</mn>
+    <mfrac>
+      <mi>M</mi>
+      <mn>2</mn>
+    </mfrac>
+  </msup>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="2.470em" minsize="2.470em">)</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+</math>
+
+
+
+      <p>where:</p>
+      <ul>
+        <li><var>N</var> is the forward emission coefficient. The SPICE default value is 1.</li>
+        <li><var>E<sub>g</sub> = the energy gap. The value of <var>E<sub>g</sub></var> is different for different materials—you would set it to 0.69 for a Schottky diode, 0.67 for germanium, and 1.43 for gallium arsenide. SPICE uses Eg</var> is 1.11, the value for silicon, by default.</li>
+        <li><var>XT<sub>I</sub></var> is the temperature coefficient of <var>I<sub>S</sub></var>. The SPICE default value is 3.</li>
+        <li><var>ΔT</var> is the quotient of operating (junction) temperature to room temperature. By default, SPICE sets this to 300 K (about 27 °C).</li>
+      </ul>
+      <p>Though this equation might appear utterly complicated at first, it really isn’t. If you look at the portion of the equation to the left of the plus sign, you’ll see that it’s made of three terms multiplied together. The parameters that go into these terms are listed above.</p>
+      <p>With these three terms, you can shape the basic exponential curve to match what’s actually measured. If you don’t list the parameters in the model statement, SPICE will assume the default values.</p>
+      <p>The portion of the equation to the right of the plus sign adds a leakage current, which is a small current in excess of the reverse current predicted by the ideal diode equation. You can modify the shape of its curve with the constants NR, M, and VJ.</p>
+      <p>With the parameters we’ve specified, the model makes the breakdown voltage of the diode infinite. You can limit this with the parameter BV and three companions:</p>
+      <ul>
+        <li><var>T<sub>BV1</sub></var> (its first-order temperature coefficient)</li>
+        <li><var>T<sub>BV2</sub></var> (second-order temperature coefficient)</li>
+        <li><var>I<sub>BV</sub></var> (the current at which breakdown is specified)</li>
+      </ul>
+      <p>There’s also <var>I<sub>KF</sub></var>, which splits the DC curve into two regions. In ICs, this parameter is very rarely used.</p>
+
+        <section>
+          <h3>Series Resistance and Junction Capacitance</h3>
+          <p>The series resistance, <var>RS</var>, which also influences the DC behavior, has first and second-order temperature coefficients, <var>TRS1</var> and <var>TRS2</var>.</p>
+          <p>The junction capacitance shown in the model, CJ0 (or CJO) is measured at 0 V. Since its value at different voltages (forward or reverse) depends on the <strong>grading</strong> of the junction (abrupt, diffused, implanted, etc.), it too is modified by three constants: VJ, M, and FC. If you don’t specify these parameters in the model statement, the following default values are used:</p>
+          <ul>
+            <li><var>VJ</var> = 1</li>
+            <li><var>M</var> = 0.5</li>
+            <li><var>FC</var> = 0.5</li>
+          </ul>
+          <p>For a voltage across the diode (not including RS) equal to or less than the product of FC and VJ, the formula for junction capacitance is:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>C</mi>
+  <mtext>&#xA0;</mtext>
+  <mo>=</mo>
+  <mtext>&#xA0;</mtext>
+  <msub>
+    <mi>C</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>J</mi>
+      <mn>0</mn>
+    </mrow>
+  </msub>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mn>1</mn>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x2212;<!-- − --></mo>
+  <mtext>&#xA0;</mtext>
+  <mfrac>
+    <msub>
+      <mi>V</mi>
+      <mi>d</mi>
+    </msub>
+    <msub>
+      <mi>V</mi>
+      <mi>J</mi>
+    </msub>
+  </mfrac>
+  <msup>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo maxsize="1.623em" minsize="1.623em">)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mo>&#x2212;<!-- − --></mo>
+      <mi>M</mi>
+    </mrow>
+  </msup>
+</math>
+
+          <p>If the voltage across the diode is greater than FC × VJ, the formula is:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>C</mi>
+  <mtext>&#xA0;</mtext>
+  <mo>=</mo>
+  <mtext>&#xA0;</mtext>
+  <msub>
+    <mi>C</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>J</mi>
+      <mn>0</mn>
+    </mrow>
+  </msub>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mn>1</mn>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x2212;<!-- − --></mo>
+  <mtext>&#xA0;</mtext>
+  <mi>F</mi>
+  <mi>C</mi>
+  <msup>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo maxsize="1.623em" minsize="1.623em">)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mo>&#x2212;<!-- − --></mo>
+      <mo stretchy="false">(</mo>
+      <mn>1</mn>
+      <mo>+</mo>
+      <mi>M</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </msup>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mn>1</mn>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x2212;<!-- − --></mo>
+  <mtext>&#xA0;</mtext>
+  <mi>F</mi>
+  <mi>C</mi>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">(</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mn>1</mn>
+  <mtext>&#xA0;</mtext>
+  <mo>+</mo>
+  <mtext>&#xA0;</mtext>
+  <mi>M</mi>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">)</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+  <mtext>&#xA0;</mtext>
+  <mo>+</mo>
+  <mtext>&#xA0;</mtext>
+  <mi>M</mi>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x00D7;<!-- × --></mo>
+  <mtext>&#xA0;</mtext>
+  <mfrac>
+    <msub>
+      <mi>V</mi>
+      <mi>d</mi>
+    </msub>
+    <msub>
+      <mi>V</mi>
+      <mi>J</mi>
+    </msub>
+  </mfrac>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mstyle scriptlevel="0">
+      <mrow class="MJX-TeXAtom-ORD">
+        <mo maxsize="1.623em" minsize="1.623em">)</mo>
+      </mrow>
+    </mstyle>
+  </mrow>
+</math>
+        </section>
+
+        <section>
+          <h3>Noise Parameters</h3>
+          <p>There are two noise sources in a diode: the resistor (RS) and the current (I1). Without any additional parameters, these are treated as white noise sources—in other words, it’s assumed that the noise from them is the same at any frequency.</p>
+          <p>To account for flicker noise (which increases at low frequency), two constants—KF and AF—are used. When current source noise is calculated, the following expression is added:</p>
+          <p>[...]</p>
+        </section>
+
+      <section id="spice">
+        <h2>The SPICE Diode Model</h2>
+        <p>A diode is summarily characterized by:</p>
+        <ul>
+          <li>series resistance (<code>RS</code>)</li>
+          <li>a capaticitance (<code>CJ0</code>) parallel with a current source or <var>I<sub>saturation</sub></var>, and</li>
+          <li>a saturation intensity (<code>IS</code>)</li>
+        </ul>
+
+      </section>
+    </main>
+
+  </body>
+
+</html>

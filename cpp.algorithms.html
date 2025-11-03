@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Algorithms in C++ STL</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Algorithms in the STL (C++)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.range.html">Ranges (C++20)</a></p>
+        <p><a            href="cpp.range.html#algo">Range Algorithms (C++20)</a></p>
+        <p><a            href="programming.html">Programming Computers</a></p>
+        <p><a rel="prev" href="algorithms.html">Algorithms</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.functions.html">Functions in C++</a></p>
+        <p><a href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.RTTI.html">Run-Time Type Information (RTTI) in C++</a></p>
+        <p><a href="cpp.stl.html">C++ Standard Template Library (STL)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+        <p><a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.core-guidelines.html">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup (<em>local</em>)</p>
+      </div>
+
+      <div>
+        <p><a href="cpp.modules.html">C++ Modules</a></p>
+        <p><a href="cpp.linking-c-object-files-in.html">Linking C++ and C Object Files Together</a></p>
+        <p><a href="c-and-cpp.html">C and C++</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.get.html">C++ get()</a></p>
+        <p><a href="cpp.bind.html">C++ <code>std::bind(<var>f</var>, <var>ARGS</var>)</code></a></p>
+        <p><a href="cpp.text.html">Handling Text in C++: Tokenizing/Analysing/Lexing...</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.platform-specific.html">Platform-Specific Features in C++</a></p>
+        <!--
+        <p><a href="cpp.boost.geometry.html.bak">C++ Boost Geomety (<code>.bak</code>)</a></p>
+        <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
+        -->
+      </div>
+    </nav>
+
+    <main>
+      <h1>Algorithms in the STL (C++)</h1>
+
+      <section>
+        <h2>Algorithms in Header <cite>&lt;algorithm&gt;</cite></h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://cplusplus.com/reference/algorithm/">https://cplusplus.com/reference/algorithm/</a></cite>)</p>
+        <p>The header <cite>&lt;algorithm&gt;</cite> defines a collection of functions especially designed to be used on ranges of elements.</p>
+        <p>A <dfn>range</dfn> is any sequence of objects that can be accessed through iterators or pointers, such as an array or an instance of some of the STL containers. Notice though, that algorithms operate through iterators directly on the values, not affecting in any way the structure of any possible container (it never affects the size or storage allocation of the container).</p>
+
+        <section>
+          <h3>Non-modifying sequence operations</h3>
+          <table>
+            <tr> <td><code><a href="#all_of">all_of</a></code></td> <td>Test condition on all elements in range (function template)</td> </tr>
+            <tr> <td><code>any_of</code></td> <td>Test if any element in range fulfills condition (function template)</td> </tr>
+            <tr> <td><code>none_of</code></td> <td>Test if no elements fulfill condition (function template)</td> </tr>
+            <tr> <td><code><a href="#for_each">for_each</a></code></td> <td>Apply function to range (function template)</td> </tr>
+            <tr> <td><code><a href="#find">find</a></code></td> <td>Find value in range (function template). <i>See also</i> <a href="#search">search</a></td> </tr>
+            <tr> <td><code>find_if(<var>first</var>, <var>last</var>, <var>unaryPred</var>)</code></td> <td>Find element in range that fulfills <var>unaryPred</var> (function template)</td> </tr>
+            <tr> <td><code>find_if_not</code></td> <td>Find element in range (negative condition) (function template)</td> </tr>
+            <tr> <td><code><a href="#find_end">find_end</a></code></td> <td>Find last subsequence in range (function template)</td> </tr>
+            <tr> <td><code><a href="#find_first_of">find_first_of</a></code></td> <td>Find element from set in range (function template)</td> </tr>
+            <tr> <td><code><a href="#adjacent_find">adjacent_find</a></code></td> <td>Find equal adjacent elements in range (function template)</td> </tr>
+            <tr id="count"> <td><code>count</code></td> <td>
+              <p>Count appearances of value in range (function template)</p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+            </td> </tr>
+            <tr> <td><code>count_if</code></td> <td>Return number of elements in range satisfying condition (function template)</td> </tr>
+            <tr> <td><code>mismatch</code></td> <td>Return first position where two ranges differ (function template)</td> </tr>
+            <tr> <td><code>equal</code></td> <td>Test whether the elements in two ranges are equal (function template)</td> </tr>
+            <tr> <td><code>is_permutation</code></td> <td>Test whether range is permutation of another (function template)</td> </tr>
+            <tr> <td><code><a href="#search">search</a></code></td> <td>Search range for subsequence (function template)</td> </tr>
+            <tr> <td><code>search_n</code></td> <td>Search range for elements (function template)</td> </tr>
+          </table>
+          <section id="all_of">
+            <h4><code>all_of</code></h4>
+            <pre>template &lt;class InItor, class UnaryPredicate&gt;
+bool all_of (InItor first, InItor last, UnaryPredicate pred);</pre>
+            <p>Returns true if <var>pred</var> returns true for all the elements in the range [<var>first</var>,<var>last</var>) or if the range is empty, and false otherwise.</p>
+            <p>An example:</p>
+            <pre>// all_of example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;algorithm&gt;    // std::all_of
+#include &lt;array&gt;        // std::array
+
+int main () {
+  std::array&lt;int,8&gt; foo = {3,5,7,11,13,17,19,23};
+
+  if ( std::all_of(foo.begin(), foo.end(), [](int i){return i%2;}) )
+    std::cout &lt;&lt; "All the elements are odd numbers.\n";
+
+  return 0;
+}</pre>
+            <p>Output:</p>
+            <pre>All the elements are odd numbers.</pre>
+          </section>
+          <section id="for_each">
+            <h4><code>for_each</code></h4>
+            <pre>template &lt;class InItor, class Function>
+Function for_each (InItor first, InItor last, Function fn);</pre>
+            <p>Applies function <var>fn</var> to each of the elements in the range [<var>first</var>,<var>last</var>), where <var>fn</var> is a unary function that accepts an element in the range as argument. This can either be a function pointer or a move constructible function object. Its return value, if any, is ignored.</p>
+            <p>An example:</p>
+            <pre>#include &lt;iostream&gt;     // std::cout
+#include &lt;algorithm&gt;    // std::for_each
+#include &lt;vector&gt;       // std::vector
+
+void myfunction (int i) {  // function:
+  std::cout &lt;&lt; ' ' &lt;&lt; i;
+}
+
+struct myclass {           // function object type:
+  void operator() (int i) {std::cout &lt;&lt; ' ' &lt;&lt; i;}
+} myobject;
+
+int main () {
+  std::vector&lt;int&gt; myvector;
+  myvector.push_back(10);
+  myvector.push_back(20);
+  myvector.push_back(30);
+
+  std::cout &lt;&lt; "myvector contains:";
+  for_each (myvector.begin(), myvector.end(), myfunction);
+  std::cout &lt;&lt; '\n';
+
+  // or:
+  std::cout &lt;&lt; "myvector contains:";
+  for_each (myvector.begin(), myvector.end(), myobject);
+  std::cout &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+            <p>Output:</p>
+            <pre>myvector contains: 10 20 30
+myvector contains: 10 20 30</pre>
+          </section>
+          <section id="find">
+            <h4><code>find</code></h4>
+            <pre>template &lt;class InItor, class T&gt;
+InItor find (InItor first, InItor last, const T&amp; val);</pre>
+            <p>Returns an iterator to the first element in the range [<var>first</var>,<var>last</var>) that compares equal to <var>val</var>. If no such element is found, the function returns <var>last</var>.</p>
+            <p>The function uses <code>operator==</code> to compare the individual elements to val.</p>
+            <p><i>See also</i> <a href="#search">search</a></p>
+          </section>
+          <section id="search">
+            <h4><code>search</code></h4>
+            <pre>template &lt;class FwdItor1, class FwdItor2&gt;
+FwdItor1 search (FwdItor1 first1, FwdItor1 last1, FwdItor2 first2, FwdItor2 last2);
+template &lt;class FwdItor1, class FwdItor2, class BinPred&gt;
+FwdItor1 search (FwdItor1 first1, FwdItor1 last1, FwdItor2 first2, FwdItor2 last2, BinPred pred);</pre>
+            <p>Searches the range [<var>first1</var>,<var>last1</var>) for the first occurrence of the sequence defined by [<var>first2</var>,<var>last2</var>), and returns an iterator to its first element, or <var>last1</var> if no occurrences are found.</p>
+            <p>The elements in both ranges are compared sequentially using <code>operator==</code> (or <var>pred</var>, in the second version: A subsequence of [<var>first1</var>,<var>last1</var>) is considered a match only when this is true for all the elements of [<var>first2</var>,<var>last2</var>).</p>
+            <p>This function returns the first of such occurrences. For an algorithm that returns the last instead, see find_end.</p>
+            <p>An example:</p>
+            <pre>// search algorithm example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;algorithm&gt;    // std::search
+#include &lt;vector&gt;       // std::vector
+
+bool mypredicate (int i, int j) {
+  return (i==j);
+}
+
+int main () {
+  std::vector&lt;int&gt; haystack;
+
+  // set some values:        haystack: 10 20 30 40 50 60 70 80 90
+  for (int i=1; i&lt;10; i++) haystack.push_back(i*10);
+
+  // using default comparison:
+  int needle1[] = {40,50,60,70};
+  std::vector&lt;int&gt;::iterator it;
+  it = std::search (haystack.begin(), haystack.end(), needle1, needle1+4);
+
+  if (it!=haystack.end())
+    std::cout &lt;&lt; "needle1 found at position " &lt;&lt; (it-haystack.begin()) &lt;&lt; '\n';
+  else
+    std::cout &lt;&lt; "needle1 not found\n";
+
+  // using predicate comparison:
+  int needle2[] = {20,30,50};
+  it = std::search (haystack.begin(), haystack.end(), needle2, needle2+3, mypredicate);
+
+  if (it!=haystack.end())
+    std::cout &lt;&lt; "needle2 found at position " &lt;&lt; (it-haystack.begin()) &lt;&lt; '\n';
+  else
+    std::cout &lt;&lt; "needle2 not found\n";
+
+  return 0;
+}</pre>
+            <p>Output:</p>
+            <pre>needle1 found at position 3
+needle2 not found</pre>
+          </section>
+          <section id="find_end">
+            <h4><code>find_end</code></h4>
+            <pre>template &lt;class FwdItor1, class FwdItor2&gt;
+FwdItor1 find_end (FwdItor1 first1, FwdItor1 last1, FwdItor2 first2, FwdItor2 last2);
+template &lt;class FwdItor1, class FwdItor2, class BinPred&gt;
+FwdItor1 find_end (FwdItor1 first1, FwdItor1 last1, FwdItor2 first2, FwdItor2 last2, BinPred pred);</pre>
+            <p>Searches the range [<var>first1</var>,<var>last1</var>) for the last occurrence of the sequence defined by [<var>first2</var>,<var>last2</var>), and returns an iterator to its first element, or <var>last1</var> if no occurrences are found.</p>
+            <p>The elements in both ranges are compared sequentially using <code>operator==</code> (or <var>pred</var>, in the second version): A subsequence of [<var>first1</var>,<var>last1</var>) is considered a match only when this is true for all the elements of [<var>first2</var>,<var>last2</var>).</p>
+            <p>This function returns the last of such occurrences. For an algorithm that returns the first instead, <i>see</i> <a href="#search">search</a>.</p>
+          </section>
+          <section id="find_first_of">
+            <h4><code>find_first_of</code></h4>
+            <pre>template &lt;class InItor, class FwdItor&gt;
+InItor find_first_of (InItor first1, InItor last1, FwdItor first2, FwdItor last2);
+template &lt;class InItor, class FwdItor, class BinPred&gt;
+InItor find_first_of (InItor first1, InItor last1, FwdItor first2, FwdItor last2, BinPred pred);</pre>
+            <p>Returns an iterator to the first element in the range [<var>first1</var>,<var>last1</var>) that matches any of the elements in [<var>first2</var>,<var>last2</var>). If no such element is found, the function returns <var>last1</var>.</p>
+            <p>The elements in [<var>first1</var>,<var>last1</var>) are sequentially compared to each of the values in [<var>first2</var>,<var>last2</var>) using operator== (or <var>pred</var>, in the second version), until a pair matches.</p>
+          </section>
+          <section id="adjacent_find">
+            <h4><code>adjacent_find</code></h4>
+            <pre>template &lt;class FwdItor&gt;
+FwdItor adjacent_find (FwdItor first, FwdItor last);
+template &lt;class FwdItor, class BinPred&gt;
+FwdItor adjacent_find (FwdItor first, FwdItor last, BinPred pred);</pre>
+            <p>Searches the range [first,last) for the first occurrence of two consecutive elements that match, and returns an iterator to the first of these two elements, or last if no such pair is found. Two elements match if they compare equal using operator== (or using pred, in version two)</p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+        </section>
+
+        <section>
+          <h3>Modifying sequence operations</h3>
+          <table>
+            <tr> <td><code>copy</code></td> <td>Copy range of elements (function template)</td> </tr>
+            <tr> <td><code>copy_n</code></td> <td>Copy elements (function template)</td> </tr>
+            <tr> <td><code>copy_if</code></td> <td>Copy certain elements of range (function template)</td> </tr>
+            <tr> <td><code>copy_backward</code></td> <td>Copy range of elements backward (function template)</td> </tr>
+            <tr> <td><code>move</code></td> <td>Move range of elements (function template)</td> </tr>
+            <tr> <td><code>move_backward</code></td> <td>Move range of elements backward (function template)</td> </tr>
+            <tr> <td><code>swap</code></td> <td>Exchange values of two objects (function template)</td> </tr>
+            <tr> <td><code>swap_ranges</code></td> <td>Exchange values of two ranges (function template)</td> </tr>
+            <tr> <td><code>iter_swap</code></td> <td>Exchange values of objects pointed to by two iterators (function template)</td> </tr>
+            <tr> <td><code>transform</code></td> <td>Transform range (function template)</td> </tr>
+            <tr> <td><code>replace</code></td> <td>Replace value in range (function template)</td> </tr>
+            <tr> <td><code>replace_if</code></td> <td>Replace values in range (function template)</td> </tr>
+            <tr> <td><code>replace_copy</code></td> <td>Copy range replacing value (function template)</td> </tr>
+            <tr> <td><code>replace_copy_if</code></td> <td>Copy range replacing value (function template)</td> </tr>
+            <tr> <td><code>fill</code></td> <td>Fill range with value (function template)</td> </tr>
+            <tr> <td><code>fill_n</code></td> <td>Fill sequence with value (function template)</td> </tr>
+            <tr> <td><code>generate</code></td> <td>Generate values for range with function (function template)</td> </tr>
+            <tr> <td><code>generate_n</code></td> <td>Generate values for sequence with function (function template)</td> </tr>
+            <tr> <td><code>remove</code></td> <td>Remove value from range (function template)</td> </tr>
+            <tr> <td><code>remove_if</code></td> <td>Remove elements from range (function template)</td> </tr>
+            <tr> <td><code>remove_copy</code></td> <td>Copy range removing value (function template)</td> </tr>
+            <tr> <td><code>remove_copy_if</code></td> <td>Copy range removing values (function template)</td> </tr>
+            <tr> <td><code>unique</code></td> <td>Remove consecutive duplicates in range (function template)</td> </tr>
+            <tr> <td><code>unique_copy</code></td> <td>Copy range removing duplicates (function template)</td> </tr>
+            <tr> <td><code>reverse</code></td> <td>Reverse range (function template)</td> </tr>
+            <tr> <td><code>reverse_copy</code></td> <td>Copy range reversed (function template)</td> </tr>
+            <tr> <td><code>rotate</code></td> <td>Rotate left the elements in range (function template)</td> </tr>
+            <tr> <td><code>rotate_copy</code></td> <td>Copy range rotated left (function template)</td> </tr>
+            <tr> <td><code>random_shuffle</code></td> <td>Randomly rearrange elements in range (function template)</td> </tr>
+            <tr> <td><code>shuffle</code></td> <td>Randomly rearrange elements in range using generator (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Partitions</h3>
+          <table>
+            <tr> <td><code>is_partitioned</code></td> <td>Test whether range is partitioned (function template)</td> </tr>
+            <tr> <td><code>partition</code></td> <td>Partition range in two (function template)</td> </tr>
+            <tr> <td><code>stable_partition</code></td> <td>Partition range in two - stable ordering (function template)</td> </tr>
+            <tr> <td><code>partition_copy</code></td> <td>Partition range into two (function template)</td> </tr>
+            <tr> <td><code>partition_point</code></td> <td>Get partition point (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Sorting</h3>
+          <table>
+            <tr> <td><code>sort</code></td> <td>Sort elements in range (function template)</td> </tr>
+            <tr> <td><code>stable_sort</code></td> <td>Sort elements preserving order of equivalents (function template)</td> </tr>
+            <tr> <td><code>partial_sort</code></td> <td>Partially sort elements in range (function template)</td> </tr>
+            <tr> <td><code>partial_sort_copy</code></td> <td>Copy and partially sort range (function template)</td> </tr>
+            <tr> <td><code>is_sorted</code></td> <td>Check whether range is sorted (function template)</td> </tr>
+            <tr> <td><code>is_sorted_until</code></td> <td>Find first unsorted element in range (function template)</td> </tr>
+            <tr> <td><code>nth_element</code></td> <td>Sort element in range (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Binary search (operating on partitioned/sorted ranges)</h3>
+          <table>
+            <tr> <td><code>lower_bound</code></td> <td>Return iterator to lower bound (function template)</td> </tr>
+            <tr> <td><code>upper_bound</code></td> <td>Return iterator to upper bound (function template)</td> </tr>
+            <tr> <td><code>equal_range</code></td> <td>Get subrange of equal elements (function template)</td> </tr>
+            <tr> <td><code>binary_search</code></td> <td>Test if value exists in sorted sequence (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Merge (operating on sorted ranges)</h3>
+          <table>
+            <tr> <td><code>merge</code></td> <td>Merge sorted ranges (function template)</td> </tr>
+            <tr> <td><code>inplace_merge</code></td> <td>Merge consecutive sorted ranges (function template)</td> </tr>
+            <tr> <td><code>includes</code></td> <td>Test whether sorted range includes another sorted range (function template)</td> </tr>
+            <tr> <td><code>set_union</code></td> <td>Union of two sorted ranges (function template)</td> </tr>
+            <tr> <td><code>set_intersection</code></td> <td>Intersection of two sorted ranges (function template)</td> </tr>
+            <tr> <td><code>set_difference</code></td> <td>Difference of two sorted ranges (function template)</td> </tr>
+            <tr> <td><code>set_symmetric_difference</code></td> <td>Symmetric difference of two sorted ranges (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Heap</h3>
+          <table>
+            <tr> <td><code>push_heap</code></td> <td>Push element into heap range (function template)</td> </tr>
+            <tr> <td><code>pop_heap</code></td> <td>Pop element from heap range (function template)</td> </tr>
+            <tr> <td><code>make_heap</code></td> <td>Make heap from range (function template)</td> </tr>
+            <tr> <td><code>sort_heap</code></td> <td>Sort elements of heap (function template)</td> </tr>
+            <tr> <td><code>is_heap</code></td> <td>Test if range is heap (function template)</td> </tr>
+            <tr> <td><code>is_heap_until</code></td> <td>Find first element not in heap order (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Min/max</h3>
+          <table>
+            <tr> <td><code>min</code></td> <td>Return the smallest (function template)</td> </tr>
+            <tr> <td><code>max</code></td> <td>Return the largest (function template)</td> </tr>
+            <tr> <td><code>minmax</code></td> <td>Return smallest and largest elements (function template)</td> </tr>
+            <tr> <td><code>min_element</code></td> <td>Return smallest element in range (function template)</td> </tr>
+            <tr> <td><code>max_element</code></td> <td>Return largest element in range (function template)</td> </tr>
+            <tr> <td><code>minmax_element</code></td> <td>Return smallest and largest elements in range (function template)</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>Other</h3>
+          <table>
+            <tr> <td><code>lexicographical_compare</code></td> <td>Lexicographical less-than comparison (function template)</td> </tr>
+            <tr> <td><code>next_permutation</code></td> <td>Transform range to next permutation (function template)</td> </tr>
+            <tr> <td><code>prev_permutation</code></td> <td>Transform range to previous permutation (function template)</td> </tr>
+          </table>
+        </section>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
