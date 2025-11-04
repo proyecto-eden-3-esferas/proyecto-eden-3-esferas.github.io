@@ -21,6 +21,7 @@
       -->
       <div>
         <p><a            href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
+        <p><a            href="https://www.allaboutcircuits.com/textbook/designing-analog-chips/analog-devices/the-cmos-transistor/">The CMOS Transistor: historical development and basic operation</a></p>
       </div>
       <div>
         <p><a rel="prev" href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
@@ -39,13 +40,40 @@
       <p>The model name <code>MOSN</code> corresponds to the model name in the instance card. Parameter <code>NMOS</code> selects an n-channel device, <code>PMOS</code> would point to a p-channel transistor. The level and version parameters select the specific model. Further model parameters are optional and replace ngspice default values. Due to the large number of parameters (more than 100 for modern models), model cards may be stored in extra files and loaded into the netlist by the <code>.include</code> command. Model cards are specific for a an IC manufacturing process and are typically provided by the IC foundry. Some generic parameter sets, not linked to a specific process, are made available by the model developers, e.g. UC Berkeley&apos;s Device Group for BSIM4 and BSIMSOI.</p>
       <p>Ngspice provides several MOSFET device models, which differ in the formulation of the I-V characteristic, and are of varying complexity. Models available are listed in a table<!-- 11.1-->. Current models for IC design are BSIM3 (11.2.10, down to channel length of 0.25 µm), BSIM4 (11.2.11, below 0.25 µm), BSIMSOI (11.2.13, silicon-on-insulator devices), HiSIM2 and HiSIM_HV (11.2.15, surface potential models for standard and high voltage/high power MOS devices).</p>
 
-      <!--
-      <section id="*">
-        <h2></h2>
-        <p></p>
-      </section>
 
-      <section id="*">
+      <section id="bsim">
+        <h2>BSIM Models</h2>
+        <p>[...] A team of researchers at Berkeley developed <strong>BSIM</strong> (Berkeley Short-channel IGFET Model). The team stayed with it, through BSIM1, BSIM2, BSIM3, and even BSIM4. These models divided the MOS transistors in ever finer structures, tracking the trend toward geometries far below 1 µm.</p>
+        <p>As of this writing, BSIM3.3 is the dominant model in the industry, leaving the many HSPICE levels in the dust. Naturally, HSPICE took the BSIM models and made its own version, adding more levels.</p>
+        <p>The increasing BSIM refinements have a drawback: the number of parameters has become very large, so large that it would take an entire book to explain them. For digital ICs, which require the utmost switching speed, this simply has to be accepted. For analog designs, which invariably use larger dimensions to obtain adequate performance (especially for matching), it’s a burden only grudgingly tolerated. MOS model-making has become an art dominated by the digital realm, of limited use to the analog designer.</p>
+        <section id="bsim-params">
+          <h3>BSIM Model Parameters</h3>
+          <p>In a modern BSIM model, you’re confronted by a mass of data that is almost always presented in an arbitrary way, lacking an organization which would make it more understandable. To help in a minor way, the model parameters are grouped in the table below. The bold-faced parameters are absolute values; all others are modifiers. Parameters in square brackets are temperature coefficients</p>
+          <table border="1">
+            <tr> <td>Threshold voltage</td> <td><b>VTHO</b>, K1, [KT1, KT1L], K2, [KT2], K3, K3B, DVT0, DVT0W, DVT1, DVT1W, DVT2, DVT2W, VBM, VOFF, KETA, PSCBE1, PSCBE2</td> </tr>
+            <tr> <td>Mobility</td> <td><b>UO</b>, UA, [UA1], UB, [UB1], UC, [UC1]</td> </tr>
+            <tr> <td>Saturation</td> <td><b>VSAT</b>, [AT], A0, AGS, A1, A2, B0, B1, DELTA, EM, PCLM, PDIBLC1, PDIBLC2, PDIBLCB, DROUT, PVAG, AGS, ALPHA0, BETA0</td> </tr>
+            <tr> <td>Sub-threshold</td> <td>ETA0, ETAB, NFACTOR, DSUB</td> </tr>
+            <tr> <td>Geometry</td> <td><b>W0</b>, DWB, DWG, LL, LLN, LW, LWL, LWN, WL, WLN, WW, WWL, WWN</td> </tr>
+            <tr> <td>Capacitances</td> <td><b>CGS0</b>, <b>CGD0</b>, <b>CGB0</b>, <b>CJ</b>, MJ, MJSW, PBSW, <b>CJSW</b>, MJSW, CJSWG, MJSWG, PBSWG, PB, <b>CGSL</b>, <b>CGDL</b>, CKAPPA, <b>CF</b>, CLC, CLE, DLC, DWC, ELM, <b>CDSC</b>, <b>CDSB</b>, <b>CDSCD</b>, <b>CIT</b></td> </tr>
+            <tr> <td>Resistances</td> <td><b>RSH</b>, <b>RDSW</b>, [PRT], PRWB, PRWG, WR, LINT, WINT</td> </tr>
+            <tr> <td>Process Parameters</td> <td><b>TOX</b>, <b>XJ</b>, <b>XT</b>, <b>NCH (PCH)</b>, <b>NGATE</b>, <b>NLX</b>, <b>NSUB</b>, <b>GAMMA1</b>, <b>GAMMA2</b>, JS, [XTI], NJ, <b>JSSW</b></td> </tr>
+            <tr> <td>Noise</td> <td>AF, KF, EF, EM, NOIA, NOIB, NOIC</td> </tr>
+          </table>
+        </section>
+
+        <section id="binning">
+          <h3>Binning for Different Transistor Geometries</h3>
+          <p>BSIM models also allow <dfn>binning</dfn>: several models are written for different geometries of the same device and then selected to fit into a range of gate widths and lengths. The parameters <var>LMIN</var> and <var>LMAX</var> specify minimum and maximum length; the parameters <var>WMIN</var> and <var>WMAX</var> do the same for width.</p>
+          <p>This isn’t really necessary for the parameters listed in the above table, as some foundries, notably AMS, manage to create equally accurate models without binning. However, the Monte Carlo variations should be tied to channel area, which requires width and length. Note that the multiplier <var>M</var> is used for transistors with a channel width beyond <var>WMAX</var>.</p>
+          <p>For more detail on the many parameters, you’ll need to consult the <a target="_blank" href="https://bsim.berkeley.edu/models/">Berkeley documentation</a>. Be forewarned that these are lengthy documents.</p>
+        </section>
+
+
+
+      </section>
+      <!--
+      <section id="***">
         <h2></h2>
         <p></p>
       </section>

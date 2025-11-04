@@ -44,6 +44,57 @@
       <section id="spice">
         <h2>The Bipolar Transistor SPICE Model</h2>
         <p>The bipolar transistor is represented by 42 parameters in SPICE! While the number may look a bit daunting, it's actually quite straightforward once you're familiar with the <a target="_blank" href="ngspice.diodes.html#spice">SPICE diode model</a>.</p>
+
+        <section>
+          <h3>Bipolar Spice Model Parameters</h3>
+          <p>The SPICE parameters for the bipolar transistor are placed into five groups:</p>
+          <ul>
+            <li>Base-emitter diode.</li>
+            <li>Current gain.</li>
+            <li>Reverse current gain.</li>
+            <li>Base-collector diode.</li>
+            <li>Noise.</li>
+          </ul>
+          <p>Let’s take a detailed look at each of these five groups.</p>
+          <section>
+            <h4>Base-Emitter Diode</h4>
+            <p>Here we have the plain diode SPICE parameters as discussed in the <a target="_blank" href="ngspice.diodes.html#spice">diode model</a>, but renamed. The abbreviations in parentheses refer to the ordinary diode parameters: IS (IS), NF (N), ISE (ISR), NE (NR), RE (RS), EG, XTI, CJE (CJO), VJE (VJ), MJE (M), FC.</p>
+            <p>The series resistance of the diode is divided into two parts:</p>
+            <ul>
+              <li>RE: at the emitter end, with the emitter current flowing through it.</li>
+              <li>RB: at the base-contact end.</li>
+            </ul>
+            <p>The latter starts at RB at low current and drops gradually to the value RBM at a current specified by IRB. At low current, this reflects the use of the entire emitter. At high current, as discussed in the performance limitations of bipolar transistors, it reflects only the emitter edge facing the base contact.</p>
+          </section>
+          <section>
+            <h4>Current Gain</h4>
+            <p>The main parameters here are BF (the forward beta, or <var>h<sub>FE</sub></var>) and its temperature coefficient XTB. Without any additional parameters, the current gain would be the same at any collector voltage or current.</p>
+            <p>The Early effect is represented by VAF (the Early voltage). The drop-off at high current is produced by IKF (the current at which <var>h<sub>FE</sub></var> starts to drop) and NK (the steepness of the drop). ISE and NE of the base-emitter diode are responsible for the drop in <var>h<sub>FE</sub></var> at the low-current end; simply shunting a small amount of base current to the emitter.</p>
+          </section>
+          <section>
+            <h4>Reverse Current Gain</h4>
+            <p>You may be convinced that you will never operate a transistor with the collector and emitter interchanged, but just in case, the parameters BR, NR, VAR, IKR, and TR are provided.</p>
+          </section>
+          <section>
+            <h4>Base-Collector Diode</h4>
+            <p>Here again, we have the basic diode SPICE parameters, again renamed: ISC (IS), NC (N), RC (RS), XTF (XTI), CJC (CJO), VJC (VJ), MJC (M) and TF (TT).</p>
+            <p>The last one, TF, is the transit time (now through the base to the collector) which accounts for any delay that can't represented by capacitance alone. It is embellished by:</p>
+            <ul>
+              <li><code>ITF</code>: which makes TF dependent on current.</li>
+              <li><code>VTF</code>: showing the dependence of TF on the base-collector voltage.</li>
+              <li><code>PTF</code>: an excess phase at a frequency 1/(2πTF).</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Noise</h4>
+            <p>As in a simple diode, additional low-frequency (flicker) noise is represented by the parameters KF and AF, but here they work on the collector current.</p>
+          </section>
+          <section>
+            <h4>Basic Model Limitations</h4>
+            <p>The SPICE model for an integrated bipolar transistor can have either three or four terminals. The fourth terminal (of an NPN transistor) is the substrate. Between the substrate and the collector, there is a diode represented by the five parameters ISS, NS, CJS, VJS, and MJS. This is a major flaw in SPICE, for a mere diode here is inadequate. When the transistor saturates, a substantial portion of the total current flows to the substrate, which this model simply ignores.</p>
+          </section>
+        </section>
+
       </section>
     </main>
 

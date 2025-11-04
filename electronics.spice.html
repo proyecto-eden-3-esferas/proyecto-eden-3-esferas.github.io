@@ -34,6 +34,20 @@
       <p>SPICE is an analog-circuit simulator that is used to calculate and display the circuit behaviour. It was originally developed at the Electronics Research Laboratory of the University of California, Berkeley (1975). The source code was made freely available and has been used as the basis of many commercial simulators, and academic projects.</p>
       <blockquote>SPICE is a useful tool, not a magic wand, and its results should always be examined critically; in some cases it may not give results at all, for others the results may be misleading.</blockquote>
 
+      <section id="history">
+        <h2>History of Spice</h2>
+        <p>In 1972, the Electrical Engineering Department of the University of California at Berkeley released the first version of SPICE (Simulation Program with Integrated Circuit Emphasis). The head of the department, Donald Pederson, decided to do this free of charge. After many additions, revisions, and improvements (done by a <q>cast of thousands</q> of graduate students), it’s still free today.</p>
+        <p>The Berkeley SPICE program was originally written in Fortran. It has been modified and sold by dozens of companies under various names. Some of the modifications, such as adaptation to PC use, were useful. Many others merely served to make these programs incompatible with each other.</p>
+        <p>So, be aware that there are differences in capabilities and notation between SPICE programs. Also, it’s no longer true that analysis programs running on more expensive workstations under Unix are better or faster; some PC programs (notably Simetrix) have outdistanced their Unix cousins in both speed and added features.</p>
+      </section>
+
+      <section>
+        <h2>Analog vs Digital Simulation</h2>
+        <p>Simulation for analog ICs differs greatly from any kind of digital simulation. The most important factor in digital simulation is speed, which has led to an ever finer representation of internal capacitances and other stray effects in the simulation models.</p>
+        <p>In an analog IC, speed is just one of many requirements. We rely heavily on matching and need to know, with great certainty, the effect of variations in many parameters in an almost unlimited number of combinations. Each device also needs to be represented accurately over the entire operating range, not just in two states. The <strong>models</strong> are therefore the most important factor.</p>
+        <p>Unfortunately, the quality of models for analog or mixed-mode ICs varies greatly. Some—few—are very accurate and can provide you with a high level of confidence in the results. Using these models, you can tell from simulations alone how well your design will work in silicon, down to the exact distribution of each circuit parameter in production. However, most models issued by foundries aren’t in this category; instead, they lack information crucial to analog design.</p>
+      </section>
+
       <section id="source-files">
         <h2>SPICE Source Files</h2>
         <p>The SPICE-3 source is a text file comprising various types of lines each terminated by a newline character:</p>

@@ -41,12 +41,150 @@
 
     <main>
       <h1>Transistors: Controlled Current Sources</h1>
-      <p>A <dfn>transistor</dfn> is a three-port (3-pin, 3-legs, 3-terminals) electronics device where a current or a voltage signals controls the intensity of a larger current.</p>
+      <p><dfn>Transistors</dfn> are electrical devices that switch or amplify voltages in circuits. They are a three-port (3-pin, 3-legs, 3-terminals) electronic device where a current or a voltage signals controls the intensity of a larger current.</p>
 
       <aside>
         <p>One of the issues with transistors is that it takes a while before using a transistor becomes intuitive. Transistors, as we will find, wind up needing a lot of special considerations. Because of this, many people don&apos;t use transistors directly and instead choose to only use <a target="_blank" href="ic">integrated circuits</a>. Integrated circuits, since they are based on the needs of a circuit instead of simple physical properties, tend to be much easier to work with. Most of the guess work has been taken out, and the chips are built so that they can be inserted into a circuit in a straightforward way. Even though some people opt to use integrated circuits instead of using transistors directly, it is worthwhile to understand their operation.</p>
         <p style="text-align: right">(From <cite>Electronics for Beginners</cite>, by Jonathan Bartlett)</p>
       </aside>
+
+      <section id="mosfets">
+        <h2>>Metal oxide semiconductor field effect transistors (MOSFETs)</h2>
+        <p>MOSFETs:</p>
+        <ul>
+          <li>use an insulated gate to control conductivity with voltage, enabling amplification and switching of electronic signals,</li>
+          <li>are a voltage-controlled device, and</li>
+          <li>are similar to a metal-insulator-semiconductor field-effect transistor (MISFET) and an insulated-gate field-effect transistor (IGFET).</li>
+        </ul>
+        <p>Generally, MOSFET is a <strong>four-terminal device</strong>.  MOSFET terminals are labeled as follows:</p>
+        <ul>
+          <li>Source</li>
+          <li>Gate</li>
+          <li>Drain</li>
+          <li>Body or Bulk</li>
+        </ul>
+        <p>The body is usually connected to the source terminal, reducing the terminals to three.</p>
+        <section>
+          <h3>Construction of MOSFET</h3>
+           <p>A MOSFET can be constructed as follows:</p>
+           <ul>
+             <li>The body of a MOSFET is typically made from a p-type semiconductor.</li>
+             <li>The source and drain terminals are formed from heavily doped n-type regions on either side of the body.</li>
+             <li>These doped regions are often denoted by n+ in diagrams to indicate their high doping concentration.</li>
+             <li>A layer of silicon dioxide is deposited on the silicon substrate to provide electrical isolation.</li>
+             <li>A thin metallic layer is deposited on top of the silicon dioxide, forming a capacitor-like structure.</li>
+             <li>This metallic layer is then patterned and etched away to define the gate terminal.</li>
+             <li>A voltage source is then connected between these two n-type areas to construct a DC circuit.</li>
+           </ul>
+           <p>The abbreviation NMOS is used to refer to N-channel MOSFETs and the P-channel MOSFETs are abbreviated as PMOS.</p>
+        </section>
+        <section>
+          <h3>Working Principle of MOSFETs</h3>
+          <p>The main working principle of a MOSFET device is to be able to control the current flow between the drain and source terminals. It works almost like a switch.</p>
+          <ul>
+            <li>The operation of a MOSFET is dependent upon the MOS capacitor. The MOS capacitor is the heart of the MOSFET.</li>
+            <li>The semiconductor surface can be inverted from n-type to p-type by applying either negative or positive gate voltages respectively.</li>
+            <li>Positive gate voltage pushes holes deeper into the substrate, allowing electrons to flow.</li>
+            <li>The depletion region is populated by bound negative charges associated with the acceptor atoms.</li>
+            <li>A channel is developed when electrons are reached.</li>
+            <li>Electrons are also attracted to the positive voltage from the n+ source and drained into the channel by that voltage.</li>
+            <li>As a result, if a voltage is applied between the drain and source, current flows freely between them, and the gate voltage controls electron flow.</li>
+            <li>If we apply a negative voltage, a hole channel will be formed under the oxide layer, instead of the positive voltage.</li>
+          </ul>
+          <hr/>
+          <p>The basic idea is to create a region, or channel, between the source and drain. The channel region has the same polarity as the source and drain (N-type), so that there is direct conduction between the two. This is done with a positive voltage at the gate, which pushes holes away from the surface to create the N-tyipe channel.</p>
+          <aside>
+            <p>The device is called an <dfn>enhancement-mode</dfn> transistor. There are also <dfn>depletion-mode</dfn> devices, in which a channel is implanted or diffused and then cut off with a negative gate voltage.</p>
+          </aside>
+          <p>The channel is uniform only at zero or very low drain voltage. As the drain voltage is increased, a <strong>depletion region</strong> forms around it. Since there’s now a voltage drop along the channel, with the drain side at a higher voltage than the source, the depletion region along the channel gradually increases toward the drain, cutting more and more into the channel. Thus, the resistance of the channel increases.</p>
+          <p>The initial slope of the drain voltage/drain current curve is the resistance of the channel without any depletion layers. The final slope at the highest drain voltage represents its resistance with the depletion layer almost pinching off the channel. It is an unfortunate fact that this region is called the <dfn>saturation region</dfn>, which clashes badly with the definition used for the bipolar transistor.</p>
+          <p>A certain gate potential has to be exceeded to attract any carriers to the surface. This is known as the <dfn>threshold voltage</dfn>. Above it, an MOS transistor is basically a square-law device.</p>
+          <p>The measure of gain is the transconductance, which is the drain current divided by gate voltage. Like the bipolar transistor, this is a nonlinear device:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>I</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>d</mi>
+    </mrow>
+  </msub>
+  <mtext>&#xA0;</mtext>
+  <mo>=</mo>
+  <mtext>&#xA0;</mtext>
+  <mi>k</mi>
+  <mfrac>
+    <mi>W</mi>
+    <mi>L</mi>
+  </mfrac>
+  <mo stretchy="false">(</mo>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>g</mi>
+      <mi>s</mi>
+    </mrow>
+  </msub>
+  <mtext>&#xA0;</mtext>
+  <mo>&#x2212;<!-- − --></mo>
+  <mtext>&#xA0;</mtext>
+  <msub>
+    <mi>V</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>T</mi>
+    </mrow>
+  </msub>
+  <msup>
+    <mo stretchy="false">)</mo>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mn>2</mn>
+    </mrow>
+  </msup>
+</math>
+          <p>where:</p>
+          <ul>
+            <li><var>I<sub>d</sub></var> = drain current</li>
+            <li><var>k</var> = transconductance</li>
+            <li><var>W</var> = channel width</li>
+            <li><var>L</var> = channel length</li>
+            <li><var>V<sub>gs</sub></var> = gate-to-source voltage</li>
+            <li><var>VT</var> = threshold voltage</li>
+            <li><var>V<sub>gs</sub></var> – <var>V<sub>T</sub></var> = gate voltage above the threshold.</li>
+          </ul>
+          <p>The region below the channel also influences the gain. It forms a <dfn>back gate</dfn>. For an N-channel transistor, this is the P-doped substrate, which is common to all devices. You have no choice but to connect it to the lowest negative voltage.</p>
+          <p>...</p>
+          <hr/>
+          <p>MOS transistors are called unipolar devices because they employ only one type of carrier, whereas both electrons and holes are important for the operation of a bipolar transistor.</p>
+          <hr/>
+          <p>There is a choice for the P-channel transistor, though. If you place all of the P-channel transistors in a common N-well, you get the smallest total area and therefore the lowest cost. But if the source of such a transistor is operated below the positive supply, the back gate (the N-well) pinches off the channel further, and you get a gain that’s reduced by perhaps 30%. You can avoid this by placing this transistor in its own N-well.</p>
+        </section>
+        <section>
+          <h3>Types of MOSFET</h3>
+          <p>There are two types of MOSFETs: enhancement and depletion. Each class is available in either n-channel or p-channel configurations, resulting in a total of four MOSFET categories.</p>
+          <dl>
+            <dt>Depletion Mode</dt>
+            <dd>
+              <p>The Depletion mode P-N channel has the highest conductivity when there is no voltage at the gate terminal. The channel conductivity diminishes when the voltage across the gate terminal is either positive or negative.</p>
+              <p>It is made by implating or diffusing a channel and then cutting it off with a negative gate voltage.</p>
+            </dd>
+            <dt>Enhancement Mode</dt>
+            <dd>
+              <p>The circuit does not work if there is no voltage across the gate terminal.</p>
+              <p>When the maximum voltage is applied across the gate terminal, the device's conductivity improves.</p>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h3>MOSFET Operating Regions</h3>
+          <p>Three functioning areas can be seen in a MOSFET:</p>
+          <dl>
+            <dt>Cut-Off Region</dt>
+            <dd>The cut-off region is a region where no conduction occurs, and so the MOSFET is turned off. MOSFET functions like an open switch in this situation.</dd>
+            <dt>Ohmic Region</dt>
+            <dd>The ohmic region is defined as a region where the current (<var>I<sub>DS</sub></var>) rises as the value of <var>V<sub>DS</sub></var> rises. MOSFETs are used as amplifiers when they are designed to function in this range.</dd>
+            <dt>Saturation Region</dt>
+            <dd>The <var>I<sub>DS</sub></var> current of MOSFET remains constant despite an increase in <var>V<sub>DS</sub></var> in the saturation area, which occurs when <var>V<sub>DS</sub></var> reaches the pinch-off voltage <var>V<sub>P</sub></var>. In this case, the device will operate as a closed switch, allowing a saturated value of <var>I<sub>DS</sub></var> to pass through it. As a result, whenever MOSFETs are required to perform switching operations, this operating area is picked.</dd>
+          </dl>
+        </section>
+      </section>
 
       <section id="IGBT-IEGT">
         <h2>IGBTs/IEGTs</h2>
