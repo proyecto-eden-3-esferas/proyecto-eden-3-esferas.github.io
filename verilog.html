@@ -1,0 +1,459 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Verilog</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      -->
+      <div>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+        <p><a href="https://www.allaboutcircuits.com/">All About Circuits</a> (a Web Site)</p>
+      </div>
+      <div>
+        <p><a href="ic.html">Integrated Circuits</a></p>
+        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Verilog</h1>
+      <p>What is Verilog? In 1985, Automated Integrated Design Systems (renamed Gateway Design Automation in 1986) introduced a product named Verilog. It was the first logic simulator to seamlessly incorporate both a higher-level language and gate-level simulation. Before Verilog, there were many gate-level simulators and several higher-level language simulators, but there was no way to make them work together easily.</p>
+      <p>The Verilog language has been updated with the IEEE standardization in 1995, and now the update to the standard in 2001.</p>
+
+      <section>
+        <h2>Verilog's Levels of Description</h2>
+        <p>As regards <a href="#HDL_levels">levels of description</a>, Verilog can definitely be used from the system level down to the switches level.</p>
+      </section>
+
+      <section>
+        <h2>Verilog Format</h2>
+        <section>
+          <h3>Verilog Identifiers</h3>
+          <p>Identifiers are the names Verilog uses for the objects in a design. Identifiers are the names you give your wires, gates, functions, and anything else you design or use. The basic rules for identifiers are as follows:</p>
+          <ul>
+            <li>May contain letters (a-z, A-Z), digits (0-9), underscores (_), and dollar signs ($).</li>
+            <li>Must start with a letter or underscore.</li>
+            <li>Are case sensitive (unless made case insensitive by a tool option).</li>
+            <li>May be up to 1024 characters long.</li>
+            <li>Other printable ASCII characters may be used in an <strong>escaped identifier</strong>. These obey two rules: (1) they must start with a backslash (\), and (2) they must end with white space.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Comments in Verilog</h3>
+          <p>These are the same as those in C++. Single line comments begin with a double backslash, whereas multiline comments are enclosed between <q>\*</q> and <q>*/</q> strings.</p>
+        </section>
+        <section>
+          <h3>Numbers</h3>
+          <p>You need to specify the base (or radix) and the number of bits used to represent your number. Further, you use a single quote (') to separate number of bits and radix.</p>
+          <blockquote class="informalequation">&lt;number_of_bits&gt;'&lt;radix&gt;&lt;value&gt;</blockquote>
+          <p>Further, values may bear prefixes <q>b</q> (for binary), <q>d</q> (for decimal, the default), <q>h</q> (for hexadecimal), and <q>o</q> (for octal). These one-letter prefixes may be upper-case.</p>
+        </section>
+        <section>
+          <h3>Text Macros</h3>
+          <p>Verilog provides a text macro substitution facility. This is useful to define opcodes or other mnemonics you wish to use in your code. This is done with the grave accent key (backwards apostrophe) and the <code>define</code> keyword. Like this:</p>
+          <pre>`define mycode 47</pre>
+          <p>To be used like this:</p>
+          <pre> b = `mycode;</pre>
+        </section>
+        <section>
+          <h3>Semicolons</h3>
+          <p>Each Verilog statement ends with a semicolon. The only lines that do not need semicolons are those lines with keywords that end a statement themselves, such as <code>endmodule</code>.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Verilog Modules</h2>
+        <p>The main building block in Verilog is the <dfn>module</dfn>. You create modules using the keywords <code>module</code> and <code>endmodule</code>. You may specify a module name with in, out or inout variables, much like a C/C++ function declaration or prototype.</p>
+        <section>
+          <h3>Ports in Modules</h3>
+          <p>Modules may have ports or connections to the outside. In general, if you are modeling a self-contained system, you will not have ports. But if you are modeling something that needs to be connected to something else, you will need ports to make those connections.</p>
+          <p>Verilog supports three port directions: <code>input</code>, <code>output</code>, and <code>inout</code> (bidirectional). In Verilog, you must declare the ports in two places: First, as part of the port list in the module. Second, for the direction and size of all the module's ports using the <code>input</code>, <code>output</code>, and <code>inout</code> keywords.</p>
+          <p>The 2001 standard allows you to combine the portlist and direction into a single declaration.</p>
+        </section>
+        <section>
+          <h3>Instances</h3>
+          <p>An instance is a copy of a primitive or a module. When you use a built-in primitive, you make an instance or copy of the built-in gate and list its connections. When you make an instance of a built-in gate, you have the option to give it a unique name. When you make an instance of a module you are required to give it an instance name.</p>
+          <p>In the following listing, <var>or</var>, <var>and</var>, and <var>not</var> name primitives. Also, we might have dropped the names <var>I4</var>, <var>I5</var>, <var>I6</var>, and <var>I7</var>.</p>
+          <pre>module mux(OUT, A, B, SEL);
+  output OUT;
+  input A,B,SEL;
+  not I5 (sel_n, SEL);
+  and I6 (sel_a, A, SEL);
+  and I7 (sel_b, sel_n, B);
+  or I4 (OUT, sel_a, sel_b);
+endmodule</pre>
+        </section>
+        <section>
+          <h3>Module Hierarchies</h3>
+          <p>While you cannot define a module inside another module, you can instantiate and connect modules inside other modules, creating a hierarchy. For example, if you want to have a 2-bit mux, you can create it by using two 1-bit muxes from the previous listing. Look:</p>
+          <pre>module mux2(OUT, A, B, SEL);
+  output [1:0] OUT;
+  input [1:0] A,B;
+  input SEL;
+  mux hi (OUT[1], A[1], B[1], SEL);
+  mux lo (OUT[0], A[0], B[0], SEL);
+endmodule</pre>
+          <section xml:id="verilog_hierarchical_names">
+            <h4>Hierarchical Names</h4>
+            <p>With hierarchical names, we can point at a copy out of several copies of one kind so as to uniquely identify each gate, port, and wire.</p>
+            <p>Hierarchical names have two forms: A downward path from the current module (relative), or a name that starts at a top-level module and provides a complete path (absolute). Verilog uses the dot (.) to separate the elements in the path of a hierarchical name.</p>
+          </section>
+        </section>
+        <section>
+          <h3>Connecting Ports</h3>
+          <p>In the foregoing example <dfn>connect by order</dfn> has been used since the port order must be known and matched. Verilog also supports a <dfn>connect by name</dfn> syntax, where the port order does not need to be known, but the port names must be known. The connect by name syntax uses the <a href="#verilog_hierarchical_names">hierarchical name</a> for the ports to make the connects.</p>
+          <p>Connect by name uses the following syntax:</p>
+          <blockquote class="informalequation">.<var>&lt;portname&gt;</var>(<var>&lt;net_to_be_connected&gt;</var>)</blockquote>
+          <note>Notice the leading dot</note>
+        </section>
+        <section>
+          <h3>Top-Level Modules</h3>
+          <p>When the Verilog simulator finishes compiling your modules, the first thing it reports is which module or modules are <q>Highest-level modules.</q> Highest-level or top modules are modules that no other module has made an instance of. These non-referenced modules are considered to be at the top of the hierarchy. Usually there is only one top-level module, the <dfn>test bench</dfn> for your circuit. The test bench module is used to provide inputs or stimulus to a design.</p>
+          <p>Each instantiated module has a unique instance name. Since a top-level module is not instantiated, it has no instance name. Verilog automatically assigns an instance name to top-level modules. The instance name of a top-level module is the name of the module itself.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Value Set</h2>
+        <p>For logic simulation, we need more values than just zeroes and ones. You also need values to describe unknown values and high impedance (not driving). Verilog uses the values x to represent unknown and z to represent high impedance (not driving). Any bit in Verilog can have any of the values 0, 1, x, or z.</p>
+      </section>
+
+      <section>
+        <h2>Numbers, Values, and Unknowns</h2>
+        <p>Is x a number? How do you set a signal to the value unknown? x by itself is an identifier. If we want the value x we need to make it into a number. To make a number we need a number of bits, a radix, and a value. Therefore 1'bx is a number with the value x.</p>
+        <p>There are a few more rules about numbers and values. Verilog does not sign extend values. It extends all values with zero, except those with x or z in the most significant place. Numbers with x and z in the most significant place extend with x and z, respectively.</p>
+      </section>
+
+      <section>
+        <h2>Strengths</h2>
+        <p> Strengths are necessary in switch-level modeling. In Verilog, strengths are represented in a range from 0 (high impedance) to 7 (supply). There are four driver strengths: supply, strong, pull, and weak. There are three capacitive strengths: large, medium, and small. The capacitive strengths are used for storage nodes in switch-level circuits. The strengths and values combine internally in Verilog to create a set of 120 possible states for a signal in Verilog.</p>
+      </section>
+
+      <section>
+        <h2>Gate-Level or Structural Design in Verilog</h2>
+        <p>This consists of simply connecting devices. Even complex designs may comprise structural modules, as gate-, dataflow- and even behavioural-level descriptions may be mixed and matched.</p>
+        <p>Verilog has a set of twenty-six built-in gates and switches (primitives).</p>
+        <ul>
+          <li>logic gates: <code>and</code>, <code>or</code>, <code>nand</code>, <code>nor</code>, <code>xor</code>, and <code>xnor</code></li>
+          <li>buffers: <code>buf</code>, <code>bufif0</code>, <code>bufif1</code>, <code>not</code>, <code>notif0</code>, <code>notif1</code>, <code>pulldown</code>, and <code/>pullup</li>
+          <li>transistors: <code>nmos</code>, <code>pmos</code>, <code>cmos</code>, <code>rnmos</code>, <code>rpmos</code>, <code>rcmos</code>, <code>tran</code>, <code>tranif0</code>, <code>tranif1</code>, <code>rtran</code>, <code>rtranif0</code>, and <code>rtranif1</code></li>
+        </ul>
+        <p>Their syntax is fairly consistent. The first variable is out, the remainder are in. The <code>pullup</code> and <code>pulldown</code> primitives have a single output and no inputs, and are used to pull up or pull down a net. MOS-level unidirectional and bidirectional switches are represented by the remaining primitives.</p>
+
+        <section>
+          <h3>Ports in Primitives</h3>
+          <p>The Verilog terminology for a connection or <q>pin</q> is <dfn>port</dfn>. All the built-in primitives (gates) have ports. The <code>pullup</code> and <code>pulldown</code> primitives have only one port. The first port of each of the built-in primitives (gates) is the output. This allows you, for example, to use the same and primitive to represent a 2-input or 4-input AND gate. The only built-in primitives that can have more than one output port are the buf and not primitives, which can have many outputs, with the last terminal being the input.</p>
+          <p>Here is some Verilog code for the 2-lnput and 4-lnput AND Gates:</p>
+          <pre>and ( Y, A, B );
+and ( Y, A, B, C, D );</pre>
+        </section>
+
+        <section>
+          <h3>A Gate-Level Example</h3>
+          <p>This is the model of a simple multiplexer, with lower-case internal varibles: <var>sel_n</var> (negation of <var>SEL</var>), <var>sel_a</var>, and <var>sel_b</var>:</p>
+          <pre>module mux(OUT, A, B, SEL);
+  output OUT;
+  input A,B,SEL;
+  not I5 (sel_n, SEL);
+  and I6 (sel_a, A, SEL);
+  and I7 (sel_b, B, sel_n);
+  or I4 (OUT, sel_a, sel_b);
+endmodule</pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Building Memory Cells with Gates in Verilog</h2>
+        <p>To model memory modules realistically <a href="#verilog_delays">delays</a> must be specified, which have not yet been discussed although hopefully the notation is intuitive to follow.</p>
+
+        <p>We shall build our memory registers from the SR latch:</p>
+        <pre>module sr_latch(q, qbar, s, r);
+  output q, qbar;
+  input  s, r;
+  wire q2r, qbar2s;
+
+  nand (q,    r, qbar2s);
+  nand (qbar, s, q2r);
+endmodule</pre>
+
+        <note>
+          <p>You may insert a delay after <q>nand</q>: <code>#(<var>t<sub>delay</sub></var>)</code>, or <code>#(<var>t<sub>rise</sub></var>, <var>t<sub>fall</sub></var>)</code></p>
+        </note>
+        <p>An edge flip flop:</p>
+        <pre>module edge_ff(q, qbar, d, clk, clear);
+  output q, qbar;
+  input  d, clk, clear;
+  wire   s, sbar, r, rbar, cbar;
+  // input latches:
+  assign cbar = ~clear;
+  assign sbar = ~(rbar &amp; s),
+         s    = ~(sbar &amp; cbar &amp; clk),
+         r    = ~(rbar &amp; ~clk &amp; s),
+         rbar = ~(r    &amp; cbar &amp; d);
+  // output latch:
+  assign q    = ~(s &amp; qbar),
+         qbar = ~(q &amp; r &amp; cbar);
+endmodule</pre>
+
+        <p>A toggle flip-flop:</p>
+        <pre>module t_ff(q, clk, clear);
+  output q;
+  input clk, clear;
+  edge_ff ff1(q, ~q, clk, clear);
+endmodule</pre>
+      </section>
+
+      <section>
+        <h2>DataFlow-Level or Procedural Design in Verilog</h2>
+        <p>Procedural Verilog code is like programming in a computer language&#x2014;with one large exception: Procedural Verilog code adds a concept of time. With a programming language, code is started at a particular location, for example, at the first line or main function. In Verilog, code starts running in one of two places: at the <code>initial</code> statement and at the <code>always</code> statement. You can have as many <code>initial</code> statements and <code>always</code> statements as you want in your simulation or module.</p>
+        <p><code>initial</code> blocks schedule statements to execute at set times, whereas <code>always</code> blocks cause code to execute whenever in time a given condition is fullfilled.</p>
+        <p>When an <code>initial</code> or an <code>always</code> block contains several statements, they must be enclosed between keywords <code>begin</code> and <code>end</code>.</p>
+        <section>
+          <h3>The <code>initial</code> Keyword</h3>
+          <p>The <code>initial</code> keyword causes Verilog to execute its statements at time 0. It is used not only for initialization. Here is an example of an initial section:</p>
+          <pre>initial $display("Hello Verilog");</pre>
+        </section>
+        <section>
+          <h3>The <code>always</code> Keyword</h3>
+          <p><code>always</code> blocks contain statements whose execution is triggered by some event. Alternatively, an <code>always</code> block starts again when it finishes. This can create an infinite loop. Some infinite loops are useful.</p>
+        </section>
+
+        <section xml:id="verilog_dataflow_D_flipflop">
+          <h3>D Flip-Flop in Verilog's Data Flow</h3>
+          <p>An edge-sensitive D flip-flop:</p>
+          <pre>module edge_d_ff(q, qbar, d, clk, clear)
+  output q, qbar;
+  input  d, clk ,clear;
+  wire s, sbar, r, rbar, cbar;
+  // input latches:
+  assign cbar = ~clear;
+  assign sbar = ~(rbar &amp; s),
+         s    = ~(sbar &amp; cbar &amp; ~clk),
+         r    = ~(rbar &amp; ~s   % ~clk),
+         rbar = ~(r    &amp; cbar &amp; d);
+  // output latch:
+  assign q    = ~(s&amp;qbar),
+         qbar = ~(q &amp; r &amp; cbar);
+endmodule</pre>
+        </section>
+
+      </section>
+
+      <section xml:id="verilog_delays">
+        <h2>Delays in Verilog</h2>
+        <p>Every statement in Verilog may have a delay before it is run. If we have two (initial) statements scheduled at the same time, which will run first? Not only is there no way to tell, but if you run the statements on another simulator, it might run them in a different order. A race condition arises.</p>
+        <p>Delays are set by prepending <code>#<var>delay_in_time_units</var></code>.</p>
+        <pre>initial #1 $display("Hello Delays Verilog!");</pre>
+        <section>
+          <h3><code>fork</code>-<code>join</code> Blocks</h3>
+          <p>The <code>fork</code>-<code>join</code> block is similar to the <code>begin</code>-<code>end</code> block in that it is also used to group statements. In <code>begin</code>-<code>end</code> blocks, the statements are sequential, and the delays are additive. In <code>fork</code>-<code>join</code> blocks, the statements are concurrent, and the delays are independent, or absolute from the time the <code>fork</code>-<code>join</code> block starts.</p>
+        </section>
+        <section>
+          <h3>Nesting <code>begin</code>-<code>end</code> and <code>fork</code>-<code>join</code> blocks</h3>
+          <p>Note that fork-join and begin-end blocks are themselves single statements. You can nest fork-join and begin-end blocks. You can also nest begin-end blocks within begin-end blocks; fork-join blocks within fork-join blocks; and begin-end blocks within fork-join blocks.</p>
+          <p>Although there are four possible ways to nest these blocks, two of the combinations are generally impractical. Nesting begin-end blocks within begin-end blocks has no benefit because all the statements are sequential already. When begin-end blocks are nested, it is usually for control flow. And nesting a fork-join block in a fork-join block is impractical unless there is a delay outside the inner fork-join block.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>System Tasks</h2>
+        <p>A Verilog <dfn>system task</dfn> is a special built-in command for system functions such as printing messages or reading and writing files. They all begin with the <q>$</q> symbol.</p>
+        <section>
+          <h3>The <code>$display(...)</code> System Task</h3>
+          <pre>$display("Hello Verilog");
+$display(a); // display variable 'a'</pre>
+<p>You may also use format specifiers, much as in C printf(...). The format specifiers are <code>%b</code> for binary, <code>%d</code> for decimal, <code>%h</code> for hexadecimal, <code>%o</code> for octal, and <code>%s</code> for string.</p>
+<pre>$display("The value of a is %b, The value of b is %b", a, b);</pre>
+          <p>...</p>
+        </section>
+        <section>
+          <h3>Other System Tasks to Print Results</h3>
+          <p>The <code>$display</code> command has several relatives: <code>$write</code>, <code>$strobe</code>, and <code>$monitor</code>. <code>$write</code> and <code>$strobe</code> are very similar to <code>$display</code>, and <code>$monitor</code> is a special, more powerful command.</p>
+          <p><code>$write</code> is similar to <code>$display</code>: They both print results when encountered. The only difference between the two is that <code>$display</code> automatically puts in a new line at the end of the results, whereas <code>$write</code> does not. If you need to print many results on a line and need to use more that a single <code>$display</code> statement, use <code>$write</code> statements for the first part(s) of the line and then a <code>$display</code> for the rest of the line. You could decide never to use <code>$display</code>, and just use <code>$write</code> and put a new line in manually.</p>
+          <p style="text-align: center"><strong><code>$strobe</code></strong></p>
+          <p>If you want to print out your results only after all values are finished changing at the current time unit, use <code>$strobe</code>. <code>$strobe</code> waits until just before time is going to advance, then it prints. With <code>$strobe</code> you always get the new value.</p>
+          <p style="text-align: center"><strong><code>$monitor</code></strong></p>
+          <p>If you want to print results as they change, use the <code>$monitor</code> system task. Unlike $display, which prints only once, <code>$monitor</code> automatically prints out whenever any of the signals it is printing changes, so you only need to call it once. Only one <code>$monitor</code> can be active at a time. If you want to change what is being printed, just execute another <code>$monitor</code> system task and the new <code>$monitor</code> becomes the active print-on-change system task.</p>
+          <p>Because <code>$monitor</code> can produce a lot of output, there are two more special system tasks for stopping and restarting <code>$monitor</code>. To stop the <code>$monitor</code> from printing, use the <code>$monitor</code>off command. To restart the <code>$monitor</code>, use the <code>$monitor</code>on command. Remember that there can be only one <code>$monitor</code> active in your simulation at a time. The last one executed is the only one in effect.</p>
+          <p style="text-align: center"><strong>Writing to Files</strong></p>
+          <p>By default, Verilog puts all the output that goes to your screen into a log file called <cite>verilog.log</cite>. You can view the results of your simulation by looking at the log file.</p>
+          <p>Besides sending output to the screen and log file, Verilog can write up to thirty-one additional files at the same time. File output is accomplished by declaring an integer that is used to represent the file and then opening the file. Once the file is opened, output commands similar to the ones previously described may be used to write to the file. Here's an example:</p>
+          <pre>integer f;
+f = $fopen("myFile");
+$fdisplay(f, "Hello Verilog File");</pre>
+          <p>For each of the commands covered so far (<code class="command">$display</code>, <code class="command">$write</code>, <code class="command">$monitor</code>, and <code class="command">$strobe</code>), there is an 'f' prefixed version of the command for printing data to files. All the file output commands require the first argument to be the file integer. The other command arguments are just like those for <code>$display</code>.</p>
+          <p>The integers used to represent the files have exactly one bit set in them. A single <code>$fdisplay</code> command can write to more than one file. The trick is to use the vertical line symbol ('|')to connect the file numbers, as shown below. One other trick is the numbering of the files: 1 is reserved for the screen and log file, so the first file opened will be 2 and the next, 4.</p>
+          <pre>integer file1, file2;
+file1 = $fopen("file1");
+file2 = $fopen("file2");
+
+$display("The number used for file 1 is %0d", file1);
+$display("The number used for file 2 is %0d", file2);
+
+$fdisplay(file1, "Hello File 1");
+$fdisplay(file2, "Hello File 2");
+$fdisplay(file1 | file2, "Hello both files");
+$fdisplay(file1 | file2 | 1, "Hello files and screen");
+
+$fclose(file1);
+$fclose(file2);</pre>
+
+          <p style="text-align: center"><strong>Advanced File IO Functions</strong></p>
+          <p>The 2001 standard greatly enhances file input and output capabilities. The 2001 standard defines <code>$ferror</code>, <code>$fflush</code>, <code>$fgetc</code>, <code>$fgets</code>, <code>$fread</code>, <code>$fscanf</code>, <code>$fseek</code>, <code>$fsscanf</code>, <code>$ftel</code>, <code>$rewind</code>, <code>$sformat</code>, <code>$swrite</code>, <code>$swriteb</code>, <code>$swriteh</code>, <code>$swriteo</code> and <code>$ungetc</code>, as new system functions. These functions work on files opened with <code>$fopen</code>, when <code>$fopen</code> is called with a <q>mode</q> similar to the ANSI C fopen function call. Each of these new functions works similarly to the ANSI C functions by the same name.</p>
+
+          <p style="text-align: center"><strong>Setting the Default Radix</strong></p>
+          <p>All of the commands for formatting output can be used with or without format
+specifiers. When you use a format specifier, the radix for each value printed out is
+set individually. If you do not use a format specifier, the default radix is decimal.
+Often it is desirable to print out values without having to use a format specifier.
+When debugging, it is inconvenient to have to use a format specifier just to see a
+value in a different radix. Thus, Verilog provides four types of each of the output
+functions with a different default radix. These are named by appending 'b' for binary, 'h' for hexadecimal, and 'o' for octal to <code>$display</code>, <code>$fdisplay</code>, <code>$write</code>, <code>$fwrite</code>, <code>$strobe</code>, <code>$fstrobe</code>, <code>$monitor</code>, and <code>$fmonitor</code>.</p>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Some Verilog Examples</h2>
+        <section xml:id="verilog_hello_example">
+          <h3>A <q>Hello World</q> Example</h3>
+          <p>This is a simple and easy to understand example of a Verilog program. It has been lifted from the <code class="command">iverilog</code> documentation:</p>
+          <pre>module main;
+initial
+  begin
+    $display("Hello, World");
+    $finish;
+  end
+endmodule</pre>
+        </section>
+      <section xml:id="verilog_telephone_example">
+        <h2>A Behavioral-Level Example</h2>
+        <pre>/* Abstract behavioral system describing a telephone */
+module office_phone;
+  parameter min_conversation=1, max_conversation=30, false=0, true=!false;
+  event ring, incoming_call, answer, make_call, busy;
+  reg off_hook;
+  integer seed, missed_calls;
+  initial
+  begin
+    seed=43; // seed for call duration
+    missed_calls=0;
+  end
+  // someone tries to call us
+  always @ incoming_call
+    if (! off_hook) -&gt; ring; // if not on the phone it rings
+    else begin
+    -&gt; busy; // else they get a busy signal
+    $display($time," A caller got a busy signal");
+    missed_calls = missed_calls + 1;
+  end
+  // phone is ringing . . .
+  always @ring
+    begin
+      $write($time," Ring Ring"); / / d o we want to answer it?
+      if ($random &amp; 'b110) begin // yes we will answer it
+      -&gt; answer;
+      off_hook = true;
+      $display(" answered");
+    end
+    else // no, we do not want to answer this phone call
+    begin
+      missed_calls = missed calls + 1;
+      $display(" not answered missed calls =%d", missed_calls);
+    end
+  end
+    always @make_call
+      if (off_hook)
+      $display($time," cannot make call phone in use");
+      else
+      begin
+        $display($time," making call");
+        off_hook = true;
+      end
+    always wait(off_hook == true) // we are on the phone
+    begin
+      // wait the call duration
+      #($dist_uniform(seed, min_conversation,max_conversation))
+      off_hook = false;
+      $display($time," off phone");
+    end // might wait about 2 hours between making calls
+    always #($random &amp; 255) -&gt; make_call;
+    // someone might call in within 4 hours
+    always #($random &amp; 511) -&gt; incoming_call;
+    // Simulate two days worth of calls
+  initial #(60*24*2) $finish;
+endmodule</pre>
+      </section>
+
+      </section>
+
+
+      <section>
+        <h2><code class="command">iverilog</code>, a Friendly Verilog compiler</h2>
+        <p>Icarus Verilog is a Verilog compiler. It is suitable for use as a simulator, and, to some degree, synthesizer. Icarus Verilog runs under Linux and a variety of UNIX systems, as well as Windows as a command line tool, so the instructions are generally applicable to all environments.</p>
+
+        <p>Try compiling the file <cite><a href="#verilog_hello_example">hello.vl</a></cite> with:</p>
+        <pre>% iverilog -o hello hello.vl</pre>
+        <p>then run <cite>hello</cite> like so to get...</p>
+        <pre>% vvp hello
+Hello, World</pre>
+        <p>...</p>
+
+        <section>
+          <h3>Simulation, Synthesis and Such</h3>
+          <p>You choose between simulation and synthesis by choosing a <dfn>target</dfn>. Note that the default target selects simulation, to be performed by running a vvp file through <code class="command">vvp</code>. Targets can be set with the switch:</p>
+          <blockquote class="informalequation">-t<var>&lt;target&gt;</var></blockquote>
+          <p>Target switches are:</p>
+          <dl>
+              <dt>null</dt>
+              <dt>The null target causes no code to be generated. It is useful for checking the syntax of the Verilog source.</dt>
+              <dt>vvp</dt>
+              <dt>This is the default. The vvp target generates code for the vvp runtime. The output is a complete program that simulates the design but must be run by the vvp command.</dt>
+              <dt>fpga</dt>
+              <dt>This is a synthesis target that supports a variety of fpga devices, mostly by EDIF format  output.  The  Icarus  Verilog fpga code generator can generate complete designs or EDIF macros that can in turn be imported into larger designs by other tools.  The  fpga target implies the synthesis -S flag.</dt>
+              <dt>vhdl</dt>
+              <dt>This target produces a VHDL translation of the Verilog netlist. The output is a single file containing VHDL entities corresponding to the modules in the Verilog source  code. Note  that  only  a subset of the Verilog language is supported.  See the wiki for more information.</dt>
+          </dl>
+        </section>
+
+        <section>
+          <h3>Minimum, Typical or Maximum Values</h3>
+          <pre>-Tmin|typ|max</pre>
+          <p>Use this switch to select min, typ or max times from min:typ:max expressions. Normally, the compiler will simply use the typ value from these expressions (printing  a  warning for  the  first  ten  it finds) but this switch will tell the compiler explicitly which value to use. This will suppress the warning that the compiler is making a choice.</p>
+        </section>
+
+        <section>
+          <h3>Module Libraries in Verilog</h3>
+          <p>The Icarus Verilog compiler supports module  libraries  as  directories  that  contain  Verilog source  files.   During elaboration, the compiler notices the instantiation of undefined module types. If the user specifies library search directories, the compiler will search the directory for  files  with the name of the missing module type. If it finds such a file, it loads it as a Verilog source file, then tries again to elaborate the module.</p>
+          <p>Library module files should contain only a single  module,  but  this  is  not  a  requirement. Library modules may reference other modules in the library or in the main design.</p>
+        </section>
+
+        <section>
+          <h3>Language Version</h3>
+          <p>This is called <dfn>generation</dfn> and is set through switches:
+          <code>-g1995</code>, <code>-g2001</code>, <code>-g2001-noconfig</code> or <code>-g2005</code>.</p>
+        </section>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

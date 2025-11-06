@@ -147,7 +147,7 @@ Ecoaldea con ideales pero promete ser cara.
 - Drawing on the Right Side of the Brain sobre Artificial Intelligence: Structures and Strategies
 - The Art of War, by Sun Tzu, sobre cuadernos tamaño cuartilla uno liso y otro cuadriculado sobre Self-sufficiency, de John Seymour
 
-- Catálogo de caravaneo
+- Catálogo de ferretería de caravaneo
 - Chemistry del Bachillerato Internacional
 - The Emperor's New Mind, by Roger Penrose
 - Pass the Port
@@ -156,6 +156,10 @@ Ecoaldea con ideales pero promete ser cara.
 - libros en francés, novelas principalmente
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] write *quantum-physics.html* from https://www.allaboutcircuits.com/textbook/semiconductors/chpt-2/quantum-physics/
+
+[x] write *semiconductors.html* from https://www.allaboutcircuits.com/textbook/semiconductors/
 
 [ ] write *cpp.valarray.html*
 - template class valarray at https://cplusplus.com/reference/valarray/valarray/

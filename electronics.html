@@ -20,20 +20,22 @@
         <p><a href="computing.html">Computing</a></p>
       -->
       <div>
-      <div>
         <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
         <p><a href="https://www.allaboutcircuits.com/textbook/designing-analog-chips/introduction/its-an-analog-world/">Designing Analog Chips</a>, a textbook by Hans Camenzind</p>
       </div>
       <div>
-        <p><a href="ic">Integrated Circuits</a></p>
+        <p><a href="ic.html">Integrated Circuits</a></p>
+        <p><a href="verilog.html">Verilog</a>, a Hardware Description Language for Digital Circuits</p>
         <p><a href="arduino.html">Arduino: a User-Friendly Microcontroller Board</a></p>
       </div>
       <div>
+        <p><a href="semiconductors.html">Semiconductors</a></p>
         <p><a href="transistors.html">Transistors: Controlled Current Sources</a></p>
         <p><a href="mosfet.html">MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</a></p>
         <p><a href="electronics.transient-response.html">Transient Response</a></p>
         <p><a href="electronics.time-constant.html">RC Time Constant</a></p>
       </div>
+      <div>
         <p><a href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
         <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
       </div>
@@ -67,28 +69,61 @@
             <p>There are "mixed signal" processes that purportedly allow digital and analog circuitry on the same chip. A 180 nm process, for example, will have some devices that can work with a higher supply voltage (e.g. 3 V). Such additions are welcome, if marginal. However, the design models are often inadequate and oriented toward digital design.</p>
           </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </section>
 
       </section>
 
       <section id="digital">
         <h2>Digital Electronics*</h2>
+        <p>(<i>See also</i> <cite><a href="#hdl">Hardware Description Languages (HDLs)</a></cite>.)</p>
+        <section id="combinational">
+          <h3>Combinational Logic*</h3>
+        </section>
+        <section id="sequential">
+          <h3>Sequential Logic*</h3>
+          <section id="mealy-moore">
+            <h4>Mealy and Moore Machines*</h4>
+          </section>
+        </section>
+        <section>
+          <h3> Why Clean Energy Systems Need FPGA-Level Control</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.allaboutcircuits.com/industry-articles/why-clean-energy-systems-need-fpga-level-control/">https://www.allaboutcircuits.com/industry-articles/why-clean-energy-systems-need-fpga-level-control/</a></cite>, July 23, 2025 by Nicu Irimia and Red Pitaya)</p>
+          <aside>From fine-tuning the output of a solar farm to stabilizing a complex electric grid, FPGAs provide the ultra-fast, efficient computing needed to maximize energy efficiency.</aside>
+          <p>The world is finally embracing a clean energy revolution. Solar farms and wind turbines are coming online in record numbers, and many nations have pledged to cut carbon emissions. However, this is only half the battle. Global energy demand keeps climbing, and every year we still burn more fossil fuel than the last.</p>
+          <p>We can't count on everyone radically reducing their energy use overnight—that's utopian. Instead, we need technology that squeezes more value from every watt of clean energy we generate.</p>
+          <p>One unsung hero is the <strong>field-programmable gate array</strong> (FPGA), a reconfigurable silicon chip that truly embodies the idea of doing more with less. FPGAs excel at real-time parallel processing, meaning they can measure, compute, and control multiple signals simultaneously in the blink of an eye. That makes them ideal for smart energy systems requiring continuous analysis and instant response.</p>
+          <section>
+            <h4>FPGAs for Maximum Power Point Tracking</h4>
+            <p>Consider solar power. Solar farms rely on maximum power point tracking (MPPT) to wring the most energy from photovoltaic panels. Traditionally, this is handled by a microcontroller, but an FPGA can do it faster and more efficiently. Using parallel processing, an FPGA-based controller samples panel voltage and current thousands of times per second and adjusts the power converter in real time. When a cloud passes overhead, the FPGA reacts in microseconds to tweak the operating point, ensuring no watt is wasted.</p>
+            <p>One FPGA can even manage dozens of panels at once, coordinating an entire array for peak output. The payoff is tangible: advanced FPGA-based MPPT can boost a solar installation’s energy harvest by 5–30%. Even a 5% gain on a 100 MW solar farm means an extra 5 MW of clean power delivered without adding a single new panel.</p>
+          </section>
+          <section>
+            <h4>Using FPGAs to Manage Turbines</h4>
+            <p>Wind turbines present a different challenge but offer similar benefits. Turbine controllers constantly adjust blade pitch and yaw to capture optimal wind energy and avoid damage in high winds. FPGAs can run these control loops with minimal latency, reading sensors and sending out blade adjustments faster than traditional setups. They can detect a sudden gust and feather the blades in milliseconds, then quickly restore optimal angles to keep energy flowing.</p>
+            <p>FPGAs also help smooth out the turbine’s output. Using high-speed DSP blocks, they convert the generator’s wild AC into a steady, grid-synchronized output in real time. The net result is that each turbine operates closer to peak efficiency and delivers more consistent power, even under gusty conditions.</p>
+          </section>
+          <section>
+            <h4>Controlling Smart Grids</h4>
+            <p>Modern electric grids are becoming digital smart grids, instrumented with thousands of smart meters, sensors, and phasor measurement units that stream data every second. Traditional centralized systems struggle to keep up with this torrent of real-time information.</p>
+            <p>FPGAs, by contrast, thrive on parallel, high-speed tasks. They can calculate grid phasors, detect faults, and adjust controls in mere milliseconds, helping the grid respond instantly to changing conditions. For example, an FPGA-based controller can sense a voltage drop in one sector and immediately dispatch battery power or adjust a transformer to compensate.</p>
+            <p>In addition to these split-second reactions, FPGAs also enable proactive management. By running AI forecasting models on dedicated FPGA hardware, grid operators can predict near-future supply and demand shifts with high accuracy. That means the system can pre-charge storage or schedule backup power ahead of an evening peak. Smarter grids with FPGA muscle make sure renewable energy is used fully and efficiently, with minimal waste.</p>
+          </section>
+          <section>
+            <h4>Energy Storage and Electric Vehicles</h4>
+            <p>Because renewable generation and consumption don’t often align in time, energy storage is crucial. Large battery farms exist, but there are also countless smaller batteries distributed throughout the grid—in homes, businesses, and electric vehicles—that we can leverage. FPGAs can coordinate these dispersed batteries into a virtual power plant.</p>
+            <p>An FPGA-based battery management system monitors the status of dozens of batteries in real-time, adjusting charging to prevent stress and extend battery life. At a higher level, FPGA controllers decide when batteries should charge or discharge to balance the grid. They might soak up excess solar at midday and feed it back during the evening peak.</p>
+            <p>Electric vehicles take this concept to another level. The revenue of the electric vehicles market is projected to reach $990B USD by 2029, which means an enormous number of collective batteries on wheels. With smart control, even a fraction of those EVs supplying power at peak times could cover a significant share of grid demand. Such rapid, decentralized decision-making is exactly what FPGAs excel at.</p>
+          </section>
+          <section>
+            <h4>Wrapping Up</h4>
+            <p>To optimize our clean power systems, we must embrace advanced control technologies. Though not as celebrated as solar panels or wind turbines, FPGAs are crucial enablers behind the scenes. They ensure every ray of sunshine and every gust of wind is converted into usable electricity, that the grid handles fluctuations without waste, and that batteries deliver when needed.</p>
+            <p>The influence of FPGAs in clean energy is only set to grow. New low-power FPGA designs with AI capabilities will make grids even more autonomous and efficient. We can expect self-healing networks that isolate faults and reroute power in microseconds to prevent outages. Communities may run their own microgrids with FPGA controllers, optimizing local energy flow and even enabling peer-to-peer energy trading among neighbors.</p>
+            <p>In an era of urgent climate action, we can't afford to let any efficiency gain slip away—every percentage point counts. By integrating technologies like FPGAs into renewable energy and smart grids, we can accelerate progress toward a truly sustainable, low-carbon future. The clean energy revolution is only half the battle. The other half is making that clean energy smart, and that’s a battle we can win with ingenuity and silicon.</p>
+          </section>
+
+
+
+        </section>
       </section>
 
       <section id="software">
@@ -106,6 +141,10 @@
             <dt>3D Viewer</dt>
             <dd>KiCad&apos;s 3D Viewer allows easy inspection of your PCB to check mechanical fit and to preview your finished product. A built-in raytracer with customizable lighting can create realistic images to show off your work.</dd>
           </dl>
+        </section>
+        <section id="hdl">
+          <h3>Hardware Description Languages (HDLs) for Digital Electronics*</h3>
+          <p>(<i>See</i> <a target="_blank" href="verilog.html">Verilog</a>.)</p>
         </section>
         <section id="eagle">
           <h3>Eagle*</h3>
