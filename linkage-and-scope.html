@@ -68,6 +68,44 @@ void foo(void)
   ...
 }</pre>
         <p>Function <code>foo</code> is declared in two files, with its function body defined in <cite>demo2.c</cite>. Via linkage, <code>foo</code> called in <code>main()</code> inside <cite>demo1.c</cite> refers to <code>foo</code> in <cite>demo2.c</cite>. This is an example of external linkage for a function.</p>
+
+        <hr/>
+
+        <p><dfn>Linkage</dfn> is a process that controls whether an interface is public or private and determines whether any two identifiers refer to the same entity. Ignoring macros and macro parameters that are replaced early in the translation phases, an identifier can denote a standard attribute, an attribute prefix, or an attribute name; an object; a function; a tag or a member of a structure, union, or enumeration; a <code>typedef</code> name; or a label name.</p>
+        <p>C provides three kinds of linkage: external, internal, or none. Each declaration of an identifier with external linkage refers to the same function or object everywhere in the program. Identifiers referring to declarations with internal linkage refer to the same entity only within the translation unit containing the declaration. If two translation units both refer to the same internal linkage identifier, they refer to different instances of the entity. If a declaration has no linkage, it’s a unique entity in each translation unit.</p>
+        <p>The linkage of a declaration is either explicitly declared or implied. If you declare an entity at file scope without explicitly specifying <code>extern</code> or <code>static</code>, the entity is implicitly given external linkage. Identifiers that have no linkage include function parameters, block scope identifiers declared without an <code>extern</code> storage class specifier, or enumeration constants.</p>
+        <p>The following listing shows examples of declarations of each kind of linkage:</p>
+        <pre>static int i; // i has explicit internal linkage
+extern void foo(int j) {
+// foo has explicit external linkage
+// j has no linkage because it is a parameter
+}</pre>
+
+        <p>If you explicitly declare an identifier with the <code>static</code> storage class specifier at file scope, it has internal linkage. The <code>static</code> keyword gives internal linkage only to file scope entities. Declaring a variable at block scope as <code>static</code> creates an identifier with no linkage, but it does give the variable static storage duration. As a reminder, <dfn>static storage duration</dfn> means its lifetime is the entire execution of the program, and its stored value is initialized only once, prior to program startup. The different meanings of static when used in different contexts are obviously confusing and consequently a common interview question.</p>
+        <p>You can create an identifier with external linkage by declaring it with the <code>extern</code> storage class specifier. This works only if you haven’t previously declared the linkage for that identifier. The extern storage class specifier has no effect if a prior declaration gave the identifier linkage.</p>
+        <p>Declarations with conflicting linkage can lead to undefined behavior; see CERT C rule DCL36-C, <q>Do not declare an identifier with conflicting linkage classifications,</q> for more information.</p>
+
+        <p>The following listing shows sample declarations with implicit linkage:</p>
+        <pre>void func(int i) {// implicit external linkage
+// i has no linkage
+}
+static void bar(); // internal linkage, different bar from bar.c
+extern void bar() {
+// bar still has internal linkage because the initial declaration
+// was declared as static; this extern specifier has no effect
+}</pre>
+
+        <p>The following listing shows sample declarations with explicit linkage:</p>
+        <pre>extern void func(int i); // explicit external linkage
+static void bar() { // internal linkage; different bar from foo.c
+func(12); // calls func from foo.c
+}
+int i; // external linkage; doesn’t conflict with i from foo.c or bar.c
+void baz(int k) {// implicit external linkage
+bar(); // calls bar from bar.c, not foo.c
+}</pre>
+        <p>The identifiers in your public interface should have external linkage so that they can be called from outside their translation unit. Identifiers that are implementation details should be declared with internal or no linkage (provided they don’t need to be referenced from another translation unit). A common approach to achieving this is to declare your public interface functions in a header with or without using the extern storage class specifier (the declarations implicitly have external linkage, but there is no harm in explicitly declaring them with <code>extern</code>) and define the public interface functions in a source file in a similar manner.</p>
+        <p>However, within the source file, all declarations that are implementation details should be explicitly declared <code>static</code> to keep them private—accessible to just that source file. You can include the public interface declared within the header by using the <code>#include</code> preprocessor directive to access its interface from another file. A good rule of thumb is that file-scope entities that don’t need to be visible outside the file should be declared as <code>static</code>. This practice limits the global namespace pollution and decreases the chances of surprising interactions between translation units.</p>
       </section>
 
       <!--

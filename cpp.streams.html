@@ -35,17 +35,62 @@
 
     <main>
       <h1>C++ Streams: Sources and Destinations of Data</h1>
-      <p>Consider the following piece of code:</p>
-      <pre>#include &lt;iostream&gt;
+
+      <section>
+        <h2>Organization</h2>
+        <p>The library and its hierarchy of classes is split in different files:</p>
+        <ul>
+          <li><cite>&lt;iostream&gt;</cite>: declares the objects used to communicate through the standard input and output (including <code>cin</code> and <code>cout</code>) and includes </li>
+          <li><cite>&lt;fstream&gt;</cite>: defines the file stream classes (like the template <code>basic_ifstream</code> or the class <code>ofstream</code>) as well as the internal buffer objects used with these (<code>basic_filebuf</code>). These classes are used to manipulate files using streams.</li>
+          <li><cite>&lt;iomanip&gt;</cite>: declares some standard manipulators with parameters to be used with extraction and insertion operators to modify internal flags and formatting options</li>
+          <li><cite>&lt;ios&gt;</cite>: declares class <code>ios_base</code> and its child <code>ios</code>, wherefrom classes like <code>istream</code>, <code>ostream</code>, <code>ifstream</code>, <code>ofstream</code>, <code>istringstream</code> etc. are derived</li>
+          <li><cite>&lt;iosfwd&gt;</cite>: provides forward declarations for the types of the standard input/output library</li>
+          <li><cite>&lt;istream&gt;</cite></li>
+          <li><cite>&lt;ostream&gt;</cite></li>
+          <li><cite>&lt;sstream&gt;</cite>: for manipulating string objects as if they were streams</li>
+          <li><cite>&lt;streambuf&gt;</cite>: declares <code>streambuf</code> and its children <code>filebuf</code> and <code>stringbuf</code></li>
+        </ul>
+        <p><cite>&lt;ios&gt;</cite>, <cite>&lt;istream&gt;</cite>, <cite>&lt;ostream&gt;</cite>, <cite>&lt;streambuf&gt;</cite> and <cite>&lt;iosfwd&gt;</cite> aren't usually included directly in most C++ programs. They describe the base classes of the hierarchy and are automatically included by other header files of the library that contain derived classes.</p>
+      </section>
+
+      <section>
+        <h2>Basic Class Templates</h2>
+        <p>The base of the iostream library is the hierarchy of class templates. The class templates provide most of the functionality of the library in a type-independent fashion.</p>
+        <p>This is a set of class templates, each one having two template parameters: the <strong>char type</strong> (<code>charT</code>) parameter, that determines the type of elements that are going to be manipulated and the <strong>traits</strong> parameter, that provides additional characteristics specific for a particular type of elements.</p>
+        <p>The class templates in this class hierarchy have the same name as their char-type instantiations but with the prefix <code>basic_</code>. For example, the class template which <code>istream</code> is instantiated from is called <code>basic_istream</code>, the one from which <code>fstream</code> is is called <code>basic_fstream</code>, and so on... The only exception is <code>ios_base</code>, which is by itself type-independent, and therefore is not based on a template, but is a regular class.</p>
+      </section>
+
+      <section>
+        <h2>Standard Objects</h2>
+        <p>As part of the iostream library, the header file <cite>&lt;iostream&gt;</cite> declares certain objects that are used to perform input and output operations on the standard input and output.</p>
+        <p>They are divided in two sets: narrow-oriented objects, which are the popular <code>cin</code>, <code>cout</code>, <code>cerr</code> and <code>clog</code> and their wide-oriented counterparts, declared as <code>wcin</code>, <code>wcout</code>, <code>wcerr</code> and <code>wclog</code>.</p>
+      </section>
+
+      <section>
+        <h2>Types</h2>
+        <p>The iostream classes barely use fundamental types on their member's prototypes. They generally use defined types that depend on the traits used in their instantiation. For the default <code>char</code> and <code>wchar_t</code> instantiations, types <code>streampos</code>, <code>streamoff</code> and <code>streamsize</code> are used to represent positions, offsets and sizes, respectively.</p>
+      </section>
+
+      <section>
+        <h2>Manipulators</h2>
+        <p><dfn><a target="_blank" href="cpp.manipulators.html">Manipulators</a></dfn> are global functions designed to be used together with insertion (<code>&lt;&lt;</code>) and extraction (<code>&gt;&gt;</code>) operators performed on iostream stream objects. They generally modify properties and formatting settings of the streams. <code>endl</code>, <code>hex</code> and <code>scientific</code> are some examples of manipulators.</p>
+      </section>
+
+
+
+      <section id="demo">
+        <h2>A Simple Example</h2>
+        <p>Consider the following piece of code:</p>
+        <pre>#include &lt;iostream&gt;
 
 int main() {
   std::cout &lt;&lt; "Hello World!";
   return 0;
 }</pre>
-      <p>Now, <code>&lt;&lt;</code> is called an <a href="programming.operators.html">operator</a>. Specifically, <code>&lt;&lt;</code> <q>inserts</q> the message <q></q> into the object <code>std::cout</code> (the console) and thus is said to be an <dfn>inserter</dfn>.</p>
+        <p>Now, <code>&lt;&lt;</code> is called an <a href="programming.operators.html">operator</a>. Specifically, <code>&lt;&lt;</code> <q>inserts</q> the message <q></q> into the object <code>std::cout</code> (the console) and thus is said to be an <dfn>inserter</dfn>.</p>
 
-      <p>We could write the reverse: something the user types is extracted from the keyboard (into a variable). In most cases, we would need to prompt the user to write something:</p>
-      <pre>#include &lt;iostream&gt;
+        <p>We could write the reverse: something the user types is extracted from the keyboard (into a variable). In most cases, we would need to prompt the user to write something:</p>
+        <pre>#include &lt;iostream&gt;
 
 int main() {
   ...
@@ -55,12 +100,73 @@ int main() {
   return 0;
 }</pre>
 
-      <p>So far, we have...</p>
-      <!--
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      -->
+        <p>So far, we have...</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+      <section id="ios_base">
+        <h2><code>std::ios_base</code></h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://cplusplus.com/reference/ios/ios_base/">https://cplusplus.com/reference/ios/ios_base/</a></cite>)</p>
+        <pre>class ios_base;</pre>
+        <p>Base class for the entire hierarchy of stream classes in the standard input/output library, describing the most basic part of a stream which is common to all stream objects, independently of their character type.</p>
+        <p>It has no public constructors, and thus no objects of this class can be declared.</p>
+        <p>Both <code>ios_base</code> and its derived class <code>basic_ios&lt;&gt;</code> define the components of streams that do not depend on whether the stream is an input or an output stream: <code>ios_base</code> describes the members that are independent of the template parameters (i.e. the character type and traits), while <code>basic_ios&lt;&gt;</code> describes the members that do depend on them.</p>
+        <p>More specifically, the <code>ios_base</code> class maintains the following information of a stream:</p>
+        <table border="1">
+          <thead>
+            <tr> <th>field</th> <th>member functions</th> <th>description</th> </tr>
+          </thead>
+          <tr> <td>format flags</td> <td><code>flags, setf, unsetf</code></td> <td>A set of internal flags that affect how certain input/output operations are interpreted or generated. (<i>See</i> member type <code>fmtflags</code>.)</td> </tr>
+          <tr> <td>field width</td> <td><code>width</code></td> <td>Width of the next formatted element to insert.</td> </tr>
+          <tr> <td>display precision</td> <td><code>precision</code></td> <td>Decimal precision for the next floating-point value inserted.</td> </tr>
+          <tr> <td>locale</td> <td><code>getloc</code>, <code>imbue</code></td> <td>The locale object used by the function for formatted input/output operations affected by localization properties.</td> </tr>
+          <tr> <td>callback stack</td> <td><code>register_callback</code></td> <td>Stack of pointers to functions that are called when certain events occur.</td> </tr>
+          <tr> <td>extensible arrays</td> <td><code>iword</code>, <code>pword</code>, <code>xalloc</code></td> <td>Internal arrays to store objects of type <code>long</code> and <code>void*</code>.</td> </tr>
+        </table>
+        <section>
+          <h3>Member Functions for Formatting</h3>
+          <dl>
+            <dt><code>flags()</code></dt>
+            <dd>Get/set format flags (public member function). Prototypes: <code>fmtflags flags() const;</code> and
+<code>fmtflags flags (fmtflags <var>fmtfl</var>);</code>, where <a href="#fmtflags">ios_base::fmtflags</a> is a <a target="_blank" href="c.bitwise.html#bitmasks">bitmask</a> type.</dd>
+            <dt><code>setf()</code></dt>
+            <dd>Set specific format flags (public member function)</dd>
+            <dt><code>unsetf()</code></dt>
+            <dd>Clear specific format flags (public member function)</dd>
+            <dt><code>precision()</code></dt>
+            <dd>Get/Set floating-point decimal precision (public member function)</dd>
+            <dt><code>width()</code></dt>
+            <dd>Get/set field width (public member function)</dd>
+          </dl>
+        </section>
+        <section id="fmtflags">
+          <h3><code>std::ios_base::fmtflags</code></h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://cplusplus.com/ios_base::fmtflags">https://cplusplus.com/ios_base::fmtflags</a></cite>)</p>
+          <p><code>std::ios_base::fmtflags</code> is a type for stream format flags. It is used as a parameter and/or return value by the member functions <code>flags()</code>, <code>setf()</code> and <code>unsetf()</code>.</p>
+          <p>The values passed and retrieved by these functions can be any valid combination of the following member constants:</p>
+          <table border="1">
+          </table>
+          <p></p>
+          <table border="1">
+          </table>
+          <p></p>
+          <table border="1">
+          </table>
+          <p></p>
+
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+      </section>
+
+      <section id="basic_ios">
+        <h2><code>std::basic_ios</code></h2>
+      </section>
 
     </main>
 

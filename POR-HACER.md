@@ -157,6 +157,43 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] crear clases: "queja" "espanya"
+[ ] enlazar a *espanya.html* desde *sociedad.html*
+[ ] enlazar a *espanya.html* desde *queja.html*
+[ ] enlazar a *hidra-de-leyes.html* desde *espanya.html*
+<p><a href="hidra-de-leyes.html">La Hidra de Leyes que supone España</a></p>
+[ ] enlazar a id="hidra-de-leyes.html" desde *calificaciones-y-homologaciones.html*
+
+
+[ ] write *microcontrollers.html*
+[ ] write *microcontrollers.html* > *C for Microcontrollers* with id="c"
+[ ] link  to  *microcontrollers.html#c*  to  *c.bitwise.html#embedded*
+[ ] link from *microcontrollers.html#c* from *c.bitwise.html#embedded*
+
+[ ] escribir *Del libro a la IA, pasando por internet* en *libro-inet-ia.html*
+
+[ ] la democracia se hace en la calle
+[ ] sin violencia ni obediencia
+[ ] planteémonos un cambio de régimen tal que nadie salga perjudicado salvo los privilegiados
+
+[ ] dates in JSON
+
+[ ] *Programas* en *programas*
+- secuencia
+- evaluación
+- salto o bifurcación (ruptura de secuencialidad)
+
+[ ] *Von Neuman Architecture*
+[ ] R microcontrollers
+
+[ ] *Arquitectura von Neuman*
+[ ] R microcontroladores
+
+[ ] *Dos tipos de ordenador digital*
+- basados microprocesadores o de programa almacenado (en memoria en forma de secuencia)
+- de lógica programada: la estructura del circuito integrado y su <q>configuración</q> son el programa que se ejecuta
+
+
 [ ] write *quantum-physics.html* from https://www.allaboutcircuits.com/textbook/semiconductors/chpt-2/quantum-physics/
 
 [x] write *semiconductors.html* from https://www.allaboutcircuits.com/textbook/semiconductors/

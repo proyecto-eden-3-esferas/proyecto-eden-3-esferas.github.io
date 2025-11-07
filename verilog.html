@@ -15,20 +15,15 @@
   </head>
   <body lang="en" class="electronics">
     <nav>
-    <!--
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
-        <p><a href="computing.html">Computing</a></p>
-      -->
       <div>
         <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
         <p><a href="https://www.allaboutcircuits.com/">All About Circuits</a> (a Web Site)</p>
       </div>
       <div>
-        <p><a href="ic.html">Integrated Circuits</a></p>
-        <p><a href="electronics.ngspice.html">NGSpice, the Open Source Spice Simulator</a></p>
+        <p><a rel="prev" href="electronics.html#digital">Digital Electronics</a></p>
+        <p><a            href="electronics.html">Electronics</a></p>
+        <p><a rel="next" href="ic.html">Integrated Circuits</a></p>
       </div>
-
     </nav>
 
     <main>
@@ -38,7 +33,7 @@
 
       <section>
         <h2>Verilog's Levels of Description</h2>
-        <p>As regards <a href="#HDL_levels">levels of description</a>, Verilog can definitely be used from the system level down to the switches level.</p>
+        <p>As regards <a href="electronics.html#HDL_levels">levels of description</a>, Verilog can definitely be used from the system level down to the switches level.</p>
       </section>
 
       <section>
@@ -109,7 +104,7 @@ endmodule</pre>
   mux hi (OUT[1], A[1], B[1], SEL);
   mux lo (OUT[0], A[0], B[0], SEL);
 endmodule</pre>
-          <section xml:id="verilog_hierarchical_names">
+          <section id="verilog_hierarchical_names">
             <h4>Hierarchical Names</h4>
             <p>With hierarchical names, we can point at a copy out of several copies of one kind so as to uniquely identify each gate, port, and wire.</p>
             <p>Hierarchical names have two forms: A downward path from the current module (relative), or a name that starts at a top-level module and provides a complete path (absolute). Verilog uses the dot (.) to separate the elements in the path of a hierarchical name.</p>
@@ -234,7 +229,7 @@ endmodule</pre>
           <p><code>always</code> blocks contain statements whose execution is triggered by some event. Alternatively, an <code>always</code> block starts again when it finishes. This can create an infinite loop. Some infinite loops are useful.</p>
         </section>
 
-        <section xml:id="verilog_dataflow_D_flipflop">
+        <section id="verilog_dataflow_D_flipflop">
           <h3>D Flip-Flop in Verilog's Data Flow</h3>
           <p>An edge-sensitive D flip-flop:</p>
           <pre>module edge_d_ff(q, qbar, d, clk, clear)
@@ -255,7 +250,7 @@ endmodule</pre>
 
       </section>
 
-      <section xml:id="verilog_delays">
+      <section id="verilog_delays">
         <h2>Delays in Verilog</h2>
         <p>Every statement in Verilog may have a delay before it is run. If we have two (initial) statements scheduled at the same time, which will run first? Not only is there no way to tell, but if you run the statements on another simulator, it might run them in a different order. A race condition arises.</p>
         <p>Delays are set by prepending <code>#<var>delay_in_time_units</var></code>.</p>
@@ -331,7 +326,7 @@ functions with a different default radix. These are named by appending 'b' for b
 
       <section>
         <h2>Some Verilog Examples</h2>
-        <section xml:id="verilog_hello_example">
+        <section id="verilog_hello_example">
           <h3>A <q>Hello World</q> Example</h3>
           <p>This is a simple and easy to understand example of a Verilog program. It has been lifted from the <code class="command">iverilog</code> documentation:</p>
           <pre>module main;
@@ -342,7 +337,7 @@ initial
   end
 endmodule</pre>
         </section>
-      <section xml:id="verilog_telephone_example">
+      <section id="verilog_telephone_example">
         <h2>A Behavioral-Level Example</h2>
         <pre>/* Abstract behavioral system describing a telephone */
 module office_phone;
