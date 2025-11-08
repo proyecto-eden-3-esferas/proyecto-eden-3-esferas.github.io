@@ -157,6 +157,8 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Contratar cuenta wefferent de CajaMar: https://www.cajamar.es/es/particulares/productos-y-servicios/cuentas/cuenta-wefferent-ahorro/
+
 [ ] crear clases: "queja" "espanya"
 [ ] enlazar a *espanya.html* desde *sociedad.html*
 [ ] enlazar a *espanya.html* desde *queja.html*
