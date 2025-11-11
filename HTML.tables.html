@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTML Tables</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Tables in HTML"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="HTML.meta.html">Metadata in HTML: the &lt;meta&gt; Element</a></p>
+        <p><a href="HTML.tips-and-tricks.html">HTML Tips and Tricks</a></p>
+        <p><a href="HTML.head.html">The HTML &lt;head&gt; Element</a></p>
+        <p><a href="HTML.code.html">HTML Computer Code Elements</a></p>
+        <p><a href="HTML.tables.html">Tables in HTML</a></p>
+        <p><a href="HTML.figure.html">&lt;figure&gt; and &lt;figcaption&gt; for Images</a></p>
+        <p><a href="HTML.details-summary.html">&lt;details&gt; and &lt;summary&gt; to Show/Hide Content</a></p>
+        <p><a href="HTML.forms.html">HTML Forms</a></p>
+      </div>
+      <div>
+        <p><a href="css.html">Styling with CSS (Cascading Style Sheets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Tables in HTML</h1>
+      <p>Some points:</p>
+      <ul>
+        <li>Setting attribute <var>border</var> to 1 (<code>border="1"</code>) draws dividing lines around cells.</li>
+      </ul>
+
+      <section id="simple">
+        <h2>Simple HTML Tables</h2>
+
+        <section>
+          <h3>A Very Simple HTML Table</h3>
+          <pre>&lt;table border="1" id="simple">
+  &lt;tr> &lt;td>row 1, cell 1&lt;/td> &lt;td>row 1, cell 2&lt;/td> &lt;/tr>
+  &lt;tr> &lt;td>row 2, cell 1&lt;/td> &lt;td>row 2, cell 2&lt;/td> &lt;/tr>
+&lt;/table></pre>
+          <p>Looks like:</p>
+          <table border="1" id="simple">
+            <tr> <td>row 1, cell 1</td> <td>row 1, cell 2</td> </tr>
+            <tr> <td>row 2, cell 1</td> <td>row 2, cell 2</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>A Very Simple HTML Table with a Header (&lt;thead&gt;)</h3>
+          <p>The first element is a &lt;thead&gt; row containing ordinary cells:</p>
+          <pre>&lt;table border="1" id="simple_with_header">
+  &lt;thead> &lt;tr> &lt;th>col 1&lt;/th> &lt;th>col 2&lt;/th> &lt;/tr> &lt;/thead>
+          &lt;tr> &lt;td>row 1, cell 1&lt;/td> &lt;td>row 1, cell 2&lt;/td> &lt;/tr>
+          &lt;tr> &lt;td>row 2, cell 1&lt;/td> &lt;td>row 2, cell 2&lt;/td> &lt;/tr>
+&lt;/table></pre>
+          <p>which will look like:</p>
+          <table border="1" id="simple_with_header">
+            <thead> <tr> <td>col 1</td> <td>col 2</td> </tr> </thead>
+                    <tr> <td>row 1, cell 1</td> <td>row 1, cell 2</td> </tr>
+                    <tr> <td>row 2, cell 1</td> <td>row 2, cell 2</td> </tr>
+          </table>
+        </section>
+
+        <section>
+          <h3>A Very Simple HTML Table with a Header (&lt;thead&gt;) and, additionally, Header Cells (&lt;th&gt;)</h3>
+          <p>The first element is a &lt;thead&gt; row containing header cells:</p>
+          <pre>&lt;table border="1" id="simple_with_header_and_th">
+  &lt;thead> &lt;tr> &lt;th>col 1&lt;/th> &lt;th>col 2&lt;/th> &lt;/tr> &lt;/thead>
+          &lt;tr> &lt;td>row 1, cell 1&lt;/td> &lt;td>row 1, cell 2&lt;/td> &lt;/tr>
+          &lt;tr> &lt;td>row 2, cell 1&lt;/td> &lt;td>row 2, cell 2&lt;/td> &lt;/tr>
+&lt;/table></pre>
+          <p>which will look like this:</p>
+          <table border="1" id="simple_with_header_and_th">
+            <thead> <tr> <th>col 1</th> <th>col 2</th> </tr> </thead>
+                    <tr> <td>row 1, cell 1</td> <td>row 1, cell 2</td> </tr>
+                    <tr> <td>row 2, cell 1</td> <td>row 2, cell 2</td> </tr>
+          </table>
+        </section>
+
+      </section>
+
+      <section id="intermediate">
+        <h2>Intermediate HTML Tables</h2>
+
+        <section>
+          <h3>A More Complex HTML Table with &lt;thead&gt; and &lt;tbody&gt; Components</h3>
+          <pre>&lt;table border="1" id="with_thead_and_tbody">
+  &lt;thead> &lt;tr> &lt;th>col 1&lt;/th> &lt;th>col 2&lt;/th> &lt;/tr> &lt;/thead>
+  &lt;tbody> &lt;tr> &lt;td>row 1, cell 1&lt;/td> &lt;td>row 1, cell 2&lt;/td> &lt;/tr>
+          &lt;tr> &lt;td>row 2, cell 1&lt;/td> &lt;td>row 2, cell 2&lt;/td> &lt;/tr>
+  &lt;/tbody>
+&lt;/table></pre>
+          <p>and produces:</p>
+          <table border="1" id="with_thead_and_tbody">
+            <thead> <tr> <th>col 1</th> <th>col 2</th> </tr> </thead>
+            <tbody> <tr> <td>row 1, cell 1</td> <td>row 1, cell 2</td> </tr>
+                    <tr> <td>row 2, cell 1</td> <td>row 2, cell 2</td> </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>A Quite Rich HTML Table with &lt;caption&gt;, &lt;thead&gt;, &lt;tbody&gt;, and &lt;tfoot&gt;</h3>
+          <pre>&lt;table id="fuller">
+  &lt;caption>Table: My favorite records.&lt;/caption>
+  &lt;colgroup> &lt;col id='album' /> &lt;col id='artist' /> &lt;col id='released' /> &lt;/colgroup>
+  &lt;thead>
+  &lt;tr> &lt;th> album &lt;/th> &lt;th> artist &lt;/th> &lt;th> released &lt;/th> &lt;/tr>
+  &lt;/thead>
+  &lt;tbody>
+    &lt;tr> &lt;td> Rubber Soul &lt;/td> &lt;td> The Beatles &lt;/td> &lt;td> 1965 &lt;/td> &lt;/tr>
+    &lt;tr> &lt;td> Brown Eyed Girl &lt;/td> &lt;td> Van Morrison &lt;/td> &lt;td> 1967 &lt;/td> &lt;/tr>
+    &lt;tr> &lt;td> Queen II &lt;/td> &lt;td> Queen &lt;/td> &lt;td> 1974 &lt;/td> &lt;/tr>
+    &lt;tr> &lt;td> Mellon Collie and the Infinite Sadness&lt;/td>
+         &lt;td> The Smashing Pumpkins &lt;/td> &lt;td> 1995 &lt;/td>
+    &lt;/tr>
+  &lt;/tbody>
+  &lt;tfoot>
+    &lt;tr> &lt;td> album&lt;/td> &lt;td> artist&lt;/td> &lt;td> released&lt;/td> &lt;/tr>
+  &lt;/tfoot>
+&lt;/table></pre>
+          <p>which produces:</p>
+          <table id="fuller">
+            <caption>Table: My favorite records.</caption>
+            <colgroup> <col id='album' /> <col id='artist' /> <col id='released' /> </colgroup>
+            <thead>
+            <tr> <th> album </th> <th> artist </th> <th> released </th> </tr>
+            </thead>
+            <tbody>
+              <tr> <td> Rubber Soul </td> <td> The Beatles </td> <td> 1965 </td> </tr>
+              <tr> <td> Brown Eyed Girl </td> <td> Van Morrison </td> <td> 1967 </td> </tr>
+              <tr> <td> Queen II </td> <td> Queen </td> <td> 1974 </td> </tr>
+              <tr> <td> Mellon Collie and the Infinite Sadness</td>
+                   <td> The Smashing Pumpkins </td> <td> 1995 </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr> <td> album</td> <td> artist</td> <td> released</td> </tr>
+            </tfoot>
+          </table>
+        </section>
+
+      </section>
+
+      <section id="spans">
+        <h2>HTML Tables <code>colspan</code> and <code>rowspan</code></h2>
+        <p>HTML tables can have cells that span over multiple rows and/or columns.</p>
+        <p>To make a cell span over multiple columns, use the <code>colspan</code> attribute, which represents the number of columns to span:</p>
+        <pre>&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th colspan="2"&gt;Name&lt;/th&gt;
+    &lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Jill&lt;/td&gt;
+    &lt;td&gt;Smith&lt;/td&gt;
+    &lt;td&gt;43&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Eve&lt;/td&gt;
+    &lt;td&gt;Jackson&lt;/td&gt;
+    &lt;td&gt;57&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+        <p>which shows as:</p>
+ <table border="1">
+  <tr>
+    <th colspan="2">Name</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>43</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>57</td>
+  </tr>
+</table>
+        <hr/>
+        <p>To make a cell span over multiple rows, use the <code>rowspan</code> attribute:</p>
+        <pre>&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;td&gt;Jill&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th rowspan="2"&gt;Phone&lt;/th&gt;
+    &lt;td&gt;555-1234&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;555-8745&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre>
+        <p>which shows as:</p>
+ <table border="1">
+  <tr>
+    <th>Name</th>
+    <td>Jill</td>
+  </tr>
+  <tr>
+    <th rowspan="2">Phone</th>
+    <td>555-1234</td>
+  </tr>
+  <tr>
+    <td>555-8745</td>
+</tr>
+</table>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+      <section id="styling">
+        <h2>Styling HTML Tables</h2>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+        <section id="border">
+          <h3>Table Borders with <code>border</code></h3>
+          <p>To add a border, use the CSS border property on <code>table</code>, <code>th</code>, and <code>td</code> elements.</p>
+          <p>Example:</p>
+          <pre>table, th, td {
+  border: 1px solid black;
+} </pre>
+          <p>To avoid having double borders (like in the example above), set the CSS <code>border-collapse</code> property to <code>collapse</code>. This will make the borders collapse into a single border</p>
+          <pre>table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}</pre>
+          <tr/>
+          <p>If you set a background color of each cell, and give the border a white color (the same as the document background), you get the impression of an invisible border:</p>
+          <pre>table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}</pre>
+          <tr/>
+          <p>With the <code>border-radius</code> property, the borders get rounded corners:</p>
+          <pre>table, th, td {
+  border: 1px solid black;
+  border-radius: 10px;
+}</pre>
+          <p>Skip the border around the table by leaving out table from the css selector:</p>
+          <pre>th, td {
+  border: 1px solid black;
+  border-radius: 10px;
+}</pre>
+          <tr/>
+        </section>
+        <section>
+          <h3><code>colgroup</code></h3>
+          <p>If you want to style the first <var>n</var> columns of a table, use the &lt;colgroup&gt; and &lt;col&gt; elements. You can style multiple columns with different styles, use more than one &lt;col&gt; element inside the &lt;colgroup&gt; And if you want to style columns in the middle of a table, insert an <q>empty</q> &lt;col&gt; element (with no styles) for the columns before.</p>
+          <p>The &lt;colgroup&gt; element should be used as a container for the column specifications. Each group is specified with a &lt;col&gt; element. The <code>span</code> attribute specifies how many columns get the style. The <code>style</code> attribute specifies the style to give the columns.</p>
+          <p><strong>Note</strong> There is a very limited selection of <a href="#legal-css-properties">legal CSS properties</a> for <code>colgroups</code>.</p>
+          <p><strong>Note</strong> The &lt;colgroup&gt; tag must be a child of a &lt;table&gt; element and should be placed before any other table elements, like &lt;thead&gt;, &lt;tr&gt;, &lt;td&gt; etc., but after the &lt;caption&gt; element, if present.</p>
+          <p>An Example:</p>
+          <pre>&lt;table&gt;
+  &lt;colgroup&gt;
+    &lt;col span="1" style="background-color: lightyellow"&gt;&lt;/col&gt;
+    &lt;col span="4" &gt;&lt;/col&gt;
+    &lt;col span="2" style="background-color:   lightblue"&gt;&lt;/col&gt;
+  &lt;/colgroup&gt;
+  &lt;tr&gt;
+    &lt;th&gt;MON&lt;/th&gt;
+    &lt;th&gt;TUE&lt;/th&gt;
+    &lt;th&gt;WED&lt;/th&gt;
+    &lt;th&gt;THU&lt;/th&gt;
+    &lt;th&gt;FRI&lt;/th&gt;
+    &lt;th&gt;SAT&lt;/th&gt;
+    &lt;th&gt;SUN&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+          <p>which should show as:</p>
+<table>
+  <colgroup>
+    <col span="1" style="background-color: lightyellow"></col>
+    <col span="4" ></col>
+    <col span="2" style="background-color:   lightblue"></col>
+  </colgroup>
+  <tr>
+    <th>MON</th>
+    <th>TUE</th>
+    <th>WED</th>
+    <th>THU</th>
+    <th>FRI</th>
+    <th>SAT</th>
+    <th>SUN</th>
+  </tr>
+</table>
+          <section id="legal-css-properties">
+            <h4>Legal CSS Properties</h4>
+            <p>There is only a very limited selection of CSS properties that are allowed to be used in the <code>colgroup</code>:</p>
+            <ul>
+              <li><code>width</code> property</li>
+              <li><code>visibility</code> property</li>
+              <li><code>background</code> properties</li>
+              <li><code>border</code> properties</li>
+            </ul>
+            <p>All other CSS properties will have no effect on your tables.</p>
+          </section>
+          <section>
+            <h4>Hiding Columns</h4>
+            <p>You can hide columns with the <code>visibility: collapse</code> property:</p>
+          </section>
+
+        </section>
+        <!--
+        <section>
+          <h3>*</h3>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+      </section>
+
+      <!--
+      <section id="*">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

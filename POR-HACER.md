@@ -157,6 +157,31 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] POLIDEPORTIVO MUNICIPAL CABANILLAS DE LA SIERRA
+  en https://www.cabanillasdelasierra.es/ciudadanos/polideportivo-municipal
+Inscripciones e información:
+Avenida de los Arrieros 12
+Teléfono: 620 96 37 37
+ polideportivo@cabanillasdelasierra.org
+Horario: Lunes a viernes 09:00 a 14:00h y 16:00 a 22:00h
+Sábados 09:00 a 14:00h
+Las inscripciones para las actividades del polideportivo y para las extraescolares se pueden hacer por la SEDE ELECTRÓNICA, mediante este enlace: https://share.google/paEbyQEdzR7fi0nRt
+
+[ ] Centro de Lectura de Navalafuente
+Calle Iglesia, 13, 28729 Navalafuente, Madrid, España
+91 843 25 26
+628 45 41 99
+Alberga en la actualidad el Centro de Acceso Público a Internet, oficina de turismo y el Centro de Lectura municipal.
+Abierto de lunes a viernes, de 10:00 a 14:00 y de 17:00 a 20:00
+centrodelectura@navalafuente.org
+NUESTROS ESPACIOS Y SERVICIOS:
+– Sala de estudio y consulta con 18 puestos de lectura
+– Sala infantil con 8 puestos
+– Espacio de trabajo con 3 ordenadores fijos
+– Conexión en toda la sala
+– Servicio de fotocopias
+
+
 [ ] Contratar cuenta wefferent de CajaMar: https://www.cajamar.es/es/particulares/productos-y-servicios/cuentas/cuenta-wefferent-ahorro/
 
 [ ] crear clases: "queja" "espanya"

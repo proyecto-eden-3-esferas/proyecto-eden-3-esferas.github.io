@@ -116,19 +116,19 @@ int main() {
         <p>It has no public constructors, and thus no objects of this class can be declared.</p>
         <p>Both <code>ios_base</code> and its derived class <code>basic_ios&lt;&gt;</code> define the components of streams that do not depend on whether the stream is an input or an output stream: <code>ios_base</code> describes the members that are independent of the template parameters (i.e. the character type and traits), while <code>basic_ios&lt;&gt;</code> describes the members that do depend on them.</p>
         <p>More specifically, the <code>ios_base</code> class maintains the following information of a stream:</p>
-        <table border="1">
+        <table border="1" style="border-collapse: collapse;">
           <thead>
             <tr> <th>field</th> <th>member functions</th> <th>description</th> </tr>
           </thead>
-          <tr> <td>format flags</td> <td><code>flags, setf, unsetf</code></td> <td>A set of internal flags that affect how certain input/output operations are interpreted or generated. (<i>See</i> member type <code>fmtflags</code>.)</td> </tr>
-          <tr> <td>field width</td> <td><code>width</code></td> <td>Width of the next formatted element to insert.</td> </tr>
+          <tr> <td>format flags</td> <td><code>flags, setf, unsetf</code></td> <td><code>flags</code> is set of internal flags that affect how certain input/output operations are interpreted or generated. (<i>See</i> member type <code>fmtflags</code>.)</td> </tr>
+          <tr> <td>field width</td> <td><code><a href="#width">width</a></code></td> <td>Width of the next formatted element to insert.</td> </tr>
           <tr> <td>display precision</td> <td><code>precision</code></td> <td>Decimal precision for the next floating-point value inserted.</td> </tr>
           <tr> <td>locale</td> <td><code>getloc</code>, <code>imbue</code></td> <td>The locale object used by the function for formatted input/output operations affected by localization properties.</td> </tr>
           <tr> <td>callback stack</td> <td><code>register_callback</code></td> <td>Stack of pointers to functions that are called when certain events occur.</td> </tr>
           <tr> <td>extensible arrays</td> <td><code>iword</code>, <code>pword</code>, <code>xalloc</code></td> <td>Internal arrays to store objects of type <code>long</code> and <code>void*</code>.</td> </tr>
         </table>
         <section>
-          <h3>Member Functions for Formatting</h3>
+          <h3><code>std::ios_base</code> Member Functions for Formatting</h3>
           <dl>
             <dt><code>flags()</code></dt>
             <dd>Get/set format flags (public member function). Prototypes: <code>fmtflags flags() const;</code> and
@@ -142,30 +142,195 @@ int main() {
             <dt><code>width()</code></dt>
             <dd>Get/set field width (public member function)</dd>
           </dl>
+          <section id="width">
+            <h4><code>std::ios_base::width</code></h4>
+            <pre>streamsize width() const;
+streamsize width (streamsize wide);</pre>
+            <p>The first form returns the current value of the field width, while the second form also sets a new field width for the stream.</p>
+
+            <p>The field <var>width</var> determines the minimum number of characters to be written in some output representations. If the standard width of the representation is shorter than the field width, the representation is padded with fill characters at a point determined by the format flag <var>adjustfield</var> (one of <code>left</code>, <code>right</code> or <code>internal</code>).</p>
+            <p>The fill character can be retrieved or changed by calling the member function fill.</p>
+            <p>The format flag adjustfield can be modified by calling the member functions flags or <code>setf</code>, by inserting one of the following manipulators: <code>left</code>, <code>right</code> and <code>internal</code>, or by inserting the parameterized manipulator <code>setiosflags(...)</code>.</p>
+            <p>The field width can also be modified using the parameterized manipulator <code>setw(<var>w</var>)</code>.</p>
+            <p>An Example:</p>
+            <pre>// field width
+#include &lt;iostream>     // std::cout, std::left
+
+int main () {
+  std::cout &lt;&lt; 100 &lt;&lt; '\n';
+  std::cout.width(10);
+  std::cout &lt;&lt; 100 &lt;&lt; '\n';
+  std::cout.fill('x');
+  std::cout.width(15);
+  std::cout &lt;&lt; std::left &lt;&lt; 100 &lt;&lt; '\n';
+  return 0;
+}</pre>
+          </section>
         </section>
         <section id="fmtflags">
           <h3><code>std::ios_base::fmtflags</code></h3>
           <p style="text-align: right">(From <cite><a target="_blank" href="https://cplusplus.com/ios_base::fmtflags">https://cplusplus.com/ios_base::fmtflags</a></cite>)</p>
           <p><code>std::ios_base::fmtflags</code> is a type for stream format flags. It is used as a parameter and/or return value by the member functions <code>flags()</code>, <code>setf()</code> and <code>unsetf()</code>.</p>
           <p>The values passed and retrieved by these functions can be any valid combination of the following member constants:</p>
-          <table border="1">
-          </table>
-          <p></p>
-          <table border="1">
-          </table>
-          <p></p>
-          <table border="1">
-          </table>
-          <p></p>
+          <table border="1" style="border-collapse: collapse;">
 
+            <thead> <th>field</th>	<th>member constant</th>	<th>effect when set</th> </thead>
+            <tr> <td rowspan="7">independent flags</td>	<td>boolalpha</td>	<td>read/write bool elements as alphabetic strings (true and false).</td> </tr>
+            <tr> <td>showbase</td> <td>write integral values preceded by their corresponding numeric base prefix.</td> </tr>
+            <tr> <td>showpoint</td>	<td>write floating-point values including always the decimal point.</td> </tr>
+            <tr> <td>showpos</td>	<td>write non-negative numerical values preceded by a plus sign (+).</td> </tr>
+            <tr> <td>skipws</td>	<td>skip leading whitespaces on certain input operations.</td> </tr>
+            <tr> <td>unitbuf</td>	<td>flush output after each inserting operation.</td> </tr>
+            <tr> <td>uppercase</td>	<td>write uppercase letters replacing lowercase letters in certain insertion operations.</td> </tr>
+
+            <tr> <td rowspan="3">numerical base (basefield)</td> <td>dec</td> <td>read/write integral values using decimal base format.</td> </tr>
+            <tr> <td>hex</td> <td>read/write integral values using hexadecimal base format.</td> </tr>
+            <tr> <td>oct</td> <td>read/write integral values using octal base format.</td> </tr>
+
+            <tr> <td rowspan="2">float format (floatfield)</td> <td>fixed</td>	<td>write floating point values in fixed-point notation.</td> </tr>
+            <tr> <td>scientific</td> <td>write floating-point values in scientific notation.</td> </tr>
+
+            <tr> <td rowspan="3">adjustment (adjustfield)</td>	<td>internal</td> <td>the output is padded to the field width by inserting fill characters at a specified internal point.</td> </tr>
+            <tr> <td>left</td> <td>the output is padded to the field width appending fill characters at the end.</td> </tr>
+            <tr> <td>right</td>	<td>the output is padded to the field width by inserting fill characters at the beginning.</td> </tr>
+
+          </table>
+
+          <p>Three additional bitmask constants made of the combination of the values of each of the three groups of selective flags can also be used:</p>
+          <table border="1" style="border-collapse: collapse;">
+            <thead> <th>flag value</th> <th>equivalent to</th> </thead>
+            <tr> <td>adjustfield</td> <td>left | right | internal</td> </tr>
+            <tr> <td>basefield</td>	<td>dec | oct | hex</td> </tr>
+            <tr> <td>floatfield</td> <td>scientific | fixed</td> </tr>
+          </table>
+          <hr/>
+          <p>The values of these constants can be combined into a single fmtflags value using the OR bitwise operator (|).</p>
+          <p>These constants are defined as public members in the <code>ios_base</code> class. Therefore, they can be refered to either directly by their name as <code>ios_base</code> members (like <code>ios_base::hex</code>) or by using any of their inherited classes or instantiated objects, like for example <code>ios::left</code> or <code>cout.oct</code>.</p>
+          <p>These values of type <code>ios_base::fmtflags</code> should not be confused with the manipulators that have the same name but in the global scope, because they are used in different circumstances. The manipulators cannot be used as values for <code>ios_base::fmtflags</code>, as well as these constants shouldn't be used instead of the manipulators. Notice the difference:</p>
+          <pre>ios_base::skipws     // constant value of type ios_base::fmtflags
+skipws               // manipulator (global function) </pre>
+          <p>Notice that several manipulators have the same name as these member constants (but as global functions instead) - <i>see</i> <a target="_blank" href="cpp.manipulators.html">manipulators</a>. The behavior of these manipulators generally corresponds to the same as setting or unsetting them with <code>ios_base::setf</code> or <code>ios_base::unsetf</code>, but they should not be confused! Manipulators are global functions and these constants are member constants. For example, <code>showbase</code> is a manipulator, while <code>ios_base::showbase</code> is a constant value that can be used as parameter with <code>ios_base::setf</code>.</p>
+          <p>Example:</p>
+          <pre>// using ios_base::fmtflags
+#include &lt;iostream>     // std::cout, std::ios_base, std::ios,
+                        // std::hex, std::showbase
+int main () {
+
+  // using fmtflags as class member constants:
+  std::cout.setf (std::ios_base::hex , std::ios_base::basefield);
+  std::cout.setf (std::ios_base::showbase);
+  std::cout &lt;&lt; 100 &lt;&lt; '\n';
+
+  // using fmtflags as inherited class member constants:
+  std::cout.setf (std::ios::hex , std::ios::basefield);
+  std::cout.setf (std::ios::showbase);
+  std::cout &lt;&lt; 100 &lt;&lt; '\n';
+
+  // using fmtflags as object member constants:
+  std::cout.setf (std::cout.hex , std::cout.basefield);
+  std::cout.setf (std::cout.showbase);
+  std::cout &lt;&lt; 100 &lt;&lt; '\n';
+
+  // using fmtflags as a type:
+  std::ios_base::fmtflags ff;
+  ff = std::cout.flags();
+  ff &amp;= ~std::cout.basefield;   // unset basefield bits
+  ff |= std::cout.hex;          // set hex
+  ff |= std::cout.showbase;     // set showbase
+  std::cout.flags(ff);
+  std::cout &lt;&lt; 100 &lt;&lt; '\n';
+
+  // not using fmtflags, but using manipulators:
+  std::cout &lt;&lt; std::hex &lt;&lt; std::showbase &lt;&lt; 100 &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+          <p>The code shows some different ways of printing the same result, using both the fmtflags member constants and their homonymous manipulators.</p>
         </section>
+        <!--
         <section>
           <h3>*</h3>
         </section>
+        -->
       </section>
 
       <section id="basic_ios">
         <h2><code>std::basic_ios</code></h2>
+        <pre>template &lt;class charT, class traits = char_traits&lt;charT&gt; &gt;
+class basic_ios;</pre>
+        <p><code>std::basic_ios</code> is a template class to instantiate the base classes for all stream classes.</p>
+        <p>Both this class template and its parent class, <code>ios_base</code>, define the components of streams that do not depend on whether the stream is an input or an output stream. <code><a href="#ios_base">ios_base</a></code> describes the members that are independent of the template parameters, while this one describes the members that are dependent on the template parameters.</p>
+        <p>The class template adds to the information kept by its inherited ios_base component, the following:</p>
+        <table border="1" style="border-collapse: collapse;">
+          <thead> <tr> <th></th> <th>field</th> <th>member functions</th> <th>description</th> </tr> </thead>
+          <tr> <td>Formatting</td>	<td>fill character</td>	<td><code><a href="#fill">fill</a></code></td> <td>Character to pad a formatted field up to the field width (<code>width</code>).</td> </tr>
+
+          <tr> <td rowspan="2">State</td> <td>error state</td> <td><code>rdstate setstate clear</code></td> <td><p>The current error state of the stream.</p><p>Individual values may be obtained by calling good, eof, fail and bad.</p><p>See member type iostate.</p></td> </tr>
+          <tr> <td>exception mask</td>	<td><code>exceptions</code></td> <td><p>The state flags for which a failure exception is thrown.</p><p><i>See</i> member type <code>iostate</code>.</p></td> </tr>
+
+          <tr> <td rowspan="2">Other</td> <td>tied stream</td> <td><code>tie</code></td> <td>Pointer to output stream that is flushed before each i/o operation on this stream.</td> </tr>
+          <tr> <td>stream buffer</td> <td><code>rdbuf</code></td> <td>Pointer to the associated basic_streambuf object, which is charge of all input/output operations.</td> </tr>
+
+        </table>
+
+        <section>
+          <h3>Template Parameters</h3>
+          <dl>
+            <dt><code>charT</code></dt>
+            <dd>
+              <p>Character type</p>
+              <p>Shall be a non-array POD type</p>
+              <p>Aliased as member type <code>basic_ios::char_type</code></p>
+            </dd>
+            <dt><code>traits</code></dt>
+            <dd>
+              <p>Character traits class that defines essential properties of the characters used by stream objects (<i>see</i> char_traits)</p>
+              <p><code>traits::char_type</code> shall be the same as <code>charT</code></p>
+              <p>Aliased as member type <code>basic_ios::traits_type</code></p>
+            </dd>
+          </dl>
+        </section>
+
+        <section>
+          <h3>Flags/Members</h3>
+          <section id="fill">
+            <h4><code>fill()</code> and <code>fill(<var>fillchar</var>)</code></h4>
+            <pre>char_type fill() const;
+char_type fill (char_type <var>fillch</var>);</pre>
+            <p>The <var>fill character</var> is the character used by output insertion functions to fill spaces when padding results to the field width.</p>
+            <p>The parametric manipulator <code><a target="_blank" href="cpp.manipulators.html#setfill">setfill(<var>fill_char</var>)</a></code> can also be used to set the fill character.</p>
+            <p><strong>Example:</strong></p>
+            <pre>// using the fill character
+#include &lt;iostream>     // std::cout
+
+int main () {
+  char prev;
+
+  std::cout.width (10);
+  std::cout &lt;&lt; 40 &lt;&lt; '\n';
+
+  prev = std::cout.fill ('x');
+  std::cout.width (10);
+  std::cout &lt;&lt; 40 &lt;&lt; '\n';
+
+  std::cout.fill(prev);
+
+  return 0;
+}</pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+
+          </section>
+        </section>
+
       </section>
 
     </main>
