@@ -23,16 +23,54 @@
 
     <main>
       <h1>Initializer Lists in C++</h1>
-      <p>Constructors can be made to take an initializer list parameter.</p>
-      <p>An object of type <code>std::initializer_list&lt;T&gt;</code> is a lightweight proxy object that provides access to an array of objects of type <code>const T</code> (that may be allocated in read-only memory).</p>
-      <p>A <code>std::initializer_list</code> object is automatically constructed when:</p>
+      <p>This type is used to access the values in a C++ <dfn>initialization list</dfn>, which is a list of elements of type const <code>T</code>.</p>
+      <p>Objects of this type are automatically constructed by the compiler from initialization list declarations, which is a list of comma-separated elements enclosed in braces:</p>
+      <pre>auto il = { 10, 20, 30 };  // the type of <var>il</var> is an initializer_list </pre>
+      <p>Notice though that this template class is not implicitly defined and the header <cite>&lt;initializer_list&gt;</cite> shall be included to access it, even if the type is used implicitly.</p>
+      <p><code>initializer_list</code> objects are automatically constructed as if an array of elements of type <code>T</code> was allocated, with each of the elements in the list being copy-initialized to its corresponding element in the array, using any necessary non-narrowing implicit conversions.</p>
+      <p>The initializer_list object refers to the elements of this array without containing them: copying an <code>initializer_list</code> object produces another object referring to the same underlying elements, not to new copies of them (<strong>reference semantics</strong>).</p>
+      <p>The lifetime of this temporary array is the same as the <code>initializer_list</code> object.</p>
+      <p>Constructors taking only one argument of this type are a special kind of constructor, called <dfn>initializer-list constructor</dfn>. Initializer-list constructors take precedence over other constructors when the initializer-list constructor syntax is used:</p>
+      <pre>struct myclass {
+  myclass (int,int) { /* <var>some code</var> */ };
+  myclass (initializer_list&lt;int&gt;) { /* <var>some code</var> */ };
+};
+
+myclass foo {10,20};  // calls initializer_list ctor
+myclass bar (10,20);  // calls first constructor</pre>
+      <aside>
+        <p>A <code>std::initializer_list</code> object is automatically constructed when:</p>
+        <ul>
+          <li>a brace-enclosed initializer list is used to list-initialize an object, where the corresponding constructor accepts an <code>std::initializer_list</code> parameter,</li>
+          <li>a brace-enclosed initializer list is used as the right operand of assignment or as a function call argument, and the corresponding assignment operator/function accepts an std::initializer_list parameter, or</li>
+          <li>a brace-enclosed initializer list is bound to auto, including in a ranged for loop</li>
+        </ul>
+      </aside>
+
+      <p><code>std::initializer_list</code> has the following member functions:</p>
       <ul>
-        <li>a brace-enclosed initializer list is used to list-initialize an object, where the corresponding constructor accepts an <code>std::initializer_list</code> parameter,</li>
-        <li>a brace-enclosed initializer list is used as the right operand of assignment or as a function call argument, and the corresponding assignment operator/function accepts an std::initializer_list parameter, or</li>
-        <li>a brace-enclosed initializer list is bound to auto, including in a ranged for loop</li>
+        <li>default constructor</li>
+        <li><code>size()</code></li>
+        <li><code>begin()</code></li>
+        <li><code>end()</code></li>
       </ul>
-      <h3 class="bridgehead">Example:</h3>
-      <pre>#include &lt;initializer_list&gt;
+
+      <p><code>std::initializer_list</code> defines the following member types:</p>
+      <table border="1">
+        <thead> <th>member type</th> <th>definition</th> </thead>
+        <tr> <td><code>value_type</code></td> <td>The template parameter (<var>T</var>)</td> </tr>
+        <tr> <td><code>reference</code></td> <td><code>const T&amp;</code></td> </tr>
+        <tr> <td><code>const_reference</code></td> <td><code>const T&amp;</code></td> </tr>
+        <tr> <td><code>size_type</code></td> <td><code>size_t</code></td> </tr>
+        <tr> <td><code>iterator</code></td>	<td><code>const T*</code></td> </tr>
+        <tr> <td><code>const_iterator</code></td> <td><code>const T*</code></td> </tr>
+      </table>
+
+
+
+      <section>
+        <h2>An example</h2>
+        <pre>#include &lt;initializer_list&gt;
 #include &lt;iostream&gt;
 #include &lt;vector&gt;
 
@@ -87,7 +125,7 @@ int main()
     templated_fn&lt;std::initializer_list&lt;int&gt;&gt;({1, 2, 3}); // OK
     templated_fn&lt;std::vector&lt;int&gt;&gt;({1, 2, 3});           // also OK
 }</pre>
-      <p></p>
+      </section>
 
 
     </main>

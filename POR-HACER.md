@@ -1,5 +1,8 @@
 # Lista de recomendaciones, recordatorios y otras directrices
 
+https://1337x.pro/
+https://www.1337xx.to/search/
+
 https://concepto.de/
 
 https://lasindias.net/indianopedia/
@@ -98,6 +101,10 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 - https://www.almanac.com/what-hugelkultur-ultimate-raised-bed
 - https://rodaleinstitute.org/science/articles/
 - https://rodaleinstitute.org/
+- https://www.sciencedirect.com/topics/earth-and-planetary-sciences/bioremediation
+
+
+
 
 - https://www.w3schools.com/html/html_form_elements.asp
 
@@ -157,6 +164,15 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Resume MongoDB cluster after reading: https://www.mongodb.com/docs/atlas/pause-terminate-cluster/#resume-one-cluster
+[ ] move non-github_pages TODOs elsewhere
+[ ] move sensitive data elsewhere
+
+[ ] *Taxol*
+<blockquote>
+  <p>Taxol is the brand name for paclitaxel, a chemotherapy drug used to treat several types of cancer, including ovarian, breast, lung, and Kaposi's sarcoma. It works by disrupting the ability of cancer cells to divide, which ultimately leads to their death. Taxol is administered intravenously and can be given in different formulations.</p>
+</blockquote>
+
 [ ] POLIDEPORTIVO MUNICIPAL CABANILLAS DE LA SIERRA
   en https://www.cabanillasdelasierra.es/ciudadanos/polideportivo-municipal
 Inscripciones e información:
@@ -181,8 +197,7 @@ NUESTROS ESPACIOS Y SERVICIOS:
 – Conexión en toda la sala
 – Servicio de fotocopias
 
-
-[ ] Contratar cuenta wefferent de CajaMar: https://www.cajamar.es/es/particulares/productos-y-servicios/cuentas/cuenta-wefferent-ahorro/
+[v] <p><a href="cpp.stl.in_place.html"><code>std::in_place</code>, <code>in_place_type</code> etc.</a></p>
 
 [ ] crear clases: "queja" "espanya"
 [ ] enlazar a *espanya.html* desde *sociedad.html*

@@ -35,8 +35,41 @@
     </nav>
 
     <main>
-      <h1><code>std::variant</code>&apos;s: Intelligent C++ Unions</h1>
+      <h1><code>std::variant</code>&apos;s: Intelligent C++ Unions (C++17)</h1>
       <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://www.cppstories.com/2018/06/variant/">https://www.cppstories.com/2018/06/variant/</a></cite>)</p>
+
+      <section id="syntax">
+        <h2>Syntax</h2>
+
+        <pre>constexpr variant() noexcept(/* see below */); // (1)
+constexpr variant( const variant&amp; other ); // (2)
+constexpr variant( variant&amp;&amp; other ) noexcept(/* see below */); // (3)
+template&lt; class T &gt; // (4)
+constexpr variant( T&amp;&amp; t ) noexcept(/* see below */);</pre>
+        <pre id="in_place">template&lt; class T, // (5)
+          class... Args &gt;
+constexpr explicit variant( std::in_place_type_t&lt;T&gt;,
+                            Args&amp;&amp;... args );
+
+template&lt; class T, // (6)
+          class U,
+          class... Args &gt;
+constexpr explicit variant( std::in_place_type_t&lt;T&gt;,
+                            std::initializer_list&lt;U&gt; il,
+                            Args&amp;&amp;... args );
+
+template&lt; std::size_t I, // (7)
+          class... Args &gt;
+constexpr explicit variant( std::in_place_index_t&lt;I&gt;,
+                            Args&amp;&amp;... args );
+
+template&lt; std::size_t I, // (8)
+          class U,
+          class... Args &gt;
+constexpr explicit variant( std::in_place_index_t&lt;I&gt;,
+                            std::initializer_list&lt;U&gt; il,
+                            Args&amp;&amp;... args );</pre>
+      </section>
 
       <section id="type">
         <h2>The Currently Used Typed</h2>
@@ -96,13 +129,6 @@ NodeB
 NodeA
 NodeC</pre>
         <p>As you can see, all you need is a callable struct with overloads for required types. Note that you need to overload on all types that belong to Nodes or you’ll get a compiler error (like with pattern matching in other languages).</p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
       </section>
 
     </main>
