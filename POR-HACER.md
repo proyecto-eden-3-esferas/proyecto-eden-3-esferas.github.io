@@ -164,6 +164,47 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[?] Dr Judy Mikovits Phd Molecular Biologist / Medical Researcher
+
+[ ] *Las Tres Esferas de cada uno*
+<p>Todos necesitamos descubrir nuestras Tres Esferas particulares y cultivarlas. Cada cuál rellenará cada uno de estos tres campos a su manera. Por ejemplo en lo Social unos propondrán una democracia participativa, otros un comunismo etc. En la Esfera Espiritual muchos deciden seguir una religión, no todos la misma, y el resto busca fuera de la religión. Considero muy importante, incluso vital, buscar.</p>
+
+
+<p>Un <dfn>proyecto</dfn> es un plan de acción concreto, personal y compuesto (de varias partes, aspectos, etc.) que refleja nuestra sensibilidad, nuestros principios y nuestras capacidades.</p>
+<p>No existen proyectos filosóficos, políticos bu científicos, dado que no cumplirían la condición de ser concretos.</p>
+<p>Un proyecto puede estar compartido entre varias personas, pero sólo en la medida en que sintonice con cada una de ellas.</p>
+
+
+[ ] *Delictivo y antisocial*
+<p>Al principio las leyes se correspondían con las conductas beneficionas para la sociedad, y los delitos que definían coincidían con conductas antisociales o autolesivas. Según se elabora el Derecho, éste cobra vida propia como si dijéramos, se convierte en un Sistema ligeramente separado o desincronizado de la Realidad, y también en un arma de efectos retardados blandida por los poderosos, los cuáles proponen y aprueban verdaderas leyes antipersona.</p>
+
+[ ] *El <q>Hombre Moderno</q> de Nietzsche*
+
+[ ] *Democracia, cultura y expertos*
+<p>En una democracia la ciudadanía se gobierna a sí misma. ¿Qué diferencia hay entre ciudadanos y ciudadanía? Para gobernanos a nosotros mismos necesitamos conocimiento, que cada uno de los ciudadanos sepa lo suficiente sobre las cuestiones que nos afectan, sobre cómo funciona nuestro mundo. (No necesitamos saber Historia, ni Gramática, ni Matemáticas...) De lo contrario delegaremos nuestro voto en expertos y nos limitaremos a expresar vagas opiniones sobre redistribución de la riqueza y libertad sexual. De hecho corremos peligro de que los expertos decidan por nosotros en todo menos en cuestiones de libertad sexual. Sin embargo el mundo consta de detalles técnicos. Necesitamos conocerlos para que no se nos maneje, y exigir opinar e influir en cómo se gestionan estos aspectos de nuestro mundo.</p>
+<p>Por tanto la ciudadanía debe informarse sobre cómo funciona el mundo, sobre tecnología, medicina, medio ambiente, administración pública, y después exigir una democracia participativa, no representativa.</p>
+
+[ ] *sujetame-la-camella.html*
+<p>Cuenta una escabrosa leyenda urbana que un hombre iba por el desierto sobre una camella, con calor o sin él, con el resto de las necesidades más o menos satisfechas menos una. Por ello intentaba subirse a la camella por detrás, vamos, montársela, es decir, montárselo con la camella. Pero la muy #!*? se movía en el último momento y no había manera.</p>
+<p>Sucedió que una tía buena se había perdido por el desierto. Sin comida, sin gorra, a punto de morir de sed. Entonces se encontró con este señor que ya le pudo proporcionar el agua y la comida con la que sobrevivir. Ella, agradecida, exclamó rendida:</p>
+<blockquote>¡Pídeme lo que quieras!</blockquote>
+<p>o según otras versiones apócrifas:</p>
+<blockquote>¡Hazme lo que quieras!</blockquote>
+<p>Entonces él, ni corto ni perezoso, le respondió:</p>
+<blockquote>Sujétame a la camella.</blockquote>
+<hr/>
+
+[ ] *propiedades* id="propiedades"
+<p>...por ejemplo...</p>
+```
+nombre: Cristina
+```
+
+[ ] *md.html*
+
+[ ] enlazar a *revolucion.html* desde
+
+
 [ ] Resume MongoDB cluster after reading: https://www.mongodb.com/docs/atlas/pause-terminate-cluster/#resume-one-cluster
 [ ] move non-github_pages TODOs elsewhere
 [ ] move sensitive data elsewhere

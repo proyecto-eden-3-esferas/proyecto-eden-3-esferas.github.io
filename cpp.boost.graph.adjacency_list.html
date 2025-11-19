@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>boost::adjacency_list</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="boost::adjacency_list"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+    </nav>
+    <main>
+      <h1><code>boost::adjacency_list</code></h1>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/libs/graph/doc/adjacency_list.html">https://www.boost.org/doc/libs/latest/libs/graph/doc/adjacency_list.html</a></cite>)</p>
+      <p><strong>Prototype:</strong></p>
+      <pre>boost::adjacency_list&lt;
+  OutEdgeList = boost::vecS,
+  VertexList = boost::vecS,
+  Directed = boost::directedS,
+  VertexProperties = boost::no_property,
+  EdgeProperties = boost::no_property,
+  GraphProperties = boost::no_property,
+  EdgeList = listS
+  &gt;</pre>
+      <p>...</p>
+      <p>To use ... you need to include <cite>boost/graph/adjacency_list.hpp</cite>:</p>
+      <pre>#include &lt;boost/graph/adjacency_list.hpp&gt;</pre>
+
+      <p>The first and second template parameters are Boost container selectors edge list and node list respectively, such as <code>vecS</code> and <code>listS</code>.</p>
+      <p>The third template parameter sets the directedness of the graph, such as <code>directedS</code> or <code>bidirectionalS</code>. Selecting <code>directedS</code> or <code>bidirectionalS</code> choose a <strong>directed graph</strong>, whereas <code>undirectedS</code> selects the representation for an undirected graph. The <code>bidirectealS</code> selector specifies that the graph will provide the <code>in_edges()</code> function as well as the <code>out_edges()</code> function. This imposes twice as much space overhead per edge, which is why <code>in_edges()</code> is optional. </p>
+      <p>The fourth and fifth template arguments select property maps for vertices and edges. To select no property type <code>boost::no_property</code>.</p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <section id="container-selectors">
+        <h2>Container Selectors</h2>
+        <p>There are several selector types that are used to specify the choice of container for <code>OutEdgeList</code> and <code>VertexList</code>:</p>
+        <ul>
+          <li><code>vecS</code> selects <code>std::vector</code>.</li>
+          <li><code>listS</code> selects <code>std::list</code>.</li>
+          <li><code>slistS</code> selects <code>std::slist</code>.</li>
+          <li><code>setS</code> selects <code>std::set</code>.</li>
+          <li><code>multisetS</code> selects <code>std::multiset</code>.</li>
+          <li><code>hash_setS</code> selects <code>std::hash_set</code>.</li>
+        </ul>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <!--
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section id="*">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+    </main>
+  </body>
+</html>
