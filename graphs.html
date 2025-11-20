@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph Theory and Graphs</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Graph Theory and Graphs"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a href="science.html">Science: to Learn, to Find, to Know</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      </div>
+      <div>
+        <p><a href="programming.html">Programming Computers</a></p>
+        <p><a href="cpp.boost.graph.html">The Boost Graph Library (BGL)</a></p>
+        <p><a href="graph-databases.html">Graph Databases</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Graph Theory and Graphs</h1>
+      <!-- from 11928 to 12185 -->
+      <p>Graphs are a mathematical tool used to model the relationship between objects. They are similar to <a href="#semantic_networks">semantic networks</a> yet more abstract or general in scope. In computer science, graphs are a new and powerful data structure whose <a href="#graphs_in_cpp">implementation in C++</a> we shall discuss further down. Still you could buy or download a <a target="_blank" href="graph-databases.html">graph database</a>, which is a graph plus some menas of serialization, commandline querying etc.</p>
+      <aside class="note" style="border-style: solid;">Our implementations may rely on pointers heavily, which prevents us from carrying them over to other programming languages that do not support pointers explicitely.</aside>
+      <p>Graphs are made up of <dfn>nodes</dfn> (vertices) and <dfn>arcs</dfn> (edges). Nodes represent entities and hold some content, whereas arcs represent relationships. In a <dfn id="graph_weighted">weighted</dfn> graph arcs hold a value or some other information too, called its weight because it is meant to represent the <q>cost</q> of going from the start of the arc to the end of the arc.</p>
+      <p>A <dfn>path</dfn> through a graph connects a sequence of nodes through successive arcs. The path is represented by an ordered list that records the nodes in the order they occur in the path. A path that leads back to its first node is said to be a <dfn>cycle</dfn> or <dfn>loop</dfn> and a path that at some point crosses itself is said to contain a cycle or loop.</p>
+      <p>A <dfn>rooted</dfn> graph has a unique node, called the <dfn>root</dfn>, such that there is a path from the root to all nodes within the graph. In drawing a rooted graph, the root is usually drawn at the top of the page, above the other nodes. The state space graphs for games are usually rooted graphs with the start of the game as the root.</p>
+      <p>A <a href="#tree_data_type">tree</a> is a graph in which two nodes have at most one path between them. Trees often have roots, in which case they are usually drawn with the root at the top, like a rooted graph. Because each node in a tree has only one path of access from any other node, it is impossible for a path to loop or cycle through a sequence of nodes.</p>
+      <p>For rooted trees or graphs, relationships between nodes include <dfn>parent</dfn>, <dfn>child</dfn>, and <dfn>sibling</dfn>. These are used in the usual familial fashion with the parent preceding its child along a directed arc. The children of a node are called <dfn>siblings</dfn>. Similarly, an <dfn>ancestor</dfn> comes before a descendant in some path of a directed graph.</p>
+      <p>A <dfn>tip</dfn> or <dfn>leaf</dfn> node is a node that has no children.</p>
+      <section>
+        <h2>Graph Examples, Problems, and Applications</h2>
+        <p>Some situations that are suitably modeled through a graph or some instances of graphs are:</p>
+        <ul class="itemizedlist">
+          <dd>a road map showing towns (objects) and the roads that link them up (relationships), where each road may bear a length weight, or</dd>
+          <dd>the schematic of an electronic circuit, where electronic components are objects and connecting wires are relationships between them (possibly bearing weights such as delay and complex impedance), or</dd>
+          <dd>a Finate State Machine, whose states are graph nodes and whose transitions are weighted arcs, or</dd>
+          <dd>a diagram of events that cause or preclude other events</dd>
+          <dd>nearly anything else that is understood in terms of entities and relationships.</dd>
+        </ul>
+        <p>A famous graph problem has been that of coloring a planar map so that no two adjacent regions have the same color. In 1976 it was proved that yes, just four colors are sufficient to color <em>any</em> planar map.</p>
+      </section>
+      <section id="directed_graphs">
+        <h2>Directed Graphs</h2>
+        <p>In a <dfn>directed</dfn> graph arcs are traversed in one direction. If there is another arc in the opposite direction and the graph is weighted, the weights may be different.</p>
+        <section>
+          <h3>Are electronic schematics directed or indirected graphs?</h3>
+          <p>Wires are no doubt undirected, but some components realize a control function so we tend to analize schematics in terms of cause and effect.</p>
+        </section>
+      </section>
+      <section id="typed_graphs">
+        <h2>Typed Graphs*</h2>
+      </section>
+      <!-- end of "Typed Graphs" -->
+      <section>
+        <h2>The State Space Representation of Problems</h2>
+        <p>In the state space representation of a problem, the nodes of a graph correspond to partial problem solution states and the arcs correspond to steps in a problem-solving process. One or more initial states, corresponding to the given information in a problem instance, form the root of the graph. The graph also defines one or more goal conditions, which are solutions to a problem instance. State space search characterizes problem solving as the process of finding a solution path from the start state to a goal.</p>
+        <p>A goal may describe a state, such as a winning board in tic-tac-toe or a goal configuration in the 8-puzzle. Alternatively, a goal can describe some property of the solution path itself. In the traveling salesperson problem, search terminates when the <q>shortest</q> path is found through all nodes of the graph. In the parsing problem, the solution path is a successful analysis of a sentence's structure.</p>
+        <p>Arcs of the state space correspond to steps in a solution process and paths through the space represent solutions in various stages of completion. Paths are searched, beginning at the start state and continuing through the graph, until either the goal description is satisfied or they are abandoned. The actual generation of new states along the path is done by applying operators, such as <q>legal moves</q> in a game or inference rules in a logic problem or expert system, to existing states on a path. The task of a search algorithm is to find a solution path through such a problem space. Search algorithms must keep track of the paths from a start to a goal node, because these paths contain the series of operations that lead to the problem solution.</p>
+        <p>We now formally define the state space representation of problems:</p>
+        <section>
+          <h3>Definition of State Space Search</h3>
+          <p>A <dfn>state space</dfn> is represented by a four-tuple [N,A,S,GD], where:</p>
+          <ul class="itemizedlist">
+            <dd>
+              <p><var>N</var> is the set of nodes or states of the graph. These correspond to the states in a problem-solving process.</p>
+            </dd>
+            <dd>
+              <p><var>A</var> is the set of arcs (or links) between nodes. These correspond to the steps in a problem-solving process.</p>
+            </dd>
+            <dd>
+              <p><var>S</var>, a nonempty subset of <var>N</var>, contains the start state(s) of the problem.</p>
+            </dd>
+            <dd>
+              <p><var>GD</var>, a nonempty subset of <var>N</var>, contains the goal state(s) of the problem. The states in <var>GD</var> are described using either:</p>
+              <ul class="itemizedlist">
+                <dd>1. A measurable property of the states encountered in the search.</dd>
+                <dd>2. A measurable property of the path developed in the search, for example, the sum of the transition costs for the arcs of the path.</dd>
+              </ul>
+            </dd>
+          </ul>
+          <p>A <dfn>solution path</dfn> is a path through this graph from a node in <var>S</var> to a node in <var>GD</var>.</p>
+        </section>
+      </section>
+      <section>
+        <h2>Strategies for State Space Search</h2>
+        <section>
+          <h3>Data-Driven and Goal-Driven Search</h3>
+          <p>A state space may be searched in two directions: from the given data of a problem instance toward a goal or from a goal back to the data.</p>
+          <p id="data-driven_search">In <dfn>data-driven</dfn> search, sometimes called <dfn>forward chaining</dfn>, the problem solver begins with the given facts of the problem and a set of legal moves or rules for changing state. Search proceeds by applying rules to facts to produce new facts, which are in turn used by the rules to generate more new facts. This process continues until (we hope!) it generates a path that satisfies the goal condition.</p>
+          <p>An alternative approach is possible: take the goal that we want to solve. See what rules or legal moves could be used to generate this goal and determine what conditions must be true to use them. These conditions become the new goals, or subgoals, for the search. Search continues, working backward through successive subgoals until (we hope!) it works back to the facts of the problem. This finds the chain of moves or rules leading from data to a goal, although it does so in backward order. This approach is called <dfn>goal-driven reasoning</dfn>, or <dfn>backward chaining</dfn>, and it recalls the simple childhood trick of trying to solve a maze by working back from the finish to the start.</p>
+          <p>To summarize: data-driven reasoning takes the facts of the problem and applies the rules or legal moves to produce new facts that lead to a goal; goal-driven reasoning focuses on the goal, finds the rules that could produce the goal, and chains backward through successive rules and subgoals to the given facts of the problem.</p>
+          <p>In the final analysis, both data-driven and goal-driven problem solvers search the same state space graph; however, the order and actual number of states searched can differ. The preferred strategy is determined by the properties of the problem itself. These include the complexity of the rules, the <q>shape</q> of the state space, and the nature and availability of the problem data. All of these vary for different problems.</p>
+          <section>
+            <h4>An Example of Data- and Goal-Driven Search</h4>
+            <p>As an example of the effect a search strategy can have on the complexity of search, consider the problem of confirming or denying the statement <q>I am a descendant of Thomas Jefferson.</q> A solution is a path of direct lineage between the <q>I</q> and Thomas Jefferson. This space may be searched in two directions, starting with the <q>I</q> and working along ancestor lines to Thomas Jefferson or starting with Thomas Jefferson and working through his descendants.</p>
+            <p>Some simple assumptions let us estimate the size of the space searched in each direction. Thomas Jefferson was born about 250 years ago; if we assume 25 years per generation, the required path will be about length 10. As each person has exactly two parents, a search back from the <q>I</q> would examine on the order of 2<sup>10</sup> ancestors. A search that worked forward from Thomas Jefferson would examine more states, as people tend to have more than two children (particularly in the eighteenth and nineteenth centuries). If we assume an average of only three children per family, the search would examine on the order of 3<sup>10</sup> nodes of the family tree. Thus, a search back from the <q>I</q> would examine fewer nodes. Note, however, that both directions yield exponential complexity.</p>
+          </section>
+          <section>
+            <h4>Choosing between Data- And Goal-Driven Search</h4>
+            <p>The decision to choose between data- and goal-driven search is based on the structure of the problem to be solved. Goal-driven search is suggested if:</p>
+            <ul class="itemizedlist">
+              <dd>1. A goal or hypothesis is given in the problem statement or can easily be formulated. In a mathematics theorem prover, for example, the goal is the theorem to be proved. Many diagnostic systems consider potential diagnoses in a systematic fashion, confirming or eliminating them using goal-driven reasoning.</dd>
+              <dd>2. There are a large number of rules that match the facts of the problem and thus produce an increasing number of conclusions or goals. Early selection of a goal can eliminate most of these branches, making goal-driven search more effective in pruning the space. In a theorem prover, for example, the total number of rules used to produce a given theorem is usually much smaller than the number of rules that may be applied to the entire set of axioms.</dd>
+              <dd>3. Problem data are not given but must be acquired by the problem solver. In this case, goal-driven search can help guide data acquisition. In a medical diagnosis program, for example, a wide range of diagnostic tests can be applied. Doctors order only those that are necessary to confirm or deny a particular hypothesis.</dd>
+            </ul>
+            <p>Goal-driven search thus uses knowledge of the desired goal to guide the search through relevant rules and eliminate branches of the space.</p>
+            <p>Data-driven search is appropriate for problems in which:</p>
+            <ul class="itemizedlist">
+              <dd>1. All or most of the data are given in the initial problem statement. Interpretation problems often fit this mold by presenting a collection of data and asking the system to provide a high-level interpretation. Systems that analyze particular data (e.g., the PROSPECTOR or Dipmeter programs, which interpret geological data or attempt to find what minerals are likely to be found at a site) fit the data-driven approach.</dd>
+              <dd>2. There are a large number of potential goals, but there are only a few ways to use the facts and given information of a particular problem instance. The DENDRAL program, an expert system that finds the molecular structure of organic compounds based on their formula, mass spectrographic data, and knowledge of chemistry, is an example of this. For any organic compound, there are an enormous number of possible structures. However, the mass spectrographic data on a compound allow DENDRAL to eliminate all but a few of these.</dd>
+              <dd>3. It is difficult to form a goal or hypothesis. In using DENDRAL, for example, little may be known initially about the possible structure of a compound.</dd>
+            </ul>
+            <p>Data-driven search uses the knowledge and constraints found in the given data of a problem to guide search along lines known to be true.</p>
+            <p>To summarize, there is no substitute for careful analysis of the particular problem to be solved, considering such issues as the branching factor of rule applications (on average, how many new states are generated by rule applications in both directions?), availability of data, and ease of determining potential goals.</p>
+          </section>
+        </section>
+        <!-- end of "Data-Driven and Goal-Driven Search" -->
+        <section id="implementing_graph_search">
+          <h3>Implementing Graph Search</h3>
+          <p>In solving a problem using either goal- or data-driven search, a problem solver must find a path from a start state to a goal through the state space graph. The sequence of arcs in this path corresponds to the ordered steps of the solution. If a problem solver were given an oracle or other infallible mechanism for choosing a solution path, search would not be required. The problem solver would move unerringly through the space to the desired goal, constructing the path as it went. Because oracles do not exist for interesting problems, a problem solver must consider different paths through the space until it finds a goal. Backtracking is a technique for systematically trying all paths through a state space. We begin with backtrack because it is one of the first search algorithms computer scientists study, and it has a natural implementation in a stack oriented recursive environment. We will present a simpler version of the backtrack algorithm with depth-first search.</p>
+          <p>Backtracking search begins at the start state and pursues a path until it reaches either a goal or a <q>dead end.</q> If it finds a goal, it quits and returns the solution path. If it reaches a dead end, it <q>backtracks</q> to the most recent node on the path having unexamined siblings and continues down one of these branches, as described in the following recursive rule:</p>
+          <blockquote>If the present state <var>S</var> does not meet the requirements of the goal description, then generate its first descendant <var>S<sub>child1</sub></var>, and apply the backtrack procedure recursively to this node. If backtrack does not find a goal node in the subgraph rooted at <var>S<sub>child1</sub></var>, repeat the procedure for its sibling, <var>S<sub>child2</sub></var>. Continue until either some descendant of a child is a goal node or all the children have been searched. If none of the children of <var>S</var> leads to a goal, then backtrack <q>fails back</q> to the parent of <var>S</var>, where it is applied to the siblings of <var>S</var>, and so on.</blockquote>
+          <p>The algorithm continues until it finds a goal or exhausts the state space. We now define an <a href="#algorithmics">algorithm</a> that performs a backtrack, using three lists to keep track of nodes in the state space:</p>
+          <ul class="itemizedlist">
+            <dd><var>SL</var>, for <dfn>state list</dfn>, lists the states in the current path being tried. If a goal is found, <var>SL</var> contains the ordered list of states on the solution path.</dd>
+            <dd><var>NSL</var>, for new state list, contains nodes awaiting evaluation, i.e., nodes whose descendants have not yet been generated and searched.</dd>
+            <dd><var>DE</var>, for dead ends, lists states whose descendants have failed to contain a goal. If these states are encountered again, they will be detected as elements of DE and eliminated from consideration immediately.</dd>
+          </ul>
+          <p>In defining the backtrack algorithm for the general case (a <a href="#graphs">graph</a> rather than a <a href="#tree_data_type">tree</a>), it is necessary to detect multiple occurrences of any state so that it will not be reentered and cause (infinite) loops in the path. This is accomplished by testing each newly generated state for membership in any of these three lists. If a new state belongs to any of these lists, then it has already been visited and may be ignored.</p>
+          <p>This is the pseudocode for function <function>backtrack</function>:</p>
+          <code>function backtrack;
+begin
+  SL := [Start]; NSL := [Start]; DE := [ ]; CS := Start;     % initialize:
+  while NSL &#x2260; [ ] do                 % while there are states to be tried
+    begin
+      if CS = goal (or meets goal description)
+        then return SL;       % on success, return list of states in path.
+      if CS has no children (excluding nodes already on DE, SL, and NSL)
+        then begin
+          while SL is not empty and CS = the first element of SL do
+            begin
+              add CS to DE;                    % record state as dead end
+              remove first element from SL;                    %backtrack
+              remove first element from NSL;
+              CS := first element of NSL;
+            end
+          add CS to SL;
+        end
+        else begin
+          place children of CS (except nodes already on DE, SL, or NSL) on NSL;
+          CS := first element of NSL;
+          add CS to SL
+        end
+      end;
+      return FAIL;
+end.</code>
+          <p>In <function>backtrack</function>, the state currently under consideration is called <var>CS</var> for current state. <var>CS</var> is always equal to the state most recently added to <var>SL</var> and represents the <q>frontier</q> of the solution path currently being explored. Inference rules, moves in a game, or other appropriate problem-solving operators are ordered and applied to <var>CS</var>. The result is an ordered set of new states, the children of <var>CS</var>. The first of these children is made the new current state and the rest are placed in order on <var>NSL</var> for future examination. The new current state is added to <var>SL</var> and search continues. If <var>CS</var> has no children, it is removed from <var>SL</var> (this is where the algorithm <q>backtracks</q>) and any remaining children of its predecessor on <var>SL</var> are examined.</p>
+          <p>As presented here, <function>backtrack</function> implements <a href="#data-driven_search">data-driven search</a>, taking the root as a start state and evaluating its children to search for the goal. The algorithm can be viewed as a goal-driven search by letting the goal be the root of the graph and evaluating descendants back in an attempt to find a start state. If the goal description is of type 2, the algorithm must determine a goal state by examining the path on <var>SL</var>.</p>
+          <p><function>backtrack</function> is an algorithm for searching state space graphs. The graph search algorithms that follow, including depth-first, breadth-first, and best-first search, exploit the ideas used in backtrack, including:</p>
+          <ul class="itemizedlist">
+            <dd>1. The use of a list of unprocessed states (<var>NSL</var>) to allow the algorithm to return to any of these states.</dd>
+            <dd>2. A list of <q>bad</q> states (<var>DE</var>) to prevent the algorithm from retrying useless paths.</dd>
+            <dd>3. A list of nodes (<var>SL</var>) on the current solution path that is returned if a goal is found.</dd>
+            <dd>4. Explicit checks for membership of new states in these lists to prevent looping.</dd>
+          </ul>
+        </section>
+        <section>
+          <h3>Depth-First and Breadth-First Search*</h3>
+          <section id="depth-first_search">
+            <h4>Depth-First Search*</h4>
+          </section>
+          <section id="breadth-first_search">
+            <h4>Breadth-First Search*</h4>
+          </section>
+        </section>
+      </section>
+      <!-- end of "Strategies for State Space Search" -->
+      <section id="sparse_matrices">
+        <h2>Sparse Matrices*</h2>
+      </section>
+      <section id="how_to_implement_a_graph">
+        <h2>How to Implement a Graph Data Structure</h2>
+        <p>A graph can be implemented as a container of containers or as a (possibly <a href="#sparse_matrices">sparse</a>) matrix.</p>
+        <dl class="variablelist">
+          <dt>A graph as a container of containers</dt>
+          <dd>
+            <p>When a graph is implemented as a container of containers, the elements of the outer container are each a pair holding:</p>
+            <ul class="itemizedlist">
+              <dd>
+                <p>The contents of or a reference to a node where arcs or edges originate</p>
+              </dd>
+              <dd>
+                <p>Another, <q>inner</q> container holding as elements the contents of or a reference to each of the nodes at the other end of the arc or edge that each of these elements represents. In the case of <a href="#graph_weighted">weighted graphs</a>, the elements of the inner container are </p>
+              </dd>
+            </ul>
+            <p>You can choose almost any container or data structure capable of holding elements as long as it is enumerable. If you know how many nodes the graph shall have as well as their contents beforehand, you may choose a fixed-sized array such as a <a href="#c_array">C-array</a> in C or a more <q>intelligent</q> array such as an std::<var class="classname">array</var> or an std::<a href="#stl_vector">vector</a> if you want it to grow in size.</p>
+          </dd>
+          <dt>A graph as a (sparse) matrix</dt>
+          <dd>
+            <p>When a graph is implemented as a 2-dimensional matrix or as a <a href="#sparse_matrices">sparse matrix</a>, the matrix must be <dfn>square</dfn> (there must be as many rows as there are columns) and there must be as many rows or columns as there are nodes in the graph.</p>
+            <p>Element <var>e<sub>i,j</sub></var> represents an arc or edge from the i<sub>th</sub> node to the j<sub>th</sub> node. The contents of <var>e<sub>i,j</sub></var> must denote whether there is an arc or edge or not from the i<sub>th</sub> to the j<sub>th</sub> node. Additionally, if the graph is <a href="#graph_weighted">weighted</a>, then the contents is the weight of the existing arc or edge, typically a number.</p>
+            <p>This is a matrix representation of the graph of the distances (km) between three Spanish cities: Barcelona, Bilbao and Madrid:</p>
+            <code>
+/   0    632     654 \
+| 632      0     432 |
+\ 654    432       0 /</code>
+            <p>If there were no road between two given cities, we would need some device such as using a negative number, or a weight of zero, or an ordered pair of a true-false value plus a weight.</p>
+            <p>If there may be several routes and thus several different distances between two cities, then each element in the matrix must be able to hold a set of distances...</p>
+          </dd>
+        </dl>
+        <p>Once we have a graph data structure in place, we need a means to <a href="#implementing_graph_search">search</a> it.</p>
+        <section id="ordered_arcs">
+          <h3>Ordered Sets of Arcs/Edges</h3>
+          <p>In choosing the data structures suitable for implementing a graph, we must decide whether we want the arcs or edges to be ordered, that is whether it makes sense to maintain that a given edge is the j<sub>th</sub> edge of all that leave the i<sub>th</sub> node, or at least whether for each arc <var>a<sub>n</sub></var> its successor <var>a<sub>n+1</sub></var> can be found, as long as <var>a<sub>n</sub></var> is not the <q>last</q> arc leaving a node.</p>
+          <p><a href="#depth-first_search">Depth-first search</a> algorithms in particular require that arcs be next-able when they backtrack to a previous, unexhausted node to resume digging.</p>
+        </section>
+      </section>
+      <section id="hypergraphs">
+        <h2>Hypergraphs</h2>
+        <blockquote>
+          <p>In mathematics, a hypergraph is a generalization of a <a href="#graphs">graph</a> in which an edge can connect any number of vertices. Formally, a hypergraph <var>H</var> is a pair <inlineequation><var>H</var> = (<var>X</var>,<var>E</var>)</inlineequation> where <var>X</var> is a set of elements called nodes or vertices, and <var>E</var> is a set of non-empty subsets of <var>X</var> called <dfn>hyperedges</dfn> or edges. Therefore, <var>E</var> is a subset of P(<var>X</var>)\{0}, the power set of <var>X</var> less the empty set.</p>
+          <a href="#https://en.wikipedia.org/wiki/Hypergraph">Wikipedia</a>
+        </blockquote>
+        <img class="imagedata" src="Electric_files/pictures/Computing/hypergraph_as_sets.png"/>
+        <p style="text-align: center"><strong>In a hypergraph, edges link elements to sets of elements.</strong></p>
+        <p>Another way to view hypergraphs is to consider that while the edges of a (directed) graph have (ordered) pairs of [references to] nodes, the edges of a hypergraph, or hyperedges, are either an ordered pair of a source node and a set of destination nodes, or just tuples where, say, the first element is [a reference to] the source node and the remainder are [references to] destination nodes.</p>
+        <p>It is often desirable to study hypergraphs where all hyperedges have the <em>same</em> cardinality; a <dfn>k-uniform hypergraph</dfn> is a hypergraph such that all its hyperedges have size <var>k</var>. (In other words, one such hypergraph is a collection of sets, each such set a hyperedge connecting k nodes.) So a 2-uniform hypergraph is a graph, a 3-uniform hypergraph is a collection of unordered triples, and so on.</p>
+        <aside class="note" style="border-style: solid;">A typed ordered graph, if flexibly indexed, is equivalent to a (primitive) database</aside>
+        <section id="tuple_hypergraphs">
+          <h3>Ordered, Directed or Tuple Hypergraphs</h3>
+          <p>In a <dfn>tuple hypergraph</dfn> the edges are not sets (unordered) but tuples (ordered). This enables modelling the sentences in a natural language, thus extending the expressive power of <a href="#semantic_networks">semantic networks</a>.</p>
+          <p>Semantic networks are good for representing binary relationships between objects. In <q>Andrew knows Philip</q>, Andrew and Philip represent entities, and <em class="wordasword">know</em> might be represented as a weight in a graph. We would also succeed in representing sentences like <q>Anne knows Italy</q>, or <q>Anne lives in Italy</q>, if it is understood that the weight of the latter is <q>live(s) in</q>. But the model cannot represent sentences like <q>Mary writes novels on a computer</q> because here <em class="wordasword">write(s)</em> is being used as a ternary relationship. This relationship could be expressed through an edge consisting of an entity and a tuple of two entities (a pair), or through a tuple of three entities. And so on.</p>
+        </section>
+        <!-- end of "Ordered, Directed or Tuple Hypergraphs" -->
+        <section>
+          <h3>Variations</h3>
+          <ul class="itemizedlist">
+            <dd>A hypergraph may be a <kbd class="userinput">std::multimap&lt;Node&amp;, std::set&lt;Node&amp;&gt; &gt;</kbd>,</dd>
+            <dd>hyperarcs might be arrays of nodes: <kbd class="userinput">typedef std::vector&lt;Node&amp;&gt; hyperarc;</kbd>
+</dd>
+          </ul>
+        </section>
+        <section>
+          <h3>Formal Mapping Between Graphs and Hypergraphs</h3>
+          <p>Both graphs and hypergraphs have nodes. They differ in whether they connect their nodes through edges or through hyperedges. The way to map between a graph and a hypergraph relies on the concept of <a href="#typed_graphs">typed graphs</a>:</p>
+          <ul class="itemizedlist">
+            <dd>a graph node's children are hyperedge nodes, that is nodes whose children are non-hyperedge nodes...</dd>
+            <dd>...</dd>
+          </ul>
+          <p>A weighted graph can model the hyperedges in a phypergraph like this:</p>
+          <ul class="itemizedlist">
+            <dd>Either a graph have two types of nodes, one representing objects or nodes in a hypergraph and the other representing relationships between object nodes,</dd>
+            <dd>or ...</dd>
+          </ul>
+        </section>
+        <section>
+          <h3>Predicators</h3>
+          <p>Imagine a universe of entities (objects, persons, words etc.). Programmatically, these might be held in an array (<kbd class="userinput">std::vector</kbd>), a linked list, an <kbd class="userinput">std::set</kbd> etc.</p>
+          <!--          <bridgehead>Predicators</bridgehead> -->
+          <p>On top of this we might want to build a layer of first-order predicators, that is predicates that take 0 to <var>n</var> references to entities in the bottom layer, as in <kbd class="userinput">cry(John)</kbd>. Programmatically, predicators would have a container objects such as an array or even a linked list (since growing a list never invalidates pointers to its members).</p>
+          <p>Next, a layer of second order predicators would hold predicates on first order predicators, for example <kbd class="userinput">cause(cry(John), wakeup(Peter))</kbd>.</p>
+          <p>And so on. Note that predicates of different order would all have a container for their predicates, whereas atomic entities would not. But what about predicates that take arguments of mixed-order, as in <kbd class="userinput">know(I, sleep(Peter))</kbd>? May be we would want to derive both predicates and entities from an ancestor <var class="classname">Entity</var> class and resolve types polymorphically should the need arise.</p>
+        </section>
+        <section id="hypergraphs_and_sentences">
+          <h3>Hypergraphs and the Entity-Relationship Model</h3>
+          <p>Ordered or tuple hypergraphs can be used to represent simple and compound sentences in a language. The texts or sentences of a language are made up of entities (noun phrases) and relationships or predications on entities and relationships themselves.</p>
+          <p>A linguistical hypergraph would have two kinds of nodes: entity nodes and relationship nodes...</p>
+        </section>
+        <!-- end of "Hypergraphs and the Entity-Relationship Model" -->
+      </section>
+      <!-- end of "Hypergraphs" -->
+    </main>
+  </body>
+</html>

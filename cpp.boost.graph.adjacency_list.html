@@ -14,11 +14,11 @@
   </head>
   <body lang="en" class="computing">
     <nav>
+      <p><a rel="next" href="cpp.boost.graph.clause_graph.html">A <code>clause_graph</code> Class from a <code>boost::adjacency_list</code></a></p>
+      <p><a rel="prev" href="cpp.boost.graph.html">The Boost Graph Library (BGL)</a></p>
       <!--
       <p><a href="A_PAGE.html">LINK_TEXT</a></p>
       <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
     </nav>
     <main>
@@ -71,26 +71,82 @@
           <li><code>multisetS</code> selects <code>std::multiset</code>.</li>
           <li><code>hash_setS</code> selects <code>std::hash_set</code>.</li>
         </ul>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+
+        <section id="container-generator">
+          <h2>Generating your own Selector Struct with <code>container_gen</code> Traits Class</h2>
+          <p> The <code>adjacency_list</code> class uses a traits class called <code>container_gen</code> to map the <code>OutEdgeList</code> and <code>VertexList</code> selectors to the actual container types used for the graph storage. The default version of the traits class is listed below, along with an example of how the class is specialized for the <code>listS</code> selector.</p>
+          <pre>namespace boost {
+  template &lt;class Selector, class ValueType&gt;
+  struct container_gen { };
+
+  template &lt;class ValueType&gt;
+  struct container_gen&lt;listS, ValueType&gt; {
+    typedef std::list&lt;ValueType&gt; type;
+  };
+}</pre>
+
+          <p>To use some other container of your choice (such as <code>std::unordered_set</code>), define a selector class and then specialize the <code>container_gen</code> for your selector, inside the <code>boost</code> namespace.</p>
+          <pre>struct unordered_setS { }; // your selector
+
+  namespace boost {
+    // the specialization for your selector
+    template &lt;class ValueType&gt;
+    struct container_gen&lt;unordered_setS, ValueType&gt; {
+      typedef std::unordered_set&lt;ValueType&gt; type;
+    };
+  }</pre>
+          <section>
+            <h3>Templetized Selectors</h3>
+            <p>There may also be situations when you want to use a container that has more template parameters than just <code>ValueType</code>. For instance, you may want to supply the allocator type. One way to do this is to hard-code in the extra parameters within the specialization of <code>container_gen</code>. However, if you want more flexibility then you can add a template parameter to the selector class. In the code below we show how to create a selector that lets you specify the allocator to be used with the <code>std::list</code>.</p>
+            <pre>template &lt;class Allocator&gt;
+  struct list_with_allocatorS { };
+
+  namespace boost {
+    template &lt;class Alloc, class ValueType&gt;
+    struct container_gen&lt;list_with_allocatorS&lt;Alloc&gt;, ValueType&gt;
+    {
+      typedef typename Alloc::template rebind&lt;ValueType&gt;::other Allocator;
+      typedef std::list&lt;ValueType, Allocator&gt; type;
+    };
+  }
+
+  // now you can define a graph using std::list
+  //   and a specific allocator
+  typedef adjacency_list&lt; list_with_allocatorS&lt; std::allocator&lt;int&gt; &gt;, vecS, directedS&gt; MyGraph;</pre>
+          </section>
+          <section>
+            <h3>Parallel Edge Traits</h3>
+            <p>In addition to specializing the container_gen class, one must also specialize the <code>parallel_edge_traits</code> class to specify whether the container type allows parallel edges (and is a <strong>Sequence</strong>) or if the container does not allow parallel edges (and is an <strong>AssociativeContainer</strong>).</p>
+            <pre>template &lt;class StorageSelector&gt;
+  struct parallel_edge_traits { };
+
+  template &lt;&gt;
+  struct parallel_edge_traits&lt;vecS&gt; {
+    typedef allow_parallel_edge_tag type;
+  };
+  template &lt;&gt;
+  struct parallel_edge_traits&lt;setS&gt; {
+    typedef disallow_parallel_edge_tag type;
+  };
+  ...</pre>
+          </section>
+        </section>
       </section>
       <section id="*">
-        <h2>*</h2>
-        <p></p>
-        <pre></pre>
+        <h2> Push and Erase for the Edge List Container</h2>
+        <p>One must also tell the <code>adjacency_list</code> how edges can be efficiently added and removed from the edge-list container. This is accomplished by overloading the <code>push()</code> and <code>erase()</code> functions for the custom container type. The <code>push()</code> function must return an iterator pointing to the newly inserted element and a bool flag saying whether the edge was inserted. The following default <code>push()</code> and <code>erase()</code> functions are already supplied for all STL container types. The family of <code>push_dispatch()</code> and <code>erase_dispatch()</code> function overloads handle the various ways inserting and erasing can be done with standard containers.</p>
+        <pre>template &lt;class Container, class T&gt;
+  std::pair&lt;typename Container::iterator, bool&gt;
+  push(Container&amp; c, const T&amp; v)
+  {
+    return push_dispatch(c, v, container_category(c));
+  }
+
+  template &lt;class Container, class T&gt;
+  void erase(Container&amp; c, const T&amp; x)
+  {
+    erase_dispatch(c, x, container_category(c));
+  }</pre>
         <p></p>
         <pre></pre>
         <p></p>

@@ -2700,6 +2700,9 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 ## Por enlazar
 
+[ ] *graphs.html* from *mathematics.html*
+[x] *cpp.boost.graph.html* from *mathematics.html*
+
 [x] *cpp.allocators.html* from  *cpp.containers.html* as "<p><a href="cpp.allocators.html">Allocators</a></p>"
 [ ] *cpp.allocators.html* from  elsewhere as "<p><a href="cpp.allocators.html">Allocators</a></p>"
 

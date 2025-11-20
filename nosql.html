@@ -34,13 +34,38 @@
     <main>
       <h1>NoSQL DataBases</h1>
       <p>A <dfn>NoSQL DataBase</dfn> is a non-relational database. They are well-suited for loosely defined data structures that evolve over time<!--, NoSQL DBMSes can require more application involvement for schema management-->.</p>
-      <p>There are four types of NoSQL database systems: document databases, graph databases, key-value stores and wide-column stores. Each uses a different type of data model, resulting in significant differences between each NoSQL type.</p>
-      <ul>
-        <li><dfn>Document databases</dfn> store semi-structured data and descriptions of that data in document format, usually <a href="json.html">JavaScript Object Notation</a>. They&apos;re useful for flexible schema requirements, such as those common with content management and mobile applications. Examples of document databases include <a href="mongodb.html">MongoDB</a> and Couchbase.</li>
-        <li><dfn>Graph databases</dfn> organize data as nodes and relationships instead of tables or documents. Because it stores the relationship between nodes, the graph system can support richer representations of data relationships. The graph data model doesn&apos;t rely on a strict schema and it can evolve. Graph databases are useful for applications that map relationships, such as social media platforms, reservation systems or customer relationship management. Neo4j is an example of a graph database.</li>
-        <li><dfn>Key-value</dfn> stores are based on a simple data model that pairs a unique key with an associated value. Due to this simplicity, key-value stores can be used to develop highly scalable and performant applications such as those for session management and caching in web applications or for managing shopping cart details for online buyers. Key-value databases include Redis and Memcached.</li>
-        <li><dfn>Wide-column</dfn> stores use the familiar tables, columns and rows of RDBMSes, but column names and formatting can differ from row to row in a single table. Each column is also stored separately on disk. As opposed to traditional row-orientated storage, a wide-column store is optimal when querying data by columns, such as in recommendation engines, catalogs, fraud detection and event logging. Apache Cassandra and Apache HBase are examples of wide-column stores.</li>
-      </ul>
+
+      <section id="types">
+        <h2>Four Types of NoSQL Database</h2>
+        <p>There are four types of NoSQL database systems: document databases, graph databases, key-value stores and wide-column stores. Each uses a different type of data model, resulting in significant differences between each NoSQL type.</p>
+        <ul>
+          <li><dfn>Document databases</dfn> store semi-structured data and descriptions of that data in document format, usually <a href="json.html">JavaScript Object Notation</a>. They&apos;re useful for flexible schema requirements, such as those common with content management and mobile applications. Examples of document databases include <a href="mongodb.html">MongoDB</a> and Couchbase.</li>
+          <li><dfn>Graph databases</dfn> organize data as nodes and relationships instead of tables or documents. Because it stores the relationship between nodes, the graph system can support richer representations of data relationships. The graph data model doesn&apos;t rely on a strict schema and it can evolve. Graph databases are useful for applications that map relationships, such as social media platforms, reservation systems or customer relationship management. Neo4j is an example of a graph database.</li>
+          <li><dfn>Key-value</dfn> stores are based on a simple data model that pairs a unique key with an associated value. Due to this simplicity, key-value stores can be used to develop highly scalable and performant applications such as those for session management and caching in web applications or for managing shopping cart details for online buyers. Key-value databases include Redis and Memcached.</li>
+          <li><dfn>Wide-column</dfn> stores use the familiar tables, columns and rows of RDBMSes, but column names and formatting can differ from row to row in a single table. Each column is also stored separately on disk. As opposed to traditional row-orientated storage, a wide-column store is optimal when querying data by columns, such as in recommendation engines, catalogs, fraud detection and event logging. Apache Cassandra and Apache HBase are examples of wide-column stores.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Some NoSQL Database Management Systems (DBMSes)</h2>
+        <section class="section" id="virtuoso">
+          <h3>OpenLink Virtuoso Swiss Army Knife</h3>
+          <p>OpenLink Virtuoso provides an open source version of a RDF Graph database.</p>
+          <p>Virtuoso  handles a whole host of database formats, including RDF, as well as relational and XML. It also functions as a document server and provides object to relational mapping functionality.</p>
+          <p>Virtuoso also serves as a web application server, providing a REST programming interface for the standard array of languages, including Java as well as those supporting the .NET Framework. In fact, it works with any language that can be hosted within a C/C++ runtime.</p>
+          <p>A commercial version of the database exists under the name, <code class="application">Virtuoso Universal Server</code>. Both products were developed by OpenLink Software.</p>
+          <p>The only major functional differences between the open source and commercial versions of Virtuoso is the former's lack of support for the Virtual Database Engine and Data Replication Functionality. Virtuoso's SQL functionality is comparable to SQL Server or Oracle DB.</p>
+        </section>
+        <!-- end of "OpenLink Virtuoso Swiss Army Knife" -->
+        <section class="section" id="hypergraphdb">
+          <h3>HyperGraphDB for Knowledge Management and Embedded Systems</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="http://www.dataversity.net/the-nosql-movement-graph-databases/">The NoSQL Movement – Graph Databases</a>, by Shannon Kempe</cite>)</p>
+          <p>HyperGraphDB is an open source versatile database system suitable for a wide range of applications. It uses a persistent memory model appropriate for web-based knowledge management, semantics, or analytics applications. The database also serves as a Graph database and can function in an object-oriented fashion downsized for Java-based embedded systems.</p>
+          <p>Given its Graph storage architecture and overall flexibility, HyperGraphDB offers the capability to perform both edge transversal queries as well as those following a relational style. It also includes a P2P framework for a distributed data flow.</p>
+          <p>HyperGraphDB's ability to function as a JSON-persisted Graph database in a Java environment led it to be used as the backend layer for the eVallaha project, essentially an anonymous blogging site covering failed technology projects at government agencies. The author of the site feels HGDB is a great option for web apps leveraging a REST API for the data layer.</p>
+        </section>
+        <!-- end of "HyperGraphDB for Knowledge Management and Embedded Systems" -->
+      </section>
 
     </main>
 

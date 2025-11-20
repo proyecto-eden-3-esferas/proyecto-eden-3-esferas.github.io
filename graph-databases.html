@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph Databases</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="On DataBases and DataBase Management Systems: What, Why and Wherefore they are/exist"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="database.html">Databases</a></p>
+        <p><a rel="next" href="database-components.html">The Components of a DBMS</a></p>
+        <p><a            href="database.transaction.html">DataBases Transactions</a></p>
+        <p><a            href="database.aggregation.html">DataBase Aggregation</a></p>
+        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+        <p><a            href="backup-and-recovery.html">Backup and Recovery</a></p>
+        <p><a            href="upsert.html">Upsert: Update or Insert</a></p>
+      </div>
+      <div>
+        <p><a            href="relational-database.html">Relational DataBases</a></p>
+        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a            href="oo-database.html">Object-Oriented DataBases</a></p>
+        <p><a            href="orm.html">Object-Relational Mappers (ORMs)</a></p>
+      </div>
+       <div>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Graph Databases</h1>
+      <p><dfn>Graph databases</dfn> are databases that store information in a graph structure. The <a href="#graph_database_implementations">implementation</a> of graph databases are discussed elsewhere.</p>
+      <aside style="border-style: solid;">Some databases providing functionality beyond or other than the graph database model are <a href="nosql.html#virtuoso">OpenLink Virtuoso</a> and <a href="nosql.html#hypergraphdb">HyperGraphDB</a>. (They are therefore discussed under <a target="_blank" href="nosql.html">NoSQL Databases</a>.)</aside>
+      <section class="section" id="graph_databases_good_for">
+        <h2>What Graph Databases Are Good For</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="http://www.dataversity.net/the-nosql-movement-graph-databases/">The NoSQL Movement – Graph Databases</a></cite>, by Shannon Kempe.</p>
+        <p>Graph data stores are non-SQL stores suitable for finding relationships within massive amounts of data at the fastest possible speed. They see wide use in social networking applications as well as in high-end analytics.</p>
+        <p>In graph database architectures, the objects known as Nodes and Edges serve the roles of Entities and Relationships from standard SQL architecture. Nodes also contain properties which describe the actual data contained within each object. A diagram of a Graph database looks similar to the object diagrams used in object-oriented programming.</p>
+        <p>Due to the similarity between graph and object diagrams, Graph databases interface nicely when mapped to an object structure within an application, facilitating or even mitigating the use of an ORM framework.</p>
+        <p>The biggest advantage of Graph databases is obviously their speed for certain types of transactions; in particular, those involving relationships, since processing-intensive joins are not required. The fact that the design of Graph databases is less dependent on complex schema than their relational counterparts also lends itself to easier modifications and migrations to in-production systems.</p>
+      </section>
+      <!-- end of "What Graph Databases Are Good For" -->
+      <section class="section" id="graphs_database_abstraction">
+        <h2>Graph Databases Shouldn't be Implemented in SQL</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="http://whydoeseverythingsuck.com/2008/03/graphs-better-database-abstraction.html">Graphs: A Better Database Abstraction</a></cite></p>
+        <p>The essence of the concept of an abstraction is a framework that simplifies how you think about and work in a given domain. Abstractions can be (and often are) argued against by suggesting that you don't really need them. In computer programming, we didn't need C because we had assembly language. We didn't need C++ because we had C. We didn't need Java because we had C++. To me these arguments (which people really made) were silly. I abandoned assembly language in the 90's.</p>
+        <p>The point is none of our existing abstractions are *needed*. But our human brains can only manage a certain amount of complexity at a time. Complexity is fine but only in bite size chunks. Abstractions are, in essence, a really generalized form of user interface. I think the reason I have written so much about user interface is that I think it is so important to figure out how to map complex things into representational models in such a way that more people can access them. Abstractions allow us to do just that with any process we are engaged in. Abstractions allow us to encapsulate complexity so that we don't have to think about it and we can achieve greater and greater levels of complexity in an efficient way allowing us to keep more of the model of a given system in our heads.</p>
+        <p>And so the anti-abstraction argument rears its head in the RDBMS vs graph database debate. One of the arguments that the pro RDBMS folks make for why there is no need for the graph database model is that you can do everything that can be expressed in a graph database in a relational database. And there is some truth to this.</p>
+        <p>But there are two problems with this argument. The first is that this is only true in theory. It is not possible to build a graph database of scale using pure SQL – at least with the SQL tools that we currently have to choose from.</p>
+        <p>One reason for the scale problem is the only way to do it is to do what are called self-joins. This is when you join a table to itself. Conceptually seem just fine. But the problem is that it is impossible for the database engine to do anything other than brute force un-optimized traversals of the graph when confronted with a chain of self-joins. In other words, using this technique will not yield a useful database that is query-able at any kind of scale. Handling certain aspects of providing a graph database model requires some very specific and different kind of thinking and optimizations from those that go into designing an SQL database.</p>
+        <p>Another problem is that one giant table using self joins for traversal means a huge write bottleneck. Yes, you can avoid that with sharding depending on your design, but it is definitely not part of the SQL model, and so you can't say SQL is helping you here.</p>
+        <p>The second and I believe more important argument against implementing a graph data model using SQL is that even if SQL could do a good job of representing a graph model, building your graph system in SQL is not a very good abstraction. The truth is that most of the kinds of things we want to do in app development look more like graph than relational structures. Graphs are elemental to computer science because most interesting algorithms and in fact real world data models can be very naturally thought of as a graph. Graph theory is (if things are as they were when I was in school) the first thing you learn when you begin studying computer science, and there is very good reason for this. The fact that Facebook was able to anchor the idea of what they were building as a "social graph" is an incredible testament to the innately natural characteristics of the graph concept.</p>
+        <p>So if you are representing a graph, you really want an API that reflects the unique and useful characteristics of a graph. In other words, you want an abstraction that reflects how you really think about the data and not some jury-rigged representational model continuously intruding itself into your thought process. And so, having a data store that allows us to express our data in a way that is much more similar to how we actually think is enormously helpful.</p>
+        <p>And such is the case with attempting to implement a graph database using SQL. You can do it, but it is unlikely to work very well, and because you don't have the benefit of the abstraction, it actually adds to the complexity of the design instead of simplifying it.</p>
+        <p>The bottom line is that graphs are a better representational model when the structure of your system will change frequently. Relational is a better model when the structure will be static. Today, I think most of us are not building applications that are ideally structurally static.</p>
+        <p>Because most applications today have a much more dynamic nature, graphs are, for most people, under most circumstances, a far better abstraction. And to me, there is little in this world more powerful and satisfying than a great abstraction.</p>
+      </section>
+      <!-- end of "Graphs: A Better Database Abstraction" -->
+      <section class="section" id="graph_database_implementations">
+        <h2>Graph Database Implementations</h2>
+        <p>If a <a target="_blank" href="graphs.html">graph</a> is supposed to come with tools for changing and querying it (member functions if implemented as a class), a graph database must orchestrate changes (also defining and implementing a messaging protocol for changes) and provide a means of storage and possibly transmission over a network (serialization).</p>
+        <p>It seems reasonable that a graph database be based on a graph class or classes. Early on, we would add a <function>serialize(ostream&amp;)</function> method...</p>
+        <section class="section" id="rdf_databases">
+          <h3>RDF Databases*</h3>
+        </section>
+        <section class="section" id="neo4j">
+          <h3>Native Graph Storage in <code class="application">Neo4j</code></h3>
+          <p>Written in Java, Neo4j is an open source graph database with a variety of available license options suitable for prototyping as well as commercial deployment. Neo Technology, developers of Neo4j, provides support for the paid Neo4j licenses.</p>
+          <p>Neo4j stores graph data in a number of different <dfn>store files</dfn>. There are separate files for nodes, relationships, labels (node qualifiers or roles), and properties (arc weights). The separation of graph structure from property data speeds up graph traversals.</p>
+          <p>Neo4j sports massive scalability. The database handles billions of nodes on only one server, and can easily scale across multiple machines. It also features a disk-based persistence model written in native code.</p>
+          <p>The database allows for deployment flexibility – either as a full server, or a slim version contained within a 750K jar file.</p>
+          <section class="section">
+            <h4>Neo4j Installation*</h4>
+          </section>
+          <section class="section">
+            <h4>Neo4j Cypher Query Language</h4>
+            <p>Cypher is Neo4j's open graph query language. Cypher's syntax provides a familiar way to match patterns of nodes and relationships in the graph.</p>
+            <p>Here is a simple example of a Cypher query (cast of movies starting with <q>T</q>)</p>
+            <pre>MATCH (actor:Person)-[:ACTED_IN]-&gt;(movie:Movie)
+WHERE movie.title STARTS WITH "T"
+RETURN movie.title AS title, collect(actor.name) AS cast
+ORDER BY title ASC LIMIT 10;</pre>
+            <p>If you're be able to read and understand it without any training, we achieved our goal.</p>
+            <p>Cypher is a declarative, SQL-inspired language for describing patterns in graphs visually using an ascii-art syntax. It allows us to state what we want to select, insert, update or delete from our graph data without requiring us to describe exactly how to do it.</p>
+
+
+                <img class="imagedata" src="Electric_files/pictures/Computing/cypher_pattern_simple.png"/>
+
+
+            <section class="section">
+              <h5>Cipher Nodes</h5>
+              <p>Cypher uses ASCII-Art to represent patterns. We surround nodes with parentheses which look like circles, e.g. <kbd class="userinput">(node)</kbd>. If we later want to refer to the node, we'll give it a variable like <kbd class="userinput">(p)</kbd> for person or <kbd class="userinput">(t)</kbd> for thing. In real-world queries, we'll probably use longer, more expressive variable names like <kbd class="userinput">(person)</kbd> or <kbd class="userinput">(thing)</kbd>. If the node is not relevant to your question, you can also use empty parentheses <kbd class="userinput">()</kbd>.</p>
+              <p>Usually, the relevant labels of the node are provided to distinguish between entities and optimize execution, like <kbd class="userinput">(p:Person)</kbd>.</p>
+              <p>We might use a pattern like <kbd class="userinput">(person:Person)--&gt;(thing:Thing)</kbd> so we can refer to them later, for example, to access properties like <kbd class="userinput">person.name</kbd> and <kbd class="userinput">thing.quality</kbd>.</p>
+              <p>The more general structure is:</p>
+              <pre>
+
+MATCH (node:Label) RETURN node.property
+
+MATCH (node1:Label1)--&gt;(node2:Label2)
+WHERE node1.propertyA = {value}
+RETURN node2.propertyA, node2.propertyB
+
+</pre>
+              <aside style="border-style: solid;">Please note that node-labels, relationship-types and property-names are case-sensitive in Cypher. All the other clauses, keywords and functions are not, but should be cased consistently according to the style used here.</aside>
+            </section>
+            <section class="section">
+              <h5>Cipher Relationships*</h5>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+            </section>
+          </section>
+        </section>
+        <!-- end of "Native Graph Storage in <application>Neo4j</application>" -->
+        <section class="section" id="titan_graphdb">
+          <h3><code class="application">Titan</code> Graph Database</h3>
+          <p>Titan is a distributed, real-time, transactional graph database that can use either Cassandra or HBase as its distributed data store. It's Apache 2.0 licensed, and it's the first native Blueprints implementation, so it integrates with the entire <a target="_blank" href="http://www.tinkerpop.com">tinkerpop</a>, which is BSD.</p>
+          <p>Titan is capable of supporting tens of thousands of concurrent users interacting with a single massive-scale graph represented over a cluster of machines, You can use any programming language to connect to via the new binary RexPro Protocol.</p>
+        </section>
+        <section class="section" id="flockdb">
+          <h3><code class="application">Flock DB</code>, Simple, Distributed</h3>
+          <p><code class="application">Flock DB</code> is an open source graph database for tinkerers. FlockDB was created by a technical team at Twitter who wanted a distributed, fault-tolerant database that was simple to use. The FlockDB source code is available for download at <a target="_blank" href="https://github.com/twitter/flockdb">GitHub</a>.</p>
+        </section>
+      </section>
+      <!-- end of "Graph Database Implementations" -->
+    </main>
+
+  </body>
+
+</html>
