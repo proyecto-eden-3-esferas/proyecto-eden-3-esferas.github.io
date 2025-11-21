@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graphs in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ Graph Implementations"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="graphs.html">Graphs</a></p>
+        <p><a href="cpp.html">C++</a></p>
+        <p><a href="cpp.boost.graph.html">The Boost Graph Library (C++)</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.stl.html">C++ Standard Template Library (STL)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+        <p><a href="cpp.algorithms.html">Algorithms in the STL (C++)</a></p>
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ Graph Implementations</h1>
+      <p>In this section we shall deal with the implementation of <a href="#graphs">graphs</a>.</p>
+      <p>A graph object will store nodes and arcs. Nodes are held in some container. Beyond this, I can envision two schemes for relating nodes and arcs:</p>
+      <ul class="itemizedlist">
+        <dd>Another container holds arcs, or</dd>
+        <dd>Each node has pointers or some other reference to the nodes it is related through arcs. These pointers may additionally carry a weight.</dd>
+      </ul>
+      <section>
+        <h2>Serialization of Graphs and Node Containers</h2>
+        <p>If nodes are held in an array-like container (such as an <var class="classname">std::vector</var> or an <var class="classname">std::<var class="classname">deque</var></var>, then they must be refered to by index, whereas if they are held in a doubly-linked list (<var class="classname">std::list</var>) or a singly-linked list (<var class="classname">std::forward_list</var>) they must be refered to by pointer.</p>
+        <p>Doubly- or singly-linked lists are very difficult to serialize because references to their elements (pointers) will become invalid, whereas array-like data types are easy as long as the order of their elements does not change during serialization.</p>
+        <p>Consequently, an arc should consist of a to-index or a from-index if held in a node, or a from- <em>and</em> a to-index if held in a container of arcs within a graph.</p>
+      </section>
+
+      <section>
+        <h2>Should Arcs Be Held in Their Nodes?</h2>
+        <p>This is called <dfn class="firstterm">native graph processing</dfn> and is said to exhibit <dfn class="firstterm">index-free adjacency</dfn>.</p>
+        <p>Some reasons for adopting <q>index-free adjacency</q> are:</p>
+        <ul class="itemizedlist">
+          <dd>Holding arcs in their nodes makes for fast, straightforward traversals. When at a node, just follow the link. Query times are independent of the total size of the graph.</dd>
+          <dd>All arcs from a given node or to a given node are found together in that node, whereas if arcs are stored separately they are usually ordered by source or by destination, but not by both, unless an additional indexing data structure (an <var class="classname">std::multimap&lt;node_id_type,size_type&gt;</var>, for instance) is maintained, which comes at a cost.</dd>
+          <dd>Deleting a node is straightforward. Within the node, follow all its from- and to-references and delete arc information (pointers or, as I suggest elsewhere, indeces) that refers back to the node to be deleted.</dd>
+        </ul>
+        <p>One reason <em>against</em> this scheme is:</p>
+        <ul class="itemizedlist">
+          <dd>Arcs would be duplicated: for each arc, the source node would hold a reference to the destination node, and the destination node would hold a reference to the source node. In the case of weighted graphs, weights would be duplicated, too.</dd>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Deletion of Nodes Held in Array-like Containers</h2>
+        <p>Array-based containers keep a non-public variable that records its size, typically accessed through getter (i.e. read-only) <function>size()</function>. In an <var class="classname">std::vector</var>, this hidden variable is also the index of the next element to be added to the container.</p>
+        <p>Deletion of a node might be implemented like this:</p>
+        <ul class="itemizedlist">
+          <dd>delete all arcs from or to the element to be deleted,</dd>
+          <dd>copy the last element to the position where the one to be deleted is found,</dd>
+          <dd>decrement the <var>size</var> hidden variable, and</dd>
+          <dd>change all indeces of value <function>size()</function> to the index of the deleted element.</dd>
+        </ul>
+        <p>Therefore, deletion of array elements can only be safely effected when it is known at compile time how to find all objects refering to elements of the array (by index, as reference by pointer is suicidal).</p>
+      </section>
+
+      <section id="node_as_vector_of_arcs">
+        <h2>Sketching a <var class="classname">graph</var> Class</h2>
+        <p>The following code sketches a node template class (<var class="classname">Node</var>) as a struct holding some contents and a bunch of pointers to other nodes. It is then used to implement a <var class="classname">Tree</var> template class and a directed, unidirectional (no pointers back to parent), possibly weighted <var class="classname">Graph</var> template class.</p>
+        <p>Here is a sketchy class for a node. It <q>assumes</q> template struct <var class="classname">UnWeightedArc</var>:</p>
+        <pre>template &lt;class C, class ARC = UnWeightedArc&lt;C&gt; &gt;
+class Node {
+  vector&lt;ARC&gt; arcs;
+  C contents;
+public:
+  // member functions and constructors
+}</pre>
+        <p>Here is a sketchy <kbd class="userinput">struct</kbd> for a weighted arc:</p>
+        <pre>template &lt;class C, class W=float&gt; struct WeightedArc {
+  typedef Node&lt;C,WeightedArc&lt;C,W&gt; &gt; node_type;
+  node_type* pDestNode;
+  W     weight;
+}</pre>
+        <p>Of course, bidirectionality is easy to add, as well as events upon node visitation and link traversal, through deriving from <var class="classname">Tree</var> or <var class="classname">Graph</var> and redefining member functions such as <function>sink()</function> and <function>backtrack()</function>.</p>
+        <p>This is the header file (<var class="classname">graph.h</var>), with lots of inline definitions of member functions:</p>
+        <pre>#ifndef GRAPH_H
+#define GRAPH_H
+
+#define DEBUG_GRAPH
+#define DEBUG_STEP
+
+// NOTE: LinkGraph::BreadthFirstIterator visits some nodes twice
+
+/*
+ * Graphs and Trees may be implemented either
+   (1) as a container of nodes beside a container of arcs, or
+   (2) as a struct/class holding the root node,
+       as a node holds pointers to its children nodes, and so on.
+       (These classes and struct's have prefix "Link".)
+ *
+ * This file adopts the latter approach ("Link" prefix) and codes
+   a LinkTree&lt;&gt; and a LinkGraph&lt;&gt; class derived from LinkTree&lt;&gt;.
+ * LinkTree&lt;&gt; and LinkGraph&lt;&gt; are made up nodes (LinkNode&lt;&gt;'s).
+ * Actually, they only hold a root node,
+   although graphs do not a root node as such
+   (a node wherefrom to begin traversals).
+ * A LinkNode&lt;&gt; holds a contents and a vector or deque of arcs.
+ * A LinkNode&lt;&gt; must be indexable
+   because Depth First Search relies on a stack of indeces.
+ * Arcs are pointer-like structures and may carry a weight.
+   They point to a child node.
+ */
+
+#include &lt;iostream&gt; // used only in the implementation file
+#include &lt;iterator&gt;
+#include &lt;set&gt;
+#include &lt;stack&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// A graph node has content and holds 0 to n arcs
+// A graph arc may have a weight and links to a node
+
+/*
+ * Arcs are implemented as pointers to nodes.
+ * This requieres a forward declaration of LinkNode...
+ * Additionally...
+ * My arc struct's are LinkUnWeightedArc&lt;C&gt; and LinkWeightedArc&lt;C&gt;:
+ */
+template &lt;class C, class ARC&gt; struct LinkNode; // forward declaration of LinkNode&lt;&gt;
+template &lt;class C&gt; struct LinkUnWeightedArc {
+  typedef LinkNode&lt;C,LinkUnWeightedArc&lt;C&gt; &gt; node_type;
+  node_type *pDestNode;
+  // member functions:
+  node_type&amp; operator* () {return *pDestNode;};
+  node_type* operator-&gt;() {return  pDestNode;};
+  // constructors:
+  LinkUnWeightedArc(node_type&amp;  n)             : pDestNode(&amp;n)            {};
+  LinkUnWeightedArc(node_type* pN)             : pDestNode(pN)            {};
+};
+//template &lt;class C, class WEIGHT&gt; struct LinkWeightedArc; // forward declaration of 'LinkWeightedArc&lt;&gt;'
+template &lt;class C, class W=float&gt; struct LinkWeightedArc {
+  typedef LinkNode&lt;C,LinkWeightedArc&lt;C,W&gt; &gt; node_type;
+  W weight;
+  node_type *pDestNode;
+  // member functions:
+  node_type&amp; operator* () {return *pDestNode;};
+  node_type* operator-&gt;() {return  pDestNode;};
+  // constructors:
+  LinkWeightedArc(node_type&amp;  n)             : pDestNode(&amp;n)            {};
+  LinkWeightedArc(node_type* pN)             : pDestNode(pN)            {};
+  LinkWeightedArc(node_type&amp;  n, const W&amp; w) : pDestNode(&amp;n), weight(w) {};
+  LinkWeightedArc(node_type* pN, const W&amp; w) : pDestNode(pN), weight(w) {};
+};
+
+// class LinkNode&lt;&gt;
+template &lt;class C, class ARC = LinkUnWeightedArc&lt;C&gt; &gt;
+class LinkNode {
+  vector&lt;ARC&gt; arcs;
+  C contents;
+public:
+  typedef LinkNode&lt;C,ARC&gt; node_type;
+  typedef typename       vector&lt;ARC&gt;::iterator       iterator;
+  typedef typename vector&lt;ARC&gt;::const_iterator const_iterator;
+  // iterator interface:
+  iterator       begin()       {return arcs.begin();};
+  const_iterator begin() const {return arcs.begin();};
+        iterator   end()       {return arcs.end();};
+  const_iterator   end() const {return arcs.end();};
+  // other member functions:
+  unsigned int size() const {return arcs.size();};
+  bool has_children() const {return !arcs.empty();};
+        C&amp; get_contents()       {return contents;};
+  const C&amp; get_contents() const {return contents;};
+  // operators:
+  node_type&amp; operator+=(node_type&amp; n);
+  node_type&amp; operator+=(ARC&amp; a);
+  bool operator==(const LinkNode&lt;C,ARC&gt;&amp; n) const {return this==&amp;n;};
+        ARC&amp; operator[](unsigned int   idx)       {return arcs[idx];};
+  const ARC&amp; operator[](unsigned int   idx) const {return arcs[idx];};
+  operator C() {return contents;}
+  // constructors:
+  LinkNode(const C&amp; t) : contents(t) {};
+  LinkNode(const C&amp; t, iterator b, iterator e) : contents(t), arcs(b,e) {};
+};  // end of LinkNode&lt;&gt;
+
+
+/*
+ * A LinkTree&lt;&gt; is a LinkGraph&lt;&gt; without cycles.
+ * Therefore a LinkTree&lt;&gt; must be a base class of LinkGraph&lt;&gt;.
+ * LinkGraph&lt;&gt; only adds code that checks that a node is not visited twice
+ */
+template &lt;class C, class ARC = LinkUnWeightedArc&lt;C&gt;, class N=LinkNode&lt;C,ARC&gt; &gt;
+class LinkTree {
+public:
+  typedef       N       node_type;
+  typedef const N const_node_type;
+  typedef LinkTree&lt;C,ARC,N&gt; tree_type;
+  N&amp; rootNode; // may be a reference as long as initialized upon LinkGraph&lt;&gt; construction
+  LinkTree(N&amp; n) : rootNode(n) {};
+  // LinkTree&lt;&gt;::iterator
+  class iterator : public ::iterator&lt;forward_iterator_tag, C, ptrdiff_t, C*, C&amp;&gt; {
+  public:
+    // member functions:
+    virtual       C&amp; get_contents()             =0;
+    virtual const C&amp; get_contents()       const =0;
+    virtual       node_type* operator-&gt;()       =0;
+    virtual const_node_type* operator-&gt;() const =0;
+    // comparison between iterators is made on "virtual bool end() const",
+    // which returns whether a traversal has ended:
+    virtual bool              end() const       =0;
+    bool operator==(const iterator&amp; it) const {return end() == it.end();};
+  };
+  // class tree_type::BreadthFirstIterator:
+  class BreadthFirstIterator : public iterator {
+  protected:
+    queue&lt;node_type*&gt; frontier; // queue of pointers to nodes to be processed
+    node_type* pNode;
+  public:
+    BreadthFirstIterator&amp; operator++();
+    //
+          C&amp; get_contents()             {return pNode-&gt;get_contents();};
+    const C&amp; get_contents()       const {return pNode-&gt;get_contents();};
+          node_type* operator-&gt;()       {return  pNode;};
+    const_node_type* operator-&gt;() const {return  pNode;};
+    //
+    bool                    end() const {return  frontier.empty();};
+    operator bool ()              const {return !frontier.empty();};
+    virtual BreadthFirstIterator&amp; push_children(node_type* pN);
+    // constructors:
+    BreadthFirstIterator(node_type&amp;  n) : pNode(&amp;n) {push_children(&amp;n);};
+    BreadthFirstIterator(node_type* pN) : pNode(pN) {push_children(pN);};
+  };  // end of LinkTree&lt;&gt;::BreadthFirstIterator
+  // BreadthFirstIterator begin_breadth(node_type&amp;  n = tree_type::rootNode) const {return BreadthFirstIterator( n);};
+  BreadthFirstIterator begin_breadth(node_type* pN) const {return BreadthFirstIterator(pN);};
+  BreadthFirstIterator begin_breadth(node_type&amp;  n) const {return BreadthFirstIterator(&amp;n);};
+  BreadthFirstIterator begin_breadth()                    {return BreadthFirstIterator(rootNode);};
+  /*
+   * LinkTree&lt;&gt;::Depth-First Iterator
+     defines struct step,
+     each of which holds:
+     - a pointer to the node that the iterator is at
+     - the index that gives the next node to be dropped into
+       (so that the next node is (*pNode)[index])),
+     - and the total number of children of the pointed-to node
+   * Further, a stack of steps (named 'state') is maintained
+     so that the top step's pointed-to node is the current node
+   *
+   */
+  class DepthFirstIterator; // forward declaration
+  DepthFirstIterator begin_depth() const;
+  class DepthFirstIterator : public iterator {
+  public:
+    struct step {
+      unsigned int cur_idx; // which child of pNode's is to be visited next?
+      unsigned int   total; // total number of pNode's children
+      N* pNode;
+      // member functions:
+            node_type* next_pChild()       {return   pNode-&gt;operator[](cur_idx).pDestNode ;};
+      const_node_type* next_pChild() const {return   pNode-&gt;operator[](cur_idx).pDestNode ;};
+            node_type&amp; next_child( )       {return *(pNode-&gt;operator[](cur_idx).pDestNode);};
+      const_node_type&amp; next_child( ) const {return *(pNode-&gt;operator[](cur_idx).pDestNode);};
+      bool has_next_children()       const {return cur_idx &lt; total;}; // is cur_idx valid?
+      operator              bool ()  const {return cur_idx &lt; total;}; // is cur_idx valid?
+      step&amp; operator++()                  {++cur_idx; return *this;}; // called upon backtracking
+      // constructors:
+      step(N&amp; n);
+      step(N&amp; n, unsigned int i);
+      step(N* pN);
+      step(N* pN, unsigned int i);
+    }; // end of struct 'LinkTree&lt;&gt;::DepthFirstIterator::step'
+    stack&lt;step&gt; state;
+    // member functions:
+    bool end()      const {return state.size() == 1  &amp;&amp;  !state.top();};
+    operator bool() const {return state.size()  &gt; 1  ||   state.top();};
+          N* current_pNode()       {return state.top().pNode;};
+    const N* current_pNode() const {return state.top().pNode;};
+          N&amp; current_node()       {return *(state.top().pNode);};
+    const N&amp; current_node() const {return *(state.top().pNode);};
+    // check that top() 'has_next_children()' before calling next_pNode() and next_node(), which work blindly:
+          N*    next_pNode()       {return  state.top().next_pChild();};
+    const N*    next_pNode() const {return  state.top().next_pChild();};
+          N&amp;    next_node()        {return  state.top().next_child();};
+    const N&amp;    next_node() const  {return  state.top().next_child();};
+    virtual       C&amp; get_contents()       {return current_node().get_contents();};
+    virtual const C&amp; get_contents() const {return current_node().get_contents();};
+    // operators:
+    bool operator==(const N&amp; n) const {return current_node()==n;};
+    // bool operator==(const DepthFirstIterator&amp; it) const {return current_node()==it.current_node();};
+    bool operator==(const DepthFirstIterator&amp; it) const;
+          N&amp; operator*()       {return current_node();}
+    const N&amp; operator*() const {return current_node();}
+          node_type* operator-&gt;()       {return current_pNode();};
+    const_node_type* operator-&gt;() const {return current_pNode();};
+    // member functions for actually traversing a Tree&lt;&gt;:
+    bool has_next_children() const {return state.top().has_next_children();};
+    virtual DepthFirstIterator&amp; sink();
+    virtual DepthFirstIterator&amp; backtrack();
+    DepthFirstIterator&amp; operator++(); // get iterator to point to or hold the next node
+                                      // through either sink()-ing or backtrack()-ing
+    // constructor:
+    DepthFirstIterator(N&amp; n) {state.push(step(n));};
+  }; // end of struct 'LinkTree&lt;&gt;::DepthFirstIterator'
+  class StopDepthFirstIterator; // forward declaration
+  StopDepthFirstIterator begin_depth(unsigned int d) const;
+  class StopDepthFirstIterator : public DepthFirstIterator {
+  public:
+    const unsigned int depth;
+    bool has_next_children() const;
+    StopDepthFirstIterator&amp; sink() { DepthFirstIterator::sink(); return *this;};
+    bool end()      const {return DepthFirstIterator::end();};
+    StopDepthFirstIterator&amp; backtrack() {DepthFirstIterator::backtrack(); return *this;};
+    StopDepthFirstIterator&amp; operator++();
+    StopDepthFirstIterator(N&amp; n, unsigned int d) : DepthFirstIterator(n), depth(d) {};
+  };
+};
+
+// class LinkGraph&lt;&gt; is derived from LinkTree&lt;&gt;
+template &lt;class C, class ARC = LinkUnWeightedArc&lt;C&gt;, class N=LinkNode&lt;C,ARC&gt; &gt;
+class LinkGraph : public LinkTree&lt;C,ARC,N&gt; {
+public:
+  typedef       N       node_type;
+  typedef const N const_node_type;
+  typedef LinkTree&lt;C,ARC,N&gt; tree_type;
+  // constructor:
+  LinkGraph(N&amp; n) : LinkTree&lt;C,ARC,N&gt;(n) {};
+  /*
+   * LinkGraph&lt;C,ARC,N&gt; iterators are derived from LinkTree&lt;C,ARC,N&gt;
+   * (depth-first, bound depth-first, and breadth-first).
+   * They rely on mixin class Visited
+   */
+  class Visited {
+  protected:
+    set&lt;const N*&gt; pVisited; // pointers to all visited nodes
+  public:
+    void include(const N&amp; n)        {pVisited.insert(&amp;n);};
+    void include(const N* pN)       {pVisited.insert(pN);};
+    bool visited(const N* pN) const {return pVisited.find(pN) != pVisited.end();};
+    bool visited(const N&amp;  n) const {return pVisited.find(&amp;n) != pVisited.end();};
+  };
+  // class BreadthFirstIterator:
+  class BreadthFirstIterator : public tree_type::BreadthFirstIterator, public Visited {
+  public:
+    BreadthFirstIterator&amp; push_children(node_type* pN); // still unimplemented?
+    BreadthFirstIterator(node_type&amp;  n) : tree_type::BreadthFirstIterator( n) {}; //{push_children(&amp;n);};
+    BreadthFirstIterator(node_type* pN) : tree_type::BreadthFirstIterator(pN) {}; //{push_children(pN);};
+  };
+  BreadthFirstIterator begin_breadth(node_type* pN) const {return BreadthFirstIterator(pN);};
+  BreadthFirstIterator begin_breadth(node_type&amp;  n) const {return BreadthFirstIterator(&amp;n);};
+  BreadthFirstIterator begin_breadth()                    {return BreadthFirstIterator(tree_type::rootNode);};
+  // A LinkGraph&lt;&gt;::Depth-First Iterator:
+  class DepthFirstIterator; // forward declaration
+  DepthFirstIterator begin_depth() const;
+  class DepthFirstIterator : public tree_type::DepthFirstIterator, public Visited {
+  public:
+    DepthFirstIterator&amp; sink();
+    DepthFirstIterator&amp; backtrack(); // additionally increments top().cur_idx if next child has already been visited
+    DepthFirstIterator(N&amp; n) : tree_type::DepthFirstIterator::DepthFirstIterator(n) {};
+  };
+  // class LinkGraph&lt;&gt;::StopDepthFirstIterator:
+  class StopDepthFirstIterator; // forward declaration
+  StopDepthFirstIterator begin_depth(unsigned int d) const;
+  class StopDepthFirstIterator : public DepthFirstIterator {
+  public:
+    const unsigned int depth;
+    StopDepthFirstIterator&amp; sink() { DepthFirstIterator::sink(); return *this;};
+    bool end()      const {return DepthFirstIterator::end();};
+    StopDepthFirstIterator&amp; backtrack() {DepthFirstIterator::backtrack(); return *this;};
+    StopDepthFirstIterator&amp; operator++();
+    StopDepthFirstIterator(N&amp; n, unsigned int d) : DepthFirstIterator(n), depth(d) {};
+  };
+};
+
+#endif</pre>
+        <div class="note" style="border-style: solid;">All files of this project are found in a separate <a href="#node_as_vector_of_arcs_code">appendix</a>.</div>
+      </section>
+
+      <section id="vtk">
+        <h2>Visualize Your Data With VTK</h2>
+        <p>The Visualization Toolkit (VTK) is an open-source, freely available software system for 3D computer graphics, image processing, and visualization. It consists of a C++ class library and several interpreted interface layers including Tcl/Tk, Java, and Python. VTK supports a wide variety of visualization algorithms including scalar, vector, tensor, texture, and volumetric methods, as well as advanced modeling techniques such as implicit modeling, polygon reduction, mesh smoothing, cutting, contouring, and Delaunay triangulation. VTK has an extensive information visualization framework and a suite of 3D interaction widgets. The toolkit supports parallel processing and integrates with various databases on GUI toolkits such as Qt and Tk. VTK is cross-platform and runs on Linux, Windows, Mac, and Unix platforms.</p>
+        <p>VTK is part of Kitware's collection of commercially supported open-source platforms for software development.</p>
+        <p class="bridgehead"><strong>VTK is Language Agnostic</strong></p>
+        <p>The core functionality of VTK is written in C++ to maximize efficiency. That core is then wrapped into other language bindings to expose VTK's functionality to a wider audience. Currently, VTK's build system has built-in support to generate primary bindings to Python, Java, and Tcl. External bindings to Ada and C# are also available.</p>
+        <section id="vtk_data_model">
+          <h3>VTK Data Model</h3>
+        </section> <!-- end of "VTK Data Model" -->
+      </section> <!-- end of "Visualize Your Data With VTK" -->
+
+    </main>
+
+  </body>
+
+</html>

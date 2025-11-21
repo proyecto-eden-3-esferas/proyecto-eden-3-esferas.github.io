@@ -164,6 +164,8 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Follow external links in *adt.tree.html* and write same-topic sections or pages
+
 [?] Dr Judy Mikovits Phd Molecular Biologist / Medical Researcher
 
 [ ] *Las Tres Esferas de cada uno*

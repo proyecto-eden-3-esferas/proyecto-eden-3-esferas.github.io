@@ -70,13 +70,33 @@
       <section id="structured">
         <h2>Structured Representations</h2>
         <p>These methods organize knowledge hierarchically or through networks, mimicking how humans categorize information.</p>
-        <dl>
-          <dt>Semantic Networks</dt>
-          <dd>Represent knowledge as nodes (concepts) and edges (relationships). For example, <q>Dog</q> links to <q>Animal</q> via an <q>Is-A</q> connection. They simplify inheritance reasoning but lack formal semantics.</dd>
-          <dt>Frames</dt>
-          <dd>Group related attributes into structured <strong>frames</strong>. A <q>Vehicle</q> frame may include slots like wheels, engine type, and fuel. Frames excel in default reasoning but struggle with exceptions.</dd> <dt><a target="_blank" href="Ontologies.html">Ontologies</a></dt>
-          <dd>Define concepts, hierarchies, and relationships within a domain using standards like <a target="_blank" href="OWLandOntologyModelling.html">OWL (Web Ontology Language)</a>. Ontologies power semantic search engines and healthcare diagnostics by standardizing terminology. For instance, e-commerce platforms use ontologies to classify products and enhance search accuracy.</dd>
-        </dl>
+        <ul>
+
+          <li id="semantic_networks">
+            <p><strong>Semantic Networks</strong></p>
+            <p>A <dfn>semantic network</dfn> may be understood as a <q>linguistical</q> graph where nodes are nouns (or noun phrases to be precise) and arcs are verbs and adjectives.</p>
+            <p>They represent knowledge as nodes (concepts) and edges (relationships). For example, node <q>Dog</q> links to node <q>Animal</q> via an <q>Is-A</q> connection. They simplify inheritance reasoning but lack formal semantics.</p>
+            <p>Unfortunately, there is a major drawback: semantic networks can only directly represent predicates of two arguments</p>
+            <p>Some situations suitably modeled through a semantic network are:</p>
+            <ul class="itemizedlist">
+              <dd>a social network (A-knows-B, B-is_dating-C), or</dd>
+              <dd>a toy world (BoxA-above-Ground, etc), or</dd>
+              <dd>a diagram of events that cause or preclude other events</dd>
+            </ul>
+            <p>A semantic network is what computer scientists call a a labeled <a target="_blank" href="graphs.html#directed_graphs">directed graph</a>. We make every possible fact argument a small named circle (node) in the graph. For each two-argument fact, we draw an arrow (edge) from the circle for its first argument to the circle for its second argument, and label the arrow with the predicate name. So the fact <q>p(<var>a</var>, <var>b</var>)</q> is represented as an arrow from a circle labeled <var>a</var> to a circle labeled <var>b</var>, with the arrow itself labeled <var>p</var>.</p>
+          </li>
+
+          <li id="frames">
+            <p><strong>Frames</strong>:</p>
+            <p>Group related attributes into structured <strong>frames</strong>. A <q>Vehicle</q> frame may include slots like wheels, engine type, and fuel. Frames excel in default reasoning but struggle with exceptions.</p>
+          </li>
+
+          <li id="ontologies">
+            <p><strong><a target="_blank" href="Ontologies.html">Ontologies</a></strong></p>
+            <p>Define concepts, hierarchies, and relationships within a domain using standards like <a target="_blank" href="OWLandOntologyModelling.html">OWL (Web Ontology Language)</a>. Ontologies power semantic search engines and healthcare diagnostics by standardizing terminology. For instance, e-commerce platforms use ontologies to classify products and enhance search accuracy.</p>
+          </li>
+
+        </ul>
       </section>
 
       <section id="probabilistic">

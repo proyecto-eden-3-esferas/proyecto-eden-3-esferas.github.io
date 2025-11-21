@@ -1,0 +1,133 @@
+W<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trees</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="The Tree Abstract Data Type (ADT)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="adt.html">Abstract Data Types</a></p>
+        <p><a rel="next" href="graphs.html">Graphs</a></p>
+        <p><a            href="adt.queue.html">The Queue (First In First Out)</a></p>
+        <p><a            href="adt.linked-list.html">The Linked List: a Chain of Links</a></p>
+        <!--
+        <p><a href="adt.array.html">The Array/Sequence (Findable by Index)</a></p>
+        <p><a href="adt.stack.html">The Stack (Last In First Out)</a></p>
+        <p><a href="adt.set.html">The Set (What Do You Hold?)</a></p>
+        <p><a href="adt.map.html">The Associative Array/Map/Dictionary</a></p>
+        <p><a href="adt.graph.html">The Graph (Abstract) Data Type</a></p>
+
+        <p><a                 href="cpp.classes.html">OOP in C++: Classes</a></p>
+        -->
+      </div>
+      <div>
+        <p><a href="programming.html">Programming: Getting Computers to Do Stuff</a></p>
+        <p><a                 href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>The Tree Abstract Data Type (ADT)</h1>
+      <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/">https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/</a></cite>)</p>
+      <p>A <dfn>tree</dfn> is a hierarchical data structure that consists of <strong>nodes</strong> connected by <strong>edges</strong>. It is used to represent relationships between elements, where each node may hold data. Trees as a data structure organize and represent data in a parent–child relationship.</p>
+      <p>A tree consists of nodes such that there is a single topmost node called the <dfn>root</dfn>, and every other node can have one or more child nodes.</p>
+      <p>Each node may point to none or some other nodes. Unlike <a target="_blank" href="adt.linked-list.html">linked lists</a>, where each node points to the next one and possibly to the previous one too (except for its two end nodes), nodes in a tree data structure store references to multiple child nodes, that is zero to any number.</p>
+      <hr/>
+      <p>Data in a tree is not stored sequentially (i.e., not in a linear order). Instead, it is organized across multiple levels, forming a hierarchical structure. Because of this arrangement, a tree is classified as a <strong>non-linear</strong> data structure.</p>
+      <hr/>
+      <p>Trees are useful for storing data that naturally forms a hierarchy. They help in efficient data organization and retrieval for hierarchical relationships.</p>
+      <p>Some examples:</p>
+      <ul>
+        <li>File systems on computers are structured as trees, with folders containing subfolders and files.</li>
+        <li>The <a target="_blank" href="js.dom.html">DOM (Document Object Model)</a> of an HTML page is a tree:The &lt;html&gt; tag is the root.&lt;head&gt; and &lt;body&gt; are its children.These tags can have their own child nodes, forming a hierarchical structure.</li>
+        <li>Hierarchical organizations, where there is one chief or boss and a single chain of command to each employee.</li>
+        <li>A book made up of chapters (and indeces etc.), each chapter comprising sections and so on.</li>
+        <li>A patriarchal or matriarchal lineage, which traces descent through male or female ancestors. (A <strong>family tree</strong> is not a tree structure because each child is descended from two parents, not one.)</li>
+      </ul>
+
+      <section id="terminology">
+        <h2>Tree Terminology</h2>
+        <p>Basic terms in the tree data structure:</p>
+        <ul>
+          <li><dfn>Parent Node</dfn>: A node that is an immediate predecessor of another node</li>
+          <li><dfn>Child Node</dfn>: A node that is an immediate successor of another node.</li>
+          <li><dfn>Root Node</dfn>: The topmost node in a tree, which does not have a parent.</li>
+          <li><dfn>Leaf Node (External Node)</dfn>: Nodes that do not have any children.</li>
+          <li><dfn>Ancestor</dfn>: Any node on the path from the root to a given node (excluding the node itself).</li>
+          <li><dfn>Descendant</dfn>: A node <var>x</var> is a descendant of another node <var>y</var> if <var>y</var> is an ancestor of <var>x</var>.</li>
+          <li><dfn>Sibling</dfn>: Nodes that share the same parent</li>
+          <li><dfn>Level of a Node</dfn>: The number of edges in the path from the root to that node.The root node is at level 0.</li>
+          <li><dfn>Internal Node</dfn>: A node with at least one child.</li>
+          <li><dfn>Neighbor of a Node</dfn>: The parent or children of a node.</li>
+          <li><dfn>Subtree</dfn>: A node and all its descendants form a subtree.</li>
+        </ul>
+      </section>
+
+      <section id="types">
+        <h2>Types of Tree Data Structures</h2>
+        <p>Tree data structures can be classified based on the number of children each node can have.</p>
+        <section>
+          <h3>Binary Trees</h3>
+          <p>Each node can have a maximum of two children.</p>
+          <p>Some subtypes of binary tree:</p>
+          <ul>
+            <li><dfn>Binary Search Tree (BST)</dfn> and its Variations: each node has at most two children, and for each node, the left child&lt;s value is smaller than the node&lt;s value, and the right child&lt;s value is greater.</li>
+            <li><dfn>Full Binary Tree</dfn>: every node has either 0 or 2 children.</li>
+            <li><dfn>Complete Binary Tree</dfn>: all levels are fully filled except possibly the last, which is filled from left to right.</li>
+            <li><dfn>Balanced Binary Tree</dfn>: height difference between left and right subtrees of every node is minimal.</li>
+          </ul>
+          <p>Some examples of Balanced Binary Tree are <a target="_blank" href="https://www.geeksforgeeks.org/dsa/introduction-to-avl-tree/">AVL Tree</a>, <a target="_blank" href="https://www.geeksforgeeks.org/dsa/introduction-to-red-black-tree/">Red Black Tree</a> and <a target="_blank" href="https://www.geeksforgeeks.org/dsa/introduction-to-splay-tree-data-structure/">Splay Tree</a>.</p>
+        </section>
+        <section>
+          <h3>Ternary Trees</h3>
+          <p>Each node can have at most three children, often labeled as left, middle, and right.</p>
+        </section>
+        <section>
+          <h3>N-ary Tree (or Generic Tree)</h3>
+          <ul>
+            <li>Each node can have any number of children.</li>
+            <li>Each node typically contains some data and a list of references to its children (duplicates are not allowed)</li>
+          </ul>
+          <p>Some common subtypes of <var>n</var>-ary trees are:</p>
+          <ul>
+            <li><dfn>B-tree</dfn>: A <a target="_blank" href="https://www.geeksforgeeks.org/dsa/self-balancing-binary-search-trees/">self-balancing search tree</a> where nodes can have multiple children, usually used for indexing large databases.</li>
+            <li><dfn><a target="_blank" href="https://www.geeksforgeeks.org/dbms/introduction-of-b-tree/">B+ Tree</a></dfn>: a variation of the B-tree that only stores data in the leaf nodes, making range queries more efficient.</li>
+            <li><dfn>Trie (or Prefix Tree)</dfn>: A tree where each node represents a character, and paths from the root to leaves represent strings. It can have a variable number of children for each node, making it an N-ary tree.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="properties">
+        <h2>Properties of Tree Data Structure</h2>
+        <ul>
+          <li><dfn>Number of edges</dfn>: An edge is the connection between two nodes. A tree with N nodes will always have N - 1 edges. There is exactly one path from any node to any other node in the tree.</li>
+          <li><dfn>Depth of a node</dfn>: The depth of a node is the length of the path from the root to that node. Each edge in the path adds 1 unit to the length. Equivalently, it is the number of edges from the root to the node.</li>
+          <li><dfn>Height of the tree</dfn>: The height of the tree is the length of the longest path from the root to any leaf node.</li>
+          <li><dfn>Degree of a node</dfn>: The degree of a node is the number of subtrees attached to it (i.e., the number of children it has). A leaf node has a degree of 0. Then, the degree of the tree is defined as the maximum degree among all nodes in the tree.</li>
+        </ul>
+      </section>
+
+      <section id="forests">
+        <h2>Forests*</h2>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
