@@ -317,6 +317,7 @@ int main () {
 
   return 0;
 }</pre>
+            <!--
             <p></p>
             <pre></pre>
             <p></p>
@@ -327,10 +328,93 @@ int main () {
             <pre></pre>
             <p></p>
             <pre></pre>
+            -->
 
           </section>
         </section>
 
+      </section>
+
+      <section id="stream-iterators">
+        <h2>Stream Iterators: <code>istream_iterator</code> and <code>ostream_iterator</code></h2>
+        <section id="istream_iterator">
+          <h3><code>std::istream_iterator</code>*</h3>
+          <p>Istream iterators are input iterators that read successive elements from an input stream (such as <code>cin</code>). They are constructed from a <code>std::basic_istream</code> object, to which they become associated, so that whenever <code>operator++</code> is used on the iterator, it extracts an element from the stream (using <code>operator>></code>).</p>
+          <p>This kind of iterator has a special state as an <strong>end-of-stream</strong> iterator, which is acquired if an input operations fails (as returned by <code>bool std::basic_ios::fail() const</code> after an operation with the associated stream), and is also the resulting value of a default-constructed object.</p>
+          <p>Syntax:</p>
+          <pre>template &lt;
+  class T,
+  class charT=char,
+  class traits=char_traits&lt;charT&gt;,
+  class Distance = ptrdiff_t&gt;
+class istream_iterator;</pre>
+          <p>where <code>T</code> is the type of elements extracted from the stream.</p>
+          <hr/>
+          <p>Its member functions are:</p>
+          <table border="1">
+            <tr> <td>(constructor)</td> <td>Construct istream iterator</td> </tr>
+            <tr> <td><code>operator*</code></td> <td>Dereference iterator</td> </tr>
+            <tr> <td><code>operator-&gt;</code></td> <td>Dereference iterator</td> </tr>
+            <tr> <td><code>operator++</code></td> <td>Increment iterator</td> </tr>
+          </table>
+          <hr/>
+          <p>An example:</p>
+          <pre>// istream_iterator example
+#include &lt;iostream&gt;     // std::cin, std::cout
+#include &lt;iterator&gt;     // std::istream_iterator
+
+int main () {
+  double value1, value2;
+  std::cout &lt;&lt; "Please, insert two values: ";
+
+  std::istream_iterator&lt;double&gt; eos;              // end-of-stream iterator
+  std::istream_iterator&lt;double&gt; iit (std::cin);   // stdin iterator
+
+  if (iit!=eos) value1=*iit;
+
+  ++iit;
+  if (iit!=eos) value2=*iit;
+
+  std::cout &lt;&lt; value1 &lt;&lt; "*" &lt;&lt; value2 &lt;&lt; "=" &lt;&lt; (value1*value2) &lt;&lt; '\n';
+
+  return 0;
+}</pre>
+        </section>
+        <section id="ostream_iterator">
+          <h3><code>std::ostream_iterator</code></h3>
+          <p><dfn>Ostream iterators</dfn> are output iterators that write sequentially to an output stream (such as <code>cout</code>). They are constructed from a <code>basic_ostream</code> object, to which they become associated, so that whenever an assignment operator (=) is used on the <code>ostream_iterator</code> (dereferenced or not) it inserts a new element into the stream.</p>
+          <p>Optionally, a <strong>delimiter</strong> can be specified on construction. This delimiter is written to the stream after each element is inserted.</p>
+          <p>Syntax:</p>
+          <pre>template &lt;class T, class charT=char, class traits=char_traits&lt;charT&gt; &gt;
+class ostream_iterator;</pre>
+          <p>where <code>T</code> is the type of elements inserted into the stream.</p>
+          <hr/>
+          <p>Its member functions are:</p>
+          <table border="1">
+            <tr> <td>(constructor)</td> <td>Construct ostream iterator</td> </tr>
+            <tr> <td><code>operator*</code></td> <td>Dereference iterator</td> </tr>
+            <tr> <td><code>operator++</code></td> <td>Increment iterator</td> </tr>
+            <tr> <td><code>operator=</code></td> <td>Assignment operator</td> </tr>
+          </table>
+          <hr/>
+          <p>An example:</p>
+          <pre>// ostream_iterator example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;iterator&gt;     // std::ostream_iterator
+#include &lt;vector&gt;       // std::vector
+#include &lt;algorithm&gt;    // std::copy
+
+int main () {
+  std::vector&lt;int&gt; myvector;
+  for (int i=1; i&lt;10; ++i) myvector.push_back(i*10);
+
+  std::ostream_iterator&lt;int&gt; out_it (std::cout,", ");
+  std::copy ( myvector.begin(), myvector.end(), out_it );
+  return 0;
+}</pre>
+          <p>Output:</p>
+          <pre>10, 20, 30, 40, 50, 60, 70, 80, 90, </pre>
+        </section>
       </section>
 
     </main>

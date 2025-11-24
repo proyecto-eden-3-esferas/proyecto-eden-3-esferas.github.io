@@ -8,6 +8,13 @@ https://concepto.de/
 https://lasindias.net/indianopedia/
 https://lasindias.net/indianopedia/L%C3%B3gica_de_la_abundancia
 
+Bárbara Meléndez Martín de Peralta
+Obras por encargo
+www.barbaramelendez.art
+Telf. 665 69 39 95
+barbaramelendez.arte@gmail.com
+buscar: barbaramelendez.arte
+
 <blockquote>Polyarchy is the empowerment of individuals and communities and the end of statism.</blockquote>
 https://polyarchy.org/index.html
 
@@ -163,6 +170,13 @@ Ecoaldea con ideales pero promete ser cara.
 - libros en francés, novelas principalmente
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+[ ] Describe the relationship between humans and animals in *His Dark Materials*
+[ ] Possibly include or link to from *zoology.html*
+[ ] Possibly include or link to from *thought.html*
+[ ] Possibly include or link to from *permaculture.html*
+
+[ ] *bland.html*
 
 [ ] Follow external links in *adt.tree.html* and write same-topic sections or pages
 

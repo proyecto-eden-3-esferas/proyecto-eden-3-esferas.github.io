@@ -21,6 +21,7 @@
         <p><a href="programming.html">Programming Computers</a></p>
       </div>
       <div>
+        <p><a href="https://www.w3schools.com/dsa/dsa_theory_gr">DSA Graphs (at <cite>www.w3schools.com</cite>)</a></p>
         <p><a href="cpp.boost.graph.html">C++ Boost Graph Library (BGL)</a></p>
         <p><a href="cpp.graphs.html">C++ Graph Implementations</a></p>
         <p><a href="graph-databases.html">Graph Databases</a></p>
@@ -64,7 +65,7 @@
       <section>
         <h2>The State Space Representation of Problems</h2>
         <p>In the state space representation of a problem, the nodes of a graph correspond to partial problem solution states and the arcs correspond to steps in a problem-solving process. One or more initial states, corresponding to the given information in a problem instance, form the root of the graph. The graph also defines one or more goal conditions, which are solutions to a problem instance. State space search characterizes problem solving as the process of finding a solution path from the start state to a goal.</p>
-        <p>A goal may describe a state, such as a winning board in tic-tac-toe or a goal configuration in the 8-puzzle. Alternatively, a goal can describe some property of the solution path itself. In the traveling salesperson problem, search terminates when the <q>shortest</q> path is found through all nodes of the graph. In the parsing problem, the solution path is a successful analysis of a sentence's structure.</p>
+        <p>A goal may describe a state, such as a winning board in tic-tac-toe or a goal configuration in the 8-puzzle. Alternatively, a goal can describe some property of the solution path itself. In the traveling salesperson problem, search terminates when the <q>shortest</q> path is found through all nodes of the graph. In the parsing problem, the solution path is a successful analysis of a sentence&apos;s structure.</p>
         <p>Arcs of the state space correspond to steps in a solution process and paths through the space represent solutions in various stages of completion. Paths are searched, beginning at the start state and continuing through the graph, until either the goal description is satisfied or they are abandoned. The actual generation of new states along the path is done by applying operators, such as <q>legal moves</q> in a game or inference rules in a logic problem or expert system, to existing states on a path. The task of a search algorithm is to find a solution path through such a problem space. Search algorithms must keep track of the paths from a start to a goal node, because these paths contain the series of operations that lead to the problem solution.</p>
         <p>We now formally define the state space representation of problems:</p>
         <section>
@@ -185,6 +186,67 @@ end.</pre>
         </section>
       </section>
       <!-- end of "Strategies for State Space Search" -->
+      <section id="data-structures">
+        <h2>Data Structures for Graphs</h2>
+        <p>Vertices or nodes are often represented by some identifiers. The shortest identifier is an (positive or unsigned) integer.</p>
+        <p>Edges are often represented by ordered pairs.</p>
+        <dl>
+          <dt>Adjacency Lists</dt>
+          <dd></dd>
+          <dt>Adjacency Matrix</dt>
+          <dd>
+            <p>These are good for representing very dense, that is interconnected, graphs, where each vertex is connected to nearly every other vertex.</p>
+          </dd>
+          <dt>Edge Lists</dt>
+          <dd>
+            <p>An <dfn>edge list</dfn> is just a list of edges.</p>
+          </dd>
+        </dl>
+        <section id="properties">
+          <h3>Internal and External Properties</h3>
+          <p>The properties of vertices and edges can be stored inside the the graph data structure or outside in some suitably addressable data structure, such as an array or an associative map.</p>
+        </section>
+      </section>
+      <section id="algorithms">
+        <h2>Graph Algorithms</h2>
+        <section id="shortest-path">
+          <h3>Algorithms for Finding the Shortest Path</h3>
+          <p>We want to find the shortest path from one vertex to all other vertices. We start with a weighted (undirected) graph</p>
+          <p>This graph could be represented using an adjacency list <code>adj[][]</code> (C/C++ syntax), where each entry <var>adj[u]</var> contains pairs of the form <var>{v, w}</var> - representing that vertex <var>u</var> is connected to vertex <var>v</var> with an edge weight of <var>w</var> and we are also given a source vertex <var>src</var>. We need to find the shortest path distances from the source vertex to all other vertices in the graph.</p>
+          <p><strong>Note</strong> The given graph does not contain any negative edge.</p>
+          <p>Example:</p>
+          <pre>Input: src = 0, adj[][] = [[[1, 4], [2, 8]],
+                                                [[0, 4], [4, 6], [2,3]],
+                                                [[0, 8], [3, 2], [1,3]],
+                                                [[2, 2], [4, 10]],
+                                                [[1, 6], [3, 10]]]</pre>
+          <section id="dijkstra-shortest-path">
+            <h4>Dijkstra&apos;s Shortest Path Algorithm</h4>
+            <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://www.w3schools.com/dsa/dsa_algo_graphs_dijkstra.php">https://www.w3schools.com/dsa/dsa_algo_graphs_dijkstra.php</a></cite>)</p>
+            <p>Dijkstra&apos;s algorithm finds the shortest path from one vertex to all other vertices by repeatedly selecting the nearest unvisited vertex and calculating the distance to all the unvisited neighboring vertices.</p>
+            <p>Often considered to be the most straightforward algorithm for solving the shortest path problem.</p>
+            <aside>
+              <p>Dijkstra&apos;s shortest path algorithm was invented in 1956 by the Dutch computer scientist Edsger W. Dijkstra during a twenty minutes coffee break, while out shopping with his fiancée in Amsterdam.</p>
+            </aside>
+            <p>Dijkstra&apos;s algorithm is used for solving single-source shortest path problems for directed or undirected paths. <dfn>Single-source</dfn> means that one vertex is chosen to be the start, and the algorithm will find the shortest path from that vertex to all other vertices.</p>
+            <p>Dijkstra&apos;s algorithm does not work for graphs with negative edges. For graphs with negative edges, the <a href="#bellman-ford">Bellman-Ford algorithm</a>, can be used instead.</p>
+            <p>To find the shortest path, Dijkstra&apos;s algorithm needs to know which vertex is the source, it needs a way to mark vertices as visited, and it needs a record of the current shortest distance to each vertex as it works its way through the graph, updating these distances when a shorter distance is found.</p>
+            <p><strong>Steps:</strong></p>
+            <ol>
+              <li>Set initial distances for all vertices: 0 for the source vertex, and infinity for all the other.</li>
+              <li>Choose the unvisited vertex with the shortest distance from the start to be the current vertex. So the algorithm will always start with the source as the current vertex.</li>
+              <li>For each of the current vertex&apos;s unvisited neighbor vertices, calculate the distance from the source and update the distance if the new, calculated, distance is lower.</li>
+              <li>We are now done with the current vertex, so we mark it as visited. A visited vertex is not checked again.</li>
+              <li>Go back to step 2 to choose a new current vertex, and keep repeating these steps until all vertices are visited.</li>
+              <li>In the end we are left with the shortest path from the source vertex to every other vertex in the graph.</li>
+            </ol>
+            <p><strong>Note:</strong> This basic version of Dijkstra&apos;s algorithm gives us the value of the shortest path cost to every vertex, but not what the actual path is.</p>
+          </section>
+          <section id="bellman-ford">
+            <h4>Bellman-Ford Algorithm*</h4>
+          </section>
+        </section>
+      </section>
       <section id="sparse_matrices">
         <h2>Sparse Matrices*</h2>
       </section>
@@ -254,7 +316,7 @@ end.</pre>
           <h3>Formal Mapping Between Graphs and Hypergraphs</h3>
           <p>Both graphs and hypergraphs have nodes. They differ in whether they connect their nodes through edges or through hyperedges. The way to map between a graph and a hypergraph relies on the concept of <a href="#typed_graphs">typed graphs</a>:</p>
           <ul>
-            <li>a graph node's children are hyperedge nodes, that is nodes whose children are non-hyperedge nodes...</li>
+            <li>a graph node&apos;s children are hyperedge nodes, that is nodes whose children are non-hyperedge nodes...</li>
             <li>...</li>
           </ul>
           <p>A weighted graph can model the hyperedges in a phypergraph like this:</p>

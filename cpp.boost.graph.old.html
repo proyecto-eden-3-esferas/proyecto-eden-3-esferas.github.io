@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The Boost Graph Library (BGL)</title>
+    <title>the boost graph library (bgl)</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -55,7 +55,6 @@
       <div>
         <p><a rel="prev" href="graphs.html">Graphs</a></p>
         <p><a            href="cpp.graphs.html">C++ Graph Implementations</a></p>
-        <p><a            href="cpp.boost.graph.old.html">(Former version of this page)</a></p>
       </div>
       <!--
       <p><a href="A_PAGE.html">LINK_TEXT</a></p>
@@ -68,7 +67,7 @@
       <h1>The Boost Graph Library (BGL)</h1>
       <p><a target="_blank" href="graphs.html">Graphs</a> are mathematical abstractions that are useful for solving many types of problems in computer science. Consequently, these abstractions must also be represented in computer programs. A standardized generic interface for traversing graphs is of utmost importance to encourage reuse of graph algorithms and data structures. Part of the Boost Graph Library is a generic interface that allows access to a graph's structure, but hides the details of the implementation. This is an <em>open</em> interface in the sense that any graph library that implements this interface will be interoperable with the BGL generic algorithms and with other algorithms that also use this interface. The BGL provides some general purpose graph classes that conform to this interface, but they are not meant to be the <em>only</em> graph classes. There certainly will be other graph classes that are better for certain situations. The main contribution of the The BGL is the formulation of this interface.</p>
       <p><a target="_blank" href="cpp.templates.html">Generic programming</a> is the methodology that was used in the construction of the Boost Graph Library. To understand the organization and structure of the BGL, the reader needs a good understanding of generic programming.</p>
-      <p><strong>Note</strong> The Boost Graph Library is a header-only library and does not need to be built to be used.</p>
+      <note>The Boost Graph Library is a header-only library and does not need to be built to be used.</note>
       <section id="genericity_in_bgl">
         <h2>Genericity in the Boost Graph Library</h2>
         <p>Just as with <a target="_blank" href="cpp.generics.concepts.html">STL's genericity</a>, there are three ways in which the BGL is generic.</p>
@@ -90,7 +89,7 @@
           <div class="varlistentry">
             <dt class="term">Vertex and Edge Property Multi-Parameterization</dt>
             <dd>
-              <p>The third way that the BGL is generic is analogous to the parameterization of the element-type in STL containers, though again the story is a bit more complicated for graphs. We need to associate values (called <q>properties</q>) with both the vertices and the edges of the graph. In addition, it will often be necessary to associate multiple properties with each vertex and edge; this is what we mean by multi-parameterization. The STL <code>std::list&lt;T&gt;</code> class has a parameter <var>T</var> for its element type. Similarly, BGL graph classes have template parameters for vertex and edge <q>properties</q>. A property specifies the parameterized type of the property and also assigns an <strong>identifying tag</strong> to the property. This tag is used to distinguish between the multiple properties which an edge or vertex may have. A property value that is attached to a particular vertex or edge can be obtained via a <a href="#bgl_property_map">property map</a>. There is a separate property map for each property.</p>
+              <p>The third way that the BGL is generic is analogous to the parameterization of the element-type in STL containers, though again the story is a bit more complicated for graphs. We need to associate values (called <q>properties</q>) with both the vertices and the edges of the graph. In addition, it will often be necessary to associate multiple properties with each vertex and edge; this is what we mean by multi-parameterization. The STL <code>std::list&lt;T&gt;</code> class has a parameter <var>T</var> for its element type. Similarly, BGL graph classes have template parameters for vertex and edge <q>properties</q>. A property specifies the parameterized type of the property and also assigns an identifying tag to the property. This tag is used to distinguish between the multiple properties which an edge or vertex may have. A property value that is attached to a particular vertex or edge can be obtained via a <a href="#bgl_property_map">property map</a>. There is a separate property map for each property.</p>
               <p>Traditional graph libraries and graph structures fall down when it comes to the parameterization of graph properties. This is one of the primary reasons that graph data-structures must be custom-built for applications. The parameterization of properties in the BGL graph classes makes them well suited for re-use.</p>
             </dd>
           </div>
@@ -104,83 +103,38 @@
         </header>
         <section>
           <h3>Introduction</h3>
+          <p>Some simple walk-throughs on how to use the Boost Graph Library. I find much of the documentation, both online and printed, to be a bit impenetrable. I am sure I am not alone, so I thought it might be worthwhile to post a few examples of its usage that actually compile and work (for me anyway, let me know if you see any problems) as well as being reasonably up to date.</p>
           <p>The Boost Graph Library is a header-only library that requires no separate compilation.</p>
           <p>All that is usually required is to set the location of the additional include directories in your integrated development environment (IDE) and you're ready to go. In Microsoft Visual Studio for example, just set the location of the Boost Library path in C/C++ &gt; General &gt; Additional Include Directories.</p>
           <p>If you are developing in a Linux-based environment and have already installed Boost, there is good chance you don't need to do anything else.</p>
           <p>Shortcuts to examples covered in this boost graph library tutorial are as follows:</p>
           <ul>
-            <li><a href="#creating-a-simple-graph">Creating a Simple Directed/Undirected Graph</a></li>
-            <li><a href="#adding-edges">Adding Edges</a></li>
-            <li><a href="#a-graph-with-some-property">Creating a Graph with some Property (such as Edge-Weight)</a></li>
-            <li><a href="#printing-internal-properties-simple">Printing Edge (Internal) Properties (Weights)</a></li>
-            <li><a href="#printing-internal-properties-complex">Printing Edge (Internal) Properties (Weights) (Complex)</a></li>
-
-            <li><a href="#accessing-indeces">Accessing the Indeces for Edges (or Vertices)</a></li>
-            <li><a href="#a-graph-with-some-property">Creating a Graph with some Property (such as Edge-Weight)</a></li>
-            <li><a href="#using-property_map">Print Edge Weights by means of <code>boost::property_map</code></a></li>
-            <!--
+            <li><a href="#start_BGL_1">Creating a directed graph</a></li>
+            <li><a href="#start_BGL_2">Creating an undirected graph</a></li>
+            <li><a href="#start_BGL_3">Print edge weights in undirected graphs</a></li>
             <li><a href="#start_BGL_4">Finding paths using Dijkstra's shortest path algorithm</a></li>
             <li><a href="#start_BGL_5">Finding minimal spanning trees using Kruskal's algorithm</a></li>
             <li><a href="#start_BGL_6">DIMACS maximum flow problems</a></li>
-            -->
           </ul>
         </section>
-        <section id="creating-a-simple-graph">
-          <h3>Creating a Simple Directed/Undirected Graph</h3>
-          <p>The first thing you probably need to learn coding-wise, is the use of the <a target="_blank" href="cpp.boost.graph.adjacency_list.html">adjacency list</a> to create the graph edge connections. It's probably worthwhile getting used to making liberal use of typedefs, given that Boost library declarations can end up somewhat lengthy.</p>
-          <p>To typedef an adjacency list for a directed graph:</p>
-          <pre>typedef boost::adjacency_list&lt;
-  boost::vecS,
-  boost::vecS,
-  boost::directedS&gt; DirectedGraph;</pre>
-          <p>Just two remarks:</p>
-          <ul>
-            <li>The first and second template parameters selects the actual containers for the structures holding the edges and vertices in the graph respectively. Common choices are <code>vecS</code> for <code>std::vector</code> and <code>listS</code> for <code>std::list</code>. For more choices <i>see</i> <a target="_blank" href="cpp.boost.container-selectors.html">Boost Container Selectors</a>.</li>
-            <li>The third parameter selects the directed-ness of the graph. The available tags are <code>undirectedS</code>, <code>directedS</code> and <code>bidirectionalS</code>, which means directed and with in-edges.</li>
-          </ul>
-          <aside>
-            <p>You can declare an undirected graph by typing <code>undirectedS</code> tag instead of <code>directedS</code> in the typedefinition above, as in:</p>
-            <pre>typedef boost::adjacency_list&lt;
-  boost::vecS,
-  boost::vecS,
-  boost::undirectedS&gt; UndirectedGraph;</pre>
-          </aside>
-        </section>
-        <section id="adding-edges">
-          <h3>Adding Edges</h3>
-          <p>Given a graph object <var>g</var> of user-defined type <var>Graph</var>:</p>
-          <pre>typedef boost::adjacency_list&lt;
-  boost::listS,
-  boost::vecS,
-  boost::directedS&gt; DirectedGraph;
-DirectedGraph g;</pre>
-          <p>We add edges by repeatedly calling non-member function <code>boost::add_edge(<var>src</var>, <var>target</var>, <var>graph_object</var>)</code> as in:</p>
-          <pre>boost::add_edge (0, 1, g);
-    boost::add_edge (0, 3, g);
-    boost::add_edge (1, 2, g);
-    boost::add_edge (2, 3, g);
-    boost::add_edge (3, 1, g);
-    boost::add_edge (1, 3, g);
-    boost::add_edge (1, 4, g);
-    boost::add_edge (4, 5, g);
-    boost::add_edge (2, 5, g);</pre>
-          <p>Note that ...</p>
-        </section>
-        <section id="a-graph-with-some-property">
-          <h3>Creating a Graph with some Property (such as Edge-Weight)</h3>
+        <section id="start_BGL_1">
+          <h3>Creating a directed graph</h3>
+          <p>The first thing you probably need to learn coding-wise, is the use of the adjacency list to create the graph edge connections. It's probably worthwhile getting used to making liberal use of typedefs, given that Boost library declarations can end up somewhat lengthy.</p>
+          <p>To declare an adjacency list for a directed graph for example:</p>
+          <pre>typedef boost::adjacency_list&lt;boost::vecS, boost::vecS, boost::directedS&gt; DirectedGraph;</pre>
           <p>Suppose we wish to build the following weighted directed graph:</p>
+          <!-- <mediaobject> -->
+          <!-- <imageobject> -->
           <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_directed.jpg"/>
-          <p>We can do this by making repeated calls to <code>boost::add_edge(<var>src</var>, <var>target</var>, <var>w</var>, <var>graph_object</var>)</code> to create the graph, where <var>w</var> occurs just before the graph object parameter and adds some property (weight) to the edge.<!-- The following code listing shows you how, and prints out the result:--></p>
+          <!-- </imageobject> -->
+          <!-- </mediaobject> -->
+          <p>We can do this by making repeated calls to add_edge to create the graph. The following code listing shows you how, and prints out the result:</p>
           <pre>#include &lt;boost/graph/adjacency_list.hpp&gt;
 #include &lt;iostream&gt;
 
 typedef boost::property&lt;boost::edge_weight_t, int&gt; EdgeWeightProperty;
-typedef boost::adjacency_list&lt;
-  boost::listS,
-  boost::vecS,
-  boost::directedS,
-  boost::no_property,
-  EdgeWeightProperty &gt; DirectedGraph;
+typedef boost::adjacency_list&lt;boost::listS, boost::vecS, boost::directedS, boost::no_property, EdgeWeightProperty &gt; DirectedGraph;
+typedef boost::graph_traits&lt;DirectedGraph&gt;::edge_iterator edge_iterator;
 
 int main()
 {
@@ -196,59 +150,51 @@ int main()
     boost::add_edge (4, 5, 6, g);
     boost::add_edge (2, 5, 7, g);
 
-    // ...
+    std::pair&lt;edge_iterator, edge_iterator&gt; ei = edges(g);
+
+    std::cout &lt;&lt; "Number of edges = " &lt;&lt; num_edges(g) &lt;&lt; "\n";
+    std::cout &lt;&lt; "Edge list:\n";
+
+    std::copy( ei.first, ei.second,
+                std::ostream_iterator&lt;boost::adjacency_list&lt;&gt;::edge_descriptor&gt;{
+                    std::cout, "\n"});
+
+    std::cout &lt;&lt; std::endl;
 
     return 0;
  }</pre>
-          <p>Note the following points:</p>
-          <ul>
-            <li>We defined type <var>EdgeWeightProperty</var> (an arbitrary name) in order to use it to define type <var>DirectedGraph</var>. Its template parameters indicate that it is a edge property of type <code>int</code>.</li>
-            <li>The fourth and fifth parameters set the vertices and edges&apos; <a href="#properties">properties</a> (that is, some kind of node or edge content) respectively</li>
-            <li>These parameters default to <code>boost::no_property</code></li>
-            <li>Since we have defined the fifth parameter, we also have to define the fourth, and since we want no vertex property we set it to <code>boost::no_property</code>.</li>
-          </ul>
+          <p>...</p>
         </section>
-
-        <section id="printing-internal-properties-simple">
-          <h3>Printing Edge (Internal) Properties (Weights)</h3>
-          <p>In this section we shall extend the previous example. The additional code is printed in bold face.</p>
-          <p>We shall be using the following elements for the first time:</p>
-          <ul>
-            <li><code>boost::property&lt;<var>tag</var>, <var>type</var>&gt;</code> to typedef a new type (as in <code>boost::property&lt;boost::edge_weight_t, int&gt;</code>)</li>
-            <li><code>boost::graph_traits&lt;<var>my_graph_type</var>&gt;::edge_iterator</code> to obtain the type of an edge iterator</li>
-            <li><code>boost::edges(<var>my_graph_type</var>)</code> to obtain a pair of edge iterators (begin and end)</li>
-            <li>edge iterators dereference to <code><var>my_graph_type</var>::edge_descriptor</code>&apos;s</li>
-
-          </ul>
+        <section id="start_BGL_2">
+          <h3>Creating an undirected graph</h3>
+          <p>Consider the following undirected graph:</p>
+          <!-- <mediaobject> -->
+          <!-- <imageobject> -->
+          <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_undirected.jpg"/>
+          <!-- </imageobject> -->
+          <!-- </mediaobject> -->
+          <p>Which we build in a similar way, but this time stipulating the use of the boost::undirectedS property:</p>
           <pre>#include &lt;boost/graph/adjacency_list.hpp&gt;
-<b>#include &lt;algorithm&gt; // std::copy</b>
-<b>#include &lt;iterator&gt; // std::ostream_iterator</b>
 #include &lt;iostream&gt;
 
 typedef boost::property&lt;boost::edge_weight_t, int&gt; EdgeWeightProperty;
-typedef boost::adjacency_list&lt;
-  boost::listS,
-  boost::vecS,
-  boost::directedS,
-  boost::no_property,
-  EdgeWeightProperty &gt; DirectedGraph;
-<b>typedef boost::graph_traits&lt;DirectedGraph&gt;::edge_iterator edge_iterator;</b>
+typedef boost::adjacency_list&lt;boost::listS, boost::vecS,boost::undirectedS,boost::no_property,EdgeWeightProperty&gt; UndirectedGraph;
+typedef boost::graph_traits&lt;UndirectedGraph&gt;::edge_iterator edge_iterator;
 
 int main()
 {
-    DirectedGraph g;
+    UndirectedGraph g;
 
     boost::add_edge (0, 1, 8, g);
     boost::add_edge (0, 3, 18, g);
     boost::add_edge (1, 2, 20, g);
     boost::add_edge (2, 3, 2, g);
-    boost::add_edge (3, 1, 1, g);
     boost::add_edge (1, 3, 7, g);
     boost::add_edge (1, 4, 1, g);
     boost::add_edge (4, 5, 6, g);
     boost::add_edge (2, 5, 7, g);
 
-    <b>std::pair&lt;edge_iterator, edge_iterator&gt; ei = edges(g);
+    std::pair&lt;edge_iterator, edge_iterator&gt; ei = edges(g);
 
     std::cout &lt;&lt; "Number of edges = " &lt;&lt; num_edges(g) &lt;&lt; "\n";
     std::cout &lt;&lt; "Edge list:\n";
@@ -258,121 +204,34 @@ int main()
         std::cout &lt;&lt; *it &lt;&lt; std::endl;
     }
 
-    std::cout &lt;&lt; std::endl;</b>
+    std::cout &lt;&lt; std::endl;
 
     return 0;
  }</pre>
-          <!--
-          <pre></pre>
           <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          -->
         </section>
-
-        <section id="printing-internal-properties-complex">
-          <h3>Printing Edge (Internal) Properties (Weights) (Complex)</h3>
-          <p>In this section we shall use some new elements instead of just</p>
-          <pre>for (edge_iterator it = ei.first; it != ei.second; ++it )
-  {
-      std::cout &lt;&lt; *it &lt;&lt; std::endl;
-  }</pre>
-          <p>as used in the previous section.</p>
-          <p>The new code is printed in bold face.</p>
-          <p>We shall be using the following element(s) for the first time:</p>
-          <ul>
-            <!--
-            <li><code>boost::property&lt;<var>tag</var>, <var>type</var>&gt;</code> to typedef a new type (as in <code>boost::property&lt;boost::edge_weight_t, int&gt;</code>)</li>
-            <li><code>boost::graph_traits&lt;<var>my_graph_type</var>&gt;::edge_iterator</code> to obtain the type of an edge iterator</li>
-            <li><code>boost::edges(<var>my_graph_type</var>)</code> to obtain a pair of edge iterators (begin and end)</li>
-            <li>edge iterators dereference to <code><var>my_graph_type</var>::edge_descriptor</code>&apos;s</li>
-            -->
-            <li>edge descriptors are printed to an <code>std::ostream</code> by means of <code>std::copy()</code> and <code><a target="_blank" href="cpp.streams.html#ostream_iterator">std::ostream_iterator</a>&lt;edge_descriptor&gt;</code></li>
-          </ul>
-          <pre>#include &lt;boost/graph/adjacency_list.hpp&gt;
-<b>#include &lt;algorithm&gt; // std::copy</b>
-<b>#include &lt;iterator&gt; // std::ostream_iterator</b>
-#include &lt;iostream&gt;
-
-typedef boost::property&lt;boost::edge_weight_t, int&gt; EdgeWeightProperty;
-typedef boost::adjacency_list&lt;
-  boost::listS,
-  boost::vecS,
-  boost::directedS,
-  boost::no_property,
-  EdgeWeightProperty &gt; DirectedGraph;
-typedef boost::graph_traits&lt;DirectedGraph&gt;::edge_iterator edge_iterator;
-
-int main()
-{
-    DirectedGraph g;
-
-    boost::add_edge (0, 1, 8, g);
-    boost::add_edge (0, 3, 18, g);
-    boost::add_edge (1, 2, 20, g);
-    boost::add_edge (2, 3, 2, g);
-    boost::add_edge (3, 1, 1, g);
-    boost::add_edge (1, 3, 7, g);
-    boost::add_edge (1, 4, 1, g);
-    boost::add_edge (4, 5, 6, g);
-    boost::add_edge (2, 5, 7, g);
-
-    <b>std::pair&lt;edge_iterator, edge_iterator&gt; ei = edges(g);
-
-    std::cout &lt;&lt; "Number of edges = " &lt;&lt; num_edges(g) &lt;&lt; "\n";
-    std::cout &lt;&lt; "Edge list:\n";
-
-    std::copy(ei.first,
-              ei.second,
-              std::ostream_iterator&lt;boost::adjacency_list&lt;&gt;::edge_descriptor&gt;{
-                std::cout, "\n"});
-
-    std::cout &lt;&lt; std::endl;</b>
-
-    return 0;
- }</pre>
-          <!--
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          <pre></pre>
-          <p>...</p>
-          -->
-        </section>
-
-
-        <section id="using-property_map">
-          <h3>Print Edge Weights by means of <code>boost::property_map</code></h3>
-          <!--
+        <section id="start_BGL_3">
+          <h3>Print edge weights in undirected graphs</h3>
           <p>Consider the following spanning tree:</p>
+          <!-- <mediaobject> -->
+          <!-- <imageobject> -->
           <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_spanning_tree.jpg"/>
-          -->
-          <p>You may obtain the mapping between edges and their respective weights by using the <code>boost_property_map</code>. Look at the last section of the code listing, highlighted in bold face.</p>
+          <!-- </imageobject> -->
+          <!-- </mediaobject> -->
+          <p>You may obtain the mapping between edges and their respective weights by using the <code>boost_property_map</code>:</p>
+
+          <p>And the full code listing is:</p>
           <pre>#include &lt;iostream&gt;
 #include &lt;boost/graph/graph_traits.hpp&gt;
 #include &lt;boost/graph/adjacency_list.hpp&gt;
 
 typedef boost::property&lt;boost::edge_weight_t, double&gt; EdgeWeight;
-typedef boost::adjacency_list&lt;boost::listS, boost::vecS, boost::directedS, boost::no_property, EdgeWeight&gt; DirectedGraph;
-typedef boost::graph_traits&lt;DirectedGraph&gt;::edge_iterator edge_iterator;
+typedef boost::adjacency_list&lt;boost::listS, boost::vecS, boost::undirectedS, boost::no_property, EdgeWeight&gt; UndirectedGraph;
+typedef boost::graph_traits&lt;UndirectedGraph&gt;::edge_iterator edge_iterator;
 
 int main(int, char*[])
 {
+    // 1. Undirected graph - print out the edge weights
     UndirectedGraph g;
 
     boost::add_edge(0, 1, 8, g);
@@ -381,22 +240,252 @@ int main(int, char*[])
     boost::add_edge(4, 5, 5, g);
     boost::add_edge(3, 5, 7, g);
 
-    <b>boost::property_map&lt;DirectedGraph, boost::edge_weight_t&gt;::type EdgeWeightMap = get(boost::edge_weight_t(), g);
+    boost::property_map&lt;UndirectedGraph, boost::edge_weight_t&gt;::type EdgeWeightMap = get(boost::edge_weight_t(), g);
 
     std::pair&lt;edge_iterator, edge_iterator&gt; edgePair;
     for (edgePair = edges(g); edgePair.first != edgePair.second; ++edgePair.first)
     {
         std::cout &lt;&lt; *edgePair.first &lt;&lt; " " &lt;&lt; EdgeWeightMap[*edgePair.first] &lt;&lt; std::endl;
-    }</b>
+    }
 
     return 0;
 }</pre>
+          <p>...</p>
         </section>
+        <section id="start_BGL_4">
+          <h3>Finding paths using Dijkstra's shortest path algorithm</h3>
+          <p>The same <cite>dijkstra-example.cpp</cite> as used at the following link: http://www.boost.org/doc/libs/1_55_0/libs/graph/example/dijkstra-example.cpp</p>
+          <p>Here is the graphical representation of <cite>dijkstra-example</cite> example graph:</p>
+          <!-- <mediaobject> -->
+          <!-- <imageobject> -->
+          <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_Dijkstra.jpg"/>
+          <!-- </imageobject> -->
+          <!-- </mediaobject> -->
+          <p>In this demonstration we use the <a target="_blank" href="graphs.html#shortest-path">dijkstra_shortest_paths</a> method to obtain not only the shortest path tree, but output the path between a selected source-destination pair as well.</p>
+          <pre>#include &lt;boost/config.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;boost/graph/graph_traits.hpp&gt;
+#include &lt;boost/graph/adjacency_list.hpp&gt;
+#include &lt;boost/graph/dijkstra_shortest_paths.hpp&gt;
+#include &lt;boost/property_map/property_map.hpp&gt;
 
+int main(int, char *[])
+{
+  typedef boost::adjacency_list &lt;boost::listS, boost::vecS, boost::directedS, boost::no_property,
+      boost::property&lt;boost::edge_weight_t, int&gt; &gt; graph_t;
+  typedef boost::graph_traits&lt;graph_t&gt;::vertex_descriptor vertex_descriptor;
+  typedef std::pair&lt;int, int&gt; Edge;
+
+  const int num_nodes = 5;
+  enum nodes { A, B, C, D, E };
+  char name[] = "ABCDE";
+  Edge edge_array[] = { Edge(A, C), Edge(B, B), Edge(B, D), Edge(B, E),
+    Edge(C, B), Edge(C, D), Edge(D, E), Edge(E, A), Edge(E, B)
+  };
+
+  int weights[] = { 1, 2, 1, 2, 7, 3, 1, 1, 1 };
+  int num_arcs = sizeof(edge_array) / sizeof(Edge);
+
+  // Graph created from the list of edges
+  graph_t g(edge_array, edge_array + num_arcs, weights, num_nodes);
+
+  // Create property_map from edges to weights
+  boost::property_map&lt;graph_t, boost::edge_weight_t&gt;::type weightmap = get(boost::edge_weight, g);
+
+  // Create vectors to store the predecessors (p) and the distances from the root (d)
+  std::vector&lt;vertex_descriptor&gt; p(num_vertices(g));
+  std::vector&lt;int&gt; d(num_vertices(g));
+
+  // Create descriptor for the source node
+  vertex_descriptor s = vertex(A, g);
+  vertex_descriptor goal = vertex(E, g);
+
+  // Evaluate Dijkstra on graph g with source s, predecessor_map p and distance_map d
+  boost::dijkstra_shortest_paths(g, s,
+      boost::predecessor_map(&amp;p[0]).distance_map(&amp;d[0]));
+
+        //p[] is the predecessor map obtained through dijkstra
+    //name[] is a vector with the names of the vertices
+    //s and goal are vertex descriptors
+    std::vector&lt;boost::graph_traits&lt;graph_t&gt;::vertex_descriptor &gt; path;
+    boost::graph_traits&lt;graph_t&gt;::vertex_descriptor current = goal;
+
+    while(current!=s)
+    {
+        path.push_back(current);
+        current = p[current];
+    }
+    path.push_back(s);
+
+    // Prints the path obtained in reverse
+    std::cout &lt;&lt; "Path from " &lt;&lt; name[s] &lt;&lt; " to " &lt;&lt; name[goal] &lt;&lt; std::endl;
+    std::vector&lt;boost::graph_traits&lt;graph_t&gt;::vertex_descriptor &gt;::reverse_iterator it;
+
+    for (it = path.rbegin(); it != path.rend(); ++it) {
+        std::cout &lt;&lt; name[*it] &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+  return EXIT_SUCCESS;
+}</pre>
+        </section>
+        <section id="start_BGL_5">
+          <h3>Finding minimal spanning trees using Kruskal's algorithm</h3>
+          <p>Again I take an original example from the boost.org site (<cite>http://www.boost.org/doc/libs/1_55_0/libs/graph/example/kruskal-example.cpp</cite>) and make use of it here.</p>
+          <p>This is the graphical representation of example graph:</p>
+          <!-- <mediaobject> -->
+          <!-- <imageobject> -->
+          <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_Kruskal.jpg"/>
+          <!-- </imageobject> -->
+          <!-- </mediaobject> -->
+          <p>I have removed the Boost workarounds (BOOST_MSVC &lt;= 1300 etc) and the outputting to the .dot file just to keep things more concise. I have also removed use of the <kbd class="userinput">using boost namespace</kbd> in my examples, but that's just a personal preference:</p>
+          <pre>#include &lt;boost/graph/adjacency_list.hpp&gt;
+#include &lt;boost/graph/kruskal_min_spanning_tree.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+int main()
+{
+  typedef boost::adjacency_list&lt; boost::vecS, boost::vecS, boost::undirectedS,
+    boost::no_property, boost::property&lt;boost::edge_weight_t, int&gt; &gt; Graph;
+
+  typedef boost::graph_traits &lt;Graph&gt;::edge_descriptor Edge;
+  typedef boost::graph_traits &lt;Graph&gt;::vertex_descriptor Vertex;
+  typedef std::pair&lt;int, int&gt; E;
+
+  const int num_nodes = 5;
+  E edge_array[] = { E(0, 2), E(1, 3), E(1, 4), E(2, 1), E(2, 3),
+    E(3, 4), E(4, 0), E(4, 1)
+  };
+
+  int weights[] = { 1, 1, 2, 7, 3, 1, 1, 1 };
+  std::size_t num_edges = sizeof(edge_array) / sizeof(E);
+
+  Graph g(edge_array, edge_array + num_edges, weights, num_nodes);
+
+  boost::property_map&lt;Graph, boost::edge_weight_t &gt;::type weight = get(boost::edge_weight, g);
+  std::vector &lt; Edge &gt; spanning_tree;
+
+  boost::kruskal_minimum_spanning_tree(g, std::back_inserter(spanning_tree));
+
+  std::cout &lt;&lt; "Print the edges in the MST:" &lt;&lt; std::endl;
+
+  for (std::vector &lt; Edge &gt;::iterator ei = spanning_tree.begin();
+        ei != spanning_tree.end(); ++ei)
+  {
+    std::cout &lt;&lt; source(*ei, g)
+              &lt;&lt; " &lt;--&gt; "
+              &lt;&lt; target(*ei, g)
+              &lt;&lt; " with weight of "
+              &lt;&lt; weight[*ei]
+              &lt;&lt; std::endl;
+  }
+
+  return 0;
+}</pre>
+          <p>...</p>
+        </section>
+        <section id="start_BGL_6">
+          <h3>DIMACS maximum flow problems</h3>
+          <p>DIMACS (Center for Discrete Mathematics and Theoretical Computer Science has formulated 'challenges' for problems involving network flows. See this link for more information: http://lpsolve.sourceforge.net/5.5/DIMACS_maxf.htm</p>
+          <p>The problem is to find the maximum possible flow from a given source node to a given sink node. Possible applications include finding the maximum flow of orders through a job shop, the maximum flow of water through a storm sewer system, and the maximum flow of product through a product distribution system.</p>
+          <p>Example DIMACS file:</p>
+          <pre>c This is a simple example file to demonstrate the DIMACS
+c input file format for maximum flow problems. The solution
+c vector is [5,10,5,0,5,5,10,5] with cost at 15.
+c Problem line (nodes, links)
+p max 6 8
+c source
+n 1 s
+c sink
+n 6 t
+c Arc descriptor lines (from, to, capacity)
+a 1 2 5
+a 1 3 15
+a 2 4 5
+a 2 5 5
+a 3 4 5
+a 3 5 5
+a 4 6 15
+a 5 6 5
+c
+c End of file</pre>
+          <p>The lines beginning with <q>c</q> are comment lines. The problem line begins with the letter <q>p</q> and represents the problem designation (max, min etc), the number of edges (8) and the number of vertices (6). Lines beginning with <q>n</q> are the node descriptors &#x2013; node ID and whether the node is a source (<q>s</q>) or a sink (<q>t</q>). Finally the <q>a</q> lines are descriptors giving the node interconnections and their weights.</p>
+          <p>The following graphical representation of the example network flow problem, shows not only the network interconnections and capacities but the flows on the links as well:</p>
+          <!-- <mediaobject> -->
+          <!-- <imageobject> -->
+          <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_max_flow.jpg"/>
+          <!-- </imageobject> -->
+          <!-- </mediaobject> -->
+          <p>Code listing as applied to this problem (you have to supply it your sample DICOM file as described previously):</p>
+          <pre>#include &lt;boost/config.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+#include &lt;boost/graph/edmonds_karp_max_flow.hpp&gt;
+#include &lt;boost/graph/adjacency_list.hpp&gt;
+#include &lt;boost/graph/read_dimacs.hpp&gt;
+#include &lt;boost/graph/graph_utility.hpp&gt;
+
+int main()
+{
+    typedef boost::adjacency_list_traits&lt;boost::vecS, boost::vecS, boost::directedS &gt; Traits;
+    typedef boost::adjacency_list&lt;boost::listS, boost::vecS, boost::directedS,
+        boost::property&lt;boost::vertex_name_t, std::string &gt;,
+        boost::property&lt;boost::edge_capacity_t, long,
+        boost::property&lt;boost::edge_residual_capacity_t, long,
+        boost::property&lt;boost::edge_reverse_t, Traits::edge_descriptor&gt;&gt;&gt;&gt; Graph;
+
+    Graph g;
+
+    boost::property_map&lt;Graph, boost::edge_capacity_t&gt;::type
+        capacity = get(boost::edge_capacity, g);
+    boost::property_map&lt;Graph, boost::edge_reverse_t&gt;::type rev = get(boost::edge_reverse, g);
+    boost::property_map&lt;Graph, boost::edge_residual_capacity_t&gt;::type
+        residual_capacity = get(boost::edge_residual_capacity, g);
+
+    Traits::vertex_descriptor s, t;
+
+    // Use a DIMACS network flow file as stdin:
+    std::ifstream is ("dimacs.txt", std::ios::in);
+    read_dimacs_max_flow(g, capacity, rev, s, t, is);
+
+#if defined(BOOST_MSVC) &amp;&amp; BOOST_MSVC &lt;= 1300
+  std::vector&lt;default_color_type&gt; color(num_vertices(g));
+  std::vector&lt;Traits::edge_descriptor&gt; pred(num_vertices(g));
+  long flow = edmunds_karp_max_flow
+    (g, s, t, capacity, residual_capacity, rev, &amp;color[0], &amp;pred[0]);
+#else
+  long flow = edmonds_karp_max_flow(g, s, t);
+#endif
+
+    std::cout &lt;&lt; "c  The total flow:" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "s " &lt;&lt; flow &lt;&lt; std::endl &lt;&lt; std::endl;
+    std::cout &lt;&lt; "c flow values:" &lt;&lt; std::endl;
+
+    boost::graph_traits&lt;Graph&gt;::vertex_iterator u_iter, u_end;
+    boost::graph_traits&lt;Graph&gt;::out_edge_iterator ei, e_end;
+
+    for (boost::tie(u_iter, u_end) = vertices(g); u_iter != u_end; ++u_iter)
+        for (boost::tie(ei, e_end) = out_edges(*u_iter, g); ei != e_end; ++ei)
+            if (capacity[*ei] &gt; 0)
+                std::cout &lt;&lt; "f " &lt;&lt; *u_iter &lt;&lt; " " &lt;&lt; target(*ei, g) &lt;&lt; " "
+                          &lt;&lt; (capacity[*ei] - residual_capacity[*ei])
+                          &lt;&lt; std::endl;
+
+    return EXIT_SUCCESS;
+}</pre>
+          <p>As anticipated the solution vector of the output variables is [5, 10, 5, 0, 5, 5, 10, 5].</p>
+          <p>Example DIMACS file &#x201C;dimacs.txt&#x201D; downloadable from here: http://www.technical-recipes.com/Downloads/dimacs.txt</p>
+        </section>
       </section>
 
       <section>
+        <header>
         <h2>A Quick Tour of the Boost Graph Library</h2>
+        </header>
         <p>The domain of graph data structures and algorithms is in some respects more complicated than that of containers. The abstract iterator interface used by STL is not sufficiently rich to encompass the numerous ways that graph algorithms may traverse a graph. Instead, we formulate an abstract interface that serves the same purpose for graphs that iterators do for basic containers (though iterators still play a large role). The figure below depicts the analogy between the STL and the BGL.</p>
         <!-- <mediaobject> -->
         <!-- <imageobject> -->
@@ -628,7 +717,7 @@ int main(int,char*[])
         <section>
           <h3>Accessing the Edge Set</h3>
           <p>The set of edges for a graph can be accessed with the <code class="function">edges()</code> function of the <code class="interface">EdgeListGraph</code> interface. Similar to the <code class="function">vertices()</code> function, this returns a pair of iterators, but in this case the iterators are edge iterators. Dereferencing an edge iterator gives an edge object. The <code class="function">source()</code> and <code class="function">target()</code> functions return the two vertices that are connected by the edge. Instead of explicitly creating a <code>std::pair</code> for the iterators, this time we will use the <code class="function">tie()</code> helper function. This handy function can be used to assign the parts of a <code class="function">std::pair</code> into two separate variables, in this case <var>ei</var> and <var>ei_end</var>. This is usually more convenient than creating a <code>std::pair</code> and is our method of choice for the BGL</p>
-          <p><strong>Note</strong> <em>See</em><code class="function" href="std_tie">std::tie</code> for an STL replacement.</p>
+          <note><em>See</em><code class="function" href="std_tie">std::tie</code> for an STL replacement.</note>
           <pre>// ...
   int main(int,char*[])
   {
@@ -850,7 +939,7 @@ int main(int,char*[])
   parent(4) = 3</pre>
         </section>
       </section> <!-- end of "A Quick Tour of the Boost Graph Library" -->
-      <section id="properties">
+      <section>
         <h2>Graph (Internal) Properties</h2>
         <p style="text-align: right">(From <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/libs/graph/doc/using_adjacency_list.html#sec:adjacency-list-properties">https://www.boost.org/doc/libs/latest/libs/graph/doc/using_adjacency_list.html#sec:adjacency-list-properties</a></cite>)</p>
         <hr/>
@@ -1070,7 +1159,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dt>
               <dd>
                 <p>The IncidenceGraph concept provides an interface for efficient access to the out-edges of each vertex in the graph.</p>
-                <p><strong>Note</strong> The <code class="interface">IncidenceGraph</code> interface is further refined by <code class="interface" href="bgl_BidirectionalGraph">BidirectionalGraph</code>.</p>
+                <note>The <code class="interface">IncidenceGraph</code> interface is further refined by <code class="interface" href="bgl_BidirectionalGraph">BidirectionalGraph</code>.</note>
               </dd>
             </div>
             <div class="varlistentry">
@@ -1179,7 +1268,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
           </dl>
-          <p><strong>Note</strong> For undirected graphs, the edge (u,v) is the same as edge (v,u), so without some extra guarantee an implementation would be free use any ordering for the pair of vertices in an out-edge. For example, if you call out_edges(u, g), and v is one of the vertices adjacent to u, then the implementation would be free to return (v,u) as an out-edge which would be non-intuitive and cause trouble for algorithms. Therefore, the extra requirement is added that the out-edge connecting u and v must be given as (u,v) and not (v,u).</p>
+          <note>For undirected graphs, the edge (u,v) is the same as edge (v,u), so without some extra guarantee an implementation would be free use any ordering for the pair of vertices in an out-edge. For example, if you call out_edges(u, g), and v is one of the vertices adjacent to u, then the implementation would be free to return (v,u) as an out-edge which would be non-intuitive and cause trouble for algorithms. Therefore, the extra requirement is added that the out-edge connecting u and v must be given as (u,v) and not (v,u).</note>
         </section>
         <section id="bgl_BidirectionalGraph">
           <h3>The <code class="interface">BidirectionalGraph</code> Interface</h3>
@@ -1285,7 +1374,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
           </dl>
-          <p><strong>Note</strong> The case of a multigraph (where multiple edges can connect the same two vertices) brings up an issue as to whether the iterators returned by the adjacent_vertices() function access a range that includes each adjacent vertex once, or whether it should match the behavior of the out_edges() function, and access a range that may include an adjacent vertex more than once. For now the behavior is defined to match that of out_edges(), though this decision may need to be reviewed in light of more experience with graph algorithm implementations.</p>
+          <note>The case of a multigraph (where multiple edges can connect the same two vertices) brings up an issue as to whether the iterators returned by the adjacent_vertices() function access a range that includes each adjacent vertex once, or whether it should match the behavior of the out_edges() function, and access a range that may include an adjacent vertex more than once. For now the behavior is defined to match that of out_edges(), though this decision may need to be reviewed in light of more experience with graph algorithm implementations.</note>
           <section>
             <h4>Design Rationale</h4>
             <p>The AdjacencyGraph concept is somewhat frivolous since <code class="interface" href="bgl_IncidenceGraph">IncidenceGraph</code> really covers the same functionality (and more). The AdjacencyGraph concept exists because there are situations when adjacent_vertices() is more convenient to use than out_edges(). If you are constructing a graph class and do not want to put in the extra work of creating an adjacency iterator, have no fear. There is an adaptor class named adjacency_iterator that you can use to create an adjacency iterator out of an out-edge iterator.</p>
