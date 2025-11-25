@@ -24,6 +24,8 @@
     <main>
       <h1><code>boost::adjacency_list</code></h1>
       <p style="text-align: right">(From <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/libs/graph/doc/adjacency_list.html">https://www.boost.org/doc/libs/latest/libs/graph/doc/adjacency_list.html</a></cite>)</p>
+      <p>The main BGL component for representing graphs is the <code>adjacency_list</code>. This class generalizes the traditional adjacency-list representation for a graph. The graph is represented by a collection of vertices where, with each vertex, there is stored a collection of out-edges. The actual implementation of the collection of vertices and edges can vary to meet particular needs and is set through a <a target="_blank" href="cpp.boost.container-selectors.html">container selector</a>.</p>
+      <hr/>
       <p><strong>Prototype:</strong></p>
       <p style="text-align: right">(Also, the serialization functionality is in <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/boost/graph/adj_list_serialize.hpp">boost/graph/adj_list_serialize.hpp</a></cite>.)</p>
       <pre>boost::adjacency_list&lt;
@@ -39,102 +41,38 @@
       <p>To use ... you need to include <cite>boost/graph/adjacency_list.hpp</cite>:</p>
       <pre>#include &lt;boost/graph/adjacency_list.hpp&gt;</pre>
 
+      <!--
       <p>The first and second template parameters are Boost container selectors edge list and node list respectively, such as <code>vecS</code> and <code>listS</code>.</p>
       <p>The third template parameter sets the directedness of the graph, such as <code>directedS</code> or <code>bidirectionalS</code>. Selecting <code>directedS</code> or <code>bidirectionalS</code> choose a <strong>directed graph</strong>, whereas <code>undirectedS</code> selects the representation for an undirected graph. The <code>bidirectealS</code> selector specifies that the graph will provide the <code>in_edges()</code> function as well as the <code>out_edges()</code> function. This imposes twice as much space overhead per edge, which is why <code>in_edges()</code> is optional. </p>
       <p>The fourth and fifth template arguments select property maps for vertices and edges. To select no property type <code>boost::no_property</code>.</p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
+      -->
+      <p>The <code>adjacency_list</code> class implements a generalized adjacency list graph structure. The template parameters provide many configuration options so that you can pick a version of the class that best meets your needs. An adjacency-list is basically a two-dimensional structure, where each element of the first dimension represents a vertex, and each of the vertices contains a one-dimensional structure that is its edge list.</p>
+      <p>The <var class="parameter">VertexList</var> template parameter of the <code>adjacency_list</code> class controls what kind of container is used to represent the outer two-dimensional container. The <var class="parameter">OutEdgeList</var> template parameter controls what kind of container is used to represent the edge lists. The choices for <var class="parameter">OutEdgeList</var> and <var class="parameter">VertexList</var> will determine the space complexity of the graph structure, and will determine the time complexity of the various graph operations. The possible choices and tradeoffs are discussed in <cite class="section" href="#choosing-the-edgelist-and-vertexlist">Choosing the Edgelist and VertexList</cite>.</p>
+      <p>The <var class="parameter">Directed</var> template parameter controls whether the graph is directed, undirected, or directed with access to both the in-edges and out-edges (which we call bidirectional). The bidirectional graph takes up twice the space (per edge) of a directed graph since each edge will appear in both an out-edge and in-edge list.</p>
+      <ul>
+        <li><var class="parameter">EdgeList</var> and <var class="parameter">VertexList</var> specify the classes used to store the vertex list and edge lists for the graph. These parameters allow tradeoffs between traversal speed and insertion/removal speed and tradeoffs in memory consumption. In addition, the <var class="parameter">EdgeList</var> parameter determines whether parallel edges may be inserted into the graph.</li>
+        <li><var>Directed</var> specifies whether the graph is directed, undirected, or bidirectional. By convention, a directed graph provides access to out-edges only, whereas a bidirectional graph provides access to in-edges as well as out-edges. These options are selected through <kbd class="userinput">directedS</kbd>, <kbd class="userinput">undirectedS</kbd>, and <kbd class="userinput">bidirectionalS</kbd></li>
+        <li><var>VertexProperties</var>, <var>EdgeProperties</var>, and <var>GraphProperties</var> specify the property types that are attached to the vertices, edges, and to the graph itself. They default to <kbd class="userinput">no_property</kbd>.</li>
+      </ul>
+      <section id="choosing-the-edgelist-and-vertexlist">
+        <h2>Choosing the <var class="parameter">Edgelist</var> and <var class="parameter">VertexList</var></h2>
+        <p>This section focuses on how to decide which version of the <code>adjacency_list</code> class to use in different situations. The <code>adjacency_list</code> is like a swiss-army knife in that it can be configured in many ways. The parameters that we will focus on in this section are <var class="parameter">OutEdgeList</var> and <var class="parameter">VertexList</var>, which control the underlying data structures that will be used to represent the graph. The choice of <var class="parameter">OutEdgeList</var> and <var class="parameter">VertexList</var> affects the time complexity of many of the graph operations and the space complexity of the graph object.</p>
+      </section>
+      <!--
+      <section>
+        <h4>***</h4>
+        <p><var class="parameter">OutEdgeList</var> is the selector for the container used to represent the edge-list for each of the vertices. It defaults to <kbd class="userinput">vecS</kbd>, that is it selects an <code>std::vector</code>.</p>
+        <p><var class="parameter">EdgeList</var>, on the other hand, is the selector for the container used to represent the edge-list for the <em>graph</em>. It defaults to <kbd class="userinput">listS</kbd>, that is it selects an <code>std::list</code>.</p>
+      </section>
+
       <section id="container-selectors">
         <h2>Container Selectors</h2>
-        <p>There are several selector types that are used to specify the choice of container for <code>OutEdgeList</code> and <code>VertexList</code>:</p>
-        <ul>
-          <li><code>vecS</code> selects <code>std::vector</code>.</li>
-          <li><code>listS</code> selects <code>std::list</code>.</li>
-          <li><code>slistS</code> selects <code>std::slist</code>.</li>
-          <li><code>setS</code> selects <code>std::set</code>.</li>
-          <li><code>multisetS</code> selects <code>std::multiset</code>.</li>
-          <li><code>hash_setS</code> selects <code>std::hash_set</code>.</li>
-        </ul>
-
-        <section id="container-generator">
-          <h2>Generating your own Selector Struct with <code>container_gen</code> Traits Class</h2>
-          <p> The <code>adjacency_list</code> class uses a traits class called <code>container_gen</code> to map the <code>OutEdgeList</code> and <code>VertexList</code> selectors to the actual container types used for the graph storage. The default version of the traits class is listed below, along with an example of how the class is specialized for the <code>listS</code> selector.</p>
-          <pre>namespace boost {
-  template &lt;class Selector, class ValueType&gt;
-  struct container_gen { };
-
-  template &lt;class ValueType&gt;
-  struct container_gen&lt;listS, ValueType&gt; {
-    typedef std::list&lt;ValueType&gt; type;
-  };
-}</pre>
-
-          <p>To use some other container of your choice (such as <code>std::unordered_set</code>), define a selector class and then specialize the <code>container_gen</code> for your selector, inside the <code>boost</code> namespace.</p>
-          <pre>struct unordered_setS { }; // your selector
-
-  namespace boost {
-    // the specialization for your selector
-    template &lt;class ValueType&gt;
-    struct container_gen&lt;unordered_setS, ValueType&gt; {
-      typedef std::unordered_set&lt;ValueType&gt; type;
-    };
-  }</pre>
-          <section>
-            <h3>Templetized Selectors</h3>
-            <p>There may also be situations when you want to use a container that has more template parameters than just <code>ValueType</code>. For instance, you may want to supply the allocator type. One way to do this is to hard-code in the extra parameters within the specialization of <code>container_gen</code>. However, if you want more flexibility then you can add a template parameter to the selector class. In the code below we show how to create a selector that lets you specify the allocator to be used with the <code>std::list</code>.</p>
-            <pre>template &lt;class Allocator&gt;
-  struct list_with_allocatorS { };
-
-  namespace boost {
-    template &lt;class Alloc, class ValueType&gt;
-    struct container_gen&lt;list_with_allocatorS&lt;Alloc&gt;, ValueType&gt;
-    {
-      typedef typename Alloc::template rebind&lt;ValueType&gt;::other Allocator;
-      typedef std::list&lt;ValueType, Allocator&gt; type;
-    };
-  }
-
-  // now you can define a graph using std::list
-  //   and a specific allocator
-  typedef adjacency_list&lt; list_with_allocatorS&lt; std::allocator&lt;int&gt; &gt;, vecS, directedS&gt; MyGraph;</pre>
-          </section>
-          <section>
-            <h3>Parallel Edge Traits</h3>
-            <p>In addition to specializing the container_gen class, one must also specialize the <code>parallel_edge_traits</code> class to specify whether the container type allows parallel edges (and is a <strong>Sequence</strong>) or if the container does not allow parallel edges (and is an <strong>AssociativeContainer</strong>).</p>
-            <pre>template &lt;class StorageSelector&gt;
-  struct parallel_edge_traits { };
-
-  template &lt;&gt;
-  struct parallel_edge_traits&lt;vecS&gt; {
-    typedef allow_parallel_edge_tag type;
-  };
-  template &lt;&gt;
-  struct parallel_edge_traits&lt;setS&gt; {
-    typedef disallow_parallel_edge_tag type;
-  };
-  ...</pre>
-          </section>
-        </section>
+        <p>(<it>See</it> <a target="_blank" href="cpp.boost-container-selectors.html">Container Selectors in Boost</a>.)</p>
       </section>
-      <section id="*">
-        <h2> Push and Erase for the Edge List Container</h2>
+      -->
+
+      <section id="push-and-erase-for-the-edge-list-container">
+        <h2>Push and Erase for the Edge List Container</h2>
         <p>One must also tell the <code>adjacency_list</code> how edges can be efficiently added and removed from the edge-list container. This is accomplished by overloading the <code>push()</code> and <code>erase()</code> functions for the custom container type. The <code>push()</code> function must return an iterator pointing to the newly inserted element and a bool flag saying whether the edge was inserted. The following default <code>push()</code> and <code>erase()</code> functions are already supplied for all STL container types. The family of <code>push_dispatch()</code> and <code>erase_dispatch()</code> function overloads handle the various ways inserting and erasing can be done with standard containers.</p>
         <pre>template &lt;class Container, class T&gt;
   std::pair&lt;typename Container::iterator, bool&gt;
@@ -148,20 +86,6 @@
   {
     erase_dispatch(c, x, container_category(c));
   }</pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
       </section>
       <!--
       <section id="*">

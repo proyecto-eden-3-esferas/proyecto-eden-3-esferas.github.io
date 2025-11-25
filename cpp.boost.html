@@ -39,30 +39,82 @@
       <hr/>
       <p>Header files are found at <cite>/user/include/boost/</cite> while the documentation is found at <cite>/usr/share/doc/libboost*</cite></p>
       <hr/>
-      <p>Some Boost libraries that I find useful or interesting to me are:</p>
-      <ul>
-        <li><cite>libboost-graph</cite>: Graphs are mathematical abstractions that are useful for solving many types of problems in computer science. Consequently, these abstractions must also be represented in computer programs. A standardized generic interface for traversing graphs is of utmost importance to encourage reuse of graph algorithms and data structures.</li>
-        <li>
-          <p><cite>libboost-json</cite>: focuses on a common and popular use-case: parsing and serializing to and from a container called <var>value</var> which holds JSON types.</p>
-          <p>Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
-        </li>
-        <li><cite>libboost-program-options</cite>: to let program developers obtain program options, that is (name, value) pairs from the user, via conventional methods such as command line and config file.</li>
-        <li>
-          <p><cite>libboost-serialization</cite>: containing the following functionalities:</p>
-          <ul>
-            <li>proper restoration of pointers to shared data</li>
-             <li>serialization of STL containers and other commonly used templates</li>
-            <li>data portability - streams of bytes created on one platform should be readable on any other</li>
-            <li>archive interface must be rich enough to permit the creation of an archive that presents serialized data as XML in a useful manner</li>
-          </ul>
-          <p>Here, "serialization" means the reversible deconstruction of an arbitrary set of C++ data structures to a sequence of bytes.</p>
-          <p><dfn>to archive</dfn>: to refer to a specific rendering of this stream of bytes.</p>
-        </li>
-        <!--
-        <li><cite>libboost-</cite>: </li>
-        <li><cite>libboost-</cite>: </li>
-        -->
-      </ul>
+
+      <section id="noteworthy">
+        <h2>Some Noteworthy Boost Libraries</h2>
+        <p>Some Boost libraries that I find useful or interesting to me are:</p>
+        <ul>
+          <li><cite>libboost-graph</cite>: Graphs are mathematical abstractions that are useful for solving many types of problems in computer science. Consequently, these abstractions must also be represented in computer programs. A standardized generic interface for traversing graphs is of utmost importance to encourage reuse of graph algorithms and data structures.</li>
+          <li>
+            <p><cite>libboost-json</cite>: focuses on a common and popular use-case: parsing and serializing to and from a container called <var>value</var> which holds JSON types.</p>
+            <p>Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
+          </li>
+          <li><cite>libboost-program-options</cite>: to let program developers obtain program options, that is (name, value) pairs from the user, via conventional methods such as command line and config file.</li>
+          <li>
+            <p><cite>libboost-serialization</cite>: containing the following functionalities:</p>
+            <ul>
+              <li>proper restoration of pointers to shared data</li>
+               <li>serialization of STL containers and other commonly used templates</li>
+              <li>data portability - streams of bytes created on one platform should be readable on any other</li>
+              <li>archive interface must be rich enough to permit the creation of an archive that presents serialized data as XML in a useful manner</li>
+            </ul>
+            <p>Here, "serialization" means the reversible deconstruction of an arbitrary set of C++ data structures to a sequence of bytes.</p>
+            <p><dfn>to archive</dfn>: to refer to a specific rendering of this stream of bytes.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="concept-checking">
+        <h2>Concept Checking</h2>
+        <p>An important aspect of using a generic library is using appropriate classes as template arguments to algorithms (using classes that model the concepts specified by the requirements of the algorithm). If an improper class is used, the compiler will emit error messages, but deciphering these messages can present a significant hurdle to the user of a template library. The compiler may produce literally pages of difficult-to-decipher error messages for even a small error.</p>
+        <section>
+          <h3>Concept-Checking Classes</h3>
+          <p>To overcome the problem of cryptic error messages from code not satisfying a concept the Boost Library has developed a C++ idiom for up-front enforcement of concept compliance, called <dfn>concept checking</dfn>. The supporting code for this idiom is available as the Boost Concept Checking Library (BCCL). For each concept, the BCCL provides a concept-checking class, such as the following concept-checking class for <code>LessThanComparable</code>. The required valid expressions for the concept are exercised in the <code class="function">constraints()</code> member function.</p>
+          <pre>template &lt;var class='type'name T&gt;
+struct LessThanComparableConcept {
+  void constraints() {
+    (bool) (a &lt; b);
+  };
+  T a, b;
+};</pre>
+          <p>The concept-checking class is instantiated with the user's template arguments at the beginning of the generic algorithm using the BCCL <code class="function">function_requires()</code> function.</p>
+          <pre>#include &lt;boost/concept_check.hpp&gt;
+template &lt;var class='type'name Iterator&gt;
+void safe_sort(Iterator first, Iterator last) {
+  typedef typename std::iterator_traits&lt;Iterator&gt;::value_type T;
+  function_requires&lt; LessThanComparableConcept&lt;T&gt; &gt;();
+  // other requirements . . .
+  std::sort(first, last);
+};</pre>
+          <p>Now when <code class="function">safe_sort()</code> is misused the error message is much more comprehensible: the message is shorter, the point of error is indicated, the violated concept is listed, and the internal functions of the algorithm are not exposed.</p>
+          <p>The Boost Graph Library uses concept checks to provide better error messages to users. For each <code>graph_concept</code> there is a corresponding concept-checking class defined in the <cite>boost/graph/graph_concepts.hpp</cite> header file. At the beginning of each BGL algorithm there are concept checks for each of the parameters. Error messages originating from graph <cite>concepts.hpp</cite> are a likely indication that one of the argument types given to an algorithm does not meet the algorithm's requirements for a concept.</p>
+        </section>
+        <section>
+          <h3>Concept Archetypes</h3>
+          <p>The complementary problem to concept checking is verifying whether the documented requirements for a generic algorithm actually cover the algorithm's implementation, a problem we refer to as <dfn>concept covering</dfn>. Typically, library implementors check for covering by manual inspection, which of course is error prone. We have also developed a C++ idiom that exploits the C++ compiler's type checker to automate this task. The code for concept covering is also available as part of the Boost Concept Checking Library.</p>
+          <p>The BCCL provides an archetype class for each concept used in the Standard Library. An archetype class provides a minimal implementation of a concept. To check whether a concept covers an algorithm, the archetype class for the concept is instantiated and passed to the algorithm.</p>
+          <p>The following example program attempts to verify that the requirements of <code class="function">std::sort()</code> are covered by an iterator that models <code>RandomAccessIterator</code> having a value type modeling <code>LessThanComparable</code>.</p>
+          <pre>#include &lt;algorithm&gt;
+#include &lt;boost/concept_archetype.hpp&gt;
+int main() {
+  using namespace boost;
+  typedef less_than_comparable_archetype&lt;&gt; T;
+  random access_iterator_archetype&lt;T&gt; ri;
+  std::sort(ri, ri);
+}</pre>
+          <p>In fact, this program will not successfully compile because those concepts do not cover the requirements that <code class="function">std::sort()</code> makes of its template parameters. The resulting error message indicates that the algorithm also requires that the value type be <code>CopyConstructible</code>.</p>
+          <pre>null archetype(const null archetype&lt;int&gt; &amp;) is private</pre>
+          <p>Not only is the copy constructor needed, but the assignment operator is needed as well. These requirements are summarized in the <code>Assignable</code> concept. The following code shows the implementation of the archetype class for <code>Assignable</code>. The <code>Base</code> template parameter is provided so that archetypes can be combined. For checking <code class="function">std::sort()</code>, we would need to combine the archetype classes for <code>Assignable</code> and <code>LessThanComparable</code>.</p>
+          <pre>template &lt;var class='type'name Base = null_archetype&lt;&gt; &gt;
+class assignable_archetype : public Base {
+  typedef assignable_archetype self ;
+public:
+  assignable archetype(const self &amp;) {}
+  self &amp; operator=(const self &amp;) { return *this; }
+};</pre>
+          <p>The Boost Graph Library includes an archetype class for every graph concept in the header file <cite>boost/graph/graph_archetypes.hpp</cite>. Test programs to verify the specification of each BGL algorithm using the graph archetypes are located in the <cite>libs/graph/test/</cite> directory.</p>
+        </section>
+      </section> <!-- end of "Concept Checking" -->
 
     </main>
 

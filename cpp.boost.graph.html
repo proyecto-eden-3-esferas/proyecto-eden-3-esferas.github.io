@@ -50,7 +50,8 @@
     <nav>
       <div>
         <p><a            href="cpp.boost.graph.adjacency_list.html"><code>boost::adjacency_list</code></a></p>
-        <p><a rel="next" href="cpp.boost.graph.examples.html">Boost Graph Library (BGL) Examples</a></p>
+        <p><a rel="next" href="cpp.boost.graph.algorithms-and-visitors.html">Algorithms and Visitors in the Boost Graph Library (BGL)</a></p>
+        <p><a            href="cpp.boost.graph.examples.html">Boost Graph Library (BGL) Examples</a></p>
       </div>
       <div>
         <p><a rel="prev" href="graphs.html">Graphs</a></p>
@@ -74,7 +75,7 @@
         <p>Just as with <a target="_blank" href="cpp.generics.concepts.html">STL's genericity</a>, there are three ways in which the BGL is generic.</p>
         <dl>
           <div class="varlistentry">
-            <dt class="term">Algorithm/Data-Structure Interoperability</dt>
+            <dt>Algorithm/Data-Structure Interoperability</dt>
             <dd>
               <p>First, the graph algorithms of the BGL are written to an interface that abstracts away the details of the particular graph data-structure. Like the STL, the BGL uses <a target="_blank" href="cpp.iterators.html">iterators</a> to define the interface for data-structure traversal. There are three distinct graph traversal patterns: traversal of all vertices in the graph, through all of the edges, and along the adjacency structure of the graph (from a vertex to each of its neighbors). There are separate iterators for each pattern of traversal.</p>
               <p>This generic interface allows template functions such as <code>breadth_first_search()</code> to work on a large variety of graph data-structures, from graphs implemented with pointer-linked nodes to graphs encoded in arrays. This flexibility is especially important in the domain of graphs. Graph data-structures are often custom-made for a particular application. Traditionally, if programmers want to reuse an algorithm implementation they must convert/copy their graph data into the graph library's prescribed graph structure, which severely limits the reuse of graph algorithms.</p>
@@ -82,15 +83,15 @@
             </dd>
           </div>
           <div class="varlistentry">
-            <dt class="term">Extension through Visitors</dt>
+            <dt>Extension through Visitors</dt>
             <dd>
               <p>Second, the graph algorithms of the BGL are extensible. The BGL introduces the notion of a <dfn>visitor</dfn>, which is just a function object with multiple methods. In graph algorithms, there are often several key <dfn>event points</dfn> at which it is useful to insert user-defined operations. The visitor object has a different method that is invoked at each event point. The particular event points and corresponding visitor methods depend on the particular algorithm. They often include methods like start_vertex(), discover_vertex(), examine_edge(), tree_edge(), and finish_vertex().</p>
             </dd>
           </div>
           <div class="varlistentry">
-            <dt class="term">Vertex and Edge Property Multi-Parameterization</dt>
+            <dt>Vertex and Edge Property Multi-Parameterization</dt>
             <dd>
-              <p>The third way that the BGL is generic is analogous to the parameterization of the element-type in STL containers, though again the story is a bit more complicated for graphs. We need to associate values (called <q>properties</q>) with both the vertices and the edges of the graph. In addition, it will often be necessary to associate multiple properties with each vertex and edge; this is what we mean by multi-parameterization. The STL <code>std::list&lt;T&gt;</code> class has a parameter <var>T</var> for its element type. Similarly, BGL graph classes have template parameters for vertex and edge <q>properties</q>. A property specifies the parameterized type of the property and also assigns an <strong>identifying tag</strong> to the property. This tag is used to distinguish between the multiple properties which an edge or vertex may have. A property value that is attached to a particular vertex or edge can be obtained via a <a href="#bgl_property_map">property map</a>. There is a separate property map for each property.</p>
+              <p>The third way that the BGL is generic is analogous to the parameterization of the element-type in STL containers, though again the story is a bit more complicated for graphs. We need to associate values (called <q>properties</q>) with both the vertices and the edges of the graph. In addition, it will often be necessary to associate multiple properties with each vertex and edge; this is what we mean by multi-parameterization. The STL <code>std::list&lt;T&gt;</code> class has a parameter <var>T</var> for its element type. Similarly, BGL graph classes have template parameters for vertex and edge <q>properties</q>. A property specifies the parameterized type of the property and also assigns an <strong>identifying tag</strong> to the property. This tag is used to distinguish between the multiple properties which an edge or vertex may have. A property value that is attached to a particular vertex or edge can be obtained via a <a href="#property-maps">property map</a>. There is a separate property map for each property.</p>
               <p>Traditional graph libraries and graph structures fall down when it comes to the parameterization of graph properties. This is one of the primary reasons that graph data-structures must be custom-built for applications. The parameterization of properties in the BGL graph classes makes them well suited for re-use.</p>
             </dd>
           </div>
@@ -111,12 +112,11 @@
           <ul>
             <li><a href="#creating-a-simple-graph">Creating a Simple Directed/Undirected Graph</a></li>
             <li><a href="#adding-edges">Adding Edges</a></li>
+            <li><a id="#graph-from-edge-iterators">Constructing a Graph Using Edge Iterators</a></li>
             <li><a href="#a-graph-with-some-property">Creating a Graph with some Property (such as Edge-Weight)</a></li>
             <li><a href="#printing-internal-properties-simple">Printing Edge (Internal) Properties (Weights)</a></li>
             <li><a href="#printing-internal-properties-complex">Printing Edge (Internal) Properties (Weights) (Complex)</a></li>
-
             <li><a href="#accessing-indeces">Accessing the Indeces for Edges (or Vertices)</a></li>
-            <li><a href="#a-graph-with-some-property">Creating a Graph with some Property (such as Edge-Weight)</a></li>
             <li><a href="#using-property_map">Print Edge Weights by means of <code>boost::property_map</code></a></li>
             <!--
             <li><a href="#start_BGL_4">Finding paths using Dijkstra's shortest path algorithm</a></li>
@@ -165,6 +165,29 @@ DirectedGraph g;</pre>
     boost::add_edge (4, 5, g);
     boost::add_edge (2, 5, g);</pre>
           <p>Note that ...</p>
+        </section>
+        <section id="graph-from-edge-iterators">
+          <h3>Constructing a Graph Using Edge Iterators</h3>
+          <p><?see In §1.2.4 ?>we have shown how the <code class="methodname">add_vertex()</code> and <code class="methodname">add_edge()</code> functions can be used to create a graph. Those functions add vertices and edges one at a time, but in many cases one would like to add them all at once. To meet this need the <code>adjacency_list</code> graph class has a constructor that takes two iterators that define a range of edges. The edge iterators can be any <code>InputIterator</code> that dereference to a <code>std::pair</code> of integers (<var>i</var>, <var>j</var>) that represent an edge in the graph. The two integers <var>i</var> and <var>j</var> represent vertices where <span class="inlineequation">0 &#x2264; i &lt; |V |</span> and <span class="inlineequation">0 &#x2264; j &lt; |V |</span>. The <var>n</var> and <var>m</var> parameters say how many vertices and edges will be in the graph. These parameters are optional, but providing them improves the speed of graph construction. The graph properties parameter <var>p</var> is attached to the graph object. The function prototype for the constructor that uses edge iterators is as follows:</p>
+          <pre>template &lt;var class='type'name EdgeIterator&gt;
+adjacency list(EdgeIterator first, EdgeIterator last,
+               vertices_size_type n = 0, edges_size_type m = 0,
+               const GraphProperties&amp; p = GraphProperties())</pre>
+          <p>The following code demonstrates the use of the edge iterator constructor to create a graph. The <code>std::istream</code> iterator is used to make an input iterator that reads the edges in from the file. The file contains the number of vertices in the graph, followed by pairs of numbers that specify the edges. The second default-constructed input iterator is a placeholder for the end of the input. The <code>std::istream</code> iterator is passed directly into the constructor for the graph.</p>
+          <pre>std::ifstream file_in("makefile-dependencies.dat");
+typedef graph_traits&lt;file_dep_graph&gt;::vertices_size_type size_type;
+size_type n_vertices;
+file_in &gt;&gt; n_vertices; // read in number of vertices
+std::istream iterator&lt;std::pair&lt;size_type, size_type&gt; &gt; input_begin(file_in), input_end;
+file_dep_graph g(input_begin, input_end, n_vertices);</pre>
+          <p>Since the value type of the std::istream iterator is <code>std::pair</code>, an input operator needs to be defined for <code>std::pair</code>.</p>
+          <pre>namespace std {
+  template &lt;var class='type'name T&gt;
+  std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::pair&lt;T,T&gt;&amp; p) {
+    in &gt;&gt; p.first &gt;&gt; p.second;
+    return in;
+  }
+}</pre>
         </section>
         <section id="a-graph-with-some-property">
           <h3>Creating a Graph with some Property (such as Edge-Weight)</h3>
@@ -391,6 +414,7 @@ int main(int, char*[])
 
     return 0;
 }</pre>
+          <p><strong>Note</strong> instead of <code>boost::edge_weight_t()</code>, which constructs a <code>boost::edge_weight_t</code> object, you can use object <code>boost::edge_weight</code>.</p>
         </section>
 
       </section>
@@ -398,19 +422,9 @@ int main(int, char*[])
       <section>
         <h2>A Quick Tour of the Boost Graph Library</h2>
         <p>The domain of graph data structures and algorithms is in some respects more complicated than that of containers. The abstract iterator interface used by STL is not sufficiently rich to encompass the numerous ways that graph algorithms may traverse a graph. Instead, we formulate an abstract interface that serves the same purpose for graphs that iterators do for basic containers (though iterators still play a large role). The figure below depicts the analogy between the STL and the BGL.</p>
-        <!-- <mediaobject> -->
-        <!-- <imageobject> -->
         <img alt="(no image found!)" format="GIF" src="./pictures/Computing/analogy_STL_BGF.gif"/>
-        <!-- </imageobject> -->
         <caption>The analogy between the STL and the BGL.</caption>
-        <!-- </mediaobject> -->
-        <p>The graph abstraction consists of a set of vertices (or nodes), and a set of edges (or arcs) that connect the vertices. The next figure depicts a directed graph with five vertices (labeled 0 through 4) and 11 edges. The edges leaving a vertex are called the <dfn>out-edges</dfn> of the vertex. The edges {(0,1),(0,2),(0,3),(0,4)} are all out-edges of vertex 0. The edges entering a vertex are called the <dfn>in-edges</dfn> of the vertex. The edges {(0,4),(2,4),(3,4)} are all in-edges of vertex 4.</p>
-        <!-- <mediaobject> -->
-        <!-- <imageobject> -->
-        <img alt="(no image found!)" format="GIF" src="./pictures/Computing/directed_graph_example.gif"/>
-        <!-- </imageobject> -->
-        <caption>The analogy between the STL and the BGL.</caption>
-        <!-- </mediaobject> -->
+
         <p>In the following sections we will use the BGL to construct this example graph and manipulate it in various ways. The complete source code for this example can be found as <cite href="BGL_quick_tour_cpp">BGL_quick_tour.cpp</cite>. Each of the following sections discusses a slice of this example file. Excerpts from the output of the example program will also be listed.</p>
         <pre id="BGL_quick_tour_cpp">//=======================================================================
 // Copyright 1997, 1998, 1999, 2000 University of Notre Dame.
@@ -553,7 +567,7 @@ int main(int,char*[])
 }</pre>
         <section id="bgl_tour_constructing">
           <h3>Constructing a Graph</h3>
-          <p>In this example we will use the BGL <code><a target="_blank" href="cpp.boost.graph.adjacency_matrix.html">adjacency_list</a></code> class to demonstrate the main ideas in the BGL interface. The <code>adjacency_list</code> class provides a generalized version of the classic adjacency list data structure. The <code>adjacency_list</code> is a template class with six template parameters, though here we only fill in the first three parameters and use the defaults for the remaining three. The first two template arguments (<var class="constant">vecS</var>, <var class="constant">vecS</var>) determine the data structure used to represent the out-edges for each vertex in the graph and the data structure used to represent the graph's vertex set (see section <cite class="section" href="choosing_the_edgelist_and_vertexlist">Choosing the <var class="parameter">Edgelist</var> and <var class="parameter">VertexList</var></cite> for information about the tradeoffs of the different data structures).</p>
+          <p>In this example we will use the BGL <code><a target="_blank" href="cpp.boost.graph.adjacency_matrix.html">adjacency_list</a></code> class to demonstrate the main ideas in the BGL interface. The <code>adjacency_list</code> class provides a generalized version of the classic adjacency list data structure. The <code>adjacency_list</code> is a template class with six template parameters, though here we only fill in the first three parameters and use the defaults for the remaining three. The first two template arguments (<var class="constant">vecS</var>, <var class="constant">vecS</var>) determine the data structure used to represent the out-edges for each vertex in the graph and the data structure used to represent the graph's vertex set (see section <cite class="section" href="#choosing-the-edgelist-and-vertexlist">Choosing the <var class="parameter">Edgelist</var> and <var class="parameter">VertexList</var></cite> for information about the tradeoffs of the different data structures).</p>
           <p>The third argument, <var class="constant">bidirectionalS</var>, selects a directed graph that provides access to both out and in-edges. The other options for the third argument are <var class="constant">directedS</var> which selects a directed graph with only out-edges, and <var class="constant">undirectedS</var> which selects an undirected graph.</p>
           <p>Once we have the graph type selected, we can create the graph in the figure by declaring a graph object and filling in edges using the <code class="function">add_edge()</code> function of the <code class="interface">MutableGraph</code> interface (which <code>adjacency_list</code> implements). We use the array of pairs <code>edge_array</code> merely as a convenient way to explicitly create the edges for this example.</p>
           <pre>#include &lt;iostream&gt;                  // for std::cout
@@ -752,11 +766,9 @@ int main(int,char*[])
         </section>
         <section>
           <h3>Adding Some Color to your Graph</h3>
-          <p>BGL attempts to be as flexible as possible in terms of accommodating how properties are attached to a graph. For instance, a property such as edge weight may need to be used throughout a graph object's lifespan and therefore it would be convenient to have the graph object also manage the property storage. On the other hand, a property like vertex color may only be needed for the duration of a single algorithm, and it would be better to have the property stored separately from the graph object. The first kind of property is called an <dfn>internally stored property</dfn> while the second kind is called an <dfn>externally stored property</dfn>. BGL uses a uniform mechanism to access both kinds of properties inside its graph algorithms called the <code class="interface">property map</code> interface, described in <cite class="section" href="property_map_concepts">Property Map Concepts</cite>. In addition, the <code class="interface">PropertyGraph</code> concept defines the interface for obtaining a property map object for an internally stored property.</p>
-          <p>The BGL <code>adjacency_list</code> class allows users to specify internally stored properties through plug-in template parameters of the graph class. How to do this is discussed in detail in <cite class="section" href="BGL_internal_properties">Internal Properties</cite>. Externally stored properties can be created in many different ways, although they are ultimately passed as separate arguments to the graph algorithms. One straightforward way to store properties is to create an array indexed by vertex or edge index. In the adjacency_list with vecS specified for the VertexList template parameter, vertices are automatically assigned indices, which can be accessed via the property map for the <var class="type">vertex_index_t</var>. Edges are not automatically assigned indices. However the property mechanism can be used to attach indices to the edges which can be used to index into other externally stored properties.</p>
           <p>In the following example, we construct a graph and apply <code class="function">dijkstra_shortest_paths()</code>. The complete source code for the example is in <cite>examples/dijkstra-example.cpp</cite>. Dijkstra's algorithm computes the shortest distance from the starting vertex to every other vertex in the graph.</p>
           <p>Dijkstra's algorithm requires that a weight property is associated with each edge and a distance property with each vertex. Here we use an internal property for the weight and an external property for the distance. For the weight property we use the property class and specify <var class="type">int</var> as the type used to represent weight values and <var class="type">edge_weight_t</var> for the property tag (which is one of the BGL predefined property tags). The weight property is then used as a template argument for <code>adjacency_list</code>.</p>
-          <p>The <var class="constant">listS</var> and <var class="constant">vecS</var> types are selectors that determine the data structure used inside the <code>adjacency_list</code> (see <cite class="section" href="choosing_the_edgelist_and_vertexlist">Choosing the Edgelist and VertexList</cite>). The <var class="constant">directedS</var> type specifies that the graph should be directed (versus undirected). The following code shows the specification of the graph type and then the initialization of the graph. The edges and weights are passed to the graph constructor in the form of iterators (a pointer qualifies as a <code class="interface">RandomAccessIterator</code>)</p>
+          <p>The <var class="constant">listS</var> and <var class="constant">vecS</var> types are selectors that determine the data structure used inside the <code>adjacency_list</code> (see <cite class="section" href="#choosing-the-edgelist-and-vertexlist">Choosing the Edgelist and VertexList</cite>). The <var class="constant">directedS</var> type specifies that the graph should be directed (versus undirected). The following code shows the specification of the graph type and then the initialization of the graph. The edges and weights are passed to the graph constructor in the form of iterators (a pointer qualifies as a <code class="interface">RandomAccessIterator</code>)</p>
           <pre>typedef adjacency_list&lt;listS, vecS, directedS,
                          no_property, property&lt;edge_weight_t, int&gt; &gt; Graph;
   typedef graph_traits&lt;Graph&gt;::vertex_descriptor Vertex;
@@ -794,72 +806,23 @@ int main(int,char*[])
   distance(3) = 4
   distance(4) = 5
 </pre>
-        </section>
-        <section>
-          <h3>Extending Algorithms with Visitors</h3>
-          <p>Often times an algorithm in a library <em>almost</em> does what you need, but not quite. For example, in the previous section we used Dijkstra's algorithm to calculate the shortest distances to each vertex, but perhaps we also wanted to record the tree of shortest paths. One way to do this is to record the predecessor (parent) for each node in the shortest-paths tree.</p>
-          <p>It would be nice if we could avoid rewriting Dijkstra's algorithm, and just add that little bit extra needed to record the predecessors. In the STL, this kind of extensibility is provided by <a href="function_objects">functors</a>, which are optional parameters to each algorithm. In the BGL this role is fulfilled by visitors.</p>
-          <p>A <dfn>visitor</dfn> is like a functor, but instead of having just one <q>apply</q> method, it has several. Each of these methods get invoked at certain well-defined points within the algorithm. The visitor methods are explained in detail in <cite class="section" href="bgl_visitor">Visitor Concepts</cite>. The BGL provides a number of visitors for some common tasks including a predecessor recording visitor. The user is encouraged to write his or her own visitors as a way of extending the BGL. Here we will take a quick look at the implementation and use of the predecessor recorder. Since we will be using the <code class="function">dijkstra_shortest_paths()</code> algorithm, the visitor we create must be a Dijkstra Visitor.</p>
-          <p>The functionality of the <code>record_predecessors</code> visitor is separated into two parts. For the storage and access of the predecessor property, we will use a <code href="boost_property_maps">property map</code>. The predecessor visitor will then only be responsible for what parent to record. To implement this, we create a <code>record_predecessors</code> class and template it on the predecessor property map <code>PredecessorMap</code>. Since this visitor will only be filling in one of the visitor methods, we will inherit from <code>dijkstra_visitor</code>, which will provide empty methods for the rest. The constructor of the predecessor_recorder will take the property map object and save it away in a data member.</p>
-
-          <p/>
-          <pre>template &lt;class PredecessorMap&gt;
-  class record_predecessors : public dijkstra_visitor&lt;&gt;
-  {
-  public:
-    record_predecessors(PredecessorMap p)
-      : m_predecessor(p) { }
-
-    template &lt;class Edge, class Graph&gt;
-    void edge_relaxed(Edge e, Graph&amp; g) {
-      // set the parent of the target(e) to source(e)
-      put(m_predecessor, target(e, g), source(e, g));
-    }
-  protected:
-    PredecessorMap m_predecessor;
-  };</pre>
-          <p>The job of recording the predecessors is quite simple. When Dijkstra's algorithm relaxes an edge (potentially adding it to the shortest-paths tree) we record the source vertex as the predecessor of the target vertex. Later, if the edge is relaxed again the predecessor property will be overwritten by the new predecessor. Here we use the <code class="function">put()</code> function associated with the property map to record the predecessor. The edge_filter of the visitor tells the algorithm when to invoke the <code class="function">explore()</code> method. In this case we only want to be notified about edges in the shortest-paths tree so we specify tree_edge_tag.</p>
-          <p>As a finishing touch, we create a helper function to make it more convenient to create predecessor visitors. All BGL visitors have a helper function like this.</p>
-          <pre>template &lt;class PredecessorMap&gt;
-  record_predecessors&lt;PredecessorMap&gt;
-  make_predecessor_recorder(PredecessorMap p) {
-    return record_predecessors&lt;PredecessorMap&gt;(p);
-  }</pre>
-          <p>We are now ready to use the record_predecessors in Dijkstra's algorithm. Luckily, BGL's Dijkstra's algorithm is already equipped to handle visitors, so we just pass in our new visitor. In this example we only need to use one visitor, but the BGL is also equipped to handle the use of multiple visitors in the same algorithm (see <cite class="section" href="bgl_visitor">Visitor Concepts</cite>Visitor Concepts).</p>
-          <pre>  using std::vector;
-  using std::cout;
-  using std::endl;
-  vector&lt;Vertex&gt; p(num_vertices(G), graph_traits&lt;G&gt;::null_vertex()); //the predecessor array
-  dijkstra_shortest_paths(G, s, distance_map(&amp;d[0]).
-                          visitor(make_predecessor_recorder(&amp;p[0])));
-
-  cout &lt;&lt; "parents in the tree of shortest paths:" &lt;&lt; endl;
-  for(vi = vertices(G).first; vi != vertices(G).second; ++vi) {
-    cout &lt;&lt; "parent(" &lt;&lt; *vi;
-    if (p[*vi] == graph_traits&lt;G&gt;::null_vertex())
-      cout &lt;&lt; ") = no parent" &lt;&lt; endl;
-    else
-      cout &lt;&lt; ") = " &lt;&lt; p[*vi] &lt;&lt; endl;
-  }</pre>
-          <p>The output is:</p>
-          <pre>parents in the tree of shortest paths:
-  parent(0) = no parent
-  parent(1) = 4
-  parent(2) = 0
-  parent(3) = 2
-  parent(4) = 3</pre>
+          <p>(<i>See</i> <a target="_blank" href="cpp.boost.graph.algorithms-and-visitors.html#extending">Extending Algorithms with Visitors</a>)</p>
         </section>
       </section> <!-- end of "A Quick Tour of the Boost Graph Library" -->
+
       <section id="properties">
         <h2>Graph (Internal) Properties</h2>
         <p style="text-align: right">(From <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/libs/graph/doc/using_adjacency_list.html#sec:adjacency-list-properties">https://www.boost.org/doc/libs/latest/libs/graph/doc/using_adjacency_list.html#sec:adjacency-list-properties</a></cite>)</p>
+        <hr/>
+        <p>BGL attempts to be as flexible as possible in terms of accommodating how properties are attached to a graph. For instance, a property such as edge weight may need to be used throughout a graph object's lifespan and therefore it would be convenient to have the graph object also manage the property storage. On the other hand, a property like vertex color may only be needed for the duration of a single algorithm, and it would be better to have the property stored separately from the graph object. The first kind of property is called an <dfn>internally stored property</dfn> while the second kind is called an <dfn>externally stored property</dfn>. BGL uses a uniform mechanism to access both kinds of properties inside its graph algorithms called the <code class="interface">property map</code> interface, described in <cite class="section" href="property_map_concepts">Property Map Concepts</cite>. In addition, the <code class="interface">PropertyGraph</code> concept defines the interface for obtaining a property map object for an internally stored property.</p>
+        <p>The BGL <code>adjacency_list</code> class allows users to specify internally stored properties through plug-in template parameters of the graph class. How to do this is discussed in detail in <cite class="section" href="#internal-properties">Internal Properties</cite>. Externally stored properties can be created in many different ways, although they are ultimately passed as separate arguments to the graph algorithms. One straightforward way to store properties is to create an array indexed by vertex or edge index. In the adjacency_list with vecS specified for the VertexList template parameter, vertices are automatically assigned indices, which can be accessed via the property map for the <var class="type">vertex_index_t</var>. Edges are not automatically assigned indices. However the property mechanism can be used to attach indices to the edges which can be used to index into other externally stored properties.</p>
         <hr/>
         <p>Properties can be attached to the vertices or edges of an adjacency_list graph via the property interface. The template parameters <var>VertexProperty</var> and <var>EdgeProperty</var> of the <code>adjacency_list</code> class are meant to be filled by these interior properties.</p>
         <section>
           <h3>Bundled Properties</h3>
           <p><strong>Note</strong> Bundled properties will only work properly on compilers that support class template partial specialization.</p>
           <p>Class templates <code>adjacency_list</code> and <code>adjacency_matrix</code> support the introduction of named properties via internal properties. However, this method is cumbersome in many uses, where it would be more intuitive to just specify a structure or class that contains internal properties for edges or vertices. Bundled properties allow one to use <code>adjacency_list</code> and <code>adjacency_matrix</code> in this manner, providing a simple way to introduce and access any number of internal properties for vertices and edges.</p>
-          <p>One can introduce bundled properties into an either graph type by providing a user-defined class type for the <var>VertexProperties</var> or <var>EdgeProperties</var> template arguments. The user-defined class may alternatively be placed at the end of a property list, replacing the (implicit) <code>boost::no_property</code> argument.</p>
+          <p>One can introduce bundled properties into either an <code>adjacency_list</code> or an <code>adjacency_matrix</code> by providing a user-defined class type for the <var>VertexProperties</var> or <var>EdgeProperties</var> template arguments. The user-defined class may alternatively be placed at the end of a property list, replacing the (implicit) <code>boost::no_property</code> argument.</p>
           <section>
             <h4>Example: Route planning</h4>
             <p>Consider the implementation of a simple route planner that should find the shortest directions from one city to another via a set of highways. The vertices of the graph are cities, and we may wish to store several bits of information about the city within each vertex:</p>
@@ -919,7 +882,7 @@ dijkstra_shortest_paths(map, from,
         </section>
       </section>
 
-      <section>
+      <section id="graph-data-structures">
         <h2>Graph Data Structures</h2>
         <p> The BGL currently provides two graph classes and an edge list adaptor:</p>
         <ul>
@@ -928,57 +891,13 @@ dijkstra_shortest_paths(map, from,
           <li><code>edge_list</code></li>
         </ul>
         <p>The <code>adjacency_list</code> class is the general purpose graph class. It is highly parameterized so that it can be optimized for different situations: the graph is directed or undirected, allow or disallow parallel edges, efficient access to just the out-edges or also to the in-edges, fast vertex insertion and removal at the cost of extra space overhead, etc.</p>
-        <p>The <code>adjacency_matrix</code> class stores edges in a |V| x |V| matrix (where |V| is the number of vertices). The elements of this matrix represent edges in the graph. Adjacency matrix representations are especially suitable for very dense graphs, i.e., those where the number of edges approaches |V|<sup>2</sup>.</p>
+        <p>The <code>adjacency_matrix</code> class stores edges in a |V| x |V| matrix (where |V| is the number of vertices). The elements of this matrix represent edges in the graph. Adjacency matrix representations are especially suitable for very dense graphs, i.e., those where the number of edges approaches |V|<sup>2</sup>. The adjacency list class is a good choice for most situations, particularly for representing sparse graphs.</p>
         <p>The <code>edge_list</code> class is an adaptor that takes any kind of edge iterator and implements an Edge List Graph.</p>
       </section>
       <section>
         <h2>Graph Traits with <code>graph_traits&lt;<var>MY_GRAPH_TYPE</var>&gt;</code>*</h2>
       </section>
-      <section>
-        <h2>A Beginner's Introduction to the Boost Graph Library</h2>
-        <section>
-          <h3>Which Graph Class To Use</h3>
-          <p>There are several BGL graph classes from which to choose. Since BGL algorithms are generic, they can also be used with any <em>conforming</em> user-defined graph class, but in this section we will restrict our discussion to BGL graph classes.</p>
-          <p>The principle BGL graph classes are the <code>adjacency_list</code> and <code>adjacency_matrix</code> classes. The adjacency list class is a good choice for most situations, particularly for representing sparse graphs. The file-dependencies graph has only a few edges per vertex, so it is sparse. The adjacency matrix class is a good choice for representing dense graphs, but a very bad choice for sparse graphs, unless a sparse matrix is used.</p>
-          <p>In this introductory section we shall be using the <code>adjacency_list</code> class exclusively. However, most of what is presented here will also apply directly to the <code>adjacency_matrix</code> class because its interface is almost identical to that of the <code>adjacency_list</code>.</p>
-          <p>Here we use the same variant of adjacency list as was used in &#xA7;1.4.1.</p>
-          <pre>typedef adjacency list&lt;
-  listS, // Store out-edges of each vertex in a std::list
-  vecS,  // Store vertex set in a std::vector
-  directedS // The file dependency graph is directed
-            &gt; file_dep_graph; // for file dependency graph, as introduced elsewhere</pre>
-        </section>
-        <section>
-          <h3>Constructing a Graph Using Edge Iterators</h3>
-          <p><?see In §1.2.4 ?>we have shown how the <code class="methodname">add_vertex()</code> and <code class="methodname">add_edge()</code> functions can be used to create a graph. Those functions add vertices and edges one at a time, but in many cases one would like to add them all at once. To meet this need the <code>adjacency_list</code> graph class has a constructor that takes two iterators that define a range of edges. The edge iterators can be any <code>InputIterator</code> that dereference to a <code>std::pair</code> of integers (<var>i</var>, <var>j</var>) that represent an edge in the graph. The two integers <var>i</var> and <var>j</var> represent vertices where <span class="inlineequation">0 &#x2264; i &lt; |V |</span> and <span class="inlineequation">0 &#x2264; j &lt; |V |</span>. The <var>n</var> and <var>m</var> parameters say how many vertices and edges will be in the graph. These parameters are optional, but providing them improves the speed of graph construction. The graph properties parameter <var>p</var> is attached to the graph object. The function prototype for the constructor that uses edge iterators is as follows:</p>
-          <pre>template &lt;var class='type'name EdgeIterator&gt;
-adjacency list(EdgeIterator first, EdgeIterator last,
-               vertices_size_type n = 0, edges_size_type m = 0,
-               const GraphProperties&amp; p = GraphProperties())</pre>
-          <p>The following code demonstrates the use of the edge iterator constructor to create a graph. The <code>std::istream</code> iterator is used to make an input iterator that reads the edges in from the file. The file contains the number of vertices in the graph, followed by pairs of numbers that specify the edges. The second default-constructed input iterator is a placeholder for the end of the input. The <code>std::istream</code> iterator is passed directly into the constructor for the graph.</p>
-          <pre>std::ifstream file_in("makefile-dependencies.dat");
-typedef graph_traits&lt;file_dep_graph&gt;::vertices_size_type size_type;
-size_type n_vertices;
-file_in &gt;&gt; n_vertices; // read in number of vertices
-std::istream iterator&lt;std::pair&lt;size_type, size_type&gt; &gt; input_begin(file_in), input_end;
-file_dep_graph g(input_begin, input_end, n_vertices);</pre>
-          <p>Since the value type of the std::istream iterator is <code>std::pair</code>, an input operator needs to be defined for <code>std::pair</code>.</p>
-          <pre>namespace std {
-  template &lt;var class='type'name T&gt;
-  std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::pair&lt;T,T&gt;&amp; p) {
-    in &gt;&gt; p.first &gt;&gt; p.second;
-    return in;
-  }
-}</pre>
-          <p/>
-        </section>
-        <section>
-          <h3>Compilation Order</h3>
-          <p>The first question that we address is that of specifying an order in which to build all of the targets. The primary consideration here is ensuring that before building a given target, all the targets that it depends on are already built.</p>
 
-          <p/>
-        </section>
-      </section>
       <section>
         <h2>Graph Interfaces</h2>
         <p>We shall describe the base <code class="interface">Graph</code> interface and its <a href="bgl_graph_refinements">refinements</a>.</p>
@@ -994,31 +913,31 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
             <h4>Associated Types</h4>
             <dl>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>boost::graph_traits&lt;G&gt;::vertex_descriptor</pre>
                 </dt>
                 <dd>A vertex descriptor corresponds to a unique vertex in an abstract graph instance. A vertex descriptor must be Default Constructible, Assignable, and Equality Comparable.</dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>boost::graph_traits&lt;G&gt;::edge_descriptor</pre>
                 </dt>
                 <dd>An edge descriptor corresponds to a unique edge (u,v) in a graph. An edge descriptor must be Default Constructible, Assignable, and Equality Comparable.</dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>boost::graph_traits&lt;G&gt;::directed_category</pre>
                 </dt>
                 <dd>The choices are <var class="literal">directed_tag</var> and <var class="literal">undirected_tag</var>.</dd>
               </div>
               <div class="varlistentry" id="bgl_edge_parallel_category">
-                <dt class="term">
+                <dt>
                   <pre>boost::graph_traits&lt;G&gt;::edge_parallel_category</pre>
                 </dt>
                 <dd>This describes whether the graph class allows the insertion of parallel edges (edges with the same source and target). The two tags are <var class="literal">allow_parallel_edge_tag</var> and <var class="literal">disallow_parallel_edge_tag</var>.</dd>
               </div>
               <div class="varlistentry" id="bgl_traversal_category">
-                <dt class="term">
+                <dt>
                   <pre>boost::graph_traits&lt;G&gt;::traversal_category</pre>
                 </dt>
                 <dd>This describes the ways in which the vertices and edges of the graph can be visited. The choices are <var class="literal">incidence_graph_tag</var>, <var class="literal">adjacency_graph_tag</var>, <var class="literal">bidirectional_graph_tag</var>, <var class="literal">vertex_list_graph_tag</var>, <var class="literal">edge_list_graph_tag</var>, and <var class="literal">adjacency_matrix_tag</var>.</dd>
@@ -1029,7 +948,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
             <h4>Valid Expressions</h4>
             <dl>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>boost::graph_traits&lt;G&gt;::null_vertex()</pre>
                 </dt>
                 <dd>Returns a special vertex_descriptor object which does not refer to any vertex of graph object which type is G.</dd>
@@ -1065,7 +984,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>The refinements of the <code class="interface">graph</code> are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="interface" href="bgl_IncidenceGraph">IncidenceGraph</code>
               </dt>
               <dd>
@@ -1074,7 +993,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="interface" href="bgl_BidirectionalGraph">BidirectionalGraph</code>
               </dt>
               <dd>
@@ -1082,7 +1001,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="interface" href="bgl_AdjacencyGraph">AdjacencyGraph</code>
               </dt>
               <dd>
@@ -1090,7 +1009,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="interface" href="bgl_EdgeListGraph">EdgeListGraph</code>
               </dt>
               <dd>
@@ -1098,15 +1017,15 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
-                <code class="interface" href="bgl_AdjacencyMatrix">AdjacencyMatrix</code>
+              <dt>
+                <code class="interface" href="#AdjacencyMatrix">AdjacencyMatrix</code>
               </dt>
               <dd>
                 <p>The AdjacencyMatrix concept refines Graph concept and adds the requirement for efficient access to any edge in the graph given the source and target vertices.</p>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="interface" href="bgl_VertexListGraph">VertexListGraph</code>
               </dt>
               <dd>
@@ -1122,19 +1041,19 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Its associated types:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::traversal_category</code>
               </dt>
               <dd>This tag type must be convertible to incidence_graph_tag.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::out_edge_iterator</code>
               </dt>
               <dd>An out-edge iterator for a vertex v provides access to the out-edges of the vertex. As such, the value type of an out-edge iterator is the edge descriptor type of its graph. An out-edge iterator must meet the requirements of MultiPassInputIterator.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::degree_size_type</code>
               </dt>
               <dd>The unsigned integral type used for representing the number out-edges or incident edges of a vertex.</dd>
@@ -1143,7 +1062,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Valid expressions (global functions) are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">source(e, g)</code>
               </dt>
               <dd>
@@ -1152,7 +1071,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">target(e, g)</code>
               </dt>
               <dd>
@@ -1161,7 +1080,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">out_edges(u, g)</code>
               </dt>
               <dd>
@@ -1170,7 +1089,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">out_degree(u, g)</code>
               </dt>
               <dd>
@@ -1187,13 +1106,13 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Its associated types:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::traversal_category</code>
               </dt>
               <dd>This tag type must be convertible to bidirectional_graph_tag.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::in_edge_iterator</code>
               </dt>
               <dd>An in-edge iterator for a vertex v provides access to the in-edges of v. As such, the value type of an in-edge iterator is the edge descriptor type of its graph. An in-edge iterator must meet the requirements of MultiPassInputIterator.</dd>
@@ -1202,7 +1121,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Valid expressions (global functions) are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">in_edges(v, g)</code>
               </dt>
               <dd>
@@ -1211,7 +1130,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">in_degree(v, g)</code>
               </dt>
               <dd>
@@ -1220,7 +1139,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">degree(v, g)</code>
               </dt>
               <dd>
@@ -1261,13 +1180,13 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Its associated types:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::traversal_category</code>
               </dt>
               <dd>This tag type must be convertible to adjacency_graph_tag.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::adjacency_iterator</code>
               </dt>
               <dd>An adjacency iterator for a vertex v provides access to the vertices adjacent to v. As such, the value type of an adjacency iterator is the vertex descriptor type of its graph. An adjacency iterator must meet the requirements of MultiPassInputIterator.</dd>
@@ -1276,7 +1195,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Valid expressions (global functions) are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">adjacent_vertices(v, g)</code>
               </dt>
               <dd>
@@ -1297,19 +1216,19 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Its associated types:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::traversal_category</code>
               </dt>
               <dd>This tag type must be convertible to edge_list_graph_tag.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::edge_iterator</code>
               </dt>
               <dd>An edge iterator (obtained via edges(g)) provides access to all of the edges in a graph. An edge iterator type must meet the requirements of MultiPassInputIterator. The value type of the edge iterator must be the same as the edge descriptor of the graph.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::edges_size_type</code>
               </dt>
               <dd>The unsigned integer type used to represent the number of edges in the graph.</dd>
@@ -1318,7 +1237,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Valid expressions (global functions) are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">edges(g)</code>
               </dt>
               <dd>
@@ -1327,7 +1246,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">num_edges(g)</code>
               </dt>
               <dd>
@@ -1336,7 +1255,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">source(e, g)</code>
               </dt>
               <dd>
@@ -1345,7 +1264,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">target(e, g)</code>
               </dt>
               <dd>
@@ -1387,13 +1306,13 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
   };</pre>
           </section>
         </section>
-        <section id="bgl_AdjacencyMatrix">
+        <section id="AdjacencyMatrix">
           <h3>The <code class="interface">AdjacencyMatrix</code> Interface</h3>
           <p>The AdjacencyMatrix concept refines Graph concept and adds the requirement for efficient access to any edge in the graph given the source and target vertices. No Boost Graph Library algorithms currently use this concept. However there are algorithms not yet implemented such as Floyd-Warshall that would require this concept.</p>
           <p>Its associated types:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::traversal_category</code>
               </dt>
               <dd>This tag type must be convertible to adjacency_matrix_tag.</dd>
@@ -1402,7 +1321,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Valid expressions (global functions) are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">edge(u, v, g)</code>
               </dt>
               <dd>
@@ -1432,19 +1351,19 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Its associated types:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::traversal_category</code>
               </dt>
               <dd>This tag type must be convertible to vertex_list_graph_tag.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::vertex_iterator</code>
               </dt>
               <dd>A vertex iterator (obtained via vertices(g)) provides access to all of the vertices in a graph. A vertex iterator type must meet the requirements of MultiPassInputIterator. The value type of the vertex iterator must be the vertex descriptor of the graph.</dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code>boost::graph_traits&lt;G&gt;::vertices_size_type</code>
               </dt>
               <dd>The unsigned integer type used to represent the number of vertices in the graph.</dd>
@@ -1453,7 +1372,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <p>Valid expressions (global functions) are:</p>
           <dl>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">vertices(g)</code>
               </dt>
               <dd>
@@ -1462,7 +1381,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
               </dd>
             </div>
             <div class="varlistentry">
-              <dt class="term">
+              <dt>
                 <code class="function">num_vertices(g)</code>
               </dt>
               <dd>
@@ -1496,7 +1415,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
             <h4>Valid Expressions</h4>
             <dl>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>add_edge(u, v, g)</pre>
                 </dt>
                 <dd>
@@ -1505,7 +1424,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_edge(u, v, g)</pre>
                 </dt>
                 <dd>
@@ -1516,7 +1435,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_edge(e, g)</pre>
                 </dt>
                 <dd>
@@ -1527,7 +1446,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_edge(iter, g)</pre>
                 </dt>
                 <dd>
@@ -1538,7 +1457,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_edge_if(p, g)</pre>
                 </dt>
                 <dd>
@@ -1547,7 +1466,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_out_edge_if(u, p, g)</pre>
                 </dt>
                 <dd>
@@ -1556,7 +1475,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_in_edge_if(u, p, g)</pre>
                 </dt>
                 <dd>
@@ -1565,7 +1484,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>add_vertex(g)</pre>
                 </dt>
                 <dd>
@@ -1574,7 +1493,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>clear_vertex(u, g)</pre>
                 </dt>
                 <dd>
@@ -1585,7 +1504,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
                 </dd>
               </div>
               <div class="varlistentry">
-                <dt class="term">
+                <dt>
                   <pre>remove_vertex(u, g)</pre>
                 </dt>
                 <dd>
@@ -1610,7 +1529,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           <section>
             <h4>Models</h4>
             <p>
-              <code href="adjacency_list">adjacency_list</code>
+              <code target="_blank" href="cpp.boost.graph.adjacency-list.html">adjacency_list</code>
             </p>
           </section>
           <section>
@@ -1684,10 +1603,12 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
           </section>
         </section>
       </section>
+
+
       <section id="bgl_concepts">
         <h2>Graph Concepts</h2>
         <p>Just as the STL defines a collection of iterator concepts that provide a generic mechanism for traversing and accessing sequences of objects, BGL defines its own collection of concepts that specify how graphs can be inspected and manipulated.</p>
-        <p>In this section we give an overview of these concepts. The examples in this section do not refer to specific graph types; they are written as function templates with the graph as a template parameter. A generic function written using the BGL interface can be applied to any of the BGL graph types&#x2014;or even to new user-defined graph types. Later on, we will discuss the concrete graph classes that are provided in the BGL.</p>
+        <p>In this section we give an overview of these concepts. The examples in this section do not refer to specific graph types; they are written as function templates with the graph as a template parameter. A generic function written using the BGL interface can be applied to any of the BGL graph types--or even to new user-defined graph types. Later on, we will discuss the concrete graph classes that are provided in the BGL.</p>
         <section id="bgl_vertex_and_edge_descriptors">
           <h3>Vertex and Edge Descriptors</h3>
           <p>In the BGL, vertices and edges are manipulated through opaque handles called <dfn>vertex descriptors</dfn> and <dfn>edge descriptors</dfn>. Different graph types may use different types for their descriptors. For example, some graph types may use integers, whereas other graphs may use pointers. The descriptor types for a graph type are always accessible through the <a href="#bgl_graph_traits">graph traits class</a>.</p>
@@ -1700,62 +1621,8 @@ bool is self loop(typename graph traits&lt;Graph&gt;::edge descriptor e, const G
   return u == v;
 }</pre>
         </section>
-        <section id="bgl_concept_checking">
-          <h3>Concept Checking</h3>
-          <p>An important aspect of using a generic library is using appropriate classes as template arguments to algorithms (using classes that model the concepts specified by the requirements of the algorithm). If an improper class is used, the compiler will emit error messages, but deciphering these messages can present a significant hurdle to the user of a template library. The compiler may produce literally pages of difficult-to-decipher error messages for even a small error.</p>
-          <section>
-            <h4>Concept-Checking Classes</h4>
-            <p>To overcome the problem of cryptic error messages from code not satisfying a concept the Boost Library has developed a C++ idiom for up-front enforcement of concept compliance, called <dfn>concept checking</dfn>. The supporting code for this idiom is available as the Boost Concept Checking Library (BCCL). For each concept, the BCCL provides a concept-checking class, such as the following concept-checking class for <code>LessThanComparable</code>. The required valid expressions for the concept are exercised in the <code class="function">constraints()</code> member function.</p>
-            <pre>template &lt;var class='type'name T&gt;
-struct LessThanComparableConcept {
-  void constraints() {
-    (bool) (a &lt; b);
-  };
-  T a, b;
-};</pre>
-            <p>The concept-checking class is instantiated with the user's template arguments at the beginning of the generic algorithm using the BCCL <code class="function">function_requires()</code> function.</p>
-            <pre>#include &lt;boost/concept_check.hpp&gt;
-template &lt;var class='type'name Iterator&gt;
-void safe_sort(Iterator first, Iterator last) {
-  typedef typename std::iterator_traits&lt;Iterator&gt;::value_type T;
-  function_requires&lt; LessThanComparableConcept&lt;T&gt; &gt;();
-  // other requirements . . .
-  std::sort(first, last);
-};</pre>
-            <p>Now when <code class="function">safe_sort()</code> is misused the error message is much more comprehensible: the message is shorter, the point of error is indicated, the violated concept is listed, and the internal functions of the algorithm are not exposed.</p>
-            <p>The Boost Graph Library uses concept checks to provide better error messages to users. For each <code>graph_concept</code> there is a corresponding concept-checking class defined in the <cite>boost/graph/graph_concepts.hpp</cite> header file. At the beginning of each BGL algorithm there are concept checks for each of the parameters. Error messages originating from graph <cite>concepts.hpp</cite> are a likely indication that one of the argument types given to an algorithm does not meet the algorithm's requirements for a concept.</p>
-          </section>
-          <section>
-            <h4>Concept Archetypes</h4>
-            <p>The complementary problem to concept checking is verifying whether the documented requirements for a generic algorithm actually cover the algorithm's implementation, a problem we refer to as <dfn>concept covering</dfn>. Typically, library implementors check for covering by manual inspection, which of course is error prone. We have also developed a C++ idiom that exploits the C++ compiler's type checker to automate this task. The code for concept covering is also available as part of the Boost Concept Checking Library.</p>
-            <p>The BCCL provides an archetype class for each concept used in the Standard Library. An archetype class provides a minimal implementation of a concept. To check whether a concept covers an algorithm, the archetype class for the concept is instantiated and passed to the algorithm.</p>
-            <p>The following example program attempts to verify that the requirements of <code class="function">std::sort()</code> are covered by an iterator that models <code>RandomAccessIterator</code> having a value type modeling <code>LessThanComparable</code>.</p>
-            <pre>#include &lt;algorithm&gt;
-#include &lt;boost/concept_archetype.hpp&gt;
-int main() {
-  using namespace boost;
-  typedef less_than_comparable_archetype&lt;&gt; T;
-  random access_iterator_archetype&lt;T&gt; ri;
-  std::sort(ri, ri);
-}</pre>
-            <p>In fact, this program will not successfully compile because those concepts do not cover the requirements that <code class="function">std::sort()</code> makes of its template parameters. The resulting error message indicates that the algorithm also requires that the value type be <code>CopyConstructible</code>.</p>
-            <pre>null archetype(const null archetype&lt;int&gt; &amp;) is private</pre>
-            <p>Not only is the copy constructor needed, but the assignment operator is needed as well. These requirements are summarized in the <code>Assignable</code> concept. The following code shows the implementation of the archetype class for <code>Assignable</code>. The <code>Base</code> template parameter is provided so that archetypes can be combined. For checking <code class="function">std::sort()</code>, we would need to combine the archetype classes for <code>Assignable</code> and <code>LessThanComparable</code>.</p>
-            <pre>template &lt;var class='type'name Base = null_archetype&lt;&gt; &gt;
-class assignable_archetype : public Base {
-  typedef assignable_archetype self ;
-public:
-  assignable archetype(const self &amp;) {}
-  self &amp; operator=(const self &amp;) { return *this; }
-};</pre>
-            <p>The Boost Graph Library includes an archetype class for every graph concept in the header file <cite>boost/graph/graph_archetypes.hpp</cite>. Test programs to verify the specification of each BGL algorithm using the graph archetypes are located in the <cite>libs/graph/test/</cite> directory.</p>
-          </section>
-        </section>
-        <!-- end of "Concept Checking" -->
       </section>
-      <section id="bgl_graph_traits">
-        <h2>Graph Traits*</h2>
-      </section>
+
       <section id="bgl_iterators">
         <h2>Graph Iterators for Traversals</h2>
         <p>The graph abstraction consists of several different kinds of collections: the vertices and edges for the graph and the out-edges, in-edges, and adjacent vertices for each vertex. The BGL uses iterators analogous to <a href="iterators">STL iterators</a> to provide access to each of these collections. The value type of these iterators is a vertex or edge <a href="#bgl_vertex_and_edge_descriptors">descriptor</a>. There are five kinds of graph iterators, one for each kind of collection:</p>
@@ -1795,192 +1662,31 @@ void print vertex names(const Graph&amp; g, VertexNameMap name map) {
         <pre><![CDATA[]]></pre>
         <p></p>
                -->
-      </section>
-      <section id="bgl_visitor">
-        <h2>Visitors in the BGL</h2>
-        <p>The <dfn>visitor</dfn> concept plays the same role in BGL as functors play in the STL. Functors provide a mechanism for extending an algorithm; for customizing what is done at each step of the algorithm. Visitors allow the user to insert their own operations at various steps within a graph algorithm. Unlike the STL algorithms, graph algorithms typically have multiple <dfn>event points</dfn> where one may want to insert a call-back via a functor. Therefore visitors do not have a single <code class="function">operator()</code> method like a functor, but instead have several methods that correspond to the various event points. Each algorithm has a different set of event points, which are described by the following visitor concepts:</p>
-        <ul>
-          <dd>
-            <a href="bfs_visitor">BFS Visitor</a>
-          </dd>
-          <dd>
-            <a href="dfs_visitor">DFS Visitor</a>
-          </dd>
-          <dd>
-            <a href="dijkstra_visitor">Dijkstra Visitor</a>
-          </dd>
-          <dd>
-            <a href="bellman_ford_visitor">Bellman Ford Visitor</a>
-          </dd>
-          <dd>
-            <a href="a_star_visitor">A* Visitor</a>
-          </dd>
-          <dd>
-            <a href="event_visitor">Event Visitor</a>
-          </dd>
-          <dd>
-            <a href="planar_face_visitor">Planar Face Visitor</a>
-          </dd>
-          <dd>
-            <a href="tsp_tour_visitor">TSP Tour Visitor</a>
-          </dd>
-        </ul>
-        <p>In the following example we print out the Internet routers in breadth-first order by extending the <code class="function">breadth_first_search()</code> function with a visitor. The visitor prints the vertex name on the discover vertex event. The visitor class is defined according to the interface described by the <a href="bfs_visitor">BFSVisitor</a> concept.</p>
-        <pre>template &lt;var class='type'name VertexNameMap&gt;
-class bfs_name_printer : public default_bfs_visitor {
-// inherit default (empty) event point actions
-public:
-  bfs_name_printer(VertexNameMap n map) : m_name_map(n_map) { }
-  template &lt;var class='type'name Vertex, typename Graph&gt;
-  void discover_vertex(Vertex u, const Graph&amp; ) const {
-    std::cout &lt;&lt; get(m_name_map, u) &lt;&lt; ' ';
-  }
-private:
-  VertexNameMap m_name_map;
-};</pre>
-        <p>We then create a visitor object of type <code>bfs_name_printer</code> and pass it to <code class="function">breadth_first_search()</code>.</p>
-        <pre>bfs_name_printer&lt;VertexNameMap&gt; vis(name map);
-std::cout &lt;&lt; "BFS vertex discover order: ";
-breadth first search(g, a, visitor(vis));
-std::cout &lt;&lt; std::endl;</pre>
-        <section id="bfs_visitor">
-          <h4>BFS Visitor</h4>
-          <p>This concept defines the visitor interface for <code class="function">breadth_first_search()</code>. Users can define a class with the BFS Visitor interface and pass and object of the class to <code class="function">breadth_first_search()</code>, thereby augmenting the actions taken during the graph search.</p>
-          <h4>Refinement of</h4>
-          <p>Copy Constructible (copying a visitor should be a lightweight operation).</p>
-          <h4>Notation</h4>
-          <ul>
-            <dd><var>V</var>: 	A type that is a model of BFS Visitor.</dd>
-            <dd><var>vis</var>: 	An object of type V.</dd>
-            <dd><var>G</var>: 	A type that is a model of Graph.</dd>
-            <dd><var>g</var>: 	An object of type G.</dd>
-            <dd><var>e</var>: 	An object of type <code>boost::graph_traits&lt;G&gt;::edge_descriptor</code>.</dd>
-            <dd><var>s,u</var>: 	An object of type <code>boost::graph_traits&lt;G&gt;::vertex_descriptor</code>.</dd>
-          </ul>
-          <h4>Valid Expressions</h4>
-          <dl>
-            <div class="varlistentry">
-              <dt class="term">Initialize Vertex</dt>
-              <dd>
-                <p>
-                  <code class="function">vis.initialize_vertex(s, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on every vertex of the graph before the start of the graph search.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Discover Vertex</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.discover_vertex(u, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked when a vertex is encountered for the first time.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Examine Vertex</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.examine_vertex(u, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on a vertex as it is popped from the queue. This happens immediately before examine_edge() is invoked on each of the out-edges of vertex u.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Examine Edge</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.examine_edge(e, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on every out-edge of each vertex after it is discovered.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Tree Edge</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.tree_edge(e, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on each edge as it becomes a member of the edges that form the search tree.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Non-Tree Edge</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.non_tree_edge(e, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on back or cross edges for directed graphs and cross edges for undirected graphs.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Gray Target</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.gray_target(e, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on the subset of non-tree edges whose target vertex is colored gray at the time of examination. The color gray indicates that the vertex is currently in the queue.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Black Target</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.black_target(e, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This is invoked on the subset of non-tree edges whose target vertex is colored black at the time of examination. The color black indicates that the vertex has been removed from the queue.</p>
-              </dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Finish Vertex</dt>
-              <dd>
-                <p>
-                  <code class="function">	vis.finish_vertex(u, g)</code>
-                </p>
-                <p><em>return type:</em> void</p>
-                <p>This invoked on a vertex after all of its out edges have been added to the search tree and all of the adjacent vertices have been discovered (but before the out-edges of the adjacent vertices have been examined).</p>
-              </dd>
-            </div>
-          </dl>
-        </section>
-        <section id="dfs_visitor">
-          <h3>DFS Visitor*</h3>
-        </section>
-        <section id="dijkstra_visitor">
-          <h3>Dijkstra Visitor*</h3>
-        </section>
-        <section id="bellman_ford_visitor">
-          <h3>Bellman Ford Visitor*</h3>
-        </section>
-        <section id="a_star_visitor">
-          <h3>A* Visitor*</h3>
-        </section>
-        <section id="event_visitor">
-          <h3>Event Visitor*</h3>
-        </section>
-        <section id="planar_face_visitor">
-          <h3>Planar Face Visitor*</h3>
-        </section>
-        <section id="tsp_tour_visitor">
-          <h3>TSP Tour Visitor*</h3>
+        <section>
+          <h3>Parallel Edge Traits</h3>
+          <p>In addition to specializing the <a target="_blank" href="cpp.boost.container-selectors.html#container-generator">container_gen</a> class, one must also specialize the <code>parallel_edge_traits</code> class to specify whether the container type allows parallel edges (and is a <strong>Sequence</strong>) or if the container does not allow parallel edges (and is an <strong>AssociativeContainer</strong>).</p>
+          <pre>template &lt;class StorageSelector&gt;
+  struct parallel_edge_traits { };
+
+  template &lt;&gt;
+  struct parallel_edge_traits&lt;vecS&gt; {
+    typedef allow_parallel_edge_tag type;
+  };
+  template &lt;&gt;
+  struct parallel_edge_traits&lt;setS&gt; {
+    typedef disallow_parallel_edge_tag type;
+  };
+  ...</pre>
         </section>
       </section>
-      <!-- end of "Visitors in the BGL" -->
+
       <section>
         <h2>Graph Classes and Adaptors</h2>
         <p>The graph types provided by the BGL fall into two categories. The first is the graph classes that are used to store a graph in memory. The second is graph adaptors that create a modified view of a graph or that create a BGL graph interface based on some other type.</p>
-        <p>The BGL contains two primary graph classes: <code href="adjacency_list">adjacency_list</code> and <code href="adjacency_matrix">adjacency_matrix</code>.</p>
+        <p>The BGL contains two primary graph classes: <code target="_blank" href="cpp.boost.graph.adjacency-list.html">adjacency_list</code> and <code href="adjacency_matrix">adjacency_matrix</code>.</p>
+
         <section id="adjacency_list">
           <h3><code>adjacency_list</code></h3>
-          <p>The main BGL component for representing graphs is the <code>adjacency_list</code>. This class generalizes the traditional adjacency-list representation for a graph. The graph is represented by a collection of vertices where, with each vertex, there is stored a collection of out-edges. The actual implementation of the collection of vertices and edges can vary to meet particular needs and is set through a <a href="boost_container_selectors">container selector</a>.</p>
           <p>The <code>adjacency_list</code> class has several template parameters: <var class="parameter">EdgeList</var>, <var class="parameter">VertexList</var>, <var>Directed</var>, <var>VertexProperties</var>, <var>EdgeProperties</var>, and <var>GraphProperties</var>.</p>
           <pre>adjacency_list&lt;OutEdgeList = vecS,
                VertexList = vecS,
@@ -1989,35 +1695,24 @@ std::cout &lt;&lt; std::endl;</pre>
                EdgeProperties = no_property,
                GraphProperties = no_property,
                EdgeList = listS&gt;</pre>
-          <p>The <code>adjacency_list</code> class implements a generalized adjacency list graph structure. The template parameters provide many configuration options so that you can pick a version of the class that best meets your needs. An adjacency-list is basically a two-dimensional structure, where each element of the first dimension represents a vertex, and each of the vertices contains a one-dimensional structure that is its edge list.</p>
-          <p>The <var class="parameter">VertexList</var> template parameter of the <code>adjacency_list</code> class controls what kind of container is used to represent the outer two-dimensional container. The <var class="parameter">OutEdgeList</var> template parameter controls what kind of container is used to represent the edge lists. The choices for <var class="parameter">OutEdgeList</var> and <var class="parameter">VertexList</var> will determine the space complexity of the graph structure, and will determine the time complexity of the various graph operations. The possible choices and tradeoffs are discussed in <cite class="section" href="choosing_the_edgelist_and_vertexlist">Choosing the Edgelist and VertexList</cite>.</p>
-          <p>The <var class="parameter">Directed</var> template parameter controls whether the graph is directed, undirected, or directed with access to both the in-edges and out-edges (which we call bidirectional). The bidirectional graph takes up twice the space (per edge) of a directed graph since each edge will appear in both an out-edge and in-edge list.</p>
-          <ul>
-            <dd><var class="parameter">EdgeList</var> and <var class="parameter">VertexList</var> specify the classes used to store the vertex list and edge lists for the graph. These parameters allow tradeoffs between traversal speed and insertion/removal speed and tradeoffs in memory consumption. In addition, the <var class="parameter">EdgeList</var> parameter determines whether parallel edges may be inserted into the graph.</dd>
-            <dd><var>Directed</var> specifies whether the graph is directed, undirected, or bidirectional. By convention, a directed graph provides access to out-edges only, whereas a bidirectional graph provides access to in-edges as well as out-edges. These options are selected through <kbd class="userinput">directedS</kbd>, <kbd class="userinput">undirectedS</kbd>, and <kbd class="userinput">bidirectionalS</kbd></dd>
-            <dd><var>VertexProperties</var>, <var>EdgeProperties</var>, and <var>GraphProperties</var> specify the property types that are attached to the vertices, edges, and to the graph itself. They default to <kbd class="userinput">no_property</kbd>.</dd>
-          </ul>
-          <section id="choosing_the_edgelist_and_vertexlist">
-            <h4>Choosing the <var class="parameter">Edgelist</var> and <var class="parameter">VertexList</var></h4>
-            <p>This section focuses on how to decide which version of the <code>adjacency_list</code> class to use in different situations. The <code>adjacency_list</code> is like a swiss-army knife in that it can be configured in many ways. The parameters that we will focus on in this section are <var class="parameter">OutEdgeList</var> and <var class="parameter">VertexList</var>, which control the underlying data structures that will be used to represent the graph. The choice of <var class="parameter">OutEdgeList</var> and <var class="parameter">VertexList</var> affects the time complexity of many of the graph operations and the space complexity of the graph object.</p>
-          </section>
-          <section>
-            <h4><!--UNNAMED--></h4>
-            <p><var class="parameter">OutEdgeList</var> is the selector for the container used to represent the edge-list for each of the vertices. It defaults to <kbd class="userinput">vecS</kbd>, that is it selects an <code>std::vector</code>.</p>
-            <p><var class="parameter">EdgeList</var>, on the other hand, is the selector for the container used to represent the edge-list for the <em>graph</em>. It defaults to <kbd class="userinput">listS</kbd>, that is it selects an <code>std::list</code>.</p>
-          </section>
+
+
+
+
+
           <section>
             <h4>Vertex and Edge Properties</h4>
-            <p>Properties such as color, distance, weight, and user-defined properties can be attached to the vertices and edges of the graph using properties. The property values can be read from and written to via the property maps provided by the graph. The property maps are obtained via the <code class="function">get(property, g)</code> function. How to use properties is described in <cite class="section" href="BGL_internal_properties">Internal Properties</cite>. The property maps are objects that implement the interface defined in <cite class="section" href="property_map_concepts">Property Map Concepts</cite> or may be bundled properties, which have a more succinct syntax. The types of all property values must be Copy Constructible, Assignable, and Default Constructible. The property maps obtained from the <code>adjacency_list</code> class are models of the Lvalue Property Map concept. If the <code>adjacency_list</code> is const, then the property map is constant, otherwise the property map is mutable.</p>
+            <p>Properties such as color, distance, weight, and user-defined properties can be attached to the vertices and edges of the graph using properties. The property values can be read from and written to via the property maps provided by the graph. The property maps are obtained via the <code class="function">get(property, g)</code> function. How to use properties is described in <cite class="section" href="#internal-properties">Internal Properties</cite>. The property maps are objects that implement the interface defined in <cite class="section" href="property_map_concepts">Property Map Concepts</cite> or may be bundled properties, which have a more succinct syntax. The types of all property values must be Copy Constructible, Assignable, and Default Constructible. The property maps obtained from the <code>adjacency_list</code> class are models of the Lvalue Property Map concept. If the <code>adjacency_list</code> is const, then the property map is constant, otherwise the property map is mutable.</p>
             <p>If the <var class="parameter">VertexList</var> of the graph is <kbd class="userinput">vecS</kbd>, then the graph has a builtin vertex indices accessed via the property map for the vertex_index_t property. The indices fall in the range [0, num_vertices(g)) and are contiguous. When a vertex is removed the indices are adjusted so that they retain these properties. Some care must be taken when using these indices to access exterior property storage. The property map for vertex index is a model of Readable Property Map.</p>
           </section>
+
         </section>
-        <section id="BGL_internal_properties">
+        <section id="internal-properties">
           <h3>Internal Properties*</h3>
         </section>
         <section>
           <h3>Bundled Properties</h3>
-          <p>Class templates <code>adjacency_list</code> and <code>adjacency_matrix</code> support the introduction of named properties via <a href="BGL_internal_properties">internal properties</a>. However, this method is cumbersome in many uses, where it would be more intuitive to just specify a structure or class that contains internal properties for edges or vertices. Bundled properties allow one to use adjacency_list and adjacency_matrix in this manner, providing a simple way to introduce and access any number of internal properties for vertices and edges.</p>
+          <p>Class templates <code>adjacency_list</code> and <code>adjacency_matrix</code> support the introduction of named properties via <a href="#internal-properties">internal properties</a>. However, this method is cumbersome in many uses, where it would be more intuitive to just specify a structure or class that contains internal properties for edges or vertices. Bundled properties allow one to use adjacency_list and adjacency_matrix in this manner, providing a simple way to introduce and access any number of internal properties for vertices and edges.</p>
           <p>One can introduce bundled properties into an either graph type by providing a user-defined class type for the <var class="parameter">VertexProperties</var> or <var class="parameter">EdgeProperties</var> template arguments. The user-defined class may alternatively be placed at the end of a property list, replacing the (implicit) boost::no_property argument.</p>
           <h4>Example: Route planning</h4>
           <p>Consider the implementation of a simple route planner that should find the shortest directions from one city to another via a set of highways. The vertices of the graph are cities, and we may wish to store several bits of information about the city within each vertex:</p>
@@ -2107,15 +1802,15 @@ map[graph_bundle].use_metric = false;</pre>
           <h3>Graph Adaptors</h3>
           <p>The BGL also includes a large number of graph adaptors. This first group of classes adapts any BGL graph to provide new behavior.</p>
           <ul>
-            <dd><code>reverse_graph</code> is an adaptor that reverses the edge directions of a directed graph on the fly, so that in-edges behave like out-edges, and vice versa.</dd>
-            <dd><code>filtered_graph</code> is an adaptor that creates a view of a graph where two predicate function objects control whether vertices and edges from the original graph appear in the adapted graph, or whether they are hidden.</dd>
+            <li><code>reverse_graph</code> is an adaptor that reverses the edge directions of a directed graph on the fly, so that in-edges behave like out-edges, and vice versa.</li>
+            <li><code>filtered_graph</code> is an adaptor that creates a view of a graph where two predicate function objects control whether vertices and edges from the original graph appear in the adapted graph, or whether they are hidden.</li>
           </ul>
           <p>BGL also provides support for objects and data structures that are not BGL graph classes. This support is provided via adaptor classes and overloaded functions. The following describes these interfaces.</p>
           <ul>
-            <dd>edge list is an adaptor that creates a BGL graph out of an iterator range of edges.</dd>
-            <dd>Stanford GraphBase is supported by overloaded functions in the header file boost/- graph/stanford graph.hpp . As a result of these overloaded functions, the GraphBase type Graph* satisfies the BGL graph interface.</dd>
-            <dd>LEDA is a popular object-oriented package that includes graph data structures and algorithms. Overloaded functions in the header file boost/graph/leda graph.hpp allow the LEDA graph type <kbd class="userinput">GRAPH&lt;vtype, etype&gt;</kbd> to satisfy the BGL graph interface.</dd>
-            <dd>The STL composite type <kbd class="userinput">std::vector&lt; std::list&lt;int&gt; &gt;</kbd> is supported as a graph by overloaded functions in the header file <cite>boost/graph/vector_as_graph.hpp</cite>.</dd>
+            <li>edge list is an adaptor that creates a BGL graph out of an iterator range of edges.</li>
+            <li>Stanford GraphBase is supported by overloaded functions in the header file boost/- graph/stanford graph.hpp . As a result of these overloaded functions, the GraphBase type Graph* satisfies the BGL graph interface.</li>
+            <li>LEDA is a popular object-oriented package that includes graph data structures and algorithms. Overloaded functions in the header file boost/graph/leda graph.hpp allow the LEDA graph type <kbd class="userinput">GRAPH&lt;vtype, etype&gt;</kbd> to satisfy the BGL graph interface.</li>
+            <li>The STL composite type <kbd class="userinput">std::vector&lt; std::list&lt;int&gt; &gt;</kbd> is supported as a graph by overloaded functions in the header file <cite>boost/graph/vector_as_graph.hpp</cite>.</li>
           </ul>
           <p>Each graph class implements some (or all) of these concepts. The <code>adjacency_list</code> class can be considered a canonical implementation (or model) of a BGL graph, as it illustrates all of the basic ideas and interfaces of the BGL graphs.</p>
         </section>
@@ -2125,9 +1820,9 @@ map[graph_bundle].use_metric = false;</pre>
         <p>The BGL graph algorithms are generic algorithms. As such, they are highly flexible in terms of the types of graph data structures to which they can be applied and in terms of how the algorithms can be customized to solve a wide range of problems.</p>
         <p>The BGL algorithms consist of a core set of algorithm patterns (implemented as generic algorithms) and a larger set of graph algorithms. The core algorithm patterns are:</p>
         <ul>
-          <dd>Breadth First Search</dd>
-          <dd>Depth First Search</dd>
-          <dd>Uniform Cost Search</dd>
+          <li>Breadth First Search</li>
+          <li>Depth First Search</li>
+          <li>Uniform Cost Search</li>
         </ul>
         <p>By themselves, the algorithm patterns do not compute any meaningful quantities over graphs; they are merely building blocks for constructing graph algorithms. The graph algorithms in the BGL currently include:</p>
         <ul>
@@ -2273,33 +1968,30 @@ void topological sort(Graph&amp; g, OutputIterator result iter) {
           <li >
             <code><a target="_blank" href="boost.graph.adjacency_list.html">adjacency_list</a></code>
           </li>
-          <li><a href="#bgl_adjacency_matrix">
+          <li><a href="#adjacency-matrix">
             <code>adjacency_matrix</code></a>
           </li>
-          <li><a href="#bgl_edge_list">
+          <li><a href="#edge-list">
             <code>edge_list</code></a>
           </li>
         </ul>
         <p>The <code>adjacency_list</code> class is the general purpose <q>swiss army knife</q> of graph classes. It is highly parameterized so that it can be optimized for different situations: the graph is directed or undirected, allow or disallow parallel edges, efficient access to just the out-edges or also to the in-edges, fast vertex insertion and removal at the cost of extra space overhead, etc.</p>
         <p>The <code>adjacency_matrix</code> class stores edges in a <var>n</var> x <var>n</var> matrix (where <var>n</var> is the number of vertices). The elements of this matrix represent edges in the graph. Adjacency matrix representations are especially suitable for very dense graphs, i.e., those where the number of edges approaches <var>n</var><sup>2</sup>.</p>
-        <p>The <code>edge_list</code> class is an adaptor that takes any kind of edge iterator and implements an <code href="bgl_edge_list_graph">Edge List Graph</code>.</p>
-        <section id="bgl_adjacency_list">
-          <h3>BGL <code>adjacency_list</code>*</h3>
-        </section>
-        <section id="bgl_adjacency_matrix">
+        <p>The <code>edge_list</code> class is an adaptor that takes any kind of edge iterator and implements an <code href="edge-list_graph">Edge List Graph</code>.</p>
+        <section id="adjacency-matrix">
           <h3>BGL <code>adjacency_matrix</code>*</h3>
         </section>
-        <section id="bgl_edge_list">
+        <section id="edge-list">
           <h3>BGL <code>edge_list</code></h3>
         </section>
-        <section id="bgl_edge_list_graph">
+        <section id="edge-list_graph">
           <h3>BGL <code>Edge List Graph</code>*</h3>
         </section>
       </section>
 
-      <section id="bgl_property_map">
+      <section id="property-maps">
         <h2>BGL Property Maps</h2>
-        <p>The main link between the abstract mathematical nature of graphs and the concrete problems they are used to solve is the properties that are attached to the vertices and edges of a graph, things like distance, capacity, weight, color, etc. There are many ways to attach properties to a graph in terms of data-structure implementation, but graph algorithms should not have to deal with the implementation details of the properties. The property map interface discussed in section <a href="boost_property_maps">Property Maps</a> provides a generic method for accessing properties from graphs. This is the interface used in the BGL algorithms to access properties.</p>
+        <p>The main link between the abstract mathematical nature of graphs and the concrete problems they are used to solve is the properties that are attached to the vertices and edges of a graph, things like distance, capacity, weight, color, etc. There are many ways to attach properties to a graph in terms of data-structure implementation, but graph algorithms should not have to deal with the implementation details of the properties. The property map interface discussed<!-- in section <a href="#property-maps">Property Maps</a>--> provides a generic method for accessing properties from graphs. This is the interface used in the BGL algorithms to access properties.</p>
         <p>In the BGL we refer to attached objects or attached quantities as <dfn>properties</dfn>. There are a wide variety of implementation techniques that can be used to associate a property with a vertex or edge. These include properties as data members of a struct, separate arrays indexed by vertex or edge number, hash tables, and so on. However, to write generic graph algorithms we need a uniform syntax for accessing properties, regardless of how they are stored. This uniform syntax is defined by the property map concepts.</p>
         <p>The following example is a generic function that prints the name of a vertex given a name property map:</p>
         <pre>template &lt;var class='type'name VertexDescriptor, typename VertexNameMap&gt;
@@ -2307,7 +1999,7 @@ void print_vertex name(VertexDescriptor v, VertexNameMap name map) {
   std::cout &lt;&lt; get(name map, v);
 }</pre>
         <p>...</p>
-        <section id="bgl_property_map_interface">
+        <section id="property-map-interface">
           <h3>Property Map Interface</h3>
           <p>The property map interface specifies that each property is accessed using a separate property map object. In the following example we show an implementation of the relax() function used inside of Dijkstra's shortest paths algorithm. In this function, we need to access the weight property of an edge, and the distance property of a vertex. We write relax() as a template function so that it can be used in many difference situations. Two of the arguments to the function, weight and distance, are the property map objects. In general, BGL algorithms explicitly pass property map objects for every property that a function will need. The property map interface defines several functions, two of which we use here: get() and put(). The get() function takes a property map object, such as distance and a key object. In the case of the distance property we are using the vertex objects u and v as keys. The get() function then returns the property value for the vertex.</p>
           <pre>template &lt;class Edge, class Graph,
@@ -2342,14 +2034,10 @@ void print_vertex name(VertexDescriptor v, VertexNameMap name map) {
   }</pre>
           <p>There are two kinds of graph properties: interior and exterior:</p>
           <dl>
-            <div class="varlistentry">
-              <dt class="term">Interior Properties</dt>
+              <dt>Interior Properties</dt>
               <dd>are stored <em>inside</em> the graph object in some way, and the lifetime of the property value objects is the same as that of the graph object.</dd>
-            </div>
-            <div class="varlistentry">
-              <dt class="term">Exterior Properties</dt>
+              <dt>Exterior Properties</dt>
               <dd>are stored <em>outside</em> of the graph object and the lifetime of the property value objects is independent of the graph. This is useful for properties that are only needed temporarily, perhaps for the duration of a particular algorithm such as the color property used in breadth_first_search(). When using exterior properties with a BGL algorithm a property map object for the exterior property must be passed as an argument to the algorithm.</dd>
-            </div>
           </dl>
           <section>
             <h4>Interior Properties</h4>
@@ -2509,7 +2197,7 @@ at(const iterator_map&lt;Iter,ID&gt;&amp; i,
       </section>
       <!-- end of "BGL Property Maps" -->
       <section id="bgl_external_adaptation">
-        <h2>How to Convert Existing Graphs to the BGL*</h2>
+        <h2>How to Adapt Existing Graph Classes to the BGL*</h2>
       </section>
       <!-- end of "How to Convert Existing Graphs to the BGL" -->
 
