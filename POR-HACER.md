@@ -171,6 +171,10 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] Nassim Nicholas Taleb
+
+[ ] *Thinking Fast and Slow*
+
 [ ] Describe the relationship between humans and animals in *His Dark Materials*
 [ ] Possibly include or link to from *zoology.html*
 [ ] Possibly include or link to from *thought.html*

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux Tools</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Linux Tools: split, csplit etc."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="Francisco Fernández-Victorio Hernández" />
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a rel="next" href="sed.html"><pre>sed</pre>, the Unix Stream EDitor</a></p>
+        <p><a            href="linux.bash.html">Bash: the Born Again SHell</a></p>
+        <p><a            href="samba.html">Samba (Open Source Implementation of the Microsoft&apos;s SMB Networking Protocol)</a></p>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+      </div>
+      <div>
+        <p><a href="linux.monitoring.html">Monitoring Linux</a></p>
+        <p><a href="linux.journald.html">Linux Journal Service</a></p>
+        <p><a href="linux.logging.html">Logging (Events) in Linux</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Linux Tools: <code>split</code>, <code>csplit</code> etc.</h1>
+
+      <section id="text">
+        <h2>Tools for Handling Text</h2>
+        <p><strong>Note</strong> A whole page/section elsewhere is devoted to <a target="_blank" href="sed.html">sed</a>, the Stream EDitor.</p>
+        <section id="split">
+          <h3><code>split</code>*</h3>
+        </section>
+        <section id="csplit">
+          <h3><code>csplit</code></h3>
+          <p>Utility <code>csplit</code> outputs pieces of <var>FILE</var> separated by <var>PATTERN</var>(s) to files <cite>xx00</cite>, <cite>xx01</cite>.</p>
+          <p>Syntax:</p>
+          <pre>csplit [<var>OPTION</var>]... <var>FILE</var> <var>PATTERN</var>...</pre>
+          <p><code>csplit</code> additionally outputs byte counts of each subfile to standard output, but you may suppress this output with .</p>
+          <hr/>
+          <p>To repeat the previous pattern as many times as possible add option: <code>{*}</code></p>
+          <p>To prevent creating empty output files, use option <code>--elide-empty-files</code></p>
+          <hr/>
+          <p>For instance, to split file <cite>my_file</cite> into chunks (files) each starting with <q>Error:</q>, type:</p>
+          <pre>csplit my_file.txt /^Error:/ {*}</pre>
+          <p>If you additionally want the output files to be named <code>subfile<var>xx</var>.txt</code>, type:</p>
+          <pre>csplit --prefix=subfile --suffix-format=%02d.txt cyclopaedia.xhtml /^Error:/ {*}</pre>
+          <p>If you don&apos;t want the match to be included in your chunk, use option <code>--suppress-matched</code> This may come in useful when you add comments to be recognized as breaking points, such as <q>[start-new-chunk-here]</q> and you don&apos;t want these comments to be including at the head of a chunk.</p>
+
+        </section>
+
+      </section>
+
+      <section id="">
+        <h2></h2>
+        <p>...</p>
+      </section>
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p>...</p>
+      </section>
+
+      <section id="">
+        <h2></h2>
+        <p>...</p>
+      </section>
+      -->
+
+
+    </main>
+
+  </body>
+
+</html>

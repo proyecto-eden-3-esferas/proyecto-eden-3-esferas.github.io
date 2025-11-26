@@ -35,7 +35,7 @@
 
     <main>
       <h1>Using <code>std::any</code> to store values of <em>any</em> type</h1>
-      <p>With std::optional you can represent some Type or nothing. With <code><a target="_blank" href="cpp.std.variant.html">std::variant</a></code> you can wrap several variants into one entity. And C++17 gives us one more wrapper type: <code>std::any</code> that can hold anything (any type) in an object, and reports errors (or throw exceptions) when you&apos;d like to access a type that is not active.</p>
+      <p>With std::optional you can represent some Type or nothing. With <code><a target="_blank" href="cpp.std.variant.html">std::variant</a></code> you can wrap several variants into one entity. And C++17 gives us one more wrapper type: <code>std::any</code> that can hold anything (any type) in an object, and reports errors (or throws exceptions) when you&apos;d like to access a type that is not active.</p>
       <p>A little demo:</p>
       <pre>std::any a(12);
 
@@ -86,8 +86,8 @@ for (auto &amp;[key, val] : m)
         <ul>
           <li><code>std::any</code> is not a template class like <code>std::optional</code> or <code>std::variant</code>.</li>
           <li>by default it contains no value, and you can check it via <code>.has_value()</code>.</li>
-          <li>you can reset an any object via .reset().</li>
-          <li>it works on <strong>decayed</strong> types - so before assignment, initialization, emplacement the type is transformed by <code>std::decay</code>.</li>
+          <li>you can reset an <code>std::any</code> object via <code>.reset()</code>.</li>
+          <li>it works on <a target="_blank" href="cpp.decay.html">decayed</a> types - so before assignment, initialization, emplacement the type is transformed by <code>std::decay</code>.</li>
           <li>when a different type is assigned, then the active type is destroyed.</li>
           <li>you can access the value by using <code>std::any_cast&lt;T&gt;</code>, it will throw <code>bad_any_cast</code> if the active type is not <code>T</code>.</li>
           <li>you can discover the active type by using <code>.type()</code> that returns <code>std::type_info</code> of the type.</li>
@@ -96,7 +96,7 @@ for (auto &amp;[key, val] : m)
 
       <section id="uses">
         <h2>Some of its Uses</h2>
-        <p>While <code>void*</code> seems an extremely unsafe pattern with some limited use cases, <code>std::any</code> adds type-safety and thushas some real use cases. Such as</p>
+        <p>While <code>void*</code> seems an extremely unsafe pattern with some limited use cases, <code>std::any</code> adds type-safety and thus has some real use cases. Such as</p>
         <ul>
           <li><strong>In Libraries</strong> when a library type has to hold or pass anything without knowing the set of available types.</li>
           <li><strong>Parsing files</strong> if you really cannot specify what are the supported types.</li>
