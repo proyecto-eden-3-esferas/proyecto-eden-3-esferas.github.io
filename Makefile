@@ -19,6 +19,7 @@ MPCURVE_OPEN_SVG   = mpcurve-open.svg
 
 JSON_DIR = /home/francisco/former/home/francisco/Documents/mis_escritos/precious/psimple/JSON_files/
 DROPBOX_DIR = /home/francisco/Dropbox/github_pages/
+GITHUB_DIR  = /home/francisco/Downloads/temp_pages/
 
 %.res.html : %.html.inc
 	$(RESOLVE) --output $@   $<
@@ -42,6 +43,12 @@ bring_all_from_JSON:
 # Saving
 save_to_Dropbox:
 	cp --update  *.html *.xhtml *.js *.svg POR-HACER.md *.css Makefile $(DROPBOX_DIR)
+save_to_github_dir:
+	rm $(GITHUB_DIR)*.*
+	cp           *.html *.xhtml *.js *.svg POR-HACER.md *.css Makefile $(GITHUB_DIR)
+save_to_github_dir_bar_huge: # do not copy huge files, which happen to be XHTML
+	rm $(GITHUB_DIR)*.*
+	cp           *.html         *.js *.svg POR-HACER.md *.css Makefile $(GITHUB_DIR)
 
 # git rules
 define_remote:

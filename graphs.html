@@ -21,7 +21,7 @@
         <p><a href="programming.html">Programming Computers</a></p>
       </div>
       <div>
-        <p><a href="https://www.w3schools.com/dsa/dsa_theory_gr">DSA Graphs (at <cite>www.w3schools.com</cite>)</a></p>
+        <p><a href="https://www.w3schools.com/dsa/dsa_theory_graphs.php">DSA Graphs (at <cite>www.w3schools.com</cite>)</a></p>
         <p><a href="cpp.boost.graph.html">C++ Boost Graph Library (BGL)</a></p>
         <p><a href="cpp.graphs.html">C++ Graph Implementations</a></p>
         <p><a href="graph-databases.html">Graph Databases</a></p>
@@ -33,14 +33,14 @@
       <p>Graphs are a mathematical tool used to model the relationship between objects. They are similar to <a href="knowledge-representation.html#semantic_networks">semantic networks</a> yet more abstract or general in scope. In computer science, graphs are a new and powerful data structure whose <a target="_blank" href="cpp.graphs.html">implementation in C++</a> we shall discuss further down. Still you could buy or download a <a target="_blank" href="graph-databases.html">graph database</a>, which is a graph plus some means of serialization, commandline querying etc.</p>
       <aside class="note" style="border-style: solid;">Our implementations may rely on pointers heavily, which prevents us from carrying them over to other programming languages that do not support pointers explicitely.</aside>
       <p>Graphs are made up of <dfn>nodes</dfn> (vertices) and <dfn>arcs</dfn> (edges). Each edge connects two nodes, unless it is a <dfn>self-edge</dfn>, which connects a vertex or node to itself.</p>
-      <p>Nodes represent entities and hold some content, whereas arcs represent relationships. In a <dfn id="graph_weighted">weighted</dfn> graph arcs hold a value or some other information too, called its weight because it is meant to represent the <q>cost</q> of going from the start of the arc to the end of the arc.</p>
+      <p>Nodes represent entities and hold some content, whereas arcs represent relationships. In a <dfn id="graph_weighted">weighted</dfn> graph arcs hold a value or some other information, called its <dfn>weight</dfn> because it is often meant to represent the <q>cost</q> of going from the start of the arc to the end of the arc.</p>
       <hr/>
       <p>The next figure depicts a directed graph with five vertices (labeled 0 through 4) and 11 edges. The edges leaving a vertex are called the out-edges of the vertex. The edges {(0,1),(0,2),(0,3),(0,4)} are all out-edges of vertex 0. The edges entering a vertex are called the in-edges of the vertex. The edges {(0,4),(2,4),(3,4)} are all in-edges of vertex 4.</p>
       <img alt="(no image found!)" format="GIF" src="./pictures/Computing/directed_graph_example.gif"/>
       <caption>A Directed Graph</caption>
       <hr/>
       <p>A <dfn>path</dfn> through a graph connects a sequence of nodes through successive arcs. The path is represented by an ordered list that records the nodes in the order they occur in the path. A path that leads back to its first node is said to be a <dfn>cycle</dfn> or <dfn>loop</dfn> and a path that at some point crosses itself is said to contain a cycle or loop.</p>
-      <p>A <dfn>rooted</dfn> graph has a unique node, called the <dfn>root</dfn>, such that there is a path from the root to all nodes within the graph. In drawing a rooted graph, the root is usually drawn at the top of the page, above the other nodes. The state space graphs for games are usually rooted graphs with the start of the game as the root.</p>
+      <p>A <dfn>rooted</dfn> graph has a unique node, called the <dfn>root</dfn>, such that there is a path from the root to all nodes within the graph. In drawing a rooted graph, the root is usually placed at the top of the page, above the other nodes. The state space graphs for games are usually rooted graphs with the start of the game as the root.</p>
       <p>A <a href="adt.tree.html">tree</a> is a graph in which two nodes have at most one path between them. Trees often have roots, in which case they are usually drawn with the root at the top, like a rooted graph. Because each node in a tree has only one path of access from any other node, it is impossible for a path to loop or cycle through a sequence of nodes.</p>
       <p>For rooted trees or graphs, relationships between nodes include <dfn>parent</dfn>, <dfn>child</dfn>, and <dfn>sibling</dfn>. These are used in the usual familial fashion with the parent preceding its child along a directed arc. The children of a node are called <dfn>siblings</dfn>. Similarly, an <dfn>ancestor</dfn> comes before a descendant in some path of a directed graph.</p>
       <p>A <dfn>tip</dfn> or <dfn>leaf</dfn> node is a node that has no children.</p>
@@ -72,7 +72,7 @@
         <h2>The State Space Representation of Problems</h2>
         <p>In the state space representation of a problem, the nodes of a graph correspond to partial problem solution states and the arcs correspond to steps in a problem-solving process. One or more initial states, corresponding to the given information in a problem instance, form the root of the graph. The graph also defines one or more goal conditions, which are solutions to a problem instance. State space search characterizes problem solving as the process of finding a solution path from the start state to a goal.</p>
         <p>A goal may describe a state, such as a winning board in tic-tac-toe or a goal configuration in the 8-puzzle. Alternatively, a goal can describe some property of the solution path itself. In the traveling salesperson problem, search terminates when the <q>shortest</q> path is found through all nodes of the graph. In the parsing problem, the solution path is a successful analysis of a sentence&apos;s structure.</p>
-        <p>Arcs of the state space correspond to steps in a solution process and paths through the space represent solutions in various stages of completion. Paths are searched, beginning at the start state and continuing through the graph, until either the goal description is satisfied or they are abandoned. The actual generation of new states along the path is done by applying operators, such as <q>legal moves</q> in a game or inference rules in a logic problem or expert system, to existing states on a path. The task of a search algorithm is to find a solution path through such a problem space. Search algorithms must keep track of the paths from a start to a goal node, because these paths contain the series of operations that lead to the problem solution.</p>
+        <p>Arcs of the state space correspond to steps in a solution process and paths through the space represent solutions in various stages of completion. Paths are searched, beginning at the start state and continuing through the graph, until either the goal description is satisfied or they are abandoned. The actual generation of new states along the path is done by applying operators, such as <q>legal moves</q> in a game or inference rules in a logic problem or <a target="_blank" href="expert-systems.html">expert system</a>, to existing states on a path. The task of a search algorithm is to find a solution path through such a problem space. Search algorithms must keep track of the paths from a start to a goal node, because these paths contain the series of operations that lead to the problem solution.</p>
         <p>We now formally define the state space representation of problems:</p>
         <section>
           <h3>Definition of State Space Search</h3>
@@ -252,6 +252,10 @@ end.</pre>
             <h4>Bellman-Ford Algorithm*</h4>
           </section>
         </section>
+        <section>
+          <h3>Minimum Spanning Tree*</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.w3schools.com/dsa/dsa_theory_mst_minspantree.php">https://www.w3schools.com/dsa/dsa_theory_mst_minspantree.php</a></cite>)</p>
+        </section>
       </section>
       <section id="sparse_matrices">
         <h2>Sparse Matrices*</h2>
@@ -343,10 +347,87 @@ end.</pre>
           <h3>Hypergraphs and the Entity-Relationship Model</h3>
           <p>Ordered or tuple hypergraphs can be used to represent simple and compound sentences in a language. The texts or sentences of a language are made up of entities (noun phrases) and relationships or predications on entities and relationships themselves.</p>
           <p>A linguistical hypergraph would have two kinds of nodes: entity nodes and relationship nodes...</p>
+        </section> <!-- end of "Hypergraphs and the Entity-Relationship Model" -->
+      </section> <!-- end of "Hypergraphs" -->
+
+      <section id="maximum-flow">
+        <h2>Maximum Flow</h2>
+        <p style="text-align: right">(Heavily and gratefully from <cite><a target="_blank" href="https://www.w3schools.com/dsa/dsa_theory_graphs_maxflow.php">https://www.w3schools.com/dsa/dsa_theory_graphs_maxflow.php</a></cite>)</p>
+        <p>The <dfn>Maximum Flow</dfn> problem is about finding the maximum flow through a directed graph, from one place in the graph to another.</p>
+        <p>More specifically, the flow comes from a source vertex <var>s</var>, and ends up in a sink vertex <var>t</var>, and each edge in the graph is defined with a flow and a capacity, where the capacity is the maximum flow that edge can have.</p>
+        <p>Finding the maximum flow can be very useful:</p>
+        <ul>
+          <li>For planning roads in a city to avoid future traffic jams.</li>
+          <li>To assess the effect of removing a water pipe, or electrical wire, or network cable.</li>
+          <li>To find out where in the flow network expanding the capacity will lead to the highest maximum flow, with the purpose of increasing for example traffic, data traffic, or water flow.</li>
+        </ul>
+        <section>
+          <h3>Terminology And Concepts</h3>
+          <p>A <dfn>flow network</dfn> if often what we call a <a href="#directed_graphs">directed graph</a> with a flow flowing through it.</p>
+          <p>The <dfn>capacity</dfn> <var>c</var> of an edge tells us how much flow is allowed to flow through that edge. Each edge also has a <dfn>flow</dfn> value that tells how much the current flow is in that edge. For instance 3/7 might represent a flow of 3 and a capacity of 7. The flow cannot be greater than the capacity.</p>
+          <p>In its simplest form, a flow network has one <dfn>source vertex</dfn> <var>s</var> where the flow comes out, and one <dfn>sink vertex</dfn> <var>t</var> where the flow goes in. The other vertices just have flow passing through them.</p>
+          <p>For all vertices except <var>s</var> and <var>t</var>, there is a <dfn>conservation of flow</dfn>, which means that the same amount of flow that goes into a vertex, must also come out of it.</p>
+          <p>The maximum flow is found by algorithms such as Ford-Fulkerson, or Edmonds-Karp, by sending more and more flow through the edges in the flow network until the capacity of the edges are such that no more flow can be sent through. Such a path where more flow can be sent through is called an <dfn>augmented path</dfn>.</p>
         </section>
-        <!-- end of "Hypergraphs and the Entity-Relationship Model" -->
+        <section id="residual-network">
+          <h3>Residual Network</h3>
+          <p>The Ford-Fulkerson and Edmonds-Karp algorithms are implemented using something called a <dfn>residual network</dfn>. This will be explained in more detail on the next pages.</p>
+          <p>The residual network is set up with the residual capacities on each edge, where the <dfn>residual capacity</dfn> of an edge is the capacity on that edge, minus the flow. So when flow is increased in an edge, the residual capacity is decreased with the same amount.</p>
+          <p>For each edge in the residual network, there is also a <dfn>reversed edge</dfn> that points in the opposite direction of the original edge. The residual capacity of a reversed edge is the flow of the original edge. Reversed edges are important for sending flow back on an edge as part of the maximum flow algorithms.</p>
+        </section>
+        <section id="multiple-source-and-sink-vertices">
+          <h3>Multiple Source and Sink Vertices</h3>
+          <p>The Ford-Fulkerson and Edmonds-Karp algorithms expects one source vertex and one sink vertex to be able to find the maximum flow.</p>
+          <p>If the graph has more than one source vertex, or more than one sink vertex, the graph should be modified to find the maximum flow.</p>
+          <p>To modify the graph so that you can run the Ford-Fulkerson or Edmonds-Karp algorithm on it, create an extra <dfn>super-source vertex</dfn> if you have multiple source vertices, and create an extra <dfn>super-sink vertex</dfn> if you have multiple sink-vertices.</p>
+          <p>From the super-source vertex, create edges to the original source vertices, with infinite capacities. And create edges from the sink vertices to the super-sink vertex similarly, with infinite capacities.</p>
+          <p>The Ford-Fulkerson or Edmonds-Karp algorithm is now able to find maximum flow in a graph with multiple source and sink vertices, by going from the super source <var>S</var>, to the super sink <var>T</var>.</p>
+        </section>
+        <section id="max-flow-min-cut-theorem">
+          <h3>The Max-flow Min-cut Theorem</h3>
+          <p>To understand what this theorem says we first need to know what a cut is.</p>
+          <p>We create two sets of vertices: one with only the source vertex inside it called <var>S</var>, and one with all the other vertices inside it (including the sink vertex) called <var>T</var>. Now, starting in the source vertex, we can choose to expand set <var>S</var> by including adjacent vertices and excluding them from <var>T</var>, and continue to include adjacent vertices as much as we want as long as we do not include the sink vertex.</p>
+          <p>Expanding set <var>S</var> will shrink set <var>T</var>, because any vertex belongs either to set <var>S</var> or set <var>T</var>.</p>
+          <p>In such a setup, with any vertex belonging to either set <var>S</var> or set <var>T</var>, there is a <dfn>cut</dfn> between the sets. The cut consists of all the edges stretching from set <var>S</var> to set <var>T</var>.</p>
+          <p>If we add all the capacities from edges going from set <var>S</var> to set <var>T</var>, we get the capacity of the cut, which is the total possible flow from source to sink in this cut.</p>
+          <p>The <dfn>minimum cut</dfn> is the cut we can make with the lowest total capacity, which will be the bottleneck.</p>
+          <p>The <dfn>max-flow min-cut theorem</dfn> says that finding the minimum cut in a graph, is the same as finding the maximum flow, because the value of the minimum cut will be the same value as the maximum flow.</p>
+          <section>
+            <h4>Practical Implications of The Max-flow Min-cut Theorem</h4>
+            <p>Finding the maximum flow in a graph using an algorithm like Ford-Fulkerson also helps us to understand where the minimum cut is: The minimum cut will be where the edges have reached full capacity. It will be where the bottleneck is, so if we want to increase flow beyond the maximum limit, which is often the case in practical situations, we now know which edges in the graph that needs to be modified to increase the overall flow.</p>
+            <p>Modifying edges in the minimum cut to allow more flow can be very useful in many situations:</p>
+            <ul>
+              <li>Better traffic flow can be achieved because city planners now know where to create extra lanes, where to re-route traffic, or where to optimize traffic signals.</li>
+              <li>In manufacturing, a higher production output can be reached by targeting improvements where the bottleneck is, by upgrading equipment or reallocating resources for example.</li>
+              <li>In logistics, knowing where the bottleneck is, the supply chain can be optimized by changing routes, or increase capacity at critical points, ensuring that goods are moved more effectively from warehouses to consumers.</li>
+            </ul>
+            <p>So using maximum flow algorithms to find the minimum cut, helps us to understand where the system can be modified to allow an even higher throughput.</p>
+          </section>
+          <section>
+            <h4>The Maximum Flow Problem Described Mathematically</h4>
+            <p>The maximum flow problem is not just a topic in Computer Science, it is also a type of Mathematical Optimization, that belongs to the field of Mathematics.</p>
+            <p>In case you want to understand this better mathematically, the maximum flow problem is described in mathematical terms below.</p>
+            <p>All edges (E ) in the graph, going from a vertex (u) to a vertex (v), have a flow (f) that is less than, or equal to, the capacity (c ) of that edge:</p>
+            <blockquote>∀(u,v) ∈ E: f(u,v) ≤ c(u,v)</blockquote>
+            <p>This basically just means that the flow in an edge is limited by the capacity in that edge.</p>
+            <p>Also, for all edges (E ), a flow in one direction from u to v is the same as having a negative flow in the reverse direction, from v to u:</p>
+            <blockquote>∀(u,v) ∈ E : f(u,v) = −f(v,u)</blockquote>
+            <p>And the expression below states that conservation of flow is kept for all vertices (u ) except for the source vertex (s) and for the sink vertex (t ):</p>
+            <blockquote>∀u ∈ V {s,t} ⇒ ∑<sub>w∈V</sub> f(u,w) = 0</blockquote>
+            <p>This just means that the amount of flow going into a vertex, is the same amount of flow that comes out of that vertex (except for the source and sink vertices).</p>
+            <p>And at last, all flow leaving the source vertex s , must end up in the sink vertex t:</p>
+            <blockquote>∑<sub>(s,u) ∈ E</sub> f(s,u) = ∑<sub>(v,t)∈E</sub> f(v,t)</blockquote>
+            <p>The equation above states that adding all flow going out on edges from the source vertex will give us the same sum as adding the flow in all edges going into the sink vertex.</p>
+          </section>
+        </section>
+        <section>
+          <h3>Ford-Fulkerson Algorithm*</h3>
+        </section>
+        <section>
+          <h3>Edmonds-Karp Algorithm*</h3>
+        </section>
       </section>
-      <!-- end of "Hypergraphs" -->
+
     </main>
   </body>
 </html>

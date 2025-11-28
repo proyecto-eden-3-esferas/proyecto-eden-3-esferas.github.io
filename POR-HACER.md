@@ -171,6 +171,9 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] revisar *instituciones-y-hackers.html#objetos-institucion*
+[ ] posiblemente cambiar el vínculo a *instituciones-y-hackers.html#objetos-institucion* desde *vivienda.html*
+
 [ ] Nassim Nicholas Taleb
 
 [ ] *Thinking Fast and Slow*
