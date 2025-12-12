@@ -420,11 +420,49 @@ end.</pre>
             <p>The equation above states that adding all flow going out on edges from the source vertex will give us the same sum as adding the flow in all edges going into the sink vertex.</p>
           </section>
         </section>
-        <section>
-          <h3>Ford-Fulkerson Algorithm*</h3>
+        <section id="ford-fulkerson">
+          <h3>Ford-Fulkerson Algorithm</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.w3schools.com/dsa/dsa_algo_graphs_fordfulkerson.php">https://www.w3schools.com/dsa/dsa_algo_graphs_fordfulkerson.php</a></cite>)</p>
+          <p>The Ford-Fulkerson algorithm works by looking for a path with available capacity from the source to the sink (called an <dfn>augmented path</dfn>), and then sends as much flow as possible through that path. The Ford-Fulkerson algorithm continues to find new paths to send more flow through until the maximum flow is reached.</p>
+          <p><strong>Note:</strong> The Ford-Fulkerson algorithm is often described as a <em>method</em> instead of as an algorithm, because it does not specify how to find a path where flow can be increased. This means it can be implemented in different ways, resulting in different time complexities. But we will call it an algorithm here, and use Depth-First-Search to find the paths.</p>
+          <aside>
+            <p><strong>How it works:</strong></p>
+            <ol>
+              <li>Start with zero flow on all edges.</li>
+              <li>Find an augmented path where more flow can be sent.</li>
+              <li>Do a bottleneck calculation to find out how much flow can be sent through that augmented path.</li>
+              <li>Increase the flow found from the bottleneck calculation for each edge in the augmented path.</li>
+              <li>Repeat steps 2-4 until max flow is found. This happens when a new augmented path can no longer be found.</li>
+            </ol>
+          </aside>
+          <section>
+            <h4>Residual Network in Ford-Fulkerson</h4>
+            <p>The Ford-Fulkerson algorithm actually works by creating and using something called a residual network, which is a representation of the original graph. In the <dfn>residual network</dfn>, every edge has a residual capacity, which is the original capacity of the edge, minus the the flow in that edge. The residual capacity can be seen as the leftover capacity in an edge with some flow.</p>
+            <p>For example, if there is a flow of 2 in the v3→v4 edge, and the capacity is 3, the residual flow is 1 in that edge, because there is room for sending 1 more unit of flow through that edge.</p>
+          </section>
+          <section>
+            <h4>Reversed Edges in Ford-Fulkerson</h4>
+            <p>The Ford-Fulkerson algorithm also uses something called reversed edges to send flow back. This is useful to increase the total flow.</p>
+            <p>To send flow back, in the opposite direction of the edge, a reverse edge is created for each original edge in the network. The Ford-Fulkerson algorithm can then use these reverse edges to send flow in the reverse direction.</p>
+            <p>A reversed edge has no flow or capacity, just residual capacity. The residual capacity for a reversed edge is always the same as the flow in the corresponding original edge.</p>
+            <p>The idea of a residual network with residual capacity on edges, and the idea of reversed edges, are central to how the Ford-Fulkerson algorithm works.</p>
+          </section>
         </section>
         <section>
-          <h3>Edmonds-Karp Algorithm*</h3>
+          <h3>Edmonds-Karp Algorithm</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.w3schools.com/dsa/dsa_algo_graphs_edmondskarp.php">https://www.w3schools.com/dsa/dsa_algo_graphs_edmondskarp.php</a></cite>)</p>
+          <p>The Edmonds-Karp algorithm is very similar to the <a href="#ford-fulkerson">Ford-Fulkerson</a> algorithm, except the Edmonds-Karp algorithm uses Breadth First Search (BFS) to find augmented paths to increase flow.</p>
+          <p>The Edmonds-Karp algorithm works by using Breadth-First Search (BFS) to find a path with available capacity from the source to the sink (called an augmented path), and then sends as much flow as possible through that path. It continues to find new paths to send more flow through until the maximum flow is reached.</p>
+          <aside>
+            <p><strong>How it works:</strong></p>
+            <ol>
+              <li>Start with zero flow on all edges.</li>
+              <li>Use BFS to find an augmented path where more flow can be sent.</li>
+              <li>Do a bottleneck calculation to find out how much flow can be sent through that augmented path.</li>
+              <li>Increase the flow found from the bottleneck calculation for each edge in the augmented path.</li>
+              <li>Repeat steps 2-4 until max flow is found. This happens when a new augmented path can no longer be found.</li>
+            </ol>
+          </aside>
         </section>
       </section>
 

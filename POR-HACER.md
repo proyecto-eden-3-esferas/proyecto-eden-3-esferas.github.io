@@ -1,3 +1,5 @@
+[x] Escribir a J J V aiganjuegos@gmail.com
+
 # Lista de recomendaciones, recordatorios y otras directrices
 
 https://1337x.pro/
@@ -170,6 +172,83 @@ Ecoaldea con ideales pero promete ser cara.
 - libros en francés, novelas principalmente
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
+
+
+
+[ ] *Strong / meaningful / named types:
+
+[ ] https://en.cppreference.com/w/cpp/language/constraints
+[ ] https://users.cs.northwestern.edu/~riesbeck/programming/c++/stl-iterator-define.html
+
+[ ] *Tag Dispatch*
+https://www.fluentcpp.com/2018/04/27/tag-dispatching/
+
+[ ]
+template<typename Iterator>
+struct iterator_traits{
+  typedef typename Iterator::difference_type difference_type;
+  typedef typename Iterator::value_type value_type;
+  typedef typename Iterator::pointer pointer;
+  typedef typename Iterator::reference reference;
+  typedef typename Iterator::iterator_category iterator_category;
+};
+
+*Name 	Description*
+1 	Input Iterator 	Can scan the container forward only once, can't change the value it points to (read-only);
+2 	Output Iterator
+	Can scan the container forward only once, can't read the value it points to (write-only);
+3 	Forward Iterator 	Can scan the container forward multiple times, can read and write the value it points to;
+4 	Bidirectional Iterator 	Same as previous one but can scan the container back and forth;
+5 	Random Access Iterator 	Same as previous one but can access the container also non-sequentially (i.e. by jumping around);
+6 	Contiguous Iterator 	Same as previous one, with the addition that logically adjacent elements are also physically adjacent in memory.
+
+The six categories are hierarchical: a Bidirectional Iterator is also a Forward Iterator and a Random Access Iterator is both a Bidirectional and a Forward Iterator and so on. Normally, all iterators are Input Iterators (1) which makes them read-only, also known as constant iterators. Iterators that both support read and write operations are also Output Iterators (2) and are called mutable iterators.
+
+[ ]
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <clipPath id="cut-off-bottom">
+      <rect x="0" y="0" width="200" height="100" />
+    </clipPath>
+  </defs>
+
+  <circle cx="100" cy="100" r="100" clip-path="url(#cut-off-bottom)" />
+</svg>
+Centered at (100,100), a circle with radius 100 is painted. The attribute clip-path references a <clipPath> element with a single rect element. This rectangular on its own would paint the upper half of the canvas black. Note, that the clipPath element is usually placed in a defs section.
+
+The rect will not be painted, however. Instead, its pixel data will be used to determine which pixels of the circle "make it" to the final rendering. Since the rectangle covers only the upper half of the circle, the lower half of the circle will vanish.
+
+[ ] https://www.sciencedirect.com/topics/computer-science/mealy-machine
+
+[ ] *Forests*
+In graph theory, a forest is simply an acyclic graph, meaning it contains no cycles, and is equivalent to a collection or disjoint union of one or more trees, where each component (connected part) is a tree. A single tree is a special case of a forest, making all trees forests, but not all forests are trees because a forest doesn't have to be connected. Forests are useful for representing disconnected hierarchical structures or disjoint sets in computer science.
+
+[ ] *BFSVisitor Valid Expressions*
+<table>
+Initialize Vertex 	vis.initialize_vertex(s, g) 	void 	This is invoked on every vertex of the graph before the start of the graph search.
+Discover Vertex 	vis.discover_vertex(u, g) 	void 	This is invoked when a vertex is encountered for the first time.
+Examine Vertex 	vis.examine_vertex(u, g) 	void 	This is invoked on a vertex as it is popped from the queue. This happens immediately before examine_edge() is invoked on each of the out-edges of vertex u.
+Examine Edge 	vis.examine_edge(e, g) 	void 	This is invoked on every out-edge of each vertex after it is discovered.
+Tree Edge 	vis.tree_edge(e, g) 	void 	This is invoked on each edge as it becomes a member of the edges that form the search tree.
+Non-Tree Edge 	vis.non_tree_edge(e, g) 	void 	This is invoked on back or cross edges for directed graphs and cross edges for undirected graphs.
+Gray Target 	vis.gray_target(e, g) 	void 	This is invoked on the subset of non-tree edges whose target vertex is colored gray at the time of examination. The color gray indicates that the vertex is currently in the queue.
+Black Target 	vis.black_target(e, g) 	void 	This is invoked on the subset of non-tree edges whose target vertex is colored black at the time of examination. The color black indicates that the vertex has been removed from the queue.
+Finish Vertex 	vis.finish_vertex(u, g) 	void 	This invoked on a vertex after all of its out edges have been added to the search tree and all of the adjacent vertices have been discovered (but before the out-edges of the adjacent vertices have been examined).
+</table>
+
+[ ]
+<p>Personalmente no soporto estar a la encontrarme a la intemperie de noche en medio del campo. La naturaleza se la aprecia sólamente en determinadas situaciones. También puede resultar terrible, destructiva, intratable, perjudicial.</p>
+<p>Ahora imaginemos la situación opuesta. La naturaleza virgen se ha extinguido completamente y me encuentro en una vivienda cómoda. Afuera hace treinta grados menos, o quince más, veo llover o nevar, o abrasar y arrasar. Disfruto de buena comida y ropa, entre otros medios. Ahora bien, ¿de qué me ocupo?</p>
+<p>La realidad de la existencia humana podría acabar siendo como esos dramas que transcurren en un salón. Sin duda encontraríamos temas de conversación, conflictos y sus soluciones, alicientes, altibajos etc. Me queda alguna duda de si en tal utopía, o distopía, se hablaría alguna vez de temas técnicos: mecánica, química, ciencia de materiales, electrónica. Tal vez sólo de informática. Tal vez se hable de modales, de burocracia, de comidas, probablemente precocinadas, de ropa, probablemente comprada telemáticamente, de psicología, incluso de metafísica...</p>
+<p>Aborrezco caminar o vagar o estar por el campo de noche. En tales situaciones la naturaleza pierde todo su atractivo. Según pasan las horas mi energía y resistencia al frío decaen. También mi inspiración y ganas.</p>
+<p>Un mediodía soleado de invierno o una mañana fresca. En muchos otros momentos la meteorología nos desagrada, preferimos los interiores. Incluso en la mejor de las naturalezas, un verdadero <strong>paraíso</strong>, si pasáramos hambre o sed, entonces ya no nos agradaría ni motivaría.</p>
+
+[ ]
+<h1>Destratifying Warm-Cold Air in a Room</h1>
+<p>A ceiling fan in destratification mode is the best tool for bringing warm air down in a room. To do this, switch the fan's motor so the blades turn clockwise and run it on the lowest speed. This reverse setting pulls cool air up and gently pushes the warm air that has risen near the ceiling down along the walls to the living space.</p>
 
 [ ] revisar *instituciones-y-hackers.html#objetos-institucion*
 [ ] posiblemente cambiar el vínculo a *instituciones-y-hackers.html#objetos-institucion* desde *vivienda.html*

@@ -118,8 +118,8 @@ Transfer-Encoding: chunked
 }</pre>
         </section>
 
-        <section id="selector-syntax">
-          <h3>Selector Syntax</h3>
+        <section id="selectors">
+          <h3>Selectors</h3>
           <p>Selectors are expressed as a JSON object describing documents of interest. Within this structure, you can apply conditional logic using specially named fields.</p>
           <p>Whilst selectors have some similarities with <a target="_blank" href="mongodb.html">MongoDB</a> query documents, these arise from a similarity of purpose and do not necessarily extend to commonality of function or result.</p>
           <p>Elementary selector syntax requires you to specify one or more fields, and the corresponding values required for those fields. This selector matches all documents whose "director" field has the value <cite>Lars von Trier</cite>.</p>
@@ -133,6 +133,7 @@ Transfer-Encoding: chunked
     "cast"
 ]</pre>
           <p>You can create more complex selector expressions by combining operators. For best performance, it is best to combine ‘combination’ or ‘array logical’ operators, such as <code>$regex</code>, with an operator that defines a contiguous range of keys such as <code>$eq</code>, <code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code>, and <code>$beginsWith</code> (but not <code>$ne</code>). For more information about creating complex selector expressions, <i>see</i> <cite>creating selector expressions</cite>.</p>
+          <!--
           <pre></pre>
           <p></p>
           <pre></pre>
@@ -140,6 +141,118 @@ Transfer-Encoding: chunked
           <pre></pre>
           <p></p>
           <pre></pre>
+          -->
+          <section>
+            <h4>Selector with 2 fields</h4>
+            <p>This selector matches any document with a name field containing "Paul", and that also has a location field with the value "Boston".</p>
+            <pre>{
+    "name": "Paul",
+    "location": "Boston"
+}</pre>
+          </section>
+          <section>
+            <h4>Subfields</h4>
+            <p>A more complex selector enables you to specify the values for field of nested objects, or subfields. For example, you might use a standard JSON structure for specifying a field and subfield.</p>
+            <p>Example of a field and subfield selector, using a standard JSON structure:</p>
+            <pre>{
+    "imdb": {
+        "rating": 8
+    }
+}</pre>
+            <p>An abbreviated equivalent uses a dot notation to combine the field and subfield names into a single name.</p>
+            <pre>{
+    "imdb.rating": 8
+}</pre>
+          </section>
+
+          <section>
+            <h4>Combination Operators</h4>
+            <p><dfn>Combination operators</dfn> are used to combine selectors. In addition to the common boolean operators found in most programming languages, there are three combination operators (<code>$all</code>, <code>$elemMatch</code>, and <code>$allMatch</code>) that help you work with JSON arrays and one that works with JSON maps (<code>$keyMapMatch</code>).</p>
+            <p>A combination operator takes a single argument. The argument is either another selector, or an array of selectors.</p>
+            <p>The list of combination operators:</p>
+            <table>
+              <thead> <tr> <th>Operator</th> <th>Argument</th> <th>Purpose</th> </tr> </thead>
+              <tbody>
+                <tr> <td><code>$and</code></td> <td>Array</td> <td>Matches if all the selectors in the array match.</td> </tr>
+                <tr> <td><code>$or</code></td> <td>Array</td> <td>Matches if any of the selectors in the array match. All selectors must use the same index.</td> </tr>
+                <tr> <td><code>$not</code></td> <td>Selector</td> <td>Matches if the given selector does not match.</td> </tr>
+                <tr> <td><code>$nor</code></td> <td>Array</td> <td>Matches if none of the selectors in the array match.</td> </tr>
+                <tr> <td><code>$all</code></td> <td>Array</td> <td>Matches an array value if it contains all the elements of the argument array.</td> </tr>
+                <tr> <td><code>$elemMatch</code></td> <td>Selector</td> <td>Matches and returns all documents that contain an array field with at least one element that matches all the specified query criteria.</td> </tr>
+                <tr> <td><code>$allMatch</code></td> <td>Selector</td> <td>Matches and returns all documents that contain an array field with all its elements matching all the specified query criteria.</td> </tr>
+                <tr> <td><code>$keyMapMatch</code></td> <td>Selector</td> <td>Matches and returns all documents that contain a map that contains at least one key that matches all the specified query criteria.</td> </tr>
+                <tr> <td><code>$text</code></td> <td>String</td> <td>Perform a text search</td> </tr>
+              </tbody>
+            </table>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>* </h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
         </section>
         <!--
         <section>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CouchDB Indexes</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="CouchDB Indexes"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a rel="prev" href="couchdb.html">CouchDB</a></p>
+        <p><a rel="next" href="couchdb.using.html">Using Apache CouchDB</a></p>
+        <p><a            href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
+      </div>
+      <div>
+        <p><a            href="database.html">DataBases</a></p>
+        <p><a            href="dataset.html">Data Sets</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>CouchDB Indexes</h1>
+      <p>Indexes are like indexes in most other database systems: they spend a little extra space to improve the performance of queries.</p>
+      <p>They primarily consist of a list of fields to index, but can also contain a selector to create a <a href="#partial-indexes">partial index</a>.</p>
+      <p>Mango indexes have a type, currently either <code><a href="#json">json</a></code>, <code>text</code>, or <code>nouveau</code>.</p>
+      <section id="definitions">
+        <h2>Index Definitions</h2>
+        <p>Index definitions are JSON objects with the following fields:</p>
+        <ul>
+          <li><strong>ddoc</strong> (string): ID of the design document the index belongs to. This ID can be used to retrieve the design document containing the index, by making a GET request to /{db}/<var>ddoc</var>, where <var>ddoc</var> is the value of this field.</li>
+          <li><strong>name</strong> (string): Name of the index.</li>
+          <li><strong>partitioned</strong> (boolean): Partitioned (<code>true</code>) or global (<code>false</code>) index.</li>
+          <li><strong>type</strong> (string): Type of the index. Can be "json", "text", "nouveau", or sometimes "special".</li>
+          <li><strong>def/index</strong> (object): Definition of the index, depending on the type<!-- (see below)-->. Which name is used depends on the context.</li>
+        </ul>
+      </section>
+
+      <section id="json">
+        <h2>JSON Indexes</h2>
+        <p>JSON Indexes are your standard structural indexes, used by the majority of selector operators.</p>
+        <p>Their definition consists of:</p>
+        <ul>
+          <li><strong>fields</strong> (array): Array of field names following the sort syntax. Nested fields are also allowed, e.g. “person.name”.</li>
+          <li><strong>partial_filter_selector</strong> (object): A selector to apply to documents at indexing time, creating a <a href="#partial-indexes">partial index</a>. Optional.</li>
+        </ul>
+        <p>Example:</p>
+        <pre>{
+    "type" : "json",
+    "index": {
+        "fields": ["foo"]
+    }
+}</pre>
+      </section>
+
+      <section id="partial-indexes">
+        <h2>Partial Indexes*</h2>
+        <p>Partial indexes allow documents to be filtered at indexing time, potentially offering significant performance improvements for query selectors that do not map cleanly to a range query on an index.</p>
+        <p>Let&apos;s look at an example query:</p>
+        <pre>{
+    "selector": {
+        "status": {
+            "$ne": "archived"
+        },
+        "type": "user"
+    }
+}</pre>
+        <p>Without a partial index, this requires a full index scan to find all the documents of "type":"user" that do not have a status of "archived". This is because a normal index can only be used to match contiguous rows, and the "$ne" operator cannot guarantee that.</p>
+        <p>To improve response times, we can create an index which excludes documents where <code>"status": { "$ne": "archived" }</code> at index time using the <strong>partial_filter_selector</strong> field:</p>
+        <pre>POST /db/_index HTTP/1.1
+Content-Type: application/json
+Content-Length: 144
+Host: localhost:5984
+
+{
+  "index": {
+    "partial_filter_selector": {
+      "status": {
+        "$ne": "archived"
+      }
+    },
+    "fields": ["type"]
+  },
+  "ddoc" : "type-not-archived",
+  "type" : "json"
+}</pre>
+        <p>Partial indexes are not currently used by the query planner unless specified by a "use_index" field, so we need to modify the original query:</p>
+        <pre>{
+    "selector": {
+        "status": {
+            "$ne": "archived"
+        },
+        "type": "user"
+    },
+    "use_index": "type-not-archived"
+}</pre>
+        <p>Technically, we do not need to include the filter on the "status" field in the query selector - the partial index ensures this is always true - but including it makes the intent of the selector clearer and will make it easier to take advantage of future improvements to query planning (e.g. automatic selection of partial indexes).</p>
+        <aside><strong>Note</strong> An index with fields is only used, when the selector includes all of the fields indexed. For instance, if an index contains ["a", "b"] but the selector only requires field ["a"] to exist in the matching documents, the index would not be valid for the query. All indexes, however, can be treated as if they include the special fields <code>_id</code> and <code>_rev</code>. They <em>never</em> need to be specified in the query selector.</aside>
+      </section>
+
+      <section id="text">
+        <h2>Text Indexes</h2>
+        <p>Mango can also interact with the Search and Nouveau search systems, using the $text selector and the appropriate index. These indexes can be queried using either <code>$text</code> or <code>GET /<var>{db}</var>/_design/<var>{ddoc}</var>/_search/<var>{index}</var></code> or <code>GET /{db}/_design/{ddoc}/_nouveau/{index}</code>.</p>
+        <p>Example index:</p>
+        <pre>{
+    "type": "nouveau",
+    "index": {
+        "fields": [
+            {"name": "foo", "type": "string"},
+            {"name": "bar", "type": "number"},
+            {"name": "baz", "type": "string"},
+        ],
+        "default_analyzer": "keyword",
+    }
+}</pre>
+        <p>A Text or Nouveau index definition consists of:</p>
+        <ul>
+          <li>
+            <p><strong>fields</strong>: The list of fields to index. "all_fields" or list of objects:</p>
+            <ul>
+              <li><strong>name</strong> (string): not blank</li>
+              <li><strong>type</strong> (string): one of "text", "string", "number", "boolean"</li>
+            </ul>
+          </li>
+          <li><strong>default_analyzer</strong> (string): Analyzer to use, defaults to "keyword" Optional</li>
+          <li><strong>default_field</strong>: Enables the “default field” index, boolean or object of enabled and analyzer Optional</li>
+          <li><strong>partial_filter_selector</strong> (object): A selector, causing this to be a partial index Optional</li>
+          <li><strong>selector</strong> (object): A selector Optional</li>
+        </ul>
+
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="***">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="***">
+        <h2>***</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
