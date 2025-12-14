@@ -29,7 +29,7 @@
         <p><a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a></p>
         <p><a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a></p>
         <p><a href="svg.arc.html">Drawing Arcs in SVG</a></p>
-
+        <p><a href="svg.gradient.html">SVG Linear and Radial Gradients</a></p>
       </div>
       <div>
         <p><a href="svg.html">XML: The eXtensible Markup Language</a></p>
@@ -59,6 +59,37 @@
 
       <section id="curve">
         <h2>Curve Commands</h2>
+        <p>There are three different commands that can be used to create smooth curves. Two of those curves are Bézier curves, and the third is an <q><a target="_blank" href="svg.arc.html">arc</a></q> or part of a circle. <!--You might have already gained practical experience with Bézier curves using path tools in Inkscape, Illustrator or Photoshop. -->There are an infinite number of Bézier curves, but only two are available in &lt;path&gt; elements: a cubic one, called with <code>C</code>, and a quadratic one, called with <code>Q</code>.</p>
+        <p>Both Bézier curves (quadratic and cubic) produce similar results, although the cubic one allows greater freedom in exactly what the curve looks like. Deciding which curve to use is situational and depends on the amount of symmetry the line has.</p>
+        <section id="C">
+          <h3>Cubic Bézier Curves with C/c and S/s</h3>
+          <p>The cubic curve, <code>C</code>, is the slightly more complex curve. Cubic Béziers take in two control points for each point. Therefore, to create a cubic Bézier, three sets of coordinates need to be specified.</p>
+          <pre>C x1 y1, x2 y2, x y</pre>
+          <p>or</p>
+          <pre>c dx1 dy1, dx2 dy2, dx dy</pre>
+          <p>The last set of coordinates here (x, y) specify where the line should end. The other two are control points. (x1, y1) is the control point for the start of the curve, and (x2, y2) is the control point for the end. The control points essentially describe the slope of the line starting at each point. The Bézier function then creates a smooth curve that transfers from the slope established at the beginning of the line, to the slope at the other end.</p>
+          <p>Something to note here is that the Bezier curve starts in the direction of the first control point, and then bends so that it arrives along the direction of the second control point.</p>
+          <hr/>
+          <p>Several Bézier curves can be strung together to create extended, smooth shapes. Often, the control point on one side of a point will be a reflection of the control point used on the other side to keep the slope constant. In this case, a shortcut version of the cubic Bézier can be used, designated by the command <code>S</code> (or <code>s</code>).</p>
+          <pre>S x2 y2, x y</pre>
+          <p>(or)</p>
+          <pre>s dx2 dy2, dx dy</pre>
+          <p>S produces the same type of curve as earlier—but if it follows another S command or a C command, the first control point is assumed to be a reflection of the one used previously. If the S command doesn't follow another S or C command, then the current position of the cursor is used as the first control point. The result is not the same as what the Q command would have produced with the same parameters, but is similar.</p>
+        </section>
+        <section id="Q">
+          <h3>Quadratic Bézier Curves with Q/q and T/t</h3>
+          <p>The other type of Bézier curve, the quadratic curve called with Q, is actually a simpler curve than the cubic one. It requires one control point which determines the slope of the curve at both the start point and the end point. It takes two parameters: the control point and the end point of the curve.</p>
+          <pre>Q x1 y1, x y</pre>
+          <p>(or)</p>
+          <pre>q dx1 dy1, dx dy</pre>
+          <p>As with the cubic Bézier curve, there is a shortcut for stringing together multiple quadratic Béziers, called with T.</p>
+          <pre>T x y</pre>
+          <p>(or)</p>
+          <pre>t dx dy</pre>
+          <p>This shortcut looks at the previous control point used and infers a new one from it. This means that after the first control point, fairly complex shapes can be made by specifying only end points.</p>
+          <p>This only works if the previous command was a Q or a T command. If not, then the control point is assumed to be the same as the previous point, and only lines will be drawn.</p>
+        </section>
+
       </section>
 
     </main>

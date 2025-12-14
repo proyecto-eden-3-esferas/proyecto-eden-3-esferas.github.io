@@ -38,7 +38,8 @@
       <h1>CouchDB Indexes</h1>
       <p>Indexes are like indexes in most other database systems: they spend a little extra space to improve the performance of queries.</p>
       <p>They primarily consist of a list of fields to index, but can also contain a selector to create a <a href="#partial-indexes">partial index</a>.</p>
-      <p>Mango indexes have a type, currently either <code><a href="#json">json</a></code>, <code>text</code>, or <code>nouveau</code>.</p>
+      <p>Mango indexes have a type, currently either <code><a href="#json">json</a></code>, <code><a href="#text">text</a></code>, or <code>nouveau</code>.</p>
+
       <section id="definitions">
         <h2>Index Definitions</h2>
         <p>Index definitions are JSON objects with the following fields:</p>
@@ -46,7 +47,7 @@
           <li><strong>ddoc</strong> (string): ID of the design document the index belongs to. This ID can be used to retrieve the design document containing the index, by making a GET request to /{db}/<var>ddoc</var>, where <var>ddoc</var> is the value of this field.</li>
           <li><strong>name</strong> (string): Name of the index.</li>
           <li><strong>partitioned</strong> (boolean): Partitioned (<code>true</code>) or global (<code>false</code>) index.</li>
-          <li><strong>type</strong> (string): Type of the index. Can be "json", "text", "nouveau", or sometimes "special".</li>
+          <li><strong>type</strong> (string): Type of the index. Can be "json", "<a href="#text">text</a>", "nouveau", or sometimes "special".</li>
           <li><strong>def/index</strong> (object): Definition of the index, depending on the type<!-- (see below)-->. Which name is used depends on the context.</li>
         </ul>
       </section>
@@ -142,36 +143,6 @@ Host: localhost:5984
           <li><strong>partial_filter_selector</strong> (object): A selector, causing this to be a partial index Optional</li>
           <li><strong>selector</strong> (object): A selector Optional</li>
         </ul>
-
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-      </section>
-
-      <section id="***">
-        <h2>***</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-      </section>
-
-      <section id="***">
-        <h2>***</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
       </section>
 
     </main>
