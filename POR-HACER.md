@@ -173,7 +173,93 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] *El Modelo Z*
 
+Consideremos una zona Z o C delimitada vagamente en el espacio, aunque lo suficiente como para representar un lugar de alta concentración de gente y actividad económica de una naturaleza en principio incomprensible y por tanto comprimible o incluso suprimible, en la que moran y se ajetrean cientos de miles y se realizan actividades sumamente complejas de cuantificar y contabilizar.
+
+Analizamos este lugar o concentración estudiando sus flujos con el exterior así como los internos.
+
+En general entra energía eléctrica, química etc. y se convierte en calor. También entran materias primas y artículos manufacturados, que en su mayoría acaban degradándose (basura, excremento, chatarra) en lugar de salir con un valor añadido mediante alguna suerte de industria.
+
+Otro intercambio con el exterior es la información, originariamente en papel (documentos y libros principalmente, también objetos de arte, celuloide etc.) pero cada vez más en forma de señales electrónicas, cada vez más predominantemente digitales.
+
+En esencia Z intercambia letras y bits, con los cuales adquiere artículos de consumo.
+
+Internamente sus habitantes se dedican a desplazarse dentro de esta zona y sobre todo a entrar y salir de unos edificios característicos y a realizar una serie de acciones de consumo (viviendas, bares, centros comerciales) y productivas.
+
+Observamos que los habitantes de Z apenas difieren en su consumo de los de poblaciones dispersas (¿rurales?) pero sí en sus actividades económicas.
+
+(Una parte no desdeñable de Z está formada por servicios tales como turismo, enseñanza especializada, investigación y medicina especializada. Ahora bien, la proporción de trabajadores altamente especializados es baja, además de que en gran medida su actividad consiste en manipular letras y bits, lo cuál la hace terriblemente telerrealizable. La mayoría de los habitantes de Z trabajan de camareros, limpiadores, vendedores, gestores, vigilantes etc.)
+
+-------
+
+En realidad ante el fenómeno Z, como ante muchos otros vitales y cruciales, se dan dos posturas diferentes:
+- los empiristas: no buscan una explicación sino sólo una cuantificación, a partir de la cuál esperan predecir la evolución de Z en el tiempo, y
+- los racionalistas, que buscan comprender Z y predecir su evolución mediante principios y explicaciones racionales.
+
+Y dado que Z crece en tamaño y bienestar, los empiristas consideran justificado apostar por lo que llamaríamos el Modelo Z.
+
+
+[ ]
+<blockquote>
+  <p>No sé cómo se llaman, pero hay campings, digamos privados, en los que podrías consultar. Hay uno en Daganzo de Arriba y otro en un sitio de la provincia de Guadalajara, cerca de Torrejón del Rey, que se llama Galápagos.</p>
+  <p>En el camping de Valdemorillo, antes también vivía gente.</p>
+</blockquote>
+<blockquote>
+  <p>uno me dijo sin problema , creo que el alpha y el otro me dijo que se podían hacer dos contratos de 180 noches a nombre de dos personas diferentes aunque vivieran los dos y que así ellos cumplían la ley de la comunidad de Madrid. Y por supuesto que en caso de inspección presentarían los datos y en caso de cualquier sanción ellos no eran responsables al ser yo quien estaba los 365 días a pesar de que ellos tenían a <q>dos personas diferentes con contrato</q></p>
+</blockquote>
+
+[ ] <p>La posibilidad de acción nunca queda bloqueada. Siempre hay disponible una manera de lograr nuestro objetivo, si bien a menudo necesitemos replanteárnoslo porque sea:</p>
+<ul>
+  <li>egoísta</li>
+  <li>dañino (para los demás), o</li>
+  <li>incompatible (querer la Luna)</li>
+</ul>
+[ ] <p>Herbie Hancock, el autor de <cite>Posibilidades</cite>, declara que cuando conoció el Budismo le recordó mucho a la ciencia porque en ambos todo fenómeno se debe a una causa.</p>
+[ ] <p>El punto medio entre determinación absoluta (eternalismo) y arbitrariedad absoluta (caos absoluto, nihilismo). Dicho de otro modo, nuestras acciones presentes condicionan nuestro estado futuro, pero siempre queda abierta una puerta por la que salir de dicha determinación.</p>
+
+
+[ ] Formulamos un proyecto...
+
+[ ] *Asynchronous Digital Logic*
+[ ] *Mealy and Moore Machines*
+
+[ ] La lógica proposicional coincide con la lógica digital secuencial.
+
+[ ] *funciones puras e impuras*
+<ul>
+  <li>Funciones impuras: afectan al Estado del Sistema</li>
+  <li>Funciones puras: se limitan a computar un valor, independientemente de que haya ocurrido hasta entonces</li>
+</ul>
+<p>Por ejemplo, nuestro cerebro al realizar una misma tarea o parecida va variando su modo de realizarla y por tanto las respuestas o <q>salidas</q> que da, salvo en casos lógico-aritméticos muy simpres (2 + 2 = 4).</p>
+[ ] *Funciones explícitas e implícitas*
+<ul>
+  <li><strong>funciones explícitas</strong>: la variable dependiente aparece despejada (y=f(x)) o bien resulta posible despejarla (x + xy + y = 0 equivale a y = -x / x+1)</li>
+  <li><strong>funciones implícitas</strong>: la variable dependiente ni aparece despejada (f(x,y) = 0) ni puede despejarse (x<sup>2</sup> + xy + y<sup>2</sup> = k)</li>
+</ul>
+<p>Otros ejemplos de funciones implícitas son:</p>
+<ul>
+  <li>six x + x = k</li>
+  <li>x + y + y<sup>2</sup> = k</li>
+</ul>
+
+
+[ ] *Tres clases de entes*
+<section id="tres-clases-de-entes">
+  <h2>Tres clases de entes</h2>
+  <ul>
+    <li>objetos materiales</li>
+    <li>fenómenos, situaciones</li>
+    <li>leyes de la naturaleza</li>
+  </ul>
+</section>
+
+[ ] *makers.es.html*
+<ul>
+  <li>cortadora láser</li>
+  <li>taladro de columna</li>
+  <li>programador de circuitos integrados</li>
+</ul>
 
 [ ] *Strong / meaningful / named types:
 

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::expected&lt;T,E&gt;</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ std::expected&lt;T,E&gt;"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="cpp.stl.optional.html">C++ <code>std::optional&lt;T&gt;</code></a></p>
+      </div>
+      <div>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a href="cpp.templates.html">C++ Generics (Templates)</a></p>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.cpp11.html">C++11</a></p>
+        <p><a href="cpp.cpp14.html">C++14</a></p>
+        <p><a href="cpp.cpp20.html">C++20</a></p>
+      </div>
+      <div>
+        <p><a href="programming.html">Programming Computers</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Using C++ <code>std::expected&lt;T,E&gt;</code> to Return either a Value or an Error</h1>
+      <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://en.cppreference.com/w/cpp/utility/expected.html">https://en.cppreference.com/w/cpp/utility/expected.html</a></cite>)</p>
+
+      <p>The class template <code>std::expected</code> provides a way to represent either of two values: an expected value of type <code>T</code>, or an unexpected value of type <code>E</code>.</p>
+      <p><code>std::expected</code> is never valueless.</p>
+      <pre>template&lt; class T, class E &gt;
+class expected;</pre>
+      <p>A program is ill-formed if it instantiates an <code>std::expected</code> with a reference type, a function type, or a specialization of <code>std::unexpected</code>. In addition, T must not be <code><a target="_blank" href="cpp.stl.in_place.html">std::in_place_t</a></code> or <code>std::unexpect_t</code>.</p>
+    </main>
+  </body>
+</html>

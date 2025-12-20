@@ -10,16 +10,6 @@
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
-    <meta name="author" content="AUTHOR"/>
-    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
-
-    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
-    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
-    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
-
-    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
-    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
-
     TODO's:
 
     (1) Store the following images in an accessible directory:
@@ -47,24 +37,21 @@
     -->
   </head>
   <body lang="en" class="computing">
+
     <nav>
       <div>
         <p><a            href="cpp.boost.graph.adjacency_list.html"><code>boost::adjacency_list</code></a></p>
         <p><a rel="next" href="cpp.boost.graph.algorithms-and-visitors.html">Algorithms and Visitors in the Boost Graph Library (BGL)</a></p>
+        <p><a rel="prev" href="cpp.boost.graph.property.html">Boost Graph Library Properties with <code>property</code></a></p>
         <p><a            href="cpp.boost.graph.examples.html">Boost Graph Library (BGL) Examples</a></p>
       </div>
       <div>
-        <p><a rel="prev" href="graphs.html">Graphs</a></p>
-        <p><a            href="cpp.graphs.html">C++ Graph Implementations</a></p>
-        <p><a            href="cpp.boost.graph.old.html">(Former version of this page)</a></p>
+        <p><a href="graphs.html">Graphs</a></p>
+        <p><a href="cpp.graphs.html">C++ Graph Implementations</a></p>
+        <p><a href="cpp.boost.graph.old.html">(Former version of this page)</a></p>
       </div>
-      <!--
-      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
-      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-
-      -->
     </nav>
+
     <main>
       <h1>The Boost Graph Library (BGL)</h1>
       <p><a target="_blank" href="graphs.html">Graphs</a> are mathematical abstractions that are useful for solving many types of problems in computer science. Consequently, these abstractions must also be represented in computer programs. A standardized generic interface for traversing graphs is of utmost importance to encourage reuse of graph algorithms and data structures. Part of the Boost Graph Library is a generic interface that allows access to a graph's structure, but hides the details of the implementation. This is an <em>open</em> interface in the sense that any graph library that implements this interface will be interoperable with the BGL generic algorithms and with other algorithms that also use this interface. The BGL provides some general purpose graph classes that conform to this interface, but they are not meant to be the <em>only</em> graph classes. There certainly will be other graph classes that are better for certain situations. The main contribution of the The BGL is the formulation of this interface.</p>
@@ -190,7 +177,7 @@ file_dep_graph g(input_begin, input_end, n_vertices);</pre>
 }</pre>
         </section>
         <section id="a-graph-with-some-property">
-          <h3>Creating a Graph with some Property (such as Edge-Weight)</h3>
+          <h3>Creating a Graph with some <a target="_blank" href="cpp.boost.graph.property.html">Property</a> (such as Edge-Weight)</h3>
           <p>Suppose we wish to build the following weighted directed graph:</p>
           <img alt="(no image found!)" format="JPEG" src="./pictures/Computing/start_BGL_directed.jpg"/>
           <p>We can do this by making repeated calls to <code>boost::add_edge(<var>src</var>, <var>target</var>, <var>w</var>, <var>graph_object</var>)</code> to create the graph, where <var>w</var> occurs just before the graph object parameter and adds some property (weight) to the edge.<!-- The following code listing shows you how, and prints out the result:--></p>
@@ -894,8 +881,60 @@ dijkstra_shortest_paths(map, from,
         <p>The <code>adjacency_matrix</code> class stores edges in a |V| x |V| matrix (where |V| is the number of vertices). The elements of this matrix represent edges in the graph. Adjacency matrix representations are especially suitable for very dense graphs, i.e., those where the number of edges approaches |V|<sup>2</sup>. The adjacency list class is a good choice for most situations, particularly for representing sparse graphs.</p>
         <p>The <code>edge_list</code> class is an adaptor that takes any kind of edge iterator and implements an Edge List Graph.</p>
       </section>
+
       <section>
-        <h2>Graph Traits with <code>graph_traits&lt;<var>MY_GRAPH_TYPE</var>&gt;</code>*</h2>
+        <h2>Graph Traits with <code>graph_traits&lt;<var>MY_GRAPH_TYPE</var>&gt;</code></h2>
+        <p>Just like the <a target="_blank" href="cpp.iterators.html">iterators</a> of STL, graphs have associated types. As stated in the various <a href="#bgl_concepts">graph concepts</a>, a graph has quite a few associated types: <code>vertex_descriptor</code>, <code>edge_descriptor</code>, <code>out_edge_iterator</code>, etc.</p>
+        <p>Any particular graph concepts will not require that all of the following associated types be defined.</p>
+        <p>When implementing a graph class that fullfils one or more graph concepts, for associated types that are not required by the concepts, it is all right to use <code>void</code> as the type (when using nested typedefs inside the graph class), or to leave the typedef out of the graph_traits specialization for the graph class.</p>
+        <p>Note that because of the use of traits classes rather than member types, it is not safe (and often will not work) to define subclasses of BGL graph types; those types may be missing important traits and properties that were defined externally to the class definition.</p>
+        <hr/>
+        <section id="definition">
+          <h3>Definition</h3>
+          <p>Defined in <cite>boost/graph/graph_traits.hpp</cite> is the following struct:</p>
+          <pre>template &lt;typename Graph&gt;
+  struct graph_traits {
+    typedef typename Graph::vertex_descriptor      vertex_descriptor;
+    typedef typename Graph::edge_descriptor        edge_descriptor;
+    typedef typename Graph::adjacency_iterator     adjacency_iterator;
+    typedef typename Graph::out_edge_iterator      out_edge_iterator;
+    typedef typename Graph::in_edge_iterator       in_edge_iterator;
+    typedef typename Graph::vertex_iterator        vertex_iterator;
+    typedef typename Graph::edge_iterator          edge_iterator;
+
+    typedef typename Graph::directed_category      directed_category;
+    typedef typename Graph::edge_parallel_category edge_parallel_category;
+    typedef typename Graph::traversal_category     traversal_category;
+
+    typedef typename Graph::vertices_size_type     vertices_size_type;
+    typedef typename Graph::edges_size_type        edges_size_type;
+    typedef typename Graph::degree_size_type       degree_size_type;
+  };</pre>
+        </section>
+
+        <section id="members">
+          <h3>Members</h3>
+          <table>
+            <thead>
+              <tr> <th>Member</th> <th>Description</th> </tr>
+            </thead>
+            <tbody>
+              <tr> <td><code>vertex_descriptor</code></td> <td>The type for the objects used to identity vertices in the graph.</td> </tr>
+              <tr> <td><code>edge_descriptor</code></td> <td>The type for the objects used to identity edges in the graph.</td> </tr>
+              <tr> <td><code>adjacency_iterator</code></td> <td>The type for the iterators that traverse the vertices adjacent to a vertex.</td> </tr>
+              <tr> <td><code>out_edge_iterator</code></td> <td>The type for the iterators that traverse through the out-edges of a vertex.</td> </tr>
+              <tr> <td><code>in_edge_iterator</code></td> <td>The type for the iterators that traverse through the in-edges of a vertex.</td> </tr>
+              <tr> <td><code>vertex_iterator</code></td> <td>The type for the iterators that traverse through the complete vertex set of the graph.</td> </tr>
+              <tr> <td><code>edge_iterator</code></td> <td>The type for the iterators that traverse through the complete edge set of the graph.</td> </tr>
+              <tr> <td><code>directed_category</code></td> <td>This says whether the graph is undirected (<code>undirected_tag</code>) or directed (<code>directed_tag</code>).</td> </tr>
+              <tr> <td><code>edge_parallel_category</code></td> <td>This says whether the graph allows parallel edges to be inserted (<code>allow_parallel_edge_tag</code>) or if it automatically removes parallel edges (<code>disallow_parallel_edge_tag</code>).</td> </tr>
+              <tr> <td><code>traversal_category</code></td> <td>The ways in which the vertices in the graph can be traversed. The traversal category tags are: <code>incidence_graph_tag</code>, <code>adjacency_graph_tag</code>, <code>bidirectional_graph_tag</code>, <code>vertex_list_graph_tag</code>, <code>edge_list_graph_tag</code>, <code>adjacency_matrix_tag</code>. You can also create your own tag which should inherit from one or more of the above.</td> </tr>
+              <tr> <td><code>vertices_size_type</code></td> <td>The unsigned integer type used for representing the number of vertices in the graph.</td> </tr>
+              <tr> <td><code>edges_size_type</code></td> <td>The unsigned integer type used for representing the number of edge in the graph.</td> </tr>
+              <tr> <td><code>degree_size_type</code></td> <td>The unsigned integer type used for representing the degree of vertices in the graph.</td> </tr>
+            </tbody>
+          </table>
+        </section>
       </section>
 
       <section>
@@ -1609,6 +1648,7 @@ dijkstra_shortest_paths(map, from,
         <h2>Graph Concepts</h2>
         <p>Just as the STL defines a collection of iterator concepts that provide a generic mechanism for traversing and accessing sequences of objects, BGL defines its own collection of concepts that specify how graphs can be inspected and manipulated.</p>
         <p>In this section we give an overview of these concepts. The examples in this section do not refer to specific graph types; they are written as function templates with the graph as a template parameter. A generic function written using the BGL interface can be applied to any of the BGL graph types--or even to new user-defined graph types. Later on, we will discuss the concrete graph classes that are provided in the BGL.</p>
+
         <section id="bgl_vertex_and_edge_descriptors">
           <h3>Vertex and Edge Descriptors</h3>
           <p>In the BGL, vertices and edges are manipulated through opaque handles called <dfn>vertex descriptors</dfn> and <dfn>edge descriptors</dfn>. Different graph types may use different types for their descriptors. For example, some graph types may use integers, whereas other graphs may use pointers. The descriptor types for a graph type are always accessible through the <a href="#bgl_graph_traits">graph traits class</a>.</p>
@@ -1621,6 +1661,80 @@ bool is self loop(typename graph traits&lt;Graph&gt;::edge descriptor e, const G
   return u == v;
 }</pre>
         </section>
+
+        <section id="bgl_concepts_summary">
+          <h3>Summary of BGL Concepts</h3>
+          <p>The table below gives a summary of the valid expressions and associated types for the graph concepts and provides links to the detailed descriptions of each of the concepts. The notation used in the table is as follows:</p>
+          <table border="0">
+            <tr> <td><code>G</code></td> <td>A type that is a model of Graph.</td> </tr>
+            <tr> <td><code>g</code></td> <td>An object of type G.</td> </tr>
+            <tr> <td><code>e</code></td> <td>An object of type boost::graph_traits&lt;G&gt;::edge_descriptor.</td> </tr>
+            <tr> <td><code>e_iter</code></td> <td>An object of type boost::graph_traits&lt;G&gt;::out_edge_iterator.</td> </tr>
+            <tr> <td><code>u,v</code></td> <td>Are objects of type boost::graph_traits&lt;G&gt;::vertex_descriptor.</td> </tr>
+            <tr> <td><code>ep</code></td> <td>is an object of type G::edge_property_type</td> </tr>
+            <tr> <td><code>vp</code></td> <td>is an object of type G::vertex_property_type</td> </tr>
+            <tr> <td><code>Property</code></td> <td>A type used to specify a vertex or edge property.</td> </tr>
+            <tr> <td><code>property</code></td> <td>An object of type Property.</td> </tr>
+          </table>
+          <table border="1">
+            <thead>
+              <tr> <th>Expression</th> <th>Return Type or Description</th> </tr>
+            </thead>
+Graph
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::vertex_descriptor</code></td> <td>The type for vertex representative objects.</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::edge_descriptor</code></td> <td>The type for edge representative objects.</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::directed_category</code></td> <td>Directed or undirected?</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::edge_parallel_category</code></td> <td>Allow parallel edges?</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::traversal_category</code></td> <td>The ways in which the vertices and edges of the graph can be visited.</td> </tr>
+IncidenceGraph refines Graph
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::out_edge_iterator</code></td> <td>Iterate through the out-edges.</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::degree_size_type</code></td>	<td>The integer type for vertex degree.</td> </tr>
+              <tr> <td><code>out_edges(v, g)</code></td> <td>std::pair&lt;out_edge_iterator, out_edge_iterator&gt;</td> </tr>
+              <tr> <td><code>source(e, g)</code></td> <td>vertex_descriptor</td> </tr>
+              <tr> <td><code>target(e, g)</code></td> <td>vertex_descriptor</td> </tr>
+              <tr> <td><code>out_degree(v, g)</code></td> <td>degree_size_type</td> </tr>
+BidirectionalGraph refines IncidenceGraph
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::in_edge_iterator</code></td> <td>Iterate through the in-edges.</td> </tr>
+              <tr> <td><code>in_edges(v, g)</code></td> <td>std::pair&lt;in_edge_iterator, in_edge_iterator&gt;</td> </tr>
+              <tr> <td><code>in_degree(v, g)</code></td> <td>degree_size_type</td> </tr>
+              <tr> <td><code>degree(e, g)</code></td> <td>degree_size_type</td> </tr>
+AdjacencyGraph refines Graph
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::adjacency_iterator</code></td> <td>Iterate through adjacent vertices.</td> </tr>
+              <tr> <td><code>adjacent_vertices(v, g)</code></td> <td>std::pair&lt;adjacency_iterator, adjacency_iterator&gt;</td> </tr>
+VertexListGraph refines Graph
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::vertex_iterator</code></td> <td>Iterate through the graph's vertex set.</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::vertices_size_type</code></td> <td>The unsigned integer type for number of vertices in the graph.</td> </tr>
+              <tr> <td><code>vertices(g)</code></td> <td>std::pair&lt;vertex_iterator, vertex_iterator&gt;</td> </tr>
+              <tr> <td><code>num_vertices(g)</code></td> <td>vertices_size_type</td> </tr>
+EdgeListGraph refines Graph
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::edge_iterator</code></td> <td>Iterate through the graph's edge set.</td> </tr>
+              <tr> <td><code>boost::graph_traits&lt;G&gt;::edges_size_type</code></td> <td>The unsigned integer type for number of edges in the graph.</td> </tr>
+              <tr> <td><code>edges(g)</code></td> <td>std::pair&lt;edge_iterator, edge_iterator&gt;</td> </tr>
+              <tr> <td><code>num_edges(g)</code></td> <td>edges_size_type</td> </tr>
+              <tr> <td><code>source(e, g)</code></td> <td>vertex_descriptor</td> </tr>
+              <tr> <td><code>target(e, g)</code></td> <td>vertex_descriptor</td> </tr>
+AdjacencyMatrix refines Graph
+              <tr> <td><code>edge(u, v, g)</code></td> <td>std::pair&lt;edge_descriptor, bool&gt;</td> </tr>
+MutableGraph refines Graph
+              <tr> <td><code>add_vertex(g)</code></td> <td>vertex_descriptor</td> </tr>
+              <tr> <td><code>clear_vertex(v, g)</code></td>	<td>void</td> </tr>
+              <tr> <td><code>remove_vertex(v, g)</code></td> <td>void</td> </tr>
+              <tr> <td><code>add_edge(u, v, g)</code></td>	<td>std::pair&lt;edge_descriptor, bool&gt;</td> </tr>
+              <tr> <td><code>remove_edge(u, v, g)</code></td> <td>void</td> </tr>
+              <tr> <td><code>remove_edge(e, g)</code></td> <td>void</td> </tr>
+              <tr> <td><code>remove_edge(e_iter, g)</code></td> <td>void</td> </tr>
+MutablePropertyGraph refines Graph
+              <tr> <td><code>add_vertex(vp, g)</code></td> <td>vertex_descriptor</td> </tr>
+              <tr> <td><code>add_edge(u, v, ep, g)</code></td> <td>std::pair&lt;edge_descriptor, bool&gt;</td> </tr>
+PropertyGraph refines Graph
+              <tr> <td><code>boost::property_map&lt;G, Property&gt;::type</code></td> <td>Type for a mutable property map.</td> </tr>
+              <tr> <td><code>boost::property_map&lt;G, Property&gt;::const_type</code></td> <td>Type for a non-mutable property map.</td> </tr>
+              <tr> <td><code>get(property, g)</code></td> <td>Function to get a property map.</td> </tr>
+              <tr> <td><code>get(property, g, x)</code></td> <td>Get property value for vertex or edge x.</td> </tr>
+              <tr> <td><code>put(property, g, x, v)</code></td> <td>Set property value for vertex or edge x to v.</td> </tr>
+          </table>
+        </section>
+
       </section>
 
       <section id="bgl_iterators">
@@ -1658,9 +1772,6 @@ void print vertex names(const Graph&amp; g, VertexNameMap name map) {
                                         d = add vertex(g); name map[d] = 'd';
                                         e = add vertex(g); name map[e] = 'e';</pre>
         <p>The <code class="function">add_edge()</code> function returns a <kbd class="userinput">std::pair</kbd>, where the first member of the pair is an edge descriptor for the new edge and the second is a Boolean flag that indicates whether an edge was added (some graph types will not insert an edge if an edge with the same source and target is already in the graph).</p>
-        <!--
-        <pre><![CDATA[]]></pre>
-        <p></p>
                -->
         <section>
           <h3>Parallel Edge Traits</h3>
@@ -1695,21 +1806,18 @@ void print vertex names(const Graph&amp; g, VertexNameMap name map) {
                EdgeProperties = no_property,
                GraphProperties = no_property,
                EdgeList = listS&gt;</pre>
-
-
-
-
-
           <section>
             <h4>Vertex and Edge Properties</h4>
             <p>Properties such as color, distance, weight, and user-defined properties can be attached to the vertices and edges of the graph using properties. The property values can be read from and written to via the property maps provided by the graph. The property maps are obtained via the <code class="function">get(property, g)</code> function. How to use properties is described in <cite class="section" href="#internal-properties">Internal Properties</cite>. The property maps are objects that implement the interface defined in <cite class="section" href="property_map_concepts">Property Map Concepts</cite> or may be bundled properties, which have a more succinct syntax. The types of all property values must be Copy Constructible, Assignable, and Default Constructible. The property maps obtained from the <code>adjacency_list</code> class are models of the Lvalue Property Map concept. If the <code>adjacency_list</code> is const, then the property map is constant, otherwise the property map is mutable.</p>
             <p>If the <var class="parameter">VertexList</var> of the graph is <kbd class="userinput">vecS</kbd>, then the graph has a builtin vertex indices accessed via the property map for the vertex_index_t property. The indices fall in the range [0, num_vertices(g)) and are contiguous. When a vertex is removed the indices are adjusted so that they retain these properties. Some care must be taken when using these indices to access exterior property storage. The property map for vertex index is a model of Readable Property Map.</p>
           </section>
+        </section>
 
-        </section>
         <section id="internal-properties">
-          <h3>Internal Properties*</h3>
+          <h3>Internal Properties</h3>
+          <p><i>See</i> <a target="_blank" href="cpp.boost.graph.property.html">Boost Graph Library Properties with <code>boost::property&lt;&gt;</code></a></p>
         </section>
+
         <section>
           <h3>Bundled Properties</h3>
           <p>Class templates <code>adjacency_list</code> and <code>adjacency_matrix</code> support the introduction of named properties via <a href="#internal-properties">internal properties</a>. However, this method is cumbersome in many uses, where it would be more intuitive to just specify a structure or class that contains internal properties for edges or vertices. Bundled properties allow one to use adjacency_list and adjacency_matrix in this manner, providing a simple way to introduce and access any number of internal properties for vertices and edges.</p>

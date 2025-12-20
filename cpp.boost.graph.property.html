@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BGL property&lt;&gt;</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="The Boost Graph Library Properties with boost::property&lt;&gt;"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a            href="cpp.boost.graph.adjacency_list.html"><code>boost::adjacency_list</code></a></p>
+        <p><a rel="next" href="cpp.boost.graph.algorithms-and-visitors.html">Algorithms and Visitors in the Boost Graph Library (BGL)</a></p>
+        <p><a            href="cpp.boost.graph.property.html">Boost Graph Library <code>property</code></a></p>
+        <p><a            href="cpp.boost.graph.examples.html">Boost Graph Library (BGL) Examples</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="graphs.html">Graphs</a></p>
+        <p><a            href="cpp.graphs.html">C++ Graph Implementations</a></p>
+        <p><a            href="cpp.boost.graph.old.html">(Former version of this page)</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Boost Graph Library Properties with <code>property&lt;<var>PropertyTag</var>, <var>T</var>, <var>NextProperty</var>&gt;</code></h1>
+      <p>This class can be used with the adjacency_list and the adjacency_matrix classes to specify what kind of properties should be attached to the vertices and edges of the graph, and to the graph object itself.</p>
+      <p>This class is defined in <cite>boost/pending/property.hpp</cite></p>
+
+      <p><strong>Template Parameters</strong></p>
+      <table>
+        <thead>
+          <tr> <th>Parameter</th> <th>Description</th> <th>Default</th> </tr>
+        </thead>
+        <tbody>
+          <tr> <td><code><a href="#tags">PropertyTag</a></code></td>
+               <td>A type to identify (give a unique name to) the property. There are several predefined tags, and it is easy to add more. For convenience, BGL also provides predefined objects of the tag types (enum values) for use as arguments to functions that expect property tag objects (such as adjacency_list's property map accessor functions).</td>
+               <td></td>
+          </tr>
+          <tr> <td><code>T</code></td>
+               <td>This type specifies the type of the property values, such as <code>int</code> or <code>std::string</code>.</td>
+               <td></td>
+          </tr>
+          <tr> <td><code>NextProperty</code></td>
+               <td>This parameter allows property types to be nested, so that an arbitrary number of properties can be attached to the same graph.</td>
+               <td>boost::no_property</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <section id="tags">
+        <h2>Property Tags</h2>
+        <p>The following property tags are defined in <cite>boost/graph/properties.hpp</cite></p>
+        <pre>namespace boost {
+    enum edge_name_t { edge_name };
+    enum edge_weight_t { edge_weight };
+    enum edge_index_t { edge_index };
+    enum edge_capacity_t { edge_capacity };
+    enum edge_residual_capacity_t { edge_residual_capacity };
+    enum edge_reverse_t { edge_reverse };
+    enum vertex_name_t { vertex_name };
+    enum vertex_distance_t { vertex_distance };
+    enum vertex_index_t { vertex_index };
+    enum vertex_color_t { vertex_color };
+    enum vertex_degree_t { vertex_degree };
+    enum vertex_out_degree_t { vertex_out_degree };
+    enum vertex_in_degree_t { vertex_in_degree };
+    enum vertex_discover_time_t { vertex_discover_time };
+    enum vertex_finish_time_t { vertex_finish_time };
+    enum graph_name_t { graph_name };
+
+    BOOST_INSTALL_PROPERTY(vertex, index);
+    BOOST_INSTALL_PROPERTY(edge, index);
+    // ...
+  }</pre>
+      </section>
+
+      <section id="members">
+        <h2>Member Functions</h2>
+        <dl>
+
+          <dt><code>property()</code></dt>
+          <dd>Construct a property object with member m_value a default constructed instance of type T and with the super object default constructed. Note that T must be Default Constructible for this property, and all the inherited property types.</dd>
+
+          <dt><code>property(const T&amp; v)</code></dt>
+          <dd>Construct a property object with member m_value a copy of v.</dd>
+
+          <dt><code>property(const T&amp; v, const NextProperty&amp; b)</code></dt>
+          <dd>Construct a property object with member m_value a copy of v and whose super class NextProperty is constructed from b.</dd>
+
+        </dl>
+      </section>
+
+      <section id="synopsis">
+        <h2>Synopsis</h2>
+        <pre>namespace boost {
+  template &lt;class Tag, class T, class NextProperty = no_property&gt;
+  struct property : public NextProperty {
+    typedef NextProperty next_type;
+    typedef Tag tag_type;
+    typedef T value_type;
+    property();
+    property(const T&amp; v);
+    property(const T&amp; v, const NextProperty&amp; b);
+    // copy constructor and assignment operator will be generated by compiler
+    T m_value;
+  };
+}</pre>
+      </section>
+
+      <!--
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      -->
+
+    </main>
+  </body>
+</html>
