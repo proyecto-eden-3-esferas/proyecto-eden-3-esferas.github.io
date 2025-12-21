@@ -9,31 +9,6 @@
     <meta name="description" content="The Boost Graph Library (BGL)"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
-
-    TODO's:
-
-    (1) Store the following images in an accessible directory:
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_directed.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_directed.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_undirected.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_spanning_tree.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_Dijkstra.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_Kruskal.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/start_BGL_max_flow.jpg
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/analogy_STL_BGF.gif
-~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/Computing/directed_graph_example.gif
-
-    and change path accordingly, for instance change:
-      ~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/pictures/
-    to
-      ./pictures/
-
-    (2) transform into HTML:
- <mediaobject>
-   <imageobject>
-     <img alt='(no image found!)' format='JPEG' src='../../Electric_files/pictures/Computing/start_BGL_directed.jpg'/>
-   </imageobject>
- </mediaobject>
     -->
   </head>
   <body lang="en" class="computing">
@@ -914,7 +889,7 @@ dijkstra_shortest_paths(map, from,
 
         <section id="members">
           <h3>Members</h3>
-          <table>
+          <table border="1">
             <thead>
               <tr> <th>Member</th> <th>Description</th> </tr>
             </thead>
@@ -1680,42 +1655,50 @@ bool is self loop(typename graph traits&lt;Graph&gt;::edge descriptor e, const G
             <thead>
               <tr> <th>Expression</th> <th>Return Type or Description</th> </tr>
             </thead>
-Graph
+
+              <tr> <td colspan="2"><strong>Graph</strong></td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::vertex_descriptor</code></td> <td>The type for vertex representative objects.</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::edge_descriptor</code></td> <td>The type for edge representative objects.</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::directed_category</code></td> <td>Directed or undirected?</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::edge_parallel_category</code></td> <td>Allow parallel edges?</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::traversal_category</code></td> <td>The ways in which the vertices and edges of the graph can be visited.</td> </tr>
-IncidenceGraph refines Graph
+
+              <tr> <td colspan="2"><strong>IncidenceGraph refines Graph</strong></td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::out_edge_iterator</code></td> <td>Iterate through the out-edges.</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::degree_size_type</code></td>	<td>The integer type for vertex degree.</td> </tr>
               <tr> <td><code>out_edges(v, g)</code></td> <td>std::pair&lt;out_edge_iterator, out_edge_iterator&gt;</td> </tr>
               <tr> <td><code>source(e, g)</code></td> <td>vertex_descriptor</td> </tr>
               <tr> <td><code>target(e, g)</code></td> <td>vertex_descriptor</td> </tr>
               <tr> <td><code>out_degree(v, g)</code></td> <td>degree_size_type</td> </tr>
-BidirectionalGraph refines IncidenceGraph
+
+              <tr> <td colspan="2"><strong>BidirectionalGraph refines IncidenceGraph</strong></td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::in_edge_iterator</code></td> <td>Iterate through the in-edges.</td> </tr>
               <tr> <td><code>in_edges(v, g)</code></td> <td>std::pair&lt;in_edge_iterator, in_edge_iterator&gt;</td> </tr>
               <tr> <td><code>in_degree(v, g)</code></td> <td>degree_size_type</td> </tr>
               <tr> <td><code>degree(e, g)</code></td> <td>degree_size_type</td> </tr>
-AdjacencyGraph refines Graph
+
+              <tr> <td colspan="2"><strong>AdjacencyGraph refines Graph</strong></td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::adjacency_iterator</code></td> <td>Iterate through adjacent vertices.</td> </tr>
               <tr> <td><code>adjacent_vertices(v, g)</code></td> <td>std::pair&lt;adjacency_iterator, adjacency_iterator&gt;</td> </tr>
-VertexListGraph refines Graph
+
+              <tr> <td colspan="2"><strong>VertexListGraph refines Graph</strong></td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::vertex_iterator</code></td> <td>Iterate through the graph's vertex set.</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::vertices_size_type</code></td> <td>The unsigned integer type for number of vertices in the graph.</td> </tr>
               <tr> <td><code>vertices(g)</code></td> <td>std::pair&lt;vertex_iterator, vertex_iterator&gt;</td> </tr>
               <tr> <td><code>num_vertices(g)</code></td> <td>vertices_size_type</td> </tr>
-EdgeListGraph refines Graph
+
+              <tr> <td colspan="2"><strong>EdgeListGraph refines Graph</strong></td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::edge_iterator</code></td> <td>Iterate through the graph's edge set.</td> </tr>
               <tr> <td><code>boost::graph_traits&lt;G&gt;::edges_size_type</code></td> <td>The unsigned integer type for number of edges in the graph.</td> </tr>
               <tr> <td><code>edges(g)</code></td> <td>std::pair&lt;edge_iterator, edge_iterator&gt;</td> </tr>
               <tr> <td><code>num_edges(g)</code></td> <td>edges_size_type</td> </tr>
               <tr> <td><code>source(e, g)</code></td> <td>vertex_descriptor</td> </tr>
               <tr> <td><code>target(e, g)</code></td> <td>vertex_descriptor</td> </tr>
-AdjacencyMatrix refines Graph
+
+              <tr> <td colspan="2"><strong>AdjacencyMatrix refines Graph</strong></td> </tr>
               <tr> <td><code>edge(u, v, g)</code></td> <td>std::pair&lt;edge_descriptor, bool&gt;</td> </tr>
-MutableGraph refines Graph
+
+              <tr> <td colspan="2"><strong>MutableGraph refines Graph</strong></td> </tr>
               <tr> <td><code>add_vertex(g)</code></td> <td>vertex_descriptor</td> </tr>
               <tr> <td><code>clear_vertex(v, g)</code></td>	<td>void</td> </tr>
               <tr> <td><code>remove_vertex(v, g)</code></td> <td>void</td> </tr>
@@ -1723,10 +1706,12 @@ MutableGraph refines Graph
               <tr> <td><code>remove_edge(u, v, g)</code></td> <td>void</td> </tr>
               <tr> <td><code>remove_edge(e, g)</code></td> <td>void</td> </tr>
               <tr> <td><code>remove_edge(e_iter, g)</code></td> <td>void</td> </tr>
-MutablePropertyGraph refines Graph
+
+              <tr> <td colspan="2"><strong>MutablePropertyGraph refines Graph</strong></td> </tr>
               <tr> <td><code>add_vertex(vp, g)</code></td> <td>vertex_descriptor</td> </tr>
               <tr> <td><code>add_edge(u, v, ep, g)</code></td> <td>std::pair&lt;edge_descriptor, bool&gt;</td> </tr>
-PropertyGraph refines Graph
+
+              <tr> <td colspan="2"><strong>PropertyGraph refines Graph</strong></td> </tr>
               <tr> <td><code>boost::property_map&lt;G, Property&gt;::type</code></td> <td>Type for a mutable property map.</td> </tr>
               <tr> <td><code>boost::property_map&lt;G, Property&gt;::const_type</code></td> <td>Type for a non-mutable property map.</td> </tr>
               <tr> <td><code>get(property, g)</code></td> <td>Function to get a property map.</td> </tr>

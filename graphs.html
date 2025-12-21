@@ -183,9 +183,14 @@ end.</pre>
         </section>
         <section>
           <h3>Depth-First and Breadth-First Search*</h3>
+
           <section id="depth-first_search">
-            <h4>Depth-First Search*</h4>
+            <h4>Depth-First Search</h4>
+            <p>A <dfn>depth first search</dfn> (function) performs a depth-first traversal of the vertices in a directed graph. When possible, a <dfn>depth-first traversal</dfn> chooses a vertex adjacent to the current vertex to visit next. If all adjacent vertices have already been discovered, or there are no adjacent vertices, then the algorithm backtracks to the last vertex that had undiscovered neighbors. Once all reachable vertices have been visited, the algorithm selects from any remaining undiscovered vertices and continues the traversal. The algorithm finishes when all vertices have been visited.</p>
+            <p>Depth-first search is useful for categorizing edges in a graph, and for imposing an ordering on the vertices.<!-- Section Depth-First Search describes the various properties of DFS and walks through an example.--></p>
+            <p>Similar to <a target="_blank" href="breadth-first_search">breadth-first search</a>, color markers (or some other analogous scheme) are often to keep track of which vertices have been discovered. White marks vertices that have yet to be discovered, gray marks a vertex that is discovered but still has vertices adjacent to it that are undiscovered. A black vertex is discovered vertex that is not adjacent to any white vertices.</p>
           </section>
+
           <section id="breadth-first_search">
             <h4>Breadth-First Search*</h4>
           </section>
