@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph Theory and Graphs</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Graph Theory and Graphs"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="prev" href="graphs.html">Graph Theory and Graphs</a></p>
+        <p><a rel="next" href="graphs.algorithms.html">Graph Algorithms</a></p>
+        <p><a href="https://www.w3schools.com/dsa/dsa_theory_graphs.php">DSA Graphs (at <cite>www.w3schools.com</cite>)</a></p>
+        <p><a href="cpp.boost.graph.html">C++ Boost Graph Library (BGL)</a></p>
+        <p><a href="cpp.graphs.html">C++ Graph Implementations</a></p>
+        <p><a href="graph-databases.html">Graph Databases</a></p>
+      </div>
+      <div>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="programming.html">Programming Computers</a></p>
+        <p><a href="science.html">Science: to Learn, to Find, to Know</a></p>
+      </div>
+    </nav>
+    <main>
+
+      <h1>Graph Traversals: Depth-First, Breadth-First...</h1>
+      <p>A <dfn>graph traversal</dfn> is the process of systematically visiting each node in a graph. This can be tricky because many graphs have cycles (loops).</p>
+      <p>The two most common graph traversal algorithms are <a href="#breadth-first_search">breadth-first search</a> (BFS) and <a href="#depth-first_search">depth-first search</a> (DFS). Both of these traversal algorithms can be viewed as refinements of the <a href="#tricolor-algorithm">tricolor algorithm</a>, ones in which choices are made in a way that leads to their differing behavior.</p>
+
+      <section id="tricolor-algorithm">
+        <h2>The Tricolor Algorithm</h2>
+        <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://andrewcmyers.github.io/oodds/lecture.html?id=traversals">https://andrewcmyers.github.io/oodds/lecture.html?id=traversals</a></cite>)</p>
+        <p>Abstractly, graph traversal can be expressed in terms of the <dfn>tricolor algorithm</dfn> due to Dijkstra and others. In this algorithm, graph nodes are assigned one of three colors that can change over time:</p>
+        <ul>
+          <li><dfn>White nodes</dfn> are undiscovered nodes that have not been seen yet in the current traversal and may even be unreachable.</li>
+          <li><dfn>Black nodes</dfn> are reachable nodes that the algorithm has already visited and is finished processing.</li>
+          <li><dfn>Gray nodes</dfn> are nodes that have been discovered but that have not yet been visited yet. These nodes form a frontier between white and black. (Extending the frontier analogy, the black nodes are sometimes called the settled nodes.)</li>
+        </ul>
+        <p>The progress of the algorithm is depicted by... <!--the following figure-->. Initially there are no black nodes and the root is gray. As the algorithm progresses, white nodes turn into gray nodes and gray nodes turn into black nodes. Eventually there are no gray nodes left and the algorithm is done. All remaining nodes are either white or black, with the black nodes consisting of exactly the nodes reachable from the roots.</p>
+
+<svg viewBox="0 0 100 26" width="100%" preserveAspectRatio="xMidYMid slice" role="img"
+     style="font-size: 1.5px; text-anchor: middle">
+  <!--<title>A gradient</title>-->
+  <circle cx="20" cy="12" r="10" fill="white" stroke="black" stroke-width="0.2" />
+  <ellipse cx="20" cy="12" rx="4" ry="3" fill="gray"  stroke="black" stroke-width="0.2" />
+  <text    x="20"  y="12.5">roots</text>
+  <text    x="20"  y="24">initial state</text>
+
+  <circle cx="50" cy="12" r="10"   fill="white" stroke="black" stroke-width="0.2" />
+  <text    x="50"  y="4.75">undiscovered</text>
+  <ellipse cx="50" cy="12" rx="7" ry= "6"   fill="gray"  stroke="black" stroke-width="0.2" />
+  <text    x="50"  y="7.99">frontier</text>
+  <ellipse cx="50" cy="12" rx="4" ry="3.3" fill="black" />
+  <text    x="50"  y="12.5" style="text-anchor: middle; fill: white">finished</text>
+  <text    x="50"  y="24">during traversal</text>
+
+  <circle cx="80" cy="12" r="10" fill="white" stroke="black" stroke-width="0.2" />
+  <text    x="80"  y="4.44">unreachable</text>
+  <circle cx="80" cy="12" r= "6" fill="black"  />
+  <text    x="80"  y="11.25" style="text-anchor: middle; fill: white">
+    <tspan>finished</tspan>
+    <tspan x="80" dy="2">reachable</tspan>
+  </text>
+  <text    x="80"  y="24">after traversal</text>
+</svg>
+
+        <p> The algorithm maintains a key two-part invariant, called the <dfn>black–white invariant</dfn> or <dfn>tricolor invariant</dfn>:</p>
+        <ol>
+          <li>The root is not white.</li>
+          <li>There is no edge from a black node to a white node.</li>
+        </ol>
+        <p> Because there is no edge from a black node to a white node, any edge exiting a black node goes either to a black node or to a gray frontier node.</p>
+        <p>This invariant clearly holds initially, and because it is true at the end, we know that any remaining white nodes cannot be reached from the black nodes.</p>
+
+        <p>The algorithm pseudo-code is as follows:</p>
+        <ul>
+          <li>Color the root node gray and all other nodes white;</li>
+          <li>
+            <p>While some gray node <var>g</var> exists:</p>
+            <ul>
+              <li>Color some white successors of <var>g</var> gray;</li>
+              <il>If <var>g</var> has no white successors, optionally color black.</il>
+            </ul>
+          </li>
+        </ul>
+        <p>This algorithm is abstract enough to describe many different graph traversals. It allows the particular implementation to choose the node <var>n</var> from among the gray nodes; it allows choosing which and how many white successors to color gray; and it allows delaying the coloring of gray nodes black. We say that such an algorithm is <strong>nondeterministic</strong> because its next step is not uniquely defined. However, as long as it does some work on each gray node that it picks, any implementation that can be described in terms of this algorithm will finish. Moreover, because the black–white invariant is maintained, it must reach all reachable nodes in the graph.</p>
+        <p>One advantage of defining graph search in terms of the tricolor algorithm is that the tricolor algorithm works even when gray nodes are processed concurrently, as long as the black–white invariant is maintained. The invariant ensures that whatever graph traversal we choose, the algorithm will work even when different gray nodes are handled concurrently.</p>
+      </section>
+
+      <section id="distance">
+        <h2>Relying on a <var>distance</var> Field</h2>
+        <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://andrewcmyers.github.io/oodds/lecture.html?id=traversals">https://andrewcmyers.github.io/oodds/lecture.html?id=traversals</a></cite>)</p>
+        <p>We can compute distances explicitly during the traversal by replacing the colors with a <var>distance</var> field in each vertex, as in:</p>
+      <pre>frontier = new Queue();
+frontier.push(root);
+root.distance = 0;
+for (v != root)
+  v.distance = ∞;
+
+while (frontier not empty) {
+  g = frontier.pop();
+  foreach (g → v) {
+    if (v.distance == ∞) {
+      frontier.push(v);
+      v.distance = g.distance + 1;
+    }
+  } // foreach
+}</pre>
+        <p>Here the white nodes are those whose <var>distance</var> field is ∞, the gray nodes are those whose <var>distance</var> field is finite and that are in <var>frontier</var>, and the black nodes are those whose <var>distance</var> field is finite and that are not in <var>frontier</var>. When a new white node is discovered, its distance is set to a <var>finite</var> value one greater than its predecessor, and it is pushed onto the queue; this corresponds to turning the node from white to gray. All nodes on the queue are gray.</p>
+        <p>When a node <var>v</var> is popped off the queue,</p>
+        <ul>
+          <li>In breadth-first search, we look at all its successors; any that are white are colored gray and pushed onto the queue.</li>
+          <li>In depth-first search, we take the <q>first</q> unvisited or white successor; we color it gray and push it onto the queue.</li>
+        </ul>
+        <p>When done, <var>v</var> changes from gray to black.</p>
+
+        <p>In breadth-first search <var>frontier</var> is a first-in, first-out (FIFO) queue. The final distance value of a node is the length of the minimum path from a root to that node. All the nodes on the queue have distance within one of each other.</p>
+        <p>In breadth-first search, there is a set of nodes to be popped off, at some distance <var>k</var> from the source, and another set of elements, later on the queue, at distance <var>k</var>+1. Every time a new node is pushed onto the queue, it is at distance <var>k</var>+1 until all the nodes at distance <var>k</var> are gone, and <var>k</var> then increases by one.</p>
+      </section>
+
+      <section id="depth-first_search">
+        <h2>Depth-First Search</h2>
+        <p>A <dfn>depth first search</dfn> (function) performs a depth-first traversal of the vertices in a directed graph. When possible, a <dfn>depth-first traversal</dfn> chooses a vertex adjacent to the current vertex to visit next. If all adjacent vertices have already been discovered, or there are no adjacent vertices, then the algorithm backtracks to the last vertex that had undiscovered neighbors. Once all reachable vertices have been visited, the algorithm selects from any remaining undiscovered vertices and continues the traversal. The algorithm finishes when all vertices have been visited.</p>
+        <aside>In a disconnected graph, some vertices may not be reachable from a single source. To ensure all vertices are visited in DFS traversal, we iterate through each vertex, and if a vertex is unvisited, we perform a DFS starting from that vertex being the source. This way, DFS explores every connection in the graph.</aside>
+        <p>Depth-first search is useful for categorizing edges in a graph, and for imposing an ordering on the vertices.<!-- Section Depth-First Search describes the various properties of DFS and walks through an example.--></p>
+        <section id="depth-first-implementation">
+          <h3>Implementing Depth-First Search</h3>
+          <p>We use two data structures to implement Depth-First Search: a stack and a set.</p>
+          <p>Firstly, a stack is used to allow backtracking. Whenever we visit a node, we push it (or its ID) onto the stack. When we want to backtrack, we call <code>pop()</code> on the stack (remove its top element).</p>
+          <p>Secondly, a set (<var>visited</var>) is used to avoid revisiting nodes in graphs with cycles. Before visiting a node, and pushing it onto the stack, we check that it is not already in the <var>visited</var> set. Conversely, when we do visit a node, we also add it into the <var>visited</var> set.</p>
+          <hr/>
+          <p>Similar to <a target="_blank" href="breadth-first_search">breadth-first search</a>, color markers (or some other analogous scheme) are often used to keep track of which vertices have been discovered. White marks vertices that have yet to be discovered, gray marks a vertex that is discovered but still has vertices adjacent to it that are undiscovered. A black vertex is discovered vertex that is not adjacent to any white vertices. This could be implemented through a map from nodes to colours, such as a <code>std::map&lt;int, colour&gt;</code> in C++, where the key is a numerical identifier for vertices and the value is a colour, possibly an <code>enum</code> type.</p>
+          <p>This map is a substitute for a <var>visited</var> set and simplifies classifying edges into tree, forward, back and cross edges, as discussed below.</p>
+        </section>
+        <section>
+          <h3>Tree, Forward, Back, and Cross Edges (in Depth-First Search)</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.geeksforgeeks.org/dsa/tree-back-edge-and-cross-edges-in-dfs-of-graph/">https://www.geeksforgeeks.org/dsa/tree-back-edge-and-cross-edges-in-dfs-of-graph/</a></cite>)</p>
+          <dl>
+            <dt>Tree Edge</dt>
+            <dd>It is an edge which is present in the tree obtained after applying DFS on the graph.</dd>
+            <dt>Forward Edge</dt>
+            <dd>It is an edge (<var>u</var>, <var>v</var>) such that <var>v</var> is a descendant of <var>u</var> but the edge is not part of the DFS tree.</dd>
+            <dt>Back edge</dt>
+            <dd>It is an edge (<var>u</var>, <var>v</var>) such that v is the ancestor of node <var>u</var> but the edge is not part of the DFS tree.</dd>
+            <dt>Cross Edge</dt>
+            <dd>It is an edge that connects two nodes such that they do not hold either an ancestor or a descendant relationship between them.</dd>
+          </dl>
+        </section>
+        <section>
+          <h3>Finding Tree, Forward, Back, and Cross Edges (in Depth-First Search)</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.geeksforgeeks.org/dsa/tree-back-edge-and-cross-edges-in-dfs-of-graph/">https://www.geeksforgeeks.org/dsa/tree-back-edge-and-cross-edges-in-dfs-of-graph/</a></cite>)</p>
+          <p>The idea is to perform a Depth-First Search (DFS) traversal of the directed graph while tracking discovery and finish times to classify edges into <em>tree</em>, <em>forward</em>, <em>back</em>, and <em>cross</em> edges based on their relationship with visited nodes and the DFS call stack.</p>
+          <p><strong>Procedure</strong></p>
+          <ol>
+            <li>Initialize <var>discovery</var> and <var>finish</var> time arrays, a <var>visited</var> array, and an <var>inStack</var> array to track nodes in the current DFS recursion stack.</li>
+            <li>Start DFS from each unvisited node, updating discovery times and marking nodes as visited and in the stack.</li>
+            <li>If an adjacent node <var>v</var> is unvisited, classify the edge (<var>u</var>, <var>v</var>) as a <strong>tree edge</strong> and recursively call DFS on v.</li>
+            <li>If <var>v</var> is already visited and present in the recursion stack, classify (<var>u</var>, <var>v</var>) as a <strong>back edge</strong>, indicating a cycle.</li>
+            <li>If <var>v</var> is already visited but not in the recursion stack and discovery[<var>u</var>] &lt; discovery[<var>v</var>], classify (<var>u</var>, <var>v</var>) as a <strong>forward edge</strong>, meaning <var>v</var> is a descendant of <var>u</var>.</li>
+            <li>If <var>v</var> is already visited, not in the stack, and discovery[<var>u</var>] &gt; discovery[<var>v</var>], classify (<var>u</var>, <var>v</var>) as a <strong>cross edge</strong>, indicating a connection between different DFS trees.</li>
+            <li>After processing all neighbors of <var>u</var>, remove <var>u</var> from the stack and update its finish time.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="breadth-first_search">
+        <h2>Breadth-First Search*</h2>
+        <p>Breadth-first search is so called because it explores nodes in the order of their distance from the root, where <dfn>distance</dfn> is defined as the minimum path length from a root to the node.</p>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+    </main>
+  </body>
+</html>

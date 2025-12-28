@@ -16,15 +16,22 @@
   <body lang="en">
     <nav>
       <div>
-        <p><a href="science.html">Science: to Learn, to Find, to Know</a></p>
-        <p><a href="computing.html">Computing</a></p>
-        <p><a href="programming.html">Programming Computers</a></p>
-      </div>
-      <div>
+        <p><a href="graphs.traversals.html">Graph Traversals: Depth-First, Breadth-First...</a></p>
+        <ul>
+          <li><a href="graphs.traversals.html#tricolor-algorithm">The Tricolor Algorithm</a></li>
+          <li><a href="graphs.traversals.html#depth-first_search">Depth-First Search</a></li>
+          <li><a href="graphs.traversals.html#breadth-first_search">Breadth-First Search</a></li>
+        </ul>
+        <p><a href="graphs.algorithms.html">Graph Algorithms</a></p>
         <p><a href="https://www.w3schools.com/dsa/dsa_theory_graphs.php">DSA Graphs (at <cite>www.w3schools.com</cite>)</a></p>
         <p><a href="cpp.boost.graph.html">C++ Boost Graph Library (BGL)</a></p>
         <p><a href="cpp.graphs.html">C++ Graph Implementations</a></p>
         <p><a href="graph-databases.html">Graph Databases</a></p>
+      </div>
+      <div>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="programming.html">Programming Computers</a></p>
+        <p><a href="science.html">Science: to Learn, to Find, to Know</a></p>
       </div>
     </nav>
     <main>
@@ -181,20 +188,6 @@ end.</pre>
             <li>4. Explicit checks for membership of new states in these lists to prevent looping.</li>
           </ul>
         </section>
-        <section>
-          <h3>Depth-First and Breadth-First Search*</h3>
-
-          <section id="depth-first_search">
-            <h4>Depth-First Search</h4>
-            <p>A <dfn>depth first search</dfn> (function) performs a depth-first traversal of the vertices in a directed graph. When possible, a <dfn>depth-first traversal</dfn> chooses a vertex adjacent to the current vertex to visit next. If all adjacent vertices have already been discovered, or there are no adjacent vertices, then the algorithm backtracks to the last vertex that had undiscovered neighbors. Once all reachable vertices have been visited, the algorithm selects from any remaining undiscovered vertices and continues the traversal. The algorithm finishes when all vertices have been visited.</p>
-            <p>Depth-first search is useful for categorizing edges in a graph, and for imposing an ordering on the vertices.<!-- Section Depth-First Search describes the various properties of DFS and walks through an example.--></p>
-            <p>Similar to <a target="_blank" href="breadth-first_search">breadth-first search</a>, color markers (or some other analogous scheme) are often to keep track of which vertices have been discovered. White marks vertices that have yet to be discovered, gray marks a vertex that is discovered but still has vertices adjacent to it that are undiscovered. A black vertex is discovered vertex that is not adjacent to any white vertices.</p>
-          </section>
-
-          <section id="breadth-first_search">
-            <h4>Breadth-First Search*</h4>
-          </section>
-        </section>
       </section>
       <!-- end of "Strategies for State Space Search" -->
       <section id="data-structures">
@@ -257,6 +250,17 @@ end.</pre>
             <h4>Bellman-Ford Algorithm*</h4>
           </section>
         </section>
+
+        <section id="topological-sort">
+          <h3>Topological Sort</h3>
+          <p>One of the most useful algorithms on graphs is <dfn>topological sort</dfn>, in which the nodes of an acyclic graph are placed in a total order consistent with the edges of the graph; that is, if there is an edge (<var>u</var>,<var>v</var>), then <var>u</var> comes before <var>v</var> in the resulting total order. This is useful when you need to order a set of elements and some elements have no ordering constraint relative to other elements.</p>
+          <p>For example, suppose you have a set of tasks to perform, but some tasks have to be done before other tasks can start. In what order should you perform the tasks? This problem can be solved by representing the tasks as nodes in a graph with an edge from <var>task<sub>1</sub></var> to <var>task<sub>2</sub></var> if <var>task<sub>1</sub></var> must be done before <var>task<sub>2</sub></var>. A topological sort of the graph will give an ordering in which all of these constraints are satisfied.</p>
+          <p>Of course, it is impossible to topologically sort a graph with a cycle in it. So to topologically sort a graph, it must be a DAG. But the interesting thing is that the condition of being a DAG is not only necessary for the existence of a topological sort, it is also sufficient. That is, all DAGs have at least one topological sort.</p>
+          <p>We can obtain a linear-time algorithm for topological sort from DFS. The key observation is that a node finishes (is marked black) only after all of its descendants have been marked black. Therefore, a node that is marked black later must come earlier when topologically sorted. A a postorder traversal generates nodes in the reverse of a topological sort:</p>
+
+          <p>[...]</p>
+        </section>
+
         <section>
           <h3>Minimum Spanning Tree*</h3>
           <p style="text-align: right">(From <cite><a target="_blank" href="https://www.w3schools.com/dsa/dsa_theory_mst_minspantree.php">https://www.w3schools.com/dsa/dsa_theory_mst_minspantree.php</a></cite>)</p>

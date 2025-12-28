@@ -75,7 +75,7 @@
         <p>The last two types both allow to represent strings in user defined literals, such as:</p>
         <pre>&quot;forty-two&quot;_myType</pre>
         <hr/>
-        <p>Depending on whether or not you want to size of the string in the prototype of the operator&quot;&quot; you can define it this way:</p>
+        <p>Depending on whether or not you want to include the size of the string in the prototype of the operator&quot;&quot; you can define it this way:</p>
         <pre>MyType operator&quot;&quot;_myType(const char* string)
 {
     // ...
@@ -90,7 +90,7 @@
       <section>
         <h2>What&apos;s with the underscore?</h2>
         <p>In all the above examples, our user defined suffixes start with an underscore followed by a lower case letter. Should it always be the case?</p>
-        <p>There are two rules about that. The first rule is that user defined suffixes must start with an underscore, except those defined in the standard library (more on those in a moment). So user defined user defined suffixes must start with an underscore.</p>
+        <p>There are two rules about that. The first rule is that user defined suffixes must start with an underscore, except those defined in the standard library (more on those in a moment). So user defined suffixes must start with an underscore.</p>
         <p>The second rule is that user defined suffixes are allowed to start with a capital letter, but in this case there must be no space in the prototype between operator"" and the starting underscore of the user defined suffix:</p>
         <pre>MyType operator""_MyType(unsigned long long int value) // OK
 {
