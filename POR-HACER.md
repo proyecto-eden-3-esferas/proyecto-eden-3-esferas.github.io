@@ -1,6 +1,22 @@
 [x] Escribir a J J V aiganjuegos@gmail.com
 
+[ ] Key for recovering github password:
+
+Download and store it now
+
+Store this key somewhere you’ll remember — you won’t be able to get back to this page later.
+AH8H NQSJ TQM0 6KA4 8F2C ZDSH DTD1 QV3M
+Places to store your key:
+
+- Folder on secure device
+- Printed physical copy
+- Trusted cloud storage
+- Password manager
+
 # Lista de recomendaciones, recordatorios y otras directrices
+
+## Camping:
+https://campingbungalowvalledeljerte.com/
 
 https://1337x.pro/
 https://www.1337xx.to/search/
@@ -173,34 +189,16 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
-[ ] *El Modelo Z*
-
-Consideremos una zona Z o C delimitada vagamente en el espacio, aunque lo suficiente como para representar un lugar de alta concentración de gente y actividad económica de una naturaleza en principio incomprensible y por tanto comprimible o incluso suprimible, en la que moran y se ajetrean cientos de miles y se realizan actividades sumamente complejas de cuantificar y contabilizar.
-
-Analizamos este lugar o concentración estudiando sus flujos con el exterior así como los internos.
-
-En general entra energía eléctrica, química etc. y se convierte en calor. También entran materias primas y artículos manufacturados, que en su mayoría acaban degradándose (basura, excremento, chatarra) en lugar de salir con un valor añadido mediante alguna suerte de industria.
-
-Otro intercambio con el exterior es la información, originariamente en papel (documentos y libros principalmente, también objetos de arte, celuloide etc.) pero cada vez más en forma de señales electrónicas, cada vez más predominantemente digitales.
-
-En esencia Z intercambia letras y bits, con los cuales adquiere artículos de consumo.
-
-Internamente sus habitantes se dedican a desplazarse dentro de esta zona y sobre todo a entrar y salir de unos edificios característicos y a realizar una serie de acciones de consumo (viviendas, bares, centros comerciales) y productivas.
-
-Observamos que los habitantes de Z apenas difieren en su consumo de los de poblaciones dispersas (¿rurales?) pero sí en sus actividades económicas.
-
-(Una parte no desdeñable de Z está formada por servicios tales como turismo, enseñanza especializada, investigación y medicina especializada. Ahora bien, la proporción de trabajadores altamente especializados es baja, además de que en gran medida su actividad consiste en manipular letras y bits, lo cuál la hace terriblemente telerrealizable. La mayoría de los habitantes de Z trabajan de camareros, limpiadores, vendedores, gestores, vigilantes etc.)
-
--------
-
-En realidad ante el fenómeno Z, como ante muchos otros vitales y cruciales, se dan dos posturas diferentes:
-- los empiristas: no buscan una explicación sino sólo una cuantificación, a partir de la cuál esperan predecir la evolución de Z en el tiempo, y
-- los racionalistas, que buscan comprender Z y predecir su evolución mediante principios y explicaciones racionales.
-
-Y dado que Z crece en tamaño y bienestar, los empiristas consideran justificado apostar por lo que llamaríamos el Modelo Z.
-
+[ ] enlazar a *modelo-z.html* (*El Modelo Z*)
 
 [ ]
+long double operator ""_rad(long double r) {
+  return (r / std::numbers::pi_v<long double>) * 180;
+};
+long double operator ""_deg(long double d) {
+  return d;
+};
+
 <blockquote>
   <p>No sé cómo se llaman, pero hay campings, digamos privados, en los que podrías consultar. Hay uno en Daganzo de Arriba y otro en un sitio de la provincia de Guadalajara, cerca de Torrejón del Rey, que se llama Galápagos.</p>
   <p>En el camping de Valdemorillo, antes también vivía gente.</p>
