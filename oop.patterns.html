@@ -22,6 +22,7 @@
       -->
       <div>
         <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
+        <p><a                 href="oop.3-design-principles.html">Three Design Principles in OOP</a></p>
         <p><a rel="next"      href="SOLID.html">The SOLID Principles (of OOP)</a></p>
         <p><a                 href="adt.html">Abstract Data Types</a></p>
         <p><a rel="prev"      href="programming.html">Programming: Getting Computers to Do Stuff</a></p>
@@ -34,39 +35,39 @@
 
     <main>
 
+      <p><dfn>Design pattern</dfn> are typical ways to organise the components of a program in typical situations, whereas <a target="_blank" href="programming.html#design-principles">Design principles</a> are more general guidelines to make design robust.</p>
       <p>Many software engineers could work for many years without knowing a single pattern. It can also happen that we are applying a pattern without even knowing it.</p>
-
-      <h1>Software Design Patterns</h1>
       <p>Design Patterns represent some of the most acceptable practices experienced object-oriented software engineers utilize. In object-oriented systems, a Design Pattern methodically names, motivates, and describes a general design that addresses a recurring design challenge. It explains the problem, the solution or approach, when to use it, and the ramifications. It also includes tips and examples for implementation (although a design pattern is <em>not</em> an implementation and is not bound to a particular programming language).</p>
 
-      <hr/>
+      <section id="six-rules">
+        <h2>Design Patterns: Six Rules</h2>
+        <p>The essence of Design Patterns consists of the following six rules:</p>
+        <ol>
+          <li>
+            <p><strong>They are tried-and-true solutions:</strong> Because developers often use Design Patterns, we may be confident that they function. Not only that, but we can also guarantee that they were altered several times and that optimizations were most likely performed.</p>
+          </li>
+          <li>
+            <p><strong>They are simple to re-use:</strong> Design Patterns describe a reusable solution that may modify to solve various specific situations because they aren&apos;t tied to a specific situation.</p>
+            <p>Consider the Iterator Design Pattern, reusable across STL despite container and algorithm changes. Iterators act as a glue between the container and the algorithm.</p>
+          </li>
+          <li>
+            <p><strong>They have a strong personalities:</strong> Design Patterns may elegantly describe a considerable solution. The Visitor pattern, for example, is used to perform a new operation on a range/group of classes. As a result, the standard library adopted this design with a single function, namely the std::visit algorithm. The same is true for boost::flyweight.</p>
+          </li>
+          <li>
+            <p><strong>They facilitate communication:</strong> Developers&apos; knowledge about Design Patterns can communicate more readily about potential solutions to a given challenge.</p>
+            <p>If we&apos;re part of a team of developers, agree on Design Patterns with our colleagues since they can help us solve problems more effectively. We should also follow similar practices for software maintenance, as it makes maintenance operations faster and more efficient.</p>
+          </li>
+          <li>
+            <p><strong>They eliminate the need for code refactoring:</strong> When an application is created with Design Patterns in mind, we may not need to rewrite the code later since applying the relevant Design Pattern to a specific problem is already an optimum solution.</p>
+            <p>If such solutions are later updated, they may be applied effortlessly by any excellent software developer without causing any complications.</p>
+          </li>
+          <li>
+            <p><strong>They reduce the codebase&apos;s size:</strong> Design Patterns use less code than alternative solutions since they are generally beautiful and optimal. This isn&apos;t always the case, because many developers add extra code to improve understanding.</p>
+          </li>
+        </ol>
+      </section>
 
-      <p>The essence of Design Patterns consists of the following six rules:</p>
-      <ol>
-        <li>
-          <p><strong>They are tried-and-true solutions:</strong> Because developers often use Design Patterns, we may be confident that they function. Not only that, but we can also guarantee that they were altered several times and that optimizations were most likely performed.</p>
-        </li>
-        <li>
-          <p><strong>They are simple to re-use:</strong> Design Patterns describe a reusable solution that may modify to solve various specific situations because they aren&apos;t tied to a specific situation.</p>
-          <p>Consider the Iterator Design Pattern, reusable across STL despite container and algorithm changes. Iterators act as a glue between the container and the algorithm.</p>
-        </li>
-        <li>
-          <p><strong>They have a strong personalities:</strong> Design Patterns may elegantly describe a considerable solution. The Visitor pattern, for example, is used to perform a new operation on a range/group of classes. As a result, the standard library adopted this design with a single function, namely the std::visit algorithm. The same is true for boost::flyweight.</p>
-        </li>
-        <li>
-          <p><strong>They facilitate communication:</strong> Developers&apos; knowledge about Design Patterns can communicate more readily about potential solutions to a given challenge.</p>
-          <p>If we&apos;re part of a team of developers, agree on Design Patterns with our colleagues since they can help us solve problems more effectively. We should also follow similar practices for software maintenance, as it makes maintenance operations faster and more efficient.</p>
-        </li>
-        <li>
-          <p><strong>They eliminate the need for code refactoring:</strong> When an application is created with Design Patterns in mind, we may not need to rewrite the code later since applying the relevant Design Pattern to a specific problem is already an optimum solution.</p>
-          <p>If such solutions are later updated, they may be applied effortlessly by any excellent software developer without causing any complications.</p>
-        </li>
-        <li>
-          <p><strong>They reduce the codebase&apos;s size:</strong> Design Patterns use less code than alternative solutions since they are generally beautiful and optimal. This isn&apos;t always the case, because many developers add extra code to improve understanding.</p>
-        </li>
-      </ol>
-
-      <section>
+      <section id="types">
         <h2>Types of Design Patterns</h2>
         <p>Design Patterns are divided into the following three categories.</p>
         <dl>
@@ -102,7 +103,7 @@
 
       </section>
 
-      <section>
+      <section id="GoF">
         <h2>What Exactly is the Gang of Four (GOF)?</h2>
         <p>The book <cite>Design Patterns: Elements of Reusable Object-Oriented Software</cite>, written by four writers, Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides, was published in 1994 and introduced the first concept of Design Patterns in software development.</p>
         <p>Gang of Four is the collective name for these four authors (GOF). According to these authors, Design Patterns are essentially based on the following object-oriented design principles:</p>
@@ -111,6 +112,61 @@
           <li>Object composition should take precedence over inheritance.</li>
         </ol>
       </section>
+
+
+      <section id="some">
+        <h2>Some Design Patterns</h2>
+
+        <section id="factory">
+          <h3>Factory method</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2022/06/05/design-patterns-vs-design-principles-factory-method/">https://www.fluentcpp.com/2022/06/05/design-patterns-vs-design-principles-factory-method/</a></cite>)</p>
+          <p>To understand what factory method means, let’s analyse each of its two words:</p>
+          <ul>
+            <li>method: this means member function,</li>
+            <li>factory: this means something that creates objects.</li>
+          </ul>
+          <p>All this means that a factory method is a member function that creates objects.</p>
+          <p>It is important to note that this comes from a book on object oriented design (the GoF’s <cite>Design Patterns</cite> book), that makes heavy use of member functions. But my understanding of the design pattern is that it applies beyond member functions. It applies to free functions too. So a more generic and idiomatic name for this design pattern in C++ could be <dfn>Factory function</dfn>.</p>
+        </section>
+
+        <section id="facade">
+          <h3>Facade*</h3>
+          <p></p>
+        </section>
+
+        <!--
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+        </section>
+        -->
+      </section>
+
+
 
     </main>
 

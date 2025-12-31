@@ -37,19 +37,131 @@
         <p><a href="cpp.html">The C++ Programming Language</a></p>
       </div>
     </nav>
+
     <main>
       <h1>Named Types in C++</h1>
-      <p>A <dfn>strong type</dfn> is a type used in place of another type to carry specific meaning through its name.</p>
-      <p>Its central piece is the templated class <code>NamedType</code>, which can be used to declare a strong type with a typedef-like syntax:</p>
+      <p>A <dfn>strong type</dfn> or <dfn>named type</dfn> is a type used in place of another type to carry specific meaning through its name.</p>
+      <p>Its central piece is the templated class <code>NamedType</code>, which can be used to declare a strong type with a <code>typedef</code>-like syntax:</p>
       <pre>using Width = NamedType&lt;double, struct WidthTag&gt;;
 using Height = NamedType&lt;double, struct HeightTag&gt;;</pre>
+      <p>which can be used to make interfaces more expressive and more robust. Note how the below constructor shows in which order it expects its parameters:</p>
+      <pre>class Rectangle
+{
+public:
+    Rectangle(Width w, Height h) : width(w.get()), height(h.get()) {}
+    // ...
+private:
+    double width;
+    double height;
+};</pre>
+      <aside>Strong types are about better expressing your intentions, both to the compiler and to other human developers.</aside>
+
+      <section id="code">
+        <h2>Implemention</h2>
+        <p>This is how you can write a <code></code> class:</p>
+        <pre>struct Default_NamedType_tag {};
+
+template &lt;typename T, typename TAG = Default_NamedType_tag&gt;
+class NamedType
+{
+public:
+    explicit NamedType(T const&amp; value) : value_(value) {}
+    explicit NamedType(T&amp;&amp; value) : value_(std::move(value)) {}
+    T&amp;       get()       { return value_; }
+    T const&amp; get() const {return value_; }
+private:
+    T value_;
+};</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="lambdas">
+        <h2>Strong typing over generic types</h2>
+        <p>This implementation of strong types can be used to add strong typing over generic or unknown types such as lambdas:</p>
+        <pre>template&lt;typename Function&gt;
+using Comparator = NamedType&lt;Function, struct ComparatorTag&gt;;
+
+template &lt;typename Function&gt;
+void performAction(Comparator&lt;Function&gt; comp)
+{
+    comp.get()();
+}
+
+performAction(make_named&lt;Comparator&gt;([](){ std::cout &lt;&lt; "compare\n"; }));</pre>
+      </section>
+      <section id="refs">
+        <h2>Strong typing over references</h2>
+        <p>The NamedType class is designed so that the following usage:</p>
+        <pre>using FamilyNameRef = NamedType&lt;std:string&amp;, struct FamilyNameRefTag&gt;;</pre>
+        <p>behaves like a reference on an std::string, strongly typed.</p>
+      </section>
+      <section id="named-args">
+        <h2>Named arguments</h2>
+        <p>By their nature strong types can play the role of named parameters:</p>
+        <pre>using FirstName = NamedType&lt;std::string, struct FirstNameTag>;
+using LastName = NamedType&lt;std::string, struct LastNameTag>;
+
+void displayName(FirstName const&amp; theFirstName, LastName const&amp; theLastName);
+
+// Call site
+displayName(FirstName("John"), LastName("Doe"));</pre>
+
+        <p>But the nested type argument allows to emulate a named argument syntax:</p>
+        <pre>using FirstName = NamedType&lt;std::string, struct FirstNameTag&gt;;
+using LastName = NamedType&lt;std::string, struct LastNameTag&gt;;
+
+static const FirstName::argument firstName;
+static const LastName::argument lastName;
+
+void displayName(FirstName const&amp; theFirstName, LastName const&amp; theLastName);
+
+// Call site
+displayName(firstName = "John", lastName = "Doe");</pre>
+      </section>
+
       <!--
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
-      <p></p>
-      <pre></pre>
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
       -->
 
     </main>

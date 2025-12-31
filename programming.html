@@ -174,6 +174,116 @@
         </section>
       </section>
 
+      <section id="design-principles">
+        <h2>Design Principles: GRASP</h2>
+        <p>GRASP stands for <strong>General Responsibility Assignment Software Principles</strong>. I think the words that carry the most meaning in this acronym are RA: Responsibility Assignment. This is exactly what we’re talking about.</p>
+        <p><dfn>Design principles</dfn>, are general guidelines (as opposed to design patterns) to make design robust.</p>
+        <p>The GRASP principles are 9 principles to assign responsibilities to components in code, and they are presented in Craig Larman’s <cite>Applying UML and Patterns</cite> book.</p>
+        <p>They come through experience, in the general sense of the word. It can be one individual’s own trial and errors that makes them realize what options make code more simple. But in the more general sense, design principles stem of our experience as an industry. They are the formalized results of decades of collective experience, as a community of software developers.</p>
+        <p>The <a target="_blank" href="https://www.fluentcpp.com/2021/06/23/grasp-9-must-know-design-principles-for-code/">9 GRASP design principles</a> are:</p>
+        <ul>
+          <li><a href="#low-coupling">Low Coupling</a></li>
+          <li><a href="#high-cohesion">High Cohesion</a></li>
+          <li><a href="#creator">Creator</a></li>
+          <li><a href="#information-expert">Information Expert</a></li>
+          <li>Polymorphism</li>
+          <li>Indirection</li>
+          <li><a href="#protected-variations">Protected Variations</a></li>
+          <li><a href="#pure-fabrication">Pure Fabrication</a></li>
+          <li><a href="#controller">Controller</a></li>
+        </ul>
+
+
+        <section id="information-expert">
+          <h3>Information Expert</h3>
+          <p>This principle recommends that if you have an operation to do, and this operations needs inputs, then you should consider putting the responsibility of carrying out this operation in the class that contains the inputs for it.</p>
+          <p>This helps keeping the data local, because if you put the operation somewhere else then the inputs will have to be carried over there, creating a relationship between the class that holds the input data (the <q>information expert</q>) and that new place. This would create coupling and be detrimental for encapsulation, thus creating complexity.</p>
+          <p>Granted, it’s a natural thing to do. But formalizing this as a principle still has several benefits. For example, if you feel that a design is not quite right, thinking about the information expert principle can help you pinpoint what was disturbing you in it. Also, it helps expressing your remarks in a code review.</p>
+        </section>
+
+        <section id="creator">
+          <h3>Creator</h3>
+          <p>The <dfn>Creator Principle</dfn> gives guidelines as to which class <var>B</var> should be in charge of creating a certain type of objects <var>A</var>. The principle contains a set of conditions to be fulfilled, such as:</p>
+          <ul>
+            <li><var>B</var> contains or aggregates instances of <var>A</var></li>
+            <li><var>B</var> closely uses <var>A</var></li>
+            <li><var>B</var> has the inputs to construct <var>A</var></li>
+            <li>(and so on)</li>
+          </ul>
+          <p>The more rules are fulfilled, the better <var>B</var> is suited to instantiate objects of type <var>A</var>.</p>
+          <p>This goes a little further than <a href="#information-expert">Information Expert</a>: it’s not just about having the input of the operation of construction, it’s about being <q>close</q> to the operation.</p>
+          <p>If you put together two parts of the code that are semantically close (the construction of <var>A</var>, and the code that works a lot with <var>A</var>), then they become easier to reason about than if they were far apart.</p>
+        </section>
+
+        <section id="low-coupling">
+          <h3>Low Coupling</h3>
+          <p><dfn>Coupling</dfn> happens between two parts of the code when one depends on the other. Coupling introduces complexity, if only because the code can then no longer be understood isolation.</p>
+          <p>Such dependencies can be explicit, in terms of a function call for example, and that’s unavoidable and often OK.</p>
+          <p>But other types of coupling are less sane and less visible, for example when a part of the code expects that another part has set a data member to a certain value.</p>
+          <p>The design principle of low coupling encourages to keep coupling low, and it can help in particular to choose between two designs: select the one that introduces the lower amount of coupling.</p>
+          <p>For more details about the various types of coupling and the various types of problems that coupling generates, refer to this dedicated <a target="_blank" href="https://www.fluentcpp.com/2019/12/31/the-dangers-of-coupling-and-how-to-avoid-them/">article on coupling</a>.</p>
+        </section>
+
+        <section id="protected-variations">
+          <h3>Protected Variations</h3>
+          <p>The principle of Protected variations is related to the one of <a href="#low-coupling">Low Coupling</a>, because it helps to reduce the impacts of the changes of the code of one part <var>A</var> on another part <var>B</var>. The code of part <var>B</var> is protected against the variations of the code of part <var>A</var>, hence the name of the pattern.</p>
+          <p>How do you achieve such a protection? By organizing the responsibilities around stable interfaces.</p>
+          <p>This is particularly relevant for code that tends to change often. Introducing an interface between this unstable part of the code and the rest of the codebase helps limiting the rippling effects of those frequent changes.</p>
+          <p>The principle of protected variations is, according to my understanding, very close to the concept of <strong>anti-corruption layer</strong> from <cite>Domain Driven Design</cite>.</p>
+        </section>
+
+
+        <section id="indirection">
+          <h3>Indirection</h3>
+          <p>The Indirection pattern is another way to reduce coupling by creating an intermediary class (or any kind of component) between two classes A and B. This way, the changes in each one of A and B don’t affect the other one. The intermediary class absorbs the impact by adapting its code rather than A or B (or more other classes).
+
+This relates a lot to the Adapter design pattern, even though the Adapter design pattern is rather made to connect two existing incompatible interfaces. But it also has the effect of protecting each one against the changes of the other.
+
+Indirection looks a bit like Protected variations, as they both introduce a layer between components in order to reduce coupling.
+
+According to my understanding, the difference between Protected variations and Indirection is that Protected variations is about designing interfaces in the existing components, whereas Indirection is about introducing a new component in the middle.</p>
+          <pre></pre>
+        </section>
+
+
+        <section id="high-cohesion">
+          <h3>High Cohesion</h3>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="pure-fabrication">
+          <h3>Pure Fabrication</h3>
+          <p>It is natural to represent in our code objects that map the reality of the domain that we’re trying to model. For example, if you’re working on a financial application, you can probably expect to encounter some classes called <code>Transaction</code> or <code>Portfolio</code> in the code.</p>
+          <p>But sometimes you have a responsibility to assign, and it seems to not fit well in any domain class. And according to the principle of <a href="#high-cohesion">High Cohesion</a> above, you shouldn’t force a responsibility into a class that is already doing something else.</p>
+          <p>That’s when the principle of <dfn>Pure Fabrication</dfn> comes into play: create a class that does not map to a domain object, and let it achieve this new responsibility in a cohesive way.</p>
+          <p>This principle is probably one of the hardest to understand, because it goes against our natural tendency to write code that represents the problem we’re trying to solve.</p>
+        </section>
+        <section id="controller">
+          <h3>Controller</h3>
+          <p>Here is an example of a pure fabrication: a UI <strong>Controller</strong>. This is such a common pattern that it was included in the 9 GRASP principles. Personal opinion: I would have kept this as an example of pure fabrication and not made a principle out of it.</p>
+          <p>The <dfn>controller</dfn> is the first non-UI component that receives the UI event and organizes the operations to react to this event. Indeed, that doesn’t map to any domain object, even if the UI itself can display domain concepts.</p>
+          <p>There are also other examples of pure fabrications in the GoF design patterns: for example, a <a target="_blank" href="oop.patterns.html#facade">Facade object</a> is a pure fabrication.</p>
+          <pre></pre>
+        </section>
+        <!--
+
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        -->
+
+      </section>
+
     </main>
 
   </body>
