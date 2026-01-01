@@ -186,8 +186,8 @@
           <li><a href="#high-cohesion">High Cohesion</a></li>
           <li><a href="#creator">Creator</a></li>
           <li><a href="#information-expert">Information Expert</a></li>
-          <li>Polymorphism</li>
-          <li>Indirection</li>
+          <li><a href="#polymorphism">Polymorphism</a></li>
+          <li><a href="#indirection">Indirection</a></li>
           <li><a href="#protected-variations">Protected Variations</a></li>
           <li><a href="#pure-fabrication">Pure Fabrication</a></li>
           <li><a href="#controller">Controller</a></li>
@@ -235,21 +235,26 @@
 
         <section id="indirection">
           <h3>Indirection</h3>
-          <p>The Indirection pattern is another way to reduce coupling by creating an intermediary class (or any kind of component) between two classes A and B. This way, the changes in each one of A and B don’t affect the other one. The intermediary class absorbs the impact by adapting its code rather than A or B (or more other classes).
-
-This relates a lot to the Adapter design pattern, even though the Adapter design pattern is rather made to connect two existing incompatible interfaces. But it also has the effect of protecting each one against the changes of the other.
-
-Indirection looks a bit like Protected variations, as they both introduce a layer between components in order to reduce coupling.
-
-According to my understanding, the difference between Protected variations and Indirection is that Protected variations is about designing interfaces in the existing components, whereas Indirection is about introducing a new component in the middle.</p>
+          <p>The Indirection pattern is another way to reduce coupling by creating an intermediary class (or any kind of component) between two classes A and B. This way, the changes in each one of A and B don’t affect the other one. The intermediary class absorbs the impact by adapting its code rather than A or B (or more other classes).</p>
+          <p>This relates a lot to the <a target="_blank" href="oop.patterns.html#adapter">Adapter Design Pattern</a>, even though the Adapter design pattern is rather made to connect two existing incompatible interfaces. But it also has the effect of protecting each one against the changes of the other.</p>
+          <p>Indirection looks a bit like Protected variations, as they both introduce a layer between components in order to reduce coupling.</p>
+          <p>To my mind, the difference between Protected Variations and Indirection is that Protected Variations is about designing interfaces in the existing components, whereas Indirection is about introducing a new component in the middle.</p>
           <pre></pre>
         </section>
 
+        <section id="polymorphism">
+          <h3>Polymorphism</h3>
+          <p>The Polymorphism principle is an exhortation to use… polymorphism in your code.</p>
+          <p>Polymorphism is often seen as having a base class with <a target="_blank" href="cpp.virtual-member.html">virtual methods</a> that defines an interface, and derived classes implementing this interface, but this is only one type of polymorphism. There are plenty of types of polymorphism (including <a target="_blank" href="cpp.templates.html">templates</a> for example) and I hope we’ll get to dive into this topic at some point on <cite>Fluent C++</cite>.</p>
+          <p>The usage for polymorsphism is when there are several ways to accomplish a task, and you want to decouple the clients of this task from the various pieces of code that implement the various ways to perform it.</p>
+          <p>The Polymorphism principle is very close to the GoF <a target="_blank" href="oop.patterns.html#strategy">Strategy Pattern</a>, if not identical. It contributes to the Low Coupling principle.</p>
+        </section>
 
         <section id="high-cohesion">
           <h3>High Cohesion</h3>
-          <p></p>
-          <pre></pre>
+          <p>The principle of High cohesion encourages to focus classes around one responsibility, and to have all its components oriented towards achieving this responsibility. This is the principle of <q>do one thing and do it well</q>.</p>
+          <p>The principle of high cohesion also applies to other elements of the code, such as functions, and also modules and systems.</p>
+          <p>This ties back well with the idea of having a well-organized code: a highly cohesive component lets you label it in your mind with <q>this is the part of the code that does <var>X</var></q>. This allows better mental abstractions as well as <a target="_blank" href="https://www.fluentcpp.com/2016/12/15/respect-levels-of-abstraction/">code abstractions</a>.</p>
         </section>
 
         <section id="pure-fabrication">
@@ -264,9 +269,21 @@ According to my understanding, the difference between Protected variations and I
           <p>Here is an example of a pure fabrication: a UI <strong>Controller</strong>. This is such a common pattern that it was included in the 9 GRASP principles. Personal opinion: I would have kept this as an example of pure fabrication and not made a principle out of it.</p>
           <p>The <dfn>controller</dfn> is the first non-UI component that receives the UI event and organizes the operations to react to this event. Indeed, that doesn’t map to any domain object, even if the UI itself can display domain concepts.</p>
           <p>There are also other examples of pure fabrications in the GoF design patterns: for example, a <a target="_blank" href="oop.patterns.html#facade">Facade object</a> is a pure fabrication.</p>
+        </section>
+
+        <!--
+
+        <section id="">
+          <h3></h3>
+          <p></p>
           <pre></pre>
         </section>
-        <!--
+
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+        </section>
 
         <section id="">
           <h3></h3>

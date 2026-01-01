@@ -189,6 +189,9 @@ Ecoaldea con ideales pero promete ser cara.
 
 # Lista de tareas por hacer (seguida de secciones sobre procedimientos informáticos de gestión de este sitio)
 
+[ ] fill in <a rel="prev" href="oop.html#abstraction">Abstraction in Object Oriented Programming</a>
+    it being an empty section
+
 [ ] enlazar a *modelo-z.html* (*El Modelo Z*)
 
 [ ]

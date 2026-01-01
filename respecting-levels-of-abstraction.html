@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Object Oriented Programming</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="A_DESCRIPTION"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="oop.html#abstraction">Abstraction in Object Oriented Programming</a></p>
+        <p><a            href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+        <p><a            href="SOLID.html">The SOLID Principles (of OOP)</a></p>
+        <p><a rel="next" href="oop.3-design-principles.html">Three Design Principles in OOP</a></p>
+        <p><a            href="oop.patterns.html">Software Design Patterns</a></p>
+      </div>
+      <div>
+        <p><a href="adt.html">Abstract Data Types</a></p>
+        <p><a href="oop.classes.html">Classes of Objects</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://www.fluentcpp.com/2016/12/15/respect-levels-of-abstraction/">https://www.fluentcpp.com/2016/12/15/respect-levels-of-abstraction/</a></cite>, by Jonathan Boccara)</p>
+      <p>What if there was only one principle to know instead of plenty of best practices?</p>
+      <p>I believe this principle exists: it consists of Respecting levels of abstraction.</p>
+
+      <h1>Respecting Levels of Abstraction</h1>
+      <p>This is the one principle to rule them all, because applying it automatically applies all the above best practices, and even more of them. When you follow it, your code writes itself out well naturally.</p>
+      <p>Respecting levels of abstraction means that all the code in a given piece of code (a given function, an interface, an object, an implementation) must be at the same abstraction level. Said differently, at a given abstraction level there mustn’t be any code coming from another level of abstraction.</p>
+      <p>A given level of abstraction is characterized by what is done in it. And to go from a given level of abstraction to the next lower one, the less abstract one is how the more abstract one is implemented.</p>
+      <p>So the crucial question to constantly ask yourself when you design or write code is: <q>In terms of what am I coding here?</q>, to determine which level of abstraction you are coding at, and to make sure you write all surrounding code with a consistent level of abstraction.</p>
+
+      <section id="one-principle">
+        <h2>One principle to rule them all</h2>
+        <p>I deem the Respect of levels of abstraction to be the most important principle in programming, because it automatically implies many other best practices. Let’s see how several well-known best practices are just various forms of respecting levels of abstractions.</p>
+        <section id="polymorphism">
+          <h3>Polymorphism</h3>
+          <p>Maybe the first thing you thought of when reading about abstraction is polymorphism.</p>
+          <p>Polymorphism consists of segregating levels of abstraction.</p>
+          <p>Indeed, for a given interface (or abstract class) and a concrete implementation, the base class is abstract, while the derived implementation is less abstract.</p>
+          <p>Note that the derived class is still somewhat abstract though, since it is not expressed in terms of 0s and 1s, but it is at an inferior level of abstraction than the base class. The base class represents what the interface offers, and the derived class represents how it is implemented:</p>
+        </section>
+        <section id="good-naming">
+          <h3>Good Naming</h3>
+          <p>Good naming is in fact giving names that are consistent with the abtraction level they are used in.</p>
+          <p>Let’s take the example of a class in charge of maintaining a caching of values. This class lets its clients add or retrieve values of type V, with keys of type K. It can be implemented with a <code>map&lt;K,V&gt;</code>.</p>
+          <p>Imagine now that we want the interface to be able to provide the whole set of results for all stored keys at once. Then we add a method to the interface. How should we name this method? A first try may be <q>getMap</q>.</p>
+          <pre>....
+const std::map&lt;K,V&gt;&amp; getMap() const { return my_map; }
+....</pre>
+          <p>But as you might feel, <q>getMap</q> is not a good name. And the reason why it isn’t is because at the abstraction level of the caching interface, <q>Map</q> is a term of <em>how</em>, and not of <em>what</em>, so not at the same abstraction level. Calling it <q>getMap</q> would mix several abstraction levels together.</p>
+          <p>A simple fix would be to call it <q>getAllValues</q> for instance. <q>Values</q> is a consistent term with the level of abstraction of the caching interface, and is therefore a name that is more adapted than <q>Map</q>.</p>
+        </section>
+        <section id="encapsulation">
+          <h3>Encapsulation</h3>
+          <p>Concerning the example above, isn’t it a violation of encapsulation to provide the map of results to the outside of the class in the first place? Actually the answer depends on whether the concept of a results container is logically part of the abstraction of the class interface.</p>
+          <p>So breaking encapsulation is providing information that go beyond the abstraction level of the interface.</p>
+        </section>
+        <section id="cohesion">
+          <h3>Cohesion</h3>
+          <p>Now imagine that we added a new method in the caching class to do some formatting on values:</p>
+          <pre>....
+static void formatValue(V&amp;);
+....</pre>
+          <p>This is obviously a bad idea because this class is about caching values, not about formatting them. Doing this would break the cohesion of the class. In terms of abstraction, even though caching and formatting don’t have a what-how relationship, they are two different abstractions because they are in terms of different things.</p>
+          <p>So cohesion consists of having only one abstraction at a given place.</p>
+        </section>
+        <section>
+          <h3>Conciseness, Readability*</h3>
+          <p>[...]</p>
+        </section>
+        <section id="expressiveness">
+          <h3>Expressiveness</h3>
+          <p>Last but not least, <strong>expressiveness</strong>, which is the focus of <a target="_blank" href="https://www.fluentcpp.com/">Fluent C++</a>.</p>
+          <p>[...]</p>
+        </section>
+      </section>
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+
+      -->
+
+
+    </main>
+
+  </body>
+
+</html>
