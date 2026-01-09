@@ -1,5 +1,6 @@
 [x] Escribir a J J V aiganjuegos@gmail.com
 
+[ ] complete *pattern-languages.html*
 
 [ ] Key for recovering github password:
 
