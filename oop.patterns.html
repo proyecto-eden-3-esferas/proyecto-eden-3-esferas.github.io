@@ -21,6 +21,10 @@
         <p><a                 href="christopher-alexander.html">Christopher Alexander</a></p>
       </div>
       <div>
+        <p><a href="https://www.fluentcpp.com/2017/05/12/curiously-recurring-template-pattern/">The Curiously Recurring Template Pattern (CRTP)</a>, by Jonathan Boccara</p>
+        <p><a href="https://www.fluentcpp.com/2018/03/06/issues-singletons-signals/">The Issues With Singletons and How to Fix Them</a>, by Jonathan Boccara</p>
+      </div>
+      <div>
         <p><a target="_blank" href="polymorphism.html">Polymorphism</a></p>
         <p><a rel="next"      href="SOLID.html">The SOLID Principles (of OOP)</a></p>
         <p><a                 href="adt.html">Abstract Data Types</a></p>
@@ -89,7 +93,7 @@
             <p>Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Private Class Data, and Proxy are structural Design Patterns.</p>
             <h3 class="bridgehead">Use Case of Structural Design Patterns</h3>
             <ol>
-              <li>An <a href="#adapter">Adapter Design Pattern</a> is used when two interfaces are incompatible and want to establish a relationship between them using an adapter. The adapter pattern transforms a class’s interface into another interface or class that the client expects, allowing classes that would otherwise be incompatible with operating together. We can use the adapter pattern in these types of incompatible instances.</li>
+              <li>An <a href="#adapter">Adapter Design Pattern</a> is used when two interfaces are incompatible and want to establish a relationship between them using an adapter. The adapter pattern transforms a class&apos;s interface into another interface or class that the client expects, allowing classes that would otherwise be incompatible with operating together. We can use the adapter pattern in these types of incompatible instances.</li>
             </ol>
           </dd>
 
@@ -113,20 +117,250 @@
         </ol>
       </section>
 
+      <section id="behavioral">
+        <h2>Behavioral Design Patterns</h2>
+
+        <section id="chain-of-responsibility">
+          <h3>Chain of Responsibility</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2021/07/26/design-patterns-vs-design-principles-chain-of-responsibility-command-and-interpreter/">https://www.fluentcpp.com/2021/07/26/design-patterns-vs-design-principles-chain-of-responsibility-command-and-interpreter/</a></cite>)</p>
+          <p>The design pattern <dfn>Chain of Responsibility</dfn> consists in putting in place a sequence of objects that fallback on each other to handle a request.</p>
+          <p>That is, a client sends a request to the first object of the sequence. If it can handle it, it does. Otherwise, it passes on the request to the second object of the sequence. And so on</p>
+        </section>
+
+        <section id="command">
+          <h3>Command</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2021/07/26/design-patterns-vs-design-principles-chain-of-responsibility-command-and-interpreter/">https://www.fluentcpp.com/2021/07/26/design-patterns-vs-design-principles-chain-of-responsibility-command-and-interpreter/</a></cite>)</p>
+          <p>The design pattern <dfn>Command</dfn> consists in creating a class to represent the execution of an action, as opposed to having the calling code contain the code of the action.</p>
+          <p>This resulting class is supposed to be autonomous, in that any caller can invoke it, without passing it additional parameters. It is its constructor that takes all that is needed to perform the operation:</p>
+          <pre>class MyCommand
+{
+public:
+    // constructor
+    void execute();
+private:
+    // All the stuff needed to perform the action
+};</pre>
+          <p>The above code is the Java-like traditional presentation of the Command design pattern, but the Command pattern can take various forms. For example, it can take the form of a lambda:</p>
+          <pre>auto myAction =
+  [stuffToPerformTheAction]
+  ()
+  { /* action */ };</pre>
+          <p>One of the benefits of the Command pattern is that the actions become manipulable by themselves: they can be stored, sorted, invoked at a later time, repeatedly invoked, etc.</p>
+          <p>To me, the Command pattern allows to create a class that revolves around one single focus: executing an action. Seen this way, it is a way to create High Cohesion. And more precisely than this, it is a Pure Fabrication. Indeed, lambdas don&apos;t map to something in the domain, in general.</p>
+          <p>It can be argued that Command involves Polymorphism as well. The GoF book even suggests to add a base class above the objects that perform the action, with a virtual method <code>execute()</code>, in order to have various types of actions behind a unified interface.</p>
+          <p>This is certainly useful, but my understanding of the pattern is that its essence is about introducing a class to represent the action. Using this class polymorphically is a only a nice addition.</p>
+        </section>
+
+        <section id="interpreter">
+          <h3>Interpreter</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2021/07/26/design-patterns-vs-design-principles-chain-of-responsibility-command-and-interpreter/">https://www.fluentcpp.com/2021/07/26/design-patterns-vs-design-principles-chain-of-responsibility-command-and-interpreter/</a></cite>)</p>
+          <p>The <dfn>Interpreter</dfn> design pattern helps achieving modular design when processing an Abstract Syntax Tree (AST) of a given language.</p>
+          <p>The <dfn>AST</dfn> is the structured representation of an expression in the form of a tree, stemming from the fact that expressions can be made of sub-expressions: the children of a node in the AST are the subparts of the expression represented by that node.</p>
+          <p>The GoF book takes the example of the language of <a target="_blank" href="regexp.html">regular expressions</a>: a given regex can be represented in the form of an AST.</p>
+          <p>The Interpreter design pattern consists in defining a base class for an expression, with a method called <code>interpret</code>. And then defining one class derived from this base classe for each type of the sub-expression in the language. Each class implements the the method <code>interpret()</code> of its base class, potentially by forwarding some of the work to its children in the AST. The nodes of the AST are made of those classes.</p>
+          <p><code>interpret</code> can takes a <var>Context</var> as a parameter. The <var>Context</var> can contain something to be matched up or updated with the expression represented by the AST.</p>
+          <p>In the example of the AST representing a regular expression, the context contains the string to match it up with. For an AST representing C++ code, the context can contain the object code to output based on the traversal of the AST.</p>
+          <p>The essence of the Interpreter design pattern lies, in my opinion, in Polymorphism. Indeed, the base class allows to build up a tree in a generic way, and the concrete classes perform the job depending on each sub-expression.</p>
+        </section>
+
+        <section id="iterator">
+          <h3>Iterator</h3>
+          <p>Thanks to the <a target="_blank" href="cpp.stl.html">STL</a>, we C++ developers are familiar with iterators. Is the GoF design pattern Iterator similar to STL iterators?</p>
+          <section>
+            <h4>Iterator and the STL iterators</h4>
+            <p>The GoF describes iterators as classes that encapsulate the responsibility of the traversal of a collection. So far, that sounds similar to STL iterators.</p>
+            <p>In the GoF book, the iterator class is instantiated by the collection class, and has the following methods:</p>
+            <pre>class Iterator
+{
+    First()
+    Next()
+    IsDone()
+    CurrentItem()
+};</pre>
+            <p>This Iterator has almost the same responsibilities as STL iterators:</p>
+            <ul>
+              <li><code>Next()</code> corresponds to <code>operator++</code></li>
+              <li><code>IsDone()</code> corresponds to a comparison with an end iterator by using <code>operator!=</code></li>
+              <li><code>CurrentItem()</code> corresponds to <code>operator*</code></li>
+            </ul>
+            <p>Only <code>First()</code> is not covered by the STL iterators: STL iterators don&apos;t allow going back to the beginning of a collection.</p>
+            <p>In the design pattern <dfn>Iterator</dfn>, the collection is in charge of producing iterators that allow to traverse it. This is also the case in the STL, with the typical <code>begin()</code> and <code>end()</code> member functions being part of the conventions of the STL.</p>
+          </section>
+          <section>
+            <h4>Iterator and design principles</h4>
+            <p>The alternative to iterators would be that the collection itself handles its traversal, and includes that feature in its interface. The design pattern Iterator is an extraction of the responsibility of traversing the collection, into a dedicated class.</p>
+            <p>Seen this way, Iterator is a way to achieve <a target="_blank" href="respecting-levels-of-abstraction.html#cohesion">High Cohesion</a>. It is a Pure Fabrication as, even though collections can map to domain objects, iterators usually don&apos;t.</p>
+          </section>
+          <section>
+            <h4>Polymorphic iterators</h4>
+            <p>The GoF book goes on and shows how to achieve polymorphism with iterators. Even though this is very powerful, in my opinion this is only an extension of the concept of iterator, and not its essence. Indeed, we could have iterators that are not generic nor polymorphic, and that still follow the design pattern Iterator.</p>
+            <p>For this reason, I think Iterator is more closely related to Pure Fabrication than to Polymorphism.</p>
+            <p>But for the sake of exploring design patterns, let&apos;s review the two sorts of polymorphisms that we can achieve with the design pattern Iterator.</p>
+            <p>The first type of polymorphism is in the behaviour of the iterator itself. For example, we could imagine an iterator that skips some elements that don&apos;t satisfy a predicate. In fact this type of polymorphism is exactly the idea behind range adaptors, in <a target="_blank" href="https://www.fluentcpp.com/2018/02/09/introduction-ranges-library/">ranges libraries</a>.</p>
+            <p>The second type of polymorphism is related to the collection. It would be nice to have a unified interface that could iterate on various data structures. For example, we would like to use the same code to iterate on contiguous sequences as well as on trees.</p>
+            <p>The GoF book suggests to have two hierarchies using inheritance in order to achieve this: Collection and Iterator. Data structure classes like List and Tree are derived from Collection, whereas specific iterator classes like ListIterator and TreeIterator are derived from Iterator.</p>
+            <p>C++ standard containers such as <code>std::vector</code> and <code>std::map</code>, which are implemented as a contiguous sequence and a tree, respectively, don&apos;t operate this way.</p>
+            <p>They do offer polymorphism, as we can write the same code to traverse a <code>std::vector</code> or a <code>std::map</code>, but they don&apos;t rely on inheritance. They rely on generic code, since those containers provide an interface with the same member function names (<code>begin()</code> and <code>end()</code>). This allows to write such polymorphic code:</p>
+            <pre>for (auto const&amp; element : myCollection)
+{
+    // do something with element
+}</pre>
+            <p>It is polymorphic because it works whether myCollection is a <code>std::vector</code> or a <code>std::map</code>.</p>
+            <p>In summary, Iterator is a Pure Fabrication, that Polymorphism can make more powerful.</p>
+          </section>
+        </section>
+
+        <section id="mediator">
+          <h3>Mediator</h3>
+          <p>The design pattern Mediator consists in introducing an object that centralises the logic of interaction between a set of other objects.</p>
+          <p>The GoF uses the example of a GUI that has many elements that interact with each other. One way to implement this would be to have each class communicate with the others when they need to trigger the appropriate reactions.</p>
+          <p>But doing this introduces intense coupling, as many objects come to interact with each other.</p>
+          <p>Mediator mitigates this problem by having all objects notify only one object, the Mediator object, whenever they need to trigger a reaction. The Mediator packages all the logic, and forwards the incoming notifications to the appropriate objects.</p>
+          <p>As a result, all the objects are connected with the Mediator, instead of all objects being connected with each other.</p>
+          <p>Seen this way, Mediator is a way to achieve the design principle of <strong>Indirection</strong>.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section id="memento">
+          <h3>Memento</h3>
+          <p>The design pattern <dfn>Memento</dfn> helps to restore an object to a previous state.</p>
+          <p>It works the following way: object <var>A</var> creates a Memento object, and sets in it some information about its current state. The Memento objects is stored somewhere, for example in another object <var>B</var>.</p>
+          <p>Then A lives on its life, and its state changes.</p>
+          <p>Later, we give back the Memento object to <var>A</var>, and <var>A</var> retrieves the information that it had put into it. After doing this, <var>A</var> is back to the state it was when it created the Memento object.</p>
+          <p><var>B</var> is not concerned with what information is in the Memento object, nor even what kind of information it contains. It just holds it in order for it to be available to e<var>A</var> at a later point.</p>
+          <p>To which design principle does Memento correspond?</p>
+          <p>To be honest, I&apos;m not sure Memento relates well to one of the GRASP design principles. What do you think?</p>
+          <p>We could argue that Memento is about hiding the contents of the state of A. So if we come to modify the program and change the type of state that A needs, B won&apos;t be affected. This seems to relate to Low Coupling.</p>
+          <p>But should we consider that it&apos;s part of Protected Variations, in the sense that the Memento object hides the state of A? Or is it another type of Low Coupling?</p>
+        </section>
+
+        <section id="observer">
+          <h3>Observer</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2021/10/19/design-patterns-vs-design-principles-observer-state-and-strategy/">https://www.fluentcpp.com/2021/10/19/design-patterns-vs-design-principles-observer-state-and-strategy/</a></cite>)</p>
+          <p>The <dfn>Observer</dfn> pattern is about notifications between objects.</p>
+          <p>Consider an object <var>A</var> that can undergo events, in the general sense of <q>events</q>. That can be GUI events, or changes of state, or anything that could be of interest for another object <var>B</var>. <var>A</var> is called Subject and <var>B</var> is called Observer.</p>
+          <p>A typical example is indeed for GUI events, for example the user has clicked on a widget. The class handling the GUI event needs to notify the business objects of the program that the event has happened, so that they can react accordingly.</p>
+          <p>Observer is not limited to GUI though. We can see it at any level of a program. For example, Qt&apos;s signals and slots are an implementation of the Observer pattern.</p>
+          <p>A given Subject can have an arbitrary number of Observers.</p>
+          <p>A central aspect of the Observer design pattern is that the Subject doesn&apos;t know what the Observers are. It just knows that they exist and how to notify them. To implement this aspect, we can use polymorphism, for example with inheritance. The Subject class then must implement the Observer interface (inherited).</p>
+          <p>The Observer interface could be implemented like this:</p>
+          <pre>class Observer
+{
+    virtual void onNotification() = 0;
+    virtual ~Observer();
+};</pre>
+          <p>And the Subject could hold a <code>std::vector&lt;Observer*&gt;</code> (a container of pointers to <code>Observer</code>), and traverse it to call <code>onNotification()</code> on each element, whenever the Subject needs to notify its observers.</p>
+          <pre></pre>
+        </section>
+
+        <section id="state">
+          <h3>State</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2021/10/19/design-patterns-vs-design-principles-observer-state-and-strategy/">https://www.fluentcpp.com/2021/10/19/design-patterns-vs-design-principles-observer-state-and-strategy/</a></cite>)</p>
+          <p>The <dfn>State</dfn> design pattern is useful when an object can be in several formalized states. The GoF book takes the example of a TCP connection that can be <code>Established</code>, <code>Listening</code> or <code>Closed</code>.</p>
+          <p>There are many other examples in various fields of objects that can be in several states. For example a financial operation could be <code>PendingApproval</code>, <code>Approved</code> or <code>Closed</code>. Or in a project management application, a task could be <code>ToDo</code>, <code>Doing</code>, <code>ReadyForTesting</code> or <code>Done</code>.</p>
+          <p>One way to implement this is to have a constant or enum representing each state, and a value that can be equal to either one of the possible states:</p>
+          <pre>enum class TaskState
+{
+    ToDo,
+    Doing,
+    ReadyForTesting,
+    Done
+};</pre>
+          <p>With the task having the following member:</p>
+          <pre>class Task
+{
+public:
+    // ...
+private:
+    TaskState currentState_;
+    // ...
+};</pre>
+          <p>This way of representing the state in code can lead to complicated code, with if statements that test the possible values of <var>currentState_</var>. Depending on those values, the if statements would perform actions and/or modify the value of <var>currentState_</var>.</p>
+          <p>When such code grows in size, it typically grows in complexity. That is to say that this way of coding doesn&apos;t scale.</p>
+          <p>Why? Because it is the same code that handles all of the various possible states and their changes.</p>
+          <p>The State design patterns aims at solving this problem by representing each state by a type, and not by just the value of an <code>enum</code>:</p>
+          <pre>class ToDo
+{
+    // ...
+};
+
+class Doing
+{
+    // ...
+};
+
+class ReadyForTesting
+{
+    // ...
+};
+
+class Done
+{
+    // ...
+};</pre>
+          <p>Each class owns the code of its corresponding state. Each class also manages the transitions to another state, by instantiating the corresponding class.</p>
+          <p>The GoF book suggests to have all such state classes inherit from a common base class. This allows to implement state changes by swapping the concrete implementation behind a pointer or reference to the base class.</p>
+          <p>The State design pattern can also be implemented with templates and phantom types.</p>
+        </section>
+
+        <section id="strategy">
+          <h3>Strategy</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2021/10/19/design-patterns-vs-design-principles-observer-state-and-strategy/">https://www.fluentcpp.com/2021/10/19/design-patterns-vs-design-principles-observer-state-and-strategy/</a></cite>)</p>
+          <p>The <dfn>Strategy</dfn> design pattern consists in letting a calling code use one of several possible algorithms, by hiding them behind an interface.</p>
+          <p>For example, let&apos;s consider a certain task <var>X</var> that has three ways of being accomplished: method <var>A</var>, method <var>B</var> and method <var>C</var>. Rather than having <var>A</var>, <var>B</var> and <var>C</var> directly in the code that needs to perform <var>X</var>, we use three classes that implement the same interface, each one implementing one of the three methods.</p>
+          <pre>class X {
+public:
+  virtual void doX() = 0;
+};
+class MethodA: public X {
+public:
+  void doX() override;
+};
+class MethodB: public X {
+public:
+  void doX() override;
+};
+class MethodC: public X {
+public:
+  void doX() override;
+};
+</pre>
+          <p>Some other part of the code sets either one of MethodA, MethodB or MethodC as a concrete implementation of the interface.</p>
+          <p>Even if Strategy allows to achieve cohesion by having each algorithm put away in its own class, it seems to me that the central aspect of Strategy is rather Polymorphism.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+
+
+      </section>
 
       <section id="some">
-        <h2>Some Design Patterns</h2>
+        <h2>Some (More) Design Patterns</h2>
 
         <section id="factory">
           <h3>Factory method</h3>
           <p style="text-align: right">(From <cite><a target="_blank" href="https://www.fluentcpp.com/2022/06/05/design-patterns-vs-design-principles-factory-method/">https://www.fluentcpp.com/2022/06/05/design-patterns-vs-design-principles-factory-method/</a></cite>)</p>
-          <p>To understand what factory method means, let’s analyse each of its two words:</p>
+          <p>To understand what factory method means, let&apos;s analyse each of its two words:</p>
           <ul>
             <li>method: this means member function,</li>
             <li>factory: this means something that creates objects.</li>
           </ul>
           <p>All this means that a factory method is a member function that creates objects.</p>
-          <p>It is important to note that this comes from a book on object oriented design (the GoF’s <cite>Design Patterns</cite> book), that makes heavy use of member functions. But my understanding of the design pattern is that it applies beyond member functions. It applies to free functions too. So a more generic and idiomatic name for this design pattern in C++ could be <dfn>Factory function</dfn>.</p>
+          <p>It is important to note that this comes from a book on object oriented design (the GoF&apos;s <cite>Design Patterns</cite> book), that makes heavy use of member functions. But my understanding of the design pattern is that it applies beyond member functions. It applies to free functions too. So a more generic and idiomatic name for this design pattern in C++ could be <dfn>Factory function</dfn>.</p>
         </section>
 
         <section id="facade">
@@ -144,11 +378,74 @@
           <p></p>
         </section>
 
-        <!--
-        <section id="">
-          <h3></h3>
-          <p></p>
+        <section id="template-method">
+          <h3>Template Method</h3>
+          <p>First off, let&apos;s mention that the Template Method design pattern has nothing to do with C++ templates. Actually, there is an implementation of this design pattern in C++ that uses templates, but using templates is more an implementation detail rather than the essence of this pattern.</p>
+          <p>Template Method has even nothing to do with C++ in particular, and can be implemented in other languages that don&apos;t support templates.</p>
+          <p>Template Method consists in having a piece of code that has one or more <strong>customisation points</strong>.</p>
+          <section>
+            <h4>Customisation Points</h4>
+            <p>How? By using polymorphism. In the GoF book, the authors suggest to use runtime polymorphism, with inheritance and virtual member functions.</p>
+            <p>In our example, we would then have a base class that would look like this:</p>
+            <pre>class Task
+{
+public:
+    void run();
+    virtual ~Task() = 0;
+private:
+    virtual void doTheTask() const = 0;
+};</pre>
+            <p>It is the non-virtual run member function that contains the Template Method design pattern:</p>
+            <pre>void Task::run()
+{
+    std::cout &lt;&lt; "Task in progress... ";
+    doTheTask();
+    std::cout &lt;&lt; " ...done.\n";
+}</pre>
+            <p>A given task has its own class, that implements the Task base class:</p>
+            <pre>class MyTask : public Task
+{
+private:
+    void doTheTask() const override;
+};</pre>
+            <p>(In case you&apos;re wondering, we can indeed override private virtual methods from the base class).</p>
+            <p>Now if you have code that uses the <code>Task</code> interface, you&apos;re guaranteed that logging will be executed without any additional code from the classes that implement the concrete tasks.</p>
+          </section>
+          <section>
+            <h4>NVI</h4>
+            <p>While we&apos;re talking about this, note that the Template Method design pattern is a way to implement the Non Virtual Interface, or NVI, pattern.</p>
+            <p>NVI consists in exposing only non-virtual methods in the public section of a base class. Those methods themselves call private virtual methods, that are implemented in derived classes.</p>
+            <p>The NVI pattern recognises that the public interface of a base class should not be coupled to the implementation of the virtual methods. Indeed, the former represents the interface, and the latter represents some implementation steps.</p>
+            <p>Some developers go as far as never defining a member method public and virtual at the same time. Said differently, they use NVI all the time.</p>
+            <p>NVI is a way to implement the Template Method design pattern. When the NVI public non virtual method simply calls the private virtual method, without any additional treatment, this can be seen as a degenerate case of Template Method.</p>
+          </section>
+          <section>
+            <h4>Template method with C++ templates</h4>
+            <p>Inheritance and virtual tables are just one way of implementing polymorphism.</p>
+            <p>We can also use C++ templates to implement polymorphism. Templates create another type of polymorphism, that is resolved at compile-time. This is a whole other topic, so if the previous sentence doesn&apos;t make perfect sense, it&apos;s not a problem. We&apos;ll come back to this elsewhere.</p>
+            <p>An implementation of the Template Method design pattern with C++ templates would look like this:</p>
+            <pre>template &lt;typename Task&gt;
+void runTask(Task const&amp; task)
+{
+    std::cout &lt;&lt; "Task in progress... ";
+    task.doTheTask();
+    std::cout &lt;&lt; " ...done.\n";
+}</pre>
+            <p>In this case, there is no base class any more. We can pass <code>MyTask</code>, that used to be the derived class in our previous example, to the <code>runTask</code> template function:</p>
+            <pre>auto myTask = MyTask{};
+runTask(myTask);</pre>
+            <p>Now the <code>doTheTask</code> member function needs to be public:</p>
+            <pre>class MyTask : public Task
+{
+public:
+    void doTheTask() const override;
+};</pre>
+            <p>Indeed, in the previous implementation using inheritance, the code using the Template Method design pattern (the base class) had access to the implementation of the task via the redirection of virtual member functions.</p>
+            <p>Now that the code using the Template Method design pattern is in a free function, it has to call the public interface of <code>MyTask</code>, so its method has to be public (unless <code>runTask</code> is made a friend class).</p>
+          </section>
         </section>
+
+        <!--
         <section id="">
           <h3></h3>
           <p></p>

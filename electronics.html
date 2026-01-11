@@ -34,6 +34,10 @@
         <p><a href="mosfet.html">MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</a></p>
         <p><a href="electronics.transient-response.html">Transient Response</a></p>
         <p><a href="electronics.time-constant.html">RC Time Constant</a></p>
+        <!--
+        <p><a href="electronics.amps.html">Amplifiers</a></p>
+        <p><a href="electronics.current-mirror.html">The Current Mirror</a></p>
+        -->
       </div>
       <div>
         <p><a href="electronics.spice.html">Spice: an Analog-Circuit Simulator</a></p>
@@ -75,7 +79,7 @@
 
       <section id="digital">
         <h2>Digital Electronics*</h2>
-        <p>(<i>See also</i> <cite><a href="#hdl">Hardware Description Languages (HDLs)</a></cite>.)</p>
+        <p>(<i>See also</i> <cite><a target="_blank" href="#hdl">Hardware Description Languages (HDLs)</a></cite> and <cite><a target="_blank" href="c.bitwise.html">Bitwise Operations in C/C++</a></cite>.)</p>
         <section id="combinational">
           <h3>Combinational Logic*</h3>
         </section>
@@ -143,9 +147,48 @@
           </dl>
         </section>
         <section id="hdl">
-          <h3>Hardware Description Languages (HDLs) for Digital Electronics*</h3>
-          <p>(<i>See</i> <a target="_blank" href="verilog.html">Verilog</a>.)</p>
+          <h3>Hardware Description Languages (HDLs) for Digital Electronics</h3>
+          <p>This is one historical reason why HDLs were created. Once upon a time, the United States Department of Defense (DOD) realized that they had a lot of electronics designed and built for them, and their products had a long life span. In fact, DOD might use equipment for upwards of twenty years. Over such periods semiconductor technology changed quite a bit. DOD realized they needed a technology-independent way of describing what was in the semiconductors they were receiving. Through a joint effort of the DOD and several companies, VHDL was created as a hardware description language to document DOD technology. VHDL and <a target="_blank" href="verilog.html">Verilog</a> were developed at the same time, but independently.</p>
+          <p>Generally, HDLs were invented for :</p>
+          <ul>
+            <li>simulation,</li>
+            <li>documentation, and</li>
+            <li>synthesis</li>
+          </ul>
+          <p>As regards synthesis, even before Verilog and VHDL were developed, the makers of programmable array logic (PAL) chips had created simple languages and tools (such as PALASM) to burn these chips. These languages accepted only simple equations and could create the correct bit pattern to make the chip reflect the functionality described in the language.</p>
+          <p>Now, why would you want to use an HDL? The simplest reason is to be more productive. An HDL makes you more productive in three ways:</p>
+          <ul>
+            <li><strong>Simulation.</strong> By allowing you to simulate your design beforehand, you can see if the design works before you build it, which gives you a chance to try different ideas.</li>
+            <li><strong>Documentation.</strong> This feature lets you maintain and reuse your design more easily. HDLS&apos; intrinsic hierarchical modularity enables you to easily reuse portions of your design as <q>intellectual property</q> or <q>macro-cells.</q></li>
+            <li><strong>Synthesis.</strong> You can design using the HDL, and let other tools do the tedious and detailed job of hooking up the gates.</li>
+          </ul>
+          <section id='HDL_levels'>
+            <h4>HDLs&apos; Levels of Description</h4>
+            <p>These are, from more abstract to more detailed:</p>
+            <ul>
+              <li><strong>System</strong></li>
+              <li><strong>Architectural</strong></li>
+              <li><strong>Behavioral</strong></li>
+              <li><strong>Algorythmic</strong></li>
+              <li><strong>Register Transfer Logic (RTL)</strong></li>
+              <li><strong>Boolean Equations</strong></li>
+              <li><strong>Structural</strong></li>
+              <li><strong>Gates</strong></li>
+              <li><strong>Switches</strong></li>
+              <li><strong>Transistors</strong></li>
+              <li><strong>Polygons</strong></li>
+              <li><strong>Masks</strong></li>
+            </ul>
+          </section>
+          <section>
+            <h4>Types of HDL Languages</h4>
+            <p>There are two types of HDLs: loosely typed, and strongly typed.</p>
+            <p>A <dfn>loosely typed</dfn> language allows automatic type conversion, which lets you put the value 137 on an 8-bit bus. A <dfn>strongly typed</dfn> language would not permit you to do this because it would consider 137 to be an integer; an 8-bit bus is an array of 8 bits, and would not allow you to put an integer into an array.</p>
+            <p>Each type of language has its advantages; A loosely typed language will do what you mean most of the time. A strongly typed language will not allow you to make a mistake by combining the wrong types of objects. Strongly typed languages have conversion functions, so you could put the value 137 on an 8-bit bus by calling the integer to 8-bit array conversion function.</p>
+            <p>VHDL is considered to be a strongly-typed language, whereas <a target="_blank" href='verilog.html'>Verilog</a> is a weakly-typed one.</p>
+          </section>
         </section>
+
         <section id="eagle">
           <h3>Eagle*</h3>
         </section>

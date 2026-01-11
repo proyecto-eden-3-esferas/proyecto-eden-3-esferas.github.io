@@ -1,5 +1,11 @@
 [x] Escribir a J J V aiganjuegos@gmail.com
 
+[ ] https://www.fluentcpp.com/2018/02/09/introduction-ranges-library/
+
+[ ] https://claytondorge.com/patterns-list
+    https://claytondorge.com/
+    https://claytondorge.com/reading
+
 [ ] complete *pattern-languages.html*
 
 [ ] Key for recovering github password:
