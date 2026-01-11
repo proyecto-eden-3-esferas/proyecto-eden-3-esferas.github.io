@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enumerations in C</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Enumerations in C"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      <p><a            href="c-cpp.html">C and C++</a></p>
+      -->
+
+      <div>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+        <p><a            href="c.io.html">Input/Output in C</a></p>
+      </div>
+      <div>
+        <p><a            href="c99.html">C99 (a Former Version of C)</a></p>
+        <p><a            href="c11.html">C11 (a Former Version of C)</a></p>
+      </div>
+      <div>
+        <p><a            href="c-and-cpp.html">C and C++</a></p>
+        <p><a rel="next" href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Enumerations in C</h1>
+      <p>An <dfn>enum</dfn> is a special type that represents a group of constants (unchangeable values). <q>Enum</q> is short for <q>enumeration</q>, which means <q>specifically listed</q>.</p>
+      <p>To create an enum, use the <code>enum</code> keyword, followed by the <var>name</var> of the enum, and separate the enum items with a comma:</p>
+      <pre>enum Level {
+  LOW,
+  MEDIUM,
+  HIGH
+};</pre>
+      <p>It is not required to use uppercase, but often considered as good practice.</p>
+      <hr/>
+      <p>To access the enum, you must create a variable of it.</p>
+      <p>Inside the <code>main()</code> method, specify the <code>enum</code> keyword, followed by the name of the enum (Level) and then the name of the enum variable (myVar in this example):</p>
+      <pre>enum Level myVar;</pre>
+      <p>Now that you have created an enum variable (<var>myVar</var>), you can assign a value to it. The assigned value must be one of the items inside the enum (LOW, MEDIUM or HIGH):</p>
+      <pre>enum Level myVar = MEDIUM;</pre>
+
+      <aside>
+        <h2>Why And When To Use Enums?</h2>
+        <p>Enums are used to give names to constants, which makes the code easier to read and maintain.</p>
+        <p>Use enums when you have values that you know aren't going to change, like month days, days, colors, deck of cards, etc.</p>
+      </aside>
+
+      <p>By default, the first item (LOW) has the value 0, the second (MEDIUM) has the value 1, etc. Therefore, if you now try to print <var>myVar</var>, it will output 1, which represents MEDIUM:</p>
+      <pre>int main() {
+  // Create an enum variable and assign a value to it
+  enum Level myVar = MEDIUM;
+
+  // Print the enum variable
+  cout &lt;&lt; myVar;
+
+  return 0;
+}</pre>
+      <section>
+        <h2>Changing the Default Values</h2>
+        <p>As you know, the first item of an enum has the value 0. The second has the value 1, and so on. To make more sense of the values, you can easily change them like this:</p>
+        <pre>enum Level { LOW = 25,
+  MEDIUM = 50,
+  HIGH = 75
+};</pre>
+        <p>Note that if you assign a value to one specific item, the next items will update their numbers accordingly:</p>
+        <pre>enum Level {
+  LOW = 5,
+  MEDIUM, // Now 6
+  HIGH // Now 7
+};</pre>
+      </section>
+      <section>
+        <h2>Enum in a Switch Statement</h2>
+        <p>Enums are often used in <code>switch</code> statements to check for corresponding values:</p>
+        <pre>enum Level {
+  LOW = 1,
+  MEDIUM,
+  HIGH
+};
+
+int main() {
+  enum Level myVar = MEDIUM;
+
+  switch (myVar) {
+    case 1:
+      cout &lt;&lt; "Low Level";
+      break;
+    case 2:
+      cout &lt;&lt; "Medium level";
+      break;
+    case 3:
+      cout &lt;&lt; "High level";
+      break;
+  }
+  return 0;
+}</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
