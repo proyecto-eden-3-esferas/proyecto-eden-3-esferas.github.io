@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C++ enum class&apos;s</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="C++ enum class: an Encapsulated Enumeration"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.exceptions.html">C++ Exceptions</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+      -->
+      <div>
+        <p><a                 href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
+        <p><a                 href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
+        <p><a                 href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
+        <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a rel="prev" href="c.enum.html">Enumerations in C</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>C++ <code>enum class</code>: an Encapsulated Enumeration</h1>
+      <p>Enums, or enumerated types, are user-defined data types in C and C++ that allow the programmer to define a set of named values. These values are fixed and predetermined at the time of declaration. However, <a href="c.enum.html">traditional / C enums</a> have a big drawback: the names of two <code>enum</code>&apos;s (1) may collide --that is, coincide-- and thereby create ambiguity, actually a compilation error, because (2) traditional <code>enum</code>&apos;s are not scoped.</p>
+
+      <section>
+        <h2>The Problem with Tranditional Enumerations</h2>
+        <p>Consider two different enumerations for garment sizes and cooked meat:</p>
+        <pre>enum garment_size {tiny, small, medium, large, extra_large};
+enum cooked_meat {rare, medium, well_done};
+
+cooked_meat my_steak = medium; // Fails to compile!
+cooked_meat my_steak = rare; // Also ails to compile!</pre>
+        <pre>enum garment_size {tiny, small, medium, large, extra_large};
+enum cooked_meat {rare, medium, well_done};
+
+cooked_meat my_steak = medium; // Fails to compile!
+cooked_meat my_steak = rare; // Also ails to compile!</pre>
+        <p>Now, if I rewrite <code>garment_size::medium</code> as <code>garment_size::medium_size</code>, thereby preventing a name clash, my compiler will still issue an error or a warning if I try to assign the wrong value to a variable:</p>
+        <pre>enum garment_size {tiny, small, medium_size, large, extra_large};
+enum cooked_meat {rare, medium, well_done};
+
+cooked_meat my_steak = medium_size; // Fails to compile or a warning is issued!</pre>
+      </section>
+
+      <section>
+        <h2>The Solution: Using <code>enum class</code></h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://www.geeksforgeeks.org/cpp/enum-classes-in-c-and-their-advantage-over-enum-datatype/">https://www.geeksforgeeks.org/cpp/enum-classes-in-c-and-their-advantage-over-enum-datatype/</a></cite>)</p>
+        <p>C++11 has introduced enum classes (also called <strong>scoped enumerations</strong>), which makes enumerations both strongly typed and strongly scoped. Class enum doesn't allow implicit conversion to int, and also doesn't compare enumerators from different enumerations.</p>
+        <p>To define enum class we use class keyword after enum keyword.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>// Declaration
+enum class <var>EnumName</var> { <var>Value1</var>, <var>Value2</var>, ... <var>ValueN</var>};
+
+// Initialisation
+<var>EnumName</var> <var>ObjectName</var> = <var>EnumName</var>::<var>Value</var>;</pre>
+        <p>Example:</p>
+        <pre>// Declaration
+enum class Color{ Red, Green, Blue};
+
+// Initialisation
+Color col = Color::Red;</pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section>
+        <h2>Choosing the Underlying Type</h2>
+        <p>Enumerated types declared the enum class also have more control over their underlying type; it may be any integral data type, such as <code>char</code>, <code>short</code> or <code>unsigned int</code>, which essentially serves to determines the size of the type.</p>
+        <p>This is specified by a colon and underlying type following the enumerated type:</p>
+        <pre>enum class eyecolor : short int {black = -2, brown, green, blue};</pre>
+        <p>Here eyecolor is a distinct type with the same size as an <code>short int</code>.</p>
+        <p>We can next get the matching integer value through a static cast as in:</p>
+        <pre>cout &lt;&lt; "brown colour matches short int: " &lt;&lt; static_cast&lt;signed int&gt;(eyecolor::brown) &lt;&lt; '\n';</pre>
+        <p>Which will output:</p>
+        <pre>brown colour matches short int: -1</pre>
+        <p>just as expected.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
