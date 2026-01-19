@@ -55,6 +55,179 @@
       <section id="analog">
         <h2>Analog Electronics*</h2>
 
+        <section>
+          <h3>Analog Electronics Notation</h3>
+          <p>The following notation, summarized in the table below, is used throughout. A lowercase letter with an uppercase subscript, such as <var>i<sub>B</sub></var> and <var>v<sub>BE</sub></var>, indicates a <strong>total instantaneous value</strong>. An uppercase letter with an uppercase subscript, such as <var>I<sub>B</sub></var> and <var>V<sub>BE</sub></var>, indicates a <strong>dc quantity</strong>. A lowercase letter with a lowercase subscript, such as <var>i<sub>b</sub></var> and <var>v<sub>be</sub></var>, indicates an <strong>instantaneous value</strong> of a time-varying signal. Finally, an uppercase letter with a lowercase subscript, such as <var>I<sub>b</sub></var> and <var>V<sub>be</sub></var>, indicates a <strong>phasor quantity</strong>.</p>
+          <table border="0">
+            <caption>Summary of Analog Signal Notation</caption>
+            <thead>
+            <tr> <th>Variable</th> <th>Meaning</th> </tr>
+            </thead>
+            <tr>
+              <td><var>i<sub>B</sub></var>, <var>v<sub>BE</sub></var></td>
+              <td>Total instantaneous values</td>
+            </tr>
+            <tr>
+              <td><var>I<sub>B</sub></var>, <var>I<sub>VB</sub></var></td>
+              <td>dc values</td>
+            </tr>
+            <tr>
+              <td><var>i<sub>b</sub></var>, <var>v<sub>be</sub></var></td>
+              <td>Total instantaneous ac values</td>
+            </tr>
+            <tr>
+              <td><var>I<sub>b</sub></var>, <var>V<sub>be</sub></var></td>
+              <td>Phasor values</td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h3>Intrinsic Semiconductors</h3>
+          <p>An atom is composed of a nucleus, which contains positively charged protons and neutral neutrons, and negatively charged electrons that, in the classical sense, orbit the nucleus. The electrons are distributed in various <q>shells</q> at different distances from the nucleus, and electron energy increases as shell radius increases. Electrons in the outermost shell are called <dfn>valence electrons</dfn>, and the chemical activity of a material is determined primarily by the number of such electrons.</p>
+          <p>Elements in the periodic table can be grouped according to the number of valence electrons. Silicon (Si) and germanium (Ge) are in group IV and are <dfn>elemental semiconductors</dfn>. In contrast, gallium arsenide is a group III–V <dfn>compound semiconductor</dfn>. The elements in group III and group V are also important in semiconductors.</p>
+          <table border="0">
+            <caption>A list of some semiconductor materials</caption>
+            <thead>
+              <tr>
+                <th colspan="2">Elemental Semiconductors</th>
+                <th colspan="2">Compound Semiconductors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr> <td>Si</td><td>Silicon</td>     <td>GaAs</td> <td>Gallium arsenide</td> </tr>
+              <tr> <td>Ge</td><td>Germanium</td> <td>GaP</td>  <td>Gallium phosphide</td> </tr>
+              <tr> <td colspan="2"></td>         <td>AlP</td>  <td>Aluminum phosphide</td> </tr>
+              <tr> <td colspan="2"></td>         <td>AlAs</td> <td>Aluminum arsenide</td> </tr>
+              <tr> <td colspan="2"></td>         <td>InP</td>  <td>Indium phosphide</td> </tr>
+            </tbody>
+          </table>
+          <p>At <var>T</var> = 0 K, each electron is in its lowest possible energy state, so each covalent bonding position is filled. If a small electric field is applied to this material, the electrons will not move, because they will still be bound to their individual atoms. Therefore, at <var>T</var> = 0 K, silicon is an <dfn>insulator</dfn>; that is, no charge flows through it.</p>
+          <p>When silicon atoms come together to form a crystal, the electrons occupy particular allowed energy bands. At <var>T</var> = 0 K, all valence electrons occupy the valence energy band. If the temperature increases, the valence electrons may gain thermal energy. Any such electron may gain enough thermal energy to break the covalent bond and move away from its original position. In order to break the covalent bond, the valence electron must gain a minimum energy, <var>E<sub>g</sub></var>, called the <dfn>bandgap energy</dfn>. The electrons that gain this minimum energy now exist in the conduction band and are said to be <dfn>free electrons</dfn>. These free electrons in the conduction band can move throughout the crystal. The net flow of electrons in the conduction band generates a current.</p>
+          <p>The energy <var>E<sub>ν</sub></var> is the maximum energy of the valence energy band and the energy <var>E<sub>c</sub></var> is the minimum energy of the conduction energy band. The bandgap energy <var>E<sub>g</sub></var> is the difference between <var>E<sub>c</sub></var> and <var>E<sub>ν</sub></var>, and the region between these two energies is called the <dfn>forbidden bandgap</dfn>. Electrons cannot exist within the forbidden bandgap. The process of an electron from the valence band gaining enough energy and moving into the conduction band is called <dfn>generation</dfn>.</p>
+          <p>Materials that have large bandgap energies, in the range of 3 to 6 electron–volts (eV), are insulators because, at room temperature, essentially no free electrons exist in the conduction band. In contrast, materials that contain very large numbers of free electrons at room temperature are conductors. In a semiconductor, the bandgap energy is on the order of 1 eV.</p>
+          <hr/>
+          <p>A fundamental relationship between the electron and hole concentrations in a semiconductor <em>in thermal equilibrium</em> is given by</p>
+          <blockquote><var>n<sub>o</sub></var> <var>p<sub>o</sub></var> = <var>n<sub>i</sub></var><sup>2</sup></blockquote>
+          <p>where <var>n<sub>o</sub></var> is the thermal equilibrium concentration of free electrons, <var>p<sub>o</sub></var> is the thermal equilibrium concentration of holes, and <var>n<sub>i</sub></var> is the intrinsic carrier concentration.</p>
+          <p>In an n-type semiconductor, electrons are called the <dfn>majority carrier</dfn> because they far outnumber the holes, which are termed the <dfn>minority carrier</dfn>. In contrast, in a p-type semiconductor, the holes are the majority carrier and the electrons are the minority carrier.</p>
+        </section>
+        <section id="drift-and-diffusion-currents">
+          <h3>Drift and Diffusion Currents</h3>
+          <p>We&apos;ve described the creation of negatively charged electrons and positively charged holes in the semiconductor. If these charged particles move, a current is generated. These charged electrons and holes are simply referred to as <dfn>carriers</dfn>.</p>
+          <p>The two basic processes which cause electrons and holes to move in a semiconductor are: (a) <dfn>drift</dfn>, which is the movement caused by electric fields, and (b) <dfn>diffusion</dfn>, which is the flow caused by variations in the concentration, that is, concentration gradients. Such gradients can be caused by a nonhomogeneous doping distribution, or by the injection of a quantity of electrons or holes into a region, using methods to be discussed later.</p>
+          <section>
+            <h4>Drift Current Density</h4>
+            <p>To understand drift, assume an electric field is applied to a semiconductor. The field produces a force that acts on free electrons and holes, which then experience a net drift velocity and net movement. Consider an n-type semiconductor with a large number of free electrons. An electric field <var>E</var> applied in one direction produces a force on the electrons in the opposite direction, because of the electrons&apos; negative charge. The electrons acquire a drift velocity <var>v<sub>>dn</sub
+            ></var> (in cm/s) which can be written as</p>
+            <blockquote><var>v<sub>dn</sub></var> = − <var>µ<sub>n</sub></var><var>E</var></blockquote>
+            <p>where <var>µ<sub>n</sub></var> is a constant called the <dfn>electron mobility</dfn> and has units of cm<sup>2</sup>/V–s. For low-doped silicon, the value of <var>µ<sub>n</sub></var> is typically 1350 cm<sup>2</sup>/V–s. The mobility can be thought of as a parameter indicating how well an electron can move in a semiconductor. The negative sign in the equation above indicates that the electron drift velocity is opposite to that of the applied electric field<!-- as shown in Figure 1.8(a)-->. The electron drift produces a drift current density <var>J<sub>n</sub></var> (A/cm<sup>2</sup>) given by</p>
+            <blockquote><var>J<sub>n</sub></var> = − <var>e</var> <var>n</var> <var>v<sub>dn</sub></var> = − <var>e</var> <var>n</var> (− <var>µ<sub>n</sub></var> <var>E</var>) = +<var>e</var> <var>n</var> <var>µ<sub>n</sub></var> <var>E</var></blockquote>
+            <p>where <var>n</var> is the electron concentration (#/cm<sup>3</sup>) and <var>e</var>, in this context, is the magnitude of the electronic charge. The conventional drift current is in the opposite direction from the flow of negative charge, which means that the drift current in an n-type semiconductor is in the same direction as the applied electric field.</p>
+            <p>Next consider a p-type semiconductor with a large number of holes<!-- (Figure l.8(b))-->. An electric field <var>E</var> applied in one direction produces a force on the holes in the same direction, because of the positive charge on the holes. The holes acquire a drift velocity <var>v<sub>dp</sub></var> (in cm/s), which can be written as</p>
+            <blockquote><var>v<sub>dp</sub></var> = + <var>µ<sub>p</sub></var> <var>E</var></blockquote>
+            <p>where <var>µ<sub>p</sub></var> is a constant called the <dfn>hole mobility</dfn>, and again has units of cm<sup>2</sup>/V–s. For low-doped silicon, the value of <var>µ<sub>p</sub></var> is typically 480 cm2/V–s, which is less than half the value of the electron mobility. The positive sign in the equation above indicates that the hole drift velocity is in the same direction as the applied electric field<!-- as shown in Figure 1.8(b)-->. The hole drift produces a drift current density <var>J<sub>p</sub></var> (A/cm<sup>2</sup>) given by</p>
+            <blockquote><var>J<sub>p</sub></var> = + <var>e</var> <var>p</var> <var>v<sub>dp</sub></var> = +<var>e</var> <var>p</var> (+<var>µ<sub>p</sub></var> <var>E</var>) = + <var>e</var> <var>p</var> <var>µ<sub>p</sub></var> <var>E</var></blockquote>
+            <p>where <var>p</var> is the hole concentration (#/cm3) and <var>e</var> is again the magnitude of the electronic charge. The conventional drift current is in the same direction as the flow of positive charge, which means that the drift current in a p-type material is also in the same direction as the applied electric field.</p>
+            <p>Since a semiconductor contains both electrons and holes, the total drift current density is the sum of the electron and hole components. The total drift current density is then written as</p>
+            <blockquote>
+              <var>J</var>
+              = <var>e</var> <var>n</var> <var>µ<sub>n</sub></var> <var>E</var> + <var>e</var><var>p</var><var>µ<sub>p</sub></var> <var>E</var>
+              = <var>σ</var> <var>E</var>
+              = (1 / <var>p</var>) <var>E</var></blockquote>
+            <p>where</p>
+            <blockquote>
+              <var>σ</var>
+              = <var>e</var> <var>n</var> <var>µ<sub>n</sub></var> + <var>e</var> <var>p</var> <var>µ<sub>p</sub></var>
+            </blockquote>
+            <p>and where <var>σ</var> is the <dfn>conductivity</dfn> of the semiconductor in (ohm–cm)<sup>−1</sup> and where <var>ρ</var> = 1/<var>σ</var> is the <dfn>resistivity</dfn> of the semiconductor in (ohm–cm). The conductivity is related to the concentration of electrons and holes. If the electric field is the result of applying a voltage to the semiconductor, then foregoing equation becomes a linear relationship between current and voltage and is one form of Ohm&apos;s law.</p>
+            <p>From the equation above, we see that the conductivity can be changed from strongly n-type, <var>n</var> &gt;&gt; <var>p</var>, by donor impurity doping to strongly p-type, <var>p</var> &gt;&gt; <var>n</var>, by acceptor impurity doping. <strong>Being able to control the conductivity of a semiconductor by selective doping is what enables us to fabricate the variety of electronic devices that are available</strong>.</p>
+            <hr/>
+            <p>Two factors need to be mentioned concerning drift velocity and mobility. The foregoing equations seem to imply that the carrier drift velocities are linear functions of the applied electric field. This is true for relatively small electric fields. As the electric field increases, the carrier drift velocities will reach a maximum value of approximately 107 cm/s. Any further increase in electric field will not produce an increase in drift velocity. This phenomenon is called <dfn>drift velocity saturation</dfn>.</p>
+            <p>The mobility values are actually functions of donor and/or acceptor impurity concentrations. As the impurity concentration increases, the mobility values will decrease. This effect then means that the conductivity is not a linear function of impurity doping.</p>
+            <p>These two factors are important in the design of semiconductor devices, but will not be considered in detail in this page.</p>
+          </section>
+          <section>
+            <h4>Diffusion Current Density</h4>
+            <p>In the diffusion process, particles flow from a region of high concentration to a region of lower concentration. This is a statistical phenomenon related to kinetic theory. To explain, the electrons and holes in a semiconductor are in continuous motion, with an average speed determined by the temperature, and with the directions randomized by interactions with the lattice atoms. Statistically, we can assume that, at any particular instant, approximately half of the particles in the high-concentration region are moving away from that region toward the lower-concentration region. We can also assume that, at the same time, approximately half of the particles in the lower-concentration region are moving toward the high-concentration region. However, by definition, there are fewer particles in the lower-concentration region than there are in the high-concentration region. Therefore, the net result is a flow of particles away from the high-concentration region and toward the lower-concentration region. This is the basic diffusion process.</p>
+            <p>For example, consider an electron concentration that varies as a function of distance <var>x</var><!--, as shown in Figure 1.9(a)-->. The diffusion of electrons from a high-concentration region to a low-concentration region produces a flow of electrons in the negative <var>x</var> direction. Since electrons are negatively charged, the conventional current direction is in the positive <var>x</var> direction.</p>
+            <p>The diffusion current density due to the diffusion of electrons can be written as (for one dimension)</p>
+            <blockquote><var>J<sub>n</sub></var> = <var>e</var> <var>D<sub>n</sub></var>(<var>dn</var>/<var>dx</var>)</blockquote>
+            <p>where <var>e</var>, in this context, is the magnitude of the electronic charge, <var>dn</var>/<var>dx</var> is the gradient of the electron concentration, and <var>D<sub>n</sub></var> is the <dfn>electron diffusion coefficient</dfn>.</p>
+            <p><!--In Figure 1.9(b), t-->[T]he hole concentration is [understood to be] a function of distance. The diffusion of holes from a high-concentration region to a low-concentration region produces a flow of holes in the negative <var>x</var> direction. (Conventional current is in the direction of the flow of positive charge.)</p>
+            <p>The diffusion current density due to the diffusion of holes can be written as (for one dimension)</p>
+            <blockquote><var>J<sub>p</sub></var> = − <var>e</var> <var>D<sub>p</sub></var> (<var>dp</var>/<var>dx</var>)</blockquote>
+            <p>where <var>e</var> is still the magnitude of the electronic charge, <var>dp</var>/<var>dx</var> is the gradient of the hole concentration, and <var>D<sub>p</sub></var> is the hole diffusion coefficient. Note the change in sign between the two diffusion current equations. This change in sign is due to the difference in sign of the electronic charge between the negatively charged electron and the positively charged hole.</p>
+            <blockquote></blockquote>
+            <hr/>
+            <p>The mobility values in the drift current equations and the diffusion coefficient values in the diffusion current equations are not independent quantities. They are related by the <dfn>Einstein relation</dfn>, which is</p>
+            <blockquote>
+            <var>D<sub>n</sub></var> / <var>µ<sub>n</sub></var>
+            = <var>D<sub>p</sub></var> / <var>µ<sub>p</sub></var>
+            = <var>k</var> <var>T</var> / <var>e</var>
+            ~ 0.026 V (approximately)</blockquote>
+            <p>at room temperature.</p>
+            <p>The <em>total</em> current density is the sum of the drift and diffusion components. Fortunately, in most cases only one component dominates the current at any one time in a given region of a semiconductor.</p>
+          </section>
+          <section>
+            <h4>Excess Carriers</h4>
+            <p>Up to this point, we have assumed that the semiconductor is in thermal equilibrium. In the discussion of drift and diffusion currents, we implicitly assumed that equilibrium was not significantly disturbed. Yet, when a voltage is applied to, or a current exists in, a semiconductor device, the semiconductor is really not in equilibrium. In this section, we will discuss the behavior of nonequilibrium electron and hole concentrations.</p>
+            <p>Valence electrons may acquire sufficient energy to break the covalent bond and become free electrons if they interact with high-energy photons incident on the semiconductor. When this occurs, both an electron and a hole are produced, thus generating an electron–hole pair. These additional electrons and holes are called <dfn>excess electrons</dfn> and <dfn>excess holes</dfn>.</p>
+            <p>When these excess electrons and holes are created, the concentrations of free electrons and holes increase above their thermal equilibrium values. This may be represented by</p>
+            <blockquote><var>n</var> = <var>n<sub>o</sub></var> + <var>δ<sub>n</sub></var></blockquote>
+            <p>and</p>
+            <blockquote><var>p</var> = <var>p<sub>o</sub></var> + <var>δ<sub>p</sub></var></blockquote>
+            <p>where <var>n<sub>o</sub></var> and <var>p<sub>o</sub></var> are the thermal equilibrium concentrations of electrons and holes, and <var>δ<sub>n</sub></var> and <var>δ<sub>p</sub></var> are the excess electron and hole concentrations.</p>
+            <p>If the semiconductor is in a steady-state condition, the creation of excess electrons and holes will not cause the carrier concentration to increase indefinitely, because a free electron may recombine with a hole, in a process called <dfn>electron–hole recombination</dfn>. Both the free electron and the hole disappear causing the excess concentration to reach a steady-state value. The mean time over which an excess electron and hole exist before recombination is called the <dfn>excess carrier lifetime</dfn>.</p>
+            <p>Excess carriers are involved in the current mechanisms of, for example, solar cells and photodiodes.</p>
+          </section>
+        </section>
+
+        <section>
+          <h3>The pn Junctions</h3> <!-- p 47 -->
+          <p>In the preceding sections, we looked at characteristics of semiconductor materials. The real power of semiconductor electronics occurs when p- and n-regions are directly adjacent to each other, forming a <dfn>pn junction</dfn>. One important concept to remember is that in most integrated circuit applications, the entire semiconductor material is a single crystal, with one region doped to be p-type and the adjacent region doped to be n-type.</p>
+          <section>
+            <h4>The Equilibrium pn Junction</h4>
+            <!--
+            <p>Figure 1.10(a) is a simplified block diagram of a pn junction. Figure 1.10(b) shows the respective p-type and n-type doping concentrations, assuming uniform doping in each region, as well as the minority carrier concentrations in each region, assuming thermal equilibrium. Figure 1.10(c) is a three-dimensional diagram of the pn junction showing the cross-sectional area of the device.</p>
+            -->
+            <p>The interface at <var>x</var> = 0 is called the <dfn>metallurgical junction</dfn>. A large density gradient in both the hole and electron concentrations occurs across this junction. Initially, then, there is a diffusion of holes from the p-region into the n-region, and a diffusion of electrons from the n-region into the p-region<!-- (Figure 1.11)-->. The flow of holes from the p-region uncovers negatively charged acceptor ions, and the flow of electrons from the n-region uncovers positively charged donor ions. This action creates a charge separation<!-- (Figure 1.12(a))-->, which sets up an electric field oriented in the direction from the positive charge to the negative charge.</p>
+            <p>If no voltage is applied to the pn junction, the diffusion of holes and electrons must eventually cease. The direction of the induced electric field will cause the resulting force to repel the diffusion of holes from the p-region and the diffusion of electrons from the n-region. Thermal equilibrium occurs when the force produced by the electric field and the <q>force</q> produced by the density gradient exactly balance.</p>
+            <p>The positively charged region and the negatively charged region comprise the <dfn>space-charge region</dfn>, or <dfn>depletion region</dfn>, of the pn junction, in which there are essentially no mobile electrons or holes. Because of the electric field in the space-charge region, there is a potential difference across that region<!-- (Figure 1.12(b))-->. This potential difference is called the <dfn>built-in potential barrier</dfn>, or built-in voltage, and is given by</p>
+            <blockquote>
+              <var>V<sub>bi</sub></var> =
+              (<var>k</var> <var>T</var> / <var>e</var>) ln (<var>N<sub>a</sub></var> <var>N<sub>d</sub></var> / <var>n<sub>i</sub><sup>2</sup></var>) =
+              <var>V<sub>T</sub></var> ln (<var>N<sub>a</sub></var> <var>N<sub>d</sub></var> / <var>n<sub>i</sub><sup>2</sup></var>)
+            </blockquote>
+            <p>where <var>V<sub>T</sub></var> ≡ <var>k</var><var>T</var> /<var>e</var>, <var>k</var> = Boltzmann&apos;s constant, <var>T</var> = absolute temperature, <var>e</var> = the magnitude of the electronic charge, and <var>N<sub>a</sub></var> and <var>N<sub>d</sub></var> are the net acceptor and donor concentrations in the p- and n-regions, respectively. The parameter <var>V<sub>T</sub></var> is called the <dfn>thermal</dfn> voltage and is approximately <var>V<sub>T</sub></var> = 0.026 V at room temperature, <var>T</var> = 300 K.</p>
+            <aside>Because of the log function, the magnitude of <var>V<sub>bi</sub></var> is not a strong function of the doping concentrations. Therefore, the value of <var>V<sub>bi</sub></var> for silicon pn junctions is usually within 0.1 to 0.2 V of this calculated value.</aside>
+            <p>The potential difference, or built-in potential barrier, across the space-charge region cannot be measured by a voltmeter because new potential barriers form between the probes of the voltmeter and the semiconductor, canceling the effects of <var>V<sub>bi</sub></var>. In essence, <var>V<sub>bi</sub></var> maintains equilibrium, so no current is produced by this voltage. However, the magnitude of <var>V<sub>bi</sub></var> becomes important when we apply a forward-bias voltage, as discussed later on.</p>
+          </section>
+          <section>
+            <h4></h4>
+            <blockquote></blockquote>
+            <p>...</p>
+            <blockquote></blockquote>
+            <p></p>
+            <blockquote></blockquote>
+            <p>...</p>
+            <blockquote></blockquote>
+          </section>
+          <section>
+            <h4></h4>
+            <blockquote></blockquote>
+            <p></p>
+            <blockquote></blockquote>
+            <p>...</p>
+            <blockquote></blockquote>
+            <p></p>
+            <blockquote></blockquote>
+            <p>...</p>
+            <blockquote></blockquote>
+            <p></p>
+            <blockquote></blockquote>
+          </section>
+        </section>
+
 
         <section id="the-world-is-analog">
           <h3>The World is Analog</h3>
@@ -69,7 +242,7 @@
             <p>Unfortunately, the predominance and glamor of digital has done harm to analog. Too few analog designers are being educated, creating a void. This leaves decisions affecting analog performance to engineers with a primarily digital background.</p>
 
             <p>In integrated circuits, the relentless pressure toward faster digital speed has resulted in ever-decreasing supply voltages, which are anathema to high-performance analog design.</p>
-            <p>In a 350 nm process operating at 3.3 V, there’s still enough headroom for a high-performance analog design, though 5 V would be better. At 180 nm (1.8 V), the job becomes elaborate and time-consuming, and performance starts to suffer. At 120 nm (1.2 V), analog design becomes very difficult, even with reduced performance. At 90 nm, analog design is all but impossible.</p>
+            <p>In a 350 nm process operating at 3.3 V, there&apos;s still enough headroom for a high-performance analog design, though 5 V would be better. At 180 nm (1.8 V), the job becomes elaborate and time-consuming, and performance starts to suffer. At 120 nm (1.2 V), analog design becomes very difficult, even with reduced performance. At 90 nm, analog design is all but impossible.</p>
             <p>There are "mixed signal" processes that purportedly allow digital and analog circuitry on the same chip. A 180 nm process, for example, will have some devices that can work with a higher supply voltage (e.g. 3 V). Such additions are welcome, if marginal. However, the design models are often inadequate and oriented toward digital design.</p>
           </section>
 
@@ -99,12 +272,12 @@
           <section>
             <h4>FPGAs for Maximum Power Point Tracking</h4>
             <p>Consider solar power. Solar farms rely on maximum power point tracking (MPPT) to wring the most energy from photovoltaic panels. Traditionally, this is handled by a microcontroller, but an FPGA can do it faster and more efficiently. Using parallel processing, an FPGA-based controller samples panel voltage and current thousands of times per second and adjusts the power converter in real time. When a cloud passes overhead, the FPGA reacts in microseconds to tweak the operating point, ensuring no watt is wasted.</p>
-            <p>One FPGA can even manage dozens of panels at once, coordinating an entire array for peak output. The payoff is tangible: advanced FPGA-based MPPT can boost a solar installation’s energy harvest by 5–30%. Even a 5% gain on a 100 MW solar farm means an extra 5 MW of clean power delivered without adding a single new panel.</p>
+            <p>One FPGA can even manage dozens of panels at once, coordinating an entire array for peak output. The payoff is tangible: advanced FPGA-based MPPT can boost a solar installation&apos;s energy harvest by 5–30%. Even a 5% gain on a 100 MW solar farm means an extra 5 MW of clean power delivered without adding a single new panel.</p>
           </section>
           <section>
             <h4>Using FPGAs to Manage Turbines</h4>
             <p>Wind turbines present a different challenge but offer similar benefits. Turbine controllers constantly adjust blade pitch and yaw to capture optimal wind energy and avoid damage in high winds. FPGAs can run these control loops with minimal latency, reading sensors and sending out blade adjustments faster than traditional setups. They can detect a sudden gust and feather the blades in milliseconds, then quickly restore optimal angles to keep energy flowing.</p>
-            <p>FPGAs also help smooth out the turbine’s output. Using high-speed DSP blocks, they convert the generator’s wild AC into a steady, grid-synchronized output in real time. The net result is that each turbine operates closer to peak efficiency and delivers more consistent power, even under gusty conditions.</p>
+            <p>FPGAs also help smooth out the turbine&apos;s output. Using high-speed DSP blocks, they convert the generator&apos;s wild AC into a steady, grid-synchronized output in real time. The net result is that each turbine operates closer to peak efficiency and delivers more consistent power, even under gusty conditions.</p>
           </section>
           <section>
             <h4>Controlling Smart Grids</h4>
@@ -114,7 +287,7 @@
           </section>
           <section>
             <h4>Energy Storage and Electric Vehicles</h4>
-            <p>Because renewable generation and consumption don’t often align in time, energy storage is crucial. Large battery farms exist, but there are also countless smaller batteries distributed throughout the grid—in homes, businesses, and electric vehicles—that we can leverage. FPGAs can coordinate these dispersed batteries into a virtual power plant.</p>
+            <p>Because renewable generation and consumption don&apos;t often align in time, energy storage is crucial. Large battery farms exist, but there are also countless smaller batteries distributed throughout the grid—in homes, businesses, and electric vehicles—that we can leverage. FPGAs can coordinate these dispersed batteries into a virtual power plant.</p>
             <p>An FPGA-based battery management system monitors the status of dozens of batteries in real-time, adjusting charging to prevent stress and extend battery life. At a higher level, FPGA controllers decide when batteries should charge or discharge to balance the grid. They might soak up excess solar at midday and feed it back during the evening peak.</p>
             <p>Electric vehicles take this concept to another level. The revenue of the electric vehicles market is projected to reach $990B USD by 2029, which means an enormous number of collective batteries on wheels. With smart control, even a fraction of those EVs supplying power at peak times could cover a significant share of grid demand. Such rapid, decentralized decision-making is exactly what FPGAs excel at.</p>
           </section>
@@ -122,7 +295,7 @@
             <h4>Wrapping Up</h4>
             <p>To optimize our clean power systems, we must embrace advanced control technologies. Though not as celebrated as solar panels or wind turbines, FPGAs are crucial enablers behind the scenes. They ensure every ray of sunshine and every gust of wind is converted into usable electricity, that the grid handles fluctuations without waste, and that batteries deliver when needed.</p>
             <p>The influence of FPGAs in clean energy is only set to grow. New low-power FPGA designs with AI capabilities will make grids even more autonomous and efficient. We can expect self-healing networks that isolate faults and reroute power in microseconds to prevent outages. Communities may run their own microgrids with FPGA controllers, optimizing local energy flow and even enabling peer-to-peer energy trading among neighbors.</p>
-            <p>In an era of urgent climate action, we can't afford to let any efficiency gain slip away—every percentage point counts. By integrating technologies like FPGAs into renewable energy and smart grids, we can accelerate progress toward a truly sustainable, low-carbon future. The clean energy revolution is only half the battle. The other half is making that clean energy smart, and that’s a battle we can win with ingenuity and silicon.</p>
+            <p>In an era of urgent climate action, we can't afford to let any efficiency gain slip away—every percentage point counts. By integrating technologies like FPGAs into renewable energy and smart grids, we can accelerate progress toward a truly sustainable, low-carbon future. The clean energy revolution is only half the battle. The other half is making that clean energy smart, and that&apos;s a battle we can win with ingenuity and silicon.</p>
           </section>
 
 

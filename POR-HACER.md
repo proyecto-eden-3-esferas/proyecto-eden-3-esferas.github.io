@@ -105,6 +105,7 @@ https://libgen.pm/ (Working September 2024 – This is a Library Genesis ‘fork
 
 - https://www.sokaglobal.org/resources/study-materials/buddhist-concepts/practice-for-oneself-and-others.html
 
+- https://akrzemi1.wordpress.com/2011/07/13/parsing-xml-with-boost/
 - https://en.cppreference.com/
 - https://www.modernescpp.com/
 - https://www.modernescpp.com/index.php/table-of-content/
