@@ -27,6 +27,8 @@
         <p><a href="ic.html">Integrated Circuits</a></p>
         <p><a href="verilog.html">Verilog</a>, a Hardware Description Language for Digital Circuits</p>
         <p><a href="arduino.html">Arduino: a User-Friendly Microcontroller Board</a></p>
+        <p><a href="ARM.html">ARM for Advanced Risc Machines: the Commonest 32-bit Architecture</a></p>
+
       </div>
       <div>
         <p><a href="semiconductors.html">Semiconductors</a></p>
@@ -203,7 +205,58 @@
             <p>The potential difference, or built-in potential barrier, across the space-charge region cannot be measured by a voltmeter because new potential barriers form between the probes of the voltmeter and the semiconductor, canceling the effects of <var>V<sub>bi</sub></var>. In essence, <var>V<sub>bi</sub></var> maintains equilibrium, so no current is produced by this voltage. However, the magnitude of <var>V<sub>bi</sub></var> becomes important when we apply a forward-bias voltage, as discussed later on.</p>
           </section>
           <section>
-            <h4></h4>
+            <h4>Reverse-Biased pn Junction</h4>
+            <p>Assume a positive voltage is applied to the n-region of a pn junction<!--, as shown in Figure 1.13-->. The applied voltage <var>V<sub>R</sub></var> induces an applied electric field, <var>E<sub>A</sub></var>, in the semiconductor. The direction of this applied field is the same as that of the <var>E</var>-field in the space-charge region. The magnitude of the electric field in the space-charge region increases above the thermal equilibrium value. This increased electric field holds back the holes in the p-region and the electrons in the n-region, so there is essentially no current across the pn junction. By definition, this applied voltage polarity is called <dfn>reverse bias</dfn>.</p>
+            <p>When the electric field in the space-charge region increases, the number of positive and negative charges must increase. If the doping concentrations are not changed, the increase in the fixed charge can only occur if the width <var>W</var> of the space-charge region increases. Therefore, with an increasing reverse-bias voltage <var>V<sub>R</sub></var>, space-charge width <var>W</var> also increases.<!-- This effect is shown in Figure 1.14.--></p>
+            <p>Because of the additional positive and negative charges induced in the space-charge region with an increase in reverse-bias voltage, a capacitance is associated with the pn junction when a reverse-bias voltage is applied. This <dfn>junction capacitance</dfn>, or depletion layer capacitance, can be written in the form</p>
+            <blockquote>
+              <var>C<sub>j</sub></var> =
+              <var>C<sub>j0</sub></var> ( 1 + <var>V<sub>R</sub></var> / <var>V<sub>bi</sub></var> ) <sup>- 1/2</sup>
+            </blockquote>
+            <p>where <var>C<sub>jo</sub></var> is the junction capacitance at zero applied voltage. The junction capacitance will affect the switching characteristics of the pn junction<!--, as we will see later in the chapter-->. The voltage across a capacitance cannot change instantaneously, so changes in voltages in circuits containing pn junctions will not occur instantaneously.</p>
+            <p>The capacitance–voltage characteristics can make the pn junction useful for electrically tunable resonant circuits. Junctions fabricated specifically for this purpose are called <dfn>varactor diodes</dfn>. Varactor diodes can be used in electrically tunable oscillators, such as a Hartley oscillator<!--, discussed in Chapter 15, or in tuned amplifiers, considered in Chapter 8-->.</p>
+            <p>As implied in the previous section, the magnitude of the electric field in the space-charge region increases as the reverse-bias voltage increases, and the maximum electric field occurs at the metallurgical junction. However, neither the electric field in the space-charge region nor the applied reverse-bias voltage can increase indefinitely because at some point, breakdown will occur and a large reverse bias current will be generated. This concept will be described further on.</p>
+          </section>
+          <section>
+            <h4>Forward-Biased pn Junction</h4>
+            <p>We have seen that the n-region contains many more free electrons than the p-region; similarly, the p-region contains many more holes than the n-region. With zero applied voltage, the built-in potential barrier prevents these majority carriers from diffusing across the space-charge region; thus, the barrier maintains equilibrium between the carrier distributions on either side of the pn junction.</p>
+            <p>If a positive voltage <var>v<sub>D</sub></var> is applied to the p-region, the potential barrier decreases<!-- (Figure 1.15)-->. The electric fields in the space-charge region are very large compared to those in the remainder of the p- and n-regions, so essentially all of the applied voltage exists across the pn junction region. The applied electric field, <var>E<sub>A</sub></var>, induced by the applied voltage is in the opposite direction from that of the thermal equilibrium space-charge <var>E</var>-field. However, the net electric field is always from the n- to the p-region. The net result is that the electric field in the space-charge region is lower than the equilibrium value. This upsets the delicate balance between diffusion and the <var>E</var>-field force. Majority carrier electrons from the n-region diffuse into the p-region, and majority carrier holes from the p-region diffuse into the n-region. The process continues as long as the voltage <var>v<sub>D</sub></var> is applied, thus creating a current in the pn junction. This process would be analogous to lowering a dam wall slightly. A slight drop in the wall height can send a large amount of water (current) over the barrier.</p>
+            <p>This applied voltage polarity (i.e., bias) is known as <dfn>forward bias</dfn>. The forward-bias voltage <var>v<sub>D</sub></var> must always be less than the built-in potential barrier <var>V<sub>bi</sub></var>.</p>
+            <p>As the majority carriers cross into the opposite regions, they become minority carriers in those regions, causing the minority carrier concentrations to increase. <!--Figure 1.16 shows the resulting excess minority carrier concentrations at the space-harge region edges-->. These excess minority carriers diffuse into the neutral n- and p-regions, where they recombine with majority carriers, thus establishing a steady-state condition<!--, as shown in Figure 1.16-->.</p>
+          </section>
+          <section>
+            <h4>Ideal Current–Voltage Relationship</h4>
+            <p><!--As shown in Figure 1.16, -->an applied voltage results in a gradient in the minority carrier concentrations, which in turn causes diffusion currents. The theoretical relationship between the voltage and the current in the pn junction is given by</p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+              <mrow>
+                <mrow> <msub><mi>I</mi><mi>D</mi></msub>  <mo>=</mo> </mrow>
+                <mrow> <msub><mi>I</mi><mi>S</mi></msub>
+                       (
+                       <mrow>
+                         <msup>
+                           <mi>e</mi>
+                           <mfenced>
+                               <mfrac>
+                                 <mrow><mi>V<sub>D</sub></mi></mrow>
+                                 <mrow><mi>n</mi><mi>V<sub>T</sub></mi></mrow>
+                               </mfrac>
+                            </mfenced>
+                         </msup>
+                       </mrow>
+                       <mo>-</mo> <mn>1</mn>
+                       )
+                </mrow>
+              </mrow>
+            </math>
+            <p>The parameter <var>I<sub>S</sub></var> is the <dfn>reverse-bias saturation current</dfn>. For silicon pn junctions, typical values of <var>I<sub>S</sub></var> are in the range of 10<sup>−18</sup> to 10<sup>−12</sup> A. The actual value depends on the doping concentrations and is also proportional to the cross-sectional area of the junction. The parameter <var>V<sub>T</sub></var> is the thermal voltage<!--, as defined in Equation (1.16)-->, and is approximately <var>V<sub>T</sub></var> = 0.026 V at room temperature. The parameter <var>n</var> is usually called the emission coefficient or ideality factor, and its value is in the range 1 ≤ <var>n</var> ≤ 2.</p>
+            <p>The emission coefficient <var>n</var> takes into account any recombination of electrons and holes in the space-charge region. At very low current levels, recombination may be a significant factor and the value of <var>n</var> may be close to 2. At higher current levels, recombination is less a factor, and the value of <var>n</var> will be 1. Unless otherwise stated, we will assume the emission coefficient is <var>n</var> = 1.</p>
+            <p>This pn junction, with nonlinear rectifying current characteristics, is called a <dfn>pn junction diode</dfn>.</p>
+          </section>
+          <section>
+            <h4>pn Junction Diode</h4>
+            <p><!--Figure 1.17 is a plot of the derived current–voltage characteristics of a pn junction.--> For a forward-bias voltage, the current is an exponential function of voltage. <!--Fig- ure 1.18 depicts the forward-bias current plotted on a log scale. -->With only a small change in the forward-bias voltage, the corresponding forward-bias current increases by orders of magnitude. For a forward-bias voltage <var>v<sub>D</sub></var> > +0.1 V, the (−1) term in the equation above can be neglected. In the reverse-bias direction, the current is almost zero.</p>
+            <p><!--Figure 1.19 shows the diode circuit symbol and the conventional current direction and voltage polarity. -->The diode can be thought of and used as a voltage controlled switch that is <q>off</q> for a reverse-bias voltage and <q>on</q> for a forward-bias voltage. In the forward-bias or <q>on</q> state, a relatively large current is produced by a fairly small applied voltage; in the reverse-bias, or <q>off</q> state, only a very small current is created.</p>
+            <p>When a diode is reverse-biased by at least 0.1 V, the diode current is <var>i<sub>D</sub></var> = −<var>I<sub>S</sub></var>. The current is in the reverse direction and is a constant, hence the name reverse-bias saturation current. Real diodes, however, exhibit reverse-bias currents that are considerably larger than <var>I<sub>S</sub></var>. This additional current is called a <dfn>generation current</dfn> and is due to electrons and holes being generated within the space-charge region. Whereas a typical value of <var>I<sub>S</sub></var> may be 10<sup>−14</sup> A, a typical value of reverse-bias current may be 10<sup>−9</sup> A or 1 nA. Even though this current is much larger than <var>I<sub>S</sub></var>, it is still small and negligible in most cases.</p>
             <blockquote></blockquote>
             <p>...</p>
             <blockquote></blockquote>

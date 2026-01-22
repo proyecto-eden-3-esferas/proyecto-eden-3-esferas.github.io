@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG Animations</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="SVG Animations"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+     -->
+      <div>
+        <p> <a rel="prev" href="svg.html">SVG: XML for Drawing</a> </p>
+        <p> <a href="svg.shapes.html">SVG Basic Shapes: <code>Line</code>, <code>Circle</code>...</a> </p>
+        <p> <a href="svg.marker.html">SVG: Markers</a> </p>
+        <p> <a href="svg.transform.html">SVG Transformations</a> </p>
+        <p> <a href="svg.path.html">Complex SVG Paths with <code>path</code></a> </p>
+        <p> <a href="svg.arc.html">Drawing Arcs in SVG</a> </p>
+        <p> <a href="svg.mask-clipPath.html">Mask and Clip Images</a> </p>
+        <p><a href="svg.bb.html">Calculate the Bounding Box of an SVG Element</a> (JavaScript)</p>
+      </div>
+      <div>
+        <p> <a href="https://github.com/proyecto-eden-3-esferas/SVG/">My Code for SVG Schematics <i>et al.</i></a> </p>
+      </div>
+      <div>
+        <p> <a href="svg.use.html">SVG: Using them Elemnts through <code>use</code></a> </p>
+        <p> <a href="svg.g-and-use.html">SVG: Defining Shapes in a Group (<code>g</code>) and Using them</a> </p>
+        <p> <a href="svg.defs-and-use.html">SVG: Defining Elements with an <var>ID</var> within a <code>defs</code> Element</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>SVG Animations</h1>
+      <p>Look at this example of an animation (image and code):</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+width="100%" height="100%">
+  <ellipse id="E" cx="90" cy="90" rx="30" ry="40" fill="#448" fill-opacity="0.33">
+    <animate attributeName="rx" dur="5s" values="20;25;35;40;35;25;20" repeatCount="indefinite"/>
+    <animate attributeName="ry" dur="5s" values="30;35;55;60;55;35;30" repeatCount="indefinite"/>
+  </ellipse>
+</svg>
+
+      <section>
+        <h2>Cycling through a set of Values <code><var>v0</var>, <var>v1</var>...</code> (for Attributes in an Object)</h2>
+        <p>This is the code for the example above:</p>
+          <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+width="100%" height="100%"&gt;
+  &lt;ellipse id="E" cx="90" cy="90" rx="30" ry="40" fill="#448"  fill-opacity="0.33"&gt;
+    &lt;animate attributeName="rx" dur="5s" values="20;90;20" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" dur="5s" values="30;60;30" repeatCount="indefinite"/&gt;
+  &lt;/ellipse&gt;
+&lt;/svg&gt;</pre>
+
+      <p>Inside the ellipse are two &lt;animate&gt; elements. One controls the width, and the other controls the
+height of the ellipse during the animation. The attributes in this example control the following:</p>
+      <dl class="variablelist">
+        <dt>attributeName</dt>
+        <dd>This selects which attribute of the object will be animated.</dd>
+        <dt>dur</dt>
+        <dd>This is a measure (by default specified in seconds) that determines how long the animation will last.</dd>
+        <dt>values</dt>
+        <dd>This is a semicolon-delimited list of attribute values. These are often numeric, but need not be. In this case, there are three values, and the start and end values are the same. This means that the animation will start and stop with the same value.</dd>
+        <dt>repeatCount</dt>
+        <dd>A value of indefinite is the correct choice for animations that are to loop continually. Alternatively, you could put a positive integer here, specifying the number of times that the animation has to repeat.</dd>
+      </dl>
+
+      <p>And here' a fancier animation (image and code):</p>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="100" y="85" rx="12" height="30" width="150" fill="purple" stroke="black" stroke-width="3" />
+  <ellipse cx="100" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="3">
+    <animate attributeName="rx" type="rotate" dur="5s" values="10;70;10" repeatCount="indefinite"/>
+    <animate attributeName="ry" type="rotate" dur="5s" values="30;60;30" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="250" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="3">
+    <animate attributeName="rx" type="rotate" dur="5s" values="70;10;70" repeatCount="indefinite"/>
+    <animate attributeName="ry" type="rotate" dur="5s" values="60;30;60" repeatCount="indefinite"/>
+  </ellipse>
+</svg>
+      <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+&lt;rect x="100" y="85" rx="12" height="30" width="150" fill="purple" stroke="black" stroke-width="3" /&gt;
+  &lt;ellipse cx="100" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="3"&gt;
+    &lt;animate attributeName="rx" type="rotate" dur="5s" values="10;70;10" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" type="rotate" dur="5s" values="30;60;30" repeatCount="indefinite"/&gt;
+  &lt;/ellipse&gt;
+  &lt;ellipse cx="250" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="3"&gt;
+    &lt;animate attributeName="rx" type="rotate" dur="5s" values="70;10;70" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" type="rotate" dur="5s" values="60;30;60" repeatCount="indefinite"/&gt;
+  &lt;/ellipse&gt;
+&lt;/svg&gt;</pre>
+
+      <p>A still fancier one is:</p>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect x="100" y="85" rx="12" height="30" width="150" fill="purple" stroke="black" stroke-width="3" >
+    <animate attributeName="width" dur="3s" values="150;100;150" repeatCount="indefinite"/>
+  </rect>
+  <ellipse id="E" cx="100" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="6" stroke-dasharray="8,4">
+    <animate attributeName="rx" dur="3s" values="10;70;10" repeatCount="indefinite"/>
+    <animate attributeName="ry" dur="5s" values="30;60;30" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="250" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="6" stroke-dasharray="8,4">
+    <animate attributeName="rx" dur="5s" values="70;10;70" repeatCount="indefinite"/>
+    <animate attributeName="ry" dur="3s" values="60;30;60" repeatCount="indefinite"/>
+    <animate attributeName="cx" dur="3s" values="250;200;250" repeatCount="indefinite"/>
+  </ellipse>
+</svg>
+      <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+  &lt;rect x="100" y="85" rx="12" height="30" width="150" fill="purple" stroke="black" stroke-width="3" &gt;
+    &lt;animate attributeName="width" dur="3s" values="150;100;150" repeatCount="indefinite"/&gt;
+  &lt;/rect&gt;
+  &lt;ellipse id="E" cx="100" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="6" stroke-dasharray="8,4"&gt;
+    &lt;animate attributeName="rx" dur="3s" values="10;70;10" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" dur="5s" values="30;60;30" repeatCount="indefinite"/&gt;
+  &lt;/ellipse&gt;
+  &lt;ellipse cx="250" cy="100" rx="30" ry="40" fill="#448" opacity=".75" stroke="black" stroke-width="6" stroke-dasharray="8,4"&gt;
+    &lt;animate attributeName="rx" dur="5s" values="70;10;70" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" dur="3s" values="60;30;60" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="cx" dur="3s" values="250;200;250" repeatCount="indefinite"/&gt;
+  &lt;/ellipse&gt;
+&lt;/svg&gt;
+</pre>
+      <p>This example adds a stroke-dasharray attribute to the ellipses and lets the position of the center of the second ellipse and the width of the rectangle vary (in synchrony with one another). This demonstrates that desynchronizing and synchronizing can yield rather fascinating effects. While this example appears to make the object rotate, this is simply because the circumference of the ellipse is changing (as rx and ry change). Also, because dash arrays are allocated in terms of absolute units (pixel widths), the number of dash segments needed to cover the ellipse also varies.</p>
+
+      <hr/>
+
+        <p>There is a better way of rotating objects than by animating the stroke. You can use the &lt;animateTransform&gt; element to change the scale, position, or rotation of an object. Observe this nifty extension of the preceding example, which uses &lt;animateTransform&gt;.</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <ellipse id="One" cx="200" cy="100" rx="30" ry="40" fill="#555">
+    <animate attributeName="rx" type="rotate" dur="5s" values="50;20;50" repeatCount="indefinite"/>
+    <animate attributeName="ry" type="rotate" dur="5s" values="10;60;10" repeatCount="indefinite"/>
+  </ellipse>
+  <use id="Two" xlink:href="#One" fill-opacity=".35" stroke="#d06" stroke-width="3">
+    <animateTransform attributeName="transform" type="rotate" dur="5s" from="0 200 100" to="360 200 100" repeatCount="indefinite"/>
+  </use>
+  <use xlink:href="#One" transform="translate(100,0)" />
+  <use xlink:href="#Two" transform="translate(-100,0)" />
+</svg>
+
+        <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+  &lt;ellipse id="One" cx="200" cy="100" rx="30" ry="40" fill="#555"&gt;
+    &lt;animate attributeName="rx" type="rotate" dur="5s" values="50;20;50" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" type="rotate" dur="5s" values="10;60;10" repeatCount="indefinite"/&gt;
+  &lt;/ellipse&gt;
+  &lt;use id="Two" xlink:href="#One" fill-opacity=".35" stroke="#d06" stroke-width="3"&gt;
+    &lt;animateTransform attributeName="transform" type="rotate" dur="5s" from="0 200 100" to="360 200 100" repeatCount="indefinite"/&gt;
+  &lt;/use&gt;
+  &lt;use xlink:href="#One" transform="translate(100,0)" /&gt;
+  &lt;use xlink:href="#Two" transform="translate(-100,0)" /&gt;
+&lt;/svg&gt;</pre>
+        <p>This example starts with a basic ellipse ("One") colored dark gray (#555) and animates both its x and y radii. It then reuses the ellipse three times: once in the same location ("Two"), once to the left, and once to the right. This example lets you see that the two gray ellipses oscillate only vertically and horizontally. However, both the reddish ellipses have an animation applied through an &lt;animateTransform&gt;, a child of the &lt;use&gt; element, so that they may be rotated as well. This should serve to demonstrate that rotation adds a new property to the ellipses. Note that because of the frequencies of oscillation, the reddish oval coincides precisely with the gray one four times in every five-second cycle&#x2014;which you can see by pausing the animation.</p>
+        <p>Here's a more adventurous example using similar ellipses that both oscillate and rotate as a part of a clip path applied to an image that is then tiled through a pattern. SVG also has an &lt;animateColor&gt; element, intended for gradually changing colors over time; however, it has been deprecated. Instead, SVG provides the ability to animate nonnumeric values using a simple &lt;animate&gt; element with color names. So, you can use code such as the following to vary the fill of the gray ellipse above concurrently with some of its other attributes.</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <ellipse id="One" cx="200" cy="100" rx="30" ry="40" fill="#555">
+    <animate attributeName="rx" type="rotate" dur="20s" values="50;20;50" repeatCount="indefinite"/>
+    <animate attributeName="ry" type="rotate" dur="20s" values="10;60;10" repeatCount="indefinite"/>
+    <animate attributeName="fill" type="rotate" dur="20s" repeatCount="indefinite" values="red;plum;yellowgreen;red" />
+  </ellipse>
+</svg>
+
+        <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+  &lt;ellipse id="One" cx="200" cy="100" rx="30" ry="40" fill="#555"&gt;
+    &lt;animate attributeName="rx" type="rotate" dur="20s" values="50;20;50" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="ry" type="rotate" dur="20s" values="10;60;10" repeatCount="indefinite"/&gt;
+    &lt;animate attributeName="fill" type="rotate" dur="20s" repeatCount="indefinite" values="red;plum;yellowgreen;red" /&gt;
+  &lt;/ellipse&gt;
+&lt;/svg&gt;</pre>
+      </section>
+
+      <section id="animateMotion">
+        <h2>Motion Along a Path with <code>&lt;animateMotion&gt;</code></h2>
+        <p>Now let' play a bit more with the positioning of these ellipses by using &lt;animateMotion&gt; to make them follow a curve.</p>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80%" height="80%">
+<path id="curve" stroke="black" stroke-width="3" opacity=".75"
+  d="M 0,200
+  C 100,200 0,   100, 100,100 C 200,100 100,200 200,200
+  C 300,200 200, 100, 300,100 C 400,100 300,200 400,200
+  C 500,200 400, 100, 500,100 C 600,100 500,200 600,200 z" >
+  </path>
+  <ellipse id="One" cx="0" cy="0" rx="20" ry="10" fill="inherit" opacity=".75" stroke="black" stroke-width="2">
+    <animateMotion dur="10s" rotate="auto" repeatCount="indefinite">
+      <mpath xlink:href="#curve"/>
+    </animateMotion>
+  </ellipse>
+  </svg>
+
+        <pre>&lt;path id="curve" stroke="black" stroke-width="3" opacity=".75"
+  d="M 0,200
+  C 100,200 0,   100, 100,100 C 200,100 100,200 200,200
+  C 300,200 200, 100, 300,100 C 400,100 300,200 400,200
+  C 500,200 400, 100, 500,100 C 600,100 500,200 600,200 z" &gt;
+  &lt;/path&gt;
+  &lt;ellipse id="One" cx="0" cy="0" rx="20" ry="10" fill="inherit" opacity=".75" stroke="black" stroke-width="2"&gt;
+    &lt;animateMotion dur="10s" rotate="auto" repeatCount="indefinite"&gt;
+      &lt;mpath xlink:href="#curve"/&gt;
+    &lt;/animateMotion&gt;
+  &lt;/ellipse&gt;</pre>
+        <p>This example draws three identical mounds (each 200 pixels to the right of the previous one). The path is closed by the z subcommand.</p>
+        <p>First, it is important to point out that the locus of the ellipse is specified to be on the curve by setting its center, (cx,cy), to (0,0). Also notice that the ellipse takes its orientation from the curve itself, due to the rotate="auto" attribute. Also, because the distance traversed by the moving ellipse is greater along the mounds than it is along the straight line, and because its apparent speed remains constant, it takes less time to traverse the line than it does to traverse the mounds.</p>
+      </section>
+      <section>
+        <h2>Multivalued Interpolation for <code>d</code> Values in a <code>svg::path</code></h2>
+        <p>In multivalued interpolation attribute values are not single scalar values, but collections of values. To use it, you set up an interpolation between two paths. The only restriction is that the paths must have the same number of coordinates and the same types of subcommands (such as L, Q, C, or A) for the animation to work.</p>
+        <p>Consider the following example (visible at http://granite.sru.edu/~ddailey/svg/animoval8.svg), which animates two vertices of a path:</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80%" height="80%">
+<path id="curve" stroke="black" fill="yellowgreen" stroke-width="3" fill-opacity=".5" >
+  <animate attributeName="d" dur="3s"
+    values=" M 100,0  0,100 70,50  130,150 200,100 z;
+             M 100,50 0,100 70,150 130, 75 200,100 z;
+             M 100,0  0,100 70,50  130,150 200,100 z" repeatCount="indefinite"/>
+</path>
+</svg>
+
+        <pre>&lt;path id="curve" stroke="black" fill="yellowgreen" stroke-width="3" fill-opacity=".5" &gt;
+  &lt;animate attributeName="d" dur="3s"
+    values=" M 100,0 0,100 70,50 130,150 200,100 z;
+             M 100,0 0,100 70,150 130, 50 200,100 z;
+             M 100,0 0,100 70,50 130,150 200,100 z" repeatCount="indefinite"/&gt;
+&lt;/path&gt;</pre>
+        <p>The key to understanding this example is to observe that the path's shape, d, is governed by three values (separated from one another by semicolons and typeset on separate lines for ease of reading). The first and last of those strings of coordinates are the same, and each string has exactly five points. The pentagon is animated by repeatedly morphing between the two shapes shown at the right of the illustration. Furthermore, by examining the first, second, and last points of the pentagon, you can see that we keep three of the vertices unchanged. Only the points where x equals 70 and 130 will be changed. As one of these vertices moves down the page from (70,50) to (70,150), the other will move up the same distance. The starting and middle values of the path are shown at the right of the animation.</p>
+      </section>
+      <section>
+        <h2>Interacting with Animations</h2>
+        <p>SVG animations can be started or stopped based on user-generated events, such as mouse clicks and rollovers. Let's start with a simple example and work up from there.</p>
+        <p>In this example (visible at http://granite.sru.edu/~ddailey/svg/animstart0.svg), an ellipse is instructed to move along a curved path, as in previous examples. The difference, though, is that the animation does not begin until an object (G) is clicked.</p>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+width="100%" height="100%">
+  <path id="curve" stroke="black" fill="none" stroke-width="3" fill-opacity=".5"
+  d="M 0,100 C 100,150 100,50 200,50 C 300,50 300,150 400,100" />
+  <ellipse cx="0" cy="0" rx="16" ry="8" fill="orange" opacity=".85" stroke="black"
+    stroke-width="2">
+    <animateMotion dur="3s" rotate="auto" repeatCount="2" begin="G.click">
+      <mpath xlink:href="#curve"/>
+    </animateMotion>
+  </ellipse>
+  <g id="G">
+    <ellipse cx="200" cy="90" rx="33" ry="15" fill="yellow" stroke="black" stroke-width="2" />
+    <text x="175" y="101" font-size="31" fill="black" font-family="arial">GO</text>
+  </g>
+</svg>
+
+        <pre>&lt;path id="curve" stroke="black" fill="none" stroke-width="3" fill-opacity=".5"
+  d="M 0,100 C 100,150 100,50 200,50 C 300,50 300,150 400,100" /&gt;
+  &lt;ellipse cx="0" cy="0" rx="16" ry="8" fill="orange" opacity=".85" stroke="black"
+    stroke-width="2"&gt;
+    &lt;animateMotion dur="3s" rotate="auto" repeatCount="2" begin="G.click"&gt;
+      &lt;mpath xlink:href="#curve"/&gt;
+    &lt;/animateMotion&gt;
+  &lt;/ellipse&gt;
+  &lt;g id="G"&gt;
+    &lt;ellipse cx="200" cy="90" rx="33" ry="15" fill="yellow" stroke="black" stroke-width="2" /&gt;
+    &lt;text x="175" y="101" font-size="31" fill="black" font-family="arial"&gt;GO&lt;/text&gt;
+  &lt;/g&gt;</pre>
+        <p>Here is how it works. First, the &lt;animate&gt; element contains the attribute begin="G.click". This means that the action specified by the animation will begin exactly when an object having the id of G is clicked. Second, the object G is actually a group containing both an ellipse and some text. The reason for grouping them together is that ultimately, the developer cannot be sure whether the user will actually click the oval or the text object. By grouping them, the developer ensures that whichever one is clicked results in the animation activation. Third, the animation is instructed to run exactly twice, using the attribute repeatCount="2".</p>
+        <p>A minor annoyance (which is actually two different minor annoyances that happen to look like one) is that when the animation is not running, part of the ellipse is visible at the corner of the page. This is because the ellipse has its centroid set to the coordinate (0,0), which is necessary to have the ellipse centered on the curve throughout the animation. Fortunately, there are ways to work around this, as you will see in the next example (visible at http://granite.sru.edu/~ddailey/svg/animstart0a.svg).</p>
+
+        <p>Consider this example:</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path id="curve" stroke="black" fill="none" stroke-width="3" fill-opacity=".5"
+    d="M 0,100 C 100,150 100,50 200,50 C 300,50 300,150 400,100" />
+  <ellipse id="One" cx="0" cy="0" rx="16" ry="8" fill="orange" opacity="0" stroke="black" stroke-width="2">
+    <set attributeName="opacity" to=".75" begin="G.click" />
+    <animateMotion id="A" dur="3s" rotate="auto" repeatCount="2" begin="G.click" fill="freeze">
+      <mpath xlink:href="#curve"/>
+    </animateMotion>
+  </ellipse>
+  <g id="G">
+    <ellipse cx="200" cy="90" rx="33" ry="15" fill="yellow" stroke="black" stroke-width="2" />
+    <text x="175" y="101" font-size="31" fill="black" font-family="arial">GO</text>
+  </g>
+</svg>
+
+        <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+  &lt;path id="curve" stroke="black" fill="none" stroke-width="3" fill-opacity=".5"
+    d="M 0,100 C 100,150 100,50 200,50 C 300,50 300,150 400,100" /&gt;
+  &lt;ellipse id="One" cx="0" cy="0" rx="16" ry="8" fill="orange" opacity="0" stroke="black" stroke-width="2"&gt;
+    &lt;set attributeName="opacity" to=".75" begin="G.click" /&gt;
+    &lt;animateMotion id="A" dur="3s" rotate="auto" repeatCount="2" begin="G.click" fill="freeze"&gt;
+      &lt;mpath xlink:href="#curve"/&gt;
+    &lt;/animateMotion&gt;
+  &lt;/ellipse&gt;
+  &lt;g id="G"&gt;
+    &lt;ellipse cx="200" cy="90" rx="33" ry="15" fill="yellow" stroke="black" stroke-width="2" /&gt;
+    &lt;text x="175" y="101" font-size="31" fill="black" font-family="arial"&gt;GO&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+
+        <section>
+          <h3><code>&lt;set&gt;</code> and the <code>freeze</code> Attribute Value</h3>
+          <p>The preceding example employs two new aspects of SVG animation: the &lt;set&gt; element and the "freeze" value of the fill attribute. These accomplish two rather different effects.</p>
+          <p>The &lt;set&gt; element allows you to simply change the value of an attribute based on an event (either generated by the user or by the passage of time). Initially, the ellipse is invisible (opacity="0"); however, when G is clicked, in addition to the &lt;animateMotion&gt; starting as before, the &lt;set&gt; element makes the ellipse visible by changing the opacity value.</p>
+          <p>At the end of this animation, the fill="freeze" attribute specifies that the ellipse will remain at the last values specified&#x2014;namely, at the end of the curve.</p>
+          <p>You could instead make the ellipse disappear at the end of the animation (as in the example at http://granite.sru.edu/~ddailey/svg/animstart0b.svg) by simply putting two &lt;set&gt; elements inside the &lt;ellipse&gt; element, like this:</p>
+          <pre>&lt;ellipse id="One" cx="0" cy="0" rx="16" ry="8" fill="orange" opacity="0"
+  stroke="black" stroke-width="2"&gt;
+  &lt;set attributeName="opacity" to=".75" begin="G.click" /&gt;
+  &lt;set attributeName="opacity" to="0" begin="A.end" /&gt;
+  &lt;animateMotion id="A" dur="3s" rotate="auto" repeatCount="2" begin="G.click"&gt;
+    &lt;mpath xlink:href="#curve"/&gt;
+  &lt;/animateMotion&gt;
+&lt;/ellipse&gt;</pre>
+          <p>Some more events are exemplified in the following:</p>
+          <pre>&lt;set attributeName="fill" to="green" begin="G.mouseover" /&gt;
+&lt;set attributeName="opacity" to=".75" begin="G.click+3" /&gt;
+&lt;set attributeName="fill" to="yellow" begin="G.mouseout" /&gt;</pre>
+          <p>You can simulate a countdown by toggling display between "block" and "none", like this:</p>
+          <pre>&lt;text x="180" y="40" font-size="35" fill="black" font-family="arial" display="none"&gt;
+  &lt;set attributeName="display" to="block" begin="G.click" /&gt;
+  &lt;set attributeName="display" to="none" begin="G.click+1" /&gt;
+  // 3
+&lt;/text&gt;
+&lt;text x="180" y="40" font-size="35" fill="black" font-family="arial" display="none"&gt;
+  &lt;set attributeName="display" to="block" begin="G.click+1" /&gt;
+  &lt;set attributeName="display" to="none" begin="G.click+2" /&gt;
+  // 2
+&lt;/text&gt;
+&lt;text x="180" y="40" font-size="35" fill="black" font-family="arial" display="none"&gt;
+  &lt;set attributeName="display" to="block" begin="G.click+2" /&gt;
+  &lt;set attributeName="display" to="none" begin="G.click+3" /&gt;
+  // 1
+&lt;/text&gt;</pre>
+        </section>
+      </section>
+
+      <section id="rotation-around-a-point">
+        <h2>Animating Rotations around a Point (<var>cx</var>, <var>cy</var>)</h2>
+        <p>The <code>&lt;animateTransform></code> element animates the transform attribute on the target element. The <code>&lt;animateTransform></code> element should be nested inside the target element.</p>
+        <p>In this example, we create a red rectangle that will rotate:</p>
+ <svg width="200" height="180" xmlns="http://www.w3.org/2000/svg">
+  <rect x="30" y="30" height="110" width="110" style="stroke:green;fill:red">
+    <animateTransform
+      attributeName="transform"
+      begin="0s"
+      dur="10s"
+      type="rotate"
+      from="0 85 85"
+      to="360 85 85"
+      repeatCount="indefinite" />
+  </rect>
+</svg>
+
+        <pre>&lt;svg width="200" height="180" xmlns="http://www.w3.org/2000/svg">
+  &lt;rect x="30" y="30" height="110" width="110" style="stroke:green;fill:red">
+    &lt;animateTransform
+      attributeName="transform"
+      begin="0s"
+      dur="10s"
+      type="rotate"
+      from="0 85 85"
+      to="360 85 85"
+      repeatCount="indefinite" />
+  &lt;/rect>
+&lt;/svg></pre>
+        <!--
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+    </main>
+  </body>
+</html>
