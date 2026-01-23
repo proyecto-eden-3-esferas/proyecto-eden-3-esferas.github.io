@@ -10,6 +10,16 @@
     <meta name="keywords" content="KW1, KW2, KW3"/>
     <meta name="author" content="AUTHOR"/>
     -->
+    <style>
+    body nav {
+      background-image: url("animated-gears.svg");
+      /*
+      background-size: 400 400;
+      background-size: 400;
+      */
+      background-size: 100%;
+    }
+    </style>
   </head>
   <body lang="en" class="technology">
     <nav>
@@ -37,7 +47,7 @@
     </nav>
 
     <main>
-      <h1>Mechanical Engineering</h1>iting your page!
+      <h1>Mechanical Engineering</h1>
       <blockquote>
         <p><dfn>Mechanical engineering</dfn> is a broad engineering discipline that applies principles of physics and mathematics to design, analyze, manufacture, and maintain mechanical systems. It involves creating and improving anything that moves, from tiny sensors to large-scale machinery, and is a crucial field for industries like aerospace, automotive, energy, and robotics. Mechanical engineers use their knowledge of subjects like mechanics, thermodynamics, and materials science to ensure designs are safe, efficient, and cost-effective</p>
         <p style="text-align: right">(From <cite>AI Overview</cite>, by Google)</p>
@@ -75,6 +85,139 @@
         <p>Different gear types are used in machines as they can be designed for a range of forces from a range of materials. They can also be used to increase/decrease rotational velocity as well as change the direction of rotation.</p>
         <p>Gears can also be used to pump liquids as in the case of gear pumps for fuel oil and lubrication oil for instance. They mesh so well (forming a positive displacement pump) that the liquid is pushed ahead with high delivery pressures.</p>
         <p>They are also used in <strong>chain blocks</strong> to lift heavy objects easily. Thus, gears are a core component of most equipment as they are quite versatile and able to perform a variety of tasks.</p>
+
+        <section id="gear-terminology">
+          <h3>Gear Terminology</h3>
+          <!--
+          https://khkgears.net/new/gear_knowledge/abcs_of_gears-b/basic_gear_terminology_calculation.html
+          -->
+          <p>Using ISO (International Organization for Standardization) guidelines, <dfn>Module Size</dfn> is designated as the unit representing gear tooth-sizes. However, other methods are used too.</p>
+          <p>If you multiply Module by Pi, you can obtain Pitch (<var>p</var>). <dfn>Pitch</dfn> is the distance between corresponding points on adjacent teeth.</p>
+          <p><dfn>Circular Pitch</dfn> (<var>CP</var>) denotes the [number of] reference pitch (<var>p</var>). For instance, you can produce gears at an exact integral value, such as CP5/CP10/CP15/CP20.</p>
+          <aside>
+            <p>Transformation from CP to Module:</p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+              <mi>m</mi> <mo>=</mo> <mi>C</mi> / <mi>n</mi>
+            </math>
+          </aside>
+          <p>The <dfn>reference line</dfn> is a circle running between the <strong>tooth tip</strong> and the <strong>tooth root</strong> lines.</p>
+          <p>The <dfn>tooth thickness</dfn> is the thickness of a tooth across the said reference line. The tooth thickness is basically half the pitch.</p>
+          <p>The distance from the reference line to the tooth tip is called <dfn>addendum</dfn>. The distance from the reference line to the tooth root is called <dfn>dedendum</dfn>.</p>
+
+          <table border="1">
+            <caption>Gear Symbols and Nomenclature</caption>
+            <thead>
+              <tr> <th>Term</th> <th>Symbol</th> </tr>
+            </thead>
+            <tbody>
+              <tr> <td>Module</td> <td><var>m</var></td> </tr>
+              <tr> <td>Tooth Thickness</td> <td><var>s</var></td> </tr>
+              <tr> <td>Pressure Angle</td> <td><var>α</var></td> </tr>
+              <tr> <td>Reference Diameter</td> <td><var>d</var></td> </tr>
+              <tr> <td>Number of Tooth</td> <td><var>z</var></td> </tr>
+              <tr> <td>Tip Diameter</td> <td><var>d<sub>a</sub></var></td> </tr>
+              <tr> <td>Pitch</td> <td><var>p</var></td> </tr>
+              <tr> <td>Root Diameter</td> <td><var>d<sub>f</sub></var></td> </tr>
+              <tr> <td>Tooth Depth</td> <td><var>h</var></td> </tr>
+              <tr> <td>Center Distance</td> <td><var>a</var></td> </tr>
+              <tr> <td>Addendum</td> <td><var>h<sub>a</sub></var></td> </tr>
+              <tr> <td>Backlash</td> <td><var>j</var></td> </tr>
+              <tr> <td>Dedendum</td> <td><var>h<sub>f</sub></var></td> </tr>
+              <tr> <td>Tip and Root Clearance</td> <td><var>c</var></td> </tr>
+            </tbody>
+          </table>
+
+        </section>
+
+        <section>
+          <h3>Center Distance and Backlash</h3>
+          <p>When a pair of gears are meshed so that their reference circles are in contact, the center distance (<var>a</var>) is half the sum total of their reference diameters.</p>
+          <p>Center distance (<var>a</var>)</p>
+          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+            <mi>a</mi> <mo>=</mo> ( <msub><mi>d</mi><mn>1</mn></msub> + <msub><mi>d</mi><mn>2</mn></msub> )
+            <mo>/</mo> <mn>2</mn>
+          </math>
+          <p>Gears can mesh as assumed so far. However, it is important to consider a proper backlash (play) so that the gears can work smoothly. <dfn>Backlash</dfn> is a play between tooth surfaces of paired gears in mesh.</p>
+          <p>Mating gears also have a clearance (play) vertical to tooth depth. This is called <dfn>Tip and Root Clearance</dfn> (<var>c</var>), the distance between tooth root and the tooth tip of mating gears.</p>
+          <p>Tip and Root Clearance (<var>c</var>): <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"> <mi>c</mi> = <mn>1.25</mn><mi>m</mi> <mo>-</mo> <mn>1.00</mn><mi>m</mi> <mo>=</mo> <mn>0.25</mn> <mi>m</mi>
+          </math></p>
+        </section>
+
+        <section>
+          <h3>Helical Gears</h3>
+          <p>Spur gears with helicoid teeth are called <dfn>helical gears</dfn>.</p>
+          <p>[...]</p>
+        </section>
+
+        <section>
+          <h3>Troubleshooting Gears : Explanation of Terminology</h3>
+          <dl>
+            <dt>Pitting</dt>
+            <dd>
+              <p>When the gear surface is repeatedly subjected to load and the force near the contact point exceeds the material's fatigue limit, fine cracks occur and eventually develop into separation of small pieces, thereby creating pits (craters).</p>
+            </dd>
+            <dt>Initial Stage Pitting</dt>
+            <dd>
+             <p>The initial cause comes from small convex portions of the gear surfaces contacting each other and the local load exceeding the fatigue limit. As gears are driven and surfaces become worn in, local convex portions disappear and the load is equalized and pitting stops.</p>
+            </dd>
+            <dt>Progressive Pitting</dt>
+            <dd>
+              <p>Even after gear surfaces are worn in and load is equalized, with time more pitting starts to occur and pits get enlarged.</p>
+              <p>These are some of the possible reasons of progressive pitting.</p>
+              <ol>
+                <li>When an overload condition exists and the gear surface load exceeds the fatigue limit of the material.</li>
+                <li>While being driven, the load distribution could become uneven across the gear face due to various parts' deflection causing the fatigue limit to become exceeded.</li>
+              </ol>
+            </dd>
+            <dt>Scoring</dt>
+            <dd>
+              <p>This is the condition in which the lubricant coating breaks down due to overheating of local contact areas causing the deterioration of the gear surface from metal to metal contact. It is possible for this condition to progress from moderate to break down.</p>
+            </dd>
+            <dt>Slotting</dt>
+            <dd>
+              <p>In the direction of gear sliding, groove like condition appears. This is part of abrasive wear and the following causes are possibilities.</p>
+              <ol>
+                <li>Wear from a solid foreign object larger than the oil film thickness getting caught in the gear mesh.</li>
+                <li>Wear from a solid foreign object buried for some reason in the opposing gear tooth.</li>
+                <li>Wear from the hard convex portion of the opposing gear tooth digging into the meshing gear.</li>
+              </ol>
+            </dd>
+            <dt>Abrasion Wear</dt>
+            <dd>
+              <p>Wear that looks like an injury from abrasion or has the appearance of lapping. Below are some of the causes.</p>
+              <ol>
+                <li>Possible wear occurring from solid foreign objects mixed in the lubricant (such as metal wear debris, burr, scale, sand, etc.).</li>
+                <li>Wear from the difference in hardness of two meshing gears in which the hard convex portion digs into the softer gear surface.</li>
+              </ol>
+            </dd>
+            <dt>Adhesion Wear</dt>
+            <dd>
+              <p>Wear commonly occurring between metals in sliding contact. Wear reduction is related to type, pressure, speed, distance and lubrication.</p>
+              <p>A minute portion of the material in contact welds (adheres) and the wear mechanism comes from peeling off of these by shearing force.</p>
+            </dd>
+            <dt>Spalling</dt>
+            <dd>
+              <p>This refers to the symptom of relatively large metal chips falling off from the gear surface due to material fatigue below the surface from high load. The gear surface's concave part is large and the shape and the depth are irregular. Because the applied shear force exceeds the material's fatigue limit, fatigue cracks appear and grow leading to possible breakage of the tooth.</p>
+            </dd>
+            <dt>Excessive Wear</dt>
+            <dd>
+              <p>Wear from the gear surface being subjected to intense repeated metal to metal contact which occurs when the oil film is thin and the lubrication is insufficient relative to the load and surface roughness of the gear. This condition tends to occur when operating at very low speed and high load.</p>
+            </dd>
+            <dt>Overload Breakage</dt>
+            <dd>
+              <p>Breakage that comes from an unexpectedly heavy load for one or several action cycles (Normally, mistakes in design or manufacturing are not included). The fracture surface spreads fibrously from a starting point and indicates a sudden splitting. The cause is due to the load exceeding the tensile strength of the gear material. This may come from the prime mover, driven mechanism or breakage of bearings or other gears which could cause biting of teeth, sudden stop, or concentration of load due to irregular tooth contact.</p>
+            </dd>
+            <dt>Fatigue Breakage</dt>
+            <dd>
+              <p>This is the case in which the root portions of gear are subjected to a repeated load exceeding the material's fatigue limit. A fracture that starts in the corner of the gear root propagates until the tooth breaks. The fractured surface is relatively smooth and the starting point can often be recognized by the beach mark (shell pattern) around it.</p>
+            </dd>
+            <dt>Shear Breakage</dt>
+            <dd>
+              <p>This describes when a tooth separates from the body by shearing due to a one time extreme overload. The breakage is straight in the circumferential direction and appear flat as if machined. The nearby area shows plastic deformation. It happens when the applied force exceeds the shear strength of the material. It happens when a high stiffness and strength gear is meshed with a gear which has a relatively low modulus of elasticity and weak material.</p>
+            </dd>
+          </dl>
+        </section>
+
         <section>
           <h3>The Shape of Gear Teeth</h3>
           <p>Most modern gear teeth have an <dfn>involute curve</dfn> shape, which is formed by unwinding a taut string from a cylinder or drum. This shape ensures smooth contact between teeth, allowing for efficient and constant-velocity power transmission. Other profiles like <strong>cycloidal</strong> and <strong>trochoid</strong> exist, but the involute is the most common.</p>
