@@ -23,15 +23,36 @@
       -->
       <div>
         <p><a            href="cpp.classes.html">OOP in C++: Classes</a></p>
-        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
-        <p><a            href="computing.html">Computing</a></p>
-        <p><a            href="index.en.html">Home</a></p>
+        <p><a rel="prev" href="cpp.classes.inheritance.html">Class Inheritance in C++</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
       </div>
 
     </nav>
 
     <main>
       <h1>Virtual Member Functions in C++</h1>
+
+      <section id="final">
+        <h2>Final Virtual Functions (since C++  11)</h2>
+        <p>When used in a virtual function declaration or definition, the <code>final</code> specifier ensures that the function is virtual and specifies that it may not be overridden by derived classes. The program is ill-formed (a compile-time error is generated) otherwise.</p>
+        <p>An example:</p>
+        <pre>struct Base
+{
+    virtual void foo();
+};
+
+struct A : Base
+{
+    void foo() final; // Base::foo is overridden and A::foo is the final override
+    void bar() final; // Error: bar cannot be final as it is non-virtual
+};
+
+struct B : A
+{
+    void foo() override; // Error: foo cannot be overridden as it is final in A
+};</pre>
+        <aside>An analogous behaviour is found in classes marked as <a target="_blank" href="cpp.classes.inheritance.html#final">final</a>: they cannot be derived from.</aside>
+      </section>
 
     </main>
 

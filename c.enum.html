@@ -22,6 +22,7 @@
       -->
 
       <div>
+        <p><a href="#fwd_declaration">Forward Declaration of an <code>enum</code> in C++ 11</a></p>
         <p><a rel="prev" href="c.html">The C Programming Language</a></p>
         <p><a rel="next" href="cpp.enum-class.html">C++ <code>enum class</code>: an Encapsulated Enumeration</a></p>
         <p><a            href="c.io.html">Input/Output in C</a></p>
@@ -57,7 +58,7 @@
       <aside>
         <h2>Why And When To Use Enums?</h2>
         <p>Enums are used to give names to constants, which makes the code easier to read and maintain.</p>
-        <p>Use enums when you have values that you know aren't going to change, like month days, days, colors, deck of cards, etc.</p>
+        <p>Use enums when you have values that you know aren&apos;t going to change, like month days, days, colors, deck of cards, etc.</p>
       </aside>
 
       <p>By default, the first item (LOW) has the value 0, the second (MEDIUM) has the value 1, etc. Therefore, if you now try to print <var>myVar</var>, it will output 1, which represents MEDIUM:</p>
@@ -109,6 +110,16 @@ int main() {
   }
   return 0;
 }</pre>
+      </section>
+
+      <section id="fwd_declaration">
+        <h2>Forward Declaration of an <code>enum</code> in C++ 11</h2>
+        <p>Forward declaration of enums is possible since C++11. Previously, the reason enum types couldn&apos;t be forward declared was because the size of the enumeration depended on its contents. As long as the size of the enumeration is specified by the application, it can be forward declared:</p>
+        <pre>enum eye_colour_enum : unsigned int;
+enum eye_colour_enum {black, brown, green, blue};</pre>
+        <p>Notice that you do not need to specify the underlying type with an <code>enum class</code>:</p>
+        <pre>enum class size_enum; // perfectly legal
+enum size_enum {tiny, small, large};</pre>
       </section>
 
     </main>

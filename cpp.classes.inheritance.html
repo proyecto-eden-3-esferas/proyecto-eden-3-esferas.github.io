@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OOP in C++: Classes</title>
+    <title>Class Inheritance in C++</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Class Inheritance in C++"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
-
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
@@ -22,7 +21,7 @@
         <p><a href="cpp.containers.html">C++ STL Containers</a></p>
       -->
       <div>
-        <p><a                 href="cpp.classes.inheritance.html">Class Inheritance in C++</a></p>
+        <p><a rel="prev"      href="cpp.classes.html">OOP in C++: Classes</a></p>
         <p><a                 href="cpp.classes.data-members.html">Different Kinds of Data Members in C++</a></p>
         <p><a                 href="cpp.classes.using-members.html">Importing Names from a Base Class with the <code>using</code> Keyword/Directive</a></p>
         <p><a                 href="cpp.classes.nested.html">Classes within Classes in C++: Nested Classes</a></p>
@@ -36,27 +35,28 @@
         <p><a target="_blank" href="cpp.slicing.html">Slicing in C++</a></p>
       </div>
       <div>
-        <p><a            href="cpp.namespaces.html">C++ Namespaces</a></p>
-        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a></p>
-        <p><a            href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
-        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
       </div>
 
     </nav>
 
     <main>
-      <h1>OOP in C++: Classes</h1>
+      <h1>Class Inheritance in C++</h1>
 
-      <p>C++ implements <a href="oop.classes.html">OOP classes</a>, which look like a refinement of a C <code>struct</code>.</p>
+      <section id="final">
+        <h2>Final Classes (since C++  11)</h2>
+        <p>A class or struct declaration marked as <code>final</code> cannot be derived from.</p>
+        <p>An example:</p>
+        <pre>class A final {
+  /* implementation */
+};
+class B : public A { // FAILS to compile!!!
+  /* implementation */
+};</pre>
 
-      <hr/>
+        <aside>An analogous behaviour is found in virtual functions that are marked as <a target="_blank" href="cpp.virtual.member.html#final">final</a>.</aside>
 
-      <p>Class definitions can contain more than just member functions and data members. They can also contain nested classes and structs, type aliases, and enumerations.</p>
-      <p>Anything declared inside a class is in the scope of that class. If it is public, you can access it outside the class by scoping it with the <code><var>ClassName</var>::</code> scope resolution syntax.</p>
-
-      <hr/>
-
-      <p>You can provide a class definition inside another class definition, a so-called <a target="_blank" href="cpp.classes.nested.html">nested class</a>...</p>
+      </section>
 
     </main>
 
