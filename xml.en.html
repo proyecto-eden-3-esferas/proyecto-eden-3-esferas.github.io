@@ -316,6 +316,134 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
         </ul>
       </section>
       -->
+      <section id="components">
+        <h2>The Components of an XML Document</h2>
+        <dl>
+          <dt>XML Prolog (Optional but recommended)</dt>
+          <dd>
+            <p>Defines the version and encoding (e.g., <code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code>).</p>
+          </dd>
+          <dt>DTD (Optional)</dt>
+          <dd>
+            <p>Defines the document structure, elements, and attributes.</p>
+          </dd>
+          <dt>Root Element</dt>
+          <dd>
+            <p>The single, topmost tag enclosing all other content.</p>
+          </dd>
+          <dt>Child Elements</dt>
+          <dd>
+            <p>Nested elements within the root.</p>
+          </dd>
+          <dt>Attributes</dt>
+          <dd>
+            <p>Key-value pairs providing additional info about an element (e.g., <code>&lt;book category="fiction"&gt;</code>).</p>
+          </dd>
+          <dt>Comments</dt>
+          <dd>
+            <pre>&lt;!-- comment --&gt;</pre>
+          </dd>
+        </dl>
+        <p>The <cite>Key Structural Rules</cite> are:</p>
+        <ul>
+          <li><strong>Single Root</strong>: Only one root allowed.</li>
+          <li><strong>Proper Nesting</strong>: Elements must close in the reverse order they opened (<code>&lt;a>&lt;b>&lt;/b>&lt;/a></code>).</li>
+          <li><strong>Case Sensitivity</strong>: <code>&lt;Tag></code> and <code>&lt;tag></code> are different.</li>
+          <li><strong>Attributes</strong>: Values must be single or double quoted</li>
+        </ul>
+
+        <section class="section">
+          <h3>The Doctype</h3>
+          <p>First, we have the <dfn>Document Type Declaration</dfn>, or <dfn>doctype</dfn>. This is simply a way to tell the browser — or any other parser — what type of document it's looking at. In the case of HTML files, it means the specific version and flavor of HTML. The doctype should always be the first item at the top of any HTML file. Many years ago, the doctype declaration was an ugly and hard-to-remember mess. For XHTML 1.0 Strict:</p>
+          <pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</pre>
+          <p>And for HTML4 Transitional:</p>
+          <pre>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd"&gt;</pre>
+          <p>Although that long string of text at the top of our documents hasn't really hurt us (other than forcing our sites' viewers to download a few extra bytes), HTML5 has done away with that indecipherable eyesore. Now all you need is this:</p>
+          <pre>&lt;!doctype html&gt;</pre>
+          <p>Simple, and to the point. The doctype can be written in uppercase, lowercase, or mixed case. You'll notice that the "5" is conspicuously missing from the declaration. Although the current iteration of web markup is known as "HTML5," it really is just an evolution of previous HTML standards — and future specifications will simply be a development of what we have today.</p>
+          <p>Because browsers are usually required to support all existing content on the Web, there's no reliance on the doctype to tell them which features should be supported in a given document. In other words, the doctype alone is not going to make your pages HTML5-compliant. It's really up to the browser to do this. In fact, you can use one of those two older doctypes with new HTML5 elements on the page and the page will render the same as it would if you used the new doctype.</p>
+        </section>
+
+        <section id="xml-entities">
+          <h3>Entities</h3>
+          <p>Entities are placeholders in XML. You declare an entity in the document prolog or in a DTD, and you can refer to it many times in the document. Different types of entities have different uses. You can substitute characters that are difficult or impossible to type with character entities. You can pull in content that lives outside of your document with external entities. And rather than type the same thing over and over again, such as boilerplate text, you can instead define your own general entities.</p>
+          <p>An entity consists of a name and a value. When an XML parser begins to process a document, it first reads a series of declarations, some of which define entities by associating a name with a value. The value is anything from a single character to a file of XML markup. As the parser scans the XML document, it encounters <dfn>entity references</dfn>, which are special markers derived from entity names. An entity reference consists of an ampersand (&amp;), the entity name, and a semicolon (;). For each entity reference, the parser consults a table in memory for something with which to replace the marker. It replaces the entity reference with the appropriate replacement text or markup, then resumes parsing just before that point, so the new text is parsed too. Any entity references inside the replacement text are also replaced; this process repeats as many times as necessary.</p>
+          <p>Entities may be:</p>
+          <dl class="variablelist">
+<dt>single character: either predefined or numeric</dt>
+<dd>
+                <p>The predefined character entities are: <kbd class="userinput">lt gt apos quot amp</kbd> for <q>less than</q> (&lt;), <q>greater than</q> (&gt;), <q>apostrophe</q> (', <q>quote</q> ("), and <q>Amper's and</q> (&amp;). These five characters are reserved in XML syntax.</p>
+                <p>And here are some common numeric entities:</p>
+                <pre>non-breaking space      &amp;nbsp;  &amp;#160;
+¢       cent    &amp;cent;  &amp;#162;
+£       pound   &amp;pound;         &amp;#163;
+¥       yen     &amp;yen;   &amp;#165;
+€       euro    &amp;euro;  &amp;#8364;
+©       copyright       &amp;copy;  &amp;#169;
+®       registered trademark    &amp;reg;   &amp;#174;</pre>
+              </dd>
+<dt>Internal entities</dt>
+<dd>
+                <p>Internal mixed-content entities are most often used to stand in for oft-repeated phrases, names, and boilerplate text. Not only is an entity reference easier to type than a long piece of text, but it also improves accuracy and maintainability, since you only have to change an entity once for the effect to appear everywhere.</p>
+                <p>This is an example of an internal entity:</p>
+                <pre>&lt;!ENTITY bobco "Bob's Bolt Bazaar, Inc."&gt;</pre>
+              </dd>
+
+              <dt>External entities</dt>
+              <dd>An <a href="#external-entity">external entity</a> is an entity whose replacement text exists in another file.</dd>
+
+              <dt>Unparsed Entities</dt>
+              <dd>An <a href="#unparsed-entities">unparsed entity</a> holds content that should not be parsed because it contains something other than text or XML and would probably confuse the parser.</dd>
+          </dl>
+          <p>Here are two instances of entity declaration:</p>
+          <pre>&lt;!DOCTYPE book [
+  &lt;!ENTITY nwalsh "Norman Walsh"&gt;
+  &lt;!ENTITY chap1 SYSTEM "chap1.xml"&gt;
+]&gt;</pre>
+          <p>And this is how to use them. To include file <cite class="filename">chap1.xml</cite>, just type: <kbd class="userinput">&amp;chap1;</kbd> where you want it in your container file.</p>
+
+          <section id="external-entities">
+            <h4>External Entities</h4>
+            <p>Sometimes you may need to create an entity for such a large amount of mixed content that it is impractical to fit it all inside the entity declaration. In this case, you should use an <dfn>external entity</dfn>, an entity whose replacement text exists in another file. External entities are useful for importing content that is shared by many documents, or that changes too frequently to be stored inside the document. They also make it possible to split a large, monolithic document into smaller pieces that can be edited in tandem and that take up less space in network transfers.</p>
+            <p>External entities effectively break a document into multiple physical parts. However, all that matters to the XML processor is that the parts assemble into a perfect whole. That is, all the parts in their different locations must still conform to the well-formedness rules. The XML parser stitches up all the pieces into one logical document; with the correct markup, the physical divisions should be irrelevant to the meaning of the document.</p>
+            <p>External entities are a linking mechanism. They connect parts of a document that may exist on other systems, far across the Internet. The difference from traditional XML links (XLinks) is that for external entities the XML processor must insert the replacement text at the time of parsing.</p>
+            <p>External entities must always be declared so the parser knows where to find the replacement text. In the following example, a document declares the three external entities &amp;part1;, &amp;part2;, and &amp;part3; to hold its content:</p>
+            <pre>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE doc SYSTEM "http://www.dtds-r-us.com/generic.dtd"
+[
+  &lt;!ENTITY part1 SYSTEM "p1.xml"&gt;
+  &lt;!ENTITY part2 SYSTEM "p2.xml"&gt;
+  &lt;!ENTITY part3 SYSTEM "p3.xml"&gt;
+]&gt;
+&lt;longdoc&gt;
+  &amp;part1;
+  &amp;part2;
+  &amp;part3;
+&lt;/longdoc&gt;</pre>
+            <p>Whenever possible, make each subdocument contain at most one XML tree. While you can't validate a subdocument on its own, you can usually perform a well-formedness check if it has no more than one tree. The parser will think it's looking at a lone document without a prolog.</p>
+          </section>
+
+
+          <section id="unparsed-entities">
+            <h4>Unparsed Entities</h4>
+            <p>An unparsed entity holds content that should not be parsed because it contains something other than text or XML and would probably confuse the parser. The only place from which unparsed entities can be referred to is in an attribute value. They are used to import graphics, sound files, and other noncharacter data.</p>
+            <p>The declaration for an unparsed entity looks similar to that of an external entity, with some additional information at the end. For example:</p>
+            <p>This declaration differs from an external entity declaration in that there is an NDATA keyword following the system path information. This keyword tells the parser that the entity's content is in a special format, or notation, other than the usual parsed mixed content. The NDATA keyword is followed by a notation identifier that specifies the data format. In this case, the entity is a graphic file encoded in the GIF format, so the word GIF is appropriate.</p>
+            <pre>&lt;!DOCTYPE doc [
+&lt;!ENTITY mypic SYSTEM "photos/erik.gif" NDATA GIF&gt;
+]&gt;
+&lt;doc&gt;
+&lt;para&gt;Here's a picture of me:&lt;/para&gt;
+&lt;graphic src="&amp;mypic;" /&gt;
+&lt;/doc&gt;</pre>
+          </section>
+
+
+        </section>
+
+      </section>
 
     </main>
 

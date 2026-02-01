@@ -124,6 +124,94 @@ constexpr Matrix matrixDefault;</pre>
         <p><strong>NOTE</strong> Several classes from the Standard Library are constexpr and so can be used within other constexpr functions and classes. Examples are std::vector, optional, string, unique_ptr , bitset , and variant.</p>
       </section>
 
+      <section>
+        <h2><code>if constexpr</code> (C++17)</h2>
+        <p>In C++17, <code>if constexpr</code> feature was introduced to allow compile-time branching based on constant expressions. Unlike regular <code>if</code> statements, which are evaluated at runtime, the <code>if constexpr</code> allows the compiler to discard branches of code that do not apply. It means only the branch of code for which the condition is true is compiled and other code branch is discarded during compilation.</p>
+        <p><strong>Syntax</strong> of <code>if constexpr</code></p>
+        <pre>if constexpr (condition) {
+    // Code executed only if condition is true at compile time
+} else {
+    // Code executed only if condition is false at compile time
+}</pre>
+        <section>
+          <h3>Example of <code>if constexpr</code></h3>
+          <p>The example below demonstrates the use of <code>if constexpr</code>:</p>
+          <pre>// C++ program to demonstrate the use of if constexpr to
+// print the type of value given
+
+#include &lt;iostream>
+using namespace std;
+
+​// function to check for integar value:
+template &lt;typename C> void printInfo(const C&amp; value)
+
+{
+
+​
+
+    // if the value is not integer, the if block will be
+
+    // discarded
+
+    if constexpr (is_integral_v&lt;C>) {
+
+        cout &lt;&lt; "Integer Value " &lt;&lt; value &lt;&lt; endl;
+
+    }
+
+    // if the value is integer, the else block will be
+
+    // discarded
+
+    else {
+
+        cout &lt;&lt; "Non-Integer value:" &lt;&lt; value &lt;&lt; endl;
+
+    }
+
+}
+​
+
+// driver code
+int main() {
+
+    printInfo(10);
+    printInfo(3.15);
+
+    return 0;
+}</pre>
+          <p>Output:</p>
+          <pre>Integer Value 10
+Non-Integer value:3.15</pre>
+        </section>
+
+        <section>
+          <h3>Application of <code>if constexpr</code></h3>
+          <p>The <code>if constexpr</code> is mainly used where decisions need to be made at compile time based on <a target="_blank" href="cpp.type_traits.html">type traits</a> or other constant expressions. Here are some key applications:</p>
+          <ul>
+            <li><strong>Template Metaprogramming</strong>: template metaprogramming can be used to create general templets as it have abilities to adapt behaviour based on conditions of compile time.</li>
+            <li><strong>Conditional Code Generation</strong>: It can be used to include or exclude sections of code based on certain conditions during the compilation process.</li>
+            <li><strong>Compile-Time Assertions</strong>: checking conditions using if constexpr during the process compilation of the program helps users to identify errors early and ensure that specific conditions are met at compile time.</li>
+            <li><strong>Algorithm Optimization</strong>: It helps for the selection of optimized algorithms at compile time resulting optimizing performance without any runtime cost.</li>
+          </ul>
+        </section>
+
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+
+      </section>
+
     </main>
 
   </body>
