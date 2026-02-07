@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Relationship between PDF, PostScript and EPS</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Relationship between PDF, PostScript and EPS File Formats"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="graphics.html">Relationship between PDF, PostScript and EPS</a></p>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="postscript.html">PostScript: Programming Text and Graphics</a></p>
+        <p><a href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+      </div>
+      <div>
+        <p><a href="computational-geometry.html">Computational Geometry</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Relationship between PDF, PostScript and EPS</h1>
+
+      <p>PostScript is Adobe's page description language. It attempts to describe in a device-independent manner how to put text and graphics on a page. PostScript has become a standard: most programs whose goal is to put ink on paper are able to convert their output into PostScript format, and many printers have built-in support for printing PostScript files (which normally have a file extension .ps).</p>
+      <p>Adobe's portable document format, known as PDF, is a cousin of PostScript that is optimized for display on the World-Wide Web. Although PDF is not a full-fledged programming language (PostScript is), PDF has facilities for embedded hyperlinks, interactive forms, and searching. The PDF format has become a standard on the World-Wide Web for documents that need to be displayed exactly as the author formatted them (with prescribed fonts, prescribed line breaks, prescribed spacing, and so forth).</p>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://haroldpboas.gitlab.io/courses/math696/index.html">Math 696: Mathematical Communication and Technology</a>, by Harold P. Boas</cite>)</p>
+
+      <blockquote>
+        <p>PDF (Portable Document Format) is a descendant and optimized successor of PostScript (PS) , both developed by Adobe. While PostScript is a Turing-complete programming language used to describe page layouts for printers, PDF is a static, pre-interpreted, and structured format designed for fast, consistent display and sharing across devices.</p>
+        <p style="text-align: right">(From <cite>AI Overview</cite>, by Google)</p>
+      </blockquote>
+
+      <section id="history-of-pdf">
+        <h2>History of the PDF</h2>
+        <p></p>
+      </section>
+
+      <section id="diferences-between-pdf-and-ps">
+        <h2>Differences between PostScript and PDF</h2>
+        <p>Basically, the technical differences are:</p>
+        <ul>
+          <li>PS is a (Turing-)complete language that permits to defer arbitrary computations to rendering time, that is, when the PS file is used (i.e., printed).</li>
+          <li>In PDF, all calculations have be completed when the PDF file is produced.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Why do people still use Postscript?</h2>
+        <p>Postscript is still used as an intermediate document format, since it is a fully fledged programming language allowing you to compute graphics, which PDF doesn't. PDF shows just the result (after some conversions, sometimes called "Distillation") of the computation Postscript is able to do.</p>
+        <p>The Postscript based PSTricks package is an example that heavily makes use of graphical computation. It can even solve differential equations. And if you have a Postscript printer, it can do these computations for you.</p>
+        <p>One feature that makes Postscript the preferred format, in particular for a publisher, is its editability. If, for instance, line art in a document is too faint, the publisher may want to enhance it a bit globally before giving the document to press. This very issue was raised, e. g., in this question.</p>
+        <p>With Postscript, doubling the line width in the whole document is easily accomplished by putting</p>
+        <pre>userdict /setlinewidth {2 mul systemdict /setlinewidth get exec} put</pre>
+        <p>into the document header, whereas with PDF such a tweak is much more complicated.</p>
+        <hr/>
+        <p>Postscript is still important for people who need to create documents programmatically. Imagine you need to create a nice printable document based on an input from a user. Since you do not know what the input would be like, your document cannot be created beforehand. It has to be created on the fly.</p>
+        <p>LaTeX is well designed for this kind of task but, unless your application is web based, you need to have LaTeX installed on the user's machine, which is not always feasible. On the other hand, PostScript viewers are ubiquitous and free, e.g. Adobe Acrobat, so having your application create PostScript files,rather than LaTeX is an advantage.</p>
+        <hr/>
+        <p>I avoid using pdf, if pdf is all I can find then I first convert it with ghostscript. PDF has plenty of security and privacy issues. Most PDF viewers have zero focus on privacy, postscript files don't have nearly as many "features"(i.e. underhanded attack vectors), and postscript viewers, the ones I have used at least, restrict access to the filesystem. However, I wouldn't trust printers to not be vulnerable to filesystem access from postscript files. In circumstances requiring privacy the use of PDF as opposed to PostScript should be considered a hostile act.</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

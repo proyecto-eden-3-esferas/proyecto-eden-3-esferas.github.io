@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Computer Languages for Graphics: SVG, PostScript...</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Computer Languages for Graphics: SVG, PostScript..."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="computational-geometry.html">Computational Geometry</a></p>
+      </div>
+      <div>
+        <p><a href="svg.html">SVG: XML for Drawing</a></p>
+        <p><a href="postscript.html">PostScript: Programming Text and Graphics</a></p>
+        <p><a href="metapost.html">MetaPost: Drawing for PostScript</a></p>
+        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+        <p><a href="pdf-ps-eps.html">Relationship between PDF, PostScript and EPS</a></p>
+      </div>
+      <div>
+        <p><a href="programming.html">Programming Computers</a></p>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/SVG/">My Code for Geometry and SVG Schematics</a></p>
+        <p><a href="https://github.com/proyecto-eden-3-esferas/Cpp">Code Examples (Files)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Computer Languages for Graphics: SVG, PostScript...</h1>
+
+      <section id="vector-graphics">
+        <h2>Vector Graphics</h2>
+        <p>Vector graphics are a form of computer graphics in which visual images are created directly from geometric shapes such as points, lines, curves and polygons.</p>
+        <p>This is the code for drawing a circle in vector graphics language SVG:</p>
+        <pre>&lt;circle cx="100" cy="100" r="50"/&gt;</pre>
+        <p>The associated mechanisms may include vector display and printing hardware, vector data models and file formats, as well as the software based on these data models (especially graphic design software, computer-aided design, and geographic information systems). Vector graphics are an alternative to raster or bitmap graphics, with each having advantages and disadvantages in specific situations.</p>
+      </section>
+
+      <section id="file-formats">
+        <h2>File Formats</h2>
+        <p>Vector graphics are commonly found today in the SVG, WMF, EPS, PDF, CDR or AI types of graphic file formats, and are intrinsically different from the more common raster graphics file formats such as JPEG, PNG, APNG, GIF, WebP, BMP and MPEG4.</p>
+        <p>The World Wide Web Consortium (W3C) standard for vector graphics is <a target="_blank" href="svg.html">Scalable Vector Graphics</a> (SVG). The standard is complex and has been relatively slow to be established owing to commercial interests. Many web browsers now have some support for rendering SVG.</p>
+        <p>Wikipedia prefers SVG for images such as simple maps, line illustrations, coats of arms, and flags, which generally are not like photographs or other continuous-tone images. Rendering SVG requires conversion to a raster format at a resolution appropriate for the current task. SVG is also a format for <a target="_blank" href="svg.animation.html">animated graphics</a>.</p>
+        <p>There is also a version of SVG for mobile phones called SVGT (SVG Tiny version). These images can count links and also exploit anti-aliasing. They can also be displayed as wallpaper.</p>
+        <p>CAD software uses its own vector data formats, usually proprietary formats created by software vendors, such as Autodesk's <strong>DWG</strong> and public exchange formats such as DXF. Hundreds of distinct vector file formats have been created for GIS data over its history, including proprietary formats like the Esri file geodatabase, proprietary but public formats like the Shapefile and the original KML, open source formats like GeoJSON, and formats created by standards bodies like Simple Features and GML from the Open Geospatial Consortium.</p>
+      </section>
+
+      <section id="tex-latex">
+        <h2>TeX and LaTeX</h2>
+        <p>Donald E. Knuth, a mathematician and computer scientist, developed the <dfn>TeX</dfn> typesetting system <q>for the creation of beautiful books--and especially for books that contain a lot of <a target="_blank" href="mathml.html">mathematics</a>.</q> His brilliant work was a resounding success, and some variant of TeX is now used by most professional mathematicians. If you pick a random mathematics book published in the last five years, the chances are good that it was formatted with TeX.</p>
+        <p>Leslie Lamport created  <dfn>LaTeX</dfn> as a structured, high-level interface to TeX. Technically, LaTeX is a large macro package that loads on top of TeX. An advantage of using LaTeX instead of <q>plain</q> TeX is that LaTeX takes care of many stylistic details automatically; also, many people have written add-on packages for LaTeX that solve common typesetting problems. In particular, the American Mathematical Society has sponsored the development of a package named <q>amsmath</q> that simplifies the typesetting of complicated mathematical expressions.</p>
+        <section>
+          <h3>LaTeX is a Mark-Up Language</h3>
+          <p>LaTeX is a <dfn>markup system</dfn>: this means that you type instructions to LaTeX in the same file as your text. Many common desk-top publishing systems follow the quite different paradigm of WYSIWYG (what you see is what you get). A markup system facilitates editing and revision, enhances portability, and enables sophisticated typesetting. LaTeX is actually a <a target="_blank" href="programming.html">programming</a> language, so you can (in principle) customize LaTeX to do almost anything.</p>
+          <p>LaTeX is a structural, as opposed to visual, markup language. In LaTeX, you should not give an instruction such as <q>set this text flush left in 14 point bold type</q>; instead, you should say <q>set this text as a subsection heading.</q> LaTeX encourages you to define the logical structure of your document rather than the visual appearance. When you are writing in LaTeX, you should pay attention to the content, not the form.</p>
+        </section>
+        <section>
+          <h3>LaTeX is Portable</h3>
+          <p>LaTeX is portable. Because LaTeX source files are composed of ordinary ASCII characters (the characters you see on the keyboard), it is simple to send LaTeX files by electronic mail and to transfer LaTeX files between different computer systems. From the user's point of view, LaTeX is the same on all computer platforms.</p>
+        </section>
+        <section>
+          <h3>Other Good Parts of LaTeX</h3>
+          <p>LaTeX creates publication quality output. While PC programs like Word and WordPerfect are adequate for office correspondence and training manuals, they are not suitable for serious scientific publications. LaTeX is a <i lang="la">de facto</i> standard for quality mathematics books and journals.</p>
+          <p>LaTeX is free. You can pay money for a LaTeX implementation if you want a turnkey system, but if you are willing to read the documentation, then you can download a free LaTeX system from the Internet.</p>
+        </section>
+      </section>
+
+      <section id="comparison">
+        <h2>Comparison of Some Major Verctor Graphics Formats</h2>
+        <p></p>
+<table id="vector-graphics-formats" border="1">
+  <thead>
+    <tr> <th><i>Feature</i></th> <th>SVG</th> <th>PostScript</th> <th>Metapost</th> <th>Asymptote</th> </tr>
+  </thead>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+    <tr> <td><!--FEATURE--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+    <tr> <td><!--CODE--></td> <td><pre><!--SVG--></pre></td> <td><pre><!--PS--></pre></td> <td><pre><!--MP--></pre></td> <td><pre><!--ASYMPTOTE--></pre></td> </tr>
+    <tr> <td><!--NOTES--></td> <td><!--SVG--></td> <td><!--PS--></td> <td><!--MP--></td> <td><!--ASYMPTOTE--></td> </tr>
+
+
+</table>
+
+        <p></p>
+      </section>
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+      <section id="">
+        <h2></h2>
+        <p></p>
+      </section>
+      -->
+    </main>
+
+  </body>
+
+</html>

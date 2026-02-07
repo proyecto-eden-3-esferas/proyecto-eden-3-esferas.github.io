@@ -14,11 +14,6 @@
   </head>
   <body lang="en" class="electronics">
     <nav>
-    <!--
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
-        <p><a href="computing.html">Computing</a></p>
-      -->
       <div>
         <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
         <p><a href="https://www.allaboutcircuits.com/textbook/designing-analog-chips/introduction/its-an-analog-world/">Designing Analog Chips</a>, a textbook by Hans Camenzind</p>
@@ -32,6 +27,8 @@
       </div>
       <div>
         <p><a href="semiconductors.html">Semiconductors</a></p>
+        <p><a href="electronics.html#diodes">PN Junction Diode</a></p>
+        <p><a href="other-diodes.html">Special Diode Types: Solar Cells, Photodiodes, LEDs, Schottky, Zener...</a></p>
         <p><a href="transistors.html">Transistors: Controlled Current Sources</a></p>
         <p><a href="mosfet.html">MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistor)</a></p>
         <p><a href="electronics.transient-response.html">Transient Response</a></p>
@@ -252,8 +249,8 @@
             <p>The emission coefficient <var>n</var> takes into account any recombination of electrons and holes in the space-charge region. At very low current levels, recombination may be a significant factor and the value of <var>n</var> may be close to 2. At higher current levels, recombination is less a factor, and the value of <var>n</var> will be 1. Unless otherwise stated, we will assume the emission coefficient is <var>n</var> = 1.</p>
             <p>This pn junction, with nonlinear rectifying current characteristics, is called a <dfn>pn junction diode</dfn>.</p>
           </section>
-          <section>
-            <h4>pn Junction Diode</h4>
+          <section id="diodes">
+            <h4>PN Junction Diode</h4>
             <p><!--Figure 1.17 is a plot of the derived current–voltage characteristics of a pn junction.--> For a forward-bias voltage, the current is an exponential function of voltage. <!--Fig- ure 1.18 depicts the forward-bias current plotted on a log scale. -->With only a small change in the forward-bias voltage, the corresponding forward-bias current increases by orders of magnitude. For a forward-bias voltage <var>v<sub>D</sub></var> > +0.1 V, the (−1) term in the equation above can be neglected. In the reverse-bias direction, the current is almost zero.</p>
             <p><!--Figure 1.19 shows the diode circuit symbol and the conventional current direction and voltage polarity. -->The diode can be thought of and used as a voltage controlled switch that is <q>off</q> for a reverse-bias voltage and <q>on</q> for a forward-bias voltage. In the forward-bias or <q>on</q> state, a relatively large current is produced by a fairly small applied voltage; in the reverse-bias, or <q>off</q> state, only a very small current is created.</p>
             <p>When a diode is reverse-biased by at least 0.1 V, the diode current is <var>i<sub>D</sub></var> = −<var>I<sub>S</sub></var>. The current is in the reverse direction and is a constant, hence the name reverse-bias saturation current. Real diodes, however, exhibit reverse-bias currents that are considerably larger than <var>I<sub>S</sub></var>. This additional current is called a <dfn>generation current</dfn> and is due to electrons and holes being generated within the space-charge region. Whereas a typical value of <var>I<sub>S</sub></var> may be 10<sup>−14</sup> A, a typical value of reverse-bias current may be 10<sup>−9</sup> A or 1 nA. Even though this current is much larger than <var>I<sub>S</sub></var>, it is still small and negligible in most cases.</p>

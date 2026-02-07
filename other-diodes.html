@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Special Diode Types</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Special Diode Types: Solar Cells, Photodiodes, LEDs..."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+    <!--
+      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="computing.html">Computing</a></p>
+      -->
+      <div>
+        <p><a href="semiconductors.html">Semiconductors</a></p>
+        <p><a href="transistors.html">Transistors: Controlled Current Sources</a></p>
+      </div>
+      <div>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+        <p><a href="https://www.allaboutcircuits.com/textbook/designing-analog-chips/introduction/its-an-analog-world/">Designing Analog Chips</a>, a textbook by Hans Camenzind</p>
+      </div>
+      <div>
+        <p><a href="https://www.allaboutcircuits.com/">All About Circuits</a> (a Web Site)</p>
+        <p><a href="https://www.allaboutcircuits.com/technical-articles/">All About Circuits: (Latest) Technical Articles</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Special Diode Types</h1>
+      <p>(For a discussion of the diode physics, read about the <cite><a target="_blank" href="electronics.html#diodes">PN Junction Diode</a></cite>.)</p>
+
+      <section id="solar-cell">
+        <h2>Solar Cell</h2>
+        <p>A <dfn>solar cell</dfn> is a pn junction device with no voltage directly applied across the junction. The pn junction, which converts solar energy into electrical energy, is connected to a load<!-- as indicated in Figure 1.39-->. When light hits the space-charge region, electrons and holes are generated. They are quickly separated and swept out of the space-charge region by the electric field, thus creating a <dfn>photocurrent</dfn>. The generated photocurrent will produce a voltage across the load, which means that the solar cell has supplied power. Solar cells are usually fabricated from silicon, but may be made from GaAs or other III–V compound semiconductors.</p>
+      </section>
+      <section id="photodiode">
+        <h2>Photodiode</h2>
+        <p><dfn>Photodetectors</dfn> are devices that convert optical signals into electrical signals. An example is the <dfn>photodiode</dfn>, which is similar to a solar cell except that the pn junction is operated with a reverse-bias voltage. Incident photons or light waves create excess electrons and holes in the space-charge region. These excess carriers are quickly separated and swept out of the space-charge region by the electric field, thus creating a <q>photocurrent.</q> This generated photocurrent is directly proportional to the incident photon flux.</p>
+      </section>
+      <section id="LED">
+        <h2>Light-Emitting Diode</h2>
+        <p>The <dfn>light-emitting diode</dfn> (LED) converts current to light. As <a target="_blank" href="electronics.html#diodes">previously explained</a>, when a forward-bias voltage is applied across a pn junction, electrons and holes flow across the space-charge region and become excess minority carriers. These excess minority carriers diffuse into the neutral semiconductor regions, where they recombine with majority carriers. If the semiconductor is a <strong>direct bandgap material</strong>, such as GaAs, the electron and hole can recombine with no change in momentum, and a photon or light wave can be emitted. Conversely, in an <strong>indirect bandgap material</strong>, such as silicon, when an electron and hole recombine, both energy and momentum must be conserved, so the emission of a photon is very unlikely. Therefore, LEDs are fabricated from GaAs or other compound semiconductor materials. In an LED, the diode current is directly proportional to the recombination rate, which means that the output light intensity is also proportional to the diode current.</p>
+        <p>Monolithic arrays of LEDs are fabricated for numeric and alphanumeric displays, such as the readout of a digital voltmeter.</p>
+        <p>An LED may be integrated into an optical cavity to produce a coherent photon output with a very narrow bandwidth. Such a device is a <dfn>laser diode</dfn>, which is used in optical communications applications.</p>
+      </section>
+      <section id="schottky">
+        <h2>Schottky Barrier Diode</h2>
+        <p>A <dfn>Schottky barrier diode</dfn>, or simply a Schottky diode, is formed when a metal, such as aluminum, is brought into contact with a moderately doped n-type semiconductor to form a rectifying junction.<!-- Figure 1.41(a) shows the metal-semiconductor contact, and Figure 1.41(b) shows the circuit symbol with the current direction and voltage polarity.--></p>
+        <p>The current–voltage characteristics of a Schottky diode are very similar to those of a pn junction diode. The same ideal diode equation can be used for both devices. However, there are two important differences between the two diodes that directly affect the response of the Schottky diode.</p>
+        <p>First, the current mechanism in the two devices is different. The current in a pn junction diode is controlled by the diffusion of minority carriers. The current in a Schottky diode results from the flow of majority carriers over the potential barrier at the metallurgical junction. This means that there is no minority carrier storage in the Schottky diode, so the switching time from a forward bias to a reverse bias is very short compared to that of a pn junction diode. The storage time, <var>t<sub>s</sub></var>, for a Schottky diode is essentially zero.</p>
+        <p>Second, the reverse-saturation current <var>I<sub>S</sub></var> for a Schottky diode is larger than that of a pn junction diode for comparable device areas. This property means that it takes less forward bias voltage to induce a particular current compared to a pn junction diode.<!-- We will see an application of this in Chapter 17.--></p>
+        <p>This lower turn-on voltage and the shorter switching time make the Schottky diode useful in integrated-circuit applications.</p>
+      </section>
+      <section id="zener">
+        <h2>Zener Diode</h2>
+        <p>As mentioned earlier<!-- in this chapter-->, the applied reverse-bias voltage cannot increase without limit. At some point, breakdown occurs and the current in the reverse-bias direction increases rapidly. The voltage at this point is called the breakdown voltage.<!-- The diode I–V characteristics, including breakdown, are shown in Figure 1.43.--></p>
+        <p>Diodes, called <dfn>Zener diodes</dfn>, can be designed and fabricated to provide a specified breakdown voltage <var>V<sub>Z</sub><sub>o</sub></var>. (Although the breakdown voltage is on the negative voltage axis (reverse-bias), its value is given as a positive quantity.) The large current that may exist at breakdown can cause heating effects and catastrophic failure of the diode due to the large power dissipation in the device. However, diodes can be operated in the breakdown region by limiting the current to a value within the capabilities of the device. Such a diode can be used as a constant-voltage reference in a circuit.</p>
+        <p>The diode breakdown voltage is essentially constant over a wide range of currents and temperatures. The slope of the <var>I</var>–<var>V</var> characteristics curve in breakdown is quite large, so the incremental resistance <var>r<sub>z</sub></var> is small. Typically, <var>r<sub>z</sub></var> is in the range of a few ohms or tens of ohms.</p>
+        <p><!--The circuit symbol of the Zener diode is shown in Figure 1.44. -->(Note the subtle difference between this symbol and the Schottky diode symbol.) The voltage <var>V<sub>Z</sub></var> is the Zener breakdown voltage, and the current <var>I<sub>Z</sub></var> is the reverse-bias current when the diode is operating in the breakdown region.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

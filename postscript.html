@@ -20,18 +20,18 @@
         <p><a            href="sc.html">SuperCollider: a modern audio synthesis and sequencing language</a></p>
       -->
       <div>
-        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
-        <p><a href="computing.html">Computing</a></p>
+        <p><a rel="prev" href="graphics.html">Computer Languages for Graphics: SVG, PostScript...</a></p>
+        <p><a            href="pdf-ps-eps.html">Relationship between PDF, PostScript and EPS</a></p>
       </div>
       <div>
         <p><a rel="next" href="metapost.html">MetaPost: Drawing for PostScript</a></p>
-        <p><a href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
+        <p><a            href="asymptote.html">Asymptote: The Vector Graphics Language</a></p>
       </div>
     </nav>
     <main>
       <h1>PostScript: Programming Text and Graphics</h1>
       <!-- from Programming.xml#postscript p 1281 to 3095 -->
-      <section>
+      <section id="features">
         <h2>PostScript Features</h2>
         <blockquote>
           <p>PostScript from Adobe Systems is an underappreciated yet superb general purpose computing language.</p>
@@ -151,7 +151,7 @@ showpage</pre>
         <!-- end of "Non-Programmatic or Flat PostScript" -->
       </section>
 
-      <section>
+      <section id="direct">
         <h2>Direct PostScript</h2>
         <p>David Byram-Wigfield has called <dfn>direct PostScript</dfn> as work created by writing in PostScript from the start. PostScript is a powerful language that is not difficult to begin to learn, can express sophisticated graphical ideas in few words, and has the final say as to just where every mark appears on the output, giving unsurpassed visual control.</p>
         <p>PostScript is a full programming language tailored to graphics, so it is great for getting a computer/printer to do many precise, repetitive, calculated things all on its own. Design, illustration, and typesetting can all involve precise, repetitive, calculated things, and direct PostScript techniques are justly popular with people who would rather tell the computer to do the work than drag it by the mouse every step of the way.</p>
@@ -1465,7 +1465,7 @@ end</pre>
 
       </section>
 
-      <section>
+      <section id="eps">
         <h2>Encapsulated PostScript</h2>
         <p>An encapsulated PostScript file is a PostScript language program describing the appearance of a single page. Typically, the purpose of the EPS file is to be included, or <q>encapsulated,</q> in another PostScript language page description. The EPS file can contain any combination of text, graphics, and images, and it is the same as any other PostScript language page description with only a few restrictions</p>
         <p>At minimum, an EPS file contains a header comment (<kbd>%!PS-Adobe-3.0 EPSF-3.0</kbd>) and a BoundingBox DSC comment, describing the rectangle containing the image described by the EPS file. Applications can use this information to lay out the page, even if they are unable to directly render the PostScript inside. An application importing an EPS file must parse the EPS file for DSC comments and extract at least the bounding box and resource dependencies of the EPS file.Here is a typical EPS prolog:</p>
@@ -1769,7 +1769,7 @@ showpage</pre>
         <!-- end of "Four Pillars for a General Purpose PostScript Library" -->
       </section>
 
-      <section>
+      <section id="gs">
         <h2>Using GhostScript</h2>
         <p>I have already explained how to convert eps-format files to jpeg-format files <a href="#eps_to_jpeg">here</a>.</p>
         <section>

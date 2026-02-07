@@ -150,7 +150,19 @@
         <p>XML is the only text language for which such comprehensive transformations exist (eXtensible Stylesheet Transformations Language, or XSTL).</p>
       </section>
 
-      <section>
+      <section id="qname">
+        <h2>Fully Qualified Names (QNames)</h2>
+        <p>A <dfn>QName</dfn>, or <dfn>qualified name</dfn>, is the fully qualified name of an element, attribute, or identifier in an XML document. A QName concisely associates the URI of an XML namespace with the local name of an element, attribute, or identifier in that namespace.</p>
+        <p>To make this association, the QName assigns the local name a prefix that corresponds to its <a href="#namespaces">namespace</a>. In all, the QName comprises the URI of the XML namespace, the prefix, and the local name.</p>
+        <p>An example:</p>
+        <pre>&lt;?xml version="1.0"?&gt;
+&lt;doc xmlns:x="https://example.com/ns/foo"&gt;
+  &lt;x:p/&gt;
+&lt;/doc&gt;</pre>
+        <p>In line two the prefix <q>x</q> is declared to be associated with the URI <q>http://example.com/ns/foo</q>. This prefix can further on be used as abbreviation for this namespace. Subsequently, the tag <q>x:p</q> is a valid QName because it uses the <q>x</q> as namespace reference and <q>p</q> as local part. The tag <q>doc</q> is also a valid QName, but it consists only of a local part.</p>
+      </section>
+
+      <section id="namespaces">
         <h2>XML Namespaces</h2>
         <p>XML Namespaces provide a method to avoid element name conflicts. In XML, element names are defined by the developer. This often results in a conflict when trying to mix XML documents from different XML applications.</p>
         <hr/>
@@ -369,11 +381,16 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
         <section id="xml-entities">
           <h3>Entities</h3>
           <p>Entities are placeholders in XML. You declare an entity in the document prolog or in a DTD, and you can refer to it many times in the document. Different types of entities have different uses. You can substitute characters that are difficult or impossible to type with character entities. You can pull in content that lives outside of your document with external entities. And rather than type the same thing over and over again, such as boilerplate text, you can instead define your own general entities.</p>
-          <p>An entity consists of a name and a value. When an XML parser begins to process a document, it first reads a series of declarations, some of which define entities by associating a name with a value. The value is anything from a single character to a file of XML markup. As the parser scans the XML document, it encounters <dfn>entity references</dfn>, which are special markers derived from entity names. An entity reference consists of an ampersand (&amp;), the entity name, and a semicolon (;). For each entity reference, the parser consults a table in memory for something with which to replace the marker. It replaces the entity reference with the appropriate replacement text or markup, then resumes parsing just before that point, so the new text is parsed too. Any entity references inside the replacement text are also replaced; this process repeats as many times as necessary.</p>
-          <p>Entities may be:</p>
-          <dl class="variablelist">
-<dt>single character: either predefined or numeric</dt>
-<dd>
+          <p>An entity consists of a name and a value. When an XML parser begins to process a document, it first reads a series of declarations, some of which define entities by associating a name with a value. The value is anything from a single character to a file of XML markup.</p>
+          <p>The two most common entities are internal and external. Internal entities function as typing shortcuts or macros, whereas xternal entities allow you to incorporate content from other files. Lastly, <dfn>parameter entities</dfn>, which can be internal or external, are only available within the internal and external subsets (the DTD).</p>
+
+          <section>
+            <h4>Types of Entities</h4>
+            <p>Entities may be:</p>
+            <dl class="variablelist">
+
+              <dt>single character (<a href="#character-references">character references</a>): either predefined or numeric</dt>
+              <dd>
                 <p>The predefined character entities are: <kbd class="userinput">lt gt apos quot amp</kbd> for <q>less than</q> (&lt;), <q>greater than</q> (&gt;), <q>apostrophe</q> (', <q>quote</q> ("), and <q>Amper's and</q> (&amp;). These five characters are reserved in XML syntax.</p>
                 <p>And here are some common numeric entities:</p>
                 <pre>non-breaking space      &amp;nbsp;  &amp;#160;
@@ -384,25 +401,44 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
 ©       copyright       &amp;copy;  &amp;#169;
 ®       registered trademark    &amp;reg;   &amp;#174;</pre>
               </dd>
-<dt>Internal entities</dt>
-<dd>
+
+              <dt>Internal entities</dt>
+              <dd>
                 <p>Internal mixed-content entities are most often used to stand in for oft-repeated phrases, names, and boilerplate text. Not only is an entity reference easier to type than a long piece of text, but it also improves accuracy and maintainability, since you only have to change an entity once for the effect to appear everywhere.</p>
                 <p>This is an example of an internal entity:</p>
                 <pre>&lt;!ENTITY bobco "Bob's Bolt Bazaar, Inc."&gt;</pre>
               </dd>
 
               <dt>External entities</dt>
-              <dd>An <a href="#external-entity">external entity</a> is an entity whose replacement text exists in another file.</dd>
-
-              <dt>Unparsed Entities</dt>
-              <dd>An <a href="#unparsed-entities">unparsed entity</a> holds content that should not be parsed because it contains something other than text or XML and would probably confuse the parser.</dd>
-          </dl>
-          <p>Here are two instances of entity declaration:</p>
-          <pre>&lt;!DOCTYPE book [
+              <dd>
+                <p>An <a href="#external-entity">external entity</a> is an entity whose replacement text exists in another file.</p>
+                <hr/>
+                <p>Here are two instances of entity declaration:</p>
+                <pre>&lt;!DOCTYPE book [
   &lt;!ENTITY nwalsh "Norman Walsh"&gt;
   &lt;!ENTITY chap1 SYSTEM "chap1.xml"&gt;
 ]&gt;</pre>
-          <p>And this is how to use them. To include file <cite class="filename">chap1.xml</cite>, just type: <kbd class="userinput">&amp;chap1;</kbd> where you want it in your container file.</p>
+                <p>And this is how to use them. To include file <cite class="filename">chap1.xml</cite>, just type: <kbd class="userinput">&amp;chap1;</kbd> where you want it in your container file.</p>
+              </dd>
+
+              <dt>Unparsed Entities</dt>
+              <dd>An <a href="#unparsed-entities">unparsed entity</a> holds content that should not be parsed because it contains something other than text or XML and would probably confuse the parser.</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h4>Entity References</h4>
+            <p>As the parser scans the XML document, it encounters <dfn>entity references</dfn>, which are special markers derived from entity names. An entity reference consists of an ampersand (&amp;), the entity name, and a semicolon (;). For each entity reference, the parser consults a table in memory for something with which to replace the marker. It replaces the entity reference with the appropriate replacement text or markup, then resumes parsing just before that point, so the new text is parsed too. Any entity references inside the replacement text are also replaced; this process repeats as many times as necessary.</p>
+          </section>
+
+          <section id="character-references">
+            <h4>Character References</h4>
+            <p>Character references, which are similar in appearance to entity references, allow you to reference arbitrary Unicode characters, even if they aren't available directly on your keyboard. Character references are not properly entities at all.</p>
+            <p>Character references are numeric and can be used without any special declaration.</p>
+            <p>The basic format of a character reference is either <q>&amp;#<var>nnn</var>;</q> or <q>&amp;#x<var>hhh</var>;</q> where <var>nnn</var> is a decimal Unicode character number and <var>hhh</var> is a hexadecimal Unicode character number.</p>
+            <p>A character reference inserts the specified Unicode character directly into your document. Note that this does not guarantee that your processing or display system will be able to do anything useful with the character. For example, <code>&amp;#x236E;</code> would insert, in the words of the Unicode standard, an <q>APL Functional Symbol Semicolon Underbar</q>. Whether or not you can print that character is an entirely different issue.</p>
+            <p>Character references differ from other entity references in a subtle but significant way. They are expanded immediately by the parser. Using <code>&amp;#34;</code> is exactly the same as <code>"</code>. In particular, this means you can't use the character reference in an attribute value to escape the quotation characters.</p>
+          </section>
 
           <section id="external-entities">
             <h4>External Entities</h4>
@@ -439,7 +475,6 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
 &lt;graphic src="&amp;mypic;" /&gt;
 &lt;/doc&gt;</pre>
           </section>
-
 
         </section>
 
