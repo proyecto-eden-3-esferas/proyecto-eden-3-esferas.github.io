@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XML Libraries (C/C++)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="(C/C++) Libraries for Processing XML: PugiXml, RapidXml etc."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="xml.en.html">XML: The eXtensible Markup Language</a></p>
+        <p><a            href="XSLT.html">XSLT: eXtensible Stylesheet Transformation Language</a></p>
+        <p><a            href="xml.xinclude.html">XInclude: Including Chunks and Files</a></p>
+      </div>
+      <div>
+        <p><a href="c.html">The C Programming Language</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>(C/C++) Libraries for Processing XML</h1>
+
+      <section id="rapidxml">
+        <h2><code>RapidXml</code>*</h2>
+        <p>RapidXml is an attempt to create the fastest XML parser possible, while retaining useability, portability and reasonable W3C compatibility. It is an in-situ parser written in modern C++, with parsing speed approaching that of strlen function executed on the same data.</p>
+        <p>RapidXml has been around since 2006, and is being used by lots of people. HTC uses it in some of its mobile phones.</p>
+        <p>If you are looking for a stable and fast parser, look no further. Integration with your project will be trivial, because entire library is contained in a single header file, and requires no building or configuration.</p>
+        <p>Current version is RapidXml 1.13. Also available is its online Manual with a full and detailed reference. You may also like to check Boost.PropertyTree library, which presents a higher level interface, and uses RapidXml as its default XML parser.</p>
+        <p>The author of RapidXml is Marcin Kalicinski.</p>
+      </section>
+
+      <section id="PropertyTree">
+        <h2><code>Boost.PropertyTree</code></h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/doc/html/property_tree.html">https://www.boost.org/doc/libs/latest/doc/html/property_tree.html</a></cite>)</p>
+        <p>The Property Tree library provides a data structure that stores an arbitrarily deeply nested tree of values, indexed at each level by some key. Each node of the tree stores its own value, plus an ordered list of its subnodes and their keys. The tree allows easy access to any of its nodes by means of a path, which is a concatenation of multiple keys.</p>
+        <p>In addition, the library provides parsers and generators for a number of data formats that can be represented by such a tree, including XML, INI, and <a target="_blank" href="json.html">JSON</a>.</p>
+        <p>Property trees are versatile data structures, but are particularly suited for holding configuration data. The tree provides its own, tree-specific interface, and each node is also an STL-compatible Sequence for its child nodes.</p>
+        <p>Conceptually, then, a node can be thought of as the following structure:</p>
+        <pre>struct ptree
+{
+   data_type data;                         // data associated with the node
+   list&lt; pair&lt;key_type, ptree&gt; &gt; children; // ordered list of named children
+};</pre>
+        <p>Both key_type and data_type are configurable to some extent, but will usually be std::string or std::wstring, and the parsers only work with this kind of tree.</p>
+        <p>Many software projects develop a similar tool at some point of their lifetime, and property tree originated the same way. We hope the library can save many from reinventing the wheel.</p>
+      </section>
+
+      <section id="pugixml">
+        <h2><code>pugixml</code></h2>
+        <p><code>pugixml</code> is a light-weight C++ XML processing library. It features:</p>
+        <ul>
+          <li>DOM-like interface with rich traversal/modification capabilities</li>
+          <li>Extremely fast non-validating XML parser which constructs the DOM tree from an XML file/buffer</li>
+          <li>XPath 1.0 implementation for complex data-driven tree queries</li>
+          <li>Full Unicode support with Unicode interface variants and automatic encoding conversions</li>
+        </ul>
+        <p>The library is extremely portable and easy to integrate and use. You can download it in an archive (Windows/Unix line endings), get it from Git/Subversion repository, install it as a package in one of the major Linux/BSD distributions (Ubuntu, Debian, Fedora, Gentoo, Arch Linux, FreeBSD and more), install it as a package in one of the OSX package managers (Homebrew, MacPorts), install a NuGet package or use one of the alternative package managers (Conda).</p>
+        <aside>
+          <p>The latest version pugixml-1.15 (both <a target="_blank" href="https://github.com/zeux/pugixml/releases/download/v1.15/pugixml-1.15.zip">Windows line endings</a> and <a target="_blank" href="https://github.com/zeux/pugixml/releases/download/v1.15/pugixml-1.15.tar.gz">Linux line endings</a>). It was released on January the 10th, 2025 and is a maintenance release that adds support for <code><a target="_blank" href="cpp.string_view.html">std::string_view</a></code> along with compatibility improvements (read the changelog for details).</p>
+          <p>Specifiacally, many <code>xml_attribute::</code> and <code>xml_node::</code> functions now transparently support <code>std::string_view</code> and <code>std::string</code> when C++17 support is detected.</p>
+        </aside>
+
+        <p><code>pugixml</code> is developed and maintained since 2006 and has many users. All code is distributed under the MIT license, making it completely free to use in both open-source and proprietary applications.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
