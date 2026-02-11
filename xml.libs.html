@@ -70,6 +70,119 @@
         </aside>
 
         <p><code>pugixml</code> is developed and maintained since 2006 and has many users. All code is distributed under the MIT license, making it completely free to use in both open-source and proprietary applications.</p>
+        <section id="pugixml.dom">
+          <h3>Document object model</h3>
+          <p><code>pugixml</code> stores XML data in DOM-like way: the entire XML document (both document structure and element data) is stored in memory as a tree. The tree can be loaded from a character stream (file, string, C++ I/O stream), then traversed with the special API or XPath expressions. The whole tree is mutable: both node structure and node/attribute data can be changed at any time. Finally, the result of document transformations can be saved to a character stream (file, C++ I/O stream or custom transport).</p>
+          <section>
+            <h4>Tree structure</h4>
+            <p>The XML document is represented with a tree data structure. The root of the tree is the document itself, which corresponds to C++ type <code>xml_document</code>. Document has one or more child nodes, which correspond to C++ type <code>xml_node</code>. Nodes have different types; depending on a type, a node can have a collection of child nodes, a collection of attributes, which correspond to C++ type <code>xml_attribute</code>, and some additional data (i.e. name).</p>
+            <p>The tree nodes can be of one of the following types (which together form the enumeration xml_node_type):</p>
+            <ul>
+              <li>Document node (<code>node_document</code>) - this is the root of the tree, which consists of several child nodes. This node corresponds to <code>xml_document</code> class; note that <code>xml_document</code> is a sub-class of <code>xml_node</code>, so the entire node interface is also available. However, document node is special in several ways, which are covered below. There can be only one document node in the tree; document node does not have any XML representation. Document generally has one child element node (<i>see</i> document_element()), although documents parsed from XML fragments (<i>see</i> <code>parse_fragment</code>) can have more than one.</li>
+              <li>
+                <p>Element/tag node (<code>node_element</code>) - this is the most common type of node, which represents XML elements. Element nodes have a name, a collection of attributes and a collection of child nodes (both of which may be empty). The attribute is a simple name/value pair. The example XML representation of element nodes is as follows:</p>
+                <pre>&lt;node attr="value"&gt;&lt;child/&gt;&lt;/node&gt;</pre>
+                <p>There are two element nodes here: one has name "node", single attribute "attr" and single child "child", another has name "child" and does not have any attributes or child nodes.</p>
+              </li>
+              <li>
+                <p>Plain character data nodes (<code>node_pcdata</code>) represent plain text in XML. PCDATA nodes have a value, but do not have a name or children/attributes. Note that <em>plain character data is not a part of the element node but instead has its own node</em>; an element node can have several child PCDATA nodes. The example XML representation of text nodes is as follows:</p>
+                <pre>&lt;node&gt; text1 &lt;child/&gt; text2 &lt;/node&gt;</pre>
+                <p>Here "node" element has three children, two of which are PCDATA nodes with values " text1 " and "text2".</p>
+              </li>
+              <li>
+                <p>Character data nodes (<code>node_cdata</code>) represent text in XML that is quoted in a special way. CDATA nodes do not differ from PCDATA nodes except in XML representation - the above text example looks like this with CDATA:</p>
+                <pre>&lt;node> &lt;![CDATA[text1]]&gt; &lt;child/&gt; &lt;![CDATA[text2]]&gt; &lt;/node&gt;</pre>
+                <p>CDATA nodes make it easy to include non-escaped &lt;, &amp; and &gt; characters in plain text. CDATA value can not contain the character sequence <code>]]&gt;</code>, since it is used to determine the end of node contents.</p>
+              </li>
+              <li>
+                <p>Comment nodes (<code>node_comment</code>) represent comments in XML. Comment nodes have a value, but do not have a name or children/attributes. The example XML representation of a comment node is as follows:</p>
+                <pre>&lt;!-- comment text --&gt;</pre>
+                <p>Here the comment node has value "comment text". By default comment nodes are treated as non-essential part of XML markup and are not loaded during XML parsing. You can override this behavior with <code>parse_comments</code> flag.</p>
+              </li>
+              <li>
+                <p>Processing instruction node (<code>node_pi</code>) represent processing instructions (PI) in XML. PI nodes have a name and an optional value, but do not have children/attributes. The example XML representation of a PI node is as follows:</p>
+                <pre>&lt;?name value?&gt;</pre>
+                <p>Here the name (also called PI target) is "name", and the value is "value". By default PI nodes are treated as non-essential part of XML markup and are not loaded during XML parsing. You can override this behavior with <code>parse_pi</code> flag.</p>
+              </li>
+              <li>
+                <p>Declaration node (<code>node_declaration</code>) represents document declarations in XML. Declaration nodes have a name ("xml") and an optional collection of attributes, but do not have value or children. There can be only one declaration node in a document; moreover, it should be the topmost node (its parent should be the document). The example XML representation of a declaration node is as follows:</p>
+                <pre>&lt;?xml version="1.0"?&gt;</pre>
+                <p>Here the node has name "xml" and a single attribute with name "version" and value "1.0". By default declaration nodes are treated as non-essential part of XML markup and are not loaded during XML parsing. You can override this behavior with <code>parse_declaration</code> flag. Also, by default a dummy declaration is output when XML document is saved unless there is already a declaration in the document; you can disable this with <code>format_no_declaration</code> flag.</p>
+              </li>
+              <li>
+                <p>Document type declaration node (<code>node_doctype</code>) represents document type declarations in XML. Document type declaration nodes have a value, which corresponds to the entire document type contents; no additional nodes are created for inner elements like &lt;!ENTITY&gt;. There can be only one document type declaration node in a document; moreover, it should be the topmost node (its parent should be the document). The example XML representation of a document type declaration node is as follows:</p>
+                <pre>&lt;!DOCTYPE greeting [ &lt;!ELEMENT greeting (#PCDATA)&gt; ]&gt;</pre>
+                <p>Here the node has value "greeting [ &lt;!ELEMENT greeting (#PCDATA)&gt; ]". By default document type declaration nodes are treated as non-essential part of XML markup and are not loaded during XML parsing. You can override this behavior with <code>parse_doctype</code> flag.</p>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>C++ interface</h4>
+            <aside>All pugixml classes and functions are located in the <code>pugi</code> namespace; you have to either use explicit name qualification (i.e. <code>pugi::xml_node</code>), or to gain access to relevant symbols via using directive (i.e. using <code>pugi::xml_node;</code> or <code>using namespace pugi;</code>). The namespace will be omitted from all declarations in this documentation hereafter; all code examples will use fully qualified names.</aside>
+            <p>Despite the fact that there are several node types, there are only three C++ classes representing the tree (<code>xml_document</code>, <code>xml_node</code>, <code>xml_attribute</code>); some operations on <code>xml_node</code> are only valid for certain node types. The classes are described below.</p>
+            <p><code>xml_document</code> is the owner of the entire document structure; it is a non-copyable class. The interface of xml_document consists of loading functions (<i>see</i> Loading document), saving functions (<i>see</i> Saving document) and the entire interface of <code>xml_node</code>, which allows for document inspection and/or modification. Note that while <code>xml_document</code> is a sub-class of <code>xml_node</code>, <code>xml_node</code> is not a polymorphic type; the inheritance is present only to simplify usage. Alternatively you can use the <code>document_element</code> function to get the element node that’s the immediate child of the document.</p>
+            <p>Default constructor of <code>xml_document</code> initializes the document to the tree with only a root node (document node). You can then populate it with data using either tree modification functions or loading functions; all loading functions destroy the previous tree with all occupied memory, which puts existing node/attribute handles for this document to invalid state. If you want to destroy the previous tree, you can use the <code>xml_document::reset</code> function; it destroys the tree and replaces it with either an empty one or a copy of the specified document. Destructor of <code>xml_document</code> also destroys the tree, thus the lifetime of the document object should exceed the lifetimes of any node/attribute handles that point to the tree.</p>
+            <aside>While technically node/attribute handles can be alive when the tree they’re referring to is destroyed, calling any member function for these handles results in undefined behavior. Thus it is recommended to make sure that the document is destroyed only after all references to its nodes/attributes are destroyed.</aside>
+            <p><code>xml_node</code> is the handle to document node; it can point to any node in the document, including the document node itself. There is a common interface for nodes of all types; the actual node type can be queried via the <code>xml_node::type()</code> method. Note that <code>xml_node</code> is only a handle to the actual node, not the node itself - you can have several <code>xml_node</code> handles pointing to the same underlying object. Destroying a <code>xml_node</code> handle does not destroy the node and does not remove it from the tree. The size of <code>xml_node</code> is equal to that of a pointer, so it is nothing more than a lightweight wrapper around a pointer; you can safely pass or return <code>xml_node</code> objects by value without additional overhead.</p>
+            <p>There is a special value of <code>xml_node</code> type, known as null node or empty node (such nodes have <var>type</var> equals <code>node_null</code>). It does not correspond to any node in any document, and thus resembles a null pointer. However, all operations are defined on empty nodes; generally the operations don’t do anything and return empty nodes/attributes or empty strings as their result (<i>see</i> documentation for specific functions for more detailed information). This is useful for chaining calls; i.e. you can get the grandparent of a node like so: <code>node.parent().parent();</code> if a node is a null node or it does not have a parent, the first <code>parent()</code> call returns null node; the second <code>parent()</code> call then also returns null node, which makes error handling easier.</p>
+            <p><code>xml_attribute</code> is the handle to an XML attribute; it has the same semantics as <code>xml_node</code>, i.e. there can be several <code>xml_attribute</code> handles pointing to the same underlying object and there is a special null attribute value, which propagates to function results.</p>
+            <p>Both <code>xml_node</code> and <code>xml_attribute</code> have the default constructor which initializes them to null objects.</p>
+            <p><code>xml_node</code> and <code>xml_attribute</code> try to behave like pointers, that is, they can be compared with other objects of the same type, making it possible to use them as keys in associative containers. All handles to the same underlying object are equal, and any two handles to different underlying objects are not equal. Null handles only compare as equal to null handles. The result of relational comparison can not be reliably determined from the order of nodes in file or in any other way. Do not use relational comparison operators except for search optimization (i.e. associative container keys).</p>
+            <p>If you want to use <code>xml_node</code> or <code>xml_attribute</code> objects as keys in hash-based associative containers, you can use the <code>hash_value</code> member functions. They return the hash values that are guaranteed to be the same for all handles to the same underlying object. The hash value for null handles is 0. Note that hash value does not depend on the content of the node, only on the location of the underlying structure in memory - this means that loading the same document twice will likely produce different hash values, and copying the node will not preserve the hash.</p>
+            <p>Finally handles can be implicitly cast to boolean-like objects, so that you can test if the node/attribute is empty with the following code: <code>if (node) { …​ }</code> or <code>if (!node) { …​ } else { …​ }</code>. Alternatively you can check if a given <code>xml_node</code>/<code>xml_attribute</code> handle is null by calling the following methods:</p>
+            <pre>bool xml_attribute::empty() const;
+bool xml_node::empty() const;</pre>
+            <p>Nodes and attributes do not exist without a document tree, so you can’t create them without adding them to some document. Once underlying node/attribute objects are destroyed, the handles to those objects become invalid. While this means that destruction of the entire tree invalidates all node/attribute handles, it also means that destroying a subtree (by calling <code>xml_node::remove_child</code>) or removing an attribute invalidates the corresponding handles. There is no way to check handle validity; you have to ensure correctness through external mechanisms.</p>
+          </section>
+          <section id="pugi.unicode">
+            <h4>Unicode interface</h4>
+            <p>There are two choices of interface and internal representation when configuring <code>pugixml</code>: you can either choose the UTF-8 (also called char) interface or UTF-16/32 (also called wchar_t) one. The choice is controlled via <code>PUGIXML_WCHAR_MODE</code> define; you can set it via <cite>pugiconfig.hpp</cite> or via preprocessor options, as discussed in <code>Additional configuration options</code>. If this define is set, the <code>wchar_t</code> interface is used; otherwise (by default) the char interface is used. The exact wide character encoding is assumed to be either UTF-16 or UTF-32 and is determined based on the size of <code>wchar_t</code> type.</p>
+            <aside>If the size of wchar_t is 2, pugixml assumes UTF-16 encoding instead of UCS-2, which means that some characters are represented as two code points.</aside>
+            <p>All tree functions that work with strings work with either C-style null terminated strings or STL <code>strings</code> of the selected character type. For example, node name accessors look like this in char mode:</p>
+            <pre>const char* xml_node::name() const;
+bool xml_node::set_name(const char* value);</pre>
+            <p>and like this in <code>wchar_t</code> mode:</p>
+            <pre>const wchar_t* xml_node::name() const;
+bool xml_node::set_name(const wchar_t* value);</pre>
+            <p>There is a special type, <code>pugi::char_t</code>, that is defined as the character type and depends on the library configuration; it will be also used in the documentation hereafter. There is also a type <code>pugi::string_t</code>, which is defined as the matching STL <code>string</code> of the character type; it corresponds to <code>std::string</code> in char mode and to <code>std::wstring</code> in <code>wchar_t</code> mode. Similarly, <code>string_view_t</code> is defined to be <code>std::basic_string_view&lt;char_t&gt;</code>. Overloads for <code>string_view_t</code> are only available when building for C++17 or later (<i>see</i> PUGIXML_HAS_STRING_VIEW).</p>
+            <p>In addition to the interface, the internal implementation changes to store XML data as <code>pugi::char_t</code>; this means that these two modes have different memory usage characteristics - generally UTF-8 mode is more memory and performance efficient, especially if <code>sizeof(wchar_t)</code> is 4. The conversion to <code>pugi::char_t</code> upon document loading and from <code>pugi::char_t</code> upon document saving happen automatically, which also carries a minor performance penalty. The general advice however is to select the character mode based on usage scenario, i.e. if UTF-8 is inconvenient to process and most of your XML data is non-ASCII, <code>wchar_t</code> mode is probably a better choice.</p>
+            <p>There are cases when you’ll have to convert string data between UTF-8 and <code>wchar_t</code> encodings; the following helper functions are provided for such purposes:</p>
+            <pre>std::string as_utf8(const wchar_t* str);
+std::wstring as_wide(const char* str);</pre>
+            <p>Both functions accept a null-terminated string as an argument <var>str</var>, and return the converted string. <code>as_utf8</code> performs conversion from UTF-16/32 to UTF-8; <code>as_wide</code> performs conversion from UTF-8 to UTF-16/32. Invalid UTF sequences are silently discarded upon conversion. str has to be a valid string; passing null pointer results in undefined behavior. There are also two overloads with the same semantics which accept a string as an argument:</p>
+            <pre>std::string as_utf8(const std::wstring&amp; str);
+std::wstring as_wide(const std::string&amp; str);</pre>
+            <aside>
+              <p>Most examples in the documentation assume char interface and therefore will not compile with PUGIXML_WCHAR_MODE. This is done to simplify the documentation; usually the only changes you’ll have to make is to pass wchar_t string literals, i.e. instead of</p>
+              <pre>xml_node node = doc.child("bookstore").find_child_by_attribute("book", "id", "12345");</pre>
+              <p>you’ll have to use</p>
+              <pre>xml_node node = doc.child(L"bookstore").find_child_by_attribute(L"book", L"id", L"12345");</pre>
+            </aside>
+          </section>
+          <section>
+            <h4>Thread-safety guarantees*</h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+          <section>
+            <h4>Exception guarantees*</h4>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section>
+            <h4>Exception guarantees*</h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+        </section>
+        <section>
+          <h3>Loading Documents*</h3>
+        </section>
       </section>
 
     </main>
