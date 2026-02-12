@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Microcontrollers</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Microcontrollers: Minimalistic Single-IC Computers"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+      <div>
+        <p><a rel="next" href="arduino.html">Arduino: a User-Friendly Microcontroller Board</a></p>
+        <p><a            href="verilog.html">Verilog</a>, a Hardware Description Language for Digital Circuits</p>
+        <p><a            href="ARM.html">ARM for Advanced Risc Machines: the Commonest 32-bit Architecture</a></p>
+      </div>
+      <div>
+        <p><a            href="ic.html">Integrated Circuits</a></p>
+        <p><a rel="prev" href="electronics.html">Electronics</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Microcontrollers: Minimalistic Single-IC Computers</h1>
+
+      <section id="communication">
+        <h2>Communication Protocols</h2>
+
+        <section id="i2c">
+          <h3>I2C</h3>
+          <p>The I2C bus is one of the most frequently used microcontroller communication protocols for communicating with external devices such as sensors and actuators. The I2C bus is a single master, multiple slave bus, and can operate on standard mode: 100 Kbit/s, full speed: 400Kbit/s, fast mode: 1 Mbit/s, and high speed: 3.2 Mbit/s. The bus consists of two open-drain wires, pulled-up with resistors:</p>
+          <table>
+            <tr> <td><strong>SDA</strong></td> <td>data line</td> </tr>
+            <tr> <td><strong>SCL</strong></td> <td>clock line</td> </tr>
+          </table>
+          <p>Because the I2C bus is based on just two wires, there should be a way to address an individual slave device on the same bus. For this reason, the protocol defines that each slave device provides a unique slave address for the given bus. This address is usually 7-bits wide. When the bus is free, both lines are <var>HIGH</var>. All communication on the bus is initiated and completed by the master which initially sends a <var>START</var> bit, and completes a transaction by sending <var>STOP</var> bit. This alerts all slaves that data is coming on the bus. After the start bit, 7 bits of unique slave address is sent. Each slave device on the bus has an address and this ensures that only the addressed slave communicates on the bus at any time to avoid any collisions. The last sent bit is the read/write bit. If this bit is 0, the master wishes to write to the bus (e.g. to a register of a slave). If it is 1, the master wishes to read from the bus (e.g. from the register of a slave). The data is sent on the bus with the MSB bit first. An acknowledgment (<var>ACK</var>) bit takes place after every byte and this bit allows the receiver to signal to the transmitter that the byte was received successfully, resulting in another byte being sent. ACK bit is sent at the 9th clock pulse.</p>
+          <p>Communication over the I2C bus is as follows:</p>
+          <ol>
+            <li>The master sends on the bus the address of the slave it wants to communicate with.</li>
+            <li>The LSB is the R/W bit which establishes the direction of data transmission, i.e. from master to slave (R/W = 0), or from slave to master (R/W = 1).</li>
+            <li>Required bytes are sent, each interleaved with an ACK bit until a stop condition occurs.</li>
+          </ol>
+          <p>Depending on the type of slave device used, some transactions may require a separate transaction. For example, the steps to read data from an I2C compatible memory device are:</p>
+          <ol>
+            <li>Master starts the transaction in write mode (R/W = 0) by sending the slave address on the bus.</li>
+            <li>The memory location to be retrieved are then sent as two bytes (assuming 64Kbit memory).</li>
+            <li>The master sends a STOP condition to end the transaction</li>
+            <li>The master starts a new transaction in read mode (R/W = 1) by sending the slave address on the bus</li>
+            <li>The master reads the data from the memory. If reading the memory in sequential format, more than one byte will be read.</li>
+            <li>The master sets a stop condition on the bus</li>
+          </ol>
+        </section>
+
+        <!--
+        <section id="spi">
+          <h3>SPI*</h3>
+        </section>
+
+        <section id="*">
+          <h3>*</h3>
+        </section>
+        <section id="*">
+          <h3>*</h3>
+        </section>
+        <section id="*">
+          <h3>*</h3>
+        </section>
+        -->
+
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

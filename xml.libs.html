@@ -279,7 +279,41 @@ else
               <li><code>parse_fragment</code> determines if document should be treated as a fragment of a valid XML. Parsing document as a fragment leads to top-level PCDATA content (i.e. text that is not located inside a node) to be added to a tree, and additionally treats documents without element nodes as valid and permits multiple top-level element nodes (currently multiple top-level element nodes are also permitted when the flag is off, but that behavior should not be relied on). This flag is off by default.</li>
             </ul>
             <aside><strong>CAUTION</strong> Using in-place parsing (<var>load_buffer_inplace</var>) with <var>parse_fragment</var> flag may result in the loss of the last character of the buffer if it is a part of PCDATA. Since PCDATA values are null-terminated strings, the only way to resolve this is to provide a null-terminated buffer as an input to load_buffer_inplace - i.e. <code>doc.load_buffer_inplace("test\0", 5, pugi::parse_default | pugi::parse_fragment)</code>.</aside>
-            <pre></pre>
+
+            <p>These flags control the transformation of tree element contents:</p>
+            <ul>
+              <li><code>parse_escapes</code> determines if character and entity references are to be expanded during the parsing process. Character references have the form <code>&amp;#…​;</code> or <code>&amp;#x…​;</code> (…​ is Unicode numeric representation of character in either decimal (<code>&amp;#…​;</code>) or hexadecimal (<code>&amp;#x…​</code>;) form), entity references are <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code>, <code>&amp;apos;</code> and <code>&amp;quot;</code> (note that as pugixml does not handle DTD, the only allowed entities are predefined ones). If character/entity reference can not be expanded, it is left as is, so you can do additional processing later. Reference expansion is performed on attribute values and PCDATA content. This flag is on by default.</li>
+              <li><code>parse_eol</code> determines if EOL handling (that is, replacing sequences <code>\r\n</code> by a single <code>\n</code> character, and replacing all standalone <code>\r</code> characters by <code>\n</code>) is to be performed on input data (that is, comment contents, PCDATA/CDATA contents and attribute values). This flag is on by default.</li>
+              <li><code>parse_wconv_attribute</code> determines if attribute value normalization should be performed for all attributes. This means, that whitespace characters (new line, tab and space) are replaced with space (' '). New line characters are always treated as if <var>parse_eol</var> is set, i.e. <code>\r\n</code> is converted to a single space. This flag is on by default.</li>
+              <li><code>parse_wnorm_attribute</code> determines if extended attribute value normalization should be performed for all attributes. This means, that after attribute values are normalized as if <code>parse_wconv_attribute</code> was set, leading and trailing space characters are removed, and all sequences of space characters are replaced by a single space character. <var>parse_wconv_attribute</var> has no effect if this flag is on. This flag is off by default.</li>
+            </ul>
+            <aside><strong>NOTE</strong> <var>parse_wconv_attribute</var> option performs transformations that are required by W3C specification for attributes that are declared as CDATA; <var>parse_wnorm_attribute</var> performs transformations required for NMTOKENS attributes. In the absence of document type declaration all attributes should behave as if they are declared as CDATA, thus parse_wconv_attribute is the default option.</aside>
+
+            <p>Additionally there are three predefined option masks:</p>
+            <ul>
+              <li><code>parse_minimal</code> has all options turned off. This option mask means that pugixml does not add declaration nodes, document type declaration nodes, PI nodes, CDATA sections and comments to the resulting tree and does not perform any conversion for input data, so theoretically it is the fastest mode. However, as mentioned above, in practice parse_default is usually equally fast.</li>
+              <li><code>parse_default</code> is the default set of flags, i.e. it has all options set to their default values. It includes parsing CDATA sections (comments/PIs are not parsed), performing character and entity reference expansion, replacing whitespace characters with spaces in attribute values and performing EOL handling. Note, that PCDATA sections consisting only of whitespace characters are not parsed (by default) for performance reasons.</li>
+              <li><code>parse_full</code> is the set of flags which adds nodes of all types to the resulting tree and performs default conversions for input data. It includes parsing CDATA sections, comments, PI nodes, document declaration node and document type declaration node, performing character and entity reference expansion, replacing whitespace characters with spaces in attribute values and performing EOL handling. Note, that PCDATA sections consisting only of whitespace characters are not parsed in this mode.</li>
+            </ul>
+
+            <p>This is an example of using different parsing options (<cite>samples/load_options.cpp</cite>):</p>
+            <pre>const char* source = "<!--comment--><node>&lt;</node>";
+
+// Parsing with default options; note that comment node is not added to the tree, and entity reference &lt; is expanded
+doc.load_string(source);
+std::cout &lt;&lt; "First node value: [" &lt;&lt; doc.first_child().value() &lt;&lt; "], node child value: [" &lt;&lt; doc.child_value("node") &lt;&lt; "]\n";
+
+// Parsing with additional parse_comments option; comment node is now added to the tree
+doc.load_string(source, pugi::parse_default | pugi::parse_comments);
+std::cout &lt;&lt; "First node value: [" &lt;&lt; doc.first_child().value() &lt;&lt; "], node child value: [" &lt;&lt; doc.child_value("node") &lt;&lt; "]\n";
+
+// Parsing with additional parse_comments option and without the (default) parse_escapes option; &lt; is not expanded
+doc.load_string(source, (pugi::parse_default | pugi::parse_comments) &amp; ~pugi::parse_escapes);
+std::cout &lt;&lt; "First node value: [" &lt;&lt; doc.first_child().value() &lt;&lt; "], node child value: [" &lt;&lt; doc.child_value("node") &lt;&lt; "]\n";
+
+// Parsing with minimal option mask; comment node is not added to the tree, and &lt; is not expanded
+doc.load_string(source, pugi::parse_minimal);
+std::cout &lt;&lt; "First node value: [" &lt;&lt; doc.first_child().value() &lt;&lt; "], node child value: [" &lt;&lt; doc.child_value("node") &lt;&lt; "]\n";</pre>
             <p></p>
             <pre></pre>
             <p></p>
