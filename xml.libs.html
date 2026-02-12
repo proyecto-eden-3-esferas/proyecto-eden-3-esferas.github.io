@@ -120,11 +120,11 @@
             <h4>C++ interface</h4>
             <aside>All pugixml classes and functions are located in the <code>pugi</code> namespace; you have to either use explicit name qualification (i.e. <code>pugi::xml_node</code>), or to gain access to relevant symbols via using directive (i.e. using <code>pugi::xml_node;</code> or <code>using namespace pugi;</code>). The namespace will be omitted from all declarations in this documentation hereafter; all code examples will use fully qualified names.</aside>
             <p>Despite the fact that there are several node types, there are only three C++ classes representing the tree (<code>xml_document</code>, <code>xml_node</code>, <code>xml_attribute</code>); some operations on <code>xml_node</code> are only valid for certain node types. The classes are described below.</p>
-            <p><code>xml_document</code> is the owner of the entire document structure; it is a non-copyable class. The interface of xml_document consists of loading functions (<i>see</i> Loading document), saving functions (<i>see</i> Saving document) and the entire interface of <code>xml_node</code>, which allows for document inspection and/or modification. Note that while <code>xml_document</code> is a sub-class of <code>xml_node</code>, <code>xml_node</code> is not a polymorphic type; the inheritance is present only to simplify usage. Alternatively you can use the <code>document_element</code> function to get the element node that’s the immediate child of the document.</p>
+            <p><code>xml_document</code> is the owner of the entire document structure; it is a non-copyable class. The interface of xml_document consists of loading functions (<i>see</i> Loading document), saving functions (<i>see</i> Saving document) and the entire interface of <code>xml_node</code>, which allows for document inspection and/or modification. Note that while <code>xml_document</code> is a sub-class of <code>xml_node</code>, <code>xml_node</code> is not a polymorphic type; the inheritance is present only to simplify usage. Alternatively you can use the <code>document_element</code> function to get the element node that&apos;s the immediate child of the document.</p>
             <p>Default constructor of <code>xml_document</code> initializes the document to the tree with only a root node (document node). You can then populate it with data using either tree modification functions or loading functions; all loading functions destroy the previous tree with all occupied memory, which puts existing node/attribute handles for this document to invalid state. If you want to destroy the previous tree, you can use the <code>xml_document::reset</code> function; it destroys the tree and replaces it with either an empty one or a copy of the specified document. Destructor of <code>xml_document</code> also destroys the tree, thus the lifetime of the document object should exceed the lifetimes of any node/attribute handles that point to the tree.</p>
-            <aside>While technically node/attribute handles can be alive when the tree they’re referring to is destroyed, calling any member function for these handles results in undefined behavior. Thus it is recommended to make sure that the document is destroyed only after all references to its nodes/attributes are destroyed.</aside>
+            <aside>While technically node/attribute handles can be alive when the tree they&apos;re referring to is destroyed, calling any member function for these handles results in undefined behavior. Thus it is recommended to make sure that the document is destroyed only after all references to its nodes/attributes are destroyed.</aside>
             <p><code>xml_node</code> is the handle to document node; it can point to any node in the document, including the document node itself. There is a common interface for nodes of all types; the actual node type can be queried via the <code>xml_node::type()</code> method. Note that <code>xml_node</code> is only a handle to the actual node, not the node itself - you can have several <code>xml_node</code> handles pointing to the same underlying object. Destroying a <code>xml_node</code> handle does not destroy the node and does not remove it from the tree. The size of <code>xml_node</code> is equal to that of a pointer, so it is nothing more than a lightweight wrapper around a pointer; you can safely pass or return <code>xml_node</code> objects by value without additional overhead.</p>
-            <p>There is a special value of <code>xml_node</code> type, known as null node or empty node (such nodes have <var>type</var> equals <code>node_null</code>). It does not correspond to any node in any document, and thus resembles a null pointer. However, all operations are defined on empty nodes; generally the operations don’t do anything and return empty nodes/attributes or empty strings as their result (<i>see</i> documentation for specific functions for more detailed information). This is useful for chaining calls; i.e. you can get the grandparent of a node like so: <code>node.parent().parent();</code> if a node is a null node or it does not have a parent, the first <code>parent()</code> call returns null node; the second <code>parent()</code> call then also returns null node, which makes error handling easier.</p>
+            <p>There is a special value of <code>xml_node</code> type, known as null node or empty node (such nodes have <var>type</var> equals <code>node_null</code>). It does not correspond to any node in any document, and thus resembles a null pointer. However, all operations are defined on empty nodes; generally the operations don&apos;t do anything and return empty nodes/attributes or empty strings as their result (<i>see</i> documentation for specific functions for more detailed information). This is useful for chaining calls; i.e. you can get the grandparent of a node like so: <code>node.parent().parent();</code> if a node is a null node or it does not have a parent, the first <code>parent()</code> call returns null node; the second <code>parent()</code> call then also returns null node, which makes error handling easier.</p>
             <p><code>xml_attribute</code> is the handle to an XML attribute; it has the same semantics as <code>xml_node</code>, i.e. there can be several <code>xml_attribute</code> handles pointing to the same underlying object and there is a special null attribute value, which propagates to function results.</p>
             <p>Both <code>xml_node</code> and <code>xml_attribute</code> have the default constructor which initializes them to null objects.</p>
             <p><code>xml_node</code> and <code>xml_attribute</code> try to behave like pointers, that is, they can be compared with other objects of the same type, making it possible to use them as keys in associative containers. All handles to the same underlying object are equal, and any two handles to different underlying objects are not equal. Null handles only compare as equal to null handles. The result of relational comparison can not be reliably determined from the order of nodes in file or in any other way. Do not use relational comparison operators except for search optimization (i.e. associative container keys).</p>
@@ -132,7 +132,7 @@
             <p>Finally handles can be implicitly cast to boolean-like objects, so that you can test if the node/attribute is empty with the following code: <code>if (node) { …​ }</code> or <code>if (!node) { …​ } else { …​ }</code>. Alternatively you can check if a given <code>xml_node</code>/<code>xml_attribute</code> handle is null by calling the following methods:</p>
             <pre>bool xml_attribute::empty() const;
 bool xml_node::empty() const;</pre>
-            <p>Nodes and attributes do not exist without a document tree, so you can’t create them without adding them to some document. Once underlying node/attribute objects are destroyed, the handles to those objects become invalid. While this means that destruction of the entire tree invalidates all node/attribute handles, it also means that destroying a subtree (by calling <code>xml_node::remove_child</code>) or removing an attribute invalidates the corresponding handles. There is no way to check handle validity; you have to ensure correctness through external mechanisms.</p>
+            <p>Nodes and attributes do not exist without a document tree, so you can&apos;t create them without adding them to some document. Once underlying node/attribute objects are destroyed, the handles to those objects become invalid. While this means that destruction of the entire tree invalidates all node/attribute handles, it also means that destroying a subtree (by calling <code>xml_node::remove_child</code>) or removing an attribute invalidates the corresponding handles. There is no way to check handle validity; you have to ensure correctness through external mechanisms.</p>
           </section>
           <section id="pugi.unicode">
             <h4>Unicode interface</h4>
@@ -146,43 +146,170 @@ bool xml_node::set_name(const char* value);</pre>
 bool xml_node::set_name(const wchar_t* value);</pre>
             <p>There is a special type, <code>pugi::char_t</code>, that is defined as the character type and depends on the library configuration; it will be also used in the documentation hereafter. There is also a type <code>pugi::string_t</code>, which is defined as the matching STL <code>string</code> of the character type; it corresponds to <code>std::string</code> in char mode and to <code>std::wstring</code> in <code>wchar_t</code> mode. Similarly, <code>string_view_t</code> is defined to be <code>std::basic_string_view&lt;char_t&gt;</code>. Overloads for <code>string_view_t</code> are only available when building for C++17 or later (<i>see</i> PUGIXML_HAS_STRING_VIEW).</p>
             <p>In addition to the interface, the internal implementation changes to store XML data as <code>pugi::char_t</code>; this means that these two modes have different memory usage characteristics - generally UTF-8 mode is more memory and performance efficient, especially if <code>sizeof(wchar_t)</code> is 4. The conversion to <code>pugi::char_t</code> upon document loading and from <code>pugi::char_t</code> upon document saving happen automatically, which also carries a minor performance penalty. The general advice however is to select the character mode based on usage scenario, i.e. if UTF-8 is inconvenient to process and most of your XML data is non-ASCII, <code>wchar_t</code> mode is probably a better choice.</p>
-            <p>There are cases when you’ll have to convert string data between UTF-8 and <code>wchar_t</code> encodings; the following helper functions are provided for such purposes:</p>
+            <p>There are cases when you&apos;ll have to convert string data between UTF-8 and <code>wchar_t</code> encodings; the following helper functions are provided for such purposes:</p>
             <pre>std::string as_utf8(const wchar_t* str);
 std::wstring as_wide(const char* str);</pre>
             <p>Both functions accept a null-terminated string as an argument <var>str</var>, and return the converted string. <code>as_utf8</code> performs conversion from UTF-16/32 to UTF-8; <code>as_wide</code> performs conversion from UTF-8 to UTF-16/32. Invalid UTF sequences are silently discarded upon conversion. str has to be a valid string; passing null pointer results in undefined behavior. There are also two overloads with the same semantics which accept a string as an argument:</p>
             <pre>std::string as_utf8(const std::wstring&amp; str);
 std::wstring as_wide(const std::string&amp; str);</pre>
             <aside>
-              <p>Most examples in the documentation assume char interface and therefore will not compile with PUGIXML_WCHAR_MODE. This is done to simplify the documentation; usually the only changes you’ll have to make is to pass wchar_t string literals, i.e. instead of</p>
+              <p>Most examples in the documentation assume char interface and therefore will not compile with PUGIXML_WCHAR_MODE. This is done to simplify the documentation; usually the only changes you&apos;ll have to make is to pass wchar_t string literals, i.e. instead of</p>
               <pre>xml_node node = doc.child("bookstore").find_child_by_attribute("book", "id", "12345");</pre>
-              <p>you’ll have to use</p>
+              <p>you&apos;ll have to use</p>
               <pre>xml_node node = doc.child(L"bookstore").find_child_by_attribute(L"book", L"id", L"12345");</pre>
             </aside>
           </section>
           <section>
             <h4>Thread-safety guarantees*</h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
+            <p>Almost all functions in pugixml have the following thread-safety guarantees:</p>
+            <ul>
+              <li>it is safe to call free (non-member) functions from multiple threads</li>
+              <li>it is safe to perform concurrent read-only accesses to the same tree (all constant member functions do not modify the tree)</li>
+              <li>it is safe to perform concurrent read/write accesses on multiple trees, as long as each tree is only accessed from a single thread at a time</li>
+            </ul>
+            <p>Concurrent read/write access to a single tree requires synchronization, for example via a reader-writer lock. Modification includes altering document structure and altering individual node/attribute data, i.e. changing names/values.</p>
+            <p>The only exception is set_memory_management_functions; it modifies global variables and as such is not thread-safe. Its usage policy has more restrictions, see Custom memory allocation/deallocation functions.</p>
           </section>
           <section>
-            <h4>Exception guarantees*</h4>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
+            <h4>Exception guarantees</h4>
+            <p>With the exception of XPath, pugixml itself does not throw any <a target="_blank" href="cpp.exceptions.html">exceptions</a>. Additionally, most pugixml functions have a no-throw exception guarantee.</p>
+            <p>This is not applicable to functions that operate on STL strings or IOstreams; such functions have either strong guarantee (functions that operate on strings) or basic guarantee (functions that operate on streams). Also functions that call user-defined callbacks (i.e. <code>xml_node::traverse</code> or <code>xml_node::find_node</code>) do not provide any exception guarantees beyond the ones provided by the callback.</p>
+            <p>If exception handling is not disabled with PUGIXML_NO_EXCEPTIONS define, XPath functions may throw xpath_exception on parsing errors; also, XPath functions may throw std::bad_alloc in low memory conditions. Still, XPath functions provide strong exception guarantee.</p>
           </section>
           <section>
-            <h4>Exception guarantees*</h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
+            <h4>Memory Management</h4>
+            <p><code>pugixml</code> requests the memory needed for document storage in big chunks, and allocates document data inside those chunks. This section discusses replacing functions used for chunk allocation and internal memory management implementation.</p>
+            <p>[...]</p>
           </section>
         </section>
-        <section>
+
+        <section id="pugixml.loading-documents">
           <h3>Loading Documents*</h3>
+          <p><code>pugixml</code> provides several functions for loading XML data from various places - <a href="#pugixml.loading-a-file">files</a>, C++ iostreams, memory buffers. All functions use an extremely fast non-validating parser. This parser is not fully W3C conformant - it can load any valid XML document, but does not perform some well-formedness checks. While considerable effort is made to reject invalid XML documents, some validation is not performed for performance reasons. Also some XML transformations (i.e. EOL handling or attribute value normalization) can impact parsing speed and thus can be disabled. However for vast majority of XML documents there is no performance difference between different parsing options. Parsing options also control whether certain XML nodes are parsed; <i>see</i> <a href="#pugixml.parsing-options">Parsing Options</a> for more information.</p>
+          <p>XML data is always converted to internal character format (<i>see</i> Unicode interface) before parsing. <code>pugixml</code> supports all popular Unicode encodings (UTF-8, UTF-16 (big and little endian), UTF-32 (big and little endian); UCS-2 is naturally supported since it&apos;s a strict subset of UTF-16) as well as some non-Unicode encodings (Latin-1) and handles all encoding conversions automatically. Unless explicit encoding is specified, loading functions perform automatic encoding detection based on source XML data, so in most cases you do not have to specify document encoding. Encoding conversion is described in more detail in <a href="#pugixml.encodings">Encodings</a>.</p>
+
+          <section id="pugixml.loading-a-file">
+            <h4>Loading document from file*</h4>
+            <p>The most common source of XML data is files; <code>pugixml</code> provides dedicated functions for loading an XML document from file:</p>
+            <pre>xml_parse_result xml_document::load_file(const char* path, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
+xml_parse_result xml_document::load_file(const wchar_t* path, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);</pre>
+            <p>These functions accept the file path as its first argument, and also two optional arguments, which specify parsing options (<i>see</i> <a href="#pugixml.parsing-options">Parsing options</a>) and input data encoding (<i>see</i> <a href="#pugixml.encodings">Encodings</a>). The path has the target operating system format, so it can be a relative or absolute one, it should have the delimiters of the target system, it should have the exact case if the target file system is case-sensitive, etc.</p>
+            <p>File path is passed to the system file opening function as is in case of the first function (which accepts <code>const char* <var>path</var></code>); the second function either uses a special file opening function if it is provided by the runtime library or converts the path to UTF-8 and uses the system file opening function.</p>
+            <p><code>load_file</code> destroys the existing document tree and then tries to load the new tree from the specified file. The result of the operation is returned in an <code>xml_parse_result</code> object; this object contains the operation status and the related information (i.e. last successfully parsed position in the input file, if parsing fails). <i>See</i> <a href="#pugixml.handling-parsing-errors">Handling parsing errors</a> for error handling details.</p>
+            <p>This is an example of loading XML document from file (<cite>samples/load_file.cpp</cite>):</p>
+            <pre>pugi::xml_document doc;
+
+pugi::xml_parse_result result = doc.load_file("tree.xml");
+
+std::cout &lt;&lt; "Load result: " &lt;&lt; result.description() &lt;&lt; ", mesh name: " &lt;&lt; doc.child("mesh").attribute("name").value() &lt;&lt; std::endl;</pre>
+          </section>
+
+          <section><h4>Loading document from memory*</h4></section>
+          <section><h4>Loading document from C++ IOstreams*</h4></section>
+          <section id="pugixml.handling-parsing-errors">
+            <h4>Handling parsing errors*</h4>
+            <p>All document loading functions return the parsing result via <code>xml_parse_result</code> object. It contains parsing status, the offset of last successfully parsed character from the beginning of the source stream, and the encoding of the source stream:</p>
+            <pre>struct xml_parse_result
+{
+    xml_parse_status status;
+    ptrdiff_t offset;
+    xml_encoding encoding;
+
+    operator bool() const;
+    const char* description() const;
+};</pre>
+            <p>Parsing status is represented as the xml_parse_status enumeration and can be one of the following:</p>
+            <ul>
+              <li><code>status_ok</code> means that no error was encountered during parsing; the source stream represents the valid XML document which was fully parsed and converted to a tree.</li>
+              <li><code>status_file_not_found</code> is only returned by load_file function and means that file could not be opened.</li>
+              <li><code>status_io_error</code> is returned by <code>load_file</code> function and by load functions with <code>std::istream/std::wstream</code> arguments; it means that some I/O error has occurred during reading the file/stream.</li>
+              <li><code>status_out_of_memory</code> means that there was not enough memory during some allocation; any allocation failure during parsing results in this error.</li>
+              <li><code>status_internal_error</code> means that something went horribly wrong; currently this error does not occur</li>
+              <li><code>status_unrecognized_tag</code> means that parsing stopped due to a tag with either an empty name or a name which starts with an ilegal character, such as #.</li>
+              <li><code>status_bad_pi</code> means that parsing stopped due to incorrect document declaration/processing instruction</li>
+              <li><code>status_bad_comment</code>, <code>status_bad_cdata</code>, <code>status_bad_doctype</code> and <code>status_bad_pcdata</code> mean that parsing stopped due to the invalid construct of the respective type.</li>
+              <li><code>status_bad_start_element</code> means that parsing stopped because starting tag either had no closing <code>&gt;</code> symbol or contained some incorrect symbol</li>
+              <li><code>status_bad_attribute</code> means that parsing stopped because there was an incorrect attribute, such as an attribute without value or with value that is not quoted (note that <code>&lt;node attr=1&gt;</code> is incorrect in XML)</li>
+              <li><code>status_bad_end_element</code> means that parsing stopped because ending tag had incorrect syntax (i.e. extra non-whitespace symbols between tag name and <code>&gt;</code>)</li>
+              <li><code>status_end_element_mismatch</code> means that parsing stopped because the closing tag did not match the opening one (i.e. <code>&lt;node>&lt;/nedo></code>) or because some tag was not closed at all</li>
+              <li><code>status_no_document_element</code> means that no element nodes were discovered during parsing; this usually indicates an empty or invalid document</li>
+            </ul>
+            <p><code>description()</code> member function can be used to convert parsing status to a string; the returned message is always in English, so you&apos;ll have to write your own function if you need a localized string. However please note that the exact messages returned by <code>description()</code> function may change from version to version, so any complex status handling should be based on status value. Note that <code>description()</code> returns a char string even in <code>PUGIXML_WCHAR_MODE</code>; you&apos;ll have to call <code>as_wide</code> to get the <code>wchar_t</code> string.</p>
+            <p>If parsing failed because the source data was not a valid XML, the resulting tree is not destroyed - despite the fact that load function returns error, you can use the part of the tree that was successfully parsed. Obviously, the last element may have an unexpected name/value; for example, if the attribute value does not end with the necessary quotation mark, as in <code>&lt;node attr="value>some data&lt;/node></code> example, the value of attribute <var>attr</var> will contain the string <q>value>some data&lt;/node></q>.</p>
+            <p>In addition to the status code, parsing result has an offset member, which contains the offset of last successfully parsed character if parsing failed because of an error in source data; otherwise offset is 0. For parsing efficiency reasons, pugixml does not track the current line during parsing; this offset is in units of <code>pugi::char_t</code> (bytes for character mode, wide characters for wide character mode). Many text editors support 'Go To Position' feature - you can use it to locate the exact error position. Alternatively, if you&apos;re loading the document from memory, you can display the error chunk along with the error description (<i>see</i> the example code below).</p>
+            <aside><strong>CAUTION</strong>: Offset is calculated in the XML buffer in native encoding; if encoding conversion is performed during parsing, offset can not be used to reliably track the error position.</aside>
+            <p>Parsing result also has an <code>encoding</code> member, which can be used to check that the source data encoding was correctly guessed. It is equal to the exact encoding used during parsing (i.e. with the exact endianness); <i>see</i> <a href="#pugixml.encodings">Encodings</a> for more information.</p>
+            <p>Parsing result object can be implicitly converted to <code>bool</code>; if you do not want to handle parsing errors thoroughly, you can just check the return value of load functions as if it was a bool: <code>if (doc.load_file("file.xml")) { …​ } else { …​ }</code>.</p>
+            <p>This is an example of handling loading errors (<cite>samples/load_error_handling.cpp</cite>):</p>
+            <pre>pugi::xml_document doc;
+pugi::xml_parse_result result = doc.load_string(source);
+
+if (result)
+{
+    std::cout &lt;&lt; "XML [" &lt;&lt; source &lt;&lt; "] parsed without errors,\
+    attr value: [" &lt;&lt; doc.child("node").attribute("attr").value() &lt;&lt; "]\n\n";
+}
+else
+{
+    std::cout &lt;&lt; "XML [" &lt;&lt; source &lt;&lt; "] parsed with errors,\
+    attr value: [" &lt;&lt; doc.child("node").attribute("attr").value() &lt;&lt; "]\n";
+
+    std::cout &lt;&lt; "Error description: " &lt;&lt; result.description() &lt;&lt; "\n";
+    std::cout &lt;&lt; "Error offset: " &lt;&lt; result.offset &lt;&lt; " \
+    (error at [..." &lt;&lt; (source + result.offset) &lt;&lt; "]\n\n";
+}</pre>
+          </section>
+
+          <section id="pugixml.parsing-options">
+            <h4>Parsing Options</h4>
+            <p>All document loading functions accept the optional parameter options. This is a bitmask that customizes the parsing process: you can select the node types that are parsed and various transformations that are performed with the XML text. Disabling certain transformations can improve parsing performance for some documents; however, the code for all transformations is very well optimized, and thus the majority of documents won&apos;t get any performance benefit. As a rule of thumb, only modify parsing flags if you want to get some nodes in the document that are excluded by default (i.e. declaration or comment nodes).</p>
+            <aside><strong>NOTE</strong> You should use the usual bitwise arithmetics to manipulate the bitmask: to enable a flag, use <code><var>mask</var> | <var>flag</var></code>; to disable a flag, use <code><var>mask</var> &amp; ~<var>flag</var></code>.</aside>
+            <p>These flags control the resulting tree contents:</p>
+            <ul>
+              <li><code>parse_declaration</code> determines if XML document declaration (node with type node_declaration) is to be put in DOM tree. If this flag is off, it is not put in the tree, but is still parsed and checked for correctness. This flag is off by default.</li>
+              <li><code>parse_doctype</code> determines if XML document type declaration (node with type node_doctype) is to be put in DOM tree. If this flag is off, it is not put in the tree, but is still parsed and checked for correctness. This flag is off by default.</li>
+              <li><code>parse_pi</code> determines if processing instructions (nodes with type node_pi) are to be put in DOM tree. If this flag is off, they are not put in the tree, but are still parsed and checked for correctness. Note that <code>&lt;?xml …​?&gt;</code> (document declaration) is not considered to be a PI. This flag is off by default.</li>
+              <li><code>parse_comments</code> determines if comments (nodes with type <code>node_comment</code>) are to be put in DOM tree. If this flag is off, they are not put in the tree, but are still parsed and checked for correctness. This flag is off by default.</li>
+              <li><code>parse_cdata</code> determines if CDATA sections (nodes with type node_cdata) are to be put in DOM tree. If this flag is off, they are not put in the tree, but are still parsed and checked for correctness. This flag is on by default.</li>
+              <li><code>parse_trim_pcdata</code> determines if leading and trailing whitespace characters are to be removed from PCDATA nodes. While for some applications leading/trailing whitespace is significant, often the application only cares about the non-whitespace contents so it&apos;s easier to trim whitespace from text during parsing. This flag is off by default.</li>
+              <li><code>parse_ws_pcdata</code> determines if PCDATA nodes (nodes with type node_pcdata) that consist only of whitespace characters are to be put in DOM tree. Often whitespace-only data is not significant for the application, and the cost of allocating and storing such nodes (both memory and speed-wise) can be significant. For example, after parsing XML string <code>&lt;node> &lt;a/> &lt;/node></code>, <var>node</var> element will have three children when parse_ws_pcdata is set (child with type node_pcdata and value " ", child with type node_element and name "a", and another child with type node_pcdata and value " "), and only one child when parse_ws_pcdata is not set. This flag is off by default.</li>
+              <li><code>parse_ws_pcdata_single</code> determines if whitespace-only PCDATA nodes that have no sibling nodes are to be put in DOM tree. In some cases application needs to parse the whitespace-only contents of nodes, i.e. <code>&lt;node&gt; &lt;/node&gt;</code>, but is not interested in whitespace markup elsewhere. It is possible to use <code>parse_ws_pcdata</code> flag in this case, but it results in excessive allocations and complicates document processing; this flag can be used to avoid that. As an example, after parsing XML string <code>&lt;node&gt; &lt;a&gt; &lt;/a&gt; &lt;/node&gt;</code> with <var>parse_ws_pcdata_single</var> flag set, <var>&lt;node&gt;</var> element will have one child <var>&lt;a&gt;</var>, and <var>&lt;a&gt;</var> element will have one child with type node_pcdata and value " ". This flag has no effect if <var>parse_ws_pcdata</var> is enabled. This flag is off by default.</li>
+              <li><code>parse_embed_pcdata</code> determines if PCDATA contents is to be saved as element values. Normally element nodes have names but not values; this flag forces the parser to store the contents as a value if PCDATA is the first child of the element node (otherwise PCDATA node is created as usual). This can significantly reduce the memory required for documents with many PCDATA nodes. To retrieve the data you can use <code>xml_node::value()</code> on the element nodes or any of the higher-level functions like child_value or text. This flag is off by default. Since this flag significantly changes the DOM structure it is only recommended for parsing documents with many PCDATA nodes in memory-constrained environments. This flag is off by default.</li>
+              <li><code>parse_merge_pcdata</code> determines if PCDATA contents is to be merged with the previous PCDATA node when no intermediary nodes are present between them. If the PCDATA contains CDATA sections, PI nodes, or comments in between, and either of the flags <var>parse_cdata</var>, <var>parse_pi</var>, <var>parse_comments</var> is not set, the contents of the PCDATA node will be merged with the previous one. This flag is off by default. Note that this flag is not compatible with <var>parse_embed_pcdata</var>.</li>
+              <li><code>parse_fragment</code> determines if document should be treated as a fragment of a valid XML. Parsing document as a fragment leads to top-level PCDATA content (i.e. text that is not located inside a node) to be added to a tree, and additionally treats documents without element nodes as valid and permits multiple top-level element nodes (currently multiple top-level element nodes are also permitted when the flag is off, but that behavior should not be relied on). This flag is off by default.</li>
+            </ul>
+            <aside><strong>CAUTION</strong> Using in-place parsing (<var>load_buffer_inplace</var>) with <var>parse_fragment</var> flag may result in the loss of the last character of the buffer if it is a part of PCDATA. Since PCDATA values are null-terminated strings, the only way to resolve this is to provide a null-terminated buffer as an input to load_buffer_inplace - i.e. <code>doc.load_buffer_inplace("test\0", 5, pugi::parse_default | pugi::parse_fragment)</code>.</aside>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+
+          </section>
+
+          <section id="pugixml.encodings"><h4>Encodings*</h4></section>
+          <section><h4>Conformance to W3C specification*</h4></section>
+
         </section>
+
+        <section id="pugixml.accessing-data">
+          <h3>Accessing Document Data*</h3>
+        </section>
+
       </section>
 
     </main>

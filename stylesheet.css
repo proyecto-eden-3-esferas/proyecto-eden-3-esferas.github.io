@@ -1,22 +1,26 @@
 /* This stylesheet is meant for all pages.
  * TODOs:
- * remove all colour styling in no class sections.
+   [ ] remove all colour styling in no class sections.
  * See sections for classes in the latter part
 */
 
+/*html {font-size: calc(1vw + 16px);}*/
 
 /* @media (max-width: 800px) * { * {font-size: 4vw;} } */
 /* Phone */
-only screen and (max-width:320px)
-* {font-size: 4vw;}
+@media screen and (max-width:320px) {
+  * {font-size: calc(3vw + 2px);}
+}
 
 /* Tablet */
-only screen and (min-width:321px) and (max-width:768px)
-* {font-size: 3vw;}
+@media screen and (min-width:321px) and (max-width:768px) {
+  * {font-size: calc(2vw + 2px);}
+}
 
 /* Desktop */
-only screen and (min-width:769px)
-* {font-size: 2.25vw;}
+@media screen and (min-width:769px) {
+* {font-size: calc(2vw + 1px);}
+}
 
 body {
   margin: 0;
