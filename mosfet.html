@@ -399,11 +399,60 @@
     <mi>&#x03BB;<!-- λ --></mi>
   </mfrac>
 </math>
-        </aside>
-        <p>This modified drain-current expression is a first-order approximation that is reasonably accurate for FETs with channel length greater than, say, 2 µm. As the channel length decreases, so-called <strong>short-channel effects</strong> become more influential, and thus the above expression (which does not account for short-channel effects) becomes less valid.</p>
-        <p>Note also that the above expression incorporates the assumption that <var>ΔL</var> is much less than <var>L</var>; this assumption becomes less justifiable with shorter channel lengths, and indeed, researchers have developed a more sophisticated channel-length-modulation model for use with simulations involving modern short-channel devices.</p>
+          </aside>
+          <p>This modified drain-current expression is a first-order approximation that is reasonably accurate for FETs with channel length greater than, say, 2 µm. As the channel length decreases, so-called <strong>short-channel effects</strong> become more influential, and thus the above expression (which does not account for short-channel effects) becomes less valid.</p>
+          <p>Note also that the above expression incorporates the assumption that <var>ΔL</var> is much less than <var>L</var>; this assumption becomes less justifiable with shorter channel lengths, and indeed, researchers have developed a more sophisticated channel-length-modulation model for use with simulations involving modern short-channel devices.</p>
+        </section>
+
+        <section id="short-channel-effects">
+          <h3>Short-Channel Effects</h3>
+          <p>The current–voltage relations given by previous equations for the n-channel and for the p-channel device are the ideal relations for long-channel devices. A <dfn>long-channel device</dfn> is generally one whose channel length is greater than 2 µm. In this device, the horizontal electric field in the channel induced by the drain voltage and the vertical electric field induced by the gate voltage can be treated independently. However, the channel length of present-day devices is on the order of 0.2 µm or less.</p>
+          <p>There are several effects in these short-channel devices that influence and change the long-channel current–voltage characteristics. One such effect is a variation in threshold voltage. The value of threshold voltage is a function of the channel length. This variation must be considered in the design and fabrication of these devices. The threshold voltage also becomes a function of the drain voltage. As the drain voltage increases, the effective threshold voltage decreases. This effect also influences the current–voltage characteristics.</p>
+          <p>The process conduction parameters, <var>k<sub>n</sub><sup>'</sup></var> and <var>k<sub>p</sub><sup>'</sup></var>, are directly related to the carrier mobility. We have assumed that the carrier mobilities and corresponding process conduction parameters are constant. However, the carrier mobility values are functions of the vertical electric field in the inversion layer. As the gate voltage and vertical electric field increase, the carrier mobility decreases. This result, again, directly influences the current–voltage characteristics of the device.</p>
+          <p>Another effect that occurs in short-channel devices is <dfn>velocity saturation</dfn>. As the horizontal electric field increases, the velocity of the carriers reaches a constant value and will no longer increase with an increase in drain voltage. Velocity saturation will lower the <var>V<sub>DS</sub></var> (sat) voltage value. The drain current will reach its saturation value at a smaller <var>V<sub>DS</sub></var> voltage.</p>
+          <p>The drain current also becomes approximately a linear function of the gate voltage in the saturation region rather than the quadratic function of gate voltage in the long-channel characteristics.</p>
+          <p>Although the analysis of modern MOSFET circuits must take into account these short-channel effects, we will use the long-channel current–voltage relations in this section. We will still be able to obtain a good basic understanding of the operation and characteristics of these devices, and we can still obtain a good basic understanding of the operation and characteristics of MOSFET circuits using the ideal long-channel current–voltage relations.</p>
+        </section>
+
+        <section id="additional-nonideal">
+          <h3>Additional Nonideal Current–Voltage Characteristics</h3>
+          <p>The five nonideal effects in the current–voltage characteristics of MOS transistors are: the finite output resistance in the saturation region, the body effect, subthreshold conduction, breakdown effects, and temperature effects.</p>
+          <section id="finate-output-resistance">
+            <h4>Finite Output Resistance</h4>
+            <p>In the ideal case, when a MOSFET is biased in the saturation region, the drain current <var>i<sub>D</sub></var> is independent of drain-to-source voltage <var>v<sub>>DS</sub></var>. However, in actual MOSFET <var>i<sub>D</sub></var> versus <var>v<sub>DS</sub></var> characteristics, a nonzero slope does exist beyond the saturation point. For <var>v<sub>DS</sub></var> &gt; <var>v<sub>DS</sub></var> (sat), the actual point in the channel at which the inversion charge goes to zero moves away from the drain terminal<!-- (see Figure 3.9(d))-->. The effective channel length decreases, producing the phenomenon called <dfn>channel length modulation</dfn>.</p>
+            <p><!--An exaggerated view of the current–voltage characteristics is shown in Figure 3.20.--> The curves can be extrapolated so that they intercept the voltage axis at a point <var>v<sub>DS</sub></var> = −<var>V<sub>A</sub></var>. The voltage <var>V<sub>A</sub></var> is usually defined as a positive quantity. The slope of the curve in the saturation region can be described by expressing the <var>i<sub>D</sub></var> versus <var>v<sub>DS</sub></var> characteristic in the form, for an n-channel device,</p>
+            <blockquote>
+            <var>i<sub>D</sub></var> =
+            <var>K<sub>n</sub></var> [(<var>v<sub>GS</sub></var> − <var>V<sub>TN</sub></var>)<sup>2</sup> (1 + <var>λ</var><var>v<sub>DS</sub></var>)]
+            </blockquote>
+            <p>where <var>λ</var> is a positive quantity called the <dfn>channel-length modulation parameter</dfn>.</p>
+          </section>
+          <section id="body-effect">
+            <h4>Body Effect</h4>
+            <p>Up to this point, we have assumed that the substrate, or body, is connected to the source. For this bias condition, the threshold voltage is a constant.</p>
+            <p>In integrated circuits, however, the substrates of all n-channel MOSFETs are usually common and are tied to the most negative potential in the circuit.</p>
+          </section>
+          <section id="subthreshold-conduction">
+            <h4>Subthreshold Conduction</h4>
+            <p>When <var>v<sub>GS</sub></var> is slightly less than <var>V<sub>TN</sub></var>, the drain current is not zero, as previously assumed. This current is called the <dfn>subthreshold current</dfn>. The effect may not be significant for a single device, but if thousands or millions of devices on an integrated circuit are biased just slightly below the threshold voltage, the power supply current will not be zero but may contribute to significant power dissipation in the integrated circuit.</p>
+          </section>
+          <section id="breakdown-effects">
+            <h4>Breakdown Effects</h4>
+            <p>Several possible breakdown effects may occur in a MOSFET. The drain-to-substrate pn junction may break down if the applied drain voltage is too high and avalanche multiplication occurs.</p>
+            <p>As the size of the device becomes smaller, another breakdown mechanism, called <dfn>punch-through</dfn>, may become significant. Punch-through occurs when the drain voltage is large enough for the depletion region around the drain to extend completely through the channel to the source terminal. This effect also causes the drain current to increase rapidly with only a small increase in drain voltage.</p>
+            <p>A third breakdown mechanism is called <dfn>near-avalanche</dfn> or <dfn>snapback breakdown</dfn>. This breakdown process is due to second-order effects within the MOSFET. The source-substrate-drain structure is equivalent to that of a bipolar transistor. As the device size shrinks, we may begin to see a parasitic bipolar transistor action with increases in the drain voltage. This parasitic action enhances the breakdown effect.</p>
+            <p>If the electric field in the oxide becomes large enough, breakdown can also occur in the oxide, which can lead to catastrophic failure. In silicon dioxide, the electric field at breakdown is on the order of 6 × 10<sup>6</sup> V/cm, which, to a first approximation, is given by <var>E<sub>ox</sub></var> = <var>V<sub>G</sub></var>/<var>t<sub>ox</sub></var>. A gate voltage of approximately 30 V would produce breakdown in an oxide with a thickness of <var>t<sub>ox</sub></var> = 500 Å. However, a safety margin of a factor of 3 is common, which means that the maximum safe gate voltage for <var>t<sub>ox</sub></var> = 500 Å would be 10 V. A safety margin is necessary since there may be defects in the oxide that lower the breakdown field. We must also keep in mind that the input impedance at the gate is very high, and a small amount of static charge accumulating on the gate can cause the breakdown voltage to be exceeded. To prevent the accumulation of static charge on the gate capacitance of a MOSFET, a gate protection device, such as a reverse-biased diode, is usually included at the input of a MOS integrated circuit.</p>
+          </section>
+          <section id="temperature-effects">
+            <h4>Temperature Effects</h4>
+            <p>Both the threshold voltage <var>V<sub>TN</sub></var> and conduction parameter <var>K<sub>n</sub></var> are functions of temperature. The magnitude of the threshold voltage decreases with temperature, which means that the drain current increases with temperature at a given <var>V<sub>GS</sub></var>. However, the conduction parameter is a direct function of the inversion carrier mobility, which decreases as the temperature increases. Since the temperature dependence of mobility is larger than that of the threshold voltage, the net effect of increasing temperature is a decrease in drain current at a given <var>V<sub>GS</sub></var>. This particular result provides a negative feedback condition in <a href="#power">power MOSFETs</a>. A decreasing value of <var>K<sub>n</sub></var> inherently limits the channel current and provides stability for a power MOSFET.</p>
+          </section>
+        </section>
       </section>
 
+      <section id="mosfet-dc-circuit-analysis">
+        <h2>Mosfet DC Circuit Analysis</h2> <!--p.170-->
+        <p>...</p>
       </section>
 
       <section id="power">

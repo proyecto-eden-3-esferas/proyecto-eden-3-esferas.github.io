@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SAX</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="SAX: A Simple Event-Base XML Processor"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="XSLT.html">XSLT: eXtensible Stylesheet Transformation Language</a></p>
+        <p><a href="xml.xinclude.html">XInclude: Including Chunks and Files</a></p>
+        <p><a href="xml.libs.html">(C/C++) Libraries for Processing XML</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="computing.html">Computing</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SAX: A Simple Event-Base XML Processor</h1>
+      <p>SAX is an API used to parse XML documents. It is based on events generated while reading through the document. Callback methods receive those events. A custom handler contains those callback methods.</p>
+      <p>The API is efficient because it drops events right after the callbacks received them. Therefore, SAX has efficient memory management, unlike DOM, for example.</p>
+      <p>(DOM stands for Document Object Model. The DOM parser does not rely on events. Moreover, it loads the whole XML document into memory to parse it. SAX is more memory-efficient than DOM.)</p>
+      <p>The Java implementation of SAX (<a target="_blank" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.xml/org/xml/sax/package-summary.html">org.xml.sax</a>) is considered to be normative since there is no formal specification.</p>
+      <p>A SAX parser only needs to report each parsing event as it happens, and normally discards almost all of that information once reported (it does, however, keep some things, for example a list of all elements that have not been closed yet, in order to catch later errors such as end-tags in the wrong order). Thus, the minimum memory required for a SAX parser is proportional to the maximum depth of the XML file (i.e., of the XML tree) and the maximum data involved in a single XML event (such as the name and attributes of a single start-tag, or the content of a processing instruction, etc.).</p>
+
+      <section id="processing">
+        <h2>XML processing with SAX</h2>
+        <p>A parser that implements SAX (i.e., a SAX Parser) functions as a stream parser, with an event-driven API. The user defines a number of callback methods that will be called when events occur during parsing. The SAX events include (among others):</p>
+        <ul>
+          <li>XML Text nodes</li>
+          <li>XML Element Starts and Ends</li>
+          <li>XML Processing Instructions</li>
+          <li>XML Comments</li>
+        </ul>
+        <p>Some events correspond to XML objects that are easily returned all at once, such as comments. However, XML elements can contain many other XML objects, and so SAX represents them as does XML itself: by one event at the beginning, and another at the end. Properly speaking, the SAX interface does not deal in elements, but in events that largely correspond to tags. SAX parsing is unidirectional; previously parsed data cannot be re-read without starting the parsing operation again.</p>
+        <p>There are many SAX-like implementations in existence. In practice, details vary, but the overall model is the same. For example, XML attributes are typically provided as name and value arguments passed to element events, but can also be provided as separate events, or via a hash table or similar collection of all the attributes. For another, some implementations provide <var>Init</var> and <var>Fin</var> callbacks for the very start and end of parsing; others do not. The exact names for given event types also vary slightly between implementations.</p>
+        <p>(Some SAX implementations provide a separate event just for the XML declaration).</p>
+      </section>
+
+      <section id="expat">
+        <h2>Expat</h2>
+        <p>Expat is a stream-oriented XML 1.0 parser library, written in C, more precisely C99. As one of the first available open-source XML parsers, Expat has found a place in many open-source projects. Such projects include the Apache HTTP Server, Mozilla, Perl, Python and PHP. It is also bound in many other languages.</p>
+        <p>GitHub hosts the Expat project. Versions exist for most major operating-systems.</p>
+        <section>
+          <h3>Timeline</h3>
+          <p>Software developer James Clark released version 1.0 in 1998 while serving as technical lead on the XML Working Group at the World Wide Web Consortium. Clark released two more versions, 1.1 and 1.2, before turning the project over to a group led by Clark Cooper and Fred Drake in 2000. The new group released version 1.95.0 in September 2000 and continues to release new versions to incorporate bug fixes and enhancements.</p>
+          <p>Versions up to 2.5.0 have a Score 7.5 (High) DoS vulnerability CVE-2023-52425.</p>
+        </section>
+        <section>
+          <h3>Deployment</h3>
+          <p>To use the Expat library, programs first register handler functions with Expat. When Expat parses an XML document, it calls the registered handlers as it finds relevant tokens in the input stream. These tokens and their associated handler calls are called events. Typically, programs register handler functions for XML element start or stop events and character events. Expat provides facilities for more sophisticated event handling such as XML Namespace declarations, processing instructions and DTD events.</p>
+          <p>Expat&apos;s parsing events resemble the events defined in the Simple API for XML (SAX), but Expat is not a SAX-compliant parser. Projects incorporating the Expat library often build SAX and possibly DOM parsers on top of Expat. While Expat is mainly a stream-based (push) parser, it supports stopping and restarting parsing at arbitrary times, thus making the implementation of a pull parser relatively easy as well.</p>
+        </section>
+      </section>
+
+      <section id="stAX">
+        <h2>SAX vs StAX</h2>
+        <p><strong>StAX</strong> is more recent than SAX and DOM. It stands for Streaming API for XML.</p>
+        <p>The main difference with SAX is that StAX uses a pull mechanism instead of SAX’s push mechanism (using callbacks). This means the control is given to the client to decide when the events need to be pulled. Therefore, there is no obligation to pull the whole document if only a part of it is needed.</p>
+        <p>Like SAX, it provides an easy API to work with XML with a memory-efficient way of parsing.</p>
+        <p>Unlike SAX, it doesn’t provide schema validation as one of its features.</p>
+      </section>
+    </main>
+
+  </body>
+
+</html>
