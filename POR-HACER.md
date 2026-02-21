@@ -23,6 +23,11 @@ Places to store your key:
 
 # Lista de recomendaciones, recordatorios y otras directrices
 
+## PostScript
+
+- Files found in dir:
+  ~/former/home/francisco/Documents/mis_escritos/precious/psimple/Electric_files/ps_code/filewise/
+
 ## Camping:
 https://campingbungalowvalledeljerte.com/
 
