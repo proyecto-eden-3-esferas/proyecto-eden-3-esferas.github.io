@@ -172,20 +172,160 @@ while (frontier not empty) {
       </section>
 
       <section id="breadth-first_search">
-        <h2>Breadth-First Search*</h2>
-        <p>Breadth-first search is so called because it explores nodes in the order of their distance from the root, where <dfn>distance</dfn> is defined as the minimum path length from a root to the node.</p>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+        <h2>Breadth-First Search</h2>
+        <section>
+          <h3>How breadth-first search works</h3>
+          <p style="text-align: right">(From <cite><a target="_blank" href="https://www.codecademy.com/article/breadth-first-search-bfs-algorithm">https://www.codecademy.com/article/breadth-first-search-bfs-algorithm</a></cite>)</p>
+          <p>The breadth-first search algorithm works by exploring all neighboring nodes before moving to nodes at the next level of depth. It starts from a chosen source node and visits all nodes directly connected to it, then proceeds level by level until all reachable nodes have been explored. This ensures that nodes are visited in order of their distance from the source.</p>
+          <p>These are the steps how breadth-first search operates:</p>
+          <ol>
+            <li>Start from the source node: Choose a starting node to begin traversal.</li>
+            <li>Mark the source as visited: Keep a record of visited nodes to avoid repetition or loops.</li>
+            <li>Enqueue the source node: Use a queue (FIFO structure) to store nodes to be explored.</li>
+            <li>Process the queue: BFS dequeues a node, visits its unvisited neighbors, marks them visited, and enqueues them.</li>
+            <li>Move level by level: Continue until the queue is empty, visiting all nodes layer by layer.</li>
+          </ol>
+          <p>This systematic, level-based approach ensures that BFS finds the shortest route from the source to any other node in an unweighted graph.</p>
+        </section>
+        <section>
+          <h3>BFS algorithm pseudocode</h3>
+          <p>The pseudocode for the breadth-first search algorithm outlines the logical steps of the traversal process. It shows how we use a queue to explore nodes level by level, marking each as visited to avoid repetition. This simple structure forms the foundation for implementing BFS in any programming language:</p>
+          <pre>BFS(<var>Graph</var>, <var>start_node</var>):
+    create a queue <var>Q</var>
+    mark <var>start_node</var> as visited
+    enqueue <var>start_node</var> into <var>Q</var>
+
+    while <var>Q</var> is not empty:
+        <var>current_node</var> = dequeue(<var>Q</var>)
+        for each <var>neighbor</var> of <var>current_node</var>:
+            if <var>neighbor</var> is not visited:
+                mark <var>neighbor</var> as visited
+                enqueue <var>neighbor</var> into <var>Q</var></pre>
+        </section>
+        <section>
+          <h3>Breadth-first search time and space complexity</h3>
+          <p>The time complexity of BFS algorithm depends on the number of nodes and edges in the graph. In the worst case, BFS visits every node and examines every edge once. For a graph having <var>V</var> vertices and <var>E</var> edges, the time complexity is O(<var>V</var> + <var>E</var>). This linear relationship makes BFS efficient for both sparse and dense graphs, ensuring that all reachable nodes are processed systematically.</p>
+          <p>In terms of space complexity, BFS requires additional memory to keep track of visited nodes and to store nodes in the queue. In the worst case, the queue may contain all nodes at a given level, which can be proportional to the number of vertices. Therefore, the space complexity of BFS is O(<var>V</var>).</p>
+        </section>
+        <section>
+          <h3>Real-world applications of breadth-first search</h3>
+          <p>The breadth-first search algorithm is widely used across various domains:</p>
+          <ul>
+            <li><strong>Shortest path finding</strong>: Used in unweighted graphs like road maps or network routing.</li>
+            <li><strong>Web crawlers</strong>: Search engines use BFS to crawl websites level by level.</li>
+            <li><strong>Social networks</strong>: Helps find degrees of connection (e.g., “friends of friends”).</li>
+            <li><strong>AI and robotics</strong>: BFS aids in state-space search and pathfinding.</li>
+          </ul>
+          <p>These practical applications demonstrate BFS’s versatility and reliability in problem-solving.</p>
+        </section>
+      </section>
+
+      <section id="best-first-search">
+        <h2>Best-First Search (Informed Search)</h2>
+        <p>Best-First Search Algorithm was developed in response to the limitations of earlier search algorithms, such as <a href="#breadth-first_search">Breadth-First Search</a> (BFS) and <a href="#depth-first_search">Depth-First Search</a> (DFS).</p>
+        <p>BFS and DFS are systematic uninformed search algorithms that are not designed to handle large search spaces efficiently. BFS blindly explores all nodes at a given depth level before moving on to the next level, while DFS explores a path to the deepest possible node before backtracking and exploring another path. Best-First Search, on the other hand, relies on a <a target="_blank" href="ai.html#heuristics">heuristic</a>.</p>
+        <p>Informed search algorithms are more efficient than uninformed in terms of processor time, memory space and performance.</p>
+        <p>The idea is to use a priority queue or heap to store edges ordered by their cost as given by an evaluation function. It otherwise operates similarly to the Breadth-First Search algorithm.</p>
+        <aside>
+          <p>This is a simplified version of the steps to be taken:</p>
+          <ol>
+            <li>Initialize an empty Priority Queue named <var>pq</var>.</li>
+            <li>Insert the starting node into <var>pq</var>.</li>
+            <li>
+              <p>While pq is not empty:</p>
+              <ol>
+                <li>Remove the node <var>u</var> with the lowest evaluation value from <var>pq</var>.</li>
+                <li>If <var>u</var> is the goal node, terminate the search.</li>
+                <li>Otherwise, for each neighbor <var>v</var> of <var>u</var>: If <var>v</var> has not been visited, Mark <var>v</var> as visited and Insert <var>v</var> into <var>pq</var>.</li>
+                <var>Mark <var>u</var> as examined.</var>
+              </ol>
+            </li>
+            <li>End the procedure when the goal is reached or <var>pq</var> becomes empty.</li>
+          </ol>
+        </aside>
+        <p>The Best-First Search algorithm has limitations, though, such as the potential for getting stuck in local optima and being sensitive to the choice of heuristic function. It also requires a large amount of memory and computational resources, especially in large search spaces, and does not guarantee finding the globally optimal solution in all cases.</p>
+        <p>Today, it is widely used in many problem domains, including robotics, natural language processing, computer vision, game playing, and optimization. Its ability to find optimal solutions efficiently and its adaptability to a wide range of problem domains make Best-First Search Algorithm a powerful tool in these fields.</p>
+        <aside>
+          <p>(<i>See</i> also: <cite><a target="_blank" href="https://www.geeksforgeeks.org/dsa/best-first-search-informed-search/">https://www.geeksforgeeks.org/dsa/best-first-search-informed-search/</a></cite>)</p>
+        </aside>
+        <section>
+          <h3>Implementation</h3>
+          <p>The best first search method for searching the graph space employs two lists for traversal tracking. An <q>Open</q> list that keeps track of the current <q>immediate</q> nodes that are available for traversal and a <q>CLOSED</q> list that keeps track of the nodes that have already been traversed.</p>
+          <hr/>
+          <p>These are the <strong>steps</strong> in the algorithm:</p>
+          <ol>
+            <li>Create 2 empty lists: <var>OPEN</var> and <var>CLOSED</var></li>
+            <li>Start from the initial node (say <var>N</var>) and put it in the <q>ordered</q> <var>OPEN</var> list</li>
+            <li>Repeat the next steps until the <var>GOAL</var> node is reached</li>
+            <li>If the <var>OPEN</var> list is empty, then EXIT the loop returning <code>False</code></li>
+            <li>Select the first/top node (say <var>N</var>) in the <var>OPEN</var> list and move it to the <var>CLOSED</var> list. Also, capture the information of the parent node</li>
+            <li>If <var>N</var> is a GOAL node, then move the node to the Closed list and exit the loop returning <code>True</code>. The solution can be found by backtracking the path</li>
+            <li>If <var>N</var> is not the GOAL node, expand node <var>N</var> to generate the <q>immediate</q> next nodes linked to node <var>N</var> and add all those to the <var>OPEN</var> list</li>
+            <li>Reorder the nodes in the <var>OPEN</var> list in ascending order according to an evaluation function f(<var>n</var>)</li>
+          </ol>
+          <hr/>
+          <p><strong>Time Complexity</strong>: This algorithm will traverse the shortest path first in the queue. The time complexity of the algorithm is given by O(n*log n).</p>
+        </section>
+        <section>
+          <h3>Variants of Best First Search Algorithm</h3>
+          <p>One popular variant of best-first search is <dfn>A* search</dfn>, which balances the estimated cost of reaching the goal with the actual cost of reaching each node in the search space.</p>
+          <p><dfn>Weighted A*</dfn> search is a modification of A* search that allows for adjusting the weight given to the heuristic function.</p>
+          <p><dfn><a href="#greedy-BeFS">Greedy best-first search</a></dfn> is another variant that only considers the estimated cost to the goal and does not take into account the cost of reaching each node. It applies a heuristic that attempts to predict how close the end of a path is to a solution (or, goal), so that paths which are judged to be closer to a solution (or, goal) are expanded first.</p>
+          <p>Each of these algorithms has its strengths and weaknesses depending on the problem domain and the quality of the heuristic function.</p>
+          <section id="greedy-BeFS">
+            <h4>Greedy Best-First Search</h4>
+            <p>Using a greedy algorithm, expand the first successor of the parent. After a successor is generated:</p>
+            <ol>
+              <li>If the successor's heuristic (its score) is better than its parent, the successor is set at the front of the queue (with the parent reinserted directly behind it), and the loop restarts.</li>
+              <li>Else, the successor is inserted into the queue (in a location determined by its heuristic value). The procedure will evaluate the remaining successors (if any) of the parent.</li>
+            </ol>
+            <p>Below is a pseudocode example of this algorithm, where queue represents a priority queue which orders nodes based on their heuristic distances from the goal. This implementation keeps track of visited nodes, and can therefore be used for undirected graphs. It can be modified to retrieve the path.</p>
+            <pre>function GBS(<var>start</var>, <var>target</var>):
+  <var>mark</var> start as visited
+  <var>add</var> start to <var>queue</var>
+  while <var>queue</var> is not empty:
+    <var>current_node</var> = vertex of <var>queue</var> with min distance to <var>target</var>
+    remove <var>current_node</var> from <var>queue</var>
+    foreach neighbor <var>n</var> of <var>current_node</var>:
+      if <var>n</var> not in <var>visited</var> then:
+        if <var>n</var> is <var>target</var>:
+          return <var>n</var>
+        else:
+          mark <var>n</var> as visited
+          add <var>n</var> to queue
+  return failure</pre>
+            <p>...</p>
+
+          </section>
+        </section>
+        <section>
+          <h3>Pseudo Code</h3>
+          <p>This id the pseudo-code for the <code>best_first_search(<var>problem</var>, <var>heuristic</var>)</code> function:</p>
+          <pre>function best_first_search(problem, heuristic):
+    open_list = [problem.initial_state]
+    while open_list is not empty:
+        current_node = select_node_with_lowest_heuristic(open_list, heuristic)
+        if problem.is_goal_state(current_node):
+            return current_node
+        successors = problem.get_successors(current_node)
+        for successor in successors:
+            open_list.append(successor)
+        current_node.visited = True
+        open_list.sort(key=heuristic)
+    return failure</pre>
+
+
+          <p>And this id the pseudo-code for the <code>select_node_with_lowest_heuristic(<var>open_list</var>, <var>heuristic</var>)</code> function:</p>
+          <pre>function select_node_with_lowest_heuristic(open_list, heuristic):
+    min_heuristic_value = infinity
+    min_heuristic_node = None
+    for node in open_list:
+        if not node.visited and heuristic(node) &lt; min_heuristic_value:
+            min_heuristic_value = heuristic(node)
+            min_heuristic_node = node
+    return min_heuristic_node</pre>
+          <p></p>
+        </section>
       </section>
 
     </main>
