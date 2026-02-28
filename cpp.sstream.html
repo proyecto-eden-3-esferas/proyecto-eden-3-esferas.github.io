@@ -39,12 +39,39 @@
 
       <section>
         <h2>Members</h2>
-        <p>The most commonly used methods and operators from this class are:</p>
+        <p>Remember that most of its members are just inherited from ancestor classes. After all, a <code>std::stringstream</code> is both a string and a stream! You can manipulate its <a href="#buffer">buffer</a>, get or set its read and write cursors (<code>seekg</code>, <code>tellg</code>, <code>seekp</code>, <code>tellp</code>), etc.</p>
+        <p>Some outstanding inherited members are:</p>
         <ul>
-          <li><code>str()</code>: Gets and sets the std::string object&apos;s content in the stream</li>
-          <!--<li><code>clear()</code>: Clears the stream</li>-->
           <li><code>operator&lt;&lt;()</code>: Adds a new string to the StringStream object</li>
           <li><code>operator>>()</code>: Reads the content from the StringStream object</li>
+        </ul>
+        <p>Its specific public member functions are:</p>
+        <ul>
+          <li>
+            <p><strong>Constructors</strong> (C++11):</p>
+            <pre>explicit basic_stringstream (ios_base::openmode which = ios_base::in | ios_base::out);
+explicit basic_stringstream (const basic_string&lt;char_type,traits_type,allocator_type&gt;&amp; str,
+                             ios_base::openmode which = ios_base::in | ios_base::out);
+basic_stringstream (const basic_stringstream&amp;) = delete;
+basic_stringstream (basic_stringstream&amp;&amp; x);</pre>
+            <p></p>
+          </li>
+          <li>
+            <p><code>operator=</code> (move assignment)</p>
+            <pre>basic_stringstream&amp; operator= (const basic_stringstream&amp;) = delete;
+basic_stringstream&amp; operator= (basic_stringstream&amp;&amp; rhs);</pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </li>
+          <li>
+            <p><code>str()</code>: Gets (returns a <code>std::basic_string</code> by value) and sets the std::string object&apos;s content in the stream</p>
+            <pre>basic_string&lt;char_type,traits_type,allocator_type&gt; str() const;
+void str(const basic_string&lt;char_type,traits_type,allocator_type&gt;&amp; s);</pre>
+          </li>
+          <!--<li><code>clear()</code>: Clears the stream</li>-->
         </ul>
         <aside>
           <p><code>clear()</code> does not seem to clear the stored string of characters. Rather, it clears the the error flags in its <code>std::ios_base</code> ancestor.</p>
@@ -55,7 +82,7 @@
         <h2>Usage</h2>
         <p><code class="classname">stringstream</code> is a derived class from <code class="classname">iostream</code> and uses a string buffer that contains a sequence of characters. This sequence of characters can be accessed directly as a string object, using member <function>str()</function>.</p>
         <p>You can think of a stringstream as a sort of string that you can write to and read from like a file.</p>
-        <p>You need need to include the corresponding header file: <kbd>#include &lt;sstream&gt;</kbd>. Note that former <kbd>&lt;strstream&gt;</kbd> is deprecated.</p>
+        <p>You need to include the corresponding header file: <kbd>#include &lt;sstream&gt;</kbd>. Note that former <kbd>&lt;strstream&gt;</kbd> is deprecated.</p>
         <p>Declare a <code class="classname">stringstream</code> just like an <code class="classname">fstream</code>, for example:</p>
         <pre>stringstream ss;</pre>
         <p>and, like an <code class="classname">fstream</code> or <code class="classname">cout</code>, you can write to it:</p>
@@ -100,11 +127,14 @@ int main () {
 }</pre>
       </section>
 
-      <section>
+      <section id="buffer">
         <h2>Accessing <code class="classname">stringstream</code> Buffer</h2>
-        <pre>stringstream ss;
-streambuf * pssbuf = ss.rdbuf();</pre>
-        <p>...</p>
+        <p>As a C++ stream, <code class="classname">stringstream</code> keeps a buffer of type <code>std::basic_streambuf&lt;CHAR&gt;</code>, which is accessed through the standard stream members <code>STREAMBUF * rdbuf()</code> and <code>rdbuf(STREAMBUF * <var>newStreamBuffer</var>)</code>. They allow you to get a poiner to the current STREAMBUF, as in</p>
+        <pre>stringstream ss0;
+streambuf * pssbuf = ss0.rdbuf();</pre>
+        <p>and to set it:</p>
+        <pre>stringstream ss1;
+ss1.rdbuf(pssbuf);</pre>
       </section>
 
     </main>

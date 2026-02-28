@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>std::format</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Formating Strings with std::format: C++&apos;s sprintf()"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      -->
+      <div>
+        <p><a rel="prev" href="cpp.strings.html">Strings with C++ <code>std::basic_string</code></a></p>
+        <p><a            href="cpp.raw-strings.html">Raw String Literals in C++</a></p>
+        <p><a rel="next" href="string_view"><code>string_view</code>: a non-Owning <code>std::span</code> on a String</a></p>
+        <p><a            href="cpp.regexp.html">Regular Expressions in the STL</a> </p>
+        <p><a            href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+        <p><a            href="cpp.html">The C++ Programming Language</a> </p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Formating Strings with <code>std::format</code> in C++20</h1>
+      <p>C++20 introduced the long-awaited std::format function, a powerful tool for creating formatted strings, especially if we add some C++23 additions such as <code>std::print</code> and <code>std::printl</code>.</p>
+      <p><code>std::format(<var>fmt</var>, <var>ARGS</var>)</code> produces or returns a string object holding the formatted result.</p>
+      <p>The <var>fmt</var> is a string with placeholders as <code>{}</code>.</p>
+
+      <p>This is a simple example:</p>
+      <pre>cout &lt;&lt; std::format("{} {}!", "Hello", "World");</pre>
+
+      <p>The first argument into <code>std::format</code> is the <dfn>format string</dfn> is an object that represents the format string. The format string consists of</p>
+      <ul>
+        <li>
+          <p>Ordinary characters (except { and }), which are copied unchanged to the output,</p>
+        </li>
+        <li>
+          <p>Escape sequences {{ and }}, which are replaced with { and } respectively in the output, and</p>
+        </li>
+        <li>
+          <p>Replacement fields, each having the following format:</p>
+          <ol>
+            <li>{ <var>arg-id</var> (optional) }</li>
+            <li>{ <var>arg-id</var> (optional) : <var>format-spec</var> }</li>
+          </ol>
+          <p><var>arg-id</var> specifies the index of the argument in <var>args</var> whose value is to be used for formatting; if it is omitted, the arguments are used in order.</p>
+          <p>The <var>arg-id</var>&apos;﻿s in a format string must all be present or all be omitted. Mixing manual and automatic indexing is an error.</p>
+          <p><var>format-spec</var> is the format specification defined by the std::formatter specialization for the corresponding argument. Cannot start with }.</p>
+        </li>
+      </ul>
+
+      <aside>
+        <p>It is not an error to provide more arguments than the format string requires:</p>
+        <pre>cout &lt;&lt; std::format("{}!", "Hello", "World");</pre>
+      </aside>
+
+      <section id="prototypes">
+        <h2>Prototypes (in Header &lt;format&gt;)</h2>
+        <pre>template&lt; class... Args &gt;
+std::string format(std::format_string&lt;Args...&gt; fmt,
+                   Args&amp;&amp;... args );
+template&lt; class... Args &gt;
+std::wstring format(std::wformat_string&lt;Args...&gt; fmt,
+                    Args&amp;&amp;... args );
+template&lt; class... Args &gt;
+std::string format( const std::locale&amp; loc,
+                    std::format_string&lt;Args...&gt; fmt,
+                    Args&amp;&amp;... args );
+(3)	(since C++20)
+template&lt; class... Args &gt;
+std::wstring format( const std::locale&amp; loc,
+                     std::wformat_string&lt;Args...&gt; fmt,
+                     Args&amp;&amp;... args );</pre>
+      </section>
+
+      <!--
+      <section id="straightforward-example">
+        <h2>A Straightforward Example</h2>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+      </section>
+      -->
+
+      <section id="vformat">
+        <h2>Using a non-const Expression with <code>std::vformat</code></h2>
+        <p>It is an error if the format string is not a constant expression unless it is initialized from the result of:</p>
+        <ul>
+          <li><code>std::runtime_format</code> (since C++26), or</li>
+          <li><code>std::vformat</code>, which additionally requires <code>std::make_format_args</code>.</li>
+        </ul>
+        <p>Look at these global functions:</p>
+        <pre>std::string f1(std::string_view runtime_format_string)
+{
+    // return std::format(runtime_format_string, "x", 42); // error
+    char v1[] = "x";
+    int v2 = 42;
+    return std::vformat(runtime_format_string, std::make_format_args(v1, v2)); // OK
+}
+
+std::string f2(std::string_view runtime_format_string)
+{
+    return std::format(std::runtime_format(runtime_format_string), "x", 42); // OK (C++26)
+}</pre>
+        <p>Moreover, we can define a global function <code>dynamic_print()</code> that accepts a format string and any number of arguments, both generated dynamically:</p>
+        <pre>template &lt;typename... Args&gt;
+std::string dynamic_print(std::string_view rt_fmt_str, Args&amp;&amp;... args)
+{
+  return std::vformat(rt_fmt_str, std::make_format_args(args...));
+}</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

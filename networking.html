@@ -14,17 +14,8 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
-      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
-      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
-      <hr/>
-      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
-      <p><a href="HTML.html">HTML (Hyper Text Markup Language)</a></p
-        <p><a            href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
-      -->
       <div>
+        <p><a            href="linux.network.html">Networking on Linux</a></p>
         <p><a            href="CAP.html">The CAP Theorem about Distributed Systems</a></p>
         <p><a            href="dropbox.html">Dropbox</a></p>
       </div>
@@ -48,31 +39,34 @@
 
     <main>
       <h1>Networking</h1>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
-      <hr/>
-      <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
-      </aside>
-
-      Erase this comment when done writing your page!
-      -->
       <p>[...]</p>
+
+      <section id="internet">
+        <h2>Internet</h2>
+        <p>In computer networks, the term <dfn>internet</dfn> refers to the collection of two or more devices that can have communicating facilities (not necessarily computers), which can be found even under the same roof.</p>
+        <p>Hence, an <q>internet</q> can be a private network formed by the connection of several (more than two) communicating devices, a network connecting a few local networks, or a larger network connecting regional networks.</p>
+        <p>On the other hand, <dfn>Internet</dfn> refers to WWW (the World Wide Web), thus its range is global. It highly relies on the well know TCP/IP standard and is owned and maintained by internet standardization and regulating body.</p>
+      </section>
+
+      <section id="ip">
+        <h2>The IP Protocol</h2>
+        <p>The Internet Protocol (IP) is the network layer communications protocol in the Internet protocol suite for relaying <strong>datagrams</strong> across network boundaries. Its routing function enables internetworking, and essentially establishes the Internet.</p>
+        <p>IP has the task of delivering packets from the source host to the destination host solely based on the IP addresses in the packet headers. For this purpose, IP defines packet structures that encapsulate the data to be delivered. It also defines addressing methods that are used to label the datagram with source and destination information.</p>
+        <p>IP was the connectionless datagram service in the original Transmission Control Program introduced by Vint Cerf and Bob Kahn in 1974, which was complemented by a connection-oriented service that became the basis for the Transmission Control Protocol (TCP). The Internet protocol suite is therefore often referred to as TCP/IP.</p>
+        <p>The first major version of IP, Internet Protocol version 4 (IPv4), is the dominant protocol of the Internet. Its successor is Internet Protocol version 6 (IPv6), which has been in increasing deployment on the public Internet since around 2006.</p>
+        <section id="internet-port">
+          <h3>Ports</h3>
+          <p>In computer networking, a port is a communication endpoint. At the software level within an operating system, a port is a logical construct that identifies a specific process or a type of network service. A port is uniquely identified by a number, the port number, associated with the combination of a transport protocol and the network IP address. Port numbers are 16-bit unsigned integers.</p>
+          <p>The most common transport protocols that use port numbers are the Transmission Control Protocol (TCP) and the User Datagram Protocol (UDP). The port completes the destination and origination addresses of a message within a host to point to an operating system process. Specific port numbers are reserved to identify specific services so that an arriving packet can be easily forwarded to a running application. For this purpose, port numbers lower than 1024 identify the historically most commonly used services and are called the well-known port numbers. Higher-numbered ports are available for general use by applications and are known as ephemeral ports.</p>
+          <p>Ports provide a multiplexing service for multiple services or multiple communication sessions at one network address. In the client–server model of application architecture, multiple simultaneous communication sessions may be initiated for the same service.</p>
+          <p>For TCP and UDP, a port number is a 16-bit unsigned integer, thus ranging from 0 to 65535. For TCP, port number 0 is reserved and cannot be used, while for UDP, the source port is optional, and a value of zero means no port.</p>
+        </section>
+      </section>
 
       <section id="lan">
         <h2>Local Area Networks (LANs)</h2>
       </section>
+
     </main>
 
   </body>
