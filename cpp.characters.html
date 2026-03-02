@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Characters in C++</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Characters in C++: char, wchar_t..."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="www.strings.html">STL Owning Strings: &lt;std::string&gt;</a></p>
+        <p><a            href="cpp.raw-strings.html">Raw String Literals in C++</a></p>
+        <p><a            href="cpp.characters.html">Characters in C++</a></p>
+        <p><a            href="string_view"><code>string_view</code>: a non-Owning <code>std::span</code> on a String</a></p>
+        <p><a            href="cpp.regexp.html">Regular Expressions in the STL</a> </p>
+        <p><a            href="cpp.string-to-number.html">Converting a String to a Number Type in C++</a> </p>
+        <p><a            href="cpp.format.html">Formating Strings with <code>std::format</code>: C++&apos;s <code>sprintf()</code></a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.templates.html">C++ Generics (Templates)</a> </p>
+        <p><a            href="cpp.containers.html">C++ STL Containers</a> </p>
+        <p><a            href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+        <p><a            href="cpp.type_traits.html">Handling Type with <code>&lt;type_traits&gt;</code></a> </p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a> </p>
+      </div>
+      <div>
+        <p><a href="cpp.get.html">C++ get()</a> </p>
+      </div>
+      <div>
+        <p><a target="_blank" href="http://isocpp.github.io/CppCoreGuidelines/">C++ Core Guidelines</a>, a collaborative effort led by Bjarne Stroustrup, much like the C++ language itself.</p>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a> </p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Characters in C++: <code>char</code>, <code>wchar_t</code>...</h1>
+
+      <section id="utf-8-string-literals">
+        <h2>How to Write UTF-8 String Literals in C++</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="http://utf8everywhere.org/">http://utf8everywhere.org/</a></cite>)</p>
+        <p>If you internationalize your software then all non-ASCII strings will be loaded from an external translation database, so it is not a problem.</p>
+        <p>If you still want to embed a special character you can do it as follows. In C++11 you can do it as:</p>
+        <pre>u8"∃y ∀x ¬(x ≺ y)"</pre>
+        <p>With compilers that do not support ‘u8’ you can hard-code the UTF-8 code units as follows:</p>
+        <pre>"\xE2\x88\x83y \xE2\x88\x80x \xC2\xAC(x \xE2\x89\xBA y)"</pre>
+        <p>However the most straightforward way is to just write the string as-is and save the source file encoded in UTF-8:</p>
+        <pre>"∃y ∀x ¬(x ≺ y)"</pre>
+      </section>
+
+      <section>
+        <h2>Wide Characters with <code>wchar_t</code></h2>
+        <p>A wide char is similar to the <code>char</code> data type, except that wide chars take up twice the space and can take on values in a far wider range as a result. <code>char</code> can only take one of 256 values, which corresponds to entries in the ASCII table. On the other hand, a wide char can take on 65536 values which corresponds to UNICODE values, which is a recent international standard which allows for the encoding of characters for virtually all languages and commonly used symbols.</p>
+        <p>Some points:</p>
+        <ul>
+          <li>Just like the type for character constants is <code>char</code>, the type for wide character is <code>wchar_t</code>.</li>
+          <li>This data type occupies 2 or 4 bytes depending on the compiler being used.</li>
+          <li>Mostly the <code>wchar_t</code> datatype is used when international languages like Japanese are used.</li>
+        </ul>
+        <p>Below is a simple C++ program to show how <code>wchar_t</code> is used:</p>
+        <pre>// An example in C++ demonstrating wchar_t
+#include &lt;iostream>
+using namespace std;
+​
+int main()
+{
+    wchar_t w  = L'A';
+    cout &lt;&lt; "Wide character value:: " &lt;&lt; w &lt;&lt; endl ;
+    cout &lt;&lt; "Size of the wide char is:: " &lt;&lt; sizeof(w);
+    return 0;
+}></pre>
+        <aside>
+          <ul>
+            <li><code>L</code> is the prefix for wide character literals and wide-character string literals which tells the compiler that  the char or string is of type wide-char.</li>
+            <li>w is prefixed to names in operations, classes and objects, like scanning (<code>wcin</code>) printing (<code>wcout</code>), or strings (<code>wstring</code>) while operating on wide-char types.</li>
+          </ul>
+        </aside>
+        <p>When should we use <code>wchar_t</code>. The site <a target="_blank" href="http://utf8everywhere.org/">utf8everywhere.org</a> recommends converting from <code>wchar_t</code> to <code>char</code> (UTF-16 to UTF-8) as soon as you receive it from any library, and converting back when you need to pass strings to it. Therefore, always use <code>char</code> except when an API requires you to pass or receive <code>wchar_t</code>. The rationale is that UTF-8 (matching C/C++ <code>char</code>) is good enough for all use cases but a select few.</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        -->
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

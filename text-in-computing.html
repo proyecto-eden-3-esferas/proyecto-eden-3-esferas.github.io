@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text in Computing</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Text Matters in Computing"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a href="phoneme-map.html">Mapping Phonemes to ASCII</a></p>
+        <p><a href="tts.html">Text To Speech (TTS) Software</a></p>
+        <p><a href="ISO-8601.html">Representing Dates and Times: the ISO-8601 Format</a></p>
+        <p><a href="automata.html">Formal Languages and Automata</a></p>
+      </div>
+      <div>
+        <p><a href="xml.en.html">XML: The eXtensible Markup Language</a></p>
+        <p><a href="HTML.html">HTML: XML for the Web</a></p>
+        <p><a href="postscript.html">PostScript: Programming Text and Graphics</a></p>
+      </div>
+      <div>
+        <p><a href="mapping-texts.html">Mapping Texts: Computational Text Analysis for the Social Sciences</a></p>
+        <p><a href="SemanticWeb.html">The Semantic Web</a></p>
+        <p><a href="Ontologies.html">Ontologies</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Text Matters in Computing</h1>
+
+      <section id="unicode-categories">
+        <h2>Glyphs, Graphemes and other Unicode Categories</h2>
+        <p>Here is an excerpt of the definitions regarding characters, code points, code units and grapheme clusters according to the Unicode Standard with our comments. You are encouraged to refer to the relevant sections of the standard for a more detailed description.</p>
+        <ul>
+          <li><strong>Code point</strong> Any numerical value in the Unicode codespace.[§3.4, D10] For instance: U+3243F.</li>
+          <li><strong>Code unit</strong> The minimal bit combination that can represent a unit of encoded text.[§3.9, D77] For example, UTF-8, UTF-16 and UTF-32 use 8-bit, 16-bit and 32-bit code units respectively. The above code point will be encoded as four code units ‘f0 b2 90 bf’ in UTF-8, two code units ‘d889 dc3f’ in UTF-16 and as a single code unit ‘0003243f’ in UTF-32. Note that these are just sequences of groups of bits; how they are stored on an octet-oriented media depends on the endianness of the particular encoding. When storing the above UTF-16 code units, they will be converted to ‘d8 89 dc 3f’ in UTF-16BE and to ‘89 d8 3f dc’ in UTF-16LE.</li>
+          <li>
+            <p><strong>Abstract character</strong> A unit of information used for the organization, control, or representation of textual data.[§3.4, D7] The standard further says in §3.1:</p>
+            <blockquote>For the Unicode Standard, [...] the repertoire is inherently open. Because Unicode is a universal encoding, any abstract character that could ever be encoded is a potential candidate to be encoded, regardless of whether the character is currently known.</blockquote>
+            <p>The definition is indeed abstract. Whatever one can think of as a character—<em>is</em> an abstract character.</p>
+          </li>
+          <li>
+            <p><strong>Encoded character, Coded character</strong> A mapping between a code point and an abstract character.[§3.4, D11] For example, U+1F428 is a coded character which represents the abstract character koala.</p>
+            <p>This mapping is neither total, nor injective, nor surjective:</p>
+            <ul>
+              <li>Surragates, noncharacters and unassigned code points do not correspond to abstract characters at all.</li>
+              <li>Some abstract characters can be encoded by different code points; U+03A9 greek capital letter omega and U+2126 ohm sign both correspond to the same abstract character ‘Ω’, and must be treated identically.</li>
+              <li>Some abstract characters cannot be encoded by a single code point. These are represented by sequences of coded characters. For example, the only way to represent the abstract character ю́ cyrillic small letter yu with acute is by the sequence U+044E cyrillic small letter yu followed by U+0301 combining acute accent.</li>
+            </ul>
+            <p>Moreover, for some abstract characters, there exist representations using multiple code points, in addition to the single coded character form. The abstract character ǵ can be coded by the single code point U+01F5 (latin small letter g with acute), or by the sequence &lt;U+0067 latin small letter g, U+0301 combining acute accent&gt;.</p>
+          </li>
+          <li><strong>User-perceived character</strong> Whatever the end user thinks of as a character. This notion is language dependent. For instance, ‘ch’ is two letters in English and Latin, but considered to be one letter in Czech and Slovak.</li>
+          <li><strong>Grapheme cluster</strong> A sequence of coded characters that ‘should be kept together’.[§2.11] Grapheme clusters approximate the notion of user-perceived characters in a language independent way. They are used for, e.g., cursor movement and selection.</li>
+          <li><strong>Glyph</strong> A particular shape within a font. Fonts are collections of glyphs designed by a type designer. It’s the text shaping and rendering engine responsibility to convert a sequence of code points into a sequence of glyphs within the specified font. The rules for this conversion might be complicated, locale dependent, and are beyond the scope of the Unicode standard.</li>
+        </ul>
+        <p><q>Character</q> may refer to any of the above. The Unicode Standard uses it as a synonym for coded character.[§3.4] When a programming language or a library documentation says ‘character’, it typically means a code unit. When an end user is asked about the number of characters in a string, he will count the user-perceived characters. A programmer might count characters as code units, code points, or grapheme clusters, according to the level of the programmer’s Unicode expertise.</p>
+      </section>
+
+      <section id="bom">
+        <h2>Byte Order Marks (BOM)</h2>
+        <p>A: According to the Unicode Standard (v6.2, p.30): <q>Use of a BOM is neither required nor recommended for UTF-8.</q></p>
+        <p>Byte order issues are yet another reason to avoid UTF-16. UTF-8 has no endianness issues, and the UTF-8 BOM exists only to manifest that this is a UTF-8 stream. If UTF-8 remains the only popular encoding (as it already is in the internet world), the BOM becomes redundant. In practice, most UTF-8 text files omit BOMs today.</p>
+        <p>Using BOMs would require all existing code to be aware of them, even in simple scenarios as file concatenation. This is unacceptable.</p>
+      </section>
+
+      <section id="line-endings">
+        <h2>Line Endings</h2>
+        <p>Always use \n (0x0a) line endings, even on Windows. Files should be read and written in binary mode, which guarantees interoperability—a program will always give the same output on any system. Since the C and C++ standards use \n as in-memory line endings, this will cause all files to be written in the POSIX convention. It may cause trouble when the file is opened in Notepad on Windows; however, any decent text editor understands such line endings.</p>
+        <p>We also prefer SI units, the ISO-8601 date format, and floating point to the floating comma.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Executing Shell Commands in C</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Executing Shell Commands with system() and popen in C"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="c.html">The C Programming Language</a></p>
+        <p><a            href="c.io.html">Input/Output in C</a></p>
+        <p><a            href="cpp.redirecting-streams.html">Redirecting Streams in C++</a></p>
+        <p><a            href="c.enum.html">Enumerations in C</a></p>
+        <p><a            href="c.time.html">Handling Time in C with the <code>&lt;time.h&gt;</code> library</a></p>
+        <p><a            href="c.designated-initialization.html">Designated Initialization in C</a></p>
+        <p><a            href="c.decay.html">Decay: Loss of C-Array Length Information</a></p>
+        <p><a            href="cpp.preprocessor.html">The C/C++ Preprocessor</a></p>
+        <p><a            href="c.bitwise.html">Bitwise Operations in C/C++</a></p>
+      </div>
+      <div>
+        <p><a            href="c.assert.html"><code>assert</code> in C</a></p>
+        <p><a            href="c.static_assert.html"><code>static_assert</code> in C</a></p>
+        <p><a            href="c.abort.html"><code>abort</code> for Abnormal Program Termination</a></p>
+        <p><a            href="c.exit.html"><code>exit</code> for Normal Program Termination with Cleaning Up</a></p>
+        <p><a            href="c.atexit.html"><code>atexit</code> to Register a Function to be Called on <code>exit()</code> Invocation</a></p>
+        <p><a            href="c.quick_exit.html"><code>quick_exit</code> for Normal Program Termination without Completely Cleaning Up</a></p>
+      </div>
+      <div>
+        <p><a            href="c99.html">C99 (a Former Version of C)</a></p>
+        <p><a            href="c11.html">C11 (a Former Version of C)</a></p>
+        <!--
+        <p><a            href="c17.html">C17:the Current Version of C (minor changes))</a></p>
+        -->
+      </div>
+    </nav>
+
+    <main>
+      <h1>Executing Shell Commands with <code>system()</code> and <code>popen()</code> in C</h1>
+      <p>If you want to run shell commands from within a C program there are several options:</p>
+      <ul>
+        <li>Do not use the shell, but bypass the shell and run the commands directly within your program. Many of the basic utilities can be accessed easily enough and system calls are available for system programming tasks. You may need to <code>pipe( )</code>, <code>fork( )</code> and <code>exec( )</code> but this is not that hard.</li>
+        <li>Use <code>system()</code> to run the command if input and output are not important.</li>
+        <li>Use <code>popen()</code> if control on either input or output is needed.</li>
+        <li>In C++, you might use member function <a target="_blank" href="cpp.redirecting-streams.html"><var>STREAM</var>.<code>rdbuf()</code></a>, which is only available for C++ streams.</li>
+        <li>Run the shell as a coprocess. This is fraught with many difficulties, so it won&apos;t be discussed here.</li>
+      </ul>
+
+      <section>
+        <h2>Pipe to/from Shell with <code>popen()</code> (and <code>pclose()</code>)</h2>
+        <p>Prototypes:</p>
+        <pre>FILE *popen(const char *command, const char *type);
+int pclose(FILE *stream);</pre>
+        <p>Note that a pointer (<code>FILE *</code>) is initialized for just one call, and that after the call the <q>file</q> should be closed. In between you can read from the thus created file with <code>fscanf()</code> and other file-reading functions, alternatively write to it with <code>fprintf()</code> and other file-writing functions.</p>
+        <p>Typical usage is:</p>
+        <pre>FILE *fp;
+char *command;
+
+/* command contains the command string (a character array) */
+
+/* If you want to read output from command */
+fp = popen(command,"r");
+     /* read output from command */
+      fscanf(fp,....);   /* or other STDIO input functions */
+
+fclose(fp);
+
+/* If you want to send input to command */
+fp = popen(command,"w");
+     /* write to command */
+      fprintf(fp,....);   /* or other STDIO output functions */
+
+fclose(fp);</pre>
+        <p>The program cannot both send input to the command and read its output. The file (handle) <var>fp</var> behaves like an ordinary STDIO file.</p>
+      </section>
+
+      <section id="fdopen">
+        <h2>Buffered I/O with <code>fdopen()</code></h2>
+        <p>If you elect to bypass the shell, it can be handy to have buffered I/O. STDIO functions are available on a file descriptor with <code>fdopen</code>, which associates a stream to a file descriptor.</p>
+        <pre>FILE *fdopen(int fd, const char *mode);</pre>
+        <p>After this call, STDIO buffered I/O and standard I/O functions such as <code>scanf()</code> and <code>printf()</code> can be used on <var>fd</var>.</p>
+        <!--
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        -->
+      </section>
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>
