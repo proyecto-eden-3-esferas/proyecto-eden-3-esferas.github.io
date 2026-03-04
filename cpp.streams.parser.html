@@ -32,12 +32,42 @@
 
     <main>
       <h1>How to write a Parser in C++</h1>
+      <p>We can hope to parse some types of structured text with C++.</p>
+
+
+      <p>Parsers are classified into:</p>
+      <ul>
+        <li><strong>event-driven</strong>: they just produce tokens as they proceed along an input stream; and</li>
+        <li><strong>DOM</strong>: they build an internal representation (Document Object Model) of the structure file they read; besides, the term DOM is usually applied in the context of <a target="_blank" href="HTML.html">HTML</a>.</li>
+      </ul>
+
+      <p>We can further classify parsers by the kind of file (or, generally, input stream) that they work on:</p>
+      <ul>
+        <li><strong>text</strong>: understood to be made up of words and punctuation; perhaps a parser might recognize period-delimited sentences, paragraphs, and little more</li>
+        <li><strong>computer language</strong>: much more structured than text, they subdivide into non-code (such as XML and JSON) and code (programming), which is orders of magnitude more difficult to parse.</li>
+        <li><strong>code</strong>: </li>
+      </ul>
+
+      <aside>
+        <p>I think that writing a DOM parser should start with writing an event-driven parser.</p>
+      </aside>
+
+      <p>In order to parse a form of structured text, it is nearly always convenient to first <a target="_blank" href="tokenization.html">tokenize</a> it, that is to divide it into chunks such as string, puntuation, reserved word, opening or closing delimiter etc. (Divide and Conquer.)</p>
+
 
       <section>
         <h2>Concepts</h2>
         <ul>
           <li><p><strong><a href="#ws">white space</a></strong></p></li>
-          <li><p><strong>delimiters</strong></p></li>
+          <li>
+            <p><strong>delimiters</strong>: enclose text or just runs of characters.</p>
+            <p>Some common delimiters are:</p>
+            <ul>
+              <li>double quotes (<code>&quot;</code> or <code>&apos;) for text as in: <q>He specifically said &apos;care&apos; the last time we spoke.</q></li>
+              <li>round brackets: sometimes used to enforce preference: <quote>(a + b) * c</quote></li>
+              <li>angle brackets: they are common in <a target="_blank" href="xml.en.html">XML</a> or just HTML</li>
+            </ul>
+          </li>
           <li>
             <p><strong>state</strong>: such as the reading cursor&apos;s being inside a string or inside a <code>CDATA</code> section (XML-specific)</p>
             <p>Besides, a parser may keep track of matching delimiters.</p>
