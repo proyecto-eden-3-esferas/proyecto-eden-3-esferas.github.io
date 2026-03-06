@@ -39,7 +39,7 @@
         <p>JavaScript strings are encoded as a sequence of 16-bit numbers. These are called <dfn>code units</dfn>. A Unicode character code was initially supposed to fit within such a unit (which gives you a little over 65,000 characters). When it became clear that wasn&apos;t going to be enough, many people balked at the need to use more memory per character. To address these concerns, UTF-16, the format also used by JavaScript strings, was invented. It describes most common characters using a single 16-bit code unit but uses a pair of two such units for others.</p>
         <hr/>
         <p>UTF-16 is generally considered a bad idea today. It seems almost intentionally designed to invite mistakes. It&apos;s easy to write programs that pretend code units and characters are the same thing. And if your language doesn&apos;t use two-unit characters, that will appear to work just fine. But as soon as someone tries to use such a program with some less common Chinese characters, it breaks. Fortunately, with the advent of emoji, everybody has started using two-unit characters, and the burden of dealing with such problems is more fairly distributed.</p>
-        <section>
+        <section id="surrogate-pairs">
           <h3>Surrogate Pairs</h3>
           <p>As said, the entire Unicode character set is much, much bigger than 65536. The extra characters are stored in UTF-16 as <dfn>surrogate pairs</dfn>, which are pairs of 16-bit code units that represent a single character. To avoid ambiguity, the two parts of the pair must be between 0xD800 and 0xDFFF, and these code units are not used to encode single-code-unit characters. (More precisely, <strong>leading surrogates</strong>, also called <strong>high-surrogate code units</strong>, have values between 0xD800 and 0xDBFF, inclusive, while <strong>trailing surrogates</strong>, also called <strong>low-surrogate code units</strong>, have values between 0xDC00 and 0xDFFF, inclusive.) Each Unicode character, comprised of one or two UTF-16 code units, is also called a Unicode code point. Each Unicode code point can be written in a string with \u{xxxxxx} where xxxxxx represents 1–6 hex digits.</p>
         </section>
@@ -168,14 +168,53 @@ let position = text.search(/Blue/);</pre>
           <p>The <code>indexOf()</code> method cannot search against a regular expression.</p>
           <p>The <code>match()</code> method returns an array of matches (and <code>null</code> if no match is found).</p>
         </aside>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
+      </section>
+      <section>
+        <h2>Escape Characters</h2>
+        <p>The backslash escape character (\) turns special characters into string characters:</p>
+        <table>
+          <thead>
+          <tr> <th>Code</th> <th>Result</th> <th>Description</th> </tr>
+          </thead>
+          <tr> <td>\'</td>	<td>&apos;</td>	<td>Single quote</td> </tr>
+          <tr> <td>\"</td>	<td>&quot;</td>	<td>Double quote</td> </tr>
+          <tr> <td>\\</td>	<td>\</td>	<td>Backslash</td> </tr>
+          <tr> <td>\0</td>	<td></td>	<td>Null character (U+0000 NULL) (only if the next character is not a decimal digit; else it’s an octal escape sequence)</td> </tr>
+          <tr> <td>\b</td>	<td></td> <td>Backspace</td> </tr>
+          <tr> <td>\f</td>	<td></td> <td>Form Feed</td> </tr>
+          <tr> <td>\n</td>	<td></td> <td>New Line</td> </tr>
+          <tr> <td>\r</td>	<td></td> <td>Carriage Return</td> </tr>
+          <tr> <td>\t</td>	<td></td> <td>Horizontal Tabulator</td> </tr>
+          <tr> <td>\v</td>	<td></td> <td>Vertical Tabulator</td> </tr>
+        </table>
+        <p><strong>Note</strong> The last 6 escape characters above were originally designed to control typewriters, teletypes, and fax machines. They do not make any sense in HTML.</p>
+        <section id="hex-esc-sequences">
+          <h3>Hexadecimal escape sequences</h3>
+          <p>Any character with a character code lower than 256 (i.e. any character in the extended ASCII range) can be escaped using its hex-encoded character code, prefixed with <code>\x</code>. (Note that this is the same range of characters that can be escaped through octal escapes.)</p>
+          <p>Hexadecimal escapes are four characters long. They require exactly two characters following <code>\x</code>. If the hexadecimal character code is only one character long (this is the case for all character codes smaller than 16, or 10 in hex), you’ll need to pad it with a leading 0.</p>
+          <p>For example, the copyright symbol ('©') has character code 169, which gives A9 in hex, so you could write it as <code>\xA9</code>.</p>
+          <p>The hexadecimal part of this escape is case-insensitive; in other words, <code>\xa9</code> and <code>\xA9</code> are equivalent.</p>
+          <p>You could define hexadecimal escape syntax using the following regular expression: <code>\\x[a-fA-F0-9]{2}</code>.</p>
+          <p>Admittedly, it’s a bit confusing that the spec refers to this kind of escape sequence as <q>hexadecimal</q>, since Unicode escapes use hex as well.</p>
+        </section>
+        <section>
+          <h3>Unicode escape sequences</h3>
+          <p>Any character with a character code lower than 65536 can be escaped using the hexadecimal value of its character code, prefixed with <code>\u</code>. (As mentioned before, higher character codes are represented by <a href="#surrogate-pairs">a pair of surrogate characters</a>.)</p>
+          <p>Unicode escapes are six characters long. They require exactly four characters following <code>\u</code>. If the hexadecimal character code is only one, two or three characters long, you’ll need to pad it with leading zeroes.</p>
+          <p>The copyright symbol ('©') has character code 169, which gives A9 in hexadecimal notation, so you could write it as '\u00A9'. Similarly, '♥' could be written as '\u2665'.</p>
+          <p>The hexadecimal part of this kind of character escape is case-insensitive; in other words, <code>\u00a9</code> and <code>\u00A9</code> are equivalent.</p>
+          <p>You could define Unicode escape syntax using the following regular expression: <code>\\u[a-fA-F0-9]{4}</code>.</p>
+          <p><strong>Note:</strong> Other than a few simple escapes, Unicode escapes are the only ones allowed by the JSON specification.</p>
+        </section>
+        <section>
+          <h3>ECMAScript 6: Unicode code point escapes</h3>
+          <p>ECMAScript 6 introduces a new kind of escape sequence in strings, namely <dfn>Unicode code point escapes</dfn>. Additionally, it will define <code>String.fromCodePoint</code> and <code>String#codePointAt</code>, both of which accept code points rather than UCS-2/UTF-16-like code units.</p>
+          <p>When this is implemented, any character can be escaped using the hexadecimal value of its character code, prefixed with <code>\u{</code> and suffixed with <code>}</code>. This is allowed for code points up to <code>0x10FFFF</code>, which is the highest code point defined by Unicode.</p>
+          <p>Unicode code point escapes consist of at least five characters. At least one hexadecimal character can be wrapped in <code>\u{…}</code>. There is no upper limit on the number of hex digits in use (for example <code>'\u{000000000061}' == 'a'</code>) but for practical purposes you won’t need more than 6, unless you perform unnecessary zero-padding.</p>
+          <p>The tetragram for centre symbol (𝌆) has code point <code>U+1D306</code>, so you could write it as <code>\u{1D306}</code>. For comparison, if you were to use simple Unicode escapes to represent this symbol, you’d have to write out the surrogate halves separately: <code>'\uD834\uDF06'</code>.</p>
+          <p>The hexadecimal part of this kind of character escape is case-insensitive; in other words, <code>'\u{1d306}'</code> and <code>'\u{1D306}'</code> are equivalent.</p>
+          <p>You could define Unicode code point escape syntax using the following regular expression: <code>\\u\{([0-9a-fA-F]{1,})\}</code>.</p>
+        </section>
       </section>
       <!--
       <section>
