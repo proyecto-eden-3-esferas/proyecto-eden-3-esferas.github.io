@@ -84,7 +84,7 @@
         <p><a href="#text-tỳpes">Text Types</a></p>
         <p><a href="#objs">Regular Expression Objects</a></p>
         <p><a href="#match_results">The Search Result <code>match_results</code></a></p>
-        <p><a href="#sub_match"><code>td::sub_match</code></a></p>
+        <p><a href="#sub_match"><code>std::sub_match</code></a></p>
         <p><a href="#matching">Matching</a></p>
         <p><a href="#searching">Searching</a></p>
         <p><a href="#replacing">Replacing</a></p>
@@ -407,9 +407,11 @@ showCaptureGroups("(a+)(b+)", "aaabccc");
 showCaptureGroups("((a+)(b+))", "aaabccc");
 showCaptureGroups("(ab)(abc)+", "ababcabc");</pre>
       </section>
+
       <section id="sub_match">
-        <h2><code>td::sub_match</code></h2>
-        <p>The capture groups are of type <code>std::sub_match</code>. As with <code>std::match_results</code>, C++ defines the following four type synonyms.</p>
+        <h2><code>std::sub_match</code></h2>
+        <p>The capture groups (of a <code><a href="#match_results">match_results</a></code> object filled by one of the regex algorithms <a href="#regex_match">regex_match</a> or <a href="#regex_search">regex_search</a>, or by the regex iterators: <a href="#regex_iterator">regex_iterator</a> and <a href="#regex_token_iterator">regex_token_iterator</a>) are of type <code>std::sub_match</code>.</p>
+        <p>As with <code>std::match_results</code>, C++ defines the following four type synonyms.</p>
         <pre>typedef sub_match&lt;const char*&gt; csub_match;
 typedef sub_match&lt;const wchar_t*&gt; wcsub_match;
 typedef sub_match&lt;string::const_iterator&gt; ssub_match;
@@ -422,8 +424,8 @@ typedef sub_match&lt;wstring::const_iterator&gt; wssub_match;</pre>
                   <tr> <td><code>cap.matched()</code></td> <td>Indicates if this match was successful.</td> </tr>
                   <tr> <td><code>cap.first()</code> and <code>cap.end()</code></td> <td>Returns the begin and end iterator of the character sequence.</td> </tr>
                   <tr> <td><code>cap.length()</code></td> <td>Returns the length of the capture group.</td> </tr>
-                  <tr> <td><code>cap.str()</code></td> <td>Returns the capture group as [a] string.</td> </tr>
-                  <tr> <td><code>cap.compare(<var>other</var>)</code></td> <td>Compares the current capture group with the <var>other</var> capture group.</td> </tr>
+                  <tr> <td><code>cap.str()</code></td> <td>Returns the capture group as a string (<code>string_type</code>, typically a <code>std::string</code>).</td> </tr>
+                  <tr> <td><code>cap.compare(<var>other</var>)</code></td> <td>Compares the current capture group with the <var>other</var> capture group. It returns 0 if the compared characters sequences are equal.</td> </tr>
           </tbody>
         </table>
 
@@ -692,7 +694,7 @@ if (std::regex_match(official, smatch, regValues)) {
         <h2>Repeated Search</h2>
         <p>It&apos;s pretty convenient to iterate with <code>std::regex_iterator</code> and <code>std::regex_token_iterator</code> through the matched texts. <code>std::regex_iterator</code> supports the matches and their capture groups. <code>std::regex_token_iterator</code> supports more. You can address the components of each capture.</p>
         <p>Using a negative index enables it to access the text between the matches.</p>
-        <section>
+        <section id="regex_iterator">
           <h3><code>std::regex_iterator</code></h3>
           <p>C++ defines the following four type synonyms for <code>std::regex_iterator</code>:</p>
           <pre>typedef  cregex_iterator regex_iterator&lt;const char*&gt;
@@ -749,7 +751,7 @@ int main ()
 }</pre>
           <p>[...]</p>
         </section>
-        <section>
+        <section id="regex_token_iterator">
           <h3><code>std::regex_token_iterator</code></h3>
           <p>C++ defines the following four type synonyms for <code>std::regex_token_iterator</code>:</p>
           <pre>typedef  cregex_token_iterator regex_token_iterator&lt;const char*&gt;
