@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,68 +9,53 @@
     <meta name="description" content="Using Apache CouchDB"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
-
     <meta name="author" content="AUTHOR"/>
-    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
-
-    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
-    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
-    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
-
-    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
-    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
     -->
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!-- -->
       <div>
         <p><a rel="prev" href="couchdb.html">Open Source Apache CouchDB: Another JSON Document DBMS</a></p>
         <p><a rel="next" href="couchdb.design-documents.html">Design Documents</a></p>
-        <p><a rel="next" href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
-        <p><a            href="json.html">JavaScript Object Notation</a></p>
+        <p><a href="https://docs.couchdb.org/en/stable/">Apache CouchDB&#xAE; 3.4.3 Documentation</a></p>
+        <p><a href="json.html">JavaScript Object Notation</a></p>
       </div>
       <div>
-        <p><a            href="nosql.html">NoSQL DataBases</a></p>
-        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
-        <p><a            href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
+        <p><a href="nosql.html">NoSQL DataBases</a></p>
+        <p><a href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a href="acid.html">Atomicity, Consistency, Isolation, and Durability (ACID)</a></p>
       </div>
-
     </nav>
-
     <main>
-      <h1>Using Apache CouchDB</h1>
+      <h1>Querying CouchDB via the <code>_find</code> Endpoint and Indexes</h1>
+      <p style="text-align: right">(From <a target="_blank" href="https://docs.couchdb.org/en/stable/api/database/find.html">https://docs.couchdb.org/en/stable/api/database/find.html</a>)</p>
+      <p>Find documents using a declarative JSON querying syntax. Queries will use custom <a target="_blank" href="db-indexes.html">indexes</a>, specified using the <code>_index</code>  endpoint, if available. Otherwise, when allowed, they use the built-in <code>_all_docs</code> index, which can be arbitrarily slow.</p>
 
       <section id="find">
-        <h2><code>/{<var>db</var>}/_find</code></h2>
-        <p style="text-align: right">(From <a target="_blank" href="https://docs.couchdb.org/en/stable/api/database/find.html">https://docs.couchdb.org/en/stable/api/database/find.html</a>)</p>
-        <p>Find documents using a declarative JSON querying syntax. Queries will use custom <a target="_blank" href="db-indexes.html">indexes</a>, specified using the <code>_index endpoint</code>, if available. Otherwise, when allowed, they use the built-in <code>_all_docs</code> index, which can be arbitrarily slow.</p>
+        <h2>Structure of Request JSON Object</h2>
+        <p>A Request JSON Object holds quite a few fields.</p>
+        <ul>
+          <li><strong>selector</strong> (object) &#x2013; JSON object describing criteria used to select documents. More information provided in the section on selector syntax. Required</li>
+          <li><strong>limit</strong> (number) &#x2013; Maximum number of results returned. Default is 25. Optional</li>
+          <li><strong>skip</strong> (number) &#x2013; Skip the first &#x2018;n&#x2019; results, where &#x2018;n&#x2019; is the value specified. Optional</li>
+          <li><strong>sort</strong> (array) &#x2013; JSON array following sort syntax. Optional</li>
+          <li><strong>fields</strong> (array) &#x2013; JSON array specifying which fields of each object should be returned. If it is omitted, the entire object is returned. More information provided in the section on filtering fields. Optional</li>
+          <li><strong>use_index</strong> (string|array) &#x2013; Request a query to use a specific index. Specified either as "&lt;design_document&gt;" or ["&lt;design_document&gt;", "&lt;index_name&gt;"]. It is not guaranteed that the index will be actually used because if the index is not valid for the selector, fallback to a valid index is attempted. Therefore that is more like a hint. When fallback occurs, the details are given in the warning field of the response. Optional</li>
+          <li><strong>allow_fallback</strong> (boolean) &#x2013; Tell if it is allowed to fall back to another valid index. This can happen on running a query with an index specified by use_index which is not deemed usable, or when only the built-in _all_docs index would be picked in lack of indexes available to support the query. Disabling this fallback logic causes the endpoint immediately return an error in such cases. Default is true. Optional</li>
+          <li><strong>conflicts</strong> (boolean) &#x2013; Include conflicted documents if true. Intended use is to easily find conflicted documents, without an index or view. Default is false. Optional</li>
+          <li><strong>r</strong> (number) &#x2013; Read quorum needed for the result. This defaults to 1, in which case the document found in the index is returned. If set to a higher value, each document is read from at least that many replicas before it is returned in the results. This is likely to take more time than using only the document stored locally with the index. Optional, default: 1</li>
+          <li><strong>bookmark</strong> (string) &#x2013; A string that enables you to specify which page of results you require. Used for paging through result sets. Every query returns an opaque string under the bookmark key that can then be passed back in a query to get the next page of results. If any part of the selector query changes between requests, the results are undefined. Optional, default: null</li>
+          <li><strong>update</strong> (boolean) &#x2013; Whether to update the index prior to returning the result. Default is true. Optional</li>
+          <li><strong>stable</strong> (boolean) &#x2013; Whether or not the view results should be returned from a &#x201C;stable&#x201D; set of shards. Optional</li>
+          <li><strong>stale</strong> (string) &#x2013; Combination of update=false and stable=true options. Possible options: "ok", false (default). Optional Note that this parameter is deprecated. Use stable and update instead. See Views Generation for more details.</li>
+          <li><strong>execution_stats</strong> (boolean) &#x2013; Include execution statistics in the query response. Optional, default: false</li>
+        </ul>
+      </section>
 
-        <section>
-          <h3>Structure of Request JSON Object</h3>
-          <p>A Request JSON Object holds the following fields:</p>
-          <ul>
-            <li><strong>selector</strong> (object) – JSON object describing criteria used to select documents. More information provided in the section on selector syntax. Required</li>
-            <li><strong>limit</strong> (number) – Maximum number of results returned. Default is 25. Optional</li>
-            <li><strong>skip</strong> (number) – Skip the first ‘n’ results, where ‘n’ is the value specified. Optional</li>
-            <li><strong>sort</strong> (array) – JSON array following sort syntax. Optional</li>
-            <li><strong>fields</strong> (array) – JSON array specifying which fields of each object should be returned. If it is omitted, the entire object is returned. More information provided in the section on filtering fields. Optional</li>
-            <li><strong>use_index</strong> (string|array) – Request a query to use a specific index. Specified either as "&lt;design_document&gt;" or ["&lt;design_document&gt;", "&lt;index_name&gt;"]. It is not guaranteed that the index will be actually used because if the index is not valid for the selector, fallback to a valid index is attempted. Therefore that is more like a hint. When fallback occurs, the details are given in the warning field of the response. Optional</li>
-            <li><strong>allow_fallback</strong> (boolean) – Tell if it is allowed to fall back to another valid index. This can happen on running a query with an index specified by use_index which is not deemed usable, or when only the built-in _all_docs index would be picked in lack of indexes available to support the query. Disabling this fallback logic causes the endpoint immediately return an error in such cases. Default is true. Optional</li>
-            <li><strong>conflicts</strong> (boolean) – Include conflicted documents if true. Intended use is to easily find conflicted documents, without an index or view. Default is false. Optional</li>
-            <li><strong>r</strong> (number) – Read quorum needed for the result. This defaults to 1, in which case the document found in the index is returned. If set to a higher value, each document is read from at least that many replicas before it is returned in the results. This is likely to take more time than using only the document stored locally with the index. Optional, default: 1</li>
-            <li><strong>bookmark</strong> (string) – A string that enables you to specify which page of results you require. Used for paging through result sets. Every query returns an opaque string under the bookmark key that can then be passed back in a query to get the next page of results. If any part of the selector query changes between requests, the results are undefined. Optional, default: null</li>
-            <li><strong>update</strong> (boolean) – Whether to update the index prior to returning the result. Default is true. Optional</li>
-            <li><strong>stable</strong> (boolean) – Whether or not the view results should be returned from a “stable” set of shards. Optional</li>
-            <li><strong>stale</strong> (string) – Combination of update=false and stable=true options. Possible options: "ok", false (default). Optional Note that this parameter is deprecated. Use stable and update instead. See Views Generation for more details.</li>
-            <li><strong>execution_stats</strong> (boolean) – Include execution statistics in the query response. Optional, default: false</li>
-          </ul>
-        </section>
-
-        <section id="using-an-index">
-          <h3>Using an Index</h3>
-          <p>Example request body for finding documents using an index:</p>
-          <pre>POST /movies/_find HTTP/1.1
+      <section id="using-an-index">
+        <h2>Using an Index</h2>
+        <p>Example request body for finding documents using an index:</p>
+        <pre>POST /movies/_find HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 Content-Length: 168
@@ -85,8 +71,8 @@ Host: localhost:5984
     "skip": 0,
     "execution_stats": true
 }</pre>
-          <p>Example response when finding documents using an index:</p>
-          <pre>HTTP/1.1 200 OK
+        <p>Example response when finding documents using an index:</p>
+        <pre>HTTP/1.1 200 OK
 Cache-Control: must-revalidate
 Content-Type: application/json
 Date: Thu, 01 Sep 2016 15:41:53 GMT
@@ -116,24 +102,24 @@ Transfer-Encoding: chunked
         "execution_time_ms": 5.52
     }
 }</pre>
-        </section>
+      </section>
 
-        <section id="selectors">
-          <h3>Selectors</h3>
-          <p>Selectors are expressed as a JSON object describing documents of interest. Within this structure, you can apply conditional logic using specially named fields.</p>
-          <p>Whilst selectors have some similarities with <a target="_blank" href="mongodb.html">MongoDB</a> query documents, these arise from a similarity of purpose and do not necessarily extend to commonality of function or result.</p>
-          <p>Elementary selector syntax requires you to specify one or more fields, and the corresponding values required for those fields. This selector matches all documents whose "director" field has the value <cite>Lars von Trier</cite>.</p>
-          <pre>{ "director": "Lars von Trier" }</pre>
-          <p>A simple selector, inspecting specific fields:</p>
-          <pre>"selector": {
+      <section id="selectors">
+        <h2>Selectors</h2>
+        <p>Selectors are expressed as a JSON object describing documents of interest. Within this structure, you can apply conditional logic using specially named fields.</p>
+        <p>Whilst selectors have some similarities with <a target="_blank" href="mongodb.html">MongoDB</a> query documents, these arise from a similarity of purpose and do not necessarily extend to commonality of function or result.</p>
+        <p>Elementary selector syntax requires you to specify one or more fields, and the corresponding values required for those fields. This selector matches all documents whose "director" field has the value <cite>Lars von Trier</cite>.</p>
+        <pre>{ "director": "Lars von Trier" }</pre>
+        <p>A simple selector, inspecting specific fields:</p>
+        <pre>"selector": {
     "title": "Live And Let Die"
 },
 "fields": [
     "title",
     "cast"
 ]</pre>
-          <p>You can create more complex selector expressions by combining operators. For best performance, it is best to combine ‘combination’ or ‘array logical’ operators, such as <code>$regex</code>, with an operator that defines a contiguous range of keys such as <code>$eq</code>, <code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code>, and <code>$beginsWith</code> (but not <code>$ne</code>). For more information about creating complex selector expressions, <i>see</i> <cite>creating selector expressions</cite>.</p>
-          <!--
+        <p>You can create more complex selector expressions by combining operators. For best performance, it is best to combine &#x2018;combination&#x2019; or &#x2018;array logical&#x2019; operators, such as <code>$regex</code>, with an operator that defines a contiguous range of keys such as <code>$eq</code>, <code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code>, and <code>$beginsWith</code> (but not <code>$ne</code>). For more information about creating complex selector expressions, <i>see</i> <cite>creating selector expressions</cite>.</p>
+        <!--
           <pre></pre>
           <p></p>
           <pre></pre>
@@ -142,119 +128,117 @@ Transfer-Encoding: chunked
           <p></p>
           <pre></pre>
           -->
-          <section>
-            <h4>Selector with 2 fields</h4>
-            <p>This selector matches any document with a name field containing "Paul", and that also has a location field with the value "Boston".</p>
-            <pre>{
+        <section>
+          <h4>Selector with 2 fields</h4>
+          <p>This selector matches any document with a name field containing "Paul", and that also has a location field with the value "Boston".</p>
+          <pre>{
     "name": "Paul",
     "location": "Boston"
 }</pre>
-          </section>
-          <section>
-            <h4>Subfields</h4>
-            <p>A more complex selector enables you to specify the values for field of nested objects, or subfields. For example, you might use a standard JSON structure for specifying a field and subfield.</p>
-            <p>Example of a field and subfield selector, using a standard JSON structure:</p>
-            <pre>{
+        </section>
+        <section>
+          <h4>Subfields</h4>
+          <p>A more complex selector enables you to specify the values for field of nested objects, or subfields. For example, you might use a standard JSON structure for specifying a field and subfield.</p>
+          <p>Example of a field and subfield selector, using a standard JSON structure:</p>
+          <pre>{
     "imdb": {
         "rating": 8
     }
 }</pre>
-            <p>An abbreviated equivalent uses a dot notation to combine the field and subfield names into a single name.</p>
-            <pre>{
+          <p>An abbreviated equivalent uses a dot notation to combine the field and subfield names into a single name.</p>
+          <pre>{
     "imdb.rating": 8
 }</pre>
-          </section>
-
-          <section>
-            <h4>Combination Operators</h4>
-            <p><dfn>Combination operators</dfn> are used to combine selectors. In addition to the common boolean operators found in most programming languages, there are three combination operators (<code>$all</code>, <code>$elemMatch</code>, and <code>$allMatch</code>) that help you work with JSON arrays and one that works with JSON maps (<code>$keyMapMatch</code>).</p>
-            <p>A combination operator takes a single argument. The argument is either another selector, or an array of selectors.</p>
-            <p>The list of combination operators:</p>
-            <table>
-              <thead> <tr> <th>Operator</th> <th>Argument</th> <th>Purpose</th> </tr> </thead>
-              <tbody>
-                <tr> <td><code>$and</code></td> <td>Array</td> <td>Matches if all the selectors in the array match.</td> </tr>
-                <tr> <td><code>$or</code></td> <td>Array</td> <td>Matches if any of the selectors in the array match. All selectors must use the same index.</td> </tr>
-                <tr> <td><code>$not</code></td> <td>Selector</td> <td>Matches if the given selector does not match.</td> </tr>
-                <tr> <td><code>$nor</code></td> <td>Array</td> <td>Matches if none of the selectors in the array match.</td> </tr>
-                <tr> <td><code>$all</code></td> <td>Array</td> <td>Matches an array value if it contains all the elements of the argument array.</td> </tr>
-                <tr> <td><code>$elemMatch</code></td> <td>Selector</td> <td>Matches and returns all documents that contain an array field with at least one element that matches all the specified query criteria.</td> </tr>
-                <tr> <td><code>$allMatch</code></td> <td>Selector</td> <td>Matches and returns all documents that contain an array field with all its elements matching all the specified query criteria.</td> </tr>
-                <tr> <td><code>$keyMapMatch</code></td> <td>Selector</td> <td>Matches and returns all documents that contain a map that contains at least one key that matches all the specified query criteria.</td> </tr>
-                <tr> <td><code>$text</code></td> <td>String</td> <td>Perform a text search</td> </tr>
-              </tbody>
-            </table>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
-          <section>
-            <h4>* </h4>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-            <p></p>
-            <pre></pre>
-          </section>
         </section>
-        <!--
+        <section>
+          <h4>Combination Operators</h4>
+          <p><dfn>Combination operators</dfn> are used to combine selectors. In addition to the common boolean operators found in most programming languages, there are three combination operators (<code>$all</code>, <code>$elemMatch</code>, and <code>$allMatch</code>) that help you work with JSON arrays and one that works with JSON maps (<code>$keyMapMatch</code>).</p>
+          <p>A combination operator takes a single argument. The argument is either another selector, or an array of selectors.</p>
+          <p>The list of combination operators:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Operator</th>
+                <th>Argument</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>$and</code>
+                </td>
+                <td>Array</td>
+                <td>Matches if all the selectors in the array match.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$or</code>
+                </td>
+                <td>Array</td>
+                <td>Matches if any of the selectors in the array match. All selectors must use the same index.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$not</code>
+                </td>
+                <td>Selector</td>
+                <td>Matches if the given selector does not match.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$nor</code>
+                </td>
+                <td>Array</td>
+                <td>Matches if none of the selectors in the array match.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$all</code>
+                </td>
+                <td>Array</td>
+                <td>Matches an array value if it contains all the elements of the argument array.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$elemMatch</code>
+                </td>
+                <td>Selector</td>
+                <td>Matches and returns all documents that contain an array field with at least one element that matches all the specified query criteria.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$allMatch</code>
+                </td>
+                <td>Selector</td>
+                <td>Matches and returns all documents that contain an array field with all its elements matching all the specified query criteria.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$keyMapMatch</code>
+                </td>
+                <td>Selector</td>
+                <td>Matches and returns all documents that contain a map that contains at least one key that matches all the specified query criteria.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>$text</code>
+                </td>
+                <td>String</td>
+                <td>Perform a text search</td>
+              </tr>
+            </tbody>
+          </table>
+          <!--
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+      </section>
+      <!--
         <section>
           <h3></h3>
           <p></p>
@@ -277,21 +261,16 @@ Transfer-Encoding: chunked
           <pre></pre>
         </section>
         -->
-      </section>
-
       <section id="views-and-map-reduce">
         <h2>Views and Map-Reduce</h2>
         <p>CouchDB uses views filtered through map-reduce to query all the documents of your database. Each view has a map- and optionally a reduce-function. Doctrine CouchDB ODM allows you to create and query views in your application.</p>
         <p><dfn>MapReduce</dfn> is a programming model and an associated implementation for processing and generating big data sets with a parallel, distributed algorithm on a cluster. A MapReduce program is composed of a <code>Map()</code> procedure (method) that performs filtering and sorting (such as sorting students by first name into queues, one queue for each name) and a <code>Reduce()</code> method that performs a summary operation (such as counting the number of students in each queue, yielding name frequencies).</p>
-
-        <p>A MapReduce view is created by adding it to the <cite><a href="couchdb.design-documents.html">_design</a></cite> document for the database (which we will discuss later). You can also use Futon, which is accessible with the following URL once you have CouchDB set up:</p>
-        <pre>http://127.0.0.1:5984/_utils/</pre>
-        <p>to create a <cite>Temporary View</cite> directly through the interface. So I would set up a map and a reduce function. The result which would be displayed at the bottom of the image is the result of the map step, which contains rows of data containing, say, the documents name as the key, and the age as the value. We can then enable the reduce step by ticking the reduce box just above the result set.</p>
+        <p>A MapReduce view is created by adding it to the <cite><a href="couchdb.design-documents.html">_design</a></cite> document for the database (which we will discuss later). You can also use <a href="couchdb.html#fauxton">Futon</a>, which is accessible with the following URL once you have CouchDB set up: <code>http://127.0.0.1:5984/_utils/</code>  to create a <cite>Temporary View</cite> directly through the interface. So I would set up a map and a reduce function. The result which would be displayed at the bottom of the image is the result of the map step, which contains rows of data containing, say, the documents name as the key, and the age as the value. We can then enable the reduce step by ticking the reduce box just above the result set.</p>
         <hr/>
         <p>An example:</p>
         <pre>function(doc){
 
-    if(doc.age > 29 &amp;&amp; doc.age &lt; 36){
+    if(doc.age &gt; 29 &amp;&amp; doc.age &lt; 36){
         emit(doc.age, doc.income);
     }
 
@@ -303,14 +282,11 @@ Transfer-Encoding: chunked
 }</pre>
         <p>We might actually create more realistic MapReduce views and add them to the <cite>design</cite> doc (rather than just creating temporary views)</p>
         <hr/>
-        <p>When you query a view, CouchDB will run the MapReduce function against every document in the database. On the surface, that sounds like a bad idea – especially if you&apos;ve got millions of documents. However, it only performs this process once to create the view initially, and when updates are made to the data it only needs to make updates to the resulting view for that specific document (it doesn&apos;t need to regenerate the entire view again).</p>
+        <p>When you query a view, CouchDB will run the MapReduce function against every document in the database. On the surface, that sounds like a bad idea &#x2013; especially if you've got millions of documents. However, it only performs this process once to create the view initially, and when updates are made to the data it only needs to make updates to the resulting view for that specific document (it doesn't need to regenerate the entire view again).</p>
         <p>To query a view, all you need to do it access its URL, which will look something like this (once you have added it to a design doc):</p>
         <pre><var>mydb</var>/_design/<var>nameOfDesigndoc</var>/_view/<var>nameOfView</var></pre>
         <p>You can also supply parameters to the URL to restrict the returned dataset by using things like <code>by_date?</code> with a <var>start_key</var> and an <var>end_key</var>. The process for this would go something like <q>Start at the row that has a date that equals the start_key and then keep returning rows until you reach a key that matches the end_key</q>.</p>
       </section>
-
     </main>
-
   </body>
-
 </html>

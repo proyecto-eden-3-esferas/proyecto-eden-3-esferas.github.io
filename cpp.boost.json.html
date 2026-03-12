@@ -5,11 +5,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ Boost JSON"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
 
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
     <meta name="FIELD_NAME" content="FIELD_VALUE"/>
     -->
   </head>
@@ -22,10 +22,14 @@
         <p><a href="cpp.boost.json.serializing.html">C++ Boost JSON: Serializing</a></p>
       -->
       <div>
-        <p><a href="cpp.boost.json.parsing.html">C++ Boost JSON: Parsing</a></p>
-        <p><a href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
-        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
-        <p><a href="cpp.boost.json.html">C++ Boost JSON</a></p>
+        <p><a rel="next" href="cpp.boost.json.parsing.html">C++ Boost JSON Parsing</a></p>
+        <p><a            href="cpp.streams.parser.html">How to write a Parser in C++</a></p>
+        <p><a            href="tokenization.html">Tokenization: Breaking Text into its Component Words</a></p>
+        <p><a            href="json.html">JavaScript Object Notation (JSON)</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.boost.geometry.html">C++ Boost Geomety</a></p>
+        <p><a            href="cpp.boost.graph.html">C++ Boost Graph</a></p>
       </div>
       <div>
         <p><a href="cpp.stl.html">C++ Standad Template Library (STL)</a></p>
@@ -35,13 +39,12 @@
     </nav>
 
     <main>
-      <h1>The C++ Boost Library: Beyond the STL</h1>
+      <h1>C++ Boost JSON</h1>
       <section id="overview">
         <h2>Overview</h2>
         <p>Boost.JSON is a portable C++ library which provides containers and algorithms that implement JavaScript Object Notation, (<a target="_blank" href="json.html">JSON</a>) a lightweight data-interchange format.</p>
-        <p>This library focuses on a common and popular use-case: <a href="#parsing">parsing</a> and serializing to and from a container called <var>value</var> which holds JSON types. Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
+        <p>This library focuses on a common and popular use-case: <a target="_blank" href="cpp.boost.json.parsing.html">parsing</a> and serializing to and from a container called <var>value</var> which holds JSON types. Any value which you build can be serialized and then deserialized, guaranteeing that the result will be equal to the original value. Whatever JSON output you produce with this library will be readable by most common JSON implementations in any language.</p>
         <p>The <var>value</var> container is designed to be well suited as a vocabulary type appropriate for use in public interfaces and libraries, allowing them to be composed. The library restricts the representable data types to the ranges which are almost universally accepted by most JSON implementations, especially <a target="_blank" href="js.html">JavaScript</a>. The parser and serializer are both highly performant, meeting or exceeding the benchmark performance of the best comparable libraries. Allocators are very well supported. Code which uses these types will be easy to understand, flexible, and performant.</p>
-
 
         <hr/>
 

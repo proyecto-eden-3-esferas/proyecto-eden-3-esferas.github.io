@@ -24,9 +24,12 @@
     <nav>
     <!-- -->
       <div>
-        <p><a rel="next" href="couchdb.using.html">Using Apache CouchDB</a></p>
+        <p><a rel="next" href="couchdb.using.html">Using Apache CouchDB: Queries</a></p>
         <p><a            href="couchdb.indexes.html">CouchDB Indexes</a></p>
-        <p><a            href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.4.3 Documentation</a></p>
+        <p><a            href="couchdb.replication.html">CouchDB Replication</a></p>
+        <p><a            href="https://docs.couchdb.org/en/stable/">CouchDB Documentation</a></p>
+      </div>
+      <div>
         <p><a            href="restful.html">RESTful API(s)</a></p>
         <p><a            href="MapReduce.html">The MapReduce Programming Paradigm</a></p>
         <p><a            href="json.html">JavaScript Object Notation</a></p>
@@ -81,7 +84,7 @@
       <section id="special-features">
         <h2>Special Features</h2>
         <p>CouchDB implements a form of multiversion concurrency control (MVCC) so it does not lock the database file during writes. Conflicts are left to the application to resolve. Resolving a conflict generally involves first merging data into one of the documents, then deleting the stale one.</p>
-        <p>Other features include (incremental) MapReduce, and (incremental) replication. One of CouchDB&apos;s distinguishing features is multi-master replication, which allows it to scale across machines to build high-performance systems. A built-in Web application called <a target="_blank" href="fauxton.html">Fauxton</a> (formerly Futon) helps with administration.</p>
+        <p>Other features include (incremental) MapReduce, and (incremental) replication. One of CouchDB&apos;s distinguishing features is multi-master replication, which allows it to scale across machines to build high-performance systems. A built-in Web application called <a href="#fauxton">Fauxton</a> (formerly Futon) helps with administration.</p>
       </section>
 
       <section id="install-on-ubuntu">
@@ -153,7 +156,7 @@ bind_address = 0.0.0.0</pre>
       </section>
 
       <section id="first-steps">
-        <h2>First Steps with CouchDB: Access CouchDB Using HTTP API Endpoints (<code>curl</code>)</h2>
+        <h2>First Steps with CouchDB: Managing Databases (with <code>curl</code>)</h2>
         <p>You can access CouchDB using the HTTP API to send database standard GET and PUT requests to the backend server. Follow the steps below to use the Curl utility with the <code>-u</code> option to prompt you for the administrator password for every API request to the CouchDB localhost port 5984.</p>
         <aside>
           <p>The <code>curl</code> utility is a command line tool available on Unix, Linux, Mac OS X, Windows, and many other platforms. curl provides easy access to the HTTP protocol (among others) directly from the command line and is therefore an ideal way of interacting with CouchDB over the HTTP REST API.</p>
@@ -163,77 +166,134 @@ bind_address = 0.0.0.0</pre>
         <aside>
           <p>You may provide the password on the command line, as in:</p>
           <pre>curl -u admin:skyblue -X GET http://127.0.0.1:5984/_all_dbs</pre>
+          <p>Alternatively, define a shell variable with your user, password and server, then use as a replacement:</p>
+          <pre>HOST = 'admin:skyblue@127.0.0.1:5984'
+curl -u $HOST -X GET http://$HOST/_all_dbs</pre>
         </aside>
-        <ol>
-          <li>
-            <p class="bridgehead">Get a list of all databases</p>
-            <pre>$ curl -u admin:skyblue -X GET http://127.0.0.1:5984/_all_dbs</pre>
-            <p>Output:</p>
-            <pre>["exampledb"]</pre>
-          </li>
-          <li>
-            <p class="bridgehead">Create a new database</p>
-            <p>Such as <cite>test_database</cite>.</p>
-            <pre>$ curl -u admin:skyblue -X PUT http://127.0.0.1:5984/<var>my_database</var></pre>
-            <p>Output:</p>
-            <pre>{"ok":true}</pre>
-          </li>
-          <li>
-            <p class="bridgehead">Delete a database</p>
-            <p>For example, <var>test_database</var>.</p>
-            <pre>$ curl -u admin:skyblue -X DELETE http://127.0.0.1:5984/<var>my_database</var></pre>
-          </li>
-          <li>
-            <p class="bridgehead">Retrieve database information</p>
-            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var></pre>
-          </li>
-          <li>
-            <p class="bridgehead">Create a new document in a database</p>
-            <p>Replace the <code>-d</code> option value with your own JSON document data.</p>
-            <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" -d '{"name": "John Doe"}' http://127.0.0.1:5984/<var>my_database</var></pre>
-            <hr/>
-            <p>When adding a document to the database you may specify the unique ID of the record you want to create, then use -d to pass along the record's information in JSON format.</p>
-          </li>
-          <li>
-            <p class="bridgehead">Get a document's JSON data stored</p>
-            <p>To <code>GET</code> a document, specify the document&apos;s ID at the end of the URL.</p>
-            <p>Replace <code>test_database</code>,<code>ff66</code> with your database and document ID values respectively.</p>
-            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var>/ff66</pre>
-            <hr/>
-            <p>Alternatively, you may pass in an object with a selector key matching an object after switch <code>-d</code>. In that case, remember to include a content type specification (<code>-H "Content-Type: application/json"</code>). For example:</p>
-            <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": { "term": "ethereum"}}'</pre>
-            <p>What about adding a <code>"fields": ["term", "name", "definition"]</code> key-value pair?</p>
-            <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": { "term": "ethereum"}, "fields": ["term", "name", "definition"]}'</pre>
-            <p>Last, you may make the selector match an empty object and only include the <code>"fields"</code> key-value pair:</p>
-            <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": {}, "fields": ["term", "name", "definition"]}'</pre>
-          </li>
-          <li>
-            <p class="bridgehead">Delete a document</p>
-            <p>Replace ff66 with your document ID and 1-b9a5713ff0a5b6eee4347d4040a7f6bf with your actual revision number.</p>
-            <pre>$ curl -u admin:skyblue -X DELETE http://127.0.0.1:5984/<var>my_database</var>/ff66?rev=1-b9a5713ff0a5b6eee4347d4040a7f6bf</pre>
-          </li>
-          <li>
-            <p class="bridgehead">Get all documents in a database such as <cite>test_database</cite></p>
-            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var>/_all_docs</pre>
-          </li>
-          <li>
-            <p class="bridgehead">Compact a database</p>
-            <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/<var>my_database</var>/_compact</pre>
-          </li>
-          <li>
-            <p class="bridgehead">Get active tasks</p>
-            <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/_active_tasks</pre>
-          </li>
-        </ol>
+
+        <section>
+          <h3>Get a list of all databases</h3>
+          <pre>$ curl -u admin:skyblue -X GET http://127.0.0.1:5984/_all_dbs</pre>
+          <p>Output:</p>
+          <pre>["exampledb"]</pre>
+        </section>
+
+        <section>
+          <h3>Create a new database</h3>
+          <p>Such as <cite>my_new_database</cite>.</p>
+          <pre>$ curl -u admin:skyblue -X PUT http://127.0.0.1:5984/<var>my_new_database</var></pre>
+          <p>Output:</p>
+          <pre>{"ok":true}</pre>
+        </section>
+
+        <section>
+          <h3>Delete a database</h3>
+          <p>For example, <var>test_database</var>.</p>
+          <pre>$ curl -u admin:skyblue -X DELETE http://127.0.0.1:5984/<var>test_database</var></pre>
+        </section>
+
+        <section>
+          <h3>Retrieve database information</h3>
+          <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var></pre>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>First Steps with CouchDB: Managing Documents (with <code>curl</code>)</h2>
+
+        <section>
+          <h3>Create a new document in a database</h3>
+          <p>Replace the <code>-d</code> option value with your own JSON document data.</p>
+          <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" -d '{"name": "John Doe"}' http://127.0.0.1:5984/<var>my_database</var></pre>
+          <hr/>
+          <p>When adding a document to the database you may specify the unique ID of the record you want to create (instead of delegating on the server), then use <code>-d</code> to pass along the record's information in JSON format.</p>
+          <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" -d '{"name": "John Doe"}' http://127.0.0.1:5984/<var>my_database</var>/<var>document_id</var></pre>
+        </section>
+
+        <section>
+          <h3>Get the JSON Data Stored in a Document</h3>
+          <p>To <code>GET</code> a document, specify the document&apos;s ID at the end of the URL.</p>
+          <p>Replace <code>test_database</code>,<code>ff66</code> with your database and document ID values respectively.</p>
+          <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>my_database</var>/ff66</pre>
+        </section>
+
+        <section>
+          <h3>Get the JSON Data Stored in a Document Using a <strong>Selector</strong> Object (through <code>_find</code>)</h3>
+          <p>Alternatively, you may pass in an object with a selector key matching an object after switch <code>-d</code>. In that case, remember to include a content type specification (<code>-H "Content-Type: application/json"</code>). Also, note that we POST to <code><var>my_database</var>/_find</code> For example:</p>
+          <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": { "term": "ethereum"}}'</pre>
+        </section>
+
+        <section>
+          <h3>Get the JSON Data Stored in a Document Using a <strong>Selector</strong> and Specifying which Fields (through <code>_find</code>)</h3>
+          <p>Add to the object holding the selector entry another another entry named <code>fields</code>. For instance, if you want to retrieve all entries entries whose keys are named either "term", "name", or "definition", add an entry like <code>"fields": ["term", "name", "definition"]</code> as in this example:</p>
+          <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": { "term": "ethereum"}, "fields": ["term", "name", "definition"]}'</pre>
+          <p>Last, you may make the selector match an empty object and only include the <code>"fields"</code> key-value pair:</p>
+          <pre>curl -u admin:skyblue  -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/computing/_find -d '{"selector": {}, "fields": ["term", "name", "definition"]}'</pre>
+        </section>
+
+        <section>
+          <h3>Delete a document</h3>
+          <p>Replace ff66 with your document ID and 1-b9a5713ff0a5b6eee4347d4040a7f6bf with your actual revision number.</p>
+          <pre>$ curl -u admin:skyblue -X DELETE http://127.0.0.1:5984/<var>my_database</var>/ff66?rev=1-b9a5713ff0a5b6eee4347d4040a7f6bf</pre>
+        </section>
+
+        <section>
+          <h3>Append an Attachment to a Document</h3>
+          <p>CouchDB documents can have attachments just like an email message can have attachments. An attachment is identified by a <var>name</var> and includes its MIME type (or Content-Type) and the number of bytes the attachment contains. Attachments can be any data. It is easiest to think about attachments as files attached to a document. These files can be text, images, Word documents, music, or movie files. Let’s make one.</p>
+          <p>Attachments get their own URL where you can upload data. Say we want to add the album artwork to the 6e1295ed6c29495e54cc05947f18c8af document (“There is Nothing Left to Lose”), and let’s also say the artwork is in file <cite>artwork.jpg</cite> in the current directory:</p>
+          <pre>curl -X PUT http://admin:<var>password</var>@127.0.0.1:5984/albums/6e1295ed6c29495e54cc05947f18c8af/artwork.jpg?rev=2-2739352689 \
+     --data-binary @artwork.jpg -H "Content-Type:image/jpg"</pre>
+          <p><strong>Note</strong> The <code>--data-binary @</code> option tells curl to read a file’s contents into the HTTP request body. We’re using the <code>-H</code> option to tell CouchDB that we’re uploading a JPEG file. CouchDB will keep this information around and will send the appropriate header when requesting this attachment; in case of an image like this, a browser will render the image instead of offering you the data for download. This will come in handy later. Note that you need to provide the current revision number of the document you’re attaching the artwork to, just as if you would update the document. Because, after all, attaching some data is changing the document.</p>
+          <p>You should now see your artwork image if you point your browser to <code>http://127.0.0.1:5984/albums/6e1295ed6c29495e54cc05947f18c8af/artwork.jpg</code></p>
+          <p>If you request the document again, you’ll see a new member:</p>
+          <pre>{
+    "_id": "6e1295ed6c29495e54cc05947f18c8af",
+    "_rev": "3-131533518",
+    "title": "There is Nothing Left to Lose",
+    "artist": "Foo Fighters",
+    "year": "1997",
+    "_attachments": {
+        "artwork.jpg": {
+            "stub": true,
+            "content_type": "image/jpg",
+            "length": 52450
+        }
+    }
+}</pre>
+        </section>
+
+        <section>
+          <h3>Get all Documents in a Database</h3>
+          <p>To get all documents in a database such as <cite>test_database</cite> just retrieve <code><var>test_database</var>/_all_docs</code>:</p>
+          <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/<var>test_database</var>/_all_docs</pre>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Advanced / Administrative Tasks</h2>
+
+        <section>
+          <h3>Compact a database</h3>
+          <pre>$ curl -u admin:skyblue -X POST -H "Content-Type: application/json" http://127.0.0.1:5984/<var>my_database</var>/_compact</pre>
+        </section>
+
+        <section>
+          <h3>Get active tasks</h3>
+          <pre>$ curl -u admin:skyblue http://127.0.0.1:5984/_active_tasks</pre>
+        </section>
 
       </section>
 
       <section id="fauxton">
-        <h2>Fauxton</h2>
+        <h2>Fauxton / Futon</h2>
         <p>Welcome to Futon!</p>
         <p>After having seen CouchDB&apos;s raw API, let&apos;s get our feet wet by playing with Futon, the built-in administration interface. Futon provides full access to all of CouchDB&apos;s features and makes it easy to work with some of the more complex ideas involved. With Futon we can create and destroy databases; view and edit documents; compose and run MapReduce views; and trigger replication between databases.</p>
         <p>To load Futon in your browser, visit (locally):</p>
         <pre>http://127.0.0.1:5984/_utils/</pre>
+        <p>Also, you can read the CouchDB Documentation by pointing your browser to:</p>
+        <pre>http://localhost:5984/_utils/docs/</pre>
       </section>
 
     </main>

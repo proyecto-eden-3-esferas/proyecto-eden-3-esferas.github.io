@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CouchDB Replication</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="CouchDB Replication"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
+    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
+    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!-- -->
+      <div>
+        <p><a rel="prev" href="couchdb.html">Open Source Apache CouchDB: A JSON Document DBMS</a></p>
+        <p><a rel="next" href="couchdb.using.html">Using Apache CouchDB: Queries</a></p>
+        <p><a            href="couchdb.indexes.html">CouchDB Indexes</a></p>
+        <p><a            href="https://docs.couchdb.org/en/stable/">Apache CouchDB Documentation</a></p>
+        <p><a            href="https://docs.couchdb.org/en/stable/replication/index.html">CouchDB Documentation on Replication</a></p>
+      </div>
+      <div>
+        <p><a href="restful.html">RESTful API(s)</a></p>
+        <p><a href="MapReduce.html">The MapReduce Programming Paradigm</a></p>
+        <p><a href="json.html">JavaScript Object Notation</a></p>
+      </div>
+      <div>
+        <p><a href="nosql.html">NoSQL DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>CouchDB Replication</h1>
+      <p>CouchDB replication is a mechanism to synchronize databases. Much like <code>rsync</code> synchronizes two directories locally or over a network, replication synchronizes two databases locally or remotely.</p>
+      <p>In a simple POST request, you tell CouchDB the source and the target of a replication and CouchDB will figure out which documents and new document revisions are on source that are not yet on target, and will proceed to move the missing documents and revisions over.</p>
+
+      <section id="introduction-local">
+        <h2>introduction (Local Replication)</h2>
+        <p>First, we’ll create a target database. Note that CouchDB won’t automatically create a target database for you, and will return a replication failure if the target doesn’t exist (likewise for the source, but that mistake isn’t as easy to make). Let us then create our target database for replication, <cite>albums-replica</cite>:</p>
+        <pre>curl -X PUT http://admin:<var>password</var>@127.0.0.1:5984/albums-replica</pre>
+        <p>Now we can use the database albums-replica as a replication target:</p>
+        <pre>curl -X POST http://admin:password@127.0.0.1:5984/_replicate \
+     -d '{"source":"http://admin:password@127.0.0.1:5984/albums","target":"http://admin:password@127.0.0.1:5984/albums-replica"}' \
+     -H "Content-Type: application/json"</pre>
+        <p>If you now have a look at the <cite>albums-replica</cite> database, you should see all the documents that you created in the albums database.</p>
+        <p><strong>Note</strong> As of CouchDB 2.0.0, fully qualified URLs are required for both the replication <var>source</var> and <var>target</var> parameters.</p>
+        <p><strong>Note</strong> CouchDB supports the option <code>"create_target":true</code> placed in the JSON POSTed to the <code>_replicate</code> URL. It implicitly creates the target database if it doesn’t exist.</p>
+        <hr/>
+        <p>CouchDB maintains a session history of replications. The response for a replication request contains the history entry for this replication session. It is also worth noting that the request for replication will stay open until replication closes. If you have a lot of documents, it’ll take a while until they are all replicated and you won’t get back the replication response until all documents are replicated. It is important to note that replication replicates the database only as it was at the point in time when replication was started. So, any additions, modifications, or deletions subsequent to the start of replication will not be replicated.</p>
+      </section>
+      <section id="remote">
+        <h2>Remote Replication</h2>
+        <p>What we have just done is called local replication in CouchDB terms. You created a local copy of a database. This is useful for backups or to keep snapshots of a specific state of your data around for later. You might want to do this if you are developing your applications but want to be able to roll back to a stable version of your code and data.</p>
+        <p>There are other types of replication than local. The source and target members of our replication request are actually links (like in HTML) and so far we’ve seen links relative to the server we’re working on (hence local). You can also specify a remote database as the target:</p>
+        <pre>curl -X POST http://admin:password@127.0.0.1:5984/_replicate \
+     -d '{"source":"http://admin:password@127.0.0.1:5984/albums","target":"http://user:password@example.org:5984/albums-replica"}' \
+     -H "Content-Type:application/json"</pre>
+        <p>Using a local source and a remote target database is called <dfn>push replication</dfn>. We’re pushing changes to a remote server.</p>
+        <p>(Since we don’t have a second CouchDB server around just yet, we’ll just use the absolute address of our single server, but you should be able to infer from this that you can put any remote server in there.)</p>
+        <p>Remote replicacion is useful for sharing local changes with remote servers or collaborators.</p>
+        <hr/>
+        <p>You can also use a remote source and a local target to do a <dfn>pull replication</dfn>. This is good for getting the latest changes from a server that is used by others:</p>
+        <pre>curl -X POST http://admin:password@127.0.0.1:5984/_replicate \
+     -d '{"source":"http://user:password@example.org:5984/albums-replica","target":"http://admin:password@127.0.0.1:5984/albums"}' \
+     -H "Content-Type:application/json"</pre>
+        <p>Finally, you can run remote replication between two remote machines, especially if you are an administrator:</p>
+        <pre>curl -X POST http://admin:password@127.0.0.1:5984/_replicate \
+     -d '{"source":"http://user:password@example.org:5984/albums","target":"http://user:password@example.org:5984/albums-replica"}' \
+     -H "Content-Type: application/json"</pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <!--
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      <section id="">
+        <h2></h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
+
+
+    </main>
+
+  </body>
+
+</html>
