@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STL Regular Expression Iterators</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="C++ Regular Expression Iterators"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+
+    <nav>
+      <div>
+        <p><a            href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a rel="prev" href="cpp.regexp.html">Regular Expressions in the STL</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.strings.html">C++ Owining Strings with <code>std::string</code></a> </p>
+        <p><a rel="next" href="cpp.iterators.html">Iterators: Pointers for STL Containers</a> </p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>C++ Regular Expression Iterators</h1>
+      <p>It&apos;s fairly convenient to iterate with <code>std::regex_iterator</code> and <code>std::regex_token_iterator</code> through the matched texts. <code>std::regex_iterator</code> supports the matches and their capture groups. <code>std::regex_token_iterator</code> supports more. You can address the components of each capture.</p>
+      <p>Using a negative index enables it to access the text between the matches.</p>
+      <section id="regex_iterator">
+        <h3><code>std::regex_iterator</code></h3>
+        <p>C++ defines the following four type synonyms for <code>std::regex_iterator</code>:</p>
+        <pre>typedef  cregex_iterator regex_iterator&lt;const char*&gt;
+typedef wcregex_iterator regex_iterator&lt;const wchar_t*&gt;
+typedef  sregex_iterator regex_iterator&lt;std::string::const_iterator&gt;
+typedef wsregex_iterator regex_iterator&lt;std::wstring::const_iterator&gt;</pre>
+        <hr/>
+        <p>You may use <code>std::regex_iterator</code> to count the occurrences of the words in a text:</p>
+        <pre>// regexIterator.cpp
+...
+#include &lt;regex&gt;
+#include &lt;unordered_map&gt;
+...
+using std::cout;
+
+std::string text{"That's a (to me) amazingly frequent question. It may be the most freque\
+ntly asked question. Surprisingly, C++11 feels like a new language: The pieces just fit t\
+ogether better than they used to, and I find a higher-level style of programming more nat\
+ural than before and as efficient as ever." };
+
+std::regex wordReg{R"(\w+)"};
+      std::sregex_iterator wordItBegin(text.begin(), text.end(), wordReg);
+const std::sregex_iterator wordItEnd;
+std::unordered_map&lt;std::string, std::size_t&gt; allWords;
+for (; wordItBegin != wordItEnd; ++wordItBegin) {
+  ++allWords[wordItBegin-&gt;str()];
+}
+for (auto wordIt: allWords)
+  cout &lt;&lt; "(" &lt;&lt; wordIt.first &lt;&lt; ":"
+       &lt;&lt; wordIt.second &lt;&lt; ")";
+// (as:2)(of:1)(level:1)(find:1)(ever:1)(and:2)(natural:1)</pre>
+        <p>A word consists of a least one word-character <code>(\w+)</code>. This regular expression is used to define the begin iterator <var>wordItBegin</var>, then the end iterator <var>wordItEnd</var> is defined (default constructor).</p>
+        <p>The iteration through the matches happens in the <code>for</code> loop. Each word increments the counter: <code>++<var>allWords</var>[<var>wordItBegin</var>]->str()]</code>. A word whose counter equals 1 is created if it is not already in <var>allWords</var>.</p>
+        <hr/>
+        <p>Another example, from the <cite><a target="_blank" href="https://cplusplus.com/reference/regex/regex_iterator/regex_iterator/">CPlusPlus</a></cite> site:</p>
+        <pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;regex&gt;
+
+int main ()
+{
+  std::string s ("this subject has a submarine as a subsequence");
+  std::regex e ("\\b(sub)([^ ]*)");   // matches words beginning by "sub"
+
+  std::regex_iterator&lt;std::string::iterator&gt; rit ( s.begin(), s.end(), e );
+  std::regex_iterator&lt;std::string::iterator&gt; rend;
+
+  while (rit!=rend) {
+    std::cout &lt;&lt; rit-&gt;str() &lt;&lt; std::endl;
+    ++rit;
+  }
+
+  return 0;
+}</pre>
+        <p>[...]</p>
+      </section>
+      <section id="regex_token_iterator">
+        <h3><code>std::regex_token_iterator</code></h3>
+        <p>C++ defines the following four type synonyms for <code>std::regex_token_iterator</code>:</p>
+        <pre>typedef  cregex_token_iterator regex_token_iterator&lt;const char*&gt;
+typedef wcregex_token_iterator regex_token_iterator&lt;const wchar_t*&gt;
+typedef  sregex_token_iterator regex_token_iterator&lt;std::string::const_iterator&gt;
+typedef wsregex_token_iterator regex_token_iterator&lt;std::wstring::const_iterator&gt;</pre>
+        <p><code>std::regex_token_iterator</code> enables you to use indexes to explicitly specify which capture groups you are interested in. If you don&apos;t specify the index, you will get all capture groups, even though you can also request specific capture groups using their respective index.</p>
+        <p>The -1 index is particular: You can use -1 to address the text between the matches.</p>
+        <pre>// tokenIterator.cpp
+...
+using namespace std;
+
+std::string text{"Pete Becker, The C++ Standard Library Extensions, 2006:"
+"Nicolai Josuttis, The C++ Standard Library, 1999:"
+"Andrei Alexandrescu, Modern C++ Design, 2001"};
+
+regex regBook(R"((\w+)\s(\w+),([\w\s\+]*),(\d{4}))");
+sregex_token_iterator bookItBegin(text.begin(), text.end(), regBook);Regular Expressions
+const sregex_token_iterator bookItEnd;
+while (bookItBegin != bookItEnd){
+cout &lt;&lt; *bookItBegin++ &lt;&lt; endl;
+}
+// Pete Becker,The C++ Standard Library Extensions,2006
+// Nicolai Josuttis,The C++ Standard Library,1999
+
+sregex_token_iterator bookItNameIssueBegin(text.begin(),
+                                           text.end(),
+                                           regBook, {{2,4}});
+const sregex_token_iterator bookItNameIssueEnd;</pre>
+      </section>
+
+    </main>
+  </body>
+</html>
