@@ -95,7 +95,7 @@
       <hr/>
 
       <p>Some of this stuff might be dismissed as paperwork, a kind of bureaucracy, but most of it plays some meaningful rôle, though.</p>
-      <p>The good news is that I don&apos;t need to remember all this whenever I write a new document: I just copy it off another document. Besides, if you write a web page in HTML, the most common XML vocabulary, the browser will still show your page properly if you make some minor mistakes.</p>
+      <p>The good news is that I don&apos;t need to remember all this whenever I write a new document: I just copy it off another document. Besides, if you write a web page in HTML, which the most common XML vocabulary, the browser will still show your page properly if you make some minor mistakes.</p>
       <p>Consider this. If you want to write a story and upload it to the Web, you just need two tags: <var>h1</var> for the the title, and <var>p</var> for a paragraph. May be you want to italize some word later on (<var>i</var> tag). Most writing does not require many more tags.</p>
 
 
@@ -108,14 +108,13 @@
       <section>
         <h2>On Being a Metalanguage: eXtensible</h2>
         <p>XML <i>per se</i> does not define a set of tags with their own semantics and presentation expectations. That is why my presentation of XML may have felt a bit too <em>abstract</em>.</p>
-        <p>As already said, XML...</p>
         <p>Some XML languages have already been defined, besides HTML.</p>
         <ul>
-          <li><a href="mathml.html">Mathml</a>: for typesetting mathematical formulas</li>
-          <li><a href="svg.html">SVG</a>: or Scalable Vector Graphics</li>
+          <li><a target="_blank" href="mathml.html">Mathml</a>: for typesetting mathematical formulas</li>
+          <li><a target="_blank" href="svg.html">SVG</a>: or Scalable Vector Graphics</li>
           <li>Docbook: a richer vocabulary than HTML for writing books, esp. technical books</li>
-          <li>MusicML: used by music software like MuseScore, Hydrogen etc.</li>
-          <li>TEI: the Text Encoding Initiative, for marking up texts in the Humanities such as plays and poetry, or for annotating ancient texts.</li>
+          <li><a target="_blank" href="musicxml.html">MusicXML</a>: used by music software like MuseScore, Hydrogen etc.</li>
+          <li><a target="_blank" href="tei.html">TEI</a>: the Text Encoding Initiative, for marking up texts in the Humanities such as plays and poetry, or for annotating ancient texts.</li>
           <!--
           <li><a href=".html"></a>: </li>
           <li><a href=".html"></a>: </li>
@@ -141,7 +140,7 @@
       <section>
         <h2>Searching and Transforming</h2>
         <p>As long as a document follows the XML syntax it can be transformed into another document in a different XML vocabulary or even into a non-XML document, such as a <a href="json.html">JSON</a> document, TeX/LaTeX for high-quality typesetting, Mark Down etc.</p>
-        <p>XML is the only text language for which such comprehensive transformations exist (eXtensible Stylesheet Transformations Language, or XSTL).</p>
+        <p>XML is the only text language for which such comprehensive transformations exist (eXtensible Stylesheet Transformations Language, or <a target="_blank" href="XSLT.html">XSTL</a>).</p>
       </section>
 
       <section id="qname">
@@ -360,7 +359,8 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
 
         <section class="section">
           <h3>The Doctype</h3>
-          <p>First, we have the <dfn>Document Type Declaration</dfn>, or <dfn>doctype</dfn>. This is simply a way to tell the browser — or any other parser — what type of document it's looking at. In the case of HTML files, it means the specific version and flavor of HTML. The doctype should always be the first item at the top of any HTML file. Many years ago, the doctype declaration was an ugly and hard-to-remember mess. For XHTML 1.0 Strict:</p>
+          <p>First, we have the <dfn>Document Type Declaration</dfn>, or <dfn>doctype</dfn>. This is simply a way to tell the browser — or any other parser — what type of document it's looking at. In the case of HTML files, it means the specific version and flavor of HTML. The doctype should always be the first item at the top of any HTML file.</p>
+          <p>Many years ago, the doctype declaration was an ugly and hard-to-remember mess. For XHTML 1.0 Strict:</p>
           <pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</pre>
           <p>And for HTML4 Transitional:</p>
@@ -368,7 +368,7 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
    "http://www.w3.org/TR/html4/loose.dtd"&gt;</pre>
           <p>Although that long string of text at the top of our documents hasn't really hurt us (other than forcing our sites' viewers to download a few extra bytes), HTML5 has done away with that indecipherable eyesore. Now all you need is this:</p>
           <pre>&lt;!doctype html&gt;</pre>
-          <p>Simple, and to the point. The doctype can be written in uppercase, lowercase, or mixed case. You'll notice that the "5" is conspicuously missing from the declaration. Although the current iteration of web markup is known as "HTML5," it really is just an evolution of previous HTML standards — and future specifications will simply be a development of what we have today.</p>
+          <p>Simple, and to the point. Besides, the <em>doctype</em> can be written in uppercase, lowercase, or mixed case. You'll notice that the "5" is conspicuously missing from the declaration. Although the current iteration of web markup is known as "HTML5," it really is just an evolution of previous HTML standards — and future specifications will simply be a development of what we have today.</p>
           <p>Because browsers are usually required to support all existing content on the Web, there's no reliance on the doctype to tell them which features should be supported in a given document. In other words, the doctype alone is not going to make your pages HTML5-compliant. It's really up to the browser to do this. In fact, you can use one of those two older doctypes with new HTML5 elements on the page and the page will render the same as it would if you used the new doctype.</p>
         </section>
 
@@ -385,7 +385,7 @@ xmlns:f="https://www.w3schools.com/furniture"&gt;
 
               <dt>single character (<a href="#character-references">character references</a>): either predefined or numeric</dt>
               <dd>
-                <p>The predefined character entities are: <kbd class="userinput">lt gt apos quot amp</kbd> for <q>less than</q> (&lt;), <q>greater than</q> (&gt;), <q>apostrophe</q> (', <q>quote</q> ("), and <q>Amper's and</q> (&amp;). These five characters are reserved in XML syntax.</p>
+                <p>The predefined character entities are: <kbd class="userinput">lt gt apos quot amp</kbd> for <q>less than</q> (&lt;), <q>greater than</q> (&gt;), <q>apostrophe</q> ('), <q>quote</q> ("), and <q>Amper's and</q> (&amp;). These five characters are reserved in XML syntax.</p>
                 <p>And here are some common numeric entities:</p>
                 <pre>non-breaking space      &amp;nbsp;  &amp;#160;
 ¢       cent    &amp;cent;  &amp;#162;
