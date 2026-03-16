@@ -37,15 +37,28 @@
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
 
-  <tr> <th>Nature</th> <td>A container of characters</td> <td><code>A reference to a run of characters (in memory)</code></td> </tr>
+  <tr> <th>Nature</th> <td>A container of characters</td> <td>A reference to a run of characters (in memory)</td> </tr>
   <tr> <th>Explicit literals</th>
        <td><code>s</code>  suffix in namespace <code>std::string_literals</code></td>
        <td><code>sv</code> suffix in namespace <code>std::string_view_literals</code></td>
   </tr>
-  <tr> <th>Assignment (<code>operator=</code>) and copy constructor</th> <td><code>deep (copy)</code></td> <td><code>shallow (copy)</code></td> </tr>
+  <tr> <th>Assignment (<code>operator=</code>) and copy constructor</th> <td>deep (copy)</td> <td>shallow (copy)</td> </tr>
 
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code>bool starts_with(<var>STRING</var>&amp;)</code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code>bool ends_with(<var>STRING</var>&amp;)</code></td> </tr>
+  <tr>
+    <th><!--CONCEPT--></th>
+    <td><code>bool contains(<var>STRING_VIEW</var>)</code></td>
+    <td><code>bool contains(<var>STRING_VIEW</var>)</code></td>
+  </tr>
+  <tr>
+    <th><!--CONCEPT--></th>
+    <td><code>bool starts_with(<var>STRING_VIEW</var>)</code></td>
+    <td><code>bool starts_with(<var>STRING_VIEW</var>)</code></td>
+  </tr>
+  <tr>
+    <th><!--CONCEPT--></th>
+    <td><code>bool ends_with(<var>STRING_VIEW</var>)</code></td>
+    <td><code>bool ends_with(<var>STRING_VIEW</var>)</code></td>
+  </tr>
 
   <tr> <th>Implicit conversion/constructor</th>
        <td>implicitly converts to a <code>std::string_view</code></td>
@@ -55,8 +68,16 @@
        <td><code>string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const</code></td>
        <td><code><!--STRING_VIEW--></code></td>
   </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr>
+    <th>Get underlying C-string</th>
+    <td><pre>const charT* c_str() const noexcept;</pre><pre>(const) charT* data() const noexcept;</pre></td>
+    <td><code><!--STRING_VIEW--></code></td>
+  </tr>
+  <tr>
+    <th>Book some memory</th>
+    <td><code>reserve()</code></td>
+    <td><code><!--STRING_VIEW--></code></td>
+  </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
