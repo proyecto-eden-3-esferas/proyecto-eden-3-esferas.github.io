@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First Steps in Qt</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="First Steps in Qt"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="prev" href="qt.html">Qt: a framework for writing graphic applications in C++, also Python</a></p>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.html#libs">(Other) C++ Libraries and Frameworks</a></p>
+      </div>
+      <div>
+        <p><a href="cpp.core-types.html">C++ Core Types</a></p>
+        <p><a href="cpp.classes.html">OOP in C++: Classes</a></p>
+        <p><a href="cpp.stl.html">C++ Standard Template Library (STL)</a></p>
+        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
+        <p><a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a></p>
+        <p><a href="cpp.algorithms.html">Algorithms in the STL (C++)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <section>
+        <h2>A Very Simple Project</h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://wiki.qt.io/Qt_for_Beginners">https://wiki.qt.io/Qt_for_Beginners</a></cite>)</p>
+        <p>We shall write two files:</p>
+        <ul>
+          <li><cite>main.cpp</cite>, and</li>
+          <li><cite>myFirst</cite>, which is transformed by <code>qmake</code> into a Makefile.</li>
+        </ul>
+
+        <section>
+          <h3>The Profile (<cite>.pro</cite>) File</h3>
+          <p>This is the contents of <cite>myFirst.pro</cite>:</p>
+          <pre>TEMPLATE = app
+TARGET = helloWorld
+<!--
+# Doesn't work:
+QMAKE_CXX = /lib/llvm-20/bin/clang
+-->
+
+SOURCES += main.cpp
+
+QT = core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets</pre>
+        </section>
+
+        <section id="button-in-main">
+          <h3>The Application File (<cite>*.cpp</cite>) Containing <code>main()</code></h3>
+          <p>And this is file <cite>main.cpp</cite>:</p>
+          <pre>#include &lt;QApplication&gt;
+#include &lt;QPushButton&gt;
+
+int main(int argc, char **argv)
+{
+    QApplication app (argc, argv);
+
+    QPushButton button("Hello!");
+    button.setFixedSize(100,100);
+    button.show();
+
+    return app.exec();
+}</pre>
+          <p>Now, the three statements:</p>
+          <pre>QPushButton button("Hello!");
+button.setFixedSize(100,100);
+button.show();</pre>
+          <p>(1) initialize a button, (2) set its size, and (2) show it.</p>
+          <p>We could have left them out and we would still have a working Qt application.</p>
+        </section>
+
+        <section>
+          <h3>Building my Application</h3>
+          <p>I resort to building my application on the command line:</p>
+          <pre>clear &amp;&amp; qmake -o Makefile myFirst.pro &amp;&amp; make helloWorld</pre>
+          <p>as the IDE fails to find whatever.</p>
+          <p>Then I run my executable:</p>
+          <pre>./helloWorld</pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <section>
+          <h3>Changing the Font</h3>
+          <p>We can also change the font. In Qt, a font is represented with the <code>QFont</code> class. The documentation provides a lot of information. We are especially concerned here with one of the constructors of <code>QFont</code>.</p>
+          <pre>QFont(const QString &amp; family, int pointSize = –1, int weight = -1, bool italic = false)</pre>
+          <p>In order to change the font, we have to instantiate a <code>QFont</code> instance, and pass it to the <code>QPushButton</code> using <code>setFont</code>. The following snippet will change the font to Courier.</p>
+          <pre>QFont font ("Courier");
+button.setFont(font);</pre>
+        </section>
+
+      </section>
+
+
+      <section>
+        <h2><code>QObject</code> and the Parenting System</h2>
+        <p><code>QObject</code> is the most basic class in Qt. Most of classes in Qt inherit from this class. <code>QObject</code> provides some very powerful capabilities like:</p>
+        <ul>
+          <li><strong>object name</strong>: you can set a name, as a string, to an object and search for objects by names.</li>
+          <li><strong>parenting system</strong> (described in the following subsection)</li>
+          <li><strong>signals and slots</strong> (described in the next section)</li>
+          <li><strong>event management</strong></li>
+        </ul>
+        <p>Widgets are able to respond to events and use parenting system and signals and slots mechanism. All widgets inherit from QObject. The most basic widget is the QWidget. QWidget contains most properties that are used to describe a window, or a widget, like position and size, mouse cursor, tooltips, etc.</p>
+        <p><strong>Note</strong>: in Qt, a widget can also be a window. In the previous section, we displayed a button that is a widget, but it appears directly as a window. There is no need for a <q>QWindow</q> class.</p>
+
+        <section>
+          <h3>Parenting System</h3>
+          <p>Parenting system is a convenient way of dealing with objects in Qt, especially widgets. Any object that inherits from QObject can have a parent and children. This hierarchy tree makes many things convenient:</p>
+          <ul>
+            <li>When an object is destroyed, all of its children are destroyed as well. So, calling delete becomes optional in certain cases.</li>
+            <li>All <code>QObjects</code> have <code>findChild</code> and <code>findChildren</code> methods that can be used to search for children of a given object.</li>
+            <li>Child widgets in a <code>QWidget</code> automatically appear inside the parent widget.</li>
+          </ul>
+          <p>The following snippet that creates a <code>QPushButton</code> inside a <code>QPushButton</code>:</p>
+<pre>#include &lt;QApplication&gt;
+#include &lt;QPushButton&gt;
+
+int main(int argc, char **argv)
+{
+ QApplication app (argc, argv);
+
+ QPushButton button1 ("parent");
+ QPushButton button2 ("child", &amp;button1);
+
+ button1.show();
+
+ return app.exec();
+}</pre>
+          <p>Lastly, we shall place a button inside a window (a generic <code>QWidget</code>) and will place and resize the containing window:</p>
+          <pre>QWidget window;
+ window.setFixedSize(100, 50);
+
+ QPushButton *button = new QPushButton("Hello World", &amp;window);
+ button->setGeometry(10, 10, 80, 30);
+
+ window.show();</pre>
+        </section>
+
+        <section>
+          <h3>Subclassing <code>QWidget</code></h3>
+          <p>Until now, we have put all of our code in the main function. This was not a problem for our simple examples, but for more and more complex applications we might want to split our code into different classes. What is often done is to create a class that is used to display a window, and implement all the widgets that are contained in this window as attributes of this class.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p>Two useful members in <code>QWidget</code>:</p>
+          <ul>
+            <li><code>void QWidget::setFixedSize(int width, int height);</code></li>
+            <li><code>void QWidget::setGeometry(int x, int y, int width, int height);</code></li>
+          </ul>
+          <p>The header (<cite>Window.h</cite>)</p>
+          <pre>#ifndef WINDOW_H
+#define WINDOW_H
+
+#include &lt;QWidget&gt;
+
+class Window : public QWidget
+{
+  Q_OBJECT
+public:
+  explicit Window(QWidget *parent = 0);
+
+signals:
+  public slots:
+};
+
+#endif // WINDOW_H</pre>
+          <p>The source (<cite>Window.cpp</cite>)</p>
+          <pre>#include "window.h"
+
+Window::Window(QWidget *parent) :
+ QWidget(parent) {};</pre>
+          <p>You can see that Qt Creator automatically generates a class template. Notice that there are some new elements in the header:</p>
+          <ul>
+            <li>The <code>Q_OBJECT</code> macro.</li>
+            <li>A new category of methods : signals</li>
+            <li>A new category of methods : public slots</li>
+          </ul>
+        </section>
+
+      </section>
+
+
+      <section>
+        <h2>The Observer Pattern: Signals and Slots</h2>
+        <p>Nearly all UI toolkits have a mechanism to detect a user action, and respond to this action. Some of them use callbacks, others use listeners, but basically, all of them are inspired by the observer pattern.</p>
+        <p>The observer pattern is used when an observable object wants to notify other observer objects about a state change. Here are some concrete examples:</p>
+        <ul>
+          <li>A user has clicked on a button, and a menu should be displayed.</li>
+          <li>A web page just finished loading, and a process should extract some information from this loaded page.</li>
+          <li>A user is scrolling through a list of items (in an app store for example), and has reached the end, so more items should be loaded.</li>
+        </ul>
+        <p>The observer pattern is used everywhere in GUI applications, and often leads to some boilerplate code. Qt was created with the idea of removing this boilerplate code and providing a nice clean syntax. The signal and slots mechanism makes this possible.</p>
+
+        <section>
+          <h3>Signals and Slots</h3>
+          <p>Instead of having observable objects and observers, and registering them, Qt provides two high level concepts: signals and slots.</p>
+          <ul>
+            <li>A <dfn>signal</dfn> is a message that an object can send, usually to report a status change.</li>
+            <li>A slot is a function that accepts and responds to a signal.</li>
+          </ul>
+          <p>Here are some examples of signals and slots from our well known QPushButton class:</p>
+          <ul>
+            <li>clicked</li>
+            <li>pressed</li>
+            <li>released</li>
+          </ul>
+          <p>As you can see, their names are quite explicit. These signals are sent when the user clicks (presses, then releases), presses or releases the button.</p>
+          <p>Here are some slots, from different classes:</p>
+          <ul>
+            <li><code>QApplication::quit</code></li>
+            <li><code>QWidget::setEnabled</code></li>
+            <li><code>QPushButton::setText</code></li>
+          </ul>
+          <p>In order to respond to a signal, a slot must be connected to a signal. Qt provides the method <code>QObject::connect</code>. It is used this way, with the two macros <code>SIGNAL</code> and <code>SLOT</code>.</p>
+          <pre>FooObjectA *fooA = new FooObjectA();
+FooObjectB *fooB = new FooObjectB();
+
+QObject::connect(fooA, SIGNAL (bared()), fooB, SLOT (baz()));</pre>
+          <p>This example assumes that <var>FooObjectA</var> has a <code>bared</code> signal, and <var>FooObjectB</var> has a <var>baz</var> slot.</p>
+          <hr/>
+          <p>You have to write the signature of the signal and the slot inside the two macros SIGNAL and SLOT. If you want more information about what these macros do, please read further down.</p>
+          <p><strong>Note</strong>: Basically, signals and slots are methods, that might or might not have arguments, but that never return anything. While the notion of a signal as a method is unusual, a slot is actually a real method, and can be called as usual by other methods, or while responding to a signal.</p>
+        </section>
+
+        <section>
+          <h3>Transmitting information</h3>
+          <p>The signals and slots mechanism is useful to respond to buttons clicks, but it can do much more than that. For example, It can also be used to communicate information. Let's say while playing a song, a progress bar is needed to show how much time remains before the song is over. A media player might have a class that is used to check the progress of the media. An instance of this class might periodically send a tick signal, with the progress value. This signal can be connected to a QProgressBar, that can be used to display the progress.</p>
+          <p>The hypothetical class used to check the progress might have a signal that have this signature:</p>
+          <pre>void MediaProgressManager::tick(int miliseconds);</pre>
+          <p>and we know from the documentation, that the QProgressBar has this slot:</p>
+          <pre>void QProgressBar::setValue(int value);</pre>
+          <p>You can see that the signal and the slot have the same kind of parameters, especially the type. If you connect a signal to a slot that does not share the same kind of parameters, when the connection is done (at run-time) you will get a warning like:</p>
+          <pre>QObject::connect: Incompatible sender/receiver arguments</pre>
+          <p>This is because the signal transmits the information to the slot using the parameters. The first parameter of the signal is passed to the first one of the slot, and the same for second, third, and so forth.</p>
+          <p>The code for the connection will look like this:</p>
+          <pre>MediaProgressManager *manager = new MediaProgressManager();
+QProgressBar *progress = new QProgressBar(window);
+
+QObject::connect(manager, SIGNAL (tick(int)), progress, SLOT (setValue(int)));</pre>
+          <p>You can see that you have to provide a signature inside the SIGNAL and SLOT macro, providing the type of the values that are passed through the signals. You may also provide the name of the variable if you want. (It is actually even better).</p>
+        </section>
+        <section>
+          <h3>Features of signals and slots</h3>
+          <ul>
+            <li>A signal can be connected to several slots</li>
+            <li>Many signals can be connected to a slot</li>
+            <li>A signal can be connected to a signal: it is signal relaying. The second signal is sent if the first signal is sent.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Responding to an Event</h3>
+          <p>Remember our <a href="#button-in-main">button app</a>? Let's try to actually make something with this app, like being able to close it by clicking the button. We already know that <code>QPushButton</code> provides the clicked signal. We also have to know that <code>QApplication</code> provides the quit slot, which closes the application.</p>
+          <p>In order to make a click on a button close the app, we must connect the signal clicked emitted by the button to the quit slot of this <code>QApplication</code> instance. We can modify the code from the previous section to do this, but before we do that, you might wonder how to gain access to the <code>QApplication</code> instance while you are in another class. Actually, it is pretty simple, since there exists a static function in <code>QApplication</code>, with the following signature, that is used to get it:</p>
+          <pre>QApplication * QApplication::instance()</pre>
+          <hr/>
+          <p>This leads to the following modification of our previous code (<cite>window.cpp</cite>), in the constructor for user-defined <code>Window</code>:</p>
+          <pre>#include "window.h"
+
+#include &lt;QApplication&gt;
+#include &lt;QPushButton&gt;
+
+Window::Window(QWidget *parent) :
+ QWidget(parent)
+ {
+  // Set size of the window:
+  setFixedSize(100, 50);
+
+  // Create and position the button:
+  m_button = new QPushButton("Quit", this);
+  m_button-&gt;setGeometry(10, 10, 80, 30);
+
+  // NEW : Make the connection:
+  connect(m_button, SIGNAL (clicked()), QApplication::instance(), SLOT (quit()));
+ }</pre>
+        </section>
+
+        <section>
+          <h3>Transmitting information with signals and slots</h3>
+          <p>Here is a simpler example for information transmission. It only displays a progress bar and a slider (created by <code>QSlider</code>) inside a window, and while the slider is moved, the value of the progress bar is synced with a very simple connection.</p>
+          <p>The interesting signals and slots are:</p>
+          <pre>void QSlider::valueChanged(int value);
+void QProgressBar::setValue(int value);</pre>
+          <p><code>QSlider</code> automatically emits the signal <code>valueChanged</code> with the new value passed as a parameter when the value is changed, and the method <code>setValue</code> of <code>QProgressBar</code> is used, as we have seen, to set the value of the progress bar.</p>
+          <p>This leads to the following code:</p>
+          <pre>#include &lt;QApplication>
+#include &lt;QProgressBar&gt;
+#include &lt;QSlider&gt;
+
+int main(int argc, char **argv)
+{
+ QApplication app (argc, argv);
+
+ // Create a container window
+ QWidget window;
+ window.setFixedSize(200, 80);
+
+ // Create a progress bar
+ // with the range between 0 and 100, and a starting value of 0
+ QProgressBar *progressBar = new QProgressBar(&amp;window);
+ progressBar-&gt;setRange(0, 100);
+ progressBar-&gt;setValue(0);
+ progressBar-&gt;setGeometry(10, 10, 180, 30);
+
+ // Create a horizontal slider
+ // with the range between 0 and 100, and a starting value of 0
+ QSlider *slider = new QSlider(&amp;window);
+ slider-&gt;setOrientation(Qt::Horizontal);
+ slider-&gt;setRange(0, 100);
+ slider-&gt;setValue(0);
+ slider-&gt;setGeometry(10, 40, 180, 30);
+
+ window.show();
+
+ // Connection
+ // This connection set the value of the progress bar
+ // while the slider's value changes
+ QObject::connect(slider, SIGNAL (valueChanged(int)), progressBar, SLOT (setValue(int)));
+
+ return app.exec();
+}</pre>
+        </section>
+
+        <section>
+          <h3>Creating Signals and Slots with the Framework&apos;s Macros</h3>
+          <p>The most important macro is <code>Q_OBJECT</code>. Signal-Slot connections and their syntax cannot be interpreted by a regular C++ compiler. The <strong>moc</strong> is provided to translate the QT syntax like "connect", "signals", "slots", etc into regular C++ syntax. This is done by specifying the <code>Q_OBJECT</code> macro in the header containing class definitions that use such syntax.</p>
+          <pre id="stating-Q_OBJECT">class MyWidget : public QWidget
+{
+ Q_OBJECT
+ public:
+  MyWidget(QWidget *parent = 0);
+}
+</pre>
+          <p>Other marker macros for moc are:</p>
+          <ul>
+            <li><strong>signals</strong></li>
+            <li>public / protected / private <strong>slots</strong></li>
+          </ul>
+          <p>which mark the different methods that need to be extended.</p>
+          <p><code>SIGNAL</code> and <code>SLOT</code> are also two very important and useful macros. When a signal is emitted, the meta-object system is used to compare the signature of the signal, to check the connection, and to find the slot using it's signature. These macros are actually used to convert the provided method signature into a string that matches the one stored in the meta-object.</p>
+
+          <aside>
+            <p>Creating custom slots and signals is really simple. Slots are like normal methods, but with small decorations around, while signals need little to no implementation at all. The procedure is summarized in the following checklist:</p>
+            <ul>
+              <li>add the <code>Q_OBJECT</code> macro</li>
+              <li>add <strong>signals</strong> section, and write signals prototypes</li>
+              <li>add public, protected or private <strong>slots</strong> sections, and write slots prototypes</li>
+              <li>implement slots as normal methods</li>
+              <li>establish connections</li>
+            </ul>
+          </aside>
+          <section>
+            <h4>Creating custom slots</h4>
+            <p>In order to implement a slot, we first need to make the class be able to send signals and have slots (as <a href="#stating-Q_OBJECT">shown before</a>). This is done by setting the <code>Q_OBJECT</code> macro in the class declaration (often in the header).</p>
+            <p>After that, a slot should be declared in the corresponding section, and implemented as a normal method.</p>
+            <p>Finally, slots are connected to signals.</p>
+          </section>
+          <section>
+            <h4>Creating signals</h4>
+            <p>As for slots, we first need to add the <code>Q_OBJECT</code> macro. Signals should then be declared in the <code>signals</code> section, and there is no need for them to be implemented.</p>
+            <p>Signals are issued using the <code><strong>emit</strong></code> keyword:</p>
+            <pre>emit mySignal();</pre>
+            <p>Note that in order to send signals that have parameters, you have to pass them in the signal emission:</p>
+            <pre>emit mySignal(firstParameter, secondParameter...);</pre>
+            <hr/>
+            <p>We&apos;ll walk through an example.</p>
+            <p>First, we&apos;ll create custom slots. We declare our <code>window</code> with a button in <cite>window.h</cite>:</p>
+            <pre>#ifndef WINDOW_H
+#define WINDOW_H
+
+#include &lt;QWidget&gt;
+
+class QPushButton;
+class Window : public QWidget
+{
+public:
+  explicit Window(QWidget *parent = 0);
+private:
+  QPushButton *m_button;
+};
+
+#endif</pre>
+            <p>We implement the <code>Window</code> constructor in a separate file (<cite>Window.cpp</cite>):</p>
+            <pre>#include "window.h"
+
+#include &lt;QPushButton&gt;
+
+Window::Window(QWidget *parent) :
+  QWidget(parent)
+{
+  // Set size of the window
+  setFixedSize(100, 50);
+
+// Create and position the button
+  m_button = new QPushButton("Hello World", this);
+  m_button->setGeometry(10, 10, 80, 30);
+}</pre>
+            <p>(We might want to remove our previous connection that makes the application quit while clicking the button.) Now, we want that, when clicking on the button, the text is changed. More precisely, we want that the button can be checked, and that, when checked, it displays "checked", and when unchecked, it restores "Hello World".</p>
+            <p><code>QPushButton</code> does not implement such a specific slot, so we have to implement it on our own. As stated previously, we have to add the <code>Q_OBJECT</code> macro.</p>
+            <pre>class Window : public QWidget
+{
+ Q_OBJECT
+public:
+ explicit Window(QWidget *parent = 0);
+private:
+ QPushButton *m_button;
+};</pre>
+            <p></p>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+          <section>
+            <h4></h4>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+          </section>
+
+        </section>
+      </section>
+
+
+      <!--
+      <section>
+        <h2>A Very Simple Project</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section>
+        <h2>A Very Simple Project</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section>
+        <h2>A Very Simple Project</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+
+      -->
+    </main>
+
+  </body>
+
+</html>

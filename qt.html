@@ -16,16 +16,10 @@
   <body lang="en" class="computing">
     <nav>
       <div>
-        <p><a href="c-and-cpp.html">C and C++</a></p>
-        <p><a href="cpp.html">The C++ Programming Language</a></p>
-      </div>
-      <div>
-        <p><a href="cpp.core-types.html">C++ Core Types</a></p>
-        <p><a href="cpp.classes.html">OOP in C++: Classes</a></p>
-        <p><a href="cpp.stl.html">C++ Standard Template Library (STL)</a></p>
-        <p><a href="cpp.containers.html">C++ STL Containers</a></p>
-        <p><a href="cpp.generics.concepts.html">C++ Concepts in Generic Programming</a></p>
-        <p><a href="cpp.algorithms.html">Algorithms in the STL (C++)</a></p>
+        <p><a rel="next" href="qt.tutorial.html">Qt Tutorial</a></p>
+        <p><a rel="prev" href="cpp.html">The C++ Programming Language</a></p>
+        <p><a            href="cpp.html#libs">(Other) C++ Libraries and Frameworks</a></p>
+        <p><a            href="c-and-cpp.html">C and C++</a></p>
       </div>
       <div>
         <p><a href="https://github.com/proyecto-eden-3-esferas/Cpp">Code Examples (Files)</a></p>
@@ -41,13 +35,23 @@
         <p><a href="cpp.boost.graph.html.old">C++ Boost Graph (<code>.old</code>)</a></p>
         -->
       </div>
-
     </nav>
 
     <main>
       <h1>Qt: a framework for writing graphic applications in C++, also Python</h1>
       <p>Qt was developed by Norwegian programmers in the early 1990s. It is now being developed by The Qt Company and The Qt Project as a union of companies and individuals working to promote Qt. The Qt Project follows the open-source governance philosophy, and all members can take part in the decision-making process aimed at improving the framework.</p>
       <aside>(Documentation at <cite><a target="_blank" href="https://doc.qt.io/qt-6/">https://doc.qt.io/qt-6/</a></cite>)</aside>
+
+      <section id="installing">
+        <h2>Installing Qt</h2>
+        <section id="ubuntu">
+          <h2>Installing Qt on Ubuntu</h2>
+          <p>You need to install packages:</p>
+          <pre>sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake</pre>
+          <p>Recommended: <code>cmake-doc</code></p>
+          <p><strong>Warning</strong> These packages would take up about 1GB space on your hard disk.</p>
+        </section>
+      </section>
 
       <section id="core">
         <h2>Qt Core</h2>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JavaScript Object Notation (JSON)</title>
+    <title>JSON Schema</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
@@ -16,6 +16,7 @@
       <div>
         <p><a            href="json.html">JavaScript Object Notation (JSON)</a></p>
         <p><a rel="next" href="https://json-schema.org/">json-schema.org</a> (Web Site)</p>
+        <p><a            href="https://tour.json-schema.org/">A Tour of JSON Schema</a> (Web Site)</p>
         <p><a            href="https://json-schema.org/reference/">json-schema.org Reference</a> (Web Page)</p>
         <p><a            href="json.writing.html">Writing JSON Documents</a></p>
         <p><a            href="js.json.html">JavaScript for Handling JSON</a></p>
@@ -60,10 +61,236 @@
         <pre>"type" = {"string" | "boolean" | "integer" | "number" | "array" | "object" | "null" | "regular expression" ...}</pre>
       </section>
       <section>
-        <h2>Declaring a JSON Schema</h2>
-        <p>It's not always easy to tell which draft a JSON Schema is using. You can use the <code>$schema</code> keyword to declare which version of the JSON Schema specification the schema is written to. <i>See</i> <code>$schema</code> for more information. It's generally good practice to include it, though it is not required.</p>
+        <h2>Declaring a JSON Schema: <code>$schema</code>, <code>$id</code>...</h2>
+        <p>It's not always easy to tell which draft a JSON Schema is using. You can use the <code>$schema</code> keyword to declare which version of the JSON Schema specification the schema is written to.<!-- <i>See</i> <code>$schema</code> for more information.--> It's generally good practice to include it, though it is not required.</p>
         <pre>{ "$schema": "https://json-schema.org/draft/2020-12/schema" }</pre>
+        <p>The $id keyword is a string that defines the URI of the schema.</p>
+        <pre>{
+  "$id": "https://example.com/person",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  }
+}</pre>
+        <p>In the above example, the schema is given a URI of <cite>https://example.com/person</cite>.</p>
+        <p>The schema URI can be used to reference the schema from other schemas using the <code>$ref</code> keyword.</p>
+        <pre>{
+  "$ref": "https://example.com/person"
+}</pre>
       </section>
+      <section id="allOf">
+        <h3>Valid Against <code>allOf</code> the Subschemas (AND)</h3>
+        <p>When you want to ensure that an instance is valid against all of the subschemas, you can use the <code>allOf</code> keyword.</p>
+        <p>You can think of allOf as an AND operation between subschemas. if one of the subschemas fails, the instance is considered invalid.</p>
+        <pre>{
+  "name":"John Doe",
+}</pre>
+        <p>We will create two subschemas: <var>minStringLength</var> and <var>alphaNumeric</var> and then combine them using <code>allOf</code> in the name property.</p>
+        <pre>{
+  "$defs": {
+    "minStringLength": {"minLength": 5},
+    "alphaNumeric": {"pattern": "^[a-zA-Z0-9]*$"}
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "allOf": [
+        { "$ref": "#/$defs/minStringLength" },
+        { "$ref": "#/$defs/alphaNumeric" }
+      ]
+    }
+  }
+}</pre>
+        <p>The above schema ensures that the name property is valid against both the minStringLength and alphaNumeric subschemas. in other words, the name property must have a minimum length of 5 characters and must contain only alphanumeric characters.</p>
+        <p><strong>Note:</strong> It is not necessary to define subschemas using <code>$defs</code> and <code>$ref</code>. You can directly define the subschemas inline as well.</p>
+      </section>
+      <section id="oneOf">
+        <h3>Valid Against <code>oneOf</code> the Subschemas (XOR)</h3>
+        <p>When you want to ensure that an instance is valid against exactly one of the subschemas, you can use the <code>oneOf</code> keyword.</p>
+        <p>You can think of <code>oneOf</code> as an XOR operation between subschemas. If more than one subschema is valid, the instance is considered invalid.</p>
+        <p>Example</p>
+        <p>Let's add a new property <var>dateOfBirth</var> to the JSON document.</p>
+        <pre>{
+  "name": "John Doe",
+  "age": 25,
+  "dateOfBirth": "1999-01-01"
+}</pre>
+        <p>Now you want to apply these conditions in the document:</p>
+        <ul>
+          <li>if <var>age</var> is present, <var>dateOfBirth</var> should not be present, and vice versa.</li>
+          <li>both <var>age</var> and <var>dateOfBirth</var> should not be present at the same time.</li>
+          <li>if none of them is present, the document should be invalid.</li>
+        </ul>
+        <p>To apply these conditions you can use <code>oneOf</code> keyword. oneOf ensures that exactly one of the specified subschemas is valid.</p>
+        <p>We will combine using <code>oneOf</code> and required, to ensure that only one of the properties is present in the JSON document.</p>
+        <pre>{
+  "type": "object",
+  "properties": {
+    ...
+    "dateOfBirth": { "type": "string", "format": "date" }
+  },
+  "oneOf": [
+    { "required": ["age"] },
+    { "required": ["dateOfBirth"] }
+  ]
+}</pre>
+        <p>Notice the <code><a href="#format">format</a></code> keyword with date used in the dateOfBirth property. By default, <code>format</code> is just an annotation and does not effect validation.<!-- You can learn more about the format keyword here.--></p>
+      </section>
+      <section>
+        <h3>Valid Against <code>anyOf</code> the Subschemas (OR)</h3>
+        <p><code>anyOf</code> keyword is used to define multiple subschemas. If the instance is valid against any one of the subschemas, the document is considered valid.</p>
+        <p>You can think of <code>anyOf</code> as an OR operation. If the instance is valid against any one of the subschemas, the document is considered valid.</p>
+        <p>Example</p>
+        <pre>{
+  "name": "John Doe",
+  "age": 25,
+  "dateOfBirth": "1995-12-17"
+}</pre>
+        <p>We want to allow both <var>age</var> and <var>dateOfBirth</var> properties in the document. The document is valid if it has either <var>age</var> or <var>dateOfBirth</var> property. we can use <code>anyOf</code> keyword to define this condition.</p>
+        <pre>{
+  "type": "object",
+  "properties": {...},
+  "anyOf": [
+    {"required": ["age"]},
+    {"required": ["dateOfBirth"]}
+  ]
+}</pre>
+      </section>
+      <section>
+        <h3>Inverting Validation with <code>not</code></h3>
+        <p>The <code>not</code> keyword is used to invert the validation. If the instance is not valid against the subschemas, the document is considered valid.</p>
+        <pre>{
+  "name": "John Doe",
+  "age": 25,
+}</pre>
+        <p>We want the <var>age</var> to be greater then or equal to 18. but it should not be 21. We can use the <code>not</code> keyword to define this condition.</p>
+        <pre>{
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "age": {
+      "type": "integer",
+      "minimum": 18,
+      "not": {"const": 21}
+    }
+  },
+}</pre>
+      </section>
+      <section>
+        <h3>Recursive Schemas</h3>
+        <p>In JSON Schema, recursive schemas allow you to define schemas that refer to themselves. This can be useful when working with hierarchical data structures or when modeling recursive relationships.</p>
+        <pre>{
+
+  "name":"John Doe",
+  "links": [
+    {
+      "name": "Jane Doe",
+      "links": [
+        {
+          "name": "Alice Doe",
+          "links": []
+        },
+      ]
+    },
+    {
+      "name": "Jack Doe",
+      "links": []
+    }
+  ]
+}</pre>
+        <p>To define a recursive schema, you can use the $ref keyword to refer to the schema itself. For example:</p>
+        <pre>{
+  "$defs": {
+    "TreeNode": {
+      "type":"array",
+      "items": {
+        "type":"object",
+        "properties": {
+          "name": { "type": "string" },
+          "children": { "$ref": "#/$defs/TreeNode" }
+        },
+        "required": ["name", "children"]
+      }
+    }
+  },
+  "$ref": "#/$defs/TreeNode",
+}</pre>
+        <p>In the above example, the <var>TreeNode</var> schema refers to itself in the <var>children</var> property, creating a recursive structure.</p>
+      </section>
+      <section>
+        <h3>Extending Closed Schemas</h3>
+        <p>Previously in the Objects module, we learned about <code>additionalProperties</code>. However, it is important to note that <code>additionalProperties</code> only recognizes properties declared in the same subschema as itself.</p>
+        <p>So, <code>additionalProperties</code> can restrict you from "extending" a schema using combining keywords such as <code>allOf</code>. In the following example, we can see how the <code>additionalProperties</code> can cause attempts to extend the address schema example to fail.</p>
+        <pre>{
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "street_address": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" }
+      },
+      "required": ["street_address", "city", "state"],
+      "additionalProperties": false
+    }
+  ],
+  "properties": {
+    "type": { "enum": [ "residential", "business" ] }
+  },
+  "required": ["type"]
+}</pre>
+        <p>The above schema will not allow you to define a <code>type</code> property. because <code>additionalProperties</code> is set to false. The reason is, <code>additionalProperties</code> only recognizes properties declared in the same subschema.</p>
+        <p>This can be solved using the unevaluatedProperties keyword. This keyword allows you to define properties that are not evaluated by the current schema.</p>
+        <pre>{
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "street_address": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" }
+      },
+      "required": ["street_address", "city", "state"],    }
+  ],
+  "properties": {
+    "type": { "enum": [ "residential", "business" ] }
+  },
+  "unevaluatedProperties": false,
+  "required": ["type"]
+}</pre>
+      </section>
+      <!--
+      <section>
+        <h3></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section>
+        <h3></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      <section>
+        <h3></h3>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+      </section>
+      -->
 
       <section id="type">
         <h2>The <code>type</code> Keyword</h2>
@@ -269,7 +496,7 @@
           </section>
           <section id="unevaluatedProperties">
             <h4>Unevaluated Properties*</h4>
-            <p>The <code>unevaluatedProperties</code> keyword is similar to <code>additionalProperties</code> except that it can recognize properties declared in subschemas.</p>
+            <p>The <code>unevaluatedProperties</code> keyword is similar to <code>additionalProperties</code> except that it can recognize properties declared in <a href="#subschemas">subschemas</a>.</p>
             <p>[...]</p>
           </section>
           <section>
@@ -364,13 +591,282 @@
         </section>
       </section>
 
-      <section id="format">
-        <h2>The <code>format</code> Keyword</h2>
-        <p>The <code>format</code> keyword conveys semantic information for values that may be difficult or impossible to describe using JSON Schema. Typically, this semantic information is described by other documents. The <cite>JSON Schema Validation</cite> specification defines several formats, but this keyword also allows schema authors to define their own formats.</p>
-        <p>For example, because JSON doesn't have a <q>DateTime</q> type, dates need to be encoded as strings. <code>format</code> allows the schema author to indicate that the string value should be interpreted as a date. By default, <code>format</code> is just an annotation and does not affect validation.</p>
-        <p>Optionally, validator implementations can provide a configuration option to enable <code>format</code> to function as an assertion rather than just an annotation. That means that validation fails when, for example, a value with a date format isn't in a form that can be parsed as a date. This allows values to be constrained beyond what other tools in JSON Schema, including Regular Expressions, can do.</p>
-        <p>The JSON Schema specification has a bias toward networking-related formats due to its roots in web technologies. However, custom formats may also be used if the parties exchanging the JSON documents share information about the custom format types. A JSON Schema validator will ignore any format type it does not understand.</p>
-        <pre></pre>
+      <section id="annotations">
+        <h2>Annotating JSON Schemas</h2>
+        <section>
+          <h3>Title and Description</h3>
+          <p>The <code>title</code> and <code>description</code> keywords are used to provide a human-readable title and description of the schema.</p>
+          <p>These keywords are not used for validation, but can be used by tools and software to provide more information about the schema.</p>
+          <p>Here's an example of a schema with a <code>title</code> and <code>description</code>:</p>
+          <pre>{
+  "title": "Person",
+  "description": "A person in the system",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "age": {"type": "integer"}
+  }
+}</pre>
+        </section>
+        <section>
+          <h3><code>deprecated</code>, <code>readOnly</code>, and <code>writeOnly</code></h3>
+          <p>The <code>deprecated</code> keyword is a boolean that indicates that the instance value the keyword applies to should not be used and may be removed in the future.</p>
+          <pre>{
+  "type": "string",
+  "deprecated": true
+}</pre>
+          <p><code>readOnly</code> indicates that a value should not be modified. It could be used to indicate that a PUT request that changes a value would result in a 400 Bad Request response.</p>
+          <p><code>writeOnly</code> indicates that a value may be set, but will remain hidden. In could be used to indicate you can set a value with a PUT request, but it would not be included when retrieving that record with a GET request.</p>
+          <pre>{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "readOnly": true
+    },
+    "age": {
+      "type": "number",
+      "writeOnly": true
+    }
+  }
+}</pre>
+        </section>
+        <section>
+          <h3>Comment</h3>
+          <p>To add comments in your JSON Schema, use the <code>$comment</code> keyword. The <code>$comment</code> keyword is a string that provides additional information about the schema.</p>
+          <pre>{
+  "type": "string",
+  "$comment": "This is a comment"
+}</pre>
+        </section>
+        <section>
+          <h3>Default</h3>
+          <p>You can set a default value for a property using the <code>default</code> keyword. The default keyword is used to provide a default value for a property.</p>
+          <pre>{
+  "type": "string",
+  "default": "Hello World"
+}</pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+
+        </section>
+        <section id="format">
+          <h3>The <code>format</code> Keyword</h3>
+          <p>The <code>format</code> keyword conveys semantic information for values that may be difficult or impossible to describe using JSON Schema. Typically, this semantic information is described by other documents. The <cite>JSON Schema Validation</cite> specification defines several formats, but this keyword also allows schema authors to define their own formats.</p>
+          <p>For example, because JSON doesn't have a <q>DateTime</q> type, dates need to be encoded as strings. <code>format</code> allows the schema author to indicate that the string value should be interpreted as a date. By default, <code>format</code> is just an annotation and does not affect validation.</p>
+          <p>Optionally, validator implementations can provide a configuration option to enable <code>format</code> to function as an assertion rather than just an annotation. That means that validation fails when, for example, a value with a date format isn't in a form that can be parsed as a date. This allows values to be constrained beyond what other tools in JSON Schema, including Regular Expressions, can do.</p>
+          <p>The JSON Schema specification has a bias toward networking-related formats due to its roots in web technologies. However, custom formats may also be used if the parties exchanging the JSON documents share information about the custom format types. A JSON Schema validator will ignore any format type it does not understand.</p>
+          <section>
+            <h4>Built-in Formats</h4>
+            <p>Below, we cover the formats specified in the JSON Schema specification.</p>
+            <section>
+              <h5>Time</h5>
+              <p>Dates and times are represented in RFC 3339, section 5.6. RFC 3339 is a specification from the Internet Engineering Task Force (IETF).</p>
+              <ul>
+                <li><code>"date-time"</code>: Date and time together, for example, 2018-11-13T20:20:39+00:00.</li>
+                <li><code>"time"</code>: info yellowNew in draft 7 Time, for example, 20:20:39+00:00.</li>
+                <li><code>"date"</code>: info yellowNew in draft 7 Date, for example, 2018-11-13.</li>
+                <li><code>"duration"</code>: info yellowNew in draft 2019-09 A duration as defined by the ISO 8601 ABNF for "duration". For example, P3D expresses a duration of 3 days.</li>
+              </ul>
+            </section>
+            <section>
+              <h5>Email Addresses</h5>
+              <ul>
+                <li><code>"email"</code>: Internet email address, see RFC 5321, section 4.1.2.</li>
+                <li><code>"idn-email"</code>: info yellowNew in draft 7 The internationalized form of an Internet email address, see RFC 6531.</li>
+              </ul>
+            </section>
+            <section>
+              <h5>Hostnames</h5>
+              <ul>
+                <li><code>"hostname"</code>: Internet host name, see RFC 1123, section 2.1.</li>
+                <li><code>"idn-hostname"</code>: info yellowNew in draft 7 An internationalized Internet host name, see RFC5890, section 2.3.2.3.</li>
+              </ul>
+            </section>
+            <section>
+              <h5>IP Addresses</h5>
+              <ul>
+                <li><code>"ipv4"</code>: IPv4 address, according to dotted-quad ABNF syntax as defined in RFC 2673, section 3.2.</li>
+                <li><code>"ipv6"</code>: IPv6 address, as defined in RFC 2373, section 2.2.</li>
+              </ul>
+            </section>
+            <section>
+              <h5>Resource Identifiers</h5>
+              <ul>
+                <li><code>"uuid"</code>: info yellowNew in draft 2019-09 A Universally Unique Identifier as defined by RFC 4122. Example: 3e4666bf-d5e5-4aa7-b8ce-cefe41c7568a.</li>
+                <li><code>"uri"</code>: A universal resource identifier (URI), according to RFC3986.</li>
+                <li><code>"uri-reference"</code>: info yellowNew in draft 6 A URI Reference (either a URI or a relative-reference), according to RFC3986, section 4.1.</li>
+                <li><code>"iri"</code>: info yellowNew in draft 7 The internationalized equivalent of a "uri", according to RFC3987.</li>
+                <li><code>"iri-reference"</code>: info yellowNew in draft 7 The internationalized equivalent of a "uri-reference", according to RFC3987.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section>
+            <h5>JSON Pointer</h5>
+            <ul>
+              <li><code>"json-pointer"</code>: info yellowNew in draft 6 A JSON Pointer, according to RFC6901. There is more discussion on using JSON Pointer within JSON Schema in Structuring a complex schema. Note that this should be used only when the entire string contains only JSON Pointer content, e.g., /foo/bar. JSON Pointer URI fragments, e.g., #/foo/bar/ should use "uri-reference".</li>
+              <li><code>"relative-json-pointer"</code>: info yellowNew in draft 7</li>
+            </ul>
+          </section>
+          <section>
+            <h5>Regular Expressions</h5>
+            <ul>
+              <li><code>"regex"</code>: info yellowNew in draft 7 A regular expression that should be valid according to the ECMA 262 dialect. Be careful, in practice, JSON Schema validators are only required to accept the safe subset of regular expressions described elsewhere in this document.</li>
+            </ul>
+          </section>
+        </section>
+      </section>
+
+      <section id="subschemas">
+        <h2>Combining Subschemas</h2>
+        <p>In this section, we will learn how to combine multiple subschemas to create more complex JSON Schemas. We will learn about the following keywords: <code>allOf</code>, <code>anyOf</code>, <code>oneOf</code>, <code>not</code>, <code>$defs</code>, <code>$ref</code> and recursive schemas.</p>
+
+        <section id="$defs-and-$ref">
+          <h3><code>$defs</code> and <code>$ref</code></h3>
+          <p>In JSON Schema, the <code>$defs</code> keyword allows you to define reusable subschemas. You can then reference these subschemas using the <code>$ref</code> keyword.</p>
+          <p>To define a subschema with <code>$defs</code>, you can use the following syntax:</p>
+          <pre>{
+  "$defs": {
+    "mySubschema": {
+      "type": "string",
+      "maxLength": 10
+    }
+  }
+}</pre>
+          <p>In the above example, we define a subschema named mySubschema which specifies that the value should be a string with a maximum length of 10 characters.</p>
+          <p>To reference this subschema using $ref, you can use the following syntax:</p>
+          <pre>{
+  "$ref": "#/$defs/mySubschema"
+}</pre>
+          <p>In the above example, we reference the <var>mySubschema</var> subschema using <code>$ref</code>. This allows us to reuse the definition of <var>mySubschema</var> wherever we need it.</p>
+          <p>Using <code>$defs</code> and <code>$ref</code> can help make your JSON Schema more modular and maintainable by promoting code reuse.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <!--
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+
+        <section id="dependentSchemas">
+          <h3><code>dependentSchemas</code></h3>
+          <p>The given schema showcases the use of the <code>dependentSchemas</code> keyword. It allows defining a subschema that must be satisfied if a certain property is present.</p>
+          <p>In this example, the schema defines an object with two properties: <var>foo</var> and <var>propertiesCount</var>. The <var>foo</var> property is of boolean type, while the <var>propertiesCount</var> property is of integer type with a minimum value of 0.</p>
+          <p>According to the subschema, when the <var>foo</var> property is present, the <var>propertiesCount</var> property becomes required, and must be an integer with a minimum value of 7.</p>
+          <pre>{
+  "$id": "https://example.com/conditional-validation-dependentSchemas.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Conditional Validation with dependentSchemas",
+  "type": "object",
+  "properties": {
+    "foo": {
+      "type": "boolean"
+    },
+    "propertiesCount": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "dependentSchemas": {
+    "foo": {
+      "required": ["propertiesCount"],
+      "properties": {
+        "propertiesCount": {
+          "minimum": 7
+        }
+      }
+    }
+  }
+}</pre>
+          <p>Data</p>
+          <pre>{
+  "foo": true,
+  "propertiesCount": 10
+}</pre>
+          <p>Here, the <var>foo</var> property is set to true, indicating its presence. As per the schema, when <var>foo</var> is present, the <var>propertiesCount</var> property becomes required. In this case, the <var>propertiesCount</var> property is provided with a value of 10, which satisfies the requirement of being an integer and having a minimum value of 7.</p>
+        </section>
+
       </section>
 
       <section id="jsonschema">

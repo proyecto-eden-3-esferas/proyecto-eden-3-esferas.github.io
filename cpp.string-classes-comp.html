@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Comparison of C++ String Classes</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Comparison of C++ String Classes: std::string and std::string_view"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="cpp.strings.html">(Owning-)Strings in C++: C-Strings, <code>std::string</code>&apos;s</a></p>
+        <p><a rel="next" href="string_view"><code>string_view</code>: a non-Owning <code>std::span</code> on a String</a></p>
+        <p><a            href="cpp.regexp.html">Regular Expressions in the STL</a></p>
+      </div>
+      <div>
+        <p><a            href="cpp.html">The C++ Programming Language</a></p>
+      </div>
+
+    </nav>
+
+    <main>
+      <h1>Comparison of C++ String Classes: <code>std::string</code> and<code>std::string_view</code></h1>
+<table border="1" width="100%">
+<thead>
+  <tr> <th><!--CONCEPT--></th> <th><code>std::string</code></th> <th><code>std::string_view</code></th> </tr>
+</thead>
+<tbody>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+
+  <tr> <th>Nature</th> <td>A container of characters</td> <td><code>A reference to a run of characters (in memory)</code></td> </tr>
+  <tr> <th>Explicit literals</th>
+       <td><code>s</code>  suffix in namespace <code>std::string_literals</code></td>
+       <td><code>sv</code> suffix in namespace <code>std::string_view_literals</code></td>
+  </tr>
+  <tr> <th>Assignment (<code>operator=</code>) and copy constructor</th> <td><code>deep (copy)</code></td> <td><code>shallow (copy)</code></td> </tr>
+
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code>bool starts_with(<var>STRING</var>&amp;)</code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code>bool ends_with(<var>STRING</var>&amp;)</code></td> </tr>
+
+  <tr> <th>Implicit conversion/constructor</th>
+       <td>implicitly converts to a <code>std::string_view</code></td>
+       <td>implicitly converts to a <code>std::string_view</code></td>
+  </tr>
+  <tr> <th>Substrings</th>
+       <td><code>string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const</code></td>
+       <td><code><!--STRING_VIEW--></code></td>
+  </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+
+</tbody>
+</table>
+    </main>
+
+  </body>
+
+</html>
