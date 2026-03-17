@@ -22,10 +22,11 @@
         <p><a rel="prev" href="database.html">DataBases</a></p>
       </div>
       <div>
-        <p><a            href="sql.html">Structured Query Language (SQL)</a></p>
-        <p><a            href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
-        <p><a            href="rdbms-comp-syntax.html">Relational Data Base Management Systems: Comparative Syntax</a></p>
-        <p><a            href="nosql.html">NoSQL DataBases</a></p>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a href="mysql.html">MySQL: an Open-Source, Fast, Common Relational DBMS</a></p>
+        <p><a href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a href="rdbms-comp-syntax.html">Relational Data Base Management Systems: Comparative Syntax</a></p>
+        <p><a href="nosql.html">NoSQL DataBases</a></p>
       </div>
     </nav>
 
@@ -35,7 +36,7 @@
 
       <hr/>
 
-      <p>RDBMS products can be quite expensive, but there are high-quality, open source options, such as PostgreSQL, MariaDB, MySQL, or <a target="_blank" href="sqlite.html">SQLite.</p>
+      <p>RDBMS products can be quite expensive, but there are high-quality, open source options, such as PostgreSQL, MariaDB, <a target="_blank" href="mysql.html">MySQL</a>, or <a target="_blank" href="sqlite.html">SQLite</a>.</p>
 
       <section id="index">
         <h2>Database Indexes</h2>
@@ -48,6 +49,189 @@
 
       <section id="referential-integrity">
         <h2>Referential Integrity*</h2>
+      </section>
+
+      <section id="open-source">
+        <h2>Open-Source Databases</h2>
+
+        <table border="1" width="100%">
+<thead>
+  <tr> <th>Action</th> <th>SQLite</th> <th>MySQL</th> <th>PostgreSQL</th> </tr>
+</thead>
+<tbody>
+
+  <tr> <th>Logging In</th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <p>Type <code>sudo mysql</code> to log in as superuser</p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  <tr> <th>Show Existing DataBases</th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre>SHOW DATABASES;</pre>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  <tr> <th>Use/Get into a DataBase</th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre>USE <var>my_database</var>;</pre>
+         <p></p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  <tr> <th>Create a DataBase</th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre>CREATE SCHEMA <var>my_database</var>;</pre>
+         <p></p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  <tr> <th>Delete a DataBase</th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre>DROP SCHEMA <var>my_database</var>;</pre>
+         <p>Yet, to prevent a script from failing, add <code>IF EXISTS</code>:</p>
+         <pre>DROP SCHEMA IF EXISTS <var>my_database</var>;</pre>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  <tr> <th>Create a table</th>
+       <td colspan="3">
+         <p>The common template seems to be:</p>
+         <pre>CREATE TABLE [IF NOT EXISTS] <var>table_name</var> (
+   <var>column_1_definition</var>,
+   <var>column_2_definition</var>,
+   ...
+)</pre>
+       </td>
+  </tr>
+
+  <tr> <th>Typing String Literals</th>
+       <td>
+         <p>String literals can only be quoted within single quotation marks, as in</p>
+         <pre>&apos;still available&apos;</pre>
+       </td>
+       <td>
+         <p>If the <code>ANSI_QUOTES SQL</code> mode is enabled, string literals can be quoted only within single quotation marks because a string quoted within double quotation marks is interpreted as an identifier. Otherwise, double quotation marks are valid, too.</p>
+       </td>
+       <td>
+         <p>String literals can only be quoted within single quotation marks, as in</p>
+         <pre>&apos;still available&apos;</pre>
+       </td>
+  </tr>
+
+  <tr> <th>Concatenating String Literals</th>
+       <td colspan="3">
+         <p>Two string constants that are only separated by whitespace with at least one newline are concatenated and effectively treated as if the string had been written as one constant. The following lines are equivalent:</p>
+         <pre>'amock'</pre>
+         <p>and</p>
+         <pre>'a'
+'mock'</pre>
+       </td>
+  </tr>
+
+  <tr> <th rowspan="5">Escaping Characters</th>
+       <td colspan="3">
+         <p>A single quote in a string must be escaped using an additional single quote, as follows: <kbd class="userinput">'John''s database'</kbd>. (Beware that MariaDB allows escaping the single quote with a backslash.)</p>
+       </td>
+  </tr>
+  <tr>
+       <td colspan="3">
+         <p>A backslash followed by any character other than n, x, X, or \ is interpreted as two separate characters. For example, <code>\q</code> inserts a backslash and the letter q.</p>
+       </td>
+  </tr>
+  <tr>
+       <td colspan="3">
+         <p>Hexadecimal escape sequences can be used for any character or binary value. A hexadecimal escape sequence is a backslash followed by an x followed by two hexadecimal digits. The hexadecimal value is interpreted as a character in the CHAR character set for both CHAR and NCHAR string literals. The value \x09 must be coded as <kbd class="userinput">\\x09</kbd> if you don't want the value stored as a single tab character, but <kbd class="userinput">\xyy</kbd> would be stored as \xyy. The following example, in code page 1252, represents the digits 1, 2, and 3, followed by the euro currency symbol: <kbd class="userinput">'123\x80'</kbd>.</p>
+       </td>
+  </tr>
+  <tr>
+       <td colspan="3">
+         <p>A backslash character in a string must be escaped using an additional backslash, as follows: <kbd class="userinput">'c:\\november'</kbd>. For paths, you can also use the forward slash (/) instead of a backslash: <kbd class="userinput">'c:/november'</kbd></p>
+       </td>
+  </tr>
+  <tr>
+       <td colspan="3">
+         <p>To represent a new line character, use a backslash followed by n (\n), specify: <kbd class="userinput">'First line:\nSecond line:'</kbd></p>
+       </td>
+  </tr>
+
+  <!--
+
+  <tr> <th></th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  <tr> <th></th>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+       <td>
+         <pre></pre>
+         <p></p>
+       </td>
+  </tr>
+
+  -->
+
+</tbody>
+        </table>
+
       </section>
 
 

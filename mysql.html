@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MySQL</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="MySQL: an Open-Source, Fast, Common Relational DBMS"/>
+
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
+        <p><a href="relational-database.html">Relational DataBases</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="mysql.data-types.html">MySQL Data-Types</a></p>
+        <p><a            href="rdb-keys.html">Different Types of Keys Used in Relational Databases</a></p>
+        <p><a            href="db-indexes.html">Database Indexes</a></p>
+        <p><a rel="prev" href="relational-database.html">Relational DataBases</a></p>
+      </div>
+      <div>
+        <p><a href="sql.html">Structured Query Language (SQL)</a></p>
+        <p><a href="sqlite.html">SQLite: A Light OpenSource Relational Database (RDBMS and Library)</a></p>
+        <p><a href="rdbms-comp-syntax.html">Relational Data Base Management Systems: Comparative Syntax</a></p>
+        <p><a href="nosql.html">NoSQL DataBases</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>MySQL: an Open-Source, Fast, Common Relational DBMS</h1>
+
+      <section id="installing">
+        <h2>Installing MySQL</h2>
+      </section>
+
+      <section id="start-stop-server-on-linux">
+        <h2>Starting, Stopping the <code class="application">MySQL</code> Server on Linux</h2>
+        <dl>
+          <dd>
+            <p>Depending on your Linux distribution, you can change the state of MySQL using the <code class="command">service</code> command.</p>
+            <p>To start MySQL server:</p>
+            <pre>sudo service mysqld start</pre>
+            <p>To stop MySQL server:</p>
+            <pre>sudo service mysqld stop</pre>
+            <p>To restart MySQL server:</p>
+            <pre>sudo service mysqld restart</pre>
+          </dd>
+          <dd>
+            <p>If you don't have the service command available or would prefer to make changes to MySQL using a different method, you can also use the <code class="command">init.d</code> command to start/stop your MySQL server.</p>
+            <p>To start MySQL server:</p>
+            <pre>sudo /etc/init.d/mysqld start</pre>
+            <p>To stop MySQL server:</p>
+            <pre>sudo /etc/init.d/mysqld stop</pre>
+            <p>To restart MySQL server:</p>
+            <pre>sudo /etc/init.d/mysqld restart</pre>
+          </dd>
+          <dd>
+            <p>Lastly, you can also use the <code class="command">systemctl</code> command to start, stop, and restart applications on Linux, including MySQL.</p>
+            <p>To start MySQL server:</p>
+            <pre>sudo systemctl start mysqld</pre>
+            <p>To stop MySQL server:</p>
+            <pre>sudo systemctl stop mysqld</pre>
+            <p>To restart MySQL server:</p>
+            <pre>sudo systemctl restart mysqld</pre>
+          </dd>
+        </dl>
+      </section>
+
+      <section id="start-stop-server-on-windows">
+        <h2>Starting, Stopping the <code class="application">MySQL</code> Server on Windows</h2>
+        <dl>
+          <dd>
+            <p>To start, you'll first need to open a terminal window. If you don't have this somewhere easily accessible, you can find it quickly using the Windows Run dialog. To open the Run dialog, just press the Windows Key + R.</p>
+          </dd>
+          <dd>
+            <p>Next, type in <kbd class="userinput">cmd</kbd> and press the Enter key. This will open a new terminal window.</p>
+          </dd>
+          <dd>
+            <p>Once you've opened a terminal window, just type the following commands to start or stop MySQL server:</p>
+            <p>To start MySQL server:</p>
+            <pre>mysqld start</pre>
+            <p>To stop MySQL server:</p>
+            <pre>mysqld stop</pre>
+          </dd>
+          <dd>
+          </dd>
+        </dl>
+        <aside>
+          <p>Depending on which version of Windows you are running, you may need the specific name of the MySQL version number you are running in order to start or stop the service. To find this, go to the start menu and search for Services. Locate the version of MySQL you are using and try the following commands, replacing <q>##</q> with your version number:</p>
+          <pre>net start MySQL##
+net stop MySQL##</pre>
+          <p>For instance, if you're running MySQL 8.0, replace <q>MySQL##</q> with <q>MySQL80</q></p>
+        </aside>
+      </section>
+
+
+      <section>
+        <h2>Logging In and Learning about Existing DataBases</h2>
+        <p>First I log into <code class="application">mysql</code> as superuser:</p>
+        <pre>sudo mysql</pre>
+        <p>Once I have logged in, I inquire about existing databases:</p>
+        <pre>SHOW DATABASES;</pre>
+      </section>
+
+      <section>
+        <h2>Deleting, Creating and Using a Schema/DataBase</h2>
+        <p>I drop a possibly existing <cite class="database">books</cite> database, then I do create my database and get into it:</p>
+        <pre>DROP SCHEMA IF EXISTS books;
+CREATE SCHEMA books;
+USE books;</pre>
+      </section>
+
+      <section id="tables">
+        <h2>My First Table</h2>
+        <p>I create my first table:</p>
+        <pre>CREATE TABLE books (
+  name      TINYTEXT NOT NULL,
+  rel_path  MEDIUMTEXT,
+  base_path TINYTEXT,
+  comment   MEDIUMTEXT
+);</pre>
+        <aside>To declare a table, you need to know and apply <a target="_blank" href="mysql.data-types.html">MySQL&apos;s data types</a>. This is an area where relational database managing software may differ in specific details.</aside>
+        <aside>For a more in-depth discussion on how to create a table, go to section <a href="#creating-tables">CREATE-ing Tables</a>.</aside>
+        <p>Then I insert a couple of books:</p>
+        <pre>INSERT INTO books VALUES
+  ('AreTherePeopleWithoutASelf_OnTheMysteryOfTheEgoAndTheAppearanceInThePresentDayOfEgolessIndividuals_ErdmuthJohannesGrosse_TempleLodgePublishing2022.epub',
+  'humanities/RudolfSteiner/',
+  '~/audiobooks/ePUB_mobi_PDF/ebooks_sda8/',
+  ''),
+  ('TheCompassionateUniverse_ThePowerOfTheIndividualToHealTheEnvironment_EknathEaswaran_NilgiriPress2022.epub',
+  'unclassified',
+  '~/audiobooks/ePUB_mobi_PDF/ebooks_sda8/',
+'');</pre>
+      </section>
+
+      <section id="loading-from-ext-file">
+        <h2>Loading Rows into Existing Tables From an External File</h2>
+        <p>To load the rows in a file named <cite class="filename">acquaintances.csv</cite> into table <cite class="table">acquaintances</cite>, we would run:</p>
+        <pre>LOAD DATA INFILE '/var/lib/mysql-files/acquaintances.csv' INTO TABLE acquaintances FIELDS TERMINATED BY ',' IGNORE 1 LINES;</pre>
+        <p>where the extension <cite class="filename">.csv</cite> denotes a comma-separated file format.</p>
+        <p>The following two sections explain how to write an input file, e.g. <cite class="filename">acquaintances.csv</cite>. We can do it the <a href="#mysql.infile">simple</a> or the <a href="#mysql.infile.thorough">thorough</a> way. Essentially, the thorough way temporarily disables some checks on consistency so that bulk insertion doesn't fail.</p>
+        <section id="infile">
+          <h3>Writing a Very Simple Data File</h3>
+          <p>This format resembles quite closely what we would write at the mysql prompt. I'll use some made-up short fields...</p>
+          <pre>INSERT INTO acquaintances VALUES ('Chris', 'Ariston'), ('Emily', 'Dickinson');</pre>
+          <p>Then we need to find out where our particular instance of <code class="application">MySQL</code> stores such files. So we run:</p>
+          <pre>SELECT @@secure_file_priv;</pre>
+          <p>to learn the contents of variable <var>secure_file_priv</var>.</p>
+          <aside>To learn how to write a complete infile for bulk insert, <i>see</i> section <a href="#infile.thorough">Writing a Data File the Thorough Way</a>.</aside>
+        </section>
+        <section id="infile.thorough">
+          <h3>Writing a Data File the Thorough Way</h3>
+          <p>This is borrowed from <cite class="filename">sakila-data.sql</cite>. After a prolog presumably meant to save some settings (note in particular that uniqueness and foreign key checks are suspended), later to be restored:</p>
+          <pre>SET NAMES utf8mb4;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+SET @old_autocommit=@@autocommit;
+
+USE &lt;database_name&gt;;</pre>
+          <p>Then the commands for insertions, which seem to have been printed by a dump, go like this:</p>
+          <pre>--
+-- Dumping data for table &lt;mytable&gt;
+--
+
+SET AUTOCOMMIT=0;
+INSERT INTO &lt;mytable&gt; VALUES
+  (&lt;val&gt;, &lt;val&gt;, ...),
+  (&lt;val&gt;, &lt;val&gt;, ...),
+  ...
+  (&lt;val&gt;, &lt;val&gt;, ...);
+COMMIT;</pre>
+          <p>After several such table insertions, former settings are restored:</p>
+          <pre>SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET autocommit=@old_autocommit;</pre>
+        </section>
+      </section>
+
+      <section id="creating-tables">
+        <h2><code>CREATE</code>-ing Tables</h2>
+        <p>In MySQL the template is:</p>
+        <code>CREATE TABLE [IF NOT EXISTS] table_name(
+   column_1_definition,
+   column_2_definition,
+   ...,
+   table_constraints
+) ENGINE=storage_engine;</code>
+        <p>The <kbd class="userinput">ENGINE</kbd> constraint helps to define the storage engine. This is an optional constraint; if one does not know or doesn't want to specify, one can easily skip this constraint.</p>
+        <p>Widely popular storage engines are InnoDB and the MyISAM storage engine. The InnoDB storage engine is the default when a user does not explicitly declare a storage engine.</p>
+        <p>Various processes offered by the relational database management system are executed by the InnoDB storage engine, such as referential integrity, ACID transaction, and crash recovery.</p>
+        <section>
+          <h3><code>CREATE TABLE <var>my_table</var> IF NOT EXISTS</code></h3>
+          <p>Many RDBMSs support the <kbd class="userinput">IF NOT EXISTS</kbd> clause of the <kbd class="userinput">CREATE TABLE</kbd> statement, which makes it easy to create a table only when it doesn't already exist.</p>
+          <p>Example:</p>
+          <code>CREATE TABLE IF NOT EXISTS a_table (
+  var1 INT,
+  var2 VARCHAR(10)
+);</code>
+          <p>The <kbd class="userinput">CREATE TABLE IF NOT EXISTS</kbd> statement can be used with RDBMSs such as MySQL, MariaDB, PostgreSQL, and SQLite.</p>
+          <p>The statement was introduced in Oracle Database 23c, but it still isn't supported by SQL Server (at least not the latest version at the time of writing – SQL Server 2022) or Oracle 21c and lower.</p>
+
+          <h5 class="bridgehead">An example:</h5>
+          <pre>CREATE TABLE IF NOT EXISTS bucket_list (
+    bucket_id INT AUTO_INCREMENT PRIMARY KEY,
+    bucket_activity_name VARCHAR(255) NOT NULL,
+    start_activity_date DATE,
+    due_activity_date DATE,
+    current_status TINYINT NOT NULL,
+    set_priority TINYINT NOT NULL,
+    bucket_description TEXT,
+    bucket_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)  ENGINE=INNODB;</pre>
+
+        </section>
+
+        <section id="table-with-foreign-and-primary-keys">
+          <h3>MySQL <code>CREATE TABLE</code> with a Foreign Key [and a] Primary Key</h3>
+          <p>Let us dive into this second example, where we shall be CREATE TABLE with a foreign key [and a] primary key and learn how to create a table if not exists mysql.</p>
+          <pre>CREATE TABLE IF NOT EXISTS assignment_list (
+    assignment_id INT AUTO_INCREMENT,
+    assignment_tobe_id INT,
+    assignment_tobe VARCHAR(255) NOT NULL,
+    assignment_is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (assignment_id),
+    FOREIGN KEY (bucket_id)
+        REFERENCES bucket_list (bucket_id)
+        ON UPDATE RESTRICT ON DELETE CASCADE
+);</pre>
+        </section>
+
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>
