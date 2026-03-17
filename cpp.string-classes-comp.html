@@ -23,20 +23,21 @@
       <div>
         <p><a            href="cpp.html">The C++ Programming Language</a></p>
       </div>
-
     </nav>
 
     <main>
       <h1>Comparison of C++ String Classes: <code>std::string</code> and<code>std::string_view</code></h1>
+      <p>Generally, <code>std::string_view</code> is the replacement for <code>std::string</code> when you don't own the string.</p>
+      <p>If a function parameter is a <code>const string&amp;</code> (a constant reference), you should prefer to change it to <code>string_view</code> (by value), as you don't own the argument.</p>
+      <p><code>string_view</code> is best in this case because it doesn't require an actual <code>std::string</code> to exist. Just a sequence of characters. In particular, if you do this:</p>
+      <pre>std::string_view v{"this string is too long for small-buffer optimization\n"};</pre>
+      <p>then there is no memory allocation - a performance benefit.</p>
+
 <table border="1" width="100%">
 <thead>
   <tr> <th><!--CONCEPT--></th> <th><code>std::string</code></th> <th><code>std::string_view</code></th> </tr>
 </thead>
 <tbody>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-
   <tr> <th>Nature</th> <td>A container of characters</td> <td>A reference to a run of characters (in memory)</td> </tr>
   <tr> <th>Explicit literals</th>
        <td><code>s</code>  suffix in namespace <code>std::string_literals</code></td>
@@ -65,24 +66,118 @@
        <td>implicitly converts to a <code>std::string_view</code></td>
   </tr>
   <tr> <th>Substrings</th>
-       <td><code>string substr (size_type <var>pos</var> = 0, size_type <var>len</var> = npos) const</code></td>
-       <td><code><!--STRING_VIEW--></code></td>
+       <td><pre>constexpr basic_string
+    substr( size_type pos = 0, size_type count = npos ) const&amp;;
+	(since C++23)
+constexpr basic_string substr( size_type pos = 0, size_type count = npos ) &amp;&amp;;</pre></td>
+       <td><code>constexpr string substr (size_type <var>pos</var> = 0, size_type <var>count</var> = npos) const</code></td>
   </tr>
-  <tr>
+  <tr id="data">>
     <th>Get underlying C-string</th>
     <td><pre>const charT* c_str() const noexcept;</pre><pre>(const) charT* data() const noexcept;</pre></td>
+    <td><pre>constexpr const_pointer data() const noexcept;</pre></td>
+  </tr>
+
+  <tr>
+    <th>Capacity (same)</th>
+    <td colspan="2"><code>empty()</code>, <code>size()</code> or <code>length()</code>, and <code>max_size()</code> (returns the maximum number of characters)</td>
+  </tr>
+  <tr>
+    <th rowspan="2">Book some memory or return size of allocated storage (only <code>std::string</code>)</th>
+    <td><code>reserve(size_type <var>n</var>)</code></td>
     <td><code><!--STRING_VIEW--></code></td>
   </tr>
   <tr>
-    <th>Book some memory</th>
-    <td><code>reserve()</code></td>
+    <td><code>capacity()</code></td>
     <td><code><!--STRING_VIEW--></code></td>
   </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
-  <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
+
+  <tr>
+    <th>Swap</th>
+    <td><code>constexpr void swap( basic_string&amp; other ) noexcept;</code></td>
+    <td><code>constexpr void swap( basic_string_view&amp; v ) noexcept;</code></td>
+  </tr>
+
+  <tr>
+    <th>Modifiers (only <code>std::string</code>)</th>
+    <td><code>clear()</code>, <code>insert(...)</code>, <code>insert_range(...)</code> (C++23), <code>erase(...)</code>, <code>push_back(<var>CHAR</var>)</code>, <code>pop_back()</code>, <code>append(...)</code>, <code>append_range(...)</code> (C++23), <code>operator+=(...)</code>, <code>replace(...)</code>, <code>replace_with_range(...)</code> (C++23), <code>copy(...)</code></td>
+    <td><code><!--STRING_VIEW--></code></td>
+  </tr>
+
+  <tr>
+    <th rowspan="2">Change boundaries (start or end)</th>
+    <td rowspan="2">
+      <p><code>resize(size_type <var>sz</var>)</code></p>
+      <p><code>template &lt;class Operation&gt; constexpr void resize_and_overwrite( size_type <var>count</var>, Operation <var>op</var>)</code> (C++23) (changes the number of characters stored and possibly overwrites indeterminate contents via user-provided operation)</p>
+    </td>
+    <td><code>remove_prefix(size_type <var>n</var>)</code></td>
+  </tr>
+  <tr>
+    <td><code>remove_suffix(size_type <var>n</var>)</code></td>
+  </tr>
+
+  <tr>
+    <th>Last / Terminating character</th>
+    <td>Always null-terminated.</td>
+    <td>May or may not be null-terminated.</td>
+  </tr>
+  <tr>
+    <th>Comparison</th>
+    <td><code>compare(const string&amp; <var>s</var>)</code></td>
+    <td><code>compare(string_view <var>sv</var>)</code></td>
+  </tr>
+  <tr>
+    <th><!--CONCEPT--></th>
+    <td><code><!--STRING--></code></td>
+    <td><pre>constexpr basic_string_view substr(</pre>
+        <pre>size_type pos = 0,</pre>
+        <pre>size_type count = npos ) const;</pre></td>
+  </tr>
+  <tr>
+    <th>No position.</th>
+    <td><code>string::npos</code></td>
+    <td>
+      <pre>static constexpr size_type npos = size_type(-1);</pre>
+      <p>This is a special value equal to the maximum value representable by the type size_type. The exact meaning depends on context, but it is generally used either as end of view indicator by the functions that expect a view index or as the error/failure indicator by the functions that return a view index.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Where is to be found, if anywhere?</th>
+    <td><code>find*</code> and <code>rfind</code></td>
+    <td><code>find*</code> and <code>rfind</code></td>
+  </tr>
+
+  <tr>
+    <th>Find the first substring equal to the given character sequence</th>
+    <td>
+      <pre>constexpr size_type find( const basic_string&amp; str, size_type pos = 0 ) const;
+constexpr size_type find( const CharT* s, size_type pos, size_type count ) const;
+constexpr size_type find( const CharT* s, size_type pos = 0 ) const;
+constexpr size_type find( CharT ch, size_type pos = 0 ) const;</pre>
+    </td>
+    <td>
+      <pre>constexpr size_type find( basic_string_view v, size_type pos = 0 ) const noexcept;
+constexpr size_type find( const CharT* s, size_type pos, size_type count ) const;
+constexpr size_type find( const CharT* s, size_type pos = 0 ) const;
+constexpr size_type find( CharT ch, size_type pos = 0 ) const noexcept;</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Element access:</th>
+    <td><code>operator[](<var>idx</var>)</code>, <code>at(<var>idx</var>)</code> (accesses the specified character with bounds checking), <code>front()</code>, <code>back()</code>, <code><a href="#data">data()</a></code></td>
+    <td><code>operator[](<var>idx</var>)</code>, <code>at(<var>idx</var>)</code> (accesses the specified character with bounds checking), <code>front()</code>, <code>back()</code>, <code><a href="#data">data()</a></code></td>
+  </tr>
+  <tr>
+    <th><!--CONCEPT--></th>
+    <td><code><!--STRING--></code></td>
+    <td><code><!--STRING_VIEW--></code></td>
+  </tr>
+  <tr>
+    <th><!--CONCEPT--></th>
+    <td><code><!--STRING--></code></td>
+    <td><code><!--STRING_VIEW--></code></td>
+  </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
   <tr> <th><!--CONCEPT--></th> <td><code><!--STRING--></code></td> <td><code><!--STRING_VIEW--></code></td> </tr>
