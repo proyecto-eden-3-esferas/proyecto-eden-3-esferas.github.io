@@ -237,15 +237,54 @@ Transfer-Encoding: chunked
           <pre></pre>
           -->
         </section>
+        <section>
+          <h3>Sort Syntax</h3>
+          <p>The <code>sort</code> field contains a list of field name and direction pairs, expressed as a basic array. The first field name and direction pair is the topmost level of sort. The second pair, if provided, is the next level of sort.</p>
+          <p>The field can be any field, using dotted notation if desired for sub-document fields.</p>
+          <p>The direction value is "asc" for ascending, and "desc" for descending. If you omit the direction value, the default "asc" is used.</p>
+
+          <hr/>
+
+          <p>Example, sorting by 2 fields:</p>
+          <pre>[
+  {"fieldName1": "desc"},
+  {"fieldName2": "desc"}
+]</pre>
+
+          <p>Example, sorting by 2 fields, assuming default direction for both :</p>
+          <pre>["fieldNameA", "fieldNameB"]</pre>
+
+          <p>A typical requirement is to search for some content using a selector, then to sort the results according to the specified field, in the required direction.</p>
+
+          <hr/>
+
+          <p>To use sorting, ensure that:</p>
+          <ul>
+            <li>At least one of the sort fields is included in the selector.</li>
+            <li>There is an index already defined, with all the sort fields in the same order.</li>
+            <li>Each object in the sort array has a single key.</li>
+          </ul>
+          <p>If an object in the sort array does not have a single key, the resulting sort order is implementation specific and might change.</p>
+
+          <p>Find does not support multiple fields with different sort orders, so the directions must be either all ascending or all descending.</p>
+
+          <p>For field names in text search sorts, it is sometimes necessary for a field type to be specified, for example:</p>
+          <pre>{
+  "<var>fieldname</var>:string": "asc"
+}</pre>
+          <p>If possible, an attempt is made to discover the field type based on the selector. In ambiguous cases the field type must be provided explicitly.</p>
+          <p>The sorting order is undefined when fields contain different data types. This is an important difference between text and view indexes. Sorting behavior for fields with different data types might change in future versions.</p>
+
+          <hr/>
+
+          <p>A simple query, using sorting:</p>
+          <pre>{
+    "selector": {"Actor_name": "Robert De Niro"},
+    "sort": [{"Actor_name": "asc"}, {"Movie_runtime": "asc"}]
+}</pre>
+        </section>
       </section>
       <!--
-        <section>
-          <h3></h3>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-        </section>
         <section>
           <h3></h3>
           <p></p>
