@@ -1,0 +1,962 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Doxygen</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Doxygen: the de facto Standard Tool for Generating Documentation from Annotated Code"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="oop.html">Object Oriented Programming: a Major Paradigm</a></p>
+      </div>
+      <div>
+        <p><a href="c.html">The C Programming Language</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+        <p><a href="js.html">JavaScript</a></p>
+      </div>
+      <div>
+        <p><a href="make.html"><code>Make</code>: Automating Processes with a <cite>Makefile</cite></a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Doxygen: the <i>de facto</i> Standard Tool for Generating Documentation from Annotated Code</h1>
+      <!-- Documentation at: file:///usr/share/doc/doxygen/html/index.html -->
+      <p>Doxygen (/&#x2C8;d&#x252;ksid&#x292;&#x259;n/ DOK-see-j&#x259;n) is a documentation generator and <strong>static analysis</strong> tool for software source trees. When used as a documentation generator, Doxygen extracts information from specially-formatted comments within the code. When used for analysis, Doxygen uses its parse tree to generate diagrams and charts of the code structure. Doxygen can cross reference documentation and code, so that the reader of a document can easily refer to the actual code.</p>
+      <p>Doxygen is free software, released under the terms of the GNU General Public License version 2.</p>
+      <p>Programming languages supported by Doxygen include C, C++, C#, D, Fortran, IDL, Java, Objective-C, Perl, PHP, Python, and VHDL. Other languages can be supported with additional code.</p>
+      <p>Doxygen runs on most Unix-like systems, macOS, and Windows.</p>
+
+      <section>
+        <h2>Introduction to Doxygen</h2>
+        <section>
+          <h3>Structure of a Doxygen file</h3>
+          <p>The generic syntax of documentation comments is to start a comment with an extra asterisk after the leading comment delimiter (/*):</p>
+          <pre>/**
+&lt;A short one line description&gt;
+
+&lt;Longer description&gt;
+&lt;May span multiple lines
+ or paragraphs
+ as needed&gt;
+
+@param  Description of method's or function's input parameter
+@param  ...
+@return Description of the return value
+*/</pre>
+          <p>Many programmers like to mark the start of each line with space-asterisk-space, as follows, but that is not necessary.</p>
+          <pre>/**
+ * &lt;A short one line description&gt;
+ *
+ * &lt;Longer description&gt;
+ * &lt;May span multiple lines or paragraphs as needed&gt;
+ *
+ * @param  Description of method's or function's input parameter
+ * @param  ...
+ * @return Description of the return value
+ */
+</pre>
+          <p>Many programmers avoid using C-style comments and instead use C++ style single line comments. Doxygen accepts comments with additional slash as Doxygen comments.</p>
+          <pre>/// &lt;A short one line description&gt;
+///
+/// &lt;Longer description&gt;
+/// &lt;May span multiple lines or paragraphs as needed&gt;
+///
+/// @param  Description of method's or function's input parameter
+/// @param  ...
+/// @return Description of the return value</pre>
+          <p>The following illustrates how a C++ source file can be documented.</p>
+          <pre>/**
+ * @file
+ * @author  John Doe &lt;jdoe@example.com&gt;
+ * @version 1.0
+ *
+ * @section LICENSE
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details at
+ * https://www.gnu.org/copyleft/gpl.html
+ *
+ * @section DESCRIPTION
+ *
+ * The time class represents a moment of time.
+ */
+
+class Time {
+
+    public:
+
+       /**
+        * Constructor that sets the time to a given value.
+        *
+        * @param timemillis is a number of milliseconds
+        *        passed since Jan 1, 1970.
+        */
+       Time (int timemillis) {
+           // the code
+       }
+
+       /**
+        * Get the current time.
+        *
+        * @return A time object set to the current time.
+        */
+       static Time now () {
+           // the code
+       }
+};</pre>
+          <p>An alternative approach for documenting parameters is shown below. It will produce the same documentation.</p>
+          <pre>/**
+        * Constructor that sets the time to a given value.
+        */
+       Time (int timemillis ///&lt; Number of milliseconds passed since Jan 1, 1970.&gt;
+            )
+       {
+           // the code
+       }</pre>
+          <p>Richer markup is also possible. For instance, add equations using LaTeX commands:</p>
+          <pre>/**
+ *
+ * An inline equation @f$ e^{\pi i}+1 = 0 @f$
+ *
+ * A displayed equation: @f[ e^{\pi i}+1 = 0 @f]
+ *
+ */</pre>
+        </section>
+        <section>
+          <h3>Step 0: Check if doxygen supports your programming language</h3>
+          <p>First, assure that your programming language has a reasonable chance of being recognized by doxygen. These languages are supported by default: C, C++, C#, Objective-C, IDL, Java, VHDL, PHP, Python, Fortran and D. It is possible to configure certain file type extensions to use certain parsers: see the Configuration/ExtensionMappings for details. Also, completely different languages can be supported by using preprocessor programs: see the Helpers page for details.</p>
+        </section>
+        <section>
+          <h3>Step 1: Creating a configuration file</h3>
+          <p>Doxygen uses a configuration file to determine all of its settings. Each project should get its own configuration file. A project can consist of a single source file, but can also be an entire source tree that is recursively scanned.</p>
+          <p>To simplify the creation of a configuration file, doxygen can create a template configuration file for you. To do this call doxygen from the command line with the -g option:</p>
+          <pre>doxygen -g &lt;config-file&gt;</pre>
+          <p>where &lt;config-file&gt; is the name of the configuration file. If you omit the file name, a file named Doxyfile will be created. If a file with the name &lt;config-file&gt; already exists, doxygen will rename it to &lt;config-file&gt;.bak before generating the configuration template. If you use - (i.e. the minus sign) as the file name then doxygen will try to read the configuration file from standard input (stdin), which can be useful for scripting.</p>
+          <p>The configuration file has a format that is similar to that of a (simple) Makefile. It consists of a number of assignments (tags) of the form:</p>
+          <pre>TAGNAME = VALUE or
+TAGNAME = VALUE1 VALUE2 ...</pre>
+          <p>You can probably leave the values of most tags in a generated template configuration file to their default value. See section  <a href="#doxygen_configuration">Configuration</a> for more details about the configuration file.</p>
+          <p>If you do not wish to edit the configuration file with a text editor, you should have a look at <code class="application">doxywizard</code>, which is a GUI front-end that can create, read and write doxygen configuration files, and allows setting configuration options by entering them via dialogs.</p>
+          <p>For a small project consisting of a few C and/or C++ source and header files, you can leave <var>INPUT</var> tag empty and doxygen will search for sources in the current directory.</p>
+          <p>If you have a larger project consisting of a source directory or tree you should assign the root directory or directories to the INPUT tag, and add one or more file patterns to the FILE_PATTERNS tag (for instance *.cpp *.h). Only files that match one of the patterns will be parsed (if the patterns are omitted a list of typical patterns is used for the types of files doxygen supports). For recursive parsing of a source tree you must set the RECURSIVE tag to YES. To further fine-tune the list of files that is parsed the EXCLUDE and EXCLUDE_PATTERNS tags can be used. To omit all test directories from a source tree for instance, one could use:</p>
+          <pre>EXCLUDE_PATTERNS = */test/*</pre>
+          <p>Doxygen looks at the file's extension to determine how to parse a file[, using the following table:]</p>
+          <p>Any extension that is not parsed can be set by adding it to <var>FILE_PATTERNS</var> and when the appropriate <var>EXTENSION_MAPPING</var> is set.</p>
+          <p>If you start using doxygen for an existing project (thus without any documentation that doxygen is aware of), you can still get an idea of what the structure is and how the documented result would look like. To do so, you must set the <var>EXTRACT_ALL</var> tag in the configuration file to YES. Then, doxygen will pretend everything in your sources is documented. Please note that as a consequence warnings about undocumented members will not be generated as long as <var>EXTRACT_ALL</var> is set to <code class="constant">YES</code>.</p>
+          <p>To analyze an existing piece of software it is useful to cross-reference a (documented) entity with its definition in the source files. Doxygen will generate such cross-references if you set the <var>SOURCE_BROWSER</var> tag to <code class="constant">YES</code>. It can also include the sources directly into the documentation by setting <var>INLINE_SOURCES</var> to <code class="constant">YES</code> (this can be handy for code reviews for instance).</p>
+        </section>
+        <section>
+          <h3>Step 2: Running doxygen</h3>
+          <p>To generate the documentation you can now enter:</p>
+          <pre>doxygen &lt;config-file&gt;</pre>
+          <p>Depending on your settings doxygen will create html, rtf, latex, xml, man, and/or docbook directories inside the output directory. As the names suggest these directories contain the generated documentation in HTML, RTF, $\mbox{\LaTeX}$, XML, Unix-Man page, and DocBook format.</p>
+          <p>The default output directory is the directory in which doxygen is started. The root directory to which the output is written can be changed using the <var>OUTPUT_DIRECTORY</var>. The format specific directory within the output directory can be selected using the <var>HTML_OUTPUT</var>, <var>RTF_OUTPUT</var>, <var>LATEX_OUTPUT</var>, <var>XML_OUTPUT</var>, <var>MAN_OUTPUT</var>, and <var>DOCBOOK_OUTPUT</var>. tags of the configuration file. If the output directory does not exist, doxygen will try to create it for you (but it will not try to create a whole path recursively, like mkdir -p does).</p>
+          <p>The generated HTML documentation can be viewed by pointing a HTML browser to the <cite class="filename">index.html</cite> file in the <cite class="filename">html</cite> directory.</p>
+          <section>
+            <h4>LaTeX output</h4>
+            <p>The generated $\mbox{\LaTeX}$ documentation must first be compiled by a $\mbox{\LaTeX}$ compiler (I use a recent teTeX distribution for Linux and MacOSX and MikTex for Windows). To simplify the process of compiling the generated documentation, doxygen writes a Makefile into the latex directory (on the Windows platform also a make.bat batch file is generated).</p>
+            <p>The contents and targets in the Makefile depend on the setting of USE_PDFLATEX. If it is disabled (set to NO), then typing make in the latex directory a dvi file called refman.dvi will be generated. This file can then be viewed using xdvi or converted into a PostScript file refman.ps by typing make ps (this requires dvips).</p>
+            <p>To put 2 pages on one physical page use make ps_2on1 instead. The resulting PostScript file can be send to a PostScript printer. If you do not have a PostScript printer, you can try to use ghostscript to convert PostScript into something your printer understands.</p>
+            <p>Conversion to PDF is also possible if you have installed the ghostscript interpreter; just type make pdf (or make pdf_2on1).</p>
+            <p>To get the best results for PDF output you should set the PDF_HYPERLINKS and USE_PDFLATEX tags to YES. In this case the Makefile will only contain a target to build refman.pdf directly.</p>
+          </section>
+          <section>
+            <h4>XML output</h4>
+            <p>The XML output consists of a structured <q>dump</q> of the information gathered by doxygen. Each compound (class/namespace/file/...) has its own XML file and there is also an index file called <cite class="filename">index.xml</cite>.</p>
+            <p>A file called <cite class="filename">combine.xslt</cite> XSLT script is also generated and can be used to combine all XML files into a single file.</p>
+            <p>Doxygen also generates two XML schema files <cite class="filename">index.xsd</cite> (for the index file) and <cite class="filename">compound.xsd</cite> (for the compound files). This schema file describes the possible elements, their attributes and how they are structured, i.e. it the describes the grammar of the XML files and can be used for validation or to steer XSLT scripts.</p>
+            <p>In the <cite class="filename">addon/doxmlparser</cite> directory you can find a parser library for reading the XML output produced by doxygen in an incremental way (see <cite class="filename">addon/doxmlparser/include/doxmlintf.h</cite> for the interface of the library).</p>
+          </section>
+        </section>
+        <!-- end of "Step 2: Running doxygen" -->
+        <section>
+          <h3>Step 3: Documenting the sources</h3>
+          <p>Although documenting the sources is presented as step 3, in a new project this should of course be step 1. Here I assume you already have some code and you want doxygen to generate a nice document describing the API and maybe the internals and some related design documentation as well.</p>
+          <p>If the EXTRACT_ALL option is set to NO in the configuration file (the default), then doxygen will only generate documentation for documented entities. So how do you document these? For members, classes and namespaces there are basically two options:</p>
+          <ul>
+            <li>
+              <p>Place a special documentation block in front of the declaration or definition of the member, class or namespace. For file, class and namespace members it is also allowed to place the documentation directly after the member.</p>
+              <p>See section Special comment blocks to learn more about special documentation blocks.</p>
+            </li>
+            <li>
+              <p>Place a special documentation block somewhere else (another file or another location) and put a structural command in the documentation block. A structural command links a documentation block to a certain entity that can be documented (e.g. a member, class, namespace or file).</p>
+              <p>See section Documentation at other places to learn more about structural commands.</p>
+            </li>
+          </ul>
+          <p>The advantage of the first option is that you do not have to repeat the name of the entity.</p>
+          <p>Files can only be documented using the second option, since there is no way to put a documentation block before a file. Of course, file members (functions, variables, typedefs, defines) do not need an explicit structural command; just putting a special documentation block in front or behind them will work fine.</p>
+          <p>The text inside a special documentation block is parsed before it is written to the HTML and/or $\mbox{\LaTeX}$ output files.</p>
+          <p>During parsing the following steps take place:</p>
+          <ul>
+            <li>Markdown formatting is replaced by corresponding HTML or special commands.</li>
+            <li>The special commands inside the documentation are executed. See section Special Commands for an overview of all commands.</li>
+            <li>If a line starts with some whitespace followed by one or more asterisks (*) and then optionally more whitespace, then all whitespace and asterisks are removed.</li>
+            <li>All resulting blank lines are treated as a paragraph separators. This saves you from placing new-paragraph commands yourself in order to make the generated documentation readable.</li>
+            <li>Links are created for words corresponding to documented classes (unless the word is preceded by a %; then the word will not be linked and the % sign is removed).</li>
+            <li>Links to members are created when certain patterns are found in the text. See section Automatic link generation for more information on how the automatic link generation works.</li>
+            <li>HTML tags that are in the documentation are interpreted and converted to $\mbox{\LaTeX}$ equivalents for the $\mbox{\LaTeX}$ output. See section HTML Commands for an overview of all supported HTML tags.</li>
+          </ul>
+        </section>
+        <!-- end of "Step 3: Documenting the sources" -->
+      </section>
+      <!-- end of "Introduction to Doxygen" -->
+      <section>
+        <h2>Documenting the code</h2>
+        <p>This chapter covers two topics:</p>
+        <ul>
+          <li>How to put comments in your code such that doxygen incorporates them in the documentation it generates. This is further detailed in the next section.</li>
+          <li>Ways to structure the contents of a comment block such that the output looks good, as explained in section Anatomy of a comment block.</li>
+        </ul>
+        <section>
+          <h3>Special comment blocks</h3>
+          <section>
+            <h4>Comment blocks for C-like languages (C/C++/C#/Objective-C/PHP/Java)*</h4>
+            <p>For each entity in the code there are two (or in some cases three) types of descriptions, which together form the documentation for that entity; a brief description and detailed description, both are optional. For methods and functions there is also a third type of description, the so called in body description, which consists of the concatenation of all comment blocks found within the body of the method or function.</p>
+            <p>Having more than one brief or detailed description is allowed (but not recommended, as the order in which the descriptions will appear is not specified).</p>
+            <p>As the name suggest, a brief description is a short one-liner, whereas the detailed description provides longer, more detailed documentation. An <q>in body</q> description can also act as a detailed description or can describe a collection of implementation details. For the HTML output brief descriptions are also used to provide tooltips at places where an item is referenced.</p>
+            <p>There are several ways to mark a comment block as a detailed description:</p>
+            <ul>
+              <li>
+                <p>You can use the Javadoc style, which consist of a C-style comment block starting with two *'s, like this:</p>
+                <pre>/**
+ * ... text ...
+ */</pre>
+              </li>
+              <li>
+                <p>or you can use the Qt style and add an exclamation mark (!) after the opening of a C-style comment block, as shown in this example:</p>
+                <pre>/*!
+ * ... text ...
+ */</pre>
+                <p>In both cases the intermediate *'s are optional, so</p>
+                <pre>/*!
+ ... text ...
+*/</pre>
+                <p>is also valid.</p>
+              </li>
+              <li>
+                <p>A third alternative is to use a block of at least two C++ comment lines, where each line starts with an additional slash or an exclamation mark. Here are examples of the two cases:</p>
+                <p>Note that a blank line ends a documentation block in this case.</p>
+                <pre>///
+/// ... text ...
+///</pre>
+                <p>or</p>
+                <pre>//!
+//!... text ...
+//!</pre>
+              </li>
+              <li>
+                <p>Some people like to make their comment blocks more visible in the documentation. For this purpose you can use the following:</p>
+                <pre>/********************************************//**
+ *  ... text
+ ***********************************************/</pre>
+                <p>(note the 2 slashes to end the normal comment block and start a special comment block).</p>
+                <p>or</p>
+                <pre>/////////////////////////////////////////////////
+/// ... text ...
+/////////////////////////////////////////////////</pre>
+                <p>or</p>
+                <pre>/************************************************
+ *  ... text
+ ***********************************************/</pre>
+                <p>as long as JAVADOC_BANNER = YES is used.</p>
+                <pre>/**
+ * A brief history of JavaDoc-style (C-style) comments.
+ *
+ * This is the typical JavaDoc-style C-style comment. It starts with two
+ * asterisks.
+ *
+ * @param theory Even if there is only one possible unified theory. it is just a
+ *               set of rules and equations.
+ */
+void cstyle( int theory );
+
+/*******************************************************************************
+ * A brief history of JavaDoc-style (C-style) banner comments.
+ *
+ * This is the typical JavaDoc-style C-style "banner" comment. It starts with
+ * a forward slash followed by some number, n, of asterisks, where n &gt; 2. It's
+ * written this way to be more "visible" to developers who are reading the
+ * source code.
+ *
+ * Often, developers are unaware that this is not (by default) a valid Doxygen
+ * comment block!
+ *
+ * However, as long as JAVADOC_BLOCK = YES is added to the Doxyfile, it will
+ * work as expected.
+ *
+ * This style of commenting behaves well with clang-format.
+ *
+ * @param theory Even if there is only one possible unified theory. it is just a
+ *               set of rules and equations.
+ ******************************************************************************/
+void javadocBanner( int theory );
+
+/***************************************************************************//**
+ * A brief history of Doxygen-style banner comments.
+ *
+ * This is a Doxygen-style C-style "banner" comment. It starts with a "normal"
+ * comment and is then converted to a "special" comment block near the end of
+ * the first line. It is written this way to be more "visible" to developers
+ * who are reading the source code.
+ * This style of commenting behaves poorly with clang-format.
+ *
+ * @param theory Even if there is only one possible unified theory. it is just a
+ *               set of rules and equations.
+ ******************************************************************************/
+void doxygenBanner( int theory );
+</pre>
+              </li>
+            </ul>
+            <p>For the brief description there are also several possibilities:</p>
+            <ul>
+              <li>
+                <p>One could use the \brief command with one of the above comment blocks. This command ends at the end of a paragraph, so the detailed description follows after an empty line.</p>
+                <p>Here is an example:</p>
+                <pre>/*! \brief Brief description.
+ *         Brief description continued.
+ *
+ *  Detailed description starts here.
+ */</pre>
+              </li>
+              <li>
+                <p>If JAVADOC_AUTOBRIEF is set to YES in the configuration file, then using Javadoc style comment blocks will automatically start a brief description which ends at the first dot followed by a space or new line. Here is an example:</p>
+                <pre>/** Brief description which ends at this dot. Details follow
+ *  here.
+ */</pre>
+                <p>The option has the same effect for multi-line special C++ comments:</p>
+                <pre>/// Brief description which ends at this dot. Details follow
+/// here.</pre>
+              </li>
+              <li>
+                <p>A third option is to use a special C++ style comment which does not span more than one line. Here are two examples:</p>
+                <pre>/// Brief description.
+/** Detailed description. */</pre>
+                <p>pr</p>
+                <pre>//! Brief description.
+
+//! Detailed description
+//! starts here.</pre>
+                <p>Note the blank line in the last example, which is required to separate the brief description from the block containing the detailed description. The <var>JAVADOC_AUTOBRIEF</var> should also be set to NO for this case.</p>
+              </li>
+            </ul>
+            <p>As you can see doxygen is quite flexible. If you have multiple detailed descriptions, like in the following example:</p>
+            <pre>//! Brief description, which is
+//! really a detailed description since it spans multiple lines.
+/*! Another detailed description!
+ */</pre>
+            <p>They will be joined. Note that this is also the case if the descriptions are at different places in the code! In this case the order will depend on the order in which doxygen parses the code.</p>
+            <p>Unlike most other documentation systems, doxygen also allows you to put the documentation of members (including global functions) in front of the definition. This way the documentation can be placed in the source file instead of the header file. This keeps the header file compact, and allows the implementer of the members more direct access to the documentation. As a compromise the brief description could be placed before the declaration and the detailed description before the member definition.</p>
+            <section>
+              <h5>Putting documentation after members</h5>
+              <p>If you want to document the members of a file, struct, union, class, or enum, it is sometimes desired to place the documentation block after the member instead of before. For this purpose you have to put an additional &lt; marker in the comment block. Note that this also works for the parameters of a function.</p>
+              <p>Here are some examples:</p>
+              <pre>int var; /*!&lt; Detailed description after the member */</pre>
+              <p>This block can be used to put a Qt style detailed documentation block after a member. Other ways to do the same are:</p>
+              <pre>int var; /**&lt; Detailed description after the member */</pre>
+              <p>or</p>
+              <pre>int var; //!&lt; Detailed description after the member
+         //!&lt;</pre>
+              <p>or</p>
+              <pre>int var; ///&lt; Detailed description after the member
+         ///&lt; </pre>
+              <p>Most often one only wants to put a brief description after a member. This is done as follows:</p>
+              <pre>int var; //!&lt; Brief description after the member</pre>
+              <p>pr</p>
+              <pre>int var; ///&lt; Brief description after the member</pre>
+              <p>For functions one can use the @param command to document the parameters and then use [in], [out], [in,out] to document the direction. For inline documentation this is also possible by starting with the direction attribute, e.g.</p>
+              <pre>void foo(int v /**&lt; [in] docs for input parameter v. */);</pre>
+              <p>Note that these blocks have the same structure and meaning as the special comment blocks in the previous section only the &lt; indicates that the member is located in front of the block instead of after the block.</p>
+              <p>Here is an example of the use of these comment blocks:</p>
+              <pre>/*! A test class */
+
+class Afterdoc_Test
+{
+  public:
+    /** An enum type.
+     *  The documentation block cannot be put after the enum!
+     */
+    enum EnumType
+    {
+      int EVal1,     /**&lt; enum value 1 */
+      int EVal2      /**&lt; enum value 2 */
+    };
+    void member();   //!&lt; a member function.
+
+  protected:
+    int value;       /*!&lt; an integer value */
+};
+</pre>
+              <div class="warning" style="border-style: solid;">These blocks can only be used to document members and parameters. They cannot be used to document files, classes, unions, structs, groups, namespaces and enums themselves. Furthermore, the structural commands mentioned in the next section (like <code class="command">\class</code>) are not allowed inside these comment blocks.</div>
+            </section>
+            <section>
+              <h5>Examples</h5>
+              <p>Here is an example of a documented piece of C++ code using the Qt style:</p>
+              <pre>//!  A test class.
+/*!
+  A more elaborate class description.
+*/
+
+class QTstyle_Test
+{
+  public:
+
+    //! An enum.
+    /*! More detailed enum description. */
+    enum TEnum {
+                 TVal1, /*!&lt; Enum value TVal1. */
+                 TVal2, /*!&lt; Enum value TVal2. */
+                 TVal3  /*!&lt; Enum value TVal3. */
+               }
+         //! Enum pointer.
+         /*! Details. */
+         *enumPtr,
+         //! Enum variable.
+         /*! Details. */
+         enumVar;
+
+    //! A constructor.
+    /*!
+      A more elaborate description of the constructor.
+    */
+    QTstyle_Test();
+
+    //! A destructor.
+    /*!
+      A more elaborate description of the destructor.
+    */
+   ~QTstyle_Test();
+
+    //! A normal member taking two arguments and returning an integer value.
+    /*!
+      \param a an integer argument.
+      \param s a constant character pointer.
+      \return The test results
+      \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
+    */
+    int testMe(int a,const char *s);
+
+    //! A pure virtual member.
+    /*!
+      \sa testMe()
+      \param c1 the first argument.
+      \param c2 the second argument.
+    */
+    virtual void testMeToo(char c1,char c2) = 0;
+
+    //! A public variable.
+    /*!
+      Details.
+    */
+    int publicVar;
+
+    //! A function variable.
+    /*!
+      Details.
+    */
+    int (*handler)(int a,int b);
+};</pre>
+              <p>The brief descriptions are included in the member overview of a class, namespace or file and are printed using a small italic font (this description can be hidden by setting <var>BRIEF_MEMBER_DESC</var> to <code class="constant">NO</code> in the configuration file). By default the brief descriptions become the first sentence of the detailed descriptions (but this can be changed by setting the <var>REPEAT_BRIEF</var> tag to <code class="constant">NO</code>). Both the brief and the detailed descriptions are optional for the Qt style.</p>
+              <p>By default a Javadoc style documentation block behaves the same way as a Qt style documentation block. This is not according the Javadoc specification however, where the first sentence of the documentation block is automatically treated as a brief description. To enable this behavior you should set <var>JAVADOC_AUTOBRIEF</var> to <code class="constant">YES</code> in the configuration file. If you enable this option and want to put a dot in the middle of a sentence without ending it, you should put a backslash and a space after it. Here is an example:</p>
+              <pre>/** Brief description (e.g.\ using only a few words). Details follow. */</pre>
+              <p>Here is the same piece of code as shown above, this time documented using the Javadoc style and <var>JAVADOC_AUTOBRIEF</var> set to <code class="constant">YES</code>: </p>
+              <pre>/**
+ *  A test class. A more elaborate class description.
+ */
+
+class Javadoc_Test
+{
+  public:
+
+    /**
+     * An enum.
+     * More detailed enum description.
+     */
+
+    enum TEnum {
+          TVal1, /**&lt; enum value TVal1. */
+          TVal2, /**&lt; enum value TVal2. */
+          TVal3  /**&lt; enum value TVal3. */
+         }
+       *enumPtr, /**&lt; enum pointer. Details. */
+       enumVar;  /**&lt; enum variable. Details. */
+
+      /**
+       * A constructor.
+       * A more elaborate description of the constructor.
+       */
+      Javadoc_Test();
+
+      /**
+       * A destructor.
+       * A more elaborate description of the destructor.
+       */
+     ~Javadoc_Test();
+
+      /**
+       * a normal member taking two arguments and returning an integer value.
+       * @param a an integer argument.
+       * @param s a constant character pointer.
+       * @see Javadoc_Test()
+       * @see ~Javadoc_Test()
+       * @see testMeToo()
+       * @see publicVar()
+       * @return The test results
+       */
+       int testMe(int a,const char *s);
+
+      /**
+       * A pure virtual member.
+       * @see testMe()
+       * @param c1 the first argument.
+       * @param c2 the second argument.
+       */
+       virtual void testMeToo(char c1,char c2) = 0;
+
+      /**
+       * a public variable.
+       * Details.
+       */
+       int publicVar;
+
+      /**
+       * a function variable.
+       * Details.
+       */
+       int (*handler)(int a,int b);
+};</pre>
+              <p>Similarly, if one wishes the first sentence of a Qt style documentation block to automatically be treated as a brief description, one may set <var>QT_AUTOBRIEF</var> to <code class="constant">YES</code> in the configuration file.</p>
+            </section>
+            <section>
+              <h5>Documentation at other places</h5>
+              <p>In the examples in the previous section the comment blocks were always located in front of the declaration or definition of a file, class or namespace or in front or after one of its members. Although this is often comfortable, there may sometimes be reasons to put the documentation somewhere else. For documenting a file this is even required since there is no such thing as <q>in front of a file</q>.</p>
+              <p>Doxygen allows you to put your documentation blocks practically anywhere (the exception is inside the body of a function or inside a normal C style comment block).</p>
+              <p>The price you pay for not putting the documentation block directly before (or after) an item is the need to put a structural command inside the documentation block, which leads to some duplication of information. So in practice you should avoid the use of structural commands unless other requirements force you to do so.</p>
+              <p>Structural commands (like all other commands) start with a backslash (\), or an at-sign (@) if you prefer Javadoc style, followed by a command name and one or more parameters. For instance, if you want to document the class Test in the example above, you could have also put the following documentation block somewhere in the input that is read by doxygen:</p>
+              <pre>/*! \class Test
+    \brief A test class.
+
+    A more detailed class description.
+*/</pre>
+              <p>Here the special command \class is used to indicate that the comment block contains documentation for the class Test. Other structural commands are:</p>
+              <ul>
+                <li><code class="command">\struct</code> to document a C-struct.</li>
+                <li><code class="command">\union</code> to document a union.</li>
+                <li><code class="command">\enum</code> to document an enumeration type.</li>
+                <li><code class="command">\fn</code> to document a function.</li>
+                <li><code class="command">\var</code> to document a variable or typedef or enum value.</li>
+                <li><code class="command">\def</code> to document a #define.</li>
+                <li><code class="command">\typedef</code> to document a type definition.</li>
+                <li><code class="command">\file</code> to document a file.</li>
+                <li><code class="command">\namespace</code> to document a namespace.</li>
+                <li><code class="command">\package</code> to document a Java package.</li>
+                <li><code class="command">\interface</code> to document an IDL interface.</li>
+              </ul>
+              <p>To document a member of a C++ class, you must also document the class itself. The same holds for namespaces. To document a global C function, typedef, enum or preprocessor definition you must first document the file that contains it (usually this will be a header file, because that file contains the information that is exported to other source files).</p>
+              <div class="important" style="border-style: solid;">
+                <p>Let's repeat that, because it is often overlooked: to document global objects (functions, typedefs, enum, macros, etc), you <em>must</em> document the file in which they are defined. In other words, there <em>must</em> at least be a</p>
+                <pre>/*! \file */ </pre>
+                <p>or a</p>
+                <pre>/** @file */</pre>
+                <p>line in this file.</p>
+              </div>
+              <p>Here is an example of a C header named <cite class="filename">structcmd.h</cite> that is documented using structural commands:</p>
+              <pre>/*! \file structcmd.h
+    \brief A Documented file.
+
+    Details.
+*/
+
+/*! \def MAX(a,b)
+    \brief A macro that returns the maximum of \a a and \a b.
+
+    Details.
+*/
+
+/*! \var typedef unsigned int UINT32
+    \brief A type definition for a .
+
+    Details.
+*/
+
+/*! \var int errno
+    \brief Contains the last error code.
+
+    \warning Not thread safe!
+*/
+
+/*! \fn int open(const char *pathname,int flags)
+    \brief Opens a file descriptor.
+
+    \param pathname The name of the descriptor.
+    \param flags Opening flags.
+*/
+
+/*! \fn int close(int fd)
+    \brief Closes the file descriptor \a fd.
+    \param fd The descriptor to close.
+*/
+
+/*! \fn size_t write(int fd,const char *buf, size_t count)
+    \brief Writes \a count bytes from \a buf to the filedescriptor \a fd.
+    \param fd The descriptor to write to.
+    \param buf The data buffer to write.
+    \param count The number of bytes to write.
+*/
+
+/*! \fn int read(int fd,char *buf,size_t count)
+    \brief Read bytes from a file descriptor.
+    \param fd The descriptor to read from.
+    \param buf The buffer to read into.
+    \param count The number of bytes to read.
+*/
+
+#define MAX(a,b) (((a)&gt;(b))?(a):(b))
+typedef unsigned int UINT32;
+int errno;
+int open(const char *,int);
+int close(int);
+size_t write(int,const char *, size_t);
+int read(int,char *,size_t);
+</pre>
+              <p>Because each comment block in the example above contains a structural command, all the comment blocks could be moved to another location or input file (the source file for instance), without affecting the generated documentation. The disadvantage of this approach is that prototypes are duplicated, so all changes have to be made twice! Because of this you should first consider if this is really needed, and avoid structural commands if possible. I often receive examples that contain <code class="command">\fn</code> command in comment blocks which are placed in front of a function. This is clearly a case where the <code class="command">\fn</code> command is redundant and will only lead to problems.</p>
+              <p>When you place a comment block in a file with one of the following extensions <cite class="filename">.dox</cite>, <cite class="filename">.txt</cite>, <cite class="filename">.doc</cite>, <cite class="filename">.md</cite> or <cite class="filename">.markdown</cite> or when the extension maps to md by means of the EXTENSION_MAPPING then doxygen will hide this file from the file list.</p>
+              <p>If you have a file that doxygen cannot parse but still would like to document it, you can show it as-is using <code class="command">\verbinclude</code>, e.g.</p>
+              <pre>/*! \file myscript.sh
+ *  Look at this nice script:
+ *  \verbinclude myscript.sh
+ */</pre>
+              <p>Make sure that the script is explicitly listed in the <var>INPUT</var> or that <var>FILE_PATTERNS</var> includes the <cite class="filename">.sh</cite> extension and the the script can be found in the path set via <var>EXAMPLE_PATH</var>.</p>
+            </section>
+          </section>
+          <section>
+            <h4>Comment blocks in Python*</h4>
+            <p>...</p>
+            <pre>&lt;python code&gt;</pre>
+          </section>
+          <section>
+            <h4>Comment blocks in VHDL*</h4>
+            <p>For VHDL a comment normally start with <q>--</q>. Doxygen will extract comments starting with <q>--!</q>. There are only two types of comment blocks in VHDL; a one line <q>--!</q> comment representing a brief description, and a multi-line <q>--!</q> comment (where the <q>--!</q> prefix is repeated for each line) representing a detailed description.</p>
+            <p>Comments are always located in front of the item that is being documented with one exception: for ports the comment can also be after the item and is then treated as a brief description for the port.</p>
+            <p>Here is an example VHDL file with doxygen comments:</p>
+            <pre>-------------------------------------------------------
+--! @file
+--! @brief 2:1 Mux using with-select
+-------------------------------------------------------
+
+--! Use standard library
+library ieee;
+--! Use logic elements
+    use ieee.std_logic_1164.all;
+
+--! Mux entity brief description
+
+--! Detailed description of this
+--! mux design element.
+entity mux_using_with is
+    port (
+        din_0   : in  std_logic; --! Mux first input
+        din_1   : in  std_logic; --! Mux Second input
+        sel     : in  std_logic; --! Select input
+        mux_out : out std_logic  --! Mux output
+    );
+end entity;
+
+--! @brief Architecture definition of the MUX
+--! @details More details about this mux element.
+architecture behavior of mux_using_with is
+begin
+    with (sel) select
+    mux_out &lt;= din_0 when '0',
+               din_1 when others;
+end architecture;</pre>
+            <p>As of VHDL 2008 it is also possible to use /&#x200D;* style comments. Doxygen will handle /&#x200D;* ... *&#x200D;/as plain comments and /&#x200D;*! ... *&#x200D;/ style comments as special comments to be parsed by doxygen.</p>
+            <p>To get proper looking output you need to set <var>OPTIMIZE_OUTPUT_VHDL</var> to <code class="constant">YES</code> in the configuration file. This will also affect a number of other settings. When they were not already set correctly doxygen will produce a warning telling which settings where overruled.</p>
+          </section>
+          <section>
+            <h4>Comment blocks in Fortran*</h4>
+            <p>When using doxygen for Fortran code you should set <var>OPTIMIZE_FOR_FORTRAN</var> to <code class="constant">YES</code>.</p>
+            <p>The parser tries to guess if the source code is fixed format Fortran or free format Fortran code. This may not always be correct. If not one should use <var>EXTENSION_MAPPING</var> to correct this. By setting EXTENSION_MAPPING = f=FortranFixed f90=FortranFree files with extension f are interpreted as fixed format Fortran code and files with extension f90 are interpreted as free format Fortran code.</p>
+            <p>For Fortran <q>!&gt;</q> or <q>!&lt;</q> starts a comment and <q>!!</q> or <q>!&gt;</q> can be used to continue an one line comment into a multi-line comment.</p>
+            <p>Here is an example of a documented Fortran subroutine: </p>
+            <pre>!&gt; Build the restriction matrix for the aggregation
+!! method.
+!! @param aggr information about the aggregates
+!! @todo Handle special case
+subroutine intrestbuild(A,aggr,Restrict,A_ghost)
+  implicit none
+  Type(SpMtx), intent(in) :: A !&lt; our fine level matrix
+  Type(Aggrs), intent(in) :: aggr
+  Type(SpMtx), intent(out) :: Restrict !&lt; Our restriction matrix
+  !...
+end subroutine
+</pre>
+            <p>As an alternative you can also use comments in fixed format code:</p>
+            <pre>C&gt; Function comment
+C&gt; another line of comment
+      function a(i)
+C&gt; input parameter
+        integer i
+      end function A
+</pre>
+          </section>
+        </section>
+        <section>
+          <h3>Anatomy of a comment block*</h3>
+          <p>The previous section focused on how to make the comments in your code known to doxygen, it explained the difference between a brief and a detailed description, and the use of structural commands.</p>
+          <p>In this section we look at the contents of the comment block itself.</p>
+          <p>Doxygen supports various styles of formatting your comments.</p>
+          <p>The simplest form is to use plain text. This will appear as-is in the output and is ideal for a short description.</p>
+          <p>For longer descriptions you often will find the need for some more structure, like a block of verbatim text, a list, or a simple table. For this doxygen supports the Markdown syntax, including parts of the Markdown Extra extension.</p>
+          <p>Markdown is designed to be very easy to read and write. Its formatting is inspired by plain text mail. Markdown works great for simple, generic formatting, like an introduction page for your project. Doxygen also supports reading of markdown files directly. For more details see chapter Markdown support.</p>
+          <p>For programming language specific formatting doxygen has two forms of additional markup on top of Markdown formatting.</p>
+          <ul>
+            <li>Javadoc like markup. See Special Commands for a complete overview of all commands supported by doxygen.    </li>
+            <li>XML markup as specified in the C# standard. See XML Commands for the XML commands supported by doxygen.</li>
+          </ul>
+          <p>If this is still not enough doxygen also supports a subset of the HTML markup language.</p>
+        </section>
+      </section>
+      <!-- end of "Documenting the code" -->
+
+
+      <section>
+        <h2>Markdown support</h2>
+        <p>Markdown support was introduced in doxygen version 1.8.0. It is a plain text formatting syntax written by John Gruber, with the following underlying design goal:</p>
+        <blockquote>The design goal for Markdown's formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions. While Markdown's syntax has been influenced by several existing text-to-HTML filters, the single biggest source of inspiration for Markdown's syntax is the format of plain text email.</blockquote>
+        <p>In the next section the standard Markdown features are briefly discussed. The reader is referred to the Markdown site for more details.</p>
+        <p>Some enhancements were made, for instance PHP Markdown Extra, and GitHub flavored Markdown. The section <a href="#doxygen_markdown_extensions">Markdown Extensions</a> discusses the extensions that doxygen supports.</p>
+        <p>Finally section <a href="#doxygen_markdown_specifics">Doxygen specifics</a> discusses some specifics for doxygen's implementation of the Markdown standard.</p>
+        <section id="doxygen_standard_markdown">
+          <h3>Standard Markdown</h3>
+          <section>
+            <h4>Paragraphs</h4>
+            <p>Even before doxygen had Markdown support it supported the same way of paragraph handling as Markdown: to make a paragraph you just separate consecutive lines of text by one or more blank lines.</p>
+            <p>An example:</p>
+            <pre>Here is text for one paragraph.
+
+We continue with more text in another paragraph.
+</pre>
+          </section>
+          <section id="doxygen_header_markdown">
+            <h4>Headers</h4>
+            <p>Just like Markdown, doxygen supports two types of headers</p>
+            <p>Level 1 or 2 headers can be made as the follows</p>
+            <pre>This is a level 1 header
+========================
+
+This is a level 2 header
+------------------------
+</pre>
+            <p> A header is followed by a line containing only ='s or -'s. Note that the exact amount of ='s or -'s is not important as long as there are at least two.</p>
+            <p>Alternatively, you can use #'s at the start of a line to make a header. The number of #'s at the start of the line determines the level (up to 6 levels are supported). You can end a header by any number of #'s.</p>
+            <p>Here is an example:</p>
+            <pre># This is a level 1 header
+
+### This is level 3 header #######</pre>
+          </section>
+          <section>
+            <h4>Block quotes</h4>
+            <p>Block quotes can be created by starting each line with one or more &gt;'s, similar to what is used in text-only emails.</p>
+            <pre>&gt; This is a block quote
+&gt; spanning multiple lines</pre>
+            <p>Lists and code blocks (see below) can appear inside a quote block. Quote blocks can also be nested.</p>
+            <p>Note that doxygen requires that you put a space after the (last) &gt; character to avoid false positives, i.e. when writing</p>
+            <pre>0  if OK\n
+&gt;1 if NOK</pre>
+            <p>the second line will not be seen as a block quote.</p>
+          </section>
+
+
+          <section>
+            <h4>Lists</h4>
+            <p>Simple bullet lists can be made by starting a line with -, +, or *.</p>
+            <pre>- Item 1
+
+  More text for this item.
+
+- Item 2
+  + nested list item.
+  + another nested item.
+- Item 3</pre>
+            <p>List items can span multiple paragraphs (if each paragraph starts with the proper indentation) and lists can be nested. You can also make a numbered list like so</p>
+            <pre>1. First item.
+2. Second item.</pre>
+            <p>Make sure to also read <cite>Lists Extensions</cite> for doxygen specifics.</p>
+          </section>
+          <section>
+            <h4>Code blocks</h4>
+            <p>Preformatted verbatim blocks can be created by indenting each line in a block of text by at least 4 extra spaces</p>
+            <pre>This a normal paragraph
+
+    This is a code block
+
+We continue with a normal paragraph again.</pre>
+            <p>Doxygen will remove the mandatory indentation from the code block. Note that you cannot start a code block in the middle of a paragraph (i.e. the line preceding the code block must be empty).</p>
+            <p>See section Code Block Indentation for more info how doxygen handles indentation as this is slightly different than standard Markdown.</p>
+          </section>
+          <section>
+            <h4>Horizontal rulers</h4>
+            <p>A horizontal ruler will be produced for lines containing at least three or more hyphens, asterisks, or underscores. The line may also include any amount of whitespace.</p>
+            <p>Examples:</p>
+            <pre>- - -
+______</pre>
+            <p/>
+            <p>Note that using asterisks in comment blocks does not work. See Use of asterisks for details.</p>
+            <p>Note that when using hyphens and the previous line is not empty you have to use at least one whitespace in the sequence of hyphens otherwise it might be seen as a level 2 header (see <a href="#doxygen_header_markdown">Headers</a>)</p>
+          </section>
+          <section>
+            <h4>Emphasis</h4>
+            <p>To emphasize a text fragment you start and end the fragment with an underscore or star. Using two stars or underscores will produce strong emphasis.</p>
+            <p>Examples:</p>
+            <pre>*single asterisks*
+
+ _single underscores_
+
+ **double asterisks**
+
+ __double underscores__</pre>
+            <p>See section Emphasis and strikethrough limits for more info how doxygen handles emphasis / strikethrough spans slightly different than standard / Markdown GitHub Flavored Markdown.</p>
+          </section>
+          <section>
+            <h4>Strikethrough</h4>
+            <p>To strikethrough a text fragment you start and end the fragment with two tildes.</p>
+            <p>Examples:</p>
+            <pre>~~double tilde~~</pre>
+            <p>See section Emphasis and strikethrough limits for more info how doxygen handles emphasis / strikethrough spans slightly different than standard Markdown / GitHub Flavored Markdown.</p>
+          </section>
+          <section>
+            <h4>Code spans</h4>
+            <p>To indicate a span of code, you should wrap it in backticks (`). Unlike code blocks, code spans appear inline in a paragraph. An example:</p>
+            <pre>Use the `printf()` function.</pre>
+            <p>To show a literal backtick or single quote inside a code span use double backticks, i.e.</p>
+            <pre>To assign the output of command `ls` to `var` use ``var=`ls```.
+To assign the text 'text' to `var` use ``var='text'``.</pre>
+            <p>See section Code Spans Limits for more info how doxygen handles code spans slightly different than standard Markdown.</p>
+          </section>
+          <section>
+            <h4>Links</h4>
+            <p>Doxygen supports both styles of make links defined by Markdown: inline and reference.</p>
+            <p>For both styles the link definition starts with the link text delimited by [square brackets].</p>
+            <h5 class="bridgehead">Inline Links</h5>
+            <p>For an inline link the link text is followed by a URL and an optional link title which together are enclosed in a set of regular parenthesis. The link title itself is surrounded by quotes.</p>
+            <p>Examples:</p>
+            <pre>[The link text](http://example.net/)
+[The link text](http://example.net/ "Link title")
+[The link text](/relative/path/to/index.html "Link title")
+[The link text](somefile.html) </pre>
+            <p>In addition doxygen provides a similar way to link a documented entity:</p>
+            <pre>[The link text](@ref MyClass)</pre>
+            <h5 class="bridgehead">Reference Links</h5>
+            <p>Instead of putting the URL inline, you can also define the link separately and then refer to it from within the text.</p>
+            <p>The link definition looks as follows:</p>
+            <pre>[link name]: http://www.example.com "Optional title"</pre>
+            <p>Instead of double quotes also single quotes or parenthesis can be used for the title part.</p>
+            <p>Once defined, the link looks as follows</p>
+            <pre>[link text][link name]</pre>
+            <p>If the link text and name are the same, also</p>
+            <pre>[link name][]</pre>
+            <p>or even</p>
+            <pre>[link name]</pre>
+            <p>can be used to refer to the link. Note that the link name matching is not case sensitive as is shown in the following example:</p>
+            <pre>I get 10 times more traffic from [Google] than from
+[Yahoo] or [MSN].
+
+[google]: http://google.com/        "Google"
+[yahoo]:  http://search.yahoo.com/  "Yahoo Search"
+[msn]:    http://search.msn.com/    "MSN Search"</pre>
+            <p>Link definitions will not be visible in the output.</p>
+            <p>Like for inline links doxygen also supports @ref inside a link definition:</p>
+            <pre>[myclass]: @ref MyClass "My class"</pre>
+          </section>
+          <section>
+            <h4>Images*</h4>
+            <p/>
+            <code/>
+            <p/>
+            <code/>
+            <p/>
+            <code/>
+            <p/>
+            <code/>
+          </section>
+          <section>
+            <h4>Automatic Linking*</h4>
+            <p>To create a link to an URL or e-mail address Markdown supports the following syntax:</p>
+            <pre>&lt;http://www.example.com&gt;
+&lt;https://www.example.com&gt;
+&lt;ftp://www.example.com&gt;
+&lt;mailto:address@example.com&gt;
+&lt;address@example.com&gt;</pre>
+            <p>Note that doxygen will also produce the links without the angle brackets.</p>
+          </section>
+        </section>
+        <section id="doxygen_markdown_extensions">
+          <h3>Markdown Extensions*</h3>
+          <p/>
+          <code/>
+          <p/>
+          <code/>
+        </section>
+        <section id="doxygen_markdown_specifics">
+          <h3>Doxygen specifics*</h3>
+        </section>
+      </section>
+      <section>
+        <h2>Lists*</h2>
+      </section>
+      <section>
+        <h2>Grouping*</h2>
+      </section>
+      <section>
+        <h2>Including formulas*</h2>
+      </section>
+      <section>
+        <h2>Including tables*</h2>
+      </section>
+      <section>
+        <h2>*</h2>
+      </section>
+      <section>
+        <h2>*</h2>
+      </section>
+      <section>
+        <h2>*</h2>
+      </section>
+      <section>
+        <h2>*</h2>
+      </section>
+      <section id="doxygen_configuration">
+        <h2>Configuration*</h2>
+      </section>
+      <section>
+        <h2>*</h2>
+      </section>
+      <section>
+        <h2>HTML commands*</h2>
+      </section>
+      <section>
+        <h2>*</h2>
+      </section>
+    </main>
+  </body>
+</html>
