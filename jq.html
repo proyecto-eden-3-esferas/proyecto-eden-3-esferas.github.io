@@ -355,6 +355,64 @@
         -->
       </section>
 
+      <section>
+        <h2>Recursion</h2>
+        <section id="recursive">
+          <h3><code>recurse(<var>f</var>)</code>, <code>recurse</code>, <code>recurse(<var>f</var>; <var>condition</var>)</code></h3>
+          <p>The <code>recurse(<var>f</var>)</code> function allows you to search through a recursive structure, and extract interesting data from all levels. Suppose your input represents a filesystem:</p>
+          <pre>{"name": "/", "children": [
+             {"name": "/bin", "children": [
+    {"name": "/bin/ls", "children": []},
+    {"name": "/bin/sh", "children": []}]},
+  {"name": "/home", "children": [
+    {"name": "/home/stephen", "children": [
+      {"name": "/home/stephen/jq", "children": []
+      }]
+    }]
+  }]
+}</pre>
+          <p>Now suppose you want to extract all of the filenames present. You need to retrieve <code>.name</code>, <code>.children[].name</code>, <code>.children[].children[].name</code>, and so on. You can do this with:</p>
+          <pre>recurse(.children[]) | .name</pre>
+
+          <p>When called without an argument, recurse is equivalent to <code>recurse(.[]?)</code>.</p>
+
+          <p><code>recurse(<var>f</var>)</code> is identical to <code>recurse(<var>f</var>; true)</code> and can be used without concerns about recursion depth.</p>
+
+          <hr/>
+
+          <p><code>recurse(<var>f</var>; <var>condition</var>)</code> is a generator which begins by emitting <code>.</code> and then emits in turn  <code>.|<var>f</var></code>,  <code>.|<var>f</var>|<var>f</var></code>,  <code>.|<var>f</var>|<var>f</var>|<var>f</var></code>, ... so long as the computed value satisfies the condition. For example, to generate all the integers, at least in principle, one could write <code>recurse(.+1; true)</code>.</p>
+
+        </section>
+
+        <section id="walk">
+          <h3><code>walk(<var>f</var>)</code></h3>
+          <p>The <code>walk(<var>f</var>)</code> function applies <var>f</var> recursively to every component of the input entity. When an array is encountered, <var>f</var> is first applied to its elements and then to the array itself; when an object is encountered, <var>f</var> is first applied to all the values and then to the object.</p>
+          <p>In practice, <var>f</var> will usually test the type of its input, as illustrated in the following examples.</p>
+          <p>The first example highlights the usefulness of processing the elements of an array of arrays before processing the array itself.</p>
+          <pre>jq ´walk(if type == "array" then sort else . end)´
+              [[4, 1, 7], [8, 5, 2], [3, 6, 9]]
+           => [[1,4,7],[2,5,8],[3,6,9]]</pre>
+
+          <p>The second example shows how all the keys of all the objects within the input can be considered for alteration.</p>
+          <pre>jq ´walk( if type == "object" then with_entries( .key |= sub( "^_+"; "") ) else . end )´
+[ { "_a": { "__b": 2 } } ]
+=> [{"a":{"b":2}}]</pre>
+
+        </section>
+
+        <!--
+        <section>
+          <h3>*</h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+      </section>
+
       <section id="transforming">
         <h2>Transforming JSON</h2>
         <p>Frequently when working with data structures such as JSON, we might want to transform one data structure into another. This can be useful while working with large JSON structures when we are only interested in several properties or values.</p>
