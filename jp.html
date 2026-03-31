@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JMESPath</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="JMESPath JSON Query Language"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a href="https://jmespath.org/tutorial.html"><code>JMESPath</code> Language Tutorial</a></p>
+        <p><a href="https://github.com/danielaparker/jsoncons/blob/master/doc/ref/jmespath/jmespath.md"><code>jsoncons</code>: a Fully-Compliant Community Implementation of JMESPath in C++ (2026)</a></p>
+        <p><a href="https://github.com/robertmrk/jmespath.cpp">Fully-Compliant Community Implementation of JMESPath in C++ (2019)</a></p>
+      </div>
+      <div>
+        <p><a rel="prev" href="json.html">JSON</a></p>
+        <p><a            href="jq.html"><code>jq</code>: a lightweight and flexible command-line JSON processor</a></p>
+        <p><a            href="sqlite.json.html">SQLite and JSON: Handling Text as JSON</a></p>
+      </div>
+      <div>
+        <p>Open Source Apache <a rel="next" href="couchdb.html">CouchDB: a JSON Document DBMS</a></p>
+        <p><a href="mongodb.html">MongoDB: A JSON Document, NoSQL DataBase Management System</a></p>
+      </div>
+      <div>
+        <p><a            href="computing.html">Computing</a></p>
+        <p><a            href="programming.html">Programming</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>JMESPath</code> JSON Query Language</h1>
+      <p></p>
+      <pre></pre>
+
+      <section>
+        <h2><code>jp</code></h2>
+        <p style="text-align: right">(From <cite><a target="_blank" href="https://github.com/jmespath/jp">https://github.com/jmespath/jp</a></cite>)</p>
+        <p>The <code>jp</code> command is a command line interface to JMESPath, an expression language for manipulating JSON</p>
+        <p>The most basic usage of jp is to accept input JSON data through stdin, apply the JMESPath expression you've provided as an argument to jp, and print the resulting JSON data to stdout.</p>
+        <pre>$ echo '{"key": "aValue"}' | jp key
+"aValue"
+
+$ echo '{"foo": {"bar": ["a", "b", "c"]}}' | jp foo.bar[1]
+"b"</pre>
+        <p>To process a file, use switch <code>-f <var>filename</var></code> or <code>--filename <var>filename</var></code>:</p>
+        <pre>$ jp --filename myJsonObj.json foo.bar[1]
+"b"</pre>
+      </section>
+
+      <section>
+        <h2>Projections</h2>
+        <p>Projections are one of the key features of JMESPath. It allows you to apply an expression to a collection of elements. There are five kinds of projections:</p>
+        <ul>
+          <li href="#list-projections">List Projections</li>
+          <li href="#slice-projections">Slice Projections</li>
+          <li href="#object-projections">Object Projections</li>
+          <li href="#flatten-projections">Flatten Projections</li>
+          <li href="#filter-projections">Filter Projections</li>
+        </ul>
+
+        <section id="list-projections">
+          <h3>List and Slice Projections</h3>
+          <p>A <strong>wildcard expression</strong> creates a list projection, which is a projection over a JSON array. This is best illustrated with an example. Let’s say we have a JSON document describing a people, and each array element is a JSON object that has a <var>first</var>, <var>last</var>, and <var>age</var> key. Suppose we wanted a list of all the first names in our list.</p>
+          <p>Given an object:</p>
+          <pre>{
+  "people": [
+    {"first": "James", "last": "d"},
+    {"first": "Jacob", "last": "e"},
+    {"first": "Jayden", "last": "f"},
+    {"missing": "different"}
+  ],
+  "foo": {"bar": "baz"}
+}</pre>
+          <p>the command <code>people[*].first</code> yields result:</p>
+          <pre>[
+  "James",
+  "Jacob",
+  "Jayden"
+]</pre>
+          <p>In the example above, the <var>first</var> expression, which is just an identifier, is applied to each element in the <var>people</var> array. The results are collected into a JSON array and returned as the result of the expression. The expression can be more complex than a basic identifier. For example, the expression <code>foo[*].bar.baz[0]</code> would project the <code>bar.baz[0]</code> expression to each element in the <var>foo</var> array.</p>
+
+          <p>There are a few things to keep in mind when working with projections. These are discussed in more detail in the wildcard expressions section of the spec, but the main points are:</p>
+          <ul>
+            <li>Projections are evaluated as two steps. The left hand side (LHS) creates a JSON array of initial values. The right hand side (RHS) of a projection is the expression to project for each element in the JSON array created by the left hand side. Each projection type has slightly different semantics when evaluating either the left hand side and/or the right hand side.</li>
+            <li>If the result of the expression projected onto an individual array element is <code>null</code>, then that value is omitted from the collected set of results.</li>
+            <li>You can stop a projection with a Pipe Expression (discussed later).</li>
+            <li>A list projection is only valid for a JSON array. If the value is not a list, then the result of the expression is <code>null</code>.</li>
+          </ul>
+        </section>
+
+        <section id="slice-projections">
+          <h3>Slice Projections</h3>
+          <p>Slice projections are almost identical to a list projection, with the exception that the left hand side is the result of evaluating the slice, which may not include all the elements in the original list.</p>
+          <pre>people[:2].first</pre>
+          <p>will yield the result:</p>
+          <pre>[
+  "James",
+  "Jacob"
+]</pre>
+        </section>
+
+        <section id="object-projections">
+          <h3>Object Projections</h3>
+          <p>Whereas a list projection is defined for a JSON array, an object projection is defined for a JSON object. You can create an object projection using the * syntax. This will create a list of the values of the JSON object, and project the right hand side of the projection onto the list of values.</p>
+          <p>Given an object like:</p>
+          <pre>{
+  "ops": {
+    "functionA": {"numArgs": 2},
+    "functionB": {"numArgs": 3},
+    "functionC": {"variadic": true}
+  }
+}</pre>
+          <p>then <code>ops.*.numArg</code> will yield:</p>
+          <p>In the example above the * creates a JSON array of the values associated with the <var>ops</var> JSON object. The RHS of the projection, <var>numArgs</var>, is then applied to the JSON array, resulting in the final array of <code>[2, 3]</code>.</p>
+          <hr/>
+          <p>Below is a sample walkthrough of how an implementation could potentially implement evaluating an object projection. First, the object projection can be broken down into its two components, the left hand side (LHS) and its right hand side (RHS):</p>
+          <ul>
+            <li>LHS: ops</li>
+            <li>RHS: numArgs</li>
+          </ul>
+
+          <p>First, the LHS is evaluated to create the initial array to be projected:</p>
+          <pre>evaluate(ops, inputData) -> [{"numArgs": 2}, {"numArgs": 3},
+                             {"variadic": True}]</pre>
+          <p>Then the RHS is applied to each element in the array:</p>
+          <pre>evaluate(numArgs, {numArgs: 2}) -> 2
+evaluate(numArgs, {numArgs: 3}) -> 3
+evaluate(numArgs, {variadic: true}) -> null</pre>
+        </section>
+
+        <section id="flatten-projections">
+          <h3>Flatten Projections</h3>
+          <p>More than one projection can be used in a JMESPath expression. In the case of a List/Object projection, the structure of the original document is preserved when creating projection within a projection. For example, let’s take the expression <code>reservations[*].instances[*].state</code>. This expression is saying that the top level key reservations has an array as a value. For each of those array elements, project the <code>instances[*].state</code> expression. Within each list element, there’s an <code>instances</code> key which itself is a value, and we create a sub projection for each each list element in the list. Here’s an example of that.</p>
+          <p>So, given the object:</p>
+          <pre>{
+  "reservations": [
+    {
+      "instances": [
+        {"state": "running"},
+        {"state": "stopped"}
+      ]
+    },
+    {
+      "instances": [
+        {"state": "terminated"},
+        {"state": "running"}
+      ]
+    }
+  ]
+}</pre>
+          <p>command <code>reservations[*].instances[*].state</code> will yield:</p>
+          <pre>[
+  [
+    "running",
+    "stopped"
+  ],
+  [
+    "terminated",
+    "running"
+  ]
+]</pre>
+          <hr/>
+          <p>What if we just want a list of all the states of our instances? We’d ideally like a result <code>["running", "stopped", "terminated", "running"]</code>. In this situation, we don’t care which reservation the instance belonged to, we just want a list of states.</p>
+          <p>This is the problem that a <strong>Flatten Projection</strong> solves. To get the desired result, you can use <code>[]</code> instead of <code>[*]</code> to flatten a list: <code>reservations[].instances[].state</code>. Try changing <code>[*]</code> to <code>[]</code> in the expression above and see how the result changes.</p>
+
+          <p>While the spec goes into more detail, a simple rule of thumb to use for the flatten operator, [], is that:</p>
+          <ul>
+            <li>It flattens sublists into the parent list (not recursively, just one level).</li>
+            <li>It creates a projection, so anything on the RHS of the flatten projection is projected onto the newly created flattened list.</li>
+          </ul>
+
+          <p>Applying <code>[]</code> on</p>
+          <pre>[
+  [0, 1],
+  2,
+  [3],
+  4,
+  [5, [6, 7]]
+]</pre>
+          <p>will yield:</p>
+          <pre>[
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  [
+    6,
+    7
+  ]</pre>
+        </section>
+
+        <section id="filter-projections">
+          <h3>Filter Projections</h3>
+          <p>Evaluating the RHS of a projection is a basic type of filter. If the result of the expression evaluated against an individual element results in null, then the element is excluded from the final result.</p>
+          <p>A filter projection allows you to filter the LHS of the projection before evaluating the RHS of a projection.</p>
+          <p>For example, let’s say we have a list of machines, each has a name and a state. We’d like the name of all machines that are running. In pseudocode, this would be:</p>
+          <pre>result = []
+foreach machine in inputData['machines']
+  if machine['state'] == 'running'
+    result.insert_at_end(machine['name'])
+return result</pre>
+          <p>A filter projection can be used to accomplish this. If we apply</p>
+          <pre>machines[?state=='running'].name</pre>
+          <p>to</p>
+          <pre>{
+  "machines": [
+    {"name": "a", "state": "running"},
+    {"name": "b", "state": "stopped"},
+    {"name": "c", "state": "running"}
+  ]
+}</pre>
+          <p>then we obtain:</p>
+          <pre>[
+  "a",
+  "c"
+]</pre>
+          <p>A filter expression is defined for an array and has the general form <code><var>LHS</var> [? <var>expression</var> <var>comparator</var> <var>expression</var>] <var>RHS</var></code>. The filter expression spec details exactly what comparators are available and how they work, but the standard comparators are supported, i.e <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>.</p>
+        </section>
+
+      </section>
+
+      <section id="pipes">
+        <h2>Pipe Expressions</h2>
+        <p>Projections are an important concept in JMESPath. However, there are times when projection semantics are not what you want. A common scenario is when you want to operate [on] the result of a projection rather than projecting an expression onto each element in the array. For example, the expression <code>people[*].first</code> will give you an array containing the first names of everyone in the people array. What if you wanted the first element in that list? If you tried <code>people[*].first[0]</code> [then] you just evaluate <code>first[0]</code> for each element in the people array, and because indexing is not defined for strings, the final result would be an empty array, <code>[]</code>. To accomplish the desired result, you can use a pipe expression, <code><var>expression</var> | <var>expression</var></code>, to indicate that a projection must stop. This is shown in the example below.</p>
+        <p>We shall run:</p>
+        <pre>people[*].first | [0]</pre>
+        <p>on</p>
+        <pre>{
+  "people": [
+    {"first": "James", "last": "d"},
+    {"first": "Jacob", "last": "e"},
+    {"first": "Jayden", "last": "f"},
+    {"missing": "different"}
+  ],
+  "foo": {"bar": "baz"}
+}</pre>
+        <p>to obtain:</p>
+        <pre>"James"</pre>
+        <p>In the example above, the RHS of the list projection is first. When a pipe is encountered, the result up to that point is passed to the RHS of the pipe expression. The pipe expression is evaluated as:</p>
+        <pre>evaluate(people[*].first, inputData) -> ["James", "Jacob", "Jayden"]
+evaluate([0], ["James", "Jacob", "Jayden"]) -> "James"</pre>
+      </section>
+
+      <section id="multiselect">
+        <h2>MultiSelect</h2>
+        <p>Up to this point, we’ve looked at JMESPath expressions that help to pare down a JSON document into just the elements you’re interested in. This next concept, multiselect lists and multiselect hashes allow you to create JSON elements. This allows you to create elements that don’t exist in a JSON document. A <a href="#multiselect.list">multiselect list</a> creates a list and a <a href="#multiselect.hash">multiselect hash</a> creates a JSON object.</p>
+        <section id="multiselect.list">
+          <h3>MultiSelect List (Array)</h3>
+          <p>This is an example of a multiselect list. Applying:</p>
+          <pre>people[].[name, state.name]</pre>
+          <p>on</p>
+          <pre>{
+  "people": [
+    {
+      "name": "a",
+      "state": {"name": "up"}
+    },
+    {
+      "name": "b",
+      "state": {"name": "down"}
+    },
+    {
+      "name": "c",
+      "state": {"name": "up"}
+    }
+  ]
+}</pre>
+          <p>yields result:</p>
+          <pre>[
+  [
+    "a",
+    "up"
+  ],
+  [
+    "b",
+    "down"
+  ],
+  [
+    "c",
+    "up"
+  ]
+]</pre>
+
+          <p>In the expression above, the <code>[name, state.name]</code> portion is a multiselect list. It says to create a list of two element, the first element is the result of evaluating the name expression against the list element, and the second element is the result of evaluating <var>state.name</var>. Each list element will therefore create a two element list, and the final result of the entire expression is a list of two element lists.</p>
+          <p>Unlike a projection, the result of the expression is always included, even if the result is a null. If you change the above expression to <code>people[].[foo, bar]</code> each two element list will be <code>[null, null]</code>.</p>
+        </section>
+
+        <section id="multiselect.hash">
+          <h3>MultiSelect Hash/Object</h3>
+          <p>A <strong>multiselect hash</strong> has the same basic idea as a multiselect list, except it instead creates a hash/object instead of an array. Using the same example above, if we instead wanted to create a two element hash that had two keys, <var>Name</var> and <var>State</var>, we could use this:</p>
+          <pre>people[].{Name: name, State: state.name}</pre>
+          <p>and get:</p>
+          <pre>[
+  {
+    "Name": "a",
+    "State": "up"
+  },
+  {
+    "Name": "b",
+    "State": "down"
+  },
+  {
+    "Name": "c",
+    "State": "up"
+  }
+]</pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
+        <!--
+        <section>
+          <h3>*</h3>
+        </section>
+        -->
+      </section>
+
+      <!--
+      <section id="">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+      </section>
+
+      <section id="">
+        <h2>*</h2>
+        <p></p>
+        <pre></pre>
+        <p></p>
+        <pre></pre>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+        <section>
+          <h3>*</h3>
+        </section>
+      </section>
+      -->
+
+    </main>
+
+  </body>
+
+</html>

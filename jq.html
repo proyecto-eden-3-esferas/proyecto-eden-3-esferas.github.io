@@ -56,6 +56,110 @@
         <p><a href="#appendix">Appendix</a></p>
       </nav>
 
+      <section id="filters">
+        <h2>Filters</h2>
+        <p>A <code>jq</code> program is a <q>filter</q>, or a chain of filters: it takes an input, and produces an output.</p>
+        <p>There are a lot of builtin filters for extracting a particular field of an object, or converting a number to a string, or various other standard tasks.</p>
+
+        <p>Filters are freely combined by piping (<code>|</code>) the output of one filter into another filter, or by collecting the output of a filter into an array.</p>
+
+        <p>Some  filters  produce  multiple results, for instance there´s one that produces all the elements of its input array. Piping that filter into a second runs the second filter for each element of the array. Generally, things that would be done with loops and iteration in other languages are just done by gluing filters together in <code>jq</code>.</p>
+
+        <p>It´s  important to remember that every filter has an input and an output. Even literals like <code>"hello"</code> or <code>42</code> are filters - they take an input but always produce the same literal as output. Operations that combine two filters, like  addition, generally feed the same input to both and combine the results. So, you can implement an averaging filter as <code>add / length</code> - feeding the input array both to the add filter and the length filter and then performing the division.</p>
+
+        <p><code>jq</code> filters run on a stream of JSON data. The input to <code>jq</code> is parsed as a sequence of whitespace-separated JSON values which are passed through the provided filter one at a time. The output(s) of the filter are written to standard output, as a sequence of newline-separated JSON data.</p>
+
+        <section>
+          <h3>The Identity (<code>.</code>)</h3>
+          <p>The  simplest  and most common filter (or jq program) is <code>.</code>, which is the <strong>identity operator</strong>, copying the inputs of the jq processor to the output stream. Because the default behavior of the <code>jq</code> processor is to read JSON texts from the input stream, and to pretty-print outputs, the <code>.</code> program´s main use is to validate and <a href="#prettify">pretty-print</a> the inputs.</p>
+        </section>
+
+        <section>
+          <h3>Object Identifier-Index: <code>.<var>field</var></code>, <code>.<field>foo</field>.<field>bar</field></code></h3>
+          <p>The simplest useful filter has the form <code>.<var>field</var></code>. When given a JSON object (aka dictionary or hash) as input, <code>.<var>field</var></code> produces the value at the key <var>field</var> if the key is present, or null otherwise.</p>
+          <hr/>
+          <p>A filter of the form <code>.foo.bar</code> is equivalent to <code>.foo | .bar</code>. That is, the value of each <var>foo</var> is expected to be an object and to have a field named <var>bar</var>, which we access or output.</p>
+          <p>Here are two examples:</p>
+          <pre>jq ´.foo´
+{"foo": 42, "bar": "less interesting data"}
+=> 42
+
+jq ´.foo´
+{"notfoo": true, "alsonotfoo": false}
+=> null</pre>
+
+          <hr/>
+
+          <p>The <code>.foo</code> syntax only works for simple, identifier-like keys, that is, keys that are all made  of  alphanumeric characters and underscore, and which do not start with a digit. If the key contains special characters or starts with a digit, you need to surround it with double quotes like this: <code>."foo$"</code>, or else <code>.["foo$"]</code>.</p>
+          <p>For example <code>.["foo::bar"]</code> and <code>.["foo.bar"]</code> are O.K. while <code>.foo::bar</code> is not.</p>
+          <p>An example:</p>
+          <pre>jq ´.["foo"]´
+{"foo": 42}
+=> 42</pre>
+        </section>
+
+        <section>
+          <h3>Optional Object Identifier-Index: <code>.foo?</code></h3>
+          <p>Just like <code>.foo</code>, but does not output an error when . is not an object.</p>
+          <p>Some examples:</p>
+          <pre>jq ´.foo?´
+   {"foo": 42, "bar": "less interesting data"}
+=> 42
+
+jq ´.foo?´
+   {"notfoo": true, "alsonotfoo": false}
+=> null
+
+jq ´.["foo"]?´
+   {"foo": 42}
+=> 42
+
+jq ´[.foo?]´
+   [1,2]
+=> []</pre>
+        </section>
+
+        <section>
+          <h3>Array Index: <code>.[<var>number</var>]</code></h3>
+          <p>When the index value is an integer, <code>.[<var>number</var>]</code> can index arrays. Arrays are zero-based, so <code>.[2]</code> returns the third element.</p>
+          <p>Negative indices are allowed, with <code>-1</code> referring to the last element, <code>-2</code> referring to the next to last element, and so on.</p>
+          <p>Some examples:</p>
+          <pre>jq ´.[0]´
+   [{"name":"JSON", "good":true}, {"name":"XML", "good":false}]
+=> {"name":"JSON", "good":true}
+
+jq ´.[2]´
+   [{"name":"JSON", "good":true}, {"name":"XML", "good":false}]
+=> null
+
+jq ´.[-2]´
+   [1,2,3]
+=> 2</pre>
+        </section>
+
+        <section>
+          <h3>Object Index: <code>.[<var>string</var>]</code></h3>
+          <p>You can also look up fields of an object using syntax like <code>.["foo"]</code> (<code>.foo</code> above is a shorthand version of this, but only for identifier-like strings).</p>
+        </section>
+
+        <!--
+        <section>
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+
+      </section>
+
       <section id="prettify">
         <h2>Prettify JSON</h2>
         <p>Let&apos;s start by taking a look at the simplest filter of all, which incidentally is one of the most useful and frequently used features of <code>jq</code>:</p>
@@ -361,7 +465,7 @@
           <h3><code>recurse(<var>f</var>)</code>, <code>recurse</code>, <code>recurse(<var>f</var>; <var>condition</var>)</code></h3>
           <p>The <code>recurse(<var>f</var>)</code> function allows you to search through a recursive structure, and extract interesting data from all levels. Suppose your input represents a filesystem:</p>
           <pre>{"name": "/", "children": [
-             {"name": "/bin", "children": [
+  {"name": "/bin", "children": [
     {"name": "/bin/ls", "children": []},
     {"name": "/bin/sh", "children": []}]},
   {"name": "/home", "children": [
@@ -390,8 +494,8 @@
           <p>In practice, <var>f</var> will usually test the type of its input, as illustrated in the following examples.</p>
           <p>The first example highlights the usefulness of processing the elements of an array of arrays before processing the array itself.</p>
           <pre>jq ´walk(if type == "array" then sort else . end)´
-              [[4, 1, 7], [8, 5, 2], [3, 6, 9]]
-           => [[1,4,7],[2,5,8],[3,6,9]]</pre>
+   [[4, 1, 7], [8, 5, 2], [3, 6, 9]]
+=> [[1,4,7],[2,5,8],[3,6,9]]</pre>
 
           <p>The second example shows how all the keys of all the objects within the input can be considered for alteration.</p>
           <pre>jq ´walk( if type == "object" then with_entries( .key |= sub( "^_+"; "") ) else . end )´

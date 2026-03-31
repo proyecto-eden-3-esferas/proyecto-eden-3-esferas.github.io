@@ -1,3 +1,13 @@
+
+Hola, Francisco, este es el documento que firmamos. Además, cuando puse el anuncio en Badi e Idealista, incluí un resumen de las mismas.
+
+Según Chati:
+
+Algunas de las plataformas más populares en España para buscar alquiler de piso compartido son Badi, Roomgo, PisoCompartido.com, Idealista y Fotocasa. Badi y Roomgo se centran mucho en la compatibilidad entre compañeros, mientras que Idealista y Fotocasa son portales más amplios, aunque también tienen secciones de habitaciones
+
+*******************
+
+
 [x] Escribir a J J V aiganjuegos@gmail.com
 
 [ ] https://www.fluentcpp.com/2018/02/09/introduction-ranges-library/

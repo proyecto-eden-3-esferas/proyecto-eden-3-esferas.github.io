@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tail-Recursive Functions</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Tail-Recursive Functions"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
+      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
+      -->
+      <div>
+        <p><a rel="next" href="algorithms.html">Algorithms</a></p>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a            href="computing.html">Computing</a></p>
+      </div>
+      <div>
+        <p><a href="c.html">The C Programming Language</a></p>
+        <p><a href="cpp.html">The C++ Programming Language</a></p>
+        <p><a href="js.html">JavaScript</a></p>
+      </div>
+      <div>
+        <p><a href="prolog.html">Prolog: Symbolic Programming or <i>Programation Logique</i></a></p>
+        <p><a href="lisp.html">Lisp: The LISt Processing Language</a></p>
+      </div>
+      <div style="border: indianred; background-color: khaki;">
+        <p><a href="programacion.html">Programación <i lang="es">(castellano)</i></a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Tail-Recursive Functions</h1>
+      <p>A <dfn>tail-recursive</dfn> function is a recursive function in which the recursive call is the last statement that is executed by the function. So basically nothing is left to execute after the recursion call.</p>
+
+      <p>An example in <a target="_blank" href="cpp.html">C++</a></p>
+      <pre>// An example of tail recursive function:
+
+static void print(int n)
+{
+    if (n &lt; 0)
+        return;
+    cout &lt;&lt; " " &lt;&lt; n;
+
+    // The last executed statement is a recursive call:
+    print(n - 1);
+}</pre>
+
+      <p>An example in <a target="_blank" href="js.html">JavaScript</a></p>
+      <pre>function prints(n) {
+    if (n &lt; 0) {
+        return;
+    }
+    console.log(n);
+
+    // The last executed statement
+    // is recursive call
+    prints(n - 1);
+}</pre>
+
+
+      <section id="optimization">
+        <h2>Optimization of Tail-Recursive Functions</h2>
+        <p>Tail-recursive functions are better than non-tail-recursive ones because they can be optimized by the compiler.</p>
+        <p>The idea used by compilers to optimize tail-recursive functions is simple. Since the recursive call is the last statement, there is nothing left to do in the current function, so creating another stack frame for the current function can be avoided by simply sending the control back to the beginning of the function either using a loop or goto statement.(See this for more details)</p>
+      </section>
+
+      <section id="feasability">
+        <h2>Can a non-tail-recursive function be written as tail-recursive to optimize it?</h2>
+        <p>Consider the following function to calculate the factorial of <var>n</var>.</p>
+        <p>It is a non-tail-recursive function. Although it looks like a tail recursive at first look. If we take a closer look, we can see that the value returned by <code>fact(<var>n</var> - 1)</code> is used in <code>fact(<var>n</var>)</code>. So the call to <code>fact(<var>n</var>-1)</code> is not the last thing done by <code>fact(<var>n</var>)</code>.</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
+
+// Non-tail-recursive factorial function
+unsigned int fact(unsigned int n)
+{
+    if (n &lt;= 0)
+        return 1;
+
+    // Recursive call is not the last operation
+    return n * fact(n - 1);
+}
+
+int main()
+{
+    // Testing the factorial function
+    cout &lt;&lt; fact(5);
+    return 0;
+}</pre>
+
+        <p>The above function can be written as a tail-recursive function. The idea is to use one more argument and accumulate the factorial value in the second argument. When <var>n</var> reaches 0, return the accumulated value.</p>
+        <pre>#include &lt;iostream&gt;
+using namespace std;
+
+// A tail recursive function to calculate factorial
+unsigned factTR(unsigned int n, unsigned int a)
+{
+    if (n &lt;= 1)
+        return a;
+
+    return factTR(n - 1, n * a);
+}
+
+// A wrapper over factTR
+unsigned int fact(unsigned int n) { return factTR(n, 1); }
+
+// Driver program to test above function
+int main()
+{
+    cout &lt;&lt; fact(5);
+    return 0;
+}</pre>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
