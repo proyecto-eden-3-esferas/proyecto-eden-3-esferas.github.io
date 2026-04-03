@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ontologies</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Ontologies: a Tool for Knowledge Representation"/>
+    <!--
+    <meta name="author" content="AUTHOR"/>
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <!--
+      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
+          <p><a href="FromWeb1.0ToTheSemanticWeb.html">From Web 1.0 to the Semantic Web</a></p>
+          <p><a href="TheFourRulesApplied.html">The Four Rules Applied</a></p> <del>in "LinkedData.html"
+      -->
+        <div>
+          <p><a rel="prev" href="Ontologies.html">Ontologies: a Tool for Knowledge Representation</a></p>
+          <p><a href="LinkedData.html">Linked Data</a></p>
+          <p><a href="LimitationsOfOntologies.html">Limitations of Ontologies</a></p>
+          <p><a href="SemanticWeb.html">The Semantic Web</a></p>
+        </div>
+        <div>
+          <p><a href="UniqueNameAssumption.html">Unique Name Assumption</a></p>
+          <p><a href="OpenWorldAssumption.html">The Open World Assumption</a></p>
+        </div>
+        <div>
+          <p><a href="OWLandOntologyModelling.html">The OWL Standard and Ontology Modelling</a></p>
+        </div>
+    </nav>
+    <main>
+      <h1>Ontology and Information Systems</h1>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://plato.stanford.edu/entries/ontology-is/">https://plato.stanford.edu/entries/ontology-is/</a></cite>, First published Sat Jan 3, 2026)</p>
+      <p>When two agents communicate they must have some significant body of shared understanding about the meaning of the symbols they use. Humans have attempted to codify some of those shared meanings in dictionaries. In the computer and information sciences we face the challenge of how to enable machines to share at least some of the catalog of the symbols humans use and what they mean. In dealing with machines one must rely on mathematics to state meaning rather than relying on the experience and intuitions of the communicating agents. Ontology (in information systems) is the field that attempts to create shared meanings of symbols. Different practitioners in the field may decide to create different lists of symbols with different definitions.</p>
+      <p>A motivation for the development of ontology as a discipline has been a common issue in software development, where the use of symbols in computer code by different programmers can change over time, causing unintended performance in a system. This issue motivated efforts to catalog, standardize and reuse concepts, recorded as a set of labels and definitions. Establishing an ontology helps to avoid <strong>concept drift</strong> <!--(Magne 2017; Lu et al. 2019; Pancha 2016) -->and supports the interoperability of computer software systems.</p>
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>In information and computer science the study of ontology is about how to define or describe the things that are (including imagined or possible things) for the purpose of some process of computation on a computer. In philosophy, the field of ontology is often described as <q>the study of what there is</q> (<i>see</i> the entries on <a target="_blank" href="https://plato.stanford.edu/entries/social-ontology/">social ontology</a>, <a target="_blank" href="https://plato.stanford.edu/entries/logic-ontology/">logic ontology</a> and <a target="_blank" href="">natural language ontology</a>). A philosophical ontology will thus purport to identify the fundamental constituents of reality, the categories they fall into, and the relations they stand in to one another. Ontology in computer and information science shares with philosophy that it includes a study of categories (<i>see</i> the entry on <a target="_blank" href="https://plato.stanford.edu/entries/categories/">categories</a>) but with a practical focus on recording an inventory of categories in a formal syntax and often with some formal semantics. Some individual information science ontologies are also concerned with a formal specification of the definitions of those categories. Ontology as a field in computer and information science is also reasonably characterized as the study of what there is, but not necessarily of what ultimately exists, rather of what is assumed to exist in some relevant domain for some computational purpose. A computer scientist is less concerned about the metaphysical status of categories – such as whether they actually exist or are just human constructs – than with their practical use in computation. In computer and information science, an ontology may also catalogue individuals and relationships, in addition to categories.</p>
+        <p>One popular description of an ontology in computer science is <q>a specification of a conceptualization</q> (Gruber 1993). But this requires an explanation of of what a specification is and what a conceptualization is. A <dfn>conceptualization</dfn> is a way to understand the structure of a particular concept by considering both its relationship to other concepts and the principles that may govern it. So a conceptualization includes a way to understand how a concept differentiates the objects falling under it (whether abstract or concrete), from other things. Historically, a way of understanding a concept would be expressible in a human language as an entry in a dictionary or encyclopedia. Concepts are often labeled using single words or phrases and since they are the meanings of those words and phrases, they are not part of the syntax. Different human languages use different symbols but can express the same concepts, although whether one can have truly exact translations is a subject of some debate<!-- (Levine &amp; Lateef-Jan 2017)-->. Words are one method of reference (<i>see</i> the entry on <a target="_blank" href="https://plato.stanford.edu/entries/reference/">reference</a>). We hope that when we use a proper noun like <q>Mount Kilimanjaro</q> that the listener will have enough common information associated with the words that the desired information is communicated. But with more abstract concepts such as <q>object</q> or <q>beauty</q> this is more problematic. Once a concept is expressed in some way for communication then we can examine what it means to be a <strong>specification</strong>. If we do not rely on human intuition about the intended meaning of a word or words, or even on the process of human clarification dialogues, then we must have some other way of recording ideas or thoughts.</p>
+        <p>Since its adoption in the computer science community, the word <q>ontology</q> has become broader in usage. Collections of words with natural language definitions have been labeled as an ontology, even though we could call them glossaries and not have to resort to adopting this new word for something that already has an older label. Other approaches to specifying an ontology include use of taxonomy languages<!-- (Dallwitz 1980)--> or Unified Modeling Language (<cite>UML</cite>, Rumbaugh, Jacobson, &amp; Booch 2004). Others have treated a graph of concept names and binary relationships to be sufficient for a specification, such as what is found in semantic networks<!-- (Woods 1975)--> or knowledge graphs (which might be stated in Resource Description Framework<!-- (RDF: <i>see</i> the link to RDF in Other Internet Resources below)-->, or a graph database<!-- (Kaliyar 2015))-->. Description logics<!-- (Baader, Calvanese, McGuinness, Nardi, &amp; Patel-Schneider 2007)--> are a popular choice for specification of an ontology. At its most formal, a specification can be a set of formulas in an expressive mathematical logic such as first-order logic<!-- (Enderton 1972)-->, modal logic or higher-order logic (<i>see</i> the entries on <a target="_blank" href="https://plato.stanford.edu/entries/reference/">modal logic</a> and <a target="_blank" href="https://plato.stanford.edu/entries/logic-modal/">higher-order logic</a>).</p>
+        <hr/>
+        <p>Two of the most important motivations for constructing an ontology are that (i) it can help to prevent concept drift and (ii) it supports the interoperability of systems. Regarding the first of these, a common issue in software development is that the use of strings of symbols in computer code by different programmers can change over time, causing unintended performance in a system. An ontology standardizes and reuses concepts, thereby preventing a concept expressed by a string within a given body of code at one time from drifting into use as another, different concept at a later time.</p>
+      </section>
+      <section>
+        <h2>Interoperability</h2>
+        <p>Regarding interoperability, note first that the kind of ontology one creates will, at least in part, be driven by its intended uses. Broadly, there are three categories of use, ultimately leading to a computational implementation, which may all be present in some application:</p>
+        <ol>
+          <li>communication among people,</li>
+          <li>communication among machines or between people and machines, and</li>
+          <li>computation.</li>
+        </ol>
+        <p>In (1) the ontology is used to align the terminology and understanding of that terminology among developers of a computational system. There may be no exact transfer of the set of labels or definitions into any formal computational system. An ontology that exists to facilitate understanding among humans may rely on intuitions about concepts based on their names, as well as natural language definitions. Grounding the meaning of specialized terms in a glossary can help to eliminate some interpretations, for example, misunderstandings based on word polysemy.</p>
+        <p>In (2) the set of labels used in a computational system forms a standard that people and software systems adhere to. The people who develop the computational system agree on the set of symbols to be used and agree on some set of definitions which are at least partly given in natural language and require human intelligence to interpret.</p>
+        <p>In (3) there is a fully computational representation of a set of concepts, in which the intended meaning of a set of symbols is fully specified in a computational form, such as a computationally implemented mathematical logic. People may still have intuitions about concepts which are not fully captured in the logical language, but that would be considered a bug or omission to be rectified.</p>
+        <p>This classification of an ontology with respect to these three categories is a framework for understanding the usage of an ontology rather than a mutually exclusive and rigid set. One might for example have an ontology strictly implemented in a computational mathematical logic as a way for people to adjudicate disagreements about terminology, rather than to govern the behavior of a software system.</p>
+      </section>
+      <section>
+        <h2>Domain Ontology and Upper Ontology</h2>
+        <p>An <dfn>upper ontology</dfn> is a collection of concepts that are not specific to any application domain. The determination of whether a concept belongs in an upper ontology or not is not an objective decision, except relative to other terms in the same ontology. Some upper ontologies aim to be minimal, containing only a small number of the most general concepts, and others include larger collections from the most general to the more specific. Many domain ontologies are created as extensions of upper ontologies. An upper ontology starts with a category of all things and then elaborates, adding categories (and sometimes, definitions) for physical and abstract things, relations and functions etc. But the boundary of where upper ontology becomes domain ontology is arbitrary. A domain ontology would not have a decomposition of categories starting from the class of all things, but many domain ontologies that do not extend an upper ontology still will require a few very general categories, such as the notion of a physical object or a process.</p>
+        <p>What counts as a domain is an issue of perspective, and is relative to the practitioner’s objectives. A particular application for preventing negative drug interactions<!-- (Zhao, Yin, Zhang, Zhang, &amp; Chen 2023)--> might have few concepts relating to drug chemistry, while an application to support drug synthesis might have no concept of a drug interaction. However, a more general ontology about drugs might have both those concepts and more, but possibly a less extensive catalog of drugs.</p>
+        <p>There are vastly more domain ontologies in existence than upper ontologies<!-- (see the links to ontologies in the Other Internet Resources section below)-->.</p>
+      </section>
+    </main>
+
+  </body>
+
+</html>

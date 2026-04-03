@@ -1,3 +1,63 @@
+http://localhost:5984/_utils/docs/api/database/find.html
+http://localhost:5984/_utils/docs/api/database/find.html#find-sort
+https://www.britannica.com/science/nervous-system/Types-of-neuroglia at "Neuroglial functions"
+go to *cells.array.json* and fill in
+```
+{
+  "term": "neuroglia",
+  ...
+  "functions": [ ...]
+}
+```
+
+https://www.britannica.com/science/nervous-system/Axon
+
+# Competencias
+
+Hace tiempo leí quejarse a uno de que la Informática era la única ingeniería sin competencias.
+
+De modo que estudiar una ingeniería va de adquirir unas <q>competencias</q>, es decir unos derechos.
+
+# Tecnología: eficacia, eficiencia y seguridad
+
+Las tecnologías premodernas eran eficaces que eficientes en el sentido de que conseguían resolver muchos de los actuales problemas solubles de una manera mucho menos eficiente. Por ejemplo había coches y neveras, pero consumían más energía o contaminaban más.
+
+El Estado no debería legislar sobre la eficiencia con que los agentes privados (ya sean personales o institucionales) aplican la tecnología, salvo en el caso de la contaminación o deterioro del medio ambiente en general, lo cuál en realidad constituye un problema de seguridad, no de eficiencia.
+
+
+# Hacks
+
+<a>karma técnico</a>
+
+En general encontramos tres tipos de problemas o retos (con respecto a su solubilidad):
+- Insolubles: no nos interesan dado que no podemos
+- Caros de resolver: probablemente necesitemos la colaboración de varios expertos y/o la adquisición de maquinaria especializada cara (ejemplo: fabricar una tarjeta de sonido o poner un satélite en órbita)
+- Baratos: cualquiera con un mínimo de interés (ej. coser, autoconstrucción...)
+
+## Soluciones baratas
+- impresora 3-D
+- cortadoras láser
+- taladros de columna
+
+## La expansión de la frontera de lo barato
+
+## La contención de la frontera de lo barato
+
+## Soluciones
+
+
+
+
+Dios Creador: las Tres Intervenciones
+1. Entropía
+2. Combinaciones complejas
+3. La mente
+
+Dios Garante del Karma/Obras
+
+Dios Personal (a Quien Rezar)
+
+*******************
 
 Hola, Francisco, este es el documento que firmamos. Además, cuando puse el anuncio en Badi e Idealista, incluí un resumen de las mismas.
 

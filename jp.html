@@ -318,14 +318,6 @@ evaluate([0], ["James", "Jacob", "Jayden"]) -> "James"</pre>
     "State": "up"
   }
 ]</pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
         </section>
 
         <!--
@@ -335,27 +327,197 @@ evaluate([0], ["James", "Jacob", "Jayden"]) -> "James"</pre>
         -->
       </section>
 
-      <!--
-      <section id="">
-        <h2>*</h2>
-        <p></p>
-        <pre></pre>
-        <p></p>
-        <pre></pre>
-        <section>
-          <h3>*</h3>
+      <section id="examples">
+        <h2>JMESPath Examples¶</h2>
+        <section id="examples.filters-and-multiselect-lists">
+          <h3>Filters and Multiselect Lists</h3>
+          <p>One of the most common usage scenarios for JMESPath is being able to take a complex JSON document and simplify it down. The main features at work here are filters and multiselects. In this example below, we’re taking the array of people and, for any element with an age key whose value is greater than 20, we’re creating a sub list of the name and age values.</p>
+          <pre>people[?age > `20`].[name, age] </pre>
         </section>
-        <section>
-          <h3>*</h3>
+        <section id="examples.filters-and-multiselect-hashes">
+          <h3>Filters and Multiselect Hashes</h3>
+          <p>In the previous example we were taking an array of hashes, and simplifying down to an array of two element arrays containing a name and an age. We’re also only including list elements where the age key is greater than 20. If instead we want to create the same hash structure but only include the <var>age</var> and <var>name</var> key, we can instead say:</p>
+          <pre>people[?age > `20`].{name: name, age: age}</pre>
+          <p>The last half of the above expression contains key value pairs which have the general form <code><var>keyname</var>: <var>expression</var></code>. In the above expression we’re just using a field as an expression, but they can be more advanced expressions. For example:</p>
+          <pre>people[*].{name: name, tags: tags[0]}</pre>
+          <p>Notice in the above example instead of applying a filter expression <code>([? <var>expr</var> ])</code>, we’re selecting all array elements via <code>[*]</code>.</p>
         </section>
-        <section>
-          <h3>*</h3>
+        <section id="examples.nested-data">
+          <h3>Working with Nested Data</h3>
+          <pre>reservations[].instances[].[tags[?Key=='Name'].Values[] | [0], type, state.name] </pre>
+          <p>The above example combines several JMESPath features including the flatten operator, multiselect lists, filters, and pipes.</p>
+          <p>The input data contains a top level key, “reservations”, which is a list. Within each list, there is an “instances” key, which is also a list.</p>
+          <p>The first thing we’re doing here is creating a single list from multiple lists of instances. By using the Flatten Operator we can take the two instances from the first list and the two instances from the second list, and combine them into a single list. Try changing the above expression to just <code>reservations[].instances[]</code> to see what this flattened list looks like. Everything to the right of the <code>reservations[].instances[]</code> is about taking the flattened list and paring it down to contain only the data that we want. This expression is taking each element in the original list and transforming it into a three element sublist. The three elements are:</p>
+          <ul>
+            <li>In the <var>tags</var> list, select the first element in the flattened Values list whose <var>Key</var> has a value of <q>Name</q>.</li>
+            <li>The type</li>
+            <li>The <var>state.name</var> of each instance.</li>
+          </ul>
+
+          <p>The most interesting of those three expressions is the <code>tags[?Key=='Name'].Values[] | [0] part</code>. Let’s examine that further.</p>
+          <p>The first thing to notice is that we’re filtering down the list associated with the <var>tags</var> key. Expression <code>tags[?Key=='Name']</code> tells us to only include list elements that contain a <var>Key</var> whose value is <q>Name</q>. From those filtered list elements we’re going to take the <var>Values</var> key and flatten the list. Finally, the <code> | [0]</code> part will take the entire list and extract the 0th element.</p>
         </section>
-        <section>
-          <h3>*</h3>
+        <section id="examples.filtering-and-selecting-nested-data">
+          <h3>Filtering and Selecting Nested Data</h3>
+          <p>In this example, we’re going to look at how you can filter nested hashes.</p>
+          <pre>people[?general.id==`100`].general | [0]</pre>
+          <p>In this example we’re searching through the <var>people</var> array. Each element in this array contains a hash of two elements, and each value in the hash is itself a hash. We’re trying to retrieve the value of the general key that contains an <var>id</var> key with a value of 100.</p>
+          <p>If we just had the expression people[?general.id==`100`], we’d have the result:</p>
+          <pre>[{
+  "general": {
+    "id": 100,
+    "age": 20,
+    "other": "foo",
+    "name": "Bob"
+  },
+  "history": {
+    "first_login": "2014-01-01",
+    "last_login": "2014-01-02"
+  }
+}]</pre>
+          <p>Let’s walk through how we arrived at this result. In words, the <code>people[?general.id==`100`]</code> expression is saying <q>for each element in the people array, select the elements where <var>general.id</var> equals 100</q>. If we trace the execution of this filtering process we have:</p>
+          <pre># First element:
+    {
+      "general": {
+        "id": 100,
+        "age": 20,
+        "other": "foo",
+        "name": "Bob"
+      },
+      "history": {
+        "first_login": "2014-01-01",
+        "last_login": "2014-01-02"
+      }
+    },
+# Applying the expression ``general.id`` to this hash::
+    100
+# Does 100==100?
+    true
+# Add this first element (in its entirety) to the result list.
+
+# Second element:
+    {
+      "general": {
+        "id": 101,
+        "age": 30,
+        "other": "bar",
+        "name": "Bill"
+      },
+      "history": {
+        "first_login": "2014-05-01",
+        "last_login": "2014-05-02"
+      }
+    }
+
+# Applying the expression ``general.id`` to this element::
+    101
+# Does 101==100?
+    false
+# Do not add this element to the results list.</pre>
+          <p>However, this still isn’t the final value we want which is:</p>
+          <pre>{
+  "id": 100,
+  "age": 20,
+  "other": "foo",
+  "name": "Bob"
+}</pre>
+          <p>In order to get to this value from our filtered results we need to first select the general key. This gives us a list of just the values of the general hash:</p>
+          <pre>[{
+  "id": 100,
+  "age": 20,
+  "other": "foo",
+  "name": "Bob"
+}]</pre>
+          <p>From there, we use a pipe (<code>|</code>) to stop projections so that we can finally select the first element ([0]). Note that we are making the assumption that there’s only one hash that contains an id of 100.</p>
+
+          <hr/>
+
+          <p>Finally, it’s worth mentioning there is more than one way to write this expression. In this example we’ve decided that after we filter the list we’re going to select the value of the general key and then select the first element in that list. We could also reverse the order of those operations, we could have taken the filtered list, selected the first element, and then extracted the value associated with the general key. That expression would be:</p>
+          <pre>people[?general.id==`100`] | [0].general</pre>
+          <p>Both versions are equally valid.</p>
         </section>
+
+        <section id="examples.functions">
+          <h3>Using Functions</h3>
+          <p>JMESPath functions give you a lot of power and flexibility when working with JMESPath expressions. Below are some common expressions and functions used in JMESPath.</p>
+          <section id="examples.sort_by">
+            <h4>sort_by</h4>
+            <pre>sort_by(Contents, &amp;Date)[*].{Key: Key, Size: Size}</pre>
+            <p>The first interesting thing here if the use of the function <code>sort_by</code>. In this example we are sorting the <var>Contents</var> array by the value of each <var>Date</var> key in each element in the <var>Contents</var> array. The <code>sort_by</code> function takes two arguments. The first argument is an array, and the second argument describes the key that should be used to sort the array.</p>
+            <p>The second interesting thing in this expression is that the second argument starts with &amp;, which creates an expression type. Think of this conceptually as a reference to an expression that can be evaluated later. If you are familiar with lambda and anonymous functions, expression types are similiar. The reason we use <code>&amp;Date</code> instead of <code>Date</code> is because if the expression is <code>Date</code>, it would be evaluated before calling the function, and given there’s no <code>Date</code> key in the outer hash, the second argument would evaluate to <code>null</code>. Check out <cite>Function Evaluation</cite> in the specification for more information on how functions are evaluated in JMESPath. Also, note that we’re taking advantage of the fact that the dates are in <a target="_blank" href="ISO-8601.html">ISO 8601</a> format, which can be sorted lexicographically.</p>
+            <p>And finally, the last interesting thing in this expression is the <code>[*]</code> immediately after the <code>sort_by</code> function call. The reason for this is that we want to apply the multiselect hash, the second half of the expression, to each element in the sorted array. In order to do this we need a projection. The <code>[*]</code> does exactly that, it takes the input array and creates a projection such that the multiselect hash {Key: Key, Size: Size} will be applied to each element in the list.</p>
+            <hr/>
+            <p>There are other functions that take expression types that are similar to sort_by including <code>min_by</code> and <code>max_by</code>.</p>
+          </section>
+          <!--
+          <section id="examples.">
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          <section id="examples.">
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+            <p></p>
+            <pre></pre>
+          </section>
+          -->
+        </section>
+
+        <section id="examples.pipes">
+          <h3>Examples using Pipes</h3>
+          <p>Pipe expression are useful for stopping projections. They can also be used to group expressions.</p>
+          <p>Let’s look at a modified version of the expression on the JMESPath front page.</p>
+          <pre>locations[?state == 'WA'].name | sort(@)[-2:] | {WashingtonCities: join(', ', @)} </pre>
+          <p>When applied to</p>
+          <pre>{
+  "locations": [
+    {"name": "Seattle", "state": "WA"},
+    {"name": "New York", "state": "NY"},
+    {"name": "Bellevue", "state": "WA"},
+    {"name": "Olympia", "state": "WA"}
+  ]
+}</pre>
+          <p>we get:</p>
+          <pre>{
+  "WashingtonCities": "Olympia, Seattle"
+}</pre>
+          <hr/>
+          <p>We can think of this JMESPath expression as having three components, each separated by the pipe character (<code>|</code>). The first expression is familiar to us, it’s similar to the previous example. The second part of the expression, <code>sort(@)</code>, is similar to the <code>sort_by</code> function we saw in the previous section. The <code>@</code> token is used to refer to the current element. The sort function takes a single parameter which is an array. If the input JSON document was a hash, and we wanted to sort the <var>foo</var> key, which was an array, we could just use <code>sort(foo)</code>. In this scenario, the input JSON document is the array we want to sort. To refer to this value, we use the current element, <code>@</code>, to indicate this. We’re also only taking a subset of the sorted array. We’re using a slice <code>([-2:])</code> to indicate that we only want the last two elements in the sorted array to be passed through to the final third of this expression.</p>
+          <p>And finally, the third part of the expression, <code>{WashingtonCities: join(', ', @)}</code>, creates a multiselect hash. It takes as input, the list of sorted city names, and produces a hash with a single key, <var>WashingtonCities</var>, whose values are the input list (denoted by <code>@</code>) as a string separated by a comma.</p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+
       </section>
 
+      <!--
       <section id="">
         <h2>*</h2>
         <p></p>

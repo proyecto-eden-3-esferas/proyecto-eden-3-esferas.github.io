@@ -49,6 +49,26 @@
 
       <p>[...]</p>
 
+      <section id="repairing">
+        <h2>Repairing Linux Partitions</h2>
+        <section>
+          <h3>Short read while trying to open partition</h3>
+          <p>If e2fsck fails to write the main superblock If the superblock got corrupted because it's on a bad sector e2fsck will finish the run, attempt to update the superblock, and give you the following error message:</p>
+          <p><code>fsck.ext4 -fy /dev/sdb3</code> complains:</p>
+          <pre>Error writing block 1 (Attempt to write block from filesystem resulted in short write)</pre>
+          <p>Obviously, the main superblock isn't updated and the whole e2fsck run is in vain.</p>
+          <p>So I run <code>sudo mke2fs -n /dev/sdb3</code> to find out where the superblocks <em>would have been</em> written, as the <code>-n</code> switch prevents any actual writing.</p>
+          <p>This is what I get:</p>
+          <pre>Superblock backups stored on blocks:
+  32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+  4096000, 7962624, 11239424, 20480000, 23887872</pre>
+          <p>Next, I pick one position (the first) and run:</p>
+          <pre>sudo fsck.ext4 -yf -b 32768 /dev/sdb3</pre>
+          <p>Alternatively, I might have run:</p>
+          <pre>mount -o sb=32768 /dev/sdb3 /media/francisco/<var>sdb3_mount_point</var></pre>
+        </section>
+      </section>
+
       <section id="home">
         <h2>Dedicated <code>/home</code> partition</h2>
         <p>In Linux, the <code>/home</code> directory is used to store user data and preferences.</p>
