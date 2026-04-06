@@ -4,9 +4,9 @@
     <title>The OWL Standard and Ontology Modelling</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="The OWL Standard and Ontology Modelling"/>
     <!--
     <meta name="author" content="AUTHOR"/>
-    <meta name="description" content="A_DESCRIPTION"/>
     <meta name="keywords" content="KW1, KW2, KW3"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="author" href="https://plus.google.com/ExampleProfile"/>
@@ -15,22 +15,29 @@
   </head>
   <body lang="en" class="computing">
     <nav>
-      <!--
-      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
-      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
-      <hr/>
-      -->
-      <p><a href="Ontologies.html">Ontologies</a></p>
+      <div>
+        <p><a href="Ontologies.html">Ontologies</a></p>
+        <p><a href="Ontologies.high-level.html">Ontologies: an High-Level Discussion</a></p>
+        <p><a href="https://www.w3.org/RDF/Validator/">On-Line Validator for RDF</a></p>
+        <p><a href="rdf.html">RDF: Resource Description Framework</a></p>
+      </div>
+      <div>
+        <p><a href="logic.html">Logic: the Science of Reasoning</a></p>
+      </div>
     </nav>
     <main>
       <h1>The OWL Standard and Ontology Modelling</h1>
       <p>In recent years, there has been an uptake of expressing ontologies using ontology languages such as the Web Ontology Language (OWL). OWL is a semantic web computational logic-based language, designed to represent rich and complex knowledge about things and the relations between them. It also provides detailed, consistent and meaningful distinctions between classes, properties and relationships.</p>
       <p>By specifying both object classes and relationship properties as well as their hierarchical order, OWL enriches ontology modeling in semantic graph databases, also known as RDF triplestores. OWL, used together with an OWL reasoner in such triplestores, enables consistency checks (to find any logical inconsistencies) and ensures satisfiability checks (to find whether there are classes that cannot have instances).</p>
       <p>Also, OWL comes equipped with means for defining equivalence and difference between instances, classes and properties. These relationships help users match concepts even if various data sources describe these concepts somewhat differently. They also ensure the disambiguation between different instances that share the same names or descriptions.</p>
+      <hr/>
+      <p>OWL has three increasingly-expressive sublanguages:</p>
+      <ul>
+        <li><strong>OWL Lite</strong> supports those users primarily needing a classification hierarchy and simple constraints. For example, while it supports cardinality constraints, it only permits cardinality values of 0 or 1. It should be simpler to provide tool support for OWL Lite than its more expressive relatives, and OWL Lite provides a quick migration path for thesauri and other taxonomies. Owl Lite also has a lower formal complexity than OWL DL.</li>
+        <li><strong>OWL DL</strong> supports those users who want the maximum expressiveness while retaining computational completeness (all conclusions are guaranteed to be computable) and decidability (all computations will finish in finite time). OWL DL includes all OWL language constructs, but they can be used only under certain restrictions (for example, while a class may be a subclass of many classes, a class cannot be an instance of another class). OWL DL is so named due to its correspondence with <strong>description logics</strong>, a field of research that has studied the logics that form the formal foundation of OWL.</li>
+        <li><strong>OWL Full</strong> is meant for users who want maximum expressiveness and the syntactic freedom of RDF with no computational guarantees. For example, in OWL Full a class can be treated simultaneously as a collection of individuals and as an individual in its own right. OWL Full allows an ontology to augment the meaning of the pre-defined (RDF or OWL) vocabulary. It is unlikely that any reasoning software will be able to support complete reasoning for every feature of OWL Full.</li>
+      </ul>
     </main>
-    <section>
-    </section>
   </body>
 
 </html>

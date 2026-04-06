@@ -1,0 +1,1187 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Version Control: Git</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Version Control: Git"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="programming.html">Programming Computers</a></p>
+        <p><a href="computing.html">Computing</a></p>
+        <p><a href="The-programmer-by-F-Brooks.html">The Programmer, by F Brooks</a></p>
+      </div>
+      <div>
+        <p><a href="make.html"><code>Make</code>: Automating Processes with a <cite>Makefile</cite></a></p>
+        <p><a href="doxygen.html">Doxygen: the <i>de facto</i> Standard Tool for Generating Documentation from Annotated Code</a></p>
+      </div>
+      <div style="border: indianred; background-color: khaki;">
+        <p><a href="programacion.html">Programaci&#xF3;n <i lang="es">(castellano)</i></a></p>
+        <p><a href="ordenadores.html">El ordenador <i lang="es">(castellano)</i></a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>Version Control</h1>
+      <blockquote>
+        <p>It is difficult to overstate the importance of version control.</p>
+        <p> I believe that it is as important as the inventions of the chalkboard and of the book for multiplying the power of people to create together.</p>
+        <p>[...]</p>
+        <p>Using a version control system properly is a way to think: to structure, remember, and share thoughts, at the level of depth and rigor demanded by the exhausting craft of writing software. Without that understanding, using Git will be, at best, <q>magical incantations</q>, used by rote, and full of unknown dangers. With that understanding, <a href="#git">Git</a> can become almost invisible, leaving instead the patterns of working up the intricate spells of symbols that are the magic of software.</p>
+        <p class="attribution"><cite>Git for Teams</cite>,
+          <p class="author"><b>Authorship/Autor&#xED;a: </b>Emma Jane Hogbin Westby</p></p>
+      </blockquote>
+      <section id="vc_concepts">
+        <h2>Terminology and Concepts</h2>
+        <p>A Git project is represented by a <dfn>repository</dfn>, which contains the complete history of the project from its inception. A repository in turn consists of a set of individual snapshots of project content &#x2014;collections of files and directories&#x2014;called <dfn>commits</dfn>. A single commit comprises the following:</p>
+        <dl class="variablelist">
+          <dt>A project content snapshot, called a <dfn>tree</dfn></dt>
+          <dd>A structure of nested files and directories representing a complete state of the project</dd>
+          <dt>The <dfn>author</dfn> identification</dt>
+          <dd>Name, email address, and date/time (or <dfn>timestamp</dfn>) indicating who made the changes that resulted in this project state and when</dd>
+          <dt>The <dfn>committer</dfn> identification</dt>
+          <dd>The same information about the person who added this commit to the repository (which may be different from the author)</dd>
+          <dt>A <dfn>commit message</dfn>
+</dt>
+          <dd>Text used to comment on the changes made by this commit</dd>
+          <dt>A list of zero or more <dfn>parent commits</dfn>
+</dt>
+          <dd>References to other commits in the same repository, indicating immediately preceding states of the project content</dd>
+        </dl>
+        <section id="commit_graph">
+          <h3>The Commit Graph</h3>
+          <p>The set of all commits in a repository, connected by lines indicating their parent commits, forms a picture called the repository <dfn>commit graph</dfn>, shown below:</p>
+          <img class="imagedata" src="Electric_files/pictures/Computing/theRepositoryCommitGraph.png"/>
+          <h3>The repository <a href="#commit_graph">commit graph</a>
+</h3>
+          <p>The letters and numbers here represent commits, and arrows point from a commit to its parents. Commit A has no parents and is called a <dfn>root commit</dfn>; it was the initial commit in this repository's history. Most commits have a single parent, indicating that they evolved in a straightforward way from a single previous state of the project, usually incorporating a set of related changes made by one person. Some commits, here just the one labeled E, have multiple parents and are called <dfn>merge commits</dfn>. This indicates that the commit reconciles the changes made on distinct branches of the commit graph, often combining contributions made separately by different people.</p>
+          <p>Since it is normally clear from context in which direction the history proceeds&#x2014;usually, as here, parent commits appear to the left of their children&#x2014;we will omit the arrow heads in such diagrams from now on.</p>
+        </section>
+        <section id="vc_branch">
+          <h3>Branches</h3>
+          <p>The labels on the right side of this picture&#x2014;master, topic, and release&#x2014;denote <dfn>branches</dfn>. The branch name refers to the latest commit on that branch; here, commits F, 4, and Z, respectively, are called the <dfn>tip</dfn> of the branch. The branch itself is defined as the collection of all commits in the graph that are reachable from the tip by following the parent arrows backward along the history. Here, the branches are:</p>
+          <ul class="itemizedlist">
+            <li>release = {A, B, C, X, Y, Z}</li>
+            <li>master = {A, B, C, D, E, F, 1, 2}</li>
+            <li>topic = {A, B, 1, 2, 3, 4}</li>
+          </ul>
+          <p>Note that branches can overlap; here, commits 1 and 2 are on both the master and topic branches, and commits A and B are on all three branches. Usually, you are <em>on</em> a branch, looking at the content corresponding to the tip commit on that branch. When you change some files and add a new commit containing the changes (called <q>committing to the repository</q>), the branch name advances to the new commit, which in turn points to the old commit as its sole parent; this is the way branches move forward. From time to time, you will tell Git to <em>merge</em> several branches (most often two, but there can be more), tying them together as at commit E in the figure above. The same branches can be merged repeatedly over time, showing that they continued to progress separately while you periodically combined their contents.</p>
+          <p>The first branch in a new repository is named <dfn>master</dfn> by default, and it's customary to use that name if there is only one branch in the repository, or for the branch that contains the main line of development (if that makes sense for your project). You are not required to do so, however, and there is nothing special about the name <em class="wordasword">master</em> apart from convention, and its use as a default by some commands.</p>
+        </section>
+      </section>
+      <!-- end of "Terminology and Concepts" -->
+      <section>
+        <h2>Sharing Work</h2>
+        <p>There are two contexts in which version control is useful: private and public. When working on your own, it's useful to commit <q>early and often,</q> so that you can explore different ideas and make changes freely without worrying about recovering earlier work. Such commits are likely to be somewhat disorganized and have cryptic commit messages, which is fine because they need to be intelligible only to you, and for a short period of time. Once a portion of your work is finished and you're ready to share it with others, though, you may want to reorganize those commits, to make them well-factored with regard to reusability of the changes being made (especially with software), and to give them meaningful, well-written commit messages.</p>
+        <p>In centralized version control systems, the acts of committing a change and publishing it for others to see are one and the same: the unit of publication is the commit, and committing requires publishing (applying the change to the central repository where others can immediately see it). This makes it difficult to use version control in both private and public contexts.</p>
+      </section>
+      <section id="git">
+        <h2>Git</h2>
+        <h5>A distributed version control system</h5>
+        <p>Git is a tool for tracking changes made to a set of files over time, a task traditionally known as <dfn>version control</dfn>. It was created by Linus Torvalds in 2005, and has been maintained by Junio Hamano since then. Although it is most often used by programmers to coordinate changes to software source code, and it is especially good at that, you can use Git to track any kind of content at all. Any body of related files evolving over time, which we'll call a <dfn>project</dfn>, is a candidate for using Git. With Git, you can:</p>
+        <ul class="itemizedlist">
+          <li>Examine the state of your project at earlier points in time</li>
+          <li>Show the differences among various states of the project</li>
+          <li>Split the project development into multiple independent lines, called <dfn>branches</dfn>, which can evolve separately</li>
+          <li>Periodically recombine branches in a process called <dfn>merging</dfn>, reconciling the changes made in two or more branches</li>
+          <li>Allow many people to work on a project simultaneously, sharing and combining their work as needed</li>
+        </ul>
+        <p>...and much more.</p>
+        <section>
+          <h3>Introduction to Git</h3>
+          <p>Simply put, Git is a content tracker. Given that notion, Git shares common principles of most version control systems. However, the distinct feature that makes Git unique among the variety of tools available today is that it is a distributed version control system. This distinction means Git is fast and scalable, has a rich collection of command sets that provide access to both high level and low-level operations, and is optimized for local operations.</p>
+          <section>
+            <h4>Git Components (Client and Server)</h4>
+            <p>Git GUI tools act as a frontend for the Git command line, and some tools have extensions that integrate with popular Git hosting platforms. The Git client tools mostly work on the local copy of your repository.</p>
+            <p>When you are working with Git, a typical setup includes a Git server and Git clients. You can possibly forgo a server, but that would add complexity to how you maintain and manage repositories when sharing revision changes in a collaborative setup and would make consistency more difficult<!-- (we will revisit this in Chapter 11)-->. The Git server and clients work as follows:</p>
+            <dl class="variablelist">
+              <dt>Git server</dt>
+              <dd>A Git server enables you to collaborate more easily because it ensures the availability of a central and reliable source of truth for the repositories you will be working on. A Git server is also where your remote Git repositories are stored; as common practice goes, the repository has the most up-to-date and stable source of your projects. You have the option to install and configure your own Git server, or you can forgo the overhead and opt to host your Git repositories on reliable third-party hosting sites such as GitHub, GitLab, and Bitbucket.</dd>
+              <dt>Git clients</dt>
+              <dd>Git clients interact with your local repositories, and you are able to interact with Git clients via the Git command line or the Git GUI tools. When you install and configure a Git client, you will be able to access the remote repositories, work on a local copy of the repository, and push changes back to the Git server. If you are new to Git, we recommend starting out using the Git command line; familiarize yourself with the common subset of git commands required for your day-to-day operations and then progress to a Git GUI tool of your choice.</dd>
+            </dl>
+            <p>The reason for this approach is that to some extent, Git GUI tools tend to provide terminologies that represent a desired outcome that may not be part of Git's standard commands.</p>
+          </section>
+          <section>
+            <h4>Git Characteristics</h4>
+            <p>Now that we have given an overview of the Git components, let's learn about the characteristics of Git. Understanding these distinct traits of Git enables you to effortlessly switch from a centralized version control mindset to a distributed version control mentality. We like to refer to this as <q>Thinking in Git</q>:</p>
+            <dl class="variablelist">
+              <dt>Git stores revision changes as snapshots</dt>
+              <dd>The very first concept to unlearn is the way Git stores multiple revisions of a file that you are working on. Unlike other version control systems, Git does not track revision changes as a series of modifications, commonly known as deltas; instead, it takes a snapshot of changes made to the state of your repository at a specific point in time. In Git terminology this is known as a <dfn>commit</dfn>. Think of this as capturing a moment in time, as through a photograph.</dd>
+              <dt>Git is enhanced for local development</dt>
+              <dd>In Git, you work on a copy of the repository on your local development machine. This is known as
+                    a local repository, or a clone of the remote repository on a Git server. Your local repository will
+                    have the resources and the snapshots of the revision changes made on those resources all in
+                    one location. Git terms these collections of linked snapshots repository <dfn>commit history</dfn>, or <dfn>repo history</dfn> for short. This allows you to work in a disconnected environment since Git does not need a constant connection to the Git server to version-control your changes. As a natural consequence, you are able to work on large, complex projects across distributed teams without compromising efficiency and performance for version control operations.</dd>
+              <dt>Git is definitive</dt>
+              <dd>Definitive means the git commands are explicit. Git waits for you to provide instructions on what to do and when to do it. For example, Git does not automatically sync changes from your local repository to the remote repository, nor does it automatically save a snapshot of a revision to your local repo history. Every action requires your explicit command or instruction to tell Git what is required, including adding new commits, fixing existing commits, pushing changes from your local repository to the remote repository, and even retrieving new changes from the remote repository. In short, you need to be intentional with your actions. This also includes letting Git know which files you intend to track, since Git does not automatically add new files to be version controlled.</dd>
+              <dt>Git is designed to bolster nonlinear development</dt>
+              <dd>
+                <p>Git allows you to ideate and experiment with various implementations of features for viable solutions to your project by enabling you to diverge and work in parallel along the main, stable codebase of your project. This methodology, called <dfn>branching</dfn>, is a very common practice and ensures the integrity of the main development line, preventiing any accidental changes that may break it.</p>
+                <p>In Git, the concept of branching is considered lightweight and inexpensive because a branch in Git is just a pointer to the latest commit in a series of linked commits. For every branch you create, Git keeps track of the series of commits for that branch. You can switch between branches locally. Git then restores the state of the project to the most recent moment when the snapshot of the specified branch was created. When you decide to merge the changes from any branch into the main development line, Git is able to combine those series of commits by applying techniques that we will be discussing...<!-- in Chapter 6-->.</p>
+              </dd>
+            </dl>
+          </section>
+          <section>
+            <h4>The Git Command Line</h4>
+            <p>Historically, Git was provided as a suite of many simple, distinct, standalone commands developed according to the Unix philosophy: build small, interoperable tools. Each command sported a hyphenated name, such as git-commit and git-log. However, modern Git installations no longer support the hyphenated command forms and instead use a single git executable with a subcommand.</p>
+            <p>The git commands understand both &#x201C;short&#x201D; and &#x201C;long&#x201D; options. For example, the git commit
+                command treats the following examples equivalently:</p>
+            <pre>$ git commit -m "Fix a typo."
+$ git commit --message="Fix a typo."</pre>
+          </section>
+          <section>
+            <h4>Quick Introduction to Using Git</h4>
+            <p>To see Git in action, you can create a new repository, add some content, and track a few revisions. You can create a repository in two ways: either create a repository from scratch and populate it with some content, or work with an existing repository by cloning it from a remote Git server.</p>
+            <section>
+              <h4>Preparing to Work with Git</h4>
+              <p>Whether you are creating a new repository or working with an existing repository, there are basic prerequisite configurations that you need to complete after installing Git on your local development machine. This is akin to setting up the correct date, time zone, and language on a new camera before taking your first snapshot.</p>
+              <p>At a bare minimum, Git requires your name and email address before you make your first commit in your repository. The identity you supply then shows as the commit author, baked in with other snapshot metadata. You can save your identity in a configuration file using the git config command:</p>
+              <pre>$ git config user.name "Francisco Fern&#xE1;ndez-Victorio"
+$ git config user.email "franciscofvh@hotmail.com"</pre>
+              <p>If you decide not to include your identity in a configuration file, you will have to specify your identity for every git commit subcommand by appending the argument <kbd class="userinput">--author</kbd> at the end of the command:</p>
+              <pre>$ git commit -m "log message" --author="Francisco Fern&#xE1;ndez-Victorio franciscofvh@hotmail.com"</pre>
+              <p>Keep in mind that this is the hard way, and it can quickly become tedious.</p>
+              <p>You can also specify your identity by supplying your name and email address to the GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL environment variables, respectively. If set, these variables will override all configuration settings. However, for specifications set on the command line, Git will override the values supplied in the configuration file and environment variable.</p>
+            </section>
+            <section>
+              <h4>Working with a Local Repository</h4>
+              <p>Now that you have configured your identity, you are ready to start working with a repository. Start by creating a new empty repository on your local development machine. We will start simple and work our way toward techniques for working with a shared repository on a Git server.</p>
+              <section>
+                <h4>Creating an initial repository</h4>
+                <p>We will model a typical situation by creating a repository for your personal website. Let's assume you're starting from scratch and you are going to add content for your project in the local <cite class="filename">directory ~/my_website</cite>, which you place in a Git repository. Type in the following commands to create the directory, and place some basic content in a file called <cite class="filename">index.xhtml</cite>:</p>
+                <pre>$ mkdir ~/my_website
+$ cd ~/my_website
+$ echo 'My awesome website!' &gt; index.xhtml</pre>
+                <p>To convert <cite class="filename">~/my_website</cite> into a Git repository, run <kbd class="userinput">git init</kbd>. Here we provide the option -b followed by a default branch named main:</p>
+                <pre>$ git init -b main
+  Initialized empty Git repository in ../my_website/.git/</pre>
+                <p>If you prefer to initialize an empty Git repository first and then add files to it, you can do so by running the following commands:</p>
+                <pre>$ git init -b main ~/my_website
+Initialized empty Git repository in ../my_website/.git/
+$ cd ~/my_website
+$ echo 'My awesome website!' &gt; index.xhtml</pre>
+                <div class="tip" style="border-style: solid;">You can initialize a completely empty directory or an existing directory full of files. In either case, the process of converting the directory into a Git repository is the same.</div>
+                <p>The <command>git init</command> command creates a hidden directory called <cite class="filename">.git</cite> at the root level of your project. All revision information along with supporting metadata and Git extensions are stored in this top level, hidden <cite class="filename">.git</cite> folder.</p>
+                <p>Git considers <cite class="filename">~/my_website</cite> to be the working directory. This directory contains the current version of files for your website. When you make changes to existing files or add new files to your project, Git records those changes in the hidden <cite class="filename">.git</cite> folder.</p>
+                <p>For the purpose of learning, we will reference two virtual directories that we call <cite class="filename">Local History</cite> and <cite class="filename">Index</cite> to illustrate the concept of initializing a new Git repository.<!-- We will discuss the Local History and Index in Chapters 4 and 5, respectively.--></p>
+              </section>
+              <section>
+                <h4>Adding a file to your repository</h4>
+                <p>Up to this point, you have only created a new Git repository. In other words, this Git repository is empty. Although the file <cite class="filename">index.xhtml</cite> exists in the directory <cite class="filename">~/my_website</cite>, to Git, this is the working directory, a representation of a scratch pad or directory where you frequently alter your files.</p>
+                <p>When you have finalized changes to the files and want to deposit those changes into the Git repository, you need to explicitly do so by using the git add file command:</p>
+                <pre>$ git add index.xhtml</pre>
+                <div class="warning" style="border-style: solid;">Although you can let Git add all the files in the directory and all subdirectories using the <kbd class="userinput">git add .</kbd> command, this stages everything, and we advise you to be intentional with what you are planning to stage, mainly to prevent sensitive information or unwanted files from being included when commits are made. To avoid including such information, you can use the .gitignore file<!--, which is covered in Chapter 5.-->
+</div>
+                <p>The argument ., the single period or dot in Unix parlance, is shorthand for the current directory. With the git add command, Git understands that you intend to include the final iteration of the modification on <cite class="filename">index.xhtml</cite> as a revision in the repository. However, so far Git has merely staged the file, an interim step before taking a snapshot via a commit.</p>
+                <p>Git separates the add and commit steps to avoid volatility while providing flexibility and granularity in how you record changes. Imagine how disruptive, confusing, and time-consuming it would be to update the repository each time you add, remove, or change a file. Instead, multiple provisional and related steps, such as an add, can be batched, thereby keeping the repository in a stable, consistent state. This method also allows us to craft a narrative of why we are changing the code.<!-- In Chapter 4 we will dive deeper into this concept.--></p>
+                <p>We recommend that you strive to group logical change batches before making a commit. This is called an <dfn>atomic commit</dfn> and will help you in situations where you'll need to do some advanced Git operations<!-- in later chapters-->.</p>
+                <p>Running the <kbd class="userinput">git status</kbd> command reveals this in-between state of <cite class="filename">index.xhtml</cite>:</p>
+                <pre>$ git status
+  On branch main
+  No commits yet
+  Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+    new file: index.xhtml</pre>
+                <p>The command reports that the new file <cite class="filename">index.xhtml</cite> will be added to the repository during the next commit.</p>
+                <p>After staging the file, the next logical step is to commit the file to the repository. Once you commit the file, it becomes part of the repository commit history; for brevity, we will refer to this as the <cite>repo history</cite>. Every time you make a commit, Git records several other pieces of metadata along with it, most notably the commit log message and the author of the change.</p>
+                <p>A fully qualified git commit command should supply a terse and meaningful log message using active language to denote the change that is being introduced by the commit. This is very helpful when you need to traverse the repo history to track down a specific change or quickly identify changes of a commit without having to dig deeper into the change details.<!-- We dive in deeper on this topic in Chapters 4 and 8.--></p>
+                <p>Let's commit the staged index.xhtml file for your website:</p>
+                <pre>$ git commit -m "Initial contents of my_website"
+  [main (root-commit) c149e12] initial contents of my_website
+  1 file changed, 1 insertion(+)
+  create mode 100644 index.xhtml</pre>
+                <div class="note" style="border-style: solid;">The details of the author who is making the commit are retrieved from the Git configuration we set up earlier.</div>
+                <p>In the code example, we supplied the -m argument to be able to provide the log message directly on the command line. If you prefer to provide a detailed log message via an interactive editor session, you can do so as well. You will need to configure Git to launch your favorite editor during a git commit (leave out the -m argument); if it isn't set already, you can set the <parameter>$GIT_EDITOR</parameter> environment variable as follows:</p>
+                <pre># In bash or zsh
+$ export GIT_EDITOR=vim
+# In tcsh
+$ setenv GIT_EDITOR emacs</pre>
+                <div class="note" style="border-style: solid;">Git will honor the default text editor configured in the shell environment variables <parameter>VISUAL</parameter> and <parameter>EDITOR</parameter>. If neither is configured, it falls back to using the <command>vi</command> editor.</div>
+                <p>After you commit the <cite class="filename">index.xhtml</cite> file into the repository, run <kbd class="userinput">git status</kbd> to get an update on the current state of your repository. In our example, running git status should indicate that there are no outstanding changes to be committed:</p>
+                <pre>$ git status
+  On branch main
+  nothing to commit, working tree clean</pre>
+                <p>Git also tells you that your working directory is clean, which means the working directory has no new or modified files that differ from what is in the repository.</p>
+                <p>The difference between <kbd class="userinput">git add</kbd> and <kbd class="userinput">git commit</kbd> is much like you organizing a group of schoolchildren in a preferred order to get the perfect classroom photograph: <kbd class="userinput">git add</kbd> does the organizing, whereas <kbd class="userinput">git commit</kbd> takes the snapshot.</p>
+              </section>
+              <section>
+                <h4>Making another commit</h4>
+                <p>Next, let's make a few modifications to index.xhtml and create a repo history within the repository.</p>
+                <p>Convert <cite class="filename">index.xhtml</cite> into a proper HTML file, and commit the alteration to it:</p>
+                <pre>$ cd ~/my_website
+# edit the index.xhtml file.
+$ cat index.xhtml
+    &lt;html&gt;
+    &lt;body&gt;
+    My website is awesome!
+  &lt;/body&gt;
+&lt;/html&gt;
+$ git commit index.xhtml -m 'Convert to HTML'
+[main 521edbe] Convert to HTML
+1 file changed, 5 insertions(+), 1 deletion(-)</pre>
+                <p>If you are already familiar with Git, you may be wondering why we skipped the git add index.xhtml step before we committed the file. It is because the content to be committed may be specified in more than one way in Git.</p>
+                <p>Type <kbd class="userinput">git commit --help</kbd> to learn more about these options</p>
+                <div class="tip" style="border-style: solid;">Detailed explanations of the various commit methods are also explained in the <kbd class="userinput">git commit --help</kbd> manual pages.</div>
+                <p>In our example, we decided to commit the <cite class="filename">index.xhtml</cite> file with an additional argument, the -m switch, which supplied a message explaining the changes in the commit: <q>Convert to HTML</q>.</p>
+              </section>
+              <section>
+                <h4>Git Ignore</h4>
+                <p><cite class="filename">.gitignore</cite> tells the Git which files should be ignored from tracking and committing. It is generally used to ignore IDE or system generated files and other transient files that aren&#x2019;t supposed to be present in the Git.</p>
+              </section>
+              <section>
+                <h4>Viewing your commits</h4>
+                <p>Now that you have more commits in the repo history, you can inspect them in a variety of ways. Some git commands show the sequence of individual commits, others show the summary of an individual commit, and still others show the full details of any commit you specify in therepository.</p>
+                <p>The <kbd class="userinput">git log</kbd> command yields a sequential history of the individual commits within the repository.</p>
+                <p>For repositories with many commit histories, this standard view may not help you traverse a long list of detailed commit information with ease; in such situations you can provide the <kbd class="userinput">--oneline</kbd> switch to list a summarized commit ID number along with the commit message:</p>
+                <pre>$ git log --oneline</pre>
+                <p>If you want to see more detail about a particular commit, use the <kbd class="userinput">git show</kbd> command with a commit ID number</p>
+                <div class="tip" style="border-style: solid;">If you run git show without an explicit commit number, it simply shows the details of the HEAD commit, in our case, the most recent one.</div>
+                <p>The <kbd class="userinput">git log</kbd> command shows the commit logs for how changes for each commit are included in the repo history. If you want to see concise, one-line summaries for the current development branch without supplying additional filter options to the <kbd class="userinput">git log --oneline</kbd> command, an alternative approach is to use the <kbd class="userinput">git show-branch</kbd> command:</p>
+                <p>The phrase <kbd class="userinput">--more=10</kbd> reveals up to an additional 10 versions, but only two exist so far and so both are shown. (The default in this case would list only the most recent commit.) The name main is the default branch name.</p>
+                <pre>$ git show-branch --more=10
+[main] Convert to HTML
+[main^] Initial contents of my_website</pre>
+                <p/>
+              </section>
+              <section>
+                <h4>Viewing commit differences</h4>
+                <p>With the repo history in place from the addition of commits, you can now see the differences between the two revisions of <cite class="filename">index.xhtml</cite>. You will need to recall the commit ID numbers and run the <kbd class="userinput">git diff</kbd> command:</p>
+                <pre>$ git diff c149e12e89a9c035b9240e057b592ebfc9c88ea4 \
+521edbe1dd2ec9c6f959c504d12615a751b5218f</pre>
+                <div class="note" style="border-style: solid;">A plus sign (+) precedes each line of new content after the minus sign (&#x2013;), which indicates removed content.</div>
+                <div class="note" style="border-style: solid;">Do not be intimidated by the long hex numbers. Git provides many shorter, easier ways to run similar commands so that you can avoid large, complicated commit IDs. Usually the first seven characters of the hex numbers, as shown in the <kbd class="userinput">git log --oneline</kbd> example earlier, are sufficient.</div>
+              </section>
+              <section>
+                <h4>Removing and renaming files in your repository</h4>
+                <p>Now that you have learned how to add files to a Git repository, let's look at how to remove a file from one. Removing a file from a Git repository is analogous to adding a file but uses the <kbd class="userinput">git rm</kbd> command. Suppose you have the file <cite class="filename">adverts.xhtml</cite> in your website content and plan to remove it. You can do so as follows:</p>
+                <pre>$ cd ~/my_website
+$ ls
+index.xhtml adverts.xhtml
+$ git rm adverts.xhtml
+rm 'adverts.xhtml'
+$ git commit -m "Remove adverts html"
+[main 97ff70a] Remove adverts html
+1 file changed, 0 insertions(+), 0 deletions(-)
+delete mode 100644 adverts.xhtml</pre>
+                <p>Similar to an addition, a deletion also requires two steps: express your intent to remove the file using git rm, which also stages the file you intend to remove. Realize the change in the repository with a git commit.</p>
+                <div class="note" style="border-style: solid;">Just as with <kbd class="userinput">git add</kbd>, with <kbd class="userinput">git rm</kbd> we are not directly deleting the file; instead, we are changing what is tracked: the deletion or addition of a file.</div>
+                <p>You can rename a file indirectly by using a combination of the <kbd class="userinput">git rm</kbd> and <kbd class="userinput">git add</kbd> commands, or you can rename the file more quickly and directly with the command <kbd class="userinput">git mv</kbd>. Here's an example of the former:</p>
+                <pre>$ mv foo.xhtml bar.xhtml
+$ git rm foo.xhtmlrm 'foo.xhtml'
+$ git add bar.xhtml</pre>
+                <p>In this sequence, you must execute <kbd class="userinput">mv foo.xhtml bar.xhtml</kbd> at the onset to prevent <kbd class="userinput">git rm</kbd> from permanently deleting the <cite class="filename">foo.xhtml</cite> file from the filesystem.</p>
+                <p>Here's the same operation performed with <kbd class="userinput">git mv</kbd>:</p>
+                <pre>$ git mv foo.xhtml bar.xhtml</pre>
+                <p>In either case, the staged changes must subsequently be committed:</p>
+                <pre>$ git commit -m "Moved foo to bar"
+[main d1e37c8] Moved foo to bar
+1 file changed, 0 insertions(+), 0 deletions(-)
+rename foo.xhtml =&gt; bar.xhtml (100%)</pre>
+                <p>Git handles file move operations differently than most similar systems, employing a mechanism based on the similarity of the content between two file versions.</p>
+              </section>
+            </section>
+            <!-- end of "Working with a Local Repository" -->
+            <section>
+              <h4>Storing Your Commit or Version in a Remote Repository</h4>
+              <p>First you define a variable (<var>origin</var> in the example below) to point to your remote repository (https://github.com/proyecto-eden-3-esferas/Cpp in the example):</p>
+              <pre>git remote add origin https://github.com/proyecto-eden-3-esferas/Cpp</pre>
+              <p>Then you run</p>
+              <pre>git push - -set-upstream origin main</pre>
+              <p>or just:</p>
+              <pre>git push origin main</pre>
+            </section>
+            <section>
+              <h4>Working with a Shared Repository</h4>
+              <p>By now you have initialized a new repository and have been making changes to it. All the changes are only available to your local development machine. This is a good example of how you can manage a project that is only available to you. But how can you work collaboratively on a repository that is hosted on a Git server? Let's discuss how you can achieve this.</p>
+              <section>
+                <h4>Making a local copy of the repository*</h4>
+                <p>You can create a complete copy, or a clone, of a repository using the git clone command. This is how you collaborate with other people, making changes on the same files and keeping in sync with changes from other versions of the same repository.</p>
+                <p>For the purposes of this tutorial, let's start simple by creating a copy of your existing repository; then we can contrast the same example as if it were on a remote Git server:</p>
+                <pre>$ cd ~
+                  $ git clone my_website new_website</pre>
+                <p>Although these two Git repositories now contain exactly the same objects, files, and directories, there are some subtle differences. You may want to explore those differences with commands such as the following:</p>
+                <pre>$ ls -lsa my_website new_website
+                  ...
+                  $ diff -r my_website new_website
+                  ...</pre>
+                <p>On a local filesystem like this, using git clone to make a copy of a repository is quite similar to using cp -a or rsync. In contrast, if you were to clone the same repository from a Git server, the syntax would be as follows:</p>
+                <pre>$ cd ~
+                  $ git clone https://git-hosted-server.com/some-dir/my_website.git new_website
+                  Cloning into 'new_website'...
+                  remote: Enumerating objects: 2, done.
+                  remote: Counting objects: 100% (2/2), done.
+                  remote: Compressing objects: 100% (103/103), done.
+                  remote: Total 125 (delta 45), reused 65 (delta 18), pack-reused 0
+                  Receiving objects: 100% (125/125), 1.67 MiB | 4.03 MiB/s, done.
+                  Resolving deltas: 100% (45/45), done.</pre>
+                <p>Once you clone a repository, you can modify the cloned version, make new commits, inspect its logs and history, and so on. It is a complete repository with a full history. Remember that the changes you make to the cloned repository will not be automatically pushed to the original copy on the repository.</p>
+                <p>Try not to be distracted by some of the terms you see in the output. Git supports a richer set of repository sources, including network names, for naming the repository to be cloned.<!-- We will explain these forms and usage in Chapter 11.--></p>
+              </section>
+            </section>
+            <section>
+              <h4>Configuration Files</h4>
+              <p>Git configuration files are all simple text files in the style of <cite class="filename">.ini</cite> files. The configuration files are used to store preferences and settings used by multiple git commands. Some of the settings represent personal preferences (e.g., should a color.pager be used?), others are important for a repository to function correctly (e.g., core repositoryformatversion), and still others tweak git command behavior a bit (e.g., gc.auto). Like other tools, Git supports a hierarchy of configuration files.</p>
+              <section>
+                <h4>Hierarchy of configuration files</h4>
+                <p>The Git configuration files hierarchy in decreasing precedence:</p>
+                <dl class="variablelist">
+                  <dt>.git/config</dt>
+                  <dd>Repository-specific configuration settings manipulated with the <kbd class="userinput">--file</kbd> option or by default. You can also write to this file with the <kbd class="userinput">--local</kbd> option. These settings have the highest precedence.</dd>
+                  <dt>~/.gitconfig</dt>
+                  <dd>User-specific configuration settings manipulated with the <kbd class="userinput">--global</kbd> option.</dd>
+                  <dt>/etc/gitconfig</dt>
+                  <dd>System-wide configuration settings manipulated with the <kbd class="userinput">--system</kbd> option if you have proper Unix file write permissions on the <cite class="filename">gitconfig</cite> file. These settings have the lowest precedence. Depending on your installation, the system settings file might be somewhere else (perhaps in usr/local/etc gitconfig) or may be absent entirely.</dd>
+                </dl>
+                <p>For example, to store an author name and email address that will be used on all the commits you make for all of your repositories, configure values for user name and user.email in your <cite class="filename">$HOME/.gitconfig</cite> file using <kbd class="userinput">git config --global</kbd>:</p>
+                <pre>$ git config --global user.name "Jon Loeliger"
+                  $ git config --global user.email "jdl@example.com"</pre>
+                <p>If you need to set a repository-specific name and email address that would override a <kbd class="userinput">--global</kbd> setting, simply omit the <kbd class="userinput">--global</kbd> flag or use the <kbd class="userinput">--local</kbd> flag to be explicit: </p>
+                <pre>$ git config user.name "Jon Loeliger"
+                $ git config user.email "jdl@special-project.example.org"</pre>
+                <p>You can use <kbd class="userinput">git config -l</kbd> (or the long form <kbd class="userinput">--list</kbd>) to list the settings of all the variables collectively found in the complete set of configuration files:</p>
+                <pre># Make a brand-new, empty repository
+                  $ mkdir /tmp/new
+                  $ cd /tmp/new
+                  $ git init
+                  # Set some config values
+                  $ git config --global user.name "Jon Loeliger"
+                  $ git config --global user.email "jdl@example.com"
+                  $ git config user.email "jdl@special-project.example.org"
+                  $ git config -l
+                  user.name=Jon Loeliger
+                  user.email=jdl@example.com
+                  core.repositoryformatversion=0
+                  core.filemode=true
+                  core.bare=false
+                  core.logallrefupdates=true
+                  user.email=jdl@special-project.example.org</pre>
+                <div class="tip" style="border-style: solid;">When specifying the command <kbd class="userinput">git config -l</kbd>, adding the options <kbd class="userinput">--show-scope</kbd> and <kbd class="userinput">--show-origin</kbd> will help to print the various sources for the configurations! Try this out with <kbd class="userinput">git config -l --show-scope --show-origin</kbd> in your terminal.</div>
+                <p>Because the configuration files are simple text files, you can view their contents with cat and edit them with your favorite text editor too.</p>
+                <div class="note" style="border-style: solid;">The content of the configuration text file may be presented with some slight differences according to your operating system type. Many of these differences allow for different filesystem characteristics.</div>
+                <p>If you need to remove a setting from the configuration files, use the <kbd class="userinput">--unset</kbd> option together with the correct configuration files flag:</p>
+                <pre>$ git config --unset --global user.email</pre>
+                <p>Git provides you with many configuration options and environment variables that frequently exist for the same purpose. For example, you can set a value for the editor to be used when composing a commit log message. Based on the configuration, invocation follows these steps:</p>
+                <ul class="itemizedlist">
+                  <li>GIT_EDITOR environment variable</li>
+                  <li>core.editor configuration option</li>
+                  <li>VISUAL environment variable</li><li>EDITOR environment variable</li>
+                  <li>The vi command</li>
+                </ul>
+                <p>There are more than a few hundred configuration parameters. We will not bore you with them but will point out important ones as we go along. A more extensive (yet still incomplete) list can be found on the git config manual page.</p>
+              </section>
+              <section>
+                <h4>Configuring an alias</h4>
+                <p>Git aliases allow you to substitute common but complex git commands that you type frequently with simple and easy-to-remember aliases. This also saves you the hassle of remembering or typing out those long commands, and it saves you from the frustration of running into typos:</p>
+                <pre>$ git config --global alias.show-graph \
+                  'log --graph --abbrev-commit --pretty=oneline'</pre>
+                <p>In this example, we created the show-graph alias and made it available for use in any repository we create. When we use the command <kbd class="userinput">git show-graph</kbd>, it will give us the same output we got when we typed that long git log command with all those options.</p>
+              </section>
+            </section>
+            <!-- end of "Configuration Files" -->
+          </section>
+          <!-- end of "Quick Introduction to Using Git" -->
+          <section>
+            <h4>Comparisons to Git</h4>
+            <p>There have been many different version control systems developed in the computing world, including SCCS, RCS, CVS, ixSubversion, BitKeeper, Mercurial, Bazaar, Darcs, and others. Some particular strengths of Git are:</p>
+            <ul class="itemizedlist">
+              <li>Git is a member of the newer generation of <dfn>distributed</dfn> version control systems. Older systems such as CVS and Subversion are <dfn>centralized</dfn>, meaning that there is a single, central copy of the project content and history to which all users must refer. Typically accessed over a network, if the central copy is unavailable for some reason, all users are stuck; they cannot use version control until the central copy is working again. Distributed systems such as Git, on the other hand, have no inherent central copy. Each user has a complete, independent copy of the entire project history, called a <dfn>repository</dfn>, and full access to all version control facilities. Network access is only needed occasionally, to share sets of changes among people working on the same project.</li>
+              <li>In some systems, notably CVS and Subversion, branches are slow and difficult to use in practice, which discourages their use. Branches in Git, on the other hand, are very fast and easy to use. Effective branching and merging allows more people to work on a project in parallel, relying on Git to combine their separate contributions.</li>
+              <li>Applying changes to a repository is a two-step process: you add the changes to a staging area called the <dfn>index</dfn>, then commit those changes to the repository. The extra step allows you to easily apply just some of the changes in your current working files (including a subset of changes to a single file), rather than being forced to apply them all at once, or undoing some of those changes yourself before committing and then redoing them by hand. This encourages splitting changes up into better organized, more coherent and reusable sets.</li>
+              <li>Git's distributed nature and flexibility allow for many different styles of use, or <dfn>workflows</dfn>. Individuals can share work directly between their personal repositories. Groups can coordinate their work through a single central repository. Hybrid schemes permit several people to organize the contributions of others to different areas of a project, and then collaborate among themselves to maintain the overall project state.</li>
+              <li>Git is the technology behind the enormously popular <dfn>social coding</dfn> website GitHub, which includes many wellknown open source projects. In learning Git, you will open up a whole world of collaboration on small and large scales.</li>
+            </ul>
+          </section>
+        </section>
+        <!-- end of "Introduction to Git" -->
+        <section id="git_w3schools">
+          <header>
+            <h4>A Git Tutorial (www.w3schools.com/git)</h4>
+            <p>This is a section borrowed from www.w3schools.com. It is a self-contained tutorial, whereas other sources do not provide all the instructions.</p>
+          </header>
+          <p>To learn our version of <code class="application">Git</code> type:</p>
+          <pre>git --version</pre>
+          <p>What does Git do?</p>
+          <ul class="itemizedlist">
+            <li>Manage projects with Repositories</li>
+            <li>Clone a project to work on a local copy</li>
+            <li>Control and track changes with Staging and Committing</li>
+            <li>Branch and Merge to allow for work on different parts and versions of a project</li>
+            <li>Pull the latest version of the project to a local copy</li>
+            <li>Push local updates to the main project</li>
+          </ul>
+          <section>
+            <h4>Working with Git</h4>
+            <ul class="itemizedlist">
+              <li>Initialize Git on a folder, making it a Repository</li>
+              <li>Git now creates a hidden folder to keep track of changes in that folder</li>
+              <li>When a file is changed, added or deleted, it is considered modified</li>
+              <li>You select the modified files you want to Stage (<kbd class="userinput">git add <cite class="filename">MYFILE.EXT</cite></kbd>)</li>
+              <li>The Staged files are Committed, which prompts Git to store a permanent snapshot of the files</li>
+              <li>Git allows you to see the full history of every commit.</li>
+              <li>You can revert back to any previous commit.</li>
+              <li>Git does not store a separate copy of every file in every commit, but keeps track of changes made in each commit!</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Getting Started with Git</h4>
+            <div class="note" style="border-style: solid;">You can download Git for free from the following website: <a target="_blank" href="https://www.git-scm.com/">https://www.git-scm.com/</a>
+</div>
+            <p>After checking our version of Git (<kbd class="userinput">git --version</kbd>), you let Git know who you are. This is important for version control systems, as each Git commit uses this information:</p>
+            <pre>git config --global user.name "MY-NAME MY-SURNAME"
+git config --global user.email "ACCOUNT@PROVIDER.com"</pre>
+            <div class="note" style="border-style: solid;">Use global (<kbd class="userinput">--global</kbd>) to set the username and e-mail for every repository on your computer. If you want to set the username/e-mail for just the current repo, you can remove global.</div>
+            <p>Now, let's create a new folder for our project. We'll assume a linux/unix command line.</p>
+            <p>Example:</p>
+            <pre>mkdir myproject
+cd myproject</pre>
+            <p>Once you have navigated to the correct folder, you can initialize Git on that folder:</p>
+            <p>Example</p>
+            <pre>$ git init
+Initialized empty Git repository in /Users/user/myproject/.git/</pre>
+            <p>You have just created your first Git Repository!</p>
+            <div class="note" style="border-style: solid;">Git now knows that it should watch the folder you initiated it on. Git creates a hidden folder to keep track of changes.</div>
+          </section>
+          <section>
+            <h4>Adding and Registering New Files</h4>
+            <p>Let's add some files, or create a new file using your favourite text editor. Then save or move it to the folder you just created. Say your folder contains file <cite class="filename">index.html</cite>. We type <kbd class="userinput">git status</kbd> and get:</p>
+            <pre>On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add ..." to include in what will be committed)
+    index.html
+
+nothing added to commit but untracked files present (use "git add" to track)</pre>
+            <p>Now Git is <em>aware</em> of the file, but has not <em>added</em> it to our repository!</p>
+            <p>Files in your Git repository folder can be in one of 2 states:</p>
+            <ul class="itemizedlist">
+              <li><dfn>tracked</dfn>: files that Git knows about and are added to the repository</li>
+              <li>untracked<dfn/>: files that are in your working directory, but not added to the repository</li>
+            </ul>
+            <p>When you first add files to an empty repository, they are all untracked. To get Git to track them, you need to <dfn>stage</dfn> them, or add them to the <dfn>staging environment</dfn>.</p>
+            <p>One of the core functions of Git is the concepts of the Staging Environment, and the Commit.</p>
+            <p>As you are working, you may be adding, editing and removing files. But whenever you hit a milestone or finish a part of the work, you should add the files to a Staging Environment.</p>
+            <p><dfn>Staged</dfn> files are files that are ready to be <dfn>committed</dfn> to the repository you are working on. You will learn more about commit shortly.</p>
+            <p>For now, we are done working with index.html. So we can add it to the Staging Environment:</p>
+            <pre>git add index.html</pre>
+            <p>The file should be Staged. Let's check the status:</p>
+            <pre>&gt; git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached ..." to unstage)
+    new file: index.html</pre>
+            <p>You can add <em>all</em> files in the current directory to the Staging Environment:</p>
+            <pre>git add --all</pre>
+          </section>
+          <section>
+            <h4>Git Commit</h4>
+            <p>Since we have finished our work, we are ready move from stage to commit for our repo.</p>
+            <p>Adding commits keep track of our progress and changes as we work. Git considers each commit a change point or <q>save point</q>. It is a point in the project you can go back to if you find a bug, or want to make a change.</p>
+            <p>When we commit, we should always include a message.</p>
+            <p>By adding clear messages to each commit, it is easy for yourself (and others) to see what has changed and when.</p>
+            <p>Example:</p>
+            <pre>&gt; git commit -m "First release of Hello World!"</pre>
+            <p>Sometimes, when you make small changes, using the staging environment seems like a waste of time. It is possible to commit changes directly, skipping the staging environment. The -a option will automatically stage every changed, already tracked file.</p>
+            <p>Example:</p>
+            <pre>git status --short
+ M index.html</pre>
+            <div class="note" style="border-style: solid;">
+              <p>Short status flags are:</p>
+              <ul class="itemizedlist">
+                <li>?? - Untracked files</li>
+                <li>A - Files added to stage</li>
+                <li>M - Modified files</li>
+                <li>D - Deleted files</li>
+              </ul>
+            </div>
+            <pre>&gt; git commit -a -m "Updated index.html with a new line"
+[master 09f4acd] Updated index.html with a new line
+ 1 file changed, 1 insertion(+)</pre>
+            <div class="warning" style="border-style: solid;">
+              <p>Skipping the Staging Environment is not generally recommended.</p>
+              <p>Skipping the stage step can sometimes make you include unwanted changes.</p>
+            </div>
+            <p>To view the history of commits for a repository, you can use the <kbd class="userinput">git log</kbd> command:</p>
+            <pre>git log
+commit 09f4acd3f8836b7f6fc44ad9e012f82faf861803 (HEAD -&gt; master)
+Author: w3schools-test
+Date:   Fri Mar 26 09:35:54 2021 +0100
+
+    Updated index.html with a new line
+
+commit 221ec6e10aeedbfd02b85264087cd9adc18e4b26
+Author: w3schools-test
+Date:   Fri Mar 26 09:13:07 2021 +0100
+
+    First release of Hello World!</pre>
+          </section>
+          <section id="git.store-remote">
+            <h4>Storing Your Commit or Version in a Remote Repository</h4>
+            <p>First you define a variable (<var>origin</var> in the example below) to point to your remote repository (https://github.com/proyecto-eden-3-esferas/Cpp in the example):</p>
+            <pre>git remote add origin https://github.com/proyecto-eden-3-esferas/Cpp</pre>
+            <p>Then you run</p>
+            <pre>git push - -set-upstream origin main</pre>
+            <p>or just:</p>
+            <pre>git push origin main</pre>
+          </section>
+          <section>
+            <h4>Git Help</h4>
+            <p>If you are having trouble remembering commands or options for commands, you can use Git help.</p>
+            <p>There are a couple of different ways you can use the help command in command line:</p>
+            <ul class="itemizedlist">
+              <li><kbd class="userinput">git &lt;command&gt; -help</kbd>: See all the available options for the specific command</li>
+              <li><kbd class="userinput">git help --all</kbd>: See all possible commands</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Git Branch</h4>
+            <p>In Git, a branch is a new/separate version of the main repository.</p>
+            <p>Let's say you have a large project, and you need to update the design on it.</p>
+            <p>How would that work without and with Git:</p>
+            <p>Without Git:</p>
+            <ul class="itemizedlist">
+              <li>Make copies of all the relevant files to avoid impacting the live version</li>
+              <li>Start working with the design and find that code depend on code in other files, that also need to be changed!</li>
+              <li>Make copies of the dependant files as well. Making sure that every file dependency references the correct file name</li>
+              <li>EMERGENCY! There is an unrelated error somewhere else in the project that needs to be fixed ASAP!</li>
+              <li>Save all your files, making a note of the names of the copies you were working on</li>
+              <li>Work on the unrelated error and update the code to fix it</li>
+              <li>Go back to the design, and finish the work there</li>
+              <li>Copy the code or rename the files, so the updated design is on the live version</li>
+              <li>(2 weeks later, you realize that the unrelated error was not fixed in the new design version because you copied the files before the fix)</li>
+            </ul>
+            <p>With Git:</p>
+            <ul class="itemizedlist">
+              <li>With a new branch called new-design, edit the code directly without impacting the main branch</li>
+              <li>EMERGENCY! There is an unrelated error somewhere else in the project that needs to be fixed ASAP!</li>
+              <li>Create a new branch from the main project called small-error-fix</li>
+              <li>Fix the unrelated error and merge the small-error-fix branch with the main branch</li>
+              <li>You go back to the new-design branch, and finish the work there</li>
+              <li>Merge the new-design branch with main (getting alerted to the small error fix that you were missing)</li>
+            </ul>
+            <p>Branches allow you to work on different parts of a project without impacting the main branch.</p>
+            <p>When the work is complete, a branch can be merged with the main project.</p>
+            <p>You can even switch between branches and work on different projects without them interfering with each other.</p>
+            <p>Branching in Git is very lightweight and fast!</p>
+            <h5 class="bridgehead">Scenario</h5>
+            <p>Let us add some new features to ... We are working in our local repository, and we do not want to disturb or possibly wreck the main project. So we create a new branch:</p>
+            <pre>git branch hello-world-images</pre>
+            <p>We have now created a new branch called <cite>hello-world-images</cite>.</p>
+            <p>Let's confirm that we have created a new branch:</p>
+            <pre>git branch
+  hello-world-images
+* master</pre>
+            <p>We can see the new branch with the name <cite>hello-world-images</cite>, but the * beside master specifies that we are currently on that branch.</p>
+            <p>To check out a branch use the <kbd class="userinput">checkout</kbd> command, which moves us from the current branch, to the one specified at the end of the command:</p>
+            <pre>git checkout hello-world-images
+Switched to branch 'hello-world-images'</pre>
+            <p>Now we have moved our current workspace from the master branch, to the new branch. Now open your favourite editor and make some changes. Also, add an image (img_hello_world.jpg). You are in the working directory (same directory as the main branch).</p>
+            <p>Now check the status of the current branch:</p>
+            <pre>git status
+On branch hello-world-images
+Changes not staged for commit:
+  (use "git add ..." to update what will be committed)
+  (use "git restore ..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add ..." to include in what will be committed)
+        img_hello_world.jpg
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+            <p>So let's go through what happens here:</p>
+            <ul class="itemizedlist">
+              <li>There are changes to our index.html, but the file is not staged for commit</li>
+              <li>img_hello_world.jpg is not tracked</li>
+            </ul>
+            <p>So we need to add both files to the Staging Environment for this branch. As we want to stage all files we type <kbd class="userinput">git add --all</kbd>.</p>
+            <p>Next, if we are happy with our changes, we commit them to the branch:</p>
+            <pre>git commit -m "Added image to Hello World"</pre>
+            <p>Now we have a new branch, that is different from the master branch.</p>
+            <div class="note" style="border-style: solid;">Using the -b option on checkout will create a new branch, and move to it, if it does not exist.</div>
+            <p>We are currently on the branch <cite>hello-world-images</cite>. We added an image to this branch and edited a file.</p>
+            <p>Now, let's see what happens when we change branch to master</p>
+            <pre>git checkout master
+Switched to branch 'master'</pre>
+            <p>The new image is not a part of this branch. List the files in the current directory again (<kbd class="userinput">ls</kbd>). And the file we edited has reverted to what it was before the alteration.</p>
+            <p>[...]</p>
+            <p>Now we have a fix ready for master, and we need to merge the two branches.</p>
+          </section>
+          <section>
+            <h4>Git Branch Merge</h4>
+            <p>We have the emergency fix ready, and so let's merge the master and emergency-fix branches.</p>
+            <p>First, we need to change to the master branch:</p>
+            <pre>git checkout master</pre>
+            <p>Now we merge the current branch (master) with emergency-fix:</p>
+            <pre>git merge emergency-fix
+Updating 09f4acd..dfa79db
+Fast-forward
+ index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)</pre>
+            <p>Since the emergency-fix branch came directly from master, and no other changes had been made to master while we were working, Git sees this as a continuation of master. So it can <dfn>Fast-forward</dfn>, just pointing both master and emergency-fix to the same commit.</p>
+            <p>As master and emergency-fix are essentially the same now, we can delete emergency-fix, as it is no longer needed:</p>
+            <pre>git branch -d emergency-fix</pre>
+            <p>Now we can move over to hello-world-images and keep working. Add another image file (<cite class="filename">img_hello_git.jpg</cite>) and change <cite class="filename">index.html</cite>, so it shows it:</p>
+            <pre>git checkout hello-world-images
+Switched to branch 'hello-world-images'</pre>
+            <p>Now, we are done with our work here and can stage and commit for this branch:</p>
+            <pre>git add --all
+git commit -m "added new image"</pre>
+            <p>We see that index.html has been changed in both branches. Now we are ready to merge hello-world-images into master. But what will happen to the changes we recently made in master?</p>
+            <pre>git checkout master
+git merge hello-world-images
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.</pre>
+            <p>The merge failed, as there is conflict between the versions for index.html. Let us check the status:</p>
+            <pre>git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+        new file:   img_hello_git.jpg
+        new file:   img_hello_world.jpg
+
+Unmerged paths:
+  (use "git add ..." to mark resolution)
+        both modified:   index.html</pre>
+            <p>This confirms there is a conflict in index.html, but the image files are ready and staged to be committed.</p>
+            <p>So we edit <cite class="filename">index.html</cite> and then we can stage it and check the status:</p>
+            <pre>git add index.html
+git status
+On branch master
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        new file:   img_hello_git.jpg
+        new file:   img_hello_world.jpg
+        modified:   index.html</pre>
+            <p>The conflict has been fixed, and we can use commit to conclude the merge:</p>
+            <pre>git commit -m "merged with hello-world-images after fixing conflicts"
+[master e0b6038] merged with hello-world-images after fixing conflicts</pre>
+            <p>And delete the hello-world-images branch:</p>
+            <pre>git branch -d hello-world-images
+Deleted branch hello-world-images (was 1f1584e).</pre>
+            <p>Now you have a better understanding of how branches and merging works. Time to start working with a remote repository!</p>
+          </section>
+        </section>
+        <!-- end of "A Git Tutorial (www.w3schools.com/git)" -->
+        <section>
+          <h3>Git Advanced (www.w3schools.com/git)*</h3>
+          <section>
+            <h4>***</h4>
+            <p/>
+            <pre/>
+            <p/>
+            <pre/>
+            <p/>
+            <pre/>
+            <p/>
+            <pre/>
+            <p/>
+            <pre/>
+            <p/>
+            <pre/>
+            <p/>
+            <pre/>
+          </section>
+        </section>
+        <!--
+$ git config user.name "Jon Loeliger"
+$ git config user.email "jdl@example.com"
+$ git init -b main ~/my_website
+$ cd ~/my_website
+$ cd add FILE
+$ git commit -m "Initial contents of my_website"
+$ git ls-files -s
+
+$ git remote add origin https://github.com/proyecto-eden-3-esferas/Cpp
+$ git add FILE
+$ git commint -m "MESSAGE"
+$ git push - -set-upstream origin main
+or just:
+$ git push origin main
+
+GitHub Pages
+https://github.com/proyecto-eden-3-esferas/proyecto-eden-3-esferas.github.io
+$ git remote add my-pages https://github.com/proyecto-eden-3-esferas/proyecto-eden-3-esferas.github.io
+
+<section>
+<title>Branches</title>
+
+The basic form of the command to create a new branch is as follows:
+$ git branch branchname start-point
+
+You can only work on one branch at a time; this reflects the state of the
+files in your working directory. When you need to work on a different branch, you will need to use
+the git checkout command:
+$ git checkout branch
+
+Git allows you to rename or even delete the default branch. If
+you are initializing a new repository, you can change the default branch name as follows:
+$ git init - -initial-branch=branch-name
+  or
+  $ git init -b branch-name
+
+Alternatively, you can edit the Git configuration file to include the init.defaultBranch attribute
+to always use a specified default branch name of your choice:
+$ git config - -global init.defaultBranch branch-name
+
+If you plan to rename a Git repository’s branch name while preserving the repository’s commit
+history, you can easily do so like this:
+$ git branch -m old-branch-name
+new-branch-name
+
+  <section>
+    <title>Dos and Dont&apos;s in Branch Names</title>
+Branch names must conform to a few simple rules:
+
+You can use the forward slash (/) to create a hierarchical name scheme. However, the name
+cannot end with a slash.
+No slash-separated component can begin with a dot (.). A branch name such as
+feature/.new is invalid.
+The name cannot start with a minus sign (–).
+The name cannot contain two consecutive dots (..) anywhere.
+The name cannot include any spaces or other whitespace characters.
+The name cannot include a character that has special meaning to Git, including the tilde (~),
+caret (^), colon (:), question mark (?), asterisk (*), and open square bracket ([).
+The name cannot include an ASCII control character, which is any byte with a value lower than
+\040 octal, or the DEL character (\177 octal).
+  </section>
+
+</section>
+-->
+        <section>
+          <header>
+            <h4>Foundational Concepts</h4>
+            <div class="abstract">Here we shall explore why and how Git differs from nother version control systems such as SVN or CVS by examining the key components of its architecture and some important concepts. We will focus on the basics, common terminology, and the relationship between Git objects and how they are utilized, all through the lens of a single repository. The fundamentals you'll learn in this chapter also apply when you're working with multiple interconnected repositories.</div>
+          </header>
+          <section>
+            <h4>Repositories*</h4>
+            <p>A Git repository is simply a key&#x2013;value pair database containing all the information needed to retain and manage the revisions and history of files in a project. A Git repository retains a complete copy of the entire project throughout its lifetime. However, unlike most other version control systems, the Git repository provides not only a complete working copy of all the files stored in the project but also a copy of the repository (key&#x2013;value pair database) itself with which to work.</p>
+          </section>
+          <section>
+            <h4>Visualizing the Git Object Store*</h4>
+            <p>Now that we know how Git efficiently stores its objects, let's discuss how Git objects fit and work together to form a complete system:</p>
+            <p>The blob object is at the <q>bottom</q> of the data structure; it references no other Git objects and is referenced only by tree objects. It can be considered a leaf node in relation to the tree object.<!-- In the figures that follow, each blob is represented by a rectangle.--></p>
+            <p>Tree objects point to blobs and possibly to other trees as well. Any given tree object might be pointed at by many different commit objects. Each tree is represented by a triangle. <!--In Chapter 15, -->We will learn how a tree object can also point to a commit object, but for now, we will keep it simple.</p>
+            <p><!--A circle represents a commit. -->A commit points to one particular tree that is introduced into the repository by the commit.</p>
+            <p>Each tag is represented by a parallelogram. Each tag can point to, at most, one commit.</p>
+            <p>The branch is not a fundamental Git object, yet it plays a crucial role in naming commits. Each branch is pictured as a rectangle...</p>
+          </section>
+          <section>
+            <h4>Git Internals: Concepts at Work*</h4>
+            <p>With some tenets out of the way, let's peek under the hood and see how all these concepts fit together in a Git repository. We will start by creating a new repository and inspecting the internal files and object store in much greater detail. We'll do this by starting at the bottom of Git's data structure and working our way up in the object store.</p>
+            <p>Before we go any further, it is important to know that Git has a few categories of commands to implement its inner mechanics. To get a detailed, categorized list of all the commands, type <kbd class="userinput">git help -a</kbd> in your terminal. Git commands are categorized as follows:</p>
+            <ul class="itemizedlist">
+              <li>Main porcelain commands (high-level commands for routine Git operations)</li>
+              <li>Ancillary commands (commands that help query Git&#x2019;s internal data store)</li>
+              <li>Low-level commands (plumbing commands for internal Git operations)</li>
+              <li>External commands (commands that extend the standard Git operations)</li>
+              <li>Commands that act as a bridge with a selected version control tool (interacting with other commands)</li>
+              <li>Command aliases (custom aliases created by users to mask complex Git commands)</li>
+            </ul>
+          </section>
+        </section>
+        <!-- end of "Foundational Concepts" -->
+        <section>
+          <header>
+            <h4>Branches*</h4>
+            <div class="abstract">
+              <p>A branch allows the user to launch a separate line of development within a software project. When you create a branch, you are creating a fork from a specific state of the project's timeline. This allows development to progress in multiple directions simultaneously. Think of it as time travel, where you have the ability to create alternate parallel timelines from a single starting point. A branch also gives you the ability to create different versions of a project. Often, a branch can be reconciled and merged with other branches to combine divergent efforts.</p>
+              <p>Creating branches in Git is considered a lightweight and inexpensive operation. This is because a branch is just a pointer to a specific commit object in a Git repository. Git allows many branches, and thus many different lines of development within a repository can exist simultaneously at any given moment. Moreover, Git has first-rate support for merges between branches. As a result, most Git users make routine use of branches and are naturally encouraged to do so frequently. In this section, we will take a top-down approach to thinking about how branches function in Git by looking at how developers maintain multiple lines of development within a project. The concept discussed here will complement the key takeaways we learned before<!-- in Chapter 2-->. We will show you how to list, view, select, create, and discard branches. We will also provide some best practices so that your branches don't disrupt the fabric of time and the existence of parallel timelines.</p>
+            </div>
+          </header>
+        </section>
+        <!-- end of "Branches" -->
+        <section>
+          <h3>Four important areas when working with Git</h3>
+          <h2>the repository, the working directory, the staging area, and the commit history</h2>
+          <section>
+            <h4>The repository</h4>
+            <p>A <dfn>repository</dfn> is how we refer to a project version controlled by Git. In reality, a repository is represented by a hidden directory called <cite class="filename">.git</cite> that exists within a project directory and it contains all the data on the changes that have been made to the files in a project. To turn a project directory into a Git repository we have to initialize the repository. Initializing a repository simply means creating a repository.</p>
+            <p>When we initialize our repository the .git directory is going to be created inside our project directory. Because the .git directory is a hidden directory we won't be able to see it unless we explicitly make hidden files visible.</p>
+            <p>You should never touch any files or folders inside your .git directory. Doing this could have undesirable consequences on your repository. You should never delete this directory unless you want to delete your repository.</p>
+          </section>
+          <section>
+            <h4>The Working Directory</h4>
+            <p>The working directory is represented by the contents of our project directory (not including the .git directory). It is sort of like a workbench. It contains all the files and folders of one version of our project. And it is where we add, edit, and delete those files and folders. The working directory is really where we make all the modifications to the content of a project.</p>
+            <p>Even though we make this distinction between the working directory and the repository, it is important to know that when people refer to a project version controlled with Git they will refer to the project folder as the repository.</p>
+            <p>Within a repository there are two important areas we want to explore further, the staging area and the commit history.</p>
+          </section>
+          <section id="git_staging_area">
+            <h4>The Staging Area</h4>
+            <p>The staging area is similar to a rough draft space. It is where we can add and remove files, when we are preparing what we want to include in the next saved version of our project (our next commit), in order to be able to explicitly craft what will be included.</p>
+            <p>The staging area is represented by a file in the .git directory called <cite class="filename">index</cite>. The index file is only created if we have added at least one file to the staging area in our project. It is a binary file therefore the actual contents are not easily understandable. For our purposes, we only need to understand that it represents the staging area.</p>
+          </section>
+          <section>
+            <h4>The Commit History</h4>
+            <p>A <a href="#git_commit">commit</a> in Git is basically one version of a project. Every commit has a commit hash. A commit hash is a unique 40 character hash, which consists of 40 letters and numbers and acts like a name for a commit, or a way to refer to it.</p>
+            <p>We only really need the first seven characters of a commit hash in order to refer to a coInside your rainbow project directory, look inside the .git directory and find the objects For example, if we have a commit has that is 51dc6ecb327578cca508abba4a56e8c18f3835e1, then to refer to this commit we could also just use 51dc6ec.</p>
+            <p>Every commit represents a snapshot of a project, in other words, a standalone version of a project that contains a reference to all the files that are part of that commit.</p>
+            <p>The <dfn>commit history</dfn> is basically where we can think of our commits existing. We can think of the commit history as being represented by the objects directory in our .git directory.</p>
+            <p>An <dfn>untracked file</dfn> is a file in the working directory that Git is not version controlling. It has never been added to the staging area and it has never been included in a commit therefore it is not part of the repository.</p>
+            <p>On the other hand, once we add a file to the staging area and Git becomes aware of it, it becomes a tracked file. A <dfn>tracked file</dfn> is a file that is version controlled or in other words that Git knows about. Every new file in a project version controlled by Git needs to be explicitly added to the staging area and then included in a commit in order to become a tracked file.</p>
+          </section>
+          <section>
+            <h4>The Two Steps to Making a Commit</h4>
+            <ul class="itemizedlist">
+              <li>Add all the files you want to include in the next commit to the staging area: <kbd class="userinput">git add &lt;filename&gt;</kbd>
+</li>
+              <li>Make a commit with a commit message: <kbd class="userinput">git commit -m "&lt;message&gt;"</kbd>
+</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Listing our Commits</h4>
+            <p>To see a list of commits in our commit history we can use the <kbd class="userinput">git log</kbd> command.The git log command lists the commits in our repository in reverse chronological order. It displays four pieces of information about each commit:</p>
+            <ul class="itemizedlist">
+              <li>Commit hash</li>
+              <li>Author name and email</li>
+              <li>Date</li>
+              <li>Commit message</li>
+            </ul>
+          </section>
+        </section>
+        <!-- end of "Four important areas when working with Git" -->
+        <section>
+          <h3>Sharing Work with Git</h3>
+          <p>By separating committing and publishing, and giving you tools with which to edit and reorganize existing commits, Git encourages better use of version control overall.</p>
+          <p>With Git, sharing work between repositories happens via operations called <dfn>push</dfn> and <dfn>pull</dfn>: you pull changes from a remote repository and push changes to it. To work on a project, you <dfn>clone</dfn> it from an existing repository, possibly over a network via protocols such as HTTP and SSH. Your clone is a full copy of the original, including all project history, completely functional on its own. In particular, you do not need to contact the first repository again in order to examine the history of your clone or commit to it&#x2014;however, your new repository does retain a reference to the original one, called a <dfn>remote</dfn>. This reference includes the state of the branches in the remote as of the last time you pulled from it; these are called <dfn>remote tracking</dfn> branches. If the original repository contains two branches named <q>master</q> and <q>topic</q>, their remote-tracking branches in your clone appear qualified with the name of the remote (by default called <dfn>origin</dfn>): <q>origin/ master</q> and <q>origin/topic</q>.</p>
+          <p>Most often, the master branch will be automatically checked out for you when you first clone the repository; Git initially checks out whatever the current branch is in the remote repository. If you later ask to check out the <q>topic</q> branch, Git sees that there isn't yet a local branch with that name&#x2014;but since there is a remote-tracking branch named <q>origin/topic</q>, it automatically creates a branch named <q>topic</q> and sets <q>origin/topic</q> as its <em>upstream</em> branch. This relationship causes the push/pull mechanism to keep the changes made to these branches in sync as they evolve in both your repository and in the remote.</p>
+          <p>When you pull, Git updates the remote-tracking branches with the current state of the origin repository; conversely, when you push, it updates the remote with any changes you've made to corresponding local branches. If these changes conflict, Git prompts you to merge the changes before accepting or sending them, so that neither side loses any history in the process.</p>
+          <p>If you're familiar with CVS or Subversion, a useful conceptual shift is to consider that a <q>commit</q> in those systems is analogous to a Git <q>push.</q> You still commit in Git, of course, but that affects only your repository and is not visible to anyone else until you push those commits&#x2014;and you are free to edit, reorganize, or delete your commits until you do so.</p>
+          <section id="git_object_store">
+            <h4>The Object Store</h4>
+            <p>Now, we shall discuss the ideas just introduced in more detail, starting with the heart of a Git repository: its <dfn>object store</dfn>. This is a database that holds just four kinds of items: <a href="#git_blob">blobs</a>, <a href="#git_tree">trees</a>, <a href="#git_commit">commits</a>, and <a href="#git_tag">tags</a>.</p>
+            <blockquote>
+              <p>The blob object is at the <q>bottom</q> of the data structure; it references no other Git objects and is referenced only by tree objects. It can be considered a leaf node in relation to the tree object. [In the figures that follow,] each blob is represented by a rectangle.</p>
+              <p>Tree objects point to blobs and possibly to other trees as well. Any given tree object might be pointed at by many different commit objects. Each tree is represented by a triangle. (A tree object can also point to a commit object, but for now, we will keep it simple.)</p>
+              <p>A circle represents a commit. A commit points to one particular tree that is introduced into the repository by the commit.</p>
+              <p>Each tag is represented by a parallelogram. Each tag can point to, at most, one commit.</p>
+            </blockquote>
+            <section id="git_blob">
+              <h4>Blob</h4>
+              <p>A <dfn>blob</dfn> is an opaque chunk of data, a string of bytes with no further internal structure as far as Git is concerned. The content of a file under version control is represented as a blob. This does not mean the implementation of blobs is naive; Git uses sophisticated compression and transmission techniques to handle blobs efficiently.</p>
+              <p>Every version of a file in Git is represented as a whole, with its own blob containing the file's complete contents. This stands in contrast to some other systems, in which file versions are represented as a series of differences from one revision to the next, starting with a base version. Various trade-offs stem from this design point. One is that Git may use more storage space; on the other hand, it does not have to reconstruct files to retrieve them by applying layers of differences, so it can be faster. This design increases reliability by increasing redundancy: corruption of one blob affects only that file version, whereas corruption of a difference affects all versions coming after that one.</p>
+            </section>
+            <section id="git_tree">
+              <h4>Tree</h4>
+              <p>A Git <dfn>tree</dfn>, by itself, is actually what one might usually think of as one level of a tree: it represents a single level of directory structure in the repository content. It contains a list of items, each of which has:</p>
+              <ul class="itemizedlist">
+                <li>A filename and associated information that Git tracks, such as its Unix permissions (mode bits) and file type; Git can handle Unix symbolic links as well as regular files.</li>
+                <li>A pointer to another object. If that object is a blob, then this item represents a file; if it's another tree, a directory.</li>
+              </ul>
+              <p>There is an ambiguity here: when we say <q>tree,</q> do we mean a single object as just described, or the collection of all such objects reachable from it by following the pointers recursively until we reach the terminal blobs&#x2014;that is, a <q>tree</q> in the more usual sense? It is the latter notion of tree that this data structure is used to represent, of course, and fortunately, it is seldom necessary in practice to make the distinction. When we say <q>tree,</q> we will normally mean the entire hierarchy of tree and blob objects; when necessary, we will use the phrase <q>tree object</q> to refer to the specific, individual data structure component.</p>
+              <p>A Git tree, then, represents a portion of the repository content at one point in time: a snapshot of a particular directory's content, including that of all directories beneath it.</p>
+              <div class="note" style="border-style: solid;">Originally, Git saved and restored the full permissions on files (all the mode bits). Later, however, this was deemed to cause more trouble than it was worth, so the interpretation of the mode bits in the index was changed. Now, the only valid values for the low 12 bits of the mode as stored in Git are octal 755 and 644, and these simply indicate that the file should be executable or not. Git sets the execute bits on a file on checkout according to this, but the actual mode value may be different depending on your umask setting; for example, if your umask is 0077, then a file stored with Git mode 755 will end up with mode 700.</div>
+            </section>
+            <section id="git_commit">
+              <h4>Commit</h4>
+              <p>A <a href="#vc">version control system</a> manages content changes, and the commit is the fundamental unit of change in Git. A commit is a snapshot of the entire repository content, together with identifying information, and the relationship of this historical repository state to other recorded states as the content has evolved over time. Specifically, a commit consists of:</p>
+              <ul class="itemizedlist">
+                <li>A pointer to a tree containing the complete state of the repository content at one point in time.</li>
+                <li>Ancillary information about this change: who was responsible for the content (the <dfn>author</dfn>); who introduced the change into the repository (the <dfn>committer</dfn>); and the time and date for both those things. The act of adding a commit object to the repository is called <q>making a commit,</q> or <q>committing (to the repository).</q>
+</li>
+                <li>A list of zero or more other commit objects, called the <dfn>parents</dfn> of this commit. The parent relationship has no intrinsic meaning; however, the normal ways of making a commit are meant to indicate that the commit's repository state was derived by the author from those of its parents in some meaningful way (e.g., by adding a feature or fixing a bug). A chain of commits, each having a single parent, indicates a simple evolution of repository state by discrete steps (and as we'll see, this constitutes a <a href="#vc_branch">branch</a>). When a commit has more than one parent, this indicates a <dfn>merge</dfn>, in which the committer has incorporated the changes from multiple lines of development into a single commit. We'll define branches and merges more precisely in a moment.</li>
+              </ul>
+              <p>Of course, at least one commit in the repository must have zero parents, or else the repository would either be infinitely large or have loops in the <a href="#commit_graph">commit graph</a>, which is not allowed (see the description of a <q>DAG</q> next). This is called a <dfn>root commit</dfn>, and most often, there is only one root commit in a repository&#x2014;the initial one created when the repository was started. However, you can introduce multiple root commits if you want; the command <kbd class="userinput">git checkout --orphan</kbd> does this. This incorporates multiple independent histories into a repository, perhaps in order to collect the contents of previously separate projects (see <q>Importing Disconnected History</q>).</p>
+              <h5 class="bridgehead">Author versus Committer</h5>
+              <p>The separate author and committer information&#x2014;name, email address, and timestamp&#x2014;reflect the creation of the commit content and its addition to the repository, respectively. These are initially the same, but may later become distinct with the use of certain Git commands. For example, <kbd class="userinput">git cherry-pick</kbd> replicates an existing commit by reapplying the changes introduced by that commit in another context. Cherry-picking carries forward the author information from the original commit, while adding new committer information. This preserves the identification and origin date of the changes, while indicating that they were applied at another point in the repository at a later date, possibly by a different person. A bugfix cherry-picked from one repository to another might look like this:</p>
+              <pre>$ git log --format=fuller
+commit d404534d
+Author:
+Eustace Maushaven &lt;eustace@qoxp.net&gt;
+AuthorDate: Thu Nov 29 01:58:13 2012 -0500
+Commit:
+Richard E. Silverman &lt;res@mlitg.com&gt;
+CommitDate: Tue Feb 26 17:01:33 2013 -0500
+
+  Fix spin-loop bug in k5_sendto_kdc
+
+  In the second part of the first pass over the
+  server list, we passed the wrong list pointer to
+  service_fds, causing it to see only a subset of
+  the server entries corresponding to sel_state.
+  This could cause service_fds to spin if an event
+  is reported on an fd not in the subset.
+
+  ---
+  cherry-picked from upstream by res
+  upstream commit 2b06a22f7fd8ec01fb27a7335125290b8...</pre>
+              <p>Other operations that do this are <kbd class="userinput">git rebase</kbd> and <kbd class="userinput">git filter-branch</kbd>; like <kbd class="userinput">git cherry-pick</kbd>, they too create new commits based on existing ones.</p>
+              <h5 class="bridgehead">Cryptographic Signature</h5>
+              <p>A commit may also be signed using GnuPG, with:</p>
+              <kbd class="userinput">$ git commit --gpg-sign[=keyid]</kbd>
+              <p>A cryptographic signature binds the commit to a particular real-world personal identity attached to the key used for signing; it verifies that the commit's contents are the same now as they were when that person signed it. The <em>meaning</em> of the signature, though, is a matter of interpretation. If I sign a commit, it might mean that I glanced at the diff; verified that the software builds; ran a test suite; prayed to Cthulhu for a bug-free release; or did none of these. Aside from being a convention among the users of the repository, I can also put the intention of my signature in the commit message; presumably, I will not sign a commit without at least reading its message.</p>
+            </section>
+            <section id="git_tag">
+              <h4>Tag</h4>
+              <p>A <dfn>tag</dfn> serves to distinguish a particular commit by giving it a human-readable name in a namespace reserved for this purpose. Otherwise, commits are in a sense anonymous, normally referred to only by their position along some branch, which changes with time as the branch evolves (and may even disappear if the branch is later deleted). The tag content consists of the name of the person making the tag, a timestamp, a reference to the commit being tagged, and free-form text similar to a commit message.</p>
+              <p>A tag can have any meaning you like; often, it identifies a particular software release, with a name like <cite class="filename">coolutil-1.0-rc2</cite> and a suitable message. You can cryptographically sign a tag just as you can a commit, in order to verify the tag's authenticity.</p>
+              <div class="note" style="border-style: solid;">There are actually two kinds of tags in Git: <q>lightweight</q> and <q>annotated</q>. This section refers to <dfn>annotated tags</dfn>, which are represented as a separate kind of object in the repository database. A <dfn>lightweight</dfn> tag is entirely different; it is simply a name pointing directly to a commit (see the upcoming section on <a href="#git_refs">refs</a> to understand how such names work generally).</div>
+            </section>
+          </section>
+          <!-- end of "The Object Store" -->
+          <section>
+            <h4>Object IDs and SHA-1</h4>
+            <p>A fundamental design element of Git is that the object store uses content-based addressing. Some other systems assign identifiers to their equivalent of commits that are relative to one another in some way, and reflect the order in which commits were made. For example, file revisions in CVS are dotted strings of numbers such as <cite class="filename">2.17.1.3</cite>, in which (usually) the numbers are simply counters: they increment as you make changes or add branches. This means that there is no instrinsic relationship between a revision and its identifier; revision 2.17.1.3 in someone else's CVS repos&#x2010; itory, if it exists, will almost certainly be different from yours.</p>
+            <p>Git, on the other hand, assigns object identifiers based on an object's contents, rather than on its relationship to other objects, using a mathematical technique called a hash function. A hash function takes an arbitrary block of data and produces a sort of fingerprint for it. The particular hash function Git uses, called SHA-1, produces a 160-bit fixed-length value for any data object you feed it, no matter how large.</p>
+            <p>The usefulness of hash-based object identifiers in Git depends on treating the SHA-1 hash of an object as unique; we assume that if two objects have the same SHA-1 fingerprint, then they are in fact the same object. From this property flow a number of key points:</p>
+            <dl class="variablelist">
+              <dt>Single-instance store</dt>
+              <dd>Git never stores more than one copy of a file. It can't&#x2014;if you add a second copy of the file, it will hash the file contents to find its SHA-1 object ID, look in the database, and find that it's already there. This is also a consequence of the separation of a file's contents from its name. Trees map filenames onto blobs in a separate step, to determine the contents of a particular filename at any given commit, but Git does not consider the name or other properties of a file when storing it, only its contents.</dd>
+              <dt>Efficient comparisons</dt>
+              <dd>As part of managing change, Git is constantly comparing things: files against other files, changed files against existing commits, as well as one commit against another. It compares whole repository states, which might encompass hundreds or thousands of files, but it does so with great efficiency because of hashing. When comparing two trees, for example, if it finds that two subtrees have the same ID, it can immediately stop comparing those portions of the trees, no matter how many layers of directories and files might remain. Why? We said earlier that a tree object contains <q>pointers</q> to its child objects, either blobs or other trees. Well, those pointers are the objects' SHA-1 IDs. If two trees have the same ID, then they have the same contents, which means they must contain the same child object IDs, which means that in turn those objects must also be the same! Inductively, we see immediately that in fact, the entire contents of the two trees must be identical, if the uniqueness property assumed previously holds.</dd>
+              <dt>Database sharing</dt>
+              <dd>Git repositories can share their object databases at any level with impunity because there can be no aliasing; the binding between an ID and the content to which it refers is immutable. One repository cannot mess up another's object store by changing the data out from under it; in that sense, an object store can only be expanded, not changed. We do still have to worry about removing objects that another database is using, but that's a much easier problem to solve</dd>
+            </dl>
+            <p>Much of the power of Git stems from content-based addressing &#x2014;but if you think for a moment, it's based on a lie! We are claiming that the SHA-1 hash of a data object is unique, but that's mathematically impossible: because the hash function output has a fixed length of 160 bits, there are exactly 2 160 IDs&#x2014;but infinitely many potential data objects to hash. There have to be duplications, called <dfn>hash collisions</dfn>. The whole system appears fatally flawed.</p>
+            <p>The solution to this problem lies in what constitutes a <em>good</em> hash function, and the odd-sounding notion that while SHA-1 cannot be mathematically collision-free, it is what we might call effectively so. For the practical purposes of Git, I'm not necessarily concerned if there are in fact other files that might have the same ID as one of mine; what really matters is whether any of those files are at all likely to ever appear in my project, or in anyone else's. Maybe all the other files are over 10 trillion bytes long, or will never match any program or text in any programming, object, or natural language ever invented by humanity. This is exactly a property (among others) that researchers endeavor to build into hash functions: the relationship between changes in the input and output is extremely sensitive and wildly unpredictable. Changing a single bit in a file causes its SHA-1 hash to change radically, and flipping a different bit in that file, or the same bit in a different file, will scramble the hash in a way that has no recognizable relationship to the other changes. Thus, it is not that SHA-1 hash collisions cannot happen&#x2014;it is just that we believe them to be so astronomically unlikely in practice that we simply don't care.</p>
+            <p>Of course, discussing precise mathematical topics in general terms is fraught with hazard; this description is intended to communicate the essence of why we rely upon SHA-1 to do its job, not to prove anything rigorously or even to give justification for these claims.</p>
+            <section>
+              <h4>Security</h4>
+              <p>SHA-1 stands for <q>Secure Hash Algorithm 1,</q> and its name reflects the fact that it was designed for use in cryptography. <dfn>Hashing</dfn> is a basic technique in computer science, with applications to many areas besides security, including signal processing, searching and sorting algorithms, and networking hardware. A <q>cryptographically secure</q> hash function like SHA-1 has related but distinct properties to those already mentioned with respect to Git; it is not just extraordinarily unlikely that two distinct trees arising in practice will produce the same commit ID, but it should also be effectively impossible for someone to deliberately find two such trees, or to find a second tree with the same ID as a given one. These features make a hash function useful in security as well as for more general purposes, since with them it can defend against deliberate tampering as well as ordinary or accidental changes to data.</p>
+              <p>Because SHA-1 is a cryptographic hash function, Git inherits certain security properties from its use of SHA-1 as well as operational ones. If I tag a particular commit of security-sensitive software, it is not feasible for an attacker to substitute a commit with the same ID in which he has embedded a backdoor; as long as I record the commit ID securely and compare it correctly, the repository is tamper proof in this regard. As explained earlier, the chained use of SHA-1 causes the tag's ID to cover the entire content of the tagged commit's tree. The addition of GnuPG digital signatures allows individuals to vouch for the contents of entire repository states and history, in a way that is impractical to forge.</p>
+              <p>Cryptographic research is always ongoing, though, and computing power increases every year; other hash functions such as MD5 that were once considered secure have been deprecated due to such advances. We have developed more secure versions of SHA itself, in fact, and as of this writing in early 2013, serious weaknesses in SHA-1 have recently been discovered. The criteria used to appraise hash functions for cryptographic use are very conservative, so these weaknesses are more theoretical than practical at the moment, but they are meaningful nonetheless. The good news is that further cryptographic breaks of SHA-1 will not affect the usefulness of Git as a version control system per se; that is, make it more likely in practice that Git will treat distinct commits as identical (that would be disastrous). They will affect the security properties Git enjoys as a result of using SHA-1, but those, while important, are critical to a smaller number of people (and those security goals can mostly be met in other ways if need be). In any case, it will be possible to switch Git to using a different hash function when it becomes necessary&#x2014;and given the current state of research, it would probably be wise to do that sooner rather than later.</p>
+            </section>
+          </section>
+          <section>
+            <h4>Where Objects Live</h4>
+            <p>In a Git repository, objects are stored under <cite class="filename">.git/objects</cite>. They may be stored individually as <em>loose</em> objects, one per file with pathnames built from their object IDs:</p>
+            <pre>$ find .git/objects -type f
+.git/objects/08/5cf6be546e0b950e0cf7c530bdc78a6d5a78db
+.git/objects/0d/55bed3a35cf47eefff69beadce1213b1f64c39
+.git/objects/19/38cbe70ea103d7185a3831fd1f12db8c3ae2d3
+.git/objects/1a/473cac853e6fc917724dfc6cbdf5a7479c1728
+.git/objects/20/5f6b799e7d5c2524468ca006a0131aa57ecce7
+...</pre>
+            <p>They may also be collected into more compact data structures called <dfn>packs</dfn>, which appear as paired <cite class="filename">.idx</cite> and <cite class="filename">.pack</cite> files:</p>
+            <pre>$ ls .git/objects/pack/
+pack-a18ec63201e3a5ac58704460b0dc7b30e4c05418.idx
+pack-a18ec63201e3a5ac58704460b0dc7b30e4c05418.pack</pre>
+            <p>Git automatically rearranges the object store over time to improve performance; for example, when it sees that there are many loose objects, it automatically coalesces them into packs (though you can do this by hand; see <kbd class="userinput">git-repack(1)</kbd>). Don't assume that objects will be represented in any particular way; always use Git commands to access the object database, rather than digging around in <cite class="filename">.git</cite> yourself.</p>
+          </section>
+          <section id="git_commit_graph">
+            <h4>The Commit Graph</h4>
+            <p>The collection of all commits in a repository forms what in mathematics is called a <a href="#graphs">graph</a>: visually, a set of objects with lines drawn between some pairs of them.</p>
+            <p>In Git, the lines represent the commit parent relationship previously explained, and this structure is called the <a href="#commit_graph">commit graph</a> of the repository.</p>
+            <p>Because of the way Git works, there is some extra structure to this graph: the lines can be drawn with arrows pointing in one direction because a commit refers to its parent, but not the other way around (we'll see later the necessity and significance of this). Again using a mathematical term, this makes the graph <a href="#directed_graphs">directed</a>.</p>
+            <p>The commit graph might be a simple linear history, as shown in the following figure:</p>
+            <img class="imagedata" src="Electric_files/pictures/Computing/linearCommitGraph.png"/>
+            <h3>A linear commit graph</h3>
+            <p>Or a complex picture involving many branches and merges:</p>
+            <img class="imagedata" src="Electric_files/pictures/Computing/complexCommitGraph.png"/>
+            <h3>A more complex commit graph</h3>
+            <p id="dag">Git, by design, will not ever produce a graph that contains a loop; that is, a way to follow the arrows from one commit to another so that you arrive at the same commit twice (think what that could possibly mean in terms of a history of changes!). This is called being <dfn>acyclic</dfn>: not having a cycle, or loop. Thus the commit graph is technically a <q>directed acyclic graph</q>, or DAG for short.</p>
+          </section>
+          <section id="git_refs">
+            <h4>Refs</h4>
+            <p>Git defines two kinds of references, or named pointers, which it calls <dfn>refs</dfn>:</p>
+            <ul class="itemizedlist">
+              <li>A simple ref, which points directly to an object ID (usually a commit or tag)</li>
+              <li>symbolic ref (or symref), which points to another ref (either simple or symbolic)</li>
+            </ul>
+            <p>These are analogous to <a href="#hard_link">hard links</a> and <a href="#sym_link">symbolic links</a> in a Unix filesystem.</p>
+            <p>Git uses refs to name things, including commits, branches, and tags. Refs inhabit a hierarchical namespace separated by slashes (as with Unix filenames), starting at <cite class="filename">refs/</cite>. A new repository has at least <cite class="filename">refs/tags/</cite> and <cite class="filename">refs/heads/</cite>, to hold the names of tags and local branches, respectively.</p>
+            <p>There is also <cite class="filename">refs/remotes/</cite>, holding names referring to other repositories; these contain beneath them the ref namespaces of those repositories, and are used in push and pull operations. For example, when you clone a repository, Git creates a remote named origin referring to the source repository.</p>
+            <p>There are various defaults, which means that you don't often have to refer to a ref by its full name; for example, in branch operations, Git implicitly looks in <cite class="filename">refs/heads/</cite> for the name you give.</p>
+            <section>
+              <h4>Related Commands</h4>
+              <p>Related Commands</p>
+              <p>These are low-level commands that directly display, change, or delete refs. You don't ordinarily need these, as Git usually handles refs automatically as part of dealing with the objects they represent, such as branches and tags. If you change refs directly, be sure you know what you're doing!</p>
+              <dl class="variablelist">
+                <dt>git show-ref</dt>
+                <dd>Display refs and the objects to which they refer</dd>
+                <dt>git symbolic-ref</dt>
+                <dd>Deals with symbolic refs specifically</dd>
+                <dt>git update-ref</dt>
+                <dd>Change the value of a ref</dd>
+                <dt>git for-each-ref</dt>
+                <dd>Apply an action to a set of refs</dd>
+              </dl>
+              <div class="warning" style="border-style: solid;">Refs often live in corresponding files and directories under <cite class="filename">.git/refs</cite>; however, don't get in the habit of looking for or changing them directly there, since there are cases in which they are stored elsewhere (in <q>packs,</q> in fact, as with objects), and changing one might involve other operations you don't know about. Always use Git commands to manipulate refs.</div>
+            </section>
+          </section>
+          <section id="git_branches">
+            <h4>Branches</h4>
+            <p>A Git <a href="#vc_branch">branch</a> is the simplest thing possible: a pointer to a commit, as a <a href="#git_refs">ref</a>. Or rather, that is its implementation; the branch itself is defined as all points reachable in the commit graph from the named commit (the <dfn>tip</dfn> of the branch).</p>
+            <p>The special ref HEAD determines what branch you are on; if HEAD is a symbolic ref for an existing branch, then you are <q>on</q> that branch. If, on the other hand, HEAD is a simple ref directly naming a commit by its SHA-1 ID, then you are not <q>on</q> any branch, but rather in <q>detached HEAD</q> mode, which happens when you check out some earlier commit to examine. Let's see:</p>
+            <pre># HEAD points to the master branch
+$ git symbolic-ref HEAD
+refs/heads/master
+
+# Git agrees; I'm on the master branch.
+$ git branch
+* master
+
+# Check out a tagged commit, not at a branch tip.
+$ git checkout mytag
+Note: checking out 'mytag'.
+You are in 'detached HEAD' state...
+
+# Confirmed: HEAD is no longer a symbolic ref.
+$ git symbolic-ref HEAD
+fatal: ref HEAD is not a symbolic ref
+
+# What is it? A commit ID...
+$ git rev-parse HEAD
+1c7ed724236402d7426606b03ee38f34c662be27
+
+# ... which matches the commit referred to by the
+# tag.
+$ git rev-parse mytag^{commit}
+1c7ed724236402d7426606b03ee38f34c662be27
+
+# Git agrees; we're not on any branch.
+$ git branch
+* (no branch)
+master</pre>
+            <p>The HEAD commit is also often referred to as the <dfn>current</dfn> commit. If you are on a branch, it may also be called the <q>last</q> or <q>tip</q> commit of the branch.</p>
+            <p>A branch evolves over time; thus, if you are on the branch master and make a commit, Git does the following:</p>
+            <ul class="itemizedlist">
+              <li>Creates a new commit with your changes to the repository content</li>
+              <li>Makes the commit at the current tip of the master branch the parent of the new commit</li>
+              <li>Adds the new commit to the object store</li>
+              <li>Changes the master branch (specifically, the ref <cite class="filename">refs/heads/master</cite>) to point to the new commit</li>
+            </ul>
+            <p>In other words, Git adds the new commit to the end of the branch using the commit's parent pointer, and advances the branch ref to the new commit.</p>
+            <p>Note a few consequences of this model:</p>
+            <ul class="itemizedlist">
+              <li>Considered individually, a commit is not intrinsically a part of any branch. There is nothing in the commit itself to tell you by name which branches it is or may once have been on; branch membership is a consequence of the commit graph and the current branch pointers.</li>
+              <li><dfn>Deleting</dfn> a branch means simply deleting the corresponding ref; it has no immediate effect on the object store. In particular, deleting a branch does not delete any commits. What it may do, however, is make certain commits uninteresting, in that they are no longer on any branch (that is, no longer reachable in the commit graph from any branch tip or tag). If this state persists, Git will eventually remove such commits from the object store as part of garbage collection. Until that happens, though, if you have an abandoned commit's ID you can still directly access it perfectly well by its SHA-1 name; the Git <function>reflog</function> (<kbd class="userinput">git log -g</kbd>) is useful in this regard.</li>
+              <li>By this definition, a branch can include more than just commits made while on that branch; it also contains commits from branches that flow into this one via an earlier merge. For example: here, the branch topic was merged into master at commit C, then both branches continued to evolve separately, as shown in the figure below.</li>
+            </ul>
+            <img class="imagedata" src="Electric_files/pictures/Computing/simpleMerge.png"/>
+            <h3>A simple merge</h3>
+            <p>At this point, <kbd class="userinput">git log</kbd> on the master branch shows not only commits A through D as you would expect, but also commits 1 and 2, since they are also reachable from D via C. This may be surprising, but it's just a different way of defining the idea of a branch: as the set of all commits that contributed content to the latest commit. You can generally get the effect of looking <q>only at the history of this branch</q>&#x2014;even though that's not really well defined &#x2014;with <kbd class="userinput">git log --first-parent</kbd>.</p>
+          </section>
+          <section>
+            <h4>The Index</h4>
+            <p>The Git index often seems a bit mysterious to people: some invisible, ineffable place where changes are <q>staged</q> until they're committed. The talk about <q>staging changes</q> in the index also suggests that it holds only changes, as if it were a collection of diffs waiting to be applied. The truth is different and quite simple, and critical to grasp in order to understand Git well. The <dfn>index</dfn> is an independent data structure, separate from both your working tree and from any commit. It is simply a list of file pathnames together with associated attributes, usually including the ID of a blob in the object database holding the data for a version of that file. You can see the current contents of the index with <kbd class="userinput">git ls-files</kbd>:</p>
+            <pre>$ git ls-files --abbrev --stage
+100644 2830ea0b 0       TODO
+100644 a4d2acee 0       VERSION
+100644 ce30ff91 0       acinclude.m4
+100644 236d5f93 0       configure.ac
+...</pre>
+            <p>The <kbd class="userinput">--stage</kbd> option means to show just the index; <kbd class="userinput">git ls-files</kbd> can show various combinations and subsets of the index and your working tree, generally. If you were to delete or change any of the listed files in your working tree, this would not affect the output of this command at all; it's not looking at them.</p>
+            <p>Key facts about the index:</p>
+            <ul class="itemizedlist">
+              <li>The index is the implicit source of the content for a normal commit. When you use <kbd class="userinput">git commit</kbd> (without supplying specific pathnames), you might think that it creates the new commit based on your working files. It does not; instead, it simply realizes the current index as a new tree object, and makes the new commit from that. This is why you need to <q>stage</q> a changed file in the index with git add in order for it to be part of the next commit.</li>
+              <li>The index does not just contain changes to be made on the next commit; it is the next commit, a complete catalog of the files that will be included in the tree of the next commit (recall that each commit refers to a tree object that is a complete snapshot of the repository content). When you check out a branch, Git resets the index to match the tip commit of that branch; you then modify the index with commands such as <kbd class="userinput">git add/mv/rm</kbd> to indicate changes to be part of the next commit.</li>
+              <li>
+                <p><kbd class="userinput">git add</kbd> does not just note in the index that a file has changed; it actually adds the current file content to the object database as a new blob, and updates the index entry for that file to refer to that blob. This is why <kbd class="userinput">git commit</kbd> is always fast, even if you're making lots of changes: all the actual data has already been stored by preceding <kbd class="userinput">git add</kbd> commands.</p>
+                <p>An implication of this behavior that occasionally confuses people is that if you change a file, <kbd class="userinput">git add</kbd> it, then change it again, it is the version you last added to the index, not the one in your working tree, that is part of the next commit. git status shows this explicitly, by listing the same file as having both <q>changes to be committed</q> and <q>changes not staged for commit.</q></p>
+              </li>
+              <li>Similar to <kbd class="userinput">git commit</kbd>, <kbd class="userinput">git diff</kbd> without arguments also has the index as an implicit operand; it shows the differences between your working tree and the index, rather than the current commit. Initially these are the same, as the index matches the last commit after a clean checkout or commit. As you make changes to your working files, these show up in the output of <kbd class="userinput">git diff</kbd>, then disappear as you add the corresponding files. The idea is that <kbd class="userinput">git diff</kbd> shows changes not yet staged for commit, so you can see what you have yet to deal with (or have deliberately not included) as you prepare the next commit. <kbd class="userinput">git diff --staged</kbd> shows the opposite: the differences between the index and the current commit (that is, the changes that are about to be committed).</li>
+            </ul>
+          </section>
+          <section id="git_merging">
+            <h4>Merging</h4>
+            <p>Merging is the complement of branching in version control: a branch allows you to work simultaneously with others on a particular set of files, whereas a <dfn>merge</dfn> allows you to later combine separate work on two or more branches that diverged earlier from a common ancestor commit. Here are two common merge scenarios:</p>
+            <ul class="itemizedlist">
+              <li>
+                <p>You are working by yourself on a software project. You decide to explore refactoring your code in a certain way, so you make a branch named refactor off of the master branch. You can make any changes you like on the refactor branch without disturbing the main line of development.</p>
+                <p>After a while, you're happy with the refactoring you've done and want to keep it, so you switch to the master branch and run <kbd class="userinput">git merge refactor</kbd>. Git applies the changes you've made on both branches since they diverged, asking for your help in resolving any conflicts, then commits the result. You delete the refactor branch, and move on.</p>
+              </li>
+              <li>
+                <p>You have been working on the master branch of a cloned repository and have made several commits over a day or two. You then run <kbd class="userinput">git pull</kbd> to update your clone with the latest work committed to the origin repository. It happens that others have also committed to the origin master branch in the meantime, so Git performs an automatic merge of master and origin/master and commits this to your master branch. You can then continue with your work or push to the origin repository now that you have incorporated its latest changes with your own. See <a href="#git_push_and_pull">Push and Pull</a>.</p>
+              </li>
+            </ul>
+            <p>There are two aspects to merging in Git: <a href="#git_merging_content">content</a> and <a href="#git_merging_history">history</a>.</p>
+            <section id="git_merging_content">
+              <h4>Merging Content</h4>
+              <p>What it means to successfully <q>merge</q> two or more sets of changes to the same file depends on the nature of the contents. Git will try to merge automatically, and often call it a success if the two changesets altered non-overlapping portions of the file. Whether you will call that a success, however, is a different question. If the file is chapter three of your next novel, then perhaps such a merge would be fine if you were making minor grammar and style corrections. If you were reworking the plot line, on the other hand, the results could be less useful&#x2014;perhaps you added a paragraph on one branch that depends on details contained in a later paragraph that was deleted on another branch. Even if the contents are programming source code, such a merge is not guaranteed to be useful. You could change two separate subroutines in a way that causes them to fail when actually used; they might now make incompatible assumptions about some shared data structure, for example. Git doesn't even check to see that your code still compiles; that's up to you.</p>
+              <p>Within these limitations, though, Git has very sophisticated mechanisms for presenting merge conflicts and helping you to resolve them. It is optimized for the most common use case: line-oriented textual data, often in computer programming languages. It has different strategies and options for determining <q>matching</q> portions of files, which you can use when the defaults don't produce adequate results. You can interactively choose sets of changes to apply, skip, or further edit. To handle complex merges, Git works smoothly with external merge tools such as <code class="application">araxis</code>, <code class="application">emerge</code>, and <code class="application">kdiff</code>, or with custom merge tools you write yourself.</p>
+            </section>
+            <section id="git_merging_history">
+              <h4>Merging History</h4>
+              <p>When Git has done what it can automatically, and you have resolved any remaining conflicts, it's time to commit the result. If we just make a commit to the current branch as usual, though, we've lost critical information: the fact that a merge occurred at all, and which branches were involved. You might remember to include this information in the commit message, but it's best not to depend on that; more importantly, Git needs to know about the merge in order to do a good job of merging in the future. Otherwise, the next time you merge the same branches (say, to periodically update one with continuing changes on the other), Git won't know which changes have already been merged and which are new. It may end up flagging as conflicts changes you have already considered and handled, or automatically applying changes you previously decided to discard.</p>
+              <p>The way Git records the fact of a merge is very simple. Recall from the section on <a href="#git_object_store">The Object Store</a> that a commit has a list of zero or more <q>parent commits.</q> The initial commit in a repository has no parents, and a simple commit to a branch has just one. When you commit as part of a merge, Git lists the tip commits of all branches involved in the merge as the parents of the new commit. This is in fact the definition of a <dfn>merge commit</dfn>: a commit having more than one parent. This information, recorded as part of the <a href="#git_commit_graph">commit graph</a>, allows visualization tools to detect and display merges in a helpful and unambiguous way. It also lets Git find an appropriate base version for comparison in later merging of the same or related branches when they have diverged again, avoiding the duplication mentioned earlier; this is called the <dfn>merge base</dfn>.</p>
+            </section>
+          </section>
+          <section id="git_push_and_pull">
+            <h4>Push and Pull</h4>
+            <p>You use the commands <kbd class="userinput">git pull</kbd> and <kbd class="userinput">git push</kbd> to update the state of one repository from that of another. Usually, one of these repositories was cloned from the other; in this context, <kbd class="userinput">git pull</kbd> updates my clone with recent work added to the original repository, whereas <kbd class="userinput">git push</kbd> contributes my work in the other direction.</p>
+            <p>There is sometimes confusion over the relationship between a repository and the one from which it was cloned. We're told that all repositories are equal, yet there seems to be an asymmetry in the original/clone relationship. Pulling automatically updates this repository from the original, so how interconnected are they? Will the clone still be usable if the original goes away? Are there branches in my repository that are somehow pointers to content in another repository? If so, that doesn't sound as if they're truly independent.</p>
+            <p>Fortunately, as with most things in Git, the situation is actually very simple; we just need to precisely define the terms at hand. The central thing to remember is that with regard to content, a repository consists of two things: an <a href="#git_object_store">object store</a> and a set of <a href="#git_refs">refs</a> &#x2014;that is, a commit graph and a set of branch names and tags that call out those commits that are of interest. When you clone a repository, such as with git clone server:dir/repo , here's what Git does:</p>
+            <ul class="itemizedlist">
+              <li>Creates a new repository.</li>
+              <li>
+                <p>Adds a remote named <q>origin</q> to refer to the repository
+              being cloned in <cite class="filename">.git/config</cite>:</p>
+                <pre>[remote "origin"]
+fetch = +refs/heads/*:refs/remotes/origin/*
+url = server:dir/repo</pre>
+                <p>The <var>fetch</var> value here, called a refspec, specifies a correspondence between sets of refs in the two repositories: the pattern on the left side of the colon names refs in the remote, and the spec indicates with the pattern on the right side where the corresponding refs should appear in the local repository. In this case, it means: <q>Keep copies of the branch refs of the remote origin in its local namespace in this repository, refs/remotes/origin/.</q></p>
+              </li>
+              <li>Runs <kbd class="userinput">git fetch origin</kbd>, which updates our local refs for the remote's branches (creating them in this case), and asks the remote to send any objects we need to complete the history for those refs (in the case of this new repository, all of them).</li>
+              <li>Finally, Git checks out the remote's current branch (its HEAD ref), leaving you with a working tree to look at. You can select a different initial branch to check out with <kbd class="userinput">--branch</kbd>, or suppress the checkout entirely with <kbd class="userinput">-n</kbd>.</li>
+            </ul>
+            <p>Suppose we know the other repository has two branches, master and beta. Having cloned it, we see:</p>
+            <pre>$ git branch
+* master</pre>
+            <p>Very well, we're on the master branch, but where's the beta branch? It appears to be missing until we use the <kbd class="userinput">--all</kbd> switch:</p>
+            <pre>$ git branch --all
+* master
+remotes/origin/HEAD -&gt; origin/master
+remotes/origin/master
+remotes/origin/beta</pre>
+            <p>Aha! There it is. This makes some sense: we have copies of the refs for both branches in the origin repository, just where the origin refspec says they should be, and there is also the HEAD ref from the origin, which told Git the default branch to check out. The curious thing now is: what is this duplicate master branch, outside of origin, that is the one we're actually on? And why did we have to give an extra option to see all these in the first place?</p>
+            <p>The answer lies in the purpose of the origin refs: they're called <dfn>remote-tracking refs</dfn>, and they are markers showing us the current state of those branches on the remote (as of the last time we checked in with the remote via fetch or pull). In adding to the master branch, you don't want to actually directly update your tracking branch with a commit of your own; then it would no longer reflect the remote repository state (and on your next pull, it would just discard your additions by resetting the tracking branch to match the remote). So, Git created a new branch with the same name in your local namespace, starting at the same commit as the remote branch:</p>
+            <pre>$ git show-ref --abbrev master
+d2e46a81 refs/heads/master
+d2e46a81 refs/remotes/origin/master</pre>
+            <p>The abbreviated SHA-1 values on the left are the commit IDs; note that they are the same, and recall that <cite class="filename">refs/heads/</cite> is the implicit namespace for local branches. Now, as you add to your master branch, it will diverge from the remote master, which reflects the actual state of affairs.</p>
+            <p>The final piece here is the behavior of your local master branch in regard to the remote. Your intention is presumably to share your work with others as an update to their master branches; also, you'd like to keep abreast of changes made to this branch in the remote while you're working. To that end, Git has added some configuration for this branch in <cite class="filename">.git/config</cite>:</p>
+            <pre>[branch "master"]
+remote = origin
+merge = refs/heads/master</pre>
+            <p>This means that when you use <kbd class="userinput">git pull</kbd> while on this branch, Git will automatically attempt to merge in any changes made to the corresponding remote branch since the last pull. This configuration affects the behavior of other commands as well, including <kbd class="userinput">fetch</kbd>, <kbd class="userinput">push</kbd>, and <kbd class="userinput">rebase</kbd>.</p>
+            <p>Finally, Git has a special convenience for <kbd class="userinput">git checkout</kbd> if you try to check out a branch that doesn't exist, but a corresponding branch does exist as part of a remote. It will automatically set up a local branch by the same name with the upstream configuration just demonstrated. For example:</p>
+            <pre>$ git checkout beta
+Branch beta set up to track remote branch beta from
+origin. Switched to a new branch 'beta'
+$ git branch --all
+* beta
+master
+remotes/origin/HEAD -&gt; origin/master
+remotes/origin/beta
+remotes/origin/master</pre>
+            <p>Having explained remote-tracking branches, we can now say succinctly what the push and pull operations do:</p>
+            <dl class="variablelist">
+              <dt>
+                <kbd class="userinput">git pull</kbd>
+              </dt>
+              <dd>
+                <p>Runs <kbd class="userinput">git fetch</kbd> on the remote for the current branch, updating the remote's local tracking refs and obtaining any new objects needed to complete the history of those refs: that is, all commits, tags, trees, and blobs reachable from the new branch tips. Then it tries to update the current local branch to match the corresponding branch in the remote. If only one side has added content to the branch, then this will succeed, and is called a <dfn>fast-forward update</dfn> since one ref is simply moved forward along the branch to catch up with the other.</p>
+                <p>If both sides have committed to the branch, however, then Git has to do something to incorporate both versions of the branch history into one shared version. By default, this is a <a href="#git_merging">merge</a>: Git merges the remote branch into the local one, producing a new commit that refers to both sides of the history via its parent pointers. Another possibility is to <dfn>rebase</dfn> instead, which attempts to rewrite your divergent commits as new ones at the tip of the updated remote branch (see <cite>Pull with Rebase</cite>)</p>
+              </dd>
+              <dt>o<kbd class="userinput">git push</kbd>
+</dt>
+              <dd>
+                <p>Attempts to update the corresponding branch in the remote with your local state, sending any objects the remote needs to complete the new history. This will fail if the update would be non&#x2013;fast-forward as described earlier (i.e., would cause the remote to discard history), and Git will suggest that you first pull in order to resolve the discrepancies and produce an acceptable update.</p>
+              </dd>
+            </dl>
+          </section>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

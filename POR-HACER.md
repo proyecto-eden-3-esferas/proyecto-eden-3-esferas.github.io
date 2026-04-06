@@ -1,3 +1,11 @@
+# [ ] Upload pictures in ~/former/home/francisco/Documents/mis_escritos/precious/psimple/github_pages/pictures/
+
+# Review *version-control.html*
+  [ ] deal with <img> elements
+  [ ] deal with <div> elements
+
+# Webbrowser Bookmarks
+
 http://localhost:5984/_utils/docs/api/database/find.html
 http://localhost:5984/_utils/docs/api/database/find.html#find-sort
 https://www.britannica.com/science/nervous-system/Types-of-neuroglia at "Neuroglial functions"
@@ -2972,6 +2980,8 @@ sed --in-place 's/<link href="\.\.\/FILE_PATH\/FILE_NAME\.css" rel="stylesheet" 
 
 
 ## Por enlazar
+
+
 
 [ ] *graphs.html* from *mathematics.html*
 [x] *cpp.boost.graph.html* from *mathematics.html*
