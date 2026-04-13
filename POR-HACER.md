@@ -1,92 +1,33 @@
-<dl>
+# Izquierda
+<p>Unos compañeros salen juntos a comer. Algunos preferirían quedarse en casa, comprar los ingredientes y cocinar, pero como ya han puesto dinero en un fondo común perderían lo entregado si lo hicieran. En realidad, debido al funcionamiento de la dinámica del grupo, aunque se ha acordado el procedimiento por votación, no obstante la mayoría preferiría no estar obligadas a aportar al fondo común, al menos no en esas condiciones.</p>
+<p>De modo que entran en un restaurante siguiendo un complejo sistema de normas supuestamente pactadas. En realidad la mayorían, una vez más, se opone. Coincide que el dueño y el personal del restaurante son familiares o amigos de varios de estos comensales. También resulta que dicho restaurante practica un procedimiento de contratación un tanto peculiar que valora la experiencia sobre todo en restaurantes de la misma cadena, así como cursillos de todo tipo, muchos no relacionados con la cocina ni con la restauración. De hecho practicamente todos cuentan con que se van a emplear ingredientes de mala calidad o fuera de temporada y que se van a cocinar mal. Es tan evidente que se preguntan por qué una minoría de ellos no piensa así. Esta minoría asegura antes de la comida que va a salir bien, a pesar de las decepciones anteriores, y después de la comida manifestarán satisfacción con el resultado.</p>
 
-  <dt>eye</dt>
-  <dd></dd>
 
-  <dt>swish</dt>
-  <dd>
-    <p>Swish is a framework for performing deductions in RDF data using a variety of techniques.</p>
-    <p>Swish is conceived as a toolkit for experimenting with RDF inference, and for implementing stand-alone RDF file processors (usable in similar style to CWM, but with a view to being extensible in declarative style through added Haskell function and data value declarations).</p>
-    <p>It explores Haskell as "a scripting language for the Semantic Web".</p>
-    <p>Swish is a work-in-progress, and currently incorporates:</p>
-    <ul>
-      <li>Turtle, Notation3 and NTriples input and output. The N3 support is incomplete (no handling of @forAll).</li>
-      <li>RDF graph isomorphism testing and merging.</li>
-      <li>Display of differences between RDF graphs.</li>
-      <li>Inference operations in forward chaining, backward chaining and proof-checking modes.</li>
-      <li>Simple Horn-style rule implementations, extendable through variable binding modifiers and filters.</li>
-      <li>Class restriction rule implementation, primarily for datatype inferences.</li>
-      <li>RDF formal semantics entailment rule implementation.</li>
-      <li>Complete, ready-to-run, command-line and script-driven programs.</li>
-    </ul>
-  </dd>
+# Criterios de ordenación de libros
 
-  <dt>libjs-n3</dt>
-  <dd>
-    <p>The N3.js library is an implementation of the RDF.js low-level specification at <a target="_blank" href="https://rdf.js.org/">https://rdf.js.org/</a> that lets you handle RDF in JavaScript easily.</p>
-    <p>It offers:</p>
-    <ul>
-      <li>Parsing triples/quads from Turtle, TriG, N-Triples, N-Quads, and Notation3 (N3)</li>
-      <li>Writing triples/quads to Turtle, TriG, N-Triples, and N-Quads</li>
-      <li>Storage of triples/quads in memory</li>
-    </ul>
-    <p>Parsing and writing is:</p>
-    <ul>
-      <li>asynchronous – triples arrive as soon as possible</li>
-      <li>streaming – streams are parsed as data comes in, so you can parse files larger than memory</li>
-      <li>fast – by far the fastest spec-compatible parser in JavaScript</li>
-    </ul>
-  </dd>
+## De literatura
+- por género: novela, poesía, teatro
+- por idioma original: castellano, clásico (griego o latín), francés, inglés, italiano, alemán
+- colecciones: austral castellano, austral traducido, cátedra castellano, cátedra traducido, etc.
+- dentro de cada clase los libros se ordenarán alfabéticamente por autor
+- se intentará poner juntas obras completas y antologías
 
-  <dt>raptor</dt>
-  <dd>
-    <p>Raptor is a C library providing a set of parsers and serializers for Resource Description Framework (RDF) triples by parsing syntaxes or serializing the triples into a syntax.</p>
-    <p>The parsing syntaxes are RDF/JSON, RDF/XML, N-Triples, Turtle, GRDDL and RSS tag soup including Atom 0.3 and Atom 1.0.  The serializing syntaxes are RDF/XML, N-Quads, N-Triples RSS 1.0 and Atom 1.0.  Raptor can handle
-    RDF/XML as used by RDF applications such as RSS 1.0, FOAF, DOAP, Dublin Core and OWL.</p>
-    <p>Raptor is designed for performance, flexibility and embedding (no memory leaks) and to closely match the revised RDF/XML specification.</p>
-  </dd>
+## No literatura:
+- divulgación científica
+- jardinería y huerta
+- medicina
+- geografía (a menudo ilustrados)
+- pintura, arte en general, historia del arte
 
-  <dt>rasqal</dt>
-  <dd>
-    <p>Rasqal is a C library providing support for querying the Resource Description Framework (RDF) including parsing query syntaxes, constructing the queries, executing them, returning result bindings and formatting results.  It supports the SPARQL RDF Query Language, RDF Data Query Language (RDQL) and LAQRS experimental query language extending SPARQL.</p>
-  </dd>
+## Agrupamiento
+- los libros de la misma clase van en baldas contiguas en horizontal, o si no en vertical (buscando el máximo de cercanía)
+-
 
-  <dt>redland</dt>
-  <dd>
-    <p>Redland is a library that provides a high-level interface for RDF (Resource Description Framework) implemented in an object-based API. It is modular and supports different RDF/XML parsers, storage mechanisms and other elements. Redland is designed for applications developers to provide RDF support in their applications as well as for RDF developers to experiment with the technology.</p>
-  </dd>
+## Van en el dormitorio de invitados:
+- los libros en idiomas extranjeros
+- teatro
 
-  <dt>serd</dt>
-  <dd>
-    <p>Serd is a lightweight C library for RDF syntax which supports reading and writing Turtle and NTriples.</p>
-    <p>Serd is not intended to be a swiss-army knife of RDF syntax, but rather is suited to resource limited applications, or situations where a simple reader/writer with minimal dependencies is ideal (e.g. in LV2 hosts or plugins).</p>
-    <p>Serd is:</p>
-    <ul>
-      <li>small: Serd is implemented in under 2500 lines1 of standard C code.</li>
-      <li>portable and dependency-free: Serd uses only the C standard library, and has no external dependencies, making it a lightweight dependency in every sense.</li>
-      <li>fast and lightweight: Serd (and the included serdi tool) can be used to stream abbreviated Turtle (unlike many other tools which can not stream since they must first build an internal model to abbreviate). In other words, Serd can re-serialise an unbounded amount of Turtle using a fixed amount of memory, preserving the abbreviations in the input.</li>
-      <li>conformant and well-tested: Serd is written to the Turtle, NTriples and URI specifications, and includes a comprehensive test suite which includes all the normative examples from the Turtle specification, all the "normal" examples from the URI specification, and additional tests added specifically for Serd. The test suite has over 96% code coverage (by line), and runs with zero memory errors or leaks.</li>
-    </ul>
-  </dd>
 
-  <dt>sord</dt>
-  <dd>
-    <p>Sord is a lightweight C library for storing Resource Description Framework (RDF) data in memory.</p>
-    <p>Sord includes man pages for the library (<code>man sord</code>) and a simple command line utility (<code>man sordi</code>).</p>
-  </dd>
-
-  <!-- URDF: U-Robot Description Format) -->
-
-  <dt>morla</dt>
-  <dd>
-    <p>With Morla you can manage more RDF documents simultaneously, visualize graphs, use templates for quick writing and exec SPARQL/RDQL queries.</p>
-    <p>You can import RDFS documents and use their content to write new RDF triples. Templates are also RDF documents, and they make Morla easily customizable and expandable. You can embed Javascript code in your templates so you can validate and change user inputs.</p>
-  </dd>
-
-  <dt>perlrdf</dt>
-  <dd></dd>
-
-</dl>
 
 # MPI / MPICH / OpenMPI
 
@@ -107,6 +48,14 @@ http://localhost:5984/_utils/docs/api/database/find.html#find-sort
 
 https://www.w3schools.com/xml/xml_rdf.asp
 https://www.w3.org/TR/owl-features/
+https://www.w3.org/2004/02/skos/
+  https://www.w3.org/2004/02/skos/intro
+  https://en.wikipedia.org/wiki/SKOS
+  https://en.wikipedia.org/wiki/Simple_Knowledge_Organization_System
+https://en.wikipedia.org/wiki/Turtle_(syntax)
+https://github.com/w3c/EasierRDF/issues/108 # Which real use cases are there for RDF/OWL ontologies?
+
+https://en.wikipedia.org/wiki/JSON-LD
 
 https://www.britannica.com/science/nervous-system/Types-of-neuroglia at "Neuroglial functions"
 go to *cells.array.json* and fill in
