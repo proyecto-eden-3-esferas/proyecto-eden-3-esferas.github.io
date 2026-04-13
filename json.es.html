@@ -31,9 +31,114 @@
     <main>
       <h1>JSON (JavaScript Object Notation): JSON: un lenguaje sencillo para intercambio de información</h1>
       <p><dfn>JSON</dfn> (JavaScript Object Notation) es un formato  basado en texto puro legible por personas orientado a la comunicación entre personas y ordenadores o entre ordenadores.</p>
-      <p>La norma define un conjunto de reglas estructurales para representar datos estructurados.</p>
-      <p>JSON se emplea en lugar del Extensible Markup Language (<a target="_blank" href="xml.es.html">XML</a>), del que (JSON) se diferencia en que se limita a representar datos estructurados, sin llegar a contituir un <a target="_blank" href="lenguajes-de-marcado.html">lenguaje de marcado</a> completo.</p>
-      <p>El tipo MIME de texto en JSON es <code>application/json</code></p>
+      <p>JSON serviría para escribir <q>fichas</q> sobre temas siguiendo unas normas sencillas y flexibles.</p>
+
+      <section id="ej1">
+        <h2>Un ejemplo sencillo de JSON: un perro</h2>
+        <p>He aquí un ejemplo sencillo de JSON:</p>
+        <pre>{
+  "nombre": "Odín",
+  "especie": "perro",
+  "peso": 11,
+  "edad": 6
+}</pre>
+        <p>Uno adivina que la <q>ficha</q> declara que (1) Odín, (2) es un perro, que (3) pesa 11 (kilogramos) y tiene 6 (años).</p>
+        <p>Ya podemos tres reglas que parecen cumplir los documentos de JSON:</p>
+        <ul>
+          <li>Un documento de JSON se entiende más o menos intuitivamente</li>
+          <li>
+            <p>consta de pares <code>&quot;<var>clave</var>&quot;: <var>valor</var></code> separados por comas y contenidos entre llaves:</p>
+            <pre>{
+  &quot;<var>clave</var>&quot;: <var>valor</var>,
+  &quot;<var>clave</var>&quot;: <var>valor</var>, ...
+}</pre>
+          </li>
+          <li>cada clave adopta un valor numérico o un texto (<q>Odín</q> y <q>perro</q> se consideran textos), si bien más adelente veremos otros tipos de valores, como verdadero, falso, nulo, etc.</li>
+        </ul>
+      </section>
+
+      <section id="ej2">
+        <h2>Un ejemplo más completo: un zapato</h2>
+        <p>A continuación veremos un ejemplo con algunos elementos más. Se trata de un modelo de zapato que podría interesarse por ejemplo a un comerciante de zapatos, aunque por motivos de espacio no podemos consignar todos los detalles que en la realidad intesarían a un profesional.</p>
+        <pre>{
+  "fabricante": "Ortopedia Levante",
+  "modelo": "alicant-3000-c",
+  "tipo": "mocasín",
+  "para-hombre": true,
+  "para-mujer": true,
+  "tallas": [39, 40, 41, 42, 43, 45, 47, 49],
+  "año": null
+}</pre>
+        <p>Observamos que una clave puede corresponderse no sólo con un texto (<q>Ortopedia Levante</q>, <q>mocasín</q> etc.) sino también con un valor de verdadero o falso (<i lang="en">true</i> significa verdadero en inglés) o con un conjunto de valores, como <code>[39, 40, 41, 42, 43, 45, 47, 49]</code> en el ejemplo. Por último, un dato podría no conocerse o no quererse dar, en cuyo caso escribimos <code>null</code>. En nuestro caso desconocemos el año en que se creó el modelo.</p>
+        <p>Por cierto, también en una base de datos relacional podemos asignar a una variable o <q>campo</q> los valores verdadero, falso o nulo. Ahora bien, sólo JSON permite asignar conjuntos de valores, como en <code>"tallas": [39, 40, 41, 42, 43, 45, 47, 49]</code> del ejemplo.</p>
+      </section>
+
+      <section id="ej3">
+        <h2>Un ejemplo complementario: nn objeto que contiene objetos</h2>
+        <p>A continuación vamos a poner el ejemplo de un cliente. Por algún motivo a la empresa que hace su ficha le interesa anotar su dirección, la cuál se presta a estructurarse en forma de objeto, de modo que la ficha contendrá a su vez un objeto JSON.</p>
+        <pre>{
+  "nombre": "Andrea",
+  "apellido": "Schmidt",
+  "dirección": {
+    "clase": "Avenida",
+    "nombre": "Alegría",
+    "número": 10
+  }
+}</pre>
+        <p>Observamos que el campo &quot;dirección&quot; posee un valor de tipo objeto: uno o varios pares de clave-valor encerrados entre llaves y separados por comas. Por supuesto, nada impide escribir un documento JSON con todos los elementos que hemos visto hasta ahora, es decir con valores de tipo:</p>
+        <ul>
+          <li>texto, como en <code></code></li>
+          <li>número, como en <code>37</code> o como en <code>37,25</code></li>
+          <li><code>true</code> o <code>false</code> (es decir, verdadero o falso)</li>
+          <li><code>null</code> (es decir nulo, desconocido...)</li>
+          <li>conjunto ordenado, tira, <i lang="en">array</i>, como en <code>[1,3,5,7,11]</code></li>
+          <li>
+            <p>objeto o subobjeto, como en</p>
+            <pre>{
+  "nombre": "Pedro",
+  "edad": 35
+}</pre>
+          </li>
+        </ul>
+      </section>
+
+      <section id="comparacion">
+        <h2>Comparación con el formato XML</h2>
+        <p>A menudo la misma información que se puede <a target="_blank" href="representacion-del-conocimiento.html">representar</a> en JSON también puede representarse en XML, el Extensible Markup Language (<a target="_blank" href="xml.es.html">XML</a>). En estos casos JSON resulta más conciso y más sencillo (menos normas sintácticas).</p>
+        <p>Otra diferencia es que XML es un <a target="_blank" href="lenguajes-de-marcado.html">lenguaje de marcado</a> completo, es decir que en muchos casos consta de un texto al que se han añadido marcas (para denotar por ejemplo capítulos, notas, comentarios).</p>
+        <p>En resumen;</p>
+        <ul>
+          <li>ambos son legibles, los entiende un ser humano a simple vista</li>
+          <li>los documentos de JSON se parecen a las fichas de información, mientras que los documentos de XML se parecen a los textos: en XML podemos escribir desde una página web en el dialecto HTML a un libro en el dialecto DocBook.</li>
+          <li>XML es más rico y complejo que JSON</li>
+          <li>existen gestores de bases de datos que almacenan documentos JSON (<a target="_blank" href="mongodb.html">MongoDB</a> y <a target="_blank" href="couchdb.html">CouchDB</a>, entre otras) y/o XML (eXist...)</li>
+          <li>existen procedimientos para <dfn>validar</dfn> tanto JSON (<i>véase</i> <a target="_blank" href="json.schema.html">JSON Schema</a> en inglés) como XML (mediante DTD...), es decir para comprobar que se ciñen a un esquema. Por ejemplo, convendría asegurarse de que toda ficha que describa una palabra lleve un campo (1) de tipo texto y (2) denominado <q>definición</q>, o que toda ficha sobre una variedad de planta lleve un campo (1) llamado <q>nombre-científico</q> (2) de tipo texto. En ambos casos escribiríamos un documento en JSON o en XML, respectivamente, que contuviese las reglas o restricciones que ha de cumplir cada documento que queramos <q>validar</q>.</li>
+        </ul>
+        <p>A continuación pondré un documento JSON que ya hemos analizado, el de un modelo de zapato, y a continuación un posible equivalente en XML:</p>
+        <pre>{
+  "nombre": "Andrea",
+  "apellido": "Schmidt",
+  "dirección": {
+    "clase": "Avenida",
+    "nombre": "Alegría",
+    "número": 10
+  }
+}</pre>
+        <p>En XML:</p>
+        <pre>&lt;Cliente&gt;
+  &lt;nombre&gt;&lt;/nombre&gt;
+  &lt;apellido&gt;&lt;/apellido&gt;
+  &lt;direccion&gt;
+    &lt;clase&gt;Avenida&lt;/clase&gt;
+    &lt;nombre&gt;Alegría&lt;/nombre&gt;
+    &lt;numero&gt;10&lt;/numero&gt;
+  &lt;/direccion&gt;
+&lt;/Cliente&gt;</pre>
+      </section>
+
+      <aside>
+        <p>El tipo MIME de texto en JSON es <code>application/json</code></p>
+      </aside>
 
       <section id="sintaxis">
         <h2>Sintaxis de JSON</h2>
@@ -49,7 +154,7 @@
 }</pre>
         <p>Los signos de puntuación empleados en JSON son:</p>
         <ul>
-          <li>comillas</li>
+          <li>comillas: rodean nombres de campos y tiras de texto</li>
           <li>llaves para encerrar objetos (<code>{<var>objeto</var>}</code>)</li>
           <li>corchetes para encerrar <i lang="en">arrays</i>/listas (<code>[<var>lista</var>]</code>)</li>
           <li>comas para separar elementos de una lista</li>
@@ -63,17 +168,39 @@
           <p>Un objeto de JSON es un conjunto no ordenado de múltiples pares de nombre y valor. Se escriben entre llaves: { }. Los nombres van seguidos de dos puntos y su valor, con espacios entre medias opcionales. Cada par de un objeto se separa del siguiente mediante coma.</p>
         </section>
         <section id="arrays">
-          <h3><i lang="en">Arrays</i> de JSON</h3>
+          <h3><i lang="en">Arrays</i> (listas, tiras...) de JSON</h3>
           <!--
           <p>JSON arrays are an ordered list of values. Arrays are used to store objects, strings, number notation and Boolean notation. An array can be made up of multiple data types.</p>
           -->
-          <p>Los arrays se encierran entre corchetes ([]) y se separan mediante comas. Un array puede contener, entre otros elementos, un array o un subobjeto. Un array que sólo contenga arrays se consideraría un array multidimensional.</p>
+          <p>Los arrays se encierran entre corchetes (<code>[]</code>) y sus elementos se separan mediante comas. Un array puede contener, entre otros elementos, un array o un subobjeto. Un array que sólo contenga arrays se consideraría un array multidimensional. Por ejmplo así podríamos representar una matriz numérica de dimensión 3 x 3:</p>
+          <pre>[
+  [0, 0 ,1],
+  [0, 1, 0],
+  [1, 0, 0]]</pre>
           <p>Un objeto puede a su vez contener objetos y arrays: el valor de un par nombre-valor de un objeto puede ser un array o un objeto.</p>
           <p>Por ejemplo, un campo <q>animales</q> podría consisistir en un array de objetos que representasen animales:</p>
           <pre>"animales": [
   {"tipo":"caballo", "patas": 4},
   {"tipo":"araña", "patas": 8}
  ]</pre>
+        </section>
+        <section id="estructuras-recursivas">
+          <h3>Estructuras recursivas: objetos o arrays de objetos o arrays ...</h3>
+          <p>Un objeto puede contener campos de tipo array u objeto (<q>subobjetos</q>), y un array puede contener campos de tipo objeto u array (<q>subarrays</q>).</p>
+        </section>
+        <section>
+          <h2>Comparación entre estructuras JSON y tablas de bases de datos relacionales</h2>
+          <p>La teoría relacional se caracteriza por que el valor de un campo es atómico, es decir no puede ser ni múltiple (arrays) ni compuesto (objetos).</p>
+          <p>Por tanto podríamos establecer una equivalencia entre una ficha JSON muy sencilla, reciclando el primer ejemplo de esta página:</p>
+          <pre>{
+  "nombre": "Odín",
+  "especie": "perro",
+  "peso": 11,
+  "edad": 6
+}</pre>
+          <p>y una file de una tabla relacional.</p>
+          <pre>INSERT into ANIMALES ('Odín', 'perro', 11, 6);</pre>
+          <p>Sin embargo para representar un objeto más complejo necesitaríamos definir varias tablas relacionadas:</p>
         </section>
       </section>
 
@@ -122,11 +249,6 @@
         <p>JSON es más fácil de manejar en varios lenguajes de programación (JavaScript, Python, PHP). También es más fácil de leer que XML.</p>
         <p>El hecho de que el formato JSON sea idéntico a la sintaxis de los objetos de JavaScript permite que un programa en JavaScript convierta JSON en objetos de JavaScript (mediante <code>JSON.parse()</code>) y viceversa (mediante <code>JSON.stringify()</code>).</p>
       </section>
-
-      <section id="validacion">
-        <h2>Validación de esquemas JSON*</h2>
-      </section>
-
 
       <section id="linux">
         <h2>Herramientas JSON disponibles en linux</h2>

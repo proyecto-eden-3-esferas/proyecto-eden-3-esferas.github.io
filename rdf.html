@@ -10,38 +10,24 @@
     <meta name="author" content="AUTHOR"/>
     <meta name="keywords" content="KW1, KW2, KW3"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
-    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
     -->
   </head>
   <body lang="en" class="computing">
     <nav>
-      <!--
-      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
-      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
-      <hr/>
-      -->
-      <p>
-        <a rel="prev" href="Ontologies.html">Ontologies</a>
-      </p>
-      <p>
-        <a href="https://www.w3.org/RDF/Validator/">On-Line Validator for RDF</a>
-      </p>
-      <p>
-        <a href="OWLandOntologyModelling.html">The OWL Standard and Ontology Modelling</a>
-      </p>
+      <p><a rel="prev" href="Ontologies.html">Ontologies</a></p>
+      <p><a            href="https://www.w3.org/RDF/Validator/">On-Line Validator for RDF</a></p>
+      <p><a            href="OWLandOntologyModelling.html">The OWL Standard and Ontology Modelling</a></p>
     </nav>
     <main>
       <h1>RDF: Resource Description Framework</h1>
       <section class="section">
         <h2>Getting Started with RDF Data</h2>
-        <p>The Resource Description Framework (RDF) is the base language of the Semantic Web. It's a language used for describing data, metadata, and even other data languages. RDF uses a graph data format, in contrast to relational data formats (such as most databases) and hierarchical data formats (such as XML). Any data model or data language that uses RDF is a part of the Semantic Web.</p>
+        <p>The Resource Description Framework (RDF) is the base language of the Semantic Web. It's a language used for describing data, metadata, and even other data languages. RDF uses a <a target="_blank" href="graphs.html">graph</a> data format, in contrast to relational data formats (such as most databases) and hierarchical data formats (such as XML). Any data model or data language that uses RDF is a part of the Semantic Web.</p>
         <p>The RDF graph is based on the idea that every data item should have a unique Web identifier, called a URI (Uniform Resource Identifier), and that every data item can be connected to every other item. A URI is different from a URL (Uniform Resource Locator) in that a URI may refer to either a Web name or a location; a URL may refer only to actual Web locations. RDF makes URI relationships between data items the central attribute of the over-all data model. Semantic Web programmers create data with URIs and link them together using relationships that are also named with URIs. In this way, an interconnected set of data may be distributed at global scale across the Internet.</p>
         <section class="section">
           <h3>Making a statement (Or two!)</h3>
-          <p>In the listing below, you can see a basic RDF structure. Like anybody who is learning a new programming language, you may find it difficult to understand all the syntax at first, but don't be intimidated. After you get past some of the initial syntax questions, you'll see that RDF can be pretty easy.</p>
-          <code>&lt;?xml version=&#x201D;1.0&#x201D;?&gt;
+          <p>In the listing below, you can see a basic RDF structure (in <strong>RDF/XML</strong>). Like anybody who is learning a new programming language, you may find it difficult to understand all the syntax at first, but don't be intimidated. After you get past some of the initial syntax questions, you'll see that RDF can be pretty easy.</p>
+          <pre>&lt;?xml version=&#x201D;1.0&#x201D;?&gt;
 &lt;rdf:RDF
   xmlns:rdf=&#x201D;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#x201D;
   xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;&gt;
@@ -53,18 +39,18 @@
     &lt;dc:creator
       rdf:resource=&#x201D;http://me.jtpollock.us/foaf.rdf#me&#x201D;/&gt;
     &lt;/rdf:Description&gt;
-&lt;/rdf:RDF&gt;</code>
-          <p>When you load the data structure in the listing above into any RDF-capable system, you get two new RDF data items. Each item is saying something about my relationship to a Web page. These RDF data items are usually called triples, or statements. (You can use the terms interchangeably.)</p>
+&lt;/rdf:RDF&gt;</pre>
+          <p>When you load the data structure in the listing above into any RDF-capable system, you get two new RDF data items. Each item is saying something about my relationship to a Web page. These RDF data items are usually called <dfn>triples</dfn>, or <dfn>statements</dfn>. (You can use the terms interchangeably.)</p>
           <p>The first RDF statement is</p>
-          <code>&lt;rdf:Description rdf:about=&#x201D;http://me.jtpollock.us/&#x201D;&gt;
-&lt;dc:title&gt;Jeff&#x2019;s Homepage!&lt;/dc:title&gt;
-&lt;/rdf:Description&gt;</code>
+          <pre>&lt;rdf:Description rdf:about=&#x201D;http://me.jtpollock.us/&#x201D;&gt;
+  &lt;dc:title&gt;Jeff&#x2019;s Homepage!&lt;/dc:title&gt;
+&lt;/rdf:Description&gt;</pre>
           <p>It says that there is a Web page at the address http://me.jtpollock.us/, the title of which is <q>Jeff's Homepage!</q></p>
           <p>The second RDF statement is similar:</p>
-          <code>&lt;rdf:Description rdf:about=&#x201D;http://me.jtpollock.us/&#x201D;&gt;
-&lt;dc:creator
-rdf:resource=&#x201D;http://me.jtpollock.us/foaf.rdf#me&#x201D;/&gt;
-&lt;/rdf:Description&gt;</code>
+          <pre>&lt;rdf:Description rdf:about=&#x201D;http://me.jtpollock.us/&#x201D;&gt;
+  &lt;dc:creator
+    rdf:resource=&#x201D;http://me.jtpollock.us/foaf.rdf#me&#x201D;/&gt;
+&lt;/rdf:Description&gt;</pre>
           <p>This statement says that there is a Web page at http://me.jtpollock. us/ whose creator is http://me.jtpollock.us/foaf.rdf#me. With RDF, every part of a statement may be a URI that points to another location. In this statement, the creator data simply points to another RDF resource that has a collection of data about me.</p>
           <p>When taken together, these RDF triples provide two individual statements about the relationship between a particular Web page and some other data resources on the Web. The first triple simply names the page with a title, and the second triple identifies the creator by pointing to another set of data that describes me.</p>
           <p>You can try validating this RDF yourself. Validating RDF is a lot like validating XML, HTML, or any other programming language: The validator simply checks to see whether there are any issues with your code. Navigate your Web browser to the W3C (World Wide Web Consortium) RDF validation service at www.w3.org/RDF/Validator. At this site, type in the code in the Listing, choose the Triples and Graph setting from the Web page, and click the Parse RDF button. You should see results that look like... surprise! You'll see how the W3C Validation Service can take the example code you've copied, identify the two individual triples, and build a simple picture of how they're related in a graph.</p>
@@ -72,30 +58,28 @@ rdf:resource=&#x201D;http://me.jtpollock.us/foaf.rdf#me&#x201D;/&gt;
         <section class="section">
           <h3>Behold: A federated data graph</h3>
           <p>The simple set of two RDF triples in the listing is actually a somewhat sophisticated data graph. The syntax of the RDF example uses several keywords to reference other parts of the example and also other parts of the Web. RDF statements that reference data vocabularies hosted in other parts of the Web are called <dfn class="firstterm">federated graphs</dfn>. Take, for example, the following statements:</p>
-          <code>xmlns:rdf=&#x201D;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#x201D;
-xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;</code>
+          <pre>xmlns:rdf=&#x201D;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#x201D;
+xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;</pre>
           <p>These two lines of code declare prefix variables that may be used elsewhere in the example. For instance, the <kbd class="userinput">xmlns</kbd> prefix stands for XML Namespace, and you can use this keyword to create short-hand variables throughout your RDF documents. Throughout this chapter, I refer to it as simply a <em class="wordasword">namespace</em>.</p>
           <p>In the example, you can see that the keyword prefix rdf is made equal to the URI http://www.w3.org/1999/02/22-rdf-syntax-ns#. The keyword dc is declared equal to the URI http://purl.org/dc/elements/1.1/.</p>
           <p>With the RDF example shown in the listing, you can see tags that contain the two keyword prefixes <kbd class="userinput">dc</kbd> and <kbd class="userinput">rdf</kbd>. Whenever you see the shorthand prefix, you know that the computer will replace the shorthand with a fully qualified statement. For example, the tag <kbd class="userinput">&lt;dc:creator&gt;</kbd> will be interpreted as <kbd class="userinput">&lt;http://purl.org/dc/elements/1.1/creator&gt;</kbd>. This method is how you link data and data semantics across the Web.</p>
-          <p>The word <em class="wordasword">creator</em> means something to a human, but it doesn't mean any- thing to an XML parser. Typically, without the Semantic Web, a programmer would have to encode specific matching logic in a software program to interpret and react to the word creator when it appears in data. But in the Semantic Web, words can be defined as part of a vocabulary, providing context, definitions, and a model for interpreting the meaning of those words.</p>
+          <p>The word <em class="wordasword">creator</em> means something to a human, but it doesn't mean anything to an XML parser. Typically, without the Semantic Web, a programmer would have to encode specific matching logic in a software program to interpret and react to the word creator when it appears in data. But in the Semantic Web, words can be defined as part of a vocabulary, providing context, definitions, and a model for interpreting the meaning of those words.</p>
           <p>In the example, the word <em class="wordasword">creator</em> is defined to be a part of the XML Namespace http://purl.org/dc/elements/1.1/. This URI is a directory service that points to a vocabulary about publishing provided by the Dublin Core initiative.</p>
           <p>Thus, the definition of the word <em class="wordasword">creator</em> is provided by the Dublin Core vocabulary.</p>
           <p>...</p>
         </section>
         <section class="section" id="reification">
-          <header>
-            <h4>Reification</h4>
-          </header>
+          <h3>Reification</h3>
           <p>It is not unusual for someone who is building a model in RDF for the first time to feel a bit limited by the simple subject/predicate/object form of the RDF triple. They don't want to just say that Shakespeare wrote <cite class="citetitle">Hamlet</cite>, but they want to qualify this statement and say that Shakespeare wrote <cite class="citetitle">Hamlet</cite> in 1604 or that Wikipedia states that Shakespeare wrote <cite class="citetitle">Hamlet</cite> in 1604. In general, these are cases in which it is, or at least seems, desirable to make a statement about another statement. This process is called <dfn class="firstterm">reification</dfn>. Reification is not a problem specific to Semantic Web modeling; the same issue arises in other data modeling contexts like relational databases and object systems. In fact, one approach to reification in the Semantic Web is to simply borrow the standard solution that is commonly used in relational database schemas, using the conventional mapping from relational tables to RDF<!-- given in the preceding challenge-->. In a relational database table, it is possible to simply create a table with more columns to add additional information about a triple. So the statement <phrase>Shakespeare wrote Hamlet</phrase> is expressed in a single row of a table, where there is a column for the author of a work and another column for its title. Any further information about this event is done with another column. When this is converted to RDF<!-- according to the example in Challenge 1-->, the row is represented by a number of triples, one triple per column in the database. The subject of all of these triples is the same: a single resource that corresponds to the row in the table.</p>
           <p>This approach works well for examples like <phrase>Shakespeare wrote Hamlet in 1601</phrase>, in which we want to express more information about some event or statement. It doesn't work so well in cases like <phrase>Wikipedia says Shakespeare wrote Hamlet</phrase>, in which we are expressing information about the statement itself, <phrase>Shakespeare wrote Hamlet</phrase>. This kind of metadata about statements often takes the form of prove&#xAD;nance (information about the source of a statement, as in this example), likelihood (expressed in some quantitative form like probability, such as <phrase>It is 90 percent prob&#xAD;able that Shakespeare wrote Hamlet</phrase>), context (specific information about a project setting in which a statement holds, such as <phrase>Kenneth Branagh played Hamlet in the movie</phrase>), or time frame (<phrase>Hamlet plays on Broadway January 11 through March 12</phrase>). In such cases, it is useful to explicitly make a statement about a statement. This pro&#xAD;cess, called <dfn class="firstterm">explicit reification</dfn>, is supported by the W3C RDF standard with three resources called rdf:subject, rdf:predicate, and rdf:object.</p>
           <p>Let's take the example of <phrase>Wikipedia says Shakespeare wrote Hamlet</phrase>. Using the RDF standard, we can refer to a triple (<var>q:n1</var>) as follows:</p>
-          <code>{q:n1, rdf:subject, lit:Shakespeare}
+          <pre>{q:n1, rdf:subject, lit:Shakespeare}
 {q:n1, rdf:predicate, lit:wrote}
-{q:n1, rdf:object, lit:Hamlet}</code>
+{q:n1, rdf:object, lit:Hamlet}</pre>
           <p>Then we can express the relation of Wikipedia to this statement as follows:</p>
-          <code>{web:Wikipedia, m:says, q:n1}</code>
+          <pre>{web:Wikipedia, m:says, q:n1}</pre>
           <p>Notice that just because we have asserted the reification triples about <var>q:n1</var>, it is not necessarily the case that we have also asserted the triple itself:</p>
-          <code>{lit:Shakespeare, lit:wrote, lit:Hamlet}</code>
+          <pre>{lit:Shakespeare, lit:wrote, lit:Hamlet}</pre>
           <p>This is as it should be; after all, if an application does not trust information from Wikipedia, then it should not behave as though that triple has been asserted. An application that does trust Wikipedia will want to behave as though it had.</p>
         </section>
         <section class="section">
@@ -187,7 +171,7 @@ xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;</code>
                 <li>small: Serd is implemented in under 2500 lines1 of standard C code.</li>
                 <li>portable and dependency-free: Serd uses only the C standard library, and has no external dependencies, making it a lightweight dependency in every sense.</li>
                 <li>fast and lightweight: Serd (and the included serdi tool) can be used to stream abbreviated Turtle (unlike many other tools which can not stream since they must first build an internal model to abbreviate). In other words, Serd can re-serialise an unbounded amount of Turtle using a fixed amount of memory, preserving the abbreviations in the input.</li>
-                <li>conformant and well-tested: Serd is written to the Turtle, NTriples and URI specifications, and includes a comprehensive test suite which includes all the normative examples from the Turtle specification, all the "normal" examples from the URI specification, and additional tests added specifically for Serd. The test suite has over 96% code coverage (by line), and runs with zero memory errors or leaks.</li>
+                <li>conformant and well-tested: Serd is written to the Turtle, NTriples and URI specifications, and includes a comprehensive test suite which includes all the normative examples from the Turtle specification, all the "normal" examples from the URI specification, and additional tests added specifically for Serd. The test suite has over 96% pre coverage (by line), and runs with zero memory errors or leaks.</li>
               </ul>
             </dd>
 
