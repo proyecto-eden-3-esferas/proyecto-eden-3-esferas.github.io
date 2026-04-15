@@ -20,11 +20,18 @@
     </nav>
     <main>
       <h1>RDF: Resource Description Framework</h1>
-      <section class="section">
+      <p>The <strong>RDF data model</strong> is similar to classical conceptual modeling approaches (such as entity–relationship or class diagrams). It is based on the idea of making statements about <strong>resources</strong> (in particular web resources) in expressions of the form <var>subject</var>–<var>predicate</var>–<var>object</var>, known as <dfn>triples</dfn>. The <var>subject</var> denotes the resource; the <var>predicate</var> denotes traits or aspects of the resource, and expresses a relationship between the <var>subject</var> and the <var>object</var>.</p>
+      <p>For example, one way to represent the notion <q>The sky has the color blue</q> in RDF is as the triple: a subject denoting <q>the sky</q>, a predicate denoting <q>has the color</q>, and an object denoting <q>blue</q>. Therefore, RDF uses subject instead of object (or entity) in contrast to the typical approach of an entity–attribute–value model in object-oriented design: entity (sky), attribute (color), and value (blue).</p>
+      <p>RDF is an <em>abstract</em> model with several serialization formats (being essentially specialized notations). In addition the particular encoding for resources or triples can vary from format to format.</p>
+      <hr/>
+      <p>A collection of RDF statements intrinsically represents a labeled (predicates), directed <a target="_blank" href="graphs.html#multigraphs">multigraph</a>. This makes an RDF data model better suited to certain kinds of knowledge representation than other relational or ontological models.</p>
+
+
+      <section>
         <h2>Getting Started with RDF Data</h2>
         <p>The Resource Description Framework (RDF) is the base language of the Semantic Web. It's a language used for describing data, metadata, and even other data languages. RDF uses a <a target="_blank" href="graphs.html">graph</a> data format, in contrast to relational data formats (such as most databases) and hierarchical data formats (such as XML). Any data model or data language that uses RDF is a part of the Semantic Web.</p>
         <p>The RDF graph is based on the idea that every data item should have a unique Web identifier, called a URI (Uniform Resource Identifier), and that every data item can be connected to every other item. A URI is different from a URL (Uniform Resource Locator) in that a URI may refer to either a Web name or a location; a URL may refer only to actual Web locations. RDF makes URI relationships between data items the central attribute of the over-all data model. Semantic Web programmers create data with URIs and link them together using relationships that are also named with URIs. In this way, an interconnected set of data may be distributed at global scale across the Internet.</p>
-        <section class="section">
+        <section>
           <h3>Making a statement (Or two!)</h3>
           <p>In the listing below, you can see a basic RDF structure (in <strong>RDF/XML</strong>). Like anybody who is learning a new programming language, you may find it difficult to understand all the syntax at first, but don't be intimidated. After you get past some of the initial syntax questions, you'll see that RDF can be pretty easy.</p>
           <pre>&lt;?xml version=&#x201D;1.0&#x201D;?&gt;
@@ -55,7 +62,7 @@
           <p>When taken together, these RDF triples provide two individual statements about the relationship between a particular Web page and some other data resources on the Web. The first triple simply names the page with a title, and the second triple identifies the creator by pointing to another set of data that describes me.</p>
           <p>You can try validating this RDF yourself. Validating RDF is a lot like validating XML, HTML, or any other programming language: The validator simply checks to see whether there are any issues with your code. Navigate your Web browser to the W3C (World Wide Web Consortium) RDF validation service at www.w3.org/RDF/Validator. At this site, type in the code in the Listing, choose the Triples and Graph setting from the Web page, and click the Parse RDF button. You should see results that look like... surprise! You'll see how the W3C Validation Service can take the example code you've copied, identify the two individual triples, and build a simple picture of how they're related in a graph.</p>
         </section>
-        <section class="section">
+        <section>
           <h3>Behold: A federated data graph</h3>
           <p>The simple set of two RDF triples in the listing is actually a somewhat sophisticated data graph. The syntax of the RDF example uses several keywords to reference other parts of the example and also other parts of the Web. RDF statements that reference data vocabularies hosted in other parts of the Web are called <dfn class="firstterm">federated graphs</dfn>. Take, for example, the following statements:</p>
           <pre>xmlns:rdf=&#x201D;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#x201D;
@@ -68,7 +75,7 @@ xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;</pre>
           <p>Thus, the definition of the word <em class="wordasword">creator</em> is provided by the Dublin Core vocabulary.</p>
           <p>...</p>
         </section>
-        <section class="section" id="reification">
+        <section id="reification">
           <h3>Reification</h3>
           <p>It is not unusual for someone who is building a model in RDF for the first time to feel a bit limited by the simple subject/predicate/object form of the RDF triple. They don't want to just say that Shakespeare wrote <cite class="citetitle">Hamlet</cite>, but they want to qualify this statement and say that Shakespeare wrote <cite class="citetitle">Hamlet</cite> in 1604 or that Wikipedia states that Shakespeare wrote <cite class="citetitle">Hamlet</cite> in 1604. In general, these are cases in which it is, or at least seems, desirable to make a statement about another statement. This process is called <dfn class="firstterm">reification</dfn>. Reification is not a problem specific to Semantic Web modeling; the same issue arises in other data modeling contexts like relational databases and object systems. In fact, one approach to reification in the Semantic Web is to simply borrow the standard solution that is commonly used in relational database schemas, using the conventional mapping from relational tables to RDF<!-- given in the preceding challenge-->. In a relational database table, it is possible to simply create a table with more columns to add additional information about a triple. So the statement <phrase>Shakespeare wrote Hamlet</phrase> is expressed in a single row of a table, where there is a column for the author of a work and another column for its title. Any further information about this event is done with another column. When this is converted to RDF<!-- according to the example in Challenge 1-->, the row is represented by a number of triples, one triple per column in the database. The subject of all of these triples is the same: a single resource that corresponds to the row in the table.</p>
           <p>This approach works well for examples like <phrase>Shakespeare wrote Hamlet in 1601</phrase>, in which we want to express more information about some event or statement. It doesn't work so well in cases like <phrase>Wikipedia says Shakespeare wrote Hamlet</phrase>, in which we are expressing information about the statement itself, <phrase>Shakespeare wrote Hamlet</phrase>. This kind of metadata about statements often takes the form of prove&#xAD;nance (information about the source of a statement, as in this example), likelihood (expressed in some quantitative form like probability, such as <phrase>It is 90 percent prob&#xAD;able that Shakespeare wrote Hamlet</phrase>), context (specific information about a project setting in which a statement holds, such as <phrase>Kenneth Branagh played Hamlet in the movie</phrase>), or time frame (<phrase>Hamlet plays on Broadway January 11 through March 12</phrase>). In such cases, it is useful to explicitly make a statement about a statement. This pro&#xAD;cess, called <dfn class="firstterm">explicit reification</dfn>, is supported by the W3C RDF standard with three resources called rdf:subject, rdf:predicate, and rdf:object.</p>
@@ -82,7 +89,7 @@ xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;</pre>
           <pre>{lit:Shakespeare, lit:wrote, lit:Hamlet}</pre>
           <p>This is as it should be; after all, if an application does not trust information from Wikipedia, then it should not behave as though that triple has been asserted. An application that does trust Wikipedia will want to behave as though it had.</p>
         </section>
-        <section class="section">
+        <section>
           <h3>Naming RDF Graphs</h3>
           <p>Informally, a graph is a diagram with nodes and edges. In RDF, this corresponds directly to a set of triples.</p>
           <p>When we manage data sets, we might just refer to all the triples in our data, as we have done with all the examples in this chapter so far. For most situations, this is fine. But we might want to single out a set of triples (i.e., a graph) and give that a name. Since this is the Web, that name will be in the form of a URI. The RDF standard provides a means for doing this&#x2014;it is called the named graph.</p>
@@ -99,6 +106,211 @@ xmlns:dc=&#x201D;http://purl.org/dc/elements/1.1/&#x201D;</pre>
           <p>Named graphs are a simple extension to the RDF formalism, and really don't change any of the basics; RDF still links one named resource to another, where each name is global in scope (i.e., on the Web). Named graphs simply allow us to manage sets of these links, and to name them as well. Sometimes when we are using named graphs, we refer to <dfn class="firstterm">quads</dfn> instead of triples; this is because it is possi&#xAD;ble to represent a triple and its graph as a four&#xAD;tuple<!-- (as shown in the table above)-->. The name of the fourth entry in the quad is usually called the <em class="wordasword">graph</em><!-- (as it is here)-->, but is sometimes referred to as the <em class="wordasword">context</em>, anticipating a particular use for the named graph.</p>
         </section>
       </section>
+
+      <section id="vocabulary">
+        <h2>Vocabulary</h2>
+        <p>The vocabulary discussed in the following four subsections is used as a foundation for RDF Schema, where it is extended.</p>
+
+        <section>
+          <h3>RDF Classes</h3>
+          <dl>
+            <dt><code>rdf:XMLLiteral</code></dt>
+            <dd>the class of XML literal values</dd>
+            <dt><code>rdf:Property</code></dt>
+            <dd>the class of properties</dd>
+            <dt><code>rdf:Statement</code></dt>
+            <dd>the class of RDF statements</dd>
+            <dt><code>rdf:Alt, rdf:Bag, rdf:Seq</code></dt>
+            <dd>containers of alternatives, unordered containers, and ordered containers (<code>rdfs:Container</code> is a super-class of the three)</dd>
+            <dt><code>rdf:List</code></dt>
+            <dd>the class of RDF Lists</dd>
+            <dt><code>rdf:nil</code></dt>
+            <dd>an instance of rdf:List representing the empty list</dd>
+          </dl>
+        </section>
+
+        <section>
+          <h3>RDFS Classes</h3>
+          <dl>
+            <dt><code>rdfs:Resource</code></dt>
+            <dd>the class resource, everything</dd>
+            <dt><code>rdfs:Literal</code></dt>
+            <dd>the class of literal values, e.g. strings and integers</dd>
+            <dt><code>rdfs:Class</code></dt>
+            <dd>the class of classes</dd>
+            <dt><code>rdfs:Datatype</code></dt>
+            <dd>the class of RDF datatypes</dd>
+            <dt><code>rdfs:Container</code></dt>
+            <dd>the class of RDF containers</dd>
+            <dt><code>rdfs:ContainerMembershipProperty</code></dt>
+            <dd>the class of container membership properties, <code>rdf:_1</code>, <code>rdf:_2</code>, ..., all of which are sub-properties of <code>rdfs:member</code></dd>
+          </dl>
+        </section>
+
+
+        <section>
+          <h3>RDF Properties</h3>
+          <dl>
+            <dt><code>rdf:type</code></dt>
+            <dd>an instance of <code>rdf:Property</code> used to state that a resource is an instance of a class</dd>
+            <dt><code>rdf:first</code></dt>
+            <dd>the first item in the subject RDF list</dd>
+            <dt><code>rdf:rest</code></dt>
+            <dd>the rest of the subject RDF list after rdf:first</dd>
+            <dt><code>rdf:value</code></dt>
+            <dd>idiomatic property used for structured values</dd>
+            <dt><code>rdf:subject</code></dt>
+            <dd>the subject of the RDF statement</dd>
+            <dt><code>rdf:predicate</code></dt>
+            <dd>the predicate of the RDF statement</dd>
+            <dt><code>rdf:object</code></dt>
+            <dd>the object of the RDF statement</dd>
+          </dl>
+          <p><strong>Note</strong> <code>rdf:Statement</code>, <code>rdf:subject</code>, <code>rdf:predicate</code>, <code>rdf:object</code> are used for <a href="#reification">reification</a>.</p>
+        </section>
+
+        <section>
+          <h3>RDFS Properties</h3>
+          <dl>
+            <dt><code>rdfs:subClassOf</code></dt>
+            <dd>the subject is a subclass of a class</dd>
+            <dt><code>rdfs:subPropertyOf</code></dt>
+            <dd>the subject is a subproperty of a property</dd>
+            <dt><code>rdfs:domain</code></dt>
+            <dd>a domain of the subject property</dd>
+            <dt><code>rdfs:range</code></dt>
+            <dd>a range of the subject property</dd>
+            <dt><code>rdfs:label</code></dt>
+            <dd>a human-readable name for the subject</dd>
+            <dt><code>rdfs:comment</code></dt>
+            <dd>a description of the subject resource</dd>
+            <dt><code>rdfs:member</code></dt>
+            <dd>a member of the subject resource</dd>
+            <dt><code>rdfs:seeAlso</code></dt>
+            <dd>further information about the subject resource</dd>
+            <dt><code>rdfs:isDefinedBy</code></dt>
+            <dd>the definition of the subject resource</dd>
+          </dl>
+        </section>
+
+
+      </section>
+
+      <section id="notations">
+        <h2>RDF Notations aka Serialization Formats</h2>
+        <p>Several common formats are in use, including:</p>
+        <ul>
+          <li><strong>Turtle</strong>, a compact, human-friendly format.</li>
+          <li><strong>TriG</strong>, an extension of Turtle to datasets.</li>
+          <li><strong>N-Triples</strong>, a very simple, easy-to-parse, line-based format that is not as compact as Turtle.</li>
+          <li><strong>N-Quads</strong>, a superset of N-Triples, for serializing multiple RDF graphs.</li>
+          <li><strong>JSON-LD</strong>, a JSON-based serialization.</li>
+          <li><strong>N3</strong> or <strong>Notation3</strong>, a non-standard serialization that is very similar to Turtle, but has some additional features, such as the ability to define inference rules.</li>
+          <li><a href="#rdf-xml">RDF/XML</a>, an XML-based syntax that was the first standard format for serializing RDF.</li>
+          <li><strong>RDF/JSON</strong>, an alternative syntax for expressing RDF triples using a simple JSON notation.</li>
+        </ul>
+        <section id="rdf-xml">
+          <h3>An XML Notation for RDF: <code>RDF/XML</code></h3>
+          <p>RDF/XML is sometimes misleadingly called simply RDF because it was introduced among the other W3C specifications defining RDF and it was historically the first W3C standard RDF serialization format. However, it is important to distinguish the RDF/XML format from the abstract RDF model itself. Although the RDF/XML format is still in use, other RDF serializations are now preferred by many RDF users, both because they are more human-friendly, and because some RDF graphs are not representable in RDF/XML due to restrictions on the syntax of XML <a target="_blank" href="xml.en.html#qname">QNames</a>.</p>
+        </section>
+      </section>
+
+      <section id="resource-identification">
+        <h2>Resource Identification</h2>
+        <p>The subject of an RDF statement is either a uniform resource identifier (URI) or a <a href="#blank-node">blank node</a>, both of which denote resources. Resources indicated by blank nodes are called anonymous resources. They are not directly identifiable from the RDF statement. The predicate is a URI which also indicates a resource, representing a relationship. The object is a URI, blank node or a Unicode string literal. As of RDF 1.1 resources are identified by Internationalized Resource Identifiers (IRIs); IRI are a generalization of URI.</p>
+        <p>In Semantic Web applications, and in relatively popular applications of RDF like RSS and FOAF (Friend of a Friend), resources tend to be represented by URIs that intentionally denote, and can be used to access, actual data on the World Wide Web. But RDF, in general, is not limited to the description of Internet-based resources. In fact, the URI that names a resource does not have to be dereferenceable at all. For example, a URI that begins with "http:" and is used as the subject of an RDF statement does not necessarily have to represent a resource that is accessible via HTTP, nor does it need to represent a tangible, network-accessible resource—such a URI could represent absolutely anything. However, there is broad agreement that a bare URI (without a # symbol) which returns a 300-level coded response when used in an HTTP GET request should be treated as denoting the internet resource that it succeeds in accessing.</p>
+        <p>Therefore, producers and consumers of RDF statements must agree on the semantics of resource identifiers. Such agreement is not inherent to RDF itself, although there are some controlled vocabularies in common use, such as Dublin Core Metadata, which is partially mapped to a URI space for use in RDF. The intent of publishing RDF-based ontologies on the Web is often to establish, or circumscribe, the intended meanings of the resource identifiers used to express data in RDF. For example, the URI:</p>
+        <pre>http://www.w3.org/TR/2004/REC-owl-guide-20040210/wine#Merlot</pre>
+        <p>is intended by its owners to refer to the class of all Merlot red wines by vintner (i.e., instances of the above URI each represent the class of all wine produced by a single vintner), a definition which is expressed by the OWL ontology—itself an RDF document—in which it occurs. Without careful analysis of the definition, one might erroneously conclude that an instance of the above URI was something physical, instead of a type of wine.</p>
+        <p>Note that this is not a <em>bare</em> resource identifier, but is rather a URI reference, containing the &apos;#&apos; character and ending with a fragment identifier.</p>
+        <section id="blank-node">
+          <h3>Blank Nodes</h3>
+          <p>In RDF, a <dfn>blank node</dfn> (also called <dfn>bnode</dfn>) is a node in an RDF graph representing a resource for which a URI or literal is not given, while still letting them express things about that resource within a knowledge graph. The resource represented by a blank node is also called an <dfn>anonymous resource</dfn>.</p>
+          <p>According to the RDF standard a blank node can only be used as subject or object of an RDF triple.</p>
+
+          <hr/>
+
+          <p>For instance, we might know that John’s mother was Spanish and a skilled cook, but nothing else.</p>
+          <p>We can represent this information in RDF as follows:</p>
+          <pre>:john :hasMother [ :hasNationality "Spanish" ;
+     :isSkilledAt :cooking ] .</pre>
+          <p>This can also be expressed as:</p>
+          <pre>:john :hasMother _:_john_s_mother .
+
+_:_john_s_mother :hasNationality "Spanish" ;
+     :isSkilledAt :cooking ] .</pre>
+          <p>We will then be able to query all the people who have a Spanish mother like this:</p>
+          <pre>SELECT ?person ?mother
+WHERE {
+?person :hasMother ?mother .
+?mother :hasNationality "Spanish" .
+} </pre>
+          <p>In John’s case however, the binding for the ?mother variable that will be returned will not be tell us much, as we didn’t know much to begin with. So some triplestores may store <code>_:_john_s_mother</code> as something different, e.g. <code>_:_bnode_123</code>, and they would still be meeting the W3C standard.</p>
+          <p>Keep in mind that, since blank nodes are not resources, you cannot query them directly, so:</p>
+          <pre>SELECT ?p ?o
+WHERE {
+_:_john_s_mother ?p ?o
+}</pre>
+          <p>Is actually treated exactly like:</p>
+          <pre>SELECT ?p ?o
+WHERE {
+?s ?p ?o
+}</pre>
+          <hr/>
+          <p>When a blank node occurs as the subject of a triple, this is the syntax. Say, a stranger has stolen a car, is blond and is 175 cm tall.</p>
+          <pre>[] a :Person ;
+  :hasCommittedCrime :theft_car_123 ;
+  :hasHairColour "Blond" ;
+  :hasHeight "175cm".</pre>
+          <!--
+          <p></p>
+          <pre></pre>
+          -->
+        </section>
+      </section>
+
+      <section id="statement-reification-and-context">
+        <h2></h2>
+        <p>The body of knowledge modeled by a collection of statements may be subjected to <a href="#reification">reification</a>, in which each statement (that is each triple subject-predicate-object altogether) is assigned a URI and treated as a resource about which additional statements can be made, as in <q>Jane says that John is the author of document X</q>. Reification is sometimes important in order to deduce a level of confidence or degree of usefulness for each statement.</p>
+        <p>In a reified RDF database, each original statement, being a resource, itself, most likely has at least three additional statements made about it: one to assert that its subject is some resource, one to assert that its predicate is some resource, and one to assert that its object is some resource or literal. More statements about the original statement may also exist, depending on the application's needs.</p>
+        <p>Borrowing from concepts available in <a target="_blank" href="logic.html">logic</a><!-- (and as illustrated in graphical notations such as conceptual graphs and topic maps)-->, some RDF model implementations acknowledge that it is sometimes useful to group statements according to different criteria, called <strong>situations</strong>, <strong>contexts</strong>, or <strong>scopes</strong>, as discussed in articles by RDF specification co-editor Graham Klyne. For example, a statement can be associated with a context, named by a URI, in order to assert an <q>is true in</q> relationship. As another example, it is sometimes convenient to group statements by their source, which can be identified by a URI, such as the URI of a particular RDF/XML document. Then, when updates are made to the source, corresponding statements can be changed in the model, as well.</p>
+        <p>Implementation of scopes does not necessarily require fully reified statements. Some implementations allow a single scope identifier to be associated with a statement that has not been assigned a URI, itself. Likewise named graphs in which a set of triples is named by a URI can represent context without the need to reify the triples.</p>
+      </section>
+
+      <section id="constraints">
+        <h2>Constraints</h2>
+        <p>In knowledge graphs, and <a target="_blank" href="database.html">databases</a> more generally, a constraint ensures that data conforms to a certain structure, called a shape.</p>
+        <p>For instance, when storing data about persons, there might be some fields which are always needed (social security number (SSN), date of birth, etc.), and others that may or may not apply (their spouse’s social security number, their children’s date of birth, etc—they may not have either).</p>
+        <p>We can impose a constraint to ensure that no person is store who does not have a social security number, and we will be able to tell our database to not accept any data that violates the constraint.</p>
+        <p>In knowledge graphs, the most widely used language for constraints is <strong>SHACL</strong> (Shapes Constraints Language). See the W3C definition for a <a target="_blank" href="https://www.w3.org/TR/shacl/">technical outline of SHACL</a>.</p>
+        <p>This essentially lets us specify shapes that the data should conform to, and then run a check to verify this. Here is an example:</p>
+        <pre>:PersonShape a sh:NodeShape ;
+sh:targetClass :Person ;
+sh:property [
+  sh:path :hasSocialSecurityNumber ;
+  sh:maxCount 1 ;
+  sh:minCount 1
+] .</pre>
+        <p>This tells us that every member of the class :Person must have exactly one object for the <code>:hasSocialSecurityNumber</code> predicate.</p>
+        <hr/>
+        <p>We can go further however, with a shape like this one, which also tells us what datatype the SSN should be, and what it should look like:</p>
+        <pre>:PersonShape a sh:NodeShape ;
+sh:targetClass :Person ;
+sh:property [
+  sh:path :hasSSN ;
+  sh:maxCount 1 ;
+  sh:minCount 1 ;
+  sh:datatype xsd:string ;
+  sh:pattern "^\\d{3}-\\d{2}-\\d{4}$"
+] .</pre>
+        <p>i.e. 3 digits at the start, followed by a hyphen, then 2 digits, then another hyphen, and finally 4 digits at the end.</p>
+        <p>If we validate the data against these shapes, we will be able to also find out which constraints were violated.</p>
+        <p>So if Alice had no SSN, then the validation report would tell us so.</p>
+        <p>If Bob has two SSNs, similarly, this reason would be flagged.</p>
+        <p>And if Charlie had one SSN, but it looks wrong, e.g. “12345-88”, then this would also be clear from the validation report.</p>
+      </section>
+
+
 
       <section id="software">
         <h2>Software for Handling RDF</h2>

@@ -1,4 +1,27 @@
-# validar
+# Oxford Semantic Technologies
+at https://www.oxfordsemantic.tech/
+
+# bien formado frente a validado
+<p><dfn>Bien formado</dfn> significa sin errores sintácticos, mientras que <q>validado</q> viene de <dfn>validar</dfn>, que significa comprobar que sigue un esquema.</p>
+<p>Por ejemplo la oración <q>La lluvia entraba a raudales por las ventanas abiertas</q> está mal formada porque no cumple la regla (sintáctica) de que el sujeto ha de concordar con el verbo en número. La oración <q>La lluvia votó a favor de su partido</q> es inválida porque incumple la regla semática de que el sujeto de <q>votar</q> debe ser un ente dotado de derechos políticos y la lluvia no lo es. Podrá objetarse que más que de una regla de semántica formal la invalidez de esta última frase tiene que ver con el sentido común y que resulta obvio que la frase chirría. Ahora bien, en los lenguajes informáticos y en general cuanto más artificial es un lenguaje más peso adquiere la semántica formal y la <q>validación</q> que permite hacer de las concatenaciones de signos.</p>
+<p>Veamos un ejemplo en un lenguaje castellano inventado:</p>
+<pre>si (llueve)
+  hay goteras;
+  el lechero se retrasa;</pre>
+<p>El autor ha sangrado la segunda y tercera línea pensando que se cumplen si la condición se cumple. Supongamos además que lo correcto hubiese sido rodear la consecuencia entre llaves cuando hay más de una.</p>
+<pre>si (llueve)
+{
+  hay goteras;
+  el lechero se retrasa;
+}</pre>
+<p>Entonces la máquina en realidad interpreta:</p>
+<pre>si (llueve)
+{
+  hay goteras;
+}
+el lechero se retrasa;</pre>
+<p>Es decir, que llueva o no, le lechero se retrasa. Se ha cometido un error de semántica pues queríamos decir que se retrasa cuando llueve, no siempre.</p>
+
 
 # Izquierda
 <p>Unos compañeros salen juntos a comer. Algunos preferirían quedarse en casa, comprar los ingredientes y cocinar, pero como ya han puesto dinero en un fondo común perderían lo entregado si lo hicieran. En realidad, debido al funcionamiento de la dinámica del grupo, aunque se ha acordado el procedimiento por votación, no obstante la mayoría preferiría no estar obligadas a aportar al fondo común, al menos no en esas condiciones.</p>
@@ -23,7 +46,7 @@
 
 ## Agrupamiento
 - los libros de la misma clase van en baldas contiguas en horizontal, o si no en vertical (buscando el máximo de cercanía)
--
+- intentar dejar algo de holgura en cada balda por si hay que colocar algún libro más
 
 ## Van en el dormitorio de invitados:
 - los libros en idiomas extranjeros
