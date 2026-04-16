@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SPARQL</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="SPARQL: the W3 Query Language on RDF"/>
+    <!--
+    <meta name="author" content="AUTHOR"/>
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="Ontologies.html">Ontologies</a></p>
+        <p><a            href="https://www.w3.org/RDF/Validator/">On-Line Validator for RDF</a></p>
+        <p><a            href="OWLandOntologyModelling.html">The OWL Standard and Ontology Modelling</a></p>
+      </div>
+      <div>
+        <p><a href="https://jena.apache.org/tutorials/">Jena Tutorials</a></p>
+      </div>
+    </nav>
+    <main>
+      <h1>SPARQL: the W3 Query Language on RDF</h1>
+
+      <p>Select all subjects (<var>x</var>) such that <code><var>x</var> &lt;http://www.w3.org/2001/vcard-rdf/3.0#FN&gt;  "John Smith"</code></p>
+      <pre>SELECT ?x
+WHERE { ?x  &lt;http://www.w3.org/2001/vcard-rdf/3.0#FN&gt;  "John Smith" }</pre>
+      <p>where <code>?x</code> represents a variable called x. The <code>?</code> does not form part of the name which is why it does not appear in the table output.</p>
+
+      <p>Here is another:</p>
+      <pre>SELECT ?x ?fname
+WHERE {?x  &lt;http://www.w3.org/2001/vcard-rdf/3.0#FN&gt;  ?fname}</pre>
+
+      <p>Yet another:</p>
+      <pre>SELECT ?givenName
+WHERE
+  { ?y  -&lt;http://www.w3.org/2001/vcard-rdf/3.0#Family&gt;  "Smith" .
+    ?y  -&lt;http://www.w3.org/2001/vcard-rdf/3.0#Given&gt;  ?givenName .
+  }</pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+      <p></p>
+      <pre></pre>
+
+      <section>
+        <h2>Solutions</h2>
+        <p>Query solutions are a set of pairs of a variable name with a value. A <code>SELECT</code> query directly exposes the solutions (after order/limit/offset are applied) as the result set - other query forms use the solutions to make a graph. The solution is the way the pattern matched - which values the variables must take for a pattern to match.</p>
+      </section>
+
+      <section>
+        <h2>Basic Patterns</h2>
+
+        <section>
+          <h3>QNames</h3>
+          <p>Consider:</p>
+          <pre>SELECT ?givenName
+WHERE
+  { ?y  -&lt;http://www.w3.org/2001/vcard-rdf/3.0#Family&gt;  "Smith" .
+    ?y  -&lt;http://www.w3.org/2001/vcard-rdf/3.0#Given&gt;  ?givenName .
+  }</pre>
+          <p>There is shorthand mechanism for writing long URIs using prefixes. The query above is more clearly written as</p>
+          <pre>PREFIX vcard:      -&lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?givenName
+WHERE
+ { ?y vcard:Family "Smith" .
+   ?y vcard:Given  ?givenName .
+ }</pre>
+          <p>This is a prefixing mechanism - the two parts of the URIs, from the prefix declaration and from the part after the “:” in the qname, are concatenated together. This is strictly not what an XML qname is but uses the RDF rule for turning a qname into a URI by concatenating the parts.</p>
+        </section>
+
+        <section>
+          <h3>Blank Nodes</h3>
+          <p>Change the query just a little to return <var>y</var> as well</p>
+          <pre>PREFIX vcard:      &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?y ?givenName
+WHERE
+ { ?y vcard:Family "Smith" .
+   ?y vcard:Given  ?givenName .
+ }</pre>
+          <p>and the blank nodes appear. <var>y</var> is <q>bound</q> to <code>_:b0</code> and <code>_:b0</code> in a given implementation, or generally an odd looking qname starting with <code>_:</code></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+        </section>
+      </section>
+
+      <section id="filters">
+        <h2>SPARQL Filters</h2>
+        <section>
+          <h3>String Matching</h3>
+          <p>SPARQL provides an operation to test strings, based on regular expressions. This includes the ability to ask SQL “LIKE” style tests, although the syntax of the regular expression is different from SQL.</p>
+          <p>The syntax is:</p>
+          <pre>FILTER regex(?<var>x</var>, "<var>pattern</var>" [, "<var>flags</var>"])</pre>
+
+          <p>The flags argument is optional. The flag “i” means a case-insensitive pattern match is done.</p>
+          <p>The example query finds given names with an “r” or “R” in them.</p>
+          <pre>PREFIX vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?g
+WHERE
+{ ?y vcard:Given ?g .
+  FILTER regex(?g, "r", "i") }
+</pre>
+          <p>The regular expression language is the same as the <a target="_blank" href="https://www.w3.org/TR/xpath-functions/#regex-syntax">XQuery regular expression language</a> which is codified version of that found in Perl.</p>
+        </section>
+
+        <section>
+          <h3>Testing Values</h3>
+          <p>There are times when the application wants to filter on the value of a variable. In the data file vc-db-2.rdf, we have added an extra field for age. Age is not defined by the vCard schema, so we have created a new property for the purpose of this tutorial. RDF allows such mixing of different definitions of information because URIs are unique. Note also that the info:age property value is typed.</p>
+          <p>In this extract of the data, we show the typed value. It can also be written plain 23.</p>
+          <pre>&lt;http://somewhere/RebeccaSmith/&gt;
+    info:age "23"^^xsd:integer ;
+    vCard:FN "Becky Smith" ;
+    vCard:N [ vCard:Family "Smith" ;
+              vCard:Given  "Rebecca" ] .</pre>
+          <p>So, a query (q-f2.rq) to find the names of people who are older than 24 is:</p>
+          <pre>PREFIX info: &lt;http://somewhere/peopleInfo#&gt;
+
+SELECT ?resource
+WHERE
+  {
+    ?resource info:age ?age .
+    FILTER (?age >= 24)
+  }</pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Optional Information</h2>
+        <!-- at https://jena.apache.org/tutorials/sparql_optionals.html -->
+        <p><code>OPTIONAL</code> is a binary operator that combines two graph patterns. The optional pattern is any group pattern and may involve any SPARQL pattern types. If the group matches, the solution is extended, if not, the original solution is given.</p>
+        <p>The following query gets the name of a person and also the age if that piece of information is available.</p>
+        <pre>PREFIX info:    &lt;http://somewhere/peopleInfo#&gt;
+PREFIX vcard:   &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?name ?age
+WHERE
+{
+    ?person vcard:FN  ?name .
+    OPTIONAL { ?person info:age ?age }
+}</pre>
+        <p>If only some of the people in the data have age properties, then their matching query solutions will have that information. However, because the triple pattern for the age is optional, there is a pattern solution for the remaining people who don’t have age information.</p>
+        <hr/>
+        <p>If the optional clause had not been there, no age information would have been retrieved. If the triple pattern had been included but had not been made optional, as in the query:</p>
+        <pre>PREFIX info:   &lt;http://somewhere/peopleInfo#&gt;
+PREFIX vcard:  &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?name ?age
+WHERE
+{
+    ?person vcard:FN  ?name .
+    ?person info:age ?age .
+}</pre>
+        <p>then we would only get solutions for people with a stated age.</p>
+
+        <section>
+          <h3>Optionals with <code>FILTER</code>s</h3>
+          <p>The following query will get a person&apos;s name and age. The age will be included if available and if greater than 24.</p>
+          <pre>PREFIX info:        &lt;http://somewhere/peopleInfo#&gt;
+PREFIX vcard:      &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?name ?age
+WHERE
+{
+    ?person vcard:FN  ?name .
+    OPTIONAL { ?person info:age ?age . FILTER ( ?age > 24 ) }
+}</pre>
+          <hr/>
+          <p>If the filter condition is moved out of the optional part, then it can influence the number of solutions, but it may be necessary to make the filter more complicated to allow for variable age being unbound.</p>
+          <pre>PREFIX info:        &lt;http://somewhere/peopleInfo#&gt;
+PREFIX vcard:      &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?name ?age
+WHERE
+{
+    ?person vcard:FN  ?name .
+    OPTIONAL { ?person info:age ?age . }
+    FILTER ( !bound(?age) || ?age > 24 )
+}</pre>
+          <p>Evaluating an expression which has an unbound variables where a bound one was expected causes an evaluation exception and the whole expression fails.</p>
+        </section>
+
+        <section>
+          <h3>Optionals and Other Dependency Queries</h3>
+          <p>One thing to be careful of is using the same variable in two or more optional clauses (and not in some basic pattern as well):</p>
+          <pre>PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+PREFIX vCard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;
+
+SELECT ?name
+WHERE
+{
+  ?x a foaf:Person .
+  OPTIONAL { ?x foaf:name ?name }
+  OPTIONAL { ?x vCard:FN  ?name }
+}</pre>
+          <p>If the first optional binds <code>?name</code> and <code>?x</code> to some values, the second <code>OPTIONAL</code> is an attempt to match the ground triples (<code>?x</code> and <code>?name</code> have values). If the first optional did not match the optional part, then the second one is an attempt to match its triple with two variables.</p>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Union Queries*</h2>
+        <!-- https://jena.apache.org/tutorials/sparql_union.html -->
+      </section>
+
+
+    </main>
+  </body>
+</html>

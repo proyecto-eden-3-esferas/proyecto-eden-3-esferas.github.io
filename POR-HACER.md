@@ -1,3 +1,13 @@
+# Cocinero, sin ego, por favor
+<h1>Cocinero, sin ego, por favor</h1>
+<p>Contó un <i lang="fr">chef</i> profesional que le habían hecho cocinero personal de un alto lama.</p>
+<p>Empezó a imaginar los exquisitos a la vez que saludables platos que para él prepararía. La primera vez concertó una entrevista con el lama para decidir qué cocinaría, pero sólo le pidió un plato de arroz blanco.</p>
+<p>¿Nada más?</p>
+<p>Nada más.</p>
+<p>¿Ningún otro plato suculento y nutritivo?</p>
+<p>No.</p>
+<p>Será otra vez, pensó, pero el lama continuó pidiéndole lo mismo. No tanto un plato de arroz como un cocinero sin ego.</p>
+
 # Oxford Semantic Technologies
 at https://www.oxfordsemantic.tech/
 
