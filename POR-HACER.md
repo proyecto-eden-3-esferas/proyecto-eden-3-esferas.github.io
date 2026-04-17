@@ -1,63 +1,35 @@
-# Cocinero, sin ego, por favor
-<h1>Cocinero, sin ego, por favor</h1>
-<p>Contó un <i lang="fr">chef</i> profesional que le habían hecho cocinero personal de un alto lama.</p>
-<p>Empezó a imaginar los exquisitos a la vez que saludables platos que para él prepararía. La primera vez concertó una entrevista con el lama para decidir qué cocinaría, pero sólo le pidió un plato de arroz blanco.</p>
-<p>¿Nada más?</p>
-<p>Nada más.</p>
-<p>¿Ningún otro plato suculento y nutritivo?</p>
-<p>No.</p>
-<p>Será otra vez, pensó, pero el lama continuó pidiéndole lo mismo. No tanto un plato de arroz como un cocinero sin ego.</p>
+El Ayuntamiento de Madrid le informa que tiene una nueva Comunicación disponible en Mi Carpeta en la Sede Electrónica, con los siguientes datos:
 
-# Oxford Semantic Technologies
-at https://www.oxfordsemantic.tech/
-
-# bien formado frente a validado
-<p><dfn>Bien formado</dfn> significa sin errores sintácticos, mientras que <q>validado</q> viene de <dfn>validar</dfn>, que significa comprobar que sigue un esquema.</p>
-<p>Por ejemplo la oración <q>La lluvia entraba a raudales por las ventanas abiertas</q> está mal formada porque no cumple la regla (sintáctica) de que el sujeto ha de concordar con el verbo en número. La oración <q>La lluvia votó a favor de su partido</q> es inválida porque incumple la regla semática de que el sujeto de <q>votar</q> debe ser un ente dotado de derechos políticos y la lluvia no lo es. Podrá objetarse que más que de una regla de semántica formal la invalidez de esta última frase tiene que ver con el sentido común y que resulta obvio que la frase chirría. Ahora bien, en los lenguajes informáticos y en general cuanto más artificial es un lenguaje más peso adquiere la semántica formal y la <q>validación</q> que permite hacer de las concatenaciones de signos.</p>
-<p>Veamos un ejemplo en un lenguaje castellano inventado:</p>
-<pre>si (llueve)
-  hay goteras;
-  el lechero se retrasa;</pre>
-<p>El autor ha sangrado la segunda y tercera línea pensando que se cumplen si la condición se cumple. Supongamos además que lo correcto hubiese sido rodear la consecuencia entre llaves cuando hay más de una.</p>
-<pre>si (llueve)
-{
-  hay goteras;
-  el lechero se retrasa;
-}</pre>
-<p>Entonces la máquina en realidad interpreta:</p>
-<pre>si (llueve)
-{
-  hay goteras;
-}
-el lechero se retrasa;</pre>
-<p>Es decir, que llueva o no, le lechero se retrasa. Se ha cometido un error de semántica pues queríamos decir que se retrasa cuando llueve, no siempre.</p>
+Destinatario/a: FRANCISCO FERNANDEZ VICTORIO HERNANDEZ
+NIF/NIE: ***827***
+Concepto: Recibo Domiciliado
+Emitida por: Servicio de Recaudación Voluntaria y Procedimientos de Extinción de Deudas
+Identificador: 31400499
 
 
-# Izquierda
-<p>Unos compañeros salen juntos a comer. Algunos preferirían quedarse en casa, comprar los ingredientes y cocinar, pero como ya han puesto dinero en un fondo común perderían lo entregado si lo hicieran. En realidad, debido al funcionamiento de la dinámica del grupo, aunque se ha acordado el procedimiento por votación, no obstante la mayoría preferiría no estar obligadas a aportar al fondo común, al menos no en esas condiciones.</p>
-<p>De modo que entran en un restaurante siguiendo un complejo sistema de normas supuestamente pactadas. En realidad la mayorían, una vez más, se opone. Coincide que el dueño y el personal del restaurante son familiares o amigos de varios de estos comensales. También resulta que dicho restaurante practica un procedimiento de contratación un tanto peculiar que valora la experiencia sobre todo en restaurantes de la misma cadena, así como cursillos de todo tipo, muchos no relacionados con la cocina ni con la restauración. De hecho practicamente todos cuentan con que se van a emplear ingredientes de mala calidad o fuera de temporada y que se van a cocinar mal. Es tan evidente que se preguntan por qué una minoría de ellos no piensa así. Esta minoría asegura antes de la comida que va a salir bien, a pesar de las decepciones anteriores, y después de la comida manifestarán satisfacción con el resultado.</p>
+# Platform Capitalism
+by Nick Srnicek
+<p>What unites Google and Facebook, Apple and Microsoft, Siemens and GE, Uber and Airbnb? Across a wide range of sectors, these firms are transforming themselves into platforms: businesses that provide the hardware and software foundation for others to operate on. This transformation signals a major shift in how capitalist firms operate and how they interact with the rest of the economy: the emergence of ‘platform capitalism’.</p>
+<p>This book critically examines these new business forms, tracing their genesis from the long downturn of the 1970s to the boom and bust of the 1990s and the aftershocks of the 2008 crisis. It shows how the fundamental foundations of the economy are rapidly being carved up among a small number of monopolistic platforms, and how the platform introduces new tendencies within capitalism that pose significant challenges to any vision of a post-capitalist future. This book will be essential reading for anyone who wants to understand how the most powerful tech companies of our time are transforming the global economy."</p>
+
 
 
 # Criterios de ordenación de libros
-
 ## De literatura
 - por género: novela, poesía, teatro
 - por idioma original: castellano, clásico (griego o latín), francés, inglés, italiano, alemán
 - colecciones: austral castellano, austral traducido, cátedra castellano, cátedra traducido, etc.
 - dentro de cada clase los libros se ordenarán alfabéticamente por autor
 - se intentará poner juntas obras completas y antologías
-
 ## No literatura:
 - divulgación científica
 - jardinería y huerta
 - medicina
 - geografía (a menudo ilustrados)
 - pintura, arte en general, historia del arte
-
 ## Agrupamiento
 - los libros de la misma clase van en baldas contiguas en horizontal, o si no en vertical (buscando el máximo de cercanía)
 - intentar dejar algo de holgura en cada balda por si hay que colocar algún libro más
-
 ## Van en el dormitorio de invitados:
 - los libros en idiomas extranjeros
 - teatro
@@ -105,18 +77,13 @@ go to *cells.array.json* and fill in
 https://www.britannica.com/science/nervous-system/Axon
 
 https://en.wikipedia.org/wiki/Ontology_language
+Oxford Semantic Technologies at https://www.oxfordsemantic.tech/
 
 # Competencias
 
 Hace tiempo leí quejarse a uno de que la Informática era la única ingeniería sin competencias.
 
 De modo que estudiar una ingeniería va de adquirir unas <q>competencias</q>, es decir unos derechos.
-
-# Tecnología: eficacia, eficiencia y seguridad
-
-Las tecnologías premodernas eran eficaces que eficientes en el sentido de que conseguían resolver muchos de los actuales problemas solubles de una manera mucho menos eficiente. Por ejemplo había coches y neveras, pero consumían más energía o contaminaban más.
-
-El Estado no debería legislar sobre la eficiencia con que los agentes privados (ya sean personales o institucionales) aplican la tecnología, salvo en el caso de la contaminación o deterioro del medio ambiente en general, lo cuál en realidad constituye un problema de seguridad, no de eficiencia.
 
 
 # Hacks

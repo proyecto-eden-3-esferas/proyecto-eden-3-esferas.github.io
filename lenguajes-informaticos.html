@@ -14,30 +14,19 @@
   <body lang="es"  class="tecnologia">
     <nav>
     <!--
-      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
-      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
-      <hr/>
-      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
-      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
         <p><a href="herramientas.html">Herramientas y máquinas</a></p>
         <p><a            href="ia.html">Inteligencia Artificial</a></p>
       -->
       <div>
         <p><a            href="notacion.html">Notación: lenguajes específicos artificiales</a></p>
-        <p><a rel="next" href="expresiones-regulares.html">Expresiones regulares</a></p>
-        <p><a            href="ordenadores.html">Ordenadores digitales</a></p>
-        <p><a            href="digital.html">Lo digital</a></p>
+        <p><a rel="next" href="lenguajes-de-marcado.html">Lenguajes de marcado</a></p>
+        <p><a            href="digital.es.html">Lo digital</a></p>
         <p><a            href="informacion.html">Información</a></p>
-        <p><a            href="programacion.html">Programación</a></p>
-        <p><a            href="bases-de-datos.html">Bases de datos</a></p>
       </div>
       <div>
-        <p><a            href="lenguajes-de-marcado.html">Lenguajes de marcado</a></p>
-        <p><a            href="json.es.html">JSON (JavaScrip Object Notation)</a></p>
-        <p><a            href="xml.es.html">Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)</a></p>
+        <p><a href="bases-de-datos.html">Bases de datos</a></p>
+        <p><a href="expresiones-regulares.html">Expresiones regulares</a></p>
+        <p><a href="xml.es.html">Un lenguaje general sobre marcado: XML (eXtensible Mark-up Language)</a></p>
       </div>
       <div>
         <p lang="es"><a href="computing.html">Computing (English)</a></p>
@@ -83,6 +72,29 @@ Un resto, con todo eso, del antiguo ceremonial ...</pre>
           <li><strong>comentarios</strong>: casi todos permiten escribir comentarios, los cuáles no afectan a cómo se procesa; suelen ir o a continuación de algún caracter o secuencia de caracteres o entre dos secuencis de caracteres, en cada lenguaje de programación potencialmente distintas.</li>
           <li><strong>signos de puntuación</strong>: determinan fuertemente el significado y condicionan la interpretación, mientras que en una lengua natural su omisión no generaría ambigüedades insuperables.</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>Bien formado frente a validado</h2>
+        <p><dfn>Bien formado</dfn> significa sin errores sintácticos, mientras que <q>validado</q> viene de <dfn>validar</dfn>, que significa comprobar que sigue un esquema.</p>
+        <p>Por ejemplo la oración <q>La lluvia entraba a raudales por las ventanas abiertas</q> está mal formada porque no cumple la regla (sintáctica) de que el sujeto ha de concordar con el verbo en número. La oración <q>La lluvia votó a favor de su partido</q> es inválida porque incumple la regla semática de que el sujeto de <q>votar</q> debe ser un ente dotado de derechos políticos y la lluvia no lo es. Podrá objetarse que más que de una regla de semántica formal la invalidez de esta última frase tiene que ver con el sentido común y que resulta obvio que la frase chirría. Ahora bien, en los lenguajes informáticos y en general cuanto más artificial es un lenguaje más peso adquiere la semántica formal y la <q>validación</q> que permite hacer de las concatenaciones de signos.</p>
+        <p>Veamos un ejemplo en un lenguaje castellano inventado:</p>
+        <pre>si (llueve)
+  hay goteras;
+  el lechero se retrasa;</pre>
+        <p>El autor ha sangrado la segunda y tercera línea pensando que se cumplen si la condición se cumple. Supongamos además que lo correcto hubiese sido rodear la consecuencia entre llaves cuando hay más de una.</p>
+        <pre>si (llueve)
+{
+  hay goteras;
+  el lechero se retrasa;
+}</pre>
+        <p>Entonces la máquina en realidad interpreta:</p>
+        <pre>si (llueve)
+{
+  hay goteras;
+}
+el lechero se retrasa;</pre>
+        <p>Es decir, que llueva o no, le lechero se retrasa. Se ha cometido un error de semántica pues queríamos decir que se retrasa cuando llueve, no siempre.</p>
       </section>
 
     </main>
