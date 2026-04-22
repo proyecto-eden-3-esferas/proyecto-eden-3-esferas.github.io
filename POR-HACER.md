@@ -7,6 +7,71 @@ Emitida por: Servicio de Recaudación Voluntaria y Procedimientos de Extinción 
 Identificador: 31400499
 
 
+# Frigoríficos
+
+- SMEG fabrica en Italia
+- Candy es de y fabrica en Milán
+
+- Liebherr fabrica principalmente en Europa: Alemania, Austria y Bulgaria
+- Samsung fabrica en Wronki, Polonia
+- Grundig fabrica en Turquía
+- Edesa era vasca y ahora fabrica en Torelló, Barcelona
+- Whirlpool fabrica en Italia, Polonia, Eslovaquia y Reino Unido
+
+- Corberó fabrica en China
+- Cecotec fabrica en China
+
+## MediaMarkt no clase A
+Frigorífico combi - FAGOR 3FFK-6645,
+No Frost, Sí,
+Altura 1855 mm, Capacidad 317 l, Blanco
+Eficiencia E: 244 kWh/año
+570€ iva incl. envío gratis
+
+## Alcampo
+Frigorífico combi - FAGOR 3FFK-6640,
+Eficacia E
+Altura 200cm
+479€
+
+## MediaMarkt clase A
+
+Frigorífico combi - Hisense RB440N4ACA, No Frost, 201.7 cm, 336 l, Multi-Air Flow. Motor Inverter, Inox
+128Basado en 128 valoraciones
+Medidas (An x Al x F): 59.5 cm x 201.7 cm x 57.9 cm
+No Frost: Sí
+Almacenamiento en caso de avería: 6 h
+Iluminación interior: Sí
+109 kWh / annum
+precio: 699€ (con la App)
+
+Frigorífico combi - Koenic KFK 611 A NF, No frost, 201 cm, 378 l, Control táctil, Inox
+Medidas (An x Al x F): 59.5 cm x 201 cm x 69.5 cm
+No Frost: Sí
+Almacenamiento en caso de avería: 15 h
+Iluminación interior: Sí
+-15% sólo APP
+Marca propia
+113 kWh / annum
+precio: 599€
+
+## Otros
+Candy CCE7T618ES
+	185cm de alto
+	Total NoFrost
+	E
+
+
+# Preguntas/Cuestiones
+- Las reglas podrían orientarse a establecer una comunidad que quisiera y siguiera pagando la mensualidad incluso en una crisis económica nacional manifiesta porque genere o generase una percepción positiva subjetiva. Mediante (1) mensualidad inferior a la de mercado, (2) extras (electrodomésticos nuevos y eficientes, planes de ahorro energético, flexibilidad de salida, el ambiente que uno busca, generosidad...)
+- El trastero: desde no compartirlo hasta darle una llave al inquilino. Otra alternativa es decirle que si no está utilizando unos bultos o no pudiese lleváselos al final de la estancia, se los guardaría un tiempo.
+- La posibilidad de que el casero alquile las dos habitaciones y venga (a estar y a dormir en el salón) una fracción de los días del año. Mamá y Lucía no deberían enterarse. Por otro lado yo podría encontrar mi lugar en otra provincia o cuidar de algún miembro de la familia o lo que sea. En tal caso se les haría además una rebaja. Una rebaja del 20% les  supondría pagar 288/300€ en lugar de 360/375€, y menos gastos de comunidad. Yo pasaría de ganar 360/375€ por la mensualidad a ganar 576/600€, y a pagar menos gastos fijos y variables. (Los inquilinos son muy receptivos a una rebaja de un par de decenas de euro.)
+- pagar en efectivo en un "buzón". Se me ocurre que podría darse una explicación de por qué no quiero pagar <em>todos</em> los impuestos habidos y por haber. También se me ocurre que podría ponerse un precio un poco más alto si se paga por transferencia o de forma visible a Hacienda. Tercera opción, pago por transferencia hasta que se establezca una relación de confianza mutua.
+
+# Mirar gurús:
+- Chopra
+- Maharishi
+
 # Platform Capitalism
 by Nick Srnicek
 <p>What unites Google and Facebook, Apple and Microsoft, Siemens and GE, Uber and Airbnb? Across a wide range of sectors, these firms are transforming themselves into platforms: businesses that provide the hardware and software foundation for others to operate on. This transformation signals a major shift in how capitalist firms operate and how they interact with the rest of the economy: the emergence of ‘platform capitalism’.</p>

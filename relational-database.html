@@ -38,6 +38,110 @@
 
       <p>RDBMS products can be quite expensive, but there are high-quality, open source options, such as PostgreSQL, MariaDB, <a target="_blank" href="mysql.html">MySQL</a>, or <a target="_blank" href="sqlite.html">SQLite</a>.</p>
 
+      <section>
+        <h2>Relational Theory</h2>
+        <p>The relational database is based on two branches of mathematics known as <a target="_blank" href="set-theory.html">set theory</a> and <a target="_blank" href="logic.html#predicate-logic">first-order predicate logic</a>. This very fact is what allows the relational database to guarantee accurate information. These branches of mathematics also provide the basis for formulating good design methodologies and the building blocks necessary to create good relational database structures.</p>
+        <blockquote>
+          <p>Let me begin by giving a quick summary (mainly for purposes of subsequent reference) of those fundamental aspects of relational theory just mentioned:</p>
+          <ul>
+            <li>Any given database consists of relation variables (relvars for short).</li>
+            <li>The value of any given relvar at any given time is a relation value (relation for short).</li>
+            <li>Every relvar represents a certain predicate.</li>
+            <li>Within any given relvar, every tuple represents a certain proposition.</li>
+            <li>In accordance with The Closed World Assumption, relvar <var>R</var> at time <var>t</var> contains all and only those tuples that represent instantiations of the predicate corresponding to relvar <var>R</var> that evaluate to TRUE at time <var>t</var>.</li>
+          </ul>
+          <p style="text-align: right">(C. J. Date)</p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Relations</h2>
+        <p>What we call the <q>files</q> or <q>tables</q> in a database are really <dfn>relations</dfn>. A relation is a mathematical construct, and it has a very precise mathematical definition. For the moment it’s sufficient to know that a relation can be thought of, and depicted, as a certain kind of table. Moreover, every relation consists of a heading and a body, where:</p>
+        <ul>
+          <li>The <dfn>heading</dfn> consists of a set of <dfn>attributes</dfn> (represented as columns in those tabular depictions).</li>
+          <li>The <dfn>body</dfn> consists of a set of <dfn>tuples</dfn> (represented as rows in those tabular depictions).</li>
+        </ul>
+
+        <section id="attributes">
+          <h3>Attributes</h3>
+          <p>An attribute consists of a name and a corresponding type (more formally, we can say an attribute is an <var>attribute-name</var> : <var>type-name pair</var>).</p>
+          <p>A couple of points arise immediately from this definition:</p>
+          <ul>
+            <li>What I here call the type of an attribute is also known as a <q>domain</q>; i.e., domain and type mean exactly the same thing. (Earlier relational writings favored the term <q>domain</q>; more recent ones favor the term <q>type</q> instead.)</li>
+            <li>Tabular pictures of relations typically don’t bother to mention the attribute types.</li>
+          </ul>
+          <p>The number of attributes in a given heading is called the <dfn>degree</dfn>, both of that heading as such and also of every relation with that heading.</p>
+          <p><strong>Note:</strong> If relation <var>r</var> is of degree n, we call that relation <dfn>n-ary</dfn>. If <var>n</var> = 1, the relation is unary; if <var>n</var> = 2, it’s binary; if <var>n</var> = 3, it’s ternary; and so on.</p>
+        </section>
+
+        <section id="tuples">
+          <h3>Tuples</h3>
+          <p>Informally, a <dfn>tuple</dfn> is a row or record in a table / relation.</p>
+          <aside>
+            <p>Here is a formal definition of tuple:</p>
+            <blockquote>
+              <p style="text-align: right">(From <cite>Relational Theory for Computer Professionals: What Relational Databases Are Really All About</cite>, by C. J. Date)</p>
+              <p>Let <var>T<sub>1</sub></var>, <var>T<sub>2</sub></var>, ..., <var>T<sub>n</sub></var> (<var>n</var> ≥ 0) be type names, not necessarily all distinct. Associate with each <var>T<sub>i</sub></var> a distinct attribute name, <var>A<sub>i</sub></var>; each of the <var>n</var> attribute-name : type-name combinations that results is an attribute. Associate with each attribute an attribute value, <var>v<sub>i</sub></var>, of type <var>T<sub>i</sub></var>; each of the <var>n</var> attribute : value combinations that results is a component. Then the set of all <var>n</var> components thus defined, <var>t</var> say, is a <dfn>tuple value</dfn> (or just a <dfn>tuple</dfn> for short) over the attributes <var>A<sub>1</sub></var>, <var>A<sub>2</sub></var>, ..., <var>A<sub>n</sub></var>. The value <var>n</var> is the <dfn>degree</dfn> of <var>t</var>; a tuple of degree one is unary, a tuple of degree two is binary, a tuple of degree three is ternary, ..., and more generally a tuple of degree <var>n</var> is n-ary. The set of all <var>n</var> attributes is the <dfn>heading</dfn> of <var>t</var>.</p>
+            </blockquote>
+          </aside>
+          <p>Every tuple in the body of a given relation is required to conform to the heading of that relation, in the sense that it—the tuple in question—contains exactly one value, of the applicable type, for each attribute, and nothing else besides.</p>
+          <p>The number of tuples in a given body is called the <dfn>cardinality</dfn>, both of that body as such and also of every relation with that body.</p>
+          <p>Incidentally, it follows from what I’ve said so far that relations don’t really contain tuples—they contain a body, and that body in turn contains the tuples—but in practice we do usually talk as if relations contained tuples directly, for simplicity.</p>
+        </section>
+
+        <section id="formal-definition-of-relations">
+          <h3>A Formal Definition of Relations</h3>
+          <blockquote>
+            <p style="text-align: right">(From <cite>Relational Theory for Computer Professionals: What Relational Databases Are Really All About</cite>, by C. J. Date)</p>
+            <p>Let <var>H</var> be a tuple heading as defined before, and let <var>t<sub>1</sub></var>, <var>t<sub>2</sub></var>, ..., <var>t<sub>m</sub></var> (<var>m</var> ≥ 0) be distinct tuples, all with heading <var>H</var>. Then the combination, <var>r</var> say, of <var>H</var> and the set of tuples {<var>t<sub>1</sub></var>, <var>t<sub>2</sub></var>, ..., <var>t<sub>m</sub></var>} is a relation value (or just a relation for short) over the attributes <var>A<sub>1</sub></var>, <var>A<sub>2</sub></var>, ..., <var>A<sub>n</sub></var>, where <var>A<sub>1</sub></var>, <var>A<sub>2</sub></var>, ..., <var>A<sub>n</sub></var> are all of the attributes in <var>H</var>. The <dfn>heading</dfn> of <var>r</var> is <var>H</var>; <var>r</var> has the same attributes (and hence the same attribute names and types) and the same degree as that heading does. The set of tuples {<var>t<sub>1</sub></var>, <var>t<sub>2</sub></var>, ..., <var>t<sub>m</sub></var>} is the <dfn>body</dfn> of <var>r</var>. The value <var>m</var> is the <dfn>cardinality</dfn> of <var>r</var>.</p>
+          </blockquote>
+        </section>
+
+        <section id="properties-of-relations">
+          <h3>Properties of Relations</h3>
+          <p>After discussing attributes and tuples, we’re now ready to consider relations as such. The overriding point I want to make here is that (as I’ve said) relations are very precisely and formally defined, and as a consequence they enjoy a variety of formal properties, properties that are extremely important from both a theoretical and a practical point of view.</p>
+          <p>Here I would like to state that theory is practical! The purpose of relational theory in particular isn’t just theory for its own sake; rather, the purpose of that theory is to allow us to build systems that are 100 percent practical. That’s why departures from the underlying theory are seen as a big mistake. Indeed, so called (or would-be) <q>relational</q> systems are at their least attractive precisely at those points where they depart from that underlying theory.</p>
+          <p>Next, there are four properties of relations:</p>
+          <dl>
+            <dt>Relations never contain duplicate tuples.</dt>
+            <dd>This property is a logical consequence of the fact that the body of a relation is defined to be a set (of tuples), because sets in mathematics don’t contain duplicate elements.</dd>
+            <dt>The tuples of a relation are unordered, top to bottom.</dt>
+            <dd>This property too is a logical consequence of the fact that the body of a relation is a set, because sets in mathematics have no ordering to their elements (thus, e.g., {a, b, c} and {c, a, b} both denote the same set). Of course, when we depict a relation as a table (e.g., on paper), we do have to show the rows in some top to bottom order, but that ordering doesn’t correspond to anything relational, and you should ignore it.</dd>
+            <dt>The attributes of a relation are unordered, left to right.</dt>
+            <dd>In similar fashion, the attributes of a relation are also unordered, left to right, because a heading too is a mathematical set. Again, when we depict a relation as a table (e.g., on paper), we do have to show the columns in some left to right order, but that ordering doesn’t correspond to anything relational, and again you should ignore it.</dd>
+            <dt>Relations are always normalized (i.e., in <a target="_blank" href="normal-forms.html#1NF">first normal form</a>, abbreviated 1NF).</dt>
+            <dd>Informally, all this statement means is that every tuple in the relation in question conforms to the pertinent heading (which of course we already know it does).</dd>
+          </dl>
+        </section>
+
+        <section id="relvars">
+          <h3>Relvars</h3>
+          <p>Take a look at a table. It happens to be a relation that exists in the database at some particular time. But if we were to look at the same database at some different time, we would probably see s different relation instead. The values or columns are really variables—<dfn>relation variables</dfn>, to be specific—and like all variables they have different values at different times, in general. And since they’re relation variables specifically, their values at any given time are, of course, relation values.</p>
+        </section>
+
+      </section>
+
+      <!--
+      <section>
+        <h2>Relations and Relvars in Relational Theory</h2>
+      </section>
+      -->
+
+      <section id="keys">
+        <h2>Keys</h2>
+        <p>A <dfn>key</dfn> is some combination of the attributes of the relation variable in question that serves as a unique identifier.</p>
+        <p>In relational theory, a key possesses the following properties:</p>
+        <ul>
+          <li><strong>Uniqueness</strong> it is not possible for relation (table) to hold two distinct tuples with the same value for this key</li>
+          <li><strong>Irreducibility</strong> No proper subset of K has the uniqueness property</li>
+        </ul>
+        <p>If a key consists of <var>n</var> attributes (columns), then we say that its <dfn>degree</dfn> is <var>n</var>.</p>
+        <section>
+          <h3>Primary Keys</h3>
+          <p>If a table has more than one key (<a target="_blank" href="rdb-keys.html#candidate">candidate keys</a>), then it’s usual, but not required, to single out one of those keys and call it <q>primary.</q> (<a target="_blank" href="rdb-keys.html#primary">primary keys</a>) Also, if a table has just one key, it’s also usual, but not required, to call that key <q>primary.</q> However, whether some key is labeled primary, and if so which one (if there’s a choice), are essentially psychological issues, beyond the purview of the relational model as such. Keys as such are fundamental, but primary keys aren’t.</p>
+        </section>
+      </section>
+
       <section id="index">
         <h2>Database Indexes</h2>
         <p>An index is an additional data structure that helps improve the performance of a query.</p>

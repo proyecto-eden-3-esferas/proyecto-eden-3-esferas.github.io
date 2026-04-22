@@ -7,31 +7,12 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
     <!--
     <meta name="keywords" content="KW1, KW2, KW3"/>
-
     <meta name="author" content="AUTHOR"/>
     <meta name="description" content="A_DESCRIPTION"/>
-    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
-
-    <link rel="alternate" hreflang="x-default" href="http://www.example.com/"/>
-    <link rel="alternate" hreflang="es" href="http://es.example.com/"/>
-    <link rel="alternate" hreflang="de" href="http://de.example.com/"/>
-
-    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
-    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
     -->
   </head>
   <body lang="en" class="computing">
     <nav>
-    <!--
-      <p><a                    href="ANOTHER_PAGE.html">ANOTHER_PAGE</a></p>
-      <p><a rel="RELATIONSHIP" href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="alternate"    href="VERSION.html">ANOTHER VERSION</a></p>
-      <hr/>
-      <p><a href="A_PAGE.html">LINK_TEXT</a></p>
-      <p><a href="ANOTHER_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="prev" href="PREVIOUS_PAGE.html">LINK_TEXT</a></p>
-      <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
-      -->
       <p><a rel="prev" href="linux.html">Linux</a></p>
       <p><a rel="next" href="distros.html">Linux Distributions</a></p>
       <p><a            href="snap.html">Snap</a></p>
@@ -104,13 +85,23 @@
         <p>Normally, the default swappiness value is 60. The smaller this value, the more of your RAM will be used.</p>
         <p>To find the swappiness value, run this command:</p>
         <pre>cat /proc/sys/vm/swappiness</pre>
-        <p>You should see the value of 60.</p>
-        <p>If you want to modify the default value, you need to edit the file <cite>/etc/sysctl.conf</cite>.</p>
-        <pre>sudo vi /etc/sysctl.conf</pre>
-        <p>and add or change the following line (10 is the most commonly recommended value):</p>
-        <pre>vm.swappiness=10</pre>
-        <p>In order for the changes to take effect, you need to reboot the system.</p>
-        <p>This way your Linux kernel will use more RAM and less swap, but it still will swap when your RAM memory gets critically full. Usually, this setting is recommended when you have more than 4GB of RAM.</p>
+        <p>You should see the value of 60 (the default).</p>
+        <section>
+          <h3>Changing Swappiness Temporarily</h3>
+          <p>Just type:</p>
+          <pre>sudo swapoff --all
+sudo sysctl vm.swappiness=10
+sudo swapon --all</pre>
+        </section>
+        <section>
+          <h3>Changing Swappiness Permanently</h3>
+          <p>If you want to modify the default value, you need to edit the file <cite>/etc/sysctl.conf</cite>.</p>
+          <pre>sudo vi /etc/sysctl.conf</pre>
+          <p>and add or change the following line (10 is the most commonly recommended value):</p>
+          <pre>vm.swappiness=10</pre>
+          <p>In order for the changes to take effect, you need to reboot the system.</p>
+          <p>This way your Linux kernel will use more RAM and less swap, but it still will swap when your RAM memory gets critically full. Usually, this setting is recommended when you have more than 4GB of RAM.</p>
+        </section>
       </section>
       <!--
       <section>
