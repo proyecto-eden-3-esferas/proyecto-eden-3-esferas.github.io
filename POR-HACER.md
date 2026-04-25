@@ -9,17 +9,15 @@ Identificador: 31400499
 
 # Frigoríficos
 
-- SMEG fabrica en Italia
-- Candy es de y fabrica en Milán
+A la hora de instalarlo y tomar las medidas, también debes tener en cuenta que el refirgerador necesita de al menos 10-15 cm libres tanto a ambos lados como en la zona trasera, aunque la publicidad rara vez los muestra así. No dejan de ser un dispositivo que genera una gran cantidad de calor y una buena ventilación es vital para su funcionamiento óptimo.
 
-- Liebherr fabrica principalmente en Europa: Alemania, Austria y Bulgaria
-- Samsung fabrica en Wronki, Polonia
-- Grundig fabrica en Turquía
-- Edesa era vasca y ahora fabrica en Torelló, Barcelona
-- Whirlpool fabrica en Italia, Polonia, Eslovaquia y Reino Unido
+La OCU (Organización de Cons Umidores) recomienda las marcas:
+- Balay: 2-3 años de garantía (¿unificada con / absorbida por la alemana Siemens?) - duración media 13 años
 
-- Corberó fabrica en China
-- Cecotec fabrica en China
+
+
+## La filosofía de Candy
+La filosofía de Candy se centra en ofrecer electrodomésticos inteligentes y accesibles. Sus lavadoras destacan por una excelente relación calidad-precio, incorporando funciones innovadoras como la conectividad Smart vía NFC o WiFi (a través de la app hOn/Simply-Fi), una impresionante variedad de hasta 9 programas rápidos, y tecnologías como Mix Power System+ para mejorar la eficiencia del lavado a baja temperatura.
 
 ## MediaMarkt no clase A
 Frigorífico combi - FAGOR 3FFK-6645,
@@ -67,6 +65,13 @@ Candy CCE7T618ES
 - El trastero: desde no compartirlo hasta darle una llave al inquilino. Otra alternativa es decirle que si no está utilizando unos bultos o no pudiese lleváselos al final de la estancia, se los guardaría un tiempo.
 - La posibilidad de que el casero alquile las dos habitaciones y venga (a estar y a dormir en el salón) una fracción de los días del año. Mamá y Lucía no deberían enterarse. Por otro lado yo podría encontrar mi lugar en otra provincia o cuidar de algún miembro de la familia o lo que sea. En tal caso se les haría además una rebaja. Una rebaja del 20% les  supondría pagar 288/300€ en lugar de 360/375€, y menos gastos de comunidad. Yo pasaría de ganar 360/375€ por la mensualidad a ganar 576/600€, y a pagar menos gastos fijos y variables. (Los inquilinos son muy receptivos a una rebaja de un par de decenas de euro.)
 - pagar en efectivo en un "buzón". Se me ocurre que podría darse una explicación de por qué no quiero pagar <em>todos</em> los impuestos habidos y por haber. También se me ocurre que podría ponerse un precio un poco más alto si se paga por transferencia o de forma visible a Hacienda. Tercera opción, pago por transferencia hasta que se establezca una relación de confianza mutua.
+
+# Physarum polycephalum
+El "moho inteligente" mencionado en el contexto del concurso Saber y Ganar se refiere al Physarum polycephalum.
+Este organismo ha sido protagonista en la sección "La parte por el todo" debido a sus asombrosas capacidades:
+- ¿Qué es? No es un hongo propiamente dicho, sino un moho mucilaginoso (mixomiceto) que vive en ambientes húmedos y sombríos.
+- Inteligencia biológica: A pesar de ser una sola célula gigante (multinucleada) y no tener cerebro ni sistema nervioso, puede resolver laberintos, aprender de su entorno y optimizar redes de transporte.
+- Capacidad de cálculo: Se le conoce por su capacidad para encontrar el camino más corto entre dos puntos, emulando la eficiencia de redes complejas, como la del metro de Tokio.
 
 # Mirar gurús:
 - Chopra
