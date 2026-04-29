@@ -73,6 +73,15 @@ Este organismo ha sido protagonista en la sección "La parte por el todo" debido
 - Inteligencia biológica: A pesar de ser una sola célula gigante (multinucleada) y no tener cerebro ni sistema nervioso, puede resolver laberintos, aprender de su entorno y optimizar redes de transporte.
 - Capacidad de cálculo: Se le conoce por su capacidad para encontrar el camino más corto entre dos puntos, emulando la eficiencia de redes complejas, como la del metro de Tokio.
 
+# 10 x ancho de banda actual
+
+El Gobierno de España ha proyectado una actualización significativa en la legislación de telecomunicaciones para elevar el ancho de banda mínimo garantizado. [...]
+
+Objetivo de Velocidad: La propuesta establece elevar la velocidad mínima de conexión a Internet fija de los 10 Mbps actuales a 100 Mbps."
+
+En resumen, que construir infraestructura es un paso necesario y suficiente para volverse prósperos.
+
+
 # Mirar gurús:
 - Chopra
 - Maharishi

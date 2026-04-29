@@ -255,6 +255,7 @@
             <p><!--Figure 1.17 is a plot of the derived current–voltage characteristics of a pn junction.--> For a forward-bias voltage, the current is an exponential function of voltage. <!--Fig- ure 1.18 depicts the forward-bias current plotted on a log scale. -->With only a small change in the forward-bias voltage, the corresponding forward-bias current increases by orders of magnitude. For a forward-bias voltage <var>v<sub>D</sub></var> > +0.1 V, the (−1) term in the equation above can be neglected. In the reverse-bias direction, the current is almost zero.</p>
             <p><!--Figure 1.19 shows the diode circuit symbol and the conventional current direction and voltage polarity. -->The diode can be thought of and used as a voltage controlled switch that is <q>off</q> for a reverse-bias voltage and <q>on</q> for a forward-bias voltage. In the forward-bias or <q>on</q> state, a relatively large current is produced by a fairly small applied voltage; in the reverse-bias, or <q>off</q> state, only a very small current is created.</p>
             <p>When a diode is reverse-biased by at least 0.1 V, the diode current is <var>i<sub>D</sub></var> = −<var>I<sub>S</sub></var>. The current is in the reverse direction and is a constant, hence the name reverse-bias saturation current. Real diodes, however, exhibit reverse-bias currents that are considerably larger than <var>I<sub>S</sub></var>. This additional current is called a <dfn>generation current</dfn> and is due to electrons and holes being generated within the space-charge region. Whereas a typical value of <var>I<sub>S</sub></var> may be 10<sup>−14</sup> A, a typical value of reverse-bias current may be 10<sup>−9</sup> A or 1 nA. Even though this current is much larger than <var>I<sub>S</sub></var>, it is still small and negligible in most cases.</p>
+            <!--
             <blockquote></blockquote>
             <p>...</p>
             <blockquote></blockquote>
@@ -262,7 +263,9 @@
             <blockquote></blockquote>
             <p>...</p>
             <blockquote></blockquote>
+            -->
           </section>
+          <!--
           <section>
             <h4></h4>
             <blockquote></blockquote>
@@ -277,8 +280,70 @@
             <p></p>
             <blockquote></blockquote>
           </section>
+          -->
         </section>
 
+        <section id="resistors">
+          <h3>Resistors</h3>
+          <p>...</p>
+          <section>
+            <h4>Resistor Values</h4>
+            <p>In 1952, the IEC (International Electrotechnical Commission) decided to define the resistance and tolerance values into a norm, to ease the mass manufacturing of resistors. These are referred to as "preferred values" or "E-series", and they are published in standard IEC 60063:1963. These standard values are also valid for other components like capacitors, inductors and Zener diodes.</p>
+            <p>The standardization of resistor values serves several important purposes. When manufacturers produce resistors with different resistance values, these end up approximately equally spaced on a logarithmic scale. This helps the supplier to limit the number of different values that have to be produced or kept in stock. By using standard values, resistors from different manufacturers are compatible for the same design, which is favorable for the electrical engineer.</p>
+            <p>Aside from the preferred values, many other standards related to resistors exist. Example include the standard sizes for resistors and the marking of resistors with <a href="#resistors.color-codes">color codes</a> or <a target="_blank" href="https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-smd-code/">numerical codes</a>. Power ratings of resistors are not defined in a norm, and, therefore, often deviate from the above described series.</p>
+            <section>
+              <p style="text-align: right">(From <cite><a target="_blank" href="https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-values/">https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-values/</a></cite>)</p>
+              <h5>Preferred Values or E-series</h5>
+              <p>To understand the E-series sets of preferred values, we will examine the E12 in detail. E12 means that every decade (0.1-1.0, 1-10, 10-100, etc.) is divided in 12 steps on a logarithmic scale. The size of every step is equal to:</p>
+              <blockquote>10<sup>(1/12)</sup> = 1.21 </blockquote>
+              <p>Thus, every value is 21% or 1.21 times higher than the previous value in the series, rounded to whole numbers. Because of this, all resistors with a tolerance of 10% overlap. The series looks as follows: 1– 1.2 – 1.5 – 1.8 – 2.2 – 2.7 – 3.3 – 3.9 – 4.7 – 5.6 – 6.8 – 8.2 – 10 etc.</p>
+              <p>All of these values can be powers of ten (1.2 – 12 – 120, etc.).</p>
+              <hr/>
+              <p>While the E12 series is the most common, other series are also available. It is a good practice to specify resistors from a low series when tolerance requirements are not high.</p>
+              <p>The most common series are:</p>
+              <table border="1">
+                <tr> <td>6</td> <td>20% tolerance</td> </tr>
+                <tr> <td>12</td> <td>10%</td> </tr>
+                <tr> <td>24</td> <td>5% (also available with 1%)</td> </tr>
+                <tr> <td>48</td> <td>2%</td> </tr>
+                <tr> <td>96</td> <td>1%</td> </tr>
+                <tr> <td>192</td> <td>0.5% (also used for resistors with 0.25% and 0.1%).</td> </tr>
+              </table>
+              <hr/>
+              <p>Some other common series:</p>
+
+              <table border="1">
+                <tr> <th colspan="6">E6 series (tolerance 20%)</th> </tr>
+                <tr> <td>10</td> <td>15</td> <td>22</td> <td>33</td> <td>47</td> <td>68</td> </tr>
+              </table>
+
+              <table border="1">
+                <tr> <th colspan="6">E12 series (tolerance 10%)</th> </tr>
+                <tr> <td>10</td> <td>12</td> <td>15</td> <td>18</td> <td>22</td> <td>27</td> </tr>
+                <tr> <td>33</td> <td>39</td> <td>47</td> <td>56</td> <td>68</td> <td>82</td> </tr>
+              </table>
+
+              <table border="1">
+                <tr> <th colspan="6">E24 series (tolerance 5% and 1%)</th> </tr>
+                <tr> <td>10</td> 	<td>11</td> 	<td>12</td> 	<td>13</td> 	<td>15</td> 	<td>16</td> </tr>
+                <tr> <td>18</td> 	<td>20</td> 	<td>22</td> 	<td>24</td> 	<td>27</td> 	<td>30</td> </tr>
+                <tr> <td>33</td> 	<td>36</td> 	<td>39</td> 	<td>43</td> 	<td>47</td> 	<td>51</td> </tr>
+                <tr> <td>56</td> 	<td>62</td> 	<td>68</td> 	<td>75</td> 	<td>82</td> 	<td>91</td> </tr>
+              </table>
+
+            </section>
+          </section>
+
+          <section id="resistors.color-codes">
+            <h4>Resistor Colour Codes</h4>
+            <p>...</p>
+          </section>
+        </section>
+
+        <section id="capacitors">
+          <h3>Capacitors</h3>
+          <p>...</p>
+        </section>
 
         <section id="the-world-is-analog">
           <h3>The World is Analog</h3>

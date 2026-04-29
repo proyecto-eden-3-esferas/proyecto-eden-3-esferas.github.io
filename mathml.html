@@ -274,7 +274,7 @@ displayed as a block (like a paragraph). This attribute has an influence on the 
               <!-- <varlistentry> -->
               <dt>mphantom</dt>
               <dd>
-                <p>The mphantom element transforms its descendant elements into 'phantoms': they are there, they occupy some space, but you cannot see them. The mphantom element is often the only way to properly align some elements.</p>
+                <p>The <code><a href="#mphantom">mphantom</a></code> element transforms its descendant elements into 'phantoms': they are there, they occupy some space, but you cannot see them. The mphantom element is often the only way to properly align some elements.</p>
               </dd>
               <!-- </varlistentry> -->
               <!-- <varlistentry> -->
@@ -392,6 +392,61 @@ displayed as a block (like a paragraph). This attribute has an influence on the 
           </table>
         </section>
       </section>
+
+      <section id="mphantom">
+        <h2><code>mphantom</code></h2>
+        <p> Historically, the mphantom element was introduced to render its content invisibly, but with the same metrics size and other dimensions, including alphabetic baseline position that its contents would have if they were rendered normally.</p>
+        <p>In the following example, <code>mphantom</code> is used to ensure alignment of corresponding parts of the numerator and denominator of a fraction:</p>
+        <pre>&lt;math&gt;
+  &lt;mfrac&gt;
+    &lt;mrow&gt;
+      &lt;mi&gt;x&lt;/mi&gt;
+      &lt;mo&gt;+&lt;/mo&gt;
+      &lt;mi&gt;y&lt;/mi&gt;
+      &lt;mo&gt;+&lt;/mo&gt;
+      &lt;mi&gt;z&lt;/mi&gt;
+    &lt;/mrow&gt;
+    &lt;mrow&gt;
+      &lt;mi&gt;x&lt;/mi&gt;
+      &lt;mphantom&gt;
+        &lt;mo form="infix"&gt;+&lt;/mo&gt;
+        &lt;mi&gt;y&lt;/mi&gt;
+      &lt;/mphantom&gt;
+      &lt;mo&gt;+&lt;/mo&gt;
+      &lt;mi&gt;z&lt;/mi&gt;
+    &lt;/mrow&gt;
+  &lt;/mfrac&gt;
+&lt;/math&gt;</pre>
+<math>
+  <mfrac>
+    <mrow>
+      <mi>x</mi>
+      <mo>+</mo>
+      <mi>y</mi>
+      <mo>+</mo>
+      <mi>z</mi>
+    </mrow>
+    <mrow>
+      <mi>x</mi>
+      <mphantom>
+        <mo form="infix">+</mo>
+        <mi>y</mi>
+      </mphantom>
+      <mo>+</mo>
+      <mi>z</mi>
+    </mrow>
+  </mfrac>
+</math>
+        <aside>
+          <p><strong>Note</strong></p>
+          <p><code>mphantom</code> is implemented for compatibility with full MathML. Authors whose only target is MathML Core are encouraged to use CSS for styling, as in:</p>
+          <pre>mphantom {
+  visibility: hidden;
+}</pre>
+        </aside>
+      </section>
+
+
     </main>
   </body>
 </html>
