@@ -1,0 +1,1616 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Docbook</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Docbook: an XML vocabulary for writing documentation, manuals and technical books"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p> <a href="XSLT.html">XSLT: eXtensible Stylesheet Transformation Language</a> </p>
+        <p> <a rel="prev" href="XSLT.html">XML: The eXtensible Markup Language</a> </p>
+      </div>
+      <div>
+        <p> <a href="HTML.html">HTML: XML for the Web</a> </p>
+        <p> <a href="svg.html">SVG: XML for Vector Drawing</a> </p>
+        <p> <a href="svg.text.html">SVG Text</a> </p>
+        <p> <a href="mathml.html">MathML: XML for Mathematical Notation</a> </p>
+      </div>
+    </nav>
+    <main>
+      <h1>Docbook: an XML vocabulary for writing documentation, manuals and technical books</h1>
+      <!-- from 11196 to 12840 -->
+      <p>DocBook is a vocabulary of XML comprising tags with defined semantics and syntax (DTD) for writing documentation, manuals and technical books. You can serve a DocBook XML file with a stylesheet, or you can transform it with XSLT stylesheets into one or several HTML files, into an EPUB file with <code class="application">dbtoepub</code>, or even into a PDF file for printing.</p>
+      <p>The stylesheets are documented in <cite class="citetitle">DocBook XSL: The Complete Guide</cite>, by Bob Stayton, freely available at http://www.sagehill.net.</p>
+      <p>O'Reilly &amp; Associates publishes a book called <a href="http://www.docbook.org/tdg/en/html/docbook.html"><cite class="citetitle">DocBook: The Definitive Guide</cite></a>, by Norman Walsh and Leonard Muellner. You can buy it or read it online. </p>
+      <section>
+        <h2>Block Elements</h2>
+        <p>Sections usually have a title, and maybe a titleabbrev and/or a subtitle, too. Possibly an info element. They typically hold some subsections and/or paragraphs.</p>
+        <p>There are three types of sectioning elements in DocBook:</p>
+        <ul>
+          <li>Explicitly numbered sections, sect1 ... sect5 , which must be properly nested and can only be five levels deep.</li>
+          <li>Recursive section's, which are alternatives to the numbered sections and have unbounded depth.</li>
+          <li>simplesect's, which are terminal. The simplesect s can occur as the <q>leaf</q> sections in either recursive sections or any of the numbered sections, or directly in components. The important semantic distinction of simplesect elements is that they never appear in the table of contents.</li>
+        </ul>
+        <div class="note" style="border-style: solid;">None of the sectioning elements is allowed to <q>float</q> in a component. You can place paragraphs and other block elements before a section, but you cannot place anything after it.</div>
+        <section>
+          <h3>Sectioning: a Hierarchy of Containment</h3>
+          <ul>
+            <li>set: optional</li>
+            <li>book or article</li>
+            <li>part: optional, only in book's</li>
+            <li>chapter</li>
+          </ul>
+          <p>Within a chapter, you may find either a hierarchy of nested:</p>
+          <ul>
+            <li>sect1</li>
+            <li>sect2</li>
+            <li>sect3</li>
+            <li>sect4, and</li>
+            <li>sect5</li>
+          </ul>
+          <p>Or a hierarchy of nested <code class="tag">section</code>'s.</p>
+          <section>
+            <h4>
+              <code class="tag">article*</code>
+            </h4>
+          </section>
+        </section>
+        <section>
+          <h3>Out of Flow Block Elements</h3>
+          <p>These may lie at the front, back or to a side.</p>
+          <section>
+            <h4>Front Matter Elements*</h4>
+            <h2><code class="tag">preface</code>, <code class="tag">toc</code>, <code class="tag">partintro</code>, ...</h2>
+            <!-- <synopsis/> -->
+          </section>
+          <section>
+            <h4>Back Matter Elements*</h4>
+            <h2><code class="tag">appendix</code>, <code class="tag">glossary</code>, <code class="tag">index</code>,</h2>
+            <!-- <synopsis/> -->
+          </section>
+          <section>
+            <h4>Out of Flow Elements</h4>
+            <section>
+              <h4>
+                <code class="tag">sidebar</code>
+              </h4>
+              <synopsis>sidebar ::= ((((title? &amp; titleabbrev?), info? db.titleforbidden.info) |
+info db.titleonly.info), (annotation | bridgehead | remark | revhistory |
+Indexing inlines | Admonition elements | Formal elements |
+Graphic elements | Informal elements | List elements |
+Paragraph elements | Publishing elements | Synopsis elements |
+Technical elements | Verbatim elements)+)</synopsis>
+              <p>Additional constraints: <code class="tag">sidebar</code> must not occur among the children or descendants of <code class="tag">sidebar</code>.</p>
+              <section>
+                <h4>Description</h4>
+                <p>A <code class="tag">sidebar</code> is a short piece of text, rarely longer than a single column or page, that is presented outside the narrative flow of the main text.</p>
+                <p>Sidebars are often used for digressions or interesting observations that are related, but not directly relevant, to the main text.</p>
+              </section>
+              <section>
+                <h4>Example</h4>
+                <pre>&lt;article xmlns='http://docbook.org/ns/docbook'&gt;
+&lt;title&gt;Example sidebar&lt;/title&gt;
+&lt;section&gt;
+  &lt;title&gt;An Example Section&lt;/title&gt;
+  &lt;para&gt;Some narrative text.&lt;/para&gt;
+  &lt;sidebar&gt;
+    &lt;title&gt;A Sidebar&lt;/title&gt;
+    &lt;para&gt;Sidebar content.&lt;/para&gt;
+  &lt;/sidebar&gt;
+  &lt;para&gt;The continuing flow of the narrative text, as if the
+  sidebar was not present.&lt;/para&gt;
+&lt;/section&gt;
+&lt;/article&gt;</pre>
+              </section>
+            </section>
+            <section>
+              <h4>
+                <code class="tag">annotation</code>
+              </h4>
+              <synopsis>annotation ::= ((((title? &amp; titleabbrev?), info? db.titleforbidden.info) |
+info db.titleonly.info), (annotation | bridgehead | remark |
+revhistory | Indexing inlines | Admonition elements | Formal elements |
+Graphic elements | Informal elements | List elements | Paragraph elements |
+Publishing elements | Synopsis elements | Technical elements |
+Verbatim elements)+)</synopsis>
+              <p>Additional attributes: <var class="parameter">annotates</var>...</p>
+              <p>Additional constraints: <code class="tag">annotation</code> must not occur among the children or descendants of <code class="tag">annotation</code>.</p>
+              <section>
+                <h4>Description</h4>
+                <p>The <code class="tag">annotation</code> element is a <em>block</em> annotation. Block annotations can be used for pop ups and other <q>out of line</q> effects.</p>
+                <p>An <code class="tag">annotation</code> element is associated with another element by using a reference to an xml:id value. The association can go in either direction. An <code class="tag">annotation</code> element can use an <var class="parameter">annotates</var> attribute on itself to point to an xml:id on another element. Or the other element can use an <var class="parameter">annotations</var> attribute (one of the common attributes) on itself to point to an xml:id on an annotation element. There is no assumption that an annotation element is associated with its parent or any other ancestor element.</p>
+                <p>The attribute type of <var class="parameter">annotations</var> and <var class="parameter">annotates</var> is plain text, not IDREF or IDREFS. That enables modular content files to form associations with elements in other files without generating validation errors.</p>
+              </section>
+              <section>
+                <h4>Example</h4>
+                <pre>&lt;article xmlns='http://docbook.org/ns/docbook'&gt;
+&lt;title&gt;Example of an annotation&lt;/title&gt;
+ &lt;annotation xml:id="note-parts-list"&gt;
+  &lt;para&gt;This list is not comprehensive.&lt;/para&gt;
+&lt;/annotation&gt;
+  &lt;para annotations="note-parts-list"&gt;An automobile
+  contains an engine, wheels, doors, and windows.&lt;/para&gt;
+
+&lt;/article&gt;</pre>
+              </section>
+            </section>
+            <!-- end of "annotation" -->
+            <section>
+              <h4>
+                <code class="tag">epigraph</code>
+              </h4>
+              <synopsis>epigraph ::= (info? db.titleforbidden.info, attribution?,
+(literallayout | Paragraph elements)+)</synopsis>
+              <section>
+                <h4>Description</h4>
+                <p>An epigraph is a short inscription, often a quotation or poem, set at the beginning of a document or component. Epigraphs are usually related somehow to the content that follows them and may help set the tone for the component.</p>
+              </section>
+            </section>
+          </section>
+          <!-- end of "Out of Flow Elements" -->
+        </section>
+        <section>
+          <h3>Lists</h3>
+          <p>Lists are made up of items. The simplest list is the <samp class="computeroutput">simplelist</samp>.
+        In a <samp class="computeroutput">variablelist</samp> terms are enclosed between <samp class="computeroutput">term</samp> tags.</p>
+          <dl>
+            <dt>TTF</dt>
+            <dd>
+              <p>TrueType fonts.</p>
+            </dd>
+          </dl>
+          <section>
+            <h4>Numbered and unnumbered lists</h4>
+            <p>They are either an <samp class="computeroutput">orderedlist</samp> or an <samp class="computeroutput">itemizedlist</samp>. Both are made up of <samp class="computeroutput">listitem</samp>'s.</p>
+          </section>
+          <section>
+            <h4>Lists of Definitions</h4>
+            <p>A <samp class="computeroutput">variablelist</samp> is a list of terms and definitions or descriptions.</p>
+            <p>While glossarys are usually limited to component or section boundaries, appearing at the end of a book or chapter, for instance, glosslists can appear anywhere that the other list types are allowed.</p>
+            <p>Using a glosslist in running text, instead of a variablelist, for example, maintains the semantic distinction of a glossary. This distinction may be necessary if you want to automatically point to the members of the list with glossterms in the body of the text.</p>
+            <pre>&lt;glosslist&gt;
+&lt;glossentry&gt;&lt;glossterm&gt;C&lt;/glossterm&gt;
+&lt;glossdef&gt;
+&lt;para&gt;A programming language invented by K &amp; R. &lt;/para&gt;
+&lt;/glossdef&gt;
+&lt;/glossentry&gt;
+&lt;glossentry&gt;&lt;glossterm&gt;Pascal&lt;/glossterm&gt;
+&lt;glossdef&gt;
+&lt;para&gt;A programming language invented by Niklaus Wirth.
+&lt;/para&gt;
+&lt;/glossdef&gt;
+&lt;/glossentry&gt;
+&lt;/glosslist&gt;</pre>
+            <p>Would be presented as:</p>
+            <dl class="glosslist">
+              <glossentry>
+                <dt class="glossterm">C</dt>
+                <div class="glossdef">
+                  <p>A programming language invented by K&amp;R.</p>
+                </div>
+              </glossentry>
+              <glossentry>
+                <dt class="glossterm">Pascal</dt>
+                <div class="glossdef">
+                  <p>A programming language invented by Niklaus Wirth.</p>
+                </div>
+              </glossentry>
+            </dl>
+          </section>
+        </section>
+        <section>
+          <h3>Admonitions</h3>
+          <p>There are five types of admonitions in DocBook: <samp class="computeroutput">caution</samp>, <samp class="computeroutput">important</samp>, <samp class="computeroutput">note</samp>, <samp class="computeroutput">tip</samp>, and <samp class="computeroutput">warning</samp>.</p>
+          <p>All of the admonitions have the same structure: an optional title followed by paragraph-level elements. DocBook does not impose any specific semantics on the individual admonitions.</p>
+        </section>
+        <section>
+          <h3>Examples, Figures, and Tables</h3>
+          <p>Examples, figures, and tables are supported with the block-level elements: <code class="tag">example</code>, <code class="tag">informalexample</code>, <code class="tag">figure</code>, <code class="tag">informalfigure</code>, <code class="tag">table</code>, and <code class="tag">informaltable</code>.</p>
+          <p>The distinction between formal and informal elements is that formal elements have titles while informal ones do not.</p>
+          <section>
+            <h4>'example's in DocBook</h4>
+            <p>This is an 'example':</p>
+            <div class="examplek"/>
+          </section>
+          <section>
+            <h4>'figure's in DocBook</h4>
+            <p>This is an example SVG image:</p>
+            <imagedata>
+              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" version="1.1">
+                <rect x="20" y="20" width="80" height="80" style="fill:blue; stroke:green; stroke-width: 2; fill-opacity: 0.5; stroke-opacity: 0.9"/>
+              </svg>
+            </imagedata>
+            <p>This is the code:</p>
+            <pre>&lt;mediaobject&gt;
+              &lt;imageobject&gt;
+                &lt;imagedata&gt;
+                  &lt;svg xmlns="http://www.w3.org/2000/svg"
+                       width="100" height="100" version="1.1"&gt;
+                    &lt;rect x="20" y="20" width="80" height="80" style="fill:blue; stroke:green; stroke-width: 2; fill-opacity: 0.5; stroke-opacity: 0.9"/&gt;
+                  &lt;/svg&gt;
+                &lt;/imagedata&gt;
+              &lt;/imageobject&gt;
+            &lt;/mediaobject&gt;</pre>
+          </section>
+          <section>
+            <h4>'table's in DocBook</h4>
+            <p>DocBook supports CALS tables (defined with <code class="tag">tgroup</code>, <code class="tag">colspec</code>, <code class="tag">spanspec</code>, <code class="tag">thead</code>, <code class="tag">tfoot</code>, <code class="tag">tbody</code>, <code class="tag">row</code>, <code class="tag">entry</code>, <code class="tag">entrytbl</code>, and <code class="tag">caption</code>) and HTML tables (defined with <code class="tag">col</code>, <code class="tag">colgroup</code>, <code class="tag">thead</code>, <code class="tag">tfoot</code>, <code class="tag">tbody</code>, <code class="tag">tr</code>, <code class="tag">td</code>, and <code class="tag">caption</code>). Both describe tables geometrically using rows, columns, and cells.</p>
+            <h5 class="bridgehead">CALS tables</h5>
+            <h4>Example table</h4>
+            <!-- xml:id="ex.calstable" -->
+            <table frame="all">
+              <h4>Sample CALS Table</h4>
+              <tgroup cols="5" align="left" colsep="1" rowsep="1">
+                <colspec colname="c1"/>
+                <colspec colname="c2"/>
+                <colspec colname="c3"/>
+                <colspec colnum="5" colname="c5"/>
+                <thead>
+                  <tr>
+                    <th namest="c1" nameend="c2" align="center">Horizontal Span</th>
+                    <th>a3</th>
+                    <th>a4</th>
+                    <th>a5</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <td>f1</td>
+                    <td>f2</td>
+                    <td>f3</td>
+                    <td>f4</td>
+                    <td>f5</td>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr>
+                    <td>b1</td>
+                    <td>b2</td>
+                    <td>b3</td>
+                    <td>b4</td>
+                    <td morerows="1" valign="middle">
+                      <p>Vertical Span</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>c1</td>
+                    <td namest="c2" nameend="c3" align="center" morerows="1" valign="bottom"> Span Both</td>
+                    <td>c4</td>
+                  </tr>
+                  <tr>
+                    <td>d1</td>
+                    <td>d4</td>
+                    <td>d5</td>
+                  </tr>
+                </tbody>
+              </tgroup>
+            </table>
+            <h5 class="bridgehead">HTML tables</h5>
+            <table id="ex.htmltable">
+              <h2>Sample HTML Table</h2>
+              <thead>
+                <tr>
+                  <td>Head 1</td>
+                  <td>Head 2</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Body 1</td>
+                  <td>Body 2</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section>
+          <h3>Paragraphs</h3>
+          <p>There are three paragraph elements: <samp class="computeroutput">para</samp>, <samp class="computeroutput">simpara</samp> (simple paragraphs may not contain other block-level elements), and <samp class="computeroutput">formalpara</samp> (formal paragraphs have titles).</p>
+        </section>
+        <section>
+          <h3>Equations</h3>
+          <p>There are two block-equation elements, <samp class="computeroutput">equation</samp> and <samp class="computeroutput">informalequation</samp> (for inline equations, use <samp class="computeroutput">inlineequation</samp>).</p>
+          <p>Informal equations don't have titles. For reasons of backward compatibility, <samp class="computeroutput">equations</samp> are not required to have titles. However, it may be more difficult for some style-sheet languages to properly enumerate equations if they lack titles.</p>
+        </section>
+        <section>
+          <h3>Procedures and Tasks</h3>
+          <p>A <samp class="computeroutput">procedure</samp> contains <samp class="computeroutput">step</samp>'s, which may contain <samp class="computeroutput">substep</samp>' or <samp class="computeroutput">stepalternative</samp>'s.</p>
+          <p>The <samp class="computeroutput">task</samp> element is a wrapper around the procedure element that provides additional, optional elements, including <samp class="computeroutput">tasksummary</samp>, <samp class="computeroutput">taskprerequisite</samp>'s, <samp class="computeroutput">example</samp>, and <samp class="computeroutput">taskrelated</samp>.</p>
+        </section>
+      </section>
+      <section>
+        <h2>Docbook tables*</h2>
+      </section>
+      <section>
+        <h2>Inline Elements</h2>
+        <p>Users of DocBook are provided with a surfeit of inline elements. Inline elements are used to mark up running text. In published documents, inline elements often cause a font change or other small change, but they do not cause line or paragraph breaks. In practice, writers generally settle on the tagging of inline elements that suits their time and subject matter. This may be a large number of elements or only a handful. What is important is that you choose to mark up not every possible item, but only those for which distinctive tagging will be useful in the production of the finished document for the readers who will search through it.</p>
+        <p>The following comprehensive list may be a useful tool for the process of narrowing down the elements that you will choose to mark up; it is not intended to overwhelm you by its sheer length. For convenience, we've divided the inlines into several subcategories.</p>
+        <p>The classification used here is not meant to be authoritative, only helpful in providing a feel for the nature of the inlines. Several elements appear in more than one category, and arguments could be made to support the placement of additional elements in other categories or entirely new categories.</p>
+        <section>
+          <h3>Cross-references</h3>
+          <p>The cross-reference inlines identify both explicit cross-references, such as <code class="tag">link</code>, and implicit cross-references, such as <code class="tag">glossterm</code>. You can make most of the implicit references explicit with a <var>linkend</var> attribute.</p>
+          <ul>
+            <li>anchor: A spot in the document</li>
+            <li>citation: An inline bibliographic reference to another published work</li>
+            <li>citerefentry: A citation to a reference page</li>
+            <li>citetitle: The title of a cited work</li>
+            <li>firstterm: The first occurrence of a term</li>
+            <li>glossterm: A glossary term</li>
+            <li>link: A hypertext link</li>
+            <li>olink: A link that addresses its target indirectly</li>
+            <li><code class="tag">xref</code>: A cross-reference to another part of the document</li>
+          </ul>
+          <p>DocBook supports a rich set of elements and features for creating cross references. Here are the basic kinds of cross references you can create:</p>
+          <ul>
+            <li>Within a document.</li>
+            <li>Between documents.</li>
+            <li>To websites.</li>
+            <li>Specialized cross references.</li>
+          </ul>
+          <div class="note" style="border-style: solid;">DocBook 5 introduces to DocBook the idea of universal linking between elements. In DocBook 5, you can form links between any two elements. See the section <a href="#db5_universal_linking">Universal linking in DocBook 5</a> for more information.</div>
+          <section>
+            <h4>Cross references within a document</h4>
+            <p>DocBook 4 employs the built-in feature of XML for cross referencing within a document, in which attributes are used to identify starting and ending points for cross references. In an XML DTD, an attribute can be assigned an attribute type of ID. That type of attribute is used to label an element as a potential target (end point) of a cross reference. The attribute name does not have be ID, it just needs to be declared as that type. In DocBook 4, the name of the attribute assigned this purpose just happens to be named id as well. In the DocBook DTD, almost every element can have an id attribute, with attribute type ID. That means any element in your document could be the target of a cross reference.</p>
+            <p>In DocBook 5, you use xml:id instead of id. The xml:id attribute is predefined to have attribute type ID, whether or not a schema is available to confirm it.</p>
+            <p>According to the XML standard, every value of an attribute with type ID must be unique. In DocBook, this means every instance of an id (DocBook 4) or xml:id (DocBook 5) attribute in a document must be unique within that document. When you validate your document, the validator will tell you if you have any duplicate id attributes.</p>
+            <p>Other attributes can have a type of IDREF, which is used to point to an ID on another element to form a cross reference. There are a handful of elements in the DocBook DTD that have attributes of type IDREF, of various names. There are two main elements that are used to create cross references to targets within the same document:</p>
+            <dl>
+              <dt>
+                <code class="tag">xref</code>
+              </dt>
+              <dd>An automatic cross reference that generates the text of the reference. For that purpose, it is an empty element that takes no content of its own. The stylesheets control what output is generated. The generated text can be the target element's titleabbrev (if it has one) or title, number label (if it has one), or both.</dd>
+              <dt>link</dt>
+              <dd>A cross reference where you supply the text of the reference as the content of the link element. Therefore it must not be an empty element.</dd>
+            </dl>
+            <p>Both of these elements require a linkend attribute whose value must match some id or xml:id value in the document. Here are two examples in DocBook 4:</p>
+            <h5 class="bridgehead">Internal Cross References Example</h5>
+            <pre>&lt;chapter  id="intro"&gt;
+  &lt;title&gt;Introduction&lt;/title&gt;
+  &lt;para&gt;Welcome to our new product. One of its
+  new features is a &lt;link  linkend="WidgetIntro"&gt;widget&lt;/link&gt;.
+  Other new features include ... &lt;/para&gt;
+&lt;/chapter&gt;
+
+&lt;chapter  id="WidgetIntro"&gt;
+  &lt;title&gt;Introducing the Widget&lt;/title&gt;
+  &lt;para&gt;Widgets are just one of our new features.
+  For a complete list of new features, see &lt;xref  linkend="intro"/&gt;.
+  &lt;/para&gt;
+&lt;/chapter&gt;</pre>
+            <p>...</p>
+            <p>Here is some guidance for using these cross reference elements:</p>
+            <p>Use <code class="tag">xref</code> when you want to reference another element's title or number. It will automatically get the current information so you do not have to maintain such references.</p>
+            <p>Use <code class="tag">link</code> when you want to create a less formal reference that does not include the title or number. You can use whatever words you want.</p>
+            <p>When adding an <var>id</var> or <var>xml:id</var> attribute, put it on the element itself, not the title. The stylesheets know how to find the title for each element being referenced.</p>
+            <p>Not all elements are appropriate as targets of an <code class="tag">xref</code>, because they do not have a title or number. For example, you may want to cross reference to a <code class="tag">para</code>, but you wouldn't want the whole paragraph to be copied as the reference text. See the next section for options you can add to use <code class="tag">xref</code> anyway.</p>
+          </section>
+          <section id="db5_universal_linking">
+            <h4>Universal linking in DocBook 5</h4>
+            <p>In DocBook 4, only specialized elements are used for creating links within and between documents. In DocBook 4, you can use xref or link with linkend attributes to form links within a DocBook document, you can use olink to form links between DocBook documents, and you can use ulink to form an arbitrary URL link.</p>
+            <p>In DocBook 5, almost all elements can be used as the basis for a link. That's because almost all elements have a set of attributes that are defined in the XLink namespace, such as xlink:href. For example, you can turn a command element into a link that targets the reference page for the command.</p>
+            <pre>&lt;para&gt;Use the
+&lt;command xlink:href="#ref-preview"&gt;Preview&lt;/command&gt;
+command to generate a preview.&lt;/para&gt;</pre>
+            <p>The XML Linking Language (XLink) has been a W3C standard since 2001. That standard says that any XML element can become the source or target of a link if it has the universal XLink attributes on it. These attributes are in their own namespace named http://www.w3.org/1999/xlink. Because these attributes are in their own namespace, they do not interfere with any native attributes declared for an element.</p>
+            <p>An xlink:href attribute value can have several different forms:</p>
+            <ul>
+              <li>An attribute such as xlink:href="#intro" refers to an xml:id attribute that exists in the current document. This is similar to the DocBook 4 link and xref elements. The link and xref elements were retained in DocBook 5.</li>
+              <li>An attribute such as xlink:href="http://docbook.org" refers to an arbitrary URL. This is similar to the DocBook 4 ulink element, which was removed in DocBook 5. Instead of ulink, use a link element with a URL in its xlink:href attribute.</li>
+              <li>An olink-style link from any element can be formed using two attributes. If there is a xlink:role="http://docbook.org/xlink/role/olink" attribute present, then a link attribute of the form xlink:href="targetdoc#targetptr" is interpreted as the two parts of an olink. The olink element itself is retained in DocBook 5. See Chapter 24, Olinking between documents to learn more about DocBook olinks.</li>
+            </ul>
+            <p>At the same time, the familiar DocBook linking attribute linkend has also been added anywhere an XLink can be used. The linkend attribute is limited to linking to an xml:id target within the same document.</p>
+            <p>The universal linking mechanism enables you to create logical links between any two DocBook elements. However, such logical links may or may not be expressible in formatted output. For example, if you put an xlink:href on an inline element, then the text of the inline element can become clickable link text in the output. However, if you put an xlink:href attribute on a block element such as section, then it is doubtful that making all the text in the section into a clickable link will be useful. The DocBook stylesheets currently only handle xlink:href on inline elements for this reason. If you want to express linking from a block element, you will have to customize the stylesheet to do so, perhaps by putting a clickable icon in the margin.</p>
+          </section>
+        </section>
+        <section>
+          <h3>Markup</h3>
+          <p> The following inlines are used to mark up text for special presentation:</p>
+          <ul>
+            <li>foreignphrase: A word or phrase in a language other than the primary language of the document</li>
+            <li>wordasword: A word meant specifically as a word and not representing anything else</li>
+            <li>computeroutput: Data, generally text, displayed or presented by a computer</li>
+            <li>literal: Inline text that is some literal value</li>
+            <li>markup: A string of formatting markup in text that is to be represented literally</li>
+            <li>prompt: A character or string indicating the start of an input field in a computer display</li>
+            <li>replaceable: Content that may or must be replaced by the user</li>
+            <li>tag: A component of XML (or SGML) markup</li>
+            <li>userinput: Data entered by the user</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Mathematics</h3>
+          <p>DocBook does not define a complete set of elements for representing equations. The Mathematical Markup Language (MathML) [MathML] is a standard that defines a comprehensive grammar for representing equations. MathML markup may be used in any of the equation elements (equation,informalequation, and inlineequation). For simple mathematics equations that do not require extensive markup, the mathphrase element is an alternative.</p>
+          <!--
+      inlineequation A mathematical equation or expression occurring inline
+      mathphrase A mathematical phrase that can be represented with ordinary text and a small amount of markup
+      subscript A subscript (as in H2O, the molecular formula for water)
+      superscript A superscript (as in x2, the mathematical notation for x multiplied by itself)
+      -->
+        </section>
+        <section>
+          <h3>User interfaces</h3>
+          <p>These elements describe aspects of a user interface:</p>
+          <!--
+      accel A graphical user interface (GUI) keyboard shortcut
+      guibutton The text on a button in a GUI
+      guiicon A graphic and/or text appearing as an icon in a GUI
+      guilabel The text of a label in a GUI
+      guimenu The name of a menu in a GUI
+      guimenuitem The name of a terminal menu item in a GUI
+      guisubmenu The name of a submenu in a GUI
+      keycap The text printed on a key on a keyboard
+      keycode The internal, frequently numeric, identifier for a key on a keyboard
+      keycombo A combination of input actions
+      keysym The symbolic name of a key on a keyboard
+      menuchoice A selection or series of selections from a menu
+      mousebutton The conventional name of a mouse button
+      shortcut A key combination for an action that is also accessible through a menu
+      -->
+        </section>
+        <section>
+          <h3>Programming languages and constructs</h3>
+          <p>Many of the technical inlines in DocBook are related to programming:</p>
+          <!--
+      classname The name of a class, in the object-oriented programming sense
+      constant A programming or system constant
+      errorcode An error code
+      errorname An error name
+      errortype The classification of an error message
+      function The name of a function or subroutine, as in a programming language
+      literal Inline text that is some literal value
+      msgtext The actual text of a message component in a message set
+      parameter A value or a symbolic reference to a value
+      property A unit of data associated with some part of a computer system
+      replaceable Content that may or must be replaced by the user
+      returnvalue The value returned by a function
+      symbol A name that is replaced by a value before processing
+      token A unit of information
+      type The classification of a value
+      varname The name of a variable
+        -->
+        </section>
+        <section>
+          <h3>Operating systems</h3>
+          <p>These inlines identify parts of an operating system, or an operating environment:</p>
+          <!--
+      application The name of a software program
+      command The name of an executable program or other software command
+      envar A software environment variable
+      filename The name of a file
+      msgtext The actual text of a message component in a message set
+      option An option for a software command
+      parameter A value or a symbolic reference to a value
+      prompt A character or string indicating the start of an input field in a computer display
+      systemitem A system-related item or term
+        -->
+        </section>
+        <section>
+          <h3>General purpose</h3>
+          <p>There are also a number of general-purpose technical inlines:</p>
+          <!--
+      application The name of a software program
+      database The name of a database, or part of a database
+      email An email address
+      filename The name of a file
+      hardware A physical part of a computer system
+      literal Inline text that is some literal value
+      option An option for a software command
+      optional Optional information
+      replaceable Content that may or must be replaced by the user
+      symbol A name that is replaced by a value before processing
+      token A unit of information
+      type The classification of a value
+        -->
+        </section>
+      </section>
+      <!-- end of inline elements -->
+      <section>
+        <h2>Attributes in DocBook</h2>
+        <section>
+          <h3>Common Attributes in DocBook</h3>
+          <p>There are many <dfn>common attributes</dfn> that occur on every DocBook element. They are summarized here for brevity and to make the additional attributes that occur on many elements stand out.</p>
+          <dl>
+            <dt>annotations</dt>
+            <dd>It holds text and identifies one or more annotations that apply to this element.</dd>
+            <dt>dir</dt>
+            <dd>Identifies the direction of text in an element. Its allowed values are: ltr (Left-to-right text), rtl (Right-to-left text), lro (Left-to-right override), and rlo (Right-to-left override).</dd>
+            <dt>remap</dt>
+            <dd>Provides the name or similar semantic identifier assigned to the content in some previous markup scheme</dd>
+            <dt>revisionflag</dt>
+            <dd>Identifies the revision status of the element. Its values are: changed (The element has been changed), added (the element is new, i.e. it has been added to the document), deleted (the element has been deleted), and off (revision markup has been explicitly turned off for this element).</dd>
+            <dt>role</dt>
+            <dd>Provides additional, user-specified classification for an element.</dd>
+            <dt>version</dt>
+            <dd>Specifies the DocBook version of the element and its descendants.</dd>
+            <dt>xml:base</dt>
+            <dd>Specifies the base URI of the element and its descendants.</dd>
+            <dt>xml:id</dt>
+            <dd>Identifies the unique ID value of the element.</dd>
+            <dt>xml:lang</dt>
+            <dd>Specifies the natural language of the element and its descendants</dd>
+            <dt>xreflabel</dt>
+            <dd>
+              <p>Provides the text that is to be generated for a cross-reference to the element.</p>
+              <p>For elements like <code class="tag">para</code> or <code class="tag">note</code> that do not have a title or number, you can add an <code class="tag">xreflabel</code> attribute to the element. That attribute should contain the text you want to appear when an <code class="tag">xref</code> points to that element. The following is an example:</p>
+              <pre>&lt;para  id="ChooseSCSIid"  xreflabel="choosing a SCSI id"&gt;The methods
+for choosing a &lt;acronym&gt;SCSI&lt;/acronym&gt; id are ...
+&lt;/para&gt;
+...
+&lt;para&gt;
+See the paragraph on &lt;xref  linkend="ChooseSCSIid"/&gt;.
+&lt;/para&gt;</pre>
+              <p>The <code class="tag">xref</code> in the second paragraph points to the first paragraph. When processed, the second paragraph will read <q>See the paragraph on choosing a SCSI id.</q> and an HTML hot link will take the reader to the beginning of the paragraph.</p>
+              <p>The advantage of <code class="tag">xreflabel</code> over using a link element is to provide consistent reference text to that element. If you decide to change the wording, you only have to change the <code class="tag">xreflabel</code>, and all <code class="tag">xref</code> references to it will change. If you had used link instead, then you would have to find and edit each instance to change the text.</p>
+              <div class="note" style="border-style: solid;">If you put an xreflabel on an element that normally does have generated text, the attribute will override the default generated text.</div>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h3>Common Effectivity Attributes</h3>
+          <p>The common attributes include a collection of <dfn>effectivity attributes</dfn>. These attributes are available for authors to identify to whom a particular element applies. Effectivity attributes are often used for profiling: building documents that contain information only relevant to a particular audience.</p>
+          <p>For example, a section might be identified as available only to readers with a <q>top- secret</q> security clearance or a paragraph might be identified as affecting only users running the implementation provided by a particular vendor.</p>
+          <dl>
+            <dt>arch</dt>
+            <dd>Designates the computer or chip architecture to which the element applies</dd>
+            <dt>audience</dt>
+            <dd>Designates the intended audience to which the element applies; for example, system administrators, programmers, or new users</dd>
+            <dt id="condition">condition</dt>
+            <dd>Provides a standard place for application-specific effectivity</dd>
+            <dt>conformance</dt>
+            <dd>Indicates standards conformance characteristics of the element</dd>
+            <dt>os</dt>
+            <dd>Indicates the operating system to which the element is applicable</dd>
+            <dt>revision</dt>
+            <dd>Indicates the editorial revision to which the element belongs</dd>
+            <dt>security</dt>
+            <dd>Indicates something about the security level associated with the element to which it applies</dd>
+            <dt>userlevel</dt>
+            <dd>Indicates the level of user experience for which the element applies</dd>
+            <dt>vendor</dt>
+            <dd>Indicates the computer vendor to which the element applies</dd>
+            <dt>wordsize</dt>
+            <dd>Indicates the word size (width in bits) of the computer architecture to which the element applies</dd>
+          </dl>
+          <p>The names of the effectivity attributes are suggestive of several classes of common effectivity information. The semantically neutral <a href="#condition">condition</a> attribute was added to give authors a place to put values that don't fit neatly into one of the other alternatives.</p>
+        </section>
+        <section>
+          <h3>Common Linking Attributes</h3>
+          <p>The following attributes occur on all elements that can be the start of a link. They are summarized here once for brevity and to make the additional attributes that occur on many elements stand out.</p>
+          <dl>
+            <dt>linkend (IDREF) or linkends (IDREFS)</dt>
+            <dd>Points to an internal link target by identifying the value of its <code class="tag">xml:id</code> attribute.</dd>
+            <dt>xlink:actuate</dt>
+            <dd>
+              <p>Identifies the XLink actuate behavior of the link:</p>
+              <ul>
+                <dd>onLoad: An application should traverse to the ending resource immediately on loading the starting resource.</dd>
+                <dd>onRequest: An application should traverse from the starting resource to the ending resource only on a post-loading event triggered for the purpose of traversal.</dd>
+                <dd>other: The behavior of an application traversing to the ending resource is unconstrained by this specification. The application should look for other markup present in the link to determine the appropriate behavior.</dd>
+                <dd>none: The behavior of an application traversing to the ending resource is unconstrained by this specification. No other markup is present to help the application determine the appropriate behavior.</dd>
+              </ul>
+            </dd>
+            <dt>xlink:arcrole</dt>
+            <dd>Identifies the XLink arcrole of the link</dd>
+            <dt>xlink:href</dt>
+            <dd>Identifies a link target with a URI</dd>
+            <dt>xlink:role</dt>
+            <dd>Identifies the XLink role of the link</dd>
+            <dt>xlink:show</dt>
+            <dd>
+              <p>Identifies the XLink show behavior of the link:</p>
+              <ul>
+                <dd>new: An application traversing to the ending resource should load the resource in a new window, frame, pane, or other relevant presentation context.</dd>
+                <dd>replace: An application traversing to the ending resource should load the resource in the same window, frame, pane, or other relevant presentation context in which the starting resource was loaded.</dd>
+                <dd>embed: An application traversing to the ending resource should load its presentation in place of the presentation of the starting resource.</dd>
+                <dd>other: The behavior of an application traversing to the ending resource is uncon- strained by XLink. The application should look for other markup present in the link to determine the appropriate behavior.</dd>
+                <dd>none: The behavior of an application traversing to the ending resource is unconstrained by this specification. No other markup is present to help the application determine the appropriate behavior.</dd>
+              </ul>
+            </dd>
+            <dt>xlink:title</dt>
+            <dd>Identifies the XLink title of the link</dd>
+            <dt>xlink:type</dt>
+            <dd>Identifies the XLink link type</dd>
+          </dl>
+        </section>
+      </section>
+      <!-- end of "Attributes in DocBook" -->
+      <section id="code_in_docbook">
+        <h2>Code in DocBook</h2>
+        <p>You may use block <code class="sgmltag">programlisting</code> or inline <code class="sgmltag">userinput</code> and <code class="sgmltag">computeroutput</code>.</p>
+        <section id="db_annotating_program_listings">
+          <h3>Annotating Program Listings</h3>
+          <p>It is often the case that you need to comment on lines of code to explain it. There are three mechanisms you can use for that purpose.</p>
+          <ul>
+            <li>line annotations,</li>
+            <li>line numbering, or</li>
+            <li>callouts.</li>
+          </ul>
+          <section>
+            <h4>Line annotations</h4>
+            <p>You can mix lineannotation elements in with your code to explain something directly in the text. For example:</p>
+            <pre>&lt;programlisting&gt;# constructor
+sub new {
+    my ($file, $output) = @_; &lt;lineannotation&gt;Store args&lt;/lineannotation&gt;
+    my $dir = basename $file; &lt;lineannotation&gt;Get dir name&lt;/lineannotation&gt;
+}
+&lt;/programlisting&gt;</pre>
+            <p>Line annotations in the stock stylesheet print as italic, but they inherit the monospace font family of the programlisting.</p>
+            <div class="warning" style="border-style: solid;">Line annotations cannot be added in files inserted using textobject or <kbd class="userinput">&lt;xi:include parse="text"&gt;</kbd> because the <q>&lt;</q> character that starts the element will be escaped as <q>&amp;lt;</q> when it is brought in. You can use lineannotations in files brought in with <kbd class="userinput">&lt;xi:include parse="xml"&gt;</kbd>, but then you have to be careful to escape other XML characters in your program file. Line annotations also cannot be used with examples marked as CDATA, because any lineannotation element will not be recognized as an XML element.</div>
+          </section>
+          <section>
+            <h4>Line numbering</h4>
+            <p>You can add line numbers to the listing, and then your paragraphs can refer to the line numbers. Currently line numbering is only available with the Java processors <code class="application">Saxon</code> and <code class="application">Xalan</code>, not <code class="application">xsltproc</code>, because it is done with an extension function.</p>
+            <p>Line numbers are turned on by a <var>linenumbering</var> attribute on each <code class="sgmltag">programlisting</code> element that needs line numbering. By default, the numbering starts at 1, but you can assign your own starting number with the optional <var>startinglinenumber</var> attribute. You can also continue the numbering from the most recent <code class="sgmltag">programlisting</code> that had line numbering by adding a <kbd class="userinput">continuation="continues"</kbd> attribute to the current element. The following is an example with <var>startinglinenumber</var>:</p>
+            <pre>&lt;programlisting linenumbering="numbered" startinglinenumber="12"&gt;</pre>
+            <p>Once your lines are numbered, you can refer to the line numbers in the paragraphs. The problem with line numbers, though, is you cannot see them until the text is formatted at least once. Also, if you edit the code, the line numbers may change and you will need to adjust your number references. It is useful for stable code examples, though.</p>
+          </section>
+          <section>
+            <h4>Callouts</h4>
+            <p>You can use callouts to mark specific locations in a program listing and link explanatory text to the marks. In DocBook, the <code class="sgmltag">callout</code> element contains the explanatory text. The mark, which is called a <dfn>callout bug</dfn>, is most easily placed using the <code class="sgmltag">co</code> element. Those two elements can be linked to each other to allow the reader to conveniently move back and forth between them.</p>
+            <p>The callout bug is usually rendered as a white number in a black circle.</p>
+            <pre>&lt;programlisting&gt;
+#ifndef _My_Parser_h_  &lt;co  id="condition-co"  linkends="condition" /&gt;
+#define _My_Parser_h_
+#include "MyFetch.h"   &lt;co id="headerfile-co" linkends="headerfile" /&gt;
+class My_Parser  &lt;co id="classdef-co" linkends="classdef" /&gt;
+{
+public:
+        //
+        // Construction/Destruction
+        //
+        My_Parser();  &lt;coref  linkend="classdef-co"/&gt;
+        virtual      ~My_Parser() = 0;
+        virtual int  parse(MyFetch &amp;amp;fetcher) = 0;
+};
+#endif
+&lt;/programlisting&gt;
+
+&lt;calloutlist&gt;
+  &lt;callout arearefs="condition-co"  id="condition" &gt;
+    &lt;para&gt;Make this conditional.&lt;/para&gt;
+  &lt;/callout&gt;
+  &lt;callout arearefs="headerfile-co" id="headerfile"&gt;
+    &lt;para&gt;Load necessary constants.&lt;/para&gt;
+  &lt;/callout&gt;
+  &lt;callout arearefs="classdef-co" id="classdef"&gt;
+    &lt;para&gt;Define new class&lt;/para&gt;
+  &lt;/callout&gt;
+&lt;/calloutlist&gt;</pre>
+            <ul>
+              <li>Use a <code class="sgmltag">co</code> element to place a callout bug in your code sample. The element is empty, with all the information in attributes.</li>
+              <li>Give the <code class="sgmltag">co</code> an <var>id</var> or <var>xml:id</var> value so the callout text can be linked directly to the callout bug location.</li>
+              <li>Its <var>linkend</var> attribute value (condition) should match the <var>id</var> or <var>xml:id</var> value of its <code class="sgmltag">callout</code> element. That forms a link from the callout bug to the text.</li>
+              <li>Use a <code class="sgmltag">coref</code> instead of a <code class="sgmltag">co</code> when you want to create a duplicate bug number. That is, when you have more than one location in your code that needs to refer to the same callout paragraph, use a <code class="sgmltag">coref</code> for any but the first location. The <var>linkend</var> of the <code class="sgmltag">coref</code> must point to the <var>id</var> of the master <code class="sgmltag">co</code> element. The duplicate callout icons will all hotlink to the same callout paragraph. But the icon next to the callout paragraph will link back only to the master <code class="sgmltag">co</code> element.</li>
+              <li>A <code class="sgmltag">calloutlist</code> contains a set of <code class="sgmltag">callout</code> elements, and formats them as a list.</li>
+              <li>Each <code class="sgmltag">callout</code> element is paired up with a <code class="sgmltag">co</code> element. The numbering order is based on the <code class="sgmltag">co</code> order, so you should keep the <code class="sgmltag">callout</code> elements in the same order.</li>
+              <li>The <var>arearefs</var> attribute value matches the <var>id</var> value of its <code class="sgmltag">co</code> callout bug . That forms a link from the callout text to the callout bug.</li>
+              <li>Give the <code class="sgmltag">callout</code> an <var>id</var> value so the callout bug can link directly to its callout text.</li>
+            </ul>
+            <div class="note" style="border-style: solid;">It helps to establish a naming scheme for the ids to track the two-ended links</div>
+          </section>
+        </section>
+        <!-- end of "Annotating Program Listings" -->
+      </section>
+      <!-- end of "Code in DocBook" -->
+      <section id="db_links">
+        <h2>Links Inside and Outside</h2>
+        <p>Many elements admit linking attributes, which effectively turn its contents into a hot link. The most common attributes are <var>linkend</var>, which builds an <em>internal</em> link from an id within the document, and <var>xlink:href</var>, which builds an external link from a URI.</p>
+        <p>Note that you need to declare the XLink namespace in your document instance to use href and other XLink attributes, like so:</p>
+        <pre>&lt;book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"&gt;</pre>
+        <p>Other useful XLink attributes are <var>xlink:show</var>, which establishes how the link is shown and may be either <constant>new</constant>, <constant>replace</constant>, <constant>other</constant>, and <constant>none</constant>; <var>xlink:title</var>, and <var>xlink:type</var> (possibly adopting values <constant>xmlnamespace</constant>, <constant>homepage</constant>, <constant>webpage</constant>, <constant>weblog</constant>, <constant>website</constant>...).</p>
+        <p>Here are some examples using (internal) linking attributes:</p>
+        <ul>
+          <li>
+            <p>Link to another element in the document bearing an id attribute such as <kbd class="userinput">xml:id='some_destination'</kbd>:</p>
+            <pre>&lt;link linkend='some_destination'&gt;jump&lt;/link&gt;</pre>
+            <p>Alternatively, the href attribute may contain a hash-preceded fragment identifier to create a link within a document. For example:</p>
+            <pre>&lt;command xl:href="#dir"&gt;DIR&lt;/command&gt;</pre>
+          </li>
+          <li>
+            <p>Link to a website, or a webpage, etc.</p>
+            <pre>&lt;link type='website' xlink:href='https://www.domain.xyz/'&gt;hot text of the hyperlink&lt;/link&gt;</pre>
+          </li>
+        </ul>
+        <section>
+          <h3>The <code class="tag">uri</code> Tag</h3>
+          <p>The <code class="tag">uri</code> element identifies a Uniform Resource Identifier (URI) in content. Although DocBook does not mandate any values for the <code class="tag">type</code> attribute, several useful values have been suggested:</p>
+          <ul>
+            <li><literal>xmlnamespace</literal> for an XML namespace name; for example, http://docbook.org/ns/docbook</li>
+            <li><literal>saxfeaturename</literal> for a SAX feature name; for example, http://xml.org/sax/features/namespaces</li>
+            <li><literal>saxpropertyname</literal> for a SAX property name; for example, http://xml.org/sax/properties/declaration-handler</li>
+            <li><literal>soapaction</literal> for a SOAP action; see SOAP Version 1.2 Part 2: Adjuncts</li>
+            <li><literal>rddlpurpose</literal> for an RDDL (Resource Directory Description Language) purpose</li>
+            <li><literal>rddlnature</literal> for an RDDL (Resource Directory Description Language) nature</li>
+            <li><literal>homepage</literal> for a home page; for example, http://nwalsh.com/</li>
+            <li><literal>weblog</literal> for a web log; for example, http://norman.walsh.name/</li>
+            <li><literal>webpage</literal> for a web page; for example, http://docbook.org/schemas/</li>
+            <li><literal>website</literal> for a website; for example, http://docbook.org</li>
+          </ul>
+        </section>
+      </section>
+      <section id="docbook.info">
+        <h2>Uniform <code class="tag">info</code> Elements</h2>
+        <p>DocBook versions earlier than DocBook V5.0 use unique elements for block information. For example, a <code class="tag">book</code> element would contain a <code class="tag">bookinfo</code> element. This was done to support different content models for different block elements. DTDs only allow one content model for each element, so a different element name was required for each block's information element. Since RELAX NG does not have this limitation, an element can have a different content model in different contexts. Therefore, the array of <code class="tag">info</code> elements (<code class="tag">articleinfo</code>, <code class="tag">bookinfo</code>, etc.) has been replaced with a single <code class="tag">info</code> element.</p>
+        <p>Thus, an <code class="tag">info</code> element contains two series:</p>
+        <ul>
+          <li>
+            <p>Interleave of:</p>
+            <pre>title? titleabbrev? subtitle?</pre>
+          </li>
+          <li>
+            <p>Zero or more of "Info" elements:</p>
+            <ul>
+              <li><code class="tag">abstract</code>: A summary</li>
+              <li><code class="tag">address</code>: A real-world address, generally a postal address</li>
+              <li><code class="tag">artpagenums</code>: The page numbers of an article as published</li>
+              <li><code class="tag">author</code>: The name of an individual author</li>
+              <li><code class="tag">authorgroup</code>: Wrapper for author information when a document has multiple authors or collabarators</li>
+              <li><code class="tag">authorinitials</code>: The initials or other short identifier for an author</li>
+              <li><code class="tag">bibliocoverage</code>: The spatial or temporal coverage of a document</li>
+              <li><code class="tag">biblioid</code>: An identifier for a document</li>
+              <li><code class="tag">bibliosource</code>: The source of a document</li>
+              <li><code class="tag">collab</code>: Identifies a collaborator</li>
+              <li><code class="tag">confgroup</code>: A wrapper for document meta-information about a conference</li>
+              <li><code class="tag">contractsponsor</code>: The sponsor of a contract</li>
+              <li><code class="tag">contractnum</code>: The contract number of a document</li>
+              <li><code class="tag">copyright</code>: Copyright information about a document</li>
+              <li><code class="tag">cover</code>: Additional content for the cover of a publication</li>
+              <li><code class="tag">date</code>: The date of publication or revision of a document</li>
+              <li><code class="tag">edition</code>: The name or number of an edition of a document</li>
+              <li><code class="tag">editor</code>: The name of the editor of a document</li>
+              <li><code class="tag">issuenum</code>: The number of an issue of a journal</li>
+              <li><code class="tag">keywordset</code>: A set of keywords describing the content of a document</li>
+              <li><code class="tag">legalnotice</code>: A statement of legal obligations or requirements</li>
+              <li><code class="tag">mediaobject</code>: A displayed media object (video, audio, image, etc.)</li>
+              <li><code class="tag">org</code>: An organization and associated metadata</li>
+              <li><code class="tag">orgname</code>: The name of an organization</li>
+              <li><code class="tag">othercredit</code>: A person or entity, other than an author or editor, credited in a document</li>
+              <li><code class="tag">pagenums</code>: The numbers of the pages in a book, for use in a bibliographic entry</li>
+              <li><code class="tag">printhistory</code>: The printing history of a document</li>
+              <li><code class="tag">pubdate</code>: The date of publication of a document</li>
+              <li><code class="tag">publisher</code>: The publisher of a document</li>
+              <li><code class="tag">publishername</code>: The name of the publisher of a document</li>
+              <li><code class="tag">releaseinfo</code>: Information about a particular release of a document</li>
+              <li><code class="tag">revhistory</code>: A history of the revisions to a document</li>
+              <li><code class="tag">seriesvolnums</code>: Numbers of the volumes in a series of books</li>
+              <li><code class="tag">subjectset</code>: A set of terms describing the subject matter of a document</li>
+              <li><code class="tag">volumenum</code>: The volume number of a document in a set (as of books in a set or articles in a journal) from group db._any</li>
+            </ul>
+            <!--<para>Any element Namespace: ##any, Process Contents: skip</para>-->
+            <ul>
+              <li><code class="tag">annotation</code>: An annotation</li>
+              <li><code class="tag">extendedlink</code>: An XLink extended link</li>
+              <li><code class="tag">bibliomisc</code>: Untyped bibliographic information</li>
+              <li><code class="tag">bibliomset</code>: A cooked container for related bibliographic information</li>
+              <li><code class="tag">bibliorelation</code>: The relationship of a document to another</li>
+              <li><code class="tag">biblioset</code>: A raw container for related bibliographic information</li>
+              <li><code class="tag">itermset</code>: A set of index terms in the meta-information of a document</li>
+              <li><code class="tag">productname</code>: The formal name of a product</li>
+              <li><code class="tag">productnumber</code>: A number assigned to a product</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Required <kbd class="userinput">title</kbd> and <kbd class="userinput">version</kbd> attributes</h2>
+        <p>DocBook V5.0 requires the title attribute on large block elements such as article.</p>
+        <p>DocBook V5.0 no longer requires a Document Type Declaration. However, because processors may need to know the version of an instance, DocBook V5.0 has added the <kbd class="userinput">version</kbd> attribute, which must appear on the root element of a DocBook document. The version attribute may also appear on other elements, and mixing of versions is allowed.</p>
+      </section>
+      <section>
+        <h2>Including Images in DocBook Doc's</h2>
+        <p>To include a picture in the text, use the <code class="tag">graphic</code> tag.</p>
+        <p>(from http://bochs.sourceforge.net/doc/docbook/documentation/basics.html)</p>
+        <p>Or something like:</p>
+        <pre>&lt;mediaobject&gt;
+  &lt;imageobject&gt;
+    &lt;imagedata format='PNG' fileref='image_folder/Figure1.png'/&gt;
+  &lt;/imageobject&gt;
+&lt;/mediaobject&gt;</pre>
+      </section>
+      <section>
+        <h2>A Callout to an Image or a Listing</h2>
+        <blockquote id="wikipedia_callout">
+          <p>In publishing, a call-out or callout is a short string of text connected by a line, arrow, or similar graphic to a feature of an illustration or technical drawing, and giving information about that feature. The term is also used to describe a short piece of text set in larger type than the rest of the page and intended to attract attention.</p>
+          <p>A similar device in word processing is a special text box with or without a small "tail" that can be pointed to different locations on a document.</p>
+          <p class="attribution" style="text-align: right">Wikipedia</p>
+        </blockquote>
+        <p><dfn>Callouts</dfn> are marks, frequently numbered and typically on a graphic (<code class="sgmltag">imageobjectco</code>) or verbatim environment (<code class="sgmltag">programlistingco</code> or <code class="sgmltag">screenco</code>), that are described in a <code class="sgmltag">calloutlist</code>.</p>
+        <p>Callouts, such as numbered bullets, are an annotation mechanism. In an online system, these bullets are frequently <q>hot,</q> and clicking on them sends you to the corresponding annotation. Annotation mechanisms for quoted text is explained <a href="#db_annotating_program_listings">elsewhere</a>.</p>
+      </section>
+      <section>
+        <h2>The <code class="tag">alt</code> Element Used as a Backdoor</h2>
+        <p>Much like a processing instruction in XML, an <code class="tag">alt</code> element may be used... Below is an example of a <code class="application">TeX</code> mathematical formula inclusion meant to be processed by the <code class="application">dblatex</code> engine:</p>
+        <pre>&lt;equation id="eq-with-no-title"&gt;
+    &lt;alt&gt;C = \alpha + \beta Y^{\gamma} + \epsilon&lt;/alt&gt;
+&lt;/equation&gt;</pre>
+      </section>
+      <section>
+        <h2>Making a Glossary in DocBook</h2>
+        <p>A glossary, like a bibliography, is often constructed by hand. However, some applications are capable of building a skeletal index from glossary term markup in the document. If all of your terms are defined in some glossary database, it may even be possible to construct the complete glossary automatically.</p>
+        <p>To enable automatic glossary generation, or simply automatic linking from glossary terms in the text to glossary entries, you must add markup to your documents. In the text, you mark up a term for compilation later with the inline glossterm tag. This tag can have a linkend attribute whose value is the ID of the actual entry in the glossary.</p>
+        <p>For instance, if you have this markup in your document:</p>
+        <pre>&lt;glossterm linkend="xml"&gt;Extensible Markup Language&lt;/glossterm&gt; is a new standard...</pre>
+        <p>your glossary might look like this:</p>
+        <pre>&lt;glossary&gt;&lt;title&gt;Example Glossary&lt;/title&gt;
+&#x22EE;
+&lt;glossdiv&gt;&lt;title&gt;E&lt;/title&gt;
+&lt;glossentry xml:id="xml"&gt;&lt;glossterm&gt;Extensible Markup Language&lt;/glossterm&gt;
+&lt;acronym&gt;XML&lt;/acronym&gt;
+&lt;glossdef&gt;
+&lt;para&gt;Some reasonable definition here.&lt;/para&gt;
+&lt;glossseealso otherterm="sgml"&gt;
+&lt;/glossdef&gt;
+&lt;/glossentry&gt;
+&lt;/glossdiv&gt;
+&#x22EE;
+&lt;/glossary&gt;</pre>
+        <p>Note that the <samp class="computeroutput">glossterm</samp> tag reappears in the glossary to mark up the term and distinguish it from its definition within the <samp class="computeroutput">glossentry</samp>. The <samp class="computeroutput">xml:id</samp> that the <samp class="computeroutput">glossentry</samp> referenced in the text is the ID of the <samp class="computeroutput">glossentry</samp> in the <samp class="computeroutput">glossary</samp> itself. You can use the link between source and glossary to create a link in electronic formats, as we have done with the HTML and PDF forms of the glossary in this book.</p>
+        <p>You can use the <samp class="computeroutput">baseform</samp> attribute on <samp class="computeroutput">glossterm</samp> and <samp class="computeroutput">firstterm</samp> when the term marked up in context is in a different form, for example, plural. Here is an example:</p>
+        <pre>&lt;para&gt;
+  Using &lt;glossterm baseform="DTD"&gt;DTDs&lt;/glossterm&gt; can
+  be hazardous to your sanity.
+&lt;/para&gt;</pre>
+      </section>
+      <section id="db_address_book">
+        <h2>Making an Address/Phone/Agenda Book</h2>
+        <section id="db_info_tag">
+          <h3>The <code class="tag">info</code> tag</h3>
+          <p>The <code class="tag">info</code> element contains meta-information about the element that contains it. An <code class="tag">info</code> element may contain a <code class="tag">title</code> and/or a <code class="tag">subtitle</code> element. You may find an example of how it is used <a href="#db_person_info_listing">here</a>.</p>
+        </section>
+        <section>
+          <h3>Describing a Person in DocBook</h3>
+          <p>A person can be <q>described</q> in DocBook as in the following example:</p>
+          <pre id="db_person_info_listing">&lt;info&gt;
+  &lt;title&gt;Example author&lt;/title&gt;
+  &lt;author&gt;
+    &lt;personname&gt;
+      &lt;honorific&gt;Mr&lt;/honorific&gt;
+      &lt;firstname&gt;Norman&lt;/firstname&gt;
+      &lt;surname&gt;Walsh&lt;/surname&gt;
+      &lt;othername role='mi'&gt;D&lt;/othername&gt;
+    &lt;/personname&gt;
+    &lt;affiliation&gt;
+      &lt;shortaffil&gt;ATI&lt;/shortaffil&gt;
+      &lt;jobtitle&gt;Senior Application Analyst&lt;/jobtitle&gt;
+      &lt;orgname&gt;ArborText, Inc.&lt;/orgname&gt;
+      &lt;orgdiv&gt;Application Development&lt;/orgdiv&gt;
+    &lt;/affiliation&gt;
+  &lt;/author&gt;
+&lt;/info&gt;</pre>
+          <div class="note" style="border-style: solid;">You may use tag <code class="tag">person</code> instead of tag <code class="tag">author</code>.</div>
+          <p>Additionally, tab <code class="tag">personblurb</code> is used to hold a short description of a person.</p>
+        </section>
+        <section>
+          <h3>Places and Addresses</h3>
+          <p>The following tags are used:</p>
+          <ul>
+            <li>
+              <code class="tag">email</code>
+            </li>
+            <li>
+              <code class="tag">address</code>
+              <code class="tag">otheraddr</code>
+              <code class="tag">city</code>
+              <code class="tag">country</code>
+              <code class="tag">state</code>
+              <code class="tag">street</code>
+              <code class="tag">postcode</code>
+              <code class="tag">pob</code>
+            </li>
+            <li>
+              <code class="tag">phone</code>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <h2>Summarizing and Commenting in DocBook</h2>
+        <p>The <code class="tag">abstract</code> may be used for summarizing. An abstract can occur in most components of DocBook. It is expected to contain some sort of summary of the content with which it is associated (by containment). An <code class="tag">abstract</code> is a block element and may contain <code class="tag">info</code> and paragraph elements.</p>
+        <p>Other tags for summarizing are <a href="#db_epigraph">epigraph</a> and <a href="#db_sidebar">sidebar</a>.</p>
+        <p id="db_epigraph">An epigraph is a short inscription, often a quotation or poem, set at the beginning of a document or component. Epigraphs are usually related somehow to the content that follows them and may help set the tone for the component. It may contain <code class="tag">info</code>, <code class="tag">attribution</code>, <code class="tag">literallayout</code>, and paragraph elements.</p>
+        <p id="db_sidebar">A <code class="tag">sidebar</code> element is a short piece of text, rarely longer than a single column or page, that is presented outside the narrative flow of the main text. Sidebars are often used for digressions or interesting observations that are related, but not directly relevant, to the main text.</p>
+      </section>
+      <section>
+        <h2>Backus-Naur Notation in DocBook*</h2>
+      </section>
+      <section>
+        <h2>Dates in DocBook</h2>
+        <p>Tag <code class="tag">date</code> for an inline date, although DocBook does not specify the format of the date.</p>
+      </section>
+      <section>
+        <h2>Namespaces Declared in DocBook</h2>
+        <p>Generally, operator color (:) is used to select any element from any namespace except:</p>
+        <ul>
+          <li>http://docbook.org/ns/docbook</li>
+          <li>http://www.w3.org/1999/xhtml</li>
+        </ul>
+        <p>Two common public namespaces are assumed: those for <a target="_blank" href="mathml.html">MathML</a> (<code class="tag">mml</code>) and <a target="_blank" href="svg.html">SVG</a> (<code class="tag">svg</code>).</p>
+        <p>Here is an example of inclusion of a mathematical formula (<code class="tag">mml</code>). It just prints <var>x<sup>3</sup></var>:</p>
+        <pre>&lt;article xmlns='http://docbook.org/ns/docbook'
+xmlns:mml="http://www.w3.org/1998/Math/MathML"&gt;
+  &lt;title&gt;Example mml-math&lt;/title&gt;
+  &lt;informalequation&gt;
+    &lt;mml:math&gt;
+      &lt;mml:msup&gt;
+        &lt;mml:mi&gt;x&lt;/mml:mi&gt;
+        &lt;mml:mn&gt;3&lt;/mml:mn&gt;
+      &lt;/mml:msup&gt;
+    &lt;/mml:math&gt;
+  &lt;/informalequation&gt;
+&lt;/article&gt;</pre>
+        <p>And here is an example of inclusion of an SVG image:</p>
+        <pre>&lt;article xmlns='http://docbook.org/ns/docbook'
+version="5.0"&gt;
+  &lt;title&gt;Example svg-svg&lt;/title&gt;
+  &lt;mediaobject&gt;
+    &lt;imageobject&gt;
+      &lt;imagedata&gt;
+        &lt;svg xmlns="http://www.w3.org/2000/svg"
+          width="100" height="100" version="1.1"&gt;
+          &lt;rect x="20" y="20" width="80" height="80"
+            style="fill:blue; stroke:green; stroke-width: 2;
+            fill-opacity: 0.5; stroke-opacity: 0.9"/&gt;
+          &lt;/svg&gt;
+        &lt;/imagedata&gt;
+      &lt;/imageobject&gt;
+    &lt;/mediaobject&gt;
+&lt;/article&gt;</pre>
+      </section>
+      <section>
+        <h2>Simplified Docbook*</h2>
+      </section>
+      <section>
+        <h2>Transforming to PostScript, PDF ...</h2>
+        <section>
+          <h3>Transforming to PDF, PostScript, LaTeX through <code class="application">dblatex</code></h3>
+          <p><code class="application">dblatex</code> supports links, tables, bookmarks... Nevertheless, it has failed on my large files, but you can do:</p>
+          <pre>dblatex --type=tex <cite class="filename">my_file</cite>.xml</pre>
+          <p>And then:</p>
+          <pre>latex <cite class="filename">my_file</cite>.tex</pre>
+          <p>to get a dvi file, later to be converted to PostScript or PDF format:</p>
+          <pre>dvipdf <cite class="filename">my_file</cite>.dvi</pre>
+          <p>Yet if you want EPS support, do:</p>
+          <pre>dvips my_file.dvi &amp;&amp; ps2pdf my_file.ps</pre>
+          <div class="warning" style="border-style: solid;"><code class="application">dvipdfm</code> and <code class="application">dvipdfmx</code> don't generate links.</div>
+          <p>Unicode is supported through switch: <kbd class="userinput">-b xetex</kbd> or <kbd class="userinput">--backend=xetex</kbd>.</p>
+          <p>XSL parameteres can be set like this: <kbd class="userinput">-P param = value</kbd> or <kbd class="userinput">--param= param = value</kbd>.</p>
+        </section>
+        <section>
+          <h3>Transforming to PostScript through <code class="application">sdop</code></h3>
+          <blockquote>
+            <p><code class="application">sdop</code> reads  DocBook  XML  input, processes it into page images, and writes the result as PostScript. This can be turned into PDF using an application  such  as  <code class="application">ps2pdf</code>.  <code class="application">SDoP</code> is "simple" because  (a)  it  does not check that the input conforms to the DTD, and (b) it supports only a simple subset of DocBook features.</p>
+            <p class="attribution" style="text-align: right">the man page</p>
+          </blockquote>
+          <p><code class="application">sdop</code> was written by Philip Hazel, Cambridge, England, who last revised it on November 23rd, 2013.</p>
+          <p>EPS images are supported out of the box.</p>
+          <section>
+            <h4>Supported Docbook Elements</h4>
+            <p>A proper subset of Docbook, namely Simple Docbook, is supported. The Simplified DocBook elements that are not supported are <code class="tag">authorgroup</code>, <code class="tag">biblio<var>xxx</var></code>, <code class="tag">entrytbl</code>, and <code class="tag">spanspec</code>.</p>
+            <p>In the following table, elements that are defined for Simplified DocBook are marked with a dagger.</p>
+            <table>
+              <tr>
+                <td>&#x2020; abbrev</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; abstract</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; acronym</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>address</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; affiliation</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; appendix</td>
+                <td>Supports <var class="parameter">id</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; article</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; articleinfo</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; attribution</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; audiodata</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; audioobject</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; author</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; authorblurb</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; authorinitials</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; blockquote</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>book</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>bookinfo</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; caption</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>chapter</td>
+                <td>Supports <var class="parameter">id</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; citetitle</td>
+                <td>Treated as <code class="tag">emphasis</code>
+</td>
+              </tr>
+              <tr>
+                <td>colophon</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; colspec</td>
+                <td>Supports <var class="parameter">align</var>, <var class="parameter">char</var>, <var class="parameter">charoff</var>, <var class="parameter">colwidth</var>, <var class="parameter">colsep</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; command</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; computeroutput</td>
+                <td>Treated as <code class="tag">literal</code>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; copyright</td>
+                <td>Supported in <code class="tag">articleinfo</code> and <code class="tag">bookinfo</code>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; corpauthor</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; date</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; edition</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; editor</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; email</td>
+                <td>Italic by default</td>
+              </tr>
+              <tr>
+                <td>&#x2020; emphasis</td>
+                <td>Supports <var class="parameter">role</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; entry</td>
+                <td>Supports <var class="parameter">align</var>, <var class="parameter">char</var>, <var class="parameter">charoff</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; epigraph</td>
+                <td>Works like <code class="tag">blockquote</code>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; example</td>
+                <td>Supports <var class="parameter">id</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; figure</td>
+                <td>Supports <var class="parameter">id</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; filename</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; firstname</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; footnote</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; footnoteref</td>
+                <td>Only on same page as the footnote</td>
+              </tr>
+              <tr>
+                <td>formalpara</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>function</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; holder</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; honorific</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; imagedata</td>
+                <td>Supports <var class="parameter">align</var>, <var class="parameter">depth</var>, <var class="parameter">fileref</var>, <var class="parameter">format</var>, <var class="parameter">scale</var>,
+<var class="parameter">scalefit</var>, <var class="parameter">width</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; imageobject</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>index</td>
+                <td>Supports <var class="parameter">role</var>
+</td>
+              </tr>
+              <tr>
+                <td>indexterm</td>
+                <td>Supports <var class="parameter">class</var>, <var class="parameter">id</var>, <var class="parameter">role</var>
+</td>
+              </tr>
+              <tr>
+                <td>informalfigure</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; informaltable</td>
+                <td>Supports <var class="parameter">frame</var>, <var class="parameter">colsep</var>, <var class="parameter">rowsep</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; inlinemediaobject</td>
+                <td>Treated as <code class="tag">mediaobject</code>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; issuenum</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; itemizedlist</td>
+                <td>Supports <var class="parameter">mark</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; jobtitle</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; keyword</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; keywordset</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; legalnotice</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; lineage</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; lineannotation</td>
+                <td>Uses a small italic font</td>
+              </tr>
+              <tr>
+                <td>&#x2020; link</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; listitem</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; literal</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; literallayout</td>
+                <td>Supports <var class="parameter">class</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; mediaobject</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; note</td>
+                <td>Works like <code class="tag">blockquote</code>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; objectinfo</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; option</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; orderedlist</td>
+                <td>Supports <var class="parameter">numeration</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; orgname</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; othercredit</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; othername</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; para</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; phrase</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>preface</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>primary</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; programlisting</td>
+                <td>Treated as <code class="tag">screen</code>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; pubdate</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; publishername</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; quote</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; releaseinfo</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; replaceable</td>
+                <td>Italic by default</td>
+              </tr>
+              <tr>
+                <td>&#x2020; revdescription</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; revhistory</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; revision</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; revnumber</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; revremark</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; row</td>
+                <td>Supports <var class="parameter">rowsep</var>
+</td>
+              </tr>
+              <tr>
+                <td>screen</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>secondary</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; section</td>
+                <td>Supports <var class="parameter">id</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; sectioninfo</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>sect<em class="replaceable" nature="">n</em>
+</td>
+                <td>Treated as <code class="tag">section</code>
+</td>
+              </tr>
+              <tr>
+                <td>see</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>seealso</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; sidebar</td>
+                <td>Works like <code class="tag">blockquote</code>
+</td>
+              </tr>
+              <tr>
+                <td>simpara</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; subject</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; subjectset</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; subjectterm</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>subscript</td>
+                <td>No small font in titles; ignored in table of contents</td>
+              </tr>
+              <tr>
+                <td>&#x2020; subtitle</td>
+                <td>For articles, chapters, appendixes, and indexes</td>
+              </tr>
+              <tr>
+                <td>superscript</td>
+                <td>No small font in titles; ignored in table of contents</td>
+              </tr>
+              <tr>
+                <td>&#x2020; surname</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; systemitem</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; table</td>
+                <td>Supports <var class="parameter">frame</var>, <var class="parameter">colsep</var>, <var class="parameter">rowsep</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; tbody</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; term</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>tertiary</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; textobject</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; tfoot</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; tgroup</td>
+                <td>Supports <var class="parameter">align</var>, <var class="parameter">char</var>, <var class="parameter">charoff</var>, <var class="parameter">cols</var>, <var class="parameter">colsep</var>, <var class="parameter">rowsep</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; thead</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; title</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; titleabbrev</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; trademark</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; ulink</td>
+                <td>Supports <var class="parameter">url</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; userinput</td>
+                <td>Monospaced by default</td>
+              </tr>
+              <tr>
+                <td>&#x2020; variablelist</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; varlistentry</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>varname</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; videodata</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; videoobject</td>
+                <td>Ignored</td>
+              </tr>
+              <tr>
+                <td>&#x2020; volumenum</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>&#x2020; xref</td>
+                <td>Supports <var class="parameter">linkend</var>
+</td>
+              </tr>
+              <tr>
+                <td>&#x2020; year</td>
+                <td/>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h4>Links in Sdop</h4>
+            <p>Attribute <var class="parameter">id</var> is only supported for chapter and section elements and is used for making links[, but then the documentation for links is inadequate].</p>
+            <p>If an index is generated, the page numbers it contains are made into clickable links. This and the generation of clickable links from <code class="tag">xref</code> elements are turned off by setting <var class="parameter">xref_links</var> parameter to <kbd class="userinput">no</kbd>. The colour of these links is by default the same colour as the surrounding text, but it can be explicitly specified by <var class="parameter">xref_rgb</var>, as in <kbd class="userinput">&lt;?sdop xref_rgb="0,0,1"?&gt;</kbd>.</p>
+            <p>Here is a full example:</p>
+            <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?xml-stylesheet type="text/css" href="docbook.css"?&gt;
+
+&lt;book&gt;
+  &lt;title&gt;A sdop test file&lt;/title&gt;
+  &lt;para&gt;...&lt;/para&gt;
+  &lt;chapter id='ch01'&gt;
+    &lt;title&gt;First Chapter&lt;/title&gt;
+    &lt;para&gt;...&lt;/para&gt;
+  &lt;/chapter&gt;
+  &lt;chapter&gt;
+    &lt;title&gt;Second Chapter&lt;/title&gt;
+    &lt;para&gt;An xref: &lt;xref linkend='ch01'/&gt;...&lt;/para&gt;
+    &lt;para&gt;A ulink: &lt;ulink url='circularia.t15.org'/&gt;...&lt;/para&gt;
+  &lt;/chapter&gt;
+&lt;/book&gt;</pre>
+          </section>
+          <!-- end of "Links in Sdop -->
+        </section>
+      </section>
+      <section>
+        <h2>Transforming to EPUB, HTML, XHTML, </h2>
+        <p>There is a huge (16MB) package of stylesheets which on my Ubuntu machine live at <kbd class="userinput">/usr/share/xml/docbook/stylesheet/docbook-xsl</kbd>. These are documented in <cite class="citetitle">DocBook XSL: The Complete Guide</cite>, Fourth (Web) Edition, by Bob Stayton, to whom I am indebted. This free guide, currently to be found at http://www.sagehill.net/docbookxsl/, explains everything you need to do all sorts of transformations to your docbook source.</p>
+        <p>The examples use <code class="application">xsltproc</code>, easily available on linux. On windows you may use Saxon, at http://saxon.sourceforge.net/ or Xalan, which runs on Java [Virtual Machine].</p>
+        <section>
+          <h3>Transforming to EPUB</h3>
+          <p>I use <code class="application">dbtoepub</code> like this:</p>
+          <pre>dbtoepub --css <cite class="filename">style.css</cite> <cite class="filename">book.xml</cite></pre>
+          <p>It takes about one minute per megabyte and produces a file <cite class="filename">book.epub</cite>. I don't think that the stylesheet supplied is followed, though. For instance, an element like <kbd class="userinput">&lt;emphasis&gt;modularity&lt;/emphasis&gt; </kbd> may have been transformed to <kbd class="userinput">&lt;span class="emphasis"&gt;&lt;em&gt;modularity&lt;/em&gt;&lt;/span&gt;</kbd>, but my docbook stylesheet styles for <var class="classname">emphasis</var>, not for element <var class="classname">em</var> inside element <var class="classname">span</var> with attribute <constant>emphasis</constant>.</p>
+          <section>
+            <h4>Links Within the (XML) Document</h4>
+            <p>The link source is identified through a Docbook 5 <kbd class="userinput">xml:id="<var>your_identifier</var>"</kbd> attribute in a visible element. Then you can use a plain <code class="tag">link</code> element with a <var>linkend</var> attribute:</p>
+            <pre>&lt;link linkend="you_identifier"&gt;link_text&lt;/link&gt;</pre>
+          </section>
+        </section>
+        <section>
+          <h3>Transforming to HTML through XSLT</h3>
+          <section>
+            <h4>Transforming to a single HTML file</h4>
+            <p>Just use the <cite class="filename">html/docbook.xsl</cite>. As this stylesheet does not name the output, use a switch as in</p>
+            <pre>xsltproc  --output  myfile.html  docbook.xsl  myfile.xml</pre>
+          </section>
+          <section>
+            <h4>Processing part of a document</h4>
+            <p>You may want to generate output for only part of large DocBook document. For example, you might need just one book from a set document, or one chapter from a book document, etc. The DocBook XSL stylesheets have a parameter that lets you output part of a document.</p>
+            <p>There are two conditions that must be met:</p>
+            <ul>
+              <li>The content you want to output is contained in a single element. You cannot use this feature to output an arbitrary selection of elements.</li>
+              <li>The selected element must have an <var class="parameter">id</var> attribute on it.</li>
+            </ul>
+            <p>You process the document as you normally would, but you set the stylesheet parameter <var class="parameter">rootid</var> to the <var class="parameter">id</var> attribute value of the element you want to process. For example, if you have a book with three chapters:</p>
+            <pre>&lt;book&gt;
+  &lt;chapter id="introduction"&gt;
+    ...
+  &lt;/chapter&gt;
+  &lt;chapter id="installing"&gt;
+    ..
+  &lt;/chapter&gt;
+  &lt;chapter id="administering"&gt;
+    ...
+  &lt;/chapter&gt;
+&lt;/book&gt;</pre>
+            <p>You can generate an HTML file for the second chapter with a command like the following:</p>
+            <pre> xsltproc --stringparam  rootid  "using" --output  chap2.html html/docbook.xsl  myfile.xml</pre>
+            <p>The <cite class="filename">chap2.html</cite> output file will contain just the second chapter. The entire document is still parsed, so there will not be signficant savings of processing time and the
+selected content is still processed within the context of the entire document. Any cross references to other chapters will be properly formed, but the links will not actually go anywhere because the targets are not included in the output.</p>
+          </section>
+          <section>
+            <h4>Transforming to multiple HTML files (chunking)</h4>
+            <p>Include the line: <kbd class="userinput">&lt;?xml-stylesheet type="text/xsl" href="/usr/share/xml/docbook/stylesheet/docbook-xsl/html/chunk.xsl" ?&gt;</kbd> at the top of your document and process with an XSLT processor like xsltproc. Or better still, passed the stylesheet as a parameter to the XSLT processor (<code class="application">xsltproc</code> or whatever). The default behaviour chunks up to <code class="tag">sect1</code> elements. If you want to chunk the first <code class="tag">sect1</code> sections too, include <kbd class="userinput">--stringparam chunk.first.sections 1</kbd> in your command line.</p>
+            <p>If you want the output to go into a chosen subdirectory, write a processing instruction just after the opening tag of the element like <code>&lt;?dbhtml dir="HowToMakeABook" ?&gt;</code>. (On the other hand, you don't want to specify an output file name.) You can also write processing instructions to determine how files are named by writing an analogous processing instruction following the opening tag of a chunkable element, like this:</p>
+            <pre>&lt;chapter&gt;&lt;?dbhtml filename="intro.html" ?&gt;
+  &lt;title&gt;Introduction&lt;/title&gt;</pre>
+            <p>This way your xml file will get transformed into its component *.html files corresponding to chapters, sections etc plus an index.html file.</p>
+          </section>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
