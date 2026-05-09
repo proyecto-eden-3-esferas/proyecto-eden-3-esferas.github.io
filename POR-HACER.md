@@ -1,3 +1,157 @@
+# PROGRAMA ACTIVACION MUNICIPIOS RURALES DE BARRENDERO-A
+
+Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
+
+Buenos días,
+
+La Oficina de Empleo de Getafe I-Centro le informa, de la posibilidad de acceder a un contrato de trabajo en el Ayuntamiento de Gargantilla del Lozoya y Pinilla del Buitrago.
+Su participación en este Programa de Empleo, dirigido personas desempleadas y le permitirá:
+	Suscribir un contrato de trabajo, con el Ayuntamiento de 12 meses de duración, en horario de lunes a viernes de 7-14h (verano) y de 8-15h (invierno), con un salario de 2.216,67 euros brutos mensuales.
+	Recibirá formación en competencias transversales de hasta 150 horas.
+	Contar con orientación profesional para la búsqueda de empleo y/o iniciativa emprendedora por la Oficina de Empleo, una vez finalizado el programa.
+	Incorporación el 25 de mayo de 2025.
+
+Los requisitos para participar en el proceso de selección son:
+	Ser persona desempleada prioritariamente mayores de 45 años.
+	Contar con experiencia mínima de 3 meses como barrendero/a acreditable con contratos o nóminas que lo demuestren.
+	Permiso de conducir B.
+
+Para poder participar en el Programa, debe enviar su curriculum actualizado, contratos y nóminas al correo electrónico OFOEGETAFE1@MADRID.ORG, indicando en el asunto: 3782 BARRENDERO y su número de DNI o NIE con la letra, antes del martes 12 de mayo a las 14:00h.
+
+Si no está interesado escríbanos de la forma antes indicada, manifestando que no está interesado/a.
+
+ Nota: No se atenderán a candidaturas presentadas fuera del plazo indicado, ni aquellas que no indiquen la referencia o Nro. de DNI/NIE.
+
+Atentamente,
+Oficina de Empleo de Getafe I-Centro
+Área de Ofertas - Prospección Empresarial
+CONSEJERÍA DE ECONOMIA, EMPLEO Y HACIENDA, C.M.
+Mail: ofoegetafe1@madrid.org
+
+
+
+OFICINA DE EMPLEO DE GETAFE I-Centro
+
+GETAFE CENTRO
+C/CARABANCHEL, 15
+Getafe
+(28902) MADRID
+
+916832162
+916832221
+916832162
+916838561
+
+
+# Oferta 3324 AYTE SERVICIOS MÚLTIPLES Ayto. Cabanillas Sierra
+
+Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
+
+Buenos días,
+
+La Oficina de Empleo de Ciudad Lineal le informa de la posibilidad de acceder a un contrato de trabajo vinculado al Programa público de empleo-formación para la Activación Profesional destinado a revertir el despoblamiento en los municipios rurales (APR-26) para el Ayuntamiento de Cabanillas de la Sierra.
+
+Con la participación en este Programa de Empleo, recibirá:
+
+ Experiencia profesional en la obra o servicio mediante la suscripción de contrato laboral a jornada completa, de 12 meses. Ocupación: AYUDANTE DE SERVICIOS MÚLTIPLES.
+ Formación en competencias transversales, de carácter presencial, con los siguientes módulos formativos:
+o Sensibilización medioambiental
+o Buenas prácticas en la ocupación (50 horas).
+o Habilidades personales y sociales para el empleo (40 horas).
+ Plus de transporte hasta un máximo de 82 euros/mes/participante para personas no residentes en el municipio de Cabanillas de la Sierra.
+ Orientación profesional para la búsqueda activa de empleo y, en su caso para el desarrollo de una iniciativa emprendedora, impartida por la Oficina de Empleo, a la finalización del periodo de contratación.
+
+Los REQUISITOS para participar en el proceso de selección son:
+	Encontrarse en situación de desempleo e inscrito/a en una oficina de empleo de la Comunidad de Madrid.
+	Prioritariamente, ser mayor de 45 años a fecha de firma de contrato.
+	TITULACIONES:
+o	CERTIFICADOS PROFESIONALES: CP EOCB06 Mantenimiento y rehabilitación de edificios, SEAG0108 Gestión de residuos urbanos.
+o	Igualmente podrá acreditarse mediante experiencia profesional de mínimo 3 meses en la categoría de basurero, barrendero o recogedor de residuos, al haber trabajado por cuenta ajena o por cuenta propia en la ocupación. En este caso, la acreditación de la cualificación profesional podrá realizarse mediante contratos de trabajo, nóminas, informe de vida laboral de la Seguridad Social o declaración responsable de la actividad laboral (en el caso de autónomos).
+	IMPRESCINDIBLE disponer de CARNÉ DE CONDUCIR, puesto que en ocasiones habrá que conducir coches municipales para mover material, o a distintas zonas de trabajo.
+
+Las CONDICIONES del puesto son las siguientes:
+	Contrato temporal: 12 meses. Fecha prevista inicio: junio 2026.
+	Jornada completa: 7,5 horas/día.
+	Horario: 08:00-15:00h.
+	Salario: 1.621,83 brutos/mes (12 pagas) + plus transporte: 82 euros.
+	Lugar de trabajo: Ayuntamiento de Cabanillas de la Sierra.
+	Funciones: Mejora y mantenimiento de espacios e instalaciones públicas.
+
+Para poder participar en el Programa, debe escribir un mail a la dirección de correo electrónico  ofertasoeciudadlineal@madrid.org,  adjuntando copia o foto de la titulación requerida o documentación de la experiencia profesional e indicando nombre, apellidos, DNI/NIE y la referencia: OFERTA 3324 AYUDANTE DE SERVICIOS MÚLTIPLES.
+
+FECHA TOPE ENVIO DE DOCUMENTACIÓN MARTES 12 DE MAYO DE 2026 A LAS 10:00H.
+
+El envío del e-mail con la documentación autoriza a la oficina de empleo a comprobar la veracidad de dicha documentación.
+
+Un saludo
+
+DPTO. OFERTAS OE CIUDAD LINEAL
+
+MADRID-CIUDAD LINEAL
+MIGUEL YUSTE,21-23
+Madrid
+(28037) MADRID
+
+917541550
+
+
+
+
+# Radicals
+
+Are radical climate activists hurting the cause?
+
+Germany should have been a global leader in combating climate change—its voters consider it a major issue and back the world’s most powerful Green Party. Yet, Germany’s climate policies have been disappointing. What happened?
+
+In Climate Radicals, Cameron Abadi profiles the fascinating activists of Letzte Generation, known for gluing themselves to street intersections and throwing food on works of art; Ende Gelande, which demands the immediate phaseout of coal by occupying mine
+
+Abadi finds that the groups’ uncompromising stances and outrage over narrowly defined policy failures have led them to extreme acts of publicity that feed their sense of urgency. In contrast, Joe Biden’s American Inflation Reduction Act of 2022 repres
+
+
+# Retrieve
+RobinWallKimmerer-TheServiceberry_Abundance-and-ReciprocityInTheNaturalWorld-Scribner2024.epub
+by Robin Wall Kimmerer
+
+
+# Incorporar ZAMM
+Incorporar ZAMM
+He copiado: ZAMM.ori-tra.v20* ../ZAMM.ori-tra.v20.pdf ~/Downloads/temp/ZAMM/ a ~/Downloads/temp/ZAMM/
+
+# Anarquismo
+## Significa un cuestionamiento del Poder, en particular del Estado.
+- La idea de jerarquía, de que toda organización debe estar gobernada por un jefe
+- la idea de lo oficial o legal, de que existen como si dijéramos dos mundos
+- La idea de un Derecho Formal, una doctrina
+## La Hidra
+Con el paso de los meses un vecino del camping me informó que la basura que echábamos en contenedores separados, amarillo, verde, azul, vidrio, venía el camión y la juntaba toda.
+Por otro lado la policía vigilaba meticulosamente que ningún campista superara las 180 noches anuales que permite la Ley.
+¿Y qué tendrá que ver lo uno (que no se recicle) con lo otro (que se limiten las pernoctas)?
+Igual que la Hidra, el Estado Moderno consta de varias cabezas... y un mismo cuerpo. Una vez que la Hidra cría una cabeza la dota de poder (competencias) y presupuesto (ingresos asegurados).
+## Existen tantos anarquismos como anarquistas.
+En particular están los anarquistas absolutos que se oponen a todo Estado y los anarquistas relativos, que objetan a determinados aspectos del Estado y a determinados Estados.
+En general todos los Estados tratan de evitar y castigan la violencia contra el cuerpo humano.
+Algunos aspectos que los anarquistas pretenden abolir:
+- Leyes sobre suelo y vivienda
+- La proliferación descontrolada de funcionarios. En general la ciudadanía o no es consciente del problema, o no piensa por sí misma, o le conviene la situación. De hecho España parece haber traspasado o acercado peligrosamente al llamado <dfn>Horizonte de Funcionarización</dfn>, más allá del cuál ninguna iniciativa de limitar o disminuir el número de funcionarios puede triunfar en las urnas. (Ello se explica porque hay demasiada gente a la que le conviene la situación, principalmente en familias cuyas economías se apuntalan con un sueldo de funcionario, o porque la alegría consumista del funcionario se percibe como un motor imprescindible del progreso.)
+
+# Aportar
+## Redes CISCO
+Habíamos quedado por iniciativa de Marcos, y vino una joven llamada Almudena. Un caso interesante. Marcos se había pasado de la carrera de Físicas a la de Informática porque para la primera, a pesar de ser muy dura, los requisitos para obtener la beca eran los mismos que los de cualquier otra licenciatura. Normalmente decimos <q>estudias o trabajas</q>. Marcos hacía las dos cosas. Los fines de semana trabajaba de camarero. ¿Y Almudena? Se estaba preparando para obtener una certificación en redes Cisco. No se trata de una titulación oficial, aunque hoy el día nuestro magnánimo Estado tiende a conceder cierto reconocimiento a lo que queda fuera de la chapuza que él mismo produce, premia y consume.
+
+
+# Download:
+[ ] Audiobook: Too Weird to Believe, Too Plausible to Deny
+
+# Electronics:
+[ ] Extract *electronics.analog.html*  from *electronics.html*
+[ ] Extract *electronics.digital.html* from *electronics.html*
+[ ] Copy table on page 164 in Neamen's Microelectronics into...
+
+# Project Gutenberg
+https://www.gutenberg.org/ebooks/
+
+#
+
 El Ayuntamiento de Madrid le informa que tiene una nueva Comunicación disponible en Mi Carpeta en la Sede Electrónica, con los siguientes datos:
 
 Destinatario/a: FRANCISCO FERNANDEZ VICTORIO HERNANDEZ
@@ -65,6 +219,7 @@ Candy CCE7T618ES
 - El trastero: desde no compartirlo hasta darle una llave al inquilino. Otra alternativa es decirle que si no está utilizando unos bultos o no pudiese lleváselos al final de la estancia, se los guardaría un tiempo.
 - La posibilidad de que el casero alquile las dos habitaciones y venga (a estar y a dormir en el salón) una fracción de los días del año. Mamá y Lucía no deberían enterarse. Por otro lado yo podría encontrar mi lugar en otra provincia o cuidar de algún miembro de la familia o lo que sea. En tal caso se les haría además una rebaja. Una rebaja del 20% les  supondría pagar 288/300€ en lugar de 360/375€, y menos gastos de comunidad. Yo pasaría de ganar 360/375€ por la mensualidad a ganar 576/600€, y a pagar menos gastos fijos y variables. (Los inquilinos son muy receptivos a una rebaja de un par de decenas de euro.)
 - pagar en efectivo en un "buzón". Se me ocurre que podría darse una explicación de por qué no quiero pagar <em>todos</em> los impuestos habidos y por haber. También se me ocurre que podría ponerse un precio un poco más alto si se paga por transferencia o de forma visible a Hacienda. Tercera opción, pago por transferencia hasta que se establezca una relación de confianza mutua.
+- Cuidado con cosas caras de reparar, por ejemplo ventanas y encimeras
 
 # Physarum polycephalum
 El "moho inteligente" mencionado en el contexto del concurso Saber y Ganar se refiere al Physarum polycephalum.
@@ -157,6 +312,8 @@ https://www.britannica.com/science/nervous-system/Axon
 
 https://en.wikipedia.org/wiki/Ontology_language
 Oxford Semantic Technologies at https://www.oxfordsemantic.tech/
+
+https://www.robertshawaii.com/blog/spirit-behind-aloha
 
 # Competencias
 
