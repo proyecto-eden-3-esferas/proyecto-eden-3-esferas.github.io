@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Digital Electronics</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Digital Electronics"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+      <div>
+        <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+        <p><a href="https://www.allaboutcircuits.com/textbook/designing-analog-chips/introduction/its-an-analog-world/">Designing Analog Chips</a>, a textbook by Hans Camenzind</p>
+      </div>
+      <div>
+        <p><a rel="prev" href="electronics.html">Electronics</a></p>
+        <p><a            href="electronics.analog.html">Digital Electronics</a></p>
+      </div>
+      <div>
+        <p><a href="ic.html">Integrated Circuits</a></p>
+        <p><a href="verilog.html">Verilog</a>, a Hardware Description Language for Digital Circuits</p>
+        <p><a href="microcontrollers.html">Microcontrollers: Minimalistic Single-IC Computers</a></p>
+        <p><a href="arduino.html">Arduino: a User-Friendly Microcontroller Board</a></p>
+        <p><a href="ARM.html">ARM for Advanced Risc Machines: the Commonest 32-bit Architecture</a></p>
+      </div>
+      <div>
+        <p><a href="semiconductors.html">Semiconductors</a></p>
+      </div>
+      <div>
+        <p><a href="https://www.allaboutcircuits.com/">All About Circuits</a> (a Web Site)</p>
+        <p><a href="https://www.allaboutcircuits.com/technical-articles/">All About Circuits: (Latest) Technical Articles</a></p>
+      </div>
+    </nav>
+
+    <main>
+    <h1>Digital Electronics</h1>
+    <p>(<i>See also</i> <cite><a target="_blank" href="#hdl">Hardware Description Languages (HDLs)</a></cite> and <cite><a target="_blank" href="c.bitwise.html">Bitwise Operations in C/C++</a></cite>.)</p>
+
+    <section id="combinational">
+      <h2>Combinational Logic*</h2>
+    </section>
+
+    <section id="sequential">
+      <h2>Sequential Logic*</h2>
+
+      <section id="memory-devices">
+        <h2>Memory Devices</h2>
+        <section id="latches">
+          <h3>Latches*</h3>
+        </section>
+        <section id="flip-flops">
+          <h3>Flip-Flops*</h3>
+        </section>
+      </section>
+
+      <section id="mealy-moore">
+        <h3>Mealy and Moore Machines*</h3>
+      </section>
+    </section>
+
+    <section>
+      <h2>Why Clean Energy Systems Need FPGA-Level Control</h2>
+      <p style="text-align: right">(From <cite><a target="_blank" href="https://www.allaboutcircuits.com/industry-articles/why-clean-energy-systems-need-fpga-level-control/">https://www.allaboutcircuits.com/industry-articles/why-clean-energy-systems-need-fpga-level-control/</a></cite>, July 23, 2025 by Nicu Irimia and Red Pitaya)</p>
+      <aside>From fine-tuning the output of a solar farm to stabilizing a complex electric grid, FPGAs provide the ultra-fast, efficient computing needed to maximize energy efficiency.</aside>
+      <p>The world is finally embracing a clean energy revolution. Solar farms and wind turbines are coming online in record numbers, and many nations have pledged to cut carbon emissions. However, this is only half the battle. Global energy demand keeps climbing, and every year we still burn more fossil fuel than the last.</p>
+      <p>We can't count on everyone radically reducing their energy use overnight—that's utopian. Instead, we need technology that squeezes more value from every watt of clean energy we generate.</p>
+      <p>One unsung hero is the <strong>field-programmable gate array</strong> (FPGA), a reconfigurable silicon chip that truly embodies the idea of doing more with less. FPGAs excel at real-time parallel processing, meaning they can measure, compute, and control multiple signals simultaneously in the blink of an eye. That makes them ideal for smart energy systems requiring continuous analysis and instant response.</p>
+      <section>
+        <h3>FPGAs for Maximum Power Point Tracking</h3>
+        <p>Consider solar power. Solar farms rely on maximum power point tracking (MPPT) to wring the most energy from photovoltaic panels. Traditionally, this is handled by a microcontroller, but an FPGA can do it faster and more efficiently. Using parallel processing, an FPGA-based controller samples panel voltage and current thousands of times per second and adjusts the power converter in real time. When a cloud passes overhead, the FPGA reacts in microseconds to tweak the operating point, ensuring no watt is wasted.</p>
+        <p>One FPGA can even manage dozens of panels at once, coordinating an entire array for peak output. The payoff is tangible: advanced FPGA-based MPPT can boost a solar installation&apos;s energy harvest by 5–30%. Even a 5% gain on a 100 MW solar farm means an extra 5 MW of clean power delivered without adding a single new panel.</p>
+      </section>
+      <section>
+        <h3>Using FPGAs to Manage Turbines</h3>
+        <p>Wind turbines present a different challenge but offer similar benefits. Turbine controllers constantly adjust blade pitch and yaw to capture optimal wind energy and avoid damage in high winds. FPGAs can run these control loops with minimal latency, reading sensors and sending out blade adjustments faster than traditional setups. They can detect a sudden gust and feather the blades in milliseconds, then quickly restore optimal angles to keep energy flowing.</p>
+        <p>FPGAs also help smooth out the turbine&apos;s output. Using high-speed DSP blocks, they convert the generator&apos;s wild AC into a steady, grid-synchronized output in real time. The net result is that each turbine operates closer to peak efficiency and delivers more consistent power, even under gusty conditions.</p>
+      </section>
+      <section>
+        <h3>Controlling Smart Grids</h3>
+        <p>Modern electric grids are becoming digital smart grids, instrumented with thousands of smart meters, sensors, and phasor measurement units that stream data every second. Traditional centralized systems struggle to keep up with this torrent of real-time information.</p>
+        <p>FPGAs, by contrast, thrive on parallel, high-speed tasks. They can calculate grid phasors, detect faults, and adjust controls in mere milliseconds, helping the grid respond instantly to changing conditions. For example, an FPGA-based controller can sense a voltage drop in one sector and immediately dispatch battery power or adjust a transformer to compensate.</p>
+        <p>In addition to these split-second reactions, FPGAs also enable proactive management. By running AI forecasting models on dedicated FPGA hardware, grid operators can predict near-future supply and demand shifts with high accuracy. That means the system can pre-charge storage or schedule backup power ahead of an evening peak. Smarter grids with FPGA muscle make sure renewable energy is used fully and efficiently, with minimal waste.</p>
+      </section>
+      <section>
+        <h3>Energy Storage and Electric Vehicles</h3>
+        <p>Because renewable generation and consumption don&apos;t often align in time, energy storage is crucial. Large battery farms exist, but there are also countless smaller batteries distributed throughout the grid—in homes, businesses, and electric vehicles—that we can leverage. FPGAs can coordinate these dispersed batteries into a virtual power plant.</p>
+        <p>An FPGA-based battery management system monitors the status of dozens of batteries in real-time, adjusting charging to prevent stress and extend battery life. At a higher level, FPGA controllers decide when batteries should charge or discharge to balance the grid. They might soak up excess solar at midday and feed it back during the evening peak.</p>
+        <p>Electric vehicles take this concept to another level. The revenue of the electric vehicles market is projected to reach $990B USD by 2029, which means an enormous number of collective batteries on wheels. With smart control, even a fraction of those EVs supplying power at peak times could cover a significant share of grid demand. Such rapid, decentralized decision-making is exactly what FPGAs excel at.</p>
+      </section>
+      <section>
+        <h3>Wrapping Up</h3>
+        <p>To optimize our clean power systems, we must embrace advanced control technologies. Though not as celebrated as solar panels or wind turbines, FPGAs are crucial enablers behind the scenes. They ensure every ray of sunshine and every gust of wind is converted into usable electricity, that the grid handles fluctuations without waste, and that batteries deliver when needed.</p>
+        <p>The influence of FPGAs in clean energy is only set to grow. New low-power FPGA designs with AI capabilities will make grids even more autonomous and efficient. We can expect self-healing networks that isolate faults and reroute power in microseconds to prevent outages. Communities may run their own microgrids with FPGA controllers, optimizing local energy flow and even enabling peer-to-peer energy trading among neighbors.</p>
+        <p>In an era of urgent climate action, we can't afford to let any efficiency gain slip away—every percentage point counts. By integrating technologies like FPGAs into renewable energy and smart grids, we can accelerate progress toward a truly sustainable, low-carbon future. The clean energy revolution is only half the battle. The other half is making that clean energy smart, and that&apos;s a battle we can win with ingenuity and silicon.</p>
+      </section>
+    </section>
+
+    <section id="hdl">
+      <h2>Hardware Description Languages (HDLs) for Digital Electronics</h2>
+      <p>This is one historical reason why HDLs were created. Once upon a time, the United States Department of Defense (DOD) realized that they had a lot of electronics designed and built for them, and their products had a long life span. In fact, DOD might use equipment for upwards of twenty years. Over such periods semiconductor technology changed quite a bit. DOD realized they needed a technology-independent way of describing what was in the semiconductors they were receiving. Through a joint effort of the DOD and several companies, VHDL was created as a hardware description language to document DOD technology. VHDL and <a target="_blank" href="verilog.html">Verilog</a> were developed at the same time, but independently.</p>
+      <p>Generally, HDLs were invented for :</p>
+      <ul>
+        <li>simulation,</li>
+        <li>documentation, and</li>
+        <li>synthesis</li>
+      </ul>
+      <p>As regards synthesis, even before Verilog and VHDL were developed, the makers of programmable array logic (PAL) chips had created simple languages and tools (such as PALASM) to burn these chips. These languages accepted only simple equations and could create the correct bit pattern to make the chip reflect the functionality described in the language.</p>
+      <p>Now, why would you want to use an HDL? The simplest reason is to be more productive. An HDL makes you more productive in three ways:</p>
+      <ul>
+        <li><strong>Simulation.</strong> By allowing you to simulate your design beforehand, you can see if the design works before you build it, which gives you a chance to try different ideas.</li>
+        <li><strong>Documentation.</strong> This feature lets you maintain and reuse your design more easily. HDLS&apos; intrinsic hierarchical modularity enables you to easily reuse portions of your design as <q>intellectual property</q> or <q>macro-cells.</q></li>
+        <li><strong>Synthesis.</strong> You can design using the HDL, and let other tools do the tedious and detailed job of hooking up the gates.</li>
+      </ul>
+      <section id='HDL_levels'>
+        <h3>HDLs&apos; Levels of Description</h3>
+        <p>These are, from more abstract to more detailed:</p>
+        <ul>
+          <li><strong>System</strong></li>
+          <li><strong>Architectural</strong></li>
+          <li><strong>Behavioral</strong></li>
+          <li><strong>Algorythmic</strong></li>
+          <li><strong>Register Transfer Logic (RTL)</strong></li>
+          <li><strong>Boolean Equations</strong></li>
+          <li><strong>Structural</strong></li>
+          <li><strong>Gates</strong></li>
+          <li><strong>Switches</strong></li>
+          <li><strong>Transistors</strong></li>
+          <li><strong>Polygons</strong></li>
+          <li><strong>Masks</strong></li>
+        </ul>
+      </section>
+      <section>
+        <h3>Types of HDL Languages</h3>
+        <p>There are two types of HDLs: loosely typed, and strongly typed.</p>
+        <p>A <dfn>loosely typed</dfn> language allows automatic type conversion, which lets you put the value 137 on an 8-bit bus. A <dfn>strongly typed</dfn> language would not permit you to do this because it would consider 137 to be an integer; an 8-bit bus is an array of 8 bits, and would not allow you to put an integer into an array.</p>
+        <p>Each type of language has its advantages; A loosely typed language will do what you mean most of the time. A strongly typed language will not allow you to make a mistake by combining the wrong types of objects. Strongly typed languages have conversion functions, so you could put the value 137 on an 8-bit bus by calling the integer to 8-bit array conversion function.</p>
+        <p>VHDL is considered to be a strongly-typed language, whereas <a target="_blank" href='verilog.html'>Verilog</a> is a weakly-typed one.</p>
+      </section>
+    </section>
+
+    </main>
+
+  </body>
+
+</html>
