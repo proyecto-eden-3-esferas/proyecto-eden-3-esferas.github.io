@@ -29,7 +29,7 @@
       </header>
 
       <p>The C and C++ programming languages are closely related but have many significant differences. C++ began as a fork of an early, pre-standardized C, and was designed to be mostly source-and-link compatible with C compilers of the time. Due to this, development tools for the two languages (such as IDEs and compilers) are often integrated into a single product, with the programmer able to specify C or C++ as their source language.</p>
-      <p>However, C is not a subset of C++,[3] and nontrivial C programs will not compile as C++ code without modification. Likewise, C++ introduces many features that are not available in C and in practice almost all code written in C++ is not conforming C code.</p>
+      <p>However, C is not a subset of C++, and nontrivial C programs will not compile as C++ code without modification. Likewise, C++ introduces many features that are not available in C and in practice almost all code written in C++ is not conforming C code.</p>
       <hr/>
       <p>Several additions of C99 are not supported in the current C++ standard or conflicted with C++ features, such as variable-length arrays, native complex number types and the restrict type qualifier. On the other hand, C99 reduced some other incompatibilities compared with C89 by incorporating C++ features such as // comments and mixed declarations and code.</p>
 
@@ -56,7 +56,7 @@ int *j = (int *) malloc(5 * sizeof *j);</pre>
         <ul>
           <li>C++ has more complicated rules about pointer assignments that add qualifiers as it allows the assignment of <code>int **</code> to <code>const int *const *</code> but not the unsafe assignment to <code>const int **</code> while C allows neither of those (although compilers will usually only emit a warning).</li>
           <li>C++ changes some C standard library functions to add additional overloaded functions with const type qualifiers, e.g. <code>strchr</code> returns <code>char*</code> in C, while C++ acts as if there were two overloaded functions <code>const char *strchr(const char *)</code> and a <code>char *strchr(char *)</code>. In C23 generic selection will be used to make C&apos;s behaviour more similar to C++&apos;s.</li>
-          <li>C++ is also more strict in conversions to enums: ints cannot be implicitly converted to enums as in C. Also, enumeration constants (enum enumerators) are always of type int in C, whereas they are distinct types in C++ and may have a size different from that of int.</li>
+          <li>C++ is also more strict in conversions to enums: integers cannot be implicitly converted to enums as in C. Also, enumeration constants (enum enumerators) are always of type int in C, whereas they are distinct types in C++ and may have a size different from that of int.</li>
           <li>In C++ a const variable must be initialized; in C this is not necessary.</li>
           <li>
             <p>C++ compilers prohibit <code>goto</code> or <code>switch</code> from crossing an initialization, as in the following C99 code:</p>
@@ -84,12 +84,15 @@ typedef int BOOL;</pre>
           <li>In both C and C++, one can define nested struct types, but the scope is interpreted differently: in C++, a nested struct is defined only within the scope/namespace of the outer struct, whereas in C the inner struct is also defined outside the outer struct.</li>
           <li>C allows <code>struct</code>, <code>union</code>, and <code>enum</code> types to be declared in function prototypes, whereas C++ does not.</li>
         </ul>
-        <p>C99 and C11 added several additional features to C that have not been incorporated into standard C++ as of C++20, such as complex numbers, variable length arrays (complex numbers and variable length arrays are designated as optional extensions in C11), flexible array members, the restrict keyword, array parameter qualifiers, and compound literals.</p>
+        <p>C99 and C11 added several additional features to C that have not been incorporated into standard C++ as of C++20, such as complex numbers, variable length arrays (complex numbers and variable length arrays are designated as optional extensions in C11), flexible array members, the <code>restrict</code> keyword, array parameter qualifiers, and compound literals.</p>
+
+        <hr/>
+
         <ul>
           <li>Complex arithmetic using the float complex and double complex primitive data types was added in the C99 standard, via the <code>_Complex</code> keyword and complex convenience macro. In C++, complex arithmetic can be performed using the complex number class, but the two methods are not code-compatible. (The standards since C++11 require binary compatibility, however.)</li>
           <li>
             <p>Variable length arrays. This feature leads to possibly non-compile time sizeof operator.</p>
-            <pre>void foo(size_t x, int a[*]);  // VLA declaration
+            <pre>void foo(size_t x, int a[*]);  // variable-length array declaration
 void foo(size_t x, int a[x])
 {
     printf("%zu\n", sizeof a); // same as sizeof(int*)
@@ -98,7 +101,7 @@ void foo(size_t x, int a[x])
 }</pre>
           </li>
           <li>
-            <p>The last member of a C99 structure type with more than one member may be a flexible array member, which takes the syntactic form of an array with unspecified length. This serves a purpose similar to variable-length arrays, but VLAs cannot appear in type definitions, and unlike VLAs, flexible array members have no defined size. ISO C++ has no such feature. Example:</p>
+            <p>The last member of a C99 structure type with more than one member may be a flexible array member, which takes the syntactic form of an array with unspecified length. This serves a purpose similar to variable-length arrays, but VLAs (variable-length arrays) cannot appear in type definitions, and unlike VLAs, flexible array members have no defined size. ISO C++ has no such feature. Example:</p>
             <pre>struct X
 {
     int n, m;

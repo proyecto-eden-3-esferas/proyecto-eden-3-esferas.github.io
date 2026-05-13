@@ -1,4 +1,88 @@
-# PROGRAMA ACTIVACION MUNICIPIOS RURALES DE BARRENDERO-A
+# Empleo Operario/a de servicios múltiples Ayto. Valdemanco
+
+Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
+
+Buenos días,
+
+Desde la Oficina de Empleo de GOYA queremos informarte sobre un nuevo Programa de Empleo y Formación dirigido a personas desempleadas interesadas en desarrollar su carrera profesional como OPERARIO/A DE SERVICIOS MÚLTIPLES
+
+Se trata de un Programa de Activación Profesional destinado a revertir el despoblamiento en los municipios rurales, y el puesto de trabajo es para el Ayuntamiento de Valdemanco.
+
+El Programa está destinado prioritariamente a personas mayores de 45 años.
+
+¿Qué ofrece el Programa?
+
+	Contrato temporal de 8 meses dentro de los programas de activación para el empleo, con el Ayuntamiento de Valdemanco en el puesto de OPERARIO/A DE SERVICIOS MÚLTIPLES
+	Formación en competencias transversales (90 horas)
+	Orientación profesional y acompañamiento personalizado.
+¿Qué requisitos necesito?
+Tener cualificación en la ocupación, mediante una de estas dos opciones:
+	Título Formación Profesional, Certificado Profesional o similar en una familia profesional relacionada con el puesto
+	Experiencia profesional demostrable mínima de 3 meses en el puesto
+
+¿Cómo participar?
+
+Debes completar el siguiente cuestionario de inscripción con fecha límite el próximo DOMINGO  17 DE MAYO:
+
+https://forms.cloud.microsoft/e/FVcv4pn6ra
+
+Con el envío del cuestionario, autorizas a la Administración de la Comunidad de Madrid a consultar los datos. Una vez recibidos los cuestionarios, contactaremos telefónicamente con las personas que hayan sido preseleccionadas y explicaremos los detalles del programa y del proceso de selección.
+
+¡No dejes pasar esta oportunidad para impulsar tu desarrollo profesional!
+Quedamos a la espera de tu solicitud.
+
+Atentamente,
+
+
+OFICINA DE EMPLEO DE GOYA
+
+MADRID-GOYA
+O'DONNELL, 12
+Madrid
+(28009) MADRID
+
+915754800
+
+
+# Contrato de Actividad
+Estimado  FRANCISCO FERNANDEZ-VICTORIO HERNANDEZ:
+
+Buenos días,
+tal y como hemos hablado, enviamos el Acuerdo de Actividad para que nos lo envíe firmado lo antes posible, ya que es un requisito para continuar el proceso de selección de la oferta de empleo 3324 AYUDANTE DE SERVICIOS MÚLTIPLES para Cabanillas de la Sierra.
+Tiene que enviar dicho documento a: ofertasoeciudadlineal@madrid.or
+
+Un saludo,
+
+OFICINA DE EMPLEO DE CIUDAD LINEAL CONSEJERÍA DE ECONOMÍA, HACIENDA Y EMPLEO c/ Miguel Yuste, 21 280
+
+## contesto:
+la oferta de empleo 3324 AYUDANTE DE SERVICIOS MÚLTIPLES para Cabanillas de la Sierra
+
+
+# Variable-Length Arrays (VLAs) in C
+file: *c.vla.html*
+
+# OFERTA 3947 PROGRAMA ACTIVACION JARDINERIA MANCOMUNIDAD ALTO JARAMA
+Estimado/a FERNANDEZ-VICTORIO HERNANDEZ, FRANCISCO
+
+LA MANCOMUNIDAD DEL ALTO JARAMA OFRECE UN CONTRATO DE FORMACIÓN DE 12 MESES PARA REALIZAR LABORES DE CUIDADO DE JARDINES. JORNADA DE  7 HORAS Y MEDIA CON SALARIO DE 1600 ?/BRUTOS.
+SE DARA FORMACIÓN TRANSVERSAL, ORIENTACIÓN AL FINALIZAR EL PROGRA.
+SE PODRÁ BONIFICAR EL TRANSPORTE ENTRE 0 Y 85?
+SE REQUIERE AL MENOS 3 MESES DE EXPERIENCIA EN OCUPACIÓN SIMILAR. SE VALORARÁ FORMACION EN JARDINERÍA.
+PERSONAS INTERESADAS DEBERÁN ENVIAR EL N. DNI+ VIDA LABORAL+CONTRATOS+ CV+ N. OFERTA 3947 A OFERTASAGUEDADIEZ@MADRID.ORG
+
+
+OFERTASAGUEDADIEZ@MADRID.ORG
+
+MADRID-AGUEDA DIEZ
+PLAZA DE AGUEDA DIEZ, 4
+(28019) Madrid
+MADRID
+
+914719898
+914719822
+
+# PROGRAMA ACTIVACION MUNICIPIOS RURALES DE BARRENDERO-A (Ayuntamiento de Gargantilla del Lozoya y Pinilla del Buitrago)
 
 Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
 
@@ -51,24 +135,29 @@ Buenos días,
 
 La Oficina de Empleo de Ciudad Lineal le informa de la posibilidad de acceder a un contrato de trabajo vinculado al Programa público de empleo-formación para la Activación Profesional destinado a revertir el despoblamiento en los municipios rurales (APR-26) para el Ayuntamiento de Cabanillas de la Sierra.
 
+## Recibirá
 Con la participación en este Programa de Empleo, recibirá:
 
  Experiencia profesional en la obra o servicio mediante la suscripción de contrato laboral a jornada completa, de 12 meses. Ocupación: AYUDANTE DE SERVICIOS MÚLTIPLES.
  Formación en competencias transversales, de carácter presencial, con los siguientes módulos formativos:
-o Sensibilización medioambiental
-o Buenas prácticas en la ocupación (50 horas).
-o Habilidades personales y sociales para el empleo (40 horas).
+- Sensibilización medioambiental
+- Buenas prácticas en la ocupación (50 horas).
+- Habilidades personales y sociales para el empleo (40 horas).
  Plus de transporte hasta un máximo de 82 euros/mes/participante para personas no residentes en el municipio de Cabanillas de la Sierra.
  Orientación profesional para la búsqueda activa de empleo y, en su caso para el desarrollo de una iniciativa emprendedora, impartida por la Oficina de Empleo, a la finalización del periodo de contratación.
 
+## Requisitos
 Los REQUISITOS para participar en el proceso de selección son:
-	Encontrarse en situación de desempleo e inscrito/a en una oficina de empleo de la Comunidad de Madrid.
-	Prioritariamente, ser mayor de 45 años a fecha de firma de contrato.
-	TITULACIONES:
-o	CERTIFICADOS PROFESIONALES: CP EOCB06 Mantenimiento y rehabilitación de edificios, SEAG0108 Gestión de residuos urbanos.
-o	Igualmente podrá acreditarse mediante experiencia profesional de mínimo 3 meses en la categoría de basurero, barrendero o recogedor de residuos, al haber trabajado por cuenta ajena o por cuenta propia en la ocupación. En este caso, la acreditación de la cualificación profesional podrá realizarse mediante contratos de trabajo, nóminas, informe de vida laboral de la Seguridad Social o declaración responsable de la actividad laboral (en el caso de autónomos).
-	IMPRESCINDIBLE disponer de CARNÉ DE CONDUCIR, puesto que en ocasiones habrá que conducir coches municipales para mover material, o a distintas zonas de trabajo.
+- Encontrarse en situación de desempleo e inscrito/a en una oficina de empleo de la Comunidad de Madrid.
+- Prioritariamente, ser mayor de 45 años a fecha de firma de contrato.
 
+## Titulaciones
+-	CERTIFICADOS PROFESIONALES: CP EOCB06 Mantenimiento y rehabilitación de edificios, SEAG0108 Gestión de residuos urbanos.
+-	Igualmente podrá acreditarse mediante experiencia profesional de mínimo 3 meses en la categoría de basurero, barrendero o recogedor de residuos, al haber trabajado por cuenta ajena o por cuenta propia en la ocupación. En este caso, la acreditación de la cualificación profesional podrá realizarse mediante contratos de trabajo, nóminas, informe de vida laboral de la Seguridad Social o declaración responsable de la actividad laboral (en el caso de autónomos).
+
+IMPRESCINDIBLE disponer de CARNÉ DE CONDUCIR, puesto que en ocasiones habrá que conducir coches municipales para mover material, o a distintas zonas de trabajo.
+
+## Condiciones
 Las CONDICIONES del puesto son las siguientes:
 	Contrato temporal: 12 meses. Fecha prevista inicio: junio 2026.
 	Jornada completa: 7,5 horas/día.
@@ -79,6 +168,7 @@ Las CONDICIONES del puesto son las siguientes:
 
 Para poder participar en el Programa, debe escribir un mail a la dirección de correo electrónico  ofertasoeciudadlineal@madrid.org,  adjuntando copia o foto de la titulación requerida o documentación de la experiencia profesional e indicando nombre, apellidos, DNI/NIE y la referencia: OFERTA 3324 AYUDANTE DE SERVICIOS MÚLTIPLES.
 
+## Fecha
 FECHA TOPE ENVIO DE DOCUMENTACIÓN MARTES 12 DE MAYO DE 2026 A LAS 10:00H.
 
 El envío del e-mail con la documentación autoriza a la oficina de empleo a comprobar la veracidad de dicha documentación.
