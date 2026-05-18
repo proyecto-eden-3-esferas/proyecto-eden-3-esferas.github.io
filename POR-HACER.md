@@ -1,3 +1,93 @@
+# `/dev/sdc3`
+```
+Attempt to read block from filesystem resulted in short read while trying to open /dev/sdc3
+Could this be a zero-length partition?
+```
+
+# Esperas y esperanzas
+<a href="karma.html">Tomar las riendas de nuestro destino, abrazar Ley del Karma</a>
+<p>Mucha gente pasa casi toda su vida esperando.</p>
+<p>Esperamos esperanzandamente que nos pregunten lo que nos hemos estudiado mejor, que fulanita o fulanito nos quiera, que nos admitan en tal carrera, que saquen oposiciones de lo nuestro, que las saquemos, disfrutar de buena salud uno y los suyos, que nos guste un libro, que a alguien le guste o le sirva el regalo que le hacemos, que cambien o no cambien tal ley, que no nos pillen, vivir muchos años bien etc.</p>
+<p>Unos se santiguan, otros cruzan los dedos.</p>
+<p>También esperamos o aguardamos a que llegue el autobús, a que nos llamen por teléfono, a que termine la lavadora, a que empiece la película, a que nos llegue el turno, la hora de comer o la de acostarnos, a que amanezca o anochezca, a que toque el timbre etc.</p>
+<p>Gran parte de esas esperas se deben a nuestro mundo cada vez más <a target="_blank" href="digital.es.html">digital</a>. Esperamos a que se encienda el ordenador, a que se inicie una aplicación, a que termine una descarga o una subida, a que se cierre una aplicación que se ha colgado, a que concluya tal proceso recóndito etc.</p>
+<p>Consideremos la acción de leer un libro. Si es físico o de papel, no esperamos nada, vamos a tiro hecho. Si utilizamos un <q>lector</q>, podemos contar con una cantidad fija de tiempo que esperar. Pero si lo leemos en la pantalla del ordenador, la lectura se habrá complicado. Cuando no falla una cosa falla otra. Si por algún motivo el ordenador no arranca bien, nos habremos quedado sin libro, absurdo.</p>
+<p>En todas estas esperas y esperanzas sentimos como si no tuviéramos el control. Nos sentimos dependientes. Esta situación es lo contrario de un <a target="_blank" href="taller.html">taller</a> en el que uno avanza hacia una meta en proporción a su esfuerzo, entrega e inspiración, no a los caprichos del destino.</p>
+
+# Bienes y servicios
+<p>Requisitos para considerarlos dentro de un PIB justo y sensato:</p>
+<dl>
+  <dt>Beneficiosos</dt>
+  <dt>Exportables</dt>
+  <dd>
+    <p>Es decir, de utilidad no exclusivamente local. ¿Significa esto que debamos sospechar de un fabricante de guitarras flamencas? ¿Podrán (las guitarras flamencas) poseer un valor y restringirse éste a tocar flamenco? Por el mismo razonamiento deberíamos rechazar las paelleras, a menos que sirvan para cocinar platos de arroz no exclusivamente locales. ¿Puede lo local poseer un valor intrínseco?</p>
+  </dd>
+  <dt>Demandados sin coacción</dt>
+  <dd>Por ejemplo si la Ley obligase a los varones adultos a llevar sombrero, muchos se comprarían uno co accionados.</dd>
+  <dt>Insustituibles</dt>
+  <dd>
+    <p><dfn>Insustituible</dfn> dicho de un bien o servicio significa que ningún agente económico proporciona algo equivalente a mejor precio.</p>
+    <p>Ésta parece ser la cuestión en el caso de productos alemanes. ¿Un coche alemán 50% más caro (que uno francés) es un 50% más seguro, duradero, agradable, estético?</p>
+  </dd>
+  <dt>Capacitantes</dt>
+  <dd>Preferiblemente un bien o servicio no será un producto final en sí sino que capacitará a otros para seguir la cadena. Será preferiblemente herramienta. Si producimos comida, el cuerpo bien alimentado que la consuma a su vez producirá riqueza.</dd>
+</dl>
+
+# Carta a Carlos (Covaleda)
+- otra posibilidad (en lugar de aislar y caldear el interior de un vehículo) es comprar ropa de superabrigo y de supercalidad. Yo no la he encontrado, salvo unas manoplas de plumón, pero probablemente la utilicen en Escandinavia porque está muy al norte y porque les gusta la intemperie, forma parte de su cultura.
+- al final he decidido no pintar sino seguir con la música, con el mismo instrumento con el que llevo décadas, y estudiar o terminar de estudiar una tecnología material, la electrónica, en particular la Teoría de Circuitos, que sería como la lógica de la electrónica. Un poco por apostar por algo, mientras me llaman o no me llaman para trabajar de barrendero.
+- me puedo desplazar pero con vehículo privado a zonas naturales mientras siga cuidando a nuestro perro.
+- el kaiflex viene con una cuadrícula de 1 cm, vas midiendo y cortando
+- hay vigas ligeras de madera que se pueden colocar entre una o dos personas sobre unas paredes de paja. Si quieres te las puedo describir. Las utilizaron en la covivienda Arterra de Navarra
+- en teoría podrías almacenar calor en bidones de agua. Recuerda que no puedes agujerear la furgoneta.
+- mi furgoneta tiene una separación de carga
+- la clase media española es así, son basura, no tienen sentimientos
+
+# Comunes y troncales
+
+
+
+# Capitalismo Inmobiliario
+<p>David es cariñoso, acogedor y solidario. Su casa consta de dos inmuebles independinetes, de los cuaes alquia el de arriba. A precio de mercado. Tampoco es tonto.</p>
+
+# Renta Básica Garantizada
+<p>Una ventaja innegable es que supondría una simplificación de la burocracia.</p>
+<p>Si hubiera una manera de calcular el gasto de cada ciudadano, concedérsela a ricos no implicaría elevar su ya alto nivel de vida siempre que su riqueza e ingresos se invirtieran.</p>
+
+# *economia.desproporciones.html* o *economia.discontinuidades.html*
+<dl>
+  <dt>Conocimiento y habilidades prácticas</dt>
+  <dt>Tiempo y esfuerzo dedicado</dt>
+</dl>
+
+# El sueño inmobiliario
+<p>Desvelado, miro el reloj a las seis menos cuarto. Me conviene conseguir dormirme hasta que suene el depertador a y media. Lo consigo.</p>
+<p>Sueño una conversación con mi hermano en la que afirma, como le caracteriza, que la posesión de una vivienda renta un uno por ciento al año. Entonces se me ocurre responderle con una pregunta, que no llego a enunciar: ¿con cargo a qué se obtiene ese cacareado 1 por ciento de beneficio? Pero cambio de estrategia, si es que alguna sirve, si es que algún razonamiento o encadenamiento sirve para flexibilizar la mente de un empirista.</p>
+<p>Retrocedamos. ¿Por qué decimos que la Humanidad, o mi parte de Humanidad, vive mejor a principios del siglo XXI que, pongamos en el siglo XIX? Adelanto una posible razón: gracias a los antibióticos y espero a que aporte más adelantos positivos. <q>Los antidepresivos,</q> con cara toda seria.</p>
+<p>Él no los necesita. Me llevo las manos a la cabeza. En el sueño no consigo explicar por qué los antidepresivos deberían considerarse una categoría diferente, una clase muy cuestionable de adelantos.</p>
+<p>Suena el despertador. Sueño finalizado.</p>
+<hr/>
+<p>En otras ocasiones, y en vigilia, mi hermano ha manifestado su creencia ampliamente compartida de que nuestra riqueza se debe en gran medida a la facilidad de obtener crédito. Uno puede empezar a vivir en una vivienda digna o emprender un negocio sin disponer de antemano del dinero que cuesta iniciarse y con cargo a ganancias futuras. Y no sólo mi hermano, sino el ciudadano <q>normal</q> se ha tragado lo de que los bancos en tanto que instituciones financieras posibilitan la creación de riqueza, trabajo y bienestar. Aunque ello suponga pagar un <a target="_blank" href="plataformas.html">intermediario</a> más.</p>
+
+## Texto puro
+## Lista de <q>motos</q>
+- texto puro frente a <a target="_blank" href="ofimatica.html">ofimática</a>
+- derecho
+- policía
+- burocracia
+- transporte (vehículo privado)
+- vivienda
+## Jevons' Paradox
+
+## La paradoja de Jevons
+[ ] desde *paradojas.html* a *paradoja-de-jevons.html*
+*paradoja-de-jevons.html*
+
+# Desproporcionalidad Tecnológica
+- Escala
+- Tutulación/Competencias
+- Encarecimiento: la ventaja de saber y practicar tecnología doméstica es cada vez menor <q>relativamente</q>
+
 # Empleo Operario/a de servicios múltiples Ayto. Valdemanco
 
 Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
