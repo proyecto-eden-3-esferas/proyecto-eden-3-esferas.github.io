@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linux PDF Tools</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Linux PDF Tools"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="Francisco Fernández-Victorio Hernández" />
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a rel="next" href="linux.printing.html">Printing in Linux</a></p>
+        <p><a            href="https://www.linux.com/training-tutorials/linux-101-printing/">Linux 101: Printing</a> by Jack Wallen - January 12, 2010</p>
+        <p><a            href="distros.html">Linux Distributions</a></p>
+        <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+        <p><a            href="linux.shm.html">Linux <cite>/dev/shm/</cite>: a Shared Memory File Directory</a></p>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+        <p><a            href="linux.partitioning.html">Partitions in Linux: Repairing...</a></p>
+        <p><a            href="linux.monitoring.html">Monitoring Linux</a></p>
+        <p><a            href="linux.journald.html">Linux Journal Service</a></p>
+        <p><a            href="linux.logging.html">Logging (Events) in Linux</a></p>
+      </div>
+      <div>
+        <p><a href="linux.tools.html">Linux Tools</a></p>
+        <p><a href="snap.html">Snap</a></p>
+        <p><a href="linux.bash.html">Bash: the Born Again SHell</a></p>
+        <p><a href="samba.html">Samba (Open Source Implementation of the Microsoft&apos;s SMB Networking Protocol)</a></p>
+        <p><a href="sed.html"><pre>sed</pre>, the Unix Stream EDitor</a></p>
+      <!--
+        <p><a href="flatpak.html">Flatpak</a></p>
+      -->
+      </div>
+    </nav>
+
+    <main>
+      <h1>Linux PDF Tools</h1>
+
+      <section id="manipulators">
+        <h2>Tools for Manipulating / Changing / Editing / Mending PDF Files</h2>
+
+        <dl>
+
+          <dt><code>K2pdfopt</code>: a PDF Reflow Tool</dt>
+          <dd>
+            <p><strong>K2pdfopt</strong> optimizes PDF/DJVU files for mobile e-readers (e.g. the Kindle) and smartphones. It works well on multi-column PDF/DJVU files and can re-flow text even on scanned PDF files. It can also be used as a general PDF copying/ cropping/re-sizing/OCR-ing manipulation tool. It can generate native or bitmapped PDF output, with an optional OCR layer.</p>
+          </dd>
+
+          <dt><code>pdfarranger</code>: merge, split and re-arrange pages from PDF documents</dt>
+          <dd>
+            <p>PDF Arranger is a small application which allows one to merge or split pdf documents and rotate, crop and rearrange their pages using an interactive and intuitive graphical interface.</p>
+            <p>PDF Arranger was formerly known as PDF-Shuffler.</p>
+          </dd>
+
+          <dt><code>pdfchain</code>: graphical user interface for the PDF Tool Kit</dt>
+          <dd>
+            <p>The package includes features designed to handle PDF files in a easy way. Basically it can merge, split, add backgrounds or stamps and add attachments. There are some tools for extended needs, too.</p>
+          </dd>
+
+
+
+          <dt><code>pdfposter</code>: scale and tile PDF images/pages to print on multiple pages</dt>
+          <dd>
+            <p>Pdfposter can be used to create a large poster by building it from multiple pages and/or printing it on large media. It expects as input a PDF file, normally printing on a single page. The output is again a PDF file, maybe containing multiple pages together building the poster. The input page will be scaled to obtain the desired size.</p>
+            <p>This is much like poster does for Postscript files, but working with PDF. Since sometimes poster does not like your files converted from PDF. :-) Indeed pdfposter was inspired by poster.  For more information please refer to the manpage or visit the project homepage.</p>
+          </dd>
+
+          <dt><code>pdfproctools</code>: PDF Processing Tools</dt>
+          <dd>
+            <p>This package contains tools for PDF file processing.</p>
+            <p>SetPDFMetadata updates the metadata of a PDF file. In particular, it can be used to add outlines (bookmarks) to a document. Furthermore, it can set the document properties (e.g. author, title, keywords, creator, producer).</p>
+            <p>PDFEmbedFonts embeds all referenced fonts into a PDF file. Optionally, it can also linearize the PDF file for online publication ("fast web view", "optimized").</p>
+          </dd>
+
+          <dt><code>pdfresurrect</code>: tool for extracting/scrubbing versioning data from PDF documents</dt>
+          <dd>
+            <p>PDFResurrect is a tool for analyzing and manipulating revisions to PDF documents (sometimes known as Adobe Acrobat files). The PDF format allows for previous changes to be retained in a revised version of the document, thereby keeping a running history of revisions to the document.</p>
+            <p>This tool extracts all previous revisions while also producing a summary of changes between revisions. It can also "scrub" or write data over the original instances of PDF objects that have been modified or deleted, in an effort to disguise information from previous versions that might not be intended for anyone else to read.</p>
+          </dd>
+
+          <dt><code>pdfsam</code>: PDF Split and Merge</dt>
+          <dd>PDF Split and Merge is a very simple, easy to use, free, open source utility to split and merge pdf files. It has a simple graphical interface to let the user choose pdf files, split or merge them.</dd>
+
+          <dt><code>pdfsandwich</code>: Tool to generate "sandwich" OCR pdf files</dt>
+          <dd>
+            <p>pdfsandwich generates "sandwich" OCR pdf files, i.e. pdf files which contain only images (no text) will be processed by optical character recognition (OCR) and the text will be added to each page invisibly "behind" the images. pdfsandwich is a command line tool which is supposed to be useful to OCR scanned books or journals.</p>
+            <p>It is able to recognize the page layout even for multicolumn text.</p>
+            <p>Essentially, pdfsandwich is a wrapper script which calls the following binaries: convert, unpaper, gs (only for psd resizing), hocr2pdf (for tesseract &lt; 3.03), and tesseract.</p>
+          </dd>
+
+          <dt><code>pdftk-java</code>: pdftk port to java - a tool for manipulating PDF documents</dt>
+          <dd>
+            <p>If PDF is electronic paper, then PDFtk is an electronic stapler-remover, hole-punch, binder, secret-decoder-ring, and X-Ray-glasses. PDFtk is a simple tool for doing everyday things with PDF documents. Keep one in the top drawer of your desktop and use it to:</p>
+            <ul>
+              <li>Merge PDF documents</li>
+              <li>Split PDF pages into a new document</li>
+              <li>Decrypt input as necessary (password required)</li>
+              <li>Encrypt output as desired</li>
+              <li>Fill PDF Forms with FDF Data and/or Flatten Forms</li>
+              <li>Apply a Background Watermark</li>
+              <li>Report PDF on metrics, including metadata and bookmarks</li>
+              <li>Update PDF Metadata</li>
+              <li>Attach Files to PDF Pages or the PDF Document</li>
+              <li>Unpack PDF Attachments</li>
+              <li>Burst a PDF document into single pages</li>
+              <li>Uncompress and re-compress page streams</li>
+              <li>Repair corrupted PDF (where possible)</li>
+            </ul>
+          </dd>
+
+          <dt><code>qpdf</code>: tools for transforming and inspecting PDF files</dt>
+          <dd>
+            <p>QPDF is a program that can be used to linearize (web-optimize), encrypt (password-protect), decrypt, and inspect PDF files from the command-line.  It does these and other structural, content-preserving transformations on PDF files, reading a PDF file as input and creating a new one as output.  It also provides many useful capabilities to developers of PDF-producing software or for people who just want to look at the innards of a PDF file to learn more about how they work.</p>
+            <p>QPDF understands PDF files that use compressed object streams (supported by newer PDF applications) and can convert such files into those that can be read with older viewers.  It can also be used for checking PDF files for structural errors, inspecting stream contents, or extracting objects from PDF files.  QPDF is not PDF content creation or viewing software -- it does not have the capability to create PDF files from scratch or to display PDF files.</p>
+          </dd>
+
+          <dt><code>poppler-utils</code></dt>
+          <dd id="poppler-utils">
+            <p>Poppler is a PDF rendering library based on Xpdf PDF viewer.</p>
+            <p>This package contains command line utilities (based on Poppler) for getting information of PDF documents, convert them to other formats, or manipulate them:</p>
+            <ul>
+              <li><code>pdfdetach</code>: lists or extracts embedded files (attachments)</li>
+              <li><code>pdffonts</code>: font analyzer</li>
+              <li><code>pdfimages</code>: image extractor</li>
+              <li><code>pdfinfo</code>: document information</li>
+              <li><code>pdfseparate</code>: page extraction tool</li>
+              <li><code>pdfsig</code>: verifies digital signatures</li>
+              <li><code>pdftocairo</code>: PDF to PNG/JPEG/PDF/PS/EPS/SVG converter using Cairo</li>
+              <li><code>pdftohtml</code>: PDF to HTML converter</li>
+              <li><code>pdftoppm</code>: PDF to PPM/PNG/JPEG image converter</li>
+              <li><code>pdftops</code>: PDF to PostScript (PS) converter</li>
+              <li><code>pdftotext</code>: text extraction</li>
+              <li><code>pdfunite</code>: document merging tool</li>
+            </ul>
+          </dd>
+
+          <dt><code>krop</code>: tool to crop PDF files</dt>
+          <dd>
+            <p>Krop is a simple graphical tool to crop the pages of PDF files. A unique feature of krop is its ability to automatically split pages into subpages to fit the limited screen size of devices such as eReaders. This is particularly useful, if your eReader does not support convenient scrolling.</p>
+            <p>Some settings that work:</p>
+            <ul>
+              <li>select a rectangle to frame the page inside</li>
+              <li>don&apos;t check: <q>Use GhostScript to optimize</q></li>
+              <li>do check: <q>include pages without selections</q></li>
+              <li>which pages to include: your selection, such as 5-20</li>
+              <li>Selections apply to: all pages</li>
+            </ul>
+          </dd>
+          <dt><code>pdfcrop</code></dt>
+          <dd>
+            <p>pdfcrop automatically detects and removes excess white space from PDF margins.</p>
+            <p>It is part of the TeX Live suite:</p>
+            <ul>
+              <li>Debian/Ubuntu: <code>sudo apt install texlive-extra-utils</code></li>
+              <li>Fedora: <code>sudo dnf install texlive-pdftools</code></li>
+            </ul>
+            <p>Usage to remove margins:</p>
+            <pre>pdfcrop input.pdf output.pdf</pre>
+            <p>Usage to set specific margin sizes (in bp, where 72 bp = 1 inch</p>
+            <pre>pdfcrop --margins "10 20 10 20" input.pdf output.pdf</pre>
+          </dd>
+
+          <!--
+          <dt><code></code></dt>
+          <dd>
+          </dd>
+          <dt><code></code></dt>
+          <dd>
+          </dd>
+        -->
+
+        </dl>
+      </section>
+
+      <section id="parsers-analyzers">
+        <h2>PDF Parsers / Analysers</h2>
+        <dl>
+          <dt><code>pdfcrack</code>: PDF files password cracker</dt>
+          <dd>PDFCrack is a simple tool for recovering passwords from pdf-documents.</dd>
+          <dt><code>pdfgrep</code>: search in pdf files for strings matching a regular expression</dt>
+          <dd>
+            <p>Pdfgrep is a tool to search text in PDF files. It works similar to `grep'.</p>
+            <p>Features:</p>
+            <ul>
+              <li>search for regular expressions.</li>
+              <li>
+                <p>support for some important grep options, including:</p>
+                <ul>
+                  <li>filename output.</li>
+                  <li>page number output.</li>
+                  <li>optional case insensitivity.</li>
+                  <li>count occurrences.</li>
+                  <li>and the most important feature: color output!</li>
+                </ul>
+              </li>
+            </ul>
+          </dd>
+          <dt><code>pdfminer</code>: PDF parser and analyser (encoding data)</dt>
+          <dd>PDFMiner is a tool for extracting information from PDF documents, which focuses entirely on getting and analyzing text data.</dd>
+        </dl>
+      </section>
+
+      <section id="viewers">
+        <h2>PDF Viewers</h2>
+        <dl>
+          <dt>mupdf</dt>
+          <dd>
+            <p>MuPDF is a lightweight PDF viewer and toolkit written in portable C. It also reads XPS, OpenXPS and ePub documents.</p>
+            <p>The renderer in MuPDF is tailored for high quality anti-aliased graphics. It renders text with metrics and spacing accurate to within fractions of a pixel for the highest fidelity in reproducing the look of a printed page on screen.</p>
+          </dd>
+          <dt><code>ViewPDF</code>: Portable Document Format (PDF) viewer for GNUstep</dt>
+          <dd>
+            <p>ViewPDF is an application to view and navigate in PDF documents.</p>
+            <p>Key Features:</p>
+            <ul>
+              <li>Zoom</li>
+              <li>Keyboard shortcuts for fast navigation</li>
+            </ul>
+          </dd>
+          <dt><code>xpdf</code>: Motif-based PDF reader using the Poppler library</dt>
+          <dd>
+            <p>xpdf is a light-weight open source viewer for Portable Document Format (PDF) files (also called 'Adobe Acrobat' or 'Acrobat' files).  This is just the xpdf viewer client; various command-line pdf tools are now provided via the <a href="#poppler-utils">poppler-utils</a> package.</p>
+            <p>Debian's xpdf is a fork of Xpdf version 3, modified to use the Poppler PDF rendering library but keeping the Motif toolkit, and nowadays maintained as the xpopple project.</p>
+          </dd>
+          <dt><code>zathura-pdf-poppler</code>: </dt>
+          <dd>
+            <p>Some of the features are:</p>
+            <ul>
+              <li>bookmarking pages</li>
+              <li>printing the whole document or specific pages</li>
+              <li>following links</li>
+              <li>searching in the document</li>
+              <li>browsing the document index</li>
+              <li>SyncTex forward and backward synchronization</li>
+            </ul>
+          </dd>
+
+          <dt><code>qpdfview</code>: tabbed document viewer</dt>
+          <dd>
+            <p>qpdfview is a simple tabbed document viewer which uses the Poppler library for PDF rendering and CUPS for printing and provides a clear and simple Qt graphical user interface. Support for the DjVu and PostScript formats can be added via plugins.</p>
+            <p>Current features include:</p>
+            <ul>
+              <li>Outline, properties and thumbnail panes</li>
+              <li>Scale, rotate and fit</li>
+              <li>Fullscreen and presentation views</li>
+              <li>Continuous and multi-page layouts</li>
+              <li>Search for text (PDF and DjVu only)</li>
+              <li>Configurable toolbars</li>
+              <li>SyncTeX support (PDF only)</li>
+              <li>Partial annotation support (PDF only, Poppler version 0.20.1 or newer)</li>
+              <li>Partial form support (PDF only)</li>
+              <li>Persistent per-file settings</li>
+              <li>Support for DjVu and PostScript documents via plugins</li>
+            </ul>
+          </dd>
+
+          <!--
+          <dt></dt>
+          <dd>
+          </dd>
+          <dt></dt>
+          <dd>
+          </dd>
+          -->
+        </dl>
+      </section>
+
+      <section id="libs">
+        <h2>Libraries for Making or Editing PDF Files</h2>
+        <dl>
+
+          <dt>Haru (<code>libhpdf*.*</code>): a C library for generating pdf files</dt>
+          <dd>
+            <p>Haru is a free, cross platform, open-source C library for generating PDF files. It supports the following features:</p>
+            <ul>
+              <li>Generation of PDF files with lines, text and images.</li>
+              <li>Outlines, text and link annotations.</li>
+              <li>Document compression using deflate-decode.</li>
+              <li>Embedded PNG and Jpeg images.</li>
+              <li>Embedded Type1 and TrueType fonts.</li>
+              <li>Creation of encrypted PDF files.</li>
+              <li>Usage of various character sets (ISO8859-1~16, MSCP1250~8, KOI8-R).</li>
+              <li>Support for CJK fonts and encodings.</li>
+            </ul>
+          </dd>
+
+          <dt><code>libqpdf*</code>: runtime library for PDF transformation/inspection software</dt>
+          <dd>
+            <p>QPDF is a program that can be used to linearize (web-optimize), encrypt (password-protect), decrypt, and inspect PDF files from the command-line. It does these and other structural, content-preserving transformations on PDF files, reading a PDF file as input and creating a new one as output. It also provides many useful capabilities to developers of PDF-producing software or for people who just want to look at the innards of a PDF file to learn more about how they work.</p>
+            <p>QPDF understands PDF files that use compressed object streams (supported by newer PDF applications) and can convert such files into those that can be read with older viewers.  It can also be used for checking PDF files for structural errors, inspecting stream contents, or extracting objects from PDF files.  QPDF is not PDF content creation or viewing software -- it does not have the capability to create PDF files from scratch or to display PDF files.</p>
+            <p>This package contains the qpdf runtime libraries required to run programs that link with the qpdf library.</p>
+          </dd>
+
+          <dt><code>libqt*pdf*</code>: Qt <var>n</var> PDF library</dt>
+          <dd>
+            <p>The Qt PDF module contains classes and functions for rendering PDF documents.</p>
+          </dd>
+
+          <dt><code>ocrmypdf</code>: add an OCR text layer to PDF files</dt>
+          <dd>
+            <p>OCRmyPDF generates a searchable PDF/A file from a regular PDF containing only images, allowing it to be searched.</p>
+            <p>It uses the Tesseract OCR engine and so supports all the languages that Tesseract does.</p>
+            <p>Some other main features:</p>
+            <ul>
+              <li>* Places OCR text accurately below the image to ease copy / paste</li>
+              <li>* Keeps the exact resolution of the original embedded images</li>
+              <li>* When possible, inserts OCR information as a lossless operation without rendering vector information</li>
+              <li>* Keeps file size about the same</li>
+              <li>* If requested deskews and/or cleans the image before performing OCR</li>
+              <li>* Validates input and output files</li>
+              <li>* Provides debug mode to enable easy verification of the OCR results</li>
+              <li>* Processes pages in parallel when more than one CPU core is available</li>
+              <li>* Battle-tested on thousands of PDFs, a test suite and continuous integration.</li>
+            </ul>
+          </dd>
+
+          <dt>PDF.js</dt>
+          <dd>
+            <p>PDF.js is a general-purpose, web standards-based platform for parsing and rendering PDFs.</p>
+          </dd>
+
+          <!--
+          <dt></dt>
+          <dd>
+          </dd>
+
+          <dt></dt>
+          <dd>
+          </dd>
+          -->
+
+        </dl>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

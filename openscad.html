@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OpenSCAD</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="OpenSCAD"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p>
+          <a href="computational-geometry.html">Computational Geometry</a>
+        </p>
+      </div>
+      <div>
+        <p>
+          <a href="svg.html">SVG: XML for Drawing</a>
+        </p>
+        <p>
+          <a href="postscript.html">PostScript: Programming Text and Graphics</a>
+        </p>
+        <p>
+          <a href="metapost.html">MetaPost: Drawing for PostScript</a>
+        </p>
+        <p>
+          <a href="asymptote.html">Asymptote: The Vector Graphics Language</a>
+        </p>
+      </div>
+    </nav>
+    <main>
+      <h1>OpenSCAD</h1>
+      <section id="OpenSCAD_basics">
+        <h2>OpenSCAD Basics</h2>
+        <p>Lets start out with a simple cube. In the code area, type</p>
+        <pre>cube(10);</pre>
+        <p>and press ENTER. This describes a cube 10 mm on a side. All measurements are in mm in OpenSCAD. Note the semicolon on the end. All executable statements in OpenSCAD must end with a semicolon. This simply tells OpenSCAD that this is the end of the statement or command.</p>
+        <p>Note that nothing visible happens when you type this. Once you have finished typing, you still need to press F5 or click on the preview icon or click on Preview under the View menu to actually see what you have created. Go ahead and press the F5 key on your keyboard. You should now see the cube. Congratulations. You have just created your first model. Feel free to spin it around just to see it from all sides. BTW, you will see that it just comes up to the markers on the axes, since each marker is 10 mm. You might also notice that the cube extends 10 mm in the X, Y, and Z directions, with one corner at the origin.</p>
+        <p>Now if all you could do with the cube command were to make a perfectly square cube, it would not be very useful. Fortunately, you can specify the dimensions for length, width, and height individually. Erase the <kbd class="userinput">cube(10);</kbd> command and replace it with</p>
+        <pre>cube([20, 10, 2]);</pre>
+        <p>Press the F5 button again. You will see a long, narrow, flat box...</p>
+        <div class="important" style="border-style: solid;">
+          <p>By enclosing the numbers in brackets, you turn the three numbers into one number, a vector (a three dimensional number).</p>
+          <p>The alternative is to name your input parameters as in</p>
+          <pre>cube(width=20, height=15, depth=25);</pre>
+        </div>
+        <p>There is one other parameter you can use with the cube command. As mentioned before, the cube normally has one corner at the origin and extends out the specified amount in the X, Y, and Z directions. You can case it to be centered on the origin by adding the <kbd class="userinput">center = true statement</kbd> like this</p>
+        <pre>cube([10, 20, 5], center = true);</pre>
+        <div class="important" style="border-style: solid;">All executable statements in OpenSCAD must end with a semicolon. This simply tells OpenSCAD that this is the end of the statement or command.</div>
+        <section>
+          <h3>Basic Shapes in OpenSCAD*</h3>
+          <!--
+          <section>
+            <h4>***</h4>
+            <p></p>
+            <code></code>
+          </section>
+          -->
+          <section>
+            <h4>Polyhedron</h4>
+            <p>One very powerful and versatile object for building models with a lot of flat surfaces is the polyhedron. This basically lets you build any object with any shapes of flat surfaces. The downside, as you might expect from something so flexible, is that it can be very complex to use.</p>
+            <p>To make a polyhedron, you must first list all the corners of the polyhedron. A corner is any point in space where three or more surfaces meet. After you list all the corners, you must you trace out the path around each surface. To do this you list all the surfaces by listing all the corners of the surface in the correct order. Sounds complicated? It is.</p>
+            <p>Coordinates are always listed in the format [X,Y,Z]</p>
+            <p>For instance:</p>
+            <code>polyhedron(
+[
+  [-10, -10, 0], // point 0
+  [10, -10, 0], // point 1
+  [10, 10, 0], // point 2
+  [-10, 10, 0], // point 3
+  [0, -10, 10], // point 4
+  [0, 10, 10] // point 5
+]</code>
+            <p>The next step is the list of paths around the surfaces. You need a comma next to separate the list of points from the list of surfaces, then another opening square bracket to start enclosing the list of surfaces, so you have this.</p>
+            <p>Now for the first surface. Let's start with the bottom first. List the points starting with any one of the four bottom points going around clockwise as seen from the bottom. In this case, I happen to have listed the points in exactly the order you need them, so the first surface can be written as [0,1,2,3]. Since you can start with any point, you could just as easily have written [2,3,0,1]. In any case, this was the easy one.</p>
+            <p>And so on.</p>
+            <code>polyhedron(
+[
+  [-10, -10, 0], // point 0
+  [10, -10, 0], // point 1
+  [10, 10, 0], // point 2
+  [-10, 10, 0], // point 3
+  [0, -10, 10], // point 4
+  [0, 10, 10] // point 5
+]
+,
+[
+  [0, 1, 2, 3],
+  [0, 4, 1],
+  [2, 5, 3],
+  [3, 5, 4, 0],
+  [1, 4, 5, 2]
+]
+);</code>
+            <p>You can see that after the opening bracket that enclosed the list of surfaces, we have each surface listed. Each surface except the last one is followed by a comma. The last one is followed by the closing square bracket that marks the end of the list of surfaces, followed by the closingparenthesis for the polyhedron command, followed by the semicolon that follows all commands.</p>
+            <div class="important" style="border-style: solid;">The two things that are most likely to trip you up are remembering that the first point is numbered 0 (since you would intuitively expect it to be 1) and getting the order of the points of a surface in the right order, including clockwise. If you put them in a totally wrong order, you will get a totally weird shape, usually with a hole in it.</div>
+            <div class="important" style="border-style: solid;">Regarding the less obvious mistake of listing the point counterclockwise instead of clockwise, there is a trick to find any surface where you made this mistake. Instead of pressing F5 to view the model, press F12 to get the thrown together view. This will show any surface you defined counterclockwise in a purple or pink color instead of yellow.</div>
+            <div class="important" style="border-style: solid;">I have one other suggestion when constructing polyhedrons. After you have written the code for the corner points, [...] then add the surfaces one by one (remember no comma after the last one) and press F5 or F12 key as you add each surface. This will allow you to see each surface as you construct it, so you can see immediately if there is any problem. This is easier than looking at a completed by incorrect polyhedron and trying to figure out which line of code is wrong.</div>
+          </section>
+          <section>
+            <h4>2D Shapes (to Extrude)</h4>
+            <p>There are basically three 2D images are available to extrude: circle, square, and polygon. These 2D shapes are similar to their 3D equivalents.</p>
+            <p id="OpenSCAD_circle">The command for making a circle is <kbd class="userinput">circle(<var>n</var>);</kbd> where <var>n</var> is a number or defined constant and is the radius of the circle. You can say <kbd class="userinput">circle(d = n);</kbd> to make the number the diameter instead of the radius. The circle is centered around the Z axis and has zero depth in the Z direction.</p>
+            <p id="OpenSCAD_square">The command for square can be either <kbd class="userinput">square(n);</kbd> if you want a square where all sides have equal length or <kbd class="userinput">square([X, Y]);</kbd> if you want to make a rectangle of size X in the X direction and Y in the Y direction. The square will have one corner at the X = 0 and Y = 0 position and extend in the positive direction if X and Y are positive numbers or defined constants. You can center it at the origin if you use <kbd class="userinput">square([X, Y], center = true);</kbd></p>
+            <section>
+              <h5>Polygons in OpenSCAD*</h5>
+              <p>The polygon is usually simpler than the 3D polygon. If all you want is a solid shape, you do not need to define all the paths the way you do with a 3D polygon. You just define the points in 2 dimensions and OpenSCAD connects them in the order you list them and connects the last point to the first. For example,</p>
+              <pre>polygon( [ [0, 0], [0, 10], [10, 10], [10, 0] ] );</pre>
+              <p>would create a square 10 mm on a side. Basically, you do not have to include the default path, which is to connect all the points given in the order in which they were given.</p>
+              <p>However, if you do want something more complicated than a solid figure with one path consisting of all the points connected around the outer edge, you need to define paths. For example, if you want a hole in the middle, you need to list all points, then define the path around the outside of the shape, then define the path of the points that define the hole. First you list all points, each of which consists of two numbers surrounded by square brackets, such as [0,0], separated by commas, and surround this list with square brackets like this:</p>
+              <pre>[ [0, 0], [20, 0], [10, 20], [5, 5], [15, 5], [10, 15] ]</pre>
+              <p>Then you have a comma, then you list all paths. The paths are listed the same way as the points, with each path consisting of point numbers, start with 0. The code in Listing [...] To make it easier to read, I have broken the listing up into separate lines, but this has no effect on how OpenSCAD interprets the code.</p>
+              <code>polygon(
+  [ [0,0], [20,0], [10,20], [5,5], [15,5], [10,15] //list of points
+  ],
+  [ [0, 1, 2], [3, 4, 5] // list of paths
+  ]
+);</code>
+              <p>These instructions can get very confusing with all these brackets inside brackets. One trick to simplify it is to define the points and paths as simple defined constants and then list them in the polygon statement as shown in the listing below.</p>
+              <code>P0 = [0, 0];
+P1 = [20, 0];
+P2 = [10, 20];
+P3 = [5, 5];
+P4 = [15, 5];
+P5 = [10, 15];
+Path1 = [0, 1, 2];
+Path2 = [3, 4, 5];
+polygon([P0, P1, P2, P3, P4, P5], [Path1, Path2]);</code>
+              <p>Here you can see that we defined each point as a defined constant called P1, P2, etc. and likewise defined the paths. (Note that you still have to refer to the points in the paths by the number of the point, starting with 0, rather than P0, P1, etc.) This is the exact same code as the prevous isting as far as OpenSCAD is concerned, but it makes it easier for you to keep track of the brackets, if nothing else.</p>
+            </section>
+          </section>
+        </section>
+        <section>
+          <h3>Parameters in OpenSCAD*</h3>
+          <dl class="variablelist">
+            <dt>$fn (resolution)</dt>
+            <dd>
+              <p>For a sphere, the $fn value is actually the number of pieces (squares) going around the sphere once from one point around the sphere and back again.</p>
+              <p>Although you can use a higher value of $fn to make the sphere smoother, you can also use lower values to create shapes other than a sphere with the sphere command. For example, a value of 4 gives a cube, which is not particularly useful since you already can make a cube withthe cube command. Just for fun, try some other values like 5 or 6 to see the shapes you get.</p>
+            </dd>
+            <dt>$fa (minimum angle)</dt>
+            <dd>$fa sets the minimum angle for the fragments</dd>
+            <dt>$fs (minimum size)</dt>
+            <dd>$fs sets the minimum size.</dd>
+            <dt/>
+            <dd/>
+          </dl>
+        </section>
+      </section>
+      <!-- end of "OpenSCAD Basics" -->
+      <section id="OpenSCAD_control">
+        <h2>OpenSCAD Control Structures*</h2>
+      </section>
+      <!-- end of "OpenSCAD Control Structures" -->
+      <section id="OpenSCAD_functions">
+        <h2>OpenSCAD Functions</h2>
+      </section>
+      <!-- end of "OpenSCAD Functions" -->
+      <section id="OpenSCAD_text">
+        <h2>Text in OpenSCAD*</h2>
+        <section>
+          <h3>Font Parameters*</h3>
+          <dl class="variablelist">
+            <dt>font and style</dt>
+            <dd>
+              <p>To change the font, use the parameter font = "Font name:style=style type" such as</p>
+              <pre>font = "Liberation Sans:style=Bold Italic"</pre>
+              <p>&#x200B;For example:</p>
+              <pre>text("Your text here", font="Arial:style=Bold");</pre>
+              <p>You can find a list of all the available fonts and the styles available for each font by clicking on the Help menu at the top of the OpenSCAD screen and then on font list.</p>
+            </dd>
+            <dt>size</dt>
+            <dd>
+              <p>The format for this is size=#, where # is any number and can be a decimal number like 5.2. Example:</p>
+              <pre>text("Your text here", size = 3.4);</pre>
+              <p>This controls the size of the text, both the height and the width. Note that this does not affect the extrusion, only the size in the XY plane. The default value if you do not specify the size is 10, so any number less than 10 will make the text smaller and any number larger than 10 will make the text larger.</p>
+            </dd>
+            <dt>spacing</dt>
+            <dd>
+              <p>This affects the space between text characters without affecting the actual size of the characters. Default is 1. Example:</p>
+              <pre>text("Your text here", spacing = 1.5);</pre>
+            </dd>
+            <dt>direction</dt>
+            <dd>
+              <p>&#x200B; You can control the direction your text is printed in with the direction parameter. Example: <kbd class="userinput">text("Your text here", direction = "ttb");</kbd></p>
+              <p>The four options are <code class="literal">ltr</code> (left to right, the normal direction of text), <code class="literal">rtl</code> (right to left, reverse writing), <code class="literal">ttb</code> (top to bottom, going down), and <code class="literal">btt</code> (bottom to top). The default is left to right. Other than the default, the only one I see having any use is top to bottom. The right to left seems particularly worthless, especially since it does not reverse the letters, so looking at it from the other side is not readable.</p>
+            </dd>
+            <dt>halign and valign</dt>
+            <dd>&#x200B; These just move the text around. Since you can do the same thing with greater control using the translate command that I will describe in the next chapter, I will not bother to describe this at all.</dd>
+            <dt>etc-</dt>
+            <dd/>
+          </dl>
+        </section>
+        <section>
+          <h3>Rotating, Colouring etc. of Text</h3>
+          <p>You probably also want to rotate your text around the X axis and select some colour such as <code class="literal">Black</code> or <code class="literal">Gray</code>, as in:</p>
+          <pre>rotate([90,0,0]) color("Gray") text("[Description of view]", size=10);</pre>
+        </section>
+      </section>
+      <!-- end of "OpenSCAD WhatEver" -->
+      <section id="OpenSCAD_">
+        <h2>OpenSCAD WhatEver*</h2>
+      </section>
+      <!-- end of "OpenSCAD WhatEver" -->
+      <section id="OpenSCAD_advanced">
+        <h2>OpenSCAD Advanced Features*</h2>
+      </section>
+    </main>
+  </body>
+</html>

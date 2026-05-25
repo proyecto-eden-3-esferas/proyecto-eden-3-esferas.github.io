@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Printing in Linux</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Printing in Linux"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="Francisco Fernández-Victorio Hernández" />
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a rel="prev" href="linux.html">The Linux Operating System</a></p>
+        <p><a rel="next" href="linux.pdf-tools.html">Linux PDF Tools</a></p>
+        <p><a            href="https://www.linux.com/training-tutorials/linux-101-printing/">Linux 101: Printing</a> by Jack Wallen - January 12, 2010</p>
+        <p><a            href="distros.html">Linux Distributions</a></p>
+        <p><a            href="linux.swap.html">Linux Swap Partition/File for Paging</a></p>
+        <p><a            href="linux.shm.html">Linux <cite>/dev/shm/</cite>: a Shared Memory File Directory</a></p>
+        <p><a            href="linux.processes.html">Linux Processes</a></p>
+        <p><a            href="linux.partitioning.html">Partitions in Linux: Repairing...</a></p>
+        <p><a            href="linux.monitoring.html">Monitoring Linux</a></p>
+        <p><a            href="linux.journald.html">Linux Journal Service</a></p>
+        <p><a            href="linux.logging.html">Logging (Events) in Linux</a></p>
+      </div>
+      <div>
+        <p><a href="linux.tools.html">Linux Tools</a></p>
+        <p><a href="snap.html">Snap</a></p>
+        <p><a href="linux.bash.html">Bash: the Born Again SHell</a></p>
+        <p><a href="samba.html">Samba (Open Source Implementation of the Microsoft&apos;s SMB Networking Protocol)</a></p>
+        <p><a href="sed.html"><pre>sed</pre>, the Unix Stream EDitor</a></p>
+      <!--
+        <p><a href="flatpak.html">Flatpak</a></p>
+      -->
+      </div>
+    </nav>
+
+    <main>
+      <h1>Printing in Linux</h1>
+      <p>Printing in Linux relies primarily on the CUPS (Common UNIX Printing System) print server. Most modern distributions (like Ubuntu or Fedora) include this out-of-the-box and will automatically detect connected or network printers, offering a seamless setup through your desktop's graphical printer settings.</p>
+
+      <section id="cups">
+        <h2>CUPS (Common Unix Printer Service)</h2>
+        <p>CUPS is a modular printer system for the UNIX-like operating systems that serves as a print server. But don’t think that a print server is a network-only system. The CUPS system can act as a printer server for a local machine or a network of machines. This means with one system you can set up printing for a local machine or for a group of networked machines.</p>
+        <p>CUPS consists of:</p>
+        <ul>
+          <li><strong>Print spooler/scheduler</strong>: Lines up printing jobs to be sent to the printer.</li>
+          <li><strong>Filter system</strong>: Converts data so that the attached printer can understand and format the data being printed.</li>
+          <li><strong>Backend system</strong>: Transports data from filters to printer.</li>
+        </ul>
+        <hr/>
+        <p>By default cups installs the following directories:</p>
+        <ul>
+          <li><cite>/etc/cups</cite>: Configuration directory.</li>
+          <li><cite>/var/spool/cups/</cite>: The spooler directory where print jobs are held for printing.</li>
+          <li><cite>/var/spool/cups-pdf</cite>: The spooler directory where CUPS-generated PDF files are held for printing.</li>
+        </ul>
+        <hr/>
+        <p>CUPS also installs an executable binary in /etc/init.d/ (or /etc/rc.d/init.d) called cups. This binary is started with the command:</p>
+        <pre>/etc/init.d/cups start</pre>
+        <p>Stopped with the command:</p>
+        <pre>/etc/init.d/cups stop</pre>
+        <p>And restarted with the command:</p>
+        <pre>/etc/init.d/cups restart</pre>
+      </section>
+
+      <section id="printer-setup">
+        <h2>Printer Setup</h2>
+        <p>When you set up a printer in UNIX, the configuration creates a Postscript Printer Description file (ppd). This file contains all of the descriptions of a printers’ features as well as the PostScript code used to invoke features for a print job for that printer. <!--A typical PPD file will look like this file for a Samsung ML-1710. -->This ppd file will be created no matter which setup tool you use. Most likely you will not have to touch this file. There¬† have been a few occasions where I have had to take care of a couple of very minor changes to this configuration file. Those are very rare instances however.</p>
+        <p>Now, let’s move on to the actual configuration.</p>
+        <p>In order to configure your printer with the CUPS web-based tool you need to open up your web browser and point it to <cite>http://localhost:631</cite>. What will appear is the main page for the CUPS web-based tool<!-- (see Figure 2)-->. The set up of a printer is simple. Here are the steps:</p>
+        <ol>
+          <li>Click the Add Printer button.</li>
+          <li>Enter the name, location, and description of the printer.</li>
+          <li>Select the device.</li>
+          <li>Enter the device URI (this instructs the backends where the printer is located).</li>
+          <li>Select the Manufacturer of your printer.</li>
+          <li>Select the Model of your printer.</li>
+          <li>Configure any general settings for your printer.</li>
+        </ol>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

@@ -1,3 +1,137 @@
+# TEXTOS POR AÑADIR, TAREAS POR REALIZAR, NOTAS ETC.
+
+# Download from https://goalkicker.com/ Programming Notes for Professionals books
+
+# La herramienta condiciona la obra o resultado o producto obtenido
+<p>La herramienta condiciona la obra, la máquina condiciona el proceso.</p>
+<p>Ejemplos:</p>
+<dl>
+  <dt>Las pinturas acrílicas</dt>
+  <dt>La guitarra eléctrica</dt>
+  <dt>La <a target="_blank" href="ofimatica.html">ofimática</a></dt>
+  <dt>La estadística</dt>
+  <dt>El tractor</dt>
+  <dt>La democracia representativa</dt>
+</dl>
+<section id="medio-es-mensaje">
+  <h2>El medio es el mensaje</h2>
+</section>
+
+
+# HTML.html#microformats
+
+
+# karma.html#milgros
+>Dios hace milagros pero no lava coches
+
+
+# SyncTeX
+SyncTeX is a command-line tool and utility that creates a bridge between a TeX/LaTeX source file and the compiled PDF output. It enables two-way synchronization: you can click on a point in the PDF and jump directly to the corresponding line in the source code, and vice versa.
+
+# Brother HL L2400DWE
+914 48 50 62 PV/26-000309
+## Linux Install
+To get your Brother HL-L2400DWE printing on Linux, download the official .deb or .rpm drivers from the Brother Solutions Center.
+Alternatively, use the generic IPP driver in your system's CUPS printer settings for a quicker, driverless setup.
+### Method 1
+The Official Driver Install ToolBrother provides a dedicated Linux Driver Install Tool that automates the setup process for most distributions.
+- Go to the official Brother HL-L2400DWE Support Page.
+- Select Linux as your operating system family and choose either Linux (deb) or Linux (rpm) depending on your distribution (e.g., Debian, Ubuntu, and Mint use .deb; Fedora, RedHat, and openSUSE use .rpm)
+- Download the Driver Install Tool.
+- Open your terminal and navigate to the directory where the file was downloaded.
+- Extract the file and run the installer script using sudo. The command will generally look like this (be sure to use the exact name of the file you downloaded):
+gunzip linux-brprinter-installer-x.x.x-x.
+gzsudo bash linux-brprinter-installer-x.x.x-x HL-L2400DWE
+- Follow the on-screen prompts. When asked to specify the Device URI, select Yes and choose your connection type (USB or Network/Wi-Fi).
+For a step-by-step walkthrough of the terminal installation and driver tool execution
+### Method 2
+Generic Driverless Setup (IPP / CUPS)
+Modern Linux distributions (like Ubuntu 22.04/24.04 or Fedora) often detect the Brother HL-L2400DWE automatically using driverless printing technologies (IPP/AirPrint).
+#### If connected via USB:
+Open your system's Settings > Printers menu.
+Click Add Printer.
+Your system should automatically detect the printer. Select it and let the system automatically assign the driver.
+#### If connected via Wi-Fi/Network:
+Ensure the printer is connected to your wireless network.
+Go to Settings > Printers > Add Printer.
+If it does not appear automatically, select the option to Add a Network Printer and choose IPP (Internet Printing Protocol).
+Enter your printer's IP address (e.g., ipp://192.168.1.XX/ipp/print).
+Choose the generic driver or the Owl-Maintainer or driverless option when prompted.
+### Troubleshooting Connection
+If your Linux machine cannot find the printer over your network during setup, ensure the printer and computer are on the same Wi-Fi band.
+For tips on putting the HL-L2400 series into wireless setup mode:
+## Cartridges
+Los cartuchos de toner validos para la impresora Brother HL L2400DWE son los Brother TN2510 y TN2510XL.
+En tiendacartucho.es tienes los consumibles que buscas:
+- TN2510 con capacidad de impresión de 1.200 páginas
+- TN2510XL para 3.000 páginas. Todos nuestros consumibles tienen dos años de garantía.
+## Printable area
+The unprintable area is a margin of 4.2 mm on all four margins (left, right, top and bottom)
+
+# OFERTA DE JARDINERO/A AYUNTAMIENTO REDUEÑA
+
+Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
+
+Buenos días:
+La Oficina de Empleo de San Sebastian de los Reyes está gestionando el PROGRAMA PUBLICO DE EMPLEO-FORMACION para la ACTIVACION PROFESIONAL 2026 al amparo de la Orden de 8 de mayo de 2023 y te informamos de la posibilidad de acceder a un contrato de trabajo desempeñando la ocupación de JARDINERO/A. La duración del contrato es de 8 meses en el AYUNTAMIENTO DE REDUEÑA.
+
+Ubicación del puesto: REDUEÑA
+Jornada laboral completa
+Funciones: Intervención en los espacios verdes: Jardín Comestible y Parque Medioambiental, realizando las funciones de Mejorar la vegetación existente. Regeneración del área de cultivo ecológico. Plantación de cultivos tradicionales. Difusión del manejo tradicional del cultivo evitando Instalación de sistema de riego localizado para asegurar el aporte de agua a las áreas restauradas con nueva vegetación. Diseño de un sistema de gestión, aprovechamiento y pedagógico del residuo orgánico generado.
+Podrás ampliar información del puesto y verificar estos datos una vez realices la entrevista con la entidad.
+
+Durante tu participación en el programa recibirás:
+
+a) Experiencia profesional en la obra y servicio, mediante la suscripción de contrato laboral con la entidad beneficiaria, a jornada completa de 8 meses de duración.
+b) Formación en competencias transversales, de carácter presencial, con los siguientes módulos formativos:
+Sensibilización medioambiental y buenas prácticas en la ocupación (50 horas)
+Habilidades personales y sociales para el empleo (40 horas)
+c) Orientación profesional para la búsqueda activa de empleo y, en su caso, para el desarrollo de una iniciativa emprendedora, impartida por la Oficina de Empleo, a la finalización del periodo de contratación.
+
+Los requisitos para participar en el proceso de selección son:
+	Ser demandante de empleo, en situación laboral de no ocupado (se excluirán de la participación en el programa los demandantes en mejora de empleo), e inscrito como demandante de empleo en el Servicio Público de Empleo de la Comunidad de Madrid.
+
+
+	Poder acreditar tu cualificación mediante la posesión del título de F.P. o Certificado de Profesionalidad relacionado con la ocupación, o bien poder acreditar dicha cualificación mediante experiencia profesional al haber trabajado por cuenta ajena o por cuenta propia en la ocupación referida un mínimo de tres meses. En este caso, la acreditación de la cualificación profesional podrá realizarse mediante contratos de trabajo, nóminas, informe de vida laboral de la Seguridad Social o declaración responsable de la actividad laboral.
+
+## Requisitos
+Para poder participar en el Programa además de cumplir los requisitos, debes manifestar tu interés explícitamente, mandando un mail ANTES DEL   22/05/2026 a las 12h, a la siguiente dirección de correo electrónico  mfj16@madrid.org , adjuntando tu Curriculum actualizado e indicando nombre completo, DNI/NIE y la referencia de la oferta nº 4128 en el asunto del correo.
+O responder en dicho correo en el caso de no cumplir con los requisitos o no estar disponible
+POR FAVOR RESPONDE EN TODO CASO AL CORREO INDICADO, Y SIEMPRE ANTES DEL 22/05/2026
+
+Una vez recibamos tu mail, la Oficina de Empleo realizará la preselección de las candidaturas para su posterior envío a la entidad, siendo esta última quien se pondrá en contacto contigo para realizar una entrevista.
+
+Atentamente.
+
+
+
+OE SS REYES
+
+SAN SEBASTIAN DE LOS REYES
+C/ ISLA DE HIERRO 7
+San Sebastián de los Reyes
+(28703) MADRID
+
+## Contestación a mfj16@madrid.org
+
+Buenos días,
+
+Mi nombre es: Francisco Fernández-Victorio Hernández
+DNI: 51832728-S
+tel. 699217510
+e-mail: franciscofvh@hotmail.com
+Interesado en la oferta 4128 (para Redueña)
+
+La única acreditación para este puesto sería que poseí y mantuve una huerta en Tudela de Navarra (Ribera del Ebro) durante casi tres años.
+
+Por una parte apenas he manejado máquinas de jardinería de combustión interna. Por otra siempre me ha interesado la agricultura "ecológica", especialmente la permacultura.
+
+(http://proyecto-eden-3-esferas.github.io/permacultura.html es una página dentro de mi cuenta de GitHub, sitio de Microsoft orientado a albergar proyectos de programación y afines. También he escrito / compilado / fundido muchas más páginas pero en inglés, como http://proyecto-eden-3-esferas.github.io/permaculture.html o http://proyecto-eden-3-esferas.github.io/about-forest-gardens.html)
+
+Un saludo.
+
+
+
 # `/dev/sdc3`
 ```
 Attempt to read block from filesystem resulted in short read while trying to open /dev/sdc3
@@ -452,8 +586,8 @@ by Nick Srnicek
 
 # MPI / MPICH / OpenMPI
 
-#
-
+# permacultura.html#que
+<h2>Permacultura ¿qué?</h2>
 <p>Pues anteayer estaba paseando a mi perro y me encontré con otro amo, llevaba un chihuahua, no se pelearon. No recuerdo cómo surgió la conversación, durante la cuál me dijo que había estudiado agrónomos en Jaén, la verdad que hablaba con mucho acento. Entonces yo derivé hacia el tema de la <a target="_blank" href="permacultura.html">permacultura</a> y él comentó que nunca había oído la palabra. Muy educada y brevemente traté de explicárselo, pues algunas palabras no tanto se definen como se explican.</p>
 
 # [x] Upload pictures in ~/former/home/francisco/Documents/mis_escritos/precious/psimple/github_pages/pictures/
@@ -463,6 +597,8 @@ by Nick Srnicek
   [ ] deal with <div> elements
 
 # Webbrowser Bookmarks
+
+https://goalkicker.com/ Programming Notes for Professionals books
 
 http://localhost:5984/_utils/docs/api/database/find.html
 http://localhost:5984/_utils/docs/api/database/find.html#find-sort

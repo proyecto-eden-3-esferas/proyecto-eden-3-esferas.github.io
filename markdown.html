@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mark-Down</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Mark-Down: a very simple mark-up language"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="prev" href="computer-languages.html#markup">Mark-Up Languages</a></p>
+        <p><a            href="computer-languages.html">Computer Languages</a></p>
+        <p><a            href="formal-systems.html">Formal Systems</a></p>
+        <p><a            href="automata.html">Formal Languages and Automata</a></p>
+      </div>
+      <div>
+        <p><a href="tex-latex.html">TeX/LaTeX</a>: an open-source typesetting system for text, mathematical formulas and much more.</p>
+        <p><a href="diagram.html">Diagrams and Schematics</a></p>
+        <p><a href="knowledge-representation.html">Knowledge Representation</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Mark-Down</h1>
+      <aside>
+        <p>Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents. It was created by John Gruber in 2004.</p>
+        <p>Markdown syntax is designed to be readable and unobtrusive, so the text in Markdown files can be read even if it isn't rendered.</p>
+      </aside>
+      <section class="section">
+        <h4>Basic Syntax</h4>
+        <p>These are the elements outlined in John Gruber's original design document. All Markdown applications support these elements.</p>
+        <table border="1">
+          <thead>
+            <tr>
+              <td>Element</td>
+              <td>Markdown Systax</td>
+            </tr>
+          </thead>
+          <tr>
+            <td>Heading</td>
+            <td>
+              <pre># H1
+  ## H2
+  ### H3</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Bold</td>
+            <td>
+              <pre>**bold text**</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Italic</td>
+            <td>
+              <pre>*italicized text*</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Blockquote</td>
+            <td>
+              <pre>&gt; blockquote</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Ordered List</td>
+            <td>
+              <pre>1. First item
+  2. Second item
+  3. Third item</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Unordered List</td>
+            <td>
+              <pre>- First item
+  - Second item
+  - Third item</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Code (single backticks)</td>
+            <td>
+              <pre>`code`</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Horizontal Rule</td>
+            <td>
+              <pre>---</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Link</td>
+            <td>
+              <pre>[title](https://www.example.com)</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Image</td>
+            <td>
+              <pre>![alt text](image.jpg)</pre>
+            </td>
+          </tr>
+        </table>
+      </section>
+      <section class="section">
+        <h4>Extended Syntax</h4>
+        <p>These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.</p>
+        <table border="1">
+          <thead>
+            <tr>
+              <td>Element</td>
+              <td>Markdown Systax</td>
+            </tr>
+          </thead>
+          <tr>
+            <td>Table</td>
+            <td>
+              <pre>| Syntax | Description |
+  | ----------- | ----------- |
+  | Header | Title |
+  | Paragraph | Text |</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Code Block</td>
+            <td>
+              <pre>```
+  {
+    "firstName": "John",
+    "lastName": "Smith",
+    "age": 25
+  }
+  ```</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Footnote</td>
+            <td>
+              <pre>Here's a sentence with a footnote. [^1]
+
+  [^1]: This is the footnote.</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Heading ID</td>
+            <td>
+              <pre>### My Great Heading {#custom-id}</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Definition List</td>
+            <td>
+              <pre>term
+  : definition</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Strikethrough</td>
+            <td>
+              <pre>~~The world is flat.~~</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Task List</td>
+            <td>
+              <pre>- [x] Write the press release
+  - [ ] Update the website
+  - [ ] Contact the media</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Emoji</td>
+            <td>
+              <pre>That is so funny! :joy:</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Highlight</td>
+            <td>
+              <pre>I need to highlight these ==very important words==.</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Subscript</td>
+            <td>
+              <pre>H~2~O</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Superscript</td>
+            <td>
+              <pre>X^2^</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Language for Code (GitHub)</td>
+            <td>
+              <pre>```javascript
+  var s = "JavaScript syntax highlighting";
+  alert(s);
+  ```</pre>
+            </td>
+          </tr>
+        </table>
+      </section>
+    </main>
+
+  </body>
+
+</html>

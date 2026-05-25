@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TeX/LaTeX</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="TeX/LaTeX: an open-source typesetting system for text, mathematical formulas and much more."/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="prev" href="computer-languages.html#markup">Mark-Up Languages</a></p>
+      </div>
+      <div>
+        <p><a href="diagram.html">Diagrams and Schematics</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>TeX/LaTeX: an open-source typesetting system for text, mathematical formulas and much more.</h1>
+      <p>In the beginning was Chaos, when several typesetting systems existed, none of them free. Then Donald Knuth renounced a sabbatical to develop a digital typesetting systems of his own. And he named it <dfn class="firstterm">TeX</dfn>, after the Greek word <q>technology</q> or <q>techne</q>.</p>
+      <p>TeX and its child LaTeX are user-friendly desktop publishing tools mainly used for typesetting technical documents which nonetheless produce professional-looking print.</p>
+      <div class="note" style="border-style: solid;">Equivalences between MathML and TeX/LaTex are explained <a href="#mathml_tex_latex">elsewhere</a> in this document.</div>
+      <section>
+        <h3>TeX and Plain TeX</h3>
+        <p>So TeX is the foundation of [Plain TeX and] LaTeX.</p>
+        <p>Much like <a href="postscript.html">PostScript</a>, <code class="application">TeX</code> offers thorough and <em>free</em> documentation. Here are the main copyleft books on <code class="application">TeX</code> you may easily find and download legally on the internet:</p>
+        <ul class="itemizedlist">
+          <dd>Paul W. Abrahams, Kathryn A. Hargreaves, and Karl Berry, <cite class="citetitle">TeX for the Impatient</cite>
+</dd>
+          <dd>Victor Eijkhout, <cite class="citetitle">TeX by Topic</cite>
+</dd>
+          <dd>Donald E. Knuth, <cite class="citetitle">The TeXbook</cite>
+</dd>
+          <dd>Norman Walsh, <cite class="citetitle">Making TeX Work</cite>
+</dd>
+        </ul>
+        <section>
+          <h4>Our First TeX Document</h4>
+          <p>A TeX file is mostly made up of ASCII text which follows a number of conventions. For instance, a blank line, alternatively two ENTER strokes, separates two paragraphs. Commands are preceded by a backslash, and TeX recognizes about 900, or which about 300 are called <dfn class="firstterm">primitive</dfn> and are not made up of simpler functions. The remaining 600 are plain text definitions. For instance, \TeX is a built-in command sequence. Two paragraph may be separated by a \par command. You type \end at the end of what you intend to get printed, and the processor ignores the rest. This is a minimal TeX file:</p>
+          <pre>Hello \TeX! \end</pre>
+          <div class="note" style="border-style: solid;">
+            <p>To use Eplain, simply put the command</p>
+            <pre>\input eplain</pre>
+            <p>at the top of your plain TeX document.</p>
+          </div>
+        </section>
+        <section>
+          <h4>Characters</h4>
+          <p>TeX uses the ASCII character set. To typeset accented characters you need to prepend operators, as explained further down.</p>
+          <section>
+            <h4>Special or reserved characters</h4>
+            <p>These are characters whose effect is to perform an action, unlike in ordinary text. To cancel there effect and show them they are usually preceded with a backslash.</p>
+            <ul class="itemizedlist">
+              <dd>'\': backslash, escape character; it is escaped by \backslash: </dd>
+              <dd>'%': remainder of line is a comment; it is escaped: \%</dd>
+              <dd>'{': beginning of group; it is escaped: \{</dd>
+              <dd>'}': end of group; it is escaped: \{</dd>
+              <dd>'$': enter inline mathematical mode or leave it if in inline mathematical mode; it is escaped: \$ </dd>
+              <dd>'$$': enter display mathematical mode or leave it if in display mathematical mode; it is escaped: \$\$ </dd>
+              <dd>'_': subscript; it is escaped: \_</dd>
+              <dd>'^': superscript; it is escaped: \^</dd>
+              <dd>'~': non-breakable space; it is escaped: \~</dd>
+              <dd>'#': parameter; it is escaped: \%</dd>
+              <dd>'&amp;': alignment tab; it is escaped: \&amp;</dd>
+            </ul>
+            <p>An example:</p>
+            <pre>Can you solve this?
+$$y^2 + xy + x^2 = 0$$
+\end</pre>
+          </section>
+          <section>
+            <h4>Accents</h4>
+            <p>Plain TeX makes it possible to typeset the most commonly used accents:</p>
+            <ul class="itemizedlist">
+              <dd>
+<kbd class="userinput">\`o</kbd> ò (grave accent)</dd>
+              <dd>
+<kbd class="userinput">\'o</kbd> ó (acute accent)</dd>
+              <dd>
+<kbd class="userinput">\^o</kbd> ô(circumflex or <q>hat</q>)</dd>
+              <dd>
+<kbd class="userinput">\"o</kbd> ö (umlaut or dieresis)</dd>
+              <dd>
+<kbd class="userinput">\~n</kbd> ñ (tilde or <q>squiggle</q>)</dd>
+              <dd>
+<kbd class="userinput">\=o</kbd>    (macron or <q>bar</q>)</dd>
+              <dd>
+<kbd class="userinput">\.o</kbd>    (dot accent)</dd>
+              <dd>
+<kbd class="userinput">\u o</kbd>   (breve accent)</dd>
+              <dd>
+<kbd class="userinput">\v o</kbd>   (<q>check</q>)</dd>
+              <dd>
+<kbd class="userinput">\H o</kbd>   (long Hungarian umlaut)</dd>
+              <dd>
+<kbd class="userinput">\t oo</kbd>  (tie-after accent)</dd>
+            </ul>
+            <p>Within the font, such accents are designed to appear at the right height for the letter 'o'; but you can use them over any letter, and TeX will raise an accent that is supposed to be taller. Notice that spaces are needed in the last four cases, to separate the control sequences from the letters that follow. You could, however, type <kbd class="userinput">\H{o}</kbd> in order to avoid putting a space in the midst of a word.</p>
+            <p>To place an accent over a dotted character use an undotted variant: <kbd class="userinput">\i</kbd> and <kbd class="userinput">\j</kbd>.</p>
+            <p>Plain TeX also provides three accents that go underneath:</p>
+            <ul class="itemizedlist">
+              <dd>
+<kbd class="userinput">\c c</kbd>ç (cedilla accent)</dd>
+              <dd>
+<kbd class="userinput">\d o</kbd>  (dot-under accent)</dd>
+              <dd>
+<kbd class="userinput">\b o</kbd>  (bar-under accent)</dd>
+            </ul>
+          </section>
+          <section>
+            <h4>Of hyphens and dashes</h4>
+            <p>TeX has four different signs:</p>
+            <ul class="itemizedlist">
+              <dd>a hyphen: type a hyphen</dd>
+              <dd>an en-dash: for ranges, type two hyphens</dd>
+              <dd>an em-dash: for inserts, type three hyphens</dd>
+              <dd>a minus sign: type a hyphen in math mode</dd>
+            </ul>
+          </section>
+          <section>
+            <h4>Quoting</h4>
+            <p>Just type two single-quote marks of the appropriate kind, that is grave-grave and then apostrophe-apostrophe:</p>
+            <pre>``I understand.''</pre>
+            <p>You can also use command sequences:</p>
+            <pre>\lq\lqI understand.\rq\rq</pre>
+          </section>
+          <section>
+            <h4>Foreign, non-accented characters</h4>
+            <ul class="itemizedlist">
+              <dd>
+<kbd class="userinput">\oe,\OE</kbd> (French ligature OE)</dd>
+              <dd>
+<kbd class="userinput">\ae,\AE</kbd>æ, Æ (Latin and Scandinavian ligature AE)</dd>
+              <dd>
+<kbd class="userinput">\aa,\AA</kbd> (Scandinavian A-with-circle)</dd>
+              <dd>
+<kbd class="userinput">\o,\O</kbd>ø, Ø (Scandinavian O-with-slash)</dd>
+              <dd>
+<kbd class="userinput">\l,\L</kbd> (Polish suppressed-L)</dd>
+              <dd>
+<kbd class="userinput">\ss</kbd>ß (German <q>es-zet</q> or sharp S)</dd>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h4>Fonts in TeX</h4>
+          <p>TeX provides the following control sequences for changing fonts:</p>
+          <ul class="itemizedlist">
+            <dd>
+<kbd class="userinput">\rm</kbd> switches to the normal <q>roman</q> typeface;</dd>
+            <dd>
+<kbd class="userinput">\sl</kbd> switches to a slanted roman typeface;</dd>
+            <dd>
+<kbd class="userinput">\it</kbd> switches to italic style;</dd>
+            <dd>
+<kbd class="userinput">\tt</kbd> switches to a monospace, typewriter-like face;</dd>
+            <dd>
+<kbd class="userinput">\bf</kbd> switches to bold face</dd>
+          </ul>
+          <section>
+            <h4>Font sizes</h4>
+            <p>TeX assumes font size = 10 points. You can determine a different overall size by setting \magnification before any page is output. The intended factor must be multiplied by 1000. Thus, <kbd class="userinput">\magnification=2000</kbd> sets a size twice as big. You probably want to stay between 1000 and 1800. You can also type: <kbd class="userinput">\magnification=\magstep0</kbd> for no magnification (1000), <kbd class="userinput">\magnification=\magstep1</kbd> for 1200 magnification, and so on geometrically.</p>
+            <p>Font size can be changed locally by redefining \rm and so on. To change to a bigger font:</p>
+            <pre>\font\rm=cmr10 scaled 1200</pre>
+          </section>
+        </section>
+        <section>
+          <h4>Grouping</h4>
+          <p>Local scope is created through pairs of matching curly braces. Changes between them do not affect the enclosing environment. Thus, to itilize a word type:</p>
+          <pre>This is {\it absolutely} secret.</pre>
+          <p>If you want changes to go beyond the local scope, prepend <var>\global</var>.</p>
+        </section>
+        <section>
+          <h4>Boxes and glue</h4>
+          <p>When building a wall, we put bricks in a pattern, and in between them we put mortar to hold the wall together and make it rigid. Similarly, TeX constructs lines (aka horizontal boxes) by putting words (horizontal boxes) one after the other, and in between them it puts a special rubber lenght called <dfn class="firstterm">glue</dfn>. Then it procedes to compose pages by putting lines one above the other, and in between them some more glue. Every blob of glue has a natural length and may stretch or shrink a bit on demand according to its stretchability and shrinkability.</p>
+          <p>Paragraphs themselves are made from lines stacked and glued together. And lines are made up from word-like components (bricks?) kept apart by glue. Paragraphs, lines and word-like components are instances of <dfn class="firstterm">boxes</dfn>.</p>
+          <p>Boxes have width, height and depth. A blob of glue has a natural length called <dfn class="firstterm">space</dfn>, as well as <dfn class="firstterm">stretch</dfn> or by how much it would stretch, and <dfn class="firstterm">shrink</dfn>. Glue is allowed to stretch infinitely far, but it will never shrink  more than its stated shrinkability.</p>
+          <p>So what's the purpose of stating <var>stretch</var> if glue can stretch infinitely far? Well, if an box containing boxes and glue is to stretch further than its natural length, then each blob of glue will stretch in proportion to its <var>shrink</var>.</p>
+          <p>Boxes whose components are grouped horizontally are called <dfn class="firstterm">hbox</dfn>'s. A line is an hbox. A word too may be seen as an hbox made up of type. And boxes whose components are grouped vertically or <q>stacked</q> are called <dfn class="firstterm">vbox</dfn>'s. A paragraph or a displayed list of items are instances of vbox.</p>
+          <section>
+            <h4>Paragraph indentation</h4>
+            <p>You can set a different glue to \parindent. A value of 0pt effectively prevents indentation. Also, typing \noindent at the very beginning of a paragraph prevents indentation, whereas \indent causes it.</p>
+          </section>
+          <section>
+            <h4>Line breaking</h4>
+            <p>You can prompt TeX to break a word by inserting '\-'. Also, you may define the hyphenation of words with command sequence \hyphenation:</p>
+            <pre>\hyphenation{gal-axy}</pre>
+            <p>TeX assigns a numerical value called <q>badness</q> to each line that it sets, in order to assess the quality of spacing. Plain TeX normally stipulates that no line's badness should exceed 200.</p>
+            <!-- p 29 -->
+          </section>
+          <section>
+            <h4>Interline spacing*</h4>
+          </section>
+          <section>
+            <h4>Centered lines</h4>
+            <pre>\centerline{This is a centered line!}</pre>
+          </section>
+        </section>
+        <section>
+
+          <h4>Commands for Horizontal and Vertical Modes</h4>
+          <p>This section covers commands that have corresponding or identical forms for both horizontal and vertical modes. These commands provide boxes, spaces, rules, leaders, and alignments.</p>
+          <section>
+            <h4>Producing space*</h4>
+            <section>
+              <h4>Fixed-width horizontal space*</h4>
+            </section>
+            <section>
+              <h4>Fixed-length vertical space*</h4>
+            </section>
+            <section>
+              <h4>Variable-size space*</h4>
+            </section>
+          </section>
+          <section>
+            <h4>Manipulating boxes</h4>
+            <section>
+              <h4>Constructing hboxes and vboxes</h4>
+              <pre>\hbox {&lt;horizontal mode material&gt;}
+\hbox to &lt;dimen {&lt;horizontal mode material}
+    \hbox spread &lt;dimen {&lt;horizontal mode material&gt;}</pre>
+              <p>This command produces an hbox (horizontal box) containing &lt;horizontal mode materiali&gt;. The braces around &lt;horizontal mode material&gt; define a group. TEX doesn't break the &lt;horizontal mode material&gt; into lines, since it's in restricted horizontal mode when it's assembling the box. TEX won't change the size of the box once it's been produced.</p>
+              <p><command>\hbox</command> is often useful when you want to keep some text all on one line. If your use of <command>\hbox</command> prevents TEX from breaking lines in an acceptable way, TEX will complain about an overfull hbox.</p>
+              <p>The width of the hbox depends on the arguments to <command>\hbox</command>:</p>
+              <ul class="itemizedlist">
+                <dd>If you specify only &lt;horizontal mode material&gt;, the hbox will have its natural width.</dd>
+                <dd>If you specify to &lt;dimen&gt;, the width of the hbox will be &lt;dimen</dd>
+                <dd>If you specify <command>spread &lt;dimen&gt;</command>, the width of the hbox will be its natural width plus &lt;dimen&gt;, i.e., the hbox will be spread out by &lt;dimen&gt;.</dd>
+              </ul>
+              <h5 class="bridgehead">Example:</h5>
+              <pre>\hbox{ugly suburban sprawl}
+\hbox to 2in{ugly \hfil suburban \hfil sprawl}
+\hbox spread 1in {ugly \hfil suburban \hfil sprawl}
+% Without \hfil in the two preceding lines,
+% you’d get ‘underfull hbox’es.</pre>
+              <p>For holding vertical mode material:</p>
+              <pre>\vtop <var>vertical mode material</var>
+\vtop to hdimeni { <var>vertical mode material</var> }
+\vtop spread hdimeni { <var>vertical mode material</var> }
+\vbox { <var>vertical mode material</var> }
+\vbox to hdimeni { <var>vertical mode material</var> }
+\vbox spread hdimeni { <var>vertical mode material</var> }</pre>
+              <p>These commands produce a vbox (vertical box) containing <var>vertical mode material</var>. The braces around <var>vertical mode material</var> define a group. TEX is in internal vertical mode when it's assembling the box. TEX won't change the size of the box once it's been produced.</p>
+              <p>The difference between <command>\vtop</command> and <command>\vbox</command> lies in where TEX puts the reference point of the constructed vbox. Ordinarily, the reference point gotten from <command>\vtop</command> tends to be at or near the top of the constructed vbox, while the reference point gotten from <command>\vbox</command> tends to be at or near the bottom of the constructed vbox. Thus a row of vboxes all constructed with <command>\vtop</command> will tend to have their tops nearly in a line, while a row of vboxes all constructed with <command>\vbox</command> will tend to have their bottoms nearly in a line.</p>
+              <p><command>\vtop</command> and <command>\vbox</command> are often useful when you want to keep some text together on a single page. (For this purpose, it usually doesn't matter which command you use.) If your use of these commands prevents TEX from breaking pages in an acceptable way, TEX will complain that it's found an overfull or underfull vbox while <command>\output</command> is active.</p>
+              <p>The height of a vbox depends on the arguments to <command>\vtop</command> or <command>\vbox</command>. For <command>\vbox</command>, TEX determines the height as follows:</p>
+              <ul class="itemizedlist">
+                <dd>If you specify only <var>vertical mode material</var>, the vbox will have its natural height.</dd>
+                <dd>If you specify to <var>dimen</var>, the height of the vbox will be <var>dimen</var>.</dd>
+                <dd>If you specify spread <var>dimen</var>, the height of the vbox will be its natural height plus <var>dimen</var>, i.e., the height of the vbox will be stretched vertically by <var>dimen</var>.</dd>
+              </ul>
+              <p>For <command>\vtop</command>, TEX constructs the box using its rules for <command>\vbox</command> and then apportions the vertical extent between the height and the depth as described below.</p>
+              <p>Ordinarily, the width of a constructed vbox is the width of the widest item inside it. (More precisely, it's the distance from the reference point to the rightmost edge of the constructed vbox. Therefore, if you move any of the items right using <command>\moveright</command> or <command>\moveleft</command> (with a negative distance), the constructed vbox might be wider.) The rules for apportioning the vertical extent between the height and the depth are more complicated:</p>
+              <ul class="itemizedlist">
+                <dd>For <command>\vtop</command>, the height is the height of its first item, if that item is a box or rule. Otherwise the height is zero. The depth is whatever vertical extent remains after the height is subtracted.</dd>
+                <dd>For <command>\vbox</command>, the depth is the depth of its last item, if that item is a box or rule. Otherwise the depth is zero. The height is whatever vertical extent remains after the depth is subtracted. (In fact, there's a further complication. Suppose that after the depth has been determined using the two rules just given, the depth turns out to be greater than <var>\boxmaxdepth</var>. Then the depth is reduced to <var>\boxmaxdepth</var> and the height is adjusted accordingly.)</dd>
+              </ul>
+              <p>The <command>\vfil</command> command is useful for filling out a vbox with empty space when the material in the box isn't as tall as the vertical extent of the box.</p>
+              <h5 class="bridgehead">Example:</h5>
+              <pre>\hbox{\hsize = 10pc \raggedright\parindent = 1em
+\vtop{In this example, we see how to use vboxes to
+produce the effect of double columns. Each vbox
+contains two paragraphs, typeset according to \TeX’s
+usual rules except that it’s ragged right.\par
+This isn’t really the best way to get true double
+columns because the columns}
+\hskip 2pc
+\vtop{\noindent
+aren’t balanced and we haven’t done anything to choose
+the column break automatically or even to fix up the
+last line of the first column.\par
+However, the technique of putting running text into a
+vbox is very useful for placing that text where you
+want it on the page.}}</pre>
+              <h5 class="bridgehead">Another example:</h5>
+              <pre>\hbox{\hsize = 1in \raggedright\parindent = 0pt
+\vtop to .75in{\hrule This box is .75in deep. \vfil\hrule}
+\qquad
+\vtop{\hrule This box is at its natural depth. \vfil\hrule}
+\qquad
+\vtop spread .2in{\hrule This box is .2in deeper than
+                        its natural depth.\vfil\hrule}}</pre>
+              <h5 class="bridgehead">Yet another example:</h5>
+              <pre>% See how \vbox lines up boxes at their bottoms
+% instead of at their tops.
+\hbox{\hsize = 1in \raggedright
+\vbox to .5in{\hrule This box is .5in deep.\vfil\hrule}
+\qquad
+\vbox to .75in{\hrule This box is .75in deep.\vfil\hrule}}</pre>
+              <h5 class="bridgehead">
+                <command>\boxmaxdepth [ &lt;dimen&gt; parameter ]</command>
+              </h5>
+              <p>This parameter contains a dimension <var>D</var>. TEX will not construct a box whose depth exceeds <var>D</var>. If you produce a box whose depth <var>d</var> would exceed <var>D</var>, TEX will transfer the excess depth to the height of the box, effectively moving the reference point of the box down by <inlineequation><var>d</var> − <var>D</var></inlineequation>. If you set <var>\boxmaxdepth</var> to zero, TEX will line up a row of vboxes so that their bottom boundaries all lie on the same horizontal line. Plain TEX sets <var>\boxmaxdepth</var> to <var>\maxdimen</var>, so <var>\boxmaxdepth</var> won't affect your boxes unless you change it.</p>
+              <h5 class="bridgehead">
+                <command>\underbar [ &lt;argument&gt;]</command>
+              </h5>
+              <p>This command puts <var>argument</var> into an hbox and underlines it without regard to anything that protrudes below the baseline of the box.</p>
+              <p>Example:</p>
+              <pre>\underbar{Why not learn \TeX?}</pre>
+            </section>
+            <section>
+              <h4>Setting and retrieving the contents of boxes*</h4>
+            </section>
+            <section>
+              <h4>Shifting boxes</h4>
+              <p>Use:</p>
+              <pre>\moveleft <var>dimen</var> <var>box</var>
+\moveright <var>dimen</var> <var>box</var></pre>
+              <p>These commands move <var>box</var> left or right by <var>dimen</var> (which can be neg- ative). You can only apply \moveleft and \moveright to a box that's in a vertical list.</p>
+              <p>Example:</p>
+              <pre>\vbox{\vbox{Phoebe}\vbox{walked}%
+\moveleft 20pt\vbox{a}\moveright 20pt\vbox{crooked}%
+\vbox{mile.}}</pre>
+              <pre>\lower <var>dimen</var> <var>box</var>
+\raise <var>dimen</var> <var>box</var></pre>
+              <p>These commands move <var>box</var> up or down by <var>dimen</var> (which can be negative). You can only apply <command>\raise</command> and <command>\lower</command> to a box that's in a horizontal list.</p>
+              <p>Another example:</p>
+              <pre>Are you feeling \lower 6pt \hbox{depressed} about the
+                \raise 6pt \hbox{bump} on your nose?</pre>
+            </section>
+            <section>
+              <h4>Dimensions of box registers</h4>
+              <pre>\ht <var>register</var>
+\dp <var>register</var>
+\wd <var>register</var>
+[ <var>dimen</var> parameter ]
+[ <var>dimen</var> parameter ]
+[ <var>dimen</var> parameter ]</pre>
+              <p>These parameters refer to the height, depth, and width respectively of box register <var>register</var>. You can use them to find out the dimensions of a box. You can also change the dimensions of a box, but it's a tricky business; if you want to be adventurous you can learn all about it from pages 388–389 of <cite class="book">The TEXbook</cite>.</p>
+              <p>Example:</p>
+              <pre>\setbox0 = \vtop{\hbox{a}\hbox{beige}\hbox{bunny}}
+The box has width \the\wd0, height \the\ht0, and depth \the\dp0.</pre>
+              <p>produces</p>
+              <blockquote>The box has width 27.2223pt, height 4.30554pt, and depth 25.94444pt.</blockquote>
+            </section>
+            <section>
+              <h4>Struts, phantoms, and empty boxes</h4>
+              <pre>\strut</pre>
+              <p>This command produces a box whose width is zero and whose height (8.5pt) and depth (3.5pt) are those of a more or less typical line of type in cmr10, the default plain TEX font. Its main use is in forcing lines to have the same height when you've disabled TEX's interline glue with <command>\offinterlineskip</command> or a similar command, e.g., when you're constructing an alignment. If the natural height of a line is too short, you can bring it up to standard by including a <command>\strut</command> in the line. The strut will force the height and depth of the line to be larger, but it won't print anything or consume any horizontal space.</p>
+              <p>If you're setting type in a font that's bigger or smaller than cmr10, you should redefine <command>\strut</command> for that context.</p>
+              <p>Example:</p>
+              <pre>\noindent % So we're in horizontal mode.
+\offinterlineskip % So we get the inherent spacing.
+% The periods in this vbox are not vertically equidistant.
+\vtop{\hbox{.}\hbox{.(}\hbox{.x}
+  \hbox{.\vrule height 4pt depth 0pt}}\qquad
+% The periods in this vbox are vertically equidistant
+% because of the struts.
+\vtop{\hbox{.\strut}\hbox{.(\strut}\hbox{.x\strut}
+  \hbox{.\vrule height 4pt depth 0pt\strut}}</pre>
+              <pre>\mathstrut</pre>
+              <p>This command produces a phantom formula whose width is zero and whose height and depth are the same as those of a left parenthesis. <command>\mathstrut</command> is in fact defined as <q>\vphantom(</q>. Its main use is for getting radicals, underbars, and overbars to line up with other radicals, underbars, and overbars in a formula. It is much like <command>\strut</command>, except that it adjusts itself to the different styles that can occur in math formulas.</p>
+              <p>Example:</p>
+              <pre>$$\displaylines{
+\overline{a_1a_2} \land \overline{b_1b_2}
+\quad{\rm versus}\quad \overline{a_1a_2\mathstrut}
+  \land \overline{b_1b_2\mathstrut}\cr
+\sqrt{\epsilon} + \sqrt{\xi} \quad{\rm versus}\quad
+\sqrt{\epsilon\mathstrut} + \sqrt{\xi\mathstrut}\cr}$$</pre>
+              <pre>\phantom <var>argument</var></pre>
+              <p>This command produces an empty box having the same size and placement that <var>argument</var> would have were it typeset. One use of <command>\phantom</command> is for reserving space for a symbol that for some reason needs to be drawn in by hand.</p>
+              <p>Example:</p>
+              <pre>$1\phantom{9}2$</pre>
+              <p>produces:</p>
+              <informalequation>1 2</informalequation>
+              <pre>\hphantom <var>argument</var>
+\vphantom <var>argument</var></pre>
+              <p>These commands produce phantom boxes that don't print anything:</p>
+              <ul class="itemizedlist">
+                <dd>\hphantom produces a box with the same width as <var>argument</var> but zero height and depth.</dd>
+                <dd>\vphantom produces a box with the same height and depth as <var>argument</var> but zero width.</dd>
+              </ul>
+              <p>Their main purpose is to force a subformula to have a certain minimum horizontal or vertical dimension.</p>
+              <p>Example:</p>
+              <pre>$$\left[\vphantom{u\over v}t\right] \star
+\left[{u\over v}\right]\quad
+\{\hphantom{xx}\}$$</pre>
+              <pre>\smash <var>argument</var></pre>
+              <p>This command typesets <var>argument</var>, but forces the height and depth of
+              its containing box to be zero. You can use <command>\smash</command> and <command>\vphantom</command> in
+combination to give a subformula any height and depth that you wish.</p>
+              <p>Example:</p>
+              <pre>$${\smash{r_m \brace r_n}\vphantom{r}} \Longrightarrow r$$</pre>
+              <pre>\null</pre>
+              <p>This command produces an empty hbox.</p>
+              <p>Example:</p>
+              <pre>\setbox0 = \null
+The null box \null has width \the\wd0, height \the\ht0,
+and depth \the\dp0.</pre>
+              <p>which produces:</p>
+              <blockquote>The null box has width 0.0pt, height 0.0pt, and depth 0.0pt.</blockquote>
+            </section>
+            <section>
+              <h4>Parameters pertaining to malformed boxes*</h4>
+            </section>
+          </section>
+          <section>
+            <h4>Retrieving the last item from a list*</h4>
+          </section>
+          <section>
+            <h4>Rules and leaders</h4>
+            <pre>\hrule
+\hrule height <var>dimen</var> width <var>dimen</var> depth <var>dimen</var>
+\vrule
+\vrule width <var>dimen</var> height <var>dimen</var> depth <var>dimen</var></pre>
+            <p>The <command>\hrule</command> command produces a horizontal rule; the <command>\vrule</command> command produces a vertical rule. You can specify any or all of the width, height, and depth of the rule—TEX supplies default values for those that you omit. You can give the dimensions of the rule in any order; the forms listed above show just two of the possible combinations. You can even give a dimension of a given kind more than once—if you do, the last one is the one that counts.</p>
+            <p>If you don't specify the width of a horizontal rule, the rule is extended horizontally to the boundaries of the innermost box or alignment that contains the rule. If you don't specify the height of a horizontal rule, it defaults to 0.4pt; if you don't specify the depth of a horizontal rule, it defaults to 0pt</p>
+            <section>
+              <h4>Rules and leaders</h4>
+              <p>If you don't specify the width of a vertical rule, it defaults to 0.4pt. If you don't specify the height or the depth of a vertical rule, the rule is extended to the boundary of the innermost box or alignment that contains the rule.</p>
+              <p>TEX treats a horizontal rule as an inherently vertical item and a vertical rule as an inherently horizontal item. Thus a horizontal rule is legal only in a vertical mode, while a vertical rule is legal only in a horizontal mode. If this seems surprising, visualize it—a horizontal rule runs from left to right and separates vertical items in a sequence, while a vertical rule runs up and down and separates horizontal items in a sequence.</p>
+              <p>Example:</p>
+              <pre>\hrule\smallskip
+\hrule width 2in \smallskip
+\hrule width 3in height 2pt \smallskip
+\hrule width 3in depth 2pt</pre>
+              <p>Example:</p>
+              <pre>% Here you can see how the baseline relates to the
+% height and depth of an \hrule.
+\leftline{
+  \vbox{\hrule width .6in height 5pt depth 0pt}
+  \vbox{\hrule width .6in height 0pt depth 8pt}
+  \vbox{\hrule width .6in height 5pt depth 8pt}
+  \vbox{\hbox{ baseline}\kern 3pt \hrule width .6in}
+}</pre>
+              <p>Example:</p>
+              <pre>\hbox{( {\vrule} {\vrule width 8pt} )}
+\hbox {( {\vrule height 13pt depth 0pt}
+  {\vrule height 13pt depth 7pt} x)}
+% the parentheses define the height and depth of each of the
+% two preceding boxes; the ‘x’ sits on the baseline</pre>
+              <pre>\leaders <var>box or rule</var> <var>skip command</var>
+\cleaders <var>box or rule</var> <var>skip command</var>
+\xleaders <var>box or rule</var> <var>skip command</var></pre>
+              <p>These commands produce leaders, i.e., they fill a horizontal or vertical space with copies of a pattern. The <var>box or rule</var> specifies a leader, i.e., a single copy of the pattern, while the <var>skip command</var> specifies a window to be filled with a row or a column of the leaders. The pattern is repeated as many times as will fit into the window. If <var>skip command</var> is a horizontal skip, the window contains a row of leaders and TEX must be in a horizontal mode; if <var>skip command</var> is a vertical skip, the window contains a column of leaders and TEX must be in a vertical mode.</p>
+              <p>The commands differ in how they arrange the repeated pattern in the space and where they put any leftover space:</p>
+              <ul class="itemizedlist">
+                <dd>For <command>\leaders</command>, TEX aligns a row of leaders with the left end of the innermost box <var>B</var> that is to contain the result of the <command>\leaders</command> command. It aligns a column of leaders with the top of <var>B</var>. Those leaders that fall entirely within the window are retained. Any leftover space at the top and bottom of the window is left empty.</dd>
+                <dd>For <command>\cleaders</command>, the leaders are centered within the window.</dd>
+                <dd>For <command>\xleaders</command> the pattern is uniformly distributed throughout the window. If the leftover space is <var>l</var> and the leader is repeated n times, TEX puts space of width or height <inlineequation>l/(n + 1)</inlineequation> between adjacent leaders and at the two ends (left and right or top and bottom) of the leaders.</dd>
+              </ul>
+              <p>Example:</p>
+              <pre>\def\pattern{\hbox to 15pt{\hfil.\hfil}}
+\line{Down the Rabbit-Hole {\leaders\pattern\hfil} 1}
+\line{The Pool of Tears {\leaders\pattern\hfil} 9}
+\line{A Caucus-Race and a Long Tale {\cleaders\pattern\hfil} 19}
+\line{Pig and Pepper {\xleaders\pattern\hfil} 27}</pre>
+              <p>Another example:</p>
+              <pre>\def\bulletfill{\vbox to 3ex{\vfil\hbox{$\bullet$}\vfil}}%
+\def\mybox{\vbox to 1in}
+\def\myrule{\hrule width 4pt}\hsize=2in
+\hrule \line{%
+  \mybox{\myrule depth 8pt \leaders\bulletfill\vfill}
+  \hfil
+  \mybox{\myrule depth 15pt \leaders\bulletfill\vfill}
+  \hfil
+  \mybox{\myrule depth 18pt \cleaders\bulletfill\vfill}
+  \hfil
+  \mybox{\myrule depth 12pt \xleaders\bulletfill\vfill}%
+}\hrule</pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+              <pre></pre>
+              <p></p>
+            </section>
+          </section>
+          <section>
+            <h4>Alignments*</h4>
+            <section>
+              <h4>Tabbing alignments*</h4>
+            </section>
+            <section>
+              <h4>General alignments*</h4>
+            </section>
+          </section>
+        </section>
+        <section>
+          <h4>Programming TeX</h4>
+          <section>
+            <h4>Variables</h4>
+            <p>TeX has 256 registers called <var>\count0</var> to <var>\count255</var>, each capable of containing integers between -2147483647 and +2147483647, inclusive. TeX also has 256 registers called <var>\dimen0</var> to <var>dimen255</var>, each capable of containing a dimen[sion]. There are another 256 registers called <var>\skip0</var> to <var>\skip255</var>, each containing glue; and <var>\muskip0</var> to <var>muskip255</var>, each containing glue in mathematical units. You can assign new values to these registers by typing: <kbd class="userinput">\varx=y</kbd>, and you can add to or subtract from them by typing <kbd class="userinput">\advance\varx by y</kbd>.</p>
+            <p>Multiplication and division are possible too, but only by integers. For example, <kbd class="userinput">\multiply\dimen4 by 3</kbd> triples the value of <var>dimen4</var>, and <kbd class="userinput">\divide\skip5 by 2</kbd> cuts in half all three components of the glue that is currently registered in <var>\skip5</var>.</p>
+            <p>The first ten <var>\count</var> registers, <var>\count0</var> through <var>\count9</var>, are reserved for a special purpose[...]</p>
+            <p>It' usually desirable to have symbolic names for registers. TeX provides a <function>\countdef</function> command (similar to <function>\chardef</function>), which makes it easy to do this: You just say <kbd class="userinput">\countdef\chapno=28</kbd> and <var>\chapno</var> is henceforth an abbreviation for <var>\count28</var>. Similar commands <function>\dimendef</function>, <function>\skipdef</function>, and <function>\muskipdef</function> are available for the other types of numeric registers. After a control sequence has been defined by <function>\countdef</function>, it can be used in TeX commands exactly as if it were an integer parameter like <var>\tolerance</var>. Similarly, <function>\dimendef</function> effectively creates a new dimension parameter, <function>\skipdef</function> effectively creates a new glue parameter, and <function>\muskipdef</function> effectively creates a new muglue parameter.</p>
+            <p>How do you declare a variable without worrying about whether its underlying match has already been booked? Plain TeX provides <function>newcount</function>, <function>\newdimen</function>, <function>\newskip</function>, <function>\newmuskip</function>, and <function>\newbox</function>; there also are <function>\newtoks</function>, <function>\newread</function>, <function>\newwrite</function>, <function>\newfam</function>, and <function>\newinsert</function>, for features we haven't discussed yet. Use them like <kbd class="userinput">\newcount\sectno ... \sectno=1</kbd>.</p>
+            <p>Besides the numerical registers, TeX also has 256 box registers called <var>\box0</var> to <var>\box255</var>. A box register gets a value when you say <kbd class="userinput">\setbox&lt;n&gt;=&lt;box&gt;</kbd> for example, <kbd class="userinput">\setbox3=\hbox{A}</kbd> sets <var>\box3</var> to an hbox that contains the single letter A. <var>2\wd3</var> is a &lt;dimen&gt; that represents twice the width of <var>\box3</var>; similarly, ^<var>\ht&lt;n&gt;</var>; and <var>\dp&lt;n&gt;</var> can be used to refer to the height and depth of a given box register.</p>
+          </section>
+        </section>
+        <section>
+          <h4>Making lines</h4>
+          <p>A ready line, i.e. a string of type from left to right margin unless it is the last line in a paragraph, is a horizontal box or <var>hbox</var>. The spacing between words is stretched to make the end of the line the same x coordinate as the right margin. These words are themselves hboxes <em>glue-ed</em> together into a long line. If on the other hand this spacing is compressed, an <dfn class="firstterm">overfull</dfn> hbox is generated. If it is unacceptable large, an <dfn class="firstterm">underfull</dfn> hbox.</p>
+          <p>The only way to get rid of the overfull boxes is to change the <var>\tolerance</var>, i.e., to allow wider spaces between words. TeX assigns a numerical value called <var>badness</var> to each line that it sets, in order to assess the quality of the spacing. (The exact rules for badness are different for different fonts.) Plain TeX normally stipulates that no line' badness should exceed 200. TeX reports all boxes whose badness exceeds a certain threshold called <var>\hbadness</var>. Plain TeX sets <var>\hbadness</var> at 1000.</p>
+          <p>TeX treats 10000 as if it were <q>infinite</q> tolerance, allowing arbitrarily wide space; thus, a tolerance of 10000 will <em>never</em> produce an overfull box, unless something strange occurs like an unhyphenatable word that is wider than the column itself.</p>
+          <p><function>\raggedright</function> tells TeX not to worry about keeping the right margin straight, and to keep the spacing uniform within each line.</p>
+          <p>A parameter called <var>\hfuzz</var> allows you to ignore boxes that are only slightly overfull. For example, if you set <kbd class="userinput">\hfuzz=1pt</kbd>, a box must stick out more than one point before it is considered erroneous. Plain TeX sets <var>\hfuzz</var> at 0.1pt.</p>
+          <section>
+            <h4>Baselines</h4>
+            <p>Further, a line of printed glyphs has a <dfn class="firstterm">baseline</dfn>, that is an imaginary line below which each of its component boxes may have a depth and above which it usually has a height. The baselines of printable lines must be suitably separated.</p>
+            <p>TeX achieves this by means of three primitives: <var>\baselineskip</var> (glue), <var>\lineskip</var> (glue), and <var>\lineskiplimit</var> (dimension).</p>
+            <p>TeX inserts <q>interline glue</q> between consecutive lines in order to make the distance between their baseline equal to <var>\baselineskip</var>.</p>
+            <p>But if the interline glue calculated by this rule would cause the top edge of the new box to be closer than <var>\lineskiplimit</var> to the bottom edge of the previous box, then <var>\lineskip</var> is used as the interline glue. In other words, the distance between adjacent baselines will be the <var>\baselineskip</var> setting, unless that would bring the boxes too close together (less that <var>\lineskiplimit</var>), in which case the <var>\lineskip</var> glue will be used.</p>
+          </section>
+        </section>
+        <section>
+          <h4>Page dimensions in TeX</h4>
+          <p>Use \hsize for line width and \vsize for total height of printed area. \hoffset is positive rightwards, and \voffset is positive downwards. Some reasonable settings without headers or footers are:</p>
+          <pre>\hoffset=-0.33in
+\hsize=1.13\hsize
+\voffset=-0.5in
+\vsize=1.15\vsize</pre>
+        </section>
+        <section>
+          <h4>Mathematics</h4>
+          <p>TeX is designed to handle complex mathematical expressions in such a way that most of them are easy to input. The basic idea is that a complicated formula is composed of less complicated formulas put together in a simple way; the less complicated formulas are, in turn, made up of simple combinations of formulas that are even less complicated; and so on. Stating this another way, if you know how to type simple formulas and how to combine formulas into larger ones, you will be able to handle virtually any formula at all.<!-- So let&apos;s start with simple ones and work our way up.--></p>
+          <section>
+            <h4>Entering math mode</h4>
+            <p>Mathematical formulas are set either inline or to stand alone (display mode). Inline formulas are typed between single dollar signs, while display formulas are typed between double dollar signs. Otherwise formulas are straightforward to compose and easy to read in TeX.</p>
+            <p>When you type <kbd class="userinput">$x$</kbd> the <q>x</q> comes out in italics, but when you type <kbd class="userinput">$2$</kbd> the <q>2</q> comes out in roman type. In general, all characters on your keyboard have a special interpretation in math formulas, according to the normal conventions of mathematics printing: Letters now denote italic letters, while digits and punctuation denote roman digits and punctuation; a hyphen now denotes a minus sign, which is almost the same as an em-dash but not quite. The first <q>$</q> that you type puts you into math mode and the second takes you out.</p>
+            <p>TeX does most of its own spacing in math formulas; and it <em>ignores</em> any spaces that you yourself put between dollar signs (inline math). For example, if you type <kbd class="userinput">$ x$</kbd> and <kbd class="userinput">$ 2 $</kbd>, they will mean the same thing as <kbd class="userinput">$x$</kbd> and <kbd class="userinput">$2$</kbd>.</p>
+          </section>
+          <section>
+            <h4>Characters in math mode</h4>
+            <p>The 52 letters (<kbd class="userinput">A</kbd> to <kbd class="userinput">Z</kbd> and <kbd class="userinput">a</kbd> to <kbd class="userinput">z</kbd>) denote italic symbols, which a mathematician would call <q>variables</q>. TeX just calls them <dfn class="firstterm">ordinary symbols</dfn> because they make up the bulk of math formulas.</p>
+            <!--
+          <para>There are two variants of lowercase &apos;L&apos; in plain TeX. Ordinary &apos;l&apos; you get by simply typing <userinput>l</userinput>) and the calligraphic &apos;&apos;, (which you get by typing `^<userinput>\ell</userinput>').</para>
+          -->
+            <p>Plain TeX also treats the 18 characters</p>
+            <p> 0 1 2 3 4 5 6 7 8 9 ! ? . || / ` @ " </p>
+            <p>as ordinary symbols; i.e., it doesn't insert any extra space when these symbols occur next to each other or next to letters. Unlike the letters, these 18 characters remain in roman type when they appear in formulas. There' nothing special for you to remember about them, except that the vertical line '|' has special uses that we shall discuss later.</p>
+            <p>About primes, as used in calculus notation and so on, although you can use the command <function>prime</function>, you may just type a prime sign, as in <kbd class="userinput">y = y'</kbd> or <kbd class="userinput">y_1 = y'_1 + y'_2</kbd>.</p>
+            <p>TeX does not treat '/' as a binary operation, even though a slash stands for division (which qualifies as a binary operation on mathematical grounds). The reason is that printers traditionally put extra space around the symbols '+', '-', and '*', but not around '/'.</p>
+            <p>Plain TeX treats the four characters <kbd class="userinput">=</kbd>, <kbd class="userinput">&lt;</kbd>, <kbd class="userinput">&gt;</kbd>, and <kbd class="userinput">:</kbd> as <q>relations</q> because they express a relationship between two quantities. For example, <kbd class="userinput">${x&lt;y}$</kbd> means that <var>x</var> is less than <var>y</var>. Such relationships have a rather different meaning from binary operations like '+', and the symbols are typeset somewhat differently.</p>
+            <p>The two characters ',' (comma) and ';' (semicolon) are treated as punctuation marks in formulas; this means that TeX puts a little extra space after them, but not before them.</p>
+            <p>It isn't customary to put extra space after a '.' (period) in math formulas, so TeX treats a period as an ordinary symbol. If you want the ':' character to be treated as a punctuation mark instead of as a relation, just call it <kbd class="userinput">\colon</kbd>.</p>
+            <p>If you want to use a comma as an ordinary symbol (e.g., when it appears in a large number), just put it in braces; TeX treats anything in braces as an ordinary symbol.</p>
+            <p>The characters '(' and '[' <q>openings</q>, while ')' and ']' are called <q>closings</q>; these act pretty much like ordinary symbols, but they help TeX to decide when a binary operation is not really being used in a binary way.</p>
+            <section>
+              <h4>Greek letters for variables*</h4>
+            </section>
+            <section>
+              <h4>Accents in math mode</h4>
+              <p>Mathematical accents are somewhat different, because spacing is not the same; TeX uses special conventions for accents in formulas, so that the two sorts of accents will not be confused with each other. The following math accents are provided by plain TeX and are exemplified atop letter 'a':</p>
+              <pre>$\hat a$
+$\check a$
+$\tilde a$
+$\acute a$
+$\grave a$
+$\dot a$
+$\ddot a$
+$\breve a$
+$\bar a$
+$\vec a$</pre>
+              <p>The first nine of these are called <kbd class="userinput">\^</kbd>, <kbd class="userinput">\v</kbd>, <kbd class="userinput">\~</kbd>, <kbd class="userinput">\'</kbd>, <kbd class="userinput">\`</kbd>, <kbd class="userinput">\.</kbd>, <kbd class="userinput">\" </kbd>, <kbd class="userinput">\u</kbd>, and <kbd class="userinput">\=</kbd>, respectively, when they appear in text; <kbd class="userinput">\vec</kbd> is an accent that appears only in formulas. \TeX\ will complain if you try to use <kbd class="userinput">\^</kbd> or <kbd class="userinput">\v</kbd>, etc., in formulas, or if you try to use <kbd class="userinput">\hat</kbd> or <kbd class="userinput">\check</kbd>, etc., in ordinary text.</p>
+              <p>When the letters <em>i</em> and <em>j</em> are accented in math formulas, dotless symbols <kbd class="userinput">\imath</kbd> and <kbd class="userinput">\jmath</kbd> should be used as provided in plain TeX.</p>
+            </section>
+          </section>
+          <section>
+            <h4>Subscripts and superscripts</h4>
+            <p>Subscripts and superscripts are preceded by a hat or an underscore. These apply only to the next single character. If you want several to be subscripted or superscripted, just enclose them in braces, as in <kbd class="userinput">$e^{\omega i}$</kbd>, which prints e<sup>ωi</sup>.</p>
+            <p>A subscript or superscript preceding a glyph can be printed by preceding the expression with an empty group, as in <kbd class="userinput">${}_3A$</kbd>, which prints <sub>3</sub>A.</p>
+          </section>
+          <section>
+            <h4>Operators</h4>
+            <p>TeX puts some extra space before and after some operators. Also, operators consisting of letters are set in roman.</p>
+            <p>I have already discussed the arithmetic operators ('+', '-', '*', and '/'). Some other common glyph operators are <kbd class="userinput">\times</kbd> and <kbd class="userinput">cdot</kbd> (a vertically <em>centered</em> dot to denote multiplication, too), <kbd class="userinput">\cup</kbd> and <kbd class="userinput">\cap</kbd> for set union and intersection, <kbd class="userinput">\vee</kbd> (or <kbd class="userinput">\lor</kbd>), <kbd class="userinput">\wedge</kbd> (or <kbd class="userinput">\land</kbd>), and <kbd class="userinput">\xyz</kbd> for logical OR, AND, and NOT, <kbd class="userinput">\pm</kbd> and <kbd class="userinput">\mp</kbd> for plus-minus and minus-plus, <kbd class="userinput">to</kbd> and <kbd class="userinput">\mapsto</kbd> to map a set (element) to another set (element), <kbd class="userinput">\le</kbd> and <kbd class="userinput">\xyz</kbd> for less or equal and greater or equal; <kbd class="userinput">\ne</kbd> for not equal, <kbd class="userinput">\equiv</kbd> and <kbd class="userinput">\not\equiv</kbd> for equivalent and not equivalent, <kbd class="userinput">\subset</kbd> and <kbd class="userinput">\subseteq</kbd>, for inclusion and non-strict inclusion...</p>
+          </section>
+          <section>
+            <h4>Roots</h4>
+            <p>A square root is printed by command <function>\sqrt</function>, which takes one argument. Thus, you may type <kbd class="userinput">\sqrt2</kbd> or <kbd class="userinput">\sqrt{2}</kbd> or <kbd class="userinput">\sqrt{2+3}</kbd>. In the general case, you can print the radix through command <function>\root</function>, used like this: <kbd class="userinput">$\root 3 \of 27 = 3$</kbd>.</p>
+          </section>
+          <section>
+            <h4>Under and over</h4>
+            <section>
+              <h4>Fractions, binomials, and limits</h4>
+              <p>Fractions are made by typing <kbd class="userinput">\over</kbd> between numerator and denominator. Binomials are made by typing <kbd class="userinput">\choose</kbd> between its terms. Subscripts and superscripts of summations are printed over and under the summation sign in display mode. Try these:</p>
+              <pre>$$n+1\over n+2$$
+$${x+y^2\over k}+1$$
+$$n+1\choose3$$
+$$\sum_{n=1}^3 Z_n^2$$</pre>
+              <p>Notice the second expression: sometimes grouping is necessary.</p>
+              <p>If the numerator of a fraction is a fraction, it should be set as with a slash: <kbd class="userinput">$${a \over b} \over 2$$</kbd></p>
+            </section>
+            <section>
+              <h4>An expression over another expression</h4>
+              <p>TeX has another operation <kbd class="userinput">\atop</kbd>, which is like <kbd class="userinput">\over</kbd> except that it leaves out the fraction line, as in <kbd class="userinput">$$x \atop y + 2$$</kbd>. (<function>\choose</function>, for typing binomials, is a plain TeX macro based on <function>\atop</function>.)</p>
+            </section>
+            <section>
+              <h4>Summations and Integrals</h4>
+              <p>These are set through <kbd class="userinput">\sum</kbd> and <kbd class="userinput">\int</kbd>, with limits specified as subscripts and superscripts. In display mode they are printed larger, with limits over and under, whereas in text mode they are printed smaller with limits to the right, so as not to make too tall a box.</p>
+              <p>If you want the limits to be printed differently, you can type <kbd class="userinput">\limits</kbd> or <kbd class="userinput">\nolimits</kbd> right after the the large operator. For instance:</p>
+              <pre>$$\int\limits_0^{\pi\over2}$$
+$$\sum\nolimits_{n=1}^m$$</pre>
+            </section>
+            <section>
+              <h4>Lines under and over</h4>
+              <p>TeX and Plain TeX provide four operators that span a group horizontally: <kbd class="userinput">\underline</kbd>, <kbd class="userinput">\overline</kbd>, <kbd class="userinput">\widehat</kbd> and <kbd class="userinput">\widetilde</kbd>. These are so straightforward to use that I will only provide two examples: <kbd class="userinput">$\underline 3$</kbd> and <kbd class="userinput">$\overline{\alpha^2}$</kbd>.</p>
+            </section>
+          </section>
+          <section>
+            <h4>Delimiters</h4>
+            <p>Delimiters are important to mathematicians, because they provide good visual clues to the underlying structure of complex expressions; they delimit the boundaries of individual subformulas. Here is a list of the 22 basic delimiters provided by plain TeX:</p>
+            <ul class="itemizedlist">
+              <!--
+|(|&left parenthesis: $($\cr
+|)|&right parenthesis: $)$\cr
+|[| or ^|\lbrack|&left bracket: $[$\cr
+|]| or ^|\rbrack|&right bracket: $]$\cr
+|\{| or ^|\lbrace|&left curly brace: $\{$\cr
+|\}| or ^|\rbrace|&right curly brace: $\}$\cr
+^|\lfloor|&left floor bracket: $\lfloor$\cr
+^|\rfloor|&right floor bracket: $\rfloor$\cr
+^|\lceil|&left ceiling bracket: $\lceil$\cr
+^|\rceil|&right ceiling bracket: $\rceil$\cr
+^|\langle|&left angle bracket: $\langle$\cr
+^|\rangle|&right angle bracket: $\rangle$\cr
+|/|&slash: $/$\cr
+^|\backslash|&reverse slash: $\backslash$\cr
+\| or ^|\vert|&vertical bar: $\vert$\cr
+|\|\| or ^|\Vert|&double vertical bar: $\Vert$\cr
+^|\uparrow|&upward arrow: $\uparrow$\cr
+^|\Uparrow|&double upward arrow: $\Uparrow$\cr
+^|\downarrow|&downward arrow: $\downarrow$\cr
+^|\Downarrow|&double downward arrow: $\Downarrow$\cr
+^|\updownarrow|&up-and-down arrow: $\updownarrow$\cr
+^|\Updownarrow|&double up-and-down arrow: $\Updownarrow$\cr
+            -->
+            </ul>
+            <p>In order to get a slightly larger version of any of these symbols, just precede them by <kbd class="userinput">\bigl|</kbd> (for opening delimiters) or <kbd class="userinput">\bigr|</kbd> (for closing ones). This makes it easier to read formulas that contain delimiters inside delimiters. Then you can also type <kbd class="userinput">\Bigl</kbd> and <kbd class="userinput">\Bigr</kbd> to get larger symbols suitable for displays. These are 50% taller than their <kbd class="userinput">\big</kbd> counterparts. Displayed formulas most often use delimiters that are even taller (twice the size of <function>\big</function>); such delimiters are constructed by <kbd class="userinput">\biggl</kbd> and <kbd class="userinput">\biggr</kbd>. Finally, there are <kbd class="userinput">\Biggl</kbd> and <kbd class="userinput">\Biggr</kbd> versions, 2.5 times as tall as the <kbd class="userinput">\bigl</kbd> and <kbd class="userinput">\bigr</kbd> delimiters.</p>
+            <p>TeX has a built-in mechanism that figures out how tall a pair of delimiters needs to be, in order to enclose a given subformula; so you can use this method, instead of deciding whether a delimiter should be <kbd class="userinput">\big</kbd> or <kbd class="userinput">\bigg</kbd> or whatever. All you do is type</p>
+            <pre>\left&lt;delim<sub>1</sub>&gt; &lt;subformula&gt; \right&lt;delim<sub>2</sub>&gt;</pre>
+            <p>and TeX will typeset the subformula, putting the specified delimiters at the left and the right. The size of the delimiters will be just big enough to cover the subformula. But whenever you use <kbd class="userinput">\left</kbd> and <kbd class="userinput">\right</kbd> they must pair up with each other.</p>
+            <p>If you want to omit a delimiter, just type a dot, as in <kbd class="userinput">\left.</kbd> or <kbd class="userinput">\right.</kbd> and you get a null delimiter. Still, a null delimiter isn't completely void; it is an empty box whose width is a TeX parameter called <kbd class="userinput">\nulldelimiterspace</kbd>. (We will see later that null delimiters are inserted next to fractions.) Plain TeX sets <kbd class="userinput">\nulldelimiterspace=1.2pt</kbd>.</p>
+          </section>
+          <section>
+            <h4>Axes</h4>
+            <p>If you look closely at some examples of math typesetting, you will notice that large parentheses and brackets are symmetric with respect to an invisible horizontal line that runs a little bit above the <var>baseline</var>; when a delimiter gets larger, its height and depth both grow by the same amount. This horizontal line is called the <dfn class="firstterm">axis</dfn> of the formula. The bar line in every fraction is centered on the axis, regardless of the size of the numerator or denominator.</p>
+            <p>Sometimes it is necessary to create a special box that should be centered vertically with respect to the axis. TeX provides a simple way to do this: just type</p>
+            <pre>\vcenter{&lt;vertical mode material&gt;}</pre>
+            <p>and the vertical mode material will be packed into a box just as if <kbd class="userinput">\vcenter</kbd> had been <kbd class="userinput">\vbox</kbd>. Then the box will be raised or lowered until its top edge is as far above the axis as the bottom edge is below.</p>
+            <div class="warning" style="border-style: solid;">The concept of <q>axis</q> is meaningful for TeX only in math formulas, not in ordinary text; therefore TeX allows you to use <kbd class="userinput">\vcenter</kbd> only in math mode. If you really need to center something vertically in horizontal mode, the solution is to say <kbd class="userinput">$\vcenter{...}$</kbd>.</div>
+            <p>(Incidentally, the constructions <kbd class="userinput">\vcenter to&lt;dimen&gt;</kbd> and <kbd class="userinput">\vcenter spread&lt;dimen&gt;</kbd> are legal too, in math mode; vertical glue is always set by the rules for <function>\vbox</function>. But <function>\vcenter</function> by itself is usually sufficient.)</p>
+          </section>
+          <section>
+            <h4>Controlling height: mathstrut, smash, and phantom props</h4>
+            <p>A <var>\mathstrut</var> is an invisible box whose width is zero; its height and depth are the height and depth of a parenthesis '('. Therefore subformulas that contain <var>\mathstrut</var> will always have the same height and depth. What for? Often you want to have uniformity between different members of a complex formula.</p>
+          </section>
+          <section>
+            <h4>Not two but eight mathematical modes</h4>
+            <p>Letters and other symbols sometimes get smaller when they appear in fractionsor in exponents. It's about time that we studied TeX' method for choosing the sizes of things. TeX actually has eight different styles in which it can treat formulas, namely</p>
+            <ul class="itemizedlist">
+              <dd>display style (for formulas displayed on lines by themselves)</dd>
+              <dd>text style (for formulas embedded in the text)</dd>
+              <dd>script style (for formulas used as superscripts or subscripts)</dd>
+              <dd>scriptscript style (for second-order superscripts or subscripts)</dd>
+            </ul>
+            <p>and four other <q>cramped</q> styles that are almost the same except that exponents aren't raised quite so much. For brevity we shall refer to the eight styles as <var>D</var>, <var>D'</var>, <var>T</var>, <var>T'</var>, <var>S</var>, <var>S'</var>, <var>SS</var>, and <var>SS'</var>, where <var>D</var> is display style, <var>D'</var>, is cramped display style, <var>T</var> is text style, and so on. TeX also uses three different sizes of type for mathematics. They are called text size, script size, and scriptscript size.</p>
+            <p>The normal way to typeset a formula with TeX is to enclose it in dollar signs <kbd class="userinput">$...$</kbd> to render it in text style, or in double dollar signs <kbd class="userinput">$$...$$</kbd> to render it in display style. The subformulas of a formula might, of course, be in different styles. Once you know the style, you can determine the size of type that TeX will use: text and display style are rendered in text size, script style is rendered in script size and scriptscript style is rendered y scriptscript size, of course.</p>
+            <p>Now, while in text or display style sub- and superscripts are render in script size. In script and in scriptscript style, sub- and superscripts are render in scriptscript size.</p>
+            <p>If you don't like the style that TeX selects by its automatic style rules, you can specify the style you want by typing <kbd class="userinput">\displaystyle</kbd> or <kbd class="userinput">\textstyle</kbd> or <kbd class="userinput">\scriptstyle</kbd> or <kbd class="userinput">\scriptscriptstyle</kbd>. The style that you select will apply until the end of the formula or subformula, or until you select another style.</p>
+            <p><kbd class="userinput">\underline</kbd> does not change the style, whereas the operations <kbd class="userinput">\sqrt</kbd> and <kbd class="userinput">\overline</kbd> change uncramped styles to their cramped counterparts.</p>
+          </section>
+        </section>
+        <section>
+          <h4>Tables in TeX and LaTeX</h4>
+          <p class="attribution">http://www.volkerschatz.com/tex/halign.html</p>
+          <p>Low-level typesetting of tables (TeX) is a matter of aligning boxes horizontally. The TeX macro for horizontal alignment (<kbd class="userinput">\halign</kbd>) is harder to use than the LaTeX <kbd class="userinput">tabular</kbd> environment, but is more powerful. It can also save you a lot of work because things that have to be put into every cell of a given table column (eg font settings or mathematical mode) need to be specified only once. The actual table cells contain only what is different.</p>
+          <section>
+            <h4>Tables in (Plain) TeX</h4>
+            <p>The TeX command for horizontal alignment (<kbd class="userinput">\halign</kbd>) must be followed by a group of commands enclosed by braces. This block contains all rows of the table with the cells separated by the character <kbd class="userinput">&amp;</kbd> and the rows separated by <kbd class="userinput">\cr</kbd>. The rows containing the text actually to be printed are preceded by a special row called the <dfn class="firstterm">preamble</dfn> or template line. It is a template into which the content of the table cells are put before being typeset. '#' characters serve as placeholders for the cell entries. (Inside macro definitions, '##' is used to avoid confusion with the macro arguments denoted by <kbd class="userinput">#1</kbd>, <kbd class="userinput">#2</kbd> etc.) One '#' must occur between every two '&amp;'s.</p>
+            <p>The length <var>n</var> of the template line need not be equal to the actual number of columns in the alignment: the template is used only for as many items as are specified on a line.</p>
+            <p>Entries in an alignment are set to take the width of the largest element in their column. Glue for separating columns can be specified by assigning it to <kbd class="userinput">\tabskip</kbd>. TeX inserts this glue in between each pair of columns, and before the first and after the last column.</p>
+            <p>Here's a simple example:</p>
+            <pre>\tabskip=2em
+\halign to \hsize{ \hfil ECO#  &amp;  \hfil # kW\hfil  &amp;  \hfil # \hfil euros \cr
+A   &amp; 20 &amp; 999 \cr
+A00 &amp; 22 &amp; 2999 \cr
+A20 &amp; 27 &amp; 3299 \cr}</pre>
+            <p>which would produce the table:</p>
+            <table>
+              <tr>
+                <td>ECOA</td>
+                <td>20 kW</td>
+                <td>999 euros</td>
+              </tr>
+              <tr>
+                <td>ECOA00</td>
+                <td>22 kW</td>
+                <td>2999 euros</td>
+              </tr>
+              <tr>
+                <td>ECOA20</td>
+                <td>27 kW</td>
+                <td>3299 euros</td>
+              </tr>
+            </table>
+            <p>To typeset the heading in the preceding example you would like to omit much of the specifications in the preample. Use <kbd class="userinput">\omit</kbd> before each cell of a line to be typeset bypassing the preamble. Remember to repeat all your alignment done through <kbd class="userinput">\hfill</kbd> and such. Thus:</p>
+            <pre>\tabskip=2em
+\halign to \hsize{ \hfil ECO#  &amp;  \hfil # kW\hfil  &amp;  \hfil # \hfil euros \cr
+ \omit\bf \hfil engine \hfil &amp; \omit\bf\hfil power\hfil &amp; \omit\bf\hfil price \hfil \cr
+% \noalign{\hrule}
+A   &amp; 20 &amp; 999 \cr
+A00 &amp; 22 &amp; 2999 \cr
+A20 &amp; 27 &amp; 3299 \cr}</pre>
+            <p>which now looks nicer, something like:</p>
+            <table>
+              <thead>
+                <th>engine</th>
+                <th>power</th>
+                <th>price</th>
+              </thead>
+              <tr>
+                <td>ECOA</td>
+                <td>20 kW</td>
+                <td>999 euros</td>
+              </tr>
+              <tr>
+                <td>ECOA00</td>
+                <td>22 kW</td>
+                <td>2999 euros</td>
+              </tr>
+              <tr>
+                <td>ECOA20</td>
+                <td>27 kW</td>
+                <td>3299 euros</td>
+              </tr>
+            </table>
+            <p>TeX first calculates widths (for \halign) or heights (for \valign) of all entries; then it typesets the whole alignment using in each column (row) the maximum width (height) of entries in that column (row).</p>
+            <p>As an example, in the following table there is no tabskip glue before the first and after the last column; in between all columns there is stretchable tabskip.</p>
+            <pre>\tabskip=0pt \halign to \hsize{
+  \vrule#\tabskip=0pt plus 1fil\strut&amp;
+  \hfil#\hfil&amp;
+  \vrule#&amp;
+  \hfil#\hfil&amp;
+  \vrule#&amp;
+  \hfil#\hfil&amp;
+  \tabskip=0pt\vrule#\cr
+
+  \noalign{\hrule}
+  &amp;\multispan5\hfil Just a table\hfil&amp;\cr
+
+  \noalign{\hrule}
+  &amp;one&amp;&amp;two&amp;&amp;three&amp;\cr &amp;a&amp;&amp;b&amp;&amp;c&amp;\cr
+
+  \noalign{\hrule}
+}</pre>
+          </section>
+          <section>
+            <h4>Lines around table cells</h4>
+            <p>First you want to cancel interline skip within a block delimited by curly braces (type <kbd class="userinput">\offinterlineskip</kbd>). Then you use empty (=no content) columns to typeset vertical lines.</p>
+            <pre>{
+  \offinterlineskip
+  \tabskip=0pt
+  \halign{
+    \vrule height2.75ex depth1.25ex width 0.6pt #\tabskip=1em &amp;
+    \hfil 0.#\hfil &amp;\vrule # &amp; \qquad$0.#\,\pi$\hfil &amp;\vrule # &amp;
+    \hfil 0.#\hfil &amp;#\vrule width 0.6pt \tabskip=0pt\cr
+    \noalign{\hrule height 0.6pt}
+    &amp; \omit$\alpha_s$ &amp;&amp;\omit star angle &amp;&amp; \omit diquark size [fm] &amp; \cr
+    \noalign{\hrule}
+    &amp; 3 &amp;&amp; 22 &amp;&amp; 34 &amp;\cr
+    &amp; 4 &amp;&amp; 14 &amp;&amp; 22 &amp;\cr
+    &amp; 5 &amp;&amp; 095 &amp;&amp; 15 &amp;\cr
+    \noalign{\hrule height 0.6pt}
+  }
+}</pre>
+            <p>...</p>
+            <p>Let's now go through the TeX code line by line. The first command switches off the spacing between lines. Normally TeX automatically inserts line spacing before starting a new line, even in tables. When typesetting framed tables, one has to disable this because otherwise the vertical lines of the frame don't join up. To make this change apply only to the table, everything is included in braces.</p>
+            <p>The second command sets the spacing between table cells to zero. This is necessary for the first column because the vertical lines have columns of their own. Without the <kbd class="userinput">\tabskip=0pt</kbd>, a space would be put before the vertical lines, and as a result the horizontal ones would stick out to the left of the table. (One could of course put vertical lines within the table cells containing the text, but usually it is done this way.)</p>
+            <p>Next comes the \halign command. The first item in the first cell template is a vertical ruler of the width 0.6 point. Its height (above the base line) and depth (under the base line) is given explicitly to force the table cells to be higher than they would normally be. One can also use this trick in tables without frames by setting the ruler width to zero point. Each template also has to contain a '#', even when the column is meant to remain empty as here. The last command in this template sets the column spacing back to something greater than zero.</p>
+            <p>The next column contains the first text entry. It is a numerical entry containing numbers which are smaller than 1. They are centred (since there are \hfil commands to both sides), and the zero and the decimal point are already written into the template to save me some work in the entries. Then comes another vertical rule. Its height does not have to be specified again; it will be as high as the table row. The width is the default width of 0.4 point, somewhat narrower than the outer frame. The next column contains multiples of pi. Therefore the template already contains the symbol \pi besides the zero and decimal point, in math mode. It is aligned left (\hfil on the right) but has a large space to the left (\qquad) so that the decimal points are approximately in the middle of the column. Next comes another vertical line, then the third column (centred again), and the final thick vertical line. In the template for the last column \tabskip is again set to zero to avoid horizontal lines overlapping to the right. The first \cr marks the end of the preamble.</p>
+            <p>The next command, \noalign, is often useful in tables. It allows one to insert commands between table lined which would normally only be permitted in vertical mode, ie between paragraphs. One of these commands is a horizontal line (ruler). It extends over the whole width of the table and has the height 0.6 point. One can use \noalign for other things, too, for example inserting spaces between table lines or allowing or disabling page breaks between them (see here for an example).</p>
+            <p>Now comes the first table row. It starts with an alignment tab character (&amp;) since the first column contains just the vertical line, no text. Likewise, later there are double '&amp;'s between text entries, and the line is concluded with a '&amp;'. All text entries \omit their templates since they don't contain zeros. Here no alignment is forced. In this case this results in left alignment but the result is very sensitive to spaces in the table entries. It is usually better to insert a few \hfils. After the \cr indicating the end of the table row there is another horizontal line (of default width), followed by three rows with numerical entries which are not separated by horizontal lines. After the last row there is a thick line which completes the frame. The following two braces close the \halign command and the enclosing group.</p>
+          </section>
+          <section>
+            <h4>Cells spanning several columns</h4>
+            <p><kbd class="userinput">\span</kbd> disables the alignment of the following alignment character (&amp;) and thereby makes it possible to extend table cells over several columns. The templates of all columns are used unless one writes <kbd class="userinput">\omit\span\omit\span\omit...</kbd>; otherwise just the restriction that the ampersand in this row line up with the others is removed.</p>
+            <p>An example for this is the following table which seems to contain only one column. The alignment mechanism is used to make the decimal points line up by putting the digits before and after the point into different columns. The decimal points are aligned by putting an ampersand after each of them. In order not to introduce a space after the point, <kbd class="userinput">\tabskip</kbd> is set to zero before the corresponding alignment character (&amp;). The title line is also interesting. The template of the first (text) column is omitted. The source code is:</p>
+            <pre>{
+  \offinterlineskip
+  \tabskip=0pt
+  \halign{\vrule height2.75ex depth1.25ex #\tabskip=1em &amp;
+    \qquad\hfil#\tabskip=0pt &amp;# \hfil\tabskip=1em  &amp;#\vrule\tabskip=0pt \cr
+    \noalign{\hrule}
+    &amp; \omit\hfil\bf value\span  &amp;\cr
+    \noalign{\hrule}
+    &amp; 109.&amp;589  &amp;\cr
+    &amp; 104.&amp;411  &amp;\cr
+    &amp;  88.&amp;321  &amp;\cr
+    &amp;  74.&amp;7105 &amp;\cr
+    &amp;  88.&amp;5942 &amp;\cr
+    \noalign{\hrule}
+  }
+}</pre>
+            <p></p>
+          </section>
+          <section>
+            <h4>Alignment primitives</h4>
+            <dl class="variablelist">
+<dt>\halign</dt>
+<dd>
+                  <p>Horizontal alignment.</p>
+                </dd>
+<dt>\valign</dt>
+<dd>
+                  <p>Vertical alignment.</p>
+                </dd>
+<dt>\omit</dt>
+<dd>
+                  <p>Omit the template for one alignment entry.</p>
+                </dd>
+<dt>\span</dt>
+<dd>
+                  <p>Join two adjacent alignment entries.</p>
+                </dd>
+<dt>\multispan</dt>
+<dd>
+                  <p>Macro to join a number of adjacent alignment entries.</p>
+                </dd>
+<dt>\tabskip</dt>
+<dd>
+                  <p>Amount of glue in between columns (rows) of an \halign (\valign).</p>
+                </dd>
+<dt>\noalign</dt>
+<dd>
+                  <p>Specify vertical (horizontal) material to be placed in between rows (columns) of an \halign (\valign).</p>
+                </dd>
+<dt>\cr</dt>
+<dd>
+                  <p>Terminate an alignment line.</p>
+                </dd>
+<dt>\crcr</dt>
+<dd>
+                  <p>Terminate an alignment line if it has not already been terminated by \cr.</p>
+                </dd>
+<dt>\everycr</dt>
+<dd>
+                  <p>Token list inserted after every \cr or non-redundant \crcr.</p>
+                </dd>
+<dt>\centering</dt>
+<dd>
+                  <p>Glue register in plain TEX for centring \eqalign and \eqalignno. Value: 0pt plus 1000pt minus 1000pt</p>
+                </dd>
+<dt>\hideskip</dt>
+<dd>
+                  <p>Glue register in plain TEX to make alignment entries invisible. Value: -1000pt plus 1fill</p>
+                </dd>
+<dt>\hidewidth</dt>
+<dd>
+                  <p>Macro to make preceding or following entry invisible.</p>
+                </dd>
+</dl>
+          </section>
+        </section>
+        <section>
+          <h4>Accessing the PS and PDF engines through \special</h4>
+          <p>Non-TeX commands, possible further downstream (e.g. PostScript and PDF), can be scheduled within a TeX file, from including an image to inserting a hyperlink, by means of the <function>\special</function> TeX command, an extension offered by the processing program and as such implementation specific.</p>
+          <p>The argument of <function>\special</function> can be anything: TeX more or less doesn't care about. It is expanded (so there's the restriction that it has to be expandable, e.g. no undefined commands) and just written to the DVI. It is then the responsibility of the DVI driver (previewer, dvips, whatever) to interpret the strings written out by <function>\special</function>.</p>
+          <p>Knuth, in the TeXbook, suggests that the argument of <function>\special</function> should contain at least two parts, the former hinting at the application that is supposed to interpret the special, but this is really just a suggestion.</p>
+          <p><function>\special</function>'s for two converters are considered: <code class="application">dvipdfm</code> and <code class="application">dvips</code>. Still, some <function>\special</function> commands take effect already at the dvi stage.</p>
+          <p>TEX is a programming language. A DVI file is a page description consisting of very simple program instructions that have no branching or decision instructions. Similarly PostScript is a complete programming language, while PDF is a page description language consisting of simple program instructions without any branching or decision capabilities. TEX is like PostScript (without the graphics) while DVI is like PDF (without the graphics or the hyper-links). Creating PDF from DVI using Distiller requires converting a page description to a program, and converting that program back to a page description. To continue this analogy, Pdfmarks are PostScript <q>escapes</q> and are meant for the Distiller. TEX \special primitives are TEX <q>escapes</q> and are meant for the DVI driver.</p>
+          <p>according to the creators of <code class="application">dvipdfm</code>, it seems natural to go directly from DVI to PDF, where TEX replaces PostScript, the DVI driver replaces Distiller, and TEX \special primitives replace the pdfmarks. On the other hand, it makes sense to enable access to PostScript from TeX, which is the main reason for PostScript programmers to choose <code class="application">dvips</code>, which is discussed first.</p>
+          <section>
+            <h4>dvips \special's</h4>
+            <section>
+              <h4>Papersize</h4>
+              <p>The format of the <function>papersize</function> special is <literal>\special{papersize=width,height}</literal>, where <parameter>width</parameter> is the horizontal size of the page, and <parameter>height</parameter> is the vertical size. The dimensions supported are the same as for TEX; namely, in (inches), cm (centimeters), mm (millimeters), pt (points), sp (scaled points), bp (big points, the same as the default PostScript unit), pc (picas), dd (didot points), and cc (ciceros).</p>
+              <p>You specify landscape orientation through <kbd class="userinput">\special{landscape}</kbd>.</p>
+            </section>
+            <section id="eps_in_tex">
+              <h4>Including Encapsulated PostScript files</h4>
+              <p>Scaling and including PostScript graphics is easy if the PostScript file is correctly formed, i.e. it includes an accurate bounding box comment, on the pattern  <kbd class="userinput">%%BoundingBox: llx lly urx ury</kbd>, such as:</p>
+              <pre>%%BoundingBox: 0 0 150 100</pre>
+              <p>Further, the first should start with the two magic characters <q>%!</q>.</p>
+              <p>Next, if you are using plain TEX, you need <cite class="filename">epsf.tex</cite>, therefore bring it in through a line <kbd class="userinput">\input epsf</kbd>.</p>
+              <p>Last, at the point you want to include a file, enter a line such as <kbd class="userinput"> \epsffile{&lt;filename&gt;.eps}</kbd>. If you are in the middle of a paragraph, the EPS figure will be incorporated as a box in the current line, which will cause the common baseline to drop if the height of the figure is greater than the <parameter>baselineskip</parameter>. The origin of the figure will be the same as that of a character that were to be printed instead.</p>
+              <p>Here is a simple EPS file to test inside a tex file:</p>
+              <pre>%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 0 0 100 19
+/Times-Roman 22 selectfont
+
+0 0 moveto
+(Hello EPS!) show</pre>
+              <p>(If your file does not have a bounding box comment, you can supply the numbers as determined in the previous section, in the same order they would have been in a normal bounding box comment: <kbd class="userinput">\epsffile[0 0 100 19]{hello.eps}</kbd>.)</p>
+              <p>The \epsffile macro typesets the figure as a TEX <function>\vbox</function> at the point of the page that the command is executed. By default, the graphic will have its <em>natural</em> width (namely, the width of its bounding box). The TEX box will have depth zero and its natural height. By default, the graphic will be scaled by any DVI magnification in effect, just as is everything else in your document.</p>
+              <h5 class="bridgehead">EPSF scaling</h5>
+              <p>Usually, you will want to scale an EPSF figure to some size appropriate for your document, since its natural size is determined by the creator of the EPS file. The best way to do this is to assign the desired size to the TEX <parameter>\epsfxsize</parameter> or <parameter>\epsfysize</parameter> variables, whichever is more convenient for you. That is, put <kbd class="userinput">\epsfxsize=&lt;dimen&gt;</kbd> right before the call to <function>\epsffile</function>. Then the width of the TEX box will be <parameter>dimen</parameter> and its height will be scaled proportionately. Similarly, you can set the vertical size with <kbd class="userinput">\epsfysize=&lt;dimen&gt;</kbd> in which case the height will be set and the width scaled proportionally. And if you set both, both will be honored, but the aspect ratio of the included graphic may necessarily be distorted, i.e., its contents stretched in one direction or the other.</p>
+              <h5 class="bridgehead">EPSF clipping</h5>
+              <p>By default, clipping is disabled for included EPSF images. This is because clipping to the bounding box dimensions often cuts off a small portion of the figure, due to slightly inaccurate bounding box arguments. The problem might be subtle; lines around the boundary of the image might be half their intended width, or the tops or bottoms of some text annotations might be sliced off. If you want to turn clipping on, just use the command <function>\epsfclipon</function> and to turn clipping back off, use <function>\epsfclipoff</function>.</p>
+              <h5 class="bridgehead">An example including EPS with graphics and text printed in a scaled inherited font:</h5>
+              <pre>\input epsf
+
+%Hello \TeX !
+% \epsfbox{square.eps} % include EPS file in horizontal mode, i.e. after the text, not below.
+
+\hbox
+{
+  \epsfxsize=25pt \epsfbox{square.eps} % include EPS file in vertical mode
+  \vbox {
+    \noindent The four numbers in square brackets tell \TeX to use only part of the size of the graphic. In this example, \TeX would pretend that only the rectangle from (10,30) to (150,80) is actually used. The dimensions are points, so the graphic would have an effective size (for TeX's purposes) of (150-10) or 140 points wide by (80-30) or 50 points tall.
+  }
+}
+
+\noindent The graphic is not actually cropped to the given size, it is only shifted on the page so that the lower left corner of the bounding box coincides with the lower left corner of the area \TeX reserves for it. In the example above, location (10,30) in the figure would be located at the lower left corner of the box in which TeX places the figure, but any part of the image outside the rectangle from (10,30) to (150,80) would still appear on the page.
+
+\hbox {
+
+  Bye \TeX !
+  \special{ps: 200 200 moveto 500 dup rlineto 0.33 0.33 0 setrgbcolor 10 setlinewidth stroke}
+
+  % What about...?
+  \special{ps: gsave
+                 currentfont 2 scalefont setfont
+                 900 dup 2 mul moveto
+                 0.2 setgray
+                 (Test: currentfont 2 scalefont setfont) show grestore}
+
+  %\epsfbox{square.eps} % include EPS file BELOW the text, not below.
+
+  \vtop { \epsfxsize=10pt \epsfbox{square.eps} \epsfxsize=12pt \epsfbox{square.eps} \epsfxsize=33pt \epsfbox{square.eps}}
+
+}
+
+\bye
+</pre>
+            </section>
+            <section>
+              <h4>Including PostScript files</h4>
+              <p>The basic special for file inclusion is as follows:</p>
+              <pre>\special{psfile=&lt;filename&gt;.ps [&lt;key&gt;=&lt;value&gt;] ... }</pre>
+              <p>This brings in the PostScript file <cite class="filename">&lt;filename&gt;.ps</cite> such that the current point will be the origin of the PostScript coordinate system. The optional <em class="replaceable" nature="">key</em>=<em class="replaceable" nature="">value</em> assignments allow you to specify transformations on the PostScript. The possible <em class="replaceable" nature="">keys</em> are:</p>
+              <p>
+                <simplelist>
+                  <member>hoffset: The horizontal offset (default 0).</member>
+                  <member>voffset: The vertical offset (default 0).</member>
+                  <member>hsize: The horizontal clipping size (default 612).</member>
+                  <member>vsize: The vertical clipping size (default 792).</member>
+                  <member>hscale: The horizontal scaling factor, as a percentage (default 100).</member>
+                  <member>vscale: The vertical scaling factor, as a percentage (default 100).</member>
+                  <member>angle: The rotation, in degrees (default 0).</member>
+                  <member>clip: Enable clipping to the bounding box (default disabled).</member>
+                  <member>llx, lly, urx, ury: Bounding box of the included image, just as in a %%BoundingBox comment. Values are in big points, and may be fractional.</member>
+                  <member>rhi, rwi: Desired width and height of the resulting figure in the output, in tenths of big points (720 to the inch); may be fractional. If both rwi and rhi are nonzero, the picture is scaled, possibly losing aspect ratio. If only one of rwi and rhi is nonzero, the picture is scaled, preserving aspect ratio.</member>
+                </simplelist>
+              </p>
+              <p>The offsets and sizes are given in PostScript units (big points).</p>
+            </section>
+            <section>
+              <h4>Including headers from TEX</h4>
+              <p>In order to get a particular graphic file to work, a certain font or header file might need to be run first. The <code class="application">dvips</code> program provides support for this with the <q>header</q> <function>\special</function>. For instance, to cause <cite class="filename">procedures.ps</cite> be brought in, write: <kbd class="userinput">\special{header=procedures.ps}</kbd> As another example, if you have some PostScript code that uses a PostScript font not built into your printer, you must download it to the printer. If the font isn't used elsewhere in the document, Dvips cannot know you've used it, so you must include it in the same way, as in: <kbd class="userinput">\special{header=putr.pfa}</kbd> to include the font definition file for Adobe Utopia Roman. The header also special allows for specifying some additional code that should be inserted into the PostScript document before and after the file itself, as follows: <kbd class="userinput">\special{header={&lt;filename&gt;.ps} pre={&lt;pre-code&gt;} post={&lt;post-code&gt;}}</kbd> This will insert <em class="replaceable" nature="">pre-code</em> just before <cite class="filename">&lt;filename&gt;.ps</cite> and <em class="replaceable" nature="">post-code</em> just after. It is required to use the (balanced) braces in all of the arguments, including the header, when using this extended syntax. This allows, for instance, dynamic headers, where some of the content depends on settings from the user in (La)TEX. Another application is the inclusion of graphics inside the PostScript header, so that they can be reused throughout the document, as with logs. That avoids including the same graphic several times.</p>
+            </section>
+            <section>
+              <h4>Literal PostScript</h4>
+              <p>For simple graphics, or just for experimentation, literal PostScript code can be included. Simply use a <function>\special</function> beginning with a double quote character '"'; there is no matching closing '"'.</p>
+              <p>Generally, Dvips encloses specials in a PostScript <function>save</function>/<function>restore</function> pair, guaranteeing that the special will have no effect on the rest of the document. The <function>ps</function> special, however, allows you to insert literal PostScript instructions without this protective shield; you should understand what you're doing (and you shouldn't change the PostScript graphics state unless you are willing to take the consequences). This command can take many forms because it has had a torturous history; any of the following will work:</p>
+              <pre>\special{ps:&lt;text&gt;}
+\special{ps::&lt;text&gt;}
+\special{ps::[begin]&lt;text&gt;}
+\special{ps::[end]&lt;text&gt;}
+\special{ps::[nobreak]&lt;text&gt;}</pre>
+              <p>You can download literal PostScript header code in your TEX document, for use with (for example) literal graphics code that you include later. The text of a <function>\special</function> beginning with an '!' is copied into the output file. A dictionary <var>SDict</var> will be current when this code is executed; Dvips arranges for <var>SDict</var> to be first on the dictionary stack when any PostScript graphic is included, whether literally (the '"' special) or through macros (e.g., <cite class="filename">epsf.tex</cite>). For example: <kbd class="userinput">\special{! /reset { 0 0 moveto} def}</kbd></p>
+              <pre>\special{ps:
+      [ /Rect [602 1083 1087 1320]
+        /Border [0 0 2]
+        /Color [1 0 0]
+        /Dest link_child_page
+        /Subtype /Link
+        /ANN pdfmark
+   } </pre>
+            </section>
+            <section>
+              <h4>PostScript hooks</h4>
+              <p>Besides including literal PostScript at a particular place in your document (as described in the previous section), you can also arrange to execute arbitrary PostScript code at particular times while the PostScript is printing. If any of the PostScript names <function>bop-hook</function>, <function>eop-hook</function>, <function>start-hook</function>, or <function>end-hook</function> are defined in <var>userdict</var>, they will be executed at the beginning of a page, end of a page, start of the document, and end of a document, respectively.</p>
+              <p>When these macros are executed, the default PostScript coordinate system and origin is in effect. Such macros can be defined in headers added by the <kbd class="userinput">-h</kbd> option or the <kbd class="userinput">header=</kbd> special, and might be useful for writing, for instance, <q>DRAFT</q> across the entire page, or, with the aid of a shell script, dating the document. These macros are executed outside of the <function>save</function>/<function>restore</function> context of the individual pages, so it is possible for them to accumulate information, but if a document must be divided into sections because of memory constraints, such added information will be lost across section breaks.</p>
+              <p>The single argument to <function>bop-hook</function> is the physical page number; the first page gets zero, the second one, etc. <function>bop-hook</function> must leave this number on the stack. None of the other hooks are passed arguments.</p>
+              <p>As an example of what can be done, the following special will write a light grey <q>DRAFT</q> across each page in the document:</p>
+              <pre>\special{!userdict begin
+  /bop-hook{
+    gsave
+      200 30 translate
+      65 rotate
+      /Times-Roman findfont 216 scalefont setfont
+      0 0 moveto
+      0.7 setgray (DRAFT) show
+    grestore
+  } def
+end}</pre>
+              <p>(Using <function>bop-hook</function> or <function>eop-hook</function> to preserve information across pages breaks compliance with the Adobe document structuring conventions, so if you use any such tricks, you may also want to use the <kbd class="userinput">-N</kbd> option to turn off structured comments (such as <kbd class="userinput">%%Page</kbd>). Otherwise, programs that read your file will assume its pages are independent.)</p>
+            </section>
+            <section>
+              <h4>HyperTeXt</h4>
+              <p><code class="application">Dvips</code> has support for producing hypertext PostScript documents. If you specify the <kbd class="userinput">-z</kbd> option, the <function>html:</function> specials described below will be converted into <function>pdfmark</function> PostScript operators to specify links. Without <kbd class="userinput">-z</kbd>, <function>html:</function> specials are ignored.</p>
+              <p>The resulting PostScript can then be processed by a distiller program to make a PDF file. (It can still be handled by ordinary PostScript interpreters as well.) Various versions of both PC and Unix distillers are supported; Ghostscript includes limited distiller support.</p>
+              <div class="warning" style="border-style: solid;">
+                <p>If you intend to go all the way to PDF, you may want to use the standard 35 PostScript fonts exclusively, since other fonts are embedded as bitmaps by default. The Adobe PDF readers are extremely slow when dealing with bitmap fonts and the results look terrible on the screen. Printouts will probably look fine, but may not take full advantage of a high- resolution printer. Alternatively, you can have your fonts embedded as Type 1 scalable outlines. The resulting PostScript files may be larger, but can be effectively rasterized at any resolution. They can also be converted to PDF files that can be used effectively at any screen or printer resolution.</p>
+                <p>To get the TeX fonts embedded in the PostScript file as Type 1 fonts, add <kbd class="userinput">-Ppdf</kbd> to the dvips command line switches.</p>
+                <p>You can convert a PostScript file to PDF using <command>distill</command>, which comes with Adobe Acrobat, or <command>ps2pdf</command>, which comes with Ghostscript. The <command>ps2pdf</command> that comes with Ghostscript version 6.0 or earlier will not embed Type 1 fonts. Current recommendations are GNU Ghostscript 6.51 or Aladdin Ghostscript 7.0. You can check the fonts in a PDF file with Acrobat Reader by selecting the menu entries <guimenuitem>File|Document Info|Fonts</guimenuitem>.</p>
+              </div>
+              <p>Arthur Smith (apsmith@aps.org), Tanmoy Bhattacharya, and Paul Ginsparg originally proposed and implemented the following specials:</p>
+              <pre>html:&lt;a href="xurl"&gt;
+html:&lt;a name="name"&gt;
+html:&lt;/a&gt;
+html:&lt;img src="xurl"&gt;
+html:&lt;base href="xurl"&gt;</pre>
+              <dl class="variablelist">
+<dt>href</dt>
+<dd>
+                    <p>Creates links in your TEX document. For example: <kbd class="userinput">\special{html:&lt;a href="http://www.tug.org/"&gt;}\TeX\ Users Group\special{html:&lt;/a&gt;}</kbd>. The user will be able to click on the text <literal>TEX Users Group</literal> while running <code class="application">Xdvi</code> and get to the TUG home page. (By the way, this is for illustration. In practice, you most probably want to use macros to insert the \special commands.)</p>
+                  </dd>
+<dt>name</dt>
+<dd>
+                    <p>Defines URL targets in your TEX documents, so links can be resolved. For example: <kbd class="userinput">\special{html:&lt;a name="paradise"&gt;}Paradise\special{html:&lt;/a&gt;}</kbd> is exactly where you are right now.</p>
+                    <p>This will resolve an <kbd class="userinput">href="#paradise"</kbd>. You'll also have to change the catcode of '#', etc. It's usually easiest to use existing macro packages which take care of all the details.</p>
+                  </dd>
+<dt>img</dt>
+<dd>
+                    <p>Links to an arbitrary external file. Interactively, a viewer is spawned to read the file according to the file extension and your <cite class="filename">mailcap</cite> file (see the Xdvi documentation).</p>
+                  </dd>
+<dt>base</dt>
+<dd>
+                    <p>Defines a base URL that is prepended to all the name targets. Typically unnecessary, as the name of the DVI file being read is used by default.</p>
+                  </dd>
+<dt></dt>
+</dl>
+              <div class="warning" style="border-style: solid;">The <tag>img</tag> and <tag>base</tag> tags are not yet implemented in Dvips or the NeXTSTEP DVI viewer.</div>
+            </section>
+            <section>
+              <h4>Color</h4>
+              <p>Besides the source code support itself, there are additional TEX macro files: <cite class="filename">colordvi.tex</cite> and <cite class="filename">blackdvi.tex</cite> (and corresponding <cite class="filename">.sty</cite> versions for use with LaTeX).</p>
+              <p>All the color macro commands are defined in <cite class="filename">colordvi.tex</cite> (or <cite class="filename">colordvi.sty</cite>). To access these macros simply add to the top of your plain TEX file the command: <kbd class="userinput">\input colordvi</kbd>.</p>
+              <p>These macros provide two basic kinds of color macros: ones for local color changes (a few words, a single symbol) and one for global color changes (the whole document). All the color names use a mixed case scheme to avoid conflicts with other macros. There are 68 predefined colors, with names taken primarily from the Crayola crayon box of 64 colors, and one pair of macros for the user to set his own color pattern. You can browse the file <cite class="filename">colordvi.tex</cite> for a list of the predefined colors. The comments in this file also show a rough correspondence between the crayon names and Pantones.</p>
+              <p>A local color command has the form <kbd class="userinput">\&lt;ColorName&gt;{&lt;colored text&gt;}</kbd> where <em class="replaceable" nature="">ColorName</em> is the name of a predefined color, e.g., <constant>Blue</constant>. As shown, these macros take one argument, the text to print in the specified color.</p>
+              <p>The global color command has the form <kbd class="userinput">\text<em class="replaceable" nature="">ColorName</em></kbd>. These macros take no arguments and changes the default color from that point on to <em class="replaceable" nature="">ColorName</em>.</p>
+              <p>The color commands will even work in math mode and across math mode boundaries. This means that if you have a color before going into math mode, the mathematics will be set in that color as well.</p>
+              <h5 class="bridgehead">User-defined colors</h5>
+              <p>There are two ways for the user to specify colors not already defined. For local changes, there is the command <function>\Color</function> which takes two arguments. The first argument is four numbers between zero and one and specifies the intensity of cyan, magenta, yellow and black (CMYK) in that order. The second argument is the text that should appear in the given color. For example, suppose you want the words <q>this color is pretty</q> to appear in a color which is 50% cyan, 85% magenta, 40% yellow and 20% black. You would use the command: <kbd class="userinput">\Color{.5 .85 .4 .2}{this color is pretty}</kbd>. For global color changes, there is a command <function>\textColor</function> which takes one argument, the CMYK quadruple of relative color intensities. For example, if you want the default color to be as above, then the command <kbd class="userinput">\textColor{.5 .85 .4 .2} The text from now on will be this pretty color</kbd> will do the trick.</p>
+              <div class="warning" style="border-style: solid;">
+                <p>Color macros are defined via <function>\special</function> keywords. As such, they are put in the <cite class="filename">.dvi</cite> file only as explicit message strings to the driver. The (unpleasant) result is that certain unprotected regions of the text can have unwanted color side effects. For example, if a color region is split by TEX across a page boundary, then the footers of the current page (e.g., the page number) and the headers of the next page can inherit that color. To avoid this effect globally, users should make sure that these special regions of the text are defined with their own local color commands. For example, to protect the header and footer in plain TEX, use</p>
+                <pre>\headline{\Black{My Header}}
+\footline{\Black{\hss\tenrm\folio\hss}}</pre>
+                <p>This warning also applies to figures and other insertions, so be careful!</p>
+              </div>
+              <h5 class="bridgehead">Color support details</h5>
+              <p>To support color, Dvips recognizes a certain set of specials. These specials start with the keyword <function>color</function> or the keyword <function>background</function>, followed by a <dfn class="firstterm">color specification</dfn>.</p>
+              <p>What is a color specification? One of three things. First, it might be a PostScript procedure as defined in a PostScript file that sets the current color to some value. To set it to <constant>maroon</constant>, <function>Maroon</function> procedure is defined as <kbd class="userinput">0 0.87 0.68 0.32 setcmykcolor</kbd>.</p>
+              <p>The second possibility is the name of a color model (initially, one of <constant>rgb</constant>, <constant>hsb</constant>, <constant>cmyk</constant>, or <constant>gray</constant>) followed by the appropriate number of parameters. When Dvips encounters such a macro, it sends out the parameters first, followed by the string created by prefixing <literal>TeXcolor</literal> to the color model. Thus, the color specification <kbd class="userinput">rgb 0.3 0.4 0.5</kbd> would generate the PostScript code <kbd class="userinput">0.3 0.4 0.5 TeXrgbcolor</kbd>.</p>
+              <p>The third and final type of color specification is a double quote followed by any sequence of PostScript. The double quote is stripped from the output. For instance, the color specification <kbd class="userinput">"AggiePattern setpattern</kbd> will set the <envar>color</envar> to the Aggie logo pattern (assuming such exists.)</p>
+              <p>I shall describe the <function>background</function> special first, since it is the simplest. The <function>background</function> keyword must be followed by a color specification. That color specification is used as a fill color for the background. The last <function>background</function> special on a page is the one that gets issued, and it gets issued at the very beginning of the page, before any text or specials are sent.</p>
+              <p>The <function>color</function> special itself has three forms. The first is just <kbd class="userinput">color</kbd> followed by a color specification. In this case, the current global color is set to that color; the color stack must be empty when such a command is executed. The second form is <kbd class="userinput">color push</kbd> followed by a color specification. This saves the current color on the color stack and sets the color to be that given by the color specification. This is the most common way to set a color. And the third is just <kbd class="userinput">color pop</kbd>, with no color specification; this says to pop the color last pushed on the color stack from the color stack and set the current color to be that color.</p>
+              <p>Dvips correctly handles these color specials across pages, even when the pages are repeated or reversed.</p>
+            </section>
+          </section>
+          <section>
+            <h4>pdfTeX</h4>
+            <p>pdfTEX (formerly known as TEX2PDF) is an extension to TEX which allows the user to generate (either DVI or) PDF as the primary output format without requiring the use of DVI as an intermediate language.</p>
+            <p>Although TEX has traditionally generated DVI as its primary output format, TEX's creator and author (Prof. Donald E. Knuth) has himself said or written on more than one occasion that he had long envisaged that a variant of TEX might elect to use an alternative output format, and although Knuth had PostScript in mind, Adobe's PDF turns out to be an even better candidate for such purposes. It is a very compact language, already well-established as a de facto standard portable document format both on and off the web, and its deliberate omission of the procedural elements of PostScript ensures that it is efficient enough to be used for direct screen display as well as for less time-critical applications such as printing.</p>
+            <section>
+              <h4>Why not generate PDF from PS from DVI?</h4>
+              <p>Because by the time TEX has shipped out a completed page of DVI, much potentially useful information has already been lost. Only by modifying TEX to output PDF directly, and by integrating the generation of PDF with TEX's "digestive tract", can such information be retained and captured within the PDF file. This allows, for example, an extremely simple and elegant implementation of hyperlinks, the beginning and end of which can span multiple lines or even pages. To accomplish this using DVI as an interlanguage requires heavy use of \specials and even then some functionality is lost unless TEX is modified. PDF also allows the re-use of (potentially large) data structures, a concept completely unknown within DVI.</p>
+              <p>Because the PDF which is generated by pdfTEX is usually more compact than that generated using DVI as an interlanguage, since only TEX has detailed knowledge of the data structures (boxes, etc.) of which the PDF is a representation.</p>
+              <p>(And finally, because only by integrating PDF generation within TEX itself can we gain access to the font-mutating possibilities which may in the future allow the implementation of dynamic font mutation for microjustification, etc.)</p>
+            </section>
+            <section>
+              <h4>Basics</h4>
+              <p>When PDF output is selected, TEX's <kbd class="userinput">\special</kbd> command is ignored (that is, it does not contribute anything to the page(s) being shipped out, although its other, more subtle, effects still take place). A new primitive, <kbd class="userinput">\pdfliteral</kbd>, allows raw PDF to be inserted into the PDF output stream at well-defined points.</p>
+              <p>pdfTEX allows the direct inclusion of bitmap graphics (as opposed to bitmap fonts). Graphics for inclusion must be expressed in PNG (Portable Network Graphics) format. Although facilities for the inclusion of EPS images are thought highly desirable by many, the overheads of PostScript interpretation make this an unreasonably demanding task. More likely is the development of a facility for the incorporation of (E)PDF images, but this is not currently implemented. Hans Hagen and Tanmoy Bhattacharya have developed a suite of macros which allow the inclusion of both <a target="_blank" href="metapost.html">METAPOST</a> output and of a subset of PDF files (those that do not contain fonts, bitmaps and/or similar resources).</p>
+            </section>
+            <section>
+              <h4>Hyperlinks</h4>
+              <p>One of the most powerful features of the PDF format is the ability to establish both intra- and inter-document hyperlinks. This facility is accessible to pdfTEX users who have only to tag their documents to indicate the start, end and target of the link. All of the underlying housekeeping is performed by pdfTEX itself, including taking care of such difficulties as intervening line and/or page breaks. The only requirement is that the hyperlink shall start and end at the same level of box nesting. Any and all intervening boxes of the same depth are treated as a part of the hyperlink, but boxes nested to a greater depth are not.</p>
+            </section>
+          </section>
+          <section>
+            <h4>\special commands available in dvipdfm</h4>
+            <p>The program dvipdfm (in package texlive) recognizes several commonly used <function>\special</function> commands, which are extensions to the DVI format.  Specifically, it understands color specials, papersize specials, tpic specials (which  allow  it to be used with pic), hypertex specials, and some PostScript specials.  These extensions allow documents to contain color, figures, and hyperlinks.   The  program  tries  to mimic  the  behavior of dvips so that many macro packages produced for use with dvips will work with dvipdfm.  Dvipdfm understands its own specific <function>\special</function> commands to allow  access  to  PDF features such as annotations and bookmarks.</p>
+            <p>The following features are supported:</p>
+            <ul class="itemizedlist">
+              <dd>Support for outline entries (also called bookmarks), named destinations, and annotations (including hyperlinks, forms and widgets). Nearly every Acrobat Distiller pdfmark is approximated.</dd>
+              <dd>Support for <q>standard</q> DVI specials such as HyperTEX (HTML), TPIC, color specials, PSfile, and other PostScript specials.</dd>
+              <dd>Native support for inclusion of <a target="_blank" href="metapost.html">MetaPost</a> output and inclusion of arbitrary PostScript files with help from an external program.</dd>
+              <dd>Support for thumbnails with a little help from GhostScript to generate the thumbnails.</dd>
+              <dd>Support for arbitrary, nested linear transformations of typeset material. Any material on the page, including TEX text, may be scaled and rotated.</dd>
+              <dd>Ability to include the first page of a PDF file as an encapsulated object along with its embedded resources such as fonts. Included PDF images may be cropped by supplying a bounding box. Note: Currently, this doesn't work if the contents stream has multiple segments.</dd>
+              <dd>Ability to include JPEG and PNG bitmapped images as encapsulated objects.</dd>
+              <dd>An internal color stack. A color stack allows you to change the current color, pushing the current color onto a stack. At any time, the original color can be popped from the stack. This is useful, for example, in headlines, that may have a different color from the current text. The headline macro can restore the current color without knowing what it is.</dd>
+            </ul>
+            <p>Each TEX <function>\special</function> represents a separate command to the dvipdfm driver. Each special must begin with <kbd class="userinput">pdf:</kbd> to identify that special as a command for the dvipdfm driver. A <function>\special</function> beginning with any other characters is ignored by the driver. Leading spaces are ignored. The characters <q>pdf:</q> are immediately followed by a dvipdfm command.</p>
+            <p>Interaction with the dvipdfm driver consists of short commands with a few arguments delimited by white space. Typically the arguments are PDF objects. Two exceptions are dimension specifications and transformations.</p>
+          </section>
+        </section>
+        <section id="tex_packages">
+          <h4>TeX Packages</h4>
+          <div class="note" style="border-style: solid;">Eplain does <em>not</em> work with LaTeX, except for a few packages (notably including <cite class="filename">graphics</cite>, <cite class="filename">graphicx</cite>, <cite class="filename">color</cite>, <cite class="filename">url</cite>).</div>
+          <p>For Ubuntu linux, you may install <cite class="filename">texlive-plain-extra</cite>, which comprises some add-on packages and macros that <q>work with plain TeX</q>. The documentation is to be found in <cite class="filename">/usr/share/doc/texlive-doc/plain/</cite>, not in <cite class="filename">/usr/share/doc/texlive-plain-extra/</cite>.</p>
+          <p>This package includes the following CTAN packages:</p>
+          <dl class="variablelist">
+<dt>epsf-dvipdfmx</dt>
+<dd>Plain TeX file for using epsf.tex with (x)dvipdfmx.</dd>
+<dt>figflow</dt>
+<dd>Flow text around a figure.</dd>
+<dt>fixpdfmag</dt>
+<dd>Fix magnification in PDFTeX.</dd>
+<dt>font-change</dt>
+<dd>Macros to change text and mathematics fonts in plain TeX.</dd>
+<dt>fontch</dt>
+<dd>Changing fonts, sizes and encodings in Plain TeX.</dd>
+<dt>getoptk</dt>
+<dd>Define macros with sophisticated options.</dd>
+<dt>gfnotation</dt>
+<dd>Typeset Gottlob Frege's notation in plain TeX</dd>
+<dt>graphics-pln</dt>
+<dd>LaTeX-style graphics for Plain TeX users.</dd>
+<dt>hyplain</dt>
+<dd>Basic support for multiple languages in Plain TeX.</dd>
+<dt>js-misc</dt>
+<dd>Miscellaneous macros from Joachim Schrod.</dd>
+<dt>mkpattern</dt>
+<dd>A utility for making hyphenation patterns.</dd>
+<dt>newsletr</dt>
+<dd>Macros for making newsletters with Plain TeX.</dd>
+<dt>pitex</dt>
+<dd>Documentation macros.</dd>
+<dt>placeins-plain</dt>
+<dd>Insertions that keep their place.</dd>
+<dt>plipsum</dt>
+<dd>
+<cite class="citetitle">Lorem ipsum</cite> for Plain TeX developers.</dd>
+<dt>plnfss</dt>
+<dd>Font selection for Plain TeX.</dd>
+<dt>plstmary</dt>
+<dd>St. Mary's Road font support for plain TeX.</dd>
+<dt>present</dt>
+<dd>Presentations with Plain TeX.</dd>
+<dt>resumemac</dt>
+<dd>Plain TeX macros for resumes.</dd>
+<dt>timetable</dt>
+<dd>Generate timetables.</dd>
+<dt>treetex</dt>
+<dd>Draw trees.</dd>
+<dt>varisize</dt>
+<dd>Change font size in Plain TeX.</dd>
+<dt>xii</dt>
+<dd>Christmas silliness.</dd>
+</dl>
+        </section>
+        <!-- end of "TeX Packages" -->
+        <section id="tex_tricks_techniques_and_recipes">
+          <h4>TeX Tricks, Techniques and Recipes</h4>
+          <section>
+            <h4>Including a file</h4>
+            <pre>\include file</pre>
+            <p>or</p>
+            <pre>\include file.tex</pre>
+          </section>
+          <section>
+            <h4>From XML to TeX</h4>
+            <p>There is a powerful transformation language for XML: XSLT. Assuming you can transform <em>from</em> XML to any other mark-up format, we are better off writing material in an XML vocabulary (such as DocBook) and then transform it into uploadable HTML or/and TeX, further to be processed into PDF. Once automated, the conversion would take a few seconds.</p>
+            <p>Conversion to HTML is straightforward and problem free. Difficulties arise when trying to convert to TeX, which I shall next.</p>
+            <section>
+              <h4>Diacritics, escaped sequences, and special characters</h4>
+              <p>Some languages are written or typed in a richer character set than ASCII. In Spanish, a vowel may bear an acute accent ('á' and so on), and there is also 'ñ' '¡', '¿' and 'ü'. Other languages have grave accents, or hat accents. So most non-ASCII characters can be produced by accenting an ASCII character.</p>
+              <p>Since XSLT does not perform character transactions, these might be effected by means of regular expressions applied either before or after creating your TeX file. Most text editors include a <function>Replace</function> feature but it would take too much time to transform your handful of non-ASCII characters whenever you want to test the end result to, say, proof it. Hence you had better write a script that performs the transformations with one key stroke. Also, you probably want the result stored in a differently-named file.</p>
+              <p>My tool of choice for this task is <code class="application">sed</code>. Here is a handy script for Spanish to take your file from XML characters to TeX:</p>
+              <pre>s/á/\\'a/g
+s/é/\\'a/g
+s/í/\\'\i{}/g
+s/ó/\\'o/g
+s/ú/\\'u/g
+s/ü/\\"u/g
+s/ñ/\\~n/g
+s/Á/\\'A/g
+s/É/\\'E/g
+s/Í/\\'I/g
+s/Ó/\\'O/g
+s/Ú/\\'U/g
+s/Ü/\\"U/g
+s/Ñ/\\~N/g
+s/¿/\\?`/g
+s/¡/\\!`/g <!-- s/«/\\/g s/»/\\/g --> </pre>
+              <p>Another <code class="application">sed</code> script for non-Spanish non-ASCII character transformations is:</p>
+              <pre>s/ä/\\"a/g
+s/æ/\\ae{}/g
+s/è/\\`e/g
+s/ë/\\"e /g
+s/ï/\\"\\i{}/g
+s/ö/\\"o/g
+s/ø/\\o{}/g
+s/Ø/\\O{}/g
+s/Æ/\\AE{}/g
+s/È/\\`E/g
+s/Ö/\\"O/g
+s/ß/\\ss{}/g
+s/ç/\\c c/g
+s/Ç/\\c C/g </pre>
+              <div class="warning" style="border-style: solid;">Accents within mathematical formulas will be wrongly transformed.</div>
+            </section>
+            <section>
+              <h4>Mathematical formulas</h4>
+              <p>DocBook, which is just an XML vocabulary, includes tags <tag>equation</tag>, <tag>informalequation</tag>, and <tag>inlineequation</tag>, as well as <tag>mathphrase</tag> for simple mathematics equations that do not require extensive markup. Whatever the differences and nuances of usage, you may implement a scheme for           typing TeX mathematical code in your XML. I suggest that you use a <parameter>format</parameter> attribute in your mathematical tags to cause the XSLT processor to include or exclude mathematical elements selectively. For example:</p>
+              <pre>&lt;equation format='non-tex'&gt;&lt;varname&gt;x&lt;/varname&gt;&lt;superscript&gt;2&lt;/superscript&gt; = -1&lt;/equation&gt;
+&lt;equation format='tex'&gt;$$x^2 = -1$$&lt;/equation&gt;</pre>
+              <p>...</p>
+            </section>
+          </section>
+          <section>
+            <h4>Encoding PostScript graphics in Plain TeX</h4>
+            <div class="note" style="border-style: solid;">Alternatively, you may use a lowlevel <kbd class="userinput">\special</kbd> command, as explained <a href="#eps_in_tex">elsewhere</a>.</div>
+            <p>After you have created an eps file named fig.eps or whatever, type:</p>
+            <pre>\input epsf
+\epsfbox{fig.eps}</pre>
+            <section>
+              <h4>Providing a Bounding Box</h4>
+              <p>If you want to provide your own bounding box (figure size), use a call something like this:</p>
+              <pre>\epsfbox[10 30 150 80]{whatever.eps}</pre>
+              <p>The four numbers in square brackets tell TeX to use only part of the size of the graphic. In this example, TeX would pretend that only the rectangle from (10,30) to (150,80) is actually used. The dimensions are points, so the graphic would have an effective size (for TeX' purposes) of (150-10) or 140 points wide by (80-30) or 50 points tall.</p>
+              <p>The graphic is not actually cropped to the given size, it is only shifted on the page so that the lower left corner of the bounding box coincides with the lower left corner of the area TeX reserves for it. In the example above, location (10,30) in the figure would be located at the lower left corner of the box in which TeX places the figure, but any part of the image outside the rectangle from (10,30) to (150,80) would still appear on the page.</p>
+              <div class="note" style="border-style: solid;">
+                <p>You can use a text editor to look at the PostScript file to find the figure' size. Look for a line that looks similar to this:</p>
+                <pre>%%BoundingBox: 0 0 360 72</pre>
+              </div>
+            </section>
+            <section>
+              <h4>Scaling the Included EPS File</h4>
+              <p>To scale a figure, use put the line:</p>
+              <pre>\epsfxsize=&lt;dimen&gt;</pre>
+              <p>before the <kbd class="userinput">\epsffile{}</kbd> or <kbd class="userinput">\epsfbox{}</kbd> command. You may use any standard TeX dimension units, though the system may default to points (pt). This command specifies the horizontal dimension, and the vertical dimension scales proportionally.</p>
+            </section>
+          </section>
+        </section>
+        <!-- end of "TeX Tricks, Techniques and Recipes" -->
+        <section>
+          <h4>TeX Pros and Cons</h4>
+          <p>Why is TeX still used? What are some good, modern alternatives? (stackexchange.com)</p>
+          <p>The reason TeX is still used is because it is open source and beautiful, because it is the best at handling mathematical notation, and because of its inertial dominance in math and the hard sciences in Academia. The reason TeX has so, so many fixable problems after 30 years is because there is no financial incentive for anyone to fix it.</p>
+          <p>The answer is not to find a TeX alternative. This will not be possible in Academia for a very long time. The answer is for someone to plunk down a million dollars to hire some full-time developers to fix it. Honestly, the TeX language is wonderful; it's the editors which are terrible. A TeX editor should...</p>
+          <ul class="itemizedlist">
+            <dd>[] seamlessly hide the compilation process</dd>
+            <dd>[] feature a modern debugging environment</dd>
+            <dd>[] make 99% of commands (including everything you can do in MS Word) discoverable within the editor, rather than sending the user to the internet or some pdf guide, and</dd>
+            <dd>[] robustly handle all modern image types</dd>
+          </ul>
+          <p>...without becoming an unstable WYSIWYG hybrid like LyX. The only thing about the language itself that might need to be changed is some standardization of common packages. I shouldn't need to download anything to get appendices and sub-figures to behave sensibly.</p>
+          <p>The amount of professor, post-doc, and grad student time wasted on TeX is staggering, and easily justifies paying for an overhaul...if only the government or some benefactor would step up.</p>
+        </section>
+      </section>
+      <section>
+        <h3>
+<code class="application">xetex</code>*</h3>
+      </section>
+      <section>
+        <h3>A simple book*</h3>
+      </section>
+      <section>
+        <h3>Setting Up the Page*</h3>
+      </section>
+      <section>
+        <h3>Importing Graphics</h3>
+        <section>
+          <h4>Including Embedded PS Files</h4>
+          <p>First convert them to eps, which consists of adding Bounding Box information and some other decoration. Here is an almost minimal hello-type PS script:</p>
+          <pre>%!.PS−Adobe−2.0
+
+/Times-Roman 22 selectfont
+1 1 moveto
+(Hello!) show</pre>
+          <p>which can be converted with <command>ps2eps</command>, possibly with switch <option>-f</option> to force overwriting of possibly already existing <cite class="filename">Hello.eps</cite>. Annoyingly, this app demands that the magic word opening the document includes a period: <kbd class="userinput">%!.</kbd></p>
+          <p>Next, you include the perquisite packages in your latex file and then the eps file, as in:</p>
+          <pre>\usepackage{graphicx}
+
+\begin{figure}[htbp]
+  \includegraphics[height=1cm,angle=0]{Hello.eps}
+  \caption{includegraphics[height=1cm,angle=0]\{Hello.eps\}}
+  \label{hllo01}
+\end{figure}
+</pre>
+        </section>
+      </section>
+      <section>
+        <h3>Exporting Graphics with <code class="application">dvipng</code>*</h3>
+      </section>
+      <section>
+        <h3>
+<code class="application">eplain</code> for Expanded Plain TeX</h3>
+        <p>Eplain is a set of macros that provide functionality for plain TEX. It is intended to be useful regardless of how your document is formatted, unlike with <a href="#LaTeX">LaTeX</a>.</p>
+        <section>
+          <h4>Invoking <code class="application">eplain</code></h4>
+          <p>The simplest way to use Eplain is simply to put:</p>
+          <pre>\input eplain</pre>
+          <p>at the beginning of your input file. The macro file is small enough that reading it does not take an unbearably long time—at least on contemporary machines.</p>
+        </section>
+        <section id="eplain_lists">
+          <h4>Lists</h4>
+          <p>Many documents require lists of items, either numbered or simply enumerated. Plain TEX defines one macro to help with creating lists, <kbd class="userinput">\item</kbd>, but that is insufficient in many cases. Therefore, Eplain provides two pairs of commands:</p>
+          <informalequation>\numberedlist ... \endnumberedlist</informalequation>
+          <p>and</p>
+          <informalequation>\orderedlist ... \endorderedlist</informalequation>
+          <p>which are actually synonymous and produce a list with the items numbered sequentially, starting from one. A nested <kbd class="userinput">\numberedlist</kbd> labels the items with lowercase letters, starting with 'a'. Another nested <kbd class="userinput">\numberedlist</kbd> labels the items with roman numerals. Yet more deeply nested numbered lists label items with '*':</p>
+          <informalequation>\unorderedlist ... \endunorderedlist</informalequation>
+          <p>This produces a list with the items labelled with small black boxes (<q>square bullets</q>). A nested <kbd class="userinput">\unorderedlist</kbd> labels items with em-dashes. Doubly (and deeper) nested unordered lists label items with '*'s.</p>
+          <p>The two kinds of lists can be nested within each other, as well.</p>
+          <p>In both kinds of lists, you begin an item with <kbd class="userinput">\li</kbd>. An item may continue for several paragraphs. Each item starts a paragraph.</p>
+          <p>You can give <kbd class="userinput">\li</kbd> an optional argument, a cross-reference label. It's defined to be the <q>marker</q> for the current item. This is useful if the list items are numbered. You can produce the value of the label with <a href="#eplain_xrefn">\xrefn</a>.</p>
+          <p>Eplain can create hypertext links for the markers produced by <kbd class="userinput">\xrefn</kbd> pointing to the relevant list item.</p>
+          <p>You can also say <kbd class="userinput">\listcompact</kbd> right after <kbd class="userinput">\numberedlist</kbd> or <kbd class="userinput">\unorderedlist</kbd>. The items in the list will then not have any extra space between them. You might want to do this if the items in this particular list are short.</p>
+          <p>Here is an example:</p>
+          <pre>\numberedlist\listcompact
+\li The first item.
+\li The second item.
+The second paragraph of the second item.
+\endnumberedlist</pre>
+          <section>
+            <h4>Formatting Lists</h4>
+            <p>Several registers define the spacing associated with lists. It is likely that their default values won't suit your particular layout.</p>
+            <dl class="variablelist">
+<dt>
+<kbd class="userinput">\abovelistskipamount</kbd>, <kbd class="userinput">\belowlistskipamount</kbd>
+</dt>
+<dd>The vertical glue inserted before and after every list, respectively.</dd>
+<dt>
+<kbd class="userinput">\listleftindent</kbd>, <kbd class="userinput">\listrightindent</kbd>
+</dt>
+<dd>
+<kbd class="userinput">\listrightindent</kbd> is the amount of space by which the list is indented on the right; i.e., it is added to <kbd class="userinput">\rightskip</kbd>. <kbd class="userinput">\listleftindent</kbd> is the amount of space, relative to <kbd class="userinput">\parindent</kbd>, by which the list is indented on the left. Why treat the two parameters differently? Because (a) it is more useful to make the list indentation depend on the paragraph indentation; (b) footnotes aren't formatted right if <kbd class="userinput">\parindent</kbd> is reset to zero.</dd>
+</dl>
+            <p>The three vertical glues are inserted by macros, and preceded by penalties: <kbd class="userinput">\abovelistskip</kbd> does <kbd class="userinput">\vpenalty\abovelistpenalty</kbd> and then <kbd class="userinput">\vskip\abovelistskip</kbd>. <kbd class="userinput">\belowlistskip</kbd> and <kbd class="userinput">\interitemskip</kbd> are analogous.</p>
+            <p>In addition, the macro <kbd class="userinput">\listmarkerspace</kbd> is called to separate the item label from the item text. This is set to <kbd class="userinput">\enspace</kbd> by default.</p>
+            <p>If you want to change the labels on the items, you can redefine these macros: <kbd class="userinput">\numberedmarker</kbd> or <kbd class="userinput">\unorderedmarker</kbd>. The following registers might be useful if you do:</p>
+            <dl class="variablelist">
+<dt>
+<kbd class="userinput">\numberedlistdepth</kbd>, <kbd class="userinput">\unorderedlistdepth</kbd>
+</dt>
+<dd>These keep track of the depth of nesting of the two kinds of lists.</dd>
+<dt>
+<kbd class="userinput">\itemnumber</kbd>, <kbd class="userinput">\itemletter</kbd>
+</dt>
+<dd>These keep track of the number of items that have been seen in the current numbered list. They are both integer registers. The difference is that <kbd class="userinput">\itemnumber</kbd> starts at one, and <kbd class="userinput">\itemletter</kbd> starts at 97, i.e., lowercase 'a'.</dd>
+</dl>
+            <p>You can also redefine the control sequences that are used internally, if you want to do something radically different: <kbd class="userinput">\beginlist</kbd> is invoked to begin both kinds of lists; <kbd class="userinput">\printitem</kbd> is invoked to print the label (and space following the label) for each item; and <kbd class="userinput">\endlist</kbd> is invoked to end both kinds of lists.</p>
+          </section>
+        </section>
+        <section>
+          <h4>Verbatim Text</h4>
+          <p>It is sometimes useful to include a file verbatim in your document; for example, part of a computer program. The <kbd class="userinput">\listing</kbd> command is given one argument, a filename, and produces the contents of that file in your document. <kbd class="userinput">\listing</kbd> expands <var>\listingfont</var> to set the current font. The default value of <var>\listingfont</var> is <kbd class="userinput">\tt</kbd>.</p>
+          <p>You can take arbitrary actions before reading the file by defining the macro <kbd class="userinput">\setuplistinghook</kbd>. This is expanded just before the file is input.</p>
+          <p>If you want to have line numbers on the output, you can say <kbd class="userinput">\let\setuplistinghook = \linenumberedlisting</kbd>. The line numbers are stored in the count register <var>\lineno</var> while the file is being read. You can redefine the macro <kbd class="userinput">\printlistinglineno</kbd> to change how they are printed.</p>
+          <p>Normally, the <kbd class="userinput">\listing</kbd> command will add a final empty line at the end of the output, even if the file does not end in a newline. To suppress this final line, you can say <kbd class="userinput">\let\setuplistinghook = \nolastlinelisting</kbd>. This also works with line numbers (say <kbd class="userinput">\def\setuplistinghook{\linenumberedlisting \nolastlinelisting}</kbd>), but only if <kbd class="userinput">\printlistinglineno</kbd> consists exclusively of boxes at the top level (i.e., any <kbd class="userinput">\kerns</kbd> or glue should be wrapped up in a box).</p>
+          <p>You can use the form feed control character ( ASCII code 12, typed as CTRL-L) in the file to force a page break in the output.</p>
+          <p>You can produce in-line verbatim text in your document with <kbd class="userinput">\verbatim</kbd>. End the text with <kbd class="userinput">|endverbatim</kbd>. If you need a '|' in the text, double it. If the first character of the verbatim text is a space, use | . (| will work elsewhere in the argument, too, but isn't necessary.)</p>
+          <p>For example:</p>
+          <pre>\verbatim| ||\#%&amp;!|endverbatim</pre>
+          <p>produces <samp class="computeroutput">|\#%&amp;!</samp>.</p>
+          <p>Line breaks and spaces in the verbatim text are preserved.</p>
+          <p>You can change the verbatim escape character from the default '|' with <kbd class="userinput">\verbatimescapechar char</kbd>; for example, this changes it to '@': <kbd class="userinput">\verbatimescapechar \@</kbd>.</p>
+          <p>The backslash is not necessary in some cases, but is in others, depending on the catcode of the character. The argument to <var>\verbatimescapechar</var> is used as <kbd class="userinput">\catcode 'char</kbd>, so the exact rules follow that for <kbd class="userinput">\catcode</kbd>.</p>
+          <p>To reset the category code of all special characters to 12 (<q>other</q>), <kbd class="userinput">\verbatim</kbd> uses <kbd class="userinput">\uncatcodespecials</kbd>. If you make additional characters <q>special</q>, you should extend <kbd class="userinput">\dospecials</kbd> to include those characters, lest they be given special treatment inside verbatim environments. For example,</p>
+          <pre>\catcode'\A=\active
+% Try commenting out the following line.
+\expandafter\def\expandafter\dospecials\expandafter{\dospecials\do\A}
+\verbatimA#$%_^|endverbatim</pre>
+          <p>Because <kbd class="userinput">\verbatim</kbd> must change the category code of special characters, calling inside a macro definition of your own does not work properly. For example:</p>
+          <pre>\def\mymacro{\verbatim &amp;#%|endverbatim}% Doesn't work!</pre>
+          <p>To accomplish this, you must change the category codes yourself before making the macro definition. Perhaps <kbd class="userinput">\uncatcodespecials</kbd> will help you.</p>
+        </section>
+        <section id="eplain_link">
+          <h4>Links in <code class="application">eplain</code></h4>
+          <section>
+            <h4>Cross-references in <code class="application">eplain</code>*</h4>
+          </section>
+          <section>
+            <h4>Hyperlinks in <code class="application">eplain</code>*</h4>
+          </section>
+          <section id="eplain_xrefn">
+            <h4>
+<kbd class="userinput">\xrefn</kbd>*</h4>
+          </section>
+        </section>
+      </section>
+      <section id="LaTeX">
+        <h3>Latex</h3>
+        <section>
+          <h4>A simple LaTeX Example</h4>
+          <p> Let's start with the simplest working example:</p>
+          <pre>\documentclass{article}
+
+          \begin{document}
+          First document. This is a simple example, with no
+          extra parameters or packages included.
+          \end{document}</pre>
+          <p>...</p>
+          <pre></pre>
+        </section>
+        <section>
+          <h4>The preamble of a document</h4>
+          <p>In the previous example the text was entered after the \begin{document} command. Everything in your .tex file before this point is called the <dfn class="firstterm">preamble</dfn>. In the preamble you define the type of document you are writing, the language you are writing in, the packages you would like to use (more on this later) and several other elements. For instance, a normal document preamble would look like this:</p>
+          <pre>\documentclass[12pt, letterpaper]{article}
+          \usepackage[utf8]{inputenc}</pre>
+          <p>As said before, this defines the type of document. Some additional parameters included in the square brackets can be passed to the command. These parameters must be comma-separated. In the example, the extra parameters set the font size (12pt) and the paper size (letterpaper). Of course other font sizes (9pt, 11pt, 12pt) can be used, but if none is specified, the default size is 10pt. As for the paper size other possible values are a4paper and legalpaper; see the article about Page size and margins for more details about this.</p>
+          <p>Below a detailed description of each line:</p>
+          <pre>\usepackage[utf8]{inputenc}</pre>
+          <p>This is the encoding for the document. It can be omitted or changed to another encoding but utf-8 is recommended. Unless you specifically need another encoding, or if you are unsure about it, add this line to the preamble.</p>
+        </section>
+        <section>
+          <h4>Larger Fonts and Narrower Margins in LaTeX</h4>
+          <p>Insert:</p>
+          <pre>\fontsize{19pt}{19pt} \selectfont</pre>
+          <p>Follow up with some margin and page width adjustments:</p>
+          <pre>\addtolength{\oddsidemargin}{-.9in}
+\addtolength{\evensidemargin}{-1.44in}
+\addtolength{\textwidth}{1.8in}</pre>
+        </section>
+        <section id="latex_to_plain_tex">
+          <h4>Translating LaTeX to Plain TeX</h4>
+          <p>Unfortunately, no "general", simple, automatic process is likely to succeed at this task.See <a href="#latex_to_plain_tex">How does LaTeX relate to Plain TeX</a> for further details.</p>
+          <p>Obviously, trivial documents will translate in a trivial way. Documents that use even relatively simple things, such as labels and references, are likely to cause trouble (Plain TeX doesn't support labels). While graphics are in principle covered, by the Plain TeX.</p>
+          <p>Translating a document designed to work with LaTeX into one that will work with Plain TeX is likely to amount to carefully including (or otherwise re-implementing) all those parts of LaTeX, beyond the provisions of Plain TeX, which the document uses.</p>
+          <p>Some of this work has (in a sense) been done, in the port of the LaTeX graphics package to Plain TeX. However, while graphics is available, other complicated packages (notably hyperref) are not. The aspiring translator may find the Eplain system a useful source of code. (In fact, a light-weight system such as Eplain might reasonably be adopted as an alternative target of translation, though it undoubtedly gives the user more than the "bare minimum" that Plain TeX is designed to offer.) </p>
+        </section>
+      </section>
+      <section id="ConTeXt">
+        <h3>
+          <pre class="application">ConTeXt</pre>
+        </h3>
+        <div class="note" style="border-style: solid;">You may get materials to write this chapter from <cite class="filename">html/sci-tech/computing/typography/TeX-LaTeX/</cite>, or from <cite class="citetitle">https://en.wikibooks.org/wiki/ConTeXt</cite>.</div>
+        <p><code class="application">ConTeXt</code> (originally entitled <q>pragmatex</q>) is a general-purpose document processor. It is especially suited for structured documents, automated document production, very fine typography, and multi-lingual typesetting. It is based in part on the TeX typesetting system, and uses a document markup language for manuscript preparation. The typographical and automated capabilities of <code class="application">ConTeXt</code> are extensive, including interfaces for handling microtypography, multiple footnotes and footnote classes, and manipulating OpenType fonts and features. Moreover, it offers extensive support for colors, backgrounds, hyperlinks, presentations, figure-text integration, and conditional compilation. It gives the user extensive control over formatting while making it easy to create new layouts and styles without learning the low-level TeX macro language.</p>
+        <p><code class="application">ConTeXt</code> provides a multi-lingual user interface with support for markup in English, Dutch, German, French, and Italian and support for output in many languages including western European, eastern European, Arabic-script, Chinese, Japanese, and Korean. It also allows the user to use different TeX engines like pdfTeX, XeTeX, and LuaTeX without changing the user interface.</p>
+        <section>
+          <h4>
+<code class="application">ConTeXt</code> Strong Points</h4>
+          <p>Some of <code class="application">ConTeXt</code>'s strong points are:</p>
+          <ul class="itemizedlist">
+            <dd>There aren't really any extra packages with <code class="application">ConTeXt</code>, just a few modules, so that you don't have to deal with package conflicts.</dd>
+            <dd>It sports a <a href="#ConTeXt_XML_processor">Built-in XML processor</a>, which you may use with TEI and Docbook XML. You gain the typesetting sophistication of a TeX backend, coupled with the validation features of XML.</dd>
+            <dd>PDF-X compliance pretty much right out of the box, whereas LaTeX lacks it. Useful if you are doing any kind of serious publishing.</dd>
+            <!-- <listitem>along the same lines as the last one, icc color profile support pretty much out of the box.</listitem> -->
+            <dd>
+<cite class="filename">simplefonts</cite> package: load your system fonts like XeLaTeX</dd>
+            <dd>UTF-8 support by default: important if you write a language other than english.</dd>
+          </ul>
+        </section>
+        <section>
+          <h4>Comparison of <code class="application">ConTeXt</code> with LaTeX and Other Typesetting Systems</h4>
+          <p><code class="application">ConTeXt</code> may be compared and contrasted with <a href="#LaTeX">LaTeX</a>, but the primary thrust of the two are rather distinct. <code class="application">ConTeXt</code> from the ground up is a typography and typesetting system meant to provide users easy and consistent access to advanced typographical control—important for general-purpose typesetting tasks. The original vision of LaTeX is to <em>insulate</em> the user from typographical decisions—a useful approach for submitting, say, articles for a scientific journal. LaTeX has evolved from that original vision; at the same time, <code class="application">ConTeXt</code>'s unified design avoids the package clashes that can happen with LaTeX.</p>
+          <section>
+            <h4>Should I Use <code class="application">ConTeXt</code> or LaTeX?</h4>
+            <blockquote>LaTeX is more of a standard document preparation system in academia. So if you ever want to submit a paper to a journal or conference and want to do it in TeX, LaTeX is your option.</blockquote>
+            <blockquote>It is safe to say that in general <code class="application">ConTeXt</code> focuses a bit more on typography and a bit less on structure than LaTeX. There is quite a lot of functionality to handle page layouts, page arrangements, and page layering, for example.</blockquote>
+          </section>
+        </section>
+        <section id="installing_ConTeXt">
+          <h4>Installing <code class="application">ConTeXt</code></h4>
+          <p>On I have installed the following Debian packages: <cite class="filename">context</cite>, <cite class="filename">context-doc-nonfree</cite>, and <cite class="filename">context-modules</cite>. <cite class="filename">context-doc-nonfree</cite> contains documentation in PDF format which get installed in subdirectory <cite class="filename">/usr/share/texmf/doc/context/base/</cite>, whereas <cite class="filename">context-modules</cite> gets installed in <cite class="filename">/usr/share/texmf/doc/context/third/</cite>.</p>
+          <p>Package <cite class="filename">context</cite> itself is huge and gets installed in several key subdirectories. It does not seem to include any documentation, so we have to rely on <cite class="filename">context-doc-nonfree</cite>.</p>
+          <section>
+            <h4>Installing the Minimals Distribution</h4>
+            <p>These are the steps to install <code class="application">ConTeXt</code> on Linux and Mac OS:</p>
+            <ul class="itemizedlist">
+              <dd>Create a directory for ConTeXt, for example /home/user/context and change to it</dd>
+              <dd>Download ConTeXt minimals installer: <kbd class="userinput">wget http://minimals.contextgarden.net/setup/first-setup.sh</kbd>
+</dd>
+              <dd>
+                <p>To download the latest ConTeXt MKIV, run:</p>
+                <pre>sh ./first-setup.sh.</pre>
+              </dd>
+            </ul>
+            <p>Hence forward, every time you want to use context, you first need to tell bash where to find it. This is done by running:</p>
+            <ul class="itemizedlist">
+              <dd><kbd class="userinput">source /home/user/context/tex/setuptex</kbd> if you are using <code class="application">bash</code></dd>
+              <dd><kbd class="userinput">source /installation-dir/tex/setuptex.csh</kbd> if you are using <code class="application">(t)csh</code></dd>
+            </ul>
+            <p>You can put the line for example in your <cite class="filename">~/.bashrc</cite>.</p>
+            <h5 class="bridgehead">Installing Minimals <code class="application">ConTeXt</code> Modules</h5>
+            <p><code class="application">ConTeXt</code> has a good selection of third party modules for different purposes. You can install them by:</p>
+            <pre>./first-setup.sh --modules=all</pre>
+            <h5 class="bridgehead">Installing Everything in Minimals</h5>
+            <p>You can install all things in the ConTeXt minimal distribution with:</p>
+            <pre>first-setup.sh --context=beta --fonts=all --modules=all --goodies=all</pre>
+          </section>
+        </section>
+        <!-- end of "Installing <application>ConTeXt</application>" -->
+        <section id="using_ConTeXt">
+          <h4>Using <code class="application">ConTeXt</code></h4>
+          <section>
+            <h4>
+<code class="application">ConTeXt</code> Basics</h4>
+            <p>ConTeXt is a lot simpler than LaTeX especially when you want to achieve custom look for your documents. The examples from now on expect you to use a text editor which is UTF-8 compatible. Start by entering the following into your favourite text editor:</p>
+            <pre id="ConTeXt_example_1">\starttext
+  \ConTeXt is so easy!
+\stoptext</pre>
+            <p>And compile it by typing:</p>
+            <pre>context yourfile.tex</pre>
+            <p>As you can see, no document class or anything need to be defined to produce valid <code class="application">ConTeXt</code> output. By default, <code class="application">ConTeXt</code> produces PDF output.</p>
+            <section>
+              <h4>A Simple Structured-Text Example</h4>
+              <p>Now, let's try something more complicated:</p>
+              <pre id="ConTeXt_example_2">\mainlanguage[fi]
+\starttext
+  \completecontent
+
+  \part{Something}
+    Lorem ipsum
+    \chapter{Something else}
+      Dolor sit amet
+
+\stoptext</pre>
+              <p>Now we've set to Finnish both the hyphenation and the auto generated element names (such as Table of Contents). We've also defined a part and a chapter, and generated a ToC with the <command>\completecontent</command> command.</p>
+            </section>
+            <section>
+              <h4>A More Advanced Structured-Text Example</h4>
+              <p>Here we will additionally be using the macros <function>\startsection[title={<var>name</var>}]</function> and <function>\stopsection</function> to mark the title and the content of a section. So</p>
+              <pre>\starttext
+  \startsection[title={Testing ConTeXt}]
+    This is my {\em first} ConTeXt document.
+  \stopsection
+\stoptext</pre>
+            </section>
+            <section>
+              <h4>A Still Richer Example</h4>
+              <p>Here is another example from the wikipedia page:</p>
+              <pre id="ConTeXt_example_3">% This line is a comment because % precedes it.
+% It specifies the format of head named 'title'
+% Specifically the style of the font: sans serif
+% + bold + big font.
+
+\setuphead[title][style={\ss\bfd},
+    before={\begingroup},
+    after={John Doe, the author\smallskip%
+           \currentdate\bigskip\endgroup}]
+
+\starttext
+
+\title{\CONTEXT}
+
+\section{Text}
+\CONTEXT\ is a document preparation system for the
+\TEX\ typesetting program. It offers programmable
+desktop publishing features and extensive
+facilities for automating most aspects of
+typesetting and desktop publishing, including
+numbering and cross-referencing (for example to
+equation \in[eqn:famous-emc]), tables and figures,
+page layout, bibliographies, and much more.
+
+It was originally written around 1990 by Hans
+Hagen. It could be an alternative or complement
+to \LATEX.
+
+\section{Maths}
+With \CONTEXT\ we could write maths. Equations
+can be automatically numbered.
+
+\placeformula[eqn:famous-emc]
+\startformula
+    E = mc^2
+\stopformula
+with
+\placeformula[eqn:def-m]
+\startformula
+    m = \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+\stopformula
+
+\stoptext</pre>
+            </section>
+            <section>
+              <h4>ConTeXt Top Ten Commands</h4>
+              <p>A novice user might be put off by the number of ConTeXt commands. Satisfying results can be obtained by only using the next ten groups of commands:</p>
+              <ul class="itemizedlist">
+                <dd>
+<a href="#ConTeXt_example_1">\starttext</a>, <command>\stoptext</command>
+</dd>
+                <dd>
+<a href="#ConTeXt_example_2">\chapter</a>, <command>\section</command>, <command>\title</command>, <command>\subject</command>, <a href="#ConTeXt_example_3">\setuphead</a>, <a href="#ConTeXt_example_2">\completecontent</a>
+</dd>
+                <dd>
+<a href="#ConTeXt_em">\em</a>, <command>\bf</command>, <command>\cap</command>
+</dd>
+                <dd>
+<command>\startitemize</command>, <command>\stopitemize</command>, <command>\item</command>, <command>\head</command>
+</dd>
+                <dd>
+<command>\abbreviation</command>, <command>\infull</command>, <command>\completelistofabbreviations</command>
+</dd>
+                <dd>
+<command>\placefigure</command>, <command>\externalfigure</command>, <command>\useexternalfigures</command>
+</dd>
+                <dd>
+<command>\placetable</command>, <command>\starttable</command>, <command>\stoptable</command>
+</dd>
+                <dd>
+<command>\definedescription</command>, <command>\defineenumeration</command>
+</dd>
+                <dd>
+<command>\index</command>, <command>\completeindex</command>
+</dd>
+                <dd>
+<a href="#ConTeXt_layout">\setuplayout</a>, <command>\setupfootertexts</command>, <command>\setupheadertexts</command>
+</dd>
+              </ul>
+            </section>
+          </section>
+          <!-- end of "<application>ConTeXt</application> Basics" -->
+        </section>
+        <!-- end of "Using <application>ConTeXt</application>" -->
+        <section id="ConTeXt_text_formatting">
+          <h4>Basic Text Formatting</h4>
+          <section id="ConTeXt_font_switches">
+            <h4>ConTeXt Font Switches</h4>
+            <p>In ConTeXt there are four ways to switch fonts:</p>
+            <ul class="itemizedlist">
+              <dd>font style/alternative commands (<command>\rm</command>, <command>\ss</command>, etc.),</dd>
+              <dd>font size commands (<command>\tfa</command>, <command>\tfb</command>, etc.),</dd>
+              <dd>mnemonic command aliases (<command>\bold</command>, <command>\sans</command>, etc.),</dd>
+              <dd>a complete font change (<command>\setupbodyfont</command>, <command>\switchtobodyfont</command>).</dd>
+            </ul>
+            <section>
+              <h4>Before you start...</h4>
+              <ul class="itemizedlist">
+                <dd>
+                  <p>Placing a font switch at the begin of a paragraph can sometimes generate unexpected side-effects. This can be avoided by forcing horizontal mode before any font change:</p>
+                  <pre>\dontleavehmode{\bf Warning!} Care must be taken when a font switch is used at the beginning of a paragraph.\par</pre>
+                </dd>
+                <dd>
+                  <p>It is usually a bad style to use explicit font switches in the text. It is better to define a semantic command that takes care of the font switching. For example, instead of using <kbd class="userinput">{\bf\red important text}</kbd></p>
+                  <pre>\definehighlight[important][style=bold, color=red]</pre>
+                  <p>and then use <kbd class="userinput">\important{important text} in the text</kbd>.</p>
+                </dd>
+              </ul>
+            </section>
+            <section>
+              <h4>Font styles and alternatives</h4>
+              <p>There are three main types of font styles: serif, sans serif, and teletype. To switch between these styles, use <command>\rm</command> for serif, <command>\ss</command> for sans serif, and <command>\tt</command> for teletype.</p>
+              <p>Each of these styles comes in different alternatives: normal, bold, italic, slanted, bold-italic, bold-slanted, and small-capped. To switch to a different alternative, use <command>\tf</command> (<q>typeface</q>) for normal, <command>\bf</command> for bold, <command>\it</command> for italic, <command>\sl</command> for slanted, <command>\bi</command> for bold-italic, <command>\bs</command> for bold-slanted, and <command>\sc</command> for small-capped.</p>
+              <p>You can generally combine font styles with alternatives, so if you want to switch to bold sans serif, you can use either <command>\bf\ss</command> or <command>\ss\bf</command>.</p>
+              <p>A font switch remains valid for the rest of the group. So, if you want to temporarily switch to a different font, use the font style command inside a group. The easiest way to start a group is to enclose the text within braces (also called curly brackets), for example</p>
+              <pre>This is serif text
+{\ss This is sans serif}
+This is serif again
+{\tt and this is typewriter}
+And serif again</pre>
+            </section>
+            <section id="ConTeXt_em">
+              <h4>Emphasizing text</h4>
+              <p>There is a font switch <command>\em</command> to emphasize text. This is somewhat special: it does automatic italic correction and changes the alternative depending on the current alternative. For example, if the current font alternative is normal (i.e. upright), <command>\em</command> switches to slanted; and if the current font alternative is slanted, <command>\em</command> switches to normal.</p>
+              <p>ConTeXt uses the Latin Modern fonts by default; these fonts look similar to the original Computer Modern fonts, but have a much larger character repertoire. As it happens, in the Latin Modern (and Computer Modern) fonts, the slanted font does not stand out from the upright font enough for some tastes; so, many people prefer to use the italic font for emphasis. To do that use</p>
+              <pre>\definebodyfontenvironment[default][em=italic]</pre>
+              <div class="note" style="border-style: solid;">
+                <p>For Opentype fonts, italic correction needs to be set using:</p>
+                <pre>\definefontfeature[default][default][itlc=yes]</pre>
+              </div>
+            </section>
+            <section>
+              <h4>ConTeXt Font Sizes</h4>
+              <p>Occasionally one needs to use a font size different from the bodyfont. ConTeXt provides two series of commands for that. For a larger font size, you can use \tfa to scale the font size by a factor of 1.2, \tfb to scale by a factor of (1.2)^2 = 1.44, \tfc to scale by (1.2)^3 = 1.728 and \tfd to scale by (1.2)^4 = 2.074. The scale is relative to the current bodyfont size.</p>
+              <p>To decrease the font size, you can use \tfx to scale the font by a factor of 0.8 and \tfxx to scale by a factor of 0.6.</p>
+              <p>The mapping of particular command suffixes (a, x, etc.) and current bodyfont size to effective font size can be changed by \definebodyfontenvironment. The default values defined in <a target="_blank" class="filename" href="http://source.contextgarden.net/font-ini.mkiv">font-ini</a> are:</p>
+              <pre>\definebodyfontenvironment
+  [\s!default]
+  [        \s!text=1.0,
+         \s!script=0.7,
+   \s!scriptscript=0.5,
+              \c!a=1.200,
+              \c!b=1.440,
+              \c!c=1.728,
+              \c!d=2.074,
+                 *=\currentfontscale, % wildcard
+              \c!x=0.8,
+             \c!xx=0.6,
+            \c!big=1.2,
+          \c!small=0.8,
+ \c!interlinespace=,
+             \c!em=\v!slanted]
+</pre>
+              <div class="note" style="border-style: solid;">
+<kbd class="userinput">script</kbd> and <kbd class="userinput">scriptsize</kbd> are used in math mode.</div>
+              <p>It is also possible to set the scaling factors for specific font sizes. For example, if you want <command>\tfa</command> to set the effective font size to 12pt when the <var>bodyfont</var> size is 10pt, and to set the effective font size to 14pt when the bodyfont size is 11pt, then add</p>
+              <pre>\definebodyfontenvironment [10pt] [a=12pt]
+\definebodyfontenvironment [11pt] [a=14pt]</pre>
+              <div class="note" style="border-style: solid;">When the first parameter is default, the scaling factors must have numerical values. When the first parameter is a font size (e.g., 12pt), the scaling factors can either be numerical value or a dimension.</div>
+              <p><command>\definebodyfontenvironment</command> is described in detail in the ConTeXt manual and the font-ini source file.</p>
+              <p>Font size can be combined with font styles. As a shortcut, you can use <command>\bfa</command> to get bold font scaled by 1.2, <command>\bfx</command> to get a bold font scaled by 0.8 and similar commands for other font styles.</p>
+              <p>These quick font switches are meant for changing the font style, alternative, or size of a few words: they do not change the bodyfont, so they don't affect interline spacing or math font sizes. So, if you want to change the font size of an entire paragraph, use \switchtobodyfont described below in <a href="#ConTeXt_complete_font_change">Complete Font Change</a>. However, it is fine to use them as style directives in setup commands, that is, using them as an option for <kbd class="userinput">style=...</kbd> in any setup command that accepts style option.</p>
+            </section>
+            <section>
+              <h4>Mnemonic font switches</h4>
+              <p>While learning a document markup language like ConTeXt, it can be hard to remember all the commands. ConTeXt provides other, easy-to-remember font switches. So for bold you can use <command>\bold</command>, for italic you can use <command>\italic</command>, for slanted you can use <command>\slanted</command>, and so on. You can probably guess what the following do:</p>
+              <ul class="itemizedlist">
+                <dd>
+                  <command>\normal</command>
+                </dd>
+                <dd>
+                  <command>\slanted</command>
+                </dd>
+                <dd>
+                  <command>\boldslanted</command>
+                </dd>
+                <dd>
+                  <command>\slantedbold</command>
+                </dd>
+                <dd>
+                  <command>\bolditalic</command>
+                </dd>
+                <dd>
+                  <command>\italicbold</command>
+                </dd>
+                <dd>
+                  <command>\small</command>
+                </dd>
+                <dd>
+                  <command>\smallnormal</command>
+                </dd>
+                <dd>
+                  <command>\smallbold</command>
+                </dd>
+                <dd>
+                  <command>\smallslanted</command>
+                </dd>
+                <dd>
+                  <command>\smallboldslanted</command>
+                </dd>
+                <dd>
+                  <command>\smallslantedbold</command>
+                </dd>
+                <dd>
+                  <command>\smallbolditalic</command>
+                </dd>
+                <dd>
+                  <command>\smallitalicbold</command>
+                </dd>
+                <dd>
+                  <command>\sans</command>
+                </dd>
+                <dd>
+                  <command>\sansserif</command>
+                </dd>
+                <dd>
+                  <command>\sansbold</command>
+                </dd>
+                <dd>
+                  <command>\smallcaps</command>
+                </dd>
+              </ul>
+              <p>In addition, the commands <command>\smallbodyfont</command> and <command>\bigbodyfont</command> can be used to change the font size. The relative size depends on the value of big and small in <command> \definebodyfontenvironment.</command></p>
+              <p>These mnemonic font switches are pretty smart. You can either use them as font style switches inside a { group }, or as a font changing command that takes an argument. For example,</p>
+              <pre>This is {\bold bold} and so is \bold{this}. But this is not.</pre>
+              <p>These mnemonic font switches can also be used for all <kbd class="userinput">style=...</kbd> options, and while using them as style options, you can just give the command name without the backslash. For example:</p>
+              <pre>\setuphead[section][style=bold]</pre>
+              <div class="note" style="border-style: solid;">
+<kbd class="userinput">\boldface</kbd> shown above is also defined to parallel the <kbd class="userinput">\typeface</kbd> and <kbd class="userinput">\swapface</kbd> switches.</div>
+            </section>
+            <section id="ConTeXt_complete_font_change">
+              <h4>Complete Font (BodyFont) Change</h4>
+              <p>If you need to change to a different font size and take care of interline spacing, you can change the bodyfont by using <command>\switchtobodyfont</command>. For example, to switch to 12pt you can use <command>\switchtobodyfont[12pt]</command>.</p>
+              <p>ConTeXt provides two relative sizes, called <var>big</var> and <var>small</var>. So, to increase the bodyfont size, use <command>\switchtobodyfont[big]</command> (or <command>\setbigbodyfont</command>), and to decrease the bodyfont size, use <command>\switchtobodyfont[small]</command> (or <command>\setsmallbodyfont</command>). The exact size used for big and small can be set using <command>\definebodyfontenvironment</command>.</p>
+              <p>The <command>\setupbodyfont</command> command accepts all the same arguments as <command>\switchtobodyfont</command>. The difference between the two is that <command>\setupbodyfont</command> also changes the font for headers, footers and other page markings, while <command>\switchtobodyfont</command> does not. So you should use <command>\setupbodyfont</command> for global font definitions to apply to the whole document, and <command>\switchtobodyfont</command> for local font changes (i.e. changes to the running text only). The effect of <command>\switchtobodyfont</command> can be localized within a group as usual.</p>
+            </section>
+            <section>
+              <h4>Simple Typescript Example</h4>
+              <p>This section describes how to map a Sans Serif font to the \ss command and a Serif font to the \rm command. This section also describes how typefaces differ from typescripts.</p>
+              <section>
+                <h4>Requirements</h4>
+                <p>This example uses Nimbus, which is a GPL font. Check whether Nimbus is available by running the following command:</p>
+                <pre>mtxrun --script fonts --list --all --pattern=nimbus*</pre>
+                <p>This should reveal a list similar to... If the font is not shown, you might have to install the font, which can be found on some systems at <cite class="filename">/usr/share/fonts/type1/gsfonts</cite>. You may use a different font; please see <a target="_blank" class="citetitle" href="https://wiki.contextgarden.net/Fonts_in_LuaTeX#Building_the_font_database">how to install fonts to MkIV</a> for details.</p>
+              </section>
+              <section>
+                <h4>The Code for Configuring a Font</h4>
+                <pre>% Enable Unicode fonts
+\enableregime[utf]
+
+% Enable Capital Letter use
+\setupcapitals[sc=yes]
+
+% Define a script named [serif][nimbus]
+\starttypescript [serif] [nimbus]
+  \definefontsynonym [Serif]             [name:nimbusromno9lregu]
+  \definefontsynonym [SerifBold]         [name:nimbusromno9lbold]
+  \definefontsynonym [SerifItalic]       [name:nimbusromno9lreguital]
+  \definefontsynonym [SerifSlanted]      [name:nimbusromno9lreguital]
+  \definefontsynonym [SerifBoldItalic]   [name:nimbusromno9lboldital]
+  \definefontsynonym [SerifBoldSlanted]  [name:nimbusromno9lboldital]
+  \definefontsynonym [SerifCaps]         [name:nimbusromno9lregu]
+\stoptypescript
+
+% Define a second script named [sans][nimbus]
+\starttypescript [sans] [nimbus]
+  \definefontsynonym [Sans]             [name:nimbussanlregu]
+  \definefontsynonym [SansBold]         [name:nimbussanlbold]
+  \definefontsynonym [SansItalic]       [name:nimbussanlreguital]
+  \definefontsynonym [SansSlanted]      [name:nimbussanlreguital]
+  \definefontsynonym [SansBoldItalic]   [name:nimbussanlboldital]
+  \definefontsynonym [SansBoldSlanted]  [name:nimbussanlboldital]
+  \definefontsynonym [SansCaps]         [name:nimbussanlregu]
+\stoptypescript
+
+% Define the typeface nimbus; use serif for rm-fonts, sans serif for ss-fonts.
+\definetypeface [nimbus]  [rm]  [serif] [nimbus]
+\definetypeface [nimbus]  [ss]  [sans]  [nimbus]
+
+% Indicate the typeface to use.
+\usetypescript[nimbus][uc]
+\setupbodyfont[nimbus,rm,10pt]
+
+\starttext
+
+Regular, {\it Italic}, {\bf Bold}, {\bi Bold-Italic}, {\sc KaPiTaLe}
+
+\showbodyfont
+
+\stoptext</pre>
+                <p>Both scripts (serif and sans nimbus) map the fonts names to the different (existing) font style. Usage is implemented as follows:</p>
+                <ul class="itemizedlist">
+                  <dd>The <command>\setupbodyfont</command> command calls the typeface nimbus.</dd>
+                  <dd>The typeface nimbus calls the typescript [serif][nimbus] for <command>\rm</command> fonts, or typescript [sans][nimbus] for the <command>\ss</command> fonts.</dd>
+                </ul>
+                <p>The scripts then map the fonts to different font styles.</p>
+              </section>
+              <section>
+                <h4>Extension</h4>
+                <p>The fonts can be changed by extending the script:</p>
+                <pre>...
+\definefontsynonym [SansCaps]           [name:nimbusromno9lregu]
+\stoptypescript
+
+% Define a typescript named nimbus.
+\starttypescript [nimbus]
+  \definetypeface [nimbus]	[rm]	[serif]	[nimbus]
+  \definetypeface [nimbus]	[ss]	[sans]	[nimbus]
+\stoptypescript
+
+% Use the nimbus typescript, which defines the nimbus typeface.
+\usetypescript[nimbus]
+\setupbodyfont[nimbus,rm,10pt]
+
+\starttext
+...</pre>
+                <p>Note that typeface [nimbus] and typescript [nimbus] are different.</p>
+                <p>Calling <command>\usetypescript[nimbus]</command> ensures that the two <command>\definetypeface</command> commands, embedded within <command>\starttypescript</command>, as shown above, are called:</p>
+                <pre>\definetypeface [nimbus]  [rm]  [serif]  [nimbus]
+ \definetypeface [nimbus]  [ss]  [sans]   [nimbus]</pre>
+              </section>
+            </section>
+            <section>
+              <h4>Linux Libertine on MKIV</h4>
+              <p>Starting from Context 2010.05.21 there is the libertine typescript already defined. It points to the fonts shipped with TeXlive2010 (they have a different name than the upstream). You have to define <kbd class="userinput">script=latn</kbd> if you want the ligatures in the Bold Italic font (until the upstream doesn't set a default script). See http://archive.contextgarden.net/thread/20101108.150757.a6a9040d.en.html</p>
+              <pre>% use microtypography
+\definefontfeature[default][default][protrusion=quality,expansion=quality,script=latn]
+\usetypescript[libertine]
+\setupalign[hz,hanging]
+
+\setupbodyfont[libertine,10pt]
+
+\starttext
+  \input tufte
+\stoptext
+</pre>
+              <p>The complete code, which should work for ConTeXt shipped with TeXlive 2010 is:</p>
+              <pre>
+\definefontfeature[default][default]
+                  [protrusion=quality,
+                    expansion=quality,
+                    script=latn]
+
+\starttypescriptcollection[linuxlibertine]
+
+    \starttypescript [serif] [linuxlibertine]
+        \definefontsynonym [Libertine-Regular]    [file:fxlr.otf]
+        \definefontsynonym [Libertine-Italic]     [file:fxlri.otf]
+        \definefontsynonym [Libertine-Bold]       [file:fxlb.otf]
+        \definefontsynonym [Libertine-BoldItalic] [file:fxlbi.otf]
+    \stoptypescript
+
+    \starttypescript [serif] [linuxlibertine] [name]
+        \setups[font:fallback:serif]
+        \definefontsynonym [Serif]           [Libertine-Regular]    [features=default]
+        \definefontsynonym [SerifItalic]     [Libertine-Italic]     [features=default]
+        \definefontsynonym [SerifBold]       [Libertine-Bold]       [features=default]
+        \definefontsynonym [SerifBoldItalic] [Libertine-BoldItalic] [features=default]
+        \definefontsynonym [SerifCaps]       [Libertine-Regular]    [features=smallcaps]
+    \stoptypescript
+
+    \starttypescript [sans] [biolinum]
+        \setups[font:fallback:sans]
+        \definefontsynonym [Biolinum-Regular]    [file:fxbr.otf]
+        \definefontsynonym [Biolinum-Bold]       [file:fxbb.otf]
+        \definefontsynonym [Biolinum-Italic]     [file:fxbri.otf]
+        \definefontsynonym [Biolinum-Slanted]    [file:fxbro.otf]
+        \definefontsynonym [Biolinum-BoldItalic] [file:fxbbo.otf]
+    \stoptypescript
+
+    \starttypescript [sans] [biolinum] [name]
+        \setups[font:fallback:sans]
+        \definefontsynonym [Sans]           [Biolinum-Regular]    [features=default]
+        \definefontsynonym [SansBold]       [Biolinum-Bold]       [features=default]
+        \definefontsynonym [SansItalic]     [Biolinum-Italic]     [features=default]
+        \definefontsynonym [SansSlanted]    [Biolinum-Slanted]    [features=default]
+        \definefontsynonym [SansBoldItalic] [Biolinum-BoldItalic] [features=default]
+        \definefontsynonym [SansCaps]       [Biolinum-Regular]    [features=smallcaps]
+    \stoptypescript
+
+    \starttypescript [linuxlibertine]
+        \definetypeface [linuxlibertine] [rm] [serif] [linuxlibertine] [default]
+        \definetypeface [linuxlibertine] [ss] [sans]  [biolinum]  [default]
+        \definetypeface [linuxlibertine] [tt] [mono]  [default]   [default]
+        %definetypeface [libertine] [mm] [math]  [times]     [default]
+        \quittypescriptscanning
+    \stoptypescript
+
+\stoptypescriptcollection
+
+\usetypescript[linuxlibertine]
+\setupbodyfont[linuxlibertine,10pt]
+% use the microtype
+\setupalign[hz,hanging]
+
+\starttext
+  \input tufte
+\stoptext</pre>
+            </section>
+          </section>
+          <section>
+            <h4>Capitalizing words</h4>
+            <p>Note that \WORD, \Word and all following macros aren't switches, but commands (brackets behind, not around): <kbd class="userinput">{\em switch}</kbd>, vs <kbd class="userinput">\Word{macro}</kbd>.</p>
+          </section>
+          <section>
+            <h4>Underline, strike through, and overline</h4>
+            <p>Underlined, struck, and overlined text can be achieved with <function>\overbar</function>, <function>\overbars</function>, <function>\overstrike</function>, <function>\overstrikes</function>, <function>\underbar</function>, and <function>\underbars</function>.</p>
+          </section>
+          <section>
+            <h4>Verbatim Code</h4>
+            <ul class="itemizedlist">
+              <dd>single commands: <kbd class="userinput">\tex{a tex command}</kbd>
+</dd>
+              <dd>oneliners: <kbd class="userinput">\type{tex code}</kbd>
+</dd>
+              <dd>source code: <kbd class="userinput">\starttyping</kbd> etc.</dd>
+            </ul>
+          </section>
+          <section>
+            <h4>Quotes</h4>
+            <p>Don't try to type quotation marks, but use logical markup! Quotation marks and formatting are language dependent.</p>
+            <ul class="itemizedlist">
+              <dd>single quotes: <kbd class="userinput">\quote{some text}</kbd>
+</dd>
+              <dd>double quotes: <kbd class="userinput">\quotation{some text}</kbd>
+</dd>
+              <dd>long quotations: try <kbd class="userinput">\startquote</kbd> or <kbd class="userinput">\startquotation</kbd> etc. See also Long quotations and Extracts below.</dd>
+            </ul>
+            <section>
+              <h4><a target="_blank" href="https://wiki.contextgarden.net/Long_quotations_and_extracts">Long quotations and Extracts*</a></h4>
+            </section>
+            <section>
+              <h4><a target="_blank" href="https://wiki.contextgarden.net/Nested_quotations">Nested Quotations*</a></h4>
+              <p>(For alternate nesting of double and single quotes.)</p>
+            </section>
+          </section>
+          <section>
+            <h4>Language</h4>
+            <p>For short quotes you can switch the language (and depending setups like quotation marks) with the language code like <kbd class="userinput">{\de das ist Deutsch}</kbd>. If you switch between longer sections or if the two-letter language code has some other meaning (like \sl stands for slanted and can't be used to start Slovenian) you should use <kbd class="userinput">\language[sl]</kbd>.</p>
+            <p>To switch the document language, and not just the hyphenation rules, use <kbd class="userinput">\mainlanguage[de]</kbd>. This will replace e.g. <q>Chapter</q> with <q>Kapitel</q>, and <q>Figure</q> with <q>Abbildung</q>, in the case of German.</p>
+          </section>
+        </section>
+        <section>
+          <h4>Drawing in <code class="application">ConTeXt</code></h4>
+          <p>As its native drawing engine, <code class="application">ConTeXt</code> integrates a superset of <a target="_blank" href="metapost.html">MetaPost</a> called MetaFun, which allows the users to use the drawing abilities of MetaPost for page backgrounds and ornaments. Metafun can also be used with stand alone MetaPost. <code class="application">ConTeXt</code> also supports the use of other external drawing engines, like PGF/TikZ and PSTricks.</p>
+        </section>
+        <section id="ConTeXt_layout">
+          <h4>ConTeXt Page Layout</h4>
+          <section>
+            <h4>Typesetting areas</h4>
+            <p>The 25 typesetting areas of a ConTeXt page are divided into 5 columns and 5 rows. From left to right, one encounters leftedge, leftmargin, text, rightmargin, and rightedge. From top to bottom, the areas are called: top, header, text, footer, bottom. E.g. leftmargin is the margin area to the left of the main text area; {leftmargin,bottom} is below it, at the same height as the bottom area. In between the two lies the area {leftmargin,footer}.</p>
+            <!--
+          <para>The graphic below illustrates the areas and dimensions. The row and column names are written along the edges of the page. The arrows correspond to layout dimensions; the more important a dimension is (i.e. the more of the layout is pushed around when you change it), the thicker its arrow and the larger its name.</para>
+          <mediaobject>
+            <imageobject>
+              <imagedata format='SVG' fileref='Electric_files/pictures/Communicating/ConTeXt_layout_areas.svg'/>
+            </imageobject>
+          <caption>An AND symbol</caption>
+          </mediaobject>
+         -->
+          </section>
+          <section>
+            <h4>Defining the layout in ConTeXt</h4>
+            <p>Positioning the areas is by setting the following dimensions using <function>\setuplayout</function>. The dimensions are mentioned in order of how <em>primitive</em> they are: e.g. altering the topspace pushes around all other vertical dimensions, but altering the header affects only the headerdistance and the textheight.</p>
+            <p>You always define a <em>right</em> page; if you use a double page layout, right and left values are mirrored on a left page. Doublesided typesetting is activated with <function>\setuppagenumbering</function>.</p>
+            <ul class="itemizedlist">
+              <dd>Set the <var>backspace</var> and <var>width</var>, and the <var>topspace</var> and <var>height</var>. The <var>width</var> is the width of the main typesetting area; the <var>backspace</var> is its distance from the left edge of the page. The <var>height</var> is the distance from the top of the header to the bottom of the footer; the <var>topspace</var> is the distance from the top edge of the page to the top of the header.</dd>
+              <dd>Set the <var>header</var> and <var>headerdistance</var>, and the <var>footer</var> and <var>footerdistance</var>. The <var>header</var> is the vertical size of the header area; the <var>headerdistance</var> is the distance from the header area to the text area. The <var>footer</var> and <var>footerdistance</var> work likewise.</dd>
+              <dd>Once the <var>header(distance)</var> and <var>footer(distance)</var> are subtracted from the height, what remains is the textheight: the height of the main typesetting area. Although it would be very useful, you cannot set this dimension directly.</dd>
+              <dd>If you want to typeset anything above the header, define <var>topdistance</var> (the distance from the top of the header to the bottom of the topmost typesetting area) and <var>top</var> (the height of the topmost typesetting area). For typesetting below the footer, define <var>bottomdistance</var> and <var>bottom</var>.</dd>
+              <dd>As for the horizontal dimensions apart from the width: starting at the left edge of the main text area, and moving away from the center, one first sets the <var>leftmargindistance</var>; then one sets the width <var>leftmargin</var> of the margin typesetting area; then one sets the <var>leftedgedistance</var>; and then there is the <var>leftedge</var> typesetting area. On the right: <var>rightmargindistance</var>, <var>rightmargin</var>, <var>rightedgedistance</var>, <var>rightedge</var>.</dd>
+            </ul>
+          </section>
+          <section>
+            <h4>Paper size</h4>
+            <p>Page size and paper size are set with <function>\setuppapersize</function>. Many paper sizes are already defined by name. (A4 is 210mm x 297mm.) To define a new paper size, use <function>\definepapersize</function>.</p>
+          </section>
+          <section>
+            <h4>Example layout</h4>
+            <pre>\setuppapersize[A4][A4] % this is the default and may be omitted
+\setuplayout[backspace=20mm,
+    width=160mm,
+    topspace=20mm,
+    header=0mm,
+    footer=0mm,
+    height=250mm]</pre>
+          </section>
+          <section>
+            <h4>Multiple layouts</h4>
+            <p>If you need to use different layouts in some parts of the document, you can set up a global layout, and then define additional named layouts for the deviating parts. You only need to specify the dimensions that differ: unspecified dimensions will be inherited from the global layout.</p>
+            <p>To switch to a different layout, call it up in the appropriate place in the document. To revert back to the global layout, use <function>\setuplayout[<var>reset</var>]</function>.</p>
+            <pre>\setuplayout[...] % global layout
+\definelayout[wide][...] % layout of the first page
+
+\setuplayout[wide]  % switch to layout called 'wide'
+\setuplayout[reset] % switch back to the global layout</pre>
+            <p>To specify in advance that you want to change layouts starting from page 4 (e.g.), use <function>\definelayout[4][...]</function>. Resetting the layout must be done explicitly; else, the new layout will be used until the end of the document.</p>
+            <pre>% different layout for first two pages
+\definelayout[1][wide]
+\definelayout[3][reset]</pre>
+            <p>For the page numbers you can use absolute numbers (as above), relative numbers (like +1, -2) or the keywords <constant>odd</constant>, <constant>even</constant>, <constant>first</constant> and <constant>last</constant>.</p>
+            <pre>\setuplayout[ % default layout (right page)
+...
+]
+\definelayout[even][ % different layout on left pages
+...
+]</pre>
+            <p>If you define additional layouts in a doublepage (duplex) setup, remember to think mirrored: leftmargin defines the right margin, backspace is the distance from the spine to the right edge of the text area etc.</p>
+            <div class="warning" style="border-style: solid;">At the moment a layoutchange (setuplayout) inside a page is not properly working in mkiv duplex mode. For more details and actual state see mailing list and Bug Layoutchange inside page while duplexmode.</div>
+          </section>
+          <section>
+            <h4>ConTeXt Layout Advanced features</h4>
+            <ul class="itemizedlist">
+              <dd>
+                <p>To allow Acrobat Reader users (among others?) to make layers visible/invisible at will, add the following command at the start of your file:</p>
+                <pre>\showlayoutcomponents</pre>
+              </dd>
+              <dd>
+                <p>If you have a certain run of text that you want to keep together, you can test for the number of lines available on the current page with <function>\testpage[<var>n</var>]</function>, where <var>n</var> is the number of lines required. If there are not <var>n</var> lines available, a page break will be inserted at the location of the <function>\testpage</function> command.</p>
+              </dd>
+              <dd>
+                <p>If you need absolute positioning of objects (text, pictures) on the page, but ad-hoc rather than systematic, the <a href="#ConTeXt_layers">Layers</a> mechanism is more suitable.</p>
+              </dd>
+              <dd>
+                <p>For layout from a XML/FO perspective, with some descriptive pictures, see At Paul Tremblay's XML ConTeXt site.</p>
+              </dd>
+            </ul>
+          </section>
+        </section>
+        <!-- end of "ConTeXt Page Layout" -->
+        <section id="ConTeXt_layers">
+          <h4>ConTeXt Layers</h4>
+        </section>
+        <section id="ConTeXt_XML_processor">
+          <h4>ConTeXt's Built in XML processor*</h4>
+        </section>
+      </section>
+      <!-- end of "<application>ConTeXt</application>" -->
+
+    </main>
+
+  </body>
+
+</html>
