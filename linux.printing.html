@@ -45,6 +45,12 @@
       <section id="cups">
         <h2>CUPS (Common Unix Printer Service)</h2>
         <p>CUPS is a modular printer system for the UNIX-like operating systems that serves as a print server. But don’t think that a print server is a network-only system. The CUPS system can act as a printer server for a local machine or a network of machines. This means with one system you can set up printing for a local machine or for a group of networked machines.</p>
+        <aside>
+          <p>To start/stop the CUPS printing service on Linux, open your terminal and run the standard command for your system. For most modern distributions:</p>
+          <pre>sudo systemctl start cups</pre>
+          <p>or</p>
+          <pre>sudo systemctl stop cups</pre>
+        </aside>
         <p>CUPS consists of:</p>
         <ul>
           <li><strong>Print spooler/scheduler</strong>: Lines up printing jobs to be sent to the printer.</li>
@@ -81,6 +87,21 @@
           <li>Select the Model of your printer.</li>
           <li>Configure any general settings for your printer.</li>
         </ol>
+      </section>
+
+      <section id="printing-files">
+        <h2>Printing Files</h2>
+        <p>CUPS provides both the System V (<code class="command">lp</code>) and Berkeley (<code class="command">lpr</code>) commands for printing:</p>
+        <pre>lp filename
+lpr filename</pre>
+        <p>Both the <code>lp</code> and <code>lpr</code> commands support printing options for the driver:</p>
+        <pre>lp -o media=A4 -o resolution=600dpi filename
+lpr -o media=A4 -o resolution=600dpi filename</pre>
+        <p>CUPS recognizes many types of images files as well as PDF, PostScript, and text files, so you can print those files directly rather than through an application.</p>
+        <p>If you have an application that generates output specifically for your printer then you need to use the <code>-o raw</code> or <code>-l</code> options:</p>
+        <pre>lp  -o raw filename
+lpr -l     filename</pre>
+        <p>This will prevent the filters from misinterpreting your print file.</p>
       </section>
 
     </main>

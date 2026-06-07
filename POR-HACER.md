@@ -1,4 +1,223 @@
+#  Sincronía/Sincronicidad o casualidad significativa
+## Finalidad según Jung
+Sacarnos de nuestro mundo centrado en nosotros mismos.
+## Ejemplos de sincronía/sincronicidad
+- Bajas al garaje comunitario de tu bloque de viviendas. Resulta que la luz no funciona. No recuerdas que se haya ido la luz nunca antes. Cuando regresas a casa te enteras de que tu abuelo, que estaba gravemente enfermo, acaba de morir.
+
+#  Cyclic Time (*cyclic-time.html*)
+<blockquote>
+  <p>Cyclic time is a worldview where time is perceived as a continuous, recurring loop of events rather than a straight line. Unlike linear time (which has a distinct beginning and end), cyclical time emphasizes repetition, where events, seasons, and cosmic phases continuously repeat themselves.Understanding cyclical time spans multiple disciplines, cultures, and schools of thought:</p>
+  <p>AI Overview</p>
+  <ul>
+    <li><strong>Ancient &amp; Indigenous Worldviews</strong> Many traditional cultures (such as the Mayan calendar and Aboriginal Dreamtime) view time as a reflection of natural rhythms, where days, lunar cycles, and seasons infinitely repeat.</li>
+    <li><strong>Eastern Philosophies</strong> Cyclical time is a cornerstone of religions like Hinduism and Buddhism. In Hinduism, the cosmos undergoes endless repetitive cycles of creation, preservation, and destruction (known as the Yugas and Kalpas).</li>
+    <li><strong>Cosmology &amp; Physics</strong> In theoretical physics, the Cyclic Theory of Time (or Oscillating Universe) proposes that our universe expands and contracts in infinite cycles (often theorized through "Big Bang" and "Big Crunch" events) rather than ending in absolute thermal death.</li>
+  </ul>
+</blockquote>
+<section>
+  <h2>Wheel of time</h2>
+  <!--Wikipedia https://en.wikipedia.org › wiki › Wheel_of_time-->
+  <p>The wheel of time or wheel of history (also known as Kalachakra) is a concept found in several religious traditions and philosophies...</p>
+</section>
+<blockquote>
+  <p>Fundamental to human existence has been an attempt to understand, interpret, and influence the world in which we live. Various peoples have developed their own unique approaches to these issues in the form of systems of beliefs, values, and behaviors. It is within the context of these systems, collectively referred to as culture, that the interpretations of time have taken shape, which are thus rooted in raw human experiences and responses to life and to the natural world. On a daily level, the lives of most individuals seem to possess a one-directional aspect in that they consistently and ceaselessly move forward, from moment to moment and event to event, each day bringing new experiences, growth, and decay. Life does not appear to stop or move backward. A linear concept of time, then, reflects the common perception and experience of most people today and has been integral to various peoples' understanding throughout history. Logically speaking, whatever has a beginning will have an end: a line, a life, a universe, a history, and so forth. Because linear time typically posits a beginning, it implies that there will be an end as well.</p>
+  <p>n many traditional cultures and belief systems, the linear aspect of time is important, for it explains distinctions, growth, and change. At the same time, however, it is seen as simply a part of a greater dimension, a circular or cyclical one, that is far more encompassing and that can be seen in the daily rotation of the earth, the lunar cycle, the seasons of the year, the migrations of animals, and so forth. from early childhood and continuing throughout life, humans witness and live with the cycles of time both in nature and in human existence. In order to survive, early humans had to adapt themselves to these cycles and came to see themselves as a part of this natural process. The greatest amount of adaptation can be seen with the more rural peoples, for whom working with and depending on nature and its cycles are integral to daily life. As a consequence, the cyclical view of time has been a predominant view throughout history, especially in traditional cultures and belief systems. Cyclical time, or circular time, does not require either a beginning or an end. Thus, those who think of time cyclically need not conceptualize an ending of time, of humanity, or of existence. Instead, they tend to envision a reality that simply has always been and will always continue. This does not mean that creations do not occur, but that, generally speaking, they are also a part of a cycle, just as are all aspects of reality.</p>
+  <section>
+    <h3>Ancient Cultures and Concepts</h3>
+    <p>Although we cannot know for certain the various preliterate understandings of time and the human relationship to it, we have long had to pattern our lives in accordance with the cycles of the natural world. Hunters developed their methods and practices in conjunction with prevalent animals and migration cycles. Agriculturalists and food gatherers learned to function in conformity with seasons and weather cycles, which have also determined the types of shelters constructed and clothing worn. Because humans and nature share common space in the world, it is therefore natural that traditions and beliefs in many cultures reflect this fact. In the ancient beliefs of both India and China, for example, there developed a circular understanding of the relationship and even a dependency between humans, nature, and the spirit world.</p>
+  </section>
+  <p>https://sk.sagepub.com/ency/edvol/time/chpt/time-cyclical#_</p>
+</blockquote>
+
+# Write *aristoteles.causes.html*
+
+# Concerning file *ruling-your-world.html*
+[ ] Resolve references to other elements in
+Just type:
+```
+cat ruling-your-world.html | grep '"#'
+```
+and see for yourself.
+[ ] Remove/rewrite spurious references
+Like `&#xAD;` in:
+```
+fear&#xAD;lessly
+```
+
+
+# Caducidad de su Certificado FNMT de Persona Física
+
+Estimado/a Sr/a :
+
+Te informamos que tu Certificado de Ciudadano/a con NIF 51382728S y número de serie 1BD590DB0A48A1A962B2BF25BA59B28D caducará el próximo día 22/06/2026
+
+Si el certificado es válido, no ha sido revocado y fue emitido de forma presencial, puedes solicitar tu renovación online desde nuestra Sede Electrónica, sin necesidad de acudir a una de nuestras oficinas de Registro.
+
+Si lo deseas, puedes verificar el estado de tu certificado, así como su fecha y hora de caducidad.
+
+En cualquier caso, siempre puedes solicitar un nuevo certificado: Obtención del certificado de Ciudadano.
+
+Muchas gracias por confiar en nuestros servicios.
+
+# Asociaciones de el Molar
+<ul>
+  <li><strong>Asociación de Cazadores</strong> Calle de Ntra. Sra. de la Asunción, 21, 13</li>
+  <li><strong>Asociación Cultural Carta Puebla</strong> Pl. del Cristo · 639 36 82 81</li>
+  <li><strong>La Granja de Malú (https://www.lagranjademalu.com/)</strong> </li>
+  <li><strong>ARBA (https://arba-s.org/)</strong> Asociación para la Recuperación del Bosque Autóctono. ARBA forma parte de la PEM (Plataforma Ecologista Madrileña)</li>
+  <li><strong>Comunidades energéticas (https://www.asociacionafce.org/)</strong></li>
+</ul>
+##
+<p>
+## AFADIMOR (http://afadimor.org/)
+<h2>Quienes somos</h2>
+<p>AFADIMOR DISCAPACIDAD (Asociación de Familiares de Personas con Discapacidad de la Zona Norte de Madrid) es una Entidad fundada en Agosto de 2003, con el empuje y decisión de padres y familiares de Personas con Discapacidad, para que sus hijos y/o allegados contaran con un lugar donde reunirse, desarrollar diversos talleres y actividades; en definitiva, crear un espacio social y cultural para este colectivo.</p>
+<p>Asociación creada con carácter privado a favor de las personas con discapacidad física, psíquica y sensorial quien al objeto es el eje del funcionamiento; persigue una clara mejora de la situación social de las personas con discapacidad, tanto a nivel familiar y cultural como educacional, laboral y en general en aquellas áreas que suponga un proceso de verdadera participación.</p>
+<p>La Asociación está inscrita en la Sección Primera del Registro de Asociaciones de la Comunidad de Madrid con número 26.009.</p>
+<p>Disponemos de redes sociales en Facebook e Instagram.</p>
+
+# Contestar a Ayto Buitrago de Lozoya
+ANTES DEL  29 DE MAYO A LAS 9:00
+a ofoesanchina@madrid.org indicando en el Asunto la referencia 4613
+
+>Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
+>OFERTA DE EMPLEO NÚMERO 4613
+>El Servicio Público de Empleo de la Comunidad de Madrid le informa de la posibilidad de participar en el proceso de selección de:
+>JARDINERO PARA EL AYUNTAMIENTO DE BUITRAGO DEL LOZOYA DEL PROGRAMA PUBLICO DE EMPLEO FORMACION PARA LA ACTIVACION PROFESIONAL DESTINADO A REVERTIR EL DESPOBLAMIENTO DE MUNICIPIOS RURALES
+>Podrán ser personas destinatarias del programa:
+>- Demandantes de empleo, en situación laboral de no ocupadas, en el Servicio Público de Empleo de la Comunidad de Madrid
+>-Prioritariamente mayores de 45 años
+>-Acreditar titulación adecuada a la ocupación
+>La cualificación o experiencia en la ocupación JARDINERO se acreditará mediante la presentación de uno de estos documentos:
+>- TITULO DE FORMACION PROFESIONAL
+>Durante su participación en el programa la persona desempleada participante recibirá:
+>a)	Experiencia profesional, en la obra o servicio mediante la suscripción de contrato laboral con la entidad beneficiaria, a jornada completa, de 12 meses de duración, en horario de 8 a 15:00 y salario de 1423 brutos/mes
+>b)	Formación en competencias transversales, 90h de carácter presencial.
+>c)	Orientación profesional para la búsqueda activa de empleo y, en su caso, para el desarrollo de una iniciativa emprendedora, impartida por la Oficina de Empleo, una vez finalizado el periodo de contratación.
+>d)	Se puede solicitar ayuda económica para transporte.
+>Si reúne los requisitos debe enviar estos documentos ANTES DEL  29 DE MAYO A LAS 9:00 a ofoesanchina@madrid.org indicando en el Asunto la referencia 4613:
+>- TITULO DE FORMACION PROFESIONAL
+>Un saludo
+
+OFICINA DE EMPLEO DE SANCHINARRO
+ofoesanchina@madrid.org
+
+MADRID-SANCHINARRO
+AV. INGENIERO EMILIO HERRERA 23-27
+Madrid
+(28050) MADRID
+913441342
+
+# Enviar al Ayuntamiento de Cabanillas (administracion@cabanillasdelasierra.org)
+Buenos días Francisco
+La documentación que necesitamos para hacer el contrato es:
+- Copia DNI
+- Certificado titularidad cuenta bancaria
+- Nº cotización a la Seguridad Social
+
+Un saludo
+
+Rosa María Sierra Oliva
+Ayuntamiento de Cabanillas de la Sierra
+Administrativo
+
+## Printer Settings
+Two-sides: Long Edge (Standard)
+Pages per side: 1 or 2
+Page Handling: Page Scaling: none
+               [x] Auto-rotate and center
+               [ ] Select page-size using document page size
+
 # TEXTOS POR AÑADIR, TAREAS POR REALIZAR, NOTAS ETC.
+#  Obtener el link actualizado del bot Biblioteca Secreta de Telegram
+
+<p>El bot Biblioteca Secreta en Telegram cambia de usuario con frecuencia, lo que dificulta su búsqueda y acceso. Sin embargo, hay una solución sencilla: visita el sitio web oficial de la Biblioteca Secreta para encontrar el enlace actualizado y acceder al bot fácilmente.</p>
+<pre>https://androidphoria.com/tutoriales/como-acceder-al-bot-biblioteca-secreta-de-telegram</pre>
+<p>Para nadie es un secreto que Telegram es una plataforma donde puedes encontrar prácticamente cualquier cosa: películas gratis, ver deportes en línea, descargar música, contenido para adultos y muchísimo más. Sin embargo, una de las cosas para la que más se utiliza Telegram es para descargar libros gratis.</p>
+<p>Hay montones de bots, grupos y canales dedicados a esto, aunque uno es probablemente el más famosos: la biblioteca secreta. No obstante, este bot constantemente es dado de baja, así que pillarlo puede ser complicado. Aunque, por suerte para ti, encontramos una solución definitiva a este problema. Te contaremos cómo acceder al bot Biblioteca Secreta de Telegram siempre, sin importar cuando cambie su usuario.</p>
+<p><strong>¡No lo persigas más! Así puedes tener el enlace actualizado del bot Biblioteca Secreta de Telegram</strong></p>
+<p>Como acabamos de mencionar, el bot Biblioteca Secreta constantemente cambia su usuario dentro de Telegram. ¿El motivo? Simple: eliminan sus perfiles por las denuncias acumuladas sobre el contenido que ayuda a distribuir (libros gratis).</p>
+<p>Esto es algo que probablemente irá en aumento ahora que Telegram apretará tuercas al contenido ilegal tras el reciente arresto de su CEO, Pavel Dúrov. Sin embargo, los desarrolladores de este bot siempre lo traen de vuelta con nuevos perfiles, y lo seguirán haciendo.</p>
+<p>¿El problema con esto? Ese cambio constante de usuario hace muy difícil seguirle la pista al bot, así que siempre terminarás preguntándole a alguien si sabe cuál es el perfil actual. En esa cacería constante muchas veces te darán perfiles que también caducaron, convirtiendo el proceso en una persecución agotadora.</p>
+<p>Sin embargo, hay una forma muy simple de encontrar el enlace actualizado de este bot, con un 100% de acierto siempre. ¿Cuál es? Pues la web oficial del bot Biblioteca Secreta. ¿Cuál es su enlace? Te lo dejamos abajo junto a un breve tutorial de uso:</p>
+<ol>
+  <li>Ve a la web oficial de Biblioteca secreta (la URL es http://bibliotecasecreta.nl/).</li>
+  <li>Guarda el enlace en tus marcadores.</li>
+  <li>
+    <p>Toca sobre el bot que deseas ubicar para revelar el usuario, hay tres:</p>
+    <ul>
+      <li>Biblioteca Secreta: el bot estándar con libros en español.</li>
+      <li>Biblioteca Secreta (CAT): el bot con libros en catalán.</li>
+      <li>Ebook Download Bot: el bot con libros en inglés.</li>
+    </ul>
+  </li>
+  <li>Vuelve a presionar sobre la opción que elegiste para ir directamente a Telegram. También puedes copiar el usuario y buscarlo tú directamente en la aplicación.</li>
+  <li>Utiliza el bot como siempre lo has utilizado.</li>
+</ol>
+<p>Lo genial de este truco es que siempre encontrarás el enlace actualizado al bot, así que no tendrás que estarlo buscando por todos lados. Incluso puedes ver que la página te dice cuándo fue la última vez que se actualizó y así no te quedará ninguna duda.</p>
+
+# OFERTA DE EMPLEO Nº 4188_JARDINEROS MANC EMBALSE ATAZAR
+Estimado/a Sr/a FERNANDEZ-VICTORIO HERNANDEZ FRANCISCO:
+PROGRAMA PUBLICO DE EMPLEO-FORMACION PARA LA ACTIVACION PROFESIONAL 2026
+Asunto del correo: OFERTA DE JARDINEROS PARA LA MANCOMUNIDAD DEL EMBALSE DEL ATAZAR
+Buenos días:
+La Oficina de Empleo de San Sebastian de los Reyes está gestionando el PROGRAMA PUBLICO DE EMPLEO-FORMACION para la ACTIVACION PROFESIONAL 2026 al amparo de la Orden de 8 de mayo de 2023 y te informamos de la posibilidad de acceder a un contrato de trabajo desempeñando la ocupación de JARDINEROS. La duración del contrato es de 8 meses en LA MANCOMUNIDAD  DEL EMBALSE DEL ATAZAR.
+## Datos
+Ubicación del puesto: EL BERRUECO
+Jornada laboral completa
+Horario: de 8.00 a 15.30 H.
+Funciones: Trabajos de jardinería y mantenimiento de espacios de uso público.
+ Salario bruto/anual: 1600  /b/mes
+Imprescindible carnet de conducir para desplazare por los municipios de la mancomunidad (El Atazar, El berrueco, Cervera de Buitrago, Patones, Puentesviejas y Robledillo de la Jara).
+## Inicio
+FECHA DE INICIO: 16 de junio 2026
+Podrás ampliar información del puesto y verificar estos datos una vez realices la entrevista con la entidad.
+## Formación
+Durante tu participación en el programa recibirás:
+a) Experiencia profesional en la obra y servicio, mediante la suscripción de contrato laboral con la entidad beneficiaria, a jornada completa de 8 meses de duración.
+b) Formación en competencias transversales, de carácter presencial, con los siguientes módulos formativos:
+Sensibilización medioambiental y buenas prácticas en la ocupación (50 horas)
+Habilidades personales y sociales para el empleo (40 horas)
+c) Orientación profesional para la búsqueda activa de empleo y, en su caso, para el desarrollo de una iniciativa emprendedora, impartida por la Oficina de Empleo, a la finalización del periodo de contratación.
+## Requisitos
+Los requisitos para participar en el proceso de selección son:
+- Ser demandante de empleo, en situación laboral de no ocupado (se excluirán de la participación en el programa los demandantes en mejora de empleo), e inscrito como demandante de empleo en el Servicio Público de Empleo de la Comunidad de Madrid.
+- Poder acreditar tu cualificación mediante la posesión del título de F.P. o Certificado de Profesionalidad relacionado con la ocupación, o bien poder acreditar dicha cualificación mediante experiencia profesional al haber trabajado por cuenta ajena o por cuenta propia en la ocupación referida un mínimo de tres meses. En este caso, la acreditación de la cualificación profesional podrá realizarse mediante contratos de trabajo, nóminas, informe de vida laboral de la Seguridad Social o declaración responsable de la actividad laboral.
+
+Para poder participar en el Programa además de cumplir los requisitos, debes manifestar tu interés explícitamente, mandando un mail ANTES DEL  26 /05/2026 a la siguiente dirección de correo electrónico  rmro1@madrid.org , adjuntando tu Curriculum actualizado e indicando nombre completo, DNI/NIE y la referencia de la oferta nº 4188 en el asunto del correo.
+O responder en dicho correo en el caso de no cumplir con los requisitos o no estar disponible
+POR FAVOR RESPONDE EN TODO CASO AL CORREO INDICADO, Y SIEMPRE ANTES DEL  26/05/2026
+
+Una vez recibamos tu mail, la Oficina de Empleo realizará la preselección de las candidaturas para su posterior envío a la entidad, siendo esta última quien se pondrá en contacto contigo para realizar una entrevista.
+
+Atentamente.
+
+
+OFICINA DE EMPLEO DE SSRR
+
+SAN SEBASTIAN DE LOS REYES
+C/ ISLA DE HIERRO 7
+San Sebastián de los Reyes
+(28703) MADRID
+
+## Contestación a rmro1@madrid.org
+
+Buenas tardes,
+
+Mi nombre es: Francisco Fernández-Victorio Hernández
+DNI: 51832728-S
+tel. 699217510
+e-mail: franciscofvh@hotmail.com
+
+Estoy interesado en la oferta 4188 (Jardinero en Mancomunidad Embalse del Atazar).
+
+Les adjunto mi CV.
+
+La única acreditación para este puesto sería que poseí y mantuve una huerta en Tudela de Navarra (Ribera del Ebro) durante casi tres años.
+
+Un saludo.
+
+
 
 # Download from https://goalkicker.com/ Programming Notes for Professionals books
 
