@@ -1,33 +1,38 @@
-#  Sincronía/Sincronicidad o casualidad significativa
+# Plan de Ahorro en Mutua Activos
+
+Buenas tardes, Francisco.
+
+En primer lugar, agradecer la atención que me ha prestado en nuestra llamada.
+
+Según hemos comentado, envío adjunta la ficha de nuestro garantizado, para que lo pueda valorar tranquilamente.
+
+·  PLAN AHORRO PLUS FIDELIDAD:
+
+o Plan de ahorro que garantiza una rentabilidad neta del 2,25% durante los primeros 12 meses.
+
+o Transcurrido ese período, el tipo de interés garantizado se fijará por períodos trimestrales coincidiendo con el inicio de cada trimestre natural. El tipo se comunicará cada trimestre por anticipado.
+
+o Podrá rescatarse sin penalización a partir de los 12 meses en cualquier momento desde su contratación, si bien la disposición total o parcial antes del primer año llevará consigo una penalización del 2,25% sobre el importe dispuesto.
+
+o Sin vinculación a la contratación de otros productos
+
+o Producto con la garantía y solvencia de Mutua Madrileña
+
+Por otro lado, y debido a la mayor flexibilidad que ofrece, puede que sea más interesante Mutuafondo Dinero, cuya ficha adjunto. Es nuestro fondo de letras del tesoro, que al nivel que están saliendo actualmente las subastas, creo que va a ser algo más rentable (en torno al 2,6%) y permite hacer aportaciones y reembolsos sin límite cuando lo desee.
+
+Por favor, analice todo tranquilamente y si tiene cualquier duda quedo a su disposición, tanto a través de este correo como en el 91 310 87 81.
+
+Muchas gracias y reciba un cordial saludo.
+
+Atentamente,
+
+
+#  Sincronicidad o casualidad significativa
 ## Finalidad según Jung
 Sacarnos de nuestro mundo centrado en nosotros mismos.
-## Ejemplos de sincronía/sincronicidad
+## Ejemplos de sincronicidad
 - Bajas al garaje comunitario de tu bloque de viviendas. Resulta que la luz no funciona. No recuerdas que se haya ido la luz nunca antes. Cuando regresas a casa te enteras de que tu abuelo, que estaba gravemente enfermo, acaba de morir.
 
-#  Cyclic Time (*cyclic-time.html*)
-<blockquote>
-  <p>Cyclic time is a worldview where time is perceived as a continuous, recurring loop of events rather than a straight line. Unlike linear time (which has a distinct beginning and end), cyclical time emphasizes repetition, where events, seasons, and cosmic phases continuously repeat themselves.Understanding cyclical time spans multiple disciplines, cultures, and schools of thought:</p>
-  <p>AI Overview</p>
-  <ul>
-    <li><strong>Ancient &amp; Indigenous Worldviews</strong> Many traditional cultures (such as the Mayan calendar and Aboriginal Dreamtime) view time as a reflection of natural rhythms, where days, lunar cycles, and seasons infinitely repeat.</li>
-    <li><strong>Eastern Philosophies</strong> Cyclical time is a cornerstone of religions like Hinduism and Buddhism. In Hinduism, the cosmos undergoes endless repetitive cycles of creation, preservation, and destruction (known as the Yugas and Kalpas).</li>
-    <li><strong>Cosmology &amp; Physics</strong> In theoretical physics, the Cyclic Theory of Time (or Oscillating Universe) proposes that our universe expands and contracts in infinite cycles (often theorized through "Big Bang" and "Big Crunch" events) rather than ending in absolute thermal death.</li>
-  </ul>
-</blockquote>
-<section>
-  <h2>Wheel of time</h2>
-  <!--Wikipedia https://en.wikipedia.org › wiki › Wheel_of_time-->
-  <p>The wheel of time or wheel of history (also known as Kalachakra) is a concept found in several religious traditions and philosophies...</p>
-</section>
-<blockquote>
-  <p>Fundamental to human existence has been an attempt to understand, interpret, and influence the world in which we live. Various peoples have developed their own unique approaches to these issues in the form of systems of beliefs, values, and behaviors. It is within the context of these systems, collectively referred to as culture, that the interpretations of time have taken shape, which are thus rooted in raw human experiences and responses to life and to the natural world. On a daily level, the lives of most individuals seem to possess a one-directional aspect in that they consistently and ceaselessly move forward, from moment to moment and event to event, each day bringing new experiences, growth, and decay. Life does not appear to stop or move backward. A linear concept of time, then, reflects the common perception and experience of most people today and has been integral to various peoples' understanding throughout history. Logically speaking, whatever has a beginning will have an end: a line, a life, a universe, a history, and so forth. Because linear time typically posits a beginning, it implies that there will be an end as well.</p>
-  <p>n many traditional cultures and belief systems, the linear aspect of time is important, for it explains distinctions, growth, and change. At the same time, however, it is seen as simply a part of a greater dimension, a circular or cyclical one, that is far more encompassing and that can be seen in the daily rotation of the earth, the lunar cycle, the seasons of the year, the migrations of animals, and so forth. from early childhood and continuing throughout life, humans witness and live with the cycles of time both in nature and in human existence. In order to survive, early humans had to adapt themselves to these cycles and came to see themselves as a part of this natural process. The greatest amount of adaptation can be seen with the more rural peoples, for whom working with and depending on nature and its cycles are integral to daily life. As a consequence, the cyclical view of time has been a predominant view throughout history, especially in traditional cultures and belief systems. Cyclical time, or circular time, does not require either a beginning or an end. Thus, those who think of time cyclically need not conceptualize an ending of time, of humanity, or of existence. Instead, they tend to envision a reality that simply has always been and will always continue. This does not mean that creations do not occur, but that, generally speaking, they are also a part of a cycle, just as are all aspects of reality.</p>
-  <section>
-    <h3>Ancient Cultures and Concepts</h3>
-    <p>Although we cannot know for certain the various preliterate understandings of time and the human relationship to it, we have long had to pattern our lives in accordance with the cycles of the natural world. Hunters developed their methods and practices in conjunction with prevalent animals and migration cycles. Agriculturalists and food gatherers learned to function in conformity with seasons and weather cycles, which have also determined the types of shelters constructed and clothing worn. Because humans and nature share common space in the world, it is therefore natural that traditions and beliefs in many cultures reflect this fact. In the ancient beliefs of both India and China, for example, there developed a circular understanding of the relationship and even a dependency between humans, nature, and the spirit world.</p>
-  </section>
-  <p>https://sk.sagepub.com/ency/edvol/time/chpt/time-cyclical#_</p>
-</blockquote>
 
 # Write *aristoteles.causes.html*
 
