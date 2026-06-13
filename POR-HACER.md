@@ -1,3 +1,110 @@
+# Malas hierbas
+<p>La mayoría de las veces una planta nos parece una mala hierba a causa de una actitud incorrecta ante la naturaleza. Los neorrurales las llaman <q>plantas adventicias</q>, que a mí siempre me ha parecido una forma de decir que son plantas que se buscan la vida.</p>
+<p>Digamos que nos precipitamos demasiado en lugar de mirar y apreciar. Por ejemplo mucha gente considera a las ortigas malas hierbas. O algunas crasas. O incluso arbolillos brotados de semilla. Por tanto uno debe empezar por abrirse a todas las plantas.</p>
+<p>Muchas de estas actitudes provienen de que la mayoría de los ciudadanos obtienen sus ingresos en centros urbanos. Entonces llega el fin de semana o las vacaciones y salen al campo pero se llevan sus preferencias e interpretaciones. Piensan que una barbacoa a la sombra de un pino (debajo del cuál no crece nada) son el paraíso terrenal. Si son cazadores pagan una suscripción y se evaden en un neolítico de balas de plomo, o si no cogen el coche a disfrutar de paisajes, paran a comer en un pintoresco mesón de piedra decorado con aperos tradicionales o con cabezas de jabalí etc.</p>
+<p>Por la televisión y demás medios nos inculcan una versión sesgada de la realidad.</p>
+<p>En segundo lugar debemos buscarle la explicación. Las plantas feas nacen en terrenos <strong>degradados</strong>, es decir sin apenas materia orgánica y compactado (con mala estructura física).</p>
+<p>Lo mismo ocurre con la creciente epidemia de enfermedades crónicas: podemos desbrozar con medicamentos, pero las causas pasadas y presentes son los malos hábitos. De hecho las malas hierbas en ecología se consideran plantas de primera sucesión: con el tiempo las sustituirán otras más vistosas, más vitales y más verdes.</p>
+<p>De modo que ante las malas hierbas caben otras actitudes, aparte de quitarlas:</p>
+<ul>
+  <li><strong>Dejarlas y esperar</strong> Esperar a que el problema se resuelva solo. Mientras tanto podemos dedicarnos a realizar gestiones burocráticas, politiquear, compra, vender y especular, estudiar temarios de oposiciones, ver series de televisión etc.</li>
+  <li><strong>Segarlas y dejar que se descompongan</strong> Este proceso es lento dado que hasta que no se forme una buena capa (como de un palmo) el proceso no cogerá velocidad. Antídoto: no vivir tan a corto plazo.</li>
+  <li><strong>Segarlas y compostarlas</strong> Más trabajo, más control del proceso y se obtiene un beneficio antes.</li>
+</ul>
+<p>Además, muchas de estas malas hierbas tienen partes leñosas (madera). Entonces podemos hacer dos cosas:</p>
+<ul>
+  <li><strong>Enterrarlos, cubrirlos de tierra y cultivar encima</strong> Cuidando el grado de humedad la descomposición (por hongos) producirá compuestos muy fértiles.</li>
+  <li><strong>Carbonizarlos y mezclarlos con tierra (biocarbón)</strong> De esta manera se fija el carbono en el suelo y se mejora la estructura de la tierra.</li>
+</ul>
+<p>¡Pero por favor, nunca queméis los desbroces ni los tiréis a un basurero!</p>
+
+
+# Animales de compañía
+<p>Sentimos la necesidad de convivir con animales y sobre todo dedicamos mucho tiempo y dinero a comprar y cuidar perros y gatos.</p>
+<p>Podríamos generalizar a la circumstancia de que tal vez los animales no racionales puedan enseñarnos algo, lo cuál en principio resulta <a target="_blank" href="razon.html">irracional</a>. Alguien muy erudito e incluso inteligente y creativo podría especializarse en <dfn>etología</dfn>, la ciencia del comportamiento animal, pero el hombre moderno en general no reconoce en tal comportamiento más que un automatismo, en contadas ocasiones sorprendente por lo azaroso. Hablaremos en algún momento de la ocurrencia de un animal en particular, pero nuestra forma de pensar nos lleva a negar toda inteligencia y creatividad a estos seres.</p>
+
+# Tres estados de conocimiento
+- Conocimiento
+- Ignorancia
+- No querer conocer
+
+# Asociaciones de el Molar
+## Aires de la Sierra
+Aires de la Sierra es una asociación cultural de El Molar que
+impulsa actividades artísticas y comunitarias. Dentro de ella se
+encuentra el grupo de pintura Molarte, que promueve la
+expresión creativa a través de talleres de pintura.
+- Horario: Martes, miércoles y jueves: 16:30 h.
+- Calle S/ Isidro 2. (Antiguas Escuelas)
+- 630140187
+- airessierrapintura@hotmail.com
+## ARBA
+ARBA El Molar es una asociación ecologista dedicada a
+la defensa y recuperación del bosque autóctono.
+Organiza plantaciones, charlas y actividades de
+educación ambiental para cuidar el entorno natural del
+municipio.
+- arba.elmolar@gmail.com
+## El Ultimo Bus
+Asociación cultural que pertenece al “Tercer Sector”. Realiza actividades
+relacionadas con el mundo audiovisual. Combina festivales de música con
+talleres de producción musical y sonido en todos los niveles y también canto,
+bajo y guitarra a nivel amateur o nivel básico. Además, también organiza el
+festival de Cortometrajes “Jóvenes Creadores” junto al Ayto. de El Molar.
+Enfocado a jóvenes y adultos que quieran crear un entorno más divertido a
+través de la música, cine y fotografía y proyectarlo al mundo a través de
+nuestra aldea global. .
+También ofrece equipo de sonido, iluminación, fotografía, diseño, grabación de
+video para eventos.
+- elultimobus@gmail.com
+- 671 32 31 56
+## LA VIDA ES SUEÑO
+Talleres de interpretación, montaje de obras teatrales y desarrollo de
+habilidades comunicativas a través del teatro. Actividades abiertas a
+mayores de edad con representación final de curso.
+Se fomentan valores como el trabajo en equipo, la empatía y la creatividad.
+## Más que Música
+"Más que Música" somos un grupo de aficionados a la música que nos reunimos
+todos los miércoles de 18:00 a 20:00 h. para ensayar en el anexo al Hogar del
+Pensionista, en El Molar. El grupo lo formamos 32 personas: un conjunto
+musical y otro coral. Interpretamos piezas clásicas, pop y populares. Realizamos
+dos conciertos al año en El Molar, en navidades y verano. En octubre
+participaremos en la Feria del vino. También vamos a otros pueblos donde nos
+invitan. Si te gusta cantar, tocar un instrumento y disfrutar, te esperamos para el
+próximo curso.
+MÁS QUE MÚSICA
+elisacano14@outlook.es
+628884318
+629196606
+Martes de 19: 00 a 21:00 en el SUM Nª. Sª. del Remolino
+## Cáritas el Molar
+Organización parroquial dedicada a la atención de personas en situación
+de vulnerabilidad.
+Ofrecen ayuda alimentaria, acompañamiento social, orientación laboral y
+apoyo a familias necesitadas.
+Actúan desde los valores de la solidaridad, la justicia y la dignidad humana.
+CÁRITAS EL MOLAR
+https://www.facebook.com/voluntarios.elmolar/about
+
+
+
+
+
+# Veganismo negativo y positivo
+<section>
+  <h2>La diferencia entre matar y torturar</h2>
+</section>
+<section>
+  <h2>Veganismo negativo y positivo</h2>
+  <p>El veganismo negativo consiste en abstenerse de comprar o consumir alimentos animales, así como cualquier otra acción que ocasione sufrimiento o vejación a animales. Esto parece que cumple nuestro principal objetivo. Ahora bien, tiene el inconveniente de exigir una privación. ¿Podemos imaginar el veganismo de una manera positiva, expansiva y afirmativa? A menudo los mal-llamados <q>carnívoros</q> perciben que los veganos se limitan a limitarse a sí mismos.</p>
+  <p>En mi opinión el veganismo positivo consistiría en emprender acciones y desarrollar nuevos hábitos que indirecta pero eficazmente llevan a causar menos o ningún sufrimiento a los animales no humanos.</p>
+  <p>En general hay dos líneas de acción positiva:</p>
+  <ul>
+    <li><strong>Introducir o incrementar nuevos alimentos en nuestra dieta</strong> Desde comer legumbres todos los días hasta exotiqueces como la quinoa, el tofu, los fermentados etc. También podemos probar a comprar fruta y verdura de mejor calidad.</li>
+    <li><strong>Introducir o potenciar hábitos equilibrantes no alimentarios</strong> Experimentamos la necesidad de consumir alimentos animales en gran medida porque nos sentimos vacíos e insatisfechos. Podríamos cambiar unos huevos fritos de cena por una hora de guitarra o de pintura al terminar el día. ¿Acaso no nos aporta más bienestar una sesión de ejercicio físico que ese caro filete de segundo plato?</li>
+  </ul>
+</section>
+
 # Plan de Ahorro en Mutua Activos
 
 Buenas tardes, Francisco.

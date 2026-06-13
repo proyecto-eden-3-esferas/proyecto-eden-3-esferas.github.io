@@ -19,9 +19,9 @@
       <p><a rel="next" href="NEXT_PAGE.html">LINK_TEXT</a></p>
       -->
       <div>
-        <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024</p>
+        <p><a rel="next" href="https://ngspice.users-manual.v44.xhtml">Ngspice User&apos;s Manual, V44+ (development)</a>, by Holger Vogt, Giles Atkinson, Paolo Nenzi, December 2024, or just read/fetch/browse the <a href="https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml">Latest Version</a>...</p>
         <p><a            href="https://ngspice.sourceforge.io/">ngspice - open source spice simulator</a>, at <code>https://ngspice.sourceforge.io/</code></p>
-        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials</a> (external page)</p>
+        <p><a href="https://ngspice.sourceforge.io/tutorials.html">Ngspice Tutorials</a> (external page), pointing to a handy <a href="https://ngspice.sourceforge.io/ngspice-tutorial.html">NGSpice Tutorial for Beginners</a>, and <a href="https://ngspice.sourceforge.io/ngspice-control-language-tutorial.html">Tutorial: ngspice control language</a>, among others</p>
         <p><a href="https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/examples/">Lots of Ngspice Examples,</a> where especially the Monte Carlo simulations make heavy use of more or less complex control scripts (external page)</p>
         <p><a href="https://ngspice.sourceforge.io/literature.html">External documentation and manuals</a>: Device models, XSpice, Spice, Cider</p>
       </div>
@@ -83,6 +83,66 @@ sudo make install</pre>
 
       <section id="supported-analyses">
         <h2>Supported Analyses*</h2> <!-- section 1.2 -->
+      </section>
+
+      <section id="excitation">
+        <h2>Excitation</h2>
+        <section id="sinosoidal">
+          <h3>Sinosoidal Excitation</h3>
+          <p>An example:</p>
+          <pre>Basic RC circuit
+
+r 1 2 1.0
+c 2 0 1.0
+vin 1 0 dc 0 ac 1  ; the ac source
+
+.options noacct
+
+.control
+  ac dec 10 .01 10
+  plot vdb(2) xlog
+.endc
+
+.end</pre>
+          <p>The syntax is:</p>
+          <pre>.ac dec nd fstart fstop
+.ac oct no fstart fstop
+.ac lin np fstart fstop</pre>
+          <p>Some example lines:</p>
+          <pre>.ac dec 10 1 10K
+.ac dec 10 1K 100MEG
+.ac lin 100 1 100HZ</pre>
+          <p>dec stands for decade variation, and nd is the number of points per decade. oct stands for octave variation, and no is the number of points per octave. lin stands for linear variation, and np is the number of points. fstart is the starting frequency, and fstop is the final frequency. If this line is included in the input file, Ngspice performs an AC analysis of the circuit over the specified frequency range. Note that in order for this analysis to be meaningful, at least one independent source must have been specified with an ac value. Typically it does not make much sense to specify more than one ac source. If you do, the result will be a superposition of all sources and difficult to interpret.</p>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="pulses">
+          <h3>Pulses</h3>
+          <p>For a pulse we have to add <code>PULSE(<var>VL</var> <var>VH</var> <var>TD</var> <var>TR</var> <var>TF</var> <var>PW</var> <var>PER</var> <var>PHASE</var>)</code> to the DC voltage of our voltage source, where <var>VL</var> is the starting voltage, <var>VH</var> the end voltage, <var>TD</var> a delay, <var>TR</var> and <var>TF</var> are rise and fall times, <var>PW</var> is the pulse width, <var>PER</var> the period of repetition, <var>PHASE</var> a phase shift.</p>
+          <p>An example in a netlist:</p>
+          <pre>V1 in 0 dc 0 PULSE (0 5 1u 1u 1u 1 1)</pre>
+          <p>In this example we have a pulse from 0 to 5 V, the delay before the pulse starts, its rise and fall times are all 1 us. Pulse width and pulse period are 1 s each, far beyond our intended simulation time. Phase does not matter here, we omit it. So here we apply just the rising edge of the pulse.</p>
+        </section>
+
+        <!--
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        <section id="">
+          <h3></h3>
+          <p></p>
+          <pre></pre>
+        </section>
+        -->
+
+
       </section>
 
       <section id="description">
