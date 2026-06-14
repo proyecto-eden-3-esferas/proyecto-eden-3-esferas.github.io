@@ -1,11 +1,30 @@
+# Árboles o Jerarquías (*adt.arbol.html*)
+<p>La estructura de datos <dfn>árbol</dfn> consta de un conjunto de nodos (o vértices) y un conjunto de arcos o lados que relaciona a los nodos entre sí sin que se formen ciclos o caminos cerrados.</p>
+<p>Un <dfn>árbol dirigido</dfn> es un árbol en el que cada arco o lado tiene un principio y un final, es decir que lleva de un nodo al otro y no al revés. También podemos decir que dichos arcos van de un nodo progenitor a un nodo hijo. Un nodo progenitor, abuelo, bisabuelo etc. es su <dfn>antepasado</dfn>, mientras que un nodo hijo, nieto etc. de otro se denomina <dfn>descendiente</dfn> suyo.</p>
+<p>En un árbol dirigido se formaría un ciclo si dos lados o arcos confluyeran en un mismo nodo, con lo que el arco se convertiría en grafo.</p>
+<p>La copa de un árbol biológico es análoga a un árbol dirigido dado que dados dos nodos unidos por un arco (una rama), siempre uno de los dos precede al otro o es su <q>progenitor</q>.</p>
+<section id="secuenciales">
+  <h2>Árboles Secuenciales</h2>
+  <p>Un <dfn>árbol secuencial</dfn> es un árbol tal que los hijos de cada nodo están ordenados y forman una secuencia. Para comprenderlo, las secciones de un mismo capítulo (de un libro) están ordenadas en el sentido de que su lectura sigue una secuencia: primero leeremos la primera sección, después la segunda etc.</p>
+</section>
+<section id="etiquetados">
+  <h2>Árboles Etiquetados</h2>
+  <p>Un <dfn>árbol etiquetado</dfn> es un árbol dirigido en el que todo o algún nodo lleva asociada una etiqueta, es decir información de algún tipo.</p>
+  <p>Tales etiquetas pueden ser de dos tipos:</p>
+  <ul>
+    <li><strong>Cualitativa</strong> Indica qué clase de relación se da entre el nodo progenitor y el nodo hijo. Por ejemplo en el análisis gramatical sintáctico un nodo puede ser sujeto, objeto directo etc. de otro.</li>
+    <li><strong>Cuantitativa</strong> Indica en qué grado se da una relación. Por ejemplo, en un árbol biológico cada arco sería una rama a la que podríamos adjuntar su longitud en centímetros, por ejemplo.</li>
+  </ul>
+</section>
+
 # Parámetros de una economía nacional que el PIB no mide
 <ul>
-  <li><strong>robots industriales por habitante</strong></li>
-  <li><strong>tecnología militar</strong></li>
-  <li><strong>investigación, desarrollo y fabricación</strong></li>
-  <li><strong>cohesión, estabilidad, armonía social</strong></li>
-  <li><strong>tecnologías de base o fundamentales</strong> más que artículos de consumo, lujo, moda etc.</li>
-  <li><strong>integridad y eficiencia estatal</strong></li>
+  <li><strong>Robots industriales por habitante</strong></li>
+  <li><strong>Tecnología militar</strong></li>
+  <li><strong>Investigación, desarrollo y fabricación</strong></li>
+  <li><strong>Cohesión, estabilidad, armonía social</strong></li>
+  <li><strong>Tecnologías de base o fundamentales</strong> más que artículos de consumo, lujo, moda etc.</li>
+  <li><strong>Integridad y eficiencia estatal</strong></li>
 </ul>
 
 
