@@ -1,13 +1,26 @@
-# Malas hierbas
-<p>La mayoría de las veces una planta nos parece una mala hierba a causa de una actitud incorrecta ante la naturaleza. Los neorrurales las llaman <q>plantas adventicias</q>, que a mí siempre me ha parecido una forma de decir que son plantas que se buscan la vida.</p>
+# Parámetros de una economía nacional que el PIB no mide
+<ul>
+  <li><strong>robots industriales por habitante</strong></li>
+  <li><strong>tecnología militar</strong></li>
+  <li><strong>investigación, desarrollo y fabricación</strong></li>
+  <li><strong>cohesión, estabilidad, armonía social</strong></li>
+  <li><strong>tecnologías de base o fundamentales</strong> más que artículos de consumo, lujo, moda etc.</li>
+  <li><strong>integridad y eficiencia estatal</strong></li>
+</ul>
+
+
+# Malas hierbas (en *malas-hierbas.html*)
+<p>La mayoría de las veces una planta nos parece una mala hierba a causa de una actitud incorrecta nuestra ante la naturaleza. Los neorrurales las llaman <q>plantas adventicias</q>, que a mí siempre me ha parecido una forma de decir que son plantas que se buscan la vida. No hay malas hierbas como tales.</p>
 <p>Digamos que nos precipitamos demasiado en lugar de mirar y apreciar. Por ejemplo mucha gente considera a las ortigas malas hierbas. O algunas crasas. O incluso arbolillos brotados de semilla. Por tanto uno debe empezar por abrirse a todas las plantas.</p>
-<p>Muchas de estas actitudes provienen de que la mayoría de los ciudadanos obtienen sus ingresos en centros urbanos. Entonces llega el fin de semana o las vacaciones y salen al campo pero se llevan sus preferencias e interpretaciones. Piensan que una barbacoa a la sombra de un pino (debajo del cuál no crece nada) son el paraíso terrenal. Si son cazadores pagan una suscripción y se evaden en un neolítico de balas de plomo, o si no cogen el coche a disfrutar de paisajes, paran a comer en un pintoresco mesón de piedra decorado con aperos tradicionales o con cabezas de jabalí etc.</p>
-<p>Por la televisión y demás medios nos inculcan una versión sesgada de la realidad.</p>
-<p>En segundo lugar debemos buscarle la explicación. Las plantas feas nacen en terrenos <strong>degradados</strong>, es decir sin apenas materia orgánica y compactado (con mala estructura física).</p>
-<p>Lo mismo ocurre con la creciente epidemia de enfermedades crónicas: podemos desbrozar con medicamentos, pero las causas pasadas y presentes son los malos hábitos. De hecho las malas hierbas en ecología se consideran plantas de primera sucesión: con el tiempo las sustituirán otras más vistosas, más vitales y más verdes.</p>
+<p>Muchas de estas actitudes provienen de que la mayoría de los ciudadanos obtienen sus ingresos en centros <a target="_blank" href="urbano.html">urbanos</a>. Entonces llega el fin de semana o las vacaciones y salen al campo pero se llevan sus preferencias e interpretaciones. Piensan que una barbacoa a la sombra de un pino (debajo del cuál no crece nada) son el paraíso terrenal. Si son cazadores pagan una suscripción y se evaden en un neolítico de balas de plomo, o si no cogen el coche a disfrutar de paisajes, paran a comer en un pintoresco mesón de piedra decorado con aperos tradicionales o con cabezas de jabalí etc.</p>
+<p>Todo teatro.</p>
+<p>Por la televisión y demás medios nos inculcan una versión sesgada y convenida de la realidad.</p>
+<hr/>
+<p>En segundo lugar debemos buscarle la explicación. Las plantas feas nacen en terrenos <strong>degradados</strong>, es decir sin apenas materia orgánica y compactados (con mala estructura física).</p>
+<p>Lo mismo ocurre con la creciente epidemia de enfermedades crónicas: podemos <a target="_blank" href="desbrozar.html">desbrozar</a> con medicamentos, pero las causas pasadas y presentes son los malos hábitos. De hecho las malas hierbas en ecología se consideran plantas de primera sucesión: con el tiempo las sustituirán otras más vistosas, más vivaces y más verdes.</p>
 <p>De modo que ante las malas hierbas caben otras actitudes, aparte de quitarlas:</p>
 <ul>
-  <li><strong>Dejarlas y esperar</strong> Esperar a que el problema se resuelva solo. Mientras tanto podemos dedicarnos a realizar gestiones burocráticas, politiquear, compra, vender y especular, estudiar temarios de oposiciones, ver series de televisión etc.</li>
+  <li><strong>Dejarlas y esperar</strong> Esperar a que el problema se resuelva solo. Mientras tanto podemos dedicarnos a realizar gestiones burocráticas, politiquear, comprar, vender y especular, estudiar temarios de oposiciones, ver series de televisión etc.</li>
   <li><strong>Segarlas y dejar que se descompongan</strong> Este proceso es lento dado que hasta que no se forme una buena capa (como de un palmo) el proceso no cogerá velocidad. Antídoto: no vivir tan a corto plazo.</li>
   <li><strong>Segarlas y compostarlas</strong> Más trabajo, más control del proceso y se obtiene un beneficio antes.</li>
 </ul>
