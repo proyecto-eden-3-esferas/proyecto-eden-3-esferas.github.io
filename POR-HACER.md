@@ -1,3 +1,17 @@
+# Implement an intimate set of pages, possibly titled *intimate.NAME.html*
+
+# How to convert an image into a line drawing with Gimp
+
+# In *biodynamics.html*
+## Resolve now
+[ ] #rudolf_steiner
+[ ] #alchemy
+## Review pointers to fragments in:
+[ ] *anthroposophy.html*
+## Get to point to a file or fragment
+[ ] <strong>Giordano Bruno</strong>,
+    already present in MagicWold*.html#bruno
+
 # Árboles o Jerarquías (*adt.arbol.html*)
 <p>La estructura de datos <dfn>árbol</dfn> consta de un conjunto de nodos (o vértices) y un conjunto de arcos o lados que relaciona a los nodos entre sí sin que se formen ciclos o caminos cerrados.</p>
 <p>Un <dfn>árbol dirigido</dfn> es un árbol en el que cada arco o lado tiene un principio y un final, es decir que lleva de un nodo al otro y no al revés. También podemos decir que dichos arcos van de un nodo progenitor a un nodo hijo. Un nodo progenitor, abuelo, bisabuelo etc. es su <dfn>antepasado</dfn>, mientras que un nodo hijo, nieto etc. de otro se denomina <dfn>descendiente</dfn> suyo.</p>
