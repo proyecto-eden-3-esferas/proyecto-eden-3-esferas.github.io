@@ -1,3 +1,5 @@
+# Write *music.html* from ../Music.xml and ../Music_files
+
 # Sisifo
 
 <section id="camus">
