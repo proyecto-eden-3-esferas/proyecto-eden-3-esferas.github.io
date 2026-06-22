@@ -1,9 +1,8 @@
 # Write *music.html* from ../Music.xml and ../Music_files
 
-# Sisifo
-
+# En *sisifo.html*
 <section id="camus">
-  <h2><cite>The Myth of Sisyphus</cite>, a Book by Albert Camus</h2>
+  <h2><cite>El mito de Sisifo</cite>, un ensayo de Albert Camus</h2>
   <p>El mito de Sísifo es un ensayo filosófico del pensador Albert Camus, originalmente publicado en francés en 1942 como Le Mythe de Sisyphe. El ensayo se abre con la siguiente cita de Píndaro:</p>
   <blockquote>No te afanes, alma mía, por una vida inmortal, pero agota el ámbito de lo posible.</blockquote>
   <p>El título del ensayo proviene de un atribulado personaje de la mitología griega. En él, Camus discute la cuestión del suicidio y el valor de la vida, presentando el mito de Sísifo como metáfora del esfuerzo inútil e incesante del hombre.</p>
