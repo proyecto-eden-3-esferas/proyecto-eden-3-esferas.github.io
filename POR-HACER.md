@@ -1,3 +1,24 @@
+# Arduino IDE in
+
+  <section id="arduino">
+  </section>
+  <section id="arduino-ide">
+    <h3>Arduino IDE</h3>
+  </section>
+
+- Los inmoidiotas nos dominan
+- Los inmoidiotas poseen y ejercen su creatividad sui generis (ej. <a target="_blank" href="infraestructura-productiva.html">infraestructura</a>)
+
+<section id="mas-horas-y-presupuesto">
+  <h2>Más horas, más presupuesto
+</section>
+
+# Compis:
+## Valentín
+<p>He coincidido con Valentín durante el almuerzo. Mientras comía de su cesta jugaba a un videojuego. Me ha explicado que le metía unos sesenta euros al mes y que conocía a gente que le metía cincuenta, sesenta mil al mes. ¡Qué decepción!</p>
+
+# Write content in *utilitarianism.html*
+
 # Write *music.html* from ../Music.xml and ../Music_files
 
 # En *sisifo.html*
@@ -19,89 +40,6 @@
   <dt>Al aprender</dt>
   <dd>Curiosamente el latín <i lang="la">studere</i> significaba esforzarse. Sin embargo el Aprendizaje en mayúscula significa dejar de bloquear el conocimiento, fluir con la realidad fenoménica.</dd>
 </dl>
-
-
-
-# La cultura del pelotazo / Pelotazo (*pelotazo.html*)
-<h1>La cultura del pelotazo</h1>
-
-<blockquote>
-  <p>El término "pelotazo" en España tiene una doble connotación. En un contexto deportivo, se refiere al golpe fuerte y directo de una pelota. Sin embargo, en el contexto social y económico, que es el que nos interesa, significa algo completamente diferente. Un "pelotazo" se refiere a conseguir una gran cantidad de dinero de una sola vez, generalmente de manera rápida y a menudo con poca ética o esfuerzo.</p>
-  <p>La "cultura del pelotazo" se hizo popular en España durante la década de 1980 y 1990. Era un periodo de rápido crecimiento económico. Muchas personas soñaban con conseguir el "pelotazo" perfecto, lo que les permitiría tener una vida lujosa sin tener que trabajar más. A menudo, estos "pelotazos" estaban relacionados con la especulación de apartamentos y casas. Consistía en comprar propiedades baratas y luego venderlas a un precio mucho más alto.</p>
-  <p>Aunque puede parecer atractiva la idea de hacerse rico rápidamente, este fenómeno a menudo está vinculado con la corrupción y las actividades ilegales. Además, la búsqueda constante del "pelotazo" puede llevar a decisiones imprudentes y arriesgadas, lo que a menudo resulta en pérdidas económicas significativas.</p>
-  <p>Te pongo un ejemplo. Imagina que compras una gran extensión de terreno por muy poco dinero. Te cuesta muy poco dinero porque este terreno es agrario y no se puede construir nada. Ahora bien, tienes un amigo en el ayuntamiento (city hall en inglés), y te ayuda a cambiar la categoría de “agrario” a “urbanizable”. Así, el terreno que tenía muy poco valor ahora tiene mucho más valor. Lógicamente a tu amigo se lo “agradeces” con algún otro favor, o dinero. Claro, eso es ilegal.</p>
-  <p>~<a href="https://unlimitedspanish.com/339-la-cultura-del-pelotazo/">#339 La cultura del pelotazo</a>, Oscar</p>
-</blockquote>
-
-<blockquote>
-  <p>La «cultura del pelotazo» es un concepto socioeconómico que describe la obtención rápida de grandes sumas de dinero, generalmente mediante la especulación, la corrupción o tácticas poco éticas, en lugar del trabajo constante. Este fenómeno marcó profundamente a la sociedad española entre finales de los años 80 y los 90.</p>
-
-  Origen y significado
-  <p>El término proviene del argot coloquial, donde un "pelotazo" equivale a dar un "golpe maestro" o un gran golpe.</p>
-  <ul>
-    <li><strong>Contexto histórico</strong> El término se popularizó tras unas declaraciones en 1988 del entonces Ministro de Economía, Carlos Solchaga, quien afirmó que España era uno de los mejores lugares del mundo para enriquecerse a corto plazo.</li>
-    <li><strong>El pelotazo inmobiliario</strong> Su manifestación más conocida fue la especulación urbanística. Consistía en comprar terrenos rústicos a bajo costo y, mediante influencias o sobornos, lograr que los ayuntamientos recalificaran el suelo a urbanizable, multiplicando su valor exponencialmente de la noche a la mañana.</li>
-  </ul>
-
-  Implicaciones sociales
-  <p>Aunque generó una falsa sensación de prosperidad y un rápido enriquecimiento para algunos, esta mentalidad tuvo graves consecuencias estructurales:</p>
-  <ul>
-    <li><strong>Especulación sobre la producción</strong> Se premió más la pillería y el lucro rápido que la innovación, el esfuerzo laboral o la industria.</li>
-    <li><strong>Corrupción</strong> Para conseguir los "pelotazos" (especialmente en concesiones públicas y urbanismo), era frecuente el tráfico de influencias y el pago de comisiones ilegales.</li>
-    <li><strong>Impacto económico</strong> Este modelo fomentó una burbuja que finalmente estalló en la crisis financiera e inmobiliaria de 2008, dejando graves secuelas económicas en el país.</li>
-  </ul>
-
-  En la actualidad
-  <p>Aunque el estallido de la burbuja y los posteriores escándalos judiciales desprestigiaron esta práctica, la aspiración a enriquecerse de forma rápida sin apenas esfuerzo sigue latente en ciertos sectores, mutando hacia nuevos modelos de negocios de alto riesgo.</p>
-
-  <p>AI Overview</p>
-</blockquote>
-
-<section id="eea">
-  <h2>La tóxica cultura del ‘pelotazo’</h2>
-martes 30 de enero de 2024, 18:25h
-
-Desde hace décadas, la fiebre producida por la especulación urbanística ha afectado a una enorme cantidad de espacios naturales en España y ha destruido el hábitat de infinidad de especies autóctonas de nuestra biodiversidad. Esta vorágine destructora, alentada por intereses espurios de promotores y políticos sin escrúpulos, es la gran cuestión que se aborda en "Historias del poder y la vida", producido por Ecologistas en Acción.
-
-En este documental de más de una hora de duración, Paca Blanca (Cáceres), Nieves Nieto (Madrid), Juan Terroba (Ronda) y los gaditanos Juan Clavero y Mercedes Sousa, miembros todos ellos de la organización ecologista, presentan al espectador algunas de las muchas batallas por la conservación de nuestro patrimonio natural en las que han participado en primera persona. Una lucha por lo que es de todos que en más de una ocasión ha estado acompañada de presiones a nivel personal de aquellos grupos de interés que se esconden comúnmente detrás de los pelotazos urbanísticos.
-
-Documental De acceso libre en https://youtu.be/MbUQfUUkyTo
-
-<a href="https://www.revistaquercus.es/noticia/8707/actividades/la-toxica-cultura-del-pelotazo.html">La tóxica cultura del ‘pelotazo’ (martes 30 de enero de 2024, 18:25h)</a>
-
-</section>
-
-<section>
-  <h2>La cultura del pelotazo y la Cultura del conformismo</h2>
-
-Hay países y países y en España se puso de moda hace mucho tiempo la cultura del pelotazo y seguimos con ella a cuestas. Nada tiene que ver con el Sueño Americano tan arraigado en Estados Unidos,... hay quien puede pensar que el sueño americano es una forma metafórica de definir un pelotazo... yo discrepo profundamente sobre esto porque si bien es cierto que el Sueño Americano puede incluir un pelotazo, éste lo buscan trabajando, innovando, pensando en un producto o servicio que pueda resultar atractivo a mucha gente y por el que puedan escapar de las grandes miserias que esconde su país (que desde luego, las tiene y muchas).
-
-El Sueño Americano está en la cultura Norte Americana tanto o más enraizado como en España el Pelotazo, pero a diferencia de los Americanos, en España, el pelotazo es más bien sinónimo de chanchullo, o sea, un tejemaneje que gracias a las influencias de alguien en las altas esferas nos permita subir el escalón que supone pasar de la clase media a lo que se podría llamar clase élite.
-
-Seamos sinceros... comprendo que la cultura del pelotazo tiene su atractivo, dejando a un lado temas morales y legales (lo cual es una barbaridad, desde luego, pero esa vertiente merece una reflexión ética y otra judicial que no son objeto de este blog ) a nadie le amarga un dulce.
-
- Si trasladamos el pelotazo al mundo bursátil que es el que nos une aquí... imaginad que nos soplan que tal valor va a subir un muchísimo porcentaje en menos de dos días... ¿entraríais en el valor?... pues generalmente la primera duda que surge es la fiabilidad el soplo. Si la persona que nos da la noticia es de fiar y la noticia es verosímil pienso que la mayoría picaríamos (con más o menos riesgo en nuestra operación y dependiendo de los éxitos previos en operativas anteriores en base a la misma fuente de rumores).
-
-Pero...¿merece la pena tomar estos riesgos cuando estamos hablando de nuestro dinero?. Pues supongo que no hay una única respuesta para esta pregunta más allá del "depende" de un amigo mío gallego (pronúnciese con el melodioso acento gallego). Cada uno es como es, y hay que tener en cuenta varias consideraciones personales (riesgo al que estamos dispuestos, fiabilidad o procedencia de las informaciones previas, verosimilitud... y como no... disposición a entrar al trapo)
-
- Por otro lado, en España además de la Cultura del Pelotazo está profundamente arraigada la Cultura del Conformismo. Bueno... quizás no sea sólo un problema limitado a España, sino más bien global, pero no deja de ser cierto que de una forma o de otra la sociedad actual se mantiene de forma aletargada, adormilada y no reacciona ante casi nada,... sencillamente nos conformamos con lo que tenemos, nos conformamos con lo que somos.
-
-Anteriormente esto no pasaba... o al menos, no tanto,... pero hay que aclarar que el punto de partida es muy diferente. Nuestros padres y nuestros abuelos atravesaron muchos más problemas que nosotros, ... muchos años de vicisitudes que los que tenemos menos de 40 años no hemos ni olido, aunque ahora los nuestros nos parezcan los más grandes de todos los tiempos
-
-Sin embargo, ahora nos encontramos ante un cúmulo de circunstancias que ponen en riesgo nuestro estilo de vida y seguimos anclados en el conformismo... "siempre ha sido así"... "todos los políticos son iguales"... "cuando me jubile el gobierno proveerá"..."nuca voy a ser rico" y un largo etcétera.
-
- Sinceramente, de estas opciones no se cual es más peligrosa. A bote pronto, el Pelotazo aunque no siempre sea así, puede ser ilegal, eso hay que tenerlo claro, pero es que el Conformismo nos puede llevar a la peor de las miserias y no sólo económica sino también mental.
-
-Personalmente y si sirve el símil... dormir en el filo de la cama derecha es tan peligroso como dormir en el filo de la cama izquierdo... en cualquier momento te caes y te das un batacazo... entre esos dos lugares cada uno debe encontrar un sitio donde se encuentre cómodo. Yo soy más conformista que de pelotazo, si bien, no dejo de trabajar en ningún momento para dar mi propio pelotazo (al estilo americano)...y aún con todo desde este blog de vez en cuanto me puede la verborrea y digo alguna salvajada como el mayor de los inconformistas.
-
-Retomando el lado financiero del Pelotazo y del Conformismo: Si alguien piensa en la bolsa como un lugar adecuado para dar un pelotazo... lo respeto... yo no lo creo, así. La bolsa puede ofrecernos oportunidades de inversión atractivas, no lo dudo, pero por cada pelotazo que pueda ofrecernos hay 100 batacazos que podemos darlos. No nos engañemos, la bolsa es un negocio, es un trabajo.
-
-  <p><a href="">http://www.dondividendo.com/2012/11/la-cultura-del-pelotazo-y-la-cultura.html</a></p>
-</section>
-
-<section id="acumulaciones">
-  <h2>Acumulación o ahorro en inmuebles y pensiones</h2>
-</section>
 
 
 # Implement an intimate set of pages, possibly titled *intimate.NAME.html*
