@@ -1,3 +1,50 @@
+# Another day, another dollar
+
+# Proyecto: Acondicionamiento urbano de la autovía A-1a. Construcción de bulevar central y reordenación de accesos. Travesía El Molar -Pedrezuela”
+<p>También llamado <q>Obras de Humanización de la A-1a</q>.</p>
+<p>Financiado con Fondos Europeos. Según una fuente, <q>costará casi 11 millones de euros.</q></p>
+<p>La clave del proyecto es 33-M-15130.</p>
+
+
+# Bosque, campo, vidrio, hierro (*bosque-campo-vidrio-hierro.html*)
+<h1>Bosque, campo, vidrio, hierro</h1>
+
+
+# Bibliotecarios
+## Biblicotecario estresado
+<section id="estresados">
+  [ ] enlazar desde
+  <h2>Biblicotecarios <a target="_blank" href="ingresos.html#tension">estresados</a></h2>
+  <p>Hasta el punto de que me pregunté si quería ligar conmigo.</p>
+</section>
+
+# Información en empresas sofisticadas
+<p>Una actividad económica, empresa o tarea sofisticada requiere de información compleja y cambiante.</p>
+<p>Recuerdo el caso de Martín. Me aloj́é, con un bono, un par de días en una de ellas. Había construído una red de tres casas rurales a las que esperaba retirarse o reconvertirse. Su actual trabajo le había proporcionado el capital. Consistía en transportar cerdos de granjas industriales al matadero.</p>
+<p>¿Realmente nos sentiríamos satisfechos realizando un trabajo tosco, año tras año? ¿Qué esperanza hay de que dicho trabajo aporte valor a la sociedad?</p>
+
+# Desgobierno (en *desgobierno.html*)
+<p><dfn>Desgobierno</dfn> incapacidad de un gobierno para dirigirse hacia unos fines o metas, no digo ya alzanzarlos.</p>
+<p>De modo que un Estado, o uno mismo:</p>
+<ol>
+  <li>se marca o se fija unas metas, y</li>
+  <li>se acerca hacia ellas.</li>
+</ol>
+
+# Para prevenir la prostatitis
+<ul>
+  <li>Incorporar alimentos ricos en licopeno (tomate cocido, sandía, papaya), zinc y omega-3 (pescado azul)</li>
+  <li>té verde y té de hibisco</li>
+
+  <li>verduras: tomate, brócoli, calabaza, puerros, coliflor, lombarda, ajo, cebolla, nabos</li>
+  <li>frutas: granada, fresas, melocotones, uvas, melón, naranjas, aguacates</li>
+  <li>cereales integrales bio</li>
+  <li>alimentos ricos en vitamina E: verduras de oja verde, aceite de oliva, frutos secos, germen de trigo</li>
+  <li>condimentos: cúrcuma, pimienta, ajo, albahaca, jengibre, canela, romero, orégano, clavo, comino</li>
+
+  <li>evitar alcohol, cafeína y comidas picantes o ácidas</li>
+</ul>
+
 # Everything is Interconnected: Objectification
 <blockquote>
   <p>So What grows where you live? becomes Why are there so many of us? This leads into the question of who controls women’s bodies. Those of us who actually are women? Or are women just another resource for men to use, in their endless quest to prove their toxic masculinity and breed soldiers for civilization’s constant state of war? The masculinity and the war—against people, against the planet—together have created a perpetual motion machine of domination and destruction of the land and human rights. We will need to stop both to save this planet. This is why militarism is a feminist issue, why rape is an environmental issue, why environmental destruction is a peace issue.</p>
