@@ -1,3 +1,287 @@
+# La redistribución resuelve el problema creado por la automatización
+<p>El capitalismo no necesita tantos trabajadores. Se requiere una mano de hierro que obligue a redistribuir gratis, tal vez que también invente empleos, al más puro estilo soviético.</p>
+
+# Una lengua universal
+<h1>Una lengua universal</h1>
+<p>Muchos desearíamos que toda la Humanidad hablase una única lengua universal.</p>
+<p>Tal vez un trabajador especializado japonés o alemán no sienta esta necesidad. En España encontramos el caso opuesto: gran cantidad de inmigrantes que no acaban de decidirse a aprender bien nuestro idioma, el castellano, ya no digamos el catalán o el euskera, en parte porque no lo consideran más universal que los que ya saben (árabe, rumano, etc.)</p>
+<p>En general se han considerado dos tipos de lengua universal:</p>
+<ul>
+  <li>una lengua histórica, es decir que haya surgido y se haya desarrollado orgánicamente, como el inglés o el ruso, y</li>
+  <li>una lengua artificial diseñada exprofeso para que resulte fácil aprenderla, como el esperanto.</li>
+</ul>
+<p>Cada opción tiene sus ventajas. Por ejemplo mucha gente rechazaría el inglés porque odia la cultura a que se le asocia (racismo de norteamérica, imperialismo, materialismo etc.) y porque posee sonidos muy difíciles de pronunciar, si bien por otro lado el inglés cuenta con muchos hablantes nativos cultos, una cultura dinámica y variada, y una gramática accesible (sin apenas morfología).</p>
+<p>A una lengua universal se le exigiría:</p>
+<ul>
+  <li><dfn>expresividad</dfn>: capacidad de expresar contenidos, matices, connotaciones...</li>
+  <li><dfn>consenso</dfn>: que esté claro qué denota y qué connota cada palabra o construcción gramatical, y</li>
+  <li><dfn>difusión</dfn>: que (ya) la hable mucha gente y a ser posible que existan libros escritos en ella y no sólo <em>sobre</em> ella</li>
+</ul>
+
+# Plataformas, maquinaria y trabajo
+<p>La Teoría Clásica <i lang="la">lato sensu</i> sostenía que la producción se realizaba mediante la aportación de maquinaria y trabajo humano. Vale, alguien antes habría tenido que diseñar y fabricar esas máquinas.</p>
+<p>Ahora la Humanidad ha añadido el factor de producción <strong>plataformas</strong>.</p>
+<ul>
+  <li>clases particulares</li>
+  <li>un colegio o universidad privadas</li>
+  <li>servicios de limpieza</li>
+  <li>Uber etc.</li>
+  <li>venta por internet</li>
+  <li>alquileres</li>
+  <li>bancos</li>
+</ul>
+<p>¿Hasta qué punto el principal activo de las plataformas es su prestigio, o por lo menos su tamaño?</p>
+
+# El futuro
+## La cuestión ecológica-social
+## El trabajo
+<p>Dos cualidades del trabajador de las que solemos pensar que las máquinas carecen son:</p>
+<ul>
+<li><dfn>Translógico</dfn>: dotado de una capacidad más allá de la lógica, como por ejemplo:
+  - intuición
+  - comprensión de conceptos
+  - visión de conjunto (contraejemplo: la visión de juego)
+  - creatividad
+  - empatía
+</li>
+<li><dfn>Transmecánico</dfn>:
+  - movilidad fina (en dedos)
+  - capacidad de subir escaleras
+  - relación potencia / masa
+</li>
+
+###
+- gorilización (el gorila es un experimento mental)
+- fabricación en masa
+- trabajos remunerables (casi por definición consisten en producir muchas unidades de lo mismo)
+- imposibilidad o incapacidad de consumir todas las originalidades: de hecho los únicos criterios para escoger unas son los subgéneros y los prejuicios
+
+# Empatía
+<p>Desarrollo un trabajo a mi modo de ver mecánico. Barro, recojo basura, desbrozo etc. Por otro lado observo que muchos vecinos de la comunidad para la que trabajo aprecian una serie de detalles<!-- míos-->: que se les salude, que uno mantenga conversaciones apropiadas con ellos, incluso que se esfuerce o sufra trabajando a la intemperie.</p>
+<p>Mucha gente aprecia que uno se solidarice con su situación (<dfn>empatía</dfn>). De hecho en un mundo mecanizado la empatía amenaza con convertirse en el principal producto de la economía.</p>
+<p>Imaginemos que una excavadora automática excava los cimientos de nuestra futura casa. Después viene una hormigonera, posiblemente operada por inteligencia artificia, que verterá en la fosa. Unos módulos prefábricados se irán ensamblando, etc. Al final es posible que el trabajador que haya dedicado más horas haya sido el arquitecto. Ni siquiera eso, los planos los habrá discurrido, calculado y trazado un ordenador, con lo que la principal labor del arquitecto consistira en prodigar sonrisas. Habrá sonreído más horas que la suma de todas las trabajadas por los obreros manuales. Pues a ese tipo de mundo nos encaminamos.</p>
+<p>Al final, cuando recordemos la obra, pensaremos: <q>¡Qué agradable el arquitecto!</q> Probablemente hayamos pagado un precio alto pero simbólico, pues la mayor parte del trabajo la habrán realizado máquinas.</p>
+<p>Por ejemplo mucha gente está dispuesta a pagar más por un artículo con tal de que se lo venda un dependiente de carne y hueso y le pregunte qué tal su familia. Lo cuál es absurdo dado que si de verdad le importa qué tal está su familia no le exigiría que le comprara dicho artículo para preguntarle.</p>
+
+# Dos caras
+<ol>
+  <li>las empresas necesitan trabajadores, y</li>
+  <li>dichos trabajadores no necesitan ser humanos</li>
+</ol>
+<p>Partimos del hecho de que la inmensa mayoría del trabajo remunerado es estrictamente mecánico.</p>
+<p>Pongo por ejemplo un encargo bastante frecuente, desbrozar un campo, es decir cortar toda la hierba. Normalmente se utilizan unas máquinas llamadas desbrozadoras, pero conceptualmente la labor equivaldría a cortar con una hoz. La máquina ahorra tiempo y posturas supuestamente más incómodas. Sin embargo el operario no necesita ejercer ninguna facultad cognitiva superior. En teoría un gorila manejaría igual de bien una desbrozadora o una hoz, bastaría con transmitirle o inculcarle un puñado de instrucciones.</p>
+<p>Maticemos. El que la inmensa mayoría de los trabajos remunerados sean fácilmente automatizables no significa que no haya muchas otras tareas no automtizables. Como por ejemplo crear arte. En un mundo donde una sola pintura o composición musical puede ser admirada o escuchada por millones de personas la obra de arte se vende por lo que tiene de artesanal. Mientras haya gente con dinero dispuesta a comprar catedrales hechas de palillos subsistirán muchos artistas creadores de obras de gran mérito.</p>
+<p>Es verdad que muchos ciudanos demandan labores gorilizables como desbrozar, cargar un camión o picar la entrada de cada asistente a un espectáculo.</p>
+
+
+# Enshittification
+<h1>Enshittification</h1>
+<p style="text-align: right">(From <cite><a target="_blank" href="https://doctorow.medium.com/my-mcluhan-lecture-on-enshittification-ea343342b9bc">https://doctorow.medium.com/my-mcluhan-lecture-on-enshittification-ea343342b9bc</a></cite>, by Cory Doctorow)</p>
+<p>Last year, I coined the term ‘enshittification,’ to describe the way that platforms decay. That obscene little word did big numbers, it really hit the zeitgeist. I mean, the American Dialect Society made it their Word of the Year for 2023 (which, I suppose, means that now I’m definitely getting a poop emoji on my tombstone).</p>
+<p>So what’s enshittification and why did it catch fire? It’s my theory explaining how the internet was colonized by platforms, and why all those platforms are degrading so quickly and thoroughly, and why it matters — and what we can do about it.</p>
+<aside>We’re all living through the enshittocene, a great enshittening, in which the services that matter to us, that we rely on, are turning into giant piles of shit.</aside>
+<p>It’s frustrating. It’s demoralizing. It’s even terrifying.</p>
+<p>I think that the enshittification framework goes a long way to explaining it, moving us out of the mysterious realm of the <q>great forces of history,</q> and into the material world of specific decisions made by named people — decisions we can reverse and people whose addresses and pitchfork sizes we can learn.</p>
+<p>Enshittification names the problem and proposes a solution. It’s not just a way to say <q>things are getting worse</q> (though of course, it’s fine with me if you want to use it that way. It’s an English word. We don’t have <cite>der Rat für Englische Rechtschreibung</cite>. English is a free for all. Go nuts, meine Kerle).</p>
+<p>But in case you want to use enshittification in a more precise, technical way, let’s examine how enshittification works.</p>
+<p>It’s a three stage process: First, platforms are good to their users; then they abuse their users to make things better for their business customers; finally, they abuse those business customers to claw back all the value for themselves. Then, they die.</p>
+
+<p>Let’s do a case study. What could be better than Facebook?</p>
+<p>Facebook is a company that was founded to nonconsensually rate the fuckability of Harvard undergrads, and it only got worse after that.</p>
+<p>When Facebook started off, it was only open to US college and high-school kids with .edu and k-12.us addresses. But in 2006, it opened up to the general public. It told them: <q>Yes, I know you’re all using Myspace. But Myspace is owned by Rupert Murdoch, an evil, crapulent senescent Australian billionaire, who spies on you with every hour that God sends.</q></p>
+<p><q>Sign up with Facebook and we will never spy on you. Come and tell us who matters to you in this world, and we will compose a personal feed consisting solely of what those people post for consumption by those who choose to follow them.</q></p>
+<p>That was stage one. Facebook had a surplus — its investors’ cash — and it allocated that surplus to its end-users. Those end-users proceeded to lock themselves into FB. FB — like most tech businesses — has network effects on its side. A product or service enjoys network effects when it improves as more people sign up to use it. You joined FB because your friends were there, and then others signed up because you were there.</p>
+<p>But FB didn’t just have high network effects, it had high switching costs. Switching costs are everything you have to give up when you leave a product or service. In Facebook’s case, it was all the friends there that you followed and who followed you. In theory, you could have all just left for somewhere else; in practice, you were hamstrung by the collective action problem.</p>
+<p>It’s hard to get lots of people to do the same thing at the same time. You and your six friends here are going to struggle to agree on where to get drinks after tonight’s lecture. How were you and your 200 Facebook friends ever gonna agree on when it was time to leave Facebook, and where to go?</p>
+<p>So FB’s end-users engaged in a mutual hostage-taking that kept them glued to the platform. Then FB exploited that hostage situation, withdrawing the surplus from end-users and allocating it to two groups of business customers: advertisers, and publishers.</p>
+<p>To the advertisers, FB said, <q>Remember when we told those rubes we wouldn’t spy on them? We lied. We spy on them from asshole to appetite. We will sell you access to that surveillance data in the form of fine-grained ad-targeting, and we will devote substantial engineering resources to thwarting ad-fraud. Your ads are dirt cheap to serve, and we’ll spare no expense to make sure that when you pay for an ad, a real human sees it.</q></p>
+<p>To the publishers, FB said, <q>Remember when we told those rubes we would only show them the things they asked to see? We lied! Upload short excerpts from your website, append a link, and we will nonconsensually cram it into the eyeballs of users who never asked to see it. We are offering you a free traffic funnel that will drive millions of users to your website to monetize as you please, and those users will become stuck to you when they subscribe to your feed;</q> And so advertisers and publishers became stuck to the platform, too, dependent on those users.</p>
+<p>The users held each other hostage, and those hostages took the publishers and advertisers hostage, too, so that everyone was locked in.</p>
+<p>Which meant it was time for the third stage of enshittification: withdrawing surplus from everyone and handing it to Facebook’s shareholders.</p>
+<p>For the users, that meant dialing down the share of content from accounts you followed to a homeopathic dose, and filling the resulting void with ads and pay-to-boost content from publishers.</p>
+<p>For advertisers, that meant jacking up prices and drawing down anti-fraud enforcement, so advertisers paid much more for ads that were far less likely to be seen by a person.</p>
+<p>For publishers, this meant algorithmically suppressing the reach of their posts unless they included an ever-larger share of their articles in the excerpt, until anything less than fulltext was likely to be be disqualified from being sent to your subscribers, let alone included in algorithmic suggestion feeds.</p>
+<p>And then FB started to punish publishers for including a link back to their own sites, so they were corralled into posting fulltext feeds with no links, meaning they became commodity suppliers to Facebook, entirely dependent on the company both for reach and for monetization, via the increasingly crooked advertising service.</p>
+<p>When any of these groups squawked, FB just repeated the lesson that every tech executive learned in the Darth Vader MBA: <q>I have altered the deal. Pray I don’t alter it any further.</q></p>
+<p>Facebook now enters the most dangerous phase of enshittification. It wants to withdraw all available surplus, and leave just enough residual value in the service to keep end users stuck to each other, and business customers stuck to end users, without leaving anything extra on the table, so that every extractable penny is drawn out and returned to its shareholders.</p>
+<p>But that’s a very brittle equilibrium, because the difference between <q>I hate this service but I can’t bring myself to quit it,</q> and <q>Jesus Christ, why did I wait so long to quit? Get me the hell out of here!</q> is razor thin.</p>
+<p>All it takes is one Cambridge Analytica scandal, one whistleblower, one livestreamed mass-shooting, and users bolt for the exits, and then FB discovers that network effects are a double-edged sword.</p>
+<p>If users can’t leave because everyone else is staying, when then everyone starts to leave, there’s no reason not to go, too.</p>
+<p>That’s terminal enshittification, the phase when a platform becomes a pile of shit. This phase is usually accompanied by panic, which tech bros euphemistically call <q>pivoting.</q></p>
+<p>Which is how we get pivots like, <q>In the future, all internet users will be transformed into legless, sexless, low-polygon, heavily surveilled cartoon characters in a virtual world called “metaverse,” that we ripped off from a 25-year-old satirical cyberpunk novel.</q></p>
+<p>That’s the procession of enshittification. If enshittification were a disease, we’d call that enshittification’s <q>natural history.</q> But that doesn’t tell you how the enshittification works, nor why everything is enshittifying right now, and without those details, we can’t know what to do about it.</p>
+<p>What led to the enshittocene? What is it about this moment that led to the Great Enshittening? Was it the end of the Zero Interest Rate Policy? Was it a change in leadership at the tech giants? Is Mercury in retrograde?</p>
+<p>None of the above.</p>
+<p>The period of free fed money certainly led to tech companies having a lot of surplus to toss around. But Facebook started enshittifying long before ZIRP ended, so did Amazon, Microsoft and Google.</p>
+<p>Some of the tech giants got new leaders. But Google’s enshittification got worse when the founders came back to oversee the company’s AI panic (excuse me, <q>AI pivot</q>).</p>
+<p>And it can’t be Mercury in retrograde, because I’m a cancer, and as everyone knows, cancers don’t believe in astrology.</p>
+<p>When a whole bunch of independent entities all change in the same way at once, that’s a sign that the environment has changed, and that’s what happened to tech.</p>
+<p>Tech companies, like all companies, have conflicting imperatives. On the one hand, they want to make money. On the other hand, making money involves hiring and motivating competent staff, and making products that customers want to buy. The more value a company permits its employees and customers to carve off, the less value it can give to its shareholders.</p>
+<p>The equilibrium in which companies produce things we like in honorable ways at a fair price is one in which charging more, worsening quality, and harming workers costs more than the company would make by playing dirty.</p>
+<p>There are four forces that discipline companies, serving as constraints on their enshittificatory impulses.</p>
+<ul>
+  <li>First: competition. Companies that fear you will take your business elsewhere are cautious about worsening quality or raising prices.</li>
+  <li>Second: regulation. Companies that fear a regulator will fine them more than they expect to make from cheating, will cheat less.</li>
+</ul>
+<p>These two forces affect all industries, but the next two are far more tech-specific.</p>
+<ul>
+  <li>
+    <p>Third: self-help. Computers are extremely flexible, and so are the digital products and services we make from them. The only computer we know how to make is the Turing-complete Von Neumann machine, a computer that can run every valid program.</p>
+    <p>That means that users can always avail themselves of programs that undo the anti-features that shift value from them to a company’s shareholders. Think of a board-room table where someone says, <q>I’ve calculated that making our ads 20% more invasive will net us 2% more revenue per user.</q></p>
+    <p>In a digital world, someone else might well say <q>Yes, but if we do that, 20% of our users will install ad-blockers, and our revenue from those users will drop to zero, forever.</q></p>
+    <p>This means that digital companies are constrained by the fear that some enshittificatory maneuver will prompt their users to google, <q>How do I disenshittify this?</q></p>
+  </li>
+  <li>
+    <p>Fourth and finally: workers. Tech workers have very low union density, but that doesn’t mean that tech workers don’t have labor power. The historical <q>talent shortage</q> of the tech sector meant that workers enjoyed a lot of leverage over their bosses. Workers who disagreed with their bosses could quit and walk across the street and get another job — a better job.</p>
+    <p>They knew it, and their bosses knew it. Ironically, this made tech workers highly exploitable. Tech workers overwhelmingly saw themselves as founders in waiting, entrepreneurs who were temporarily drawing a salary, heroic figures of the tech mission.</p>
+    <p>That’s why mottoes like Google’s <q>don’t be evil</q> and Facebook’s <q>make the world more open and connected</q> mattered: they instilled a sense of mission in workers. It’s what Fobazi Ettarh calls <q>vocational awe,</q> or Elon Musk calls being <q>extremely hardcore.</q></p>
+    <p>Tech workers had lots of bargaining power, but they didn’t flex it when their bosses demanded that they sacrifice their health, their families, their sleep to meet arbitrary deadlines.</p>
+    <p>So long as their bosses transformed their workplaces into whimsical <q>campuses,</q> with gyms, gourmet cafeterias, laundry service, massages and egg-freezing, workers could tell themselves that they were being pampered — rather than being made to work like government mules.</p>
+    <p>But for bosses, there’s a downside to motivating your workers with appeals to a sense of mission, namely: your workers will feel a sense of mission. So when you ask them to enshittify the products they ruined their health to ship, workers will experience a sense of profound moral injury, respond with outrage, and threaten to quit.</p>
+    <p>Thus tech workers themselves were the final bulwark against enshittification,</p>
+  </li>
+
+</ul>
+
+The pre-enshittification era wasn’t a time of better leadership. The executives weren’t better. They were constrained. Their worst impulses were checked by competition, regulation, self-help and worker power.
+So what happened?
+One by one, each of these constraints was eroded until it dissolved, leaving the enshittificatory impulse unchecked, ushering in the enshittoscene.
+
+It started with competition. From the Gilded Age until the Reagan years, the purpose of competition law was to promote competition. US antitrust law treated corporate power as dangerous and sought to blunt it. European antitrust laws were modeled on US ones, imported by the architects of the Marshall Plan.
+But starting in the neoliberal era, competition authorities all over the world adopted a doctrine called <q>consumer welfare,</q> which held that monopolies were evidence of quality. If everyone was shopping at the same store and buying the same product, that meant it was the best store, selling the best product — not that anyone was cheating.
+And so all over the world, governments stopped enforcing their competition laws. They just ignored them as companies flouted them. Those companies merged with their major competitors, absorbed small companies before they could grow to be big threats. They held an orgy of consolidation that produced the most inbred industries imaginable, whole sectors grown so incestuous they developed Habsburg jaws, from eyeglasses to sea freight, glass bottles to payment processing, vitamin C to beer.
+Most of our global economy is dominated by five or fewer global companies. If smaller companies refuse to sell themselves to these cartels, the giants have free rein to flout competition law further, with <q>predatory pricing</q> that keeps an independent rival from gaining a foothold.
+When Diapers.com refused Amazon’s acquisition offer, Amazon lit $100m on fire, selling diapers way below cost for months, until diapers.com went bust, and Amazon bought them for pennies on the dollar, and shut them down.
+Competition is a distant memory. As Tom Eastman says, the web has devolved into <q>five giant websites filled with screenshots of text from the other four,<q> so these giant companies no longer fear losing our business.
+Lily Tomlin used to do a character on the TV show Laugh In, an AT&T telephone operator who’d do commercials for the Bell system. Each one would end with her saying <q>We don’t care. We don’t have to. We’re the phone company.</q>
+Today’s giants are not constrained by competition.
+They don’t care. They don’t have to. They’re Google.
+
+That’s the first constraint gone, and as it slipped away, the second constraint — regulation — was also doomed.
+When an industry consists of hundreds of small- and medium-sized enterprises, it is a mob, a rabble. Hundreds of companies can’t agree on what to tell Parliament or Congress or the Commission. They can’t even agree on how to cater a meeting where they’d discuss the matter.
+But when a sector dwindles to a bare handful of dominant firms, it ceases to be a rabble and it becomes a cartel.
+Five companies, or four, or three, or two, or just one company finds it easy to converge on a single message for their regulators, and without <q>wasteful competition</q> eroding their profits, they have plenty of cash to spread around.
+Like Facebook, handing former UK deputy PM Nick Clegg millions every year to sleaze around Europe, telling his former colleagues that Facebook is the only thing standing between <q>European Cyberspace</q> and the Chinese Communist Party.
+Tech’s regulatory capture allows it to flout the rules that constrain less concentrated sectors. They can pretend that violating labor, consumer and privacy laws is fine, because they violate them with an app.
+This is why competition matters: it’s not just because competition makes companies work harder and share value with customers and workers, it’s because competition keeps companies from becoming too big to fail, and too big to jail.
+Now, there’s plenty of things we don’t want improved through competition, like privacy invasions. After the EU passed its landmark privacy law, the GDPR, there was a mass-extinction event for small EU ad-tech companies. These companies disappeared en masse, and that’s fine.
+They were even more invasive and reckless than US-based Big Tech companies. After all, they had less to lose. We don’t want competition in commercial surveillance. We don’t want to produce increasing efficiency in violating our human rights.
+But: Google and Facebook — who pretend they are called Alphabet and Meta — have been unscathed by European privacy law. That’s not because they don’t violate the GDPR (they do!). It’s because they pretend they are headquartered in Ireland, one of the EU’s most notorious corporate crime-havens.
+And Ireland competes with the EU other crime havens — Malta, Luxembourg, Cyprus and sometimes the Netherlands — to see which country can offer the most hospitable environment for all sorts of crimes. Because the kind of company that can fly an Irish flag of convenience is mobile enough to change to a Maltese flag if the Irish start enforcing EU laws.
+Which is how you get an Irish Data Protection Commission that processes fewer than 20 major cases per year, while Germany’s data commissioner handles more than 500 major cases, even though Ireland is nominal home to the most privacy-invasive companies on the continent.
+So Google and Facebook get to act as though they are immune to privacy law, because they violate the law with an app; just like Uber can violate labor law and claim it doesn’t count because they do it with an app.
+Uber’s labor-pricing algorithm offers different drivers different payments for the same job, something Veena Dubal calls <q>algorithmic wage discrimination.</q> If you’re more selective about which jobs you’ll take, Uber will pay you more for every ride.
+But if you take those higher payouts and ditch whatever side-hustle let you cover your bills which being picky about your Uber drives, Uber will incrementally reduce the payment, toggling up and down as you grow more or less selective, playing you like a fish on a line until you eventually — inevitably — lose to the tireless pricing robot, and end up stuck with low wages and all your side-hustles gone.
+Then there’s Amazon, which violates consumer protection laws, but says it doesn’t matter, because they do it with an app. Amazon makes $38b/year from its <q>advertising</q> system. <q>Advertising</q> in quotes because they’re not selling ads, they’re selling placements in search results.
+The companies that spend the most on ‘ads’ go to the top, even if they’re offering worse products at higher prices. If you click the first link in an Amazon search result, on average you will pay a 29% premium over the best price on the service. Click one of the first four items and you’ll pay a 25% premium. On average you have to go seventeen items down to find the best deal on Amazon.
+Any merchant that did this to you in a physical storefront would be fined into oblivion. But Amazon has captured its regulators, so it can violate your rights, and say, <q>it doesn’t count, we did it with an app.</q>
+
+This is where that third constraint, self-help, would sure come in handy. If you don’t want your privacy violated, you don’t need to wait for the Irish privacy regulator to act, you can just install an ad-blocker.
+More than half of all web users are blocking ads. But the web is an open platform, developed in the age when tech was hundreds of companies at each others’ throats, unable to capture their regulators.
+Today, the web is being devoured by apps, and apps are ripe for enshittification. Regulatory capture isn’t just the ability to flout regulation, it’s also the ability to co-opt regulation, to wield regulation against your adversaries.
+
+Today’s tech giants got big by exploiting self-help measures. When Facebook was telling Myspace users they needed to escape Rupert Murdoch’s evil crapulent Australian social media panopticon, it didn’t just say to those Myspacers, ‘Screw your friends, come to Facebook and just hang out looking at the cool privacy policy until they get here’
+It gave them a bot. You fed the bot your Myspace username and password, and it would login to Myspace and pretend to be you, and scrape everything waiting in your inbox, copying it to your FB inbox, and you could reply to it and it would autopilot your replies back to Myspace.
+
+When Microsoft was choking off Apple’s market oxygen by refusing to ship a functional version of Microsoft Office for the Mac — so that offices were throwing away their designers’ Macs and giving them PCs with upgraded graphics cards and Windows versions of Photoshop and Illustrator — Steve Jobs didn’t beg Bill Gates to update Mac Office. He got his technologists to reverse-engineer Microsoft Office, and make a compatible suite, the iWork Suite, whose apps, Pages, Numbers and Keynote could perfectly read and write Microsoft’s Word, Excel and Powerpoint files.
+When Google entered the market, it sent its crawler to every web server on Earth, where it presented itself as a web-user: ‘Hi! Hello! Do you have any web pages? Thanks! How about some more? How about more?’
+But every pirate wants to be an admiral. When Facebook, Apple and Google were doing this adversarial interoperability, that was progress. If you try to do it to them, that’s piracy.
+Try to make an alternative client for Facebook and they’ll say you violated US laws like the Digital Millennium Copyright Act and EU laws like Article 6 of the EUCD.
+Try to make an Android program that can run iPhone apps and play back the data from Apple’s media stores and they’d bomb you until the rubble bounced.
+Try to scrape all of Google and they’ll nuke you until you glowed.
+
+Tech’s regulatory capture is mind-boggling. Take that law I mentioned earlier, Section 1201 of the Digital Millennium Copyright Act or DMCA. Bill Clinton signed it in 1998, and the EU imported it as Article 6 of the EUCD in 2001
+It is a blanket prohibition on removing any kind of encryption that restricts access to a copyrighted work — things like ripping DVDs or jailbreaking a phone — with penalties of a five-year prison sentence and a $500k fine for a first offense.
+This law has been so broadened that it can be used to imprison creators for granting access to their own creations.
+Here’s how that works: In 2008, Amazon bought Audible, an audiobook platform, in an anticompetitive acquisition. Today, Audible is a monopolist with more than 90% of the audiobook market. Audible requires that all creators on their platform sell with Amazon’s <q>digital rights management,</q> which locks it to Amazon’s apps.
+So say I write a book, then I read it into a mic, then I pay a director and an engineer thousands of dollars to turn that into an audiobook, and sell it to you on the monopoly platform, Audible, that controls more than 90% of the market.
+If I later decide to leave Amazon and want to let you come with me to a rival platform, I am out of luck. If I supply you with a tool to remove Amazon’s encryption from my audiobook, so you can play it in another app, I commit a felony, punishable by a 5-year sentence and a half-million-dollar fine, for a first offense.
+That’s a stiffer penalty than you would face if you simply pirated the audiobook from a torrent site. But it’s also harsher than the punishment you’d get for shoplifting the audiobook on CD from a truck-stop. It’s harsher than the sentence you’d get for hijacking the truck that delivered the CD.
+
+So think of our ad-blockers again. 50% of web users are running ad-blockers. 0% of app users are running ad-blockers, because adding a blocker to an app requires that you first remove its encryption, and that’s a felony (Jay Freeman calls this <q>felony contempt of business-model</q>).
+So when someone in a board-room says, <q>let’s make our ads 20% more obnoxious and get a 2% revenue increase,</q> no one objects that this might prompt users to google, <q>how do I block ads?</q> After all, the answer is, <q>you can’t.</q>
+Indeed, it’s more likely that someone in that board room will say, <q>let’s make our ads 100% more obnoxious and get a 10% revenue increase</q> (this is why every company wants you to install an app instead of using its website).
+There’s no reason that gig workers who are facing algorithmic wage discrimination couldn’t install a counter-app that coordinated among all the Uber drivers to reject all jobs unless they reach a certain pay threshold.
+No reason except felony contempt of business model, the threat that the toolsmiths who built that counter-app would go broke or land in prison, for violating DMCA 1201, the Computer Fraud and Abuse Act, trademark, copyright, patent, contract, trade secrecy, nondisclosure and noncompete, or in other words: <q>IP law.</q>
+<q>IP</q> is just a euphemism for <q>a law that lets me reach beyond the walls of my company and control the conduct of my critics, competitors and customers.<q> And <q>app</q> is just a euphemism for <q>a web-page wrapped enough IP to make it a felony to mod it to protect the labor, consumer and privacy rights of its user.</q>
+We don’t care. We don’t have to. We’re the phone company.
+
+But what about that fourth constraint: workers?
+For decades, tech workers’ high degrees of bargaining power and vocational awe put a ceiling on enshittification. Even after the tech sector shrank to a handful of giants. Even after they captured their regulators so they could violate our consumer, privacy and labor rights. Even after they created <q>felony contempt of business model</q> and extinguished self-help for tech users. Tech was still constrained by their workers’ sense of moral injury in the face of the imperative to enshittify.
+Remember when tech workers dreamed of working for a big company for a few years, before striking out on their own to start their own company that would knock that tech giant over?
+Then that dream shrank to: work for a giant for a few years, quit, do a fake startup, get acqui-hired by your old employer, as a complicated way of getting a bonus and a promotion.
+Then the dream shrank further: work for a tech giant for your whole life, get free kombucha and massages on Wednesdays.
+And now, the dream is over. All that’s left is: work for a tech giant until they fire your ass, like those 12,000 Googlers who got fired last year six months after a stock buyback that would have paid their salaries for the next 27 years.
+Workers are no longer a check on their bosses’ worst impulses
+Today, the response to <q>I refuse to make this product worse</q> is, <q>turn in your badge and don’t let the door hit you in the ass on the way out.</q>
+
+I get that this is all a little depressing.
+OK, really depressing.
+But hear me out! We’ve identified the disease. We’ve traced its natural history. We’ve identified its underlying mechanism. Now we can get to work on a cure.
+There are four constraints that prevent enshittification: competition, regulation, self-help and labor.
+To reverse enshittification and guard against its reemergence, we must restore and strengthen each of these.
+On competition, it’s actually looking pretty good. The EU, the UK, the US, Canada, Australia, Japan and China are all doing more on competition than they have in two generations. They’re blocking mergers, unwinding existing ones, taking action on predatory pricing and other sleazy tactics.
+Remember, in the US and Europe, we already have the laws to do this — we just stopped enforcing them in the Helmut Kohl era.
+I’ve been fighting these fights with the Electronic Frontier Foundation for 22 years now, and I’ve never seen a more hopeful moment for sound, informed tech policy.
+Now, the enshittifiers aren’t taking this laying down. The business press can’t stop talking about how stupid and old-fashioned all this stuff is. They call people like me <q>hipster antitrust,</q> and they hate any regulator who actually does their job.
+Take Lina Khan, the brilliant head of the US Federal Trade Commission, who has done more in three years on antitrust than the combined efforts of all her predecessors over the past 40 years. Rupert Murdoch’s <cite>Wall Street Journal</cite> has run more than 80 editorials trashing Khan, insisting that she’s an ineffectual ideologue who can’t get anything done.
+Sure, Rupert, that’s why you ran 80 editorials about her.
+Because she can’t get anything done.
+Even Canada is stepping up on competition. Canada! Land of the evil billionaire! From Ted Rogers, who owns the country’s telecoms; to Galen Weston, who owns the country’s grocery stores; to the Irvings, who basically own the entire province of New Brunswick.
+Even Canada is doing something about this. Last autumn, Trudeau’s government promised to update Canada’s creaking competition law to finally ban <q>abuse of dominance.</q>
+I mean, wow. I guess when Galen Weston decided to engage in a criminal conspiracy to fix the price of bread — the most Les Miz-ass crime imaginable — it finally got someone’s attention, eh?
+Competition has a long way to go, but all over the world, competition law is seeing a massive revitalization. Ronald Reagan and Margaret Thatcher put antitrust law in a coma in the 80s — but it’s awake, it’s back, and it’s pissed.
+
+What about regulation? How will we get tech companies to stop doing that one weird trick of adding <q>with an app</q> to their crimes and escaping enforcement?
+Well, here in the EU, they’re starting to figure it out. This year, the Digital Markets Act and the Digital Services Act went into effect, and they let people who get screwed by tech companies go straight to the federal European courts, bypassing the toothless watchdogs in Europe’s notorious corporate crime havens like Ireland.
+In America, they might finally get a digital privacy law. You people have no idea how backwards US privacy law is. The last time the US Congress enacted a broadly applicable privacy law was in 1988.
+The Video Privacy Protection Act makes it a crime for video-store clerks to leak your video-rental history. It was passed after a right-wing judge who was up for the Supreme Court had his rentals published in a DC newspaper. The rentals weren’t even all that embarrassing!
+Sure, that judge, Robert Bork, wasn’t confirmed for the Supreme Court, but that was because he was a virulently racist loudmouth and a crook who served as Nixon’s Solicitor General.
+But Congress got the idea that their video records might be next, freaked out, and passed the VPPA.
+That was the last time Americans got a big, national privacy law. Nineteen. Eighty. Eight.
+It’s been a minute.
+And the thing is, there’s a lot of people who are angry about stuff that has some nexus with America’s piss-poor privacy landscape. Worried that Facebook turned Grampy into a Qanon? That Insta made your teen anorexic? That TikTok is brainwashing millennials into quoting Osama Bin Laden?
+Or that cops are rolling up the identities of everyone at a Black Lives Matter protest or the Jan 6 riots by getting location data from Google?
+Or that Red State Attorneys General are tracking teen girls to out-of-state abortion clinics?
+Or that Black people are being discriminated against by online lending or hiring platforms?
+Or that someone is making AI deepfake porn of you?
+Having a federal privacy law with a private right of action — which means that individuals can sue companies that violate their privacy — would go a long way to rectifying all of these problems. There’s a big coalition for that kind of privacy law.
+
+What about self-help? That’s a lot farther away, alas.
+The EU’s DMA will force tech companies to open up their walled gardens for interoperation. You’ll be able to use Whatsapp to message people on iMessage, or quit Facebook and move to Mastodon, but still send messages to the people left behind.
+But if you want to reverse-engineer one of those Big Tech products and mod it to work for you, not them, the EU’s got nothing for you.
+This is an area ripe for improvement, and I think the US might be the first ones to open this up.
+It’s certainly on-brand for the EU to be forcing tech companies to do things a certain way, while the US simply takes away tech companies’ abilities to prevent others from changing how their stuff works.
+My big hope here is that Stein’s Law will take hold: <q>Anything that can’t go on forever will eventually stop</q>
+Letting companies decide how their customers must use their products is simply too tempting an invitation to mischief. HP has a whole building full of engineers thinking of new ways to lock your printer to its official ink cartridges, forcing you to spend $10,000/gallon on ink to print your boarding passes and shopping lists.
+It’s offensive. The only people who don’t agree are the people running the monopolies in all the other industries, like the med-tech monopolists who are locking their insulin pumps to their glucose monitors, turning people with diabetes into walking inkjet printers.
+
+Finally, there’s labor. Here in Europe, there’s much higher union density than in the US, which American tech barons are learning the hard way. There is nothing more satisfying in the daily news than the latest salvo by Nordic unions against that Tesla guy (Musk is the most Edison-ass Tesla guy imaginable).
+But even in the USA, there’s a massive surge in tech unions. Tech workers are realizing that they aren’t founders in waiting. The days of free massages and facial piercings and getting to wear black tee shirts that say things your boss doesn’t understand are coming to an end.
+In Seattle, Amazon’s tech workers walked out in sympathy with Amazon’s warehouse workers, because they’re all workers.
+The only reason the tech workers aren’t monitored by AI that notifies their managers if they visit the toilet during working hours is their rapidly dwindling bargaining power. The way things are going, Amazon programmers are going to be pissing in bottles next to their workstations (for a guy who built a penis-shaped rocket, Jeff Bezos really hates our kidneys).
+
+We’re seeing bold, muscular, global action on competition, regulation and labor, with self-help bringing up the rear. It’s not a moment too soon, because the bad news is, enshittification is coming to every industry.
+If it’s got a networked computer in it, the people who made it can run the Darth Vader MBA playbook on it, changing the rules from moment to moment, violating your rights and then saying <q>It’s OK, we did it with an app.</q>
+From Mercedes renting you your accelerator pedal by the month to Internet of Things dishwashers that lock you into proprietary dishsoap, enshittification is metastasizing into every corner of our lives.
+Software doesn’t eat the world, it enshittifies it
+But there’s a bright side to all this: if everyone is threatened by enshittification, then everyone has a stake in disenshittification.
+Just as with privacy law in the US, the potential anti-enshittification coalition is massive, it’s unstoppable.
+
+The cynics among you might be skeptical that this will make a difference. After all, isn’t “enshittification” the same as “capitalism”?
+Well, no.
+Look, I’m not going to cape for capitalism here. I’m hardly a true believer in markets as the most efficient allocators of resources and arbiters of policy — if there was ever any doubt, capitalism’s total failure to grapple with the climate emergency surely erases it.
+But the capitalism of 20 years ago made space for a wild and wooly internet, a space where people with disfavored views could find each other, offer mutual aid, and organize.
+<aside>The capitalism of today has produced a global, digital ghost mall, filled with botshit, crapgadgets from companies with consonant-heavy brand-names, and cryptocurrency scams.</aside>
+The internet isn’t more important than the climate emergency, nor gender justice, racial justice, genocide, or inequality.
+But the internet is the terrain we’ll fight those fights on. Without a free, fair and open internet, the fight is lost before it’s joined.
+We can reverse the enshittification of the internet. We can halt the creeping enshittification of every digital device.
+We can build a better, enshittification-resistant digital nervous system, one that is fit to coordinate the mass movements we will need to fight fascism, end genocide, and save our planet and our species.
+Martin Luther King said <q>It may be true that the law cannot make a man love me, but it can stop him from lynching me, and I think that’s pretty important.</q>
+And it may be true that the law can’t force corporate sociopaths to conceive of you as a human being entitled to dignity and fair treatment, and not just an ambulatory wallet, a supply of gut-bacteria for the immortal colony organism that is a limited liability corporation.
+But it can make that exec fear you enough to treat you fairly and afford you dignity, even if he doesn’t think you deserve it.
+And I think that’s pretty important.
+
 # Another day, another dollar
 
 # Proyecto: Acondicionamiento urbano de la autovía A-1a. Construcción de bulevar central y reordenación de accesos. Travesía El Molar -Pedrezuela”
@@ -5,9 +289,6 @@
 <p>Financiado con Fondos Europeos. Según una fuente, <q>costará casi 11 millones de euros.</q></p>
 <p>La clave del proyecto es 33-M-15130.</p>
 
-
-# Bosque, campo, vidrio, hierro (*bosque-campo-vidrio-hierro.html*)
-<h1>Bosque, campo, vidrio, hierro</h1>
 
 
 # Bibliotecarios
