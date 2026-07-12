@@ -1,22 +1,56 @@
+[ ] Download from https://melvin-gibbs.bandcamp.com/ through yt-dlp
+[ ] Download from https://charlesjosephsmith.bandcamp.com/album/collected-works-and-war-of-the-martian-ghosts
+
+# Certificado Firma Digital
+
+Tu solicitud de Certificado de Ciudadano/a ha sido procesada correctamente con la siguiente información
+Nº DEL DOCUMENTO DE IDENTIFICACIÓN: 51382728S
+PRIMER APELLIDO: FERNANDEZ-VICTORIO
+CONTRASEÑA: 1966
+
+En breve, recibirás en tu cuenta de correo electrónico franciscofvh@hotmail.com tu CÓDIGO DE SOLICITUD. Es importante que guardes este código, dado que es imprescindible para poder acreditar tu identidad.
+
+
+(At https://www.sede.fnmt.gob.es/certificados/persona-fisica)
+
+
+# Anarquismo:
+<section>
+  <p>Dos cuestiones:</p>
+  <ol>
+    <li>Evitar que el poder se concentre, y</li>
+    <li>Evitar que una mayoría idiota y sin principios morales imponga su criterio (ej. esclavitud, especulación inmobiliaria, proteccionismo laboral)
+  </ol>
+  <p>(En realidad podría tratarse de un mismo problema.)</p>
+</section>
+<section>
+  <p>La democracia representativa es esporádica, discontinua, como la contratación de funcionarios. Fomenta el oportunismo.</p>
+</section>
+
+# ***
+<p>Como el PSOE recluta adeptos a pesar de sus contradicciones, como la okupación, compensada por la regularización de inmigrantes, que a menudo tienen que pagar cientos de euros a agentes privados para <q>agilizar</q> el proceso. Lo cuál a su vez contribuye a que crezca el PIB, lo cuál a su vez legitima aún más al susodicho partido.</p>
+
+# ***
+<p>Recuerdo un comentario de T. Se quejaba de que hubiesen reforestado una ladera de las afueras con árboles no comestibles en lugar de frutales. Lo había soltado pocos días antes de jubilarse, y ahora compañeros míos que residen en su pueblo me cuentan que se lo encuentran de bar en bar. Una mentalidad que no vé más allá. ¿Y si las plantas nos salvarían de nuestras adicciones?</p>
+
+# Tecnologías compatibles e incompatibles con la Naturaleza Virgen
+<table border="1">
+  <tr> <th>COMPATIBLE</th>   <th>INCOMPATIBLE</th> </tr>
+  <tr> <td>Microelectrónica de bajo consumo (lectores, reproductores de MP3s)</td> <td>Pantallas grandes, anchos de banda faraónicos, tarifas planas de datos</td> </tr>
+  <tr> <td>Médica</td> <td><!--INCOMPATIBLE--></td> </tr>
+  <tr> <td>Textil de superprendas</td> <td>Ropa desechable</td> </tr>
+  <tr> <td>Bicicleta</td> <td>Coche privado</td> </tr>
+  <tr> <td><!--COMPATIBLE--></td> <td>Actuales infraestructuras materiales</td> </tr>
+  <tr> <td><!--COMPATIBLE--></td> <td><!--INCOMPATIBLE--></td> </tr>
+</table>
+
+
+# Han parado a las 10:15
+<p>Han parado a las 10:15, cuando todavía quedan 45' hasta el descanso reglamentario. ¿Qué sentido tiene esto? En lugar de aprovechar que aún hace fresco, o mejor dicho no fuego, tampoco es que nuestra labor en sí, además de hipercontaminante, sirva para algo. Como en el Mito de Sisifo, estamos condenados a desbrozar una y otra vez.</p>
+
 # La redistribución resuelve el problema creado por la automatización
 <p>El capitalismo no necesita tantos trabajadores. Se requiere una mano de hierro que obligue a redistribuir gratis, tal vez que también invente empleos, al más puro estilo soviético.</p>
 
-# Una lengua universal
-<h1>Una lengua universal</h1>
-<p>Muchos desearíamos que toda la Humanidad hablase una única lengua universal.</p>
-<p>Tal vez un trabajador especializado japonés o alemán no sienta esta necesidad. En España encontramos el caso opuesto: gran cantidad de inmigrantes que no acaban de decidirse a aprender bien nuestro idioma, el castellano, ya no digamos el catalán o el euskera, en parte porque no lo consideran más universal que los que ya saben (árabe, rumano, etc.)</p>
-<p>En general se han considerado dos tipos de lengua universal:</p>
-<ul>
-  <li>una lengua histórica, es decir que haya surgido y se haya desarrollado orgánicamente, como el inglés o el ruso, y</li>
-  <li>una lengua artificial diseñada exprofeso para que resulte fácil aprenderla, como el esperanto.</li>
-</ul>
-<p>Cada opción tiene sus ventajas. Por ejemplo mucha gente rechazaría el inglés porque odia la cultura a que se le asocia (racismo de norteamérica, imperialismo, materialismo etc.) y porque posee sonidos muy difíciles de pronunciar, si bien por otro lado el inglés cuenta con muchos hablantes nativos cultos, una cultura dinámica y variada, y una gramática accesible (sin apenas morfología).</p>
-<p>A una lengua universal se le exigiría:</p>
-<ul>
-  <li><dfn>expresividad</dfn>: capacidad de expresar contenidos, matices, connotaciones...</li>
-  <li><dfn>consenso</dfn>: que esté claro qué denota y qué connota cada palabra o construcción gramatical, y</li>
-  <li><dfn>difusión</dfn>: que (ya) la hable mucha gente y a ser posible que existan libros escritos en ella y no sólo <em>sobre</em> ella</li>
-</ul>
 
 # Plataformas, maquinaria y trabajo
 <p>La Teoría Clásica <i lang="la">lato sensu</i> sostenía que la producción se realizaba mediante la aportación de maquinaria y trabajo humano. Vale, alguien antes habría tenido que diseñar y fabricar esas máquinas.</p>
@@ -32,29 +66,15 @@
 </ul>
 <p>¿Hasta qué punto el principal activo de las plataformas es su prestigio, o por lo menos su tamaño?</p>
 
-# El futuro
-## La cuestión ecológica-social
-## El trabajo
-<p>Dos cualidades del trabajador de las que solemos pensar que las máquinas carecen son:</p>
-<ul>
-<li><dfn>Translógico</dfn>: dotado de una capacidad más allá de la lógica, como por ejemplo:
-  - intuición
-  - comprensión de conceptos
-  - visión de conjunto (contraejemplo: la visión de juego)
-  - creatividad
-  - empatía
-</li>
-<li><dfn>Transmecánico</dfn>:
-  - movilidad fina (en dedos)
-  - capacidad de subir escaleras
-  - relación potencia / masa
-</li>
+# El futuro (*futuro.html*)
+<h1>El futuro</h1>
+<section>
+  <h2>La cuestión ecológica-social</h2>
+</section>
+<section>
+  <h2>El trabajo</h2>
+</section>
 
-###
-- gorilización (el gorila es un experimento mental)
-- fabricación en masa
-- trabajos remunerables (casi por definición consisten en producir muchas unidades de lo mismo)
-- imposibilidad o incapacidad de consumir todas las originalidades: de hecho los únicos criterios para escoger unas son los subgéneros y los prejuicios
 
 # Empatía
 <p>Desarrollo un trabajo a mi modo de ver mecánico. Barro, recojo basura, desbrozo etc. Por otro lado observo que muchos vecinos de la comunidad para la que trabajo aprecian una serie de detalles<!-- míos-->: que se les salude, que uno mantenga conversaciones apropiadas con ellos, incluso que se esfuerce o sufra trabajando a la intemperie.</p>
