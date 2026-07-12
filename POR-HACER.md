@@ -1,7 +1,45 @@
 [ ] Download from https://melvin-gibbs.bandcamp.com/ through yt-dlp
 [ ] Download from https://charlesjosephsmith.bandcamp.com/album/collected-works-and-war-of-the-martian-ghosts
 
+# Gorilas laborales (*gorilas-laborales.html*)
+<p>¿Y si criáramos una raza de gorilas u homínidos que realizasen todos esos trabajos que tan poca inteligencia ni cualidades superiores, mucho menos exclusivas, requieren de los obreros humanos?</p>
+<p>¿Y si realizáramos el experimento mental de <a target="_blank" href="imaginacion.html">imaginar</a> que hubiésemos creado tal raza?</p>
+<p>¿Llegaríamos a la triste conclusión de que funcionamos y subsistimos con la sofisticación de una <i>troupe</i> de <a target="_blank" href="monitos.html">monitos</a>?</p>
+<p>Desde ahí podríamos dar el paso de imaginar robots más o menos antropomorfos que con un cerebro electrónico mínimo nos substituyeran sin tanto gasto en vacaciones, bajas, descansos periódicos, huelgas, cotizaciones a la Seguridad Social etc.</p>
+
 # Certificado Firma Digital
+
+
+Hemos recibido tu solicitud de Certificado de Ciudadano/a:
+
+    Nº de documento de identificación: ***8272**
+    Primer Apellido: FERNANDEZ-VICTORIO
+
+Este es tu código de solicitud:
+
+855625136
+
+Es importante que guardes este código, pues lo necesitarás para continuar con el proceso y descargar tu certificado.
+
+Para poder activar tu certificado necesitamos que confirmes tu identidad.
+
+Tienes dos opciones:
+
+    Sin desplazamientos, usando tu móvil, mediante el servicio de video-identificación remota (coste 2,99 € + I.V.A.), con tu DNI. Accede desde aquí
+    Acudir en persona a una Oficina de Registro, para lo cual necesitarás tu documento de identidad en vigor (DNI, Pasaporte, Carnet de conducir) y tu código. Recuerda que en algunas oficinas de registro es necesario solicitar cita previa
+
+Si eres ciudadano de la Unión Europa necesitarás aportar el documento oficial donde conste el NIE junto con Pasaporte o documento de identidad de país de origen.
+
+Si eres ciudadano extranjero necesitarás tu documento oficial de concesión del NIF/NIE junto con el pasaporte.
+
+Recuerda que, si ya dispones de un Certificado de Ciudadano/a y solicitas uno nuevo, estarías autorizando a la FNMT-RCM a revocar y dejar sin efecto cualquier certificado que haya emitido previamente.
+
+¡Muchas gracias por confiar en nosotros!
+
+Atentamente,
+
+
+
 
 Tu solicitud de Certificado de Ciudadano/a ha sido procesada correctamente con la siguiente información
 Nº DEL DOCUMENTO DE IDENTIFICACIÓN: 51382728S
@@ -74,14 +112,6 @@ En breve, recibirás en tu cuenta de correo electrónico franciscofvh@hotmail.co
 <section>
   <h2>El trabajo</h2>
 </section>
-
-
-# Empatía
-<p>Desarrollo un trabajo a mi modo de ver mecánico. Barro, recojo basura, desbrozo etc. Por otro lado observo que muchos vecinos de la comunidad para la que trabajo aprecian una serie de detalles<!-- míos-->: que se les salude, que uno mantenga conversaciones apropiadas con ellos, incluso que se esfuerce o sufra trabajando a la intemperie.</p>
-<p>Mucha gente aprecia que uno se solidarice con su situación (<dfn>empatía</dfn>). De hecho en un mundo mecanizado la empatía amenaza con convertirse en el principal producto de la economía.</p>
-<p>Imaginemos que una excavadora automática excava los cimientos de nuestra futura casa. Después viene una hormigonera, posiblemente operada por inteligencia artificia, que verterá en la fosa. Unos módulos prefábricados se irán ensamblando, etc. Al final es posible que el trabajador que haya dedicado más horas haya sido el arquitecto. Ni siquiera eso, los planos los habrá discurrido, calculado y trazado un ordenador, con lo que la principal labor del arquitecto consistira en prodigar sonrisas. Habrá sonreído más horas que la suma de todas las trabajadas por los obreros manuales. Pues a ese tipo de mundo nos encaminamos.</p>
-<p>Al final, cuando recordemos la obra, pensaremos: <q>¡Qué agradable el arquitecto!</q> Probablemente hayamos pagado un precio alto pero simbólico, pues la mayor parte del trabajo la habrán realizado máquinas.</p>
-<p>Por ejemplo mucha gente está dispuesta a pagar más por un artículo con tal de que se lo venda un dependiente de carne y hueso y le pregunte qué tal su familia. Lo cuál es absurdo dado que si de verdad le importa qué tal está su familia no le exigiría que le comprara dicho artículo para preguntarle.</p>
 
 # Dos caras
 <ol>
