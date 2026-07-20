@@ -1,3 +1,22 @@
+# William Gibson (*willia-gibson.html*)
+[ ] Linked to from *technology.html* and *thought.html*
+[ ] Quotes
+[ ] The Future is Already Here, It's just not Evenly Distributed/Spread
+
+# Progresistas Surrealistas Oportunistas Emigrantes
+
+# Servicio y funcionarios
+<h2>
+<p>Mucha gente piensa que el resto debemos pagar a los funcionarios para que nos sirvan, para que funcionen para nosotros. En realidad el asunto funciona de manera algo diferente. Pagamos un sueldo a los funcionarios, sí, pero también tenemos que trabajar para ellos.</p>
+<p>Por ejemplo, el jueves me tengo que ausentar del trabajo una hora para realizar un trámite oficial. Hasta hace poco ese trámite se hacía en mi localidad de residencia los martes por la tarde. De hecho el martes había estado llamando al Ayuntamiento sin que me cogieran el teléfono. Por fin me enteré de que habían <q>recibido un correo que suprimía dicho servicio</q>. De modo que busqué una vía alternativa, lo cuál me ocupó la mitad de mi tarde libre del martes.</p>
+<p>Y así todo, o parecido.</p>
+<p>En resumen:</p>
+<ol>
+  <li>Cuantos más funcionarios se contratan, y estamos en máximos históricos, peor atendida está la población.</li>
+  <li>Los ciudadanos deben aprender y dedicar tiempo a realizar los trámites oficiales, además de pagar a los funcionarios administrativos encargados de dichos trámites.</li>
+  <li>Todo ciudadano debe poseer un móvil de última generación (de lo contrario no funcionan las aplicaciones estatales) y pagar una conexión a internet.</li>
+</ol>
+
 # Download Music MP3 Files
 [ ] Download from https://melvin-gibbs.bandcamp.com/ through yt-dlp
 [ ] Download from https://charlesjosephsmith.bandcamp.com/album/collected-works-and-war-of-the-martian-ghosts
@@ -62,6 +81,19 @@ CONTRASEÑA: 1966
 En breve, recibirás en tu cuenta de correo electrónico franciscofvh@hotmail.com tu CÓDIGO DE SOLICITUD. Es importante que guardes este código, dado que es imprescindible para poder acreditar tu identidad.
 
 (At https://www.sede.fnmt.gob.es/certificados/persona-fisica)
+
+## Descarga
+
+En https://www.sede.fnmt.gob.es/certificados/persona-fisica/obtener-certificado-software/descargar-certificado (enlace contenido en la página: https://www.sede.fnmt.gob.es/certificados/persona-fisica)
+
+## Certificados Digitales en Firefox
+<p>Firefox utiliza su propio contenedor o almacén interno para gestionar certificados digitales, independiente del resto del sistema operativo. Puedes acceder a él desde el menú del navegador: ve a Ajustes > Privacidad y Seguridad y haz clic en Ver certificados.Para encontrar y gestionar tus certificados personales en Mozilla Firefox, sigue estos pasos:</p>
+<ul>
+  <li><strong>Abre el menú de Firefox</strong> Haz clic en el icono de las tres rayas horizontales (arriba a la derecha) y selecciona Ajustes.</li>
+  <li><strong>Accede a Privacidad y Seguridad</strong> En el menú lateral izquierdo, pulsa sobre la opción Privacidad y Seguridad.</li>
+  <li><strong>Busca la sección de Certificados</strong> Desplázate hacia abajo hasta encontrar el apartado "Seguridad" y haz clic en el botón Ver certificados....</li>
+  <li><strong>Ver tus certificados personales</strong> En la ventana emergente, selecciona la pestaña Sus certificados. Aquí es donde se almacenan tus certificados de identificación y firma.</li>
+</ul>
 
 
 # Anarquismo:
@@ -483,15 +515,6 @@ food.</p>
 [ ] in *peter-singer.html*
 
 
-
-
-
-# Political Language
-<section id="doublespeak">
-  <h2>Doublespeak</h2>
-  <p>Political language has to consist largely of euphemism, question-begging and sheer cloudy vagueness’, wrote George Orwell in 1946. ‘When there is a gap between one’s real and one’s declared aims, one turns as it were instinctively to long words and exhausted idioms, like a cuttlefish spurting out ink.’1 The historical context of his remarks was very different, of course, and today’s idioms are often newly minted rather than exhausted— but the underlying warning is as important as it was 70 years ago. Gig work presents both great opportunities and serious problems.</p>
-</section>
-
 # Arduino IDE in
 
   <section id="arduino">
@@ -504,12 +527,60 @@ food.</p>
 - Los inmoidiotas poseen y ejercen su creatividad sui generis (ej. <a target="_blank" href="infraestructura-productiva.html">infraestructura</a>)
 
 <section id="mas-horas-y-presupuesto">
-  <h2>Más horas, más presupuesto
+  <h2>Más horas, más presupuesto</h2>
 </section>
+
+# Necesidad de extremos (*equilibrio.html#extremos*)
+<p>A menudo observamos una alternancia de equilibrio y extremos:</p>
+<ul>
+  <li>conocimientos generales (comunes y que abarcan mucho) frente a especializados (específicos y que profundizan)</li>
+  <li>humanidad común frente a direfenciación en sexos</li>
+</ul>
+<p>De modo que las sociedades necesitan para funcionar bien un equilibrio entre equilibrio y extremos, es decir</p>
+<ul>
+  <li>entre trabajadores no especializados y especializados</li>
+</ul>
+
+# [ ] Llenar *basuraleza.html* (Basuraleza)
+[ ] Definición
+[ ] Extensión del fenómeno
+[ ] Una forma de explotación de la Tierra Común
+
+# [ ] La personalidad empirista / empírica
+## Empirismo y falta de imaginación
+## Nada humilde sino arrogante
+
+# Mantenimiento (*mantenimiento.html*)
+[ ] Relacionarlo con *infraestructuras.html*
+
+#  Infraestructuras
+## [ ] Enlazar a *infraestructuras.html* desde *recursos.html*
+## [ ] Enlazar a *infraestructuras.html* desde *economia.html*
+## [ ] Enlazar a *infraestructuras.html*
+
+# [ ] Generalizar el fenómeno del *pelotazo.html* a oportunismo
+
+# [ ] Imaginación y lectura (*imaginacion.html#lectura*)
+
+# [ ] Relacionar *presentarse-por-libre.html* con la <a target="_blank" href="uned.html">UNED</a>
+
+# *espanya.html#inercia*
+<p>Entro en el supermercado de mi localidad y le comento a la cajera que deberían poner taquillas porque yo hoy, por ejemplo, llevaba la documentación de la furgoneta en la mochila y no me apetece dejarla, la mochila, en la entrada. Me responde que la puedo asegurar con una cadena cual carrito de la compra.</p>
+<blockquote>¡Que inventen los europeos!</blockquote>
+# [ ] Relacionar *espanya.html#inercia* con *proteccionismo-laboral.html*
 
 # Compis:
 ## Valentín
 <p>He coincidido con Valentín durante el almuerzo. Mientras comía de su cesta jugaba a un videojuego. Me ha explicado que le metía unos sesenta euros al mes y que conocía a gente que le metía cincuenta, sesenta mil al mes. ¡Qué decepción!</p>
+## Rumen
+<p>Búlguro.</p>
+<p>Lleva viviendo veinticinco años en España, a donde se ha traídó a sus hijos.</p>
+<p>En esos veinticinco años largos no ha aprendido apenas castellano.</p>
+<p>Del trabajo se dirige a la Piscina Municipal el Molar, donde alterna sauna y ducha, también los fines de semana.</p>
+<section id="imaginación">
+  <p>Durante una temporada ha insistido en grabarme en un video y subirlo a TikTok. Empezó con uno muy corto en el que yo aplastaba la huerba y hojas de un cubo para que cupiera más. Pretendía ejemplificar una forma de movimiento en la que trabajaban los músculos del abdomen inferior y muslo, lo cuál probablemente necesitan sus cien quilos.</p>
+</section>
+
 
 # Write content in *utilitarianism.html*
 
@@ -578,29 +649,6 @@ food.</p>
   <li><strong>Tecnologías de base o fundamentales</strong> más que artículos de consumo, lujo, moda etc.</li>
   <li><strong>Integridad y eficiencia estatal</strong></li>
 </ul>
-
-
-# Malas hierbas (en *malas-hierbas.html*)
-<p>La mayoría de las veces una planta nos parece una mala hierba a causa de una actitud incorrecta nuestra ante la naturaleza. Los neorrurales las llaman <q>plantas adventicias</q>, que a mí siempre me ha parecido una forma de decir que son plantas que se buscan la vida. No hay malas hierbas como tales.</p>
-<p>Digamos que nos precipitamos demasiado en lugar de mirar y apreciar. Por ejemplo mucha gente considera a las ortigas malas hierbas. O algunas crasas. O incluso arbolillos brotados de semilla. Por tanto uno debe empezar por abrirse a todas las plantas.</p>
-<p>Muchas de estas actitudes provienen de que la mayoría de los ciudadanos obtienen sus ingresos en centros <a target="_blank" href="urbano.html">urbanos</a>. Entonces llega el fin de semana o las vacaciones y salen al campo pero se llevan sus preferencias e interpretaciones. Piensan que una barbacoa a la sombra de un pino (debajo del cuál no crece nada) son el paraíso terrenal. Si son cazadores pagan una suscripción y se evaden en un neolítico de balas de plomo, o si no cogen el coche a disfrutar de paisajes, paran a comer en un pintoresco mesón de piedra decorado con aperos tradicionales o con cabezas de jabalí etc.</p>
-<p>Todo teatro.</p>
-<p>Por la televisión y demás medios nos inculcan una versión sesgada y convenida de la realidad.</p>
-<hr/>
-<p>En segundo lugar debemos buscarle la explicación. Las plantas feas nacen en terrenos <strong>degradados</strong>, es decir sin apenas materia orgánica y compactados (con mala estructura física).</p>
-<p>Lo mismo ocurre con la creciente epidemia de enfermedades crónicas: podemos <a target="_blank" href="desbrozar.html">desbrozar</a> con medicamentos, pero las causas pasadas y presentes son los malos hábitos. De hecho las malas hierbas en ecología se consideran plantas de primera sucesión: con el tiempo las sustituirán otras más vistosas, más vivaces y más verdes.</p>
-<p>De modo que ante las malas hierbas caben otras actitudes, aparte de quitarlas:</p>
-<ul>
-  <li><strong>Dejarlas y esperar</strong> Esperar a que el problema se resuelva solo. Mientras tanto podemos dedicarnos a realizar gestiones burocráticas, politiquear, comprar, vender y especular, estudiar temarios de oposiciones, ver series de televisión etc.</li>
-  <li><strong>Segarlas y dejar que se descompongan</strong> Este proceso es lento dado que hasta que no se forme una buena capa (como de un palmo) el proceso no cogerá velocidad. Antídoto: no vivir tan a corto plazo.</li>
-  <li><strong>Segarlas y compostarlas</strong> Más trabajo, más control del proceso y se obtiene un beneficio antes.</li>
-</ul>
-<p>Además, muchas de estas malas hierbas tienen partes leñosas (madera). Entonces podemos hacer dos cosas:</p>
-<ul>
-  <li><strong>Enterrarlos, cubrirlos de tierra y cultivar encima</strong> Cuidando el grado de humedad la descomposición (por hongos) producirá compuestos muy fértiles.</li>
-  <li><strong>Carbonizarlos y mezclarlos con tierra (biocarbón)</strong> De esta manera se fija el carbono en el suelo y se mejora la estructura de la tierra.</li>
-</ul>
-<p>¡Pero por favor, nunca queméis los desbroces ni los tiréis a un basurero!</p>
 
 
 # Animales de compañía
