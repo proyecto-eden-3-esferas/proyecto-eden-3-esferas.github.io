@@ -1,3 +1,7 @@
+# Listas Enlazadas
+[ ] Relacionar con juego de la gymkana
+[ ] ¿Escribir *gymkana.html* ?
+
 # William Gibson (*willia-gibson.html*)
 [ ] Linked to from *technology.html* and *thought.html*
 [ ] Quotes
@@ -523,8 +527,11 @@ food.</p>
     <h3>Arduino IDE</h3>
   </section>
 
-- Los inmoidiotas nos dominan
-- Los inmoidiotas poseen y ejercen su creatividad sui generis (ej. <a target="_blank" href="infraestructura-productiva.html">infraestructura</a>)
+# inmidiotas (en *inmidiotez.html*)
+<ul>
+  <li>Los inmidiotas nos dominan</li>
+  <li>Los inmidiotas poseen y ejercen su creatividad sui generis (ej. <a target="_blank" href="infraestructura-productiva.html">infraestructura</a>)</li>
+</ul>
 
 <section id="mas-horas-y-presupuesto">
   <h2>Más horas, más presupuesto</h2>
