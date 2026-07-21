@@ -1,3 +1,18 @@
+# Stopping HL-L2400DWE from Going to Sleep
+<p>To stop the Brother HL-L2400DWE from constantly going to sleep, you can increase the idle timer or access the printer's secret menu to disable Deep Sleep mode entirely. This allows the printer to wake up automatically whenever you send a print job from your computer or phone.</p>
+<p>Follow these steps to adjust the settings:</p>
+<ul>
+  <li><strong>Access Settings</strong> Press the Menu button on the printer's control panel.</li>
+  <li><strong>Navigate</strong> Press the arrow keys to find General Setup, and press OK. Scroll down to Ecology and press OK. Then, select Sleep Time and press OK.</li>
+  <li>
+    <p><strong>Change Timer or Disable Deep Sleep:</strong></p>
+    <ul>
+      <li><strong>Adjust Time</strong> You can set the idle time (up to 50 minutes) using the arrow keys, then press OK.</li>
+      <li><strong>Disable Deep Sleep</strong> While on the Sleep Time menu, press and hold the Back and Down Arrow buttons simultaneously. This unlocks the hidden Deep Sleep menu. Press OK, select Off, and hit OK to accept.</li>
+  </li>
+  <li><strong>Save and Restart</strong> Press Stop/Exit to return to the main screen, then unplug the printer's power cord for two minutes to let the new settings save and reset.</li>
+</ul>
+
 # Listas Enlazadas
 [ ] Relacionar con juego de la gymkana
 [ ] ¿Escribir *gymkana.html* ?
