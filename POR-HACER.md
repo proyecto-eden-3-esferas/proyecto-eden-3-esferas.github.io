@@ -1,4 +1,95 @@
-# Stopping HL-L2400DWE from Going to Sleep
+# Add to *verilog.html*
+<section id="modules">
+  <h2>Modules</h2>
+
+
+  <pre>module ctr (input 				up_down,
+								clk,
+								rstn,
+ output reg [2:0] 	out);
+
+	always @ (posedge clk)
+		if (!rstn)
+			out &lt;= 0;
+		else begin
+			if (up_down)
+				out &lt;= out + 1;
+			else
+				out &lt;= out - 1;
+		end
+endmodule</pre>
+  <p>The simple example shown above illustrates how all the physical implementation details (interconnection of underlying logic gates like NAND and NOR) have been hidden while still providing a clear idea of how the counter functions.</p>
+  <p>...</p>
+
+</section>
+
+<section id="wires-and-regs">
+  <h2>Wires, Registers, and Buses</h2>
+  <p>What would be variables in a conventional programming language are wires (connecting one thing to another) or registers (which store state and are therefore more like a programming variable) in Verilog. A wire and a register refer to a single binary digit. Often you want to work on more than one bit at a time, so you can group a number of bits into a <strong>vector</strong> and operate on the vector as a whole. This is rather like using a word of arbitrary length in a conventional programming language. When defining such vectors, the upper and lower bits are specified. The following example defines an 8-bit counter:</p>
+  <pre>reg[7:0] my_8bit_counter;</pre>
+  <hr/>
+  <p>Now, if you add <code>reg</code> to the declaration of <var>Q</var> [in the preceeding example] this indicates that Q is a register and therefore can be modified.</p>
+  <section id="always">
+    <h3><code>always</code></h3>
+    <p>The other addition is the always block. Immediately after always is the “sensitivity” list that follows @ . This specifies the signals (separated by the word or ) to which the always block is sensitive. That is, the code between begin and end comes into play. It is tempting to think of this code as if it were a programming language rather than a hardware definition language.</p>
+    <p>If SEL is 1, then Q will be assigned to whatever the state of A is. Otherwise, Q will be set to the value at input B. This is exactly what the selector should do.</p>
+    <pre>always @ (A or B or SEL)
+begin
+  if (SEL)
+    Q = A;
+  else
+    Q = B;
+end</pre>
+    <p>...</p>
+  </section>
+  <section>
+    <h3>An Example with <code>reg</code> and <code>always</code></h3>
+    <pre>module data_selector(
+  input A,
+  input B,
+  input SEL,
+  output <strong>reg</strong> Q
+  );
+
+  <strong>always @ (A or B or SEL)
+  begin
+    if (SEL)
+      Q = A;
+    else
+      Q = B;
+  end</strong>
+
+endmodule</pre>
+  </section>
+</section>
+
+
+
+# Purity and Danger, by Douglas Mary
+
+# Laborismo
+## *One man Month*, an essay on computing
+   [ ] read, outline, summarize
+   [ ] relacionar con laborismo
+   [ ] individuos excepcioales:
+   - Teller Ullman
+   - Mecánica Cuántica
+   Incluso cuando hablamos de grupos: generación del 27/98, los románticos, etc.
+
+
+## ubuntu linux print server not available
+### Running cupsd -t
+```
+Unable to open "/etc/cups/printers.conf": Permission denied
+Unable to open "/etc/cups/classes.conf": Permission denied
+Unable to get file information for "/var/cache/cups/job.cache" - Permission denied
+Unable to open spool directory "/var/spool/cups": Permission denied
+Unable to open job cache file "/var/cache/cups/job.cache": Permission denied
+Unable to open "/etc/cups/subscriptions.conf": Permission denied
+"/etc/cups/cups-files.conf" is OK.
+"/etc/cups/cupsd.conf" is OK.
+```
+## Stopping HL-L2400DWE from Going to Sleep
 <p>To stop the Brother HL-L2400DWE from constantly going to sleep, you can increase the idle timer or access the printer's secret menu to disable Deep Sleep mode entirely. This allows the printer to wake up automatically whenever you send a print job from your computer or phone.</p>
 <p>Follow these steps to adjust the settings:</p>
 <ul>
@@ -599,6 +690,8 @@ food.</p>
 <p>Lleva viviendo veinticinco años en España, a donde se ha traídó a sus hijos.</p>
 <p>En esos veinticinco años largos no ha aprendido apenas castellano.</p>
 <p>Del trabajo se dirige a la Piscina Municipal el Molar, donde alterna sauna y ducha, también los fines de semana.</p>
+<p>Hoy me ha dicho en fatal castellano que no le parece <q>normal</q>, palabra propia de gilipollas, que no haya tenido hijos, porque si mis padres hubieran actuado como yo yo no habría nacido.</p>
+<p>También me ha dicho: <q>Ninún perro no te quiere</q>. Será subnormal.</p>
 <section id="imaginación">
   <p>Durante una temporada ha insistido en grabarme en un video y subirlo a TikTok. Empezó con uno muy corto en el que yo aplastaba la huerba y hojas de un cubo para que cupiera más. Pretendía ejemplificar una forma de movimiento en la que trabajaban los músculos del abdomen inferior y muslo, lo cuál probablemente necesitan sus cien quilos.</p>
 </section>

@@ -53,6 +53,12 @@
         <h2>Memory Devices</h2>
         <section id="latches">
           <h3>Latches*</h3>
+          <section>
+            <h4>The Dangers of Latches</h4>
+            <p>A latch is a digital component that can store state without the use of a clock. In this way, latches perform a similar function as flip-flops (namely, storing state), but the method they use is different since there’s no clock involved. Latches are dangerous and can be inadvertently generated when working with combinational code. In my career, I’ve never once generated a latch on purpose, only by accident. It’s highly unlikely that you’d ever actually want to generate a latch either, so it’s important to understand how to avoid them.</p>
+            <p>You always want your FPGA designs to be predictable. Latches are dangerous because they violate this principle. FPGA tools have a very difficult time understanding the timing relationship of a latch and how other components connected to it will perform. If you do manage to create a latch with your code, the FPGA tools will scream at you with warnings about the fact that you’ve done a horrible thing. Please don’t ignore these warnings.</p>
+            <p>So how can this happen? A latch is created when you write a combinational process block or conditional assignment (in VHDL) or a combinational always block (in Verilog) with an incomplete assignment, meaning the output isn’t assigned under all possible input conditions. This is bad and should be avoided.<!-- Table 4-1 shows an example of a truth table that would generate a latch.--></p>
+          </section>
         </section>
         <section id="flip-flops">
           <h3>Flip-Flops*</h3>

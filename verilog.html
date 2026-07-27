@@ -16,6 +16,8 @@
   <body lang="en" class="electronics">
     <nav>
       <div>
+
+        <p><a href="https://chipverify.com/tutorials/verilog">Verilog Tutorial at ChipVerify</a></p>
         <p><a href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
         <p><a href="https://www.allaboutcircuits.com/">All About Circuits</a> (a Web Site)</p>
       </div>
@@ -30,6 +32,21 @@
       <h1>Verilog</h1>
       <p>What is Verilog? In 1985, Automated Integrated Design Systems (renamed Gateway Design Automation in 1986) introduced a product named Verilog. It was the first logic simulator to seamlessly incorporate both a higher-level language and gate-level simulation. Before Verilog, there were many gate-level simulators and several higher-level language simulators, but there was no way to make them work together easily.</p>
       <p>The Verilog language has been updated with the IEEE standardization in 1995, and now the update to the standard in 2001.</p>
+      <aside>
+        <h2>Verilog vs SystemVerilog</h2>
+        <p>While Verilog remains the foundation, most modern  chip companies now use SystemVerilog, which extends Verilog with powerful verification features, object-oriented programming, and enhanced data types.</p>
+      </aside>
+
+      <table border="1">
+        <thead>
+        <tr> <th>Feature</th>  <th>Verilog</th> <th>C/Java</th> </tr>
+        </thead>
+        <tr> <th>Purpose</th>   <td>Describe hardware circuits</td>	<td>Write software programs</td> </tr>
+        <tr> <th>Execution</th> <td>Synthesized into silicon or configured in FPGA</td> <td>Compiled and executed on CPU</td> </tr>
+        <tr> <th>Concurrency</th> <td>Naturally parallel (all blocks run simultaneously)</td> <td>Sequential (one instruction at a time)</td> </tr>
+        <tr> <th>Time Concept</th> <td>Built-in time delays (<code>#10</code>, <code>@(posedge clk)</code>)</td> <td>No inherent time concept</td> </tr>
+        <tr> <th>Data Types</th> <td>wire, reg, logic (represent physical connections)</td> <td>int, float, objects (abstract memory)</td> </tr>
+      </table>
 
       <section>
         <h2>Verilog's Levels of Description</h2>
@@ -74,7 +91,20 @@
 
       <section>
         <h2>Verilog Modules</h2>
-        <p>The main building block in Verilog is the <dfn>module</dfn>. You create modules using the keywords <code>module</code> and <code>endmodule</code>. You may specify a module name with in, out or inout variables, much like a C/C++ function declaration or prototype.</p>
+        <p>The main building block in Verilog is the <dfn>module</dfn>.</p>
+        <aside>
+          <p>Software programmers will recognize a Verilog module as being very like a class in object-oriented programming. It defines a collection of logic with public and private properties that can be instantiated a number of times in your design.</p>
+          <p>If electronics is more your thing, think of a module as a subassembly of the design with defined connections so that it can be wired up to other modules or, if you like, an IC. A simple design may be all contained in a single module, but when things start to get a little complex, the design will become a collection of modules that are then interconnected. In this way, you will also be able to make use of other people’s modules in your designs.</p>
+        </aside>
+        <p>You create modules using the keywords <code>module</code> and <code>endmodule</code>. You may specify a module name with in, out or inout variables, much like a C/C++ function declaration or prototype.</p>
+        <pre>module data_selector (
+  input A,
+  input B,
+  input SEL,
+  output Q
+);
+endmodule</pre>
+            <p>When you create a project with more than one module, you will always have a top-level module. This is the module that brings all the submodules together as well as the module that will have a UCF associated with it to map the IO pins of the device to the signals in the design.</p>
         <section>
           <h3>Ports in Modules</h3>
           <p>Modules may have ports or connections to the outside. In general, if you are modeling a self-contained system, you will not have ports. But if you are modeling something that needs to be connected to something else, you will need ports to make those connections.</p>
@@ -115,7 +145,7 @@ endmodule</pre>
           <p>In the foregoing example <dfn>connect by order</dfn> has been used since the port order must be known and matched. Verilog also supports a <dfn>connect by name</dfn> syntax, where the port order does not need to be known, but the port names must be known. The connect by name syntax uses the <a href="#verilog_hierarchical_names">hierarchical name</a> for the ports to make the connects.</p>
           <p>Connect by name uses the following syntax:</p>
           <blockquote class="informalequation">.<var>&lt;portname&gt;</var>(<var>&lt;net_to_be_connected&gt;</var>)</blockquote>
-          <note>Notice the leading dot</note>
+          <p>(Notice the leading dot)</p>
         </section>
         <section>
           <h3>Top-Level Modules</h3>
@@ -146,7 +176,7 @@ endmodule</pre>
         <p>Verilog has a set of twenty-six built-in gates and switches (primitives).</p>
         <ul>
           <li>logic gates: <code>and</code>, <code>or</code>, <code>nand</code>, <code>nor</code>, <code>xor</code>, and <code>xnor</code></li>
-          <li>buffers: <code>buf</code>, <code>bufif0</code>, <code>bufif1</code>, <code>not</code>, <code>notif0</code>, <code>notif1</code>, <code>pulldown</code>, and <code/>pullup</li>
+          <li>buffers: <code>buf</code>, <code>bufif0</code>, <code>bufif1</code>, <code>not</code>, <code>notif0</code>, <code>notif1</code>, <code>pulldown</code>, and <code>pullup</code></li>
           <li>transistors: <code>nmos</code>, <code>pmos</code>, <code>cmos</code>, <code>rnmos</code>, <code>rpmos</code>, <code>rcmos</code>, <code>tran</code>, <code>tranif0</code>, <code>tranif1</code>, <code>rtran</code>, <code>rtranif0</code>, and <code>rtranif1</code></li>
         </ul>
         <p>Their syntax is fairly consistent. The first variable is out, the remainder are in. The <code>pullup</code> and <code>pulldown</code> primitives have a single output and no inputs, and are used to pull up or pull down a net. MOS-level unidirectional and bidirectional switches are represented by the remaining primitives.</p>
@@ -154,7 +184,7 @@ endmodule</pre>
         <section>
           <h3>Ports in Primitives</h3>
           <p>The Verilog terminology for a connection or <q>pin</q> is <dfn>port</dfn>. All the built-in primitives (gates) have ports. The <code>pullup</code> and <code>pulldown</code> primitives have only one port. The first port of each of the built-in primitives (gates) is the output. This allows you, for example, to use the same and primitive to represent a 2-input or 4-input AND gate. The only built-in primitives that can have more than one output port are the buf and not primitives, which can have many outputs, with the last terminal being the input.</p>
-          <p>Here is some Verilog code for the 2-lnput and 4-lnput AND Gates:</p>
+          <p>Here is some Verilog code for the 2-input and 4-input AND Gates:</p>
           <pre>and ( Y, A, B );
 and ( Y, A, B, C, D );</pre>
         </section>
@@ -177,19 +207,23 @@ endmodule</pre>
         <h2>Building Memory Cells with Gates in Verilog</h2>
         <p>To model memory modules realistically <a href="#verilog_delays">delays</a> must be specified, which have not yet been discussed although hopefully the notation is intuitive to follow.</p>
 
-        <p>We shall build our memory registers from the SR latch:</p>
+        <p>We shall build our memory registers from the SR latch. The SR latch itself may be built like this:</p>
         <pre>module sr_latch(q, qbar, s, r);
   output q, qbar;
   input  s, r;
+  <!--
   wire q2r, qbar2s;
 
-  nand (q,    r, qbar2s);
-  nand (qbar, s, q2r);
+  nor (q,    r, qbar2s);
+  nor (qbar, s, q2r);
+  -->
+  nor (q,    r, qbar);
+  nor (qbar, s, q   );
 endmodule</pre>
 
-        <note>
-          <p>You may insert a delay after <q>nand</q>: <code>#(<var>t<sub>delay</sub></var>)</code>, or <code>#(<var>t<sub>rise</sub></var>, <var>t<sub>fall</sub></var>)</code></p>
-        </note>
+        <aside>
+          <p>You may, if you deem it convenient, insert a delay after <q>nor</q>: <code>#(<var>t<sub>delay</sub></var>)</code>, or <code>#(<var>t<sub>rise</sub></var>, <var>t<sub>fall</sub></var>)</code></p>
+        </aside>
         <p>An edge flip flop:</p>
         <pre>module edge_ff(q, qbar, d, clk, clear);
   output q, qbar;
@@ -394,7 +428,7 @@ module office_phone;
     // Simulate two days worth of calls
   initial #(60*24*2) $finish;
 endmodule</pre>
-      </section>
+        </section>
 
       </section>
 
@@ -402,10 +436,16 @@ endmodule</pre>
       <section>
         <h2><code class="command">iverilog</code>, a Friendly Verilog compiler</h2>
         <p>Icarus Verilog is a Verilog compiler. It is suitable for use as a simulator, and, to some degree, synthesizer. Icarus Verilog runs under Linux and a variety of UNIX systems, as well as Windows as a command line tool, so the instructions are generally applicable to all environments.</p>
-
+        <aside>
+          <p>Documentation for Icarus Verilog is found in <cite>/usr/share/doc/iverilog/</cite>. Besides</p>
+          <ul>
+            <li>Some examples are included in subdirectory; <cite>/usr/share/doc/iverilog/examples/</cite>.</li>
+            <li>Man (1) pages are provided for <code>iverilog</code> as well as for <code>iverilog-vpi</code> and <code>vpi</code></li>
+          </ul>
+        </aside>
         <p>Try compiling the file <cite><a href="#verilog_hello_example">hello.vl</a></cite> with:</p>
         <pre>% iverilog -o hello hello.vl</pre>
-        <p>then run <cite>hello</cite> like so to get...</p>
+        <p>then run <cite>./hello</cite> like so to get...</p>
         <pre>% vvp hello
 Hello, World</pre>
         <p>...</p>

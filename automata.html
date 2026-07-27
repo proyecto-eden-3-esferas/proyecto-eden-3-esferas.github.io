@@ -37,6 +37,14 @@
         <h2>Deterministic and Nondeterministic Automata</h2>
         <p>[...] A <dfn>deterministic automaton</dfn> is one in which each move is uniquely determined by the current configuration. If we know the internal state, the input, and the contents of the temporary storage, we can predict the future behavior of the automaton exactly. In a <dfn>nondeterministic automaton</dfn>, this is not so. At each point, a nondeterministic automaton may have several possible moves, so we can only predict a set of possible actions. [...]</p>
       </section>
+
+      <section id="sm">
+        <h2>State Machines</h2>
+        <p>State machines have their roots in mathematics and, therefore, like many things in math, sound really clever but are actually pretty simple when it comes down to it. You will also find state machines and drawings of state machines being called finite state machines (FSMs) and state transition diagrams (<!--somewhat unfortunately -->STDs).</p>
+        <p>The basic concept is that a system stays in a stable state until some trigger causes it to transition to another state. This transition might cause some actions to occur during the transition. States are drawn on a diagram as boxes or bubbles and transitions as lines with arrows that go either from one box to another or from one box  back to itself. The transition lines are drawn with a two-part label on them. The top part of the label is the condition for the transition to occur (say, a button being pressed), and then there is a horizontal line, and under the line appear any actions that need to take place during the transition (say, turn a LED on).</p>
+        <p>There are, of course, other ways of drawing state machines, but this is probably the most common.</p>
+      </section>
+
     </main>
 
   </body>
