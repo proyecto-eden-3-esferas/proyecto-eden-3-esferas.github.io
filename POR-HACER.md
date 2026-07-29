@@ -1,3 +1,7 @@
+# La prisa (*prisa.html*)
+[ ] relacionar con *tiempo.html*
+<p>Vivimos en una constante emergencia. Hasta parece que nuestros políticos se alimentan y crecen de las urgencias. Conseguimos sobrevivir un día más para mañana encontrarnos con el mismo problema.</p>
+
 # Coste de obtener la nacionalidad española
 <blockquote>
   <p>El coste total para conseguir la nacionalidad española ronda entre los 600€ y [los] 1.200€, dependiendo de si se realizan los trámites por cuenta propia  o con ayuda profesional.</p>
@@ -140,7 +144,7 @@ Unable to open "/etc/cups/subscriptions.conf": Permission denied
 # Progresistas Surrealistas Oportunistas Emigrantes
 
 # Servicio y funcionarios
-<h2>
+<h2>Servicio y funcionarios</h2>
 <p>Mucha gente piensa que el resto debemos pagar a los funcionarios para que nos sirvan, para que funcionen para nosotros. En realidad el asunto funciona de manera algo diferente. Pagamos un sueldo a los funcionarios, sí, pero también tenemos que trabajar para ellos.</p>
 <p>Por ejemplo, el jueves me tengo que ausentar del trabajo una hora para realizar un trámite oficial. Hasta hace poco ese trámite se hacía en mi localidad de residencia los martes por la tarde. De hecho el martes había estado llamando al Ayuntamiento sin que me cogieran el teléfono. Por fin me enteré de que habían <q>recibido un correo que suprimía dicho servicio</q>. De modo que busqué una vía alternativa, lo cuál me ocupó la mitad de mi tarde libre del martes.</p>
 <p>Y así todo, o parecido.</p>

@@ -49,7 +49,7 @@
       </table>
 
       <section>
-        <h2>Verilog's Levels of Description</h2>
+        <h2>Verilog&apos;s Levels of Description</h2>
         <p>As regards <a href="electronics.digital.html#HDL_levels">levels of description</a>, Verilog can definitely be used from the system level down to the switches level.</p>
       </section>
 
@@ -72,9 +72,30 @@
         </section>
         <section>
           <h3>Numbers</h3>
-          <p>You need to specify the base (or radix) and the number of bits used to represent your number. Further, you use a single quote (') to separate number of bits and radix.</p>
-          <blockquote class="informalequation">&lt;number_of_bits&gt;'&lt;radix&gt;&lt;value&gt;</blockquote>
+          <p>You need to specify the base (or radix) and the number of bits used to represent your number. Further, you use a single quote (&apos;) to separate number of bits and radix.</p>
+          <blockquote class="informalequation">&lt;number_of_bits&gt;&apos;&lt;radix&gt;&lt;value&gt;</blockquote>
           <p>Further, values may bear prefixes <q>b</q> (for binary), <q>d</q> (for decimal, the default), <q>h</q> (for hexadecimal), and <q>o</q> (for octal). These one-letter prefixes may be upper-case.</p>
+          <section>
+            <h4>Numerical Literals</h4>
+            <p>In Verilog, numerical literals are unsigned 32‐bit numbers by default, but you might want to declare the width of each numerical literal as this results in less guesswork when, for example, when concatenating a wire and a numerical literal together.</p>
+            <p>Some examples:</p>
+            <pre>wire [2:0] a = 3&apos;b111;
+// 3 bit binary
+wire [4:0] b = 5&apos;d31;
+// 5 bit decimal
+wire [31:0] c = 32&apos;hdeadbeef; // 32 bit hexadecimal</pre>
+          </section>
+          <section>
+            <h4>Numbers, Values, and Unknowns</h4>
+            <p>Is x a number? How do you set a signal to the value unknown? x by itself is an identifier. If we want the value x we need to make it into a number. To make a number we need a number of bits, a radix, and a value. Therefore 1&apos;bx is a number with the value x.</p>
+            <p>There are a few more rules about numbers and values. Verilog does not sign extend values. It extends all values with zero, except those with x or z in the most significant place. Numbers with x and z in the most significant place extend with x and z, respectively.</p>
+          </section>
+        </section>
+        <section id="constants">
+          <h3>Constants</h3>
+          <p>We can use <code>`define</code> to define global constants in our code (like the <code>#define</code> preprocessor directive in C). Note that unlike C, when referencing the constant, we need to append a backtick to the front of the constant: e.g., in our case we had to use <code>`VAR0</code> instead of <code>VAR</code>. Also, do not append a semicolon to the `define statement.</p>
+          <p>Some examples:</p>
+          <pre></pre>
         </section>
         <section>
           <h3>Text Macros</h3>
@@ -97,6 +118,14 @@
           <p>If electronics is more your thing, think of a module as a subassembly of the design with defined connections so that it can be wired up to other modules or, if you like, an IC. A simple design may be all contained in a single module, but when things start to get a little complex, the design will become a collection of modules that are then interconnected. In this way, you will also be able to make use of other people’s modules in your designs.</p>
         </aside>
         <p>You create modules using the keywords <code>module</code> and <code>endmodule</code>. You may specify a module name with in, out or inout variables, much like a C/C++ function declaration or prototype.</p>
+        <pre>module data_selector (A, B, SEL, O) (
+  input A,
+  input B,
+  input SEL,
+  output Q
+);
+endmodule</pre>
+        <p>or just (alternatively):</p>
         <pre>module data_selector (
   input A,
   input B,
@@ -104,17 +133,18 @@
   output Q
 );
 endmodule</pre>
-            <p>When you create a project with more than one module, you will always have a top-level module. This is the module that brings all the submodules together as well as the module that will have a UCF associated with it to map the IO pins of the device to the signals in the design.</p>
+        <p>When you create a project with more than one module, you will always have a top-level module. This is the module that brings all the submodules together as well as the module that will have a UCF associated with it to map the IO pins of the device to the signals in the design.</p>
         <section>
           <h3>Ports in Modules</h3>
           <p>Modules may have ports or connections to the outside. In general, if you are modeling a self-contained system, you will not have ports. But if you are modeling something that needs to be connected to something else, you will need ports to make those connections.</p>
-          <p>Verilog supports three port directions: <code>input</code>, <code>output</code>, and <code>inout</code> (bidirectional). In Verilog, you must declare the ports in two places: First, as part of the port list in the module. Second, for the direction and size of all the module's ports using the <code>input</code>, <code>output</code>, and <code>inout</code> keywords.</p>
+          <p>Verilog supports three port directions: <code>input</code>, <code>output</code>, and <code>inout</code> (bidirectional). In Verilog, you must declare the ports in two places: First, as part of the port list in the module. Second, for the direction and size of all the module&apos;s ports using the <code>input</code>, <code>output</code>, and <code>inout</code> keywords.</p>
           <p>The 2001 standard allows you to combine the portlist and direction into a single declaration.</p>
         </section>
         <section>
           <h3>Instances</h3>
           <p>An instance is a copy of a primitive or a module. When you use a built-in primitive, you make an instance or copy of the built-in gate and list its connections. When you make an instance of a built-in gate, you have the option to give it a unique name. When you make an instance of a module you are required to give it an instance name.</p>
-          <p>In the following listing, <var>or</var>, <var>and</var>, and <var>not</var> name primitives. Also, we might have dropped the names <var>I4</var>, <var>I5</var>, <var>I6</var>, and <var>I7</var>.</p>
+          <p>In the following listing, <var>or</var>, <var>and</var>, and <var>not</var> name primitives.</p>
+          <p>By the way, we might have dropped the names <var>I4</var>, <var>I5</var>, <var>I6</var>, and <var>I7</var>. After all, they are not going to be called by further code.</p>
           <pre>module mux(OUT, A, B, SEL);
   output OUT;
   input A,B,SEL;
@@ -123,6 +153,13 @@ endmodule</pre>
   and I7 (sel_b, sel_n, B);
   or I4 (OUT, sel_a, sel_b);
 endmodule</pre>
+        </section>
+        <section id="dot-instantiation">
+          <h3>Dot Instantiation Syntax</h3>
+          <p>The foregoing style of instantiation depends on the ordering of the ports in the comparator module. Still, there is an alternate syntax for instantiating modules which does not depend on port ordering, and is thus usually vastly preferred. The syntax is:</p>
+          <pre><var>module_name</var> [<var>instance_name</var>] (.<var>port_name</var>(<var>ioname</var>), ...);</pre>
+          <p>Thus, the preceding module <var>mux</var> could be instantiated stating its input parameters before its output parameter (given wires <var>a0</var>, <var>b0</var>, <var>s0</var> and <var>o0</var>):</p>
+          <pre>mux mux0 (.SEL(s0).A(a0), .B(b0), .OUT(o0));</pre>
         </section>
         <section>
           <h3>Module Hierarchies</h3>
@@ -155,19 +192,46 @@ endmodule</pre>
       </section>
 
       <section>
-        <h2>Value Set</h2>
-        <p>For logic simulation, we need more values than just zeroes and ones. You also need values to describe unknown values and high impedance (not driving). Verilog uses the values x to represent unknown and z to represent high impedance (not driving). Any bit in Verilog can have any of the values 0, 1, x, or z.</p>
-      </section>
-
-      <section>
-        <h2>Numbers, Values, and Unknowns</h2>
-        <p>Is x a number? How do you set a signal to the value unknown? x by itself is an identifier. If we want the value x we need to make it into a number. To make a number we need a number of bits, a radix, and a value. Therefore 1'bx is a number with the value x.</p>
-        <p>There are a few more rules about numbers and values. Verilog does not sign extend values. It extends all values with zero, except those with x or z in the most significant place. Numbers with x and z in the most significant place extend with x and z, respectively.</p>
-      </section>
-
-      <section>
-        <h2>Strengths</h2>
-        <p> Strengths are necessary in switch-level modeling. In Verilog, strengths are represented in a range from 0 (high impedance) to 7 (supply). There are four driver strengths: supply, strong, pull, and weak. There are three capacitive strengths: large, medium, and small. The capacitive strengths are used for storage nodes in switch-level circuits. The strengths and values combine internally in Verilog to create a set of 120 possible states for a signal in Verilog.</p>
+        <h2><q>Variables</q> in Verilog</h2>
+        <section>
+          <h3>Value Set</h3>
+          <p>For logic simulation, we need more values than just zeroes and ones. You also need values to describe unknown values and high impedance (not driving). Verilog uses the values <code>x</code> to represent unknown and <code>z</code> to represent high impedance (not driving). Any bit in Verilog can have any of the values <code>0</code>, <code>1</code>, <code>x</code>, or <code>z</code>.</p>
+        </section>
+        <section id="wires">
+          <h3>Wires</h3>
+          <p>You can think of wires as modeling physical wires—you can connect them either to another wire, an input or output port on another module, or to a constant logical value. To declare a wire, we use the wire statement:</p>
+          <pre>wire
+a_wire;
+wire [1:0] two_bit_wire;
+wire [4:0] five_bit_wire;</pre>
+          <p>We then use the <code>assign</code> statement to connect them to something else. Assuming that we are in a module that takes a two bit input named two_bit_input, we could do the following:</p>
+          <pre>assign two_bit_wire = two_bit_input;
+// Connect a_wire to the lowest bit of two_bit_wire
+assign a_wire = two_bit_wire[0];
+/* {} is concatenation – 3 MSB will be 101, 2 LSB will be
+connected to two_bit_wire */
+assign five_bit_wire = {3'b101, two_bit_wire};
+// This is an error! You cannot assign a wire twice!
+// assign a_wire = 1’b1;</pre>
+          <p>Note that these are continuous assignments. That means that in the previous example,
+whenever the input two_bit_input changes, so do the values of two_bit_wire, a_wire, and
+five_bit_wire. There is no “order” by which they change—the changes occur at the same time.
+This is also why you cannot assign the same wire twice in the same module—a wire cannot be
+driven by two different signals at the same time. This is what we mean when saying Verilog is
+“naturally concurrent.”</p>
+          <p>Finally, there is a shortcut that is sometimes used to declare and assign a wire at the same time:</p>
+          <pre>// Declares gnd, and assigns it to 0 :
+wire gnd = 1'b0;</pre>
+        </section>
+        <section id="registers">
+          <h3>Registers</h3>
+          <p>Another common data type is register. Despite the name, registers do not imply memory. They are simply a language construct denoting variables that are on the left hand side of an <code>always</code> block (and in simulation code, <code>initial</code> and <code>forever</code> blocks).</p>
+          <p>You declare registers, like wires, at the top level of a module, but, again, you use them <code>within</code> always blocks. You cannot assign registers values at the top level of a module, and you cannot assign wires while inside an always block.</p>
+        </section>
+        <section>
+          <h3>Strengths</h3>
+          <p> Strengths are necessary in switch-level modeling. In Verilog, strengths are represented in a range from 0 (high impedance) to 7 (supply). There are four driver strengths: supply, strong, pull, and weak. There are three capacitive strengths: large, medium, and small. The capacitive strengths are used for storage nodes in switch-level circuits. The strengths and values combine internally in Verilog to create a set of 120 possible states for a signal in Verilog.</p>
+        </section>
       </section>
 
       <section>
@@ -201,17 +265,15 @@ and ( Y, A, B, C, D );</pre>
   or I4 (OUT, sel_a, sel_b);
 endmodule</pre>
         </section>
-      </section>
 
-      <section>
-        <h2>Building Memory Cells with Gates in Verilog</h2>
-        <p>To model memory modules realistically <a href="#verilog_delays">delays</a> must be specified, which have not yet been discussed although hopefully the notation is intuitive to follow.</p>
-
-        <p>We shall build our memory registers from the SR latch. The SR latch itself may be built like this:</p>
-        <pre>module sr_latch(q, qbar, s, r);
+        <section>
+          <h3>Building Memory Cells with Gates in Verilog</h3>
+          <p>To model memory modules realistically <a href="#verilog_delays">delays</a> must be specified, which have not yet been discussed although hopefully the notation is intuitive to follow.</p>
+          <p>We shall build our memory registers from the SR latch. The SR latch itself may be built like this:</p>
+          <pre>module sr_latch(q, qbar, s, r);
   output q, qbar;
   input  s, r;
-  <!--
+    <!--
   wire q2r, qbar2s;
 
   nor (q,    r, qbar2s);
@@ -220,12 +282,11 @@ endmodule</pre>
   nor (q,    r, qbar);
   nor (qbar, s, q   );
 endmodule</pre>
-
-        <aside>
-          <p>You may, if you deem it convenient, insert a delay after <q>nor</q>: <code>#(<var>t<sub>delay</sub></var>)</code>, or <code>#(<var>t<sub>rise</sub></var>, <var>t<sub>fall</sub></var>)</code></p>
-        </aside>
-        <p>An edge flip flop:</p>
-        <pre>module edge_ff(q, qbar, d, clk, clear);
+          <aside>
+            <p>You may, if you deem it convenient, insert a delay after <q>nor</q>: <code>#(<var>t<sub>delay</sub></var>)</code>, or <code>#(<var>t<sub>rise</sub></var>, <var>t<sub>fall</sub></var>)</code></p>
+          </aside>
+          <p>An edge flip flop:</p>
+          <pre>module edge_ff(q, qbar, d, clk, clear);
   output q, qbar;
   input  d, clk, clear;
   wire   s, sbar, r, rbar, cbar;
@@ -240,13 +301,17 @@ endmodule</pre>
          qbar = ~(q &amp; r &amp; cbar);
 endmodule</pre>
 
-        <p>A toggle flip-flop:</p>
-        <pre>module t_ff(q, clk, clear);
+          <p>A toggle flip-flop:</p>
+          <pre>module t_ff(q, clk, clear);
   output q;
   input clk, clear;
   edge_ff ff1(q, ~q, clk, clear);
 endmodule</pre>
+        </section>
+
       </section>
+
+
 
       <section>
         <h2>DataFlow-Level or Procedural Design in Verilog</h2>
@@ -258,13 +323,83 @@ endmodule</pre>
           <p>The <code>initial</code> keyword causes Verilog to execute its statements at time 0. It is used not only for initialization. Here is an example of an initial section:</p>
           <pre>initial $display("Hello Verilog");</pre>
         </section>
-        <section>
+
+        <section id="always">
           <h3>The <code>always</code> Keyword</h3>
-          <p><code>always</code> blocks contain statements whose execution is triggered by some event. Alternatively, an <code>always</code> block starts again when it finishes. This can create an infinite loop. Some infinite loops are useful.</p>
+          <p><code>always</code> blocks contain statements whose execution is triggered by some event and is based on a <strong>sensitivity list</strong>.</p>
+          <p>Whenever a signal in the sensitivity list changes values, the statements in the always block will be run sequentially in the simulator. (In terms of actual hardware, the synthesis tool will synthesize circuits that are logically equivalent to the statements within the always block.)</p>
+
+          <p>In the degenerate case, a register in an always statement acts like a wire data type, as in this simple module:</p>
+          <pre>module bitwise_not(a_in, a_out);
+  input [1:0] a_in;
+  output [1:0] a_out;
+
+  /* Declare the 2-bit output a_out as a register, since it
+  is used on the LHS of an always block */
+  reg [1:0] a_out;
+
+  // better to use always @* – see next example
+  always @(a_in) begin
+    a_out = ~a_in; // out = bitwise not of in
+  end
+endmodule</pre>
+          <p>So whenever the input a_in changes, the code within the always block is evaluated—<var>a_out</var> takes the inverse value of <var>a_in</var>. It is as if we declared <var>a_out</var> to be a wire, and assigned it to be <code>~a_in</code>.</p>
+          <hr/>
+          <p>Alternatively, an <code>always</code> block starts again when it finishes. This can create an infinite loop. Some infinite loops are useful.</p>
+        </section>
+
+        <section id="if-and-case">
+          <h3>If and Case Statements</h3>
+          <p>More interestingly, we can place case and if statements into <a href="#always">always</a> blocks. We can usually think of these <code>case</code> and <code>if</code> statements as being synthesized into some sort of multiplexer. Often enough it is encouraged to use only case statements, but some other times you may see if‐else being used more.</p>
+          <hr/>
+          <p>Here is a simple circuit which utilizes a <code>case</code> statement within an <code>if</code> statement as well as some other concepts discussed elsewhere:</p>
+          <pre>module alarm_clock(day_i, hour_o, minute_o);
+input [2:0] day_i;
+output [4:0] hour_o;
+output [5:0] minute_o;
+wire [2:0] day_i;
+/* Declare hour_o and minute_o to be regs since
+* they are on LHS of an always block */
+reg [4:0] hour_o;
+reg [5:0] minute_o;
+// have is_weekday take the value of a comparator
+wire is_weekday;
+assign is_weekday = (day_i &lt;= `FRI);
+always @* begin
+if (is_weekday) begin
+hour_o = 5'd8;
+minute_o = 6'd30;
+end
+else begin
+case (day_i)
+`SAT: {hour_o, minute_o} = {5'd11, 6'd15};
+`SUN: {hour_o, minute_o} = {5'd12, 6'd45};
+default: {hour_o, minute_o} = 11'd0;
+endcase
+end
+end
+endmodule</pre>
+          <p>In particular, note:</p>
+          <ul>
+            <li>Case and if statements must be placed within an always block.</li>
+            <li>The use of always@*. This is a new Verilog‐2001 construct that automatically populates the sensitivity list with all variables listed in the right hand side of the always block. Unless otherwise noted, you should always use always @* for your always block sensitivity lists, as it will save you hours of debugging.</li>
+            <li>The use of begin…end to delineate multi‐line blocks (instead of the usual {} found in other C‐like languages). You may omit the begin…end if the assignments in your case or if statements are only a single line long, as in the case statement above.</li>
+            <li>The fact that every case statement has a matching default statement and every if statement has a matching else. <em>Do not forget this, or you will generate latches!</em></li>
+          </ul>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
+          <pre></pre>
+          <p></p>
         </section>
 
         <section id="verilog_dataflow_D_flipflop">
-          <h3>D Flip-Flop in Verilog's Data Flow</h3>
+          <h3>D Flip-Flop in Verilog&apos;s Data Flow</h3>
           <p>An edge-sensitive D flip-flop:</p>
           <pre>module edge_d_ff(q, qbar, d, clk, clear)
   output q, qbar;
@@ -306,7 +441,7 @@ endmodule</pre>
         <section>
           <h3>The <code>$display(...)</code> System Task</h3>
           <pre>$display("Hello Verilog");
-$display(a); // display variable 'a'</pre>
+$display(a); // display variable &apos;a&apos;</pre>
 <p>You may also use format specifiers, much as in C printf(...). The format specifiers are <code>%b</code> for binary, <code>%d</code> for decimal, <code>%h</code> for hexadecimal, <code>%o</code> for octal, and <code>%s</code> for string.</p>
 <pre>$display("The value of a is %b, The value of b is %b", a, b);</pre>
           <p>...</p>
@@ -322,12 +457,12 @@ $display(a); // display variable 'a'</pre>
           <p>Because <code>$monitor</code> can produce a lot of output, there are two more special system tasks for stopping and restarting <code>$monitor</code>. To stop the <code>$monitor</code> from printing, use the <code>$monitor</code>off command. To restart the <code>$monitor</code>, use the <code>$monitor</code>on command. Remember that there can be only one <code>$monitor</code> active in your simulation at a time. The last one executed is the only one in effect.</p>
           <p style="text-align: center"><strong>Writing to Files</strong></p>
           <p>By default, Verilog puts all the output that goes to your screen into a log file called <cite>verilog.log</cite>. You can view the results of your simulation by looking at the log file.</p>
-          <p>Besides sending output to the screen and log file, Verilog can write up to thirty-one additional files at the same time. File output is accomplished by declaring an integer that is used to represent the file and then opening the file. Once the file is opened, output commands similar to the ones previously described may be used to write to the file. Here's an example:</p>
+          <p>Besides sending output to the screen and log file, Verilog can write up to thirty-one additional files at the same time. File output is accomplished by declaring an integer that is used to represent the file and then opening the file. Once the file is opened, output commands similar to the ones previously described may be used to write to the file. Here&apos;s an example:</p>
           <pre>integer f;
 f = $fopen("myFile");
 $fdisplay(f, "Hello Verilog File");</pre>
-          <p>For each of the commands covered so far (<code class="command">$display</code>, <code class="command">$write</code>, <code class="command">$monitor</code>, and <code class="command">$strobe</code>), there is an 'f' prefixed version of the command for printing data to files. All the file output commands require the first argument to be the file integer. The other command arguments are just like those for <code>$display</code>.</p>
-          <p>The integers used to represent the files have exactly one bit set in them. A single <code>$fdisplay</code> command can write to more than one file. The trick is to use the vertical line symbol ('|')to connect the file numbers, as shown below. One other trick is the numbering of the files: 1 is reserved for the screen and log file, so the first file opened will be 2 and the next, 4.</p>
+          <p>For each of the commands covered so far (<code class="command">$display</code>, <code class="command">$write</code>, <code class="command">$monitor</code>, and <code class="command">$strobe</code>), there is an &apos;f&apos; prefixed version of the command for printing data to files. All the file output commands require the first argument to be the file integer. The other command arguments are just like those for <code>$display</code>.</p>
+          <p>The integers used to represent the files have exactly one bit set in them. A single <code>$fdisplay</code> command can write to more than one file. The trick is to use the vertical line symbol (&apos;|&apos;)to connect the file numbers, as shown below. One other trick is the numbering of the files: 1 is reserved for the screen and log file, so the first file opened will be 2 and the next, 4.</p>
           <pre>integer file1, file2;
 file1 = $fopen("file1");
 file2 = $fopen("file2");
@@ -353,7 +488,7 @@ set individually. If you do not use a format specifier, the default radix is dec
 Often it is desirable to print out values without having to use a format specifier.
 When debugging, it is inconvenient to have to use a format specifier just to see a
 value in a different radix. Thus, Verilog provides four types of each of the output
-functions with a different default radix. These are named by appending 'b' for binary, 'h' for hexadecimal, and 'o' for octal to <code>$display</code>, <code>$fdisplay</code>, <code>$write</code>, <code>$fwrite</code>, <code>$strobe</code>, <code>$fstrobe</code>, <code>$monitor</code>, and <code>$fmonitor</code>.</p>
+functions with a different default radix. These are named by appending &apos;b&apos; for binary, &apos;h&apos; for hexadecimal, and &apos;o&apos; for octal to <code>$display</code>, <code>$fdisplay</code>, <code>$write</code>, <code>$fwrite</code>, <code>$strobe</code>, <code>$fstrobe</code>, <code>$monitor</code>, and <code>$fmonitor</code>.</p>
         </section>
 
       </section>
@@ -370,10 +505,12 @@ initial
     $finish;
   end
 endmodule</pre>
+
         </section>
-      <section id="verilog_telephone_example">
-        <h2>A Behavioral-Level Example</h2>
-        <pre>/* Abstract behavioral system describing a telephone */
+
+        <section id="verilog_telephone_example">
+          <h3>A Behavioral-Level Example</h3>
+          <pre>/* Abstract behavioral system describing a telephone */
 module office_phone;
   parameter min_conversation=1, max_conversation=30, false=0, true=!false;
   event ring, incoming_call, answer, make_call, busy;
@@ -396,7 +533,7 @@ module office_phone;
   always @ring
     begin
       $write($time," Ring Ring"); / / d o we want to answer it?
-      if ($random &amp; 'b110) begin // yes we will answer it
+      if ($random &amp; &apos;b110) begin // yes we will answer it
       -&gt; answer;
       off_hook = true;
       $display(" answered");
