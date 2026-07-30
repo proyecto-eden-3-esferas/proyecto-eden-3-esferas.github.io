@@ -184,6 +184,106 @@ endmodule</pre>
           <blockquote class="informalequation">.<var>&lt;portname&gt;</var>(<var>&lt;net_to_be_connected&gt;</var>)</blockquote>
           <p>(Notice the leading dot)</p>
         </section>
+        <section id="parameters">
+          <h3>Parameters</h3>
+          <p>We often want to create some generic module that can be customized by a few parameters when the module is instantiated. This is where the <code>parameter</code> statement comes in.</p>
+          <p>The following is an example of a parameterized ALU, which defaults to 32‐bits if no parameter is given during module instantiation:</p>
+          <pre id="ALU">`define ADD 3'd0
+`define LESS 3'd1
+`define EQ 3'd2
+`define OR 3'd3
+`define AND 3'd4
+`define NOT 3'd5
+
+module ALU(opcode, op_a, op_b, result);
+  parameter N = 32;
+  input [2:0] opcode;
+  input [N-1:0] op_a, op_b;
+  output [N-1:0] result;
+
+  // result used in LHS of always block -> must be reg
+  reg [N-1:0] result;
+  always @* begin
+    case (opcode)
+      `ADD:  result = op_a + op_b;
+      `LESS: result = op_a &lt; op_b;
+      `EQ:   result = op_a == op_b;
+      `OR:   result = op_a | op_b;
+      `AND:  result = op_a &amp; op_b;
+      `NOT:  result = ~op_a;
+      default: result = 0;
+    endcase
+  end
+endmodule</pre>
+          <p>Then, to instantiate this ALU within another module, use the <code>#(<var>width</var>)</code> symbols within the instantiation line. For example, this line instantiates a 16‐bit ALU:</p>
+          <pre>ALU #(16) alu1(...)</pre>
+        </section>
+
+        <section id="testbenches">
+          <h3>Testbenches</h3>
+          <p>Up until now, we may have written purely synthesizable Verilog—Verilog that will be synthesized, translated, and mapped to actual hardware (in our case, the FPGA). But before we do that costly step, we need to be extremely confident that our modules function correctly. This is where testbenches and simulation software come into play.</p>
+          <p>A Verilog testbench is a special file that instantiates the module (or modules) that we need to test. This testbench is not synthesized into hardware. Rather, it provides input stimuli into the instantiated modules so that we can run the testbench in a software simulator of our projected hardware design. Because they do not have to be synthesized, testbenches can be written in a different style than normal synthesizable Verilog.</p>
+          <p>Simulation proceeds in hardware across discrete time units. To make actions in simulation go in a defined order, we often need to present the input stimuli at different time periods, rather than all at the same time. We do this by using <a href="#verilog_delays">delay</a> statements.</p>
+          <section id="initial">
+            <h4>Initial Blocks</h4>
+            <p>Initial and forever blocks are like <a href="#always">always</a> blocks in that the statements within an initial block execute in order when triggered. Also, only <a href="#registers">registers</a> are allowed on the left hand side of an initial block. However, while an always blocks executes every time a condition changes, initial blocks are executed once—at the beginning of the program.</p>
+            <p>The following code sets <var>opcode</var>, <var>op_a</var>, and <var>op_b</var> to 0, 10, and 20 respectively at t=0 in the simulation, and then changes those values to 2, 10, and 20 respectively at t=5 in the simulation:</p>
+            <pre>reg [2:0] opcode;
+reg [4:0] op_a, op_b;
+
+initial begin
+  opcode = 3’b000;
+  op_a = 5’d10;
+  op_b = 5’d20;
+
+  #5 opcode = 3’b010;
+  op_a = 5’d10;
+  op_b = 5’d20;
+end</pre>
+            <p>... to be included, say, in the definition of an <a href="#ALU">ALU</a> (Arithmetic-Logic Unit).</p>
+          </section>
+          <section id="display">
+            <h4>Display Statement</h4>
+            <p>The <code>$display</code> statement can be used to display the value of a variable using printf‐like syntax. Also, it automatically inserts a newline at the end of the printing.</p>
+            <pre>wire [3:0] ten = 4’d10;
+$display("10 in hex: %h, dec: %d, bin: %b", ten, ten, ten);</pre>
+          </section>
+          <section id="sample-testbench">
+            <h4>Sample Testbench</h4>
+            <p>Using the preceding statements, we can make a very crude testbench of our <a href="#ALU">ALU module</a>.</p>
+            <pre>module ALU_test;
+
+/* Declare as regs since we'll be changing these
+   values in always blocks */
+reg [2:0] opcode;
+reg [15:0] op_a, op_b;
+wire [15:0] result; // just connected to module
+
+// Instantiate the ALU module
+ALU #(16) alu(.opcode(opcode), .op_a(op_a),
+              .op_b(op_b), .result(result));
+initial begin
+  opcode = `ADD;
+  {op_a, op_b} = {16'd32, 16'd5};
+  // Wait 1 time unit for result to settle
+  #1 $display("%b + %b = %b", op_a, op_b, result);
+  #5;
+
+  opcode = `OR;
+  {op_a, op_b} = {16'd8, 16'd7};
+  #1 $display("%b | %b = %b", op_a, op_b, result);
+  // etc.
+end
+
+endmodule
+
+/* Output of simulator:
+# 0000000000100000 + 0000000000000101 = 0000000000100101
+# 0000000000001000 | 0000000000000111 = 0000000000001111 */</pre>
+            <p>This testbench is far from complete. We tested only one set of inputs for only two of the functions of the unit. We should test more cases, especially the corner cases. Also, an automated test is better than a manual test such as this. But it gives an idea of how to start programming testbenches.</p>
+          </section>
+        </section>
+
         <section>
           <h3>Top-Level Modules</h3>
           <p>When the Verilog simulator finishes compiling your modules, the first thing it reports is which module or modules are <q>Highest-level modules.</q> Highest-level or top modules are modules that no other module has made an instance of. These non-referenced modules are considered to be at the top of the hierarchy. Usually there is only one top-level module, the <dfn>test bench</dfn> for your circuit. The test bench module is used to provide inputs or stimulus to a design.</p>
@@ -354,48 +454,42 @@ endmodule</pre>
           <hr/>
           <p>Here is a simple circuit which utilizes a <code>case</code> statement within an <code>if</code> statement as well as some other concepts discussed elsewhere:</p>
           <pre>module alarm_clock(day_i, hour_o, minute_o);
-input [2:0] day_i;
-output [4:0] hour_o;
-output [5:0] minute_o;
-wire [2:0] day_i;
-/* Declare hour_o and minute_o to be regs since
-* they are on LHS of an always block */
-reg [4:0] hour_o;
-reg [5:0] minute_o;
-// have is_weekday take the value of a comparator
-wire is_weekday;
-assign is_weekday = (day_i &lt;= `FRI);
-always @* begin
-if (is_weekday) begin
-hour_o = 5'd8;
-minute_o = 6'd30;
-end
-else begin
-case (day_i)
-`SAT: {hour_o, minute_o} = {5'd11, 6'd15};
-`SUN: {hour_o, minute_o} = {5'd12, 6'd45};
-default: {hour_o, minute_o} = 11'd0;
-endcase
-end
-end
+  input [2:0] day_i;
+  output [4:0] hour_o;
+  output [5:0] minute_o;
+
+  wire [2:0] day_i;
+
+  /* Declare hour_o and minute_o to be regs since
+  * they are on LHS of an always block */
+  reg [4:0] hour_o;
+  reg [5:0] minute_o;
+
+  // have is_weekday take the value of a comparator
+  wire is_weekday;
+  assign is_weekday = (day_i &lt;= `FRI);
+
+  always @* begin
+    if (is_weekday) begin
+      hour_o = 5'd8;
+      minute_o = 6'd30;
+    end
+    else begin
+      case (day_i)
+        `SAT: {hour_o, minute_o} = {5'd11, 6'd15};
+        `SUN: {hour_o, minute_o} = {5'd12, 6'd45};
+        default: {hour_o, minute_o} = 11'd0;
+      endcase
+    end
+  end
 endmodule</pre>
           <p>In particular, note:</p>
           <ul>
-            <li>Case and if statements must be placed within an always block.</li>
-            <li>The use of always@*. This is a new Verilog‐2001 construct that automatically populates the sensitivity list with all variables listed in the right hand side of the always block. Unless otherwise noted, you should always use always @* for your always block sensitivity lists, as it will save you hours of debugging.</li>
-            <li>The use of begin…end to delineate multi‐line blocks (instead of the usual {} found in other C‐like languages). You may omit the begin…end if the assignments in your case or if statements are only a single line long, as in the case statement above.</li>
-            <li>The fact that every case statement has a matching default statement and every if statement has a matching else. <em>Do not forget this, or you will generate latches!</em></li>
+            <li><code>case</code> and <code>if</code> statements must be placed within an <code>always</code> block.</li>
+            <li>The use of <code>always@*</code>. This is a new Verilog‐2001 construct that automatically populates the sensitivity list with all variables listed in the right hand side of the <code>always</code> block. Unless otherwise noted, you had better always use <code>always @*</code> for your always block sensitivity lists, as it will save you hours of debugging.</li>
+            <li>The use of <code>begin</code>... <code>end</code> to delineate multi‐line blocks (instead of the usual {} found in other C‐like languages). You may omit the begin…end if the assignments in your case or if statements are only a single line long, as in the case statement above.</li>
+            <li>The fact that every <code>case</code> statement has a matching <code>default</code> statement and every <code>if</code> statement has a matching <code>else</code>. <em>Do not forget this, or you will generate latches!</em></li>
           </ul>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
-          <pre></pre>
-          <p></p>
         </section>
 
         <section id="verilog_dataflow_D_flipflop">
@@ -424,6 +518,16 @@ endmodule</pre>
         <p>Every statement in Verilog may have a delay before it is run. If we have two (initial) statements scheduled at the same time, which will run first? Not only is there no way to tell, but if you run the statements on another simulator, it might run them in a different order. A race condition arises.</p>
         <p>Delays are set by prepending <code>#<var>delay_in_time_units</var></code>.</p>
         <pre>initial #1 $display("Hello Delays Verilog!");</pre>
+        <pre>// General syntax: #&lt;<var>n</var>&gt; -- delay for <var>n</var> time units
+
+#5;   // delay this block for 5 time units
+#100; // delay for 100 time units
+
+// Can be compounded next to another statement to delay
+// that statement
+
+#10 $display("Hi Verilog!"); // wait 10 time units, then display "Hi Verilog!"</pre>
+        <p>...</p>
         <section>
           <h3><code>fork</code>-<code>join</code> Blocks</h3>
           <p>The <code>fork</code>-<code>join</code> block is similar to the <code>begin</code>-<code>end</code> block in that it is also used to group statements. In <code>begin</code>-<code>end</code> blocks, the statements are sequential, and the delays are additive. In <code>fork</code>-<code>join</code> blocks, the statements are concurrent, and the delays are independent, or absolute from the time the <code>fork</code>-<code>join</code> block starts.</p>
