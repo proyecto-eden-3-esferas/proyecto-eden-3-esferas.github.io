@@ -1,3 +1,10 @@
+# Design
+<blockquote>
+  <p>The idea of a formal design discipline is often rejected on account of vague cultural / philosophical condemnations such as “stifling creativity”; this is more pronounced ... where a romantic vision of “the humanities” in fact idealizes technical incompetence ...</p>
+  <p>[We] know that for the sake of reliability and intellectual control we have to keep the design simple and disentangled.</p>
+  <p style="text-align: right">Edsger W. Dijkstra</p>
+</blockquote>
+
 # La prisa (*prisa.html*)
 [ ] relacionar con *tiempo.html*
 <p>Vivimos en una constante emergencia. Hasta parece que nuestros políticos se alimentan y crecen de las urgencias. Conseguimos sobrevivir un día más para mañana encontrarnos con el mismo problema.</p>
