@@ -62,6 +62,27 @@
           <li><dfn>Applications</dfn>: Desktop environments do not offer the full array of apps. Just like Windows and macOS, Linux offers thousands upon thousands of high-quality software titles that can be easily found and installed. Most modern Linux distributions (more on this below) include App Store-like tools that centralize and simplify application installation. For example, Ubuntu Linux has the Ubuntu Software Center (a rebrand of GNOME Software) which allows you to quickly search among the thousands of apps and install them from one centralized location.</li>
         </ul>
       </section>
+
+      <section id="script">
+        <h2>Linux Scripts</h2>
+        <section>
+          <h3>Running Scripts at Startup</h3>
+          <ul>
+            <li>
+              <p>One approach is to add an @reboot cron task:</p>
+              <ol>
+                <li>Running <code>crontab -e</code> will allow you to edit your cron.</li>
+                <li>Adding a line like this to it: <code>@reboot /path/to/script</code> will execute that script once your computer boots up.</li>
+              </ol>
+            </li>
+            <li>
+              <p>The upstart system will execute all scripts from which it finds a configuration in directory <cite>/etc/init</cite>. These scripts will run during system startup (or in response to certain events, e.g., a shutdown request) and so are the place to run commands that do not interact with the user; all servers are started using this mechanism.</p>
+              <p>You can find a readable introduction to at: <a target="_blank" href="http://upstart.ubuntu.com/getting-started.html">http://upstart.ubuntu.com/getting-started.html</a>.</p>
+              <p>The man pages <code>man 5 init</code> and <code>man 8 init</code> will give you the full details.</p>
+            </li>
+          </ul>
+        </section>
+      </section>
       
       <section id="apps">
         <h2>Linux Applications</h2>

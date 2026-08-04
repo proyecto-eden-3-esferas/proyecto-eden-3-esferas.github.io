@@ -14,6 +14,9 @@
     <nav>
       <div>
         <p><a rel="prev" href="computer-languages.html#markup">Mark-Up Languages</a></p>
+        <p><a            href="https://en.wikibooks.org/wiki/LaTeX">LaTeX WikiBook</a></p>
+        <p><a            href="https://en.wikibooks.org/wiki/LaTeX/Document_Structure">LaTeX Document Structure</a></p>
+        <p><a rel="next" href="latex.graphics.html">LaTex Packages for Graphics, pictures, diagrams</a></p>
       </div>
       <div>
         <p><a href="diagram.html">Diagrams and Schematics</a></p>
@@ -1355,39 +1358,90 @@ The second paragraph of the second item.
           </section>
         </section>
       </section>
+
       <section id="LaTeX">
         <h2>Latex</h2>
+
+        <section id="latex.install">
+          <h3>Installing and Running LaTeX on Linux</h3>
+          <p>On Ubuntu Linux, open your terminal and run <code>sudo apt-get update</code>, then run either <code>sudo apt install texlive</code> for a standard setup or <code>sudo apt-get install texlive-full</code> for all packages. You can also install an optional helper editor like TeXstudio or Texmaker (sudo apt install texstudio).</p>
+          <hr/>
+          <p>You can generate a PDF file from a LaTeX file by running:</p>
+          <pre>pdflatex <var>FILE</var>.tex</pre>
+        </section>
+
         <section>
           <h3>A simple LaTeX Example</h3>
           <p> Let's start with the simplest working example:</p>
           <pre>\documentclass{article}
 
-          \begin{document}
-          First document. This is a simple example, with no
-          extra parameters or packages included.
-          \end{document}</pre>
-          <p>...</p>
-          <pre></pre>
+\begin{document}
+First document. This is a simple example, with no
+extra parameters or packages included.
+\end{document}</pre>
         </section>
         <section>
           <h3>The preamble of a document</h3>
           <p>In the previous example the text was entered after the \begin{document} command. Everything in your .tex file before this point is called the <dfn>preamble</dfn>. In the preamble you define the type of document you are writing, the language you are writing in, the packages you would like to use (more on this later) and several other elements. For instance, a normal document preamble would look like this:</p>
           <pre>\documentclass[12pt, letterpaper]{article}
-          \usepackage[utf8]{inputenc}</pre>
+\usepackage[utf8]{inputenc}</pre>
           <p>As said before, this defines the type of document. Some additional parameters included in the square brackets can be passed to the command. These parameters must be comma-separated. In the example, the extra parameters set the font size (12pt) and the paper size (letterpaper). Of course other font sizes (9pt, 11pt, 12pt) can be used, but if none is specified, the default size is 10pt. As for the paper size other possible values are a4paper and legalpaper; see the article about Page size and margins for more details about this.</p>
           <p>Below a detailed description of each line:</p>
           <pre>\usepackage[utf8]{inputenc}</pre>
           <p>This is the encoding for the document. It can be omitted or changed to another encoding but utf-8 is recommended. Unless you specifically need another encoding, or if you are unsure about it, add this line to the preamble.</p>
         </section>
-        <section>
-          <h3>Larger Fonts and Narrower Margins in LaTeX</h3>
-          <p>Insert:</p>
-          <pre>\fontsize{19pt}{19pt} \selectfont</pre>
-          <p>Follow up with some margin and page width adjustments:</p>
-          <pre>\addtolength{\oddsidemargin}{-.9in}
-\addtolength{\evensidemargin}{-1.44in}
-\addtolength{\textwidth}{1.8in}</pre>
+
+        <section id="latex-document-classes">
+          <h3>LaTeX Document Classes</h3>
+          <p style="text-align: right">(<i>See</i> <a href="https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes">https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes</a>)</p>
+          <p>The standard classes (article, report and book) support 3 different font sizes, 10pt, 11pt, 12pt (by default 10pt). The font size is set through the optional argument, e.g.:</p>
+          <pre>\documentclass[12pt]{report}</pre>
         </section>
+
+        <section>
+          <h3>Changing Font Size and Margins in LaTeX</h3>
+
+          <section>
+            <h4>The <code>extsizes</code> Classes</h4>
+            <p>The extsizes classes, which comprise <code>extarticle</code>, <code>extreport</code>, <code>extbook</code>, <code>extletter</code>, and <code>extproc</code> support font sizes of 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt and 20pt.</p>
+
+            <p>Example: using the <code>extarticle</code> class to set the document font size to 12pt.</p>
+            <pre>\documentclass[12pt]{extarticle} % Note the extarticle document class
+
+% Using the geometry package with a small
+% page size to create the article graphic
+\usepackage[paperheight=6in,
+   paperwidth=5in,
+   top=10mm,
+   bottom=20mm,
+   left=10mm,
+   right=10mm]{geometry}
+
+\begin{document}
+  \section{Introduction}
+  Blah, blah, blah...
+\end{document}</pre>
+            <p>...</p>
+          </section>
+
+          <section>
+            <h4>The <code>\fontsize</code> + <code>\selectfont</code> Commands</h4>
+            <p>The syntax is:</p>
+            <pre>\fontsize{<var>font-size</var>}{<var>baseline-skip</var>}\selectfont</pre>
+            <p>The <var>baseline-skip</var> value determines the distance between baselines of text in a paragraph typeset using font-size; it is also stored in a parameter command called <var>\baselineskip</var>.</p>
+
+            <p>An example:</p>
+            <pre>\fontsize{12}{13.5}\selectfont % use 12pt text with baselines spaced at 13.5pt
+  Using the geometry package and setting font size
+  through \fontsize{<var>fontsize</var>}{<var>baseline-skip</var>}
+  to create an article
+  consisting of blah, blah, blah...</pre>
+
+            <p>...</p>
+          </section>
+
+        </section>
+
         <section id="latex_to_plain_tex">
           <h3>Translating LaTeX to Plain TeX</h3>
           <p>Unfortunately, no "general", simple, automatic process is likely to succeed at this task.See <a href="#latex_to_plain_tex">How does LaTeX relate to Plain TeX</a> for further details.</p>

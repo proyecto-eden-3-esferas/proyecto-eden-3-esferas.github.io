@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CircuiTikZ</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="CircuiTikZ: Draw electrical and electronics schematics with TikZ"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="prev" href="latex.graphics.html">LaTeX Graphics</a></p>
+        <p><a            href="latex.html">TeX/LaTeX: an open-source typesetting system for text, mathematical formulas and much more.</a></p>
+      </div>
+      <div>
+        <p><a href="diagram.html">Diagrams and Schematics</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1><code>CircuiTikZ</code>: Drawing electrical and electronics schematics with <code>TikZ</code></h1>
+
+      <p>To use LaTeX package <code>CircuiTikZ</code> first you need to load it:</p>
+      <table border="1">
+        <tr> <th>LaTeX</th> <th>ConTeXt</th> <th>Plain TeX</th> </tr>
+        <tr> <td><code>\usepackage{circuitikz}</code></td>
+             <td><code>\usemodule[circuitikz]</code></td>
+             <td>(no support)</td>
+        </tr>
+      </table>
+
+      <p><code>TikZ</code> will be automatically loaded; additionally, the TikZ libraries <code>calc</code>, <code>arrows.meta</code>, <code>bending</code>, and <code>fpu</code> are loaded (the last one is used only on demand).</p>
+      <p>CircuiTikZ commands are just TikZ commands, so a minimum usage example would be:</p>
+      <pre>\tikz \draw (0,0) to[R=$R_1$] (2,0);</pre>
+
+      <section>
+        <h2>LaTex Requirements</h2>
+        <ul>
+          <li><code>latex</code> (if using it), version from 2019-10-01 (better from 2020-10-01);</li>
+          <li><code>tikz</code>, version ≥ 3.1.5b (it should work with any version from 3.1.4b and up, but better use a newer one);</li>
+          <li><code>xstring</code>, not older than 2009/03/13;</li>
+          <li><code>siunitx</code>, if using siunitx option (better v2 or newer).</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
