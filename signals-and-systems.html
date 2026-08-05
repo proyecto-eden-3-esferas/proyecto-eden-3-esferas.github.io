@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Signals and Systems</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Signals and Systems"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="technology">
+    <nav>
+      <div>
+        <p><a href="maths.html">Mathematics</a></p>
+        <p><a href="technology.html">Technology</a></p>
+        <p><a href="electronics.html">Electronics</a></p>
+        <p><a href="computing.html">Computer Science</a></p>
+        <p><a href="programming.html">Programming Computers</a></p>
+        <p><a href="robotics.html">Robotics: Machines that Do Complex Mechanical Work</a></p>
+      </div>
+      <div>
+        <p><a href="mechatronics.html">Mechatronics: Integrated Mechanical, Electrical, Control and Computer Engineering</a></p>
+      </div>
+      <div>
+        <p><a href="Simulation-and-Its-Discontents_by-Sherry-Turkle.html">Simulation and Its Discontents, by Sherry Turkle</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <!--
+      - Use <strong class='firstterm'>TERM</strong> to denote new terms
+      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
+      - as well as definition lists like:
+      <dl>
+        <dt>TERM1</dt>
+        <dd>DEF1</dd>
+        <dt>TERM2</dt>
+        <dd>DEF2</dd>
+      </dl>
+      - Use asides to include comment and explanations
+        when a new page is not warranted, like
+      <hr/>
+      <aside>
+        <h2>HEADER</h2>
+        <p>...<strong class='firstterm'>TERM</strong> ... </p>
+      </aside>
+
+      Erase this comment when done writing your page!
+      -->
+      <h1>Signals and Systems</h1>
+
+      <section id="convolution">
+        <h2>Convolution</h2>
+        <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://www.mathworks.com/discovery/convolution.html">https://www.mathworks.com/discovery/convolution.html</a></cite>)</p>
+        <p>Convolution is a mathematical operation that combines two functions to describe the overlap between them. <dfn>Convolution</dfn> takes two functions and <q>slides</q> one of them over the other, multiplying the function values at each point where they overlap, and adding up the products to create a new function. This process creates a new function that represents how the two original functions interact with each other.</p>
+        <p>Formally, convolution is an integral that expresses the amount of overlap of one function, f(<var>t</var>), as it is shifted over function g(<var>t</var>), expressed as:</p>
+        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mo stretchy="false">(</mo>
+  <mi>f</mi>
+  <mo>&#x2217;</mo>
+  <mi>g</mi>
+  <mo stretchy="false">)</mo>
+  <mo stretchy="false">(</mo>
+  <mi>t</mi>
+  <mo stretchy="false">)</mo>
+  <msup>
+    <mo>&#x2248;</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mi>d</mi>
+      <mi>e</mi>
+      <mi>f</mi>
+    </mrow>
+  </msup>
+  <msubsup>
+    <mo data-mjx-texclass="OP">&#x222B;</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo>&#x2212;</mo>
+      <mi mathvariant="normal">&#x221E;</mi>
+    </mrow>
+    <mrow data-mjx-texclass="ORD">
+      <mi mathvariant="normal">&#x221E;</mi>
+    </mrow>
+  </msubsup>
+  <mi>f</mi>
+  <mo stretchy="false">(</mo>
+  <mi>&#x3C4;</mi>
+  <mo stretchy="false">)</mo>
+  <mi>g</mi>
+  <mo stretchy="false">(</mo>
+  <mi>t</mi>
+  <mo>&#x2212;</mo>
+  <mi>&#x3C4;</mi>
+  <mo stretchy="false">)</mo>
+  <mi>d</mi>
+  <mi>&#x3C4;</mi>
+</math>
+        <p>Depending on the application of convolution, functions may be replaced with signals, images, or other types of data.</p>
+        <section id="convolution-in-signal-processing">
+          <h3>Convolution in Signal Processing</h3>
+          <p>Convolution is used in digital signal processing to study and design linear time-invariant (LTI) systems such as digital filters.</p>
+          <p>The output signal, <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>y</mi> <mo stretchy="false">[</mo> <mi>n</mi> <mo stretchy="false">]</mo> </math>,
+          in LTI systems is the convolution of the input signal, <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>x</mi> <mo stretchy="false">[</mo> <mi>n</mi> <mo stretchy="false">]</mo> </math>
+          and impulse response <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>h</mi> <mo stretchy="false">[</mo> <mi>n</mi> <mo stretchy="false">]</mo> </math>
+          of the system.</p>
+          <p>In practice, the convolution theorem is used to design filters in the frequency domain. The <dfn>convolution theorem</dfn> states that:</p>
+          <blockquote>Convolution in the time domain is equivalent to multiplication in the frequency domain.</blockquote>
+          <p>The frequency domain can also be used to improve the execution time of convolutions. Using the FFT algorithm, signals can be transformed to the frequency domain, multiplied, and transformed back to the time domain. For signals of large enough size, this can result in a substantial speed increase.</p>
+        </section>
+
+      </section>
+
+      <section id="distribution">
+        <h2>Distribution*</h2>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

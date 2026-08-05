@@ -1,3 +1,5 @@
+# Write *signals-and-systems.html* : Signals and Systems
+
 # Design
 <blockquote>
   <p>The idea of a formal design discipline is often rejected on account of vague cultural / philosophical condemnations such as “stifling creativity”; this is more pronounced ... where a romantic vision of “the humanities” in fact idealizes technical incompetence ...</p>
