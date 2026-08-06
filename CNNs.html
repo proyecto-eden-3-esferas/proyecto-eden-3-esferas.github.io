@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Convolutional Neural Networks</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Convolutional Neural Networks"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="technology">
+    <nav>
+      <div>
+        <p><a rel="prev" href="signals-and-systems.html">Signals and Systems</a></p>
+        <p><a            href="maths.html">Mathematics</a></p>
+      </div>
+      <div>
+        <p><a href="electronics.html">Electronics</a></p>
+        <p><a href="computing.html">Computer Science</a></p>
+        <p><a href="programming.html">Programming Computers</a></p>
+      </div>
+      <div>
+        <p><a href="robotics.html">Robotics: Machines that Do Complex Mechanical Work</a></p>
+        <p><a href="mechatronics.html">Mechatronics: Integrated Mechanical, Electrical, Control and Computer Engineering</a></p>
+      </div>
+    </nav>
+
+    <main>
+
+      <h1>Convolutional Neural Networks</h1>
+      <p style="text-align: right">(Heavily from <cite><a target="_blank" href="https://uk.mathworks.com/discovery/convolutional-neural-network.html">https://uk.mathworks.com/discovery/convolutional-neural-network.html</a></cite>)</p>
+
+      <p>A convolutional neural network (CNN or ConvNet) is a network architecture for deep learning that learns directly from data.</p>
+      <p>CNNs are particularly useful for finding patterns in images to recognize objects, classes, and categories. They can also be quite effective for classifying audio, time series, and signal data.</p>
+
+
+      <section id="how-they-work">
+        <h2>How CNNs Work</h2>
+        <p>A convolutional neural network can have tens or hundreds of <strong>layers</strong> that each learn to detect different features of an image. Filters are applied to each training image at different resolutions, and the output of each convolved image is used as the input to the next layer. The filters can start as very simple features, such as brightness and edges, and increase in complexity to features that uniquely define the object.</p>
+
+        <section id="layers">
+          <h3>Feature Learning, Layers, and <a href="#classification">Classification</a></h3>
+          <p>A CNN is composed of an input layer, an output layer, and many hidden layers in between.</p>
+          <p>These layers perform operations that alter the data with the intent of learning features specific to the data. Three of the most common layers are convolution, activation or ReLU, and pooling.</p>
+          <ul>
+            <li><a target="_blank" href="signals-and-systems.html#convolution">Convolution</a> puts the input images through a set of convolutional filters, each of which activates certain features from the images.</li>
+            <li><strong>Rectified linear unit (ReLU)</strong> allows for faster and more effective training by mapping negative values to zero and maintaining positive values. This is sometimes referred to as activation, because only the activated features are carried forward into the next layer.</li>
+            <li><strong>Pooling</strong> simplifies the output by performing nonlinear downsampling, reducing the number of parameters that the network needs to learn.</li>
+          </ul>
+          <p>These operations are repeated over tens or hundreds of layers, with each layer learning to identify different features.</p>
+        </section>
+
+        <section id="shared-weights-and-biases">
+          <h3>Shared Weights and Biases</h3>
+          <p>Unlike a traditional neural network, a CNN has <em>shared</em> weights and bias values, which are the same for all hidden neurons in a given layer.</p>
+          <p>This means that all hidden neurons are detecting the same feature, such as an edge or a blob, in different regions of the image. This makes the network tolerant to translation of objects in an image. For example, a network trained to recognize cars will be able to do so wherever the car is in the image.</p>
+        </section>
+
+        <section id="classification">
+          <h3>Classification Layers</h3>
+          <p>After learning features in many layers, the architecture of a CNN shifts to classification.</p>
+          <p>The next-to-last layer is a fully connected layer that outputs a vector of <var>K</var> dimensions (where <var>K</var> is the number of classes able to be predicted) and contains the probabilities for each class of an image being classified.</p>
+          <p>And the final layer of the CNN architecture uses a classification layer to provide the final classification output.</p>
+        </section>
+
+      </section>
+
+
+      <section id="why-CNNs-matter">
+        <h2>Why CNNs Matter</h2>
+        <p>CNNs provide an optimal architecture for uncovering and learning key features in image and time series data. CNNs are a key technology in applications such as:</p>
+        <ul>
+          <li><strong><a target="_blank" href="health.html">Medical</a> Imaging</strong> CNNs can examine thousands of pathology reports to visually detect the presence or absence of cancer cells in images.</li>
+          <li><strong>Audio Processing</strong> Keyword detection can be used in any device with a microphone to detect when a certain word or phrase is spoken (“Hey Siri!”). CNNs can accurately learn and detect the keyword while ignoring all other phrases regardless of the environment.</li>
+          <li><strong>Object Detection</strong> Automated driving relies on CNNs to accurately detect the presence of a sign or other object and make decisions based on the output.</li>
+          <li><strong>Synthetic Data Generation</strong> Using <a target="_blank" href="https://uk.mathworks.com/discovery/generative-adversarial-networks.html">Generative Adversarial Networks (GANs)</a>, new images can be produced for use in deep learning applications including face recognition and automated driving.</li>
+        </ul>
+      </section>
+
+
+      <section id="when-should-you-use-CNNs">
+        <h2>When Should You Use CNNs?</h2>
+        <p>Consider using CNNs when you have a large amount of complex data (such as image data). You can also use CNNs with signal or time series data when preprocessed to work with the network structure.</p>
+      </section>
+
+
+    </main>
+
+  </body>
+
+</html>

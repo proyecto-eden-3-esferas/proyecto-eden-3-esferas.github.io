@@ -15,42 +15,68 @@
     <nav>
       <div>
         <p><a href="maths.html">Mathematics</a></p>
+        <p><a href="CNNs.html">Convolutional Neural Networks</a></p>
         <p><a href="technology.html">Technology</a></p>
         <p><a href="electronics.html">Electronics</a></p>
         <p><a href="computing.html">Computer Science</a></p>
         <p><a href="programming.html">Programming Computers</a></p>
-        <p><a href="robotics.html">Robotics: Machines that Do Complex Mechanical Work</a></p>
       </div>
       <div>
+        <p><a href="robotics.html">Robotics: Machines that Do Complex Mechanical Work</a></p>
         <p><a href="mechatronics.html">Mechatronics: Integrated Mechanical, Electrical, Control and Computer Engineering</a></p>
       </div>
       <div>
-        <p><a href="Simulation-and-Its-Discontents_by-Sherry-Turkle.html">Simulation and Its Discontents, by Sherry Turkle</a></p>
+        <p><a href="Simulation-and-Its-Discontents_by-Sherry-Turkle.html"><cite>Simulation and Its Discontents</cite>, by Sherry Turkle</a></p>
       </div>
     </nav>
 
     <main>
-      <!--
-      - Use <strong class='firstterm'>TERM</strong> to denote new terms
-      - Use numbered (<ol>) and unnumbered (<ul>) lists of list items (<li>)
-      - as well as definition lists like:
-      <dl>
-        <dt>TERM1</dt>
-        <dd>DEF1</dd>
-        <dt>TERM2</dt>
-        <dd>DEF2</dd>
-      </dl>
-      - Use asides to include comment and explanations
-        when a new page is not warranted, like
-      <hr/>
+      <h1>Signals and Systems</h1>
+
       <aside>
-        <h2>HEADER</h2>
-        <p>...<strong class='firstterm'>TERM</strong> ... </p>
+        <p>A variety of commercial and open-source tools are available for signals and systems problem solving. Two broad categories are computer algebra system (CAS) programs, such as Mathematica, Maple, and Maxima, and those that excel at vector/matrix problem solving, such as MATLAB, NI LabVIEW MathScript, Octave, and Python. Both types of computer programs offer function libraries that are tailored to the needs of the signals and systems analysis and simulation.</p>
+        <p style="text-align: right">(From <cite>Signals &amp; Systems For Dummies</cite>, by Mark Wickert, PhD, John Wiley &amp; Sons 2013)</p>
       </aside>
 
-      Erase this comment when done writing your page!
-      -->
-      <h1>Signals and Systems</h1>
+      <section id="system-properties">
+        <h2>System Properties</h2>
+        <p>In this section, several properties of systems are described based on their mathematical characteristics.</p>
+        <section id="linear">
+          <h3>Linear and nonlinear</h3>
+          <p>Simply put, a system is <dfn>linear</dfn> if superposition holds. Superposition refers to the ability of a system to process signals individually and then sum them up to process all the signals simultaneously.</p>
+          <p>In practical terms, think about a karaoke system. You want the audio amplifier that drives the speakers in this kind of system to be linear so the music and singer’s voice in the microphone can merge without causing distortion, which happens with a nonlinear amplifier. On the other hand, many hard rock guitar players send their signal through a nonlinear amplifier to get some distortion.</p>
+        </section>
+        <section id="time-invariant-and-time-varying">
+          <h3>Time-invariant and time varying</h3>
+          <p>A system is <dfn>time-invariant</dfn> if its properties or characteristics don’t change with time. A mathematical statement of this is that given y(<var>t</var>) = T{x(<var>t</var>)}, and any time offset <var>t<sub>0</sub></var>, the time-shifted input x<sub>1</sub>(<var>t</var>) = x(<var>t</var> - <var>t<sub>0</sub></var>) must produce system output y<sub>1</sub>(<var>t</var>) = y(<var>t</var> - <var>t<sub>0</sub></var>)</p>
+          <p>Here, y(<var>t</var>) is the system output to the present input x(<var>t</var>). For time invariance to hold, the output of a system is unchanged (except for the time offset by <var>t<sub>0</sub></var>) when you apply the same input at any arbitrary offset <var>t<sub>0</sub></var>.</p>
+          <p>A system that doesn’t obey the condition established for time invariance is said to be <dfn>time varying</dfn>. Creating a system with a time-varying property is as easy as twisting the volume control on your car stereo. Specifically, the gain of the system is time varying.</p>
+          <p>A noise-removing filter is typically designed to be time-invariant. Assuming the noise signal characteristics and the desired signal characteristics are fixed, the filter design should be time-invariant. A time-varying filter, known as an <dfn>adaptive filter</dfn>, is needed when the noise signal characteristics change over time. Think of noise-canceling headphones that give you relative peace and quiet riding in an airplane or on the flight deck of an aircraft carrier. These headphones are a time-varying system.</p>
+        </section>
+        <section id="causal-and-non-causal">
+          <h3>Causal and non-causal</h3>
+          <p>A system that is causal is <dfn>nonanticipative</dfn>; that is, the system can’t anticipate the arrival of a signal at the input. Sounds crazy, I know, but a non-causal system can predict the future (in a signals sense); it anticipates the signal input. Mathematically, you can define such a system, but building a physical system is impossible.</p>
+          <p>A system is causal if all output values, y(<var>t<sub>0</sub></var>), depend only on input values x(<var>t</var>) for <var>t</var> less than or equal <var>t<sub>0</sub></var> — or the present output depends only on past and present input values. A non-causal system is more of a mathematical concept than a practical reality. A system that can use future values of the input to form the present output can predict the future.</p>
+          <hr/>
+          <p>With discrete-time signals and systems, it’s possible to store a signal in memory and then process it later by using a non-causal system. The catch is that the processing is all being done by using past values of the input, because you’re working with a recorded signal. The math of a non-causal system is still at work, because the system doesn’t realize that the signal was prerecorded. For continuous-time systems, making this work is harder; you can perform non-causal processing on continuous-time signals with records and tapes of music recordings.</p>
+        </section>
+        <section id="memory-and-memoryless">
+          <h3>Memory and memoryless</h3>
+          <p>Very simply, a system is <dfn>memoryless</dfn> if each output y(<var>t</var>) depends only on the present input x(<var>t</var>). Can a memoryless system be non-causal? If the output depends only on the present input, then no way can the future values of the input be used to form the present output. Yet causal systems aren’t necessarily memoryless. A causal system can utilize past values of the input in forming the present output.</p>
+          <p>A system that filters a system generally does so by using the present and past values of the input to form the present output. A system described by a linear constant coefficient (LCC) differential equation is one such example. An <a target="_blank" href="electronics.html">electronic</a> circuit that’s composed of resistors, capacitors, and inductors is another example. The capacitors and inductors are the memory elements. A system with only resistors has no memory.</p>
+        </section>
+        <section id="bibo">
+          <h3>Bounded-input bounded-output</h3>
+          <p>A system is <dfn>bounded-input bounded-output (BIBO) stable</dfn> only if every bounded input produces a bounded output. What’s this bounded stuff? Bounded is a mathematical term that means a signal has magnitude less than infinity over all time. The signal x(<var>t</var>) — which may be an input or an output — is bounded if some positive constant <var>B<sub>x</sub></var> exists such that the |x(<var>t</var>)| is less or equal <var>B<sub>x</sub></var>.</p>
+          <p>To show that the property holds for <em>any</em> bounded input is the fundamental challenge of this scenario. [The qualifier] <q>any</q> represents quite a lot of cases; testing them all can be prohibitive. Therefore, some proof-writing skills are required here!</p>
+        </section>
+
+        <section id="LTI">
+          <h3>Choosing Linear and Time-Invariant Systems</h3>
+          <p>From a design and analysis standpoint, engineers are typically most interested in working with systems that are both <a href="linear">linear</a> and <a href="#time-invariant-and-time-varying">time-invariant</a> because such systems can meet demanding real-world requirements and allow for smoother analysis in the time, frequency, and s-domains. The ability to analyze system performance is critical; you want to be confident that your design meets requirements before committing to expensive prototypes.</p>
+        </section>
+
+      </section>
 
       <section id="convolution">
         <h2>Convolution</h2>
