@@ -1,4 +1,36 @@
-# Write *signals-and-systems.html* : Signals and Systems
+# Materialismo en *materialismo.html*
+
+<p>Todo está compuesto de materia y todo lo que se manifiesta, o fenómenos, se comprende y explica a partir de la materia. Normalmente llamamos <q>materialista</q> al que mantiene este punto de vista.</p>
+<p>Un siguiente grado que suele darse, o paso que suele tomarse, es el de la <dfn>animalidad</dfn>. Reducimos a los seres humanos a meros animalitos regidos por los mismos instintos y pulsiones que los animales de la naturaleza, de los que nos separa una tenue capa de racionalidad y civilización. Un reduccionismo que se las da de humilde y que se da la mano con la sordidez y la falta de ideales.</p>
+<blockquote>Cuando tenía cuarenta años follaba todos los días, ahora sólo una vez a la semana.</blockquote>
+
+# Desobediencias
+<ol>
+  <li>
+    <p>Saltarse las normas por egoísmo o estupidez. Algo muy <a target="_blank" href="espanya.html">español</a>, por cierto. Podríamos denominarlo <dfn>desobediencia sistemática</dfn>.</p>
+    <ul>
+      <li>llevar la contraria siempre a todo el mundo o a una persona en particular.</li>
+      <li>no señalizar al conducir</li>
+      <li>no seguir las reglas de la ergonomía (por ejemplo, cuando se toca una guitarra, no debemos hacer pinza con la mano izquierda)</li>
+    </ul>
+    <p>Estas actitud, cuando se da en el plano moral, lleva a mentir y engañar por sistema.</p>
+  </li>
+  <li>
+    <ul>
+      <li>la desobediencia civil</li>
+      <li>el pensamiento crítico: cuestionarse todas las suposiciones sobre las que basamos nuestras decisiones y actitudes</li>
+      <li>el anarquismo bien entendido</li>
+    </ul>
+  </li>
+</ol>
+
+
+# Alternativas a dualidades
+- En *tres.html*?
+Por ejemplo la tercera vía de los *makers* entre la abstracción y la concreción
+[ ] Relacionar con *equilibrio.html*
+
+# Write *signals-and-systems.html#distributions*
 
 # Design
 <blockquote>
@@ -10,6 +42,7 @@
 # La prisa (*prisa.html*)
 [ ] relacionar con *tiempo.html*
 <p>Vivimos en una constante emergencia. Hasta parece que nuestros políticos se alimentan y crecen de las urgencias. Conseguimos sobrevivir un día más para mañana encontrarnos con el mismo problema.</p>
+
 
 # Coste de obtener la nacionalidad española
 <blockquote>
