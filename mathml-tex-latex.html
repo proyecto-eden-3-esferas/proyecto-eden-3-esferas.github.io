@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Equivalences Between XML/XHTML, TeX, and LaTeX (Mathematics)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Equivalences Between XML/XHTML, TeX, and LaTeX (Mathematics)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="next" href="tex-latex.html">TeX/LaTeX: an open-source typesetting system for text, mathematical formulas and much more</a></p>
+        <p><a            href="https://en.wikibooks.org/wiki/LaTeX">LaTeX WikiBook</a></p>
+      </div>
+      <div>
+        <p><a href="mathml.html">MathML: Mathematics in XML</a></p>
+        <p><a href="computer-languages.html#markup">Mark-Up Languages</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Equivalences Between XML/XHTML, TeX, and LaTeX (Mathematics)</h1>
+      <p>On the whole, TeX/LaTeX mathematical formulas are more readable and intuitive to type. Still, MathML lends itself to transformations to other formal languages and within itself from Content to Presentation MathML.</p>
+
+      <div class="note" style="border-style: solid;">We shall not discuss Content MathML here. The reader is well advised to apply a style sheet (<cite class="filename">ctop.xsl</cite>) to her Content MathML file.</div>
+      <p>Overall, Presentation MathML specifies the role of each token using elements <code>&lt;mi&gt;</code> for identifiers, <code>&lt;mo&gt;</code> for operators, <code>&lt;mn&gt;</code> for numbers, <code>&lt;mtext&gt;</code> for text, and so on. These are combined using layout elements, that generally contain only elements. They include: <code>&lt;mrow&gt;</code> (a horizontal row of items), <code>&lt;msub&gt;</code>, <code>&lt;msup&gt;</code> and <code>&lt;munderover&gt;</code> (subscripts, superscripts, limits over and under operators like sums, etc.), <code>&lt;mfrac&gt;</code> (fractions), <code>&lt;msqrt&gt;</code> and <code>&lt;mroot&gt;</code> (1- and 2-parameter roots), <code>&lt;mfenced&gt;</code> (surrounding content with fences, such as parentheses)...</p>
+
+      <table>
+            <h3>Equivalences Between XML/XHTML, TeX, and LaTeX (Mathematics)</h3>
+            <thead>
+              <tr>
+                <td>XHTML</td>
+                <td>TeX</td>
+                <td>LaTeX</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p>...</p>
+                  <code></code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Write your MathML code between <samp class="computeroutput">&lt;math&gt;</samp> and <samp class="computeroutput">&lt;/math&gt;</samp>. Use attibute <var>display</var> with values <q>inline</q> or <q>block</q>. Firefox Mozilla seems to understand:</p>
+                  <code>&lt;math
+  xmlns="http://www.w3.org/1998/Math/MathML"
+  display="block"
+&gt;
+  x
+&lt;/math&gt;</code>
+                </td>
+                <td>
+                  <p>Write your inline formulas between single dollar signs. Write your block formulas between double dollar signs:</p>
+                  <code>$$x$$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX. Write your inline formulas between single dollar signs. Write your block formulas between double dollar signs:</p>
+                  <code>$$x$$</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Simple formulas require elements <tag>mi</tag>, <tag>mo</tag>, and <tag>mn</tag> at least:</p>
+                  <code>&lt;mi&gt;y&lt;/mi&gt; &lt;mo&gt;=&lt;/mo&gt; &lt;mn&gt;3&lt;/mn&gt; &lt;mi&gt;x&lt;/mi&gt;</code>
+                  <p>Yet the right hand term of the equation looks better if gathered inside a <tag>mrow</tag> element:</p>
+                  <code>&lt;mi&gt;y&lt;/mi&gt; &lt;mo&gt;=&lt;/mo&gt; &lt;mrow&gt; &lt;mn&gt;3&lt;/mn&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;</code>
+                </td>
+                <td>
+                  <p>Simple formulas look like plain English in TeX/LaTeX:</p>
+                  <code>$y = 3x$</code>
+                </td>
+                <td>
+                  <p>Simple formulas look like plain English in TeX/LaTeX:</p>
+                  <code>$y = 3x$</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Use elements <tag>msup</tag> for superscripts, <tag>msub</tag> for subscripts, and <tag>msubsup</tag> (ternary) for subscript-superscript:</p>
+                  <code>&lt;msubsup&gt; &lt;mi&gt;a&lt;/mi&gt; &lt;mn&gt;0&lt;/mn&gt; &lt;mn&gt;3&lt;/mn&gt; &lt;/msubsup&gt;</code>
+                </td>
+                <td>
+                  <p>Use '^' for superscripts and '_' for subscripts:</p>
+                  <code>$$a_0^3$$</code>
+                </td>
+                <td>
+                  <p>Use '^' for superscripts and '_' for subscripts:</p>
+                  <code>$$3a_0^3$$</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Numbered equations are produced ...?</p>
+                </td>
+                <td>
+                  <p>Numbered equations are produced using the control sequence <kbd class="userinput">\eqno</kbd>, or with numbers on the left hand side by using <kbd class="userinput">\leqno</kbd>:</p>
+                  <code>$f(x)g(x) = x^2 - 1.\eqno(15)$</code>
+                </td>
+                <td>
+                  <p>...</p>
+                  <code></code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p>In mathematics mode the character ' has a special meaning:</p>
+                  <code>$f' = g''$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Special or <em>reserved</em> characters (built-in entities) ', ", &lt;, and &gt; must be typed:</p>
+                  <code>&amp;apos; &amp;quot; &amp;lt; &amp;gt;</code>
+                </td>
+                <td>
+                  <p>Special or <em>reserved</em> characters #, $, %, &amp;, _, {, and } must be escaped. \ is represented by <kbd class="userinput">\backslash</kbd>.</p>
+                  <code>\# \$ \% \&amp; \_ \{ \} \backslash</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Greek letters (and other symbols) are entities that must be defined before being used, or be specified through their unicode number. Thus alpha (α), pi (π), and chi (χ) are obtained by typing:</p>
+                  <code>&amp;#x03B1; &amp;#x03C0; &amp;#x03C7;</code>
+                </td>
+                <td>
+                  <p>Greek letters (and other symbols) are produced in mathematics mode by preceding the name of the letter by a backslash (\). Thus the Greek letters alpha (α), pi (π), and chi (χ) are obtained by typing:</p>
+                  <code>\alpha \pi \chi</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Fonts are <em>styled</em> in CSS files</p>
+                  <code>math { font-size: 12pt;}</code>
+                </td>
+                <td>
+                  <p>Fonts are selected with <kbd class="userinput">\cal</kbd>, <kbd class="userinput">\bf</kbd>, <kbd class="userinput">\it</kbd>... Math italic (<kbd class="userinput">mit</kbd>) is assumed, though.</p>
+                  <code></code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                  <code>&lt;mi&gt;a&lt;/mi&gt; &lt;mo&gt;=&lt;/mo&gt; &lt;mn&gt;0&lt;/mn&gt; &lt;mtext&gt;only if...&lt;/mtext&gt;</code>
+                </td>
+                <td>
+                  <p>The recommended way to obtain ordinary text in displayed mathematical formulae is to use <kbd class="userinput">\hbox</kbd>.</p>
+                  <code>$a = 0 \hbox{ only if...}$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Fractions are typeset through binary <tag>mfrac</tag>. Roots are typeset through <command>msqrt</command> (binary), and <command>mroot</command> (ternary).</p>
+                  <code>&lt;mfrac&gt;&lt;mi&gt;a&lt;/mi&gt; &lt;mfrac&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mfrac&gt;</code>
+                </td>
+                <td>
+                  <p>Fractions in Plain TeX are typeset using the construction {<var>numerator</var> <command>\over</command> <var>denominator</var>}. Analogously, <command>\sqrt</command> is used for square roots and <command>\root</command> <var>n</var> <command>\of</command> <var>expression</var> for nth roots.</p>
+                  <code>$a {2 \over 3}$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Some expressions are <em>fenced</em> between delimiters with a <a href="#mfenced">mfenced</a> element.</p>
+                  <code>&lt;mfenced open='{' close='}'&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;/mfenced&gt;</code>
+                </td>
+                <td>
+                  <p>TeX recognizes (, [, { and | as left delimiters, and ), ], }, and again | as right delimiters. Double | is typed by <kbd class="userinput">\|</kbd>.</p>
+                  <code>${a, b, c}$</code>
+                  <p>Larger delimiters are sometimes required which have the appropriate height to match the size of the subformula which they enclose. Type <command>\left</command><var>left_delimiter</var> and <command>\right</command><var>left_delimiter</var>:</p>
+                  <code>\left(1 + {x^2 \over 3} \right)</code>
+                  <p>By typing <kbd class="userinput">\left.</kbd> and <kbd class="userinput">\right.</kbd> one obtains null delimiters which are completely invisible</p>
+                  <code>$\left. {du \over dx} \right|_{x=0}.$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p> Multiline Formulae in Plain TeX are aligned by means of <command>\eqalign</command> and &amp; characters:</p>
+                  <code>$$\eqalign{a^2 &amp;= c^2 - b^2\cr
+                  &amp;= 4\cr}$$</code>
+                  <p>Some other times you use <command>\cases</command>. One must place $ before and after any mathematical expression occurring to the right of the alignment tab &amp;.:</p>
+                  <code>$$|x| = \cases{ x &amp;if $x \geq 0$;\cr
+  -x &amp;if $x &lt; 0$.\cr}$$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p>Matrices and other arrays are produced in Plain TeX using the control sequence <command>\matrix</command>.</p>
+                  <code>$$\left(
+\matrix{ a &amp; b &amp; c \cr
+d&amp;e&amp;f\cr
+g &amp; h &amp; i \cr} \right)$$</code>
+                  <p>Since matrices delimited by round brackets are so common, Plain TeX provides the control sequence <command>\pmatrix</command> to construct them:</p>
+                  <code>$$\pmatrix{
+  a &amp; b &amp; c \cr
+  d&amp;e&amp;f\cr
+  g &amp; h &amp; i \cr} \right)$$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p>Whether an expression is placed over or under an operator (as opposed to being its superscript or subscript) depends on the class of the operator (<command>lim</command>, <command>sup</command>, <command>inf</command>, <command>sum</command> etc.).</p>
+                  <code>$$\lim_{x \to 0} {1 \over x}$$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Space is created by grouping space separated units into <tag>mrow</tag> elements and such:</p>
+                  <code>&lt;mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;/mrow&gt; &lt;mo&gt;=&lt;/mo&gt; &lt;mrow&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;/mrow&gt;</code>
+                </td>
+                <td>
+                  <p>In TeX space is explicitly created through <kbd class="userinput">\,</kbd> (which is removed by <kbd class="userinput">\!</kbd>) and others such as <kbd class="userinput">quad</kbd> and <kbd class="userinput">qquad</kbd>.</p>
+                  <code>$$x^2\,dx$$</code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p>...</p>
+                  <code></code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>...</p>
+                </td>
+                <td>
+                  <p>...</p>
+                  <code></code>
+                </td>
+                <td>
+                  <p>Same as in Plain TeX?</p>
+                  <code>% same example?</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </main>
+
+  </body>
+
+</html>

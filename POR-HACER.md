@@ -1,3 +1,6 @@
+# El cotarro, los esbirros y la panda de mataos (*cotarro-esbirros-mataos.html*)
+
+
 # Materialismo en *materialismo.html*
 
 <p>Todo está compuesto de materia y todo lo que se manifiesta, o fenómenos, se comprende y explica a partir de la materia. Normalmente llamamos <q>materialista</q> al que mantiene este punto de vista.</p>
@@ -38,11 +41,6 @@ Por ejemplo la tercera vía de los *makers* entre la abstracción y la concreci�
   <p>[We] know that for the sake of reliability and intellectual control we have to keep the design simple and disentangled.</p>
   <p style="text-align: right">Edsger W. Dijkstra</p>
 </blockquote>
-
-# La prisa (*prisa.html*)
-[ ] relacionar con *tiempo.html*
-<p>Vivimos en una constante emergencia. Hasta parece que nuestros políticos se alimentan y crecen de las urgencias. Conseguimos sobrevivir un día más para mañana encontrarnos con el mismo problema.</p>
-
 
 
 # Add to *verilog.html*
