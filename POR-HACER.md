@@ -44,29 +44,6 @@ Por ejemplo la tercera vía de los *makers* entre la abstracción y la concreci�
 <p>Vivimos en una constante emergencia. Hasta parece que nuestros políticos se alimentan y crecen de las urgencias. Conseguimos sobrevivir un día más para mañana encontrarnos con el mismo problema.</p>
 
 
-# Coste de obtener la nacionalidad española
-<blockquote>
-  <p>El coste total para conseguir la nacionalidad española ronda entre los 600€ y [los] 1.200€, dependiendo de si se realizan los trámites por cuenta propia  o con ayuda profesional.</p>
-  <p>Destacan como principales gastos la tasa administrativa, los exámenes obligatorios y la legalización de documentos.</p>
-  <p style="text-align: right">Cohen y Aguirre</p>
-  <h2>Tasas y Exámenes oficiales</h2>
-  <ul>
-    <li><strong>Tasa administrativa</strong> [DE] 104,05€ a 105,82 por el modelo de solicitud.</li>
-    <li><strong>Examen CCSE</strong> [De] 85€ a 88€ para la prueba de conocimientos socioculturales.</li>
-    <li><strong>Examen DELE A2</strong> [De] 130€ a 160€ para la prueba de idioma (exentos los nacionales de países hispanohablantes).</li>
-    <li><strong>
-  </ul>
-  <h2>Gastos de Documentación y Gestión</h2>
-  <ul>
-    <li><strong>Documentos extranjeros</strong> Coste variable por certificados de nacimiento y antecedentes penales del país de origen con su correspondiente apostilla.</li>
-    <li><strong>Traducciones juradas</strong> Depende del número de páginas.</li>
-    <li><strong>Jura de nacionalidad</strong> Gratuita en el Registro Civil o con un coste de entre 150€ y 250€ si se hace de forma rápida ante notario.</li>
-    <li><strong>Honorarios de abogados</strong> Entre 500€ y 2.500€ de manera opcional para la gestión completa.</li>
-    <li><strong>
-  </ul>
-  <p style="text-align: right">Vista creada con IA</p>
-</blockquote>
-
 
 # Add to *verilog.html*
 <section id="modules">
