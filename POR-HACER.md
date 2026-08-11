@@ -160,17 +160,6 @@ Unable to open "/etc/cups/subscriptions.conf": Permission denied
 
 # Progresistas Surrealistas Oportunistas Emigrantes
 
-# Servicio y funcionarios
-<h2>Servicio y funcionarios</h2>
-<p>Mucha gente piensa que el resto debemos pagar a los funcionarios para que nos sirvan, para que funcionen para nosotros. En realidad el asunto funciona de manera algo diferente. Pagamos un sueldo a los funcionarios, sí, pero también tenemos que trabajar para ellos.</p>
-<p>Por ejemplo, el jueves me tengo que ausentar del trabajo una hora para realizar un trámite oficial. Hasta hace poco ese trámite se hacía en mi localidad de residencia los martes por la tarde. De hecho el martes había estado llamando al Ayuntamiento sin que me cogieran el teléfono. Por fin me enteré de que habían <q>recibido un correo que suprimía dicho servicio</q>. De modo que busqué una vía alternativa, lo cuál me ocupó la mitad de mi tarde libre del martes.</p>
-<p>Y así todo, o parecido.</p>
-<p>En resumen:</p>
-<ol>
-  <li>Cuantos más funcionarios se contratan, y estamos en máximos históricos, peor atendida está la población.</li>
-  <li>Los ciudadanos deben aprender y dedicar tiempo a realizar los trámites oficiales, además de pagar a los funcionarios administrativos encargados de dichos trámites.</li>
-  <li>Todo ciudadano debe poseer un móvil de última generación (de lo contrario no funcionan las aplicaciones estatales) y pagar una conexión a internet.</li>
-</ol>
 
 # Download Music MP3 Files
 [ ] Download from https://melvin-gibbs.bandcamp.com/ through yt-dlp
