@@ -20,9 +20,9 @@
   </li>
   <li>
     <ul>
-      <li>la desobediencia civil</li>
+      <li>la <a target="_blank" href="desobediencia-civil.html">desobediencia civil</a></li>
       <li>el pensamiento crítico: cuestionarse todas las suposiciones sobre las que basamos nuestras decisiones y actitudes</li>
-      <li>el anarquismo bien entendido</li>
+      <li>el <a target="_blank" href="anarquismo.html">anarquismo</a> bien entendido</li>
     </ul>
   </li>
 </ol>
@@ -165,12 +165,6 @@ Unable to open "/etc/cups/subscriptions.conf": Permission denied
 [ ] Download from https://melvin-gibbs.bandcamp.com/ through yt-dlp
 [ ] Download from https://charlesjosephsmith.bandcamp.com/album/collected-works-and-war-of-the-martian-ghosts
 
-# Gorilas laborales (*gorilas-laborales.html*)
-<p>¿Y si criáramos una raza de gorilas u homínidos que realizasen todos esos trabajos que tan poca inteligencia ni cualidades superiores, mucho menos exclusivas, requieren de los obreros humanos?</p>
-<p>¿Y si realizáramos el experimento mental de <a target="_blank" href="imaginacion.html">imaginar</a> que hubiésemos creado tal raza?</p>
-<p>¿Llegaríamos a la triste conclusión de que funcionamos y subsistimos con la sofisticación de una <i>troupe</i> de <a target="_blank" href="monitos.html">monitos</a>?</p>
-<p>Desde ahí podríamos dar el paso de imaginar robots más o menos antropomorfos que con un cerebro electrónico mínimo nos substituyeran sin tanto gasto en vacaciones, bajas, descansos periódicos, huelgas, cotizaciones a la Seguridad Social etc.</p>
-
 # Certificado Firma Digital
 
 Este es tu código de solicitud: 855625136
@@ -180,9 +174,6 @@ https://www.comunidad.madrid/centros/oficina-conjunta-atencion-ciudadano-molar
 Teléfono: 91 841 00 09
 L-V de  9:00 a 14:00
 M   de 17:00 a 19:00
-
-## Bustarviejo
-https://www.ayuntamientodebustarviejo.org/certificado-digital/
 
 ## Comunicación
 
@@ -242,14 +233,6 @@ En https://www.sede.fnmt.gob.es/certificados/persona-fisica/obtener-certificado-
 
 # Anarquismo:
 <section>
-  <p>Dos cuestiones:</p>
-  <ol>
-    <li>Evitar que el poder se concentre, y</li>
-    <li>Evitar que una mayoría idiota y sin principios morales imponga su criterio (ej. esclavitud, especulación inmobiliaria, proteccionismo laboral)
-  </ol>
-  <p>(En realidad podría tratarse de un mismo problema.)</p>
-</section>
-<section>
   <p>La democracia representativa es esporádica, discontinua, como la contratación de funcionarios. Fomenta el oportunismo.</p>
 </section>
 
@@ -301,232 +284,12 @@ En https://www.sede.fnmt.gob.es/certificados/persona-fisica/obtener-certificado-
   <h2>El trabajo</h2>
 </section>
 
-# Dos caras
-<ol>
-  <li>las empresas necesitan trabajadores, y</li>
-  <li>dichos trabajadores no necesitan ser humanos</li>
-</ol>
-<p>Partimos del hecho de que la inmensa mayoría del trabajo remunerado es estrictamente mecánico.</p>
-<p>Pongo por ejemplo un encargo bastante frecuente, desbrozar un campo, es decir cortar toda la hierba. Normalmente se utilizan unas máquinas llamadas desbrozadoras, pero conceptualmente la labor equivaldría a cortar con una hoz. La máquina ahorra tiempo y posturas supuestamente más incómodas. Sin embargo el operario no necesita ejercer ninguna facultad cognitiva superior. En teoría un gorila manejaría igual de bien una desbrozadora o una hoz, bastaría con transmitirle o inculcarle un puñado de instrucciones.</p>
-<p>Maticemos. El que la inmensa mayoría de los trabajos remunerados sean fácilmente automatizables no significa que no haya muchas otras tareas no automtizables. Como por ejemplo crear arte. En un mundo donde una sola pintura o composición musical puede ser admirada o escuchada por millones de personas la obra de arte se vende por lo que tiene de artesanal. Mientras haya gente con dinero dispuesta a comprar catedrales hechas de palillos subsistirán muchos artistas creadores de obras de gran mérito.</p>
-<p>Es verdad que muchos ciudanos demandan labores gorilizables como desbrozar, cargar un camión o picar la entrada de cada asistente a un espectáculo.</p>
-
-
-# Enshittification
-<h1>Enshittification</h1>
-<p style="text-align: right">(From <cite><a target="_blank" href="https://doctorow.medium.com/my-mcluhan-lecture-on-enshittification-ea343342b9bc">https://doctorow.medium.com/my-mcluhan-lecture-on-enshittification-ea343342b9bc</a></cite>, by Cory Doctorow)</p>
-<p>Last year, I coined the term ‘enshittification,’ to describe the way that platforms decay. That obscene little word did big numbers, it really hit the zeitgeist. I mean, the American Dialect Society made it their Word of the Year for 2023 (which, I suppose, means that now I’m definitely getting a poop emoji on my tombstone).</p>
-<p>So what’s enshittification and why did it catch fire? It’s my theory explaining how the internet was colonized by platforms, and why all those platforms are degrading so quickly and thoroughly, and why it matters — and what we can do about it.</p>
-<aside>We’re all living through the enshittocene, a great enshittening, in which the services that matter to us, that we rely on, are turning into giant piles of shit.</aside>
-<p>It’s frustrating. It’s demoralizing. It’s even terrifying.</p>
-<p>I think that the enshittification framework goes a long way to explaining it, moving us out of the mysterious realm of the <q>great forces of history,</q> and into the material world of specific decisions made by named people — decisions we can reverse and people whose addresses and pitchfork sizes we can learn.</p>
-<p>Enshittification names the problem and proposes a solution. It’s not just a way to say <q>things are getting worse</q> (though of course, it’s fine with me if you want to use it that way. It’s an English word. We don’t have <cite>der Rat für Englische Rechtschreibung</cite>. English is a free for all. Go nuts, meine Kerle).</p>
-<p>But in case you want to use enshittification in a more precise, technical way, let’s examine how enshittification works.</p>
-<p>It’s a three stage process: First, platforms are good to their users; then they abuse their users to make things better for their business customers; finally, they abuse those business customers to claw back all the value for themselves. Then, they die.</p>
-
-<p>Let’s do a case study. What could be better than Facebook?</p>
-<p>Facebook is a company that was founded to nonconsensually rate the fuckability of Harvard undergrads, and it only got worse after that.</p>
-<p>When Facebook started off, it was only open to US college and high-school kids with .edu and k-12.us addresses. But in 2006, it opened up to the general public. It told them: <q>Yes, I know you’re all using Myspace. But Myspace is owned by Rupert Murdoch, an evil, crapulent senescent Australian billionaire, who spies on you with every hour that God sends.</q></p>
-<p><q>Sign up with Facebook and we will never spy on you. Come and tell us who matters to you in this world, and we will compose a personal feed consisting solely of what those people post for consumption by those who choose to follow them.</q></p>
-<p>That was stage one. Facebook had a surplus — its investors’ cash — and it allocated that surplus to its end-users. Those end-users proceeded to lock themselves into FB. FB — like most tech businesses — has network effects on its side. A product or service enjoys network effects when it improves as more people sign up to use it. You joined FB because your friends were there, and then others signed up because you were there.</p>
-<p>But FB didn’t just have high network effects, it had high switching costs. Switching costs are everything you have to give up when you leave a product or service. In Facebook’s case, it was all the friends there that you followed and who followed you. In theory, you could have all just left for somewhere else; in practice, you were hamstrung by the collective action problem.</p>
-<p>It’s hard to get lots of people to do the same thing at the same time. You and your six friends here are going to struggle to agree on where to get drinks after tonight’s lecture. How were you and your 200 Facebook friends ever gonna agree on when it was time to leave Facebook, and where to go?</p>
-<p>So FB’s end-users engaged in a mutual hostage-taking that kept them glued to the platform. Then FB exploited that hostage situation, withdrawing the surplus from end-users and allocating it to two groups of business customers: advertisers, and publishers.</p>
-<p>To the advertisers, FB said, <q>Remember when we told those rubes we wouldn’t spy on them? We lied. We spy on them from asshole to appetite. We will sell you access to that surveillance data in the form of fine-grained ad-targeting, and we will devote substantial engineering resources to thwarting ad-fraud. Your ads are dirt cheap to serve, and we’ll spare no expense to make sure that when you pay for an ad, a real human sees it.</q></p>
-<p>To the publishers, FB said, <q>Remember when we told those rubes we would only show them the things they asked to see? We lied! Upload short excerpts from your website, append a link, and we will nonconsensually cram it into the eyeballs of users who never asked to see it. We are offering you a free traffic funnel that will drive millions of users to your website to monetize as you please, and those users will become stuck to you when they subscribe to your feed;</q> And so advertisers and publishers became stuck to the platform, too, dependent on those users.</p>
-<p>The users held each other hostage, and those hostages took the publishers and advertisers hostage, too, so that everyone was locked in.</p>
-<p>Which meant it was time for the third stage of enshittification: withdrawing surplus from everyone and handing it to Facebook’s shareholders.</p>
-<p>For the users, that meant dialing down the share of content from accounts you followed to a homeopathic dose, and filling the resulting void with ads and pay-to-boost content from publishers.</p>
-<p>For advertisers, that meant jacking up prices and drawing down anti-fraud enforcement, so advertisers paid much more for ads that were far less likely to be seen by a person.</p>
-<p>For publishers, this meant algorithmically suppressing the reach of their posts unless they included an ever-larger share of their articles in the excerpt, until anything less than fulltext was likely to be be disqualified from being sent to your subscribers, let alone included in algorithmic suggestion feeds.</p>
-<p>And then FB started to punish publishers for including a link back to their own sites, so they were corralled into posting fulltext feeds with no links, meaning they became commodity suppliers to Facebook, entirely dependent on the company both for reach and for monetization, via the increasingly crooked advertising service.</p>
-<p>When any of these groups squawked, FB just repeated the lesson that every tech executive learned in the Darth Vader MBA: <q>I have altered the deal. Pray I don’t alter it any further.</q></p>
-<p>Facebook now enters the most dangerous phase of enshittification. It wants to withdraw all available surplus, and leave just enough residual value in the service to keep end users stuck to each other, and business customers stuck to end users, without leaving anything extra on the table, so that every extractable penny is drawn out and returned to its shareholders.</p>
-<p>But that’s a very brittle equilibrium, because the difference between <q>I hate this service but I can’t bring myself to quit it,</q> and <q>Jesus Christ, why did I wait so long to quit? Get me the hell out of here!</q> is razor thin.</p>
-<p>All it takes is one Cambridge Analytica scandal, one whistleblower, one livestreamed mass-shooting, and users bolt for the exits, and then FB discovers that network effects are a double-edged sword.</p>
-<p>If users can’t leave because everyone else is staying, when then everyone starts to leave, there’s no reason not to go, too.</p>
-<p>That’s terminal enshittification, the phase when a platform becomes a pile of shit. This phase is usually accompanied by panic, which tech bros euphemistically call <q>pivoting.</q></p>
-<p>Which is how we get pivots like, <q>In the future, all internet users will be transformed into legless, sexless, low-polygon, heavily surveilled cartoon characters in a virtual world called “metaverse,” that we ripped off from a 25-year-old satirical cyberpunk novel.</q></p>
-<p>That’s the procession of enshittification. If enshittification were a disease, we’d call that enshittification’s <q>natural history.</q> But that doesn’t tell you how the enshittification works, nor why everything is enshittifying right now, and without those details, we can’t know what to do about it.</p>
-<p>What led to the enshittocene? What is it about this moment that led to the Great Enshittening? Was it the end of the Zero Interest Rate Policy? Was it a change in leadership at the tech giants? Is Mercury in retrograde?</p>
-<p>None of the above.</p>
-<p>The period of free fed money certainly led to tech companies having a lot of surplus to toss around. But Facebook started enshittifying long before ZIRP ended, so did Amazon, Microsoft and Google.</p>
-<p>Some of the tech giants got new leaders. But Google’s enshittification got worse when the founders came back to oversee the company’s AI panic (excuse me, <q>AI pivot</q>).</p>
-<p>And it can’t be Mercury in retrograde, because I’m a cancer, and as everyone knows, cancers don’t believe in astrology.</p>
-<p>When a whole bunch of independent entities all change in the same way at once, that’s a sign that the environment has changed, and that’s what happened to tech.</p>
-<p>Tech companies, like all companies, have conflicting imperatives. On the one hand, they want to make money. On the other hand, making money involves hiring and motivating competent staff, and making products that customers want to buy. The more value a company permits its employees and customers to carve off, the less value it can give to its shareholders.</p>
-<p>The equilibrium in which companies produce things we like in honorable ways at a fair price is one in which charging more, worsening quality, and harming workers costs more than the company would make by playing dirty.</p>
-<p>There are four forces that discipline companies, serving as constraints on their enshittificatory impulses.</p>
-<ul>
-  <li>First: competition. Companies that fear you will take your business elsewhere are cautious about worsening quality or raising prices.</li>
-  <li>Second: regulation. Companies that fear a regulator will fine them more than they expect to make from cheating, will cheat less.</li>
-</ul>
-<p>These two forces affect all industries, but the next two are far more tech-specific.</p>
-<ul>
-  <li>
-    <p>Third: self-help. Computers are extremely flexible, and so are the digital products and services we make from them. The only computer we know how to make is the Turing-complete Von Neumann machine, a computer that can run every valid program.</p>
-    <p>That means that users can always avail themselves of programs that undo the anti-features that shift value from them to a company’s shareholders. Think of a board-room table where someone says, <q>I’ve calculated that making our ads 20% more invasive will net us 2% more revenue per user.</q></p>
-    <p>In a digital world, someone else might well say <q>Yes, but if we do that, 20% of our users will install ad-blockers, and our revenue from those users will drop to zero, forever.</q></p>
-    <p>This means that digital companies are constrained by the fear that some enshittificatory maneuver will prompt their users to google, <q>How do I disenshittify this?</q></p>
-  </li>
-  <li>
-    <p>Fourth and finally: workers. Tech workers have very low union density, but that doesn’t mean that tech workers don’t have labor power. The historical <q>talent shortage</q> of the tech sector meant that workers enjoyed a lot of leverage over their bosses. Workers who disagreed with their bosses could quit and walk across the street and get another job — a better job.</p>
-    <p>They knew it, and their bosses knew it. Ironically, this made tech workers highly exploitable. Tech workers overwhelmingly saw themselves as founders in waiting, entrepreneurs who were temporarily drawing a salary, heroic figures of the tech mission.</p>
-    <p>That’s why mottoes like Google’s <q>don’t be evil</q> and Facebook’s <q>make the world more open and connected</q> mattered: they instilled a sense of mission in workers. It’s what Fobazi Ettarh calls <q>vocational awe,</q> or Elon Musk calls being <q>extremely hardcore.</q></p>
-    <p>Tech workers had lots of bargaining power, but they didn’t flex it when their bosses demanded that they sacrifice their health, their families, their sleep to meet arbitrary deadlines.</p>
-    <p>So long as their bosses transformed their workplaces into whimsical <q>campuses,</q> with gyms, gourmet cafeterias, laundry service, massages and egg-freezing, workers could tell themselves that they were being pampered — rather than being made to work like government mules.</p>
-    <p>But for bosses, there’s a downside to motivating your workers with appeals to a sense of mission, namely: your workers will feel a sense of mission. So when you ask them to enshittify the products they ruined their health to ship, workers will experience a sense of profound moral injury, respond with outrage, and threaten to quit.</p>
-    <p>Thus tech workers themselves were the final bulwark against enshittification,</p>
-  </li>
-
-</ul>
-
-The pre-enshittification era wasn’t a time of better leadership. The executives weren’t better. They were constrained. Their worst impulses were checked by competition, regulation, self-help and worker power.
-So what happened?
-One by one, each of these constraints was eroded until it dissolved, leaving the enshittificatory impulse unchecked, ushering in the enshittoscene.
-
-It started with competition. From the Gilded Age until the Reagan years, the purpose of competition law was to promote competition. US antitrust law treated corporate power as dangerous and sought to blunt it. European antitrust laws were modeled on US ones, imported by the architects of the Marshall Plan.
-But starting in the neoliberal era, competition authorities all over the world adopted a doctrine called <q>consumer welfare,</q> which held that monopolies were evidence of quality. If everyone was shopping at the same store and buying the same product, that meant it was the best store, selling the best product — not that anyone was cheating.
-And so all over the world, governments stopped enforcing their competition laws. They just ignored them as companies flouted them. Those companies merged with their major competitors, absorbed small companies before they could grow to be big threats. They held an orgy of consolidation that produced the most inbred industries imaginable, whole sectors grown so incestuous they developed Habsburg jaws, from eyeglasses to sea freight, glass bottles to payment processing, vitamin C to beer.
-Most of our global economy is dominated by five or fewer global companies. If smaller companies refuse to sell themselves to these cartels, the giants have free rein to flout competition law further, with <q>predatory pricing</q> that keeps an independent rival from gaining a foothold.
-When Diapers.com refused Amazon’s acquisition offer, Amazon lit $100m on fire, selling diapers way below cost for months, until diapers.com went bust, and Amazon bought them for pennies on the dollar, and shut them down.
-Competition is a distant memory. As Tom Eastman says, the web has devolved into <q>five giant websites filled with screenshots of text from the other four,<q> so these giant companies no longer fear losing our business.
-Lily Tomlin used to do a character on the TV show Laugh In, an AT&T telephone operator who’d do commercials for the Bell system. Each one would end with her saying <q>We don’t care. We don’t have to. We’re the phone company.</q>
-Today’s giants are not constrained by competition.
-They don’t care. They don’t have to. They’re Google.
-
-That’s the first constraint gone, and as it slipped away, the second constraint — regulation — was also doomed.
-When an industry consists of hundreds of small- and medium-sized enterprises, it is a mob, a rabble. Hundreds of companies can’t agree on what to tell Parliament or Congress or the Commission. They can’t even agree on how to cater a meeting where they’d discuss the matter.
-But when a sector dwindles to a bare handful of dominant firms, it ceases to be a rabble and it becomes a cartel.
-Five companies, or four, or three, or two, or just one company finds it easy to converge on a single message for their regulators, and without <q>wasteful competition</q> eroding their profits, they have plenty of cash to spread around.
-Like Facebook, handing former UK deputy PM Nick Clegg millions every year to sleaze around Europe, telling his former colleagues that Facebook is the only thing standing between <q>European Cyberspace</q> and the Chinese Communist Party.
-Tech’s regulatory capture allows it to flout the rules that constrain less concentrated sectors. They can pretend that violating labor, consumer and privacy laws is fine, because they violate them with an app.
-This is why competition matters: it’s not just because competition makes companies work harder and share value with customers and workers, it’s because competition keeps companies from becoming too big to fail, and too big to jail.
-Now, there’s plenty of things we don’t want improved through competition, like privacy invasions. After the EU passed its landmark privacy law, the GDPR, there was a mass-extinction event for small EU ad-tech companies. These companies disappeared en masse, and that’s fine.
-They were even more invasive and reckless than US-based Big Tech companies. After all, they had less to lose. We don’t want competition in commercial surveillance. We don’t want to produce increasing efficiency in violating our human rights.
-But: Google and Facebook — who pretend they are called Alphabet and Meta — have been unscathed by European privacy law. That’s not because they don’t violate the GDPR (they do!). It’s because they pretend they are headquartered in Ireland, one of the EU’s most notorious corporate crime-havens.
-And Ireland competes with the EU other crime havens — Malta, Luxembourg, Cyprus and sometimes the Netherlands — to see which country can offer the most hospitable environment for all sorts of crimes. Because the kind of company that can fly an Irish flag of convenience is mobile enough to change to a Maltese flag if the Irish start enforcing EU laws.
-Which is how you get an Irish Data Protection Commission that processes fewer than 20 major cases per year, while Germany’s data commissioner handles more than 500 major cases, even though Ireland is nominal home to the most privacy-invasive companies on the continent.
-So Google and Facebook get to act as though they are immune to privacy law, because they violate the law with an app; just like Uber can violate labor law and claim it doesn’t count because they do it with an app.
-Uber’s labor-pricing algorithm offers different drivers different payments for the same job, something Veena Dubal calls <q>algorithmic wage discrimination.</q> If you’re more selective about which jobs you’ll take, Uber will pay you more for every ride.
-But if you take those higher payouts and ditch whatever side-hustle let you cover your bills which being picky about your Uber drives, Uber will incrementally reduce the payment, toggling up and down as you grow more or less selective, playing you like a fish on a line until you eventually — inevitably — lose to the tireless pricing robot, and end up stuck with low wages and all your side-hustles gone.
-Then there’s Amazon, which violates consumer protection laws, but says it doesn’t matter, because they do it with an app. Amazon makes $38b/year from its <q>advertising</q> system. <q>Advertising</q> in quotes because they’re not selling ads, they’re selling placements in search results.
-The companies that spend the most on ‘ads’ go to the top, even if they’re offering worse products at higher prices. If you click the first link in an Amazon search result, on average you will pay a 29% premium over the best price on the service. Click one of the first four items and you’ll pay a 25% premium. On average you have to go seventeen items down to find the best deal on Amazon.
-Any merchant that did this to you in a physical storefront would be fined into oblivion. But Amazon has captured its regulators, so it can violate your rights, and say, <q>it doesn’t count, we did it with an app.</q>
-
-This is where that third constraint, self-help, would sure come in handy. If you don’t want your privacy violated, you don’t need to wait for the Irish privacy regulator to act, you can just install an ad-blocker.
-More than half of all web users are blocking ads. But the web is an open platform, developed in the age when tech was hundreds of companies at each others’ throats, unable to capture their regulators.
-Today, the web is being devoured by apps, and apps are ripe for enshittification. Regulatory capture isn’t just the ability to flout regulation, it’s also the ability to co-opt regulation, to wield regulation against your adversaries.
-
-Today’s tech giants got big by exploiting self-help measures. When Facebook was telling Myspace users they needed to escape Rupert Murdoch’s evil crapulent Australian social media panopticon, it didn’t just say to those Myspacers, ‘Screw your friends, come to Facebook and just hang out looking at the cool privacy policy until they get here’
-It gave them a bot. You fed the bot your Myspace username and password, and it would login to Myspace and pretend to be you, and scrape everything waiting in your inbox, copying it to your FB inbox, and you could reply to it and it would autopilot your replies back to Myspace.
-
-When Microsoft was choking off Apple’s market oxygen by refusing to ship a functional version of Microsoft Office for the Mac — so that offices were throwing away their designers’ Macs and giving them PCs with upgraded graphics cards and Windows versions of Photoshop and Illustrator — Steve Jobs didn’t beg Bill Gates to update Mac Office. He got his technologists to reverse-engineer Microsoft Office, and make a compatible suite, the iWork Suite, whose apps, Pages, Numbers and Keynote could perfectly read and write Microsoft’s Word, Excel and Powerpoint files.
-When Google entered the market, it sent its crawler to every web server on Earth, where it presented itself as a web-user: ‘Hi! Hello! Do you have any web pages? Thanks! How about some more? How about more?’
-But every pirate wants to be an admiral. When Facebook, Apple and Google were doing this adversarial interoperability, that was progress. If you try to do it to them, that’s piracy.
-Try to make an alternative client for Facebook and they’ll say you violated US laws like the Digital Millennium Copyright Act and EU laws like Article 6 of the EUCD.
-Try to make an Android program that can run iPhone apps and play back the data from Apple’s media stores and they’d bomb you until the rubble bounced.
-Try to scrape all of Google and they’ll nuke you until you glowed.
-
-Tech’s regulatory capture is mind-boggling. Take that law I mentioned earlier, Section 1201 of the Digital Millennium Copyright Act or DMCA. Bill Clinton signed it in 1998, and the EU imported it as Article 6 of the EUCD in 2001
-It is a blanket prohibition on removing any kind of encryption that restricts access to a copyrighted work — things like ripping DVDs or jailbreaking a phone — with penalties of a five-year prison sentence and a $500k fine for a first offense.
-This law has been so broadened that it can be used to imprison creators for granting access to their own creations.
-Here’s how that works: In 2008, Amazon bought Audible, an audiobook platform, in an anticompetitive acquisition. Today, Audible is a monopolist with more than 90% of the audiobook market. Audible requires that all creators on their platform sell with Amazon’s <q>digital rights management,</q> which locks it to Amazon’s apps.
-So say I write a book, then I read it into a mic, then I pay a director and an engineer thousands of dollars to turn that into an audiobook, and sell it to you on the monopoly platform, Audible, that controls more than 90% of the market.
-If I later decide to leave Amazon and want to let you come with me to a rival platform, I am out of luck. If I supply you with a tool to remove Amazon’s encryption from my audiobook, so you can play it in another app, I commit a felony, punishable by a 5-year sentence and a half-million-dollar fine, for a first offense.
-That’s a stiffer penalty than you would face if you simply pirated the audiobook from a torrent site. But it’s also harsher than the punishment you’d get for shoplifting the audiobook on CD from a truck-stop. It’s harsher than the sentence you’d get for hijacking the truck that delivered the CD.
-
-So think of our ad-blockers again. 50% of web users are running ad-blockers. 0% of app users are running ad-blockers, because adding a blocker to an app requires that you first remove its encryption, and that’s a felony (Jay Freeman calls this <q>felony contempt of business-model</q>).
-So when someone in a board-room says, <q>let’s make our ads 20% more obnoxious and get a 2% revenue increase,</q> no one objects that this might prompt users to google, <q>how do I block ads?</q> After all, the answer is, <q>you can’t.</q>
-Indeed, it’s more likely that someone in that board room will say, <q>let’s make our ads 100% more obnoxious and get a 10% revenue increase</q> (this is why every company wants you to install an app instead of using its website).
-There’s no reason that gig workers who are facing algorithmic wage discrimination couldn’t install a counter-app that coordinated among all the Uber drivers to reject all jobs unless they reach a certain pay threshold.
-No reason except felony contempt of business model, the threat that the toolsmiths who built that counter-app would go broke or land in prison, for violating DMCA 1201, the Computer Fraud and Abuse Act, trademark, copyright, patent, contract, trade secrecy, nondisclosure and noncompete, or in other words: <q>IP law.</q>
-<q>IP</q> is just a euphemism for <q>a law that lets me reach beyond the walls of my company and control the conduct of my critics, competitors and customers.<q> And <q>app</q> is just a euphemism for <q>a web-page wrapped enough IP to make it a felony to mod it to protect the labor, consumer and privacy rights of its user.</q>
-We don’t care. We don’t have to. We’re the phone company.
-
-But what about that fourth constraint: workers?
-For decades, tech workers’ high degrees of bargaining power and vocational awe put a ceiling on enshittification. Even after the tech sector shrank to a handful of giants. Even after they captured their regulators so they could violate our consumer, privacy and labor rights. Even after they created <q>felony contempt of business model</q> and extinguished self-help for tech users. Tech was still constrained by their workers’ sense of moral injury in the face of the imperative to enshittify.
-Remember when tech workers dreamed of working for a big company for a few years, before striking out on their own to start their own company that would knock that tech giant over?
-Then that dream shrank to: work for a giant for a few years, quit, do a fake startup, get acqui-hired by your old employer, as a complicated way of getting a bonus and a promotion.
-Then the dream shrank further: work for a tech giant for your whole life, get free kombucha and massages on Wednesdays.
-And now, the dream is over. All that’s left is: work for a tech giant until they fire your ass, like those 12,000 Googlers who got fired last year six months after a stock buyback that would have paid their salaries for the next 27 years.
-Workers are no longer a check on their bosses’ worst impulses
-Today, the response to <q>I refuse to make this product worse</q> is, <q>turn in your badge and don’t let the door hit you in the ass on the way out.</q>
-
-I get that this is all a little depressing.
-OK, really depressing.
-But hear me out! We’ve identified the disease. We’ve traced its natural history. We’ve identified its underlying mechanism. Now we can get to work on a cure.
-There are four constraints that prevent enshittification: competition, regulation, self-help and labor.
-To reverse enshittification and guard against its reemergence, we must restore and strengthen each of these.
-On competition, it’s actually looking pretty good. The EU, the UK, the US, Canada, Australia, Japan and China are all doing more on competition than they have in two generations. They’re blocking mergers, unwinding existing ones, taking action on predatory pricing and other sleazy tactics.
-Remember, in the US and Europe, we already have the laws to do this — we just stopped enforcing them in the Helmut Kohl era.
-I’ve been fighting these fights with the Electronic Frontier Foundation for 22 years now, and I’ve never seen a more hopeful moment for sound, informed tech policy.
-Now, the enshittifiers aren’t taking this laying down. The business press can’t stop talking about how stupid and old-fashioned all this stuff is. They call people like me <q>hipster antitrust,</q> and they hate any regulator who actually does their job.
-Take Lina Khan, the brilliant head of the US Federal Trade Commission, who has done more in three years on antitrust than the combined efforts of all her predecessors over the past 40 years. Rupert Murdoch’s <cite>Wall Street Journal</cite> has run more than 80 editorials trashing Khan, insisting that she’s an ineffectual ideologue who can’t get anything done.
-Sure, Rupert, that’s why you ran 80 editorials about her.
-Because she can’t get anything done.
-Even Canada is stepping up on competition. Canada! Land of the evil billionaire! From Ted Rogers, who owns the country’s telecoms; to Galen Weston, who owns the country’s grocery stores; to the Irvings, who basically own the entire province of New Brunswick.
-Even Canada is doing something about this. Last autumn, Trudeau’s government promised to update Canada’s creaking competition law to finally ban <q>abuse of dominance.</q>
-I mean, wow. I guess when Galen Weston decided to engage in a criminal conspiracy to fix the price of bread — the most Les Miz-ass crime imaginable — it finally got someone’s attention, eh?
-Competition has a long way to go, but all over the world, competition law is seeing a massive revitalization. Ronald Reagan and Margaret Thatcher put antitrust law in a coma in the 80s — but it’s awake, it’s back, and it’s pissed.
-
-What about regulation? How will we get tech companies to stop doing that one weird trick of adding <q>with an app</q> to their crimes and escaping enforcement?
-Well, here in the EU, they’re starting to figure it out. This year, the Digital Markets Act and the Digital Services Act went into effect, and they let people who get screwed by tech companies go straight to the federal European courts, bypassing the toothless watchdogs in Europe’s notorious corporate crime havens like Ireland.
-In America, they might finally get a digital privacy law. You people have no idea how backwards US privacy law is. The last time the US Congress enacted a broadly applicable privacy law was in 1988.
-The Video Privacy Protection Act makes it a crime for video-store clerks to leak your video-rental history. It was passed after a right-wing judge who was up for the Supreme Court had his rentals published in a DC newspaper. The rentals weren’t even all that embarrassing!
-Sure, that judge, Robert Bork, wasn’t confirmed for the Supreme Court, but that was because he was a virulently racist loudmouth and a crook who served as Nixon’s Solicitor General.
-But Congress got the idea that their video records might be next, freaked out, and passed the VPPA.
-That was the last time Americans got a big, national privacy law. Nineteen. Eighty. Eight.
-It’s been a minute.
-And the thing is, there’s a lot of people who are angry about stuff that has some nexus with America’s piss-poor privacy landscape. Worried that Facebook turned Grampy into a Qanon? That Insta made your teen anorexic? That TikTok is brainwashing millennials into quoting Osama Bin Laden?
-Or that cops are rolling up the identities of everyone at a Black Lives Matter protest or the Jan 6 riots by getting location data from Google?
-Or that Red State Attorneys General are tracking teen girls to out-of-state abortion clinics?
-Or that Black people are being discriminated against by online lending or hiring platforms?
-Or that someone is making AI deepfake porn of you?
-Having a federal privacy law with a private right of action — which means that individuals can sue companies that violate their privacy — would go a long way to rectifying all of these problems. There’s a big coalition for that kind of privacy law.
-
-What about self-help? That’s a lot farther away, alas.
-The EU’s DMA will force tech companies to open up their walled gardens for interoperation. You’ll be able to use Whatsapp to message people on iMessage, or quit Facebook and move to Mastodon, but still send messages to the people left behind.
-But if you want to reverse-engineer one of those Big Tech products and mod it to work for you, not them, the EU’s got nothing for you.
-This is an area ripe for improvement, and I think the US might be the first ones to open this up.
-It’s certainly on-brand for the EU to be forcing tech companies to do things a certain way, while the US simply takes away tech companies’ abilities to prevent others from changing how their stuff works.
-My big hope here is that Stein’s Law will take hold: <q>Anything that can’t go on forever will eventually stop</q>
-Letting companies decide how their customers must use their products is simply too tempting an invitation to mischief. HP has a whole building full of engineers thinking of new ways to lock your printer to its official ink cartridges, forcing you to spend $10,000/gallon on ink to print your boarding passes and shopping lists.
-It’s offensive. The only people who don’t agree are the people running the monopolies in all the other industries, like the med-tech monopolists who are locking their insulin pumps to their glucose monitors, turning people with diabetes into walking inkjet printers.
-
-Finally, there’s labor. Here in Europe, there’s much higher union density than in the US, which American tech barons are learning the hard way. There is nothing more satisfying in the daily news than the latest salvo by Nordic unions against that Tesla guy (Musk is the most Edison-ass Tesla guy imaginable).
-But even in the USA, there’s a massive surge in tech unions. Tech workers are realizing that they aren’t founders in waiting. The days of free massages and facial piercings and getting to wear black tee shirts that say things your boss doesn’t understand are coming to an end.
-In Seattle, Amazon’s tech workers walked out in sympathy with Amazon’s warehouse workers, because they’re all workers.
-The only reason the tech workers aren’t monitored by AI that notifies their managers if they visit the toilet during working hours is their rapidly dwindling bargaining power. The way things are going, Amazon programmers are going to be pissing in bottles next to their workstations (for a guy who built a penis-shaped rocket, Jeff Bezos really hates our kidneys).
-
-We’re seeing bold, muscular, global action on competition, regulation and labor, with self-help bringing up the rear. It’s not a moment too soon, because the bad news is, enshittification is coming to every industry.
-If it’s got a networked computer in it, the people who made it can run the Darth Vader MBA playbook on it, changing the rules from moment to moment, violating your rights and then saying <q>It’s OK, we did it with an app.</q>
-From Mercedes renting you your accelerator pedal by the month to Internet of Things dishwashers that lock you into proprietary dishsoap, enshittification is metastasizing into every corner of our lives.
-Software doesn’t eat the world, it enshittifies it
-But there’s a bright side to all this: if everyone is threatened by enshittification, then everyone has a stake in disenshittification.
-Just as with privacy law in the US, the potential anti-enshittification coalition is massive, it’s unstoppable.
-
-The cynics among you might be skeptical that this will make a difference. After all, isn’t “enshittification” the same as “capitalism”?
-Well, no.
-Look, I’m not going to cape for capitalism here. I’m hardly a true believer in markets as the most efficient allocators of resources and arbiters of policy — if there was ever any doubt, capitalism’s total failure to grapple with the climate emergency surely erases it.
-But the capitalism of 20 years ago made space for a wild and wooly internet, a space where people with disfavored views could find each other, offer mutual aid, and organize.
-<aside>The capitalism of today has produced a global, digital ghost mall, filled with botshit, crapgadgets from companies with consonant-heavy brand-names, and cryptocurrency scams.</aside>
-The internet isn’t more important than the climate emergency, nor gender justice, racial justice, genocide, or inequality.
-But the internet is the terrain we’ll fight those fights on. Without a free, fair and open internet, the fight is lost before it’s joined.
-We can reverse the enshittification of the internet. We can halt the creeping enshittification of every digital device.
-We can build a better, enshittification-resistant digital nervous system, one that is fit to coordinate the mass movements we will need to fight fascism, end genocide, and save our planet and our species.
-Martin Luther King said <q>It may be true that the law cannot make a man love me, but it can stop him from lynching me, and I think that’s pretty important.</q>
-And it may be true that the law can’t force corporate sociopaths to conceive of you as a human being entitled to dignity and fair treatment, and not just an ambulatory wallet, a supply of gut-bacteria for the immortal colony organism that is a limited liability corporation.
-But it can make that exec fear you enough to treat you fairly and afford you dignity, even if he doesn’t think you deserve it.
-And I think that’s pretty important.
-
 # Another day, another dollar
 
 # Proyecto: Acondicionamiento urbano de la autovía A-1a. Construcción de bulevar central y reordenación de accesos. Travesía El Molar -Pedrezuela”
 <p>También llamado <q>Obras de Humanización de la A-1a</q>.</p>
 <p>Financiado con Fondos Europeos. Según una fuente, <q>costará casi 11 millones de euros.</q></p>
 <p>La clave del proyecto es 33-M-15130.</p>
-
 
 
 # Bibliotecarios
@@ -563,94 +326,6 @@ And I think that’s pretty important.
 
   <li>evitar alcohol, cafeína y comidas picantes o ácidas</li>
 </ul>
-
-# Everything is Interconnected: Objectification
-<blockquote>
-  <p>So What grows where you live? becomes Why are there so many of us? This leads into the question of who controls women’s bodies. Those of us who actually are women? Or are women just another resource for men to use, in their endless quest to prove their toxic masculinity and breed soldiers for civilization’s constant state of war? The masculinity and the war—against people, against the planet—together have created a perpetual motion machine of domination and destruction of the land and human rights. We will need to stop both to save this planet. This is why militarism is a feminist issue, why rape is an environmental issue, why environmental destruction is a peace issue.</p>
-  <p>Those are all huge spin-outs from the same beginning place of objectification, the process of turning living beings into things. The rain, the river, the long stem grasses—are they members of your community? Do you live inside your foodshed, or is the living land just topsoil to be used until it’s dust? Are your human neighbors in other countries participants in a common project of care and connection, or are they labor units to assemble your cell phones, and how many soldiers will it take to keep them assembling? If you are a man, do women exist to make you dinner and sons? If you are a woman, you must surely burn for more. And for all of us, the planet is dying under civilization’s regime: what will it take for us to fight back?</p>
-  <p>What grows where you live? One small question that could save the world.</p>
-  <p style="text-align: right">(From <cite>The Vegetarian Myth</cite>)</p>
-</blockquote>
-
-# The Vegetarian Myth (*vegetarian-mytho.html*)
-
-<p>But the first mistake is in assuming that factory farming—a practice that is barely fifty years old—is the only way to raise animals. Their calculations on energy used, calories consumed, humans unfed, are all based on the notion that animals eat grain.</p>
-<p>You can feed grain to animals, but it is not the diet for which they were designed. Grain didn’t exist until humans domesticated annual grasses, at most 12,000 years ago, while aurochs, the wild progenitors of the domestic cow, were around for two million years before that. For most of human history, browsers and grazers haven’t been in competition with humans. They ate what we couldn’t eat—cellulose—and turned it into what we could—protein and fat. Grain will dramatically increase the growth rate of beef cattle (there’s a reason for the expression “cornfed”) and the milk production of dairy cows. It will also kill them. The delicate bacterial balance of a cow’s rumen will go acid and turn septic. Chickens get fatty liver disease if fed grain exclusively, and they don’t need any grain to survive. Sheep and goats, also ruminants, should really never touch the stuff.</p>
-<p>This misunderstanding is born of ignorance, an ignorance that runs the length and breadth of the vegetarian myth, through the nature of agriculture and ending in the nature of life. We are urban industrialists, and we don’t know the origins of our food. This includes vegetarians, despite their claims to the truth. It included me, too, for twenty years. Anyone who ate meat was in denial; only I had faced the facts. Certainly, most people who consume factory-farmed meat have never asked what died and how it died. But frankly, neither have most vegetarians.</p>
-<p>The truth is that agriculture is the most destructive thing humans have done to the planet, and more of the same won’t save us. The truth is that agriculture requires the wholesale destruction of entire ecosystems. The truth is also that life isn’t possible without death, that no matter what you eat, someone has to die to feed you.</p>
-<p>I want a full accounting, an accounting that goes way beyond what’s dead on your plate. I’m asking about everything that died in the process, everything that was killed to get that food onto your plate. That’s the more radical question, and it’s the only question that will produce the truth. How many rivers were dammed and drained, how many prairies plowed and forests pulled down, how much topsoil turned to dust and blown into ghosts? I want to know about all the species—not just the individuals, but the entire species—the chinook, the bison, the grasshopper sparrows, the grey wolves. And I want more than just the number of dead and gone. I want them back.</p>Despite what you’ve been told, and despite the earnestness of the tellers, eating soybeans isn’t going to bring them back. Ninety-eight percent of the American prairie is gone, turned into a monocrop of annual grains. Plough cropping in Canada has destroyed 99 percent of the original humus.1 In fact, the disappearance of topsoil “rivals global warming as an environmental threat.” When the rainforest falls to beef, progressives are outraged, aware, ready to boycott. But our attachment to the vegetarian myth leaves us uneasy, silent, and ultimately immobilized when the culprit is wheat and the victim is the prairie. We embraced as an article of faith that vegetarianism was the way to salvation, for us, for the planet. How could it be destroying either?</p>
-<p>We have to be willing to face the answer. What’s looming in the shadows of our ignorance and denial is a critique of civilization itself. The starting point may be what we eat, but the end is an entire way of life, a global arrangement of power, and no small measure of personal attachment to it. I remember the day in fourth grade when Miss Fox wrote two words on the blackboard: <strong>civilization</strong> and <strong>agriculture</strong>. I remember because of the hush in her voice, the gravitas of her words, the explanation that was almost oratory. This was Important. And I understood. Everything that was good in human culture flowed from this point: all ease, grace, justice. Religion, science, medicine, art were born, and the endless struggle against starvation, disease, violence could be won, all because humans figured out how to grow their own
-food.</p>
-<p>The reality is that agriculture has created a net loss for human rights and culture: slavery, imperialism, militarism, class divisions, chronic hunger, and disease. <q>The real problem, then, is not to explain why some people were slow to adopt agriculture but why anybody took it up at all, when it is so obviously beastly,</q> writes Colin Tudge of The London School of Economics. Agriculture has also been devastating to the other creatures with whom we share the earth, and ultimately to the life support systems of the planet itself. What is at stake is everything. If we want a sustainable world, we have to be willing to examine the power relations behind the foundational myth of our culture. Anything less and we will fail.</p>
-<p>Questioning at that level is difficult for most people. In this case, the emotional struggle inherent in resisting any hegemony is compounded by our dependence on civilization, and on our individual helplessness to stop it. Most of us would have no chance of survival if the industrial infrastructure collapsed tomorrow. And our consciousness is equally impeded by our powerlessness. There is no <cite>Ten Simple Things</cite> list in the last chapter because, frankly, there aren’t ten simple things that will save the earth. There is no personal solution. There is an interlocking web of hierarchical arrangements, vast systems of power that have to be confronted and dismantled. We can disagree about how best to do that, but do it we must if the earth is to have any chance of surviving.</p>
-<p>In the end, all the fortitude in the world will be useless without enough information to chart a <a target="_blank" href="sustainability.html">sustainable</a> forward course, both personally and politically. One of my aims in writing this book is to provide that information. The vast majority of people in the US don’t grow food, let alone hunt and gather it. We have no way to judge how much death is embodied in a serving of salad, a bowl of fruit, a plate of beef. We live in urban environments, in the last whisper of forests, thousands of miles removed from the devastated rivers, prairies, wetlands, and the millions of creatures who died for our dinners. We don’t even know what questions to ask to find out.</p>
-
-<section id="kas-limaal">
-  <h2>Mutual Indebtedness, Mutual Insparkedness (<i>kas-limaal</i>)</h2>
-  <p>In his book <cite>Long Life, Honey in the Heart</cite>, Martin Pretchel writes of the Mayan people and their concept of <i>kas-limaal</i>, which translates roughly as <q>mutual indebtedness, mutual insparkedness.</q> <q>The knowledge that every animal, plant, person, wind, and season is indebted to the fruit of everything else is an adult knowledge. To get out of debt means you don’t want to be part of life, and you don’t want to grow into an adult,</q> one of the elders explains to Pretchel.</p>
-  <p>The only way out of the vegetarian myth is through the pursuit of <i>kas-limaal</i>, of adult knowledge. This is a concept we need, especially those of us who are impassioned by injustice. I know I needed it. In the narrative of my life, the first bite of meat after my twenty year hiatus marks the end of my youth, the moment when I assumed the responsibilities of adulthood. It was the moment I stopped fighting the basic algebra of embodiment: for someone to live, someone else has to die. In that acceptance, with all its suffering and sorrow, is the ability to choose a different way, a better way.</p>
-  <p>The activist-farmers have a very different plan than the polemicist-writers to carry us from destruction to sustainability. The farmers are starting with completely different information. I’ve heard vegetarian activists claims that an acre of land can only support two chickens. Joel Salatin, one of the High Priests of <a target="_blank" href="sustainable-agriculture.html">sustainable farming</a> and someone who actually raises chickens, puts that figure at 250 an acre. Whom do you believe? How many of us know enough to even have an opinion? Frances Moore Lappé says it takes twelve to sixteen pounds of grain to make one pound of beef. Meanwhile, Salatin raises cattle with no grain at all, rotating ruminants on perennial polycultures, building topsoil year by year. Inhabitants of urban industrial cultures have no point of contact with grain, chickens, cows, or, for that matter, with topsoil. We have no basis of experience to outweigh the arguments of political vegetarians. We have no idea what plants, animals, or soil eat, or how much. Which means we have no idea what we ourselves are eating.</p>
-  <p>Confronting the truth about factory farming—its torturous treatment of animals, its environmental toll—was for me at age sixteen an act of profound importance. I knew the earth was dying. It was a daily emergency I had lived against forever. I was born in 1964. <q>Silent</q> and <q>spring</q> were inseparable: three syllables, not two words. Hell was here, in the oil refineries of northern New Jersey, the asphalt inferno of suburban sprawl, in the swelling tide of humans drowning the planet. I cried with Iron Eyes Cody, longed for his silent canoe and an unmolested continent of rivers and marshes, birds and fish. My brother and I would climb an ancient crabapple tree at the local park and dream about somehow buying a whole mountain. No people allowed, no discussion needed. Who would live there? Squirrels, was all I could come up with. Reader, don’t laugh. Besides Bobby, our pet hamster, squirrels were the only animals I ever saw. My brother, well-socialized into masculinity, went on to torture insects and aim slingshots at sparrows. I became a vegan.</p>
-  <p>Yes, I was an overly sensitive child. My favorite song at five—and here you are allowed to laugh—was Mary Hopkin’s <cite>Those Were the Days</cite>. What romantic, tragic past could I possibly have mourned at age five? But it was so sad, so exquisite; I would listen to the song over and over until I was exhausted from weeping.</p>
-  <p>Okay, it’s funny. But I can’t laugh at the pain I felt over my powerless witnessing of the destruction of my planet. That was real and it overwhelmed me. And the political vegetarians offered a compelling salve. With no understanding of the nature of agriculture, the nature of nature, or ultimately the nature of life, I had no way to know that however honorable their impulses, their prescription was a dead end into the same destruction I burned to stop.</p>
-  <p>Those impulses and ignorances are inherent to the vegetarian myth. For two years after I returned to eating meat, I was compelled to read vegan message boards online. I don’t know why. I wasn’t looking for a fight. I never posted anything myself. Lots of small, intense subcultures have cult-like elements, and veganism is no exception. Maybe the compulsion had to do with my own confusion—spiritual, political, personal. Maybe I was revisiting the site of an accident: this was where I had destroyed my body. Maybe I had questions and I wanted to see if I could hold my own against the answers that I had once held tight, answers that had felt righteous, but now felt empty. Maybe I don’t know why. It left me anxious, angry, and desperate each time.</p>
-</section>
-<section>
-  <h2>The Serengeti Needs its Predators</h2>
-  <p>But one post marked a turning point. A vegan flushed out his idea to keep animals from being killed—not by humans, but by other animals. Someone should build a fence down the middle of the Serengeti, and divide the predators from the prey. Killing is wrong and no animals should ever have to die, so the big cats and wild canines would go on one side, while the wildebeests and zebras would live on the other. He knew the carnivores would be okay because they didn’t need to be carnivores. That was a lie the meat industry told. He’d seen his dog eat grass: therefore, dogs could live on grass.</p>
-  <p>No one objected. In fact, others chimed in. My cat eats grass, too, one woman added, all enthusiasm. So does mine! someone else posted. Everyone agreed that fencing was the solution to animal death.</p>
-  <p>Note well that the site for this liberatory project was Africa. No one mentioned the North American prairie, where carnivores and ruminants alike have been extirpated for the annual grains that vegetarians embrace<!--. But I’ll return to that in Chapter 3.--></p>
-  <p>I knew enough to know that this was insane. But no one else on the message board could see anything wrong with the scheme. So, on the theory that many readers lack the knowledge to judge this plan, I’m going to walk you through this.</p>
-  <p>Carnivores cannot survive on cellulose. They may on occasion eat grass, but they use it medicinally, usually as a purgative to clear their digestive tracts of parasites. Ruminants, on the other hand, have evolved to eat grass. They have a rumen (hence, ruminant), the first in a series of multiple stomachs that acts as a fermentative vat. What’s actually happening inside a cow or a zebra is that bacteria eat the grass, and the animals eat the bacteria.</p>
-  <p>So on the carnivore side of the fence, starvation will take every animal. Some will last longer than others, and those some will end their days as cannibals. The scavengers will have a Fat Tuesday party, but when the bones are picked clean, they’ll starve as well. The graveyard won’t end there. Without grazers to eat the grass, the land will eventually turn to desert.</p>
-  <p>Why? Because without grazers to literally level the playing field, the perennial plants mature, and shade out the basal growth point at the plant’s base. In a brittle environment like the Serengeti, decay is mostly physical (weathering) and chemical (oxidative), not bacterial and biological as in a moist environment. In fact, the ruminants take over most of the biological functions of soil by digesting the cellulose and returning the nutrients, once again available, in the form of urine and feces.</p>
-  <p>But without ruminants, the plant matter will pile up, reducing growth, and begin killing the plants. The bare earth is now exposed to wind, sun, and rain, the minerals leach away, and the soil structure is destroyed. In our attempt to save animals, we’ve killed everything.</p>
-  <p>On the ruminant side of the fence, the wildebeests and friends will reproduce as effectively as ever. But without the check of predators, there will quickly be more grazers than grass. The animals will outstrip their food source, eat the plants down to the ground, and then starve to death, leaving behind a seriously degraded landscape.</p>
-
-  <p>The lesson here is obvious, though it is profound enough to inspire a religion: we need to be eaten as much as we need to eat. The grazers need their daily cellulose, but the grass also needs the animals. It needs the manure, with its nitrogen, minerals, and bacteria; it needs the mechanical check of grazing activity; and it needs the resources stored in animal bodies and freed up by degraders when animals die.</p>
-  <p>The grass and the grazers need each other as much as predators and prey. These are not one-way relationships, not arrangements of dominance and subordination. We aren’t exploiting each other by eating. We are only taking turns.</p>
-  <p>That was my last visit to the vegan message boards. I realized then that people so deeply ignorant of the nature of life, with its mineral cycle and carbon trade, its balance points around an ancient circle of producers, consumers, and degraders, weren’t going to be able to guide me or, indeed, make any useful decisions about sustainable human culture. By turning from adult knowledge, the knowledge that death is embedded in every creature’s sustenance, from bacteria to grizzly bears, they would never be able to feed the emotional and spiritual hunger that ached in me from accepting that knowledge.<!-- Maybe in the end this book is an attempt to soothe that ache myself.--></p>
-  <p>I have other reasons for writing this book. One is boredom. I’m tired of having the same discussion, especially when it’s not an easy discussion to have. Vegetarians can sum up their program in neat sound bites—Meat Is Murder—and self-evident solutions, like those compelling sixteen pounds of grain. I could come up with my own slogans—Monocrops Are Murder? The Million Microbe March?— but they aren’t understandable to the general public. I have to start from the beginning, from the first proteins self-organizing into life, moving to photosynthesis, plants, animals, bacteria, soil, and finally agriculture. I call this chat <cite>Microbes, Manure, and Monocrops</cite>, and I need a good thirty minutes for the backstory, which is essentially a basic education in the nature of life. And yes, this is information— material, emotional, spiritual—we all should have been given by the time we were four. But who is there left to teach us? And isn’t everything that’s wrong with this culture embedded in that question?</p>
-  <p>But it’s not just the amount of information that makes the discussion hard. Often, the listener doesn’t want to hear it, and the resistance can be extreme. “Vegetarian” isn’t just what you eat or even what you believe. It’s who you are, and it’s a totalizing identity. In presenting a fuller picture of food politics, I’m not just questioning a philosophy or a set of dietary habits. I’m threatening a vegetarian’s sense of self. And most of you will react with defensiveness and anger. I got hate mail before I’d barely started<!-- this book-->. And no, thank you, I don’t need any more.</p>
-</section>
-<section>
-  <h2>***</h2>
-  <p>But I’m also writing this book as a cautionary tale. A vegetarian diet—especially a low-fat version, and most especially a vegan one—is not sufficient nutrition for long-term maintenance and repair of the human body. To put it bluntly, it will damage you. I know. Two years into my veganhood, my health failed, and it failed catastrophically. I developed a degenerative joint disease that I will have for the rest of my life. It started that spring as a strange, dull ache deep in a place I didn’t know could have sensation. By the end of the summer, it felt like shrapnel in my spine.</p>
-  <p>There followed years of ever increasing pain and ever more frustrating visits to specialists. It took fifteen years to get a diagnosis instead of a pat on the head. Teenagers’ spines don’t fall apart for no reason and so, despite my perfect symptom description, none of the doctors considered Degenerative Disc Disease. Now I’ve got pictures, and I get respect. My spine looks like a sky-diving accident. Nutritionally, that’s about what happened.</p>
-  <p>Six weeks into veganism I had my first experience of hypoglycemia, though I wouldn’t know that’s what it was called until eighteen years had gone by and it had become my life. Three months into it I stopped menstruating, which should have been a clue that maybe this wasn’t such a good idea. The exhaustion began around then, too, and it only got worse, along with the ever-present cold. My skin was so dry it flaked, and in the winter it itched so badly it kept me up at night. At twenty-four, I developed gastroparesis, which, again, wasn’t diagnosed or treated until I was thirty-eight and found a doctor who worked with recovering vegans. That was fourteen years of constant nausea, and I still can’t eat after 5 PM.</p>
-  <p>Then there was the depression and anxiety. I come from a long and venerable line of depressive alcoholics, so clearly I didn’t inherit the best mental health genetics. Malnutrition was the last thing I needed. Veganism wasn’t the only cause of my depression, but it was a big contributing factor. Years went by when the world was made of a pointless, grey weight, endlessly the same, punctuated only by occasional panic. I would routinely dissolve into helplessness. If I couldn’t find my house keys, I’d find myself in a heap on the living room floor, immobilized on the edge of The Void. How could I go on? Why would I want to? The keys were lost and so was I, the world, the cosmos. Everything collapsed, empty, meaningless, almost repulsive. I knew it wasn’t rational, but I couldn’t stop until it had run its course. And now I know why. Serotonin is made from the amino acid tryptophan. And there are no good plant sources of tryptophan. On top of that, all the tryptophan in the world won’t do you any good without saturated fat, which is necessary to make your neurotransmitters actually transmit. All those years of emotional collapse weren’t a personal failing; they were bio-chemical, if self-inflicted.</p>
-  <p>Is there anything as boring as other people’s medical problems? I’ll try to keep this brief. My spine isn’t coming back. But eating a diet of grass-fed animal products has repaired the damage a bit and made a moderate dent in my pain level. My insulin receptors are also down for the count, but protein and fat keep my blood sugar stable and happy. I haven’t missed a period in five years, though if I end up with cancer in my reproductive organs, I’m blaming soy. My stomach’s okay—not great, but okay—as long as I take betaine hydrochloride with every meal. Between my spiritual practice and my nutrient-dense diet, I am now depression-free, and I am thankful every day. But the cold and the exhaustion are permanent. Some days breathing takes more energy than I have.</p>
-  <p>You don’t have to try this for yourself. You’re allowed to learn from my mistakes. All the friends of my youth were radical, righteous, intense. Vegetarianism was the obvious path, with veganism the high road alongside it. And those of us who did it long term ended up damaged. If I’m questioning your lifestyle, your identity, you might feel confusion, fear, and anger while reading this book. But take my word: you don’t want to end up like me. I’m asking you to stay the course, read this book, and explore the resources in the appendix. Please. Especially if you have children or want to. I’m not too proud to beg.</p>
-
-  <p>Smokers will tell you that there is nothing like an ex-smoker. The urge to proselytize the Good News seems to flow with the attainment of salvation, or maybe in their case, with oxygen. I have done my best to avoid a tone of moral superiority and aim for engagement. I hope I have succeeded. Ultimately I would rather be helpful than right. Especially considering the future we are facing and how much is at stake. The underlying values that vegetarians claim to honor—justice, compassion, sustainability—are the only values that will create a world of connection instead of domination; a world where humans approach every creature—every rock, every raindrop, all our furred and feathered siblings—with humility, awe, and respect; the only world with a chance of surviving the abuse called civilization. It is in the hope that such a world is possible that I offer this book.</p>
-</section>
-
-
-
-# Phosphorus(From <cite>The Vegetarian Myth</cite>)
-  <h1>Phosphorus</h1>
-  <blockquote>
-    <p>Globally, phosphorus is available in extremely limited quantities. <q>Next to clean water,</q> writes <a target="_blank" href="permaculture.html#bill-mollison">Bill Mollison</a>, <q>phosphorus will be one of the inexorable limits to human occupancy on this planet.</q> It exists in sedimentary rock.</p>
-    <p>I didn’t put rocks in the same category as animals: I didn’t mind using them. The problem was getting them. They had to be quarried—mined—then ground up, and transported. Without vast amounts of fossil fuels, would that even be possible? And what about when we’d used it all up? I was back to the same shelf at the feed store. I could buy rock phosphate, decide that because it was <q>organic</q> I was doing the good, green thing and simply not think about it anymore. But wasn’t there a sustainable source I could get on my own? I asked the question, but hated the answer.</p>
-    <p><q>Bone meal from land animals is a traditional source, and most farms (up to 1940) kept a flock of pigeons as their source.</q> Or I could theoretically get it from <q>seabirds and salmon [who] do try to recycle it back to us but we tend to reduce their numbers by denying them breeding grounds.</q>  I was ninety miles from the ocean. I was barely a mile from the Connecticut River, one of the southernmost habitats for Atlantic salmon, but there haven’t been anadramous fish in the Connecticut since the river was dammed almost two hundred years ago, to power the mills.</p>
-    <p style="text-align: right">(From <cite>The Vegetarian Myth</cite>)</p>
-  </blockquote>
-
-
-
-# En España se vive del cuento
-<p>Expresión difícil de explicar.</p>
-<p>Va uno caminando por una senda turística. Una verdadera birria. Entonces pasa uno ante una finca sin árboles. Los han arrancado todos menos los del muro. Pero el ayuntamiento ha colocado un cartel explicativo. Ahora resulta que se trata de una <strong>dehesa</strong>, un modelo ejemplar de explotación agrícola que nada y guarda la ropa. Es decir que ni han plantado árboles ni dan el callo, de hecho ni siquiera hay ganado (tal vez porque cada animal necesita varias hectáreas de prado para mantenerse) pero con la tal denominación se han convertido en héroes de la sostenibilidad.</p>
-<hr/>
-<p>Por no hablar de la ganadería brava.</p>
-<p>En Madrid, vacas y funcionarios.</p>
-<p>En una página del Ministerio leemos:</p>
-<blockquote>
-  <h3>La ganadería brava como un modelo de excelencia para la sostenibilidad</h3>
-  <p>Del 9 al 11 de octubre de 2023 se ha celebrado en el salón de actos del Instituto del Patrimonio Cultural de España el Seminario: “Cultura pastoril y ganadería extensiva. Un compromiso con la sostenibilidad”, dirigido por Julio Grande Ibarra, María Pía Timón Tiemblo y Paloma Sánchez Gómez. En el marco de dicho seminario, el ganadero y vicepresidente de la Real Unión de Criadores de Toros de Lidia, Juan Pedro Domecq Morenés presentó la ponencia “La ganadería brava como un modelo de excelencia para la sostenibilidad”.</p>
-  <p>La ganadería de bravo es la más sostenible de todas las producciones animales que existen, desde un punto de vista tanto medioambiental como económico y social. Hay casi 1000 ganaderías de bravo en España, Francia y Portugal, que generan más de 30.000 puestos de trabajo en las zonas demográficamente más deprimidas. Los ganaderos de bravo conservan más de 300.000 hectáreas de alto valor natural en Europa y mantienen la raza de bravo, considerada una “metaraza” (raza de razas) por su enorme variabilidad genética entre unas ganaderías y otras.</p>
-</blockquote>
-
 
 
 # *tom-reagan.html* renamed to *tom-regan.html*
@@ -711,9 +386,7 @@ food.</p>
 
 # [ ] Relacionar *presentarse-por-libre.html* con la <a target="_blank" href="uned.html">UNED</a>
 
-# *espanya.html#inercia*
-<p>Entro en el supermercado de mi localidad y le comento a la cajera que deberían poner taquillas porque yo hoy, por ejemplo, llevaba la documentación de la furgoneta en la mochila y no me apetece dejarla, la mochila, en la entrada. Me responde que la puedo asegurar con una cadena cual carrito de la compra.</p>
-<blockquote>¡Que inventen los europeos!</blockquote>
+
 # [ ] Relacionar *espanya.html#inercia* con *proteccionismo-laboral.html*
 
 # Compis:
@@ -734,15 +407,6 @@ food.</p>
 # Write content in *utilitarianism.html*
 
 # Write *music.html* from ../Music.xml and ../Music_files
-
-# En *sisifo.html*
-<section id="camus">
-  <h2><cite>El mito de Sisifo</cite>, un ensayo de Albert Camus</h2>
-  <p>El mito de Sísifo es un ensayo filosófico del pensador Albert Camus, originalmente publicado en francés en 1942 como Le Mythe de Sisyphe. El ensayo se abre con la siguiente cita de Píndaro:</p>
-  <blockquote>No te afanes, alma mía, por una vida inmortal, pero agota el ámbito de lo posible.</blockquote>
-  <p>El título del ensayo proviene de un atribulado personaje de la mitología griega. En él, Camus discute la cuestión del suicidio y el valor de la vida, presentando el mito de Sísifo como metáfora del esfuerzo inútil e incesante del hombre.</p>
-  <p>De esta forma plantea la filosofía del absurdo, que mantiene que nuestras vidas son insignificantes y no tienen más valor que el de lo que creamos. Siendo el mundo tan fútil, Camus pregunta, ¿hay alternativa al suicidio? El ensayo se inicia: No hay sino un problema filosófico realmente serio: el suicidio.</p>
-</section>
 
 # Activo frente a Pasivo
 <h1>Activo frente a Pasivo</h1>
@@ -769,25 +433,6 @@ food.</p>
 ## Get to point to a file or fragment
 [ ] <strong>Giordano Bruno</strong>,
     already present in MagicWold*.html#bruno
-
-# Árboles o Jerarquías (*adt.arbol.html*)
-<p>La estructura de datos <dfn>árbol</dfn> consta de un conjunto de nodos (o vértices) y un conjunto de arcos o lados que relaciona a los nodos entre sí sin que se formen ciclos o caminos cerrados.</p>
-<p>Un <dfn>árbol dirigido</dfn> es un árbol en el que cada arco o lado tiene un principio y un final, es decir que lleva de un nodo al otro y no al revés. También podemos decir que dichos arcos van de un nodo progenitor a un nodo hijo. Un nodo progenitor, abuelo, bisabuelo etc. es su <dfn>antepasado</dfn>, mientras que un nodo hijo, nieto etc. de otro se denomina <dfn>descendiente</dfn> suyo.</p>
-<p>En un árbol dirigido se formaría un ciclo si dos lados o arcos confluyeran en un mismo nodo, con lo que el arco se convertiría en grafo.</p>
-<p>La copa de un árbol biológico es análoga a un árbol dirigido dado que dados dos nodos unidos por un arco (una rama), siempre uno de los dos precede al otro o es su <q>progenitor</q>.</p>
-<section id="secuenciales">
-  <h2>Árboles Secuenciales</h2>
-  <p>Un <dfn>árbol secuencial</dfn> es un árbol tal que los hijos de cada nodo están ordenados y forman una secuencia. Para comprenderlo, las secciones de un mismo capítulo (de un libro) están ordenadas en el sentido de que su lectura sigue una secuencia: primero leeremos la primera sección, después la segunda etc.</p>
-</section>
-<section id="etiquetados">
-  <h2>Árboles Etiquetados</h2>
-  <p>Un <dfn>árbol etiquetado</dfn> es un árbol dirigido en el que todo o algún nodo lleva asociada una etiqueta, es decir información de algún tipo.</p>
-  <p>Tales etiquetas pueden ser de dos tipos:</p>
-  <ul>
-    <li><strong>Cualitativa</strong> Indica qué clase de relación se da entre el nodo progenitor y el nodo hijo. Por ejemplo en el análisis gramatical sintáctico un nodo puede ser sujeto, objeto directo etc. de otro.</li>
-    <li><strong>Cuantitativa</strong> Indica en qué grado se da una relación. Por ejemplo, en un árbol biológico cada arco sería una rama a la que podríamos adjuntar su longitud en centímetros, por ejemplo.</li>
-  </ul>
-</section>
 
 # Parámetros de una economía nacional que el PIB no mide
 <ul>
@@ -870,21 +515,6 @@ https://www.facebook.com/voluntarios.elmolar/about
 
 
 
-
-# Veganismo negativo y positivo
-<section>
-  <h2>La diferencia entre matar y torturar</h2>
-</section>
-<section>
-  <h2>Veganismo negativo y positivo</h2>
-  <p>El veganismo negativo consiste en abstenerse de comprar o consumir alimentos animales, así como cualquier otra acción que ocasione sufrimiento o vejación a animales. Esto parece que cumple nuestro principal objetivo. Ahora bien, tiene el inconveniente de exigir una privación. ¿Podemos imaginar el veganismo de una manera positiva, expansiva y afirmativa? A menudo los mal-llamados <q>carnívoros</q> perciben que los veganos se limitan a limitarse a sí mismos.</p>
-  <p>En mi opinión el veganismo positivo consistiría en emprender acciones y desarrollar nuevos hábitos que indirecta pero eficazmente llevan a causar menos o ningún sufrimiento a los animales no humanos.</p>
-  <p>En general hay dos líneas de acción positiva:</p>
-  <ul>
-    <li><strong>Introducir o incrementar nuevos alimentos en nuestra dieta</strong> Desde comer legumbres todos los días hasta exotiqueces como la quinoa, el tofu, los fermentados etc. También podemos probar a comprar fruta y verdura de mejor calidad.</li>
-    <li><strong>Introducir o potenciar hábitos equilibrantes no alimentarios</strong> Experimentamos la necesidad de consumir alimentos animales en gran medida porque nos sentimos vacíos e insatisfechos. Podríamos cambiar unos huevos fritos de cena por una hora de guitarra o de pintura al terminar el día. ¿Acaso no nos aporta más bienestar una sesión de ejercicio físico que ese caro filete de segundo plato?</li>
-  </ul>
-</section>
 
 # Plan de Ahorro en Mutua Activos
 
@@ -1249,16 +879,6 @@ Un saludo.
 Attempt to read block from filesystem resulted in short read while trying to open /dev/sdc3
 Could this be a zero-length partition?
 ```
-
-# Esperas y esperanzas
-<a href="karma.html">Tomar las riendas de nuestro destino, abrazar Ley del Karma</a>
-<p>Mucha gente pasa casi toda su vida esperando.</p>
-<p>Esperamos esperanzandamente que nos pregunten lo que nos hemos estudiado mejor, que fulanita o fulanito nos quiera, que nos admitan en tal carrera, que saquen oposiciones de lo nuestro, que las saquemos, disfrutar de buena salud uno y los suyos, que nos guste un libro, que a alguien le guste o le sirva el regalo que le hacemos, que cambien o no cambien tal ley, que no nos pillen, vivir muchos años bien etc.</p>
-<p>Unos se santiguan, otros cruzan los dedos.</p>
-<p>También esperamos o aguardamos a que llegue el autobús, a que nos llamen por teléfono, a que termine la lavadora, a que empiece la película, a que nos llegue el turno, la hora de comer o la de acostarnos, a que amanezca o anochezca, a que toque el timbre etc.</p>
-<p>Gran parte de esas esperas se deben a nuestro mundo cada vez más <a target="_blank" href="digital.es.html">digital</a>. Esperamos a que se encienda el ordenador, a que se inicie una aplicación, a que termine una descarga o una subida, a que se cierre una aplicación que se ha colgado, a que concluya tal proceso recóndito etc.</p>
-<p>Consideremos la acción de leer un libro. Si es físico o de papel, no esperamos nada, vamos a tiro hecho. Si utilizamos un <q>lector</q>, podemos contar con una cantidad fija de tiempo que esperar. Pero si lo leemos en la pantalla del ordenador, la lectura se habrá complicado. Cuando no falla una cosa falla otra. Si por algún motivo el ordenador no arranca bien, nos habremos quedado sin libro, absurdo.</p>
-<p>En todas estas esperas y esperanzas sentimos como si no tuviéramos el control. Nos sentimos dependientes. Esta situación es lo contrario de un <a target="_blank" href="taller.html">taller</a> en el que uno avanza hacia una meta en proporción a su esfuerzo, entrega e inspiración, no a los caprichos del destino.</p>
 
 # Bienes y servicios
 <p>Requisitos para considerarlos dentro de un PIB justo y sensato:</p>
