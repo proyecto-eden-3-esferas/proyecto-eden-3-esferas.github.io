@@ -1,3 +1,5 @@
+# Add https://piratebayproxy.info/
+
 # El cotarro, los esbirros y la panda de mataos (*cotarro-esbirros-mataos.html*)
 
 
@@ -1274,14 +1276,6 @@ Este organismo ha sido protagonista en la sección "La parte por el todo" debido
 - Inteligencia biológica: A pesar de ser una sola célula gigante (multinucleada) y no tener cerebro ni sistema nervioso, puede resolver laberintos, aprender de su entorno y optimizar redes de transporte.
 - Capacidad de cálculo: Se le conoce por su capacidad para encontrar el camino más corto entre dos puntos, emulando la eficiencia de redes complejas, como la del metro de Tokio.
 
-# 10 x ancho de banda actual
-
-El Gobierno de España ha proyectado una actualización significativa en la legislación de telecomunicaciones para elevar el ancho de banda mínimo garantizado. [...]
-
-Objetivo de Velocidad: La propuesta establece elevar la velocidad mínima de conexión a Internet fija de los 10 Mbps actuales a 100 Mbps."
-
-En resumen, que construir infraestructura es un paso necesario y suficiente para volverse prósperos.
-
 
 # Mirar gurús:
 - Chopra
@@ -1655,23 +1649,6 @@ long double operator ""_deg(long double d) {
 [ ] *Mealy and Moore Machines*
 
 [ ] La lógica proposicional coincide con la lógica digital secuencial.
-
-[ ] *funciones puras e impuras*
-<ul>
-  <li>Funciones impuras: afectan al Estado del Sistema</li>
-  <li>Funciones puras: se limitan a computar un valor, independientemente de que haya ocurrido hasta entonces</li>
-</ul>
-<p>Por ejemplo, nuestro cerebro al realizar una misma tarea o parecida va variando su modo de realizarla y por tanto las respuestas o <q>salidas</q> que da, salvo en casos lógico-aritméticos muy simpres (2 + 2 = 4).</p>
-[ ] *Funciones explícitas e implícitas*
-<ul>
-  <li><strong>funciones explícitas</strong>: la variable dependiente aparece despejada (y=f(x)) o bien resulta posible despejarla (x + xy + y = 0 equivale a y = -x / x+1)</li>
-  <li><strong>funciones implícitas</strong>: la variable dependiente ni aparece despejada (f(x,y) = 0) ni puede despejarse (x<sup>2</sup> + xy + y<sup>2</sup> = k)</li>
-</ul>
-<p>Otros ejemplos de funciones implícitas son:</p>
-<ul>
-  <li>six x + x = k</li>
-  <li>x + y + y<sup>2</sup> = k</li>
-</ul>
 
 
 [ ] *Tres clases de entes*
