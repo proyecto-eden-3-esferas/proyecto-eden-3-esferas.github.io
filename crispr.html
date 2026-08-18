@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CRISPR</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="CRISPR/Cas9"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    -->
+  </head>
+  <body lang="en" class="biology">
+    <nav>
+    <!--
+      <div>
+        <p><a href="soil.html">Soil: Living, Teaming Earth</a></p>
+        <p><a href="farming.html">Farming</a></p>
+      </div>
+      -->
+      <div>
+        <p><a rel="prev" href="gene-editing.html">Gene Editing</a></p>
+        <p><a            href="health.html">Health, Healing and Medicine</a></p>
+        <p><a rel="next" href="epigenetics.html">Epigenetics</a></p>
+        <p><a            href="biology.html">Biology</a></p>
+      </div>
+      <div>
+        <p><a href="gmo.html">Genetically Modified Organisms (GMOs)</a></p>
+        <p><a href="genetics.html">Genetics</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>CRISPR/Cas9</h1>
+      <p>CRISPR is a family of DNA sequences found in prokaryotic organisms, originating from bacteriophages. It is responsible for detecting and destroying DNA from similar bacteriophages in case of infection, and has been utilized as a powerful genome-editing tool in gene therapy.</p>
+
+      <p>CRISPR were first reported in 1987 by Atsuo Nakata's group in Japan. CRISPR is a family of DNA sequences in the genomes of prokaryotic organisms derived from DNA fragments of bacteriophages that they were previously infected by. These sequences are responsible for the detection of DNA from similar bacteriophages to destroy it in case of infection. CRISPR RNAs (crRNAs), assisted by trans-activating CRISPR RNAs (tracrRNA), bind to a nuclease protein (such as Cas9). The complex formed between RNA and RNA-binding proteins (RBPs) is called ribonucleoprotein (RNP). When the RNP recognizes DNA homologous to the crRNA, a nuclease creates a double-strand break in the invading DNA, just upstream of a protospacer-adjacent motif (PAM) site.</p>
+
+      <p>Initially, the discovery by Nakata's group was underestimated. Years later, in 2012, the potential of CRISPR-Cas systems as genome-editing tools was discovered. As a result, in early 2013, these tools were shown to be effective in making specific modifications to mammalian genomes. These studies ushered in a new era of gene therapy.</p>
+      <p>CRISPR/Cas9 technology is developing rapidly. Mutations have already been successfully repaired in tissue and animal models of monogenic diseases such as <a taget="_blank" href="cystic-fibrosis.html">cystic fibrosis</a> (CF), Duchenne muscular dystrophy (DMD), ornithine transcarbamylase deficiency (OTC), and cataracts.</p>
+
+      <section>
+        <h2>CRISPR nuclease-based genome editing</h2>
+        <p>The programmability of CRISPR-Cas nucleases to generate site-specific double-strand DNA breaks has enabled their rapid adaptation for genome editing technologies<!-- (Figure 1)-->. The archetypical Cas9 protein originating from <i lang="la">Streptococcus pyogenes</i> (SpCas9), the first Cas nuclease to be repurposed for genome editing, remains the most widely used gene editor due to its intrinsically high activity and specificity. Cas9 forms an active nuclease in association with either crRNA-tracrRNA complexes or sgRNA guides. To direct the Cas9 nuclease to the genomic locus of interest, the 20-nt guide sequence on the 5′ end of the crRNA can be altered to enable canonical base pairing with the DNA target. Target binding is additionally dependent on the presence of a short protospacer adjacent motif (PAM) located on the non-target strand (NTS) of the DNA, immediately downstream of the target site. Initial recognition of the PAM results in local unwinding of the target DNA, whereas the guide RNA base pairs with the target strand (TS) of the DNA in a 5′-3′ directional manner starting at the PAM-proximal end of the target site, triggering conformational changes in Cas9 that lead to nuclease domain activation. Cas9 subsequently cleaves the double-stranded DNA (dsDNA) substrate three nucleotides upstream of the PAM sequence, generating DSBs with either blunt ends or single-nucleotide 5′ overhangs. DSB formation is catalyzed by the Cas9 HNH and RuvC domains, which cleave the TS and NTS, respectively. Selective inactivation of either nuclease domain converts Cas9 into RNA-guided nickases, whereas inactivation of both domains results in an RNA-guided DNA binding protein that can serve as a platform for delivery of fused proteins to specific genomic loci.</p>
+        <p>Cas12a, a Cas nuclease originating from type V CRISPR-Cas systems, was discovered a few years after Cas9 and likewise repurposed for genome editing. In contrast to Cas9, Cas12a does not require a tracrRNA for activation and instead catalyzes nucleolytic processing of its own guides by recognizing a conserved pseudoknot structure in the repeat-derived segment of the crRNA, a feature that has been exploited for multiplexed editing in vivo. Cas12a targets DNAs containing a 5′-terminal TTTV PAM and cleaves both strands within the PAM-distal part of the target site in a sequential manner using its single RuvC domain catalytic site, which results in the generation of 5-nt 5′ overhangs. The PAM-distal DSB product then dissociates from the protein, whereas Cas12a remains in a catalytically active state, able to cleave additional single-stranded DNA (ssDNA) substrates in trans. Cas12a has proved to be a highly efficient nuclease capable of precise gene editing, with complementary properties and functionality to Cas9. The trans-nuclease activity of Cas12a has additionally been utilized for sequence-specific nucleic acid detection.</p>
+        <p>Conventional genome editing approaches rely on the introduction of site-specific double-strand DNA breaks in the genome and their subsequent resolution by endogenous cellular DNA repair pathways<!-- (Figure 1)-->. DSBs generated by Cas9 or Cas12a enzymes are generally repaired by end-joining pathways, which are typically error-prone, or by precise homology-directed repair (HDR) mechanisms. End-joining is the predominant mode of DNA repair in mammalian cells and relies on the direct religation of broken DNA ends by the non-homologous end joining (NHEJ) or microhomology-mediated end joining (MMEJ) pathways. Processing of the exposed DNA ends before religation leads to the addition or removal of nucleotides, resulting in short insertions or deletions (collectively termed indels) at the site of the DSB, an outcome thought to be facilitated by repeated cleavage of precisely repaired DSBs until accumulated indels preclude further cleavage. This is most commonly used to selectively disrupt protein-coding gene sequences to achieve gene knockouts, or gene deletions, by the simultaneous introduction of two DSBs in close proximity. Editing outcomes resulting from end-joining repair of Cas9-induced DSBs are reproducible and depend on the local sequence context, comprising single-nucleotide insertions or small deletions due to NHEJ, as well as MMEJ-mediated deletions.</p>
+        <p>Conversely, HDR is a precise DSB repair pathway that relies on the presence of a homologous DNA molecule to guide the outcome of the repair. By exogenously providing an artificial homology repair template, HDR can be exploited to introduce desired mutations, insertions, or deletions precisely within the targeted genomic locus. The repair templates, delivered either as double-stranded DNAs (typically via plasmids or viral vectors) or synthetic single-strand DNA oligonucleotides (ssODNs), carry the desired mutation flanked by sequences homologous to regions on either side of the DSB. Although this approach in principle enables editing with nucleotide precision, HDR is mostly active only in actively dividing cells, as it requires repair factors that are commonly expressed only in the S and G2 phases of the cell cycle. The efficiency of the HDR outcome thus depends on the type of repair template, the delivery method, cell type, local chromatin context, and other factors that can affect DNA repair pathway choice to preferentially enhance HDR and suppress end-joining repair.</p>
+      </section>
+
+      <section id="limitations">
+        <h2>Limitations of CRISPR genome editing</h2>
+        <p>The repurposing of CRISPR-Cas systems as simple and effective programmable gene editing tools has greatly advanced many areas of basic and applied research, setting the stage for the development of targeted gene therapies and various biotechnological applications. However, the functional features of a highly evolved biological defense system differ from the functionalities expected from a precise genome editing tool. Consequently, the application potential of first-generation CRISPR-based gene editing tools is limited by several key factors, the principal ones being specificity, targeting scope, and the need to rely on endogenous DSB repair mechanisms to achieve genomic edits<!-- (Figure 2)-->. Finally, the delivery of CRISPR components is limited by specific constraints of the delivery vectors and target cells or organisms.</p>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
