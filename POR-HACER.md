@@ -1,8 +1,44 @@
+# Mojigatería y materialismo
+
+# Acero, ladrillos y hormigón
+<p>La mayoría de la viviendas se <q>resuelven</q> a ladrillos y hormigón principalmente.</p>
+
+# Porcentaje de coste del combustible / Fractional Cost of Fuel
+- nuclear
+- hidrocarburos
+
+# Internet of Things
+<h1>(IoT)</h1>
+<section id="agents">
+  <h2>Agents</h2>
+</section>
+<section id="protocols">
+  <h2>IoT Communication Protocols</h2>
+</section>
+
+
+# En *anarquismo.html*
+<p>Acabar con la obsesión de la continuidad del Estado, tal como la describe en <cite>Guerra Biológica: una situación</cite>, de Annie Jacobsen. Nos ha de importar más cómo vive el pueblo que mantener un Estado por encima de él.</p>
+
+# <h1>Xylella fastidiosa>
+<p>la Xylella fastidiosa, una bacteria, avanza por el Mediterráneo matando olivos, viñas y almendros sin que se le encuentre una cura.</p>
+
+# Biological War, more than Nuclear War, makes a case for:
+<ul>
+  <li><q>strict</q> control of scientific and technological developments, such as synthetic biology and AI, possibly through <strong>surveillance</strong></li>
+  <li><p>limiting:</p>
+      <ul>
+        <li>AI</li>
+        <li>spam</li>
+        <li>infotheft</li>
+      </ul>
+  </li>
+</ul>
+
+
 # https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/phytochemical
 
 # Add https://piratebayproxy.info/
-
-# El cotarro, los esbirros y la panda de mataos (*cotarro-esbirros-mataos.html*)
 
 
 # Materialismo en *materialismo.html*
