@@ -1,3 +1,46 @@
+# Cambio de comercializadora el 2026-08-23
+Código de Seguridad Endesa: PE-SDPATS
+de Power Electric_files
+Solicita expresamente llamada comercial de GEO ALTERNATIVAS SL
+Podo S.L.U.
+
+# Añadir en *el-sistema.elems.html*
+<li><strong>mercantilización</strong></li>
+
+# *decrecimiento.html*
+- <cite>Small is Beautiful</cite>
+[ ] enlazar a/desde *economia.html*
+[ ] enlazar a/desde *el-sistema.html*
+
+# Análisis de la motivación
+¿Quién se beneficia?
+Coche:
+<ul>
+  <li><strong>Aseguradoras</strong></li>
+  <li><strong>Mecánicos</strong></li>
+  <li><strong>Departamentos del Estado</strong></li>
+</ul>
+Vivienda convencional:
+<ul>
+  <li><strong>Servicios</strong>: basureros, porteros, compañías de agua, electricidad etc.</li>
+  <li><strong>Aseguradoras</strong></li>
+  <li><strong>Ayuntamiento</strong>: IBI, tasa de basuras</li>
+</ul>
+
+# *utopìas.html#viajes*
+Limitado
+Complementado por la difusión genética
+
+# Escribir *estolidez.html* o *espanya.estolidez.html*
+
+# *omega-3-4.html*
+
+# escribir *democracia.html*
+[ ] enlazar con plurarquia.html
+[ ] enlazar con anarquismo.html
+[ ] enlazar con netocracia.html
+[ ] enlazar con politica.html
+
 # Mojigatería y materialismo
 
 # Acero, ladrillos y hormigón
