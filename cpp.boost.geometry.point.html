@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Points in Boost.Geometry</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+
+    <meta name="author" content="AUTHOR"/>
+    <meta name="description" content="Points in Boost.Geometry"/>
+
+    <link rel="author" href="https://plus.google.com/ExampleProfile"/>
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+    -->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+      <div>
+        <p><a href="cpp.boost.html">The C++ Boost Library: Beyond the STL</a></p>
+        <p><a href="cpp.boost.geometry.html">Boost Geometry</a></p>
+        <p><a href="cpp.boost.graph.html">C++ Boost Graph</a></p>
+        <p><a href="cpp.boost.property_map.html">Boost Property Map Library</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Points in Boost.Geometry</h1>
+
+      <p>Points are constructed, usually with parameters {<var>x<sub>0</sub></var>, ... <var>x<sub>n - 1</sub></var>}.</p>
+      <p>A point's coordinates is accessed through either
+      <ol>
+        <li>
+          <p><strong>Namespace scoped functions:</strong></p>
+          <pre>boost::geometry::get&lt;INDEX&gt;(const POINT&amp;)
+boost::geometry::set&lt;INDEX&gt;(POINT&amp;, VALUE)</pre>
+        </li>
+        <li>
+          <p>or <strong>templatized member functions:</strong></p>
+          <pre>boost::geometry::point_type::get&lt;INDEX&gt;()
+boost::geometry::point_type::set&lt;INDEX&gt;(VALUE)</pre>
+        </li>
+      </ol>
+
+      <section id="model::point">
+        <h2>A Boost.Geometry Point Implementation: <code>model::point</code></h2>
+      </section>
+
+
+
+    </main>
+
+  </body>
+
+</html>
