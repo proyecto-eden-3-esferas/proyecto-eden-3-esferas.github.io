@@ -28,26 +28,51 @@
     <main>
       <h1>Points in Boost.Geometry</h1>
 
-      <p>Points are constructed, usually with parameters {<var>x<sub>0</sub></var>, ... <var>x<sub>n - 1</sub></var>}.</p>
-      <p>A point's coordinates is accessed through either
+      <p>Boost.Geometry states a set of requirements that a point must meet (a point interface or <a href="#concept">point concept</a>) in order to work with the other components.</p>
+
+      <p>Points are constructed, then manipulated:</p>
       <ol>
+
         <li>
-          <p><strong>Namespace scoped functions:</strong></p>
-          <pre>boost::geometry::get&lt;INDEX&gt;(const POINT&amp;)
-boost::geometry::set&lt;INDEX&gt;(POINT&amp;, VALUE)</pre>
+          <p>Points are constructed, usually with parameters {<var>x<sub>0</sub></var>, ... <var>x<sub>n - 1</sub></var>}.</p>
         </li>
+
         <li>
-          <p>or <strong>templatized member functions:</strong></p>
-          <pre>boost::geometry::point_type::get&lt;INDEX&gt;()
-boost::geometry::point_type::set&lt;INDEX&gt;(VALUE)</pre>
+          <p>A point's coordinates is accessed through either:</p>
+          <ol>
+            <li>
+              <p><strong>Namespace scoped functions:</strong></p>
+              <pre>boost::geometry::get&lt;INDEX&gt;(const POINT&amp;)
+    boost::geometry::set&lt;INDEX&gt;(POINT&amp;, VALUE)</pre>
+            </li>
+            <li>
+              <p>or <strong>templatized member functions:</strong></p>
+              <pre>boost::geometry::point_type::get&lt;INDEX&gt;()
+    boost::geometry::point_type::set&lt;INDEX&gt;(VALUE)</pre>
+            </li>
+          </ol>
         </li>
+
       </ol>
 
-      <section id="model::point">
-        <h2>A Boost.Geometry Point Implementation: <code>model::point</code></h2>
+      <section id="concept">
+        <h2>The Point Concept in Boost.Geometry</h2>
+        <p style="text-align: right">(<i>See</i> external <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/libs/geometry/doc/html/geometry/reference/concepts/concept_point.html">Point Concept</a></cite> in Boost.Geometry documentation)</p>
       </section>
 
-
+      <section id="implementations">
+        <h2>Implementations of Boost.Geometry Point Concept</h2>
+        <ul>
+          <li><a href="#model::point">model::point</a></li>
+          <li><code>model::d2::point_xy</code></li>
+          <li>C array</li>
+          <li>C++ <a target="_blank" href="cpp.sequence-containers.html#array">std::array</a></li>
+        </ul>
+        <section id="model::point">
+          <h3>A Boost.Geometry Point Implementation: <code>model::point</code></h3>
+          <p style="text-align: right">(<i>See</i> external <cite><a target="_blank" href="https://www.boost.org/doc/libs/latest/libs/geometry/doc/html/geometry/reference/models/model_point.html">model::point</a></cite> in Boost.Geometry documentation)</p>
+        </section>
+      </section>
 
     </main>
 
