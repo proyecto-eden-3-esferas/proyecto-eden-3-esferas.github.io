@@ -50,6 +50,27 @@
     <main>
       <h1>Characters in C++: <code>char</code>, <code>wchar_t</code>...</h1>
 
+      <section id="char8_t">
+        <h2><code>char8_t</code>, an (Explicit) UTF-8 Character Type</h2>
+        <blockquote>
+          <p>Well, it's clear that <code>char8_t</code> is an 8 bit type. Also, The signedness of char depends on the compiler and the target platform: the defaults for ARM and PowerPC being typically unsigned, the defaults for x86 and x64 signed. while <code>char8_t</code> is always unsigned.</p>
+          <p style="text-align: right">(Elliott Frisch commented Aug 7, 2019 at 21:28)</p>
+
+          <p>Logically, code can assume that a string of char8_t always contains UTF-8 text (barring bugs), whereas it is less safe to assume any particular encoding of a char string without additional knowledge of the environment.</p>
+          <p style="text-align: right">(Miral commented Aug 8, 2019 at 7:31)</p>
+
+          <p>Well, there are benefits. The char type, like much of C++'s C heritage is, and has always been annoyingly broken. You do not know whether it's signed or not, and very strictly you do not even know how many bits it has (though 8 is a rather safe bet, there's no guarantee whatsoever). The char8_t type gives both guarantees. Unluckily, nobody was bold enough to simply "fix" the broken original type (which could admittedly break existing code, but so what... modern C++ is incompatible with legacy C++ anyway). Much like nobody could be bothered to make size_t or ptrdiff_t a proper type.</p>
+          <p style="text-align: right">(Damon commented Aug 8, 2019 at 8:48)</p>
+
+          <p>@Damon according to this comment, there is no requirement that char8_t is exactly eight bits, so nothing changed in that regard…</p>
+          <p style="text-align: right">(Holger commented Aug 8, 2019 at 9:04)</p>
+
+          <p>@Damon C has always guaranteed that char has at least 8 bits. POSIX and most other systems like Windows guarantee that char is exactly 8 bits. But C does not say "Yeah, blah blah POSIX". POSIX incorporates the C standard, not the other way around. And unless C suddenly decides to alienate a huge part of its niche, they're not going to make an exactly eight bit type mandatory, because C is the primary language used to program all the modern embedded/niche hardware which has bytes bigger than eight bits.</p>
+          <p style="text-align: right">(mtraceur commented Apr 23, 2020 at 6:34)</p>
+
+        </blockquote>
+      </section>
+
       <section id="utf-8-string-literals">
         <h2>How to Write UTF-8 String Literals in C++</h2>
         <p style="text-align: right">(From <cite><a target="_blank" href="http://utf8everywhere.org/">http://utf8everywhere.org/</a></cite>)</p>

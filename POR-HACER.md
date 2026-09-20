@@ -1,3 +1,33 @@
+# Free Books
+- https://bdebooks.com/en/book-genres/
+- https://freelibrary.overdrive.com Really?
+
+# [ ] get/read "The Garden Against Time: In Search Of A Common Paradise", Olivia Laing
+From one of our most original contemporary voices, The Garden Against Time is an inventive and deeply felt exploration of the long dream of a shared Eden, a common paradise."
+Description
+‘What a wonderful book this is. I loved the enchanting and beautifully written story but also the fascinating and thoughtful excursions along the way.&apos; – Nigel Slater
+‘A garden contains secrets, we all know that: buried elements that might put on strange growth or germinate in unexpected places. The garden that I chose had walls, but like every garden it was interconnected, wide open to the world . . .&apos;
+In 2020, Olivia Laing began to restore a walled garden in Suffolk, an overgrown Eden of unusual plants. The work drew them into an exhilarating investigation of paradise and its long association with gardens.
+Moving between real and imagined gardens, from Milton&apos;s Paradise Lost to John Clare&apos;s enclosure elegies, from a wartime sanctuary in Italy to a grotesque aristocratic pleasure ground funded by slavery, Laing interrogates the sometimes shocking cost of making paradise on earth.
+But the story of the garden doesn&apos;t always enact larger patterns of privilege and exclusion. It&apos;s also a place of rebel outposts and communal dreams. From the improbable queer utopia conjured by Derek Jarman on the beach at Dungeness to the fertile vision of a common Eden propagated by William Morris. New modes of living can and have been attempted amidst the flower beds, experiments that could prove vital in the coming era of climate change.
+The Garden Against Time is a beautiful and exacting account of the abundant pleasures and possibilities of gardens: not as a place to hide from the world but as a site of encounter and discovery, bee-loud and pollen-laden.
+
+## From https://www.scribd.com/document/802426795/The-Garden-Against-Time-Olivia-Laing#page=1
+<p>I have a dream sometimes, not often. I dream that I am in a house, and discover a door I didn't know was there. It opens into an unexpected garden, and for a weightless moment I find myself inhabiting new territory, flush with potential. Maybe there are steps down to a pond, or a statue surrounded by fallen leaves. It is never tidy, always beguilingly overgrown, with the corresponding sense of hidden riches. What might grow here, what rare peonies, irises, roses will I find? I wake with the sense  that a too-tight joint has loosened, and that everything runs fluent with new life.</p>
+<p>For most of the years that I have had this dream, I didn't have a garden of my own. I come to home ownership late, renting until I was forty, and only rarely in flats with outdoor space. The first of these temporary gardens was in Brighton. It was so narrow I could almost touch both fences at once, dropping away over the crest of the Downs in three precipitous terraces, culminating in a greenhouse with a rampant grapevine, inhabited by a golden-eyed toad.</p>
+<p>I planted calendula there, pot marigold, which according to the sixteenth-century herbalist Gerard would <q>strengthen and comfort the heart very much</q>. I was training to be a herbalist and my head was full of plants, an disentanglement of natural forms. The study of botany was an education in looking. It made the ordinary world more intricate and finely detailed, as if I had acquired a magnifying glass that trebled the eye's capacity. Each plant was so interwoven into human history that to study it was to tumble down a conduit through time. <q>The Wild Mrigold is like unto the single garden Marigold, but altogether lesser; and the whole plant perisheth at the first approach of Winter, and recovereth itself again by falling of the seed.</q></p>
+
+# Improvisación (*improvisacion.html*)
+[ ] enlazado desde emergencia.html, *actuadores-y-creadores.html*
+<h1>Improvisación</h1>
+<p>Vivimos en la pura y constante emergencia, continuamente improvisando.</p>
+<p>Amplios sectores de la población no se profesionalizan sino que se limitan a buscarse la vida.</p>
+
+# Analogía náutica
+<p>Gubernator significaba timonel. A menudo hablamos de la nave del Estado, la cuál ha de estar dotada de un rumbo para no ir a la deriva.</p>
+<p>Ir a la deriva significa no dirigirse a ningún puerto sino navegar por navegar. A un día le sucede otro, con la esperanza de ver amanecer el siguiente. Pasado mañana ya se verá.</p>
+<p>De modo que el mandatario es un timonel. Ahora bien, la ruta probablemente se haya o debería haberse decidido entre toda la tripulación.</p>
+
 # Cambio de comercializadora el 2026-08-23
 Código de Seguridad Endesa: PE-SDPATS
 de Power Electric_files
@@ -3469,11 +3499,11 @@ Same caveats apply. Now it is a 352k file...
 
 [ ] link to *bio-revolution.html*
 
-[ ] write *growth.html*
+[x] write *growth.html*
 [x] link to *growth.html* from *innovation.html*
 [x] link to *growth.html* from *economy.html*
 [x] link to *innovation.html* from *economy.html*
-[ ] link to *innovation.html*
+[x] link to *innovation.html*
 
 [x] escribir  *demasiada-informacion.html* (Demasiada información)
 [x] enlazar a *demasiada-informacion.html* (Demasiada información) desde *pensamientos.html*
@@ -3483,24 +3513,6 @@ Same caveats apply. Now it is a 352k file...
 [x] enlazar "innovacion.html" (Innovación) desde *creatividad.html*
 [ ] enlazar "innovacion.html" (Innovación) desde otros
 
-[ ] write *innovation.html*
-
-<h1>Innovation</h1>
-<p>When you think of innovation, what springs to mind? Maybe it&apos;s a flashy new gadget—but don&apos;t be mistaken. There&apos;s much more to the world of innovation, which extends far beyond new products and things you&apos;ll find on a store shelf.</p>
-<p>If products alone aren&apos;t the full story, what is innovation? In a business context, <dfn>innovation</dfn> is the ability to conceive, develop, deliver, and scale new products, services, processes, and business models for customers.</p>
-<p>Successful innovation delivers net new <a target="_blank" href="growth.html">growth</a> that is substantial. As McKinsey senior partner Laura Furstenthal notes in an episode of the <cite>Inside the Strategy Room</cite> podcast, <q>However you measure it, innovation has to increase value and drive growth.</q></p>
-
-
-
-[ ] get/read "The Garden Against Time: In Search Of A Common Paradise", Olivia Laing
-From one of our most original contemporary voices, The Garden Against Time is an inventive and deeply felt exploration of the long dream of a shared Eden, a common paradise."
-Description
-‘What a wonderful book this is. I loved the enchanting and beautifully written story but also the fascinating and thoughtful excursions along the way.&apos; – Nigel Slater
-‘A garden contains secrets, we all know that: buried elements that might put on strange growth or germinate in unexpected places. The garden that I chose had walls, but like every garden it was interconnected, wide open to the world . . .&apos;
-In 2020, Olivia Laing began to restore a walled garden in Suffolk, an overgrown Eden of unusual plants. The work drew them into an exhilarating investigation of paradise and its long association with gardens.
-Moving between real and imagined gardens, from Milton&apos;s Paradise Lost to John Clare&apos;s enclosure elegies, from a wartime sanctuary in Italy to a grotesque aristocratic pleasure ground funded by slavery, Laing interrogates the sometimes shocking cost of making paradise on earth.
-But the story of the garden doesn&apos;t always enact larger patterns of privilege and exclusion. It&apos;s also a place of rebel outposts and communal dreams. From the improbable queer utopia conjured by Derek Jarman on the beach at Dungeness to the fertile vision of a common Eden propagated by William Morris. New modes of living can and have been attempted amidst the flower beds, experiments that could prove vital in the coming era of climate change.
-The Garden Against Time is a beautiful and exacting account of the abundant pleasures and possibilities of gardens: not as a place to hide from the world but as a site of encounter and discovery, bee-loud and pollen-laden.
 
 [ ] get/read "Afterglow: Climate Fiction For Future Ancestors" by Grist
 Hopeful and forward-looking futuristic short stories that explore how the power of storytelling can help create the world we need.

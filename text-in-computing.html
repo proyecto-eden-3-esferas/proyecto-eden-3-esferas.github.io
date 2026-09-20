@@ -35,20 +35,55 @@
     <main>
       <h1>Text Matters in Computing</h1>
 
+      <section id="ASCII">
+        <h2>ASCII</h2>
+      </section>
+
       <section id="unicode">
         <h2>Unicode</h2>
+        <p>Unicode encompasses characters from all writing systems worldwide, including accents and many others, assigning each character a unique identifier called Unicode code point. As of July 2023, Unicode 15 defines nearly 150,000 characters. To represent all these code points, we require log2(150.000) = 17.2 bits, which unfortunately is slightly larger than the size of 2 bytes.</p>
 
         <section id="utf8">
           <h3>UTF-8</h3>
           <p>UTF-8 (Unicode Transformation Format – 8-bit) is the dominant, variable-width character encoding for the internet, used by over 98% of websites. It encodes all Unicode characters using one to four bytes, ensuring backward compatibility with 7-bit ASCII while supporting global languages, symbols, and emojis.</p>
           <p>Key Characteristics of UTF-8:</p>
           <ul>
-            <li><strong>Variable-Width Encoding</strong>: Uses 1 byte for standard English characters (ASCII), 2 bytes for Latin-scripted languages with accents, 3 bytes for Chinese/Japanese/Korean (CJK) characters, and 4 bytes for emojis.</li>
+            <li><strong>Variable-Width Encoding</strong>: Uses 1 byte for standard English characters (ASCII), 2 bytes for <a href="#utf8-latin-with-accents">Latin-scripted languages with accents</a>, 3 bytes for Chinese/Japanese/Korean (CJK) characters, and 4 bytes for emojis.</li>
             <li><strong>Backward Compatibility</strong>: Any valid ASCII file is also a valid UTF-8 file, ensuring smooth transitions.</li>
             <li><strong>Self-Synchronizing</strong>: Allows for recovery if a byte is lost within a stream.</li>
             <li><strong>Universal Use</strong>: It is the standard for web pages, email, and modern computer systems.</li>
             <li><strong>No Byte Order Mark (BOM) Required</strong>: It is commonly used without a <a href="#bom">BOM</a>.</li>
           </ul>
+          <aside>
+            <p>With UTF-8 being a variable-length encoding, determining the number of bytes used for each character during decoding follows a straightforward rule:</p>
+            <ul>
+              <li>If the higher-order bit is 0, the character is represented by 7 bits, corresponding to standard <a href="#ASCII">ASCII</a> characters.</li>
+              <li>If the higher-order bits are 1, the number of leading 1s indicates the number of bytes occupied by the character. For example, <a href="#utf8-latin-with-accents">110xxxxx</a>, <code>1110xxxx</code>, and <code>11110xxx</code> signify characters taking 2, 3 (exotic scripts like Japanese and Chinese), and 4 (ancient or very rare scripts, or emojis) bytes, respectively. Subsequent bytes of a multi-byte character always start with <code>10xxxxxx</code>.</li>
+            </ul>
+          </aside>
+
+          <section id="utf8-latin-with-accents">
+            <h3>Latin-Scripted Languages with Accents</h3>
+            <p>For Unicode code points from U+0080 to U+07FF (such as Latin-1 supplement and Greek letters), UTF-8 encodes two-byte characters by splitting the character's 11-bit Unicode code point across two bytes using specific binary header prefixes (<code>110</code> and <code>10</code>)</p>
+            <section>
+              <h4>Step-by-Step Example</h4>
+              <p>Take the Greek letter alpha (U+03B1):</p>
+              <ol>
+                <li>Its hexadecimal code point is <code>U+03B1</code></li>
+                <li>Its binary value (16-bit) is <code>0000 0011 1011 0001</code> (keep the lower 11 bits: 011 10110001)</li>
+                <li>
+                  <p>Distribute the 11 bits into the two-byte template 110xxxxx 10yyyyyy:</p>
+                  <ol>
+                    <li>The first 5 bits (01110) go into the first byte: 11001110 (0xCE)</li>
+                    <li>The remaining 6 bits (110001) go into the second byte: 10110001 (0xB1)</li>
+                  </ol>
+                </li>
+                <li>This results in the UTF-8 sequence: <code>0xCE 0xB1</code></li>
+              </ol>
+            </section>
+
+          </section>
+
         </section>
 
         <section id="unicode-categories">
