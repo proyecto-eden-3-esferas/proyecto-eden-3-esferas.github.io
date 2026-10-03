@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Estructuras de datos</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.es.css"/>
+    <meta name="description" content="Árboles o Jerarquías"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="es"  class="pensamiento">
+    <nav>
+      <div>
+        <p><a href="algoritmo.html">Algoritmos</a></p>
+        <!--<p><a href="estructuras-de-datos.html">Estructuras de datos</a></p>-->
+        <p><a href="informacion.html">Información</a></p>
+
+        <p><a href="arboles-o-jerarquias.html">Árboles o jerarquías</a></p>
+        <p><a href='programacion.html'>Programación (de ordenadores y otros dispositivos digitales)</a></p>
+      </div>
+      <div>
+        <p><a href='computing.html' lang="en">Computing (English)</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Estructuras de datos</h1>
+      <p>Cuando reunimos varios datos éstos suelen presentar algún tipo de estructura.</p>
+
+      <section id="tiras">
+        <p>Tal vez la más conocida sea la <dfn>tira</dfn>: ponemos un elemento detrás de otro. Por ejemplo las novelas y las narraciones en general constan de una larga sucesión (tira) de párrafos o una corta sucesión de capítulos, cada uno compuesto por una larga sucesión (tira) de párrafos.</p>
+        <p>También observamos la estructura de la tira en una película (no deja de ser una forma más de narración), en realidad también en una charla o conferencia, un documental, una clase magistral etc.</p>
+        <p>La tira es un tipo de sucesión en el sentido de que hay sus componentes están ordenados linealmente. Una sucesión contiene una ordenación.</p>
+      </section>
+
+
+      <hr/>
+
+      <p>Otra estructura de datos frecuente es el <dfn>conjunto</dfn>: la unión de varios elementos que no forman una sucesión ni presentan ninguna otra característica más que la de ir juntos.</p>
+
+      <hr/>
+
+
+
+      <hr/>
+
+      <p>Entre las estructuras de datos no secuenciales se encuentran el conjunto y la correspondencia.</p>
+      <p>Una <dfn>correspondencia</dfn> es una ley que asocia cada elemento de un conjunto con otro de otro conjunto. Por ejemplo un diccionario asocia cada palabra con su definión. En <a target="_blank" href="informatica.html">informática</a> a las asociaciones o correspondencias también se las llame <q>diccionarios</q>.</p>
+
+      <hr/>
+
+      <p>Otra estructura de datos frecuente es el <a target="_blank" href="adt.arbol.html">árbol o jerarquía</a>. Continuando con nuestro ejemplo de los libros, muchos tratados constan no sólo de capítulos sino que además contienen secciones dentro de cada capítulo, las cuáles a su vez contienen subsecciones etc.</p>
+
+      <p>La última gran estructura por tratar es la del <a href="espacios-y-grafos.html#grafos">grafo</a>. Un ejemplo de grafo serían las páginas de internet en el sentido de que de una página podemos saltar a otra, a varias o raramente a ninguna.</p>
+
+      <section id="referencias">
+        <h2>Referencias: listas enlazadas, árboles y grafos</h2>
+        <p>Un tipo especial de sucesión es la <dfn>lista enlazada</dfn>. Un elemento precede a otro porque el primero contiene una referencia al segundo. Cuesta encontrar ejemplos de lista enlazada en la vida cotidiana, casi el único sería el juego de la gymkhana en el que el participante no conoce el siguiente paso hasta que no resuelve el actual y en el que cada lugar o <q>estación</q> del recorrido contiene la pista para encontrar la siguiente.</p>
+        <p>Una lista enlazada tiene la ventaja de que permite insertar un elemento entre dos que se suceden con sólo cambiar un par de enlaces. El elemento anterior deberá pasar a apuntar al que se inserta, y el que se inserta deberá apuntar al anteriormente sucesivo.</p>
+        <p>En cambio para insertar un elemento en una sucesión deberemos correr un lugar a todos los elementos que van a venir después de él. Una sucesión funciona como un tren de vagones. Si queremos insertar un solo vagón deberemos hacer retroceder todos los que van a quedar detrás de él. En cambio una lista enlazada funciona más bien como una cadena: para insertar un eslabón sólo deberemos cambiar un par de ellos.</p>
+        <p>De modo que tanto la tira como la lista enlazada son tipos de estructuras secuenciales.</p>
+
+        <hr/>
+
+        <p>Vemos que hemos separado la información en contenido y referencia.</p>
+
+        <hr/>
+        <p>Cuando cada elemento (nodo) puede apuntar a varios otros nodos o a ninguno surge el grafo. (El árbol no es más que un caso particular de grafo en el que no hay <dfn>ciclos</dfn> o caminos que vuelven al punto de partida. Otro caso particular sería la <strong>red</strong>, dentro de la cuál pueden confluir varios caminos pero nunca un camino lleva al punto de partida o a un punto <q>anterior</q>.)
+      </section>
+
+      <section id="espacios">
+        <h2>Multidimensionalidad o espacios</h2>
+      </section>
+
+      <section id="implicito">
+        <h2>Estructuras implícitas y explícitas</h2>
+          <h3>Referencias implícitas y explícitas</h3>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

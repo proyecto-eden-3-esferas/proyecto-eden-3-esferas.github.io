@@ -1,4 +1,30 @@
+# Yes: Relayer 1974
+01 The Gates Of Delirium.flac: done
+02 Sound Chaser.flac: done
+03 To Be Over.flac: done
+04 Soon (Single Edit - Bonus Track).flac: done
+05 Sound Chaser (Single Edit - Bonus Track).flac: done
+06 The Gates Of Delirium (Previously Unissued Studio Run Through).flac
+
+# King Crimson
+01 21st Century Schizoid Man (Including Mirrors).wav
+02 I Talk To The Wind.wav
+03 Epitaph (Including March For No Reason & Tomorrow And Tomorrow).wav
+04 Moonchild (Including The Dream & The Illusion).wav
+05 The Court Of The Crimson King (Including The Return Of The Fire Witch & The Dance Of The Puppets).wav
+
+# Investigación Básica
+<p>No beneficia directamente al organismo que investiga porque se hace para el bien común y no sirve para obtener una patente que conceda una exclusividad, a diferencia de la investigación tecnológica específica.</p>
+<p>En segundo lugar, dado que los conocimientos recientes no se aplican de inmediato, trae más cuenta apliar de inmediato lo que ya se sabe que descubrir o inventar. Por ejemplo se sabe que no debemos labrar tanto la tierra para evitar la erosión y porque el laboreo destruye la red de hifas (filamentos de hongos) de la que tanto depende la fertilidad de la tierra. Sin embargo los gobiernos siguen subvencionando agricultura destructiva.</p>
+
+# El peloteo
+<p>Varios estudiante hacen las prácticas en una organización que tal vez les contrate. No sólo se esfuerzan sino que cada uno intenta demostrar que vale más que los demás y entra en una suerte de competición.</p>
+<p>Un conocido agasaja a otro para conseguir un favor</p>
+
+# Estruc
+
 # Free Books
+- https://www.pdfdrive.com/
 - https://bdebooks.com/en/book-genres/
 - https://freelibrary.overdrive.com Really?
 
