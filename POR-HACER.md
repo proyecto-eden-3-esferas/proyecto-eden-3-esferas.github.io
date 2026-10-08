@@ -1,3 +1,20 @@
+# How to compile Template Classes
+Given a class:
+```
+template <typename FLOAT, unsigned int DIM>
+class WhatEver {...};
+```
+At some point we might settle for some template parameters, say:
+```
+typedef double float_t;
+const unsigned int dim = 3;
+```
+Next we would write in an implementation file:
+```
+template class WhatEver<float_t, dim>;
+```
+Note that the implementation file needs to see/include the file where the parameters are defined.
+
 # Yes: Relayer 1974
 01 The Gates Of Delirium.flac: done
 02 Sound Chaser.flac: done
@@ -24,7 +41,7 @@
 # Estruc
 
 # Free Books
-- https://www.pdfdrive.com/
+- https://www.pdfdrive.com/ -> https://pdfdrive.webs.nf/
 - https://bdebooks.com/en/book-genres/
 - https://freelibrary.overdrive.com Really?
 
