@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LaTeX Page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Setting a page in LaTeX"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    -->
+  </head>
+  <body lang="en">
+    <nav>
+      <div>
+        <p><a rel="prev" href="https://en.wikibooks.org/wiki/LaTeX">Wikibook on LaTeX</a></p>
+        <p><a rel="next" href="latex.graphics.html">LaTeX Graphics</a></p>
+      </div>
+      <div>
+      </div>
+        <p><a            href="latex.circuitikz.html">CircuiTikZ</a></p>
+        <p><a href="latex.html">TeX/LaTeX: an open-source typesetting system for text, mathematical formulas and much more.</a></p>
+    </nav>
+
+    <main>
+      <h1>Setting a page in LaTeX</h1>
+
+      <section id="fonts">
+        <h2>(Text) Fonts in LaTeX*</h2>
+      </section>
+
+      <section id="margins">
+        <h2>Margins in LaTeX*</h2>
+      </section>
+
+      <section id="paragraphs">
+        <h2>Paragraphs in LaTeX</h2>
+
+        <section>
+          <h3>Paragraph Alignment</h3>
+          <p>Paragraphs in LaTeX are usually fully justified, i.e. flush with both the left and right margins. For whatever reason, should you wish to alter the justification of a paragraph, there are three environments at hand, and also LaTeX command equivalents.</p>
+          <table border="1">
+            <thead>
+              <tr> <th>Alignment</th> <th>Environment</th> <th>Command</th> </tr>
+            </thead>
+            <tbody>
+              <tr> <td>Left justified</td> <td><code>flushleft</code></td> <td><code>\raggedright</code></td> </tr>
+              <tr> <td>Right justified</td> <td><code>flushright</code></td> <td><code>\raggedleft</code></td> </tr>
+              <tr> <td>Center</td> <td><code>center</code></td> <td><code>\centering</code></td> </tr>
+            </tbody>
+          </table>
+          <p>All text between the <code>\begin</code> and <code>\end</code> of the specified environment will be justified appropriately. The commands listed are for use within other environments. For example, p (paragraph) columns in tabular.</p>
+        </section>
+
+        <section>
+          <h3>Paragraph indent</h3>
+          <p>By default, the first paragraph after a heading follows the standard Anglo-American publishers' practice of no indentation. The size of subsequent paragraph indents is determined by a parameter called <var>\parindent</var>. The default length that this constant holds is set by the document class that you use. It is possible to override it by using the <code>\setlength</code> command. This will set paragraph indents to 1cm:</p>
+          <pre>\setlength{\parindent}{1cm} % Default is 15pt.</pre>
+
+          <p>Whitespace in LaTeX can also be made flexible (what Lamport calls "rubber" lengths). This means that values such as extra vertical space inserted before a paragraph <code>\parskip</code> can have a default dimension plus an amount of expansion minus an amount of contraction. This is useful on pages in complex documents where not every page may be an exact number of fixed-height lines long, so some give-and-take in vertical space is useful. You specify this in a <code>\setlength</code> command like this:</p>
+          <pre>\setlength{\parskip}{1cm plus 4mm minus 3mm}</pre>
+
+          <p>If you want to indent a paragraph that is not indented, you can use</p>
+          <pre>\indent</pre>
+          <p>at the beginning of the paragraph. Obviously, this will only have an effect when <var>\parindent</var> is not set to zero. If you want to indent the beginning of every section, you can use the <cite>indentfirst</cite> package: once loaded, the beginning of any chapter/section is indented by the usual paragraph indentation.</p>
+
+          <p>To create a non-indented paragraph, you can use</p>
+          <pre>\noindent</pre>
+          <p>as the first command of the paragraph. This might come in handy when you start a document with body text and not with a sectioning command.</p>
+
+Be careful, however, if you decide to set the indent to zero, then it means you will need a vertical space between paragraphs in order to make them clear. The space between paragraphs is held in \parskip, which could be altered in a similar fashion as above. However, this parameter is used elsewhere too, such as in lists, which means you run the risk of making various parts of your document look very untidy by changing this setting. If you want to use the style of having no indentation with a space between paragraphs, use the parskip package, which does this for you, while making adjustments to the spacing of lists and other structures which use paragraph spacing, so they don't get too far apart. If you want both indent and break, use
+
+\usepackage{parskip}
+\setlength{\parindent}{15pt}
+To indent subsequent lines of a paragraph, use the TeX command \hangindent. (While the default behaviour is to apply the hanging indent after the first line, this may be changed with the \hangafter command.) An example follows.
+
+\hangindent=0.7cm This paragraph has an extra indentation at the left.
+The TeX commands \leftskip and \rightskip add additional space to the left and right sides of each line, allowing the formatting for subsequent paragraphs to differ from the overall document margins. This space is in addition to the indentation added by \parindent and \hangindent.
+
+To change the indentation of the last line in a paragraph, use the TeX command \parfillskip.
+        </section>
+
+      </section>
+
+    </main>
+
+  </body>
+
+</html>

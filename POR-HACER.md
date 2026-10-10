@@ -1,3 +1,31 @@
+# Red de fé: pintores
+<p>Recuerdo que cuando trabajé dos meses de peón de pintura los compañeros manifestaban enfrentamiento al sistema, dentro de unos límites dado que si no cumplían los echarían. Los viernes por la tarde en particular se negaban a trabajar y holgaban con disimulo eso sí. Entre ellos parecía el mayor delito la falta de solidaridad entre iguales. Recuerdo que uno dijo, refiriéndose al cochazo del jefe, que una rueda se la había comprado con tantas y cuántas horas de trabajo ajeno apropiado.</p>
+<p>Pero también recuerdo un relato en sentido contrario. Había que realizar una larga tarea que a la empresa interesaba que se terminara cuanto antes, y entonces los trabajadores lo dieron todo e hicieron horas extras. Esto lo contaban con orgullo. Tal vez les enorgullecía que la empresa dependiera de ellos, o que se habían comportado con responsabilidad. Ningún resquicio de actitud crítica con el trabajo que realizaban, para quién pintaban.</p>
+
+# Cagadores y meadores (*cagadores.html*)
+<p>¿Qué hace la mayor parte de la Humanidad? ¿A qué se dedica principalmente?</p>
+<p>Durante el trabajo limpio calles o recojo basura, y paso junto a vecinos sentados en terrazas que conversan mientras se toman algo. Tal vez sólo estén descansando, pero uno tiene la sensación de que mucha gente vive en un ocio continuo. No por ello me creo mejor que ellos, por dos motivos:</p>
+<ul>
+  <li>estoy sirviendo a una mayoría que no produce</li>
+  <li>lo que yo produzco para estos improductivos lo podría realizar una máquina o directamente obviarse (mediante superficies autolimpiables, recogida de basuras automática, por no hablar de robots)</li>
+</ul>
+
+
+# Verilator: a SystemVerilog Compiler
+<p>Verilator is a free, open-source SystemVerilog and Verilog simulator and compiler driven by the CHIPS Alliance and the Linux Foundation.</p>
+<p>Key Features:</p>
+<ul>
+  <li>Compiler Approach: Unlike traditional event-driven simulators, Verilator translates Verilog and SystemVerilog code into fast, cycle-accurate C++ or SystemC models (.cpp and .h files).</li>
+  <li>High Performance: It executes single-threaded simulations up to 100x faster—and multithreaded simulations up to 200–1000x faster—than traditional interpreted simulators.</li>
+  <li>Linting & Verification: Performs deep code linting, adds assertion checks, and supports code coverage analysis and waveform tracing.</li>
+</ul>
+
+<p>Basic Workflow</p>
+1. Verilate: Run the verilator command with your HDL source files to generate C++ or SystemC source files inside an output directory (such as obj_dir). You can also use flags like --binary to compile everything into an executable in one step.
+2. Wrapper: Write a small C++ driver or testbench (main.cpp) that defines main() and instantiates the Verilated design model as an object.
+3. Compile & Run: Compile the generated C++ files and your wrapper with a C++ compiler (like GCC or Clang) and execute the resulting binary.
+
+
 # How to compile Template Classes
 Given a class:
 ```
