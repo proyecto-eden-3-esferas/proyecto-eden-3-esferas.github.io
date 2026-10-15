@@ -1,3 +1,22 @@
+# Comparators
+<p>A <dfn>comparator</dfn> determines whether two binary numbers are equal or if
+one is greater or less than the other. A comparator receives two N-bit
+binary numbers A and B and outputs a 1-bit comparison result.</p>
+<p>An <dfn>equality comparator</dfn> produces a single output, indicating whether A is equal to B (A == B). A <dfn>magnitude comparator</dfn> produces one or more outputs, indicating the relative values of A and B.</p>
+<p>The equality comparator is the simpler piece of hardware. <!--Figure 5.11 shows the symbol and implementation of a 4-bit equality comparator. -->It first checks to determine whether the corresponding bits in each column of A and B are equal, using XNOR gates. The numbers are equal if all of the columns are equal.</p>
+# Shifters and Rotators
+<p>Shifters and rotators move bits and multiply or divide by powers of 2.</p>
+<p>As the name implies, a shifter shifts a binary number left or right by a specified number of positions. Several kinds of commonly used shifters exist:</p>
+<ul>
+  <li>
+    <p><strong>Logical shifter</strong> shifts the number to the left or right and fills empty spots with 0’s.</p>
+    <p>Example: 11001 >> 2 = 00110; 11001 &lt;&lt; 2 = 00100</p>
+  </li>
+  <li>
+    <p><strong>Arithmetic shifter</strong> is the same as a logical shifter, but on right shifts fills the most significant bits with a copy of the old most significant bit (msb). This is useful for multiplying and dividing signed numbers. Arithmetic shift left is the same as logical shift left.</p>
+    <p>Example: 11001 >>> 2 = 11110; 11001 &lt;&lt; 2 = 00100. The operators &lt;&lt;, >>, and >>> typically indicate shift left, logical shift right, and arithmetic shift right, respectively.</p>
+  </li>
+</ul>
 
 # Red de fé: pintores
 <p>Recuerdo que cuando trabajé dos meses de peón de pintura los compañeros manifestaban enfrentamiento al sistema, dentro de unos límites dado que si no cumplían los echarían. Los viernes por la tarde en particular se negaban a trabajar y holgaban con disimulo eso sí. Entre ellos parecía el mayor delito la falta de solidaridad entre iguales. Recuerdo que uno dijo, refiriéndose al cochazo del jefe, que una rueda se la había comprado con tantas y cuántas horas de trabajo ajeno apropiado.</p>
@@ -12,19 +31,7 @@
 </ul>
 
 
-# Verilator: a SystemVerilog Compiler
-<p>Verilator is a free, open-source SystemVerilog and Verilog simulator and compiler driven by the CHIPS Alliance and the Linux Foundation.</p>
-<p>Key Features:</p>
-<ul>
-  <li>Compiler Approach: Unlike traditional event-driven simulators, Verilator translates Verilog and SystemVerilog code into fast, cycle-accurate C++ or SystemC models (.cpp and .h files).</li>
-  <li>High Performance: It executes single-threaded simulations up to 100x faster—and multithreaded simulations up to 200–1000x faster—than traditional interpreted simulators.</li>
-  <li>Linting & Verification: Performs deep code linting, adds assertion checks, and supports code coverage analysis and waveform tracing.</li>
-</ul>
 
-<p>Basic Workflow</p>
-1. Verilate: Run the verilator command with your HDL source files to generate C++ or SystemC source files inside an output directory (such as obj_dir). You can also use flags like --binary to compile everything into an executable in one step.
-2. Wrapper: Write a small C++ driver or testbench (main.cpp) that defines main() and instantiates the Verilated design model as an object.
-3. Compile & Run: Compile the generated C++ files and your wrapper with a C++ compiler (like GCC or Clang) and execute the resulting binary.
 
 
 # How to compile Template Classes
@@ -219,14 +226,6 @@ Por ejemplo la tercera vía de los *makers* entre la abstracción y la concreci�
 [ ] Relacionar con *equilibrio.html*
 
 # Write *signals-and-systems.html#distributions*
-
-# Design
-<blockquote>
-  <p>The idea of a formal design discipline is often rejected on account of vague cultural / philosophical condemnations such as “stifling creativity”; this is more pronounced ... where a romantic vision of “the humanities” in fact idealizes technical incompetence ...</p>
-  <p>[We] know that for the sake of reliability and intellectual control we have to keep the design simple and disentangled.</p>
-  <p style="text-align: right">Edsger W. Dijkstra</p>
-</blockquote>
-
 
 # Add to *verilog.html*
 <section id="modules">

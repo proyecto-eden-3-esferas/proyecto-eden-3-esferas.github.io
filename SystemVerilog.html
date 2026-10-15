@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SystemVerilog</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="SystemVerilog"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+    <meta name="author" content="AUTHOR"/>
+    <meta name="FIELD_NAME" content="FIELD_VALUE"/>
+    -->
+  </head>
+  <body lang="en" class="electronics">
+    <nav>
+      <div>
+        <p><a            href="https://chipverify.com/tutorials/verilog">Verilog Tutorial at ChipVerify</a></p>
+        <p><a            href="https://www.electronics-tutorials.ws/">Electronics Tutorials</a></p>
+        <p><a            href="https://www.allaboutcircuits.com/">All About Circuits</a> (a Web Site)</p>
+        <p><a rel="prev" href="verilog.html">Verilog</a></p>
+      </div>
+      <div>
+        <p><a href="electronics.digital.html">Digital Electronics</a></p>
+        <p><a href="electronics.html">Electronics</a></p>
+        <p><a href="ic.html">Integrated Circuits</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>SystemVerilog</h1>
+      <p>SystemVerilog, standardized as IEEE 1800 by the Institute of Electrical and Electronics Engineers (IEEE), is a hardware description and hardware verification language commonly used to model, design, simulate, test and implement electronic systems in the semiconductor and electronic design industry. SystemVerilog is an extension of Verilog.</p>
+
+      <section id="software">
+        <h2>Software</h2>
+        <section id="verilator">
+          <h3>Verilator: a SystemVerilog Compiler</h3>
+          <p>Verilator is a free, open-source SystemVerilog and <a target="_blank" href="verilog.html">Verilog</a> simulator and compiler driven by the CHIPS Alliance and the <a target="_blank" href="linux.html">Linux</a> Foundation.</p>
+          <p>Key Features:</p>
+          <ul>
+            <li><strong>Compiler Approach:</strong> Unlike traditional event-driven simulators, Verilator translates Verilog and SystemVerilog code into fast, cycle-accurate C++ or SystemC models (.cpp and .h files).</li>
+            <li><strong>High Performance:</strong> It executes single-threaded simulations up to 100x faster—and multithreaded simulations up to 200–1000x faster—than traditional interpreted simulators.</li>
+            <li><strong>Linting and Verification:</strong> Performs deep code linting, adds assertion checks, and supports code coverage analysis and waveform tracing.</li>
+          </ul>
+          <p>Basic Workflow</p>
+          <ol>
+            <li><strong>Verilate:</strong> Run the verilator command with your HDL source files to generate C++ or SystemC source files inside an output directory (such as obj_dir). You can also use flags like --binary to compile everything into an executable in one step.</li>
+            <li><strong>Wrapper:</strong> Write a small C++ driver or testbench (main.cpp) that defines main() and instantiates the Verilated design model as an object.</li>
+            <li><strong>Compile and Run:</strong> Compile the generated C++ files and your wrapper with a C++ compiler (like GCC or Clang) and execute the resulting binary.</li>
+          </ol>
+        </section>
+      </section>
+    </main>
+
+  </body>
+
+</html>
