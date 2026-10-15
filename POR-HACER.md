@@ -1,3 +1,4 @@
+
 # Red de fé: pintores
 <p>Recuerdo que cuando trabajé dos meses de peón de pintura los compañeros manifestaban enfrentamiento al sistema, dentro de unos límites dado que si no cumplían los echarían. Los viernes por la tarde en particular se negaban a trabajar y holgaban con disimulo eso sí. Entre ellos parecía el mayor delito la falta de solidaridad entre iguales. Recuerdo que uno dijo, refiriéndose al cochazo del jefe, que una rueda se la había comprado con tantas y cuántas horas de trabajo ajeno apropiado.</p>
 <p>Pero también recuerdo un relato en sentido contrario. Había que realizar una larga tarea que a la empresa interesaba que se terminara cuanto antes, y entonces los trabajadores lo dieron todo e hicieron horas extras. Esto lo contaban con orgullo. Tal vez les enorgullecía que la empresa dependiera de ellos, o que se habían comportado con responsabilidad. Ningún resquicio de actitud crítica con el trabajo que realizaban, para quién pintaban.</p>
