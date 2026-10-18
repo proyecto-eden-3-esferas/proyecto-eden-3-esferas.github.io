@@ -1,3 +1,12 @@
+# Conspiranoias: vigilancia y comercio de datos
+<p>La mayor parte de la gente piensa, dice y habla sólo que el el resto. No tiene sentido hacer aspavientos ante el peligro de que se nos espíe y comercie con datos personales dato que, repito, todos estos pensamientos, conversaciones y acciones son de lo más vulgar y falto de interés e imaginación.</p>
+<p>Por supuesto que puede obtenerse un beneficio económico marginal de saber que la señora XX prefiere sujetadores apretados, o que el señor XY tiende a comprar cerveza los sábados por la tarde. Ese tipo de detalles no invalida la terrible realidad de que somos una masa descoordinada, uniforme y pasmosamente predecible.</p>
+
+# Red de Fe: Dependientes
+<p>En el LIDL de Balaguer se me ha ocurrido comprar una grapadora de tapicería. A lo largo del día he tirado el ticket y al ir a usarla la caja no contenía todas las piezas y la grapadora en sí estaba averiada. La he abierto y, en efecto, tenía una pieza forzada. Además de faltar la mitad de las grapas.</p>
+<p>Le he contado lo ocurrido a una dependiente superior o supervisora y he añadido que había muchas herramientas <q>abiertas</q>, es decir que los clientes habían abierto la caja, y que estaba mal organizado. Ella ha contraatacado con que debería haber convervado el ticket de compra y en absoluto ha reconocido la mala actuación de su empresa. He opinado que falta control, que no deberían dejarse artículos devueltos sin antes comprobar que funcionan. Ella en cambio se ha aferrado a mi obligación de conservar el ticket de compra.</p>
+<p>Quiero decir con todo esto que asusta pensar que la empleabilidad de muchos trabajadores pende y depende de su capacidad de solidarizarse con causas indefendibles.</p>
+
 # Comparators
 <p>A <dfn>comparator</dfn> determines whether two binary numbers are equal or if
 one is greater or less than the other. A comparator receives two N-bit
