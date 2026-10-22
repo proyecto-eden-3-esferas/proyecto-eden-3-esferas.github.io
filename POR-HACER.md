@@ -1,3 +1,59 @@
+# Ragnarok
+And they learned that at the end of time, the Norse gods would fight in one final battle against the forces of chaos in an epic event called Ragnarok.
+
+# La Gran Quema o ¿Por qué la religión?
+<p>A lo largo de mi vida [se] me había presionado para que fuera tirando mis libros. Muchos científicos o técnicos que había comprado de saldo...</p>
+<p>Cuando quedaba un mes para la mudanza había reducido mi parte de estantería a dos baldas. Todos los de alemán, gramáticas de francés, todas mis novelas en inglés y alemán.</p>
+<p>Absolutamente absurdo dado que mi sobrino de veinte años estudiaba Antropología y le convenía e incluso debía aprender inglés, para lo cuál le venía bien un ambiente de libros de inglés...</p>
+<p>...</p>
+
+# Ahorro de tiempo
+<p>La prisa supone ahorro de tiempo en un momento dado, no de tiempo total en tanto que recurso.</p>
+<p>Ejemplo el que se quita los zapatos de un tirón para tenerlos que desatar más tarde y posiblemente con deterioro de los mismos.</p>
+
+# Associative Arrays or Maps (also Dictionaries) in *adt.maps.html*
+<p>A <dfn>dictionary</dfn>, <dfn>associative array</dfn>, or <dfn>map</dfn> is an abstract data structure designed to store data as a collection of key-value pairs. Unlike arrays or lists that reference data using numeric indexes (0, 1, 2...), a dictionary allows you to look up information using custom, unique keys (such as strings).</p>
+<p>Associative arrays are implemented as binary trees (<q>ordered</q>) or as hash tables (<q>unordered</q>).</p>
+<p>A <dfn>hashmap</dfn> is a dictionary or associative array that has been implemented on a hash table.</p>
+
+# Representación de datos mediante diccionarios
+<p>Sea un <dfn>diccionario</dfn> una correspondencia entre frases y frases, si bien en estructuras de datos un diccionario significa cualquier correspondencia.</p>
+<p>Por ejemplo dada una persona, podríamos describirla mediante un diccionario:</p>
+<table border="1">
+  <tr> <td>nombre</td>        <td>Jessica</td> </tr>
+  <tr> <td>color de pelo</td> <td>castaño</td> </tr>
+  <tr> <td>país</td>          <td>Portugal</td> </tr>
+</table>
+
+
+# IA
+
+<blockquote>
+• 004: Computer science and technology
+	• 004.8: Artificial intelligence
+	• 004.9: Application-oriented computer-based techniques (including document processing, computer graphics, and pattern information processing
+</blockquote>
+
+<p>La Inteligencia Artificial nos sustituye, si bien la IA no es más que la última etapa de una de tres series o progresiones de sustituciones. Considero, por el momento y mejorable, tres series de sustituciones:</p>
+<dl>
+  <dt>El músculo</dt>
+  <dd>
+    <p>El músculo humano se sustituye por el animal. Arados, recuas, monturas.</p>
+    <p>Pronto fue el viento: la vela de barco, el molino de viento. Se aprovechaba también la fuerza de las mareas, la corriente de los ríos, la circulación de las aguas marinas...</p>
+  </dd>
+  <dt>La mano, la habilidad psicomotriz, la ergonomía</dt>
+  <dd>
+    <p>Principalmente sustituyen nuestra habilidad psicomotriz las herramientas.</p>
+    <p>Un ejemplo paradigmático lo constituye la máquina de coser.</p>
+  </dd>
+  <dt>La mente</dt>
+  <dd>
+    <p>He leído que <q>calculadora</q> en épocas anteriores significaba una persona que calculaba. Las calculadoras modernas sin duda sustituyen una facultad tan connatural al Hombre. Piénsese en revuelo que causó el famoso caballo que sabía sumar.</p>
+  </dd>
+</dl>
+<p>Hablo de <strong>series</strong> o <strong>progresiones</strong> pues a menudo se observa una progresión en el tiempo. De hecho la serie de la energía tiende a preceder a la de la psicomotricidad, y ésta a la de la inteligencia. Con solapamientos significativos. Por ejemplo la máquina de coser (psicomotricidad) precede al motor de combustiòn interna (energía)</p>
+<p>También podríamos criticar o corregir este modelo señalando otras series, como la de la empatía y la compañía. De los círculos alrededor de la hoguera hemos pasado a las muñecas de trapo, luego a las muñecas de peluche y por último a los tamagochi y los <i lang="en">chatbots</i>. Hasta el punto de que una mujer japonesa optó por casarse con una inteligencia artificial.</p>
+
 # Conspiranoias: vigilancia y comercio de datos
 <p>La mayor parte de la gente piensa, dice y habla sólo que el el resto. No tiene sentido hacer aspavientos ante el peligro de que se nos espíe y comercie con datos personales dato que, repito, todos estos pensamientos, conversaciones y acciones son de lo más vulgar y falto de interés e imaginación.</p>
 <p>Por supuesto que puede obtenerse un beneficio económico marginal de saber que la señora XX prefiere sujetadores apretados, o que el señor XY tiende a comprar cerveza los sábados por la tarde. Ese tipo de detalles no invalida la terrible realidad de que somos una masa descoordinada, uniforme y pasmosamente predecible.</p>
