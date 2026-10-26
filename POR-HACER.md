@@ -1,3 +1,110 @@
+# Enlarge on Boards Compatible with the Arduino IDE
+At arduino.html#3rd-party-and-compatible-boards
+
+
+# Parsing UDC
+[ ] Write *udc.regex.html*
+[ ] Link to *udc.regex.html*, and
+[ ] Link back to  *udc.html*
+
+## UDC Subject/Topic Tables
+
+## Regular Expressions
+Here are regular expressions (Regex) designed to validate or parse the Universal Decimal Classification (UDC) system, ranging from simple notation to complex auxiliary signs.
+
+1. Simple UDC Notation (Numbers & Subdivisions)
+
+This pattern matches standard main numbers, which are typically grouped in threes separated by points (e.g., 51, 517, 517.9, 517.923).
+regex
+^\d{1,3}(\.\d{3})*$
+Use code with caution.
+• How it works: Matches 1 to 3 digits at the start, followed by any number of optional blocks containing a dot and exactly 3 digits.
+• Matches: 5, 51, 517, 517.923
+• Non-matches: 517.9 (if strict 3-digit grouping is required), .517, 517.
+
+
+2. Common Auxiliary Signs (Standard Set)
+
+UDC uses specific punctuation symbols to denote facets like language, form, place, race, time, and materials.
+
+Facet / Sign	UDC Example	Regex Pattern Component
+Relation (Colon)	:51	:\d{1,3}(\.\d{3})*
+Language (=)	=111	=\d+
+Form (0...)	(035)	\(0\d+\)
+Place (...)	(420)	\([^0]\d+\)
+Race (=...)	(=1.4)	\(=[\d\.]+\)
+Time ("...")	"1997"	"[^"\r\n]+"
+General Characteristics	-02 or .0...	`(?:-0\d+
+
+
+3. Comprehensive Parsing / Validation Pattern
+
+If you need a robust Regex to validate or extract components from a complex, combined UDC string (e.g., 517.9:37(=1.4)"19"), use this tokenizing pattern:
+regex
+(?<main>\d{1,3}(?:\.\d{3})*)(?<relation>:\d{1,3}(?:\.\d{3})*)?(?<lang>=\d+)?(?<form>\(0\d+\))?(?<place>\([^0]\d+\))?(?<race>\(=[\d\.]+\))?(?<time>"[^"\r\n]+")?
+
+
+Pattern Breakdown:
+
+• (?<main>...): Captures the base subject category.
+• (?<relation>...)?: Matches an optional relation to another class prefixed by a colon.
+• (?<lang>...)?: Matches optional language identifiers.
+• (?<form>...)?: Matches document format brackets beginning with a zero.
+• (?<place>...)?: Matches geographic brackets not beginning with a zero.
+• (?<race>...)?: Matches ethnic group brackets starting with an equals sign.
+• (?<time>...)?: Matches time frames enclosed in quotation marks.
+
+
+Implementation Quick-Tip
+
+Because UDC strings can contain highly complex syntactical combinations (such as nesting or parallel processing signs like + and /), strict validation via a single regular expression can become prone to catastrophic backtracking. For production-level cataloging software, it is best to use Regex for initial tokenization, followed by a recursive transition parser to handle deep syntax validation.
+
+
+# Splitting a Large M4B File
+
+<h1>Using ffmpeg and ffprobe</h1>
+<p>If you prefer using standard command-line tools already installed on most Linux distributions, you can inspect chapter markers with <code>ffprobe</code> and slice the file using <code>ffmpeg</code>.</p>
+<ul>
+  <li>
+    <p><strong>Inspect Chapters:</strong> View the chapter timestamps and titles inside your M4B file</p>
+    <pre>ffprobe -i input.m4b -show_chapters</pre>
+    <p>You can select a format by adding <code>-print_format {json|xml|compact|csv|ini}</code>. These are discussed in the <cite>Writers</cite> section in the <a target="_blank" href="https://ffmpeg.org/ffprobe.html">Documantation</a></p>
+  </li>
+  <li>
+    <p><strong>Split Using Stream Copy:</strong> Cut individual chapters losslessly without re-encoding by specifying the start (-ss) and end (-to) times for each chapter</p>
+    <pre>ffmpeg -i input.m4b -ss 00:00:00 -to 00:15:30 -c copy chapter1.m4b</pre>
+  </li>
+</ul>
+## Producing a CUE File
+You can export the metadata into standard ffmpeg metadata format, which is easily human-readable, and manually copy-paste the timestamps into a text file.
+<ol>
+  <li>
+    <p>Export the metadata text file:</p>
+    <pre>ffmpeg -i input.flac -f ffmetadata metadata.txt</pre>
+  </li>
+  <li>
+    <p>Open metadata.txt. You will see sections look like this:</p>
+    <pre>[CHAPTER]
+TIMEBASE=1/1000
+START=0
+END=180000
+title=Track 1</pre>
+  </li>
+  <li>
+    <p>Manually map it to a .cue structure using a text editor</p>
+    <pre>TITLE "Album Title"
+FILE "input.flac" WAVE
+  TRACK 01 AUDIO
+    TITLE "Track 1"
+    INDEX 01 00:00:00
+  TRACK 02 AUDIO
+    TITLE "Track 2"
+    INDEX 01 03:00:00</pre>
+  </li>
+</ol>
+
+
+
 # Ragnarok
 And they learned that at the end of time, the Norse gods would fight in one final battle against the forces of chaos in an epic event called Ragnarok.
 
