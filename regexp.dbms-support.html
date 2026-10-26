@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Regular Expressions in DBMS&apos;s</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.en.css"/>
+    <meta name="description" content="Support for Regular Expressions in DBMS&apos;s (DataBase Management Systems)"/>
+    <!--
+    <meta name="keywords" content="KW1, KW2, KW3"/>
+-->
+  </head>
+  <body lang="en" class="computing">
+    <nav>
+    <!--
+      -->
+      <div>
+        <p><a rel="prev" href="regexp.html">Regular Expressions: A Language of Text Patterns</a></p>
+        <p><a            href="database.html">Databases</a></p>
+      </div>
+      <div>
+        <p><a href="sed.html"><code>sed</code>, the Unix Stream EDitor</a></p>
+        <p><a href="cpp.regexp.html">Regular Expressions in C++</a></p>
+        <p><a href="computing.html">Computing with Computers</a></p>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Support for Regular Expressions in DBMS&apos;s (DataBase Management Systems)</h1>
+
+      <section id="sqlite">
+        <h2>Support for Regular Expressions in SQLite</h2>
+        <p><a target="_blank" href="sqlite.html">SQLite</a> does not support regular expressions by default. However, you can easily enable them using the <code>sqlean-regexp</code> extension.</p>
+        <aside>
+          <p>Note. Unlike other DBMS, adding extensions to SQLite is a breeze. Download a file, run one database command — and you are good to go. Like this:</p>
+          <pre>sqlite> .load ./regexp</pre>
+        </aside>
+        <section>
+          <h3>Pattern matching and text replacement</h3>
+          <p>There are three main tasks people usually solve using regular expressions:</p>
+          <ul>
+            <li>Match a string against the pattern.</li>
+            <li>Extract a part of the string that matches the pattern.</li>
+            <li>Replace all parts of the string that match the pattern.</li>
+          </ul>
+          <p><code>sqlean-regexp</code> provides a separate function for each of these tasks.</p>
+          <dl>
+
+            <dt><code>regexp_like</code></dt>
+            <dd>
+              <p>Checks if the source string matches the pattern.</p>
+              <pre>select regexp_like('Meet me at 10:30', '\d+:\d+');
+-- 1
+select regexp_like('Meet me at the cinema', '\d+:\d+');
+-- 0</pre>
+            </dd>
+
+            <dt><code>regexp_substr</code></dt>
+            <dd>
+              <p>Returns a substring of the source string that matches the pattern.</p>
+              <pre>select regexp_substr('Meet me at 10:30', '\d+:\d+');
+-- 10:30
+select regexp_substr('Meet me at 17:05', '\d+:\d+');
+-- 17:05</pre>
+            </dd>
+
+            <dt><code>regexp_replace</code></dt>
+            <dd>
+              <p>Replaces all matching substrings with the replacement string.</p>
+              <pre>select regexp_replace('password = "123456"', '"[^"]+"', '***');
+-- password = ***
+select regexp_replace('1 2 3 4', '[2468]', 'even');
+-- 1 even 3 even</pre>
+            </dd>
+          </dl>
+        </section>
+
+        <section>
+          <h3>Pattern syntax</h3>
+          <p><code>sqlean-regexp</code> supports pretty advanced syntax, including various groups, lazy quantifiers, and look-arounds:</p>
+          <pre>select regexp_substr('the year is 2020', '(\d{2})\1');
+-- 2020
+select regexp_substr('the year is 2021', '(\d{2})\1');
+-- (null)
+
+select regexp_substr('1 2 3 2 4 5', '.*2');
+-- 1 2 3 2
+select regexp_substr('1 2 3 2 4 5', '.*?2');
+-- 1 2
+
+select regexp_substr('new year', '(\w+)\s(?=year)');
+-- new
+select regexp_substr('last year', '(\w+)\s(?=year)');
+-- last</pre>
+        </section>
+
+      </section>
+      <section id="mysql">
+        <h2>Support for Regular Expressions in <a target="_blank" href="mysql.html">MySQL</a></h2>
+        <p style="text-align: right">(<i>See</i> <cite><a target="_blank" href="https://dev.mysql.com/doc/refman/9.7/en/regexp.html">14.8.2 Regular Expressions (MySQL 9.7 Manual)</a></cite>)</p>
+        <section>
+          <h3>Some Practical Examples</h3>
+          <p>Given a table named <var>sample_data</var>...</p>
+          <dl>
+            <dt>Match strings starting with ‘a’</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘^a’;</pre>
+            </dd>
+            <dt>Match strings ending with ‘e’</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘e$’;</pre>
+            </dd>
+            <dt>Match strings containing ‘12’</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘12’;</pre>
+            </dd>
+            <dt>Match strings starting with either ‘a’ or ‘o’</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘^(a|o)’;</pre>
+            </dd>
+            <dt>Match strings with at least one digit</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘[0–9]’;</pre>
+            </dd>
+            <dt>Match strings with exactly 5 uppercase letters</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘^[A-Z]{5}$’;</pre>
+            </dd>
+            <dt>Match strings with at least one letter</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘[a-zA-Z]’;</pre>
+            </dd>
+            <dt>Match strings containing ‘cat’ or ‘dog’ (case-insensitive)</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘(cat|dog)’;</pre>
+            </dd>
+            <dt>Match strings not containing ‘abc’</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex NOT REGEXP ‘abc’;</pre>
+            </dd>
+            <dt>Match strings with at least one uppercase letter, followed by any character, and ending with two digits</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘[A-Z].*[0–9]{2}’;</pre>
+            </dd>
+            <dt>Match strings starting with ‘abc’ or ‘xyz’, followed by any number of digits, and optionally ending with ‘_test’</dt>
+            <dd>
+              <pre>SELECT * FROM sample_data WHERE regex REGEXP ‘^(abc|xyz)[0–9]*(_test)?$’;</pre>
+            </dd>
+            <dt></dt>
+            <dd>
+            </dd>
+
+          </dl>
+        </section>
+      </section>
+
+      <section id="couchdb">
+        <h2>Support for Regular Expressions in <a target="_blank" href="couchdb.html">CouchDB</a>, a <a target="_blank" href="json.html">JSON</a> Document DBMS</h2>
+        <p style="text-align: right">(<i>See</i> <cite><a target="_blank" href="https://docs.couchbase.com/server/current/n1ql/n1ql-language-reference/patternmatchingfun.html">Pattern-Matching Functions</a></cite> in the official CouchDB Documentation.)</p>
+        <section>
+          <h3><code>REGEXP_CONTAINS(<var>expression</var>, <var>pattern</var>)</code></h3>
+          <p>This function has an alias <code>REGEX_CONTAINS()</code>.</p>
+          <p>It returns TRUE if the string value contains any sequence that matches the regular expression pattern.</p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre>SELECT name
+FROM landmark
+WHERE REGEXP_CONTAINS(name, "In+.*")
+LIMIT 5;</pre>
+          <p>Result:</p>
+          <pre>[
+  {
+    "name": "Beijing Inn"
+  },
+  {
+    "name": "Sportsman Inn"
+  },
+  {
+    "name": "In-N-Out Burger"
+  },
+  {
+    "name": "Mel's Drive-In"
+  },
+  {
+    "name": "Inverness Castle"
+  }
+]</pre>
+        </section>
+        <section>
+          <h3><code>REGEXP_LIKE(<var>expression</var>, <var>pattern</var>)</code></h3>
+          <p>This function has an alias REGEX_LIKE().</p>
+          <p>It returns TRUE if the string value <em>exactly</em> matches the regular expression pattern.</p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre>SELECT name
+FROM landmark
+WHERE REGEXP_LIKE(name, "In+.*")
+LIMIT 5;</pre>
+          <p>Result:</p>
+          <pre>[
+  {
+    "name": "In-N-Out Burger"
+  },
+  {
+    "name": "Inverness Castle"
+  },
+  {
+    "name": "Inverness Museum &amp; Art Gallery"
+  },
+  {
+    "name": "Inverness Botanic Gardens"
+  },
+  {
+    "name": "International Petroleum Exchange"
+  }
+]</pre>
+        </section>
+        <section>
+          <h3><code>REGEXP_MATCHES(<var>expression</var>, <var>pattern</var>)</code></h3>
+          <p>Returns an array of all substrings matching the expression pattern within the input string expression. Returns an empty array if no match is found.</p>
+          <p>The following query finds all words beginning with upper or lower case B.</p>
+          <p>Query:</p>
+          <pre>SELECT REGEXP_MATCHES("So, 'twas better Betty Botter bought a bit of better butter",
+                      "\\b[Bb]\\w+");</pre>
+          <aside><strong>Note:</strong> The backslash that introduces an escape sequence in the regular expression must itself be escaped by another backslash in the SQL++ query. So \b (word boundary) must be entered as \\b and \w (word character) must be entered as \\w.</aside>
+          <p>Result:</p>
+          <pre>[
+  {
+    "$1": [
+      "better",
+      "Betty",
+      "Botter",
+      "bought",
+      "bit",
+      "better",
+      "butter"
+    ]
+  }
+]</pre>
+          <p>The following query finds sequences of two words beginning with upper or lower case B.</p>
+          <p>Query:</p>
+          <pre>SELECT REGEXP_MATCHES("So, 'twas better Betty Botter bought a bit of better butter",
+                      "\\b[Bb]\\w+ \\b[Bb]\\w+");</pre>
+          <p>Result:</p>
+          <pre>[
+  {
+    "$1": [
+      "better Betty",
+      "Botter bought",
+      "better butter"
+    ]
+  }
+]</pre>
+        </section>
+        <section>
+          <h3><code>REGEXP_POSITION(<var>expression</var>, <var>pattern</var>)</code></h3>
+          <p>This function has an alias <code>REGEX_POSITION()</code>.</p>
+          <p>Returns first position of the occurrence of the regular expression pattern within the input string expression. Returns -1 if no match is found. Position counting starts from zero.</p>
+          <p>Query:</p>
+          <pre>SELECT name, ARRAY REGEXP_POSITION(x, "[aeiou]") FOR x IN TOKENS(name) END
+FROM hotel
+LIMIT 2;</pre>
+          <p>Result:</p>
+          <pre>[
+  {
+    "$1": [
+      1,
+      1,
+      1
+    ],
+    "name": "Medway Youth Hostel"
+  },
+  {
+    "$1": [
+      2,
+      1,
+      1
+    ],
+    "name": "The Balmoral Guesthouse"
+  }
+]</pre>
+        </section>
+        <section>
+          <h3><code>REGEXP_REPLACE(expression, pattern, repl [, n])</code></h3>
+          <p>This function has an alias <code>REGEX_REPLACE()</code>.</p>
+          <p><var>repl</var> is a string, or any SQL++ expression that evaluates to a string.</p>
+          <p><var>n</var> [optional] is the maximum number of times to find and replace the matching pattern.</p>
+          <p>It returns new string with occurrences of pattern replaced with repl. If n is given, at the most n replacements are performed. If n is not provided, all matching occurrences are replaced.</p>
+          <p>Examples:</p>
+          <p>Query:</p>
+          <pre>SELECT REGEXP_REPLACE("Sql++ is sql for NoSql", "[sS][qQ][lL]", "SQL"),
+       REGEXP_REPLACE("Winning innings Inn", "[Ii]n+", "Hotel", 6),
+       REGEXP_REPLACE("Winning innings Inn", "[IiNn]+g", upper("inning"), 2);</pre>
+          <p>Result:</p>
+          <pre>[
+  {
+    "$1": "SQL++ is SQL for NoSQL",
+    "$2": "WHotelHotelg HotelHotelgs Hotel",
+    "$3": "WINNING INNINGs Inn"
+  }
+]</pre>
+          <p>In the example below, the query retrieves first 4 documents and replaces the pattern of repeating n with emphasized NNNN.</p>
+          <p>Query:</p>
+          <pre>SELECT name, REGEXP_REPLACE(name, "n+", "NNNN") as new_name
+FROM airline
+LIMIT 4;</pre>
+          <p>Result:</p>
+          <pre>[
+  {
+    "name": "40-Mile Air",
+    "new_name": "40-Mile Air"
+  },
+  {
+    "name": "Texas Wings",
+    "new_name": "Texas WiNNNNgs"
+  },
+  {
+    "name": "Atifly",
+    "new_name": "Atifly"
+  },
+  {
+    "name": "Jc royal.britannica",
+    "new_name": "Jc royal.britaNNNNica"
+  }
+]</pre>
+        </section>
+        <section>
+          <h3><code>REGEXP_SPLIT(expression, pattern)</code></h3>
+          <p>Returns an array of all the substrings created by splitting the input string expression at each occurrence of the expression pattern. Returns an empty array if no match is found.</p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre>SELECT REGEXP_SPLIT("C:\\Program Files\\couchbase\\server\\bin", "[\\\\]") AS Windows,
+REGEXP_SPLIT("/opt/couchbase/bin", "/") AS Unix;</pre>
+          <aside>The regular expression [\\\\] matches the escaped backslash \\.</aside>
+          <p>Result:</p>
+          <pre>[
+  {
+    "Unix": [
+      "",
+      "opt",
+      "couchbase",
+      "bin"
+    ],
+    "Windows": [
+      "C:",
+      "Program Files",
+      "couchbase",
+      "server",
+      "bin"
+    ]
+  }
+]</pre>
+          <aside>The REGEXP_SPLIT function returns any zero-length matches that occur at the start of the expression string, except when the split pattern is zero-length. Otherwise, it returns any zero-length matches immediately after a previous match.</aside>
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+        <section>
+          <h3><code></code></h3>
+          <p></p>
+          <p>Example:</p>
+          <p>Query:</p>
+          <pre></pre>
+          <p>Result:</p>
+          <pre></pre>
+
+        </section>
+
+      </section>
+
+      <section id="mongodb">
+        <h2>Support for Regular Expressions in <a target="_blank" href="mongodb.html">MongoDB</a>, a <a target="_blank" href="json.html">JSON</a> Document DBMS</h2>
+      </section>
+
+    </main>
+
+  </body>
+
+</html>
