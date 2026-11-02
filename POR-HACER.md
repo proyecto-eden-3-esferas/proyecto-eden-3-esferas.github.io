@@ -1,3 +1,67 @@
+
+
+
+# Mi impresión de Andrea (*andrea.html*)
+[ ] enlazar desde *funcionarios.html*
+<p>Andrea: musculosa de máquinas, rigurosa, culialta, padre adoptiva, adulta, responsable.</p>
+<p>Con la niña de los dos, un poco hiperactiva, conecto más que con los padres, a pesar de mi amistad de años con Alberto.</p>
+<p>Andrea da clases de informática en un Instituo de Bachillerato. Les enseña mucha programación, en los <a target="_blank" href="programacion.html#lenguajes">lenguajes informáticos</a> python, javascript, HTML, PHP... no precisamente mis preferidos, a lo largo de mi evolución me he decantado por C/C++</p>
+<p>Andaluza, habla castellano universal y va a clases de castañuelas. Si se complementa con Alberto, por miedo a caer en el morbo no les he preguntado cómo se reparten las funciones o <i lang="fr">roles</i> dichosos.</p>
+<p>(Me pregunto cuánto de nuestra personalidad, observando la suya, es impuesta por la sociedad para encajar en unos roles, tanto los de antes como los de después del reconocimiento de múltiples géneros.)</p>
+<p>Su mente es eficiente y equilibrada, sin mostrar flexibilidad ni debilidad en ese par de horas que hemos coincidido.</p>
+<p>Yo he contraatacado definiéndome asexual, lo que no ha sentado bien a Andrea, aunque no tan mal a Alberto, porque me conoce. Se trata de una cuestión matemática: la falsa tolerancia admitirá <var>n</var> orientaciones sexualidades en un espacio de infinitas posibilidades, incluso del subconjunto de las orientaciones heterosexuales, como en mi caso.</p>
+<p>Alberto sabe y conoce mi teoría de que tenemos o yo por lo menos tengo dos orientaciones. Una fuerte pulsión o atracción por la cadera ancha, las curvas amplias, la lozanía, la belleza que quita el aliento, la cuál coexiste con la posibilidad inevitable de enamorarme de mujeres de mi avanzada edad que ni siquiera me parecen atractivas ni me excitan, profunda y sinceramente. Intento que esta teoría, cuando la expongo, no se convierta en una crítica a los homosexuales. En realidad es sobre todo una crítica a los heterosexuales que consideran que consideran un deber abordar a toda hembra de buen ver y <a target="_blank" href="contabilidad.html">contabilizar</a> el éxito personal en viviendas, cotizaciones e hijos concebidos.</p>
+<p>El primer año que trabajó en su actual le tocaron cursos malos y estuvo <q>a punto de dejar la enseñanza</q>, como yo.-</p>
+<p>Ha adquirido o se ha labrado fama de exigente, su asignatura ya no se toma por una maría, lo cuál se traduce en menos problemas de disciplina. Funciona así.</p>
+<p>Me he sentado al lado de mi íntimo Alberto y en un momento dado hemos conservado nosotros dos y Andrea con mi hermana, por supuestas afinidades.</p>
+<hr/>
+<p>Presiento que lo que los une a los dos, lo que comparten es la <i lang="la"><a href="stoliditas.es.html">stoliditas</a></i>. En seguida me he dado cuenta con Andreas, y con Alberto desde hace años, que es imposible decir nada, expresar algún <i lang="la">dictum</i>. No me molestan sus opiniones ni posturas más o menos ideológicas, en realidad restringidas a una estrecha, según ellos ancha, franja de centro, sino ese sabotaje suyo de cualquier expansión espiritual o ampliación de horizontes.</p>
+<hr/>
+<p>De ciudadanos como ella es de los que se dice que poseen una plaza, que son <a target="_blank" href="funcionarios.html">funcionarios</a> de carrera, fijos e imposibles de quitar.</p>
+<hr/>
+<p>A veces temo que nos equivocamos confiando nuestra formación a <q>profesionales</q> entre mediocres y malos, sospecho que algo peores que Ester.</p>
+
+# TODO
+Limited save to an externar HDD of only:
+-religion
+  - buddhism
+  - kabbalah
+- Jung
+- deutsch
+- French
+- health
+- computing
+- art
+- anthropology
+- technology_and_modern_developments
+- classical
+- Japan
+- biology (?)
+- Chinese (??)
+
+# Some Songs by Robert Plant (the singer with Led Zeppelin)
+
+https://www.youtube.com/watch?v=jj5nH0O8lmg&list=RDjj5nH0O8lmg&start_radio=1 (Robert Plant: In the Mood)
+
+https://www.youtube.com/watch?v=GPyPT7fb0-Q&list=RDGPyPT7fb0-Q&start_radio=1 (Robert Plant: Ship of Fools)
+
+https://www.youtube.com/watch?v=EaL_3bdbbeQ&list=RDEaL_3bdbbeQ&start_radio=1 (Robert Plant: Little by Little)
+
+https://www.youtube.com/watch?v=B9Omu_QYb4Q&list=RDB9Omu_QYb4Q&start_radio=1 (Robert Plant: Heaven Knows)
+
+https://www.youtube.com/watch?v=UINidbbvGFM&list=RDUINidbbvGFM&start_radio=1 (Robert Plant: 'If I Were A Carpenter' | Official Music Video [HD Upgrade]
+)
+
+# Tres: Posibilidades
+Nos limitamos a dos posibilidades, la absolutamente teórica y la absolutamente práctica.
+
+Por ejemplo mi sobrino ha terminado Antropología y ahora empieza con un grado en Filosofía, Economía y Política. Evidentemente no estudia una Ingeniería, pero bien podría aprender algo técnico relacionado, enlazar, como, como ya le he dicho:
+- programación en PROLOG
+- bases de datos
+- XML
+
+Pero la sociedad nos restringe a elegir entre los dos extremos.
+
 # Enlarge on Boards Compatible with the Arduino IDE
 At arduino.html#3rd-party-and-compatible-boards
 
@@ -8,6 +72,7 @@ At arduino.html#3rd-party-and-compatible-boards
 [ ] Link back to  *udc.html*
 
 ## UDC Subject/Topic Tables
+
 
 ## Regular Expressions
 Here are regular expressions (Regex) designed to validate or parse the Universal Decimal Classification (UDC) system, ranging from simple notation to complex auxiliary signs.
