@@ -1,25 +1,36 @@
+# liberal-conservador.html#universalismo
+<p>Los liberales ven al Ser Humano constante e igual más allá de los constructos sociales (universalismo), mientras que según los liberales al cada uno nos define el grupo y la cultura a la que pertenecemos.</p>
+
+# Creación de contenido (*creacion-de-contenido.html*)
+<p>Desde un punto de vista clásico el concepto o expresión suena fatal.</p>
+<p>Diferente de la presuposición clásica ...</p>
+
+<section id="series">
+  <h2>Las series</h2>
+  <p>...</p>
+</section>
+
+<p>¿Intrínsecamente manipulador?</p>
+<p>De modo que se convierte en algo mecánico y a la vez existe un público que gusta de ese algo mecánico.</p>
+
+<blockquote>
+  <p><i lang="en">Genre Literature</i></p>
+</blockquote>
+
+<section id="noticias">
+  <p>Las noticias se crean más que se cuentan, relatan, comunican.</p>
+  <p>Por supuesto que tales noticias estarán basadas en sucesos reales pero lo que recibimos y percibimos es principalmente la elaboración por parte del periodista, cámara, gestor...</p>
+  <p>Ver u oír las noticias significa asistir a un espectáculo.</p>
+  <p>No queremos tanto enterarnos [de lo que ocurre] como recibir un estímulo.</p>
+</section>
+
+# Lógica de la semilla (*logica-seminal.html*)
+# Adañido a *infraestructuras.html*
+<p>Según <a target="_blank" href="logica-seminal.html">determinada lógica</a> que distingue entre causa y condición, las infraestructuras no generan desarrollo (causa) sino que sólo lo posibilitan (condición).</p>
 
 
 
-# Mi impresión de Andrea (*andrea.html*)
-[ ] enlazar desde *funcionarios.html*
-<p>Andrea: musculosa de máquinas, rigurosa, culialta, padre adoptiva, adulta, responsable.</p>
-<p>Con la niña de los dos, un poco hiperactiva, conecto más que con los padres, a pesar de mi amistad de años con Alberto.</p>
-<p>Andrea da clases de informática en un Instituo de Bachillerato. Les enseña mucha programación, en los <a target="_blank" href="programacion.html#lenguajes">lenguajes informáticos</a> python, javascript, HTML, PHP... no precisamente mis preferidos, a lo largo de mi evolución me he decantado por C/C++</p>
-<p>Andaluza, habla castellano universal y va a clases de castañuelas. Si se complementa con Alberto, por miedo a caer en el morbo no les he preguntado cómo se reparten las funciones o <i lang="fr">roles</i> dichosos.</p>
-<p>(Me pregunto cuánto de nuestra personalidad, observando la suya, es impuesta por la sociedad para encajar en unos roles, tanto los de antes como los de después del reconocimiento de múltiples géneros.)</p>
-<p>Su mente es eficiente y equilibrada, sin mostrar flexibilidad ni debilidad en ese par de horas que hemos coincidido.</p>
-<p>Yo he contraatacado definiéndome asexual, lo que no ha sentado bien a Andrea, aunque no tan mal a Alberto, porque me conoce. Se trata de una cuestión matemática: la falsa tolerancia admitirá <var>n</var> orientaciones sexualidades en un espacio de infinitas posibilidades, incluso del subconjunto de las orientaciones heterosexuales, como en mi caso.</p>
-<p>Alberto sabe y conoce mi teoría de que tenemos o yo por lo menos tengo dos orientaciones. Una fuerte pulsión o atracción por la cadera ancha, las curvas amplias, la lozanía, la belleza que quita el aliento, la cuál coexiste con la posibilidad inevitable de enamorarme de mujeres de mi avanzada edad que ni siquiera me parecen atractivas ni me excitan, profunda y sinceramente. Intento que esta teoría, cuando la expongo, no se convierta en una crítica a los homosexuales. En realidad es sobre todo una crítica a los heterosexuales que consideran que consideran un deber abordar a toda hembra de buen ver y <a target="_blank" href="contabilidad.html">contabilizar</a> el éxito personal en viviendas, cotizaciones e hijos concebidos.</p>
-<p>El primer año que trabajó en su actual le tocaron cursos malos y estuvo <q>a punto de dejar la enseñanza</q>, como yo.-</p>
-<p>Ha adquirido o se ha labrado fama de exigente, su asignatura ya no se toma por una maría, lo cuál se traduce en menos problemas de disciplina. Funciona así.</p>
-<p>Me he sentado al lado de mi íntimo Alberto y en un momento dado hemos conservado nosotros dos y Andrea con mi hermana, por supuestas afinidades.</p>
-<hr/>
-<p>Presiento que lo que los une a los dos, lo que comparten es la <i lang="la"><a href="stoliditas.es.html">stoliditas</a></i>. En seguida me he dado cuenta con Andreas, y con Alberto desde hace años, que es imposible decir nada, expresar algún <i lang="la">dictum</i>. No me molestan sus opiniones ni posturas más o menos ideológicas, en realidad restringidas a una estrecha, según ellos ancha, franja de centro, sino ese sabotaje suyo de cualquier expansión espiritual o ampliación de horizontes.</p>
-<hr/>
-<p>De ciudadanos como ella es de los que se dice que poseen una plaza, que son <a target="_blank" href="funcionarios.html">funcionarios</a> de carrera, fijos e imposibles de quitar.</p>
-<hr/>
-<p>A veces temo que nos equivocamos confiando nuestra formación a <q>profesionales</q> entre mediocres y malos, sospecho que algo peores que Ester.</p>
+
 
 # TODO
 Limited save to an externar HDD of only:
@@ -811,8 +822,9 @@ En https://www.sede.fnmt.gob.es/certificados/persona-fisica/obtener-certificado-
 # [ ] Relacionar *espanya.html#inercia* con *proteccionismo-laboral.html*
 
 # Compis:
-## Valentín
-<p>He coincidido con Valentín durante el almuerzo. Mientras comía de su cesta jugaba a un videojuego. Me ha explicado que le metía unos sesenta euros al mes y que conocía a gente que le metía cincuenta, sesenta mil al mes. ¡Qué decepción!</p>
+
+## Valentín (*valentin.html*)
+
 ## Rumen
 <p>Búlguro.</p>
 <p>Lleva viviendo veinticinco años en España, a donde se ha traídó a sus hijos.</p>
