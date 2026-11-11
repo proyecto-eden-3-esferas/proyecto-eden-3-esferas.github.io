@@ -1,3 +1,110 @@
+
+
+# PostgreSQL as an Object-Oriented DBMS
+
+
+# Business Logic
+(see https://en.wikipedia.org/wiki/Business_logic)
+
+# How to Write Phone Apps
+Writing a phone app involves choosing a development approach, writing your code or building the interface, testing the app, and publishing it to the app stores.
+
+1. Choose Your Development Path
+
+• Native Apps (Best performance & full device features):
+	• iOS: Use Xcode with Swift and SwiftUI. (Requires a Mac)
+	• Android: Use Android Studio with Kotlin and Jetpack Compose.
+• Cross-Platform Apps (One codebase for both iOS and Android):
+	• Flutter: Uses the Dart programming language.
+	• React Native / Expo: Uses JavaScript or TypeScript.
+• No-Code / Low-Code Builders (Fastest, minimal or no coding):
+	• Use visual app builders like Adalo, FlutterFlow, Bubble, or GoodBarber to design and export apps visually.
+
+2. Plan and Design the App
+
+• Sketch the layout: Draw your screens on paper or use design tools like Figma.
+• Build a Minimum Viable Product (MVP): Focus on the core function first (e.g., a simple counter, a notes list, or a weather checker) before adding extra features.
+
+3. Write and Build the Code
+
+• Install your chosen IDE (Integrated Development Environment) like Android Studio or Xcode.
+• Set up the user interface (UI) using declarative frameworks like SwiftUI or Jetpack Compose.
+• Connect your logic (button clicks, data storage, or fetching information from the internet).
+
+4. Test the App
+
+• Emulators/Simulators: Run a virtual phone directly inside Android Studio or Xcode to test how it looks and behaves.
+• Real Devices: Connect your actual phone via USB or use companion tools like Expo Go to test live on your device.
+• Beta Testing: Use Apple TestFlight for iOS or the Google Play Console for Android to invite testers.
+
+5. Publish to App Stores
+
+• Pay the developer account fees ($99/year for Apple App Store, $25 one-time for Google Play Store).
+• Package your build, submit store listings with screenshots and descriptions, and wait for review approval.
+Watch this video to see a complete beginner-friendly roadmap for building your first mobile app:
+20:13
+How to Make an App for Beginners - 2025 Roadmap
+23K views · 1 year ago
+YouTube · Flutter Mapp
+Are you planning to build an app for iOS, Android, or both, and do you want to learn how to code or use a no-code builder?
+
+#
+<p>Un futuro de pequeñas empresas de alta tecnología que diseñan, desarrollan y fabrican productos a medida.</p>
+<p>Una economía de la abundancia en la que se trabaja por placer en busca de una realización personal, jugando a superar a la máquina que han asumido todas las tareas automatizables. Los pagos se realizan en una moneda ficticia que no sirve o no se necesita para cubrir las necesidades básicas dado que de eso ya se encarga el sistema.</p>
+<p>Ferr ha descubierto su pasión por el violín eléctrico. En su casa ha probado a grabarse y se ha dado cuenta de que desafina demasiado, lo que parece ser su único problema. No dispone de tiempo para desarrollar su psicomotricidad fina, de modo que acude a una empresa local. Les explica. Querría que diseñasen un circuito que mantuviera cada nota dentro de las doce de cada octava, pero con cierta flexibilidad, es decir desafinando dentro de un intervalo dado.</p>
+
+## Kotlin and Dart
+...
+
+## Programming Cros-Platform in JavaScript
+...
+
+# PowerShell Command for Repairing NTFS Partition
+## CHKDSK by Windows Built-in Tool (First option, easier to follow)
+
+Here are the steps to run chkdsk with Windows built-in tool for bad sectors repairing on Windows computers.
+
+Step1. Search This PC and open it to show all disk drives. Or you may double clicking THIS PC on your desktop to open it.
+
+search this pc
+Step2. Right click the disk drive, usb, or sd card that you want to repair and go to Properties in the option window.
+
+properties
+Step3. Click Tools tab and then click Check now...
+
+check now
+
+
+Step4. Click Scan Drives to check errors and repair bad sectors on your hdd/sd/usb.
+## Repair-Volume: Example 3
+
+Again, I'm going to break this example into two examples. The first example is similar to the log file example above, except that we are running the command against a remote computer, and we are scanning an additional "D" drive. Make sure you have Windows Remote Management (WinRM) configured before trying to run this command against a remote computer. We've covered this topic in a recent blog and YouTube video if you need help.
+Repair-Volume -DriveLetter CD -Scan -CimSession THOR  -Verbose 4>&1 | Out-File C:\logs\volume_info.txt
+
+
+This last example is what you would run if the scan returned some errors with the drive.  You can either use the -SpotFix command or the -OfflineScanAndFix command.  -SpotFix is beneficial if you've already run a scan and now just need to try to fix errors.  It will not run another scan, speeding up the repair process. -OfflineScanAndFix will run a scan and attempt to repair the drive taking longer than -SpotFix.
+Repair-Volume -DriveLetter CD -SpotFix -CimSession THOR
+
+Be aware that, unlike chkdsk, Repair-Volume doesn't give you a prompt asking if you want to perform the repair the next time the system reboots. Instead, it automatically assumes that if you are running the -SpotFix or -OfflineScanAndFix commands, you understand that the repair will be attempted at the next reboot.
+
+
+
+
+# aMule Ports
+eMule uses one TCP port and one UDP port for incoming connections to get a High ID and avoid slow downloads.
+
+##Default and Random Ports
+• Default Ports (Older Versions): TCP 4662 and UDP 4672
+• Modern Versions (Post-0.47c): Randomly selected high ports are generated on first start (you can view or change them in Preferences -> Connection).
+• Optional Webinterface Port: TCP 4711 (if you enable remote web control).
+
+
+## How to Get a High ID
+
+• Open Ports in Router / Firewall: Forward the configured TCP and UDP ports from your router to your computer's local LAN IP address.
+• UPnP: eMule supports UPnP (since version 0.48a) to automatically configure router port forwarding if your router has UPnP enabled.
+• Low ID Cause: If your ports are blocked or not forwarded properly, eMule assigns a Low ID, which results in slower downloads and reliance on server relay.
+
 # liberal-conservador.html#universalismo
 <p>Los liberales ven al Ser Humano constante e igual más allá de los constructos sociales (universalismo), mientras que según los liberales al cada uno nos define el grupo y la cultura a la que pertenecemos.</p>
 
